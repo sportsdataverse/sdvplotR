@@ -1,0 +1,10 @@
+---
+output: github_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# `sdvplotR`
+
+New package idea, more to come!
