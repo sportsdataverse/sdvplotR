@@ -1,0 +1,90 @@
+/* Custom CSS for sdvplotR pkgdown site */
+
+/* SportsDataverse primary navy */
+:root {
+  --sdv-navy: #003366;
+  --sdv-accent: #2680E4;
+  --sdv-success: #1b9e77;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: var(--sdv-navy) !important;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  color: #fff !important;
+}
+
+.navbar-brand:hover {
+  color: var(--sdv-accent) !important;
+}
+
+/* Hero section */
+.pkgdown-hero {
+  background: linear-gradient(135deg, #003366 0%, #2680E4 100%);
+  color: white;
+  padding: 3rem 2rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.pkgdown-hero h1 {
+  color: white !important;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* Code blocks */
+pre {
+  border-left: 4px solid var(--sdv-accent);
+  border-radius: 0.25rem;
+}
+
+code {
+  color: var(--sdv-navy);
+}
+
+/* Reference index sections */
+.reference-index h2 {
+  color: var(--sdv-navy);
+  border-bottom: 2px solid var(--sdv-accent);
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+/* Footer */
+footer {
+  border-top: 2px solid var(--sdv-accent);
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+
+/* Light / dark mode overrides */
+[data-bs-theme="dark"] {
+  --sdv-navy: #4da6ff;
+  --sdv-accent: #6cb4f5;
+}
+
+[data-bs-theme="dark"] .navbar {
+  background-color: #1a1a1a !important;
+}
+
+[data-bs-theme="dark"] pre {
+  border-left-color: var(--sdv-accent);
+}
+
+/* Sport-specific color accents (optional, for future use) */
+.sport-nfl { --sport-color: #013369; }
+.sport-nba { --sport-color: #17408B; }
+.sport-mlb { --sport-color: #002D72; }
+.sport-nhl { --sport-color: #000000; }
+.sport-cfb { --sport-color: #CFB200; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pkgdown-hero h1 {
+    font-size: 1.75rem;
+  }
+}

@@ -1,11 +1,76 @@
 Package: sdvplotR
-Type: Package
-Title: What the Package Does (Title Case)
+Title: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: c(
+    person("Saiem", "Gilani", , "saiem.gilani@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7194-9067")),
+    person("Sebastian", "Carl", , "mrcaseb@gmail.com", role = "aut"),
+    person("Jared", "Lee", , "13jaredlee@gmail.com", role = "aut"),
+    person("Camden", "Kay", , "camdenk@gmail.com", role = "aut"),
+    person("sdvplotR authors", role = "cph")
+  )
+Description: A unified set of functions to visualize sports data across the
+    National Football League, National Basketball Association, Women's
+    National Basketball Association, Major League Baseball, National Hockey
+    League, and college football and basketball in 'ggplot2' plots, 'gt'
+    tables and 'reactable' tables. Team logos, wordmarks and player headshots
+    can be drawn as geoms, as axis text and inside table cells, and team color
+    scales map team identifiers to their official colors. Team abbreviations
+    used by different data providers, including historical abbreviations of
+    relocated franchises, are cleaned to one canonical key per sport. Built on
+    'ggpath' following the conventions of 'nflplotR' and designed to work with
+    the companion 'SportsDataverse' data packages.
+License: MIT + file LICENSE
+URL: https://sdvplotR.sportsdataverse.org/,
+    https://github.com/sportsdataverse/sdvplotR
+BugReports: https://github.com/sportsdataverse/sdvplotR/issues
+Depends:
+    R (>= 4.1.0)
+Imports:
+    cli (>= 3.0.0),
+    dplyr (>= 1.0.0),
+    ggpath (>= 1.1.0),
+    ggplot2 (>= 3.5.0),
+    glue (>= 1.4.0),
+    grid,
+    gt (>= 0.8.0),
+    magrittr (>= 2.0.0),
+    rlang (>= 1.0.0),
+    scales (>= 1.1.0)
+Suggests:
+    ggtext (>= 0.1.1),
+    gridtext (>= 0.1.4),
+    knitr,
+    reactable,
+    rmarkdown,
+    sjmisc (>= 2.8.7),
+    testthat (>= 3.0.0),
+    withr
+VignetteBuilder:
+    knitr
+Config/Needs/website:
+    r-lib/pkgdown,
+    baseballr,
+    cfbfastR,
+    cfbseedR,
+    fastRhockey,
+    hoopR,
+    nflfastR,
+    nflreadr,
+    oddsapiR,
+    reactablefmtr,
+    sportyR,
+    wehoop
+Config/Needs/development:
+    devtools,
+    httr,
+    jsonlite,
+    lintr,
+    nflreadr,
+    roxygen2,
+    styler,
+    usethis
+Config/testthat/edition: 3
 Encoding: UTF-8
-LazyData: true
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.1.0

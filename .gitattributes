@@ -1,0 +1,15 @@
+# Normalise line endings to LF for every text file (R CMD check and
+# pre-commit hooks both dislike CRLF).
+* text=auto eol=lf
+
+# Binary assets: no line-ending translation
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.pdf binary
+*.rda binary
+*.RData binary
+*.rds binary

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: sdvplotR documentation
+    url: https://sdvplotR.sportsdataverse.org/
+    about: Browse the function reference, articles and changelog before filing an issue.
+  - name: SportsDataverse Discord
+    url: https://discord.com/invite/s8c7p3HrWj
+    about: Chat with the SportsDataverse community for usage help and quick questions.
+  - name: SportsDataverse home
+    url: https://sportsdataverse.org/
+    about: Explore the wider SportsDataverse ecosystem of sports data packages.
