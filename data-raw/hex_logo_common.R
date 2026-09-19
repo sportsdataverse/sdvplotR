@@ -153,7 +153,7 @@ picks <- list(
   wnba = c("NY", "LV", "IND", "MIN", "SEA", "LA"),
   mlb = c("LAD", "NYY", "ATL", "SD", "BOS", "CHC"),
   nhl = c("TOR", "EDM", "FLA", "COL", "BOS", "VGK"),
-  cfb = c("ALA", "UGA", "MICH", "OSU", "TEX", "ORE"),
+  cfb = c("FSU", "UGA", "MICH", "OSU", "TEX", "ORE"),
   mbb = c("DUKE", "CONN", "KU", "UNC", "UK", "PUR"),
   wbb = c("SC", "IOWA", "LSU", "STAN", "UCLA", "ND")
 )
@@ -164,6 +164,8 @@ logo_paths <- function(n) {
 }
 one_per_league <- function() unlist(lapply(names(picks), function(s) logo_from_team(picks[[s]][1], sport = s)))
 first_colors <- function() unlist(lapply(names(picks), function(s) sdv_team_colors(s, picks[[s]][1])))
+# n logos per league, league order interleaved (nfl, nba, wnba, ... repeating)
+per_league <- function(n) as.vector(matrix(logo_paths(n), ncol = n, byrow = TRUE))
 
 # ---- output ------------------------------------------------------------------
 save_hex <- function(p, out_dir, name) {

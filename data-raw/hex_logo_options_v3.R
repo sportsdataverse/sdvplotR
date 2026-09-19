@@ -11,7 +11,7 @@
 
 devtools::load_all(quiet = TRUE)
 source("data-raw/hex_logo_common.R", local = TRUE)
-out_dir <- "dev/hex-options-v3"
+out_dir <- Sys.getenv("HEX_OUT", "dev/hex-options-v3")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 TITLE_Y <- 0.55          # wordmark centre for top-titled designs
@@ -21,7 +21,7 @@ title_top <- function(font) title_layer(font, "gradient", y = TITLE_Y, fit_width
 # ---- scatter: logos as points on an L-axis, dashed fit -----------------------
 opt_scatter <- function(font) {
   set.seed(3)
-  paths <- sample(logo_paths(2))[1:12]
+  paths <- sample(c(one_per_league(), per_league(2)[c(9, 10, 12, 13)]))   # every league + 4 seconds
   x <- seq(-0.4, 0.46, length.out = 12)
   y <- -0.48 + 0.62 * (x + 0.4) / 0.86 + rnorm(12, 0, 0.08)
   pts <- data.frame(path = paths, x = x, y = pmin(pmax(y, -0.52), 0.2))
@@ -80,10 +80,10 @@ opt_winprob <- function(font) {
 # ---- constellation: two rows of logos ----------------------------------------
 opt_constellation <- function(font) {
   set.seed(7)
-  paths <- sample(logo_paths(2))[1:14]
+  paths <- sample(per_league(2))                                            # every league twice
   mosaic <- data.frame(path = paths,
-                       x = c(seq(-0.55, 0.55, length.out = 7), seq(-0.45, 0.45, length.out = 7)),
-                       y = rep(c(-0.15, -0.46), each = 7))
+                       x = c(seq(-0.58, 0.58, length.out = 8), seq(-0.5, 0.5, length.out = 8)),
+                       y = rep(c(-0.15, -0.46), each = 8))
   ggplot() + base_sky() +
     geom_from_path(data = mosaic, aes(x, y, path = path), width = 0.1, alpha = 0.96) +
     title_top(font) + finish()
@@ -106,7 +106,7 @@ opt_wall <- function(font) {
 # ---- monogram: SDV cut from the logo mosaic, on the sky ----------------------
 opt_monogram <- function(font) {
   set.seed(7)
-  paths <- rep(sample(logo_paths(6)), length.out = 13 * 10)
+  paths <- rep(per_league(6), length.out = 13 * 10)
   grid <- expand.grid(x = seq(-0.82, 0.82, length.out = 13), y = seq(0.9, -0.9, length.out = 10))
   grid$path <- paths
   sheet <- ggplot() +
@@ -131,9 +131,9 @@ opt_monogram <- function(font) {
 # ---- trend: logos climbing a gradient-coloured trend line --------------------
 opt_trend <- function(font) {
   set.seed(13)
-  paths <- sample(logo_paths(2))[1:9]
-  x <- seq(-0.48, 0.48, length.out = 9)
-  y <- -0.56 + 0.76 * (x + 0.48) / 0.96 + rnorm(9, 0, 0.05)
+  paths <- sample(one_per_league())
+  x <- seq(-0.48, 0.48, length.out = 8)
+  y <- -0.56 + 0.76 * (x + 0.48) / 0.96 + rnorm(8, 0, 0.05)
   pts <- data.frame(path = paths, x = x, y = pmin(y, 0.2))
   n <- 80; lx <- seq(-0.54, 0.56, length.out = n); ly <- -0.6 + 0.82 * (lx + 0.54) / 1.1
   line <- data.frame(x = lx[-n], y = ly[-n], xend = lx[-1], yend = ly[-1],
@@ -163,8 +163,9 @@ opt_stack <- function(font) {
 opt_field <- function(font) {
   set.seed(21)
   yl <- data.frame(y = seq(-0.7, 0.3, by = 0.1)); yl$half <- safe_halfwidth(yl$y) - 0.03
-  paths <- sample(logo_paths(1))[1:6]
-  pts <- data.frame(path = paths, x = c(-0.4, -0.14, 0.1, 0.4, -0.26, 0.26), y = c(-0.58, -0.4, -0.48, -0.18, -0.08, -0.66))
+  paths <- sample(one_per_league())
+  pts <- data.frame(path = paths, x = c(-0.42, -0.14, 0.12, 0.42, -0.3, 0.28, -0.02, 0.36),
+                    y = c(-0.58, -0.4, -0.5, -0.16, -0.1, -0.66, -0.26, -0.44))
   ggplot() + base_sky() +
     geom_segment(data = yl, aes(x = -half, xend = half, y = y, yend = y), colour = line_col(0.3), linewidth = 0.5) +
     annotate("segment", x = -0.58, xend = 0.58, y = -0.04, yend = -0.04, colour = accent, linewidth = 1.2, linetype = "22", alpha = 0.9) +
@@ -175,7 +176,7 @@ opt_field <- function(font) {
 # ---- honeycomb: 19 logos in hex cells, wordmark above ------------------------
 opt_honeycomb <- function(font) {
   set.seed(17)
-  paths <- sample(logo_paths(3))[1:19]
+  paths <- sample(c(per_league(2), per_league(3)[c(17, 18, 22)]))         # every league twice + 3
   s <- 0.14
   centres <- rbind(
     c(0, 0),
@@ -202,25 +203,25 @@ opt_facets <- function(font) {
   panel <- function(x, y) annotate("rect", xmin = x - pw / 2, xmax = x + pw / 2, ymin = y - ph / 2, ymax = y + ph / 2,
                                    fill = scales::alpha(navy, 0.6), colour = line_col(0.5), linewidth = 0.5)
   # TL: bars with logo labels
-  bx <- cx[1] + c(-0.13, 0, 0.13); bars <- data.frame(x = bx, ymax = cy[1] - 0.09 + c(0.18, 0.24, 0.12), fill = cols[1:3], path = paths[1:3])
+  bx <- cx[1] + c(-0.08, 0.08); bars <- data.frame(x = bx, ymax = cy[1] - 0.09 + c(0.2, 0.13), fill = cols[c(1, 6)], path = paths[c(1, 6)])
   # TR: two win-prob traces with logos
   lx <- seq(cx[2] - 0.18, cx[2] + 0.1, length.out = 30); set.seed(4)
   w <- cumsum(rnorm(30, 0, 0.02)); w <- (w - min(w)) / (max(w) - min(w)); la <- cy[1] - 0.1 + 0.2 * w; lb <- 2 * cy[1] - la
   tr <- data.frame(x = lx, a = la, b = lb)
   # BL: logo scatter
-  sc <- data.frame(x = cx[1] + c(-0.13, -0.04, 0.05, 0.13), y = cy[2] + c(-0.1, 0.02, -0.04, 0.1), path = paths[5:8])
+  sc <- data.frame(x = cx[1] + c(-0.1, 0.09), y = cy[2] + c(-0.07, 0.07), path = paths[c(3, 7)])
   # BR: standings rows, logo + coloured bar
-  ry <- cy[2] + c(0.1, 0.03, -0.04, -0.11); st <- data.frame(y = ry, xmax = cx[2] - 0.1 + c(0.25, 0.2, 0.15, 0.1), fill = cols[c(4, 6, 2, 8)], path = paths[c(4, 6, 2, 8)])
+  ry <- cy[2] + c(0.05, -0.05); st <- data.frame(y = ry, xmax = cx[2] - 0.1 + c(0.25, 0.16), fill = cols[c(4, 8)], path = paths[c(4, 8)])
   ggplot() + base_sky() +
     panel(cx[1], cy[1]) + panel(cx[2], cy[1]) + panel(cx[1], cy[2]) + panel(cx[2], cy[2]) +
-    geom_rect(data = bars, aes(xmin = x - 0.035, xmax = x + 0.035, ymin = cy[1] - 0.09, ymax = ymax, fill = fill)) +
-    geom_from_path(data = bars, aes(x, cy[1] - 0.135, path = path), width = 0.04) +
-    geom_line(data = tr, aes(x, a), colour = cols[1], linewidth = 1) +
-    geom_line(data = tr, aes(x, b), colour = cols[2], linewidth = 1) +
-    geom_from_path(data = data.frame(x = cx[2] + 0.15, y = c(la[30], lb[30]), path = paths[1:2]), aes(x, y, path = path), width = 0.04) +
-    geom_from_path(data = sc, aes(x, y, path = path), width = 0.05) +
-    geom_rect(data = st, aes(xmin = cx[2] - 0.1, xmax = xmax, ymin = y - 0.022, ymax = y + 0.022, fill = fill)) +
-    geom_from_path(data = st, aes(cx[2] - 0.16, y, path = path), width = 0.036) +
+    geom_rect(data = bars, aes(xmin = x - 0.045, xmax = x + 0.045, ymin = cy[1] - 0.09, ymax = ymax, fill = fill)) +
+    geom_from_path(data = bars, aes(x, cy[1] - 0.135, path = path), width = 0.05) +
+    geom_line(data = tr, aes(x, a), colour = cols[2], linewidth = 1) +
+    geom_line(data = tr, aes(x, b), colour = cols[5], linewidth = 1) +
+    geom_from_path(data = data.frame(x = cx[2] + 0.15, y = c(la[30], lb[30]), path = paths[c(2, 5)]), aes(x, y, path = path), width = 0.05) +
+    geom_from_path(data = sc, aes(x, y, path = path), width = 0.06) +
+    geom_rect(data = st, aes(xmin = cx[2] - 0.1, xmax = xmax, ymin = y - 0.028, ymax = y + 0.028, fill = fill)) +
+    geom_from_path(data = st, aes(cx[2] - 0.16, y, path = path), width = 0.05) +
     scale_fill_identity() +
     title_top(font) + finish()
 }
@@ -253,12 +254,14 @@ render_specimen <- function() {
   }
 }
 
+# every kept design shows at least one logo from each of the eight leagues;
+# winprob (two teams) and stripes (no logos) were dropped for that reason
 designs <- list(
-  scatter = opt_scatter, axis = opt_axis, winprob = opt_winprob, constellation = opt_constellation,
-  wall = opt_wall, monogram = opt_monogram, trend = opt_trend, stack = opt_stack, field = opt_field,
-  honeycomb = opt_honeycomb, facets = opt_facets, stripes = opt_stripes
+  scatter = opt_scatter, axis = opt_axis, trend = opt_trend, stack = opt_stack, field = opt_field,
+  facets = opt_facets, monogram = opt_monogram, honeycomb = opt_honeycomb,
+  constellation = opt_constellation, wall = opt_wall
 )
-render_fonts <- c("chivo", "exo", "barlow", "russo")
+render_fonts <- c("russo", "quantico")
 
 args <- commandArgs(trailingOnly = TRUE)
 fonts_arg <- sub("^--fonts=", "", grep("^--fonts=", args, value = TRUE))
