@@ -57,7 +57,7 @@ Config/Needs/website:
     nflfastR,
     nflreadr,
     oddsapiR,
-    reactablefmtr,
+    kcuilla/reactablefmtr,
     sportyR,
     wehoop
 Config/Needs/development:
