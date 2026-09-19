@@ -1,0 +1,360 @@
+url: https://sdvplotR.sportsdataverse.org/
+title: sdvplotR
+description: "Sports team logo plots in ggplot2, gt and reactable across the SportsDataverse"
+
+template:
+  bootstrap: 5
+  light-switch: true
+  bootswatch: flatly
+  includes:
+    in_header: |
+      <script defer data-domain="sdvplotr.sportsdataverse.org" src="https://plausible.io/js/plausible.js"></script>
+      <script type="application/ld+json">
+      {"@context":"https://schema.org","@graph":[
+        {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
+         "name":"sdvplotR","alternateName":"sdvplotR: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'",
+         "description":"An R package for plotting team logos, wordmarks, player headshots and team colors across the NFL, NBA, WNBA, MLB, NHL, college football and college basketball in ggplot2, gt and reactable.",
+         "url":"https://sdvplotr.sportsdataverse.org/",
+         "codeRepository":"https://github.com/sportsdataverse/sdvplotR",
+         "programmingLanguage":{"@type":"ComputerLanguage","name":"R"},
+         "license":"https://opensource.org/licenses/MIT",
+         "runtimePlatform":"R (>= 4.1.0)",
+         "keywords":["sports analytics","data visualization","ggplot2","team logos","NFL","NBA","WNBA","MLB","NHL","college football","college basketball"],
+         "author":{"@id":"https://sdvplotr.sportsdataverse.org/#author"},
+         "publisher":{"@id":"https://sportsdataverse.org/#org"}},
+        {"@type":"Person","@id":"https://sdvplotr.sportsdataverse.org/#author",
+         "name":"Saiem Gilani","url":"https://github.com/saiemgilani",
+         "sameAs":"https://orcid.org/0000-0002-7194-9067"},
+        {"@type":"Organization","@id":"https://sportsdataverse.org/#org",
+         "name":"SportsDataverse","url":"https://sportsdataverse.org",
+         "sameAs":["https://github.com/sportsdataverse","https://x.com/sportsdataverse"]}
+      ]}
+      </script>
+  bslib:
+    primary: "#0B1A33"
+    secondary: "#2680E4"
+    success: "#2680E4"
+    link-color: "#2680E4"
+    link-hover-color: "#1a5a9e"
+    nav-link-hover-color: "#2680E4"
+    nav-link-focus-color: "#2680E4"
+    nav-link-dropdown-toggle-hover-color: "#2680E4"
+    navbar-hover-color: "#2680E4"
+    navbar-brand-hover-color: "#2680E4"
+    nav-tabs-link-active-bg: "#2680E4"
+    nav-pills-link-active-color: "#2680E4"
+    btn-link-color: "#2680E4"
+    btn-link-hover-color: "#1a5a9e"
+    dropdown-link-color: "#2680E4"
+    input-btn-focus-color: "#2680E4"
+    dropdown-dark-link-hover-bg: "#2680E4"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+  opengraph:
+    image:
+      src: "https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png"
+      alt: "sdvplotR hex logo"
+    twitter:
+      creator: "@saiemgilani"
+      site: "@SportsDataverse"
+      card: summary
+
+toc:
+  depth: 3
+
+authors:
+  Saiem Gilani:
+    href: https://x.com/saiemgilani
+  Sebastian Carl:
+    href: https://x.com/mrcaseb
+  Jared Lee:
+    href: https://github.com/Kazink36
+  Camden Kay:
+    href: https://x.com/camdenkay
+
+home:
+  title: sdvplotR • Sports Team Logo Plots in ggplot2, gt and reactable
+  links:
+  - text: Browse the SportsDataverse
+    href: https://sportsdataverse.org/
+  - text: Cheat sheets (PDF)
+    href: https://sportsdataverse.org/cheatsheets
+
+reference:
+  - title: "Logos, Wordmarks & Headshots"
+    desc: >
+      ggplot2 geoms and ggproto objects for rendering team logos, wordmarks
+      and player headshots on plots. Every geom takes a `sport` argument.
+    contents:
+      - geom_sdv_logos
+      - geom_sdv_wordmarks
+      - geom_sdv_headshots
+  - title: "Theme Elements"
+    desc: >
+      Image-based ggplot2 theme elements for axis text — replace tick labels
+      with team logos, wordmarks or player headshots.
+    contents:
+      - element_sdv_logo
+  - title: "Scales & Axes"
+    desc: >
+      Team color / fill scales, logo and headshot axis scales, and the
+      matching theme helpers.
+    contents:
+      - scale_sdv
+      - scale_axes_sdv
+      - theme_sdv
+  - title: "gt Table Helpers"
+    desc: >
+      Embed team logos, wordmarks and player headshots inside gt table cells
+      or column labels, and stack team-colored text.
+    contents:
+      - gt_sdv_logos
+      - gt_sdv_wordmarks
+      - gt_sdv_headshots
+      - gt_sdv_cols_label
+      - gt_merge_stack_team_color
+  - title: "reactable Table Helpers"
+    desc: >
+      Cell renderers, column headers and team-colored cell styles for
+      reactable tables.
+    contents:
+      - reactable_sdv_images
+      - reactable_sdv_cols_label
+      - reactable_sdv_team_color
+  - title: "Team Utilities"
+    desc: >
+      Validate, clean and factor-order team abbreviations; look up team
+      reference data and colors; control the image cache.
+    contents:
+      - supported_sports
+      - valid_team_names
+      - team_reference
+      - clean_team_abbrs
+      - resolve_historical_abbr
+      - sdv_team_colors
+      - sdv_color_palette
+      - sdv_team_factor
+      - sdvplotR_clear_cache
+  - title: "Premade Plots"
+    desc: High-level functions that build complete branded plots.
+    contents:
+      - sdv_team_tiers
+  - title: "Plot Titles"
+    desc: Add a logo or image next to a ggplot2 title.
+    contents:
+      - ggtitle_image
+  - title: "Re-exported from ggpath"
+    desc: Generic image geoms and theme elements provided by the ggpath backend.
+    contents:
+      - reexports
+
+articles:
+  - title: "Getting Started"
+    contents:
+      - getting-started
+  - title: "Per-Sport Vignettes"
+    desc: >
+      Data ingest with the companion SportsDataverse package, then sdvplotR
+      visualization, for each sport.
+    contents:
+      - nfl-viz
+      - cfb-viz
+      - nba-viz
+      - wnba-viz
+      - mlb-viz
+      - nhl-viz
+      - mbb-viz
+      - wbb-viz
+  - title: "Cookbooks"
+    desc: >
+      Cross-sport patterns: social-media export, leaderboard dashboards,
+      reactable tables and end-to-end workflows.
+    contents:
+      - social-posting
+      - leaderboard-dashboards
+      - reactable-integration
+      - workflows
+
+navbar:
+  structure:
+    left: [home, reference, articles, news, network, data]
+    right: [search, twitter, github, lightswitch]
+  components:
+    home:
+      title: sdvplotR • Sports Team Logo Plots
+      description: >
+        Team logos, wordmarks, headshots and colors for eight leagues in
+        ggplot2, gt and reactable.
+      icon: fa-home
+      href: index.html
+      aria-label: Home
+    reference:
+      icon: "fas fa-code"
+      text: "Funcs"
+      href: reference/index.html
+      menu:
+      - text: "Function Index"
+        href: reference/index.html
+      - text: --------------------------------
+      - text: "Plots"
+      - text: "Plot Logos"
+        href: reference/geom_sdv_logos.html
+      - text: "Plot Wordmarks"
+        href: reference/geom_sdv_wordmarks.html
+      - text: "Plot Headshots"
+        href: reference/geom_sdv_headshots.html
+      - text: "Team Colors"
+        href: reference/scale_sdv.html
+      - text: "Axis Logos"
+        href: reference/scale_axes_sdv.html
+      - text: "Axis Image Elements"
+        href: reference/element_sdv.html
+      - text: "Title Image"
+        href: reference/ggtitle_image.html
+      - text: "ggpath Re-exports"
+        href: reference/reexports.html
+      - text: --------------------------------
+      - text: "Premade Plots"
+      - text: "Team Tiers"
+        href: reference/sdv_team_tiers.html
+      - text: --------------------------------
+      - text: "Tables"
+      - text: "gt: Logos / Wordmarks"
+        href: reference/gt_sdv_logos.html
+      - text: "gt: Headshots"
+        href: reference/gt_sdv_headshots.html
+      - text: "gt: Team-Colored Stack"
+        href: reference/gt_merge_stack_team_color.html
+      - text: "reactable: Images"
+        href: reference/reactable_sdv_images.html
+      - text: "reactable: Team Colors"
+        href: reference/reactable_sdv_team_color.html
+      - text: --------------------------------
+      - text: "Utilities"
+      - text: "Valid Names"
+        href: reference/valid_team_names.html
+      - text: "Clean Abbreviations"
+        href: reference/clean_team_abbrs.html
+      - text: "Historical Abbreviations"
+        href: reference/resolve_historical_abbr.html
+      - text: "Team Reference"
+        href: reference/team_reference.html
+      - text: "Team Colors"
+        href: reference/sdv_team_colors.html
+    articles:
+      icon: "fas fa-book-reader"
+      text: " Articles"
+      href: articles/index.html
+      menu:
+      - text: "Getting Started"
+        href: articles/getting-started.html
+      - text: --------------------------------
+      - text: "Per-Sport"
+      - text: "NFL"
+        href: articles/nfl-viz.html
+      - text: "CFB"
+        href: articles/cfb-viz.html
+      - text: "NBA"
+        href: articles/nba-viz.html
+      - text: "WNBA"
+        href: articles/wnba-viz.html
+      - text: "MLB"
+        href: articles/mlb-viz.html
+      - text: "NHL"
+        href: articles/nhl-viz.html
+      - text: "MBB"
+        href: articles/mbb-viz.html
+      - text: "WBB"
+        href: articles/wbb-viz.html
+      - text: --------------------------------
+      - text: "Cookbooks"
+      - text: "Social Posting"
+        href: articles/social-posting.html
+      - text: "Leaderboard Dashboards"
+        href: articles/leaderboard-dashboards.html
+      - text: "reactable Integration"
+        href: articles/reactable-integration.html
+      - text: "End-to-End Workflows"
+        href: articles/workflows.html
+    news:
+      icon: "fas fa-newspaper"
+      text: " Changelog"
+      href: news/index.html
+    network:
+      icon: "fas fa-project-diagram"
+      text: " SDV"
+      menu:
+      - text: SportsDataverse
+        href: https://sportsdataverse.org/
+      - text: "Cheat Sheets (PDF)"
+        href: https://sportsdataverse.org/cheatsheets
+      - text: --------------------------------
+      - text: "Plotting Packages"
+      - text: ggpath
+        href: https://mrcaseb.github.io/ggpath/
+      - text: nflplotR
+        href: https://nflplotr.nflverse.com/
+      - text: cfbplotR
+        href: https://cfbplotR.sportsdataverse.org/
+      - text: nbaplotR
+        href: https://mrcaseb.github.io/nbaplotR/
+      - text: mlbplotR
+        href: https://camdenk.github.io/mlbplotR/
+      - text: sportyR
+        href: https://sportyR.sportsdataverse.org/
+      - text: --------------------------------
+      - text: "R Data Packages"
+      - text: sportsdataverse-R
+        href: https://r.sportsdataverse.org/
+      - text: cfbfastR
+        href: https://cfbfastR.sportsdataverse.org/
+      - text: hoopR
+        href: https://hoopR.sportsdataverse.org/
+      - text: wehoop
+        href: https://wehoop.sportsdataverse.org/
+      - text: fastRhockey
+        href: https://fastRhockey.sportsdataverse.org/
+      - text: baseballr
+        href: https://BillPetti.github.io/baseballr/
+      - text: nflfastR
+        href: https://nflfastr.com/
+      - text: nflreadr
+        href: https://nflreadr.nflverse.com/
+      - text: oddsapiR
+        href: https://oddsapiR.sportsdataverse.org/
+      - text: cfbseedR
+        href: https://cfbseedR.sportsdataverse.org/
+      - text: cfb4th
+        href: https://cfb4th.sportsdataverse.org/
+      - text: recruitR
+        href: https://recruitR.sportsdataverse.org/
+      - text: softballR
+        href: https://github.com/sportsdataverse/softballR/
+      - text: --------------------------------
+      - text: "Python Packages"
+      - text: sportsdataverse-py
+        href: https://py.sportsdataverse.org/
+      - text: sportypy
+        href: https://sportypy.sportsdataverse.org/
+      - text: --------------------------------
+      - text: "Node.js Packages"
+      - text: sportsdataverse.js
+        href: https://js.sportsdataverse.org/
+    data:
+      icon: "fas fa-database"
+      text: " Data"
+      menu:
+      - text: "SportsDataverse data repositories"
+        href: https://github.com/sportsdataverse
+      - text: "nflverse data"
+        href: https://github.com/nflverse/nflverse-data
+      - text: "CollegeFootballData.com"
+        href: https://collegefootballdata.com
+    twitter:
+      icon: "fab fa-x-twitter fa-lg"
+      href: https://x.com/SportsDataverse
+      aria-label: X (Twitter)
+    github:
+      icon: "fab fa-github fa-lg"
+      href: https://github.com/sportsdataverse/sdvplotR/
+      aria-label: GitHub

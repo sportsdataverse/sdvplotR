@@ -1,0 +1,396 @@
+---
+title: "Leaderboard Dashboards with sdvplotR, gt, and Quarto"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Leaderboard Dashboards with sdvplotR, gt, and Quarto}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+## Introduction
+
+This vignette demonstrates how to create interactive leaderboard dashboards using
+sdvplotR, gt tables, and Quarto. These patterns are perfect for tracking
+standings, player stats, and team performance in real-time.
+
+## Setup
+
+```{r setup}
+library(sdvplotR)
+library(ggplot2)
+library(dplyr)
+library(gt)
+
+# Get valid team abbreviations
+nfl_teams <- valid_team_names("nfl")
+nba_teams <- valid_team_names("nba")
+cfb_teams <- valid_team_names("cfb")
+```
+
+## Basic Leaderboard with Logos
+
+Create a simple leaderboard table with team logos:
+
+```{r basic-leaderboard}
+# Sample standings data
+standings <- data.frame(
+  team = c("KC", "BUF", "SF", "PHI", "DAL", "MIA", "CIN", "BAL"),
+  wins = c(9, 8, 8, 7, 7, 6, 6, 6),
+  losses = c(2, 3, 3, 4, 4, 5, 5, 5),
+  ties = c(0, 0, 0, 0, 0, 0, 0, 0),
+  pct = c(0.818, 0.727, 0.727, 0.636, 0.636, 0.545, 0.545, 0.545)
+) |>
+  mutate(
+    logo = team,
+    rank = row_number()
+  ) |>
+  select(rank, logo, team, wins, losses, ties, pct)
+
+standings |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  fmt_number(columns = "pct", decimals = 3) |>
+  cols_label(
+    rank = "#",
+    logo = "Team",
+    team = "Abbrev",
+    wins = "W",
+    losses = "L",
+    ties = "T",
+    pct = "Win %"
+  ) |>
+  tab_header(
+    title = "NFL Standings",
+    subtitle = paste("Week", ceiling(runif(1, 1, 18)))
+  ) |>
+  tab_footnote(
+    footnote = "Data: nflfastR | Viz: sdvplotR",
+    locations = cells_title(groups = "title")
+  )
+```
+
+## Advanced Leaderboard with Team Colors
+
+Create a leaderboard with team-colored rows:
+
+```{r colored-leaderboard}
+# Add team colors to standings
+standings_colored <- standings |>
+  mutate(
+    primary_color = sdv_team_colors("nfl", team, type = "primary"),
+    secondary_color = sdv_team_colors("nfl", team, type = "secondary")
+  )
+
+standings_colored |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  fmt_number(columns = "pct", decimals = 3) |>
+  cols_label(
+    rank = "#",
+    logo = "Team",
+    team = "Abbrev",
+    wins = "W",
+    losses = "L",
+    ties = "T",
+    pct = "Win %"
+  ) |>
+  tab_header(
+    title = "NFL Standings",
+    subtitle = paste("Week", ceiling(runif(1, 1, 18)))
+  ) |>
+  data_color(
+    columns = "pct",
+    palette = c("lightblue", "darkblue")
+  )
+```
+
+## Multi-Sport Leaderboard
+
+Create leaderboards for multiple sports in one table:
+
+```{r multi-sport-leaderboard}
+# Sample multi-sport data
+multi_sport_standings <- data.frame(
+  sport = c(rep("NFL", 4), rep("NBA", 4), rep("MLB", 4)),
+  team = c("KC", "BUF", "SF", "PHI",
+           "BOS", "DEN", "MIL", "PHX",
+           "LAD", "ATL", "HOU", "BAL"),
+  wins = c(9, 8, 8, 7, 25, 23, 22, 20, 95, 90, 88, 85),
+  losses = c(2, 3, 3, 4, 8, 10, 11, 13, 67, 72, 74, 77)
+) |>
+  mutate(
+    pct = wins / (wins + losses),
+    rank = row_number()
+  ) |>
+  select(sport, rank, team, wins, losses, pct)
+
+multi_sport_standings |>
+  gt() |>
+  gt_sdv_logos(columns = "team", sport = "nfl", height = 30) |>
+  fmt_number(columns = "pct", decimals = 3) |>
+  cols_label(
+    sport = "Sport",
+    rank = "#",
+    team = "Team",
+    wins = "W",
+    losses = "L",
+    pct = "Win %"
+  ) |>
+  tab_header(
+    title = "Multi-Sport Leaderboard",
+    subtitle = "Top Teams Across Sports"
+  )
+```
+
+## Player Leaderboard with Headshots
+
+Create a player stats table with headshots:
+
+```{r player-leaderboard}
+# Sample player data
+player_stats <- data.frame(
+  player_id = c("00-0033873", "00-0026498", "00-0035228", "00-0033869"),
+  player_name = c("P. Mahomes", "M. Stafford", "K. Murray", "J. Allen"),
+  team = c("KC", "LAR", "ARI", "BUF"),
+  pass_yds = c(4200, 3800, 3500, 4100),
+  pass_td = c(32, 28, 25, 30),
+  pass_int = c(8, 12, 10, 9)
+) |>
+  mutate(
+    rank = row_number()
+  ) |>
+  select(rank, player_id, player_name, team, pass_yds, pass_td, pass_int)
+
+player_stats |>
+  gt() |>
+  gt_sdv_headshots(columns = "player_id", sport = "nfl", height = 40) |>
+  fmt_number(columns = c("pass_yds", "pass_td", "pass_int")) |>
+  cols_label(
+    rank = "#",
+    player_id = "Player",
+    player_name = "Name",
+    team = "Team",
+    pass_yds = "Yards",
+    pass_td = "TD",
+    pass_int = "INT"
+  ) |>
+  tab_header(
+    title = "NFL Quarterback Leaderboard",
+    subtitle = "Top Passers by Yards"
+  )
+```
+
+## Quartile-Based Leaderboard
+
+Create a leaderboard with quartile indicators:
+
+```{r quartile-leaderboard}
+# Add quartile information
+standings_quartile <- standings |>
+  mutate(
+    quartile = case_when(
+      pct >= 0.75 ~ "Q1 (Elite)",
+      pct >= 0.50 ~ "Q2 (Good)",
+      pct >= 0.25 ~ "Q3 (Average)",
+      TRUE ~ "Q4 (Struggling)"
+    )
+  )
+
+standings_quartile |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  fmt_number(columns = "pct", decimals = 3) |>
+  cols_label(
+    rank = "#",
+    logo = "Team",
+    team = "Abbrev",
+    wins = "W",
+    losses = "L",
+    ties = "T",
+    pct = "Win %",
+    quartile = "Quartile"
+  ) |>
+  tab_header(
+    title = "NFL Standings by Quartile",
+    subtitle = paste("Week", ceiling(runif(1, 1, 18)))
+  ) |>
+  tab_row_group(
+    group = "Elite Teams",
+    rows = pct >= 0.75
+  ) |>
+  tab_row_group(
+    group = "Playoff Teams",
+    rows = pct >= 0.50 & pct < 0.75
+  )
+```
+
+## Quarto Dashboard Integration
+
+Create a Quarto dashboard with sdvplotR visualizations:
+
+```{r quarto-dashboard, eval=FALSE}
+# In a Quarto document (.qmd), use this structure:
+
+# ---
+# title: "NFL Dashboard"
+# format: dashboard
+# ---
+
+# ## Standings
+
+# ```{r}
+# standings |>
+#   gt() |>
+#   gt_sdv_logos(columns = "logo", sport = "nfl")
+# ```
+
+# ## Team Performance
+
+# ```{r}
+# ggplot(standings, aes(x = reorder(team, pct), y = pct)) +
+#   geom_col(aes(fill = team), width = 0.7) +
+#   scale_fill_sdv(sport = "nfl") +
+#   theme_minimal()
+# ```
+```
+
+## Real-Time Leaderboard Updates
+
+Create a leaderboard that updates automatically:
+
+```{r real-time-updates}
+# Function to fetch and display standings
+update_standings <- function(sport = "nfl", week = NULL) {
+  # In a real implementation, this would fetch live data
+  # For demonstration, we'll use sample data
+
+  message(paste("Updating", toupper(sport), "standings..."))
+
+  # Sample standings (replace with real data fetch)
+  standings <- data.frame(
+    team = sample(valid_team_names(sport), 10),
+    wins = sample(0:16, 10),
+    losses = sample(0:16, 10)
+  ) |>
+    mutate(
+      pct = wins / (wins + losses),
+      logo = team,
+      rank = row_number()
+    ) |>
+    arrange(desc(pct)) |>
+    head(10)
+
+  standings |>
+    gt() |>
+    gt_sdv_logos(columns = "logo", sport = sport, height = 30) |>
+    fmt_number(columns = "pct", decimals = 3)
+}
+
+# Update standings
+update_standings("nfl")
+```
+
+## Conditional Formatting
+
+Apply conditional formatting based on performance:
+
+```{r conditional-formatting}
+# Add performance indicators
+standings_conditional <- standings |>
+  mutate(
+    performance = case_when(
+      pct >= 0.75 ~ "🔥 Hot",
+      pct >= 0.50 ~ "✅ Good",
+      pct >= 0.25 ~ "⚠️ Average",
+      TRUE ~ "❌ Struggling"
+    )
+  )
+
+standings_conditional |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  fmt_number(columns = "pct", decimals = 3) |>
+  cols_label(
+    rank = "#",
+    logo = "Team",
+    team = "Abbrev",
+    wins = "W",
+    losses = "L",
+    ties = "T",
+    pct = "Win %",
+    performance = "Status"
+  ) |>
+  tab_header(
+    title = "NFL Standings with Status",
+    subtitle = paste("Week", ceiling(runif(1, 1, 18)))
+  )
+```
+
+## Integrating with oddsapiR
+
+Combine standings with betting odds:
+
+```{r odds-integration}
+# Sample odds data (replace with real oddsapiR data)
+odds_data <- data.frame(
+  team = c("KC", "BUF", "SF", "PHI"),
+  spread = c(-7.5, -3.5, -6.5, -10.5),
+  moneyline = c(-350, -180, -280, -550),
+  total = c(48.5, 51.5, 47.5, 45.5)
+)
+
+# Merge with standings
+standings_with_odds <- standings |>
+  filter(team %in% odds_data$team) |>
+  left_join(odds_data, by = "team") |>
+  mutate(logo = team)
+
+standings_with_odds |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  fmt_number(columns = c("pct", "spread", "total"), decimals = 1) |>
+  fmt_number(columns = "moneyline", decimals = 0) |>
+  cols_label(
+    rank = "#",
+    logo = "Team",
+    team = "Abbrev",
+    wins = "W",
+    losses = "L",
+    pct = "Win %",
+    spread = "Spread",
+    moneyline = "ML",
+    total = "O/U"
+  ) |>
+  tab_header(
+    title = "NFL Standings with Betting Odds",
+    subtitle = "Combining Performance and Odds"
+  )
+```
+
+## Best Practices for Dashboards
+
+1. **Keep it Simple**: Focus on key metrics that matter to your audience
+
+2. **Use Consistent Branding**: Apply the same colors, fonts, and logos across all visualizations
+
+3. **Make it Interactive**: Use Quarto dashboards for interactive exploration
+
+4. **Update Regularly**: Set up automated updates to keep data fresh
+
+5. **Optimize for Mobile**: Ensure dashboards work on mobile devices
+
+6. **Add Context**: Include captions, footnotes, and data sources
+
+## Related Vignettes
+
+- [Getting Started](getting-started.html)
+- [Social Posting Patterns](social-posting.html)
+- [Workflows](workflows.html)

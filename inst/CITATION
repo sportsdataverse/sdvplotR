@@ -1,0 +1,29 @@
+## Citation year is PINNED to the first-release year.
+## DESCRIPTION has no Date field, so deriving it from meta$Date yields an
+## empty year, and a current-date fallback would make the same package
+## version cite as a different year every calendar year.
+## Keep this in sync with the bibtex block in README.md / README.Rmd.
+year <- 2026
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(
+  bibtype  = "Misc",
+  header   = "To cite the sdvplotR R package in publications, use:",
+  key      = "gilani_carl_lee_kay_sdvplotR",
+  author   = c(
+    person("Saiem",     "Gilani", email = "saiem.gilani@gmail.com",
+           comment = c(ORCID = "0000-0002-7194-9067")),
+    person("Sebastian", "Carl",   email = "mrcaseb@gmail.com"),
+    person("Jared",     "Lee",    email = "13jaredlee@gmail.com"),
+    person("Camden",    "Kay",    email = "camdenk@gmail.com")
+  ),
+  title    = "sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.",
+  url      = "https://sdvplotR.sportsdataverse.org",
+  year     = year,
+  note     = note,
+  textVersion = paste0(
+    "Saiem Gilani, Sebastian Carl, Jared Lee, and Camden Kay (", year, "). ",
+    "sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting. ",
+    note, ". Retrieved from https://sdvplotR.sportsdataverse.org"
+  )
+)

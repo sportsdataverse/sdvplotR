@@ -1,0 +1,19 @@
+# .lintr configuration for sdvplotR
+# See https://lintr.r-lib.org/articles/lintr.html
+linters: linters_with_defaults(
+    line_length_linter(120),
+    object_name_linter(styles = c("snake_case", "CamelCase", "dotted.case")),
+    cyclocomp_linter(complexity_limit = 25),
+    object_length_linter(length = 40),
+    # Relax some tidyverse defaults for a plotting package
+    commented_code_linter = NULL,
+    implicit_integer_linter = NULL
+  )
+exclusions: list(
+    "tests/testthat",
+    "data-raw",
+    "vignettes",
+    "R/zzz.R",
+    "R/sdvplotR-package.R"
+  )
+encoding: "UTF-8"

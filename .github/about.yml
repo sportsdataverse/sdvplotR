@@ -1,0 +1,18 @@
+name: sdvplotR
+description: A unified R package for visualizing sports data across NFL, NBA, WNBA, MLB, NHL, CFB, MBB, and WBB in ggplot2, gt, and reactable.
+url: https://sdvplotR.sportsdataverse.org
+homepage: https://sdvplotR.sportsdataverse.org
+topics:
+  - r-package
+  - sports-analytics
+  - ggplot2
+  - dataviz
+  - nfl
+  - nba
+  - wnba
+  - mlb
+  - nhl
+  - cfb
+  - mbb
+  - wbb
+  - sportsdataverse

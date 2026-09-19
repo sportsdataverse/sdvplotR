@@ -1,10 +1,37 @@
+# R
 .Rproj.user
 .Rhistory
-.Rdata
-.httr-oauth
+.RData
+.Ruserdata
+*.Rcheck/
+*.tar.gz
+
+# Build artifacts
+docs/
+doc/
+Meta/
+inst/doc/
+revdep/
+CRAN-SUBMISSION
+
+# Tests
+tests/testthat/*.pdf
+Rplots.pdf
+
+# Local working notes and secrets (never committed)
+dev/
+.Renviron
+.env
+.envrc
+
+# Editors / OS
+.vscode/
+.idea/
+.omc/
+.claude/
+.remember/
 .DS_Store
-README_cache/
-docs
-inst/doc
-/doc/
-/Meta/
+Thumbs.db
+*.swp
+*~
+.ruff_cache/
