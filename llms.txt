@@ -1,0 +1,391 @@
+# **sdvplotR**
+
+[**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
+team logos, wordmarks, player headshots and team colors across **eight
+leagues** — NFL, NBA, WNBA, MLB, NHL, college football, and men’s and
+women’s college basketball — in
+[**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
+[**`gt`**](https://gt.rstudio.com/) tables and
+[**`reactable`**](https://glin.github.io/reactable/) tables. It is built
+on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
+approach established by [nflplotR](https://nflplotr.nflverse.com/),
+[cfbplotR](https://cfbplotR.sportsdataverse.org/),
+[nbaplotR](https://mrcaseb.github.io/nbaplotR/) and
+[mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `sport`
+argument.
+
+Part of the [SportsDataverse](https://sportsdataverse.org/) family of R
+packages for sports analytics.
+
+## **Installation**
+
+Once on CRAN, install the released version with:
+
+``` r
+
+install.packages("sdvplotR")
+```
+
+Install the development version of
+[**`sdvplotR`**](https://github.com/sportsdataverse/sdvplotR) from
+GitHub with:
+
+``` r
+
+# using the pak package (recommended):
+if (!requireNamespace("pak", quietly = TRUE)) {
+  install.packages("pak")
+}
+pak::pak("sportsdataverse/sdvplotR")
+```
+
+``` r
+
+# or from R-universe (binary builds):
+install.packages("sdvplotR", repos = c("https://sportsdataverse.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+## **Usage**
+
+Every function takes a `sport` argument (`"nfl"`, `"nba"`, `"wnba"`,
+`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`). Team keys are cleaned
+automatically: full names, alternate abbreviations used by other data
+providers and historical abbreviations of relocated franchises (`"OAK"`
+→ `"LV"`, `"SEA"` → `"OKC"`) all resolve to the same team.
+
+``` r
+
+library(sdvplotR)
+library(ggplot2)
+
+# NFL team logos in a grid
+df <- data.frame(
+  a     = rep(1:8, 4),
+  b     = sort(rep(1:4, 8), decreasing = TRUE),
+  teams = valid_team_names("nfl")
+)
+
+ggplot(df, aes(x = a, y = b)) +
+  geom_sdv_logos(aes(team = teams), sport = "nfl", width = 0.075) +
+  theme_void()
+```
+
+``` r
+
+# Logos as axis labels + team colours as fill
+df2 <- data.frame(
+  team  = c("KC", "BUF", "SF", "DAL"),
+  score = c(42, 38, 35, 30)
+)
+
+ggplot(df2, aes(x = team, y = score)) +
+  geom_col(aes(fill = team), show.legend = FALSE) +
+  scale_fill_sdv(sport = "nfl") +
+  theme_minimal() +
+  theme(axis.text.x = element_sdv_logo(sport = "nfl", size = 1))
+```
+
+``` r
+
+library(gt)
+
+# Logos inside a gt table
+data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11)) |>
+  gt() |>
+  gt_sdv_logos(columns = "team", sport = "nfl")
+```
+
+``` r
+
+library(reactable)
+
+# Logos inside a reactable table with team-coloured bars
+df3 <- data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11))
+
+reactable(
+  df3,
+  columns = list(
+    team = colDef(cell = reactable_sdv_logos(sport = "nfl"), html = TRUE),
+    wins = colDef(style = reactable_sdv_team_color_bar(df3, "team", sport = "nfl"))
+  )
+)
+```
+
+Dark-mode logo variants are available through `variant = "dark"` in the
+table helpers, and
+[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+exposes the full reference data (ESPN ids, colors, conference /
+division) for every team.
+
+## **Documentation**
+
+The [**`sdvplotR`** documentation
+website](https://sdvplotR.sportsdataverse.org/) has the full function
+reference and these articles:
+
+**Per-sport** (each with companion SportsDataverse package examples):
+[NFL](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.html) ·
+[CFB](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.html) ·
+[NBA](https://sdvplotR.sportsdataverse.org/articles/nba-viz.html) ·
+[WNBA](https://sdvplotR.sportsdataverse.org/articles/wnba-viz.html) ·
+[MLB](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.html) ·
+[NHL](https://sdvplotR.sportsdataverse.org/articles/nhl-viz.html) ·
+[MBB](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.html) ·
+[WBB](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html)
+
+**Cookbooks:** [Getting
+Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.html)
+· [Social
+Posting](https://sdvplotR.sportsdataverse.org/articles/social-posting.html)
+· [Leaderboard
+Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.html)
+· [reactable
+Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.html)
+·
+[Workflows](https://sdvplotR.sportsdataverse.org/articles/workflows.html)
+
+A printable `sdvplotR` cheat sheet will join [the set covering every
+SportsDataverse package](https://sportsdataverse.org/cheatsheets).
+
+## **The SportsDataverse**
+
+`sdvplotR` draws the pictures; the companion packages fetch the data.
+
+| Package | Sport / Scope |
+|----|----|
+| [**cfbfastR**](https://cfbfastR.sportsdataverse.org/) | College football |
+| [**hoopR**](https://hoopR.sportsdataverse.org/) | Men’s basketball (NBA and NCAA) |
+| [**wehoop**](https://wehoop.sportsdataverse.org/) | Women’s basketball (WNBA and NCAA) |
+| [**fastRhockey**](https://fastRhockey.sportsdataverse.org/) | Hockey (NHL and PWHL) |
+| [**baseballr**](https://billpetti.github.io/baseballr/) | Baseball (MLB, MiLB, NCAA) |
+| [**nflfastR**](https://nflfastr.com/) · [**nflreadr**](https://nflreadr.nflverse.com/) | NFL play-by-play and data loaders |
+| [**oddsapiR**](https://oddsapiR.sportsdataverse.org/) | Sports betting odds |
+| [**cfbseedR**](https://cfbseedR.sportsdataverse.org/) | CFB seeding and playoff simulation |
+| [**sportyR**](https://sportyR.sportsdataverse.org/) | Playing-surface plots |
+| [**sportsdataverse-R**](https://r.sportsdataverse.org/) | Umbrella R metapackage |
+| [**sportsdataverse-py**](https://py.sportsdataverse.org/) · [**sportsdataverse.js**](https://js.sportsdataverse.org/) | Python and Node.js |
+
+See the full ecosystem at
+[sportsdataverse.org](https://sportsdataverse.org/).
+
+## Follow the [SportsDataverse](https://x.com/SportsDataverse) on X and star this repo
+
+[![X
+Follow](https://img.shields.io/twitter/follow/SportsDataverse?color=blue&label=%40SportsDataverse&logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
+
+[![GitHub
+stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=eee&logo=github&style=for-the-badge&label=Star%20sdvplotR&maxAge=2592000)](https://github.com/sportsdataverse/sdvplotR/stargazers/)
+
+## **Our Authors**
+
+- [Saiem Gilani](https://x.com/saiemgilani) [![ORCID
+  logo](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-7194-9067)
+  [![@saiemgilani](https://img.shields.io/twitter/follow/saiemgilani?color=blue&label=%40saiemgilani&logo=x&style=for-the-badge)](https://x.com/saiemgilani)
+  [![@saiemgilani](https://img.shields.io/github/followers/saiemgilani?color=eee&logo=Github&style=for-the-badge)](https://github.com/saiemgilani)
+
+- [Sebastian Carl](https://x.com/mrcaseb)
+  [![@mrcaseb](https://img.shields.io/twitter/follow/mrcaseb?color=blue&label=%40mrcaseb&logo=x&style=for-the-badge)](https://x.com/mrcaseb)
+  [![@mrcaseb](https://img.shields.io/github/followers/mrcaseb?color=eee&logo=Github&style=for-the-badge)](https://github.com/mrcaseb)
+
+- [Jared Lee](https://github.com/Kazink36)
+  [![@Kazink36](https://img.shields.io/github/followers/Kazink36?color=eee&logo=Github&style=for-the-badge)](https://github.com/Kazink36)
+
+- [Camden Kay](https://x.com/camdenkay)
+  [![@camdenkay](https://img.shields.io/twitter/follow/camdenkay?color=blue&label=%40camdenkay&logo=x&style=for-the-badge)](https://x.com/camdenkay)
+  [![@camdenk](https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge)](https://github.com/camdenk)
+
+## **Code of Conduct**
+
+Please note that the sdvplotR project is released with a [Contributor
+Code of
+Conduct](https://sdvplotR.sportsdataverse.org/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.
+
+## **Citations**
+
+To cite the [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) R
+package in publications, use:
+
+BibTex Citation
+
+``` bibtex
+@misc{gilani_carl_lee_kay_sdvplotR,
+  author = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden},
+  title = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},
+  url = {https://sdvplotR.sportsdataverse.org},
+  year = {2026}
+}
+```
+
+# Package index
+
+## Logos, Wordmarks & Headshots
+
+ggplot2 geoms and ggproto objects for rendering team logos, wordmarks
+and player headshots on plots. Every geom takes a `sport` argument.
+
+- [`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
+  [`GeomSDVlogo`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
+  : ggplot2 Layer for Visualizing Sports Team Logos
+- [`geom_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_wordmarks.md)
+  [`GeomSDVwordmark`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_wordmarks.md)
+  : ggplot2 Layer for Visualizing Sports Team Wordmarks
+- [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md)
+  [`GeomSDVheadshot`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md)
+  : ggplot2 Layer for Visualizing Player Headshots
+
+## Theme Elements
+
+Image-based ggplot2 theme elements for axis text — replace tick labels
+with team logos, wordmarks or player headshots.
+
+- [`element_sdv_logo()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
+  [`element_sdv_wordmark()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
+  [`element_sdv_headshot()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
+  [`element_sdv_raster()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
+  : Theme Elements for Image Grobs
+
+## Scales & Axes
+
+Team color / fill scales, logo and headshot axis scales, and the
+matching theme helpers.
+
+- [`scale_color_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
+  [`scale_colour_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
+  [`scale_fill_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
+  : Scales for Sports Team Colors
+- [`scale_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+  [`scale_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+  [`scale_x_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+  [`scale_y_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+  : Axis Scales for Sports Team Logos
+- [`theme_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
+  [`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
+  : Theme Helpers for SDV Axis Labels
+
+## gt Table Helpers
+
+Embed team logos, wordmarks and player headshots inside gt table cells
+or column labels, and stack team-colored text.
+
+- [`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
+  : Render Logos in 'gt' Tables
+- [`gt_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_wordmarks.md)
+  : Render Wordmarks in 'gt' Tables
+- [`gt_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_headshots.md)
+  : Render Player Headshots in 'gt' Tables
+- [`gt_sdv_cols_label()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_cols_label.md)
+  : Render Logos in 'gt' Table Column Labels
+- [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)
+  : Merge and Stack Text in gt Tables with Team Colors
+
+## reactable Table Helpers
+
+Cell renderers, column headers and team-colored cell styles for
+reactable tables.
+
+- [`reactable_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
+  [`reactable_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
+  [`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
+  : Render Team Logos, Wordmarks and Headshots in 'reactable' Tables
+- [`reactable_sdv_cols_label()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_cols_label.md)
+  : Replace 'reactable' Column Headers with Team Logos
+- [`reactable_sdv_team_color_bar()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_team_color.md)
+  [`reactable_sdv_team_color_bg()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_team_color.md)
+  : Team-Colored Cell Styles for 'reactable' Tables
+
+## Team Utilities
+
+Validate, clean and factor-order team abbreviations; look up team
+reference data and colors; control the image cache.
+
+- [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md)
+  : Supported Sports
+- [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
+  : Output Valid Team Names
+- [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+  : Get Team Reference Data
+- [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+  : Standardize Team Abbreviations
+- [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)
+  : Resolve Historical Team Abbreviations
+- [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md)
+  : Get Team Colors
+- [`sdv_color_palette()`](https://sdvplotR.sportsdataverse.org/reference/sdv_color_palette.md)
+  : Get Team Color Palette
+- [`sdv_team_factor()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_factor.md)
+  : Order Team Names as a Factor
+- [`sdvplotR_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR_clear_cache.md)
+  : Clear the sdvplotR Image Cache
+
+## Premade Plots
+
+High-level functions that build complete branded plots.
+
+- [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
+  : Create Team Tier Plots
+
+## Plot Titles
+
+Add a logo or image next to a ggplot2 title.
+
+- [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
+  [`theme_title_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
+  : Functions for Adding an Image to the Title of a ggplot
+
+## Re-exported from ggpath
+
+Generic image geoms and theme elements provided by the ggpath backend.
+
+- [`reexports`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
+  [`geom_from_path`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
+  [`GeomFromPath`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
+  [`element_path`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
+  [`element_raster`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
+  [`geom_mean_lines`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
+  [`geom_median_lines`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
+  [`GeomRefLines`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
+  : Objects exported from other packages
+
+# Articles
+
+### Getting Started
+
+- [Getting Started with
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/getting-started.md):
+
+### Per-Sport Vignettes
+
+Data ingest with the companion SportsDataverse package, then sdvplotR
+visualization, for each sport.
+
+- [NFL Visualizations with nflfastR and
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.md):
+- [CFB Visualizations with cfbfastR, cfbseedR, and
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.md):
+- [NBA Visualizations with hoopR and
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/nba-viz.md):
+- [WNBA Visualizations with wehoop and
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/wnba-viz.md):
+- [MLB Visualizations with baseballr and
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.md):
+- [NHL Visualizations with fastRhockey and
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/nhl-viz.md):
+- [MBB Visualizations with hoopR, cfbseedR, and
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.md):
+- [WBB Visualizations with wehoop, cfbseedR, and
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.md):
+
+### Cookbooks
+
+Cross-sport patterns: social-media export, leaderboard dashboards,
+reactable tables and end-to-end workflows.
+
+- [Social Posting Patterns with
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/social-posting.md):
+- [Leaderboard Dashboards with sdvplotR, gt, and
+  Quarto](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md):
+- [reactable
+  Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.md):
+- [End-to-End Workflows with sdvplotR and the SportsDataverse
+  Ecosystem](https://sdvplotR.sportsdataverse.org/articles/workflows.md):

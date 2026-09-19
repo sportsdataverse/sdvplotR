@@ -1,0 +1,11 @@
+{
+  "name": "sdvplotR",
+  "short_name": "sdvplotR",
+  "icons": [
+    { "src": "/favicon-96x96.png", "sizes": "96x96", "type": "image/png" },
+    { "src": "/apple-touch-icon-180x180.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "theme_color": "#0B1A33",
+  "background_color": "#0B1A33",
+  "display": "standalone"
+}

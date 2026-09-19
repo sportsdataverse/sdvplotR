@@ -1,0 +1,356 @@
+# WBB Visualizations with wehoop, cfbseedR, and sdvplotR
+
+## Introduction
+
+This vignette demonstrates how to create rich WBB (Women’s College
+Basketball) visualizations by combining
+[wehoop](https://wehoop.sportsdataverse.org) for player and team data,
+[cfbseedR](https://cfbseedR.sportsdataverse.org) for tournament
+brackets, and [sdvplotR](https://sdvplotr.sportsdataverse.org) for team
+logos, headshots, colors, and gt tables.
+
+## Setup
+
+``` r
+
+library(sdvplotR)
+library(ggplot2)
+library(wehoop)
+library(cfbseedR)
+library(dplyr)
+library(gt)
+
+# Get valid WBB team abbreviations
+wbb_teams <- valid_team_names("wbb")
+length(wbb_teams)  # ~350+ D1 teams
+head(wbb_teams)
+```
+
+## Loading WBB Data
+
+Use `wehoop` to load WBB player and team statistics:
+
+``` r
+
+# Load WBB team stats
+team_stats <- wehoop::load_wbb_team_stats(
+  seasons = wehoop::most_recent_wbb_season(),
+  level = "team"
+)
+
+# Load WBB player stats
+player_stats <- wehoop::load_wbb_player_stats(
+  seasons = wehoop::most_recent_wbb_season(),
+  season_type = "Regular Season"
+)
+```
+
+## WBB Team Performance
+
+Visualize team performance with team logos:
+
+``` r
+
+# Calculate team metrics
+team_perf <- team_stats |>
+  filter(!is.na(team_abbreviation)) |>
+  group_by(team_abbreviation) |>
+  summarise(
+    avg_points = mean(points, na.rm = TRUE),
+    avg_rebounds = mean(total_rebounds, na.rm = TRUE),
+    games = n(),
+    .groups = "drop"
+  ) |>
+  filter(games >= 10)
+
+ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
+  geom_sdv_logos(
+    aes(team = team_abbreviation),
+    sport = "wbb",
+    width = 0.075
+  ) +
+  labs(
+    title = "WBB Team Performance",
+    subtitle = paste("Season", wehoop::most_recent_wbb_season()),
+    x = "Average Points per Game",
+    y = "Average Rebounds per Game",
+    caption = "Data: wehoop | Viz: sdvplotR"
+  ) +
+  theme_minimal()
+```
+
+## WBB Team Colors
+
+Use team colors to visualize win percentages:
+
+``` r
+
+# Calculate win percentage
+team_wins <- team_stats |>
+  filter(!is.na(team_abbreviation)) |>
+  group_by(team_abbreviation) |>
+  summarise(
+    wins = sum(win == 1, na.rm = TRUE),
+    games = n(),
+    .groups = "drop"
+  ) |>
+  filter(games >= 10) |>
+  mutate(win_pct = wins / games) |>
+  arrange(desc(win_pct)) |>
+  head(25)
+
+ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
+  geom_col(aes(fill = team_abbreviation), width = 0.7) +
+  scale_fill_sdv(sport = "wbb", alpha = 0.8) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Top 25 WBB Teams by Win Percentage",
+    x = NULL,
+    y = "Win Percentage"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none"
+  )
+```
+
+## Player Headshots
+
+Visualize top performers with player headshots:
+
+``` r
+
+# Top scorers
+top_scorers <- player_stats |>
+  filter(!is.na(athlete_id)) |>
+  group_by(athlete_id, athlete_display_name) |>
+  summarise(
+    avg_points = mean(points, na.rm = TRUE),
+    games = n(),
+    .groups = "drop"
+  ) |>
+  filter(games >= 15) |>
+  arrange(desc(avg_points)) |>
+  head(8)
+
+ggplot(top_scorers, aes(x = games, y = avg_points)) +
+  geom_sdv_headshots(
+    aes(player_id = athlete_id),
+    sport = "wbb",
+    height = 0.15
+  ) +
+  geom_label(
+    aes(label = athlete_display_name),
+    nudge_y = -1.5,
+    size = 3,
+    alpha = 0.7
+  ) +
+  labs(
+    title = "Top 8 WBB Scorers",
+    subtitle = paste("Season", wehoop::most_recent_wbb_season()),
+    x = "Games Played",
+    y = "Average Points per Game"
+  ) +
+  theme_minimal()
+```
+
+## NCAA Tournament Bracket with cfbseedR
+
+Use `cfbseedR` to simulate NCAA Tournament brackets:
+
+``` r
+
+# Get current WBB rankings
+# rankings <- cfbseedR::cfb_rankings(
+#   year = wehoop::most_recent_wbb_season(),
+#   sport = "wbb"
+# )
+
+# Simulate tournament bracket
+# bracket_sim <- cfbseedR::cfb_simulate(
+#   rankings = rankings,
+#   n_sims = 10000
+# )
+
+# For demonstration, create sample bracket data
+bracket_data <- data.frame(
+  seed = 1:16,
+  team = c("SC", "LSU", "IOWA", "UCLA", "TEXAS", "NOTRE DAME",
+           "STANFORD", "OREGON", "MARYLAND", "INDIANA", "VILLANOVA",
+           "DUKE", "BAYLOR", "UTAH", "UNC", "MICH ST")
+)
+
+ggplot(bracket_data, aes(x = seed, y = 1)) +
+  geom_sdv_logos(
+    aes(team = team),
+    sport = "wbb",
+    width = 0.075
+  ) +
+  scale_x_continuous(breaks = 1:16) +
+  labs(
+    title = "NCAA Women's Tournament Seeds",
+    subtitle = paste("Season", wehoop::most_recent_wbb_season()),
+    x = "Seed",
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+```
+
+## WBB Team Tiers
+
+Create a tier plot ranking WBB teams:
+
+``` r
+
+# Top 25 teams by win percentage
+top_25 <- team_wins |>
+  mutate(
+    tier_no = case_when(
+      win_pct > 0.85 ~ 1,
+      win_pct > 0.75 ~ 2,
+      win_pct > 0.65 ~ 3,
+      win_pct > 0.55 ~ 4,
+      TRUE ~ 5
+    )
+  ) |>
+  select(tier_no, team = team_abbreviation)
+
+sdv_team_tiers(
+  top_25,
+  sport = "wbb",
+  title = "WBB Power Rankings",
+  subtitle = paste("Week", ceiling(runif(1, 1, 20)), "of", wehoop::most_recent_wbb_season()),
+  tier_desc = c(
+    "1" = "Elite",
+    "2" = "Championship Contenders",
+    "3" = "Top 25",
+    "4" = "Bubble Teams",
+    "5" = "Rebuilding"
+  ),
+  presort = TRUE
+)
+```
+
+## WBB Conference Map
+
+Visualize teams grouped by conference:
+
+``` r
+
+# Get team info with conferences
+wbb_info <- wehoop::wbb_teams() |>
+  select(team_abbreviation, team_name, conference_name)
+
+conference_map <- wbb_info |>
+  filter(!is.na(conference_name)) |>
+  mutate(
+    conference_num = as.numeric(factor(conference_name))
+  ) |>
+  arrange(conference_num, team_name) |>
+  mutate(
+    team_rank = row_number(),
+    .by = conference_num
+  ) |>
+  filter(conference_num <= 10)  # Top 10 conferences for readability
+
+ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
+  geom_sdv_logos(
+    aes(team = team_abbreviation),
+    sport = "wbb",
+    width = 0.05
+  ) +
+  scale_x_continuous(
+    breaks = 1:length(unique(conference_map$conference_name)),
+    labels = unique(conference_map$conference_name)
+  ) +
+  labs(
+    title = "WBB Teams by Conference (Top 10)",
+    x = "Conference",
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.text.y = element_blank(),
+    panel.grid = element_blank()
+  )
+```
+
+## WBB Standings Table with Logos
+
+Create a gt table with team logos:
+
+``` r
+
+standings_table <- team_wins |>
+  head(20) |>
+  mutate(
+    logo = team_abbreviation,
+    rank = row_number()
+  ) |>
+  select(rank, logo, team_abbreviation, wins, games, win_pct)
+
+standings_table |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "wbb", height = 30) |>
+  fmt_number(columns = "win_pct", decimals = 3) |>
+  cols_label(
+    rank = "#",
+    logo = "Team",
+    team_abbreviation = "Abbrev",
+    wins = "Wins",
+    games = "Games",
+    win_pct = "Win %"
+  ) |>
+  tab_header(
+    title = "WBB Top 20",
+    subtitle = paste("Season", wehoop::most_recent_wbb_season())
+  )
+```
+
+## Axis Labels with Logos
+
+Replace axis labels with team logos:
+
+``` r
+
+top_8 <- team_wins |>
+  head(8) |>
+  mutate(team_abbreviation = factor(team_abbreviation, levels = team_abbreviation))
+
+ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
+  geom_col(aes(fill = team_abbreviation), width = 0.6) +
+  scale_fill_sdv(sport = "wbb", alpha = 0.7) +
+  scale_x_sdv(sport = "wbb") +
+  theme_x_sdv() +
+  theme_minimal() +
+  labs(
+    title = "Top 8 WBB Teams by Win %",
+    x = NULL,
+    y = "Win Percentage"
+  ) +
+  theme(legend.position = "none")
+```
+
+## Next Steps
+
+- Explore [wehoop documentation](https://wehoop.sportsdataverse.org/)
+- Try [cfbseedR](https://cfbseedR.sportsdataverse.org) for tournament
+  simulations
+- Combine with [oddsapiR](https://oddsapiR.sportsdataverse.org) for
+  betting lines
+
+## Related Vignettes
+
+- [Getting
+  Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)
+- [Social Posting
+  Patterns](https://sdvplotR.sportsdataverse.org/articles/social-posting.md)
+- [Leaderboard
+  Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md)

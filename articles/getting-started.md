@@ -1,0 +1,209 @@
+# Getting Started with sdvplotR
+
+## Introduction
+
+`sdvplotR` provides a unified interface for visualizing sports data
+across multiple leagues in the SportsDataverse ecosystem. This vignette
+walks you through the core features of the package.
+
+``` r
+
+library(sdvplotR)
+library(ggplot2)
+```
+
+## Valid Team Names
+
+Before plotting, you need to know which team abbreviations are valid:
+
+``` r
+
+# Get all NFL team abbreviations
+nfl_teams <- valid_team_names("nfl")
+head(nfl_teams)
+#> [1] "ARI" "ATL" "BAL" "BUF" "CAR" "CHI"
+
+# Get team names instead of abbreviations
+nfl_team_names <- valid_team_names("nfl", type = "name")
+head(nfl_team_names)
+#> [1] "Arizona Cardinals" "Atlanta Falcons"   "Baltimore Ravens" 
+#> [4] "Buffalo Bills"     "Carolina Panthers" "Chicago Bears"
+
+# Check supported sports
+supported_sports()
+#> [1] "nfl"  "nba"  "wnba" "mlb"  "nhl"  "cfb"  "mbb"  "wbb"
+```
+
+## Plotting Team Logos
+
+The
+[`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
+function plots team logos at specified coordinates:
+
+``` r
+
+# Create sample data
+df <- data.frame(
+  x = rep(1:4, 4),
+  y = sort(rep(1:4, 4), decreasing = TRUE),
+  team = valid_team_names("nfl")[1:16]
+)
+
+# Plot logos
+ggplot(df, aes(x = x, y = y)) +
+  geom_sdv_logos(aes(team = team), sport = "nfl", width = 0.075) +
+  theme_void()
+```
+
+## Using Team Colors
+
+Map team names to their official colors using the color scales:
+
+``` r
+
+df <- data.frame(
+  team = valid_team_names("nfl")[1:8],
+  value = runif(8, 0, 1)
+)
+
+ggplot(df, aes(x = team, y = value)) +
+  geom_col(aes(color = team, fill = team), width = 0.5) +
+  scale_color_sdv(sport = "nfl", type = "secondary") +
+  scale_fill_sdv(sport = "nfl", alpha = 0.4) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Theme Elements
+
+Replace axis labels with logos using theme elements:
+
+``` r
+
+df <- data.frame(
+  team = valid_team_names("nfl")[1:8],
+  value = runif(8, 0, 1)
+)
+
+ggplot(df, aes(x = team, y = value)) +
+  geom_col(aes(fill = team), width = 0.5) +
+  scale_fill_sdv(sport = "nfl", alpha = 0.4) +
+  theme_minimal() +
+  theme(axis.text.x = element_sdv_logo(sport = "nfl"))
+```
+
+## Player Headshots
+
+Plot player headshots using their sport-specific IDs:
+
+``` r
+
+# NFL player GSIS IDs
+df_players <- data.frame(
+  x = 1:3,
+  y = 3:1,
+  player_id = c("00-0033873", "00-0026498", "00-0035228"),
+  player_name = c("P. Mahomes", "M. Stafford", "K. Murray")
+)
+
+ggplot(df_players, aes(x = x, y = y)) +
+  geom_sdv_headshots(aes(player_id = player_id), sport = "nfl", height = 0.2) +
+  geom_label(aes(label = player_name), nudge_y = -0.35) +
+  theme_void()
+```
+
+## gt Tables
+
+Add logos to gt tables:
+
+``` r
+
+library(gt)
+
+df_table <- data.frame(
+  team = valid_team_names("nfl")[1:8],
+  logo = valid_team_names("nfl")[1:8],
+  wins = sample(1:16, 8)
+)
+
+df_table |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "nfl")
+```
+
+## Team Tier Plots
+
+Create tier plots for any sport:
+
+``` r
+
+team_abbr <- sample(valid_team_names("nfl"))
+df_tiers <- data.frame(
+  tier_no = sample(1:5, length(team_abbr), replace = TRUE),
+  team = team_abbr
+)
+
+sdv_team_tiers(df_tiers, sport = "nfl")
+```
+
+## Working with Multiple Sports
+
+The same functions work across all supported sports:
+
+``` r
+
+# NBA logos
+nba_df <- data.frame(
+  x = 1:5,
+  y = 5:1,
+  team = valid_team_names("nba")[1:5]
+)
+
+ggplot(nba_df, aes(x = x, y = y)) +
+  geom_sdv_logos(aes(team = team), sport = "nba", width = 0.075) +
+  theme_void()
+
+# CFB logos
+cfb_df <- data.frame(
+  x = 1:5,
+  y = 5:1,
+  team = valid_team_names("cfb")[1:5]
+)
+
+ggplot(cfb_df, aes(x = x, y = y)) +
+  geom_sdv_logos(aes(team = team), sport = "cfb", width = 0.075) +
+  theme_void()
+```
+
+## Next Steps
+
+- Explore the function documentation with
+  [`?geom_sdv_logos`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
+- Check out the [README](https://github.com/sportsdataverse/sdvplotR)
+  for more examples
+- Report issues on
+  [GitHub](https://github.com/sportsdataverse/sdvplotR/issues)
+
+## Companion Vignettes
+
+Each sport has its own dedicated vignette showing integration with the
+relevant SportsDataverse data package:
+
+| Sport | Vignette | Companion Package(s) |
+|----|----|----|
+| **NFL** | [NFL Visualizations](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.html) | `nflfastR`, `nflreadr` |
+| **CFB** | [CFB Visualizations](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.html) | `cfbfastR`, `cfbseedR` |
+| **NBA** | [NBA Visualizations](https://sdvplotR.sportsdataverse.org/articles/nba-viz.html) | `hoopR` |
+| **WNBA** | [WNBA Visualizations](https://sdvplotR.sportsdataverse.org/articles/wnba-viz.html) | `wehoop` |
+| **MLB** | [MLB Visualizations](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.html) | `baseballr` |
+| **NHL** | [NHL Visualizations](https://sdvplotR.sportsdataverse.org/articles/nhl-viz.html) | `fastRhockey` |
+| **MBB** | [MBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.html) | `hoopR`, `cfbseedR` |
+| **WBB** | [WBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html) | `wehoop`, `cfbseedR` |
+
+Cross-sport cookbook vignettes:
+
+| Topic | Vignette |
+|----|----|
+| Social media posting patterns | [Social Posting](https://sdvplotR.sportsdataverse.org/articles/social-posting.html) |
+| Leaderboard dashboards | [Leaderboard Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.html) |
+| End-to-end workflows | [Workflows](https://sdvplotR.sportsdataverse.org/articles/workflows.html) |

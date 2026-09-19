@@ -1,0 +1,347 @@
+# NHL Visualizations with fastRhockey and sdvplotR
+
+## Introduction
+
+This vignette demonstrates how to create rich NHL visualizations by
+combining [fastRhockey](https://fastRhockey.sportsdataverse.org) for
+player and team data with
+[sdvplotR](https://sdvplotr.sportsdataverse.org) for team logos,
+headshots, colors, and gt tables.
+
+## Setup
+
+``` r
+
+library(sdvplotR)
+library(ggplot2)
+library(fastRhockey)
+library(dplyr)
+library(gt)
+
+# Get valid NHL team abbreviations
+nhl_teams <- valid_team_names("nhl")
+head(nhl_teams)
+```
+
+## Loading NHL Data
+
+Use `fastRhockey` to load NHL player and team statistics:
+
+``` r
+
+# Load NHL team stats
+team_stats <- fastRhockey::load_nhl_team_stats(
+  seasons = fastRhockey::most_recent_nhl_season(),
+  level = "team"
+)
+
+# Load NHL player stats
+player_stats <- fastRhockey::load_nhl_player_stats(
+  seasons = fastRhockey::most_recent_nhl_season(),
+  season_type = "Regular Season"
+)
+```
+
+## NHL Team Performance
+
+Visualize team performance with team logos:
+
+``` r
+
+# Calculate team metrics
+team_perf <- team_stats |>
+  filter(!is.na(team_abbreviation)) |>
+  group_by(team_abbreviation) |>
+  summarise(
+    avg_goals = mean(goals, na.rm = TRUE),
+    avg_assists = mean(assists, na.rm = TRUE),
+    games = n(),
+    .groups = "drop"
+  ) |>
+  filter(games >= 10)
+
+ggplot(team_perf, aes(x = avg_goals, y = avg_assists)) +
+  geom_sdv_logos(
+    aes(team = team_abbreviation),
+    sport = "nhl",
+    width = 0.075
+  ) +
+  labs(
+    title = "NHL Team Performance",
+    subtitle = paste("Season", fastRhockey::most_recent_nhl_season()),
+    x = "Average Goals per Game",
+    y = "Average Assists per Game",
+    caption = "Data: fastRhockey | Viz: sdvplotR"
+  ) +
+  theme_minimal()
+```
+
+## NHL Team Colors
+
+Use team colors to visualize win percentages:
+
+``` r
+
+# Calculate win percentage
+team_wins <- team_stats |>
+  filter(!is.na(team_abbreviation)) |>
+  group_by(team_abbreviation) |>
+  summarise(
+    wins = sum(win == 1, na.rm = TRUE),
+    games = n(),
+    .groups = "drop"
+  ) |>
+  filter(games >= 10) |>
+  mutate(win_pct = wins / games) |>
+  arrange(desc(win_pct)) |>
+  head(20)
+
+ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
+  geom_col(aes(fill = team_abbreviation), width = 0.7) +
+  scale_fill_sdv(sport = "nhl", alpha = 0.8) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Top 20 NHL Teams by Win Percentage",
+    x = NULL,
+    y = "Win Percentage"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none"
+  )
+```
+
+## Player Headshots
+
+Visualize top performers with player headshots:
+
+``` r
+
+# Top goal scorers
+top_goals <- player_stats |>
+  filter(!is.na(player_id)) |>
+  group_by(player_id, player_name) |>
+  summarise(
+    total_goals = sum(goals, na.rm = TRUE),
+    games = n(),
+    .groups = "drop"
+  ) |>
+  filter(games >= 30) |>
+  arrange(desc(total_goals)) |>
+  head(8)
+
+ggplot(top_goals, aes(x = games, y = total_goals)) +
+  geom_sdv_headshots(
+    aes(player_id = player_id),
+    sport = "nhl",
+    height = 0.15
+  ) +
+  geom_label(
+    aes(label = player_name),
+    nudge_y = -3,
+    size = 3,
+    alpha = 0.7
+  ) +
+  labs(
+    title = "Top 8 NHL Goal Scorers",
+    subtitle = paste("Season", fastRhockey::most_recent_nhl_season()),
+    x = "Games Played",
+    y = "Total Goals"
+  ) +
+  theme_minimal()
+```
+
+## NHL Team Tiers
+
+Create a tier plot ranking NHL teams:
+
+``` r
+
+# Sample tier assignments
+tier_data <- data.frame(
+  tier_no = c(1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5),
+  team = c("COL", "BOS", "VGK", "TOR", "EDM", "CAR",
+           "NYR", "DAL", "TB",
+           "FLA", "NJ", "MIN",
+           "LA", "SEA", "PIT")
+)
+
+sdv_team_tiers(
+  tier_data,
+  sport = "nhl",
+  title = "NHL Power Rankings",
+  subtitle = paste("As of", Sys.Date()),
+  tier_desc = c(
+    "1" = "Stanley Cup Favorites",
+    "2" = "Contenders",
+    "3" = "Playoff Teams",
+    "4" = "Bubble Teams",
+    "5" = "Rebuilding"
+  )
+)
+```
+
+## NHL Conference Map
+
+Visualize teams grouped by conference and division:
+
+``` r
+
+# Get team info with conferences
+nhl_info <- fastRhockey::nhl_teams() |>
+  select(team_abbreviation, team_name, conference_name, division_name)
+
+conference_map <- nhl_info |>
+  filter(!is.na(conference_name)) |>
+  mutate(
+    conf_div = paste(conference_name, division_name),
+    conf_div_num = as.numeric(factor(conf_div))
+  ) |>
+  arrange(conf_div_num, team_name) |>
+  mutate(
+    team_rank = row_number(),
+    .by = conf_div_num
+  )
+
+ggplot(conference_map, aes(x = conf_div_num, y = team_rank)) +
+  geom_sdv_logos(
+    aes(team = team_abbreviation),
+    sport = "nhl",
+    width = 0.075
+  ) +
+  scale_x_continuous(
+    breaks = 1:length(unique(conference_map$conf_div)),
+    labels = unique(conference_map$conf_div)
+  ) +
+  labs(
+    title = "NHL Teams by Conference & Division",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.text.y = element_blank(),
+    panel.grid = element_blank()
+  )
+```
+
+## NHL Standings Table with Logos
+
+Create a gt table with team logos:
+
+``` r
+
+standings_table <- team_wins |>
+  head(15) |>
+  mutate(
+    logo = team_abbreviation,
+    rank = row_number()
+  ) |>
+  select(rank, logo, team_abbreviation, wins, games, win_pct)
+
+standings_table |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "nhl", height = 35) |>
+  fmt_number(columns = "win_pct", decimals = 3) |>
+  cols_label(
+    rank = "#",
+    logo = "Team",
+    team_abbreviation = "Abbrev",
+    wins = "Wins",
+    games = "Games",
+    win_pct = "Win %"
+  ) |>
+  tab_header(
+    title = "NHL Top 15",
+    subtitle = paste("Season", fastRhockey::most_recent_nhl_season())
+  )
+```
+
+## Player Performance Comparison
+
+Compare top players using headshots:
+
+``` r
+
+# Top 5 goal scorers and point leaders
+top_5_goals <- top_goals |> head(5)
+top_5_points <- player_stats |>
+  filter(!is.na(player_id)) |>
+  group_by(player_id, player_name) |>
+  summarise(
+    total_points = sum(points, na.rm = TRUE),
+    games = n(),
+    .groups = "drop"
+  ) |>
+  filter(games >= 30) |>
+  arrange(desc(total_points)) |>
+  head(5)
+
+# Combine for comparison
+comparison <- bind_rows(
+  top_5_goals |> mutate(category = "Top Goals"),
+  top_5_points |> mutate(category = "Top Points")
+)
+
+ggplot(comparison, aes(x = category, y = total_goals)) +
+  geom_sdv_headshots(
+    aes(player_id = player_id),
+    sport = "nhl",
+    width = 0.1
+  ) +
+  facet_wrap(~ category, scales = "free_y") +
+  labs(
+    title = "NHL Top Performers",
+    subtitle = paste("Season", fastRhockey::most_recent_nhl_season()),
+    x = NULL,
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    panel.grid = element_blank()
+  )
+```
+
+## Axis Labels with Logos
+
+Replace axis labels with team logos:
+
+``` r
+
+top_8 <- team_wins |>
+  head(8) |>
+  mutate(team_abbreviation = factor(team_abbreviation, levels = team_abbreviation))
+
+ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
+  geom_col(aes(fill = team_abbreviation), width = 0.6) +
+  scale_fill_sdv(sport = "nhl", alpha = 0.7) +
+  scale_x_sdv(sport = "nhl") +
+  theme_x_sdv() +
+  theme_minimal() +
+  labs(
+    title = "Top 8 NHL Teams by Win %",
+    x = NULL,
+    y = "Win Percentage"
+  ) +
+  theme(legend.position = "none")
+```
+
+## Next Steps
+
+- Explore [fastRhockey
+  documentation](https://fastRhockey.sportsdataverse.org/)
+- Try combining with [oddsapiR](https://oddsapiR.sportsdataverse.org)
+  for betting lines
+- Build weekly dashboard with [Quarto](https://quarto.org/)
+
+## Related Vignettes
+
+- [Getting
+  Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)
+- [Social Posting
+  Patterns](https://sdvplotR.sportsdataverse.org/articles/social-posting.md)
+- [Leaderboard
+  Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md)

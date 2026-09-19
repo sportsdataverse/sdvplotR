@@ -1,0 +1,567 @@
+# End-to-End Workflows with sdvplotR and the SportsDataverse Ecosystem
+
+## Introduction
+
+This vignette demonstrates end-to-end workflows for ingesting data from
+SportsDataverse packages, creating visualizations with sdvplotR, and
+exporting results. We’ll cover common patterns for data engineering,
+visualization, and reporting.
+
+## Setup
+
+``` r
+
+library(sdvplotR)
+library(ggplot2)
+library(dplyr)
+library(gt)
+
+# Load companion packages
+# library(nflfastR)      # NFL
+# library(cfbfastR)      # CFB
+# library(hoopR)         # NBA, MBB
+# library(wehoop)        # WNBA, WBB
+# library(baseballr)     # MLB
+# library(fastRhockey)   # NHL
+# library(oddsapiR)      # Betting odds
+# library(sportyR)       # General sports data
+```
+
+## Workflow 1: NFL Weekly Recap
+
+Complete workflow for creating a weekly NFL recap:
+
+``` r
+
+# Step 1: Load data with nflfastR
+# pbp <- nflfastR::load_pbp(
+#   seasons = nflreadr::most_recent_season(),
+#   file_type = "rds"
+# )
+
+# Step 2: Process data
+# team_epa <- pbp |>
+#   filter(pass == 1, !is.na(epa)) |>
+#   group_by(posteam) |>
+#   summarise(
+#     mean_epa = mean(epa, na.rm = TRUE),
+#     n_plays = n(),
+#     .groups = "drop"
+#   ) |>
+#   filter(n_plays >= 100) |>
+#   arrange(desc(mean_epa)) |>
+#   head(10)
+
+# Step 3: Create visualization
+# For demonstration, use sample data
+team_epa <- data.frame(
+  posteam = c("KC", "BUF", "SF", "PHI", "DAL", "MIA", "CIN", "BAL", "DET", "JAX"),
+  mean_epa = sort(runif(10, 0.1, 0.3), decreasing = TRUE),
+  n_plays = sample(200:500, 10)
+)
+
+plot <- ggplot(team_epa, aes(x = reorder(posteam, mean_epa), y = mean_epa)) +
+  geom_col(aes(fill = posteam), width = 0.7) +
+  scale_fill_sdv(sport = "nfl", alpha = 0.8) +
+  labs(
+    title = "Top 10 NFL Teams by Pass EPA",
+    subtitle = paste("Season", nflreadr::most_recent_season()),
+    x = NULL,
+    y = "Mean EPA per Play",
+    caption = "Data: nflfastR | Viz: sdvplotR"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none",
+    plot.title = element_text(face = "bold", size = 16)
+  )
+
+# Step 4: Export
+# ggsave("nfl_weekly_recap.png",
+#        plot = plot,
+#        width = 12, height = 8, dpi = 300)
+
+plot
+```
+
+## Workflow 2: CFB Power Rankings
+
+Complete workflow for CFB power rankings:
+
+``` r
+
+# Step 1: Load data with cfbfastR
+# pbp <- cfbfastR::load_cfb_pbp(
+#   seasons = cfbfastR::most_recent_cfb_season(),
+#   epa_wpa = TRUE
+# )
+
+# Step 2: Process data
+# team_perf <- pbp |>
+#   filter(pass == 1, !is.na(EPA)) |>
+#   group_by(posteam) |>
+#   summarise(
+#     mean_epa = mean(EPA, na.rm = TRUE),
+#     n_plays = n(),
+#     .groups = "drop"
+#   ) |>
+#   filter(n_plays >= 100) |>
+#   arrange(desc(mean_epa)) |>
+#   head(25)
+
+# Step 3: Create tier plot
+# For demonstration, use sample data
+tier_data <- data.frame(
+  tier_no = c(1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4),
+  team = c("UGA", "MICH", "WASH", "FSU", "OSU", "TEX", "ALA",
+           "ORE", "PSU", "MIZ", "AZ", "LSU",
+           "CLE", "GB", "LAR", "MIN")
+)
+
+tier_plot <- sdv_team_tiers(
+  tier_data,
+  sport = "cfb",
+  title = "CFB Power Rankings",
+  subtitle = paste("Week", ceiling(runif(1, 1, 15)), "of", cfbfastR::most_recent_cfb_season()),
+  tier_desc = c(
+    "1" = "Elite",
+    "2" = "Contenders",
+    "3" = "Top 25",
+    "4" = "Bubble"
+  )
+)
+
+# Step 4: Export
+# ggsave("cfb_power_rankings.png",
+#        plot = tier_plot,
+#        width = 14, height = 10, dpi = 300)
+
+tier_plot
+```
+
+## Workflow 3: NBA Player Comparison
+
+Complete workflow for comparing NBA players:
+
+``` r
+
+# Step 1: Load data with hoopR
+# player_stats <- hoopR::load_nba_player_stats(
+#   seasons = hoopR::most_recent_nba_season(),
+#   season_type = "Regular Season"
+# )
+
+# Step 2: Process data
+# top_players <- player_stats |>
+#   filter(!is.na(athlete_id)) |>
+#   group_by(athlete_id, athlete_display_name, team_abbreviation) |>
+#   summarise(
+#     avg_points = mean(points, na.rm = TRUE),
+#     games = n(),
+#     .groups = "drop"
+#   ) |>
+#   filter(games >= 20) |>
+#   arrange(desc(avg_points)) |>
+#   head(8)
+
+# Step 3: Create visualization
+# For demonstration, use sample data
+top_players <- data.frame(
+  athlete_id = c("1234", "5678", "9012", "3456", "7890", "2345", "6789", "0123"),
+  athlete_display_name = c("LeBron James", "Stephen Curry", "Kevin Durant",
+                          "Giannis Antetokounmpo", "Luka Doncic", "Jayson Tatum",
+                          "Nikola Jokic", "Joel Embiid"),
+  team_abbreviation = c("LAL", "GSW", "PHX", "MIL", "DAL", "BOS", "DEN", "PHI"),
+  avg_points = sort(runif(8, 25, 35), decreasing = TRUE),
+  games = sample(20:40, 8)
+)
+
+player_plot <- ggplot(top_players, aes(x = games, y = avg_points)) +
+  geom_sdv_headshots(
+    aes(player_id = athlete_id),
+    sport = "nba",
+    height = 0.15
+  ) +
+  geom_label(
+    aes(label = athlete_display_name),
+    nudge_y = -1.5,
+    size = 3,
+    alpha = 0.7
+  ) +
+  labs(
+    title = "Top 8 NBA Scorers",
+    subtitle = paste("Season", hoopR::most_recent_nba_season()),
+    x = "Games Played",
+    y = "Average Points per Game",
+    caption = "Data: hoopR | Viz: sdvplotR"
+  ) +
+  theme_minimal()
+
+# Step 4: Export
+# ggsave("nba_top_scorers.png",
+#        plot = player_plot,
+#        width = 12, height = 8, dpi = 300)
+
+player_plot
+```
+
+## Workflow 4: MLB Standings Dashboard
+
+Complete workflow for MLB standings:
+
+``` r
+
+# Step 1: Load data with baseballr
+# team_stats <- baseballr::get_team_stats(
+#   season = baseballr::most_recent_mlb_season(),
+#   team_id = NULL
+# )
+
+# Step 2: Process data
+# standings <- team_stats |>
+#   filter(!is.na(team_abbreviation)) |>
+#   group_by(team_abbreviation) |>
+#   summarise(
+#     wins = sum(win == 1, na.rm = TRUE),
+#     games = n(),
+#     .groups = "drop"
+#   ) |>
+#   filter(games >= 10) |>
+#   mutate(win_pct = wins / games) |>
+#   arrange(desc(win_pct)) |>
+#   head(15)
+
+# Step 3: Create gt table
+# For demonstration, use sample data
+standings <- data.frame(
+  team_abbreviation = c("LAD", "ATL", "HOU", "BAL", "TB", "NYY",
+                        "PHI", "TEX", "TOR", "SEA", "SF", "CHC",
+                        "BOS", "STL", "CIN"),
+  wins = sort(sample(80:105, 15), decreasing = TRUE),
+  games = rep(162, 15)
+) |>
+  mutate(
+    win_pct = wins / games,
+    logo = team_abbreviation,
+    rank = row_number()
+  ) |>
+  select(rank, logo, team_abbreviation, wins, games, win_pct)
+
+standings_table <- standings |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "mlb", height = 35) |>
+  fmt_number(columns = "win_pct", decimals = 3) |>
+  cols_label(
+    rank = "#",
+    logo = "Team",
+    team_abbreviation = "Abbrev",
+    wins = "Wins",
+    games = "Games",
+    win_pct = "Win %"
+  ) |>
+  tab_header(
+    title = "MLB Top 15",
+    subtitle = paste("Season", baseballr::most_recent_mlb_season())
+  )
+
+# Step 4: Export to HTML
+# standings_table |>
+#   gtsave("mlb_standings.html")
+
+standings_table
+```
+
+## Workflow 5: NHL Team Performance
+
+Complete workflow for NHL team analysis:
+
+``` r
+
+# Step 1: Load data with fastRhockey
+# team_stats <- fastRhockey::load_nhl_team_stats(
+#   seasons = fastRhockey::most_recent_nhl_season(),
+#   level = "team"
+# )
+
+# Step 2: Process data
+# team_perf <- team_stats |>
+#   filter(!is.na(team_abbreviation)) |>
+#   group_by(team_abbreviation) |>
+#   summarise(
+#     avg_goals = mean(goals, na.rm = TRUE),
+#     avg_assists = mean(assists, na.rm = TRUE),
+#     games = n(),
+#     .groups = "drop"
+#   ) |>
+#   filter(games >= 10)
+
+# Step 3: Create visualization
+# For demonstration, use sample data
+team_perf <- data.frame(
+  team_abbreviation = sample(valid_team_names("nhl"), 16),
+  avg_goals = runif(16, 2.5, 3.5),
+  avg_assists = runif(16, 3.5, 4.5),
+  games = sample(20:40, 16)
+)
+
+nhl_plot <- ggplot(team_perf, aes(x = avg_goals, y = avg_assists)) +
+  geom_sdv_logos(
+    aes(team = team_abbreviation),
+    sport = "nhl",
+    width = 0.075
+  ) +
+  labs(
+    title = "NHL Team Performance",
+    subtitle = paste("Season", fastRhockey::most_recent_nhl_season()),
+    x = "Average Goals per Game",
+    y = "Average Assists per Game",
+    caption = "Data: fastRhockey | Viz: sdvplotR"
+  ) +
+  theme_minimal()
+
+# Step 4: Export
+# ggsave("nhl_team_performance.png",
+#        plot = nhl_plot,
+#        width = 12, height = 8, dpi = 300)
+
+nhl_plot
+```
+
+## Workflow 6: Betting Odds Integration
+
+Combine standings with betting odds using oddsapiR:
+
+``` r
+
+# Step 1: Load data
+# standings <- nflfastR::load_pbp(
+#   seasons = nflreadr::most_recent_season(),
+#   file_type = "rds"
+# ) |>
+#   filter(!is.na(result)) |>
+#   group_by(posteam) |>
+#   summarise(
+#     wins = sum(result > 0, na.rm = TRUE),
+#     games = n(),
+#     .groups = "drop"
+#   ) |>
+#   filter(games >= 10) |>
+#   mutate(win_pct = wins / games) |>
+#   arrange(desc(win_pct))
+
+# odds <- oddsapiR::get_odds(
+#   sport = "americanfootball_nfl",
+#   date = Sys.Date()
+# )
+
+# Step 2: Merge data
+# For demonstration, use sample data
+standings_with_odds <- data.frame(
+  team = c("KC", "BUF", "SF", "PHI", "DAL"),
+  wins = c(9, 8, 8, 7, 7),
+  win_pct = c(0.818, 0.727, 0.727, 0.636, 0.636),
+  spread = c(-7.5, -3.5, -6.5, -10.5, -4.5),
+  moneyline = c(-350, -180, -280, -550, -220),
+  logo = c("KC", "BUF", "SF", "PHI", "DAL")
+)
+
+odds_table <- standings_with_odds |>
+  gt() |>
+  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  fmt_number(columns = c("win_pct", "spread"), decimals = 1) |>
+  fmt_number(columns = "moneyline", decimals = 0) |>
+  cols_label(
+    logo = "Team",
+    team = "Abbrev",
+    wins = "Wins",
+    win_pct = "Win %",
+    spread = "Spread",
+    moneyline = "ML"
+  ) |>
+  tab_header(
+    title = "NFL Standings with Betting Odds",
+    subtitle = "Combining Performance and Odds"
+  )
+
+# Step 3: Export
+# odds_table |>
+#   gtsave("nfl_standings_odds.html")
+
+odds_table
+```
+
+## Workflow 7: Automated Reporting Pipeline
+
+Create an automated reporting pipeline:
+
+``` r
+
+# Define a function for automated reporting
+generate_weekly_report <- function(sport, week = NULL) {
+  message(paste("Generating", toupper(sport), "weekly report..."))
+
+  # Step 1: Load data (sport-specific)
+  # In real implementation, load from appropriate package
+
+  # Step 2: Process data
+  # For demonstration, use sample data
+  standings <- data.frame(
+    team = sample(valid_team_names(sport), 10),
+    wins = sample(0:16, 10),
+    losses = sample(0:16, 10)
+  ) |>
+    mutate(
+      win_pct = wins / (wins + losses),
+      logo = team,
+      rank = row_number()
+    ) |>
+    arrange(desc(win_pct))
+
+  # Step 3: Create visualizations
+  plot <- ggplot(standings, aes(x = reorder(team, win_pct), y = win_pct)) +
+    geom_col(aes(fill = team), width = 0.7) +
+    scale_fill_sdv(sport = sport, alpha = 0.8) +
+    labs(
+      title = paste(toupper(sport), "Standings"),
+      subtitle = ifelse(is.null(week), "Current", paste("Week", week)),
+      x = NULL,
+      y = "Win Percentage"
+    ) +
+    theme_minimal() +
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      legend.position = "none"
+    )
+
+  table <- standings |>
+    select(rank, logo, team, wins, losses, win_pct) |>
+    gt() |>
+    gt_sdv_logos(columns = "logo", sport = sport, height = 30) |>
+    fmt_number(columns = "win_pct", decimals = 3)
+
+  # Step 4: Export
+  timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
+
+  # ggsave(paste0(sport, "_standings_", timestamp, ".png"),
+  #        plot = plot,
+  #        width = 12, height = 8, dpi = 300)
+
+  # table |>
+  #   gtsave(paste0(sport, "_standings_", timestamp, ".html"))
+
+  message(paste("Report generated:", timestamp))
+
+  list(plot = plot, table = table)
+}
+
+# Generate reports for multiple sports
+# nfl_report <- generate_weekly_report("nfl", week = 10)
+# nba_report <- generate_weekly_report("nba")
+# cfb_report <- generate_weekly_report("cfb")
+```
+
+## Workflow 8: Multi-Sport Comparison
+
+Create a multi-sport comparison dashboard:
+
+``` r
+
+# Load data from multiple sports
+# nfl_data <- nflfastR::load_pbp(seasons = nflreadr::most_recent_season())
+# nba_data <- hoopR::load_nba_team_stats(seasons = hoopR::most_recent_nba_season())
+# mlb_data <- baseballr::get_team_stats(season = baseballr::most_recent_mlb_season())
+
+# Create comparison table
+# For demonstration, use sample data
+multi_sport_comparison <- data.frame(
+  sport = c("NFL", "NBA", "MLB", "NHL", "CFB"),
+  top_team = c("KC", "BOS", "LAD", "COL", "UGA"),
+  win_pct = c(0.818, 0.758, 0.586, 0.616, 0.917),
+  conference = c("AFC West", "Atlantic", "NL West", "Central", "SEC")
+)
+
+comparison_table <- multi_sport_comparison |>
+  gt() |>
+  fmt_number(columns = "win_pct", decimals = 3) |>
+  cols_label(
+    sport = "Sport",
+    top_team = "Top Team",
+    win_pct = "Win %",
+    conference = "Conference/Division"
+  ) |>
+  tab_header(
+    title = "Multi-Sport Leaderboard",
+    subtitle = "Top Teams Across All Sports"
+  ) |>
+  tab_footnote(
+    footnote = "Data: SportsDataverse packages | Viz: sdvplotR",
+    locations = cells_title(groups = "title")
+  )
+
+comparison_table
+```
+
+## Best Practices for Workflows
+
+1.  **Modularize Code**: Break workflows into reusable functions
+
+2.  **Use Parameters**: Make workflows flexible with function parameters
+
+3.  **Error Handling**: Add error handling for data loading and
+    processing
+
+4.  **Logging**: Use [`message()`](https://rdrr.io/r/base/message.html)
+    or `cli::cli_alert_*()` to track progress
+
+5.  **Versioning**: Include timestamps in exported files
+
+6.  **Automation**: Use cron jobs or GitHub Actions for scheduled runs
+
+7.  **Documentation**: Document each workflow step with comments
+
+## Scheduling Automated Reports
+
+Use cron or GitHub Actions for automated reporting:
+
+``` r
+
+# Example: GitHub Actions workflow
+# .github/workflows/weekly_report.yml
+
+# name: Weekly Sports Report
+# on:
+#   schedule:
+#     - cron: '0 12 * * 1'  # Every Monday at noon
+#   workflow_dispatch:
+# jobs:
+#   generate-report:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: r-lib/actions/setup-r@v2
+#       - name: Install packages
+#         run: Rscript -e "install.packages(c('sdvplotR', 'nflfastR', 'gt'))"
+#       - name: Generate report
+#         run: Rscript scripts/weekly_report.R
+#       - name: Upload artifacts
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: weekly-reports
+#           path: reports/
+```
+
+## Related Vignettes
+
+- [Getting
+  Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)
+- [Social Posting
+  Patterns](https://sdvplotR.sportsdataverse.org/articles/social-posting.md)
+- [Leaderboard
+  Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md)
+- [NFL
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.md)
+- [CFB
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.md)
+- [NBA
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/nba-viz.md)

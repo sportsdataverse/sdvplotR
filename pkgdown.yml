@@ -1,0 +1,21 @@
+pandoc: 3.8.3
+pkgdown: 2.2.1.9000
+pkgdown_sha: f69b62a7e74b58b42170284b6f3f56c674e7a3f8
+articles:
+  cfb-viz: cfb-viz.html
+  getting-started: getting-started.html
+  leaderboard-dashboards: leaderboard-dashboards.html
+  mbb-viz: mbb-viz.html
+  mlb-viz: mlb-viz.html
+  nba-viz: nba-viz.html
+  nfl-viz: nfl-viz.html
+  nhl-viz: nhl-viz.html
+  reactable-integration: reactable-integration.html
+  social-posting: social-posting.html
+  wbb-viz: wbb-viz.html
+  wnba-viz: wnba-viz.html
+  workflows: workflows.html
+last_built: 2026-09-19T05:57Z
+urls:
+  reference: https://sdvplotR.sportsdataverse.org/reference
+  article: https://sdvplotR.sportsdataverse.org/articles
