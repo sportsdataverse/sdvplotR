@@ -152,9 +152,9 @@ picks <- list(
   nba = c("BOS", "LAL", "OKC", "NY", "GS", "MIL"),
   wnba = c("NY", "LV", "IND", "MIN", "SEA", "LA"),
   mlb = c("LAD", "NYY", "ATL", "SD", "BOS", "CHC"),
-  nhl = c("TOR", "EDM", "FLA", "COL", "BOS", "VGK"),
+  nhl = c("PHI", "EDM", "FLA", "COL", "BOS", "VGK"),
   cfb = c("FSU", "UGA", "MICH", "OSU", "TEX", "ORE"),
-  mbb = c("DUKE", "CONN", "KU", "UNC", "UK", "PUR"),
+  mbb = c("PUR", "CONN", "KU", "UNC", "UK", "DUKE"),
   wbb = c("SC", "IOWA", "LSU", "STAN", "UCLA", "ND")
 )
 logo_paths <- function(n) {

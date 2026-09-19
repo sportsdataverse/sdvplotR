@@ -1,84 +1,45 @@
-# Build the sdvplotR hex logo (man/figures/logo.png) with the package itself.
+# Build the sdvplotR hex logo (man/figures/logo.png) and the pkgdown favicons.
 # ============================================================================
-# Design: the SportsDataverse starfield (the org's brand background) masked to
-# a hex, a brick mosaic of team logos from all eight leagues drawn with the
-# package's own geom_from_path(), and the package name in plain bold white.
+# Design ("axis", chosen 2026-09-18): the SportsDataverse starfield masked to
+# the org's hex, the wordmark set in Russo One with the SDV blue-to-cyan
+# gradient, and a bar chart in eight teams' own colours -- one team per league,
+# their logos as the axis labels -- drawn with the package's own resolvers and
+# ggpath. Everything sits inside a 30 px print-safe inset (see SAFE_PX).
 #
 # Run from the package root:  Rscript data-raw/hex_logo.R
-# Requires: ggplot2, ggpath, showtext, magick (dev-only).
+# Requires: ggplot2, ggpath, magick, showtext, sysfonts (dev-only).
+# The candidate explorations that led here live in hex_logo_options*.R.
 
 devtools::load_all(quiet = TRUE)
-library(ggplot2)
+source("data-raw/hex_logo_common.R", local = TRUE)
 
-navy <- "#0B1A33"
-edge <- "#071224"
+LOGO_FONT <- "russo"
+load_fonts(LOGO_FONT)
 
-sysfonts::font_add_google("Chivo", "chivo", bold.wt = 800)
-showtext::showtext_opts(dpi = 600)
-showtext::showtext_auto()
+logo_teams <- vapply(names(picks), function(s) picks[[s]][1], character(1))   # KC BOS NY LAD PHI FSU PUR SC
+paths <- one_per_league()
+cols <- first_colors()
 
-# pointy-top hexagon with circumradius 1 (width sqrt(3), height 2)
-hex <- data.frame(
-  x = cos(seq(pi / 2, 2 * pi + pi / 2, length.out = 7)),
-  y = sin(seq(pi / 2, 2 * pi + pi / 2, length.out = 7))
-)
+x <- seq(-0.46, 0.46, length.out = 8)
+h <- c(0.62, 0.48, 0.74, 0.4, 0.56, 0.68, 0.45, 0.8)
+base <- -0.48
+bars <- data.frame(x = x, ymax = base + h * 0.78, fill = cols, path = paths)
+grid <- data.frame(y = base + seq(0.2, 0.8, by = 0.2) * 0.78)
+grid$half <- safe_halfwidth(grid$y) - 0.04
 
-# Background: the SportsDataverse starfield (sdv-web brand asset), with the
-# SDV mark in the centre patched over by a clean strip of the same sky, then
-# masked to the hexagon.
-sky <- magick::image_read("data-raw/sdv-starfield.png")          # 1200 x 1200
-sky <- magick::image_crop(sky, "1040x1200+80+0")                  # hex aspect
-# feathered patch of clean sky (from above the mark) laid over the mark
-patch <- magick::image_crop(sky, "760x480+140+0")
-feather <- magick::image_draw(magick::image_blank(760, 480, "none"))
-rect(80, 80, 680, 400, col = "white", border = NA)
-dev.off()
-feather <- magick::image_blur(feather, radius = 0, sigma = 40)
-patch <- magick::image_composite(feather, patch, operator = "In")
-sky <- magick::image_composite(sky, patch, operator = "Over", offset = "+140+370")
-# mask to the hexagon (source-in)
-hex_mask <- magick::image_draw(magick::image_blank(1040, 1200, "none"))
-polygon(520 + 520 * hex$x / (sqrt(3) / 2), 600 - 600 * hex$y, col = "white", border = NA)
-dev.off()
-sky <- magick::image_composite(hex_mask, sky, operator = "In")
-sky_raster <- as.raster(sky)
+p <- ggplot() + base_sky() +
+  geom_segment(data = grid, aes(x = -half, xend = half, y = y, yend = y), colour = line_col(0.18), linewidth = 0.4) +
+  geom_rect(data = bars, aes(xmin = x - 0.04, xmax = x + 0.04, ymin = base, ymax = ymax, fill = fill), alpha = 0.95) +
+  scale_fill_identity() +
+  annotate("segment", x = -0.58, xend = 0.58, y = base, yend = base, colour = line_col(0.7), linewidth = 0.6) +
+  geom_from_path(data = bars, aes(x, base - 0.09, path = path), width = 0.075) +
+  title_layer(LOGO_FONT, "gradient", y = 0.55, fit_width = 0.98) +
+  finish()
 
-# three logos per league, laid out as a staggered brick mosaic
-teams <- list(
-  nfl = c("KC", "PHI", "DET"),
-  nba = c("BOS", "LAL", "OKC"),
-  wnba = c("NY", "LV", "IND"),
-  mlb = c("LAD", "NYY", "ATL"),
-  nhl = c("TOR", "EDM", "FLA"),
-  cfb = c("ALA", "UGA", "MICH"),
-  mbb = c("DUKE", "CONN", "KU"),
-  wbb = c("SC", "IOWA", "LSU")
-)
-paths <- unlist(lapply(names(teams), function(s) logo_from_team(teams[[s]], sport = s)))
-stopifnot(!anyNA(paths))
-set.seed(7)
-paths <- sample(paths)
-rows <- 3
-per_row <- 8
-half_width <- c(0.62, 0.56, 0.47)   # taper with the hexagon
-mosaic <- data.frame(
-  path = paths,
-  x = unlist(lapply(half_width, function(w) seq(-w, w, length.out = per_row))),
-  y = rep(c(-0.06, -0.32, -0.58), each = per_row)
-)
-
-p <- ggplot() +
-  annotation_raster(sky_raster, -sqrt(3) / 2, sqrt(3) / 2, -1, 1) +
-  geom_from_path(data = mosaic, aes(x, y, path = path), width = 0.08, alpha = 0.95) +
-  annotate("text", x = 0, y = 0.5, label = "sdvplotR", family = "chivo", fontface = "bold",
-           colour = "white", size = 6.6) +
-  geom_path(data = hex, aes(x, y), colour = edge, linewidth = 1.1, lineend = "round", linejoin = "round") +
-  coord_fixed(xlim = c(-sqrt(3) / 2 - 0.01, sqrt(3) / 2 + 0.01), ylim = c(-1.01, 1.01), expand = FALSE) +
-  theme_void() +
-  theme(plot.background = element_rect(fill = "transparent", colour = NA))
-
-ggsave("man/figures/logo.png", p, width = 1.9 * sqrt(3) / 2 * 1.02, height = 1.9 * 1.01, units = "in", dpi = 600, bg = "transparent")
-cat("wrote man/figures/logo.png\n")
+dir.create("man/figures", showWarnings = FALSE, recursive = TRUE)
+big <- save_hex(p, tempdir(), "sdvplotR-logo")
+file.copy(big, "man/figures/logo.png", overwrite = TRUE)
+cat("wrote man/figures/logo.png (1036 x 1200) with", paste(logo_teams, collapse = " "), "\n")
 
 # favicons for pkgdown (pkgdown::build_favicons() needs an external API)
 logo <- magick::image_trim(magick::image_read("man/figures/logo.png"))
