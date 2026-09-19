@@ -185,19 +185,19 @@ relevant SportsDataverse data package:
 
 | Sport | Vignette | Companion Package(s) |
 |-------|----------|----------------------|
-| **NFL** | [NFL Visualizations](nfl-viz.html) | `nflfastR`, `nflreadr` |
-| **CFB** | [CFB Visualizations](cfb-viz.html) | `cfbfastR`, `cfbseedR` |
-| **NBA** | [NBA Visualizations](nba-viz.html) | `hoopR` |
-| **WNBA** | [WNBA Visualizations](wnba-viz.html) | `wehoop` |
-| **MLB** | [MLB Visualizations](mlb-viz.html) | `baseballr` |
-| **NHL** | [NHL Visualizations](nhl-viz.html) | `fastRhockey` |
-| **MBB** | [MBB Visualizations](mbb-viz.html) | `hoopR`, `cfbseedR` |
-| **WBB** | [WBB Visualizations](wbb-viz.html) | `wehoop`, `cfbseedR` |
+| **NFL** | [NFL Visualizations](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.html) | `nflfastR`, `nflreadr` |
+| **CFB** | [CFB Visualizations](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.html) | `cfbfastR`, `cfbseedR` |
+| **NBA** | [NBA Visualizations](https://sdvplotR.sportsdataverse.org/articles/nba-viz.html) | `hoopR` |
+| **WNBA** | [WNBA Visualizations](https://sdvplotR.sportsdataverse.org/articles/wnba-viz.html) | `wehoop` |
+| **MLB** | [MLB Visualizations](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.html) | `baseballr` |
+| **NHL** | [NHL Visualizations](https://sdvplotR.sportsdataverse.org/articles/nhl-viz.html) | `fastRhockey` |
+| **MBB** | [MBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.html) | `hoopR`, `cfbseedR` |
+| **WBB** | [WBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html) | `wehoop`, `cfbseedR` |
 
 Cross-sport cookbook vignettes:
 
 | Topic | Vignette |
 |-------|----------|
-| Social media posting patterns | [Social Posting](social-posting.html) |
-| Leaderboard dashboards | [Leaderboard Dashboards](leaderboard-dashboards.html) |
-| End-to-end workflows | [Workflows](workflows.html) |
+| Social media posting patterns | [Social Posting](https://sdvplotR.sportsdataverse.org/articles/social-posting.html) |
+| Leaderboard dashboards | [Leaderboard Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.html) |
+| End-to-end workflows | [Workflows](https://sdvplotR.sportsdataverse.org/articles/workflows.html) |

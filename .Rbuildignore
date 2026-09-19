@@ -28,4 +28,5 @@
 ^man/figures/README-
 ^vignettes/(cfb|mbb|mlb|nba|nfl|nhl|wbb|wnba)-viz\.Rmd$
 ^vignettes/(leaderboard-dashboards|reactable-integration|social-posting|workflows)\.Rmd$
-^Rplots\.pdf$
+(^|/)Rplots\.pdf$
+^\.ruff_cache$

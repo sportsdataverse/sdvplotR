@@ -16,7 +16,7 @@
 #'   \item{**team**}{ - The team abbreviation. Should be one of [valid_team_names()].}
 #'   \item{`alpha = NULL`}{ - The alpha channel, i.e. transparency level, as a numerical value between 0 and 1.}
 #'   \item{`colour = NULL`}{ - The image will be colorized with this colour. Use `"b/w"` for black and white.}
-#'   \item{`angle = 0`}{ - The angle of the image as a numerical value between 0° and 360°.}
+#'   \item{`angle = 0`}{ - The angle of the image as a numerical value between 0 and 360 degrees.}
 #'   \item{`hjust = 0.5`}{ - The horizontal adjustment relative to the given x coordinate.}
 #'   \item{`vjust = 0.5`}{ - The vertical adjustment relative to the given y coordinate.}
 #'   \item{`width = 1.0`}{ - The desired width of the image in `npc`. A typical size is `width = 0.12`.}

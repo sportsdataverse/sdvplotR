@@ -6,7 +6,9 @@
 \alias{sdvplotR-package}
 \title{sdvplotR: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'}
 \description{
-A unified set of functions to visualize sports data across the National Football League, National Basketball Association, Women's National Basketball Association, Major League Baseball, National Hockey League, and college football and basketball in 'ggplot2' plots, 'gt' tables and 'reactable' tables. Team logos, wordmarks and player headshots can be drawn as geoms, as axis text and inside table cells, and team color scales map team identifiers to their official colors. Team abbreviations used by different data providers, including historical abbreviations of relocated franchises, are cleaned to one canonical key per sport. Built on 'ggpath' following the conventions of 'nflplotR' and designed to work with the companion 'SportsDataverse' data packages.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+A unified set of functions to visualize sports data across the National Football League, National Basketball Association, Women's National Basketball Association, Major League Baseball, National Hockey League, and college football and basketball in 'ggplot2' plots, 'gt' tables and 'reactable' tables. Team logos, wordmarks and player headshots can be drawn as plot layers, as axis text and inside table cells, and team color scales map team identifiers to their official colors. Team abbreviations used by different data providers, including historical abbreviations of relocated franchises, are cleaned to one canonical key per sport. Built on 'ggpath' following the conventions of 'nflplotR' and designed to work with the companion 'SportsDataverse' data packages.
 }
 \seealso{
 Useful links:

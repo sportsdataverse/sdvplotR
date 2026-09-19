@@ -31,7 +31,9 @@
 #'   [ggpath::element_raster()].
 #' @param ... Other arguments passed on to [ggpath::element_raster()].
 #'
-#' @return An S3 object of class `element`.
+#' @return `element_sdv_logo()`, `element_sdv_wordmark()` and
+#'   `element_sdv_headshot()` return an S3 object of class `element`;
+#'   `element_sdv_raster()` returns a [ggpath::element_raster()].
 #'
 #' @rdname element_sdv
 #' @seealso [ggpath::element_path()], [ggpath::element_raster()]

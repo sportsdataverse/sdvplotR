@@ -9,7 +9,7 @@ note <- sprintf("R package version %s", meta$Version)
 bibentry(
   bibtype  = "Misc",
   header   = "To cite the sdvplotR R package in publications, use:",
-  key      = "gilani_lee_carl_kay_sdvplotR",
+  key      = "gilani_carl_lee_kay_sdvplotR",
   author   = c(
     person("Saiem",     "Gilani", email = "saiem.gilani@gmail.com",
            comment = c(ORCID = "0000-0002-7194-9067")),

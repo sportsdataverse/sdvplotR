@@ -9,12 +9,23 @@
 #' @param team Character string or vector of team name(s) or abbreviation(s).
 #'   If `NULL`, returns colors for all teams.
 #' @param type Character string, `"primary"`, `"secondary"`, or `"all"`.
-#'   If `"all"`, returns a data frame with both colors.
 #'
-#' @return Character vector of hex color codes, or a data frame if `type = "all"`.
+#' @return With `team` supplied, a named character vector (one element per
+#'   team, `NA` for unmatched teams): the primary or secondary hex code, or for
+#'   `type = "all"` the two codes as one `"primary, secondary"` string. With
+#'   `team = NULL` and `type = "all"`, a data frame with columns:
+#'
+#'   | col_name | type | description |
+#'   |---|---|---|
+#'   | team_abbr | character | Canonical team abbreviation |
+#'   | team_name | character | Full team name |
+#'   | primary | character | Primary team color (hex) |
+#'   | secondary | character | Secondary team color (hex) |
+#'
+#'   With `team = NULL` and any other `type`, a named character vector of
+#'   every team's color.
 #' @export
 #' @examples
-#' \donttest{
 #' # Get primary color for Kansas City Chiefs
 #' sdv_team_colors("nfl", "KC")
 #'
@@ -23,7 +34,6 @@
 #'
 #' # Get all NFL team primary colors
 #' sdv_team_colors("nfl", type = "primary")
-#' }
 sdv_team_colors <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     team = NULL,
@@ -99,9 +109,7 @@ sdv_team_colors <- function(
 #' @return Named character vector of colors.
 #' @export
 #' @examples
-#' \donttest{
-#' palette <- sdv_color_palette("nfl", c("KC", "BUF", "SF"))
-#' }
+#' sdv_color_palette("nfl", c("KC", "BUF", "SF"))
 sdv_color_palette <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     teams = NULL,

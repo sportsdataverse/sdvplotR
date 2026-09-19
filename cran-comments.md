@@ -13,7 +13,13 @@ the conventions of 'nflplotR' (CRAN).
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
+
+* This is a new submission.
+
+`urlchecker::url_check()` is clean. Words flagged as possibly misspelled in
+the DESCRIPTION (`headshots`, `wordmarks`) are the sports-media terms for
+player portrait images and text-only team logos.
 
 On Windows with R 4.6.1 the local check additionally reports
 
@@ -31,8 +37,10 @@ not occur on Linux, macOS, or R 4.6.0 and earlier.
 
 * All images are fetched at plot time from public league CDNs (ESPN,
   nflverse) through 'ggpath' and cached for the session; no image files are
-  bundled. Examples that download images are wrapped in `\donttest{}`, and
-  the one test that renders images skips on CRAN.
+  bundled. Examples that download images are wrapped in `\donttest{}` so the
+  routine CRAN checks skip them (as 'nflplotR' and 'ggpath' do); they pass
+  locally under `--as-cran`, which runs them, on a networked machine. The one
+  test that renders images skips on CRAN.
 * The vignette evaluates only offline code (the reference data shipped in
   the package).
 * There are no published references describing the methods in this package;

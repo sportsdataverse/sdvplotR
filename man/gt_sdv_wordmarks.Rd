@@ -35,6 +35,15 @@ An object of class \code{gt_tbl}.
 Translate team abbreviations into wordmarks and render these
 images in html tables with the 'gt' package.
 }
+\examples{
+\donttest{
+library(gt)
+df <- data.frame(team = c("KC", "BUF", "SF"), wins = c(14, 13, 12))
+df |>
+  gt() |>
+  gt_sdv_wordmarks(columns = "team", sport = "nfl")
+}
+}
 \seealso{
 \code{\link[=gt_sdv_logos]{gt_sdv_logos()}}, \code{\link[=gt_sdv_headshots]{gt_sdv_headshots()}}, \code{\link[=gt_sdv_cols_label]{gt_sdv_cols_label()}}
 }

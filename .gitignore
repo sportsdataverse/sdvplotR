@@ -34,3 +34,4 @@ dev/
 Thumbs.db
 *.swp
 *~
+.ruff_cache/

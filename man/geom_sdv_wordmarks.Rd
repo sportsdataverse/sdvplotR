@@ -131,7 +131,7 @@ team abbreviation. The latter can be checked with \code{\link[=valid_team_names]
 \item{\strong{team}}{ - The team abbreviation. Should be one of \code{\link[=valid_team_names]{valid_team_names()}}.}
 \item{\code{alpha = NULL}}{ - The alpha channel, i.e. transparency level, as a numerical value between 0 and 1.}
 \item{\code{colour = NULL}}{ - The image will be colorized with this colour. Use \code{"b/w"} for black and white.}
-\item{\code{angle = 0}}{ - The angle of the image as a numerical value between 0° and 360°.}
+\item{\code{angle = 0}}{ - The angle of the image as a numerical value between 0 and 360 degrees.}
 \item{\code{hjust = 0.5}}{ - The horizontal adjustment relative to the given x coordinate.}
 \item{\code{vjust = 0.5}}{ - The vertical adjustment relative to the given y coordinate.}
 \item{\code{width = 1.0}}{ - The desired width of the image in \code{npc}. A typical size is \code{width = 0.12}.}

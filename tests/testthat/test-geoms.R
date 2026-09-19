@@ -53,6 +53,8 @@ test_that("ggtitle_image resolves team logos and places the image", {
   expect_match(l$title, "^<img src='https://.*kc\\.png' height='15'.*> Chiefs$")
   r <- ggtitle_image("https://example.com/x.png", "T", image_side = "right", sport = "nba")
   expect_match(r$title, "^T <img src='https://example.com/x.png'")
+  expect_error(ggtitle_image(sport = "nfl"), "title_image")
+  expect_match(ggtitle_image("KC", sport = "nfl")$title, "^<img")
 })
 
 test_that("sdv_team_tiers builds a plot and validates input", {

@@ -1,90 +1,165 @@
-/* Custom CSS for sdvplotR pkgdown site */
+/* sdvplotR pkgdown theme -- the SportsDataverse house recipe (cfbfastR / hoopR /
+   fastRhockey share it): Lato body, Chivo headings, Fira Mono code and navbar,
+   Bungee brand with a glow, written for Bootstrap 5 (bare .navbar-brand /
+   .navbar-nav selectors; BS5 has no .navbar-dark class). Palette: the hex logo's
+   navy sky and the SDV gradient (#3346F0 -> #7FE6DC). */
 
-/* SportsDataverse primary navy */
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;800');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
 :root {
-  --sdv-navy: #003366;
+  --sdv-navy: #0B1A33;
+  --sdv-navy-2: #16305C;
+  --sdv-blue: #3346F0;
+  --sdv-cyan: #7FE6DC;
+  --sdv-ice: #9CCBFF;
   --sdv-accent: #2680E4;
-  --sdv-success: #1b9e77;
+  --sdv-glow: #7FE6DC;
 }
 
-/* Navbar styling */
-.navbar {
-  background-color: var(--sdv-navy) !important;
+/* ---- type -------------------------------------------------------------- */
+body {
+  font-family: "Lato", "Segoe UI", system-ui, sans-serif;
+  color: #0f0f0f;
+  font-size: 18px;
 }
-
-.navbar-brand {
-  font-weight: 600;
-  color: #fff !important;
+h1, h2, .h1, .h2 {
+  font-family: "Chivo", "Lato", sans-serif;
+  letter-spacing: 1px;
+  line-height: 2.2rem;
+  color: #0f0f0f;
+  font-weight: 500;
 }
-
-.navbar-brand:hover {
-  color: var(--sdv-accent) !important;
+h3, h4, h5, h6, .h3, .h4 {
+  font-family: "Chivo", "Lato", sans-serif;
+  letter-spacing: 1px;
+  line-height: 1.8rem;
+  color: #0f0f0f;
+  font-weight: 500;
 }
-
-/* Hero section */
-.pkgdown-hero {
-  background: linear-gradient(135deg, #003366 0%, #2680E4 100%);
-  color: white;
-  padding: 3rem 2rem;
-  border-radius: 0.5rem;
-  margin-bottom: 2rem;
+pre, code {
+  font-family: "Fira Mono", Consolas, Inconsolata, monospace;
 }
-
-.pkgdown-hero h1 {
-  color: white !important;
-  font-size: 2.5rem;
-  font-weight: 700;
-}
-
-/* Code blocks */
 pre {
   border-left: 4px solid var(--sdv-accent);
   border-radius: 0.25rem;
 }
+.figure { margin-top: 10px; margin-bottom: 10px; }
 
-code {
-  color: var(--sdv-navy);
+/* ---- navbar (BS5 markup: <nav class="navbar"> ... <a class="nav-link">) ---- */
+.navbar {
+  background-color: var(--sdv-navy) !important;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 8px var(--sdv-glow), 0 0 10px var(--sdv-glow); }
+  to   { text-shadow: 0 0 10px var(--sdv-glow), 0 0 14px var(--sdv-glow); }
+}
+.navbar-brand {
+  font-family: "Bungee", "Chivo", sans-serif;
+  font-size: 16px;
+  color: var(--sdv-cyan) !important;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+small.nav-text.text-muted {
+  color: var(--sdv-ice) !important;
+}
+.navbar-nav .nav-link {
+  font-family: "Fira Mono", monospace;
+  font-size: small;
+  color: #B7C4DA;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active,
+.navbar-nav .show > .nav-link {
+  color: #ffffff;
+  background: var(--sdv-navy-2);
+  border-radius: 0.25rem;
+}
+.navbar input[type="search"] {
+  border-color: #3b4f78;
+  background-color: #ffffff;
+  color: #3b3e3f;
+}
+.dropdown-menu {
+  box-shadow: 0 6px 12px rgba(5, 5, 5, 0.18);
+  background-color: var(--sdv-navy);
+}
+.dropdown-header {
+  font-family: "Chivo", sans-serif;
+  letter-spacing: 0.1px;
+  line-height: 1.3rem;
+  color: var(--sdv-cyan);
+  font-weight: 700;
+  font-size: 14px;
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+.dropdown-item {
+  color: #EAEBEC;
+  font-family: "Fira Mono", monospace;
+  font-size: small;
+}
+.dropdown-item:hover, .dropdown-item:focus {
+  color: #fff;
+  background-color: var(--sdv-navy-2);
+}
+.dropdown-divider {
+  border-top: 1px solid #ffffff;
+}
+[role="button"] { color: var(--sdv-ice); }
+
+/* ---- sidebar / toc ------------------------------------------------------ */
+#toc ul.nav li a {
+  font-family: "Fira Mono", monospace;
+  margin-left: 5px;
+  font-size: 14px;
+  line-height: 1.65rem;
 }
 
-/* Reference index sections */
+/* ---- reference index ----------------------------------------------------- */
 .reference-index h2 {
-  color: var(--sdv-navy);
   border-bottom: 2px solid var(--sdv-accent);
   padding-bottom: 0.5rem;
   margin-top: 2rem;
 }
 
-/* Footer */
+/* ---- articles index: rule between per-sport and cookbook groups ---------- */
+.template-article-index main .section + .section {
+  border-top: 1px solid rgba(128, 132, 128, 0.35);
+  margin-top: 2.25rem;
+  padding-top: 1.75rem;
+}
+
 footer {
   border-top: 2px solid var(--sdv-accent);
   padding-top: 1rem;
   margin-top: 2rem;
 }
+.pkgdown-footer-right { display: none; }
 
-/* Light / dark mode overrides */
-[data-bs-theme="dark"] {
-  --sdv-navy: #4da6ff;
-  --sdv-accent: #6cb4f5;
+/* ---- dark mode: content only, navbar/glow untouched ---------------------- */
+[data-bs-theme="dark"] body { color: #EAEBEC; }
+[data-bs-theme="dark"] :is(#main, aside) h1,
+[data-bs-theme="dark"] :is(#main, aside) h2,
+[data-bs-theme="dark"] :is(#main, aside) h3,
+[data-bs-theme="dark"] :is(#main, aside) h4,
+[data-bs-theme="dark"] :is(#main, aside) h5,
+[data-bs-theme="dark"] :is(#main, aside) h6,
+[data-bs-theme="dark"] :is(#main, aside) .h1,
+[data-bs-theme="dark"] :is(#main, aside) .h2,
+[data-bs-theme="dark"] :is(#main, aside) .h3,
+[data-bs-theme="dark"] :is(#main, aside) .h4 {
+  color: #EAEBEC;
 }
+[data-bs-theme="dark"] :is(#main, aside) a { color: var(--sdv-ice); }
+[data-bs-theme="dark"] pre { border-left-color: var(--sdv-cyan); }
 
-[data-bs-theme="dark"] .navbar {
-  background-color: #1a1a1a !important;
-}
-
-[data-bs-theme="dark"] pre {
-  border-left-color: var(--sdv-accent);
-}
-
-/* Sport-specific color accents (optional, for future use) */
-.sport-nfl { --sport-color: #013369; }
-.sport-nba { --sport-color: #17408B; }
-.sport-mlb { --sport-color: #002D72; }
-.sport-nhl { --sport-color: #000000; }
-.sport-cfb { --sport-color: #CFB200; }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .pkgdown-hero h1 {
-    font-size: 1.75rem;
+/* ---- honour reduced-motion: keep the glow, stop it pulsing ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-brand, .dropdown-header {
+    animation: none;
+    text-shadow: 0 0 8px var(--sdv-glow);
   }
 }

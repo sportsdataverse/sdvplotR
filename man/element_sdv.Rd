@@ -73,7 +73,9 @@ for black and white.}
 \item{...}{Other arguments passed on to \code{\link[ggpath:element_raster]{ggpath::element_raster()}}.}
 }
 \value{
-An S3 object of class \code{element}.
+\code{element_sdv_logo()}, \code{element_sdv_wordmark()} and
+\code{element_sdv_headshot()} return an S3 object of class \code{element};
+\code{element_sdv_raster()} returns a \code{\link[ggpath:element_raster]{ggpath::element_raster()}}.
 }
 \description{
 In conjunction with the \link[ggplot2:theme]{ggplot2::theme} system, the following \code{element_}

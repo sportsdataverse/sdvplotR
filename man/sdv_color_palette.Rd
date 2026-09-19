@@ -26,7 +26,5 @@ Returns a color palette for a given sport, suitable for use with
 ggplot2 \code{scale_fill_manual} or \code{scale_color_manual}.
 }
 \examples{
-\donttest{
-palette <- sdv_color_palette("nfl", c("KC", "BUF", "SF"))
-}
+sdv_color_palette("nfl", c("KC", "BUF", "SF"))
 }

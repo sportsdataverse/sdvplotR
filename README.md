@@ -156,10 +156,8 @@ Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration
 ·
 [Workflows](https://sdvplotR.sportsdataverse.org/articles/workflows.html)
 
-There is also a printable [**`sdvplotR` cheat sheet
-(PDF)**](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf), one of
-[a set covering every SportsDataverse
-package](https://sportsdataverse.org/cheatsheets).
+A printable `sdvplotR` cheat sheet will join [the set covering every
+SportsDataverse package](https://sportsdataverse.org/cheatsheets).
 
 ## **The SportsDataverse**
 

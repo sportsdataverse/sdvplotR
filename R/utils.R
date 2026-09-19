@@ -49,7 +49,25 @@ valid_team_names <- function(
 #'   conference / division.
 #'
 #' @inheritParams valid_team_names
-#' @return A data frame with one row per team.
+#' @return A data frame with one row per team and columns:
+#'
+#'   | col_name | type | description |
+#'   |---|---|---|
+#'   | sport | character | Sport key (`"nfl"`, `"nba"`, ...) |
+#'   | espn_team_id | character | ESPN team id |
+#'   | team_abbr | character | Canonical team abbreviation |
+#'   | team_name | character | Full team name |
+#'   | team_short_name | character | Short display name |
+#'   | team_location | character | City / school |
+#'   | team_mascot | character | Mascot / nickname |
+#'   | logo_url | character | Primary logo URL |
+#'   | logo_dark_url | character | Dark-background logo URL |
+#'   | logo_scoreboard_url | character | Scoreboard logo URL |
+#'   | wordmark_url | character | Wordmark URL (`NA` when none) |
+#'   | color1 | character | Primary team color (hex) |
+#'   | color2 | character | Secondary team color (hex) |
+#'   | conference | character | Conference (`NA` for leagues without) |
+#'   | division | character | Division (`NA` for leagues without) |
 #' @export
 #' @examples
 #' team_reference("nfl")
@@ -210,7 +228,7 @@ headshot_html <- function(player_id, sport, type = c("height", "width"), size = 
 sdvplotR_clear_cache <- function() {
   if ("clear_cache" %in% getNamespaceExports("ggpath")) {
     getExportedValue("ggpath", "clear_cache")()
+    cli::cli_alert_success("sdvplotR image cache cleared.")
   }
-  cli::cli_alert_success("sdvplotR image cache cleared.")
   invisible(NULL)
 }

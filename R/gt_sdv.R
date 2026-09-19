@@ -64,6 +64,14 @@ gt_sdv_logos <- function(
 #' @return An object of class `gt_tbl`.
 #' @seealso [gt_sdv_logos()], [gt_sdv_headshots()], [gt_sdv_cols_label()]
 #' @export
+#' @examples
+#' \donttest{
+#' library(gt)
+#' df <- data.frame(team = c("KC", "BUF", "SF"), wins = c(14, 13, 12))
+#' df |>
+#'   gt() |>
+#'   gt_sdv_wordmarks(columns = "team", sport = "nfl")
+#' }
 gt_sdv_wordmarks <- function(
     gt_object,
     columns,

@@ -5,7 +5,7 @@ description: "Sports team logo plots in ggplot2, gt and reactable across the Spo
 template:
   bootstrap: 5
   light-switch: true
-  bootswatch: cosmo
+  bootswatch: flatly
   includes:
     in_header: |
       <script defer data-domain="sdvplotr.sportsdataverse.org" src="https://plausible.io/js/plausible.js"></script>

@@ -136,11 +136,7 @@ sdv_team_tiers <- function(
       limits = rev(c(min(tiers) - 0.5, max(tiers) + 0.5)),
       breaks = rev(tiers),
       labels = function(x) {
-        if (requireNamespace("sjmisc", quietly = TRUE)) {
-          sjmisc::word_wrap(tier_desc[x], 15)
-        } else {
-          tier_desc[x]
-        }
+        vapply(tier_desc[x], function(s) paste(strwrap(s, 15), collapse = "\n"), "")
       },
       transform = "reverse"
     ) +

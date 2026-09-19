@@ -56,13 +56,17 @@ ggtitle_image <- function(
   image_side <- match.arg(image_side)
   sport <- rlang::arg_match0(sport, supported_sports())
 
+  if (inherits(title_image, "waiver")) {
+    cli::cli_abort("{.arg title_image} must be a team abbreviation or an image URL.")
+  }
+  if (inherits(title, "waiver")) title <- ""
+
   # If title_image is a valid team name, use its logo
   team_check <- clean_team_abbrs(
     title_image,
     sport = sport,
     keep_non_matches = FALSE
   )
-
   if (!is.na(team_check)) {
     title_image <- logo_from_team(team_check, sport = sport)
   }
@@ -73,10 +77,11 @@ ggtitle_image <- function(
     "' style='vertical-align: middle;'>"
   )
 
-  title <- dplyr::case_when(
-    image_side == "right" ~ paste(title, title_image_tag),
-    TRUE ~ paste(title_image_tag, title)
-  )
+  title <- if (image_side == "right") {
+    paste(title, title_image_tag)
+  } else {
+    paste(title_image_tag, title)
+  }
 
   ggplot2::labs(title = title, subtitle = subtitle)
 }
