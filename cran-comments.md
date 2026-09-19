@@ -15,6 +15,18 @@ the conventions of 'nflplotR' (CRAN).
 
 0 errors | 0 warnings | 0 notes
 
+On Windows with R 4.6.1 the local check additionally reports
+
+    checking for non-standard things in the check directory ... NOTE
+    Found the following files/directories: ''NULL''
+
+This is not produced by package code: `R CMD check` runs examples and tests
+with `R_LIBS_USER='NULL'` (`tools:::setRlibs`), and R 4.6.1 on Windows creates
+the `R_LIBS_USER` directory at startup, so an empty directory literally named
+`'NULL'` appears in the check directory. It reproduces with any package, e.g.
+`R_LIBS_USER="'NULL'" Rscript --vanilla -e 1` in an empty directory, and does
+not occur on Linux, macOS, or R 4.6.0 and earlier.
+
 ## Notes for the CRAN team
 
 * All images are fetched at plot time from public league CDNs (ESPN,
