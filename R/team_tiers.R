@@ -136,7 +136,7 @@ sdv_team_tiers <- function(
       limits = rev(c(min(tiers) - 0.5, max(tiers) + 0.5)),
       breaks = rev(tiers),
       labels = function(x) {
-        vapply(tier_desc[x], function(s) paste(strwrap(s, 15), collapse = "\n"), "")
+        vapply(tier_desc[as.character(x)], function(s) paste(strwrap(s, 15), collapse = "\n"), "")
       },
       transform = "reverse"
     ) +
