@@ -1,37 +1,47 @@
 # Build the sdvplotR hex logo (man/figures/logo.png) with the package itself.
 # ============================================================================
-# Design: the SportsDataverse starfield navy hex, a brick mosaic of team logos
-# from all eight leagues drawn with geom_sdv_logos(), and the package name with
-# the "R" picked out in the SportsDataverse accent blue.
+# Design: the SportsDataverse starfield (the org's brand background) masked to
+# a hex, a brick mosaic of team logos from all eight leagues drawn with the
+# package's own geom_from_path(), and the package name in plain bold white.
 #
 # Run from the package root:  Rscript data-raw/hex_logo.R
-# Requires: ggplot2, ggpath, showtext, ragg (dev-only).
+# Requires: ggplot2, ggpath, showtext, magick (dev-only).
 
 devtools::load_all(quiet = TRUE)
 library(ggplot2)
 
 navy <- "#0B1A33"
-accent <- "#2680E4"
-ice <- "#9CCBFF"
+edge <- "#071224"
 
-sysfonts::font_add_google("Exo 2", "exo", bold.wt = 800)
+sysfonts::font_add_google("Chivo", "chivo", bold.wt = 800)
 showtext::showtext_opts(dpi = 600)
 showtext::showtext_auto()
 
-# pointy-top hexagon with circumradius 1
+# pointy-top hexagon with circumradius 1 (width sqrt(3), height 2)
 hex <- data.frame(
   x = cos(seq(pi / 2, 2 * pi + pi / 2, length.out = 7)),
   y = sin(seq(pi / 2, 2 * pi + pi / 2, length.out = 7))
 )
-in_hex <- function(x, y, r = 1) abs(x) <= r * sqrt(3) / 2 & abs(y) <= r - abs(x) / sqrt(3)
 
-# starfield background
-set.seed(2026)
-stars <- data.frame(x = runif(3000, -1, 1), y = runif(3000, -1, 1))
-stars <- stars[in_hex(stars$x, stars$y, 0.985), ]
-stars$size <- rexp(nrow(stars), 14) + 0.03
-stars$alpha <- runif(nrow(stars), 0.15, 0.9)
-stars <- stars[order(stars$size), ][seq_len(min(700, nrow(stars))), ]
+# Background: the SportsDataverse starfield (sdv-web brand asset), with the
+# SDV mark in the centre patched over by a clean strip of the same sky, then
+# masked to the hexagon.
+sky <- magick::image_read("data-raw/sdv-starfield.png")          # 1200 x 1200
+sky <- magick::image_crop(sky, "1040x1200+80+0")                  # hex aspect
+# feathered patch of clean sky (from above the mark) laid over the mark
+patch <- magick::image_crop(sky, "760x480+140+0")
+feather <- magick::image_draw(magick::image_blank(760, 480, "none"))
+rect(80, 80, 680, 400, col = "white", border = NA)
+dev.off()
+feather <- magick::image_blur(feather, radius = 0, sigma = 40)
+patch <- magick::image_composite(feather, patch, operator = "In")
+sky <- magick::image_composite(sky, patch, operator = "Over", offset = "+140+370")
+# mask to the hexagon (source-in)
+hex_mask <- magick::image_draw(magick::image_blank(1040, 1200, "none"))
+polygon(520 + 520 * hex$x / (sqrt(3) / 2), 600 - 600 * hex$y, col = "white", border = NA)
+dev.off()
+sky <- magick::image_composite(hex_mask, sky, operator = "In")
+sky_raster <- as.raster(sky)
 
 # three logos per league, laid out as a staggered brick mosaic
 teams <- list(
@@ -58,23 +68,16 @@ mosaic <- data.frame(
 )
 
 p <- ggplot() +
-  geom_polygon(data = hex, aes(x, y), fill = navy, colour = NA) +
-  scale_size_identity() +
-  geom_point(data = stars, aes(x, y, size = size, alpha = alpha), colour = "white", shape = 16) +
-  scale_alpha_identity() +
+  annotation_raster(sky_raster, -sqrt(3) / 2, sqrt(3) / 2, -1, 1) +
   geom_from_path(data = mosaic, aes(x, y, path = path), width = 0.08, alpha = 0.95) +
-  annotate("text", x = 0.17, y = 0.54, label = "sdvplot", family = "exo", fontface = "bold.italic",
-           colour = "white", size = 6.4, hjust = 1) +
-  annotate("text", x = 0.17, y = 0.54, label = "R", family = "exo", fontface = "bold.italic",
-           colour = accent, size = 8.4, hjust = 0) +
-  annotate("text", x = 0, y = 0.28, label = "S P O R T S D A T A V E R S E", family = "exo",
-           colour = ice, size = 1.6, alpha = 0.9) +
-  geom_path(data = hex, aes(x, y), colour = accent, linewidth = 3.2, lineend = "round") +
-  coord_fixed(xlim = c(-0.95, 0.95), ylim = c(-1.05, 1.05), expand = FALSE) +
+  annotate("text", x = 0, y = 0.5, label = "sdvplotR", family = "chivo", fontface = "bold",
+           colour = "white", size = 6.6) +
+  geom_path(data = hex, aes(x, y), colour = edge, linewidth = 1.1, lineend = "round", linejoin = "round") +
+  coord_fixed(xlim = c(-sqrt(3) / 2 - 0.01, sqrt(3) / 2 + 0.01), ylim = c(-1.01, 1.01), expand = FALSE) +
   theme_void() +
   theme(plot.background = element_rect(fill = "transparent", colour = NA))
 
-ggsave("man/figures/logo.png", p, width = 1.9, height = 2.1, units = "in", dpi = 600, bg = "transparent")
+ggsave("man/figures/logo.png", p, width = 1.9 * sqrt(3) / 2 * 1.02, height = 1.9 * 1.01, units = "in", dpi = 600, bg = "transparent")
 cat("wrote man/figures/logo.png\n")
 
 # favicons for pkgdown (pkgdown::build_favicons() needs an external API)
