@@ -53,7 +53,6 @@
 gt_theme_drench <- function(gt_object, color = "#123F5E",
                             density = c("comfortable", "compact", "social"),
                             ...) {
-
   .check_gt(gt_object)
   d <- .theme_density(density)
 
@@ -72,50 +71,52 @@ gt_theme_drench <- function(gt_object, color = "#123F5E",
   gt_object <- res$object
   table_id <- res$id
 
-  gt_object %>%
+  gt_object |>
     gt::opt_table_font(
       font = list(gt::google_font("Gabarito"), gt::default_fonts())
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_body(),
       style = gt::cell_text(color = on_color, size = gt::px(d$body), weight = 500)
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_title("title"),
       style = gt::cell_text(weight = 700, size = gt::px(d$title + 2), color = on_color)
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_title("subtitle"),
       style = gt::cell_text(weight = 400, size = gt::px(d$subtitle), color = secondary)
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_column_labels(),
       style = gt::cell_text(
         weight = 700, size = gt::px(d$label), color = secondary, transform = "uppercase"
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_column_spanners(),
       style = gt::cell_text(
         weight = 700, size = gt::px(d$label), color = secondary, transform = "uppercase"
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_row_groups(),
       style = list(
-        gt::cell_text(weight = 700, size = gt::px(d$group), color = on_color,
-                      transform = "uppercase"),
+        gt::cell_text(
+          weight = 700, size = gt::px(d$group), color = on_color,
+          transform = "uppercase"
+        ),
         gt::cell_fill(color = surface)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_source_notes(),
       style = gt::cell_text(size = gt::px(d$source), color = secondary)
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_footnotes(),
       style = gt::cell_text(size = gt::px(d$source), color = secondary)
-    ) %>%
+    ) |>
     gt::tab_options(
       table.background.color = color,
       heading.background.color = color,
@@ -125,42 +126,38 @@ gt_theme_drench <- function(gt_object, color = "#123F5E",
       source_notes.background.color = color,
       table.font.size = gt::px(d$body),
       data_row.padding = gt::px(d$pad + 1),
-
       table.border.top.style = "none",
       table.border.bottom.style = "none",
-
       heading.align = "left",
       heading.border.bottom.style = "none",
       heading.padding = gt::px(d$pad + 2),
-
       column_labels.border.top.style = "none",
       column_labels.border.bottom.style = "solid",
       column_labels.border.bottom.width = gt::px(1),
       column_labels.border.bottom.color = rule,
       column_labels.padding = gt::px(d$pad + 1),
-
       table_body.border.top.style = "none",
       table_body.hlines.color = rule,
       table_body.hlines.width = gt::px(1),
       table_body.border.bottom.style = "none",
-
       row_group.border.top.style = "none",
       row_group.border.bottom.style = "none",
       row_group.padding = gt::px(max(d$pad - 1, 3)),
-
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 2),
       footnotes.border.bottom.style = "none",
       ...
-    ) %>%
+    ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, color),
       # light type on a saturated ground reads lighter than it is
       if (!dark_type) paste0("#", table_id, " td, #", table_id, " th { line-height: 1.55; }") else "",
-      paste0("#", table_id, " .gt_col_heading, #", table_id,
-             " .gt_column_spanner { letter-spacing: 0.08em; }"),
+      paste0(
+        "#", table_id, " .gt_col_heading, #", table_id,
+        " .gt_column_spanner { letter-spacing: 0.08em; }"
+      ),
       paste0("#", table_id, " .gt_group_heading { letter-spacing: 0.06em; }"),
       paste0("#", table_id, " .gt_subtitle { padding-bottom: ", d$pad + 8, "px !important; }"),
       paste0("#", table_id, " .gt_title { padding-bottom: ", ceiling(d$pad / 2), "px !important; }")

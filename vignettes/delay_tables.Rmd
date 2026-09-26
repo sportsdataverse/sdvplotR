@@ -133,8 +133,10 @@ d2 <- nycflights13::flights %>%
   ) %>%
   arrange(desc(avg_delay)) %>%
   slice(c(1:8, (n() - 7):n())) %>%
-  mutate(dest = airport_dict[dest],
-         dest = ifelse(is.na(dest), "Luis Munoz Marin Intl", dest)) %>%
+  mutate(
+    dest = airport_dict[dest],
+    dest = ifelse(is.na(dest), "Luis Munoz Marin Intl", dest)
+  ) %>%
   select(dest, flights, avg_delay)
 ```
 

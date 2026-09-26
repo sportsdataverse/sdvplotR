@@ -53,28 +53,28 @@ gt_theme_gtutils <- function(gt_object,
   table_id <- res$id
   data <- gt_object[["_data"]]
 
-  table <- gt_object %>%
+  table <- gt_object |>
     gt::opt_table_font(
       font = list(
         gt::google_font("Almarai"),
         gt::default_fonts()
       ),
       weight = 500
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_title("title"),
       style = gt::cell_text(
         font = gt::google_font("Signika Negative"),
         weight = 650
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_title("subtitle"),
       style = gt::cell_text(
         font = gt::google_font("Signika Negative"),
         weight = 500
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_column_labels(
         columns = gt::everything()
@@ -84,7 +84,7 @@ gt_theme_gtutils <- function(gt_object,
         weight = 650,
         size = px(14)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_column_spanners(),
       style = gt::cell_text(
@@ -92,7 +92,7 @@ gt_theme_gtutils <- function(gt_object,
         weight = 650,
         size = px(13)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_row_groups(),
       style = list(
@@ -106,29 +106,29 @@ gt_theme_gtutils <- function(gt_object,
           color = "#8A817C"
         )
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_source_notes(),
       style = gt::cell_text(
         font = gt::google_font("Almarai"),
         size = px(12)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_footnotes(),
       style = gt::cell_text(
         font = gt::google_font("Almarai"),
         size = px(12)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_body(rows = 1:(nrow(data) - 1)),
       style = gt::cell_borders(sides = "bottom", color = "#8A817C")
-    ) %>%
+    ) |>
     gt::cols_align(
       align = "center",
       columns = gt::everything()
-    ) %>%
+    ) |>
     gt::tab_options(
       data_row.padding = 1,
       table_body.hlines.color = "transparent",
@@ -157,7 +157,7 @@ gt_theme_gtutils <- function(gt_object,
       table.border.bottom.color = "#FFFDF5",
       table.border.left.color = "#FFFDF5",
       ...
-    ) %>%
+    ) |>
     gt::opt_css(c(
       paste0(
         "#",
@@ -192,8 +192,4 @@ gt_theme_gtutils <- function(gt_object,
     ))
 
   .theme_scale_output(table, density)
-
 }
-
-
-

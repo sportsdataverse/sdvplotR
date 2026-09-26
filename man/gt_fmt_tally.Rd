@@ -94,8 +94,10 @@ gt(suites) \%>\% gt_fmt_tally(c(Passed, Failed), share = TRUE)
 
 # the failure rate instead, in its own column
 gt(suites) \%>\%
-  gt_fmt_tally(c(Passed, Failed), share = TRUE, share_of = "Failed",
-               share_location = "column", share_label = "Fail rate")
+  gt_fmt_tally(c(Passed, Failed),
+    share = TRUE, share_of = "Failed",
+    share_location = "column", share_label = "Fail rate"
+  )
 
 # three counts, as in a league table
 league <- data.frame(

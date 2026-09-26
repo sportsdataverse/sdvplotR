@@ -35,7 +35,6 @@
 #' @importFrom magrittr %>%
 #' @export
 gt_fmt_rank <- function(gt_object, columns, superscript = TRUE, suffix_size = "0.7em") {
-
   .check_gt(gt_object)
 
   ordinal_suffix <- function(n) {
@@ -47,7 +46,7 @@ gt_fmt_rank <- function(gt_object, columns, superscript = TRUE, suffix_size = "0
     s
   }
 
-  gt_object %>%
+  gt_object |>
     gt::text_transform(
       locations = gt::cells_body(columns = {{ columns }}),
       fn = function(x) {

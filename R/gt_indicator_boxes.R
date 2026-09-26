@@ -77,8 +77,10 @@
 #'
 #' # print the underlying values and draw a border
 #' gt(roster) %>%
-#'   gt_indicator_boxes(key_columns = "player", show_text = TRUE,
-#'                      border_color = "#333333")
+#'   gt_indicator_boxes(
+#'     key_columns = "player", show_text = TRUE,
+#'     border_color = "#333333"
+#'   )
 #' }
 #'
 #' @export
@@ -91,7 +93,6 @@ gt_indicator_boxes <- function(gt_object, columns = NULL, key_columns = NULL,
                                color_na = NULL, border_color = NULL, border_width = 0.25,
                                box_width = 20, box_height = 20,
                                text_size = 12, text_weight = "bold") {
-
   .check_gt(gt_object)
 
   color_na <- color_na %||% color_no
@@ -143,11 +144,12 @@ gt_indicator_boxes <- function(gt_object, columns = NULL, key_columns = NULL,
     }
 
     formatted_value <- switch(format_type,
-                              "currency" = paste0("$", core),
-                              "percent" = paste0(core, "%"),
-                              core)
+      "currency" = paste0("$", core),
+      "percent" = paste0(core, "%"),
+      core
+    )
 
-    return(paste0(formatted_value, suffix))
+    paste0(formatted_value, suffix)
   }
 
   gt_object <- Reduce(
@@ -165,7 +167,7 @@ gt_indicator_boxes <- function(gt_object, columns = NULL, key_columns = NULL,
         max_width <- box_width
       }
 
-      tbl %>%
+      tbl |>
         text_transform(
           locations = cells_body(columns = {{ col_name }}),
           fn = function(x) {
@@ -173,10 +175,12 @@ gt_indicator_boxes <- function(gt_object, columns = NULL, key_columns = NULL,
 
             color <- if (length(formals(indicator_rule)) == 2) {
               ifelse(is.na(numeric_x), color_na,
-                     ifelse(indicator_rule(numeric_x, col_name), color_yes, color_no))
+                ifelse(indicator_rule(numeric_x, col_name), color_yes, color_no)
+              )
             } else {
               ifelse(is.na(numeric_x), color_na,
-                     ifelse(indicator_rule(numeric_x), color_yes, color_no))
+                ifelse(indicator_rule(numeric_x), color_yes, color_no)
+              )
             }
 
             color[is.na(color)] <- color_no
@@ -204,7 +208,12 @@ gt_indicator_boxes <- function(gt_object, columns = NULL, key_columns = NULL,
               box_width_final <- box_width
             }
 
-            glue::glue("<span style='display:inline-block; width:{box_width_final}px; height:{box_height}px; line-height:{box_height}px; background-color: {color}; color: {text_color}; vertical-align:middle; margin:4px 1px; font-size: {text_size}px; font-weight: {text_weight}; text-align:center; {border_style}'>{text_content}</span>")
+            glue::glue(
+              "<span style='display:inline-block; width:{box_width_final}px; height:{box_height}px; ",
+              "line-height:{box_height}px; background-color: {color}; color: {text_color}; vertical-align:middle; ",
+              "margin:4px 1px; font-size: {text_size}px; font-weight: {text_weight}; text-align:center; ",
+              "{border_style}'>{text_content}</span>"
+            )
           }
         )
     },
@@ -212,7 +221,7 @@ gt_indicator_boxes <- function(gt_object, columns = NULL, key_columns = NULL,
     init = gt_object
   )
 
-  gt_object %>%
+  gt_object |>
     cols_align(
       align = "center",
       columns = all_of(cols_to_transform)

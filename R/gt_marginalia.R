@@ -45,9 +45,11 @@
 #'   Line = c("Revenue", "Cost of sales", "Operating expenses"),
 #'   Actual = c(4820, 2110, 1360),
 #'   Budget = c(4500, 2000, 1400),
-#'   Comment = c("Enterprise renewals landed a quarter early.",
-#'               "Freight costs above plan; contract renegotiated in Q3.",
-#'               "Headcount hiring paused from February.")
+#'   Comment = c(
+#'     "Enterprise renewals landed a quarter early.",
+#'     "Freight costs above plan; contract renegotiated in Q3.",
+#'     "Headcount hiring paused from February."
+#'   )
 #' )
 #'
 #' gt(quarterly) %>%
@@ -66,7 +68,6 @@
 gt_marginalia <- function(gt_object, columns, width = 220, label = "",
                           italic = TRUE, color = NULL, size = "0.92em",
                           rule = TRUE, rule_color = NULL, align = "left") {
-
   .check_gt(gt_object)
 
   cols_quo <- rlang::enquo(columns)
@@ -83,8 +84,8 @@ gt_marginalia <- function(gt_object, columns, width = 220, label = "",
   if (is.null(color)) color <- .theme_secondary_on(bg, ink, target = 4.5)
   if (is.null(rule_color)) rule_color <- .theme_mix(ink, bg, 0.18)
 
-  out <- gt_object %>%
-    gt::cols_align(align = align, columns = !!cols_quo) %>%
+  out <- gt_object |>
+    gt::cols_align(align = align, columns = !!cols_quo) |>
     gt::tab_style(
       style = gt::cell_text(
         color = color, size = size,
@@ -96,19 +97,19 @@ gt_marginalia <- function(gt_object, columns, width = 220, label = "",
   if (!is.null(width)) {
     # cols_width() wants two-sided formulas
     w <- if (is.numeric(width)) gt::px(width) else width
-    out <- out %>%
+    out <- out |>
       gt::cols_width(.list = lapply(col_names, function(cn) {
         rlang::new_formula(rlang::sym(cn), w)
       }))
   }
 
   if (!is.null(label)) {
-    out <- out %>%
+    out <- out |>
       gt::cols_label(.list = stats::setNames(as.list(rep(label, length(col_names))), col_names))
   }
 
   if (isTRUE(rule)) {
-    out <- out %>%
+    out <- out |>
       gt::tab_style(
         style = gt::cell_borders(sides = "left", color = rule_color, weight = gt::px(1)),
         locations = gt::cells_body(columns = !!cols_quo)

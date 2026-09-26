@@ -40,10 +40,9 @@
 gt_theme_savant <- function(gt_object,
                             density = c("comfortable", "compact", "social"),
                             ...) {
-
   .check_gt(gt_object)
 
-  table_id <- subset(gt_object[['_options']], parameter == 'table_id')$value[[1]]
+  table_id <- subset(gt_object[["_options"]], parameter == "table_id")$value[[1]]
 
   if (is.na(table_id)) {
     table_id <- gt::random_id()
@@ -51,13 +50,17 @@ gt_theme_savant <- function(gt_object,
     gt_object[["_options"]][["value"]][[opt_position]] <- table_id
   }
 
-  gt_object %>%
+  gt_object |>
     # cell body
-    gt::tab_style(locations = gt::cells_body(),
-                  style = gt::cell_text(font = gt::google_font('Roboto Condensed'), size = px(14))) %>%
+    gt::tab_style(
+      locations = gt::cells_body(),
+      style = gt::cell_text(font = gt::google_font("Roboto Condensed"), size = px(14))
+    ) |>
     # col. headers
-    gt::tab_style(locations = gt::cells_column_labels(),
-                  style = gt::cell_text(weight = 'bold', font = gt::google_font('Roboto Condensed'), size = px(14))) %>%
+    gt::tab_style(
+      locations = gt::cells_column_labels(),
+      style = gt::cell_text(weight = "bold", font = gt::google_font("Roboto Condensed"), size = px(14))
+    ) |>
     # group rows
     gt::tab_style(
       locations = gt::cells_row_groups(),
@@ -72,19 +75,27 @@ gt_theme_savant <- function(gt_object,
           color = "#000000"
         )
       )
-    ) %>%
+    ) |>
     # footnote
-    gt::tab_style(locations = gt::cells_footnotes(),
-                  style = gt::cell_text(font = gt::google_font('Roboto Condensed'), size = px(12))) %>%
+    gt::tab_style(
+      locations = gt::cells_footnotes(),
+      style = gt::cell_text(font = gt::google_font("Roboto Condensed"), size = px(12))
+    ) |>
     # title
-    gt::tab_style(locations = gt::cells_title('title'),
-                  style = gt::cell_text(weight = 'bold', font = gt::google_font('Roboto Condensed'), size = px(18))) %>%
+    gt::tab_style(
+      locations = gt::cells_title("title"),
+      style = gt::cell_text(weight = "bold", font = gt::google_font("Roboto Condensed"), size = px(18))
+    ) |>
     # subtitle
-    gt::tab_style(locations = gt::cells_title('subtitle'),
-                  style = gt::cell_text(font = gt::google_font('Roboto Condensed'), size = px(14))) %>%
+    gt::tab_style(
+      locations = gt::cells_title("subtitle"),
+      style = gt::cell_text(font = gt::google_font("Roboto Condensed"), size = px(14))
+    ) |>
     # caption
-    gt::tab_style(locations = gt::cells_source_notes(),
-                  style = gt::cell_text(font = gt::google_font('Roboto Condensed'), size = px(12))) %>%
+    gt::tab_style(
+      locations = gt::cells_source_notes(),
+      style = gt::cell_text(font = gt::google_font("Roboto Condensed"), size = px(12))
+    ) |>
     # spanner
     gt::tab_style(
       locations = gt::cells_column_spanners(),
@@ -93,34 +104,35 @@ gt_theme_savant <- function(gt_object,
         weight = 650,
         size = px(8)
       )
-    ) %>%
+    ) |>
     gt::tab_options(
       data_row.padding = 1,
       table_body.hlines.color = "transparent",
-      column_labels.border.top.color = 'black',
+      column_labels.border.top.color = "black",
       column_labels.border.top.width = px(1),
-      column_labels.border.bottom.style = 'none',
+      column_labels.border.bottom.style = "none",
       row_group.border.top.style = "none",
       row_group.border.top.color = "black",
       row_group.border.bottom.width = px(1),
       row_group.border.bottom.color = "black",
-      row_group.border.bottom.style = 'solid',
+      row_group.border.bottom.style = "solid",
       row_group.padding = px(1.5),
-      heading.align = 'center',
+      heading.align = "center",
       heading.border.bottom.style = "none",
       table_body.border.top.style = "none",
       table_body.border.bottom.color = "white",
-      table.border.bottom.style = 'none',
-      table.border.top.style = 'none',
+      table.border.bottom.style = "none",
+      table.border.top.style = "none",
       source_notes.border.lr.style = "none",
       ...
-    ) %>%
-    gt::opt_row_striping() %>%
-    gt::opt_css(c(paste0("#", table_id, " tbody tr:last-child {border-bottom: 2px solid #FFFFFF;}"),
-                  paste0("#", table_id, " .gt_col_heading {padding-bottom: 2px; padding-top: 2px;}"),
-                  paste0("#", table_id, " .gt_subtitle {padding-top:0px !important; padding-bottom: 4px !important;}"),
-                  paste0("#", table_id, " .gt_heading {padding-bottom: 0px; padding-top: 6px;}"),
-                  paste0("#", table_id, " .gt_column_spanner {font-size: 12px; font-weight: bold; text-decoration: underline;}"))) %>%
+    ) |>
+    gt::opt_row_striping() |>
+    gt::opt_css(c(
+      paste0("#", table_id, " tbody tr:last-child {border-bottom: 2px solid #FFFFFF;}"),
+      paste0("#", table_id, " .gt_col_heading {padding-bottom: 2px; padding-top: 2px;}"),
+      paste0("#", table_id, " .gt_subtitle {padding-top:0px !important; padding-bottom: 4px !important;}"),
+      paste0("#", table_id, " .gt_heading {padding-bottom: 0px; padding-top: 6px;}"),
+      paste0("#", table_id, " .gt_column_spanner {font-size: 12px; font-weight: bold; text-decoration: underline;}")
+    )) |>
     .theme_scale_output(density)
-
 }

@@ -61,8 +61,10 @@
 #'
 #' # the failure rate instead, in its own column
 #' gt(suites) %>%
-#'   gt_fmt_tally(c(Passed, Failed), share = TRUE, share_of = "Failed",
-#'                share_location = "column", share_label = "Fail rate")
+#'   gt_fmt_tally(c(Passed, Failed),
+#'     share = TRUE, share_of = "Failed",
+#'     share_location = "column", share_label = "Fail rate"
+#'   )
 #'
 #' # three counts, as in a league table
 #' league <- data.frame(
@@ -82,7 +84,6 @@ gt_fmt_tally <- function(gt_object, columns, separator = "-", label = NULL,
                          share_location = c("inline", "column"),
                          share_decimals = 1, share_label = "%",
                          share_prefix = " (", share_suffix = ")", ...) {
-
   .check_gt(gt_object)
   share_location <- match.arg(share_location)
 
@@ -125,7 +126,8 @@ gt_fmt_tally <- function(gt_object, columns, separator = "-", label = NULL,
 
   display <- if (isTRUE(share) && share_location == "inline") {
     ifelse(is.na(tally) | is.na(share_str), tally,
-           paste0(tally, share_prefix, share_str, share_suffix))
+      paste0(tally, share_prefix, share_str, share_suffix)
+    )
   } else {
     tally
   }
@@ -135,7 +137,7 @@ gt_fmt_tally <- function(gt_object, columns, separator = "-", label = NULL,
   }
 
   # the tally goes in the first column
-  gt_object <- gt_object %>%
+  gt_object <- gt_object |>
     gt::text_transform(
       locations = gt::cells_body(columns = tidyselect::all_of(cols[[1]])),
       fn = function(x) ifelse(is.na(display), x, display)
@@ -144,7 +146,7 @@ gt_fmt_tally <- function(gt_object, columns, separator = "-", label = NULL,
   # the last column either carries the share or gets hidden along with the rest
   if (isTRUE(share) && share_location == "column") {
     carrier <- cols[[length(cols)]]
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       gt::text_transform(
         locations = gt::cells_body(columns = tidyselect::all_of(carrier)),
         fn = function(x) ifelse(is.na(share_str), x, share_str)
@@ -156,7 +158,7 @@ gt_fmt_tally <- function(gt_object, columns, separator = "-", label = NULL,
   }
 
   if (length(spent)) {
-    gt_object <- gt_object %>% gt::cols_hide(columns = tidyselect::all_of(spent))
+    gt_object <- gt_object |> gt::cols_hide(columns = tidyselect::all_of(spent))
   }
 
   if (!is.null(label)) {

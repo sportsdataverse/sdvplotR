@@ -44,7 +44,6 @@ gt_bold_rows <- function(gt_object,
                          highlight_color = NULL,
                          row = NULL,
                          filter_statement = NULL) {
-
   .check_gt(gt_object)
 
   # extract data
@@ -85,7 +84,7 @@ gt_bold_rows <- function(gt_object,
   if (!is.null(highlight_color)) {
     style <- c(list(gt::cell_fill(color = highlight_color)), style)
   }
-  gt_object %>%
+  gt_object |>
     gt::tab_style(
       locations = gt::cells_body(rows = rows),
       style = style
@@ -95,7 +94,9 @@ gt_bold_rows <- function(gt_object,
 # one warning per session per argument, so a loop does not spam
 lifecycle_warn <- function(old, new) {
   key <- paste0("sdvplotR_deprecated_", old)
-  if (isTRUE(getOption(key))) return(invisible())
+  if (isTRUE(getOption(key))) {
+    return(invisible())
+  }
   options(stats::setNames(list(TRUE), key))
   cli::cli_warn(c(
     "{.arg {old}} is deprecated.",

@@ -73,8 +73,10 @@ teams <- data.frame(
 
 # keyed to a grouping column
 gt(teams) \%>\%
-  gt_row_accent(conf, palette = c(ACC = "#003366", B12 = "#C8102E",
-                                  SEC = "#B8232F"))
+  gt_row_accent(conf, palette = c(
+    ACC = "#003366", B12 = "#C8102E",
+    SEC = "#B8232F"
+  ))
 
 # or straight from a column of colors
 teams$color <- c("#003366", "#C8102E", "#B8232F", "#C8102E")

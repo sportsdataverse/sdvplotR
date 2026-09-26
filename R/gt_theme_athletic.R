@@ -52,14 +52,14 @@ gt_theme_athletic <- function(gt_object,
   gt_object <- res$object
   table_id <- res$id
 
-  table <- gt_object %>%
+  table <- gt_object |>
     gt::opt_table_font(
       font = list(
         gt::google_font("Spline Sans Mono"),
         gt::default_fonts()
       ),
       weight = 500
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_column_labels(
         columns = gt::everything()
@@ -70,7 +70,7 @@ gt_theme_athletic <- function(gt_object,
         size = px(12),
         transform = "uppercase"
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_title("title"),
       style = gt::cell_text(
@@ -78,7 +78,7 @@ gt_theme_athletic <- function(gt_object,
         weight = 650,
         size = px(22)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_title("subtitle"),
       style = gt::cell_text(
@@ -86,7 +86,7 @@ gt_theme_athletic <- function(gt_object,
         weight = 500,
         size = px(14)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_row_groups(),
       style = list(
@@ -99,23 +99,23 @@ gt_theme_athletic <- function(gt_object,
           color = "black"
         )
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       style = gt::cell_borders(sides = "left", weight = px(0.5), color = "black"),
       locations = gt::cells_body(
         columns = c(-names(gt_object[["_data"]])[1])
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       style = gt::cell_borders(sides = "top", color = "black", weight = px(1.5), style = "dotted"),
       locations = gt::cells_body(
         rows = gt::everything()
       )
-    ) %>%
+    ) |>
     gt::cols_align(
       align = "center",
       columns = gt::everything()
-    ) %>%
+    ) |>
     gt::tab_options(
       table.font.size = 12,
       column_labels.border.top.style = "none",
@@ -137,7 +137,7 @@ gt_theme_athletic <- function(gt_object,
       row_group.border.bottom.style = "solid",
       row_group.padding = px(1.5),
       ...
-    ) %>%
+    ) |>
     gt::opt_css(c(
       paste0(
         "#",

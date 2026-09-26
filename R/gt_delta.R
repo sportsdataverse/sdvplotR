@@ -69,7 +69,6 @@ gt_delta <- function(gt_object, from, to, column_label = "Change",
                      color = TRUE, color_positive = "#1B7837",
                      color_negative = "#B2182B", color_neutral = NULL,
                      force_sign = TRUE, after = NULL) {
-
   .check_gt(gt_object)
 
   data <- gt_object[["_data"]]
@@ -110,7 +109,9 @@ gt_delta <- function(gt_object, from, to, column_label = "Change",
   body[is.na(delta)] <- ""
 
   new_name <- make.unique(c(names(data), column_label))[length(names(data)) + 1]
-  after_col <- if (is.null(after)) to_col else {
+  after_col <- if (is.null(after)) {
+    to_col
+  } else {
     if (is.character(after)) after else names(data)[[as.integer(after)]]
   }
 
@@ -125,20 +126,22 @@ gt_delta <- function(gt_object, from, to, column_label = "Change",
       gt::cols_label, c(list(gt_object), stats::setNames(list(column_label), new_name))
     )
   }
-  gt_object <- gt_object %>%
+  gt_object <- gt_object |>
     gt::cols_align(align = "right", columns = tidyselect::all_of(new_name))
 
   if (isTRUE(color)) {
     paint <- function(gt, rows, col) {
-      if (!length(rows) || is.null(col)) return(gt)
-      gt %>% gt::tab_style(
+      if (!length(rows) || is.null(col)) {
+        return(gt)
+      }
+      gt |> gt::tab_style(
         style = gt::cell_text(color = col),
         locations = gt::cells_body(columns = tidyselect::all_of(new_name), rows = rows)
       )
     }
-    gt_object <- gt_object %>%
-      paint(which(delta > 0), color_positive) %>%
-      paint(which(delta < 0), color_negative) %>%
+    gt_object <- gt_object |>
+      paint(which(delta > 0), color_positive) |>
+      paint(which(delta < 0), color_negative) |>
       paint(which(delta == 0), color_neutral)
   }
 

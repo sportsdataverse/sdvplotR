@@ -45,15 +45,15 @@
 #'   gt() %>%
 #'   gt_snake(n_cols = 2) %>%
 #'   gt_highlight_cells(tidyselect::all_of(snaked),
-#'                      condition = gt_snake_align(mask, n_cols = 2),
-#'                      fill = "#EDBD68")
+#'     condition = gt_snake_align(mask, n_cols = 2),
+#'     fill = "#EDBD68"
+#'   )
 #' }
 #'
 #' @seealso [gt_snake()], which reshapes the table itself and carries body
 #'   styling through.
 #' @export
 gt_snake_align <- function(x, n_cols = 2, rows_per_col = NULL, fill = NA) {
-
   x <- as.data.frame(x)
   n <- nrow(x)
 
@@ -67,7 +67,9 @@ gt_snake_align <- function(x, n_cols = 2, rows_per_col = NULL, fill = NA) {
     per <- ceiling(n / n_cols)
   }
 
-  if (n_cols < 2 || n == 0) return(x)
+  if (n_cols < 2 || n == 0) {
+    return(x)
+  }
 
   do.call(cbind, lapply(seq_len(n_cols), function(i) {
     idx <- (i - 1) * per + seq_len(per)

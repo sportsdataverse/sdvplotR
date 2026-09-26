@@ -50,15 +50,14 @@
 #' @export
 gt_save_crop <- function(data, file = NULL, bg = "white", whitespace = 50, zoom = 2, expand = 5,
                          width = NULL) {
-
   .check_gt(data, arg = "data")
 
   tmp <- tempfile(fileext = ".png")
   gtExtras::gtsave_extra(data, tmp, zoom = zoom, expand = expand)
 
-  img <- magick::image_read(tmp) %>%
-    magick::image_trim() %>%
-    magick::image_border(bg, glue::glue('{whitespace}x{whitespace}'))
+  img <- magick::image_read(tmp) |>
+    magick::image_trim() |>
+    magick::image_border(bg, glue::glue("{whitespace}x{whitespace}"))
 
   # pin the width so a posted series lines up, height scales with it
   if (!is.null(width)) {

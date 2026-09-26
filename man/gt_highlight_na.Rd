@@ -64,8 +64,10 @@ gt(head(airquality, 10)) \%>\% gt_highlight_na(c(Ozone, Solar.R))
 
 # relabel as well as highlight
 gt(head(airquality, 10)) \%>\%
-  gt_highlight_na(c(Ozone, Solar.R), missing_text = "not recorded",
-                  italic = TRUE, fill = "#FFF8E1")
+  gt_highlight_na(c(Ozone, Solar.R),
+    missing_text = "not recorded",
+    italic = TRUE, fill = "#FFF8E1"
+  )
 
 # also catch placeholder strings left behind by a CSV import
 gt(head(airquality, 10)) \%>\%

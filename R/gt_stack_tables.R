@@ -84,7 +84,6 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
                             title_style = list(), subtitle_style = list(),
                             caption_style = list(), source_note_style = list(),
                             file = NULL, bg = "white", whitespace = 50, zoom = 2) {
-
   align <- match.arg(align)
 
   if (!length(tables)) {
@@ -96,18 +95,26 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
   }
 
   defaults <- list(
-    title = utils::modifyList(.style_blank(), list(size = "28px", weight = 700,
-                                                   color = "#111111", align = "center",
-                                                   margin_bottom = 4)),
-    subtitle = utils::modifyList(.style_blank(), list(size = "16px", weight = 400,
-                                                      color = "#666666", align = "center",
-                                                      margin_bottom = 12)),
-    caption = utils::modifyList(.style_blank(), list(size = "12px", weight = 400,
-                                                     color = "#8A8A8A", align = "center",
-                                                     margin_top = 10)),
-    source_note = utils::modifyList(.style_blank(), list(size = "12px", weight = 400,
-                                                         color = "#8A8A8A", align = "right",
-                                                         margin_top = 6))
+    title = utils::modifyList(.style_blank(), list(
+      size = "28px", weight = 700,
+      color = "#111111", align = "center",
+      margin_bottom = 4
+    )),
+    subtitle = utils::modifyList(.style_blank(), list(
+      size = "16px", weight = 400,
+      color = "#666666", align = "center",
+      margin_bottom = 12
+    )),
+    caption = utils::modifyList(.style_blank(), list(
+      size = "12px", weight = 400,
+      color = "#8A8A8A", align = "center",
+      margin_top = 10
+    )),
+    source_note = utils::modifyList(.style_blank(), list(
+      size = "12px", weight = 400,
+      color = "#8A8A8A", align = "right",
+      margin_top = 6
+    ))
   )
   s_title <- utils::modifyList(defaults$title, title_style)
   s_subtitle <- utils::modifyList(defaults$subtitle, subtitle_style)
@@ -123,7 +130,9 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
   }
 
   as_html <- function(x) {
-    if (is.null(x)) return(NULL)
+    if (is.null(x)) {
+      return(NULL)
+    }
     if (inherits(x, "from_markdown")) {
       x <- commonmark::markdown_html(as.character(x))
       x <- sub("</p>\n$", "", sub("^<p>", "", x))
@@ -136,17 +145,21 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
   font_link <- if (length(fonts)) {
     htmltools::tags$link(
       rel = "stylesheet",
-      href = paste0("https://fonts.googleapis.com/css2?",
-                    paste0("family=", gsub(" ", "+", fonts), ":wght@100..900", collapse = "&"),
-                    "&display=swap")
+      href = paste0(
+        "https://fonts.googleapis.com/css2?",
+        paste0("family=", gsub(" ", "+", fonts), ":wght@100..900", collapse = "&"),
+        "&display=swap"
+      )
     )
   }
 
   items <- c(left = "flex-start", center = "center", right = "flex-end")
 
   stack <- htmltools::div(
-    style = paste0("display: flex; flex-direction: column; gap: ", gap,
-                   "px; align-items: ", items[[align]], ";"),
+    style = paste0(
+      "display: flex; flex-direction: column; gap: ", gap,
+      "px; align-items: ", items[[align]], ";"
+    ),
     lapply(tables, function(t) htmltools::div(t))
   )
 
@@ -200,11 +213,12 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
   htmltools::save_html(htmltools::browsable(page), tmp_html)
 
   webshot2::webshot(paste0("file://", normalizePath(tmp_html)), tmp_png,
-                    zoom = zoom, selector = "body", quiet = TRUE)
+    zoom = zoom, selector = "body", quiet = TRUE
+  )
 
-  magick::image_read(tmp_png) %>%
-    magick::image_trim() %>%
-    magick::image_border(bg, glue::glue("{whitespace}x{whitespace}")) %>%
+  magick::image_read(tmp_png) |>
+    magick::image_trim() |>
+    magick::image_border(bg, glue::glue("{whitespace}x{whitespace}")) |>
     magick::image_write(file)
 
   unlink(c(tmp_html, tmp_png))

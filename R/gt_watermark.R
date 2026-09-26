@@ -47,7 +47,6 @@
 gt_watermark <- function(gt_object, text = NULL, image = NULL, opacity = 0.06,
                          size = "60%", position = "center", color = "#000000",
                          angle = 0, font = "Helvetica, Arial, sans-serif") {
-
   .check_gt(gt_object)
 
   if (is.null(text) && is.null(image)) {
@@ -69,17 +68,23 @@ gt_watermark <- function(gt_object, text = NULL, image = NULL, opacity = 0.06,
   } else {
     if (!file.exists(image)) cli::cli_abort("Can't find {.file {image}}.")
     mime <- switch(tolower(tools::file_ext(image)),
-                   png = "image/png", jpg = , jpeg = "image/jpeg",
-                   svg = "image/svg+xml", gif = "image/gif",
-                   cli::cli_abort("{.arg image} must be a PNG, JPEG, SVG, or GIF."))
-    paste0("data:", mime, ";base64,",
-           base64enc::base64encode(image))
+      png = "image/png",
+      jpg = ,
+      jpeg = "image/jpeg",
+      svg = "image/svg+xml",
+      gif = "image/gif",
+      cli::cli_abort("{.arg image} must be a PNG, JPEG, SVG, or GIF.")
+    )
+    paste0(
+      "data:", mime, ";base64,",
+      base64enc::base64encode(image)
+    )
   }
 
   # a text mark bakes fill-opacity into the svg; an image needs it on the wrapper
   extra <- if (!is.null(image)) paste0(" opacity: ", opacity, ";") else ""
 
-  gt_object %>%
+  gt_object |>
     gt::opt_css(paste0(
       "#", table_id, " .gt_table_body {",
       " background-image: url('", uri, "');",
@@ -114,10 +119,12 @@ gt_watermark <- function(gt_object, text = NULL, image = NULL, opacity = 0.06,
   rot <- if (angle != 0) sprintf(" transform=\"rotate(%s %s %s)\"", angle, w / 2, h / 2) else ""
 
   svg <- sprintf(
-    paste0("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 %s %s\" width=\"%s\" height=\"%s\">",
-           "<text x=\"50%%\" y=\"50%%\" text-anchor=\"middle\" dominant-baseline=\"central\" ",
-           "font-family=\"%s\" font-size=\"%s\" font-weight=\"700\" fill=\"%s\" fill-opacity=\"%s\"%s>%s</text>",
-           "</svg>"),
+    paste0(
+      "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 %s %s\" width=\"%s\" height=\"%s\">",
+      "<text x=\"50%%\" y=\"50%%\" text-anchor=\"middle\" dominant-baseline=\"central\" ",
+      "font-family=\"%s\" font-size=\"%s\" font-weight=\"700\" fill=\"%s\" fill-opacity=\"%s\"%s>%s</text>",
+      "</svg>"
+    ),
     w, h, w, h, font, size, color, opacity, rot, label
   )
 

@@ -57,8 +57,9 @@ wide \%>\%
   gt() \%>\%
   gt_snake(n_cols = 2) \%>\%
   gt_highlight_cells(tidyselect::all_of(snaked),
-                     condition = gt_snake_align(mask, n_cols = 2),
-                     fill = "#EDBD68")
+    condition = gt_snake_align(mask, n_cols = 2),
+    fill = "#EDBD68"
+  )
 }
 
 }

@@ -95,8 +95,10 @@ cars %>%
     subtitle = "Ten of the cars road tested that year",
     date = as.Date("2026-07-25"),
     kicker_style = list(color = "#0F5257", spacing = "0.16em", size = "0.7em"),
-    title_style = list(font = "Oswald", size = 34, weight = 600,
-                       spacing = "-0.01em", margin_bottom = 2),
+    title_style = list(
+      font = "Oswald", size = 34, weight = 600,
+      spacing = "-0.01em", margin_bottom = 2
+    ),
     subtitle_style = list(size = "1.05em", color = "#5C574F", italic = TRUE),
     date_style = list(size = "0.75em", transform = "uppercase", spacing = "0.1em")
   )
@@ -137,8 +139,10 @@ cars %>%
   gt_color_ranks(mpg, domain = c(10, 35)) %>%
   gt_legend_continuous(
     title = "Miles per gallon",
-    title_style = list(font = "Oswald", size = 12, transform = "uppercase",
-                       spacing = "0.12em", color = "#12263F"),
+    title_style = list(
+      font = "Oswald", size = 12, transform = "uppercase",
+      spacing = "0.12em", color = "#12263F"
+    ),
     labels_style = list(size = 11, color = "#5A6B7E")
   )
 ```
@@ -171,7 +175,10 @@ other key still applies.
 footer, and style each piece the same way.
 
 ```{r}
-small <- cars %>% slice_head(n = 3) %>% gt() %>% gt_theme_booktabs()
+small <- cars %>%
+  slice_head(n = 3) %>%
+  gt() %>%
+  gt_theme_booktabs()
 
 gt_grid(
   list(small, small),

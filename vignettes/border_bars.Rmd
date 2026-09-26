@@ -67,8 +67,10 @@ Here's a quick function to take that data and calculate percentiles using `dplyr
 ```{r}
 calculate_percentiles <- function(data, location) {
   data %>%
-    mutate(across(all_of(higher_better), ~percent_rank(.x)),
-           across(setdiff(stats_to_consider, c("team", higher_better)), ~percent_rank(-.x))) %>%
+    mutate(
+      across(all_of(higher_better), ~ percent_rank(.x)),
+      across(setdiff(stats_to_consider, c("team", higher_better)), ~ percent_rank(-.x))
+    ) %>%
     pivot_longer(-team, names_to = "stat", values_to = "percentile") %>%
     mutate(location = location)
 }
@@ -89,9 +91,11 @@ For final processing, we need to do two more things: a) add the general "group" 
 ```{r}
 dict <- data.frame(
   stat = unique(final_data$stat),
-  new_name = c("Barthag", "Adj. Off", "Adj. Def", "Adj. Tempo", "Eff. FG%", "Eff. FG%",
-               "FTA per FGA", "FTA per FGA", "Off. Rebound Rate", "Def. Rebound Rate",
-               "Turnover Rate", "Turnover Rate", "2FG%", "3FG%", "FT%", "2FG%", "3FG%", "FT%")
+  new_name = c(
+    "Barthag", "Adj. Off", "Adj. Def", "Adj. Tempo", "Eff. FG%", "Eff. FG%",
+    "FTA per FGA", "FTA per FGA", "Off. Rebound Rate", "Def. Rebound Rate",
+    "Turnover Rate", "Turnover Rate", "2FG%", "3FG%", "FT%", "2FG%", "3FG%", "FT%"
+  )
 ) %>% deframe()
 
 final_data <- final_data %>%
@@ -160,7 +164,7 @@ knitr::include_graphics("images/border-bars-player-report.png")
 Another possibility is using `gt_border_bars_bottom` to include a company or personal logo. For this example, let's pull a TidyTuesday dataset about Rolling Stone's "500 Greatest Albums" and pull the top 15.
 
 ```{r}
-data <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-05-07/rolling_stone.csv") %>% 
+data <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-05-07/rolling_stone.csv") %>%
   slice_min(rank_2020, n = 15)
 ```
 
@@ -203,18 +207,17 @@ If you do not specify text or an image, you can have as many bars as you'd like 
 data <- withr::with_seed(
   seed = 10,
   {
-    nycflights13::flights %>% 
-      slice_sample(n = 15) %>% 
+    nycflights13::flights %>%
+      slice_sample(n = 15) %>%
       select(1:8)
   }
 )
 
-data %>% 
-  gt() %>% 
-  gt_theme_gtutils() %>% 
-  tab_header("Example Title", "Example Subtitle") %>% 
+data %>%
+  gt() %>%
+  gt_theme_gtutils() %>%
+  tab_header("Example Title", "Example Subtitle") %>%
   gt_border_bars_bottom(c("#EDBD68", "#F2704E", "#DE5152", "#A43845", "#602B53"))
-  
 ```
 
 ```{r, echo=FALSE, eval=TRUE}

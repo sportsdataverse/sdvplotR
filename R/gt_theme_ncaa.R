@@ -42,10 +42,9 @@
 gt_theme_ncaa <- function(gt_object,
                           density = c("comfortable", "compact", "social"),
                           ...) {
-
   .check_gt(gt_object)
 
-  table_id <- subset(gt_object[['_options']], parameter == 'table_id')$value[[1]]
+  table_id <- subset(gt_object[["_options"]], parameter == "table_id")$value[[1]]
 
   if (is.na(table_id)) {
     table_id <- gt::random_id()
@@ -53,33 +52,49 @@ gt_theme_ncaa <- function(gt_object,
     gt_object[["_options"]][["value"]][[opt_position]] <- table_id
   }
 
-  gt_object %>%
+  gt_object |>
     # cell body
-    gt::tab_style(locations = gt::cells_body(),
-                  style = gt::cell_text(font = gt::google_font('Open Sans'), size = px(14))) %>%
+    gt::tab_style(
+      locations = gt::cells_body(),
+      style = gt::cell_text(font = gt::google_font("Open Sans"), size = px(14))
+    ) |>
     # col. headers
-    gt::tab_style(locations = gt::cells_column_labels(),
-                  style = list(
-                    gt::cell_text(font = gt::google_font('Open Sans'), size = px(14),
-                                        transform = "uppercase", color = "white", align = "left"),
-                    gt::cell_fill(color = "#000000"))
-                  ) %>%
+    gt::tab_style(
+      locations = gt::cells_column_labels(),
+      style = list(
+        gt::cell_text(
+          font = gt::google_font("Open Sans"), size = px(14),
+          transform = "uppercase", color = "white", align = "left"
+        ),
+        gt::cell_fill(color = "#000000")
+      )
+    ) |>
     # group rows
-    gt::tab_style(locations = gt::cells_row_groups(),
-                  style = gt::cell_text(weight = 'bold', font = gt::google_font('Open Sans'), size = px(14))) %>%
+    gt::tab_style(
+      locations = gt::cells_row_groups(),
+      style = gt::cell_text(weight = "bold", font = gt::google_font("Open Sans"), size = px(14))
+    ) |>
     # footnote
-    gt::tab_style(locations = gt::cells_footnotes(),
-                  style = gt::cell_text(font = gt::google_font('Open Sans'), size = px(12))) %>%
+    gt::tab_style(
+      locations = gt::cells_footnotes(),
+      style = gt::cell_text(font = gt::google_font("Open Sans"), size = px(12))
+    ) |>
     # title
-    gt::tab_style(locations = gt::cells_title('title'),
-                  style = gt::cell_text(weight = 'bold', font = gt::google_font('Open Sans'), size = px(18))) %>%
+    gt::tab_style(
+      locations = gt::cells_title("title"),
+      style = gt::cell_text(weight = "bold", font = gt::google_font("Open Sans"), size = px(18))
+    ) |>
     # subtitle
-    gt::tab_style(locations = gt::cells_title('subtitle'),
-                  style = gt::cell_text(font = gt::google_font('Open Sans'), size = px(14))) %>%
+    gt::tab_style(
+      locations = gt::cells_title("subtitle"),
+      style = gt::cell_text(font = gt::google_font("Open Sans"), size = px(14))
+    ) |>
     # caption
-    gt::tab_style(locations = gt::cells_source_notes(),
-                  style = gt::cell_text(font = gt::google_font('Open Sans'), size = px(10))) %>%
-    gt::cols_align(columns = gt::everything(), align = "left") %>%
+    gt::tab_style(
+      locations = gt::cells_source_notes(),
+      style = gt::cell_text(font = gt::google_font("Open Sans"), size = px(10))
+    ) |>
+    gt::cols_align(columns = gt::everything(), align = "left") |>
     gt::tab_style(
       locations = gt::cells_column_spanners(),
       style = gt::cell_text(
@@ -87,7 +102,7 @@ gt_theme_ncaa <- function(gt_object,
         weight = 650,
         size = px(13)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_row_groups(),
       style = list(
@@ -101,53 +116,53 @@ gt_theme_ncaa <- function(gt_object,
           color = "#3C3A40"
         )
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_source_notes(),
       style = gt::cell_text(
         font = gt::google_font("Almarai"),
         size = px(12)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_footnotes(),
       style = gt::cell_text(
         font = gt::google_font("Almarai"),
         size = px(12)
       )
-    ) %>%
+    ) |>
     # uh this is kinda hacky but it works
-    tab_spanner(columns = everything(), "toss_out_spanner_dev") %>%
+    tab_spanner(columns = everything(), "toss_out_spanner_dev") |>
     gt::tab_options(
       data_row.padding = 2,
       table_body.hlines.color = "transparent",
-      column_labels.border.top.color = 'black',
+      column_labels.border.top.color = "black",
       column_labels.border.top.width = px(1),
-      column_labels.border.bottom.style = 'none',
+      column_labels.border.bottom.style = "none",
       row_group.border.top.style = "none",
       row_group.border.top.color = "black",
       row_group.border.bottom.width = px(1),
       row_group.border.bottom.color = "black",
-      row_group.border.bottom.style = 'solid',
+      row_group.border.bottom.style = "solid",
       row_group.padding = px(1.5),
-      heading.align = 'left',
+      heading.align = "left",
       heading.border.bottom.style = "none",
       table_body.border.top.style = "none",
       table_body.border.bottom.color = "white",
-      table.border.bottom.style = 'none',
-      table.border.top.style = 'none',
+      table.border.bottom.style = "none",
+      table.border.top.style = "none",
       source_notes.border.lr.style = "none",
       ...
-    ) %>%
-    gt::opt_row_striping() %>%
-    gt::opt_css(c(paste0("#", table_id, " tbody tr:last-child {border-bottom: 2px solid #FFFFFF;}"),
-                  paste0("#", table_id, " .gt_col_heading {padding: 5px 5px 5px 25px;}"),
-                  paste0("#", table_id, " .gt_row {padding: 5px 5px 5px 25px;}"),
-                  paste0("#", table_id, " .gt_subtitle {padding-top:0px !important; padding-bottom: 4px !important;}"),
-                  paste0("#", table_id, " .gt_heading {padding-bottom: 0px; padding-top: 6px;}"),
-                  paste0("#", table_id, " .gt_column_spanner {text-decoration: underline;}"),
-                  paste0("#", table_id, " #toss_out_spanner_dev {display: none;}"))
-              ) %>%
+    ) |>
+    gt::opt_row_striping() |>
+    gt::opt_css(c(
+      paste0("#", table_id, " tbody tr:last-child {border-bottom: 2px solid #FFFFFF;}"),
+      paste0("#", table_id, " .gt_col_heading {padding: 5px 5px 5px 25px;}"),
+      paste0("#", table_id, " .gt_row {padding: 5px 5px 5px 25px;}"),
+      paste0("#", table_id, " .gt_subtitle {padding-top:0px !important; padding-bottom: 4px !important;}"),
+      paste0("#", table_id, " .gt_heading {padding-bottom: 0px; padding-top: 6px;}"),
+      paste0("#", table_id, " .gt_column_spanner {text-decoration: underline;}"),
+      paste0("#", table_id, " #toss_out_spanner_dev {display: none;}")
+    )) |>
     .theme_scale_output(density)
-
 }

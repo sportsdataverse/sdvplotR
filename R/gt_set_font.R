@@ -46,7 +46,6 @@ gt_set_font <- function(gt_object,
                         weight = NULL,
                         style = NULL,
                         gt_table = NULL) {
-
   # deprecated argument, kept so old calls keep working
   if (!is.null(gt_table)) {
     cli::cli_warn(c(
@@ -61,7 +60,7 @@ gt_set_font <- function(gt_object,
   family <- if (isTRUE(from_google_font)) gt::google_font(font_family) else font_family
   cell <- gt::cell_text(font = family, weight = weight, style = style)
 
-  gt_object %>%
+  gt_object |>
     gt::tab_style(
       style = cell,
       locations = list(
@@ -72,10 +71,10 @@ gt_set_font <- function(gt_object,
         gt::cells_row_groups(groups = gt::everything()),
         gt::cells_stub(rows = gt::everything()),
         gt::cells_body(columns = gt::everything()),
-        #gt::cells_summary(columns = gt::everything(), rows = gt::everything(), groups = gt::everything()),
-        #gt::cells_grand_summary(columns = gt::everything(), rows = gt::everything()),
-        #gt::cells_stub_summary(rows = gt::everything(), groups = gt::everything()),
-        #gt::cells_stub_grand_summary(rows = gt::everything()),
+        # gt::cells_summary(columns = gt::everything(), rows = gt::everything(), groups = gt::everything()),
+        # gt::cells_grand_summary(columns = gt::everything(), rows = gt::everything()),
+        # gt::cells_stub_summary(rows = gt::everything(), groups = gt::everything()),
+        # gt::cells_stub_grand_summary(rows = gt::everything()),
         gt::cells_footnotes(),
         gt::cells_source_notes()
       )

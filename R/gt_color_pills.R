@@ -90,8 +90,10 @@
 #'
 #' # color by rank rather than value, with a paletteer palette
 #' gt(head(mtcars)) %>%
-#'   gt_color_pills(hp, fill_type = "rank", palette = "viridis::mako",
-#'                  digits = 0)
+#'   gt_color_pills(hp,
+#'     fill_type = "rank", palette = "viridis::mako",
+#'     digits = 0
+#'   )
 #' }
 #'
 #' @export
@@ -103,7 +105,6 @@ gt_color_pills <- function(gt_object, columns, rows = NULL,
                            outline_color = NULL, outline_width = 0.25,
                            pal_type = "discrete", pill_height = 25,
                            text_color = NULL, na_color = NULL, ...) {
-
   .check_gt(gt_object)
 
   data <- gt_object[["_data"]]
@@ -131,7 +132,9 @@ gt_color_pills <- function(gt_object, columns, rows = NULL,
   vals <- lapply(cols, function(cn) suppressWarnings(as.numeric(data[[cn]])))
   names(vals) <- cols
   scaled <- lapply(vals, function(v) {
-    if (fill_type != "rank") return(v)
+    if (fill_type != "rank") {
+      return(v)
+    }
     r <- rank(v, na.last = "keep", ties.method = "average")
     if (rank_order == "desc") max(r, na.rm = TRUE) - r + 1 else r
   })
@@ -167,11 +170,12 @@ gt_color_pills <- function(gt_object, columns, rows = NULL,
     }
 
     formatted_value <- switch(format_type,
-                              "currency" = paste0("$", core),
-                              "percent" = paste0(core, "%"),
-                              core)
+      "currency" = paste0("$", core),
+      "percent" = paste0(core, "%"),
+      core
+    )
 
-    return(paste0(formatted_value, suffix))
+    paste0(formatted_value, suffix)
   }
 
   ramp <- scales::col_numeric(palette = pal, domain = domain, ...)
@@ -179,7 +183,9 @@ gt_color_pills <- function(gt_object, columns, rows = NULL,
   generate_pill_html <- function(value, rank_value, max_width) {
     # a missing value gets an na_color pill, or no pill when na_color is NULL
     if (is.na(rank_value)) {
-      if (is.null(na_color)) return("")
+      if (is.null(na_color)) {
+        return("")
+      }
       color <- na_color
       formatted_value <- ""
     } else {
@@ -191,17 +197,23 @@ gt_color_pills <- function(gt_object, columns, rows = NULL,
 
     outline_style <- if (!is.null(outline_color)) glue::glue("border: {outline_width}px solid {outline_color};") else ""
 
-    glue::glue("<span style='display: inline-block; width: {max_width}ch; padding-left: 3px; padding-right: 3px; height: {pill_height}px; line-height: {pill_height}px; background-color: {color}; color: {tc}; border-radius: 10px; text-align: center; {outline_style}'>{formatted_value}</span>")
+    glue::glue(
+      "<span style='display: inline-block; width: {max_width}ch; padding-left: 3px; padding-right: 3px; ",
+      "height: {pill_height}px; line-height: {pill_height}px; background-color: {color}; color: {tc}; ",
+      "border-radius: 10px; text-align: center; {outline_style}'>{formatted_value}</span>"
+    )
   }
 
   # one pass per column. width is per column, so each column's pills line up with
   # each other rather than with the widest value in the whole selection
   out <- Reduce(function(tbl, cn) {
     v <- scaled[[cn]][keep]
-    widths <- nchar(vapply(vals[[cn]][keep], function(z) format_value(z, digits, format_type),
-                           character(1)))
+    widths <- nchar(vapply(
+      vals[[cn]][keep], function(z) format_value(z, digits, format_type),
+      character(1)
+    ))
     w <- if (length(widths)) max(widths, na.rm = TRUE) else 1
-    tbl %>%
+    tbl |>
       text_transform(
         locations = cells_body(columns = tidyselect::all_of(cn), rows = keep),
         fn = function(x) mapply(generate_pill_html, x, v, MoreArgs = list(max_width = w))

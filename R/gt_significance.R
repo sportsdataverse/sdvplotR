@@ -51,8 +51,10 @@
 #'
 #' # daggers instead of stars, at a single threshold
 #' gt(results) %>%
-#'   gt_significance(Estimate, p, levels = 0.05, symbols = "†",
-#'                   legend_text = "† p < .05")
+#'   gt_significance(Estimate, p,
+#'     levels = 0.05, symbols = "†",
+#'     legend_text = "† p < .05"
+#'   )
 #' }
 #'
 #' @seealso [gt_fmt_rank()], which uses the same superscript approach for
@@ -66,7 +68,6 @@ gt_significance <- function(gt_object, columns, p_columns,
                             superscript = TRUE, size = "0.7em",
                             legend = TRUE, legend_text = NULL,
                             hide_p = TRUE) {
-
   .check_gt(gt_object)
   if (length(levels) != length(symbols)) {
     cli::cli_abort("{.arg levels} and {.arg symbols} must be the same length.")
@@ -101,7 +102,7 @@ gt_significance <- function(gt_object, columns, p_columns,
   # take the last p-value column's stars
   gt_object <- Reduce(function(tbl, i) {
     marks <- stars(suppressWarnings(as.numeric(data[[p_cols[[i]]]])))
-    tbl %>%
+    tbl |>
       gt::text_transform(
         locations = gt::cells_body(columns = tidyselect::all_of(est_cols[[i]])),
         fn = function(x) {
@@ -110,7 +111,9 @@ gt_significance <- function(gt_object, columns, p_columns,
             nzchar(m),
             if (superscript) {
               paste0("<sup style='font-size:", size, ";'>", m, "</sup>")
-            } else m,
+            } else {
+              m
+            },
             ""
           )
           paste0(x, mark)
@@ -119,7 +122,7 @@ gt_significance <- function(gt_object, columns, p_columns,
   }, seq_along(est_cols), init = gt_object)
 
   if (isTRUE(hide_p)) {
-    gt_object <- gt_object %>% gt::cols_hide(columns = tidyselect::all_of(p_cols))
+    gt_object <- gt_object |> gt::cols_hide(columns = tidyselect::all_of(p_cols))
   }
 
   if (isTRUE(legend)) {
@@ -129,7 +132,7 @@ gt_significance <- function(gt_object, columns, p_columns,
         collapse = ", "
       )
     }
-    gt_object <- gt_object %>% gt::tab_source_note(source_note = gt::html(legend_text))
+    gt_object <- gt_object |> gt::tab_source_note(source_note = gt::html(legend_text))
   }
 
   gt_object

@@ -45,7 +45,6 @@
 #' @export
 gt_theme_preview <- function(data, themes = NULL, n = 5, ncol = 3,
                              density = "compact", file = NULL, ...) {
-
   if (inherits(data, "gt_tbl")) data <- data[["_data"]]
   if (!is.data.frame(data)) {
     cli::cli_abort("{.arg data} must be a data frame or a {.cls gt_tbl}.")
@@ -80,6 +79,8 @@ gt_theme_preview <- function(data, themes = NULL, n = 5, ncol = 3,
   })
 
   # label outside the table, so a wide display title does not stretch its panel
-  gt_grid(panels, ncol = ncol, labels = sub("^gt_theme_", "", themes),
-          file = file, ...)
+  gt_grid(panels,
+    ncol = ncol, labels = sub("^gt_theme_", "", themes),
+    file = file, ...
+  )
 }

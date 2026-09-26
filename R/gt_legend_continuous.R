@@ -117,8 +117,10 @@
 #'   gt_legend_continuous(
 #'     columns = Temp, type = "blocks", n_bins = 5, labels = "edges",
 #'     title = "Temp (F)", title_position = "left",
-#'     title_style = list(weight = 600, transform = "uppercase",
-#'                        spacing = "0.08em", size = "10px"),
+#'     title_style = list(
+#'       weight = 600, transform = "uppercase",
+#'       spacing = "0.08em", size = "10px"
+#'     ),
 #'     labels_style = list(size = "9px", color = "#999999")
 #'   )
 #' }
@@ -128,20 +130,19 @@
 #' @importFrom magrittr %>%
 #' @export
 gt_legend_continuous <- function(gt_object, columns = NULL,
-                            palette = c("#3D8B6E", "#9DC5A7", "#EDE0CC", "#DB9070", "#BE4D3A"),
-                            domain = NULL, reverse = FALSE, pal_type = "discrete",
-                            type = c("continuous", "steps", "blocks"), n_bins = 5,
-                            labels = NULL, digits = 0,
-                            title = NULL,
-                            title_position = c("top", "bottom", "left", "right"),
-                            title_style = list(), labels_style = list(),
-                            labels_position = c("bottom", "top", "none"),
-                            location = c("bottom", "top"),
-                            align = c("center", "left", "right"),
-                            width = 200, height = 10,
-                            border_color = NULL, border_width = 1, radius = 2,
-                            gap = 3, title_gap = 4, block_gap = 2) {
-
+                                 palette = c("#3D8B6E", "#9DC5A7", "#EDE0CC", "#DB9070", "#BE4D3A"),
+                                 domain = NULL, reverse = FALSE, pal_type = "discrete",
+                                 type = c("continuous", "steps", "blocks"), n_bins = 5,
+                                 labels = NULL, digits = 0,
+                                 title = NULL,
+                                 title_position = c("top", "bottom", "left", "right"),
+                                 title_style = list(), labels_style = list(),
+                                 labels_position = c("bottom", "top", "none"),
+                                 location = c("bottom", "top"),
+                                 align = c("center", "left", "right"),
+                                 width = 200, height = 10,
+                                 border_color = NULL, border_width = 1, radius = 2,
+                                 gap = 3, title_gap = 4, block_gap = 2) {
   .check_gt(gt_object)
   type <- match.arg(type)
   title_position <- match.arg(title_position)
@@ -189,7 +190,9 @@ gt_legend_continuous <- function(gt_object, columns = NULL,
 
   build_css <- function(s) .style_css(s)
   drop_null <- function(x) {
-    if (is.null(x)) return(list())
+    if (is.null(x)) {
+      return(list())
+    }
     x[!vapply(x, is.null, logical(1))]
   }
   s_title <- utils::modifyList(list(size = "11px", color = "#666666"), drop_null(title_style))
@@ -208,24 +211,32 @@ gt_legend_continuous <- function(gt_object, columns = NULL,
   ramp <- scales::col_numeric(palette = pal, domain = c(0, 1))
   seg_border <- if (!is.null(border_color)) {
     sprintf("border:%spx solid %s;", border_width, border_color)
-  } else ""
+  } else {
+    ""
+  }
 
   if (type == "continuous") {
     cols <- ramp(seq(0, 1, length.out = 60))
     segs <- paste0(sprintf("<span style=\"flex:1 0 auto; background-color:%s;\"></span>", cols),
-                   collapse = "")
+      collapse = ""
+    )
     bar <- sprintf(
-      paste0("<div style=\"display:flex; width:%spx; height:%spx; border-radius:%spx;",
-             " overflow:hidden; %s\">%s</div>"),
+      paste0(
+        "<div style=\"display:flex; width:%spx; height:%spx; border-radius:%spx;",
+        " overflow:hidden; %s\">%s</div>"
+      ),
       width, height, radius, seg_border, segs
     )
   } else if (type == "steps") {
     cols <- ramp(seq(0.5 / n_bins, 1 - 0.5 / n_bins, length.out = n_bins))
     segs <- paste0(sprintf("<span style=\"flex:1 0 auto; background-color:%s;\"></span>", cols),
-                   collapse = "")
+      collapse = ""
+    )
     bar <- sprintf(
-      paste0("<div style=\"display:flex; width:%spx; height:%spx; border-radius:%spx;",
-             " overflow:hidden; %s\">%s</div>"),
+      paste0(
+        "<div style=\"display:flex; width:%spx; height:%spx; border-radius:%spx;",
+        " overflow:hidden; %s\">%s</div>"
+      ),
       width, height, radius, seg_border, segs
     )
   } else {
@@ -234,15 +245,19 @@ gt_legend_continuous <- function(gt_object, columns = NULL,
       "<span style=\"flex:1 0 auto; height:%spx; background-color:%s; border-radius:%spx; %s\"></span>",
       height, cols, radius, seg_border
     ), collapse = "")
-    bar <- sprintf("<div style=\"display:flex; width:%spx; gap:%spx;\">%s</div>",
-                   width, block_gap, segs)
+    bar <- sprintf(
+      "<div style=\"display:flex; width:%spx; gap:%spx;\">%s</div>",
+      width, block_gap, segs
+    )
   }
 
   labels_html <- if (labels_position == "none" || length(labels) == 0) {
     NULL
   } else if (length(labels) == 1) {
-    sprintf("<div style=\"width:%spx; %s text-align:center;\">%s</div>",
-            width, build_css(s_labels), labels)
+    sprintf(
+      "<div style=\"width:%spx; %s text-align:center;\">%s</div>",
+      width, build_css(s_labels), labels
+    )
   } else {
     sprintf(
       "<div style=\"display:flex; width:%spx; justify-content:space-between; %s\">%s</div>",
@@ -259,14 +274,20 @@ gt_legend_continuous <- function(gt_object, columns = NULL,
 
   title_html <- if (!is.null(title)) {
     sprintf("<div style=\"%s\">%s</div>", build_css(s_title), title)
-  } else NULL
+  } else {
+    NULL
+  }
 
   legend_html <- if (is.null(title_html)) {
     bar_group
   } else if (title_position %in% c("top", "bottom")) {
     sprintf(
       "<div style=\"display:flex; flex-direction:column; align-items:%s; gap:%spx;\">%s</div>",
-      switch(align, left = "flex-start", right = "flex-end", "center"), title_gap,
+      switch(align,
+        left = "flex-start",
+        right = "flex-end",
+        "center"
+      ), title_gap,
       if (title_position == "top") paste0(title_html, bar_group) else paste0(bar_group, title_html)
     )
   } else {
@@ -279,7 +300,11 @@ gt_legend_continuous <- function(gt_object, columns = NULL,
 
   legend_html <- sprintf(
     "<div style=\"display:flex; justify-content:%s;\">%s</div>",
-    switch(align, left = "flex-start", right = "flex-end", "center"), legend_html
+    switch(align,
+      left = "flex-start",
+      right = "flex-end",
+      "center"
+    ), legend_html
   )
 
   # google font import. has to run after the target cell exists or gt drops it
@@ -292,7 +317,7 @@ gt_legend_continuous <- function(gt_object, columns = NULL,
   }
 
   if (location == "bottom") {
-    out <- gt_object %>% gt::tab_source_note(source_note = gt::html(legend_html))
+    out <- gt_object |> gt::tab_source_note(source_note = gt::html(legend_html))
     if (length(fonts)) out <- apply_fonts(out, gt::cells_source_notes())
     return(out)
   }
@@ -304,13 +329,13 @@ gt_legend_continuous <- function(gt_object, columns = NULL,
   old_subtitle <- if (has(heading$subtitle)) as.character(heading$subtitle) else NULL
 
   if (is.null(old_title)) {
-    out <- gt_object %>% gt::tab_header(title = gt::html(legend_html))
+    out <- gt_object |> gt::tab_header(title = gt::html(legend_html))
     if (length(fonts)) out <- apply_fonts(out, gt::cells_title("title"))
     return(out)
   }
 
   spacer <- if (is.null(old_subtitle)) "" else "<div style=\"height:4px;\"></div>"
-  out <- gt_object %>%
+  out <- gt_object |>
     gt::tab_header(
       title = gt::html(old_title),
       subtitle = gt::html(paste0(old_subtitle, spacer, legend_html))

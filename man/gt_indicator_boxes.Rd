@@ -119,8 +119,10 @@ gt(roster) \%>\% gt_indicator_boxes(key_columns = "player")
 
 # print the underlying values and draw a border
 gt(roster) \%>\%
-  gt_indicator_boxes(key_columns = "player", show_text = TRUE,
-                     border_color = "#333333")
+  gt_indicator_boxes(
+    key_columns = "player", show_text = TRUE,
+    border_color = "#333333"
+  )
 }
 
 }

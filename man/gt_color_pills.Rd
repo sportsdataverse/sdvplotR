@@ -128,8 +128,10 @@ gt(head(mtcars)) \%>\% gt_color_pills(mpg, rows = mpg > 20, domain = c(10, 35))
 
 # color by rank rather than value, with a paletteer palette
 gt(head(mtcars)) \%>\%
-  gt_color_pills(hp, fill_type = "rank", palette = "viridis::mako",
-                 digits = 0)
+  gt_color_pills(hp,
+    fill_type = "rank", palette = "viridis::mako",
+    digits = 0
+  )
 }
 
 }

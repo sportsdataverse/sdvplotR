@@ -56,8 +56,10 @@
 #'
 #' # an explicit acceptance range, flagging only the high side
 #' gt(assays) %>%
-#'   gt_outliers(c(Run1, Run2), method = "bounds", bounds = c(9, 11),
-#'               side = "high", fill = "#FDECEA", symbol = "†")
+#'   gt_outliers(c(Run1, Run2),
+#'     method = "bounds", bounds = c(9, 11),
+#'     side = "high", fill = "#FDECEA", symbol = "†"
+#'   )
 #'
 #' # works on wider data too
 #' gt(head(airquality, 12)) %>% gt_outliers(c(Ozone, Wind, Temp))
@@ -73,7 +75,6 @@ gt_outliers <- function(gt_object, columns, method = c("iqr", "sd", "bounds"),
                         side = c("both", "high", "low"),
                         fill = NULL, color = NULL, bold = TRUE,
                         symbol = NULL, note = NULL) {
-
   .check_gt(gt_object)
   method <- match.arg(method)
   side <- match.arg(side)
@@ -96,7 +97,9 @@ gt_outliers <- function(gt_object, columns, method = c("iqr", "sd", "bounds"),
 
   # keep the text readable if a fill was given
   if (is.null(color)) {
-    color <- if (is.null(fill)) "#B3261E" else {
+    color <- if (is.null(fill)) {
+      "#B3261E"
+    } else {
       ink <- .theme_on_color(fill)
       if (.theme_contrast("#B3261E", fill) >= 4.5) "#B3261E" else ink
     }
@@ -105,10 +108,10 @@ gt_outliers <- function(gt_object, columns, method = c("iqr", "sd", "bounds"),
   flagged_any <- FALSE
   for (cn in numeric_cols) {
     v <- data[[cn]]
-    lims <- switch(
-      method,
+    lims <- switch(method,
       sd = {
-        m <- mean(v, na.rm = TRUE); s <- stats::sd(v, na.rm = TRUE)
+        m <- mean(v, na.rm = TRUE)
+        s <- stats::sd(v, na.rm = TRUE)
         if (is.na(s) || s == 0) c(-Inf, Inf) else c(m - threshold * s, m + threshold * s)
       },
       iqr = {
@@ -116,13 +119,19 @@ gt_outliers <- function(gt_object, columns, method = c("iqr", "sd", "bounds"),
         iq <- q[[2]] - q[[1]]
         if (is.na(iq) || iq == 0) c(-Inf, Inf) else c(q[[1]] - threshold * iq, q[[2]] + threshold * iq)
       },
-      bounds = c(if (is.na(bounds[[1]])) -Inf else bounds[[1]],
-                 if (is.na(bounds[[2]])) Inf else bounds[[2]])
+      bounds = c(
+        if (is.na(bounds[[1]])) -Inf else bounds[[1]],
+        if (is.na(bounds[[2]])) Inf else bounds[[2]]
+      )
     )
 
     low <- !is.na(v) & v < lims[[1]]
     high <- !is.na(v) & v > lims[[2]]
-    hit <- switch(side, both = low | high, high = high, low = low)
+    hit <- switch(side,
+      both = low | high,
+      high = high,
+      low = low
+    )
     if (!any(hit)) next
     flagged_any <- TRUE
     rows <- which(hit)
@@ -130,14 +139,14 @@ gt_outliers <- function(gt_object, columns, method = c("iqr", "sd", "bounds"),
     style <- list(gt::cell_text(color = color, weight = if (isTRUE(bold)) "bold" else NULL))
     if (!is.null(fill)) style <- c(style, list(gt::cell_fill(color = fill)))
 
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       gt::tab_style(
         style = style,
         locations = gt::cells_body(columns = tidyselect::all_of(cn), rows = rows)
       )
 
     if (!is.null(symbol)) {
-      gt_object <- gt_object %>%
+      gt_object <- gt_object |>
         gt::text_transform(
           locations = gt::cells_body(columns = tidyselect::all_of(cn), rows = rows),
           fn = function(x) paste0(x, symbol)
@@ -145,23 +154,36 @@ gt_outliers <- function(gt_object, columns, method = c("iqr", "sd", "bounds"),
     }
   }
 
-  if (!flagged_any) return(gt_object)
+  if (!flagged_any) {
+    return(gt_object)
+  }
 
   if (!is.null(note) && !identical(note, FALSE)) {
     txt <- if (isTRUE(note)) {
-      tail_txt <- switch(side, both = "", high = " (high side only)", low = " (low side only)")
-      switch(
-        method,
-        sd = paste0("Marked values fall more than ", threshold,
-                     " standard deviation", if (threshold == 1) "" else "s",
-                     " from the column mean", tail_txt, "."),
-        iqr = paste0("Marked values fall outside ", threshold,
-                     " \u00d7 IQR of the column quartiles", tail_txt, "."),
-        bounds = paste0("Marked values fall outside ",
-                        format(bounds[[1]]), "\u2013", format(bounds[[2]]), tail_txt, ".")
+      tail_txt <- switch(side,
+        both = "",
+        high = " (high side only)",
+        low = " (low side only)"
       )
-    } else as.character(note)
-    gt_object <- gt_object %>% gt::tab_source_note(source_note = txt)
+      switch(method,
+        sd = paste0(
+          "Marked values fall more than ", threshold,
+          " standard deviation", if (threshold == 1) "" else "s",
+          " from the column mean", tail_txt, "."
+        ),
+        iqr = paste0(
+          "Marked values fall outside ", threshold,
+          " \u00d7 IQR of the column quartiles", tail_txt, "."
+        ),
+        bounds = paste0(
+          "Marked values fall outside ",
+          format(bounds[[1]]), "\u2013", format(bounds[[2]]), tail_txt, "."
+        )
+      )
+    } else {
+      as.character(note)
+    }
+    gt_object <- gt_object |> gt::tab_source_note(source_note = txt)
   }
 
   gt_object

@@ -50,8 +50,10 @@
 #'     subtitle = "A sample of the 1974 Motor Trend road tests",
 #'     kicker = "Motor Trend",
 #'     date = as.Date("2026-07-21"),
-#'     kicker_style = list(color = "#0054AD", size = "0.8em",
-#'                         transform = "uppercase", spacing = "0.1em"),
+#'     kicker_style = list(
+#'       color = "#0054AD", size = "0.8em",
+#'       transform = "uppercase", spacing = "0.1em"
+#'     ),
 #'     title_style = list(font = "Libre Franklin", weight = 800, size = "26px"),
 #'     subtitle_style = list(color = "#666666", italic = TRUE),
 #'     date_style = list(color = "#B8232F", weight = 600)
@@ -65,20 +67,27 @@
 gt_title_header <- function(gt_object, title, subtitle = NULL, kicker = NULL, date = NULL,
                             kicker_style = list(), title_style = list(),
                             subtitle_style = list(), date_style = list()) {
-
   .check_gt(gt_object)
 
   # per-element defaults, user lists override
   defaults <- list(
-    kicker = list(size = "0.75em", weight = 700, color = "#C84630",
-                  transform = "uppercase", spacing = "0.08em", italic = FALSE,
-                  font = NULL, align = NULL),
-    title = list(size = NULL, weight = NULL, color = NULL, transform = NULL,
-                 spacing = NULL, italic = FALSE, font = NULL, align = NULL),
-    subtitle = list(size = NULL, weight = NULL, color = NULL, transform = NULL,
-                    spacing = NULL, italic = FALSE, font = NULL, align = NULL),
-    date = list(size = "0.85em", weight = 400, color = "#8A8A8A", transform = NULL,
-                spacing = NULL, italic = FALSE, font = NULL, align = NULL)
+    kicker = list(
+      size = "0.75em", weight = 700, color = "#C84630",
+      transform = "uppercase", spacing = "0.08em", italic = FALSE,
+      font = NULL, align = NULL
+    ),
+    title = list(
+      size = NULL, weight = NULL, color = NULL, transform = NULL,
+      spacing = NULL, italic = FALSE, font = NULL, align = NULL
+    ),
+    subtitle = list(
+      size = NULL, weight = NULL, color = NULL, transform = NULL,
+      spacing = NULL, italic = FALSE, font = NULL, align = NULL
+    ),
+    date = list(
+      size = "0.85em", weight = 400, color = "#8A8A8A", transform = NULL,
+      spacing = NULL, italic = FALSE, font = NULL, align = NULL
+    )
   )
   s_kicker <- utils::modifyList(defaults$kicker, kicker_style)
   s_title <- utils::modifyList(defaults$title, title_style)
@@ -91,16 +100,22 @@ gt_title_header <- function(gt_object, title, subtitle = NULL, kicker = NULL, da
   # double-quoted attrs, since build_css() emits single-quoted font names
   kicker_html <- if (!is.null(kicker)) {
     sprintf('<div style="%smargin-bottom:0.15em;">%s</div>', build_css(s_kicker), kicker)
-  } else ""
+  } else {
+    ""
+  }
   title_full <- paste0(kicker_html, sprintf('<div style="%s">%s</div>', build_css(s_title), title))
 
   subtitle_html <- if (!is.null(subtitle)) {
     sprintf('<div style="%s">%s</div>', build_css(s_subtitle), subtitle)
-  } else ""
+  } else {
+    ""
+  }
   date_html <- if (!is.null(date)) {
     date_str <- if (inherits(date, "Date")) format(date, "%B %d, %Y") else as.character(date)
     sprintf('<div style="%smargin-top:0.15em;">%s</div>', build_css(s_date), date_str)
-  } else ""
+  } else {
+    ""
+  }
   subtitle_full <- paste0(subtitle_html, date_html)
   subtitle_arg <- if (nzchar(subtitle_full)) gt::html(subtitle_full) else NULL
 
@@ -109,13 +124,13 @@ gt_title_header <- function(gt_object, title, subtitle = NULL, kicker = NULL, da
   fonts <- unique(c(s_kicker$font, s_title$font, s_subtitle$font, s_date$font))
   fonts <- fonts[!vapply(fonts, is.null, logical(1))]
   for (f in unlist(fonts)) {
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       gt::tab_style(
         style = gt::cell_text(font = gt::google_font(f)),
         locations = gt::cells_title("title")
       )
   }
 
-  gt_object %>%
+  gt_object |>
     gt::tab_header(title = gt::html(title_full), subtitle = subtitle_arg)
 }

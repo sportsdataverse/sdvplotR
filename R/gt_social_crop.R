@@ -43,7 +43,6 @@
 gt_social_crop <- function(data, file = NULL, aspect_ratio = "1:1", bg = "white",
                            whitespace = 60, gravity = "center", zoom = 2, expand = 5,
                            width = NULL) {
-
   .check_gt(data, arg = "data")
 
   # parse aspect ratio
@@ -60,15 +59,15 @@ gt_social_crop <- function(data, file = NULL, aspect_ratio = "1:1", bg = "white"
     cli::cli_abort(c(
       "{.arg aspect_ratio} could not be read as a ratio.",
       "x" = "Got {.val {aspect_ratio}}.",
-      "i" = 'Use {.val 1:1}, {.val 16:9}, {.val 4x5}, or a number like {.val 1.91}.'
+      "i" = "Use {.val 1:1}, {.val 16:9}, {.val 4x5}, or a number like {.val 1.91}."
     ))
   }
 
   tmp <- tempfile(fileext = ".png")
   gtExtras::gtsave_extra(data, tmp, zoom = zoom, expand = expand)
 
-  img <- magick::image_read(tmp) %>%
-    magick::image_trim() %>%
+  img <- magick::image_read(tmp) |>
+    magick::image_trim() |>
     magick::image_border(bg, glue::glue("{whitespace}x{whitespace}"))
 
   info <- magick::image_info(img)

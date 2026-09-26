@@ -78,7 +78,6 @@ gt_spotlight <- function(gt_object, rows, columns = gt::everything(),
                          accent_color = NULL, accent_width = 4,
                          accent_column = NULL, dim_color = "#BBBBBB",
                          if_none = c("warn", "dim", "ignore")) {
-
   .check_gt(gt_object)
   if_none <- match.arg(if_none)
 
@@ -95,7 +94,7 @@ gt_spotlight <- function(gt_object, rows, columns = gt::everything(),
     # no focused rows means the whole table is "the rest", which is what makes a
     # spotlight read across a gt_grid()
     if (if_none == "dim" && !is.null(dim_color)) {
-      return(gt_object %>%
+      return(gt_object |>
         gt::tab_style(
           style = gt::cell_text(color = dim_color),
           locations = gt::cells_body(columns = gt::everything())
@@ -119,18 +118,20 @@ gt_spotlight <- function(gt_object, rows, columns = gt::everything(),
 
   if (!is.null(dim_color)) {
     if (length(other_idx)) {
-      gt_object <- gt_object %>%
+      gt_object <- gt_object |>
         gt::tab_style(
           style = gt::cell_text(color = dim_color),
           locations = gt::cells_body(columns = gt::everything(), rows = other_idx)
         )
     }
     if (length(rest_cols)) {
-      gt_object <- gt_object %>%
+      gt_object <- gt_object |>
         gt::tab_style(
           style = gt::cell_text(color = dim_color),
-          locations = gt::cells_body(columns = tidyselect::all_of(rest_cols),
-                                     rows = focus_idx)
+          locations = gt::cells_body(
+            columns = tidyselect::all_of(rest_cols),
+            rows = focus_idx
+          )
         )
     }
   }
@@ -143,7 +144,7 @@ gt_spotlight <- function(gt_object, rows, columns = gt::everything(),
   if (length(tc_args)) focus_styles <- c(focus_styles, list(do.call(gt::cell_text, tc_args)))
 
   if (length(focus_styles)) {
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       gt::tab_style(
         style = focus_styles,
         locations = gt::cells_body(columns = {{ columns }}, rows = focus_idx)
@@ -163,12 +164,16 @@ gt_spotlight <- function(gt_object, rows, columns = gt::everything(),
     if (!length(acc_cols)) {
       cli::cli_warn("{.arg accent_column} matched no rendered column; no accent drawn.")
     } else {
-      gt_object <- gt_object %>%
+      gt_object <- gt_object |>
         gt::tab_style(
-          style = gt::cell_borders(sides = "left", color = accent_color,
-                                   weight = gt::px(accent_width)),
-          locations = gt::cells_body(columns = tidyselect::all_of(acc_cols),
-                                     rows = focus_idx)
+          style = gt::cell_borders(
+            sides = "left", color = accent_color,
+            weight = gt::px(accent_width)
+          ),
+          locations = gt::cells_body(
+            columns = tidyselect::all_of(acc_cols),
+            rows = focus_idx
+          )
         )
     }
   }

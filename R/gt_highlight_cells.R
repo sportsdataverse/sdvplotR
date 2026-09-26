@@ -66,7 +66,6 @@
 #' @export
 gt_highlight_cells <- function(gt_object, columns, condition, fill = "#FFF3B0",
                                text_color = NULL, bold = FALSE, ...) {
-
   .check_gt(gt_object)
 
   data <- gt_object[["_data"]]
@@ -119,7 +118,7 @@ gt_highlight_cells <- function(gt_object, columns, condition, fill = "#FFF3B0",
   for (cn in cols) {
     rows <- which(mask[[cn]])
     if (!length(rows)) next
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       gt::tab_style(
         style = styles,
         locations = gt::cells_body(columns = tidyselect::all_of(cn), rows = rows)

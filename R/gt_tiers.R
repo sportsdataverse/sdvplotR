@@ -42,9 +42,11 @@
 #'
 #' standings <- data.frame(
 #'   tier = c("A", "A", "B"),
-#'   logo = c("https://example.com/1.png",
-#'            "https://example.com/2.png",
-#'            "https://example.com/3.png")
+#'   logo = c(
+#'     "https://example.com/1.png",
+#'     "https://example.com/2.png",
+#'     "https://example.com/3.png"
+#'   )
 #' )
 #'
 #' gt(standings) %>%
@@ -56,7 +58,6 @@
 gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
                      img_height = "55px", tier_column = "tier",
                      image_columns = NULL) {
-
   .check_gt(gt_object)
 
   # a named vector of tier = color says the same thing in one object, and is the
@@ -109,20 +110,22 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
   }
 
   # theme, images and cleared labels are applied once, not once per level
-  gt_object <- gt_object %>%
-    gt_theme_tier(style = style) %>%
-    fmt_image(columns = tidyselect::all_of(img_cols), height = img_height) %>%
-    sub_missing(missing_text = "") %>%
+  gt_object <- gt_object |>
+    gt_theme_tier(style = style) |>
+    fmt_image(columns = tidyselect::all_of(img_cols), height = img_height) |>
+    sub_missing(missing_text = "") |>
     cols_label(everything() ~ "")
 
   # each level fills its own tier cells and takes its own contrast text color
   out <- Reduce(function(gt_object, level) {
     rows_match <- which(data[[tier_column]] == level)
-    if (!length(rows_match)) return(gt_object)
+    if (!length(rows_match)) {
+      return(gt_object)
+    }
     bg_color <- fill_colors[[level]]
     text_color <- .theme_on_color(bg_color)
 
-    gt_object %>%
+    gt_object |>
       tab_style(
         style = list(
           cell_fill(color = bg_color),

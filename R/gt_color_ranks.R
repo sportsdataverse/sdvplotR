@@ -44,8 +44,10 @@
 #'
 #' # a paletteer palette, reversed
 #' gt(ranked) %>%
-#'   gt_color_ranks(mpg_rank, palette = "viridis::mako", pal_type = "continuous",
-#'                  reverse = TRUE)
+#'   gt_color_ranks(mpg_rank,
+#'     palette = "viridis::mako", pal_type = "continuous",
+#'     reverse = TRUE
+#'   )
 #' }
 #'
 #' @seealso [gt_legend_continuous()] for explaining the scale, and [gt_color_pills()]
@@ -57,7 +59,6 @@ gt_color_ranks <- function(gt_object, columns, rows = NULL,
                            palette = c("#3D8B6E", "#9DC5A7", "#EDE0CC", "#DB9070", "#BE4D3A"),
                            domain = NULL, reverse = FALSE, na_color = "white",
                            autocolor_text = TRUE, pal_type = "discrete", ...) {
-
   .check_gt(gt_object)
 
   pal <- .resolve_palette(palette, pal_type)
@@ -84,7 +85,7 @@ gt_color_ranks <- function(gt_object, columns, rows = NULL,
     domain <- range(vals, na.rm = TRUE)
   }
 
-  out <- gt_object %>%
+  out <- gt_object |>
     gt::data_color(
       columns = {{ columns }},
       rows = keep,
@@ -96,6 +97,8 @@ gt_color_ranks <- function(gt_object, columns, rows = NULL,
       ...
     )
 
-  .record_scale(out, names(dplyr::select(gt_object[["_data"]], {{ columns }})),
-                palette, domain, reverse, pal_type)
+  .record_scale(
+    out, names(dplyr::select(gt_object[["_data"]], {{ columns }})),
+    palette, domain, reverse, pal_type
+  )
 }

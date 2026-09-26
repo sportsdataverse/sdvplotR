@@ -118,7 +118,6 @@ gt_legend_discrete <- function(gt_object, key_info = NULL, heading = NULL, subti
                                align = c("center", "left", "right"),
                                heading_style = list(), subtitle_style = list(),
                                label_style = list()) {
-
   .check_gt(gt_object)
   label_placement <- match.arg(label_placement)
   location <- match.arg(location)
@@ -165,7 +164,13 @@ gt_legend_discrete <- function(gt_object, key_info = NULL, heading = NULL, subti
   bg <- opt$value[opt$parameter == "table_background_color"]
   bg <- if (length(bg)) as.character(bg[[1]]) else NA_character_
   valid <- !is.na(bg) && nzchar(bg) &&
-    isTRUE(tryCatch({ grDevices::col2rgb(bg); TRUE }, error = function(e) FALSE))
+    isTRUE(tryCatch(
+      {
+        grDevices::col2rgb(bg)
+        TRUE
+      },
+      error = function(e) FALSE
+    ))
   if (!valid) bg <- "#FFFFFF"
   ink <- .theme_on_color(bg)
 
@@ -182,34 +187,53 @@ gt_legend_discrete <- function(gt_object, key_info = NULL, heading = NULL, subti
   }
   brd <- if (isTRUE(border)) sprintf("border:%spx solid %s;", border_width, swatch_border) else rep("", length(colors))
 
-  radius <- switch(shape, square = 0, rounded = round(swatch_size / 4), circle = round(swatch_size / 2))
+  radius <- switch(shape,
+    square = 0,
+    rounded = round(swatch_size / 4),
+    circle = round(swatch_size / 2)
+  )
 
   # one key: a swatch beside its label, or a label printed on the swatch
   items <- if (label_placement == "inside") {
     on <- vapply(colors, .theme_on_color, character(1))
-    vapply(seq_along(labels), function(i) sprintf(
-      paste0("<span style=\"display:inline-block; padding:2px 9px; background-color:%s;",
-             " border-radius:%spx; %s %s\">%s</span>"),
-      colors[i], radius, brd[i], .style_css(utils::modifyList(s_label, list(color = on[i]))), labels[i]
-    ), character(1))
+    vapply(seq_along(labels), function(i) {
+      sprintf(
+        paste0(
+          "<span style=\"display:inline-block; padding:2px 9px; background-color:%s;",
+          " border-radius:%spx; %s %s\">%s</span>"
+        ),
+        colors[i], radius, brd[i], .style_css(utils::modifyList(s_label, list(color = on[i]))), labels[i]
+      )
+    }, character(1))
   } else {
     label_css <- .style_css(s_label)
-    vapply(seq_along(labels), function(i) sprintf(
-      paste0("<span style=\"display:inline-flex; align-items:center; gap:6px;\">",
-             "<span style=\"display:inline-block; width:%spx; height:%spx; background-color:%s;",
-             " border-radius:%spx; %s\"></span>",
-             "<span style=\"%s\">%s</span></span>"),
-      swatch_size, swatch_size, colors[i], radius, brd[i], label_css, labels[i]
-    ), character(1))
+    vapply(seq_along(labels), function(i) {
+      sprintf(
+        paste0(
+          "<span style=\"display:inline-flex; align-items:center; gap:6px;\">",
+          "<span style=\"display:inline-block; width:%spx; height:%spx; background-color:%s;",
+          " border-radius:%spx; %s\"></span>",
+          "<span style=\"%s\">%s</span></span>"
+        ),
+        swatch_size, swatch_size, colors[i], radius, brd[i], label_css, labels[i]
+      )
+    }, character(1))
   }
 
-  justify <- switch(align, left = "flex-start", right = "flex-end", "center")
+  justify <- switch(align,
+    left = "flex-start",
+    right = "flex-end",
+    "center"
+  )
   key_html <- sprintf(
     paste0("<div style=\"display:flex; flex-wrap:wrap; gap:%spx; flex-direction:%s; %s\">%s</div>"),
     gap,
     if (direction == "vertical") "column" else "row",
-    if (direction == "vertical") sprintf("align-items:%s;", justify)
-    else sprintf("justify-content:%s; align-items:center;", justify),
+    if (direction == "vertical") {
+      sprintf("align-items:%s;", justify)
+    } else {
+      sprintf("justify-content:%s; align-items:center;", justify)
+    },
     paste(items, collapse = "")
   )
 
@@ -236,13 +260,13 @@ gt_legend_discrete <- function(gt_object, key_info = NULL, heading = NULL, subti
   }
 
   if (location == "bottom") {
-    out <- gt_object %>% gt::tab_source_note(source_note = gt::html(content))
+    out <- gt_object |> gt::tab_source_note(source_note = gt::html(content))
     return(apply_fonts(out, gt::cells_source_notes()))
   }
 
   # top with a heading/subtitle: the block takes the title slot
   if (!is.null(heading) || !is.null(subtitle)) {
-    out <- gt_object %>% gt::tab_header(title = gt::html(content))
+    out <- gt_object |> gt::tab_header(title = gt::html(content))
     return(apply_fonts(out, gt::cells_title("title")))
   }
 
@@ -253,12 +277,12 @@ gt_legend_discrete <- function(gt_object, key_info = NULL, heading = NULL, subti
   old_subtitle <- if (has(hd$subtitle)) as.character(hd$subtitle) else NULL
 
   if (is.null(old_title)) {
-    out <- gt_object %>% gt::tab_header(title = gt::html(content))
+    out <- gt_object |> gt::tab_header(title = gt::html(content))
     return(apply_fonts(out, gt::cells_title("title")))
   }
 
   spacer <- if (is.null(old_subtitle)) "" else "<div style=\"height:4px;\"></div>"
-  out <- gt_object %>%
+  out <- gt_object |>
     gt::tab_header(
       title = gt::html(old_title),
       subtitle = gt::html(paste0(old_subtitle, spacer, content))

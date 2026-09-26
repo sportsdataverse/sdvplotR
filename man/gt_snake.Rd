@@ -141,8 +141,10 @@ gt(cars) \%>\%
 gt(cars) \%>\%
   gt_snake(n_cols = 2) \%>\%
   gt_theme_swiss() \%>\%
-  tab_style(gt::cell_text(weight = "bold"),
-            gt::cells_body(columns = model_1))
+  tab_style(
+    gt::cell_text(weight = "bold"),
+    gt::cells_body(columns = model_1)
+  )
 }
 
 }

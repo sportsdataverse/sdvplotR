@@ -65,9 +65,11 @@ library(gt)
 
 standings <- data.frame(
   tier = c("A", "A", "B"),
-  logo = c("https://example.com/1.png",
-           "https://example.com/2.png",
-           "https://example.com/3.png")
+  logo = c(
+    "https://example.com/1.png",
+    "https://example.com/2.png",
+    "https://example.com/3.png"
+  )
 )
 
 gt(standings) \%>\%

@@ -65,7 +65,6 @@ gt_social_tag <- function(gt_object, accounts, caption = NULL, stack = FALSE,
                           separator = " | ", align = "right",
                           icon_color = NULL, icon_height = "0.9em",
                           text_size = NULL, text_weight = NULL, ...) {
-
   .check_gt(gt_object)
   if (!length(accounts) || is.null(names(accounts)) || any(!nzchar(names(accounts)))) {
     cli::cli_abort(c(
@@ -92,7 +91,7 @@ gt_social_tag <- function(gt_object, accounts, caption = NULL, stack = FALSE,
   if (!is.null(caption)) {
     gt_538_caption(gt_object, top_caption = caption, bottom_caption = social_html, ...)
   } else {
-    gt_object %>%
+    gt_object |>
       gt::tab_source_note(source_note = gt::html(social_html))
   }
 }

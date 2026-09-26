@@ -165,7 +165,9 @@ We want one row per window and five logo columns in rank order. Logos come from
 library(cbbdata)
 
 logos <- cbd_teams() %>% select(team = sr_team, logo)
-logos <- logos %>% pull(logo) %>% rlang::set_names(logos$team)
+logos <- logos %>%
+  pull(logo) %>%
+  rlang::set_names(logos$team)
 ```
 
 `pivot_wider()` spreads one value column,
@@ -248,9 +250,9 @@ carries its block number as a suffix, running `1_1` through `5_2`.
 logo_cols <- unlist(lapply(1:2, function(i) paste0(pos, "_", i)))
 
 # ... %>%
-  reduce(logo_cols, .init = ., .f = ~ rlang::inject(
-    gtExtras::gt_img_rows(.x, columns = !!rlang::sym(.y), height = 35)
-  ))
+reduce(logo_cols, .init = ., .f = ~ rlang::inject(
+  gtExtras::gt_img_rows(.x, columns = !!rlang::sym(.y), height = 35)
+))
 ```
 
 `gt_img_rows()` takes one column at a time, and it reads a quoted string like
@@ -266,7 +268,7 @@ label and a fixed width, and a dotted rule separates the logos.
 
 ```{r}
 # ... %>%
-  cols_align(columns = everything(), "center") %>%
+cols_align(columns = everything(), "center") %>%
   tab_spanner(columns = matches("[0-9]_1"), label = "Most Wins In 10-Yr Window", id = 1) %>%
   tab_spanner(columns = matches("[0-9]_2"), label = "Most Wins In 10-Yr Window", id = 2) %>%
   cols_label(starts_with("years") ~ "Years") %>%
@@ -294,19 +296,25 @@ thin solid separator on every column. Anything lighter won't be applied!
 
 ```{r}
 # ... %>%
-  gt_legend_discrete(
-    c("No Titles In Window" = "#ffffff", "1 Title In Window" = "#F4D7A4",
-      "2+ Titles In Window" = "#FFA970"),
-    location = "top", label_placement = "inside", shape = "square",
-    gap = 8, swatch_size = 20, border_width = 1.5, border_color = "black",
-    heading = md("Winningest programs over 10-year windows"),
-    subtitle = md("Vacated wins are included. Ties are broken by win percentage."),
-    heading_style = list(font = "Spline Sans Mono", size = 24, weight = 600,
-                         transform = "uppercase", margin_bottom = 0, align = "center"),
-    subtitle_style = list(font = "Spline Sans Mono", size = 12, margin_bottom = 5,
-                          align = "center", color = "black"),
-    label_style = list(font = "Spline Sans Mono", size = 12, margin_bottom = 12)
-  ) %>%
+gt_legend_discrete(
+  c(
+    "No Titles In Window" = "#ffffff", "1 Title In Window" = "#F4D7A4",
+    "2+ Titles In Window" = "#FFA970"
+  ),
+  location = "top", label_placement = "inside", shape = "square",
+  gap = 8, swatch_size = 20, border_width = 1.5, border_color = "black",
+  heading = md("Winningest programs over 10-year windows"),
+  subtitle = md("Vacated wins are included. Ties are broken by win percentage."),
+  heading_style = list(
+    font = "Spline Sans Mono", size = 24, weight = 600,
+    transform = "uppercase", margin_bottom = 0, align = "center"
+  ),
+  subtitle_style = list(
+    font = "Spline Sans Mono", size = 12, margin_bottom = 5,
+    align = "center", color = "black"
+  ),
+  label_style = list(font = "Spline Sans Mono", size = 12, margin_bottom = 12)
+) %>%
   gt_538_caption(
     md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
     "Example created by @andreweatherman using {gtUtils} v1.0"
@@ -350,16 +358,22 @@ wide %>%
     style = cell_borders(color = "black", sides = "right", weight = px(1.5), style = "dotted")
   ) %>%
   gt_legend_discrete(
-    c("No Titles In Window" = "#ffffff", "1 Title In Window" = "#F4D7A4",
-      "2+ Titles In Window" = "#FFA970"),
+    c(
+      "No Titles In Window" = "#ffffff", "1 Title In Window" = "#F4D7A4",
+      "2+ Titles In Window" = "#FFA970"
+    ),
     location = "top", label_placement = "inside", shape = "square",
     gap = 8, swatch_size = 20, border_width = 1.5, border_color = "black",
     heading = md("Winningest programs over 10-year windows"),
     subtitle = md("Vacated wins are included. Ties are broken by win percentage."),
-    heading_style = list(font = "Spline Sans Mono", size = 24, weight = 600,
-                         transform = "uppercase", margin_bottom = 0, align = "center"),
-    subtitle_style = list(font = "Spline Sans Mono", size = 12, margin_bottom = 5,
-                          align = "center", color = "black"),
+    heading_style = list(
+      font = "Spline Sans Mono", size = 24, weight = 600,
+      transform = "uppercase", margin_bottom = 0, align = "center"
+    ),
+    subtitle_style = list(
+      font = "Spline Sans Mono", size = 12, margin_bottom = 5,
+      align = "center", color = "black"
+    ),
     label_style = list(font = "Spline Sans Mono", size = 12, margin_bottom = 12)
   ) %>%
   gt_538_caption(

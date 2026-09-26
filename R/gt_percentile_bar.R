@@ -93,12 +93,13 @@ gt_percentile_bar <- function(gt_object, columns, rows = NULL,
                               full_track = TRUE, na_label = "\u2014",
                               na_track_color = NULL, na_text_color = "#9A9A9A",
                               decimals = 0, width = 220) {
-
   .check_gt(gt_object)
 
   data <- gt_object[["_data"]]
   cols <- names(dplyr::select(data, {{ columns }}))
-  if (!length(cols)) return(gt_object)
+  if (!length(cols)) {
+    return(gt_object)
+  }
 
   # rows: a data-masked expression, raw indices, or NULL for all
   rows_q <- rlang::enquo(rows)
@@ -120,8 +121,12 @@ gt_percentile_bar <- function(gt_object, columns, rows = NULL,
   # bring a 0-1 column onto the domain. only when every value fits [0, 1] and the
   # domain reaches past 1, which is what separates a proportion from a percentile
   rescale <- function(v) {
-    if (is.numeric(scale)) return(v * scale)
-    if (identical(scale, "none")) return(v)
+    if (is.numeric(scale)) {
+      return(v * scale)
+    }
+    if (identical(scale, "none")) {
+      return(v)
+    }
     nn <- v[!is.na(v)]
     if (length(nn) && all(nn >= 0 & nn <= 1) && domain[[2]] > 1) {
       domain[[1]] + v * (domain[[2]] - domain[[1]])
@@ -142,26 +147,38 @@ gt_percentile_bar <- function(gt_object, columns, rows = NULL,
   # missing gets an empty track, not a stray "NA". a label breaks the track in two
   # so it does not read as a percentile of zero
   na_cell <- function() {
-    seg <- sprintf("<div style=\"flex:1; height:%.2fpx; border-radius:%.2fpx; background:%s;\"></div>",
-                   track_height, r, na_track)
+    seg <- sprintf(
+      "<div style=\"flex:1; height:%.2fpx; border-radius:%.2fpx; background:%s;\"></div>",
+      track_height, r, na_track
+    )
     inner <- if (is.null(na_label)) {
       seg
     } else {
       paste0(
         seg,
-        sprintf(paste0("<span style=\"font-size:%.1fpx; color:%s; letter-spacing:0.06em;",
-                       " white-space:nowrap; line-height:1;\">%s</span>"),
-                font_size, na_text_color, na_label),
+        sprintf(
+          paste0(
+            "<span style=\"font-size:%.1fpx; color:%s; letter-spacing:0.06em;",
+            " white-space:nowrap; line-height:1;\">%s</span>"
+          ),
+          font_size, na_text_color, na_label
+        ),
         seg
       )
     }
-    sprintf(paste0("<div style=\"display:flex; align-items:center; gap:8px;",
-                   " height:%.2fpx; padding:0 %.2fpx;\">%s</div>"),
-            row_h, half, inner)
+    sprintf(
+      paste0(
+        "<div style=\"display:flex; align-items:center; gap:8px;",
+        " height:%.2fpx; padding:0 %.2fpx;\">%s</div>"
+      ),
+      row_h, half, inner
+    )
   }
 
   cell_for <- function(v) {
-    if (is.na(v)) return(na_cell())
+    if (is.na(v)) {
+      return(na_cell())
+    }
     frac <- (v - domain[[1]]) / (domain[[2]] - domain[[1]])
     frac <- max(0, min(1, frac))
     col <- ramp(max(domain[[1]], min(domain[[2]], v)))
@@ -170,28 +187,36 @@ gt_percentile_bar <- function(gt_object, columns, rows = NULL,
     at <- sprintf("calc(%.2fpx + %.4f * (100%% - %.2fpx))", half, frac, marker_size)
 
     track <- sprintf(
-      paste0("<div style=\"position:absolute; top:50%%; transform:translateY(-50%%);",
-             " left:%.2fpx; right:%.2fpx; height:%.2fpx; border-radius:%.2fpx;",
-             " background:%s;\"></div>"),
+      paste0(
+        "<div style=\"position:absolute; top:50%%; transform:translateY(-50%%);",
+        " left:%.2fpx; right:%.2fpx; height:%.2fpx; border-radius:%.2fpx;",
+        " background:%s;\"></div>"
+      ),
       half, half, track_height, r, track_color
     )
 
     fill <- sprintf(
-      paste0("<div style=\"position:absolute; top:50%%; transform:translateY(-50%%);",
-             " left:%.2fpx; width:calc(%s - %.2fpx); height:%.2fpx;",
-             " border-radius:%.2fpx; background:%s;\"></div>"),
+      paste0(
+        "<div style=\"position:absolute; top:50%%; transform:translateY(-50%%);",
+        " left:%.2fpx; width:calc(%s - %.2fpx); height:%.2fpx;",
+        " border-radius:%.2fpx; background:%s;\"></div>"
+      ),
       half, at, half, track_height, r, col
     )
 
     ring <- if (!is.null(ring_color)) {
       sprintf(" box-shadow:0 0 0 %.2fpx %s;", ring_width, ring_color)
-    } else ""
+    } else {
+      ""
+    }
 
     marker <- sprintf(
-      paste0("<div style=\"position:absolute; top:50%%; left:%s;",
-             " transform:translate(-50%%,-50%%); width:%.2fpx; height:%.2fpx;",
-             " border-radius:50%%; background:%s; color:%s; font-size:%.1fpx;",
-             " font-weight:700; line-height:%.2fpx; text-align:center;%s\">%s</div>"),
+      paste0(
+        "<div style=\"position:absolute; top:50%%; left:%s;",
+        " transform:translate(-50%%,-50%%); width:%.2fpx; height:%.2fpx;",
+        " border-radius:50%%; background:%s; color:%s; font-size:%.1fpx;",
+        " font-weight:700; line-height:%.2fpx; text-align:center;%s\">%s</div>"
+      ),
       at, marker_size, marker_size, col, text_color, font_size, marker_size, ring,
       formatC(v, format = "f", digits = decimals)
     )
@@ -210,7 +235,7 @@ gt_percentile_bar <- function(gt_object, columns, rows = NULL,
   gt_object <- Reduce(function(tbl, nm) {
     v <- rescale(suppressWarnings(as.numeric(data[[nm]])))[keep]
     cells <- vapply(v, cell_for, character(1))
-    tbl %>%
+    tbl |>
       gt::text_transform(
         locations = gt::cells_body(columns = tidyselect::all_of(nm), rows = keep),
         fn = function(x) cells

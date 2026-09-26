@@ -42,10 +42,9 @@
 gt_theme_tier <- function(gt_object, style = "dark",
                           density = c("comfortable", "compact", "social"),
                           ...) {
-
   .check_gt(gt_object)
 
-  table_id <- subset(gt_object[['_options']], parameter == 'table_id')$value[[1]]
+  table_id <- subset(gt_object[["_options"]], parameter == "table_id")$value[[1]]
 
   if (is.na(table_id)) {
     table_id <- gt::random_id()
@@ -53,58 +52,58 @@ gt_theme_tier <- function(gt_object, style = "dark",
     gt_object[["_options"]][["value"]][[opt_position]] <- table_id
   }
 
-  base_color <- if(style == "dark") "#1a1a17" else "#ffffff"
-  data <- gt_object[['_data']]
+  base_color <- if (style == "dark") "#1a1a17" else "#ffffff"
+  data <- gt_object[["_data"]]
 
-  table <- gt_object %>%
+  table <- gt_object |>
     gt::opt_table_font(
       font = list(
-        gt::google_font('Oswald'),
+        gt::google_font("Oswald"),
         gt::default_fonts()
       ),
       weight = 500
-    ) %>%
+    ) |>
     gt::tab_style(
-      locations = gt::cells_title('title'),
+      locations = gt::cells_title("title"),
       style = gt::cell_text(
-        font = gt::google_font('Oswald'),
+        font = gt::google_font("Oswald"),
         weight = 650
       )
-    ) %>%
+    ) |>
     gt::tab_style(
-      locations = gt::cells_title('subtitle'),
+      locations = gt::cells_title("subtitle"),
       style = gt::cell_text(
-        font = gt::google_font('Oswald'),
+        font = gt::google_font("Oswald"),
         weight = 500
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_body(rows = 1:(nrow(data) - 1)),
       style = gt::cell_borders(sides = "bottom", color = "black")
-    ) %>%
+    ) |>
     gt::cols_align(
-      align = 'center',
+      align = "center",
       columns = gt::everything()
-    ) %>%
+    ) |>
     gt::tab_options(
       data_row.padding = 1,
       table_body.hlines.color = "transparent",
       # column_labels.border.top.style = 'solid',
       # column_labels.border.top.color = '#ffffff',
       # column_labels.border.top.width = px(0.5),
-      column_labels.border.top.style = 'none',
-      column_labels.border.bottom.style = 'none',
+      column_labels.border.top.style = "none",
+      column_labels.border.bottom.style = "none",
       row_group.border.top.style = "none",
       row_group.border.top.color = "black",
       row_group.border.bottom.width = px(1),
       row_group.border.bottom.color = "black",
-      row_group.border.bottom.style = 'solid',
+      row_group.border.bottom.style = "solid",
       row_group.padding = px(1.5),
-      heading.align = 'left',
+      heading.align = "left",
       heading.border.bottom.style = "none",
       table_body.border.top.style = "none",
-      table.border.bottom.style = 'none',
-      table.border.top.style = 'none',
+      table.border.bottom.style = "none",
+      table.border.top.style = "none",
       source_notes.border.lr.style = "none",
       table.background.color = base_color,
       table.border.top.color = base_color,
@@ -112,7 +111,7 @@ gt_theme_tier <- function(gt_object, style = "dark",
       table.border.bottom.color = base_color,
       table.border.left.color = base_color,
       ...
-    ) %>%
+    ) |>
     gt::opt_css(c(
       paste0(
         "#",
@@ -142,5 +141,4 @@ gt_theme_tier <- function(gt_object, style = "dark",
     ))
 
   .theme_scale_output(table, density)
-
 }

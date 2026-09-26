@@ -3,7 +3,9 @@
 
 # the guard every exported function opens with
 .check_gt <- function(gt_object, arg = "gt_object", call = rlang::caller_env()) {
-  if (inherits(gt_object, "gt_tbl")) return(invisible(gt_object))
+  if (inherits(gt_object, "gt_tbl")) {
+    return(invisible(gt_object))
+  }
   hint <- if (is.data.frame(gt_object)) {
     "It looks like raw data. Pipe it through {.fn gt::gt} first."
   } else {
@@ -11,7 +13,8 @@
   }
   cli::cli_abort(
     c("{.arg {arg}} must be a {.cls gt_tbl}, not {.obj_type_friendly {gt_object}}.",
-      "i" = hint),
+      "i" = hint
+    ),
     call = call
   )
 }
@@ -31,14 +34,19 @@
 .theme_density <- function(density = c("comfortable", "compact", "social")) {
   # themes list their own default first, so take the head rather than the formals
   density <- match.arg(density[1], c("comfortable", "compact", "social"))
-  switch(
-    density,
-    comfortable = list(body = 14, pad = 6, title = 26, subtitle = 15,
-                       label = 10, group = 11, source = 11),
-    compact = list(body = 12, pad = 3, title = 22, subtitle = 13,
-                   label = 9, group = 10, source = 10),
-    social = list(body = 17, pad = 9, title = 34, subtitle = 19,
-                  label = 12, group = 13, source = 13)
+  switch(density,
+    comfortable = list(
+      body = 14, pad = 6, title = 26, subtitle = 15,
+      label = 10, group = 11, source = 11
+    ),
+    compact = list(
+      body = 12, pad = 3, title = 22, subtitle = 13,
+      label = 9, group = 10, source = 10
+    ),
+    social = list(
+      body = 17, pad = 9, title = 34, subtitle = 19,
+      label = 12, group = 13, source = 13
+    )
   )
 }
 
@@ -51,9 +59,13 @@
 
 # scale a css length. relative units (%, em, rem) already track what they inherit
 .theme_scale_len <- function(value, k) {
-  if (is.null(value) || !length(value)) return(value)
+  if (is.null(value) || !length(value)) {
+    return(value)
+  }
   v <- as.character(value)[[1]]
-  if (!grepl("^-?[0-9.]+px$", v)) return(value)
+  if (!grepl("^-?[0-9.]+px$", v)) {
+    return(value)
+  }
   n <- as.numeric(sub("px$", "", v))
   paste0(round(n * k, 1), "px")
 }
@@ -62,7 +74,9 @@
 # so walk the built object and scale what it holds
 .theme_scale_output <- function(gt_object, density) {
   k <- .theme_density_mult(density)
-  if (all(vapply(k, function(x) isTRUE(all.equal(x, 1)), logical(1)))) return(gt_object)
+  if (all(vapply(k, function(x) isTRUE(all.equal(x, 1)), logical(1)))) {
+    return(gt_object)
+  }
 
   # sizes set through tab_style()
   role_of <- c(
@@ -110,17 +124,23 @@
 # pal_type names and fall back to the other rather than making the caller know
 .resolve_palette <- function(palette, pal_type = "discrete", arg = "palette",
                              call = rlang::caller_env()) {
-  if (!length(palette) || !grepl("::", palette[1])) return(palette)
+  if (!length(palette) || !grepl("::", palette[1])) {
+    return(palette)
+  }
 
   from_c <- function() as.character(paletteer::paletteer_c(palette[1], n = 256))
   from_d <- function() as.character(paletteer::paletteer_d(palette[1]))
   want_c <- identical(pal_type, "continuous")
 
   out <- tryCatch(if (want_c) from_c() else from_d(), error = function(e) NULL)
-  if (!is.null(out)) return(out)
+  if (!is.null(out)) {
+    return(out)
+  }
 
   out <- tryCatch(if (want_c) from_d() else from_c(), error = function(e) NULL)
-  if (!is.null(out)) return(out)
+  if (!is.null(out)) {
+    return(out)
+  }
 
   cli::cli_abort(c(
     "Palette {.val {palette[1]}} was not found in {.pkg paletteer}.",
@@ -156,8 +176,9 @@
 # (named colors, 6- and 8-digit hex) passes through
 .hex6 <- function(x) {
   ifelse(grepl("^#[0-9a-fA-F]{3}$", x),
-         paste0("#", gsub("([0-9a-fA-F])", "\\1\\1", substring(x, 2))),
-         x)
+    paste0("#", gsub("([0-9a-fA-F])", "\\1\\1", substring(x, 2))),
+    x
+  )
 }
 
 # wcag relative luminance and contrast ratio
@@ -192,7 +213,9 @@
 .theme_secondary_on <- function(bg, fg, target = 4.5) {
   for (w in seq(0.45, 1, by = 0.05)) {
     cand <- .theme_mix(fg, bg, w)
-    if (.theme_contrast(cand, bg) >= target) return(cand)
+    if (.theme_contrast(cand, bg) >= target) {
+      return(cand)
+    }
   }
   fg
 }

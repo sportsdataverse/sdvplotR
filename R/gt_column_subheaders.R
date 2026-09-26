@@ -64,7 +64,6 @@ gt_column_subheaders <- function(gt_object,
                                  font = NULL,
                                  ...,
                                  gt_table = NULL) {
-
   # deprecated argument, kept so old calls keep working
   if (!is.null(gt_table)) {
     cli::cli_warn(c(
@@ -77,11 +76,10 @@ gt_column_subheaders <- function(gt_object,
   .check_gt(gt_object)
 
   subheaders <- list(...)
-  all_col_names <- colnames(gt_object[['_data']])
+  all_col_names <- colnames(gt_object[["_data"]])
   font_css <- if (!is.null(font)) glue("font-family: '{font}';") else ""
 
   for (col_name in all_col_names) {
-
     subtitle_info <- subheaders[[col_name]] %||% list(subtitle = "&nbsp;", heading = col_name)
     subtitle <- subtitle_info$subtitle
     new_header_title <- subtitle_info$heading
@@ -98,7 +96,7 @@ gt_column_subheaders <- function(gt_object,
       </div>"
     ))
 
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       cols_label(!!sym(col_name) := label_html)
   }
 

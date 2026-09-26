@@ -58,7 +58,6 @@
 gt_538_caption <- function(gt_object, top_caption = NULL, bottom_caption = NULL,
                            rule_color = NULL, rule_width = 1, size = 12,
                            align = "right", ...) {
-
   .check_gt(gt_object)
 
   if (is.null(top_caption) && is.null(bottom_caption)) {
@@ -71,8 +70,10 @@ gt_538_caption <- function(gt_object, top_caption = NULL, bottom_caption = NULL,
 
   ## grab footnote text color to use for diff. color modes
   extract_color_hex <- function(css_string) {
-    m <- regmatches(css_string,
-                    gregexpr("(?<=color:\\s)#[A-Fa-f0-9]{6}", css_string, perl = TRUE))
+    m <- regmatches(
+      css_string,
+      gregexpr("(?<=color:\\s)#[A-Fa-f0-9]{6}", css_string, perl = TRUE)
+    )
     unique(unlist(m))
   }
 
@@ -93,12 +94,14 @@ gt_538_caption <- function(gt_object, top_caption = NULL, bottom_caption = NULL,
 
   table <- gt_object
   if (!is.null(top_caption)) {
-    table <- table %>%
-      gt::tab_footnote(locations = gt::cells_column_labels(),
-                       footnote = gt::md(top_caption))
+    table <- table |>
+      gt::tab_footnote(
+        locations = gt::cells_column_labels(),
+        footnote = gt::md(top_caption)
+      )
   }
 
-  table <- table %>%
+  table <- table |>
     gt::opt_css(c(
       paste0("#", table_id, " .gt_footnote {
               border-bottom-style: solid;
@@ -110,9 +113,9 @@ gt_538_caption <- function(gt_object, top_caption = NULL, bottom_caption = NULL,
     ))
 
   if (!is.null(bottom_caption)) {
-    table <- table %>%
+    table <- table |>
       gt::tab_source_note(source_note = gt::md(bottom_caption))
   }
 
-  return(table)
+  table
 }

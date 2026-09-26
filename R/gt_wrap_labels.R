@@ -42,12 +42,13 @@
 #' @export
 gt_wrap_labels <- function(gt_object, columns = gt::everything(), width = 12,
                            balance = TRUE) {
-
   .check_gt(gt_object)
 
   data <- gt_object[["_data"]]
   cols <- names(dplyr::select(data, {{ columns }}))
-  if (!length(cols)) return(gt_object)
+  if (!length(cols)) {
+    return(gt_object)
+  }
 
   boxhead <- gt_object[["_boxhead"]]
 
@@ -55,7 +56,9 @@ gt_wrap_labels <- function(gt_object, columns = gt::everything(), width = 12,
   wrap_balanced <- function(words, width) {
     greedy <- strwrap(paste(words, collapse = " "), width = width)
     k <- length(greedy)
-    if (k <= 1) return(paste(words, collapse = " "))
+    if (k <= 1) {
+      return(paste(words, collapse = " "))
+    }
     target <- ceiling(sum(nchar(words) + 1) / k)
     lines <- character(0)
     cur <- ""
@@ -79,7 +82,7 @@ gt_wrap_labels <- function(gt_object, columns = gt::everything(), width = 12,
     text <- if (is.null(lab) || length(lab) == 0 || is.na(lab[[1]])) col else as.character(lab)[[1]]
 
     words <- strsplit(text, "\\s+")[[1]]
-    if (length(words) <= 1) next  # nothing to wrap
+    if (length(words) <= 1) next # nothing to wrap
 
     lines <- if (isTRUE(balance)) wrap_balanced(words, width) else strwrap(text, width = width)
     if (length(lines) <= 1) next

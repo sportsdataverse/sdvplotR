@@ -34,8 +34,10 @@
 #'
 #' # relabel as well as highlight
 #' gt(head(airquality, 10)) %>%
-#'   gt_highlight_na(c(Ozone, Solar.R), missing_text = "not recorded",
-#'                   italic = TRUE, fill = "#FFF8E1")
+#'   gt_highlight_na(c(Ozone, Solar.R),
+#'     missing_text = "not recorded",
+#'     italic = TRUE, fill = "#FFF8E1"
+#'   )
 #'
 #' # also catch placeholder strings left behind by a CSV import
 #' gt(head(airquality, 10)) %>%
@@ -51,7 +53,6 @@ gt_highlight_na <- function(gt_object, columns = gt::everything(),
                             bold = FALSE, italic = FALSE,
                             missing_text = NULL, na_strings = "NA",
                             ignore_case = FALSE, ...) {
-
   .check_gt(gt_object)
 
   data <- gt_object[["_data"]]
@@ -88,7 +89,7 @@ gt_highlight_na <- function(gt_object, columns = gt::everything(),
     if (length(na_rows) == 0) next
 
     if (length(styles)) {
-      gt_object <- gt_object %>%
+      gt_object <- gt_object |>
         gt::tab_style(
           style = styles,
           locations = gt::cells_body(columns = dplyr::all_of(col), rows = na_rows)
@@ -96,7 +97,7 @@ gt_highlight_na <- function(gt_object, columns = gt::everything(),
     }
 
     if (!is.null(missing_text)) {
-      gt_object <- gt_object %>%
+      gt_object <- gt_object |>
         gt::text_transform(
           locations = gt::cells_body(columns = dplyr::all_of(col), rows = na_rows),
           fn = function(x) rep(missing_text, length(x))

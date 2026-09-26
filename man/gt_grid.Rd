@@ -117,27 +117,35 @@ by_cyl <- lapply(split(mtcars, mtcars$cyl), function(d) {
 gt_grid(by_cyl, ncol = 2)
 
 # one heading over the whole sheet
-gt_grid(by_cyl, ncol = 3, title = "Fuel economy by cylinder count",
-        subtitle = "1974 Motor Trend road tests", caption = "Data: mtcars")
+gt_grid(by_cyl,
+  ncol = 3, title = "Fuel economy by cylinder count",
+  subtitle = "1974 Motor Trend road tests", caption = "Data: mtcars"
+)
 
 # a 538-style split caption under the whole sheet
-gt_grid(by_cyl, ncol = 3,
-        title = "Fuel economy by cylinder count",
-        caption = gt::md("Cars are grouped by **cylinder count**."),
-        source_note = "Data: mtcars | Andrew Weatherman",
-        caption_rule = TRUE)
+gt_grid(by_cyl,
+  ncol = 3,
+  title = "Fuel economy by cylinder count",
+  caption = gt::md("Cars are grouped by **cylinder count**."),
+  source_note = "Data: mtcars | Andrew Weatherman",
+  caption_rule = TRUE
+)
 
 # tighten the subtitle up under the title, and open the gap to the grid
-gt_grid(by_cyl, ncol = 3, title = "Fuel economy", subtitle = "Motor Trend, 1974",
-        title_style = list(margin_bottom = -2),
-        subtitle_style = list(margin_bottom = 24))
+gt_grid(by_cyl,
+  ncol = 3, title = "Fuel economy", subtitle = "Motor Trend, 1974",
+  title_style = list(margin_bottom = -2),
+  subtitle_style = list(margin_bottom = 24)
+)
 
 # styled without writing any css
-gt_grid(by_cyl, ncol = 3,
-        title = "Fuel economy by cylinder count",
-        subtitle = "1974 Motor Trend road tests",
-        title_style = list(font = "Oswald", size = 34, transform = "uppercase"),
-        subtitle_style = list(italic = TRUE, color = "#8A8A8A"))
+gt_grid(by_cyl,
+  ncol = 3,
+  title = "Fuel economy by cylinder count",
+  subtitle = "1974 Motor Trend road tests",
+  title_style = list(font = "Oswald", size = 34, transform = "uppercase"),
+  subtitle_style = list(italic = TRUE, color = "#8A8A8A")
+)
 
 # straight to an image
 gt_grid(by_cyl, ncol = 3, file = "cylinders.png", bg = "#FBFAF7")

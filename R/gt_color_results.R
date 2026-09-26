@@ -48,33 +48,34 @@
 #' # binary encoding, with custom colors
 #' results$result <- c(1, 0, 1, 0)
 #' gt(results) %>%
-#'   gt_color_results(result_type = "binary", win_color = "#1B7837",
-#'                    loss_color = "#762A83")
+#'   gt_color_results(
+#'     result_type = "binary", win_color = "#1B7837",
+#'     loss_color = "#762A83"
+#'   )
 #' }
 #'
 #' @export
 gt_color_results <- function(gt_object,
-                             result_column = 'result',
-                             win_color = '#5DA271',
-                             loss_color = '#C84630',
+                             result_column = "result",
+                             win_color = "#5DA271",
+                             loss_color = "#C84630",
                              tie_color = NULL,
-                             wins_text_color = 'white',
-                             loss_text_color = 'white',
-                             tie_text_color = 'white',
-                             tie_value = 'T',
-                             result_type = 'wl') {
-
+                             wins_text_color = "white",
+                             loss_text_color = "white",
+                             tie_text_color = "white",
+                             tie_value = "T",
+                             result_type = "wl") {
   .check_gt(gt_object)
 
-  if (result_type == 'binary') {
+  if (result_type == "binary") {
     win_condition <- 1
     loss_condition <- 0
   } else {
-    win_condition <- 'W'
-    loss_condition <- 'L'
+    win_condition <- "W"
+    loss_condition <- "L"
   }
 
-  data <- gt_object[['_data']]
+  data <- gt_object[["_data"]]
   # accepts a bare column, a string, or any tidyselect that lands on one column
   result_column <- tryCatch(
     names(dplyr::select(data, {{ result_column }})),
@@ -93,11 +94,11 @@ gt_color_results <- function(gt_object,
   }
   col <- data[[result_column]]
 
-  gt_object <- gt_object %>%
+  gt_object <- gt_object |>
     gt::tab_style(
       locations = gt::cells_body(rows = which(col == win_condition)),
       style = list(gt::cell_fill(color = win_color), gt::cell_text(color = wins_text_color))
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_body(rows = which(col == loss_condition)),
       style = list(gt::cell_fill(color = loss_color), gt::cell_text(color = loss_text_color))
@@ -105,7 +106,7 @@ gt_color_results <- function(gt_object,
 
   # tie rows are only colored when a tie color is supplied
   if (!is.null(tie_color)) {
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       gt::tab_style(
         locations = gt::cells_body(rows = which(col == tie_value)),
         style = list(gt::cell_fill(color = tie_color), gt::cell_text(color = tie_text_color))
@@ -113,5 +114,4 @@ gt_color_results <- function(gt_object,
   }
 
   gt_object
-
 }

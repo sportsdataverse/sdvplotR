@@ -74,9 +74,11 @@ quarterly <- data.frame(
   Line = c("Revenue", "Cost of sales", "Operating expenses"),
   Actual = c(4820, 2110, 1360),
   Budget = c(4500, 2000, 1400),
-  Comment = c("Enterprise renewals landed a quarter early.",
-              "Freight costs above plan; contract renegotiated in Q3.",
-              "Headcount hiring paused from February.")
+  Comment = c(
+    "Enterprise renewals landed a quarter early.",
+    "Freight costs above plan; contract renegotiated in Q3.",
+    "Headcount hiring paused from February."
+  )
 )
 
 gt(quarterly) \%>\%

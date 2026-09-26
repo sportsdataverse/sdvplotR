@@ -36,21 +36,21 @@ gt_border_grid <- function(gt_object,
                            color = "black",
                            weight = 1,
                            include_labels = FALSE) {
-
   .check_gt(gt_object)
 
   res <- .table_id(gt_object)
   gt_object <- res$object
   table_id <- res$id
 
-  gt_object %>%
-    gtExtras::gt_add_divider(columns = -dplyr::last_col(),
-                             color = color,
-                             weight = px(weight),
-                             include_labels = include_labels) %>%
+  gt_object |>
+    gtExtras::gt_add_divider(
+      columns = -dplyr::last_col(),
+      color = color,
+      weight = px(weight),
+      include_labels = include_labels
+    ) |>
     gt::opt_css(
       paste0("#", table_id, " .gt_row { border-top-color: ", color, ";}"),
       add = TRUE
     )
 }
-

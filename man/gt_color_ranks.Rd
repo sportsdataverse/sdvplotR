@@ -74,8 +74,10 @@ gt(ranked) \%>\% gt_color_ranks(c(mpg_rank, hp_rank))
 
 # a paletteer palette, reversed
 gt(ranked) \%>\%
-  gt_color_ranks(mpg_rank, palette = "viridis::mako", pal_type = "continuous",
-                 reverse = TRUE)
+  gt_color_ranks(mpg_rank,
+    palette = "viridis::mako", pal_type = "continuous",
+    reverse = TRUE
+  )
 }
 
 }

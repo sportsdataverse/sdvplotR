@@ -120,8 +120,10 @@
 #' gt(cars) %>%
 #'   gt_snake(n_cols = 2) %>%
 #'   gt_theme_swiss() %>%
-#'   tab_style(gt::cell_text(weight = "bold"),
-#'             gt::cells_body(columns = model_1))
+#'   tab_style(
+#'     gt::cell_text(weight = "bold"),
+#'     gt::cells_body(columns = model_1)
+#'   )
 #' }
 #'
 #' @seealso [gt_stack_tables()] for stacking separate tables vertically.
@@ -130,7 +132,6 @@
 #' @export
 gt_snake <- function(gt_object, n_cols = 2, rows_per_col = NULL, gap = 20,
                      fill = "", clean_gaps = TRUE) {
-
   .check_gt(gt_object)
 
   data <- gt_object[["_data"]]
@@ -147,7 +148,9 @@ gt_snake <- function(gt_object, n_cols = 2, rows_per_col = NULL, gap = 20,
     per <- ceiling(n / n_cols)
   }
 
-  if (n_cols < 2 || n == 0) return(gt_object)
+  if (n_cols < 2 || n == 0) {
+    return(gt_object)
+  }
 
   styles <- gt_object[["_styles"]]
 
@@ -205,8 +208,10 @@ gt_snake <- function(gt_object, n_cols = 2, rows_per_col = NULL, gap = 20,
   padded <- n_cols * per - n
   if (padded > 0 && !is.null(fill)) {
     last_cols <- paste0(vars, "_", n_cols)
-    res <- gt::sub_missing(res, columns = tidyselect::all_of(last_cols),
-                           missing_text = fill)
+    res <- gt::sub_missing(res,
+      columns = tidyselect::all_of(last_cols),
+      missing_text = fill
+    )
   }
 
   if (length(spacers)) {
@@ -257,11 +262,17 @@ gt_snake <- function(gt_object, n_cols = 2, rows_per_col = NULL, gap = 20,
     sel <- function(k) paste0("#", id, " td:nth-child(", k, ")")
     # a transparent border wins border-collapse and paints nothing. `border: 0`
     # loses, and the neighbor's rule draws through the gap
-    css <- unlist(lapply(which(cols %in% spacers), function(k) c(
-      paste0(sel(k), " {border: 1px solid transparent !important; background: transparent !important; box-shadow: none !important;}"),
-      paste0(sel(k - 1), " {border-right: 1px solid transparent !important;}"),
-      paste0(sel(k + 1), " {border-left: 1px solid transparent !important;}")
-    )))
+    css <- unlist(lapply(which(cols %in% spacers), function(k) {
+      c(
+        paste0(
+          sel(k),
+          " {border: 1px solid transparent !important; background: transparent !important;",
+          " box-shadow: none !important;}"
+        ),
+        paste0(sel(k - 1), " {border-right: 1px solid transparent !important;}"),
+        paste0(sel(k + 1), " {border-left: 1px solid transparent !important;}")
+      )
+    }))
     res <- gt::opt_css(res, paste(css, collapse = "\n"), add = TRUE)
     res <- gt::tab_style(
       res,

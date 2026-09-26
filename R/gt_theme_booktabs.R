@@ -53,7 +53,6 @@
 #' @export
 gt_theme_booktabs <- function(gt_object, accent = "#111111",
                               density = c("comfortable", "compact", "social"), ...) {
-
   .check_gt(gt_object)
   d <- .theme_density(density)
 
@@ -67,31 +66,46 @@ gt_theme_booktabs <- function(gt_object, accent = "#111111",
 
   serif <- function(...) gt::cell_text(font = gt::google_font("Tinos"), ...)
 
-  gt_object %>%
-    gt::opt_table_font(font = list(gt::google_font("Tinos"), gt::default_fonts())) %>%
-    gt::tab_style(locations = gt::cells_body(),
-                  style = gt::cell_text(color = ink, size = gt::px(d$body))) %>%
-    gt::tab_style(locations = gt::cells_title("title"),
-                  style = serif(weight = 700, size = gt::px(d$title), color = ink)) %>%
-    gt::tab_style(locations = gt::cells_title("subtitle"),
-                  style = serif(weight = 400, style = "italic", size = gt::px(d$subtitle), color = secondary)) %>%
+  gt_object |>
+    gt::opt_table_font(font = list(gt::google_font("Tinos"), gt::default_fonts())) |>
+    gt::tab_style(
+      locations = gt::cells_body(),
+      style = gt::cell_text(color = ink, size = gt::px(d$body))
+    ) |>
+    gt::tab_style(
+      locations = gt::cells_title("title"),
+      style = serif(weight = 700, size = gt::px(d$title), color = ink)
+    ) |>
+    gt::tab_style(
+      locations = gt::cells_title("subtitle"),
+      style = serif(weight = 400, style = "italic", size = gt::px(d$subtitle), color = secondary)
+    ) |>
     # column labels, same serif, no caps
-    gt::tab_style(locations = gt::cells_column_labels(),
-                  style = serif(weight = 700, size = gt::px(d$label + 1), color = ink)) %>%
-    gt::tab_style(locations = gt::cells_column_spanners(),
-                  style = serif(weight = 700, size = gt::px(d$label + 1), color = ink)) %>%
+    gt::tab_style(
+      locations = gt::cells_column_labels(),
+      style = serif(weight = 700, size = gt::px(d$label + 1), color = ink)
+    ) |>
+    gt::tab_style(
+      locations = gt::cells_column_spanners(),
+      style = serif(weight = 700, size = gt::px(d$label + 1), color = ink)
+    ) |>
     # row groups as a bold italic subheading
-    gt::tab_style(locations = gt::cells_row_groups(),
-                  style = serif(weight = 700, style = "italic", size = gt::px(d$group + 1), color = accent)) %>%
-    gt::tab_style(locations = gt::cells_source_notes(),
-                  style = serif(size = gt::px(d$source), color = secondary)) %>%
-    gt::tab_style(locations = gt::cells_footnotes(),
-                  style = serif(size = gt::px(d$source), color = secondary)) %>%
+    gt::tab_style(
+      locations = gt::cells_row_groups(),
+      style = serif(weight = 700, style = "italic", size = gt::px(d$group + 1), color = accent)
+    ) |>
+    gt::tab_style(
+      locations = gt::cells_source_notes(),
+      style = serif(size = gt::px(d$source), color = secondary)
+    ) |>
+    gt::tab_style(
+      locations = gt::cells_footnotes(),
+      style = serif(size = gt::px(d$source), color = secondary)
+    ) |>
     gt::tab_options(
       table.background.color = bg,
       table.font.size = gt::px(d$body),
       data_row.padding = gt::px(d$pad),
-
       heading.align = "left",
       heading.border.bottom.style = "none",
       heading.padding = gt::px(d$pad),
@@ -115,7 +129,6 @@ gt_theme_booktabs <- function(gt_object, accent = "#111111",
       table_body.border.bottom.width = gt::px(2),
       table_body.border.bottom.color = accent,
       table.border.bottom.style = "none",
-
       column_labels.vlines.style = "none",
       table_body.vlines.style = "none",
       stub.border.style = "none",
@@ -126,13 +139,12 @@ gt_theme_booktabs <- function(gt_object, accent = "#111111",
       row_group.border.top.color = accent,
       row_group.border.bottom.style = "none",
       row_group.padding = gt::px(max(d$pad - 2, 2)),
-
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad),
       footnotes.border.bottom.style = "none",
       ...
-    ) %>%
+    ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       paste0("#", table_id, " .gt_sourcenote { padding-top: ", d$pad + 4, "px; }")

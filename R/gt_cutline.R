@@ -77,10 +77,11 @@ gt_cutline <- function(gt_object, after, label = NULL,
                        color = "#A6081A", weight = 2, style = "dashed",
                        label_color = NULL, label_size = 9,
                        label_position = c("below", "above"), gap = 0) {
-
   .check_gt(gt_object)
   label_position <- match.arg(label_position)
-  if (!length(after)) return(gt_object)
+  if (!length(after)) {
+    return(gt_object)
+  }
   if (!is.numeric(after)) cli::cli_abort("{.arg after} must be numeric row number{?s}.")
   if (!is.numeric(gap) || length(gap) < 1 || length(gap) > 2 || any(gap < 0)) {
     cli::cli_abort("{.arg gap} must be one or two non-negative numbers.")
@@ -99,7 +100,9 @@ gt_cutline <- function(gt_object, after, label = NULL,
     ))
     label <- if (is.null(label)) NULL else rep_len(label, length(after))[!bad]
     after <- after[!bad]
-    if (!length(after)) return(gt_object)
+    if (!length(after)) {
+      return(gt_object)
+    }
   }
   if (!is.null(label)) label <- rep_len(label, length(after))
   if (is.null(label_color)) label_color <- color
@@ -110,10 +113,12 @@ gt_cutline <- function(gt_object, after, label = NULL,
 
   # the rule is a top border on the row below the cut
   for (a in after) {
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       gt::tab_style(
-        style = gt::cell_borders(sides = "top", weight = gt::px(weight),
-                                 color = color, style = style),
+        style = gt::cell_borders(
+          sides = "top", weight = gt::px(weight),
+          color = color, style = style
+        ),
         locations = gt::cells_body(rows = a + 1)
       )
   }
@@ -133,18 +138,21 @@ gt_cutline <- function(gt_object, after, label = NULL,
     for (k in seq_along(rows)) {
       r <- rows[[k]]
       if (vals[[k]] <= 0 || r < 1 || r > n_rows) next
-      if (labeled && r == label_row) next   # folded into the label padding
+      if (labeled && r == label_row) next # folded into the label padding
       gap_css <- c(gap_css, sprintf(
         "#%s tbody tr:nth-child(%d) td { padding-%s: %dpx !important; }",
-        table_id, r, sides[[k]], vals[[k]]))
+        table_id, r, sides[[k]], vals[[k]]
+      ))
     }
   }
 
   apply_css <- function(obj, rules) {
-    if (length(rules)) obj %>% gt::opt_css(rules) else obj
+    if (length(rules)) obj |> gt::opt_css(rules) else obj
   }
 
-  if (is.null(label)) return(apply_css(gt_object, gap_css))
+  if (is.null(label)) {
+    return(apply_css(gt_object, gap_css))
+  }
 
   # label goes on the tr, so clear the cell fills and repaint the stripe there
   opt <- gt_object[["_options"]]
@@ -177,27 +185,38 @@ gt_cutline <- function(gt_object, after, label = NULL,
     pad <- label_size + 13 + label_gap
 
     # gt stripes even body rows
-    row_bg <- if (striping_on && row_css %% 2 == 0 &&
-                  !is.na(stripe_col) && nzchar(stripe_col)) stripe_col else NA_character_
+    row_bg <- if (striping_on && row_css %% 2 == 0 && !is.na(stripe_col) && nzchar(stripe_col)) {
+      stripe_col
+    } else {
+      NA_character_
+    }
 
     css <- c(
       css,
       # make room, and clear the fills that would cover the label
-      sprintf(paste0("#%s tbody tr:nth-child(%d) td { padding-%s: %dpx !important;",
-                     " background-color: transparent !important; }"),
-              table_id, row_css, side, pad),
+      sprintf(
+        paste0(
+          "#%s tbody tr:nth-child(%d) td { padding-%s: %dpx !important;",
+          " background-color: transparent !important; }"
+        ),
+        table_id, row_css, side, pad
+      ),
       # label spans the row, not one cell
-      sprintf("#%s tbody tr:nth-child(%d) { %sbackground-image: url(\"%s\"); %s }",
-              table_id, row_css,
-              if (is.na(row_bg)) "" else sprintf("background-color: %s; ", row_bg),
-              .cutline_svg(lab, label_color, label_size),
-              sprintf("background-repeat: no-repeat; background-position: %s;", pos))
+      sprintf(
+        "#%s tbody tr:nth-child(%d) { %sbackground-image: url(\"%s\"); %s }",
+        table_id, row_css,
+        if (is.na(row_bg)) "" else sprintf("background-color: %s; ", row_bg),
+        .cutline_svg(lab, label_color, label_size),
+        sprintf("background-repeat: no-repeat; background-position: %s;", pos)
+      )
     )
   }
 
   css <- c(gap_css, css)
-  if (!length(css)) return(gt_object)
-  gt_object %>% gt::opt_css(css)
+  if (!length(css)) {
+    return(gt_object)
+  }
+  gt_object |> gt::opt_css(css)
 }
 
 # inline svg holding the label. url-encoded rather than base64 to avoid a dep
@@ -213,11 +232,15 @@ gt_cutline <- function(gt_object, after, label = NULL,
   height <- size + 4
 
   svg <- sprintf(
-    paste0('<svg xmlns="http://www.w3.org/2000/svg" width="%.0f" height="%.0f">',
-           '<text x="0" y="%.1f" font-family="Helvetica,Arial,sans-serif" ',
-           'font-size="%s" font-weight="700" letter-spacing="%s" fill="%s">%s</text></svg>'),
+    paste0(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="%.0f" height="%.0f">',
+      '<text x="0" y="%.1f" font-family="Helvetica,Arial,sans-serif" ',
+      'font-size="%s" font-weight="700" letter-spacing="%s" fill="%s">%s</text></svg>'
+    ),
     width, height, size + 0.5, size, tracking, color, esc(text)
   )
-  paste0("data:image/svg+xml;charset=utf-8,",
-         utils::URLencode(svg, reserved = TRUE))
+  paste0(
+    "data:image/svg+xml;charset=utf-8,",
+    utils::URLencode(svg, reserved = TRUE)
+  )
 }

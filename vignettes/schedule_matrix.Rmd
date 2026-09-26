@@ -53,13 +53,17 @@ base <- "http://a.espncdn.com/i/teamlogos/ncaa/500/"
 
 data <- read_csv("https://github.com/sportsdataverse/cfbfastR-data/raw/refs/heads/main/schedules/csv/cfb_schedules_2025.csv") %>%
   filter(season_type == "regular") %>%
-  select(home_team, away_team, week, home_conference, away_conference,
-         home_id, away_id, neutral_site) %>%
+  select(
+    home_team, away_team, week, home_conference, away_conference,
+    home_id, away_id, neutral_site
+  ) %>%
   nflreadr::clean_homeaway() %>%
   filter(team_conference == "SEC") %>%
-  mutate(opponent_logo = paste0(base, opponent_id, ".png"),
-         team_logo = paste0(base, team_id, ".png"),
-         location = ifelse(neutral_site == TRUE, "neutral", location)) %>%
+  mutate(
+    opponent_logo = paste0(base, opponent_id, ".png"),
+    team_logo = paste0(base, team_id, ".png"),
+    location = ifelse(neutral_site == TRUE, "neutral", location)
+  ) %>%
   select(team, team_logo, week, location, opponent_logo)
 ```
 
@@ -69,8 +73,10 @@ schedule's `neutral_site` flag into that same column as a third value.
 ```{r}
 logos <- data %>%
   arrange(team) %>%
-  pivot_wider(id_cols = c(team, team_logo), names_from = week,
-              values_from = opponent_logo, names_sort = TRUE)
+  pivot_wider(
+    id_cols = c(team, team_logo), names_from = week,
+    values_from = opponent_logo, names_sort = TRUE
+  )
 
 wk <- setdiff(names(logos), c("team", "team_logo"))
 ```
@@ -108,9 +114,9 @@ and `gt_highlight_rows()`, which fill whole columns or rows.
 
 ```{r, eval = FALSE}
 gt_highlight_cells(all_of(wk), condition = home_mask, fill = "#FBE7C6") %>%
-gt_highlight_cells(all_of(wk), condition = away_mask, fill = "#FFFFFF") %>%
-gt_highlight_cells(all_of(wk), neutral_mask, fill = "#CFE0C3") %>%
-gt_highlight_cells(all_of(wk), condition = ~ is.na(.x), fill = "#E4E4E4")
+  gt_highlight_cells(all_of(wk), condition = away_mask, fill = "#FFFFFF") %>%
+  gt_highlight_cells(all_of(wk), neutral_mask, fill = "#CFE0C3") %>%
+  gt_highlight_cells(all_of(wk), condition = ~ is.na(.x), fill = "#E4E4E4")
 ```
 
 Home, away, and neutral come from the masks. The bye is any cell with no game, which is a missing opponent, so `~ is.na(.x)` catches it without a mask of its own. 
@@ -142,7 +148,10 @@ After the images render, we drop a muted `BYE` into the empty cells.
 byemark <- "<span style=\"color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em\">BYE</span>"
 
 reduce(wk, .init = ., .f = function(g, c) {
-  b <- which(is.na(logos[[c]])); if (!length(b)) return(g)
+  b <- which(is.na(logos[[c]]))
+  if (!length(b)) {
+    return(g)
+  }
   text_transform(g, cells_body(columns = all_of(c), rows = b), fn = function(x) byemark)
 })
 ```
@@ -156,15 +165,19 @@ tag. We find the missing rows per column and write the mark straight into them.
 We can render the team logo and name together in a flex container and pin the column width so a long name wraps instead of stretching the table.
 
 ```{r, eval = FALSE}
-team_cell <- function(name, logo) sprintf(
-  '<div style="display:flex; align-items:center; gap:8px;">
+team_cell <- function(name, logo) {
+  sprintf(
+    '<div style="display:flex; align-items:center; gap:8px;">
      <img src="%s" style="height:26px; width:26px; object-fit:contain; flex:none;">
      <span style="font-family:\'Oswald\',sans-serif; font-size:14px; font-weight:500;
                   line-height:1.05;">%s</span></div>',
-  logo, name)
+    logo, name
+  )
+}
 
 text_transform(cells_body(columns = team),
-               fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo)))
+  fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))
+)
 ```
 
 `flex:none` holds the logo at 26px so the name takes the rest of a fixed column. We map from `logos$team` and `logos$team_logo` rather than the `x` the
@@ -180,13 +193,17 @@ table.
 
 ```{r, eval = FALSE}
 gt_legend_discrete(
-  c("Home Game" = "#FBE7C6", "Away Game" = "#FFFFFF",
-    "Neutral Game" = "#CFE0C3", "Bye Week" = "#E4E4E4"),
+  c(
+    "Home Game" = "#FBE7C6", "Away Game" = "#FFFFFF",
+    "Neutral Game" = "#CFE0C3", "Bye Week" = "#E4E4E4"
+  ),
   location = "top", label_placement = "inside", shape = "square",
   gap = 8, swatch_size = 20, border_width = 1.5, border_color = "black",
   heading = "2025 SEC Football Schedule",
-  heading_style = list(font = "Oswald", size = 36, weight = 600,
-                       transform = "uppercase", margin_bottom = -5),
+  heading_style = list(
+    font = "Oswald", size = 36, weight = 600,
+    transform = "uppercase", margin_bottom = -5
+  ),
   label_style = list(font = "Oswald", size = 14, margin_bottom = 6)
 )
 ```
@@ -211,11 +228,15 @@ gt(logos, id = "table") %>%
     gtExtras::gt_img_rows(.x, columns = !!rlang::sym(.y), height = 35)
   )) %>%
   reduce(wk, .init = ., .f = function(g, c) {
-    b <- which(is.na(logos[[c]])); if (!length(b)) return(g)
+    b <- which(is.na(logos[[c]]))
+    if (!length(b)) {
+      return(g)
+    }
     text_transform(g, cells_body(columns = all_of(c), rows = b), fn = function(x) byemark)
   }) %>%
   text_transform(cells_body(columns = team),
-                 fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))) %>%
+    fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))
+  ) %>%
   cols_align(columns = -team, "center") %>%
   gt_border_grid(weight = 2) %>%
   tab_options(table_body.hlines.width = px(2)) %>%
@@ -223,17 +244,23 @@ gt(logos, id = "table") %>%
   cols_label(team = "") %>%
   tab_style(locations = cells_column_labels(), cell_text(size = px(14))) %>%
   gt_legend_discrete(
-    c("Home Game" = "#FBE7C6", "Away Game" = "#FFFFFF",
-      "Neutral Game" = "#CFE0C3", "Bye Week" = "#E4E4E4"),
+    c(
+      "Home Game" = "#FBE7C6", "Away Game" = "#FFFFFF",
+      "Neutral Game" = "#CFE0C3", "Bye Week" = "#E4E4E4"
+    ),
     location = "top", label_placement = "inside", shape = "square",
     gap = 8, swatch_size = 20, border_width = 1.5, border_color = "black",
     heading = "2025 SEC Football Schedule",
-    heading_style = list(font = "Oswald", size = 36, weight = 600,
-                         transform = "uppercase", margin_bottom = -5),
-    label_style = list(font = "Oswald", size = 14, margin_bottom = 6)) %>%
+    heading_style = list(
+      font = "Oswald", size = 36, weight = 600,
+      transform = "uppercase", margin_bottom = -5
+    ),
+    label_style = list(font = "Oswald", size = 14, margin_bottom = 6)
+  ) %>%
   gt_538_caption(
     md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
-    "Example created by @andreweatherman using {gtUtils} v1.0")
+    "Example created by @andreweatherman using {gtUtils} v1.0"
+  )
 ```
 
 ```{r, eval=TRUE, echo=FALSE}

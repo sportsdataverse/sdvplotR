@@ -179,8 +179,10 @@ gt(head(airquality, 10)) \%>\%
   gt_legend_continuous(
     columns = Temp, type = "blocks", n_bins = 5, labels = "edges",
     title = "Temp (F)", title_position = "left",
-    title_style = list(weight = 600, transform = "uppercase",
-                       spacing = "0.08em", size = "10px"),
+    title_style = list(
+      weight = 600, transform = "uppercase",
+      spacing = "0.08em", size = "10px"
+    ),
     labels_style = list(size = "9px", color = "#999999")
   )
 }

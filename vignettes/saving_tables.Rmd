@@ -115,10 +115,13 @@ ratio. `gravity` moves the table on the canvas if you do not want it centered.
 
 ```{r}
 tbl %>%
-  gt_watermark(text = "gtUtils", opacity = 0.06, size = "62%", angle = 20,
-               font = "Helvetica") %>%
+  gt_watermark(
+    text = "gtUtils", opacity = 0.06, size = "62%", angle = 20,
+    font = "Helvetica"
+  ) %>%
   gt_social_tag(c(x = "@andreweatherman", gh = "andreweatherman"),
-                caption = "Built with gtUtils") %>%
+    caption = "Built with gtUtils"
+  ) %>%
   gt_save_crop(file = "branded.png")
 ```
 

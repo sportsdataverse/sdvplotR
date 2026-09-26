@@ -79,8 +79,10 @@ gt(head(mtcars[c("mpg", "hp", "wt")], 6)) \%>\%
     subtitle = "A sample of the 1974 Motor Trend road tests",
     kicker = "Motor Trend",
     date = as.Date("2026-07-21"),
-    kicker_style = list(color = "#0054AD", size = "0.8em",
-                        transform = "uppercase", spacing = "0.1em"),
+    kicker_style = list(
+      color = "#0054AD", size = "0.8em",
+      transform = "uppercase", spacing = "0.1em"
+    ),
     title_style = list(font = "Libre Franklin", weight = 800, size = "26px"),
     subtitle_style = list(color = "#666666", italic = TRUE),
     date_style = list(color = "#B8232F", weight = 600)

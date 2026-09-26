@@ -56,7 +56,6 @@
 #' @export
 gt_save_batch <- function(data, group, fn, file, dir = ".", match_width = TRUE,
                           bg = "white", whitespace = 50, zoom = 2, quiet = FALSE) {
-
   if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame.")
   if (!is.function(fn)) cli::cli_abort("{.arg fn} must be a function.")
   if (!grepl("{group}", file, fixed = TRUE)) {
@@ -83,18 +82,21 @@ gt_save_batch <- function(data, group, fn, file, dir = ".", match_width = TRUE,
 
   for (k in keys) {
     if (!quiet) cli::cli_alert_info("Building {.val {k}}")
-    out <- tryCatch({
-      tbl <- fn(data[data[[gcol]] == k, , drop = FALSE], k)
-      if (!inherits(tbl, "gt_tbl")) {
-        cli::cli_abort("{.arg fn} returned {.obj_type_friendly {tbl}}, not a {.cls gt_tbl}.")
+    out <- tryCatch(
+      {
+        tbl <- fn(data[data[[gcol]] == k, , drop = FALSE], k)
+        if (!inherits(tbl, "gt_tbl")) {
+          cli::cli_abort("{.arg fn} returned {.obj_type_friendly {tbl}}, not a {.cls gt_tbl}.")
+        }
+        png <- tempfile(fileext = ".png")
+        gtExtras::gtsave_extra(tbl, png, zoom = zoom)
+        png
+      },
+      error = function(e) {
+        failed[[length(failed) + 1L]] <<- paste0(k, ": ", conditionMessage(e))
+        NULL
       }
-      png <- tempfile(fileext = ".png")
-      gtExtras::gtsave_extra(tbl, png, zoom = zoom)
-      png
-    }, error = function(e) {
-      failed[[length(failed) + 1L]] <<- paste0(k, ": ", conditionMessage(e))
-      NULL
-    })
+    )
     if (!is.null(out)) {
       tmp <- c(tmp, out)
       built <- c(built, as.character(k))
@@ -120,7 +122,8 @@ gt_save_batch <- function(data, group, fn, file, dir = ".", match_width = TRUE,
     if (!is.null(target)) {
       h <- magick::image_info(img)$height
       img <- magick::image_extent(img, magick::geometry_size_pixels(target, h),
-                                  gravity = "center", color = bg)
+        gravity = "center", color = bg
+      )
     }
     dest <- file.path(dir, gsub("{group}", slug(built[[i]]), file, fixed = TRUE))
     magick::image_write(
@@ -133,8 +136,10 @@ gt_save_batch <- function(data, group, fn, file, dir = ".", match_width = TRUE,
   unlink(tmp)
 
   if (length(failed)) {
-    cli::cli_warn(c("{length(failed)} group{?s} failed and {?was/were} skipped:",
-                    stats::setNames(failed, rep("x", length(failed)))))
+    cli::cli_warn(c(
+      "{length(failed)} group{?s} failed and {?was/were} skipped:",
+      stats::setNames(failed, rep("x", length(failed)))
+    ))
   }
   if (!quiet) cli::cli_alert_success("Wrote {length(paths)} file{?s} to {.path {dir}}")
 

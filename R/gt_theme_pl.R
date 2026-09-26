@@ -40,7 +40,6 @@
 gt_theme_pl <- function(gt_object,
                         density = c("comfortable", "compact", "social"),
                         ...) {
-
   .check_gt(gt_object)
 
   res <- .table_id(gt_object)
@@ -48,42 +47,42 @@ gt_theme_pl <- function(gt_object,
   table_id <- res$id
   data <- gt_object[["_data"]]
 
-  gt_object %>%
+  gt_object |>
     gt::tab_style(
       locations = gt::cells_body(
         columns = gt::everything()
       ),
       style = gt::cell_text(
-        font = gt::google_font('DM Sans'),
-        color = '#37003c',
+        font = gt::google_font("DM Sans"),
+        color = "#37003c",
         size = px(14)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_column_labels(
         columns = gt::everything()
       ),
       style = gt::cell_text(
-        font = gt::google_font('DM Sans'),
-        color = '#87668a',
+        font = gt::google_font("DM Sans"),
+        color = "#87668a",
         weight = 650,
         size = px(13)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
-      locations = gt::cells_title('title'),
+      locations = gt::cells_title("title"),
       style = gt::cell_text(
-        font = gt::google_font('DM Sans'),
+        font = gt::google_font("DM Sans"),
         weight = 650
       )
-    ) %>%
+    ) |>
     gt::tab_style(
-      locations = gt::cells_title('subtitle'),
+      locations = gt::cells_title("subtitle"),
       style = gt::cell_text(
-        font = gt::google_font('DM Sans'),
+        font = gt::google_font("DM Sans"),
         weight = 500
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_column_spanners(),
       style = gt::cell_text(
@@ -92,7 +91,7 @@ gt_theme_pl <- function(gt_object,
         size = px(12),
         color = "#37003c"
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_row_groups(),
       style = list(
@@ -106,29 +105,29 @@ gt_theme_pl <- function(gt_object,
           color = "#C0BACA"
         )
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_footnotes(),
       style = gt::cell_text(
         font = gt::google_font("DM Sans"),
         size = px(12)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_source_notes(),
       style = gt::cell_text(
-        font = gt::google_font('DM Sans'),
+        font = gt::google_font("DM Sans"),
         size = px(12)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_body(rows = 1:(nrow(data) - 1)),
       style = gt::cell_borders(sides = "bottom", color = "#37003c")
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_body(rows = 1),
       style = gt::cell_borders(sides = "top", color = "#37003c")
-    ) %>%
+    ) |>
     gt::tab_options(
       heading.align = "left",
       column_labels.border.top.style = "none",
@@ -143,43 +142,44 @@ gt_theme_pl <- function(gt_object,
       row_group.border.top.style = "none",
       row_group.border.bottom.width = px(1),
       row_group.border.bottom.color = "#37003c",
-      row_group.border.bottom.style = 'solid',
+      row_group.border.bottom.style = "solid",
       table.border.bottom.style = "none",
       source_notes.border.lr.style = "none",
       column_labels.border.bottom.style = "solid",
       column_labels.border.bottom.width = px(1),
       column_labels.border.bottom.color = "#37003c",
       ...
-    ) %>%
+    ) |>
     gt::opt_css(
       c(
-      .theme_last_row_border(table_id, "#FFFFFF"),
-      paste0("#", table_id,
-             " .gt_col_heading
+        .theme_last_row_border(table_id, "#FFFFFF"),
+        paste0(
+          "#", table_id,
+          " .gt_col_heading
              {
               padding-bottom: 3px;
              }",
-             "#", table_id,
-             " .gt_heading
+          "#", table_id,
+          " .gt_heading
              {
               padding-bottom: 0px;
               padding-top: 6px
             }",
-             "#", table_id,
-             " .gt_subtitle
+          "#", table_id,
+          " .gt_subtitle
              {
               padding-top: 2px;
               padding-bottom: 6px;
             }",
-             paste0("#", table_id, " .gt_column_spanner {font-size: 13px; font-weight: bold; padding-bottom: 2px;}"),
-             "#", table_id,
-             " .gt_sourcenote
+          paste0("#", table_id, " .gt_column_spanner {font-size: 13px; font-weight: bold; padding-bottom: 2px;}"),
+          "#", table_id,
+          " .gt_sourcenote
              {
               line-height: 1.2
-            }")
+            }"
+        )
       ),
       add = TRUE
-    ) %>%
+    ) |>
     .theme_scale_output(density)
-
 }

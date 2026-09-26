@@ -1,4 +1,3 @@
-
 # File containing both variants of gt_border_bars -------------------------
 
 #' Add horizontal bars to the top of a `gt` table
@@ -78,7 +77,6 @@ gt_border_bars_top <- function(gt_object,
                                text_size = 18,
                                text_align = "left",
                                text_padding = 10) {
-
   .check_gt(gt_object)
 
   res <- .table_id(gt_object)
@@ -86,61 +84,75 @@ gt_border_bars_top <- function(gt_object,
   table_id <- res$id
 
   # try to get font from title class but just inherit base if no font is specified
-  font_info <- tryCatch({
-    filter(gt_object[["_styles", exact = TRUE]], locname == "title")$styles[[1]]$cell_text$font
-  }, error = function(e) {
-    "inherit"
-  })
+  font_info <- tryCatch(
+    {
+      filter(gt_object[["_styles", exact = TRUE]], locname == "title")$styles[[1]]$cell_text$font
+    },
+    error = function(e) {
+      "inherit"
+    }
+  )
 
-  google_font <- tryCatch({
-    gt::google_font(font_info)$import_stmt
-  }, error = function(e) {
-    NULL # no font rec. above
-  })
+  google_font <- tryCatch(
+    {
+      gt::google_font(font_info)$import_stmt
+    },
+    error = function(e) {
+      NULL # no font rec. above
+    }
+  )
 
   align_style <- switch(bar_align,
-                        "left" = "margin-left: 0; margin-right: auto;",
-                        "center" = "margin-left: auto; margin-right: auto;",
-                        "right" = "margin-left: auto; margin-right: 0;",
-                        "margin-left: auto; margin-right: auto;"
+    "left" = "margin-left: 0; margin-right: auto;",
+    "center" = "margin-left: auto; margin-right: auto;",
+    "right" = "margin-left: auto; margin-right: 0;",
+    "margin-left: auto; margin-right: auto;"
   )
 
   bars <- if (is.null(text) && is.null(img)) {
     paste0(
-      '<div style="background-color: transparent; width: ', bar_width, '; ', align_style, '">',
+      '<div style="background-color: transparent; width: ', bar_width, "; ", align_style, '">',
       paste0(
         sapply(colors, function(color) {
-          paste0('<div style="height: ', bar_height, 'px; background-color: ', color, ';"></div>')
+          paste0('<div style="height: ', bar_height, "px; background-color: ", color, ';"></div>')
         }),
         collapse = ""
       ),
-      '</div>'
+      "</div>"
     )
   } else {
     paste0(
-      if (!is.null(google_font)) paste0('<style>', google_font, '</style>') else "",
-      '<div style="display: flex; justify-content: space-between; align-items: center; height: ', bar_height, 'px; background-color: ', colors[1], '; width: ', bar_width, '; ', align_style, '">',
+      if (!is.null(google_font)) paste0("<style>", google_font, "</style>") else "",
+      '<div style="display: flex; justify-content: space-between; align-items: center; height: ',
+      bar_height, "px; background-color: ", colors[1], "; width: ", bar_width, "; ", align_style, '">',
       if (!is.null(text)) {
-        paste0('<span style="font-weight:', text_weight,
-               '; color:', text_color, '; font-size:', text_size, 'px; padding-', text_align, ': ', text_padding, 'px; font-family: ', font_info, ';">', text, '</span>')
+        paste0(
+          '<span style="font-weight:', text_weight,
+          "; color:", text_color, "; font-size:", text_size, "px; padding-", text_align, ": ", text_padding,
+          "px; font-family: ", font_info, ';">', text, "</span>"
+        )
       } else {
-        paste0('<span></span>')
+        paste0("<span></span>")
       },
       if (!is.null(img)) {
-        paste0('<img src="', img, '" width="', img_width, 'px" height="', img_height,
-               'px" style="padding-', img_align, ':', img_padding, 'px;" />')
+        paste0(
+          '<img src="', img, '" width="', img_width, 'px" height="', img_height,
+          'px" style="padding-', img_align, ":", img_padding, 'px;" />'
+        )
       } else {
         ""
       },
-      '</div>'
+      "</div>"
     )
   }
 
-  gt_object %>%
-    gt::tab_caption(html(bars)) %>%
-    gt::opt_css(paste0("#", table_id, " .gt_caption {padding-top: 0px !important; padding-bottom: 0px !important;}"), add = TRUE)
+  gt_object |>
+    gt::tab_caption(html(bars)) |>
+    gt::opt_css(
+      paste0("#", table_id, " .gt_caption {padding-top: 0px !important; padding-bottom: 0px !important;}"),
+      add = TRUE
+    )
 }
-
 
 
 #' Add horizontal bars to the bottom of a `gt` table
@@ -220,64 +232,81 @@ gt_border_bars_bottom <- function(gt_object,
                                   text_size = 18,
                                   text_align = "left",
                                   text_padding = 10) {
-
   .check_gt(gt_object)
 
   res <- .table_id(gt_object)
   gt_object <- res$object
   table_id <- res$id
 
-  font_info <- tryCatch({
-    filter(gt_object[["_styles", exact = TRUE]], locname == "source_notes")$styles[[1]]$cell_text$font
-  }, error = function(e) {
-    "inherit"
-  })
+  font_info <- tryCatch(
+    {
+      filter(gt_object[["_styles", exact = TRUE]], locname == "source_notes")$styles[[1]]$cell_text$font
+    },
+    error = function(e) {
+      "inherit"
+    }
+  )
 
-  google_font <- tryCatch({
-    gt::google_font(font_info)$import_stmt
-  }, error = function(e) {
-    NULL
-  })
+  google_font <- tryCatch(
+    {
+      gt::google_font(font_info)$import_stmt
+    },
+    error = function(e) {
+      NULL
+    }
+  )
 
   align_style <- switch(bar_align,
-                        "left" = "margin-left: 0; margin-right: auto;",
-                        "center" = "margin-left: auto; margin-right: auto;",
-                        "right" = "margin-left: auto; margin-right: 0;",
-                        "margin-left: auto; margin-right: auto;"
+    "left" = "margin-left: 0; margin-right: auto;",
+    "center" = "margin-left: auto; margin-right: auto;",
+    "right" = "margin-left: auto; margin-right: 0;",
+    "margin-left: auto; margin-right: auto;"
   )
 
   if (is.null(text) && is.null(img)) {
     bars <- paste0(
-      '<div style="background-color: transparent; width: ', bar_width, '; ', align_style, '">',
+      '<div style="background-color: transparent; width: ', bar_width, "; ", align_style, '">',
       paste0(
         sapply(colors, function(color) {
-          paste0('<div style="height: ', bar_height, 'px; background-color: ', color, ';"></div>')
+          paste0('<div style="height: ', bar_height, "px; background-color: ", color, ';"></div>')
         }),
         collapse = ""
       ),
-      '</div>'
+      "</div>"
     )
   } else {
     bars <- paste0(
-      if (!is.null(google_font)) paste0('<style>', google_font, '</style>') else "",
-      '<div style="display: flex; justify-content: space-between; align-items: center; height: ', bar_height, 'px; background-color: ', colors[1], '; width: ', bar_width, '; ', align_style, '">',
+      if (!is.null(google_font)) paste0("<style>", google_font, "</style>") else "",
+      '<div style="display: flex; justify-content: space-between; align-items: center; height: ',
+      bar_height, "px; background-color: ", colors[1], "; width: ", bar_width, "; ", align_style, '">',
       if (!is.null(text)) {
-        paste0('<span style="font-weight:', text_weight,
-               '; color:', text_color, '; font-size:', text_size, 'px; padding-', text_align, ': ', text_padding, 'px; font-family: ', font_info, ';">', text, '</span>')
+        paste0(
+          '<span style="font-weight:', text_weight,
+          "; color:", text_color, "; font-size:", text_size, "px; padding-", text_align, ": ", text_padding,
+          "px; font-family: ", font_info, ';">', text, "</span>"
+        )
       } else {
-        paste0('<span></span>')
+        paste0("<span></span>")
       },
       if (!is.null(img)) {
-        paste0('<img src="', img, '" width="', img_width, 'px" height="', img_height,
-               'px" style="padding-', img_align, ':', img_padding, 'px;" />')
+        paste0(
+          '<img src="', img, '" width="', img_width, 'px" height="', img_height,
+          'px" style="padding-', img_align, ":", img_padding, 'px;" />'
+        )
       } else {
         ""
       },
-      '</div>'
+      "</div>"
     )
   }
 
-  gt_object %>%
-    gt::tab_source_note(html(bars)) %>%
-    gt::opt_css(paste0("#", table_id, " .gt_sourcenote {padding-right: 0px !important; padding-left: 0px !important; padding-bottom: 0px;}"), add = TRUE)
+  gt_object |>
+    gt::tab_source_note(html(bars)) |>
+    gt::opt_css(
+      paste0(
+        "#", table_id,
+        " .gt_sourcenote {padding-right: 0px !important; padding-left: 0px !important; padding-bottom: 0px;}"
+      ),
+      add = TRUE
+    )
 }

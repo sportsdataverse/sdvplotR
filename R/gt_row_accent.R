@@ -48,8 +48,10 @@
 #'
 #' # keyed to a grouping column
 #' gt(teams) %>%
-#'   gt_row_accent(conf, palette = c(ACC = "#003366", B12 = "#C8102E",
-#'                                   SEC = "#B8232F"))
+#'   gt_row_accent(conf, palette = c(
+#'     ACC = "#003366", B12 = "#C8102E",
+#'     SEC = "#B8232F"
+#'   ))
 #'
 #' # or straight from a column of colors
 #' teams$color <- c("#003366", "#C8102E", "#B8232F", "#C8102E")
@@ -68,7 +70,6 @@
 gt_row_accent <- function(gt_object, column, palette = NULL, rows = NULL,
                           width = 4, side = c("left", "right"), hide = TRUE,
                           na_color = "transparent") {
-
   .check_gt(gt_object)
   side <- match.arg(side)
 
@@ -107,14 +108,16 @@ gt_row_accent <- function(gt_object, column, palette = NULL, rows = NULL,
 
   # hide first, so the bar lands on whatever is leftmost afterwards
   if (isTRUE(hide)) {
-    gt_object <- gt_object %>% gt::cols_hide(columns = tidyselect::all_of(key_col))
+    gt_object <- gt_object |> gt::cols_hide(columns = tidyselect::all_of(key_col))
   }
 
   boxhead <- gt_object[["_boxhead"]]
   has_stub <- any(boxhead[["type"]] == "stub")
   edge_col <- boxhead[["var"]][boxhead[["type"]] == "default"][[1]]
 
-  if (is.na(edge_col) && !has_stub) return(gt_object)
+  if (is.na(edge_col) && !has_stub) {
+    return(gt_object)
+  }
 
   # one style per distinct color rather than one per row
   for (col in unique(colors)) {
@@ -126,7 +129,7 @@ gt_row_accent <- function(gt_object, column, palette = NULL, rows = NULL,
     } else {
       gt::cells_body(columns = tidyselect::all_of(edge_col), rows = at)
     }
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       gt::tab_style(
         style = gt::cell_borders(sides = side, color = col, weight = gt::px(width)),
         locations = loc

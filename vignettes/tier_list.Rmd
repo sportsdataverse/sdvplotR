@@ -61,12 +61,15 @@ Next, we need to bin our data into these tiers. `subset_rank` uses the `dense_ra
 Finally, tier_order is calculated as the rank within each tier using `dense_rank` again, but this time grouped by the tier to ensure the ordering is relative to each group.
 
 ```{r}
-data <- data %>% 
-  mutate(subset_rank = dense_rank(-adj_em),
-         tier = cut(subset_rank, 
-                     breaks = quantile(subset_rank, probs = c(0, 0.25, 0.75, 1)), 
-                     labels = levels, 
-                     include.lowest = TRUE)) %>% 
+data <- data %>%
+  mutate(
+    subset_rank = dense_rank(-adj_em),
+    tier = cut(subset_rank,
+      breaks = quantile(subset_rank, probs = c(0, 0.25, 0.75, 1)),
+      labels = levels,
+      include.lowest = TRUE
+    )
+  ) %>%
   mutate(tier_order = dense_rank(subset_rank), .by = tier)
 ```
 
@@ -79,10 +82,10 @@ data <- data %>% left_join(cbd_teams() %>% select(team = common_team, logo = esp
 Finally, we need to pivot our data to a *wide* format. This ensures that we will be plotting logos horizontally.
 
 ```{r}
-data <- data %>% 
-    pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo) %>% 
-    select(tier, sort(names(.))) %>% 
-    arrange(tier)
+data <- data %>%
+  pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo) %>%
+  select(tier, sort(names(.))) %>%
+  arrange(tier)
 ```
 
 Great -- if your data looks similar to this, you're ready to make a tier list!
@@ -102,10 +105,12 @@ Let's apply it!
 
 ```{r, eval = FALSE}
 data %>%
-  gt() %>% 
-  gt_tiers(levels, colors) %>% 
-  tab_header(title = "Example Tier List using gtUtils", 
-           subtitle = "Ranking ACC teams by 2024 KenPom rating")
+  gt() %>%
+  gt_tiers(levels, colors) %>%
+  tab_header(
+    title = "Example Tier List using gtUtils",
+    subtitle = "Ranking ACC teams by 2024 KenPom rating"
+  )
 ```
 
 ```{r, echo = FALSE, out.width="75%", eval=TRUE}

@@ -49,7 +49,6 @@
 gt_scale_note <- function(gt_object, columns, divisor = 1000, note = NULL,
                           where = c("source_note", "label", "both"),
                           label_suffix = NULL, decimals = 0, ...) {
-
   .check_gt(gt_object)
   where <- match.arg(where)
   if (!is.numeric(divisor) || length(divisor) != 1 || divisor == 0) {
@@ -59,10 +58,12 @@ gt_scale_note <- function(gt_object, columns, divisor = 1000, note = NULL,
   col_names <- names(dplyr::select(gt_object[["_data"]], {{ columns }}))
   if (!length(col_names)) cli::cli_abort("{.arg columns} matched no columns.")
 
-  named <- list(`1e+03` = c("thousands", "(000s)"),
-                `1e+06` = c("millions", "(millions)"),
-                `1e+09` = c("billions", "(billions)"),
-                `1e+12` = c("trillions", "(trillions)"))
+  named <- list(
+    `1e+03` = c("thousands", "(000s)"),
+    `1e+06` = c("millions", "(millions)"),
+    `1e+09` = c("billions", "(billions)"),
+    `1e+12` = c("trillions", "(trillions)")
+  )
   key <- format(divisor, scientific = TRUE)
   match_name <- named[[key]]
 
@@ -74,16 +75,21 @@ gt_scale_note <- function(gt_object, columns, divisor = 1000, note = NULL,
     }
   }
   if (is.null(label_suffix)) {
-    label_suffix <- if (!is.null(match_name)) match_name[[2]] else
+    label_suffix <- if (!is.null(match_name)) {
+      match_name[[2]]
+    } else {
       paste0("(\u00f7", format(divisor, big.mark = ",", scientific = FALSE), ")")
+    }
   }
 
-  out <- gt_object %>%
-    gt::fmt_number(columns = {{ columns }}, scale_by = 1 / divisor,
-                   decimals = decimals, ...)
+  out <- gt_object |>
+    gt::fmt_number(
+      columns = {{ columns }}, scale_by = 1 / divisor,
+      decimals = decimals, ...
+    )
 
   if (where %in% c("source_note", "both")) {
-    out <- out %>% gt::tab_source_note(source_note = note)
+    out <- out |> gt::tab_source_note(source_note = note)
   }
   if (where %in% c("label", "both")) {
     current <- gt_object[["_boxhead"]]
@@ -91,7 +97,7 @@ gt_scale_note <- function(gt_object, columns, divisor = 1000, note = NULL,
       lab <- current$column_label[current$var == cn][[1]]
       paste0(as.character(lab), " ", label_suffix)
     })
-    out <- out %>% gt::cols_label(.list = stats::setNames(labs, col_names))
+    out <- out |> gt::cols_label(.list = stats::setNames(labs, col_names))
   }
 
   out

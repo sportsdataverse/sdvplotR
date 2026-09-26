@@ -60,7 +60,7 @@ Before splitting anything, two values are computed once, off the full table.
 ```{r}
 wab_domain <- range(data$wins_above_bubble_rk, na.rm = TRUE)
 
-sizes  <- c(13, 12)
+sizes <- c(13, 12)
 chunks <- split(data, rep(seq_along(sizes), sizes))
 ```
 
@@ -105,8 +105,10 @@ numeric column. Reach for a `paletteer` palette when you want something other th
 the default ramp:
 
 ```{r, eval = FALSE}
-gt_color_ranks(wins_above_bubble_rk, palette = "viridis::mako",
-               pal_type = "continuous", reverse = TRUE)
+gt_color_ranks(wins_above_bubble_rk,
+  palette = "viridis::mako",
+  pal_type = "continuous", reverse = TRUE
+)
 ```
 
 ## One table, applied to each block
@@ -123,8 +125,10 @@ tbls <- lapply(chunks, function(x) {
     cols_align(columns = -c(team), align = "center") %>%
     cols_align(columns = team, "left") %>%
     cols_label(team = "Team", net = "NET", wins_above_bubble_rk = "WAB Rk.") %>%
-    cols_label_with(columns = starts_with("quad"),
-                    fn = function(x) paste0("Q", parse_number(x))) %>%
+    cols_label_with(
+      columns = starts_with("quad"),
+      fn = function(x) paste0("Q", parse_number(x))
+    ) %>%
     cols_width(team ~ px(140), starts_with("quad") ~ px(60)) %>%
     tab_spanner(columns = starts_with("quad"), label = "Quad Records") %>%
     gt_color_ranks(wins_above_bubble_rk, domain = wab_domain) %>%
@@ -152,16 +156,20 @@ table (for the second example).
 Now the list goes to `gt_grid()`.
 
 ```{r}
-gt_grid(tbls, ncol = 2, gap = 30,
-        title = "Top 25 NET Rankings (2024-25)",
-        subtitle = "Rankings through April 11, 2024",
-        title_style = list(font = "Oswald", size = 34, transform = "uppercase",
-                           margin_bottom = -4),
-        subtitle_style = list(italic = TRUE, color = "#8A8A8A"),
-        caption = md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
-        caption_style = list(align = "left"),
-        source_note = "Example created by @andreweatherman using {gtUtils} v1.0",
-        caption_rule = TRUE)
+gt_grid(tbls,
+  ncol = 2, gap = 30,
+  title = "Top 25 NET Rankings (2024-25)",
+  subtitle = "Rankings through April 11, 2024",
+  title_style = list(
+    font = "Oswald", size = 34, transform = "uppercase",
+    margin_bottom = -4
+  ),
+  subtitle_style = list(italic = TRUE, color = "#8A8A8A"),
+  caption = md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
+  caption_style = list(align = "left"),
+  source_note = "Example created by @andreweatherman using {gtUtils} v1.0",
+  caption_rule = TRUE
+)
 ```
 
 ```{r, eval=TRUE, echo=FALSE}
@@ -218,15 +226,19 @@ tbls <- lapply(chunks, function(x) {
     cols_align(columns = -c(team), align = "center") %>%
     cols_align(columns = team, "left") %>%
     cols_label(team = "Team", net = "NET", wins_above_bubble_rk = "WAB Rk.") %>%
-    cols_label_with(columns = starts_with("quad"),
-                    fn = function(x) paste0("Q", parse_number(x))) %>%
+    cols_label_with(
+      columns = starts_with("quad"),
+      fn = function(x) paste0("Q", parse_number(x))
+    ) %>%
     cols_width(team ~ px(140), starts_with("quad") ~ px(60)) %>%
     tab_spanner(columns = starts_with("quad"), label = "Quad Records") %>%
     gt_color_ranks(wins_above_bubble_rk, domain = wab_domain) %>%
     fmt_markdown(team) %>%
     gt_add_divider(team, color = "white", weight = px(10)) %>%
-    gt_spotlight(rows = conf == "B12", if_none = "dim",
-                 accent_color = "darkred", dim_color = "lightgrey") %>%
+    gt_spotlight(
+      rows = conf == "B12", if_none = "dim",
+      accent_color = "darkred", dim_color = "lightgrey"
+    ) %>%
     tab_options(
       data_row.padding = px(6),
       table_body.hlines.style = "solid",
@@ -235,16 +247,20 @@ tbls <- lapply(chunks, function(x) {
     )
 })
 
-gt_grid(tbls, ncol = 2, gap = 30,
-        title = "The Big 12 has four teams inside the NET T-20",
-        subtitle = "Rankings through April 11, 2024",
-        title_style = list(font = "Oswald", size = 34, transform = "uppercase",
-                           margin_bottom = -4),
-        subtitle_style = list(italic = TRUE, color = "#8A8A8A"),
-        caption = md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
-        caption_style = list(align = "left"),
-        source_note = "Example created by @andreweatherman using {gtUtils} v1.0",
-        caption_rule = TRUE)
+gt_grid(tbls,
+  ncol = 2, gap = 30,
+  title = "The Big 12 has four teams inside the NET T-20",
+  subtitle = "Rankings through April 11, 2024",
+  title_style = list(
+    font = "Oswald", size = 34, transform = "uppercase",
+    margin_bottom = -4
+  ),
+  subtitle_style = list(italic = TRUE, color = "#8A8A8A"),
+  caption = md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
+  caption_style = list(align = "left"),
+  source_note = "Example created by @andreweatherman using {gtUtils} v1.0",
+  caption_rule = TRUE
+)
 ```
 
 ```{r, eval=TRUE, echo=FALSE}

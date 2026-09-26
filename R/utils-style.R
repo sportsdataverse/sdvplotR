@@ -3,16 +3,20 @@
 
 # accept 12 or "12px" or "0.8em" and return a css length
 .css_len <- function(x, unit = "px") {
-  if (is.null(x)) return(NULL)
+  if (is.null(x)) {
+    return(NULL)
+  }
   if (is.numeric(x)) paste0(x, unit) else as.character(x)
 }
 
 # every recognized style key, all off, so a user list only sets what it names
 .style_blank <- function() {
-  list(font = NULL, size = NULL, color = NULL, weight = NULL, italic = FALSE,
-       spacing = NULL, transform = NULL, align = NULL, line_height = NULL,
-       margin_top = NULL, margin_bottom = NULL, padding_top = NULL,
-       padding_bottom = NULL)
+  list(
+    font = NULL, size = NULL, color = NULL, weight = NULL, italic = FALSE,
+    spacing = NULL, transform = NULL, align = NULL, line_height = NULL,
+    margin_top = NULL, margin_bottom = NULL, padding_top = NULL,
+    padding_bottom = NULL
+  )
 }
 
 # per-element defaults layered over the blank set, then the user's list over that

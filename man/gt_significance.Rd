@@ -80,8 +80,10 @@ gt(results) \%>\%
 
 # daggers instead of stars, at a single threshold
 gt(results) \%>\%
-  gt_significance(Estimate, p, levels = 0.05, symbols = "†",
-                  legend_text = "† p < .05")
+  gt_significance(Estimate, p,
+    levels = 0.05, symbols = "†",
+    legend_text = "† p < .05"
+  )
 }
 
 }

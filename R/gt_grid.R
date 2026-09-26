@@ -73,27 +73,35 @@
 #' gt_grid(by_cyl, ncol = 2)
 #'
 #' # one heading over the whole sheet
-#' gt_grid(by_cyl, ncol = 3, title = "Fuel economy by cylinder count",
-#'         subtitle = "1974 Motor Trend road tests", caption = "Data: mtcars")
+#' gt_grid(by_cyl,
+#'   ncol = 3, title = "Fuel economy by cylinder count",
+#'   subtitle = "1974 Motor Trend road tests", caption = "Data: mtcars"
+#' )
 #'
 #' # a 538-style split caption under the whole sheet
-#' gt_grid(by_cyl, ncol = 3,
-#'         title = "Fuel economy by cylinder count",
-#'         caption = gt::md("Cars are grouped by **cylinder count**."),
-#'         source_note = "Data: mtcars | Andrew Weatherman",
-#'         caption_rule = TRUE)
+#' gt_grid(by_cyl,
+#'   ncol = 3,
+#'   title = "Fuel economy by cylinder count",
+#'   caption = gt::md("Cars are grouped by **cylinder count**."),
+#'   source_note = "Data: mtcars | Andrew Weatherman",
+#'   caption_rule = TRUE
+#' )
 #'
 #' # tighten the subtitle up under the title, and open the gap to the grid
-#' gt_grid(by_cyl, ncol = 3, title = "Fuel economy", subtitle = "Motor Trend, 1974",
-#'         title_style = list(margin_bottom = -2),
-#'         subtitle_style = list(margin_bottom = 24))
+#' gt_grid(by_cyl,
+#'   ncol = 3, title = "Fuel economy", subtitle = "Motor Trend, 1974",
+#'   title_style = list(margin_bottom = -2),
+#'   subtitle_style = list(margin_bottom = 24)
+#' )
 #'
 #' # styled without writing any css
-#' gt_grid(by_cyl, ncol = 3,
-#'         title = "Fuel economy by cylinder count",
-#'         subtitle = "1974 Motor Trend road tests",
-#'         title_style = list(font = "Oswald", size = 34, transform = "uppercase"),
-#'         subtitle_style = list(italic = TRUE, color = "#8A8A8A"))
+#' gt_grid(by_cyl,
+#'   ncol = 3,
+#'   title = "Fuel economy by cylinder count",
+#'   subtitle = "1974 Motor Trend road tests",
+#'   title_style = list(font = "Oswald", size = 34, transform = "uppercase"),
+#'   subtitle_style = list(italic = TRUE, color = "#8A8A8A")
+#' )
 #'
 #' # straight to an image
 #' gt_grid(by_cyl, ncol = 3, file = "cylinders.png", bg = "#FBFAF7")
@@ -111,27 +119,36 @@ gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list()
                     caption_style = list(), source_note_style = list(),
                     gap = 24, align = c("top", "center", "bottom"),
                     file = NULL, bg = "white", whitespace = 50, zoom = 2) {
-
   align <- match.arg(align)
 
   blank <- .style_blank()
 
   defaults <- list(
-    title = utils::modifyList(blank, list(size = "28px", weight = 700,
-                                          color = "#111111", align = "center",
-                                          margin_bottom = 4)),
-    subtitle = utils::modifyList(blank, list(size = "16px", weight = 400,
-                                             color = "#666666", align = "center",
-                                             margin_bottom = 12)),
-    caption = utils::modifyList(blank, list(size = "12px", weight = 400,
-                                            color = "#8A8A8A", align = "center",
-                                            margin_top = 10)),
-    source_note = utils::modifyList(blank, list(size = "12px", weight = 400,
-                                                color = "#8A8A8A", align = "right",
-                                                margin_top = 6)),
-    label = utils::modifyList(blank, list(size = "12px", weight = 600,
-                                          color = "#555555", align = "left",
-                                          margin_bottom = 6))
+    title = utils::modifyList(blank, list(
+      size = "28px", weight = 700,
+      color = "#111111", align = "center",
+      margin_bottom = 4
+    )),
+    subtitle = utils::modifyList(blank, list(
+      size = "16px", weight = 400,
+      color = "#666666", align = "center",
+      margin_bottom = 12
+    )),
+    caption = utils::modifyList(blank, list(
+      size = "12px", weight = 400,
+      color = "#8A8A8A", align = "center",
+      margin_top = 10
+    )),
+    source_note = utils::modifyList(blank, list(
+      size = "12px", weight = 400,
+      color = "#8A8A8A", align = "right",
+      margin_top = 6
+    )),
+    label = utils::modifyList(blank, list(
+      size = "12px", weight = 600,
+      color = "#555555", align = "left",
+      margin_bottom = 6
+    ))
   )
 
   s_title <- utils::modifyList(defaults$title, title_style)
@@ -151,7 +168,9 @@ gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list()
 
   # html so links and emphasis work, and gt::md() behaves like it does in gt
   as_html <- function(x) {
-    if (is.null(x)) return(NULL)
+    if (is.null(x)) {
+      return(NULL)
+    }
     if (inherits(x, "from_markdown")) {
       x <- commonmark::markdown_html(as.character(x))
       x <- sub("</p>\n$", "", sub("^<p>", "", x))
@@ -163,15 +182,20 @@ gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list()
   build_css <- function(s) .style_css(s, font_fallback = "system-ui, -apple-system, sans-serif")
 
   # gt::google_font() never runs over composed html, so fetch a named font here
-  fonts <- unique(unlist(lapply(list(s_title, s_subtitle, s_caption, s_source, s_label),
-                                function(s) s$font)))
+  fonts <- unique(unlist(lapply(
+    list(s_title, s_subtitle, s_caption, s_source, s_label),
+    function(s) s$font
+  )))
   font_link <- if (length(fonts)) {
     htmltools::tags$link(
       rel = "stylesheet",
-      href = paste0("https://fonts.googleapis.com/css2?",
-                    paste0("family=", gsub(" ", "+", fonts), ":wght@100..900",
-                           collapse = "&"),
-                    "&display=swap")
+      href = paste0(
+        "https://fonts.googleapis.com/css2?",
+        paste0("family=", gsub(" ", "+", fonts), ":wght@100..900",
+          collapse = "&"
+        ),
+        "&display=swap"
+      )
     )
   }
 
@@ -214,7 +238,9 @@ gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list()
   # gt_538_caption()'s split caption, in css. a grid has no footnote cells
   rule_css <- if (isTRUE(caption_rule)) {
     paste0("border-bottom:1px solid ", s_caption$color, ";")
-  } else ""
+  } else {
+    ""
+  }
 
   footer <- if (has_footer) {
     htmltools::div(
@@ -268,11 +294,12 @@ gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list()
   htmltools::save_html(htmltools::browsable(page), tmp_html)
 
   webshot2::webshot(paste0("file://", normalizePath(tmp_html)), tmp_png,
-                    zoom = zoom, selector = "body", quiet = TRUE)
+    zoom = zoom, selector = "body", quiet = TRUE
+  )
 
-  magick::image_read(tmp_png) %>%
-    magick::image_trim() %>%
-    magick::image_border(bg, glue::glue("{whitespace}x{whitespace}")) %>%
+  magick::image_read(tmp_png) |>
+    magick::image_trim() |>
+    magick::image_border(bg, glue::glue("{whitespace}x{whitespace}")) |>
     magick::image_write(file)
 
   unlink(c(tmp_html, tmp_png))

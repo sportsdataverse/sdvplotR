@@ -52,22 +52,22 @@ gt_theme_kenpom <- function(gt_object,
   table_id <- res$id
   data <- gt_object[["_data"]]
 
-  table <- gt_object %>%
+  table <- gt_object |>
     gt::opt_table_font(
       font = list(
         gt::google_font("Helvetica Neue"),
         gt::default_fonts()
       ),
       weight = 500
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_body(rows = seq(1, nrow(data), 2)),
       style = gt::cell_fill(color = "#F2FAFD")
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_body(rows = seq(2, nrow(data), 2)),
       style = gt::cell_fill(color = "#e5ecf9")
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_column_labels(
         columns = gt::everything()
@@ -81,7 +81,7 @@ gt_theme_kenpom <- function(gt_object,
         ),
         gt::cell_fill(color = "#c3d9ff")
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_title("title"),
       style = gt::cell_text(
@@ -90,7 +90,7 @@ gt_theme_kenpom <- function(gt_object,
         size = px(18),
         align = "left"
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_title("subtitle"),
       style = gt::cell_text(
@@ -99,7 +99,7 @@ gt_theme_kenpom <- function(gt_object,
         size = px(14),
         align = "left"
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_column_spanners(),
       style = gt::cell_text(
@@ -107,7 +107,7 @@ gt_theme_kenpom <- function(gt_object,
         weight = 650,
         size = px(12)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_row_groups(),
       style = list(
@@ -121,14 +121,14 @@ gt_theme_kenpom <- function(gt_object,
           color = "#c3d9ff"
         )
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_source_notes(),
       style = gt::cell_text(
         font = gt::google_font("Helvetica Neue"),
         size = px(12)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_row_groups(),
       style = gt::cell_text(
@@ -136,7 +136,7 @@ gt_theme_kenpom <- function(gt_object,
         font = gt::google_font("Helvetica Neue"),
         size = px(14)
       )
-    ) %>%
+    ) |>
     # footnote
     gt::tab_style(
       locations = gt::cells_footnotes(),
@@ -144,13 +144,13 @@ gt_theme_kenpom <- function(gt_object,
         font = gt::google_font("Helvetica Neue"),
         size = px(12)
       )
-    ) %>%
+    ) |>
     gt::tab_style(
       locations = gt::cells_body(rows = 1:(nrow(data) - 1)),
       style = gt::cell_borders(sides = "bottom", color = "#000000", weight = px(1))
-    ) %>%
+    ) |>
     # uh this is kinda hacky but it works
-    tab_spanner(columns = everything(), "toss_out_spanner_dev") %>%
+    tab_spanner(columns = everything(), "toss_out_spanner_dev") |>
     gt::tab_options(
       data_row.padding = 2,
       table_body.hlines.color = "transparent",
@@ -169,7 +169,7 @@ gt_theme_kenpom <- function(gt_object,
       table.border.bottom.style = "none",
       table.border.top.style = "none",
       source_notes.border.lr.style = "none"
-    ) %>%
+    ) |>
     gt::opt_css(c(
       paste0("#", table_id, " tbody tr:last-child {border-bottom: 2px solid #FFFFFF;}"),
       paste0("#", table_id, " .gt_col_heading {padding-bottom: 2px; padding-top: 2px;}"),

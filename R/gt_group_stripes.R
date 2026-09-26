@@ -46,7 +46,6 @@
 #' @export
 gt_group_stripes <- function(gt_object, color = "#F5F5F5", start = 2,
                              include_stub = TRUE) {
-
   .check_gt(gt_object)
 
   groups <- gt_object[["_row_groups"]]
@@ -67,13 +66,17 @@ gt_group_stripes <- function(gt_object, color = "#F5F5F5", start = 2,
 
   # every other group, counted in the order they render
   banded <- groups[seq(start, length(groups), by = 2)]
-  if (!length(banded)) return(gt_object)
+  if (!length(banded)) {
+    return(gt_object)
+  }
 
   rows <- stub[["rownum_i"]][stub[["group_id"]] %in% banded]
   rows <- rows[!is.na(rows)]
-  if (!length(rows)) return(gt_object)
+  if (!length(rows)) {
+    return(gt_object)
+  }
 
-  gt_object <- gt_object %>%
+  gt_object <- gt_object |>
     gt::tab_style(
       style = gt::cell_fill(color = color),
       locations = gt::cells_body(rows = rows)
@@ -81,7 +84,7 @@ gt_group_stripes <- function(gt_object, color = "#F5F5F5", start = 2,
 
   has_stub <- any(gt_object[["_boxhead"]][["type"]] == "stub")
   if (isTRUE(include_stub) && has_stub) {
-    gt_object <- gt_object %>%
+    gt_object <- gt_object |>
       gt::tab_style(
         style = gt::cell_fill(color = color),
         locations = gt::cells_stub(rows = rows)
