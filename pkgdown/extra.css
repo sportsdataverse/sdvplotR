@@ -28,14 +28,16 @@ body {
 h1, h2, .h1, .h2 {
   font-family: "Chivo", "Lato", sans-serif;
   letter-spacing: 1px;
-  line-height: 2.2rem;
+  /* unitless, so wrapped titles keep their spacing at every heading size; a
+     fixed 2.2rem overlapped the lines once a desktop h1 outgrew it */
+  line-height: 1.2;
   color: #0f0f0f;
   font-weight: 500;
 }
 h3, h4, h5, h6, .h3, .h4 {
   font-family: "Chivo", "Lato", sans-serif;
   letter-spacing: 1px;
-  line-height: 1.8rem;
+  line-height: 1.3;
   color: #0f0f0f;
   font-weight: 500;
 }
@@ -83,6 +85,12 @@ small.nav-text.text-muted {
   background-color: #ffffff;
   color: #3b3e3f;
 }
+/* the box stays white in dark mode, so pin a placeholder that reads on white
+   (Bootstrap's dark placeholder is a pale grey) */
+.navbar input[type="search"]::placeholder {
+  color: #5B6B86;
+  opacity: 1;
+}
 .dropdown-menu {
   box-shadow: 0 6px 12px rgba(5, 5, 5, 0.18);
   background-color: var(--sdv-navy);
@@ -116,6 +124,12 @@ small.nav-text.text-muted {
   margin-left: 5px;
   font-size: 14px;
   line-height: 1.65rem;
+}
+
+/* the home sidebar is ~180px wide at tablet widths; keep README badges inside it */
+aside img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* ---- reference index ----------------------------------------------------- */
@@ -155,6 +169,16 @@ footer {
 }
 [data-bs-theme="dark"] :is(#main, aside) a { color: var(--sdv-ice); }
 [data-bs-theme="dark"] pre { border-left-color: var(--sdv-cyan); }
+
+/* ---- phones: a smaller logo so the title and intro keep a readable measure */
+@media (max-width: 575.98px) {
+  /* .template-home is pkgdown's own home-page selector (120px); match it */
+  img.logo,
+  .template-home img.logo {
+    width: 72px;
+    margin-left: 12px;
+  }
+}
 
 /* ---- honour reduced-motion: keep the glow, stop it pulsing ---------------- */
 @media (prefers-reduced-motion: reduce) {

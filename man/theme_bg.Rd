@@ -10,7 +10,7 @@ that take a \code{style} argument:
 \describe{
 \item{theme}{The theme function name.}
 \item{has_style}{The \code{style} value the row applies to (\code{"light"} or
-\code{"dark"}) for \code{\link[=gt_theme_sofa]{gt_theme_sofa()}} and \code{\link[=gt_theme_tier]{gt_theme_tier()}}, or \code{""} for themes
+\code{"dark"}) for \code{\link[=gt_theme_sdv]{gt_theme_sdv()}}, \code{\link[=gt_theme_sofa]{gt_theme_sofa()}} and \code{\link[=gt_theme_tier]{gt_theme_tier()}}, or \code{""} for themes
 without one.}
 \item{bg}{The background color the theme applies, as a hex code.}
 }

@@ -69,3 +69,55 @@ test_that("deprecated gt_bold_rows() arguments warn without setting options", {
   expect_s3_class(tbl, "gt_tbl")
   expect_null(getOption("sdvplotR_deprecated_row"))
 })
+
+test_that("gt_theme_sdv_team dresses the table in the team's colors", {
+  horizon <- function(h) regmatches(h, regexpr("thead::after \\{[^}]*background: #[0-9A-Fa-f]{6}", h))
+  opt <- function(tbl, name) tbl[["_options"]]$value[[match(name, tbl[["_options"]]$parameter)]]
+  label_color <- function(tbl) {
+    st <- tbl[["_styles"]]
+    st[st$locname == "columns_columns", ]$styles[[1]]$cell_text$color
+  }
+  kc_tbl <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "KC", sport = "nfl")
+  expect_identical(opt(kc_tbl, "heading_background_color"), "#E31837")
+  expect_identical(label_color(kc_tbl), "#E31837")
+  expect_match(horizon(html_of(kc_tbl)), "#FFB612$")
+
+  # a white secondary would vanish on the white table: the line takes the primary
+  duke <- html_of(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "DUKE", sport = "mbb"))
+  expect_match(horizon(duke), "#00539B$")
+
+  # a pale primary is unreadable as label text on white: labels go navy
+  no <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "NO", sport = "nfl")
+  expect_identical(label_color(no), "#0B1A33")
+
+  # a real team with no colors on file wears the SDV colors, with a warning
+  expect_warning(
+    chst <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "CHST", sport = "cfb"),
+    "No colors on file"
+  )
+  expect_identical(opt(chst, "heading_background_color"), "#0B1A33")
+
+  expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "nope"), "No NFL team matches")
+  expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = c("KC", "LV")), "single team")
+})
+
+test_that("gt_theme_sdv sets the navy background in dark style", {
+  tbl <- gt_theme_sdv(gt::gt(head(mtcars)), style = "dark")
+  opts <- tbl[["_options"]]
+  expect_identical(opts$value[[match("table_background_color", opts$parameter)]], "#0B1A33")
+  expect_error(gt_theme_sdv(gt::gt(head(mtcars)), style = "sepia"), "must be one of")
+})
+
+test_that("options passed through ... override the SDV theme's own", {
+  tbl <- gt_theme_sdv(gt::gt(head(mtcars)), table.background.color = "#FF0000", heading.align = "center")
+  opts <- tbl[["_options"]]
+  expect_identical(opts$value[[match("table_background_color", opts$parameter)]], "#FF0000")
+  expect_identical(opts$value[[match("heading_align", opts$parameter)]], "center")
+})
+
+test_that("density rescales a table styled on locations with no size role", {
+  g <- gt::gt(head(mtcars), rownames_to_stub = TRUE) |>
+    gt::grand_summary_rows(columns = "mpg", fns = list(total = ~ sum(.))) |>
+    gt::tab_style(gt::cell_text(weight = "bold"), gt::cells_grand_summary())
+  expect_s3_class(gt_theme_sdv(g, density = "social"), "gt_tbl")
+})
