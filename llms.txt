@@ -730,9 +730,9 @@ visualization, for each sport.
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.md):
 - [NHL Visualizations with fastRhockey and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/nhl-viz.md):
-- [MBB Visualizations with hoopR, cfbseedR, and
+- [MBB Visualizations with hoopR and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.md):
-- [WBB Visualizations with wehoop, cfbseedR, and
+- [WBB Visualizations with wehoop and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.md):
 
 ### Cookbooks

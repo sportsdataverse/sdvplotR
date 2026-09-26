@@ -1,13 +1,12 @@
-# MBB Visualizations with hoopR, cfbseedR, and sdvplotR
+# MBB Visualizations with hoopR and sdvplotR
 
 ## Introduction
 
 This vignette demonstrates how to create rich MBB (Men’s College
 Basketball) visualizations by combining
-[hoopR](https://hoopR.sportsdataverse.org) for player and team data,
-[cfbseedR](https://cfbseedR.sportsdataverse.org) for tournament
-brackets, and [sdvplotR](https://sdvplotr.sportsdataverse.org) for team
-logos, headshots, colors, and gt tables.
+[hoopR](https://hoopR.sportsdataverse.org) for player and team data and
+[sdvplotR](https://sdvplotr.sportsdataverse.org) for team logos,
+headshots, colors, and gt tables.
 
 ## Setup
 
@@ -16,7 +15,6 @@ logos, headshots, colors, and gt tables.
 library(sdvplotR)
 library(ggplot2)
 library(hoopR)
-library(cfbseedR)
 library(dplyr)
 library(gt)
 
@@ -28,21 +26,24 @@ head(mbb_teams)
 
 ## Loading MBB Data
 
-Use `hoopR` to load MBB player and team statistics:
+Use `hoopR` to load this season’s ESPN team and player box scores:
 
 ``` r
 
-# Load MBB team stats
-team_stats <- hoopR::load_mbb_team_stats(
-  seasons = hoopR::most_recent_mbb_season(),
-  level = "team"
-)
+# The last completed regular season (hoopR names a season for the year it
+# ends; the regular season ends in mid-March)
+season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "03-20")
 
-# Load MBB player stats
-player_stats <- hoopR::load_mbb_player_stats(
-  seasons = hoopR::most_recent_mbb_season(),
-  season_type = "Regular Season"
-)
+# One row per team per game (ESPN box scores), regular season only; Division I
+# teams only (the box scores also hold their games against other divisions)
+team_stats <- hoopR::load_mbb_team_box(seasons = season) |>
+  filter(season_type == 2, team_abbreviation %in% team_reference("mbb")$team_abbr)
+
+# One row per player per game, with ESPN athlete IDs; players who did not
+# play are dropped so games played counts real games
+player_stats <- hoopR::load_mbb_player_box(seasons = season) |>
+  filter(season_type == 2, !did_not_play)
 ```
 
 ## MBB Team Performance
@@ -54,9 +55,9 @@ Visualize team performance with team logos:
 # Calculate team metrics
 team_perf <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
-  group_by(team_abbreviation) |>
+  group_by(team_id, team_abbreviation) |>
   summarise(
-    avg_points = mean(points, na.rm = TRUE),
+    avg_points = mean(team_score, na.rm = TRUE),
     avg_rebounds = mean(total_rebounds, na.rm = TRUE),
     games = n(),
     .groups = "drop"
@@ -71,7 +72,7 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   ) +
   labs(
     title = "MBB Team Performance",
-    subtitle = paste("Season", hoopR::most_recent_mbb_season()),
+    subtitle = paste("Season", season),
     x = "Average Points per Game",
     y = "Average Rebounds per Game",
     caption = "Data: hoopR | Viz: sdvplotR"
@@ -88,9 +89,9 @@ Use team colors to visualize win percentages:
 # Calculate win percentage
 team_wins <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
-  group_by(team_abbreviation) |>
+  group_by(team_id, team_abbreviation) |>
   summarise(
-    wins = sum(win == 1, na.rm = TRUE),
+    wins = sum(team_winner, na.rm = TRUE),
     games = n(),
     .groups = "drop"
   ) |>
@@ -148,37 +149,26 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   ) +
   labs(
     title = "Top 8 MBB Scorers",
-    subtitle = paste("Season", hoopR::most_recent_mbb_season()),
+    subtitle = paste("Season", season),
     x = "Games Played",
     y = "Average Points per Game"
   ) +
   theme_minimal()
 ```
 
-## March Madness Bracket with cfbseedR
+## Tournament Seeds with Logos
 
-Use `cfbseedR` to simulate NCAA Tournament brackets:
+Plot a set of tournament seeds with team logos. These seeds are an
+example; swap in the real bracket once it is announced:
 
 ``` r
-
-# Get current MBB rankings
-# rankings <- cfbseedR::cfb_rankings(
-#   year = hoopR::most_recent_mbb_season(),
-#   sport = "mbb"
-# )
-
-# Simulate tournament bracket
-# bracket_sim <- cfbseedR::cfb_simulate(
-#   rankings = rankings,
-#   n_sims = 10000
-# )
 
 # For demonstration, create sample bracket data
 bracket_data <- data.frame(
   seed = 1:16,
   team = c("HOU", "UCLA", "KANSAS", "PURDUE", "GONZAGA", "BAYLOR",
            "ARIZONA", "DUKE", "CREIGHTON", "MARQUETTE", "TEXAS",
-           "AUBURN", "MICH ST", "TENN", "SDSU", "TCU")
+           "AUBURN", "MSU", "TENN", "SDSU", "TCU")
 )
 
 ggplot(bracket_data, aes(x = seed, y = 1)) +
@@ -190,7 +180,7 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   scale_x_continuous(breaks = 1:16) +
   labs(
     title = "NCAA Tournament Seeds",
-    subtitle = paste("Season", hoopR::most_recent_mbb_season()),
+    subtitle = paste("Season", season),
     x = "Seed",
     y = NULL
   ) +
@@ -225,7 +215,7 @@ sdv_team_tiers(
   top_25,
   sport = "mbb",
   title = "MBB Power Rankings",
-  subtitle = paste("Week", ceiling(runif(1, 1, 20)), "of", hoopR::most_recent_mbb_season()),
+  subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Elite",
     "2" = "Championship Contenders",
@@ -239,44 +229,37 @@ sdv_team_tiers(
 
 ## MBB Conference Map
 
-Visualize teams grouped by conference:
+Show each major conference’s teams in a column:
 
 ``` r
 
-# Get team info with conferences
-mbb_info <- hoopR::mbb_teams() |>
-  select(team_abbreviation, team_name, conference_name)
-
-conference_map <- mbb_info |>
-  filter(!is.na(conference_name)) |>
-  mutate(
-    conference_num = as.numeric(factor(conference_name))
-  ) |>
-  arrange(conference_num, team_name) |>
-  mutate(
-    team_rank = row_number(),
-    .by = conference_num
-  ) |>
-  filter(conference_num <= 10)  # Top 10 conferences for readability
+# The five major conferences, from the conferences sdvplotR keeps for every team
+conference_map <- team_reference("mbb") |>
+  filter(conference %in% c("ACC", "Big 12", "Big East", "Big Ten", "SEC")) |>
+  arrange(conference, team_location) |>
+  group_by(conference) |>
+  mutate(team_rank = row_number()) |>
+  ungroup() |>
+  mutate(conference_num = as.numeric(factor(conference)))
 
 ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   geom_sdv_logos(
-    aes(team = team_abbreviation),
+    aes(team = team_abbr),
     sport = "mbb",
     width = 0.05
   ) +
   scale_x_continuous(
-    breaks = 1:length(unique(conference_map$conference_name)),
-    labels = unique(conference_map$conference_name)
+    breaks = seq_along(levels(factor(conference_map$conference))),
+    labels = levels(factor(conference_map$conference))
   ) +
+  scale_y_reverse() +
   labs(
-    title = "MBB Teams by Conference (Top 10)",
-    x = "Conference",
+    title = "MBB Teams in the Major Conferences",
+    x = NULL,
     y = NULL
   ) +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
     axis.text.y = element_blank(),
     panel.grid = element_blank()
   )
@@ -310,7 +293,7 @@ standings_table |>
   ) |>
   tab_header(
     title = "MBB Top 20",
-    subtitle = paste("Season", hoopR::most_recent_mbb_season())
+    subtitle = paste("Season", season)
   )
 ```
 
@@ -341,8 +324,6 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
 ## Next Steps
 
 - Explore [hoopR documentation](https://hoopR.sportsdataverse.org/)
-- Try [cfbseedR](https://cfbseedR.sportsdataverse.org) for tournament
-  simulations
 - Combine with [oddsapiR](https://oddsapiR.sportsdataverse.org) for
   betting lines
 

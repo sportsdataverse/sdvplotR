@@ -24,15 +24,16 @@ head(nfl_teams)
 
 ## Loading NFL Data
 
-Use `nflfastR` to load play-by-play data for the current season:
+Use `nflfastR` to load a season of play-by-play data:
 
 ``` r
 
-# Load recent season play-by-play
-pbp <- nflfastR::load_pbp(
-  seasons = nflreadr::most_recent_season(),
-  file_type = "rds"
-)
+# The last completed regular season (NFL seasons are named for the year they
+# start, and the regular season ends in early January)
+season <- as.integer(format(Sys.Date(), "%Y")) - 1 -
+  (format(Sys.Date(), "%m-%d") < "01-15")
+
+pbp <- nflfastR::load_pbp(seasons = season, file_type = "rds")
 
 # Filter to pass plays only for EPA analysis
 pass_plays <- pbp |>
@@ -69,7 +70,7 @@ ggplot(team_epa, aes(x = n_plays, y = mean_epa)) +
   scale_x_continuous(labels = scales::comma) +
   labs(
     title = "NFL Team Pass EPA per Play",
-    subtitle = paste("Season", nflreadr::most_recent_season()),
+    subtitle = paste("Season", season),
     x = "Number of Pass Plays",
     y = "Mean EPA per Play",
     caption = "Data: nflfastR | Viz: sdvplotR"
@@ -87,26 +88,25 @@ Use team colors to visualize win-loss records:
 
 ``` r
 
-standings <- nflfastR::load_pbp(
-  seasons = nflreadr::most_recent_season(),
-  file_type = "rds"
-) |>
-  filter(!is.na(result)) |>
-  group_by(posteam) |>
+# Regular-season records from the schedule, one row per team per game
+standings <- nflreadr::load_schedules(season) |>
+  filter(game_type == "REG", !is.na(result)) |>
+  nflreadr::clean_homeaway() |>
+  group_by(team) |>
   summarise(
-    wins = sum(result > 0, na.rm = TRUE),
+    wins = sum(team_score > opponent_score) + 0.5 * sum(team_score == opponent_score),
     games = n(),
     .groups = "drop"
   ) |>
   mutate(win_pct = wins / games) |>
-  arrange(desc(win_pct)) |>
-  head(16)
+  arrange(desc(win_pct))
 
-ggplot(standings, aes(x = reorder(posteam, win_pct), y = win_pct)) +
-  geom_col(aes(fill = posteam), width = 0.7) +
+ggplot(head(standings, 16), aes(x = reorder(team, win_pct), y = win_pct)) +
+  geom_col(aes(fill = team), width = 0.7) +
   scale_fill_sdv(sport = "nfl", alpha = 0.8) +
   labs(
     title = "Top 16 NFL Teams by Win Percentage",
+    subtitle = paste("Season", season),
     x = NULL,
     y = "Win Percentage"
   ) +
@@ -174,7 +174,7 @@ sdv_team_tiers(
   tier_data,
   sport = "nfl",
   title = "NFL Power Rankings",
-  subtitle = paste("Week", ceiling(runif(1, 1, 18)), "of", nflreadr::most_recent_season()),
+  subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Elite",
     "2" = "Contenders",
@@ -193,9 +193,9 @@ Create a gt table with team logos:
 standings_table <- standings |>
   head(10) |>
   mutate(
-    logo = posteam,
-    team_name = nflfastR::teams_colors_logos()$team_nick[
-      match(posteam, nflfastR::teams_colors_logos()$team_abbr)
+    logo = team,
+    team_name = nflfastR::teams_colors_logos$team_nick[
+      match(team, nflfastR::teams_colors_logos$team_abbr)
     ]
   ) |>
   select(logo, team_name, wins, games, win_pct)
@@ -213,7 +213,7 @@ standings_table |>
   ) |>
   tab_header(
     title = "NFL Standings",
-    subtitle = paste("Season", nflreadr::most_recent_season())
+    subtitle = paste("Season", season)
   )
 ```
 
@@ -223,31 +223,25 @@ Visualize teams grouped by division:
 
 ``` r
 
-divisions <- data.frame(
-  team = nfl_teams,
-  division = c(
-    rep(c("AFC East", "AFC North", "AFC South", "AFC West"), each = 4),
-    rep(c("NFC East", "NFC North", "NFC South", "NFC West"), each = 4)
-  )
-) |>
-  mutate(
-    x = as.numeric(factor(division)),
-    y = rep(4:1, 8)
-  )
+# Each team's division, from the reference data sdvplotR keeps for every team
+divisions <- team_reference("nfl") |>
+  arrange(division, team_name) |>
+  group_by(division) |>
+  mutate(y = row_number()) |>
+  ungroup() |>
+  mutate(x = as.numeric(factor(division)))
 
 ggplot(divisions, aes(x = x, y = y)) +
   geom_sdv_logos(
-    aes(team = team),
+    aes(team = team_abbr),
     sport = "nfl",
     width = 0.075
   ) +
   scale_x_continuous(
-    breaks = 1:8,
-    labels = c(
-      "AFC East", "AFC North", "AFC South", "AFC West",
-      "NFC East", "NFC North", "NFC South", "NFC West"
-    )
+    breaks = seq_along(levels(factor(divisions$division))),
+    labels = levels(factor(divisions$division))
   ) +
+  scale_y_reverse() +
   labs(
     title = "NFL Teams by Division",
     x = NULL,
@@ -255,6 +249,7 @@ ggplot(divisions, aes(x = x, y = y)) +
   ) +
   theme_minimal() +
   theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
     axis.text.y = element_blank(),
     panel.grid = element_blank()
   )
@@ -269,10 +264,10 @@ Replace axis labels with team logos using
 
 top_8 <- standings |>
   head(8) |>
-  mutate(posteam = factor(posteam, levels = posteam))
+  mutate(team = factor(team, levels = team))
 
-ggplot(top_8, aes(x = posteam, y = win_pct)) +
-  geom_col(aes(fill = posteam), width = 0.6) +
+ggplot(top_8, aes(x = team, y = win_pct)) +
+  geom_col(aes(fill = team), width = 0.6) +
   scale_fill_sdv(sport = "nfl", alpha = 0.7) +
   scale_x_sdv(sport = "nfl") +
   theme_minimal() +

@@ -30,8 +30,10 @@ API:
 
 ``` r
 
-# fastRhockey keys seasons by their ending year: 2026 is 2025-26
-season <- fastRhockey::most_recent_nhl_season()
+# The last completed regular season (fastRhockey names a season for the year
+# it ends; the regular season ends in mid-April)
+season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "04-20")
 season_id <- paste0(season - 1, season)
 
 # One row per team; clean_team_abbrs() turns the NHL's full names into

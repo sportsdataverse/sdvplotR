@@ -29,7 +29,9 @@ API:
 
 ``` r
 
-season <- baseballr::most_recent_mlb_season()
+# The last completed regular season (it ends around October 1)
+season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "10-05")
 
 # One row per team: abbreviation, name and division
 teams <- baseballr::mlb_teams(season = season, sport_ids = 1) |>

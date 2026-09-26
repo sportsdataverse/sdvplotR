@@ -24,21 +24,25 @@ head(wnba_teams)
 
 ## Loading WNBA Data
 
-Use `wehoop` to load WNBA player and team statistics:
+Use `wehoop` to load this season’s ESPN team and player box scores:
 
 ``` r
 
-# Load WNBA team stats
-team_stats <- wehoop::load_wnba_team_stats(
-  seasons = wehoop::most_recent_wnba_season(),
-  level = "team"
-)
+# The last completed regular season (it ends in mid-September)
+season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "09-20")
 
-# Load WNBA player stats
-player_stats <- wehoop::load_wnba_player_stats(
-  seasons = wehoop::most_recent_wnba_season(),
-  season_type = "Regular Season"
-)
+# One row per team per game (ESPN box scores), regular season only. ESPN tags
+# the All-Star games as regular season too; keeping the league's own teams
+# drops them
+league_teams <- team_reference("wnba")$team_abbr
+team_stats <- wehoop::load_wnba_team_box(seasons = season) |>
+  filter(season_type == 2, team_abbreviation %in% league_teams)
+
+# One row per player per game, with ESPN athlete IDs; players who did not
+# play are dropped so games played counts real games
+player_stats <- wehoop::load_wnba_player_box(seasons = season) |>
+  filter(season_type == 2, !did_not_play, team_abbreviation %in% league_teams)
 ```
 
 ## WNBA Team Performance
@@ -52,7 +56,7 @@ team_perf <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
   group_by(team_abbreviation) |>
   summarise(
-    avg_points = mean(points, na.rm = TRUE),
+    avg_points = mean(team_score, na.rm = TRUE),
     avg_rebounds = mean(total_rebounds, na.rm = TRUE),
     games = n(),
     .groups = "drop"
@@ -67,7 +71,7 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   ) +
   labs(
     title = "WNBA Team Performance",
-    subtitle = paste("Season", wehoop::most_recent_wnba_season()),
+    subtitle = paste("Season", season),
     x = "Average Points per Game",
     y = "Average Rebounds per Game",
     caption = "Data: wehoop | Viz: sdvplotR"
@@ -86,14 +90,13 @@ team_wins <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
   group_by(team_abbreviation) |>
   summarise(
-    wins = sum(win == 1, na.rm = TRUE),
+    wins = sum(team_winner, na.rm = TRUE),
     games = n(),
     .groups = "drop"
   ) |>
   filter(games >= 10) |>
   mutate(win_pct = wins / games) |>
-  arrange(desc(win_pct)) |>
-  head(12)
+  arrange(desc(win_pct))
 
 ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   geom_col(aes(fill = team_abbreviation), width = 0.7) +
@@ -144,7 +147,7 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   ) +
   labs(
     title = "Top 8 WNBA Scorers",
-    subtitle = paste("Season", wehoop::most_recent_wnba_season()),
+    subtitle = paste("Season", season),
     x = "Games Played",
     y = "Average Points per Game"
   ) +
@@ -162,7 +165,7 @@ and draws someone else or nothing.
 
 ``` r
 
-leaders <- wehoop::wnba_leagueleaders()$LeagueLeaders |>
+leaders <- wehoop::wnba_leagueleaders(season = season)$LeagueLeaders |>
   mutate(across(c(GP, PTS), as.numeric)) |>
   head(8)
 
@@ -221,32 +224,33 @@ Visualize teams by conference:
 
 ``` r
 
-# Get team info with conferences
-wnba_info <- wehoop::wnba_teams() |>
-  select(team_abbreviation, team_name, conference)
-
-conference_standings <- team_wins |>
-  inner_join(wnba_info, by = "team_abbreviation") |>
+# Every team's winning percentage, with the conference sdvplotR keeps for it
+conference_standings <- team_stats |>
+  group_by(team_abbreviation) |>
+  summarise(win_pct = mean(team_winner, na.rm = TRUE), .groups = "drop") |>
+  mutate(team_abbr = clean_team_abbrs(team_abbreviation, sport = "wnba")) |>
+  inner_join(select(team_reference("wnba"), team_abbr, conference), by = "team_abbr") |>
   arrange(conference, desc(win_pct)) |>
-  mutate(
-    conference_num = as.numeric(factor(conference)),
-    team_rank = row_number(),
-    .by = conference_num
-  )
+  group_by(conference) |>
+  mutate(team_rank = row_number()) |>
+  ungroup() |>
+  mutate(conference_num = as.numeric(factor(conference)))
 
 ggplot(conference_standings, aes(x = conference_num, y = team_rank)) +
   geom_sdv_logos(
-    aes(team = team_abbreviation),
+    aes(team = team_abbr),
     sport = "wnba",
-    width = 0.075
+    width = 0.12
   ) +
   scale_x_continuous(
-    breaks = 1:length(unique(conference_standings$conference)),
-    labels = unique(conference_standings$conference)
+    breaks = seq_along(levels(factor(conference_standings$conference))),
+    labels = levels(factor(conference_standings$conference)),
+    expand = expansion(add = 0.6)
   ) +
+  scale_y_reverse() +
   labs(
-    title = "WNBA Teams by Conference",
-    x = "Conference",
+    title = "WNBA Teams by Conference, Best Record on Top",
+    x = NULL,
     y = NULL
   ) +
   theme_minimal() +
@@ -283,54 +287,53 @@ standings_table |>
   ) |>
   tab_header(
     title = "WNBA Standings",
-    subtitle = paste("Season", wehoop::most_recent_wnba_season())
+    subtitle = paste("Season", season)
   )
 ```
 
 ## Player Performance Comparison
 
-Compare top players using headshots:
+Compare the scoring leaders with the assist leaders:
 
 ``` r
 
-# Top 5 scorers and assist leaders
-top_5_scorers <- top_scorers |> head(5)
-top_5_assists <- player_stats |>
-  filter(!is.na(athlete_id)) |>
+per_game <- player_stats |>
   group_by(athlete_id, athlete_display_name) |>
   summarise(
-    avg_assists = mean(assists, na.rm = TRUE),
+    points = mean(points, na.rm = TRUE),
+    assists = mean(assists, na.rm = TRUE),
     games = n(),
     .groups = "drop"
   ) |>
-  filter(games >= 15) |>
-  arrange(desc(avg_assists)) |>
-  head(5)
+  filter(games >= 15)
 
-# Combine for comparison
 comparison <- bind_rows(
-  top_5_scorers |> mutate(category = "Top Scorers"),
-  top_5_assists |> mutate(category = "Top Assists")
-)
+  per_game |>
+    slice_max(points, n = 5, with_ties = FALSE) |>
+    transmute(athlete_id, category = "Points per Game", value = points),
+  per_game |>
+    slice_max(assists, n = 5, with_ties = FALSE) |>
+    transmute(athlete_id, category = "Assists per Game", value = assists)
+) |>
+  group_by(category) |>
+  mutate(rank = row_number()) |>
+  ungroup()
 
-ggplot(comparison, aes(x = category, y = avg_points)) +
+ggplot(comparison, aes(x = rank, y = value)) +
   geom_sdv_headshots(
     aes(player_id = athlete_id),
     sport = "wnba",
-    width = 0.1
+    height = 0.2
   ) +
-  facet_wrap(~ category, scales = "free_y") +
+  facet_wrap(~category, scales = "free_y") +
+  scale_x_continuous(breaks = 1:5) +
   labs(
     title = "WNBA Top Performers",
-    subtitle = paste("Season", wehoop::most_recent_wnba_season()),
-    x = NULL,
+    subtitle = paste("Season", season),
+    x = "Rank",
     y = NULL
   ) +
-  theme_minimal() +
-  theme(
-    axis.text = element_blank(),
-    panel.grid = element_blank()
-  )
+  theme_minimal()
 ```
 
 ## Axis Labels with Logos
