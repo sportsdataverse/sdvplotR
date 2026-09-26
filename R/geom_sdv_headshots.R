@@ -17,9 +17,9 @@
 #'   (hoopR's `nba_*()`, wehoop's `wnba_*()`), the MLBAM ID (baseballr's
 #'   `mlb_*()`, Baseball Savant) for MLB, or the NHL API player ID
 #'   (fastRhockey's `nhl_*()` and `load_nhl_*()`) for the NHL, drawn from
-#'   that league's image CDN; college sports have no league option. Both are
-#'   plain digits, so a mismatch draws the wrong player or no image rather
-#'   than an error. League CDNs draw
+#'   that league's image CDN; college sports have no league option. ESPN and
+#'   league IDs other than GSIS are plain digits, so a mismatch draws the
+#'   wrong player or no image rather than an error. League CDNs draw
 #'   a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
 #'   from datacenter IPs, so a plot drawn on CI or a server can come back
 #'   without those headshots.
