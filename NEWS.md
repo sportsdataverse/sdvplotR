@@ -81,6 +81,10 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
 * `theme_x_sdv()` and `theme_y_sdv()` work after a complete theme such as
   `theme_minimal()` on 'ggplot2' 4, which sets the position-specific axis text
   elements itself; axis logos drew as raw HTML there.
+* `clean_team_abbrs()` matches team names regardless of accents, which
+  providers write inconsistently: the NHL API's "Montréal Canadiens" now
+  resolves, as does an unaccented "San Jose State" against ESPN's
+  "San José State".
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose

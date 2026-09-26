@@ -45,6 +45,13 @@ test_that("clean_team_abbrs handles case, names, aliases and history", {
   # the MLB Stats API / Savant (baseballr) and FanGraphs / Baseball-Reference keys
   expect_identical(clean_team_abbrs(c("AZ", "WSN"), "mlb", keep_non_matches = FALSE), c("ARI", "WSH"))
   expect_identical(clean_team_abbrs(c("ARI", "LAK", "PHX"), "nhl"), c("UTAH", "LA", "UTAH"))
+  # accents fold on both sides: the NHL API's accented name, ESPN's accented key
+  expect_identical(clean_team_abbrs("Montr\u00e9al Canadiens", "nhl", keep_non_matches = FALSE), "MTL")
+  expect_identical(
+    clean_team_abbrs(c("San Jose State", "San Jos\u00e9 State"), "cfb", keep_non_matches = FALSE),
+    rep(clean_team_abbrs("San Jos\u00e9 State", "cfb"), 2)
+  )
+  expect_false(is.na(clean_team_abbrs("San Jose State", "cfb", keep_non_matches = FALSE)))
 })
 
 test_that("clean_team_abbrs keeps or drops non-matches as requested", {
