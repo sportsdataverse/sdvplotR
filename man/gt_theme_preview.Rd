@@ -51,7 +51,10 @@ Themes that take extra arguments, such as \code{style} on \code{\link[=gt_theme_
 shown at their defaults.
 }
 \examples{
-gt_theme_preview(mtcars[c("mpg", "cyl", "hp")])
+gt_theme_preview(
+  mtcars[c("mpg", "cyl", "hp")],
+  themes = c("gt_theme_sdv", "gt_theme_kenpom", "gt_theme_athletic")
+)
 
 \dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
 # a subset, saved as one wide image; saving needs a headless Chrome (webshot2)

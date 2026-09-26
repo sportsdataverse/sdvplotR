@@ -89,7 +89,7 @@
 #' gt(head(mtcars)) %>%
 #'   gt_color_pills(hp,
 #'     fill_type = "rank", palette = "viridis::mako",
-#'     digits = 0
+#'     domain = c(1, 6), digits = 0
 #'   )
 #'
 #' @export
