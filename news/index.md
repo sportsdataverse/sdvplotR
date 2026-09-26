@@ -145,6 +145,13 @@ NHL, college football, men’s and women’s college basketball), built on
   matches team names regardless of accents, which providers write
   inconsistently: the NHL API’s “Montréal Canadiens” now resolves, as
   does an unaccented “San Jose State” against ESPN’s “San José State”.
+- [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+  and every helper built on it take the school names NCAA.com /
+  stats.ncaa.org, KenPom and Bart Torvik use for college teams
+  (`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`,
+  `"Miami (OH)"`), from sportsdataverse-py’s NCAA / ESPN crosswalks and
+  hoopR’s team crosswalk, so their tables plot without a lookup table.
+  ESPN’s own names still win wherever they overlap.
 - College team data covers every Division I program. ESPN’s teams list
   leaves some out (Lindenwood, Queens, Southern Indiana, Mercyhurst,
   Saint Francis, UT Rio Grande Valley football), so they drew no logo;

@@ -39,7 +39,11 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   clients), the ESPN core API group endpoints (FBS = 80, FCS = 81, D-I
   = 50) and
   [`nflreadr::load_teams()`](https://nflreadr.nflverse.com/reference/load_teams.html).
-  **Never hand-edit the `.rda`.**
+  College keys also take the NCAA.com, KenPom and Torvik school names
+  from sportsdataverse-py’s NCAA / ESPN crosswalks and
+  [`hoopR::load_mbb_team_crosswalk()`](https://hoopR.sportsdataverse.org/reference/load_nba_team_crosswalk.html),
+  joined on ESPN team id; ESPN’s own keys win and a name used for two
+  schools is dropped. **Never hand-edit the `.rda`.**
 
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
   `headshot_gsis_map.rds` from this repo’s `sdvplotr_infrastructure`

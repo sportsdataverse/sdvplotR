@@ -6,6 +6,9 @@ sdvplotR. Matching is case-insensitive and understands full team names
 data sources (`"WSH"` / `"WAS"`, `"GNB"` / `"GB"`), and historical
 abbreviations of relocated franchises (see
 [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)).
+For the college sports it also takes the school names NCAA.com /
+stats.ncaa.org, KenPom and Bart Torvik use (`"Iowa St."`,
+`"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Southern California"`).
 
 ## Usage
 
@@ -44,4 +47,6 @@ clean_team_abbrs(c("KC", "kansas city chiefs", "OAK", "WSH"), sport = "nfl")
 #> [1] "KC"  "KC"  "LV"  "WAS"
 clean_team_abbrs(c("BOS", "GS", "INVALID"), sport = "nba", keep_non_matches = FALSE)
 #> [1] "BOS" "GS"  NA   
+clean_team_abbrs(c("Iowa St.", "St. John's (NY)", "Miami (OH)"), sport = "mbb")
+#> [1] "ISU"  "SJU"  "M-OH"
 ```
