@@ -42,6 +42,8 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   `style = "dark"`, and `gt_theme_sdv_team()` dresses a table in one team's
   colors from `sdv_team_colors()`, picking title text and line colors by
   contrast.
+* `gt_grid()` and `gt_stack_tables()` scroll inside their own box instead of
+  overflowing the page when they are wider than the screen.
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose
