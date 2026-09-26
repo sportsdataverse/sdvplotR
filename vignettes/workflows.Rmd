@@ -102,6 +102,8 @@ cfb_pbp <- cfbfastR::load_cfb_pbp(seasons = cfb_season)
 team_perf <- cfb_pbp |>
   filter(pass == 1, !is.na(EPA), !is.na(pos_team)) |>
   mutate(team = clean_team_abbrs(pos_team, sport = "cfb")) |>
+  # FBS offenses only: the play-by-play also covers FCS games
+  filter(team %in% team_reference("cfb")$team_abbr[team_reference("cfb")$division == "FBS"]) |>
   group_by(team) |>
   summarise(mean_epa = mean(EPA), n_plays = n(), .groups = "drop") |>
   filter(n_plays >= 100) |>
@@ -141,12 +143,15 @@ Complete workflow for comparing NBA scorers:
 # regular season (hoopR names a season for the year it ends, in mid-April)
 nba_season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "04-20")
+# ESPN tags the All-Star games as regular season too; keeping the league's own
+# teams drops them
 nba_box <- hoopR::load_nba_player_box(seasons = nba_season) |>
-  filter(season_type == 2, !did_not_play)
+  filter(season_type == 2, !did_not_play, team_abbreviation %in% team_reference("nba")$team_abbr)
 
 # Step 2: Process data
+# one row per player: a player traded mid-season has box scores for two teams
 top_players <- nba_box |>
-  group_by(athlete_id, athlete_display_name, team_abbreviation) |>
+  group_by(athlete_id, athlete_display_name) |>
   summarise(
     avg_points = mean(points, na.rm = TRUE),
     games = n(),

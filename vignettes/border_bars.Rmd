@@ -110,7 +110,7 @@ final_data <- final_data %>%
       stat %in% c("efg", "ftr", "oreb_rate", "tov_rate") ~ "Offensive Four Factors",
       stat %in% c("def_efg", "def_ftr", "dreb_rate", "def_tov_rate") ~ "Defensive Four Factors",
       stat %in% c("two_pt_pct", "three_pt_pct", "ft_pct") ~ "Offensive Shooting",
-      .default = "Defensive Shooting"
+      TRUE ~ "Defensive Shooting"
     ),
     stat = dict[stat]
   )

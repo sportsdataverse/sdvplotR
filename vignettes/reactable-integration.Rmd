@@ -219,6 +219,8 @@ ESPN's Football Power Index, which needs no API key:
 cfb_season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "12-15")
 cfb_fpi <- cfbfastR::espn_ratings_fpi(year = cfb_season) |>
+  # FPI arrives as text; sort it as a number
+  mutate(fpi = as.numeric(fpi)) |>
   arrange(desc(fpi)) |>
   select(team = team_abbreviation, fpi, w, l) |>
   slice_head(n = 25)

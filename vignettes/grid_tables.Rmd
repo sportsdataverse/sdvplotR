@@ -247,7 +247,7 @@ tbls <- lapply(chunks, function(x) {
     fmt_markdown(team) %>%
     gtExtras::gt_add_divider(team, color = "white", weight = px(10)) %>%
     gt_spotlight(
-      rows = conf == "Big 12", if_none = "dim",
+      rows = conf == "Big 12" & net <= 20, if_none = "dim",
       accent_color = "darkred", dim_color = "lightgrey"
     ) %>%
     tab_options(
@@ -279,7 +279,7 @@ knitr::include_graphics("images/grid_spotlight.png")
 ```
 
 This is why `conf` stayed hidden. `gt_spotlight()` filters on it with `rows =
-conf == "Big 12"` even though the column is never drawn (because it still exists in the data we call
+conf == "Big 12" & net <= 20` even though the column is never drawn (because it still exists in the data we call
 in our lapply block). `rows` also accepts plain row numbers, like `rows = 1:5`, when you want to highlight by position.
 
 The rest of its arguments control the look:
