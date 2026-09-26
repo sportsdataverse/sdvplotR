@@ -63,6 +63,13 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   pointed at a URL built from the GSIS digits that returned 404 for every
   player, in the geom, the gt and reactable helpers, and the headshot axis
   scales. `sdvplotR_clear_cache()` now also clears the memoised map.
+* Every headshot helper takes `id_type`, so player IDs from sources other than
+  ESPN draw the right player. `"league"` reads the league's own ID from its
+  image CDN: NBA Stats and WNBA Stats `PERSON_ID` (hoopR's `nba_*()`, wehoop's
+  `wnba_*()`) and MLBAM (baseballr, Baseball Savant). `"espn"` reads ESPN
+  athlete IDs in any sport, including the NFL. By default, IDs are read as
+  before: GSIS for the NFL, ESPN elsewhere. The ID systems overlap: without
+  `id_type`, Dirk Nowitzki's NBA Stats ID drew ESPN's Jared Jeffries.
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose
