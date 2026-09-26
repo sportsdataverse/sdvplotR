@@ -26,6 +26,12 @@ get_team_ref <- function(sport) {
 #' @param sport Character string identifying the sport. One of
 #'   [supported_sports()].
 #' @param type Character string, either `"abbreviation"` (default) or `"name"`.
+#' @param include_conferences If `TRUE`, also list the conferences sdvplotR
+#'   has a logo for: the college conferences (`"SEC"`, `"Big Ten"`, `"A-10"`)
+#'   and `"AFC"`, `"NFC"` and `"NFL"`. They resolve like teams in every helper
+#'   either way; the default, `FALSE`, lists teams only, so code that loops
+#'   over teams sees only teams (nflplotR's `valid_team_names()` includes AFC,
+#'   NFC and NFL).
 #' @return A sorted character vector of valid team identifiers.
 #' @export
 #' @examples
@@ -33,11 +39,12 @@ get_team_ref <- function(sport) {
 #' valid_team_names("nba", type = "name")
 valid_team_names <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-    type = c("abbreviation", "name")) {
+    type = c("abbreviation", "name"),
+    include_conferences = FALSE) {
   sport <- rlang::arg_match0(sport, supported_sports())
   type <- rlang::arg_match0(type, c("abbreviation", "name"))
 
-  ref <- get_team_ref(sport)
+  ref <- team_rows(get_team_ref(sport), include_conferences)
   col <- if (type == "abbreviation") "team_abbr" else "team_name"
   sort(unique(ref[[col]]))
 }
@@ -49,12 +56,14 @@ valid_team_names <- function(
 #'   conference / division.
 #'
 #' @inheritParams valid_team_names
-#' @return A data frame with one row per team and columns:
+#' @return A data frame with one row per team (plus, with
+#'   `include_conferences = TRUE`, one per conference and the NFL itself) and
+#'   columns:
 #'
 #'   | col_name | type | description |
 #'   |---|---|---|
 #'   | sport | character | Sport key (`"nfl"`, `"nba"`, ...) |
-#'   | espn_team_id | character | ESPN team id |
+#'   | espn_team_id | integer | ESPN team id (`NA` for conferences) |
 #'   | team_abbr | character | Canonical team abbreviation |
 #'   | team_name | character | Full team name |
 #'   | team_short_name | character | Short display name |
@@ -68,13 +77,21 @@ valid_team_names <- function(
 #'   | color2 | character | Secondary team color (hex) |
 #'   | conference | character | Conference (`NA` for leagues without) |
 #'   | division | character | Division (`NA` for leagues without) |
+#'   | type | character | `"team"`, `"conference"` or `"league"` |
 #' @export
 #' @examples
 #' team_reference("nfl")
 #' head(team_reference("nba"))
-team_reference <- function(sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")) {
+team_reference <- function(
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    include_conferences = FALSE) {
   sport <- rlang::arg_match0(sport, supported_sports())
-  get_team_ref(sport)
+  team_rows(get_team_ref(sport), include_conferences)
+}
+
+# the public listings show teams only unless conferences are asked for
+team_rows <- function(ref, include_conferences = FALSE) {
+  if (isTRUE(include_conferences)) ref else ref[ref$type == "team", , drop = FALSE]
 }
 
 #' Standardize Team Abbreviations
@@ -87,6 +104,11 @@ team_reference <- function(sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", 
 #'   For the college sports it also takes the school names NCAA.com /
 #'   stats.ncaa.org, KenPom and Bart Torvik use (`"Iowa St."`,
 #'   `"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Southern California"`).
+#'   Conference names resolve to the conference: ESPN's (`"SEC"`,
+#'   `"Southeastern Conference"`) and the NCAA's, KenPom's and Torvik's
+#'   (`"B10"`, `"MWC"`). Where a team already uses the name, the team wins, so
+#'   the American Athletic Conference is `"AAC"` (`"American"` is American
+#'   University).
 #'
 #' @param abbr A character vector of abbreviations or team names.
 #' @inheritParams valid_team_names

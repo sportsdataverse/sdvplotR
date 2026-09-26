@@ -39,7 +39,14 @@ team abbr / player id
   `nflreadr::load_teams()`. College keys also take the NCAA.com, KenPom and
   Torvik school names from sportsdataverse-py's NCAA / ESPN crosswalks and
   `hoopR::load_mbb_team_crosswalk()`, joined on ESPN team id; ESPN's own keys
-  win and a name used for two schools is dropped. **Never hand-edit the `.rda`.**
+  win and a name used for two schools is dropped. Conferences are rows too
+  (`type = "conference"`; the NFL shield is `"league"`), following nflplotR's
+  AFC / NFC / NFL: logos from the ESPN groups, colors copied from cbbplotR,
+  keys added only where no team uses the name (so the AAC is `"AAC"`), and the
+  script asserts each conference resolves to itself. Divergence from nflplotR:
+  `team_reference()` / `valid_team_names()` / `sdv_team_colors()` list
+  conferences only with `include_conferences = TRUE`, because users filter and
+  loop over those frames as teams. **Never hand-edit the `.rda`.**
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
   `headshot_gsis_map.rds` from this repo's `sdvplotr_infrastructure`
   pre-release (never "Latest", so `@*release` installs are unaffected)

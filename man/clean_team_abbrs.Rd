@@ -31,6 +31,11 @@ abbreviations of relocated franchises (see \code{\link[=resolve_historical_abbr]
 For the college sports it also takes the school names NCAA.com /
 stats.ncaa.org, KenPom and Bart Torvik use (\code{"Iowa St."},
 \code{"St. John's (NY)"}, \code{"Saint Mary's (CA)"}, \code{"Southern California"}).
+Conference names resolve to the conference: ESPN's (\code{"SEC"},
+\code{"Southeastern Conference"}) and the NCAA's, KenPom's and Torvik's
+(\code{"B10"}, \code{"MWC"}). Where a team already uses the name, the team wins, so
+the American Athletic Conference is \code{"AAC"} (\code{"American"} is American
+University).
 }
 \examples{
 clean_team_abbrs(c("KC", "kansas city chiefs", "OAK", "WSH"), sport = "nfl")
