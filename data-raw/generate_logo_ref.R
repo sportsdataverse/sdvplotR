@@ -246,10 +246,12 @@ aliases <- list(
     WAS = "WSH", LAK = "LA", NJD = "NJ", SJS = "SJ", TBL = "TB", VEG = "VGK", MON = "MTL",
     UTA = "UTAH", CLB = "CBJ", NAS = "NSH", WIN = "WPG"
   ),
-  cfb = character(),
-  # ESPN box scores abbreviate these two differently from its teams list
-  mbb = c(BUT = "BTLR", UNO = "NOLA"),
-  wbb = c(BUT = "BTLR", UNO = "NOLA")
+  # ESPN feeds abbreviate these differently from its teams list: box scores
+  # write Butler BUT and New Orleans UNO, and FPI writes Buffalo BUFF and Air
+  # Force AFA
+  cfb = c(BUFF = "BUF", AFA = "AF"),
+  mbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF"),
+  wbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF")
 )
 
 abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(d) {

@@ -48,6 +48,8 @@ test_that("clean_team_abbrs handles case, names, aliases and history", {
   # ESPN box scores abbreviate Butler and New Orleans differently from its teams list
   expect_identical(clean_team_abbrs(c("BUT", "UNO"), "mbb", keep_non_matches = FALSE), c("BTLR", "NOLA"))
   expect_identical(clean_team_abbrs(c("BUT", "UNO"), "wbb", keep_non_matches = FALSE), c("BTLR", "NOLA"))
+  # ESPN's FPI writes Buffalo BUFF and Air Force AFA
+  expect_identical(clean_team_abbrs(c("BUFF", "AFA"), "cfb", keep_non_matches = FALSE), c("BUF", "AF"))
   # accents fold on both sides: the NHL API's accented name, ESPN's accented key
   expect_identical(clean_team_abbrs("Montr\u00e9al Canadiens", "nhl", keep_non_matches = FALSE), "MTL")
   expect_identical(
