@@ -35,7 +35,7 @@ shows up as a border around the table.
 bg <- theme_bg$bg[theme_bg$theme == "gt_theme_gtutils"]
 bg
 
-\dontshow{if (requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
 # saving needs a headless Chrome (webshot2)
 \donttest{
 gt::gt(head(mtcars)) \%>\%

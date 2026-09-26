@@ -53,7 +53,7 @@ shown at their defaults.
 \examples{
 gt_theme_preview(mtcars[c("mpg", "cyl", "hp")])
 
-\dontshow{if (requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
 # a subset, saved as one wide image; saving needs a headless Chrome (webshot2)
 \donttest{
 gt_theme_preview(

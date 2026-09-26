@@ -46,7 +46,7 @@ and no fills. The type is a Times-compatible serif.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_booktabs.png}{options: width=100\%}}
+\if{html}{\figure{gt_theme_booktabs.png}{options: style="width:100\%"}}
 }
 
 \examples{

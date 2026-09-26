@@ -68,7 +68,7 @@ posted together can come out at different widths. With it, every image is
 padded to the width of the widest before its border is added.
 }
 \examples{
-\dontshow{if (requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
 \donttest{
 library(gt)
 

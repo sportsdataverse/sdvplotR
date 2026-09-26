@@ -30,7 +30,7 @@
 #' @examples
 #' gt_theme_preview(mtcars[c("mpg", "cyl", "hp")])
 #'
-#' @examplesIf requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
 #' # a subset, saved as one wide image; saving needs a headless Chrome (webshot2)
 #' \donttest{
 #' gt_theme_preview(

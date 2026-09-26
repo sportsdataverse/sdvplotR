@@ -53,7 +53,7 @@ width with the height following, so several tables saved at the same \code{width
 line up when posted together. The temporary file is removed afterward.
 }
 \examples{
-\dontshow{if (requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
 \donttest{
 library(gt)
 

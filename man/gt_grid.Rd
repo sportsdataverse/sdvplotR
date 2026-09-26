@@ -146,7 +146,7 @@ gt_grid(by_cyl,
   subtitle_style = list(italic = TRUE, color = "#8A8A8A")
 )
 
-\dontshow{if (requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
 # straight to an image; saving needs a headless Chrome (webshot2)
 \donttest{
 gt_grid(by_cyl, ncol = 3, file = tempfile(fileext = ".png"), bg = "#FBFAF7")

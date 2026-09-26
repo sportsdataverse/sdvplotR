@@ -48,7 +48,7 @@ It is the only theme in the package that bands its rows.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_almanac.png}{options: width=100\%}}
+\if{html}{\figure{gt_theme_almanac.png}{options: style="width:100\%"}}
 }
 
 \examples{

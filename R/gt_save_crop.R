@@ -29,7 +29,7 @@
 #' @returns Invisibly, `file` after writing the cropped image to it, or the
 #'   encoded image as a raw vector when `file` is `NULL`.
 #'
-#' @examplesIf requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
 #' \donttest{
 #' library(gt)
 #'

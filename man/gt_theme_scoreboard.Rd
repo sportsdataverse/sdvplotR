@@ -46,7 +46,7 @@ if the accent is pale.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_scoreboard.png}{options: width=100\%}}
+\if{html}{\figure{gt_theme_scoreboard.png}{options: style="width:100\%"}}
 }
 
 \examples{

@@ -98,9 +98,14 @@ devtools::build_readme()
   companion packages listed under `Config/Needs/website`.
 - Examples that download images are wrapped in `\donttest{}`. Never use
   `\dontrun{}`: examples that save images through a headless Chrome go in an
-  `@examplesIf <webshot2 + Chrome available>` block wrapping `\donttest{}`
-  (see `R/gt_save_crop.R`) and write to `tempfile()` / `tempdir()`, never to
-  the working directory.
+  `@examplesIf interactive() && <webshot2 + Chrome available>` block wrapping
+  `\donttest{}` (see `R/gt_save_crop.R`) and write to `tempfile()` /
+  `tempdir()`, never to the working directory. `interactive()` is required:
+  chromote starts Chrome through processx's supervisor, whose fifo
+  connections stay open for the session, and R CMD check's `cleanEx()` then
+  fails with "connections left open".
+- `\figure{}` options use `style="width:100\%"`, not `width=100\%`; checkRd
+  wants width/height attributes in pixels.
 - `Suggests` is deliberately small (ggtext, gridtext, knitr, reactable,
   rmarkdown, sjmisc, testthat, withr); companion data packages are website /
   development needs, not package dependencies.

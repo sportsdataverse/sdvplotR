@@ -25,7 +25,7 @@
 #' bg <- theme_bg$bg[theme_bg$theme == "gt_theme_gtutils"]
 #' bg
 #'
-#' @examplesIf requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
 #' # saving needs a headless Chrome (webshot2)
 #' \donttest{
 #' gt::gt(head(mtcars)) %>%
