@@ -71,6 +71,8 @@ authors:
     href: https://github.com/Kazink36
   Camden Kay:
     href: https://x.com/camdenkay
+  Andrew Weatherman:
+    href: https://github.com/andreweatherman
 
 home:
   title: sdvplotR • Sports Team Logo Plots in ggplot2, gt and reactable
@@ -113,6 +115,69 @@ reference:
       - gt_sdv_headshots
       - gt_sdv_cols_label
       - gt_merge_stack_team_color
+  - title: "gt Table Themes"
+    desc: >
+      Editorial and broadcast-style themes for gt tables, ported from gtUtils.
+      `theme_bg` holds each theme's background color for matching a saved
+      image's canvas.
+    contents:
+      - starts_with("gt_theme_")
+      - pal_midnight
+      - theme_bg
+  - title: "gt Table Annotations"
+    desc: Captions, headers, cut lines, marginalia, watermarks and social tags.
+    contents:
+      - gt_538_caption
+      - gt_cutline
+      - gt_marginalia
+      - gt_column_subheaders
+      - gt_social_tag
+      - gt_title_header
+      - gt_watermark
+  - title: "gt Table Coloring"
+    desc: Legends, color pills, percentile bars, rank and result colors, highlights.
+    contents:
+      - gt_legend_continuous
+      - gt_legend_discrete
+      - gt_color_pills
+      - gt_percentile_bar
+      - gt_row_accent
+      - gt_color_ranks
+      - gt_color_results
+      - gt_group_stripes
+      - gt_highlight_cells
+      - gt_highlight_na
+      - gt_outliers
+      - gt_indicator_boxes
+      - gt_spotlight
+  - title: "gt Table Formatting"
+    desc: Borders, deltas, rank and tally formats, significance, fonts, tiers.
+    contents:
+      - gt_bold_rows
+      - gt_border_bars_bottom
+      - gt_border_bars_top
+      - gt_border_grid
+      - gt_delta
+      - gt_fmt_rank
+      - gt_fmt_tally
+      - gt_scale_note
+      - gt_significance
+      - gt_set_font
+      - gt_tiers
+      - gt_wrap_labels
+  - title: "gt Table Layout"
+    desc: Arrange several tables, or one long table, into a single graphic.
+    contents:
+      - gt_grid
+      - gt_snake
+      - gt_snake_align
+      - gt_stack_tables
+  - title: "Saving gt Tables"
+    desc: Save, crop and pad tables for publication or social media.
+    contents:
+      - gt_save_batch
+      - gt_save_crop
+      - gt_social_crop
   - title: "reactable Table Helpers"
     desc: >
       Cell renderers, column headers and team-colored cell styles for
@@ -147,6 +212,10 @@ reference:
     desc: Generic image geoms and theme elements provided by the ggpath backend.
     contents:
       - reexports
+  - title: "Deprecated"
+    desc: Former gtUtils names, kept so ported code keeps working.
+    contents:
+      - sdvplotR-deprecated
 
 articles:
   - title: "Getting Started"
@@ -174,6 +243,19 @@ articles:
       - leaderboard-dashboards
       - reactable-integration
       - workflows
+  - title: "gt Table Cookbooks"
+    desc: >
+      Themes, legends, cut lines, faceted grids and saving, ported with the
+      gtUtils functions from Andrew Weatherman's articles.
+    contents:
+      - styling
+      - saving_tables
+      - border_bars
+      - delay_tables
+      - grid_tables
+      - schedule_matrix
+      - tier_list
+      - window_wins
 
 navbar:
   structure:
@@ -229,6 +311,10 @@ navbar:
         href: reference/reactable_sdv_images.html
       - text: "reactable: Team Colors"
         href: reference/reactable_sdv_team_color.html
+      - text: "gt: Table Themes"
+        href: reference/index.html#gt-table-themes
+      - text: "gt: Save & Crop"
+        href: reference/gt_save_crop.html
       - text: --------------------------------
       - text: "Utilities"
       - text: "Valid Names"
@@ -276,6 +362,24 @@ navbar:
         href: articles/reactable-integration.html
       - text: "End-to-End Workflows"
         href: articles/workflows.html
+      - text: --------------------------------
+      - text: "gt Table Cookbooks"
+      - text: "Styling Headers, Legends and Captions"
+        href: articles/styling.html
+      - text: "Saving and Posting Tables"
+        href: articles/saving_tables.html
+      - text: "Faceted Tables"
+        href: articles/grid_tables.html
+      - text: "Tier Lists"
+        href: articles/tier_list.html
+      - text: "Border Bars"
+        href: articles/border_bars.html
+      - text: "Percentile Bars and Cut Lines"
+        href: articles/delay_tables.html
+      - text: "Schedule Matrix"
+        href: articles/schedule_matrix.html
+      - text: "Rolling-Window Wins"
+        href: articles/window_wins.html
     news:
       icon: "fas fa-newspaper"
       text: " Changelog"

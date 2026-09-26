@@ -30,6 +30,14 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   `reactable_sdv_headshots()`, `reactable_sdv_cols_label()`,
   `reactable_sdv_team_color_bar()` and `reactable_sdv_team_color_bg()` do the
   same for 'reactable' tables.
+* The 'gtUtils' table toolkit by Andrew Weatherman ships in sdvplotR: 18
+  `gt_theme_*()` table themes plus `gt_theme_preview()`, continuous and
+  discrete color legends, `gt_cutline()`, `gt_significance()`,
+  `gt_outliers()`, color pills / ranks / results, percentile bars, border
+  bars, `gt_grid()`, `gt_snake()` and `gt_stack_tables()` layouts,
+  `gt_save_crop()`, `gt_save_batch()` and `gt_social_crop()`, and the
+  `theme_bg` background lookup. The eight gtUtils articles are on the
+  website as "gt Table Cookbooks".
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose

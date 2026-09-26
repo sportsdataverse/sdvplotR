@@ -30,3 +30,6 @@
 ^vignettes/(leaderboard-dashboards|reactable-integration|social-posting|workflows)\.Rmd$
 (^|/)Rplots\.pdf$
 ^\.ruff_cache$
+^vignettes/(border_bars|delay_tables|grid_tables|saving_tables|schedule_matrix|styling|tier_list|window_wins)\.Rmd$
+^vignettes/images$
+^\.git$

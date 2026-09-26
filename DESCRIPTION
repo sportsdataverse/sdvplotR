@@ -7,6 +7,8 @@ Authors@R: c(
     person("Sebastian", "Carl", , "mrcaseb@gmail.com", role = "aut"),
     person("Jared", "Lee", , "13jaredlee@gmail.com", role = "aut"),
     person("Camden", "Kay", , "camdenk@gmail.com", role = "aut"),
+    person("Andrew", "Weatherman", , "andrew@aweatherman.com", role = c("aut", "cph"),
+           comment = "Author of the 'gtUtils' table functions"),
     person("sdvplotR authors", role = "cph")
   )
 Description: A unified set of functions to visualize sports data across the
@@ -19,7 +21,9 @@ Description: A unified set of functions to visualize sports data across the
     used by different data providers, including historical abbreviations of
     relocated franchises, are cleaned to one canonical key per sport. Built on
     'ggpath' following the conventions of 'nflplotR' and designed to work with
-    the companion 'SportsDataverse' data packages.
+    the companion 'SportsDataverse' data packages. Also includes the 'gtUtils'
+    table themes, color legends, cut lines, significance notation, outlier
+    flags and cropping and saving helpers for 'gt' tables.
 License: MIT + file LICENSE
 URL: https://sdvplotR.sportsdataverse.org/,
     https://github.com/sportsdataverse/sdvplotR
@@ -27,16 +31,28 @@ BugReports: https://github.com/sportsdataverse/sdvplotR/issues
 Depends:
     R (>= 4.1.0)
 Imports:
+    base64enc,
     cli (>= 3.0.0),
+    commonmark,
     dplyr (>= 1.0.0),
+    fontawesome (>= 0.5.3),
     ggpath (>= 1.1.0),
     ggplot2 (>= 3.5.0),
     glue (>= 1.4.0),
+    grDevices,
     grid,
-    gt (>= 0.8.0),
+    gt (>= 0.10.0),
+    gtExtras,
+    htmltools,
+    magick,
     magrittr (>= 2.0.0),
+    paletteer,
     rlang (>= 1.0.0),
-    scales (>= 1.1.0)
+    scales (>= 1.1.0),
+    stats,
+    tidyselect,
+    tools,
+    utils
 Suggests:
     ggtext (>= 0.1.1),
     gridtext (>= 0.1.4),
@@ -44,6 +60,7 @@ Suggests:
     reactable,
     rmarkdown,
     testthat (>= 3.0.0),
+    webshot2,
     withr
 VignetteBuilder:
     knitr
@@ -71,6 +88,7 @@ Config/Needs/development:
     usethis
 Config/testthat/edition: 3
 Encoding: UTF-8
+LazyData: true
 Language: en-US
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.1.0

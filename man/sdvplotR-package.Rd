@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A unified set of functions to visualize sports data across the National Football League, National Basketball Association, Women's National Basketball Association, Major League Baseball, National Hockey League, and college football and basketball in 'ggplot2' plots, 'gt' tables and 'reactable' tables. Team logos, wordmarks and player headshots can be drawn as plot layers, as axis text and inside table cells, and team color scales map team identifiers to their official colors. Team abbreviations used by different data providers, including historical abbreviations of relocated franchises, are cleaned to one canonical key per sport. Built on 'ggpath' following the conventions of 'nflplotR' and designed to work with the companion 'SportsDataverse' data packages.
+A unified set of functions to visualize sports data across the National Football League, National Basketball Association, Women's National Basketball Association, Major League Baseball, National Hockey League, and college football and basketball in 'ggplot2' plots, 'gt' tables and 'reactable' tables. Team logos, wordmarks and player headshots can be drawn as plot layers, as axis text and inside table cells, and team color scales map team identifiers to their official colors. Team abbreviations used by different data providers, including historical abbreviations of relocated franchises, are cleaned to one canonical key per sport. Built on 'ggpath' following the conventions of 'nflplotR' and designed to work with the companion 'SportsDataverse' data packages. Also includes the 'gtUtils' table themes, color legends, cut lines, significance notation, outlier flags and cropping and saving helpers for 'gt' tables.
 }
 \seealso{
 Useful links:
@@ -28,6 +28,7 @@ Authors:
   \item Sebastian Carl \email{mrcaseb@gmail.com}
   \item Jared Lee \email{13jaredlee@gmail.com}
   \item Camden Kay \email{camdenk@gmail.com}
+  \item Andrew Weatherman \email{andrew@aweatherman.com} (Author of the 'gtUtils' table functions) [copyright holder]
 }
 
 Other contributors:
