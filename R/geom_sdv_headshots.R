@@ -4,17 +4,30 @@
 #'   of points in a ggplot. It requires x, y aesthetics as well as a valid
 #'   player identifier: a GSIS ID for the NFL (`"00-0033873"`, resolved through
 #'   the headshot map sdvplotR publishes from nflverse rosters to the player's
-#'   NFL.com headshot) and an ESPN athlete ID for every other sport.
+#'   NFL.com headshot) and an ESPN athlete ID for every other sport. Set
+#'   `id_type` to plot IDs from another source.
 #'
 #' @inheritParams ggplot2::geom_point
 #' @param sport Character string identifying the sport.
+#' @param id_type Which ID system `player_id` holds. `NULL` (the default) takes
+#'   GSIS IDs for the NFL and ESPN athlete IDs for every other sport. `"espn"`
+#'   takes ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
+#'   hoopR's and wehoop's `espn_*()` functions. `"league"` takes the league's
+#'   own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats `PERSON_ID`
+#'   (hoopR's `nba_*()`, wehoop's `wnba_*()`), or the MLBAM ID (baseballr's
+#'   `mlb_*()`, Baseball Savant) for MLB, drawn from that league's image CDN;
+#'   other sports have no league option. Both are plain digits, so a mismatch
+#'   draws the wrong player or no image rather than an error. League CDNs draw
+#'   a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
+#'   from datacenter IPs, so a plot drawn on CI or a server can come back
+#'   without those headshots.
 #'
 #' @section Aesthetics:
 #' `geom_sdv_headshots()` understands the following aesthetics (required aesthetics are in bold):
 #' \describe{
 #'   \item{**x**}{ - The x-coordinate.}
 #'   \item{**y**}{ - The y-coordinate.}
-#'   \item{**player_id**}{ - The player's ID: GSIS ID for the NFL, ESPN athlete ID otherwise.}
+#'   \item{**player_id**}{ - The player's ID: GSIS ID for the NFL, ESPN athlete ID otherwise, or as `id_type` says.}
 #'   \item{`alpha = NULL`}{ - The alpha channel.}
 #'   \item{`colour = NULL`}{ - The image will be colorized with this colour. Use `"b/w"` for black and white.}
 #'   \item{`angle = 0`}{ - The angle of the image.}
@@ -51,11 +64,13 @@ geom_sdv_headshots <- function(
     position = "identity",
     ...,
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    id_type = NULL,
     na.rm = FALSE,
     show.legend = FALSE,
     inherit.aes = TRUE
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
+  id_type <- check_id_type(id_type, sport)
 
   ggplot2::layer(
     data = data,
@@ -68,6 +83,7 @@ geom_sdv_headshots <- function(
     params = list(
       na.rm = na.rm,
       sport = sport,
+      id_type = id_type,
       ...
     )
   )
@@ -82,9 +98,9 @@ GeomSDVheadshot <- ggplot2::ggproto(
     alpha = NULL, colour = NULL, angle = 0, hjust = 0.5,
     vjust = 0.5, width = 1.0, height = 1.0
   ),
-  draw_panel = function(data, panel_params, coord, na.rm = FALSE, sport = "nfl") {
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE, sport = "nfl", id_type = NULL) {
     # Resolve player IDs to headshot URLs
-    data$path <- headshot_from_id(data$player_id, sport = sport)
+    data$path <- headshot_from_id(data$player_id, sport = sport, id_type = id_type)
 
     # Delegate to ggpath for actual rendering
     ggpath::GeomFromPath$draw_panel(

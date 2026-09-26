@@ -31,7 +31,8 @@ scale_x_sdv_headshots(
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "bottom",
-  size = 20
+  size = 20,
+  id_type = NULL
 )
 
 scale_y_sdv_headshots(
@@ -40,7 +41,8 @@ scale_y_sdv_headshots(
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "left",
-  size = 30
+  size = 30,
+  id_type = NULL
 )
 }
 \arguments{
@@ -57,6 +59,10 @@ scale_y_sdv_headshots(
 
 \item{size}{The logo size in pixels. It is applied as height for an x-scale
 and as width for a y-scale.}
+
+\item{id_type}{Which ID system the player IDs hold: \code{NULL} (the default;
+GSIS IDs for the NFL, ESPN athlete IDs otherwise), \code{"espn"} or \code{"league"}
+(NBA / WNBA Stats \code{PERSON_ID}, MLBAM ID, GSIS). See \code{\link[=geom_sdv_headshots]{geom_sdv_headshots()}}.}
 }
 \value{
 A ggplot2 scale object.

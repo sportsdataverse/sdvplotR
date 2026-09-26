@@ -64,16 +64,21 @@ reactable_sdv_wordmarks <- function(
   }
 }
 
+#' @param id_type Which ID system the player IDs hold: `NULL` (the default;
+#'   GSIS IDs for the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"`
+#'   (NBA / WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See [geom_sdv_headshots()].
 #' @rdname reactable_sdv_images
 #' @export
 reactable_sdv_headshots <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     height = 40,
-    default_img = NULL
+    default_img = NULL,
+    id_type = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
+  id_type <- check_id_type(id_type, sport)
   function(value, index) {
-    img_tag(headshot_from_id(value, sport = sport), value, height, default_img)
+    img_tag(headshot_from_id(value, sport = sport, id_type = id_type), value, height, default_img)
   }
 }
 

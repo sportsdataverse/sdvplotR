@@ -9,7 +9,8 @@ gt_sdv_headshots(
   columns,
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   height = 30,
-  locations = NULL
+  locations = NULL,
+  id_type = NULL
 )
 }
 \arguments{
@@ -27,6 +28,19 @@ argument \code{columns}. Otherwise, the cell or set of cells to be associated
 with the team name transformation. Only \code{\link[gt:cells_body]{gt::cells_body()}},
 \code{\link[gt:cells_stub]{gt::cells_stub()}}, \code{\link[gt:cells_column_labels]{gt::cells_column_labels()}}, and
 \code{\link[gt:cells_row_groups]{gt::cells_row_groups()}} helper functions can be used here.}
+
+\item{id_type}{Which ID system \code{player_id} holds. \code{NULL} (the default) takes
+GSIS IDs for the NFL and ESPN athlete IDs for every other sport. \code{"espn"}
+takes ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
+hoopR's and wehoop's \verb{espn_*()} functions. \code{"league"} takes the league's
+own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats \code{PERSON_ID}
+(hoopR's \verb{nba_*()}, wehoop's \verb{wnba_*()}), or the MLBAM ID (baseballr's
+\verb{mlb_*()}, Baseball Savant) for MLB, drawn from that league's image CDN;
+other sports have no league option. Both are plain digits, so a mismatch
+draws the wrong player or no image rather than an error. League CDNs draw
+a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
+from datacenter IPs, so a plot drawn on CI or a server can come back
+without those headshots.}
 }
 \value{
 An object of class \code{gt_tbl}.
@@ -36,7 +50,8 @@ Translate player IDs to player headshots and render these
 images in html tables with the 'gt' package. IDs are GSIS IDs for the NFL
 (\code{"00-0033873"}, resolved through the headshot map sdvplotR publishes from
 nflverse rosters to the player's NFL.com headshot) and ESPN athlete IDs for
-every other sport. IDs that resolve to no headshot are left as text.
+every other sport, or as \code{id_type} says. IDs that resolve to no headshot
+are left as text.
 }
 \examples{
 \donttest{

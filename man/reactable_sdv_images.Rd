@@ -24,7 +24,8 @@ reactable_sdv_wordmarks(
 reactable_sdv_headshots(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   height = 40,
-  default_img = NULL
+  default_img = NULL,
+  id_type = NULL
 )
 }
 \arguments{
@@ -39,6 +40,10 @@ image when the requested variant is not available for a team.}
 
 \item{default_img}{Character. Fallback image URL used when the value cannot
 be resolved. If \code{NULL} (the default) the raw value is shown instead.}
+
+\item{id_type}{Which ID system the player IDs hold: \code{NULL} (the default;
+GSIS IDs for the NFL, ESPN athlete IDs otherwise), \code{"espn"} or \code{"league"}
+(NBA / WNBA Stats \code{PERSON_ID}, MLBAM ID, GSIS). See \code{\link[=geom_sdv_headshots]{geom_sdv_headshots()}}.}
 }
 \value{
 A function with signature \verb{function(value, index)} suitable for the

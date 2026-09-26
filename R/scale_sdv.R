@@ -218,6 +218,9 @@ scale_y_sdv <- function(
   )
 }
 
+#' @param id_type Which ID system the player IDs hold: `NULL` (the default;
+#'   GSIS IDs for the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"`
+#'   (NBA / WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See [geom_sdv_headshots()].
 #' @rdname scale_axes_sdv
 #' @export
 scale_x_sdv_headshots <- function(
@@ -226,15 +229,17 @@ scale_x_sdv_headshots <- function(
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "bottom",
-    size = 20
+    size = 20,
+    id_type = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
+  id_type <- check_id_type(id_type, sport)
   position <- rlang::arg_match0(position, c("top", "bottom"))
 
   ggplot2::scale_x_discrete(
     ...,
     labels = function(x) {
-      headshot_html(x, sport = sport, type = "height", size = size)
+      headshot_html(x, sport = sport, type = "height", size = size, id_type = id_type)
     },
     expand = expand,
     guide = guide,
@@ -250,15 +255,17 @@ scale_y_sdv_headshots <- function(
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "left",
-    size = 30
+    size = 30,
+    id_type = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
+  id_type <- check_id_type(id_type, sport)
   position <- rlang::arg_match0(position, c("left", "right"))
 
   ggplot2::scale_y_discrete(
     ...,
     labels = function(x) {
-      headshot_html(x, sport = sport, type = "width", size = size)
+      headshot_html(x, sport = sport, type = "width", size = size, id_type = id_type)
     },
     expand = expand,
     guide = guide,
