@@ -207,20 +207,68 @@ nfl_headshot_url <- function(url) {
   ifelse(grepl("\\.png$", url), url, paste0(url, ".png"))
 }
 
-# Player IDs are GSIS IDs for the NFL and ESPN athlete IDs everywhere else.
-headshot_from_id <- function(player_id, sport = "nfl") {
-  # as.character() writes round numbers like 4000000 as "4e+06"
+espn_slug <- c(
+  nfl = "nfl", nba = "nba", wnba = "wnba", mlb = "mlb", nhl = "nhl",
+  cfb = "college-football", mbb = "mens-college-basketball",
+  wbb = "womens-college-basketball"
+)
+
+espn_headshot_url <- function(espn_id, sport) {
+  paste0(
+    "https://a.espncdn.com/combiner/i?img=/i/headshots/",
+    espn_slug[[sport]], "/players/full/", espn_id, ".png"
+  )
+}
+
+# Headshots keyed by the league's own player id, as hoopR's
+# nba_player_headshot_url() / wehoop's wnba_playerheadshot() (NBA and WNBA Stats
+# PERSON_ID) and mlbplotR (MLBAM) build them. An unknown id gets the CDN's
+# silhouette, not a 404. cdn.nba.com and cdn.wnba.com answer 403 to datacenter
+# IPs, so a ggplot drawn on CI or a server can come back without the image.
+league_headshot_url <- c(
+  nba = "https://cdn.nba.com/headshots/nba/latest/260x190/%s.png",
+  wnba = "https://cdn.wnba.com/headshots/wnba/latest/260x190/%s.png",
+  mlb = paste0(
+    "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/",
+    "w_213,q_auto:best/v1/people/%s/headshot/67/current.png"
+  )
+)
+
+# `id_type` for the exported headshot helpers: NULL keeps each sport's default
+# (GSIS ids for the NFL, ESPN athlete ids otherwise).
+check_id_type <- function(id_type, sport) {
+  if (is.null(id_type)) {
+    return(NULL)
+  }
+  id_type <- rlang::arg_match0(id_type, c("espn", "league"))
+  if (id_type == "league" && !sport %in% c("nfl", names(league_headshot_url))) {
+    cli::cli_abort(c(
+      "{.val {sport}} headshots are not available by league player ID.",
+      "i" = "Use ESPN athlete IDs with {.code id_type = \"espn\"}."
+    ))
+  }
+  id_type
+}
+
+# Player IDs are GSIS IDs for the NFL and ESPN athlete IDs everywhere else, unless
+# `id_type` says otherwise: "espn" takes ESPN athlete IDs for every sport,
+# "league" the league's own ID (GSIS; NBA / WNBA Stats PERSON_ID; MLBAM).
+# Both are plain digits, so which one an ID is can't be told from its shape.
+headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
+  id_type <- id_type %||% if (sport == "nfl") "league" else "espn"
+  # as.character() writes round numbers like 4000000 as "4e+06", and scipen
+  # only changes the notation: it keeps 15 significant digits. sprintf() is
+  # exact for every integer a double holds.
   player_id <- if (is.numeric(player_id)) {
     ifelse(is.na(player_id), NA_character_, sprintf("%.0f", player_id))
   } else {
     as.character(player_id)
   }
-  espn_slug <- c(
-    nba = "nba", wnba = "wnba", mlb = "mlb", nhl = "nhl",
-    cfb = "college-football", mbb = "mens-college-basketball",
-    wbb = "womens-college-basketball"
-  )
-  url <- if (sport == "nfl") {
+  numeric_id <- grepl("^[0-9]+$", player_id)
+
+  url <- if (id_type == "espn") {
+    ifelse(numeric_id, espn_headshot_url(player_id, sport), NA_character_)
+  } else if (sport == "nfl") {
     # GSIS ids resolve through the headshot map sdvplotR publishes (see
     # load_headshot_map()): NFL.com's image where the roster has one, otherwise
     # the player's ESPN athlete headshot. Bare numeric NFL ids are not accepted:
@@ -232,21 +280,10 @@ headshot_from_id <- function(player_id, sport = "nfl") {
     ifelse(
       !is.na(nfl),
       nfl_headshot_url(nfl),
-      ifelse(
-        !is.na(espn),
-        paste0("https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/", espn, ".png"),
-        NA_character_
-      )
+      ifelse(!is.na(espn), espn_headshot_url(espn, "nfl"), NA_character_)
     )
   } else {
-    ifelse(
-      grepl("^[0-9]+$", player_id),
-      paste0(
-        "https://a.espncdn.com/combiner/i?img=/i/headshots/",
-        espn_slug[[sport]], "/players/full/", player_id, ".png"
-      ),
-      NA_character_
-    )
+    ifelse(numeric_id, sprintf(league_headshot_url[[sport]], player_id), NA_character_)
   }
   url[is.na(player_id) | player_id == ""] <- NA_character_
   unname(url)
@@ -259,9 +296,9 @@ logo_html <- function(team_abbr, sport, type = c("height", "width"), size = 15) 
   ifelse(is.na(urls), team_abbr, sprintf("<img src='%s' %s = '%s'>", urls, type, size))
 }
 
-headshot_html <- function(player_id, sport, type = c("height", "width"), size = 25) {
+headshot_html <- function(player_id, sport, type = c("height", "width"), size = 25, id_type = NULL) {
   type <- rlang::arg_match(type)
-  urls <- headshot_from_id(player_id, sport = sport)
+  urls <- headshot_from_id(player_id, sport = sport, id_type = id_type)
   ifelse(is.na(urls), player_id, sprintf("<img src='%s' %s = '%s'>", urls, type, size))
 }
 

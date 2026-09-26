@@ -29,3 +29,20 @@ test_that("logo axis elements render through ggpath", {
     theme(axis.text.x = element_sdv_logo(sport = "nfl", size = 0.8))
   expect_s3_class(ggplot_gtable(ggplot_build(p)), "gtable")
 })
+
+test_that("element_sdv_headshot records and uses id_type", {
+  e <- element_sdv_headshot("nba", id_type = "league")
+  expect_identical(e$id_type, "league")
+  expect_null(element_sdv_headshot("nba")$id_type)
+  seen <- NULL
+  local_mocked_bindings(
+    headshot_from_id = function(player_id, sport, id_type = NULL) {
+      seen <<- id_type
+      rep(NA_character_, length(player_id))
+    },
+    .package = "sdvplotR"
+  )
+  element_grob(e, label = "2544")
+  expect_identical(seen, "league")
+  expect_error(element_sdv_headshot("nhl", id_type = "league"), "league player ID")
+})

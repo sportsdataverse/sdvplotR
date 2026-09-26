@@ -43,3 +43,14 @@ test_that("gt_merge_stack_team_color stacks and colours text", {
   expect_match(h, "Chiefs")
   expect_snapshot(gt_merge_stack_team_color(df, team, mascot, team, sport = "nfl"), error = TRUE)
 })
+
+test_that("gt headshot helpers pass id_type through", {
+  df <- data.frame(id = c("2544", "abc"))
+  h <- html_of(gt(df) |> gt_sdv_headshots(columns = "id", sport = "nba", id_type = "league"))
+  expect_match(h, "https://cdn\\.nba\\.com/headshots/nba/latest/260x190/2544\\.png")
+  expect_match(h, ">abc<")
+  lab <- html_of(gt(data.frame(`1642286` = 1, check.names = FALSE)) |>
+    gt_sdv_cols_label(sport = "wnba", type = "headshot", id_type = "league"))
+  expect_match(lab, "cdn\\.wnba\\.com/headshots/wnba/latest/260x190/1642286\\.png")
+  expect_error(gt_sdv_headshots(gt(df), columns = "id", sport = "nhl", id_type = "league"), "league player ID")
+})

@@ -161,6 +161,35 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   theme_minimal()
 ```
 
+### WNBA Stats player IDs
+
+The headshots above use ESPN athlete IDs, the `athlete_id` in wehoop's
+`load_wnba_*()` data. wehoop's `wnba_*()` functions read stats.wnba.com, which
+numbers players differently (`PLAYER_ID`). Pass `id_type = "league"` to draw
+those from the WNBA's own image CDN. Both are plain numbers, so without it a
+WNBA Stats ID is read as an ESPN ID and draws someone else or nothing.
+
+```{r wnba-stats-headshots}
+leaders <- wehoop::wnba_leagueleaders()$LeagueLeaders |>
+  mutate(across(c(GP, PTS), as.numeric)) |>
+  head(8)
+
+ggplot(leaders, aes(x = GP, y = PTS)) +
+  geom_sdv_headshots(
+    aes(player_id = PLAYER_ID),
+    sport = "wnba",
+    id_type = "league",
+    height = 0.15
+  ) +
+  labs(title = "WNBA scoring leaders", x = "Games Played", y = "Points")
+```
+
+`id_type` works the same in `gt_sdv_headshots()`, `reactable_sdv_headshots()`,
+the headshot axis scales and `element_sdv_headshot()`. The WNBA's image CDN
+refuses requests from datacenter IPs, so a plot rendered on CI or a server can
+come back without these headshots; tables are unaffected, because the reader's
+browser loads the images.
+
 ## WNBA Team Tiers
 
 Create a tier plot ranking WNBA teams:

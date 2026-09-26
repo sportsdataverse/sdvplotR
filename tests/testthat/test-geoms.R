@@ -71,3 +71,24 @@ test_that("sdv_team_tiers builds a plot and validates input", {
   expect_false(anyNA(labs))
   expect_true(all(c("Elite", "Rebuild") %in% labs))
 })
+
+test_that("headshot geom and scales pass id_type through", {
+  df <- data.frame(x = 1:2, y = 1:2, id = c("2544", "201939"))
+  p <- ggplot(df, aes(x, y)) + geom_sdv_headshots(aes(player_id = id), sport = "nba", id_type = "league")
+  seen <- NULL
+  local_mocked_bindings(
+    headshot_from_id = function(player_id, sport, id_type = NULL) {
+      seen <<- id_type
+      rep(NA_character_, length(player_id))
+    },
+    .package = "sdvplotR"
+  )
+  suppressWarnings(layer_grob(p))
+  expect_identical(seen, "league")
+  expect_error(geom_sdv_headshots(sport = "cfb", id_type = "league"), "league player ID")
+})
+
+test_that("headshot axis scales pass id_type through", {
+  sx <- scale_x_sdv_headshots(sport = "mlb", id_type = "league")
+  expect_match(sx$labels("660271"), "img\\.mlbstatic\\.com/.*/people/660271/.*height = '20'")
+})

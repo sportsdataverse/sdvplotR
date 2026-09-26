@@ -165,3 +165,45 @@ test_that("the published headshot map loads and serves Mahomes' image", {
   h <- curlGetHeaders(headshot_from_id("00-0033873", sport = "nfl"))
   expect_identical(attr(h, "status"), 200L)
 })
+
+test_that("id_type = 'league' resolves league ids on the league's own CDN", {
+  expect_identical(
+    headshot_from_id(c("2544", "abc", NA), "nba", id_type = "league"),
+    c("https://cdn.nba.com/headshots/nba/latest/260x190/2544.png", NA, NA)
+  )
+  expect_identical(
+    headshot_from_id(1642286, "wnba", id_type = "league"),
+    "https://cdn.wnba.com/headshots/wnba/latest/260x190/1642286.png"
+  )
+  expect_match(
+    headshot_from_id("660271", "mlb", id_type = "league"),
+    "^https://img\\.mlbstatic\\.com/.*/v1/people/660271/headshot/67/current\\.png$"
+  )
+  # the default is unchanged: numeric ids outside the NFL are ESPN athlete ids
+  expect_identical(
+    headshot_from_id("2544", "nba"),
+    "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2544.png"
+  )
+})
+
+test_that("id_type = 'espn' takes ESPN athlete ids for the NFL without the map", {
+  local_mocked_bindings(load_headshot_map = function() stop("the map was read"), .package = "sdvplotR")
+  expect_identical(
+    headshot_from_id(c("3139477", "00-0033873"), "nfl", id_type = "espn"),
+    c("https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/3139477.png", NA)
+  )
+})
+
+test_that("id_type = 'league' for the NFL is the GSIS default", {
+  local_headshot_map()
+  expect_identical(headshot_from_id("00-0033873", "nfl", id_type = "league"), headshot_from_id("00-0033873", "nfl"))
+})
+
+test_that("check_id_type validates the id system for the sport", {
+  expect_null(check_id_type(NULL, "nhl"))
+  expect_identical(check_id_type("league", "wnba"), "league")
+  expect_identical(check_id_type("espn", "nfl"), "espn")
+  expect_error(check_id_type("league", "nhl"), "not available by league player ID")
+  expect_error(check_id_type("league", "cfb"), "not available by league player ID")
+  expect_error(check_id_type("gsis", "nfl"))
+})

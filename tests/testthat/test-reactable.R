@@ -33,3 +33,8 @@ test_that("reactable_sdv_cols_label builds colDefs for resolvable columns", {
   expect_s3_class(cols$KC, "colDef")
   expect_match(cols$KC$header, "kc\\.png\" style=\"height:18px;\"")
 })
+
+test_that("reactable_sdv_headshots passes id_type through", {
+  expect_match(reactable_sdv_headshots("wnba", id_type = "league")("1642286", 1), "cdn\\.wnba\\.com/.*/1642286\\.png")
+  expect_match(reactable_sdv_headshots("nba")("1966", 1), "a\\.espncdn\\.com/.*/nba/players/full/1966\\.png")
+})

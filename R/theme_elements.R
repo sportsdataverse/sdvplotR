@@ -84,6 +84,9 @@ element_sdv_wordmark <- function(
   new_sdv_element("element_sdv_wordmark", sport, alpha, colour, color, hjust, vjust, size)
 }
 
+#' @param id_type Which ID system the player IDs hold: `NULL` (the default;
+#'   GSIS IDs for the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"`
+#'   (NBA / WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See [geom_sdv_headshots()].
 #' @rdname element_sdv
 #' @export
 element_sdv_headshot <- function(
@@ -93,9 +96,12 @@ element_sdv_headshot <- function(
     color = NULL,
     hjust = NULL,
     vjust = NULL,
-    size = 0.5
+    size = 0.5,
+    id_type = NULL
 ) {
-  new_sdv_element("element_sdv_headshot", sport, alpha, colour, color, hjust, vjust, size)
+  element <- new_sdv_element("element_sdv_headshot", sport, alpha, colour, color, hjust, vjust, size)
+  element$id_type <- check_id_type(id_type, element$sport)
+  element
 }
 
 #' @rdname element_sdv
@@ -182,7 +188,7 @@ element_grob.element_sdv_headshot <- function(element, label = "", x = NULL, y =
                                               hjust = NULL, vjust = NULL,
                                               size = NULL, ...) {
   if (is.null(label)) return(ggplot2::zeroGrob())
-  label <- headshot_from_id(label, sport = element$sport)
+  label <- headshot_from_id(label, sport = element$sport, id_type = element$id_type)
   label[is.na(label)] <- headshot_placeholder
   sdv_element_to_path_grob(element, label, x, y, alpha, colour, hjust, vjust, size, ...)
 }

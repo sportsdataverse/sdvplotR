@@ -144,6 +144,7 @@ ggplot(top_hr, aes(x = games, y = total_hr)) +
   geom_sdv_headshots(
     aes(player_id = player_id),
     sport = "mlb",
+    id_type = "league",
     height = 0.15
   ) +
   geom_label(
@@ -159,6 +160,34 @@ ggplot(top_hr, aes(x = games, y = total_hr)) +
     y = "Total Home Runs"
   ) +
   theme_minimal()
+```
+
+### MLBAM player IDs
+
+baseballr's MLB Stats API and Baseball Savant functions identify players by
+their MLBAM ID, not their ESPN athlete ID, which is why the headshots above pass
+`id_type = "league"`: it draws MLBAM IDs from MLB's own image CDN. Leave
+`id_type` unset for ESPN athlete IDs, such as those in baseballr's `espn_mlb_*()`
+data. Both are plain numbers, so the wrong setting draws someone else or
+nothing.
+
+```{r mlbam-headshots}
+hitters <- baseballr::mlb_stats(
+  stat_type = "season",
+  stat_group = "hitting",
+  season = baseballr::most_recent_mlb_season()
+) |>
+  arrange(desc(home_runs)) |>
+  head(8)
+
+ggplot(hitters, aes(x = games_played, y = home_runs)) +
+  geom_sdv_headshots(
+    aes(player_id = player_id),
+    sport = "mlb",
+    id_type = "league",
+    height = 0.15
+  ) +
+  labs(title = "MLB home run leaders", x = "Games Played", y = "Home Runs")
 ```
 
 ## MLB Team Tiers
@@ -293,6 +322,7 @@ ggplot(comparison, aes(x = category, y = total_hr)) +
   geom_sdv_headshots(
     aes(player_id = player_id),
     sport = "mlb",
+    id_type = "league",
     width = 0.1
   ) +
   facet_wrap(~ category, scales = "free_y") +

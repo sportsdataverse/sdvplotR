@@ -9,7 +9,8 @@ gt_sdv_cols_label(
   columns = gt::everything(),
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   height = 30,
-  type = c("logo", "wordmark", "headshot")
+  type = c("logo", "wordmark", "headshot"),
+  id_type = NULL
 )
 }
 \arguments{
@@ -23,6 +24,19 @@ gt_sdv_cols_label(
 
 \item{type}{One of \code{"logo"}, \code{"wordmark"} or \code{"headshot"}: whether the column
 names are team abbreviations (logo / wordmark) or player IDs (headshot).}
+
+\item{id_type}{Which ID system \code{player_id} holds. \code{NULL} (the default) takes
+GSIS IDs for the NFL and ESPN athlete IDs for every other sport. \code{"espn"}
+takes ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
+hoopR's and wehoop's \verb{espn_*()} functions. \code{"league"} takes the league's
+own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats \code{PERSON_ID}
+(hoopR's \verb{nba_*()}, wehoop's \verb{wnba_*()}), or the MLBAM ID (baseballr's
+\verb{mlb_*()}, Baseball Savant) for MLB, drawn from that league's image CDN;
+other sports have no league option. Both are plain digits, so a mismatch
+draws the wrong player or no image rather than an error. League CDNs draw
+a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
+from datacenter IPs, so a plot drawn on CI or a server can come back
+without those headshots.}
 }
 \value{
 An object of class \code{gt_tbl}.

@@ -34,7 +34,8 @@ element_sdv_headshot(
   color = NULL,
   hjust = NULL,
   vjust = NULL,
-  size = 0.5
+  size = 0.5,
+  id_type = NULL
 )
 
 element_sdv_raster(
@@ -64,6 +65,10 @@ for black and white.}
 \item{vjust}{Vertical justification.}
 
 \item{size}{The output grob size in \code{cm}.}
+
+\item{id_type}{Which ID system the player IDs hold: \code{NULL} (the default;
+GSIS IDs for the NFL, ESPN athlete IDs otherwise), \code{"espn"} or \code{"league"}
+(NBA / WNBA Stats \code{PERSON_ID}, MLBAM ID, GSIS). See \code{\link[=geom_sdv_headshots]{geom_sdv_headshots()}}.}
 
 \item{image_path}{A file path or url to an image.}
 

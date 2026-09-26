@@ -97,9 +97,11 @@ gt_sdv_wordmarks <- function(
 #'   images in html tables with the 'gt' package. IDs are GSIS IDs for the NFL
 #'   (`"00-0033873"`, resolved through the headshot map sdvplotR publishes from
 #'   nflverse rosters to the player's NFL.com headshot) and ESPN athlete IDs for
-#'   every other sport. IDs that resolve to no headshot are left as text.
+#'   every other sport, or as `id_type` says. IDs that resolve to no headshot
+#'   are left as text.
 #'
 #' @inheritParams gt_sdv_logos
+#' @inheritParams geom_sdv_headshots
 #' @return An object of class `gt_tbl`.
 #' @seealso [gt_sdv_logos()], [gt_sdv_wordmarks()], [gt_sdv_cols_label()]
 #' @export
@@ -122,9 +124,11 @@ gt_sdv_headshots <- function(
     columns,
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     height = 30,
-    locations = NULL
+    locations = NULL,
+    id_type = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
+  id_type <- check_id_type(id_type, sport)
 
   if (is.null(locations)) {
     locations <- gt::cells_body({{ columns }})
@@ -138,17 +142,13 @@ gt_sdv_headshots <- function(
     data = gt_object,
     locations = locations,
     fn = function(x) {
-      image_urls <- headshot_from_id(x, sport = sport)
+      image_urls <- headshot_from_id(x, sport = sport, id_type = id_type)
+      missing <- is.na(image_urls)
 
-      # Replace NAs with placeholder
-      placeholder <- "https://a.espncdn.com/i/headshots/nophoto.png"
-      image_urls[is.na(image_urls)] <- placeholder
-
+      # web_image() needs a URL for every cell; IDs with none stay as text
+      image_urls[missing] <- headshot_placeholder
       img_tags <- gt::web_image(image_urls, height = height)
-
-      # For NAs, we want the original text instead of placeholder
-      img_tags[is.na(headshot_from_id(x, sport = sport))] <-
-        x[is.na(headshot_from_id(x, sport = sport))]
+      img_tags[missing] <- x[missing]
 
       img_tags
     }
@@ -166,6 +166,7 @@ gt_sdv_headshots <- function(
 #' @param height The absolute height (px) of the image.
 #' @param type One of `"logo"`, `"wordmark"` or `"headshot"`: whether the column
 #'   names are team abbreviations (logo / wordmark) or player IDs (headshot).
+#' @inheritParams geom_sdv_headshots
 #'
 #' @return An object of class `gt_tbl`.
 #' @seealso [gt_sdv_logos()], [gt_sdv_wordmarks()], [gt_sdv_headshots()]
@@ -190,10 +191,12 @@ gt_sdv_cols_label <- function(
     columns = gt::everything(),
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     height = 30,
-    type = c("logo", "wordmark", "headshot")
+    type = c("logo", "wordmark", "headshot"),
+    id_type = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
   type <- rlang::arg_match0(type, c("logo", "wordmark", "headshot"))
+  id_type <- check_id_type(id_type, sport)
 
   if (is.numeric(height)) {
     height <- paste0(height, "px")
@@ -204,7 +207,7 @@ gt_sdv_cols_label <- function(
     columns = {{ columns }},
     fn = function(x) {
       if (type == "headshot") {
-        image_url <- headshot_from_id(x, sport = sport)
+        image_url <- headshot_from_id(x, sport = sport, id_type = id_type)
         out <- gt::web_image(image_url, height = height)
         out[is.na(image_url)] <- x[is.na(image_url)]
       } else {
