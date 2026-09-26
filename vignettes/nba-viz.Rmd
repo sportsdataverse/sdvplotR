@@ -353,8 +353,8 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
   geom_col(aes(fill = team_abbreviation), width = 0.6) +
   scale_fill_sdv(sport = "nba", alpha = 0.7) +
   scale_x_sdv(sport = "nba") +
-  theme_x_sdv() +
   theme_minimal() +
+  theme_x_sdv() +
   labs(
     title = "Top 8 NBA Teams by Win %",
     x = NULL,

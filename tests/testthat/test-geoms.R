@@ -106,3 +106,16 @@ test_that("color scales accept every key clean_team_abbrs() accepts", {
   expect_false(any(built$data[[1]]$fill == "grey50"))
 })
 
+test_that("axis logo themes survive a complete theme added before them", {
+  skip_if_not_installed("ggtext")
+  df <- data.frame(t = c("**a**", "*b*"), v = 1:2)
+  axis_grob_classes <- function(p, side) {
+    g <- ggplotGrob(p)
+    ax <- g$grobs[[which(g$layout$name == side)]]
+    unlist(lapply(ax$children, function(ch) if (inherits(ch, "gtable")) lapply(ch$grobs, function(x) class(x)[1])))
+  }
+  px <- ggplot(df, aes(t, v)) + geom_col() + theme_minimal() + theme_x_sdv()
+  expect_true("richtext_grob" %in% axis_grob_classes(px, "axis-b"))
+  py <- ggplot(df, aes(v, t)) + geom_col() + theme_minimal() + theme_y_sdv()
+  expect_true("richtext_grob" %in% axis_grob_classes(py, "axis-l"))
+})

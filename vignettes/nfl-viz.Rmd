@@ -280,8 +280,8 @@ ggplot(top_8, aes(x = posteam, y = win_pct)) +
   geom_col(aes(fill = posteam), width = 0.6) +
   scale_fill_sdv(sport = "nfl", alpha = 0.7) +
   scale_x_sdv(sport = "nfl") +
-  theme_x_sdv() +
   theme_minimal() +
+  theme_x_sdv() +
   labs(
     title = "Top 8 NFL Teams",
     x = NULL,
