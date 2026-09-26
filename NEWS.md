@@ -85,6 +85,12 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   providers write inconsistently: the NHL API's "Montréal Canadiens" now
   resolves, as does an unaccented "San Jose State" against ESPN's
   "San José State".
+* `clean_team_abbrs()` and every helper built on it take the school names
+  NCAA.com / stats.ncaa.org, KenPom and Bart Torvik use for college teams
+  (`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Miami (OH)"`),
+  from sportsdataverse-py's NCAA / ESPN crosswalks and hoopR's team crosswalk,
+  so their tables plot without a lookup table. ESPN's own names still win
+  wherever they overlap.
 * College team data covers every Division I program. ESPN's teams list leaves
   some out (Lindenwood, Queens, Southern Indiana, Mercyhurst, Saint Francis,
   UT Rio Grande Valley football), so they drew no logo; they are now fetched
