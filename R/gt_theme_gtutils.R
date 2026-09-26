@@ -129,7 +129,7 @@ gt_theme_gtutils <- function(gt_object,
       align = "center",
       columns = gt::everything()
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       data_row.padding = 1,
       table_body.hlines.color = "transparent",
       # column_labels.border.top.style = 'solid',
@@ -156,7 +156,7 @@ gt_theme_gtutils <- function(gt_object,
       table.border.right.color = "#FFFDF5",
       table.border.bottom.color = "#FFFDF5",
       table.border.left.color = "#FFFDF5"
-    ), ...) |>
+    ) |>
     gt::opt_css(c(
       paste0(
         "#",
@@ -190,5 +190,7 @@ gt_theme_gtutils <- function(gt_object,
       )
     ))
 
-  .theme_scale_output(table, density)
+  .theme_scale_output(table, density) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

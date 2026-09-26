@@ -125,7 +125,7 @@ gt_theme_sofa <- function(gt_object, style = "light",
         size = px(10)
       )
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       data_row.padding = 1,
       table_body.hlines.color = "transparent",
       # column_labels.border.top.style = 'solid',
@@ -150,7 +150,7 @@ gt_theme_sofa <- function(gt_object, style = "light",
       table.border.right.color = base_color,
       table.border.bottom.color = base_color,
       table.border.left.color = base_color
-    ), ...) |>
+    ) |>
     gt::opt_css(c(
       paste0(
         "#",
@@ -179,5 +179,7 @@ gt_theme_sofa <- function(gt_object, style = "light",
       ),
       paste0("#", table_id, " .gt_column_spanner {font-size: 12px; font-weight: bold; text-decoration: underline;}")
     )) |>
-    .theme_scale_output(density)
+    .theme_scale_output(density) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

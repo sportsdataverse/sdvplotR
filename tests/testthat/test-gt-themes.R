@@ -124,6 +124,25 @@ test_that("every theme lets options passed through ... override its own", {
   }
 })
 
+test_that("the caller's options survive density scaling and forced striping", {
+  opt <- function(tbl, name) tbl[["_options"]]$value[[match(name, tbl[["_options"]]$parameter)]]
+  themes <- setdiff(
+    grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE),
+    "gt_theme_preview"
+  )
+  for (nm in themes) {
+    tbl <- get(nm, envir = asNamespace("sdvplotR"))(
+      gt::gt(head(mtcars)),
+      density = "compact", table.font.size = gt::px(20)
+    )
+    expect_identical(opt(tbl, "table_font_size"), "20px", info = nm)
+  }
+  for (nm in c("gt_theme_savant", "gt_theme_ncaa")) {
+    tbl <- get(nm)(gt::gt(head(mtcars)), row.striping.include_table_body = FALSE)
+    expect_false(opt(tbl, "row_striping_include_table_body"), info = nm)
+  }
+})
+
 test_that("density rescales a table styled on locations with no size role", {
   g <- gt::gt(head(mtcars), rownames_to_stub = TRUE) |>
     gt::grand_summary_rows(columns = "mpg", fns = list(total = ~ sum(.))) |>

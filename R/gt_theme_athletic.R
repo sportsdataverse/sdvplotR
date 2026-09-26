@@ -116,7 +116,7 @@ gt_theme_athletic <- function(gt_object,
       align = "center",
       columns = gt::everything()
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       table.font.size = 12,
       column_labels.border.top.style = "none",
       column_labels.border.bottom.style = "solid",
@@ -136,7 +136,7 @@ gt_theme_athletic <- function(gt_object,
       row_group.border.bottom.color = "black",
       row_group.border.bottom.style = "solid",
       row_group.padding = px(1.5)
-    ), ...) |>
+    ) |>
     gt::opt_css(c(
       paste0(
         "#",
@@ -160,5 +160,7 @@ gt_theme_athletic <- function(gt_object,
       )
     ))
 
-  .theme_scale_output(table, density)
+  .theme_scale_output(table, density) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

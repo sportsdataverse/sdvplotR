@@ -105,7 +105,7 @@ gt_theme_almanac <- function(gt_object, accent = "#8C2F1E",
         size = gt::px(d$source + 1), color = secondary
       )
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       table.background.color = "#FFFFFF",
       row.striping.background_color = if (is.na(stripe)) "#FFFFFF" else stripe,
       table.font.size = gt::px(d$body),
@@ -138,7 +138,7 @@ gt_theme_almanac <- function(gt_object, accent = "#8C2F1E",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 2),
       footnotes.border.bottom.style = "none"
-    ), ...) |>
+    ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, "#FFFFFF"),
@@ -149,5 +149,7 @@ gt_theme_almanac <- function(gt_object, accent = "#8C2F1E",
       paste0("#", table_id, " .gt_group_heading { letter-spacing: 0.05em; }"),
       paste0("#", table_id, " .gt_subtitle { padding-bottom: ", d$pad + 6, "px !important; }"),
       paste0("#", table_id, " .gt_title { padding-bottom: ", ceiling(d$pad / 2), "px !important; }")
-    ))
+    )) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

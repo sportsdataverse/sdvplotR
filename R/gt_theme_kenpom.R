@@ -151,7 +151,7 @@ gt_theme_kenpom <- function(gt_object,
     ) |>
     # uh this is kinda hacky but it works
     tab_spanner(columns = everything(), "toss_out_spanner_dev") |>
-    .theme_tab_options(list(
+    gt::tab_options(
       data_row.padding = 2,
       table_body.hlines.color = "transparent",
       column_labels.border.top.style = "none",
@@ -169,7 +169,7 @@ gt_theme_kenpom <- function(gt_object,
       table.border.bottom.style = "none",
       table.border.top.style = "none",
       source_notes.border.lr.style = "none"
-    ), ...) |>
+    ) |>
     gt::opt_css(c(
       paste0("#", table_id, " tbody tr:last-child {border-bottom: 2px solid #FFFFFF;}"),
       paste0("#", table_id, " .gt_col_heading {padding-bottom: 2px; padding-top: 2px;}"),
@@ -179,5 +179,7 @@ gt_theme_kenpom <- function(gt_object,
       paste0("#", table_id, " #toss_out_spanner_dev {display: none;}")
     ))
 
-  .theme_scale_output(table, density)
+  .theme_scale_output(table, density) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

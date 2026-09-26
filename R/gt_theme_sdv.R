@@ -200,33 +200,30 @@ gt_theme_sdv_team <- function(gt_object, team = NULL,
       style = gt::cell_text(size = gt::px(12), color = pal$muted)
     )
 
-  table <- .theme_tab_options(
+  table <- gt::tab_options(
     table,
-    list(
-      table.background.color = pal$bg,
-      table.font.color = pal$text,
-      table.font.size = gt::px(15),
-      heading.align = "left",
-      heading.background.color = pal$heading_bg,
-      heading.padding = gt::px(4),
-      heading.border.bottom.style = "none",
-      column_labels.background.color = pal$bg,
-      column_labels.border.top.style = "none",
-      column_labels.border.bottom.style = "none",
-      column_labels.padding = gt::px(6),
-      table_body.hlines.color = pal$rule,
-      table_body.hlines.width = gt::px(1),
-      table_body.border.top.style = "none",
-      table_body.border.bottom.style = "none",
-      row_group.border.top.style = "none",
-      row_group.border.bottom.style = "none",
-      data_row.padding = gt::px(7),
-      table.border.top.style = "none",
-      table.border.bottom.style = "none",
-      source_notes.border.bottom.style = "none",
-      footnotes.border.bottom.style = "none"
-    ),
-    ...
+    table.background.color = pal$bg,
+    table.font.color = pal$text,
+    table.font.size = gt::px(15),
+    heading.align = "left",
+    heading.background.color = pal$heading_bg,
+    heading.padding = gt::px(4),
+    heading.border.bottom.style = "none",
+    column_labels.background.color = pal$bg,
+    column_labels.border.top.style = "none",
+    column_labels.border.bottom.style = "none",
+    column_labels.padding = gt::px(6),
+    table_body.hlines.color = pal$rule,
+    table_body.hlines.width = gt::px(1),
+    table_body.border.top.style = "none",
+    table_body.border.bottom.style = "none",
+    row_group.border.top.style = "none",
+    row_group.border.bottom.style = "none",
+    data_row.padding = gt::px(7),
+    table.border.top.style = "none",
+    table.border.bottom.style = "none",
+    source_notes.border.bottom.style = "none",
+    footnotes.border.bottom.style = "none"
   ) |>
     gt::opt_css(c(
       # the horizon: one line under the column labels, drawn over the thead so
@@ -255,5 +252,7 @@ gt_theme_sdv_team <- function(gt_object, team = NULL,
       .theme_tabular_nums(table_id)
     ))
 
-  .theme_scale_output(table, density)
+  # the caller's options last, after density scaling, so they win
+  .theme_scale_output(table, density) |>
+    gt::tab_options(...)
 }

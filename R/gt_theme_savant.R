@@ -105,7 +105,7 @@ gt_theme_savant <- function(gt_object,
         size = px(8)
       )
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       data_row.padding = 1,
       table_body.hlines.color = "transparent",
       column_labels.border.top.color = "black",
@@ -124,7 +124,7 @@ gt_theme_savant <- function(gt_object,
       table.border.bottom.style = "none",
       table.border.top.style = "none",
       source_notes.border.lr.style = "none"
-    ), ...) |>
+    ) |>
     gt::opt_row_striping() |>
     gt::opt_css(c(
       paste0("#", table_id, " tbody tr:last-child {border-bottom: 2px solid #FFFFFF;}"),
@@ -133,5 +133,7 @@ gt_theme_savant <- function(gt_object,
       paste0("#", table_id, " .gt_heading {padding-bottom: 0px; padding-top: 6px;}"),
       paste0("#", table_id, " .gt_column_spanner {font-size: 12px; font-weight: bold; text-decoration: underline;}")
     )) |>
-    .theme_scale_output(density)
+    .theme_scale_output(density) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

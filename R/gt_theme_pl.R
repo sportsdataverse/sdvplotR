@@ -128,7 +128,7 @@ gt_theme_pl <- function(gt_object,
       locations = gt::cells_body(rows = 1),
       style = gt::cell_borders(sides = "top", color = "#37003c")
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       heading.align = "left",
       column_labels.border.top.style = "none",
       table.border.top.style = "none",
@@ -148,7 +148,7 @@ gt_theme_pl <- function(gt_object,
       column_labels.border.bottom.style = "solid",
       column_labels.border.bottom.width = px(1),
       column_labels.border.bottom.color = "#37003c"
-    ), ...) |>
+    ) |>
     gt::opt_css(
       c(
         .theme_last_row_border(table_id, "#FFFFFF"),
@@ -180,5 +180,7 @@ gt_theme_pl <- function(gt_object,
       ),
       add = TRUE
     ) |>
-    .theme_scale_output(density)
+    .theme_scale_output(density) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

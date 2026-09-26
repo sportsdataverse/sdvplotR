@@ -92,7 +92,7 @@ gt_theme_swiss <- function(gt_object, accent = "#111111",
       locations = gt::cells_footnotes(),
       style = gt::cell_text(size = gt::px(d$source), color = secondary)
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       table.background.color = "#FFFFFF",
       table.font.size = gt::px(d$body),
       # padding is the design here
@@ -121,7 +121,7 @@ gt_theme_swiss <- function(gt_object, accent = "#111111",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 4),
       footnotes.border.bottom.style = "none"
-    ), ...) |>
+    ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, "#FFFFFF"),
@@ -135,5 +135,7 @@ gt_theme_swiss <- function(gt_object, accent = "#111111",
         ceiling(d$pad / 2), "px !important; }"
       ),
       paste0("#", table_id, " .gt_subtitle { padding-bottom: ", d$pad + 14, "px !important; }")
-    ))
+    )) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

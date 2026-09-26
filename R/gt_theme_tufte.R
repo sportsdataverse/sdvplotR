@@ -92,7 +92,7 @@ gt_theme_tufte <- function(gt_object, accent = "#111111",
       locations = gt::cells_footnotes(),
       style = serif(style = "italic", size = gt::px(d$source + 1), color = secondary)
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       table.background.color = bg,
       table.font.size = gt::px(d$body + 1),
       data_row.padding = gt::px(d$pad),
@@ -128,9 +128,11 @@ gt_theme_tufte <- function(gt_object, accent = "#111111",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad),
       footnotes.border.bottom.style = "none"
-    ), ...) |>
+    ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       paste0("#", table_id, " .gt_sourcenote { padding-top: ", d$pad + 4, "px; }")
-    ))
+    )) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

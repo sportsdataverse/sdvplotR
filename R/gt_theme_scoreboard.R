@@ -113,7 +113,7 @@ gt_theme_scoreboard <- function(gt_object, accent = "#0E1621",
       locations = gt::cells_footnotes(),
       style = gt::cell_text(size = gt::px(d$source), color = "#5A6069")
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       table.background.color = "#FFFFFF",
       column_labels.background.color = accent,
       table.font.size = gt::px(d$body),
@@ -139,7 +139,7 @@ gt_theme_scoreboard <- function(gt_object, accent = "#0E1621",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 2),
       footnotes.border.bottom.style = "none"
-    ), ...) |>
+    ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, "#FFFFFF"),
@@ -150,5 +150,7 @@ gt_theme_scoreboard <- function(gt_object, accent = "#0E1621",
       paste0("#", table_id, " .gt_group_heading { letter-spacing: 0.06em; }"),
       paste0("#", table_id, " .gt_heading { letter-spacing: 0.01em; }"),
       paste0("#", table_id, " .gt_subtitle { padding-bottom: ", d$pad + 6, "px !important; }")
-    ))
+    )) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

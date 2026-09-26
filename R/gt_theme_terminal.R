@@ -98,7 +98,7 @@ gt_theme_terminal <- function(gt_object, accent = "#FFB86C",
       locations = gt::cells_footnotes(),
       style = gt::cell_text(size = gt::px(d$source), color = secondary)
     ) |>
-    .theme_tab_options(list(
+    gt::tab_options(
       table.background.color = ground,
       heading.background.color = ground,
       column_labels.background.color = ground,
@@ -136,7 +136,7 @@ gt_theme_terminal <- function(gt_object, accent = "#FFB86C",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 2),
       footnotes.border.bottom.style = "none"
-    ), ...) |>
+    ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, ground),
@@ -144,5 +144,7 @@ gt_theme_terminal <- function(gt_object, accent = "#FFB86C",
       paste0("#", table_id, " .gt_col_heading { letter-spacing: 0.08em; }"),
       paste0("#", table_id, " .gt_title { letter-spacing: 0.04em; padding-bottom: 2px !important; }"),
       paste0("#", table_id, " .gt_subtitle { padding-bottom: ", d$pad + 6, "px !important; }")
-    ))
+    )) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

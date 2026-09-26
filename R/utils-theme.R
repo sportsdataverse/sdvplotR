@@ -227,13 +227,6 @@
   paste0("#", table_id, " tbody tr:last-child {border-bottom: 2px solid ", bg, ";}")
 }
 
-# a theme's gt::tab_options() with the caller's `...` merged on top, so an option
-# the theme also sets is overridden (as the themes document) instead of
-# erroring with "matched by multiple actual arguments"
-.theme_tab_options <- function(gt_object, theme_opts, ...) {
-  do.call(gt::tab_options, c(list(gt_object), utils::modifyList(theme_opts, list(...))))
-}
-
 # tabular figures, so digits don't shimmy between rows
 .theme_tabular_nums <- function(table_id) {
   # not font-feature-settings: 'tnum', which also spaces out commas in some faces
