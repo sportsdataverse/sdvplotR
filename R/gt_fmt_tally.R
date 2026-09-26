@@ -44,7 +44,6 @@
 #' @returns Returns a modified `gt` table with the counts combined.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' suites <- data.frame(
@@ -73,7 +72,6 @@
 #' )
 #'
 #' gt(league) %>% gt_fmt_tally(c(W, D, L), label = "W-D-L")
-#' }
 #'
 #' @seealso [gt_fmt_rank()] for ordinal formatting.
 #' @import gt

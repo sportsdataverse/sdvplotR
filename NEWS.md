@@ -49,6 +49,11 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   rules, density, overrides, saving) and "Team Tables with the gt Toolkit" (a
   2023 playoff-picture table built from logos, a cut line, rank colors,
   captions and a two-conference grid).
+* Every example runs: examples that only build tables run as plain examples,
+  and those that save images through a headless Chrome are `\donttest{}`
+  blocks that run in an interactive session with `webshot2` and Chrome
+  available (checks skip them). `gt_save_batch()`
+  now needs an explicit `dir` rather than writing to the working directory.
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose

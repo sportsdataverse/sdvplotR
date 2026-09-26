@@ -63,7 +63,6 @@ takes vertical space and the headers stay aligned. Labels are applied with
 overwritten.
 }
 \examples{
-\dontrun{
 library(gt)
 
 mtcars \%>\%
@@ -74,6 +73,5 @@ mtcars \%>\%
     hp = list(heading = "Horsepower", subtitle = "HP"),
     heading_color = "blue", subtitle_color = "gray"
   )
-}
 
 }

@@ -84,7 +84,6 @@ Apply the theme before this function. The stripe color is read from the
 table's options, so a line labeled first loses the stripe under its own row.
 }
 \examples{
-\dontrun{
 library(gt)
 
 efficient <- head(mtcars[order(-mtcars$mpg), c("mpg", "hp", "wt")], 12)
@@ -98,7 +97,6 @@ gt(efficient) \%>\%
 # two lines, one of them unlabeled
 gt(efficient) \%>\%
   gt_cutline(after = c(3, 6), label = c("Shortlist", NA), color = "#0054AD")
-}
 
 }
 \seealso{

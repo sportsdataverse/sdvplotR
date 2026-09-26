@@ -47,7 +47,6 @@
 #' @returns Returns a modified `gt` table with a row of bars above it.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars)) %>%
@@ -56,7 +55,6 @@
 #' # a single bar carrying a title
 #' gt(head(iris)) %>%
 #'   gt_border_bars_top("#22223B", text = "Iris measurements", bar_height = 34)
-#' }
 #'
 #' @import gt
 #'
@@ -204,7 +202,6 @@ gt_border_bars_top <- function(gt_object,
 #' @returns Returns a modified `gt` table with a row of bars below it.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars)) %>%
@@ -213,7 +210,6 @@ gt_border_bars_top <- function(gt_object,
 #' # a single bar carrying a credit line
 #' gt(head(iris)) %>%
 #'   gt_border_bars_bottom("#22223B", text = "Source: iris", bar_height = 28)
-#' }
 #'
 #' @import gt
 #'

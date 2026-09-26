@@ -53,7 +53,6 @@ Scaling is applied through \code{gt::fmt_number()} and its \code{scale_by} argum
 the underlying data is left untouched.
 }
 \examples{
-\dontrun{
 library(gt)
 
 revenue <- data.frame(
@@ -67,6 +66,5 @@ gt(revenue) \%>\% gt_scale_note(c(FY24, FY23), divisor = 1e6, decimals = 1)
 
 # disclose in the column labels instead
 gt(revenue) \%>\% gt_scale_note(c(FY24, FY23), divisor = 1e3, where = "label")
-}
 
 }

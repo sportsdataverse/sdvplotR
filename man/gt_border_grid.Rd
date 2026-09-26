@@ -31,7 +31,6 @@ border. A table id is resolved or generated first, since that CSS is keyed on
 \verb{#<table_id>}.
 }
 \examples{
-\dontrun{
 library(gt)
 
 gt(head(mtcars)) \%>\% gt_border_grid()
@@ -39,6 +38,5 @@ gt(head(mtcars)) \%>\% gt_border_grid()
 # heavier gray lines, including around the labels
 gt(head(iris)) \%>\%
   gt_border_grid(color = "#BBBBBB", weight = 2, include_labels = TRUE)
-}
 
 }

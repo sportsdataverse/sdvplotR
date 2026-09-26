@@ -25,14 +25,12 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_terminal.png}{options: width=100\%}}
+#' \if{html}{\figure{gt_theme_terminal.png}{options: style="width:100\%"}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars, 12)) %>% gt_theme_terminal()
 #' gt(head(airquality, 15)) %>% gt_theme_terminal(accent = "#7EE787")
-#' }
 #'
 #' @seealso [pal_midnight] for a color scale that survives a dark ground.
 #' @import gt

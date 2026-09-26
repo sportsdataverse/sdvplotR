@@ -39,7 +39,6 @@
 #' @importFrom htmltools HTML
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' mtcars %>%
@@ -50,7 +49,6 @@
 #'     hp = list(heading = "Horsepower", subtitle = "HP"),
 #'     heading_color = "blue", subtitle_color = "gray"
 #'   )
-#' }
 #'
 #' @importFrom rlang %||%
 #' @export

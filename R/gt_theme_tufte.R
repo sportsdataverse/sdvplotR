@@ -25,17 +25,15 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_tufte.png}{options: width=100\%}}
+#' \if{html}{\figure{gt_theme_tufte.png}{options: style="width:100\%"}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>% gt_theme_tufte()
 #'
 #' # a muted rust accent on the hairline
 #' gt(head(airquality, 8)) %>% gt_theme_tufte(accent = "#7B3F2B")
-#' }
 #'
 #' @seealso [gt_theme_booktabs()] for a firmer, academic relative.
 #' @import gt

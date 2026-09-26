@@ -33,17 +33,19 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_drench.png}{options: width=100\%}}
+#' \if{html}{\figure{gt_theme_drench.png}{options: style="width:100\%"}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_drench()
 #'
-#' # a brand color, with a matching export canvas
+#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' # a brand color, with a matching export canvas; saving needs a headless
+#' # Chrome (webshot2)
+#' \donttest{
 #' gt(head(mtcars)) %>%
 #'   gt_theme_drench(color = "#4B1E78", density = "social") %>%
-#'   gt_social_crop(bg = "#4B1E78")
+#'   gt_social_crop(tempfile(fileext = ".png"), bg = "#4B1E78")
 #' }
 #'
 #' @seealso [gt_theme_midnight()] for a restrained dark background instead.

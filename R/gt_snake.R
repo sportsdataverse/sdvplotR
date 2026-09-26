@@ -93,7 +93,6 @@
 #' @returns Returns a `gt` table laid out in blocks.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' cars <- head(mtcars[c("mpg", "cyl", "hp")], 20)
@@ -124,7 +123,6 @@
 #'     gt::cell_text(weight = "bold"),
 #'     gt::cells_body(columns = model_1)
 #'   )
-#' }
 #'
 #' @seealso [gt_stack_tables()] for stacking separate tables vertically.
 #' @import gt

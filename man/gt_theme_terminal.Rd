@@ -46,15 +46,13 @@ without any extra formatting.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_terminal.png}{options: width=100\%}}
+\if{html}{\figure{gt_theme_terminal.png}{options: style="width:100\%"}}
 }
 
 \examples{
-\dontrun{
 library(gt)
 gt(head(mtcars, 12)) \%>\% gt_theme_terminal()
 gt(head(airquality, 15)) \%>\% gt_theme_terminal(accent = "#7EE787")
-}
 
 }
 \seealso{

@@ -37,7 +37,6 @@
 #' @returns Returns a modified `gt` table with the matching cells filled.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' # a correlation matrix: flag strong pairs, but not the diagonal of ones
@@ -57,7 +56,6 @@
 #' gt(sched) %>%
 #'   gt_highlight_cells(c(wk1, wk2), ~ grepl("^vs", .x), fill = "#CCE7F5") %>%
 #'   gt_highlight_cells(c(wk1, wk2), ~ .x == "BYE", fill = "#D9D9D9")
-#' }
 #'
 #' @seealso `gtExtras::gt_highlight_cols()` and `gtExtras::gt_highlight_rows()`
 #'   for whole-column and whole-row fills.

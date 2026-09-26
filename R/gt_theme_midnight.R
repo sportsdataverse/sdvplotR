@@ -31,10 +31,9 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_midnight.png}{options: width=100\%}}
+#' \if{html}{\figure{gt_theme_midnight.png}{options: style="width:100\%"}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_midnight()
 #'
@@ -42,7 +41,6 @@
 #' gt(head(airquality, 10)) %>%
 #'   gt_theme_midnight() %>%
 #'   gt_color_ranks(Temp, palette = pal_midnight)
-#' }
 #'
 #' @seealso [pal_midnight] for a color scale that survives a dark ground, and
 #'   [gt_theme_terminal()] for a denser dark look.
@@ -161,11 +159,9 @@ gt_theme_midnight <- function(gt_object, accent = "#5B8DEF",
 #' @format A character vector of five hex colors, running best to worst.
 #'
 #' @examples
-#' \dontrun{
 #' gt::gt(head(airquality, 10)) %>%
 #'   gt_theme_midnight() %>%
 #'   gt_color_ranks(Temp, palette = pal_midnight)
-#' }
 #'
 #' @seealso [gt_theme_midnight()].
 #' @export

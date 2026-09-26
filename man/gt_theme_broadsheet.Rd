@@ -50,11 +50,10 @@ rather than a colored band.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_broadsheet.png}{options: width=100\%}}
+\if{html}{\figure{gt_theme_broadsheet.png}{options: style="width:100\%"}}
 }
 
 \examples{
-\dontrun{
 library(gt)
 
 gt(head(mtcars[c("mpg", "hp", "wt")], 8)) \%>\% gt_theme_broadsheet()
@@ -62,7 +61,6 @@ gt(head(mtcars[c("mpg", "hp", "wt")], 8)) \%>\% gt_theme_broadsheet()
 # financial-press pink, sized for an image export
 gt(head(airquality, 8)) \%>\%
   gt_theme_broadsheet(paper = "salmon", accent = "#0F5257", density = "social")
-}
 
 }
 \seealso{

@@ -48,7 +48,7 @@ navy when the primary color is too light to read on white. With
 }
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_sdv_team.png}{options: width=100\%}}
+\if{html}{\figure{gt_theme_sdv_team.png}{options: style="width:100\%"}}
 }
 
 \section{Density}{

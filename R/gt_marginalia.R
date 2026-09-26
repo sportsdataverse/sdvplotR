@@ -38,7 +38,6 @@
 #'   margin notes.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' quarterly <- data.frame(
@@ -59,7 +58,6 @@
 #' # keep a heading, widen it, and drop the italics
 #' gt(quarterly) %>%
 #'   gt_marginalia(Comment, label = "Commentary", width = 280, italic = FALSE)
-#' }
 #'
 #' @seealso [gt_cutline()] for a labeled break between rows.
 #' @import gt

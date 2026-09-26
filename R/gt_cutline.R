@@ -55,7 +55,6 @@
 #' @returns Returns a modified `gt` table with the cut line or lines added.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' efficient <- head(mtcars[order(-mtcars$mpg), c("mpg", "hp", "wt")], 12)
@@ -69,7 +68,6 @@
 #' # two lines, one of them unlabeled
 #' gt(efficient) %>%
 #'   gt_cutline(after = c(3, 6), label = c("Shortlist", NA), color = "#0054AD")
-#' }
 #'
 #' @seealso [gt_spotlight()] for drawing attention to a row.
 #' @import gt

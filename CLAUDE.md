@@ -96,7 +96,16 @@ devtools::build_readme()
   offline code only). The 12 per-sport / cookbook vignettes are build-ignored
   in `.Rbuildignore` and published as pkgdown articles; they need the
   companion packages listed under `Config/Needs/website`.
-- Examples that download images are wrapped in `\donttest{}`.
+- Examples that download images are wrapped in `\donttest{}`. Never use
+  `\dontrun{}`: examples that save images through a headless Chrome go in an
+  `@examplesIf interactive() && <webshot2 + Chrome available>` block wrapping
+  `\donttest{}` (see `R/gt_save_crop.R`) and write to `tempfile()` /
+  `tempdir()`, never to the working directory. `interactive()` is required:
+  chromote starts Chrome through processx's supervisor, whose fifo
+  connections stay open for the session, and R CMD check's `cleanEx()` then
+  fails with "connections left open".
+- `\figure{}` options use `style="width:100\%"`, not `width=100\%`; checkRd
+  wants width/height attributes in pixels.
 - `Suggests` is deliberately small (ggtext, gridtext, knitr, reactable,
   rmarkdown, sjmisc, testthat, withr); companion data packages are website /
   development needs, not package dependencies.

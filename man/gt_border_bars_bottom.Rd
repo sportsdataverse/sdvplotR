@@ -87,7 +87,6 @@ Google Font, falling back to the inherited font when none is set, so it renders
 in an exported table.
 }
 \examples{
-\dontrun{
 library(gt)
 
 gt(head(mtcars)) \%>\%
@@ -96,6 +95,5 @@ gt(head(mtcars)) \%>\%
 # a single bar carrying a credit line
 gt(head(iris)) \%>\%
   gt_border_bars_bottom("#22223B", text = "Source: iris", bar_height = 28)
-}
 
 }

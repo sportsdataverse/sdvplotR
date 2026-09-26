@@ -31,14 +31,12 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_athletic.png}{options: width=100\%}}
+#' \if{html}{\figure{gt_theme_athletic.png}{options: style="width:100\%"}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_athletic()
 #' gt(head(mtcars)) %>% gt_theme_athletic(density = "compact")
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

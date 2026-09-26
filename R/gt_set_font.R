@@ -30,14 +30,12 @@
 #'   covered part.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars)) %>% gt_set_font("Oswald")
 #'
 #' # use a font already installed locally
 #' gt(head(iris)) %>% gt_set_font("Helvetica", from_google_font = FALSE)
-#' }
 #'
 #' @export
 gt_set_font <- function(gt_object,

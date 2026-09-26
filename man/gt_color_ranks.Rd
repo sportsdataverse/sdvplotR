@@ -61,7 +61,6 @@ The whole cell background is filled. \code{\link[=gt_color_pills]{gt_color_pills
 rounded pill spans instead.
 }
 \examples{
-\dontrun{
 library(gt)
 
 ranked <- data.frame(
@@ -78,7 +77,6 @@ gt(ranked) \%>\%
     palette = "viridis::mako", pal_type = "continuous",
     reverse = TRUE
   )
-}
 
 }
 \seealso{

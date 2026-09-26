@@ -63,7 +63,6 @@ loss values compared are \code{"W"} and \code{"L"}; under \code{"binary"} they a
 \code{0}. Any row matching none of the values keeps its existing styling.
 }
 \examples{
-\dontrun{
 library(gt)
 
 results <- data.frame(
@@ -81,6 +80,5 @@ gt(results) \%>\%
     result_type = "binary", win_color = "#1B7837",
     loss_color = "#762A83"
   )
-}
 
 }

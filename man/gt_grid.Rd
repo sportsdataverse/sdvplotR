@@ -105,7 +105,6 @@ of a single thing, as with a long ranking split in two, and per-table
 Saving needs the \code{webshot2} package.
 }
 \examples{
-\dontrun{
 library(gt)
 
 by_cyl <- lapply(split(mtcars, mtcars$cyl), function(d) {
@@ -147,10 +146,12 @@ gt_grid(by_cyl,
   subtitle_style = list(italic = TRUE, color = "#8A8A8A")
 )
 
-# straight to an image
-gt_grid(by_cyl, ncol = 3, file = "cylinders.png", bg = "#FBFAF7")
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+# straight to an image; saving needs a headless Chrome (webshot2)
+\donttest{
+gt_grid(by_cyl, ncol = 3, file = tempfile(fileext = ".png"), bg = "#FBFAF7")
 }
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=gt_stack_tables]{gt_stack_tables()}} for a vertical stack, and \code{\link[=gt_snake]{gt_snake()}} for

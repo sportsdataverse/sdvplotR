@@ -50,19 +50,20 @@ given aspect ratio, for posting to social platforms. The table itself is never
 cropped; the short side of the canvas is expanded until the ratio is met.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\donttest{
 library(gt)
 
 gt(head(mtcars)) \%>\%
   gt_theme_broadsheet(density = "social") \%>\%
-  gt_social_crop("mtcars.png", aspect_ratio = "4:5")
+  gt_social_crop(tempfile(fileext = ".png"), aspect_ratio = "4:5")
 
 # match the canvas to a dark theme
 gt(head(mtcars)) \%>\%
   gt_theme_midnight() \%>\%
-  gt_social_crop("dark.png", bg = "#0C0D10")
+  gt_social_crop(tempfile(fileext = ".png"), bg = "#0C0D10")
 }
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=gt_save_crop]{gt_save_crop()}} for a plain trimmed save.

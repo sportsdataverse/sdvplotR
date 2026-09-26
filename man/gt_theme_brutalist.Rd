@@ -43,14 +43,12 @@ The accent color is used in exactly one place, on the row-group labels.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_brutalist.png}{options: width=100\%}}
+\if{html}{\figure{gt_theme_brutalist.png}{options: style="width:100\%"}}
 }
 
 \examples{
-\dontrun{
 library(gt)
 gt(head(mtcars)) \%>\% gt_theme_brutalist()
 gt(head(mtcars)) \%>\% gt_theme_brutalist(accent = "#0033FF", density = "social")
-}
 
 }

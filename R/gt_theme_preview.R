@@ -28,14 +28,18 @@
 #' @returns Displays the grid in the viewer, or writes it to `file`.
 #'
 #' @examples
-#' \dontrun{
-#' gt_theme_preview(mtcars[c("mpg", "cyl", "hp")])
+#' gt_theme_preview(
+#'   mtcars[c("mpg", "cyl", "hp")],
+#'   themes = c("gt_theme_sdv", "gt_theme_kenpom", "gt_theme_athletic")
+#' )
 #'
-#' # a subset, sized for a wide screenshot
+#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' # a subset, saved as one wide image; saving needs a headless Chrome (webshot2)
+#' \donttest{
 #' gt_theme_preview(
 #'   iris,
 #'   themes = c("gt_theme_broadsheet", "gt_theme_swiss", "gt_theme_midnight"),
-#'   ncol = 3, file = "themes.png"
+#'   ncol = 3, file = tempfile(fileext = ".png")
 #' )
 #' }
 #'

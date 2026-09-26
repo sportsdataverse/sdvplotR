@@ -9,7 +9,7 @@ gt_save_batch(
   group,
   fn,
   file,
-  dir = ".",
+  dir,
   match_width = TRUE,
   bg = "white",
   whitespace = 50,
@@ -30,7 +30,8 @@ a \code{gt_tbl}.}
 replaced by the group value, as \code{"net-{group}.png"}.}
 
 \item{dir}{Character. The directory to write into. Created if it does not
-exist. Defaults to \code{"."}.}
+exist. There is no default, so a batch never lands in the working
+directory unasked; pass \code{"."} for that.}
 
 \item{match_width}{Logical. Should every image be padded to the width of the
 widest one, so a posted series shares one width? Defaults to \code{TRUE}.}
@@ -67,7 +68,8 @@ posted together can come out at different widths. With it, every image is
 padded to the width of the widest before its border is added.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\donttest{
 library(gt)
 
 build <- function(df, group) {
@@ -76,9 +78,9 @@ build <- function(df, group) {
     tab_header(title = paste(group, "cylinders"))
 }
 
-gt_save_batch(mtcars, cyl, build, "cars-{group}.png", dir = "out")
+gt_save_batch(mtcars, cyl, build, "cars-{group}.png", dir = tempdir())
 }
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=gt_grid]{gt_grid()}} for the same split composed into one image instead.

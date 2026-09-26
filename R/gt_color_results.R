@@ -34,7 +34,6 @@
 #' @returns Returns a modified `gt` table with winning and losing rows colored.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' results <- data.frame(
@@ -52,7 +51,6 @@
 #'     result_type = "binary", win_color = "#1B7837",
 #'     loss_color = "#762A83"
 #'   )
-#' }
 #'
 #' @export
 gt_color_results <- function(gt_object,

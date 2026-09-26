@@ -112,7 +112,6 @@ the marker inside the cell rather than hanging over the edge. The fill and the
 marker take the same color, mapped from the value.
 }
 \examples{
-\dontrun{
 library(gt)
 
 metrics <- data.frame(
@@ -129,6 +128,5 @@ gt(metrics) \%>\% gt_percentile_bar(pct)
 # a row that did not qualify
 metrics$pct[2] <- NA
 gt(metrics) \%>\% gt_percentile_bar(pct, na_label = "Not qualified")
-}
 
 }

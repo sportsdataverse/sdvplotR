@@ -53,18 +53,19 @@ width with the height following, so several tables saved at the same \code{width
 line up when posted together. The temporary file is removed afterward.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\donttest{
 library(gt)
 
 gt(head(mtcars)) \%>\%
   gt_theme_broadsheet() \%>\%
-  gt_save_crop("mtcars.png")
+  gt_save_crop(tempfile(fileext = ".png"))
 
 # pin a shared width across a series
 gt(head(iris)) \%>\%
-  gt_save_crop("iris.png", width = 900, bg = "#FBFAF7")
+  gt_save_crop(tempfile(fileext = ".png"), width = 900, bg = "#FBFAF7")
 }
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=gt_social_crop]{gt_social_crop()}} for padding onto a fixed-ratio canvas.

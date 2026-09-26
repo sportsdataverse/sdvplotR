@@ -48,7 +48,6 @@ string, when given, takes precedence over \code{rows}. The styling is applied wi
 chosen rows.
 }
 \examples{
-\dontrun{
 library(gt)
 
 # bold every row
@@ -57,6 +56,5 @@ gt(head(mtcars)) \%>\% gt_bold_rows()
 # bold and fill the rows above 20 mpg
 gt(head(mtcars)) \%>\%
   gt_bold_rows(rows = mpg > 20, highlight_color = "#FFF3B0")
-}
 
 }

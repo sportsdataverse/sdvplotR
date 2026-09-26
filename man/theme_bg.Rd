@@ -31,15 +31,18 @@ a saved image's canvas to the table sitting on it. \code{\link[=gt_save_crop]{gt
 shows up as a border around the table.
 }
 \examples{
-\dontrun{
 # look up the background a theme uses, then match the canvas to it
 bg <- theme_bg$bg[theme_bg$theme == "gt_theme_gtutils"]
+bg
 
+\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+# saving needs a headless Chrome (webshot2)
+\donttest{
 gt::gt(head(mtcars)) \%>\%
   gt_theme_gtutils() \%>\%
-  gt_save_crop("table.png", bg = bg)
+  gt_save_crop(tempfile(fileext = ".png"), bg = bg)
 }
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=gt_save_crop]{gt_save_crop()}}, \code{\link[=gt_social_crop]{gt_social_crop()}}.

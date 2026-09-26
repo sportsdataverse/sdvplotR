@@ -27,7 +27,6 @@
 #' @returns Returns a modified `gt` table with the chosen rows bolded.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' # bold every row
@@ -36,7 +35,6 @@
 #' # bold and fill the rows above 20 mpg
 #' gt(head(mtcars)) %>%
 #'   gt_bold_rows(rows = mpg > 20, highlight_color = "#FFF3B0")
-#' }
 #'
 #' @export
 gt_bold_rows <- function(gt_object,

@@ -27,10 +27,9 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_broadsheet.png}{options: width=100\%}}
+#' \if{html}{\figure{gt_theme_broadsheet.png}{options: style="width:100\%"}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>% gt_theme_broadsheet()
@@ -38,7 +37,6 @@
 #' # financial-press pink, sized for an image export
 #' gt(head(airquality, 8)) %>%
 #'   gt_theme_broadsheet(paper = "salmon", accent = "#0F5257", density = "social")
-#' }
 #'
 #' @seealso [gt_title_header()] for a richer header block, and [gt_legend_continuous()] for
 #'   explaining a colored column.

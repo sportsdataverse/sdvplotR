@@ -19,7 +19,6 @@
 #' @returns Returns a modified `gt` table with the grid borders applied.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars)) %>% gt_border_grid()
@@ -27,7 +26,6 @@
 #' # heavier gray lines, including around the labels
 #' gt(head(iris)) %>%
 #'   gt_border_grid(color = "#BBBBBB", weight = 2, include_labels = TRUE)
-#' }
 #'
 #' @importFrom gt opt_css
 #' @importFrom gtExtras gt_add_divider

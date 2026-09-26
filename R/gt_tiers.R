@@ -37,7 +37,6 @@
 #' @returns Returns a modified `gt` table with the tier column colored and bolded.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' standings <- data.frame(
@@ -51,7 +50,6 @@
 #'
 #' gt(standings) %>%
 #'   gt_tiers(levels = c("A", "B"), colors = c("#1B7837", "#B2182B"))
-#' }
 #'
 #' @import gt
 #' @export

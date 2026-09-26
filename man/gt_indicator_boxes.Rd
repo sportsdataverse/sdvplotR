@@ -105,7 +105,6 @@ the column; otherwise it is fixed at \code{box_width}. \code{indicator_rule} may
 second argument, the column name, which allows a different test per column.
 }
 \examples{
-\dontrun{
 library(gt)
 
 roster <- data.frame(
@@ -123,6 +122,5 @@ gt(roster) \%>\%
     key_columns = "player", show_text = TRUE,
     border_color = "#333333"
   )
-}
 
 }

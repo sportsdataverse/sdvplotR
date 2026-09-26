@@ -17,7 +17,6 @@
 #' @returns Returns a modified `gt` table with ordinal formatting applied.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' ranked <- data.frame(
@@ -29,7 +28,6 @@
 #'
 #' # flat, without the superscript
 #' gt(ranked) %>% gt_fmt_rank(place, superscript = FALSE)
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

@@ -41,7 +41,6 @@
 #' first or it will overwrite the legend.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars[c("mpg", "hp", "wt")], 6)) %>%
@@ -58,7 +57,6 @@
 #'     subtitle_style = list(color = "#666666", italic = TRUE),
 #'     date_style = list(color = "#B8232F", weight = 600)
 #'   )
-#' }
 #'
 #' @seealso [gt_538_caption()] for the footer equivalent.
 #' @import gt

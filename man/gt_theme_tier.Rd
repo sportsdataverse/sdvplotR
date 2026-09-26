@@ -47,14 +47,12 @@ leaves every size as the theme sets it, \code{"compact"} scales both down, and
 
 \section{Figures}{
 
-\if{html}{\figure{tier_list_example.png}{options: width=100\%}}
+\if{html}{\figure{tier_list_example.png}{options: style="width:100\%"}}
 }
 
 \examples{
-\dontrun{
 library(gt)
 gt(head(mtcars)) \%>\% gt_theme_tier()
 gt(head(mtcars)) \%>\% gt_theme_tier(style = "light")
-}
 
 }

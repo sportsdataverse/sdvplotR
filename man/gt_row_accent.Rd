@@ -62,7 +62,6 @@ Rows sharing a color are styled together rather than one at a time, so a long
 table with a handful of categories stays cheap.
 }
 \examples{
-\dontrun{
 library(gt)
 
 teams <- data.frame(
@@ -86,7 +85,6 @@ gt(teams) \%>\% gt_row_accent(color)
 gt(teams) \%>\% gt_row_accent(color, rows = net <= 10)
 gt(teams) \%>\% gt_row_accent(color, rows = c(1, 3))
 gt(teams) \%>\% gt_row_accent(color, rows = 2)
-}
 
 }
 \seealso{

@@ -57,7 +57,6 @@ Alongside real \code{NA}, this also catches values that are literally the string
 placeholders such as \code{"-"} or \code{"N/A"}.
 }
 \examples{
-\dontrun{
 library(gt)
 
 gt(head(airquality, 10)) \%>\% gt_highlight_na(c(Ozone, Solar.R))
@@ -72,7 +71,6 @@ gt(head(airquality, 10)) \%>\%
 # also catch placeholder strings left behind by a CSV import
 gt(head(airquality, 10)) \%>\%
   gt_highlight_na(everything(), na_strings = c("NA", "N/A", "-"))
-}
 
 }
 \seealso{

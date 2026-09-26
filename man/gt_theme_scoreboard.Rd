@@ -46,17 +46,15 @@ if the accent is pale.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_scoreboard.png}{options: width=100\%}}
+\if{html}{\figure{gt_theme_scoreboard.png}{options: style="width:100\%"}}
 }
 
 \examples{
-\dontrun{
 library(gt)
 gt(head(mtcars)) \%>\% gt_theme_scoreboard()
 
 # a brand color carries the whole table
 gt(head(mtcars)) \%>\% gt_theme_scoreboard(accent = "#0F766E")
-}
 
 }
 \seealso{

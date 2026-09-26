@@ -25,14 +25,12 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_swiss.png}{options: width=100\%}}
+#' \if{html}{\figure{gt_theme_swiss.png}{options: style="width:100\%"}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_swiss()
 #' gt(head(iris)) %>% gt_theme_swiss(accent = "#D33A2C")
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

@@ -37,7 +37,6 @@
 #' @returns Returns a modified `gt` table with a color bar on each row.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' teams <- data.frame(
@@ -61,7 +60,6 @@
 #' gt(teams) %>% gt_row_accent(color, rows = net <= 10)
 #' gt(teams) %>% gt_row_accent(color, rows = c(1, 3))
 #' gt(teams) %>% gt_row_accent(color, rows = 2)
-#' }
 #'
 #' @seealso [gt_spotlight()] for emphasis rather than a key.
 #' @import gt

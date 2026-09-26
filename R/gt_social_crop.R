@@ -22,18 +22,18 @@
 #'
 #' @returns Returns the cropped and padded image file.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' \donttest{
 #' library(gt)
 #'
 #' gt(head(mtcars)) %>%
 #'   gt_theme_broadsheet(density = "social") %>%
-#'   gt_social_crop("mtcars.png", aspect_ratio = "4:5")
+#'   gt_social_crop(tempfile(fileext = ".png"), aspect_ratio = "4:5")
 #'
 #' # match the canvas to a dark theme
 #' gt(head(mtcars)) %>%
 #'   gt_theme_midnight() %>%
-#'   gt_social_crop("dark.png", bg = "#0C0D10")
+#'   gt_social_crop(tempfile(fileext = ".png"), bg = "#0C0D10")
 #' }
 #'
 #' @seealso [gt_save_crop()] for a plain trimmed save.

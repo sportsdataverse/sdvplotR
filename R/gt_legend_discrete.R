@@ -77,7 +77,6 @@
 #' @returns Returns a modified `gt` table with the key added.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' # a named vector is the quickest way in
@@ -102,7 +101,6 @@
 #'     heading_style = list(font = "Oswald", size = 20, transform = "uppercase"),
 #'     label_style = list(size = 13, color = "#444444")
 #'   )
-#' }
 #'
 #' @seealso [gt_legend_continuous()] for a continuous ramp.
 #' @import gt
