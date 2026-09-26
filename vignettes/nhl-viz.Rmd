@@ -50,8 +50,9 @@ season_id <- paste0(season - 1, season)
 team_stats <- fastRhockey::nhl_stats_teams(season = season_id) |>
   mutate(team_abbr = clean_team_abbrs(team_full_name, sport = "nhl"))
 
-# The top 100 skaters by points, keyed by NHL API player ID
-player_stats <- fastRhockey::nhl_stats_skaters(season = season_id, limit = 100)
+# Every skater (limit = -1), keyed by NHL API player ID, so the goal and assist
+# leaderboards below rank the full list
+player_stats <- fastRhockey::nhl_stats_skaters(season = season_id, limit = -1)
 ```
 
 ## NHL Team Performance
