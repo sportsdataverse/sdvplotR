@@ -303,8 +303,8 @@ ggplot(top_10, aes(x = posteam, y = mean_epa)) +
   geom_col(aes(fill = posteam), width = 0.6) +
   scale_fill_sdv(sport = "cfb", alpha = 0.7) +
   scale_x_sdv(sport = "cfb") +
-  theme_x_sdv() +
   theme_minimal() +
+  theme_x_sdv() +
   labs(
     title = "Top 10 CFB Teams by Pass EPA",
     x = NULL,

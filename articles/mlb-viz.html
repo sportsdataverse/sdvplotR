@@ -218,8 +218,8 @@
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>This vignette demonstrates how to create rich MLB visualizations by
-combining <a href="https://billpettitt.github.io/baseballr/" class="external-link">baseballr</a> for player
-and team data with <a href="https://sdvplotr.sportsdataverse.org" class="external-link">sdvplotR</a> for team logos,
+combining <a href="https://billpetti.github.io/baseballr/" class="external-link">baseballr</a>
+for player and team data with <a href="https://sdvplotr.sportsdataverse.org" class="external-link">sdvplotR</a> for team logos,
 headshots, colors, and gt tables.</p>
 </div>
 <div class="section level2">
@@ -239,49 +239,55 @@ headshots, colors, and gt tables.</p>
 <div class="section level2">
 <h2 id="loading-mlb-data">Loading MLB Data<a class="anchor" aria-label="anchor" href="#loading-mlb-data"></a>
 </h2>
-<p>Use <code>baseballr</code> to load MLB player and team
-statistics:</p>
+<p>Use <code>baseballr</code> to load team and player statistics from
+the MLB Stats API:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load MLB team stats</span></span>
-<span><span class="va">team_stats</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu">get_team_stats</span><span class="op">(</span></span>
-<span>  season <span class="op">=</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/most_recent_mlb_season.html" class="external-link">most_recent_mlb_season</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  team_id <span class="op">=</span> <span class="cn">NULL</span>  <span class="co"># All teams</span></span>
-<span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">season</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/most_recent_mlb_season.html" class="external-link">most_recent_mlb_season</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Load MLB player stats</span></span>
-<span><span class="va">player_stats</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu">get_batter_stats</span><span class="op">(</span></span>
-<span>  season <span class="op">=</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/most_recent_mlb_season.html" class="external-link">most_recent_mlb_season</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  player_id <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="co"># One row per team: abbreviation, name and division</span></span>
+<span><span class="va">teams</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/mlb_teams.html" class="external-link">mlb_teams</a></span><span class="op">(</span>season <span class="op">=</span> <span class="va">season</span>, sport_ids <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">team_id</span>, <span class="va">team_abbreviation</span>, team_name <span class="op">=</span> <span class="va">team_full_name</span>, <span class="va">division_name</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Standings for both leagues (one string: mlb_standings() rejects a vector)</span></span>
+<span><span class="va">team_stats</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/mlb_standings.html" class="external-link">mlb_standings</a></span><span class="op">(</span>season <span class="op">=</span> <span class="va">season</span>, league_id <span class="op">=</span> <span class="st">"103,104"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span></span>
+<span>    team_id <span class="op">=</span> <span class="va">team_records_team_id</span>,</span>
+<span>    wins <span class="op">=</span> <span class="va">team_records_wins</span>,</span>
+<span>    losses <span class="op">=</span> <span class="va">team_records_losses</span>,</span>
+<span>    win_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">team_records_winning_percentage</span><span class="op">)</span>,</span>
+<span>    runs_scored <span class="op">=</span> <span class="va">team_records_runs_scored</span>,</span>
+<span>    runs_allowed <span class="op">=</span> <span class="va">team_records_runs_allowed</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">teams</span>, by <span class="op">=</span> <span class="st">"team_id"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Season hitting stats for every player, keyed by MLBAM ID</span></span>
+<span><span class="va">player_stats</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/mlb_stats.html" class="external-link">mlb_stats</a></span><span class="op">(</span></span>
+<span>  stat_type <span class="op">=</span> <span class="st">"season"</span>,</span>
+<span>  stat_group <span class="op">=</span> <span class="st">"hitting"</span>,</span>
+<span>  season <span class="op">=</span> <span class="va">season</span>,</span>
+<span>  player_pool <span class="op">=</span> <span class="st">"All"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<p>The MLB Stats API writes some team abbreviations differently from
+ESPN (<code>AZ</code>, <code>CWS</code>); sdvplotR accepts either.</p>
 </div>
 <div class="section level2">
 <h2 id="mlb-team-performance">MLB Team Performance<a class="anchor" aria-label="anchor" href="#mlb-team-performance"></a>
 </h2>
-<p>Visualize team performance with team logos:</p>
+<p>Plot every team’s runs scored against runs allowed, with team
+logos:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Calculate team metrics</span></span>
-<span><span class="va">team_perf</span> <span class="op">&lt;-</span> <span class="va">team_stats</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">team_abbreviation</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">team_abbreviation</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    avg_runs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">runs</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    avg_home_runs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">home_runs</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    games <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">games</span> <span class="op">&gt;=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">team_perf</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">avg_runs</span>, y <span class="op">=</span> <span class="va">avg_home_runs</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">team_stats</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">runs_scored</span>, y <span class="op">=</span> <span class="va">runs_allowed</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team_abbreviation</span><span class="op">)</span>,</span>
 <span>    sport <span class="op">=</span> <span class="st">"mlb"</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.075</span></span>
+<span>    width <span class="op">=</span> <span class="fl">0.06</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"MLB Team Performance"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/most_recent_mlb_season.html" class="external-link">most_recent_mlb_season</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span> <span class="st">"Average Runs per Game"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Average Home Runs per Game"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"MLB Runs Scored and Allowed"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="va">season</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Runs Scored"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Runs Allowed (fewer is better)"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Data: baseballr | Viz: sdvplotR"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -289,19 +295,9 @@ statistics:</p>
 <div class="section level2">
 <h2 id="mlb-team-colors">MLB Team Colors<a class="anchor" aria-label="anchor" href="#mlb-team-colors"></a>
 </h2>
-<p>Use team colors to visualize win percentages:</p>
+<p>Use team colors to show winning percentage:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Calculate win percentage</span></span>
-<span><span class="va">team_wins</span> <span class="op">&lt;-</span> <span class="va">team_stats</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">team_abbreviation</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">team_abbreviation</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">win</span> <span class="op">==</span> <span class="fl">1</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    games <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">games</span> <span class="op">&gt;=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>win_pct <span class="op">=</span> <span class="va">wins</span> <span class="op">/</span> <span class="va">games</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="va">team_wins</span> <span class="op">&lt;-</span> <span class="va">team_stats</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">win_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
 <span></span>
@@ -310,9 +306,9 @@ statistics:</p>
 <span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"mlb"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/percent_format.html" class="external-link">percent</a></span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Top 20 MLB Teams by Win Percentage"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Top 20 MLB Teams by Winning Percentage"</span>,</span>
 <span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Win Percentage"</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Winning Percentage"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
@@ -323,22 +319,12 @@ statistics:</p>
 <div class="section level2">
 <h2 id="player-headshots">Player Headshots<a class="anchor" aria-label="anchor" href="#player-headshots"></a>
 </h2>
-<p>Visualize top performers with player headshots:</p>
+<p>Plot the home run leaders with their headshots:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Top home run hitters</span></span>
-<span><span class="va">top_hr</span> <span class="op">&lt;-</span> <span class="va">player_stats</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">player_id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">player_id</span>, <span class="va">player_name</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    total_hr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">home_runs</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    games <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">games</span> <span class="op">&gt;=</span> <span class="fl">50</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">total_hr</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">top_hr</span> <span class="op">&lt;-</span> <span class="va">player_stats</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">home_runs</span>, n <span class="op">=</span> <span class="fl">8</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">top_hr</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">games</span>, y <span class="op">=</span> <span class="va">total_hr</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">top_hr</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">games_played</span>, y <span class="op">=</span> <span class="va">home_runs</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_headshots.html">geom_sdv_headshots</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>player_id <span class="op">=</span> <span class="va">player_id</span><span class="op">)</span>,</span>
 <span>    sport <span class="op">=</span> <span class="st">"mlb"</span>,</span>
@@ -346,52 +332,34 @@ statistics:</p>
 <span>    height <span class="op">=</span> <span class="fl">0.15</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_label</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">player_name</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">player_full_name</span><span class="op">)</span>,</span>
 <span>    nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>    alpha <span class="op">=</span> <span class="fl">0.7</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Top 8 MLB Home Run Hitters"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/most_recent_mlb_season.html" class="external-link">most_recent_mlb_season</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"MLB Home Run Leaders"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="va">season</span><span class="op">)</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Games Played"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Total Home Runs"</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Home Runs"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="mlbam-player-ids">MLBAM player IDs<a class="anchor" aria-label="anchor" href="#mlbam-player-ids"></a>
 </h3>
-<p>baseballr’s MLB Stats API and Baseball Savant functions identify
-players by their MLBAM ID, not their ESPN athlete ID, which is why the
-headshots above pass <code>id_type = "league"</code>: it draws MLBAM IDs
-from MLB’s own image CDN. Leave <code>id_type</code> unset for ESPN
-athlete IDs, such as those in baseballr’s <code>espn_mlb_*()</code>
-data. Both are plain numbers, so the wrong setting draws someone else or
-nothing.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hitters</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/mlb_stats.html" class="external-link">mlb_stats</a></span><span class="op">(</span></span>
-<span>  stat_type <span class="op">=</span> <span class="st">"season"</span>,</span>
-<span>  stat_group <span class="op">=</span> <span class="st">"hitting"</span>,</span>
-<span>  season <span class="op">=</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/most_recent_mlb_season.html" class="external-link">most_recent_mlb_season</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">home_runs</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">hitters</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">games_played</span>, y <span class="op">=</span> <span class="va">home_runs</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_sdv_headshots.html">geom_sdv_headshots</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>player_id <span class="op">=</span> <span class="va">player_id</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"mlb"</span>,</span>
-<span>    id_type <span class="op">=</span> <span class="st">"league"</span>,</span>
-<span>    height <span class="op">=</span> <span class="fl">0.15</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"MLB home run leaders"</span>, x <span class="op">=</span> <span class="st">"Games Played"</span>, y <span class="op">=</span> <span class="st">"Home Runs"</span><span class="op">)</span></span></code></pre></div>
+<p>The MLB Stats API and Baseball Savant identify players by their MLBAM
+ID, not their ESPN athlete ID, which is why these headshots pass
+<code>id_type = "league"</code>: it draws MLBAM IDs from MLB’s own image
+CDN. Leave <code>id_type</code> unset for ESPN athlete IDs, such as
+those in baseballr’s <code>espn_mlb_*()</code> data. Both are plain
+numbers, so the wrong setting draws someone else or nothing.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="mlb-team-tiers">MLB Team Tiers<a class="anchor" aria-label="anchor" href="#mlb-team-tiers"></a>
 </h2>
 <p>Create a tier plot ranking MLB teams:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Sample tier assignments</span></span>
 <span><span class="va">tier_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  tier_no <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,</span>
@@ -418,22 +386,14 @@ nothing.</p>
 <div class="section level2">
 <h2 id="mlb-division-map">MLB Division Map<a class="anchor" aria-label="anchor" href="#mlb-division-map"></a>
 </h2>
-<p>Visualize teams grouped by division:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Get team info with divisions</span></span>
-<span><span class="va">mlb_info</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu">get_teams</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">team_abbreviation</span>, <span class="va">team_name</span>, <span class="va">division_name</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">division_map</span> <span class="op">&lt;-</span> <span class="va">mlb_info</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">division_name</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    division_num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">division_name</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<p>Show each division’s teams in a column:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">division_map</span> <span class="op">&lt;-</span> <span class="va">teams</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>division_num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">division_name</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">division_num</span>, <span class="va">team_name</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    team_rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    .by <span class="op">=</span> <span class="va">division_num</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">division_num</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team_rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">division_map</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">division_num</span>, y <span class="op">=</span> <span class="va">team_rank</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
@@ -442,12 +402,13 @@ nothing.</p>
 <span>    width <span class="op">=</span> <span class="fl">0.075</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span></span>
-<span>    breaks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">division_map</span><span class="op">$</span><span class="va">division_name</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">division_map</span><span class="op">$</span><span class="va">division_name</span><span class="op">)</span></span>
+<span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">division_map</span><span class="op">$</span><span class="va">division_name</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">division_map</span><span class="op">$</span><span class="va">division_name</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"MLB Teams by Division"</span>,</span>
-<span>    x <span class="op">=</span> <span class="st">"Division"</span>,</span>
+<span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    y <span class="op">=</span> <span class="cn">NULL</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -461,82 +422,77 @@ nothing.</p>
 <h2 id="mlb-standings-table-with-logos">MLB Standings Table with Logos<a class="anchor" aria-label="anchor" href="#mlb-standings-table-with-logos"></a>
 </h2>
 <p>Create a gt table with team logos:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">standings_table</span> <span class="op">&lt;-</span> <span class="va">team_wins</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">team_wins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    logo <span class="op">=</span> <span class="va">team_abbreviation</span>,</span>
-<span>    rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">team_abbreviation</span>, <span class="va">wins</span>, <span class="va">games</span>, <span class="va">win_pct</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">standings_table</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span>, logo <span class="op">=</span> <span class="va">team_abbreviation</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="st">"mlb"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"win_pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
 <span>    rank <span class="op">=</span> <span class="st">"#"</span>,</span>
-<span>    logo <span class="op">=</span> <span class="st">"Team"</span>,</span>
-<span>    team_abbreviation <span class="op">=</span> <span class="st">"Abbrev"</span>,</span>
-<span>    wins <span class="op">=</span> <span class="st">"Wins"</span>,</span>
-<span>    games <span class="op">=</span> <span class="st">"Games"</span>,</span>
-<span>    win_pct <span class="op">=</span> <span class="st">"Win %"</span></span>
+<span>    logo <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    team_name <span class="op">=</span> <span class="st">"Team"</span>,</span>
+<span>    wins <span class="op">=</span> <span class="st">"W"</span>,</span>
+<span>    losses <span class="op">=</span> <span class="st">"L"</span>,</span>
+<span>    win_pct <span class="op">=</span> <span class="st">"Pct"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"MLB Top 15"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/most_recent_mlb_season.html" class="external-link">most_recent_mlb_season</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="va">season</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="player-performance-comparison">Player Performance Comparison<a class="anchor" aria-label="anchor" href="#player-performance-comparison"></a>
 </h2>
-<p>Compare top players using headshots:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Top 5 home run hitters and batting average leaders</span></span>
-<span><span class="va">top_5_hr</span> <span class="op">&lt;-</span> <span class="va">top_hr</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
-<span><span class="va">top_5_avg</span> <span class="op">&lt;-</span> <span class="va">player_stats</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">player_id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">player_id</span>, <span class="va">player_name</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    avg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">batting_average</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    games <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">games</span> <span class="op">&gt;=</span> <span class="fl">50</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">avg</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Combine for comparison</span></span>
-<span><span class="va">comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
-<span>  <span class="va">top_5_hr</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>category <span class="op">=</span> <span class="st">"Top HR"</span><span class="op">)</span>,</span>
-<span>  <span class="va">top_5_avg</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>category <span class="op">=</span> <span class="st">"Top Avg"</span><span class="op">)</span></span>
+<p>Compare the home run leaders with the batting average leaders among
+qualified hitters:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">qualified</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/mlb_stats.html" class="external-link">mlb_stats</a></span><span class="op">(</span></span>
+<span>  stat_type <span class="op">=</span> <span class="st">"season"</span>,</span>
+<span>  stat_group <span class="op">=</span> <span class="st">"hitting"</span>,</span>
+<span>  season <span class="op">=</span> <span class="va">season</span>,</span>
+<span>  player_pool <span class="op">=</span> <span class="st">"Qualified"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">comparison</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">category</span>, y <span class="op">=</span> <span class="va">total_hr</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
+<span>  <span class="va">player_stats</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">home_runs</span>, n <span class="op">=</span> <span class="fl">5</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span><span class="va">player_id</span>, category <span class="op">=</span> <span class="st">"Home Runs"</span>, value <span class="op">=</span> <span class="va">home_runs</span><span class="op">)</span>,</span>
+<span>  <span class="va">qualified</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">avg</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">value</span>, n <span class="op">=</span> <span class="fl">5</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span><span class="va">player_id</span>, category <span class="op">=</span> <span class="st">"Batting Average"</span>, <span class="va">value</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">comparison</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rank</span>, y <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_headshots.html">geom_sdv_headshots</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>player_id <span class="op">=</span> <span class="va">player_id</span><span class="op">)</span>,</span>
 <span>    sport <span class="op">=</span> <span class="st">"mlb"</span>,</span>
 <span>    id_type <span class="op">=</span> <span class="st">"league"</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.1</span></span>
+<span>    height <span class="op">=</span> <span class="fl">0.2</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">category</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">category</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"MLB Top Performers"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/most_recent_mlb_season.html" class="external-link">most_recent_mlb_season</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="va">season</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Rank"</span>,</span>
 <span>    y <span class="op">=</span> <span class="cn">NULL</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
-<span>    axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    panel.grid <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="axis-labels-with-logos">Axis Labels with Logos<a class="anchor" aria-label="anchor" href="#axis-labels-with-logos"></a>
 </h2>
-<p>Replace axis labels with team logos:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p>Replace axis labels with team logos (<code><a href="../reference/theme_sdv.html">theme_x_sdv()</a></code> needs
+the <code>ggtext</code> package, and goes after any complete theme such
+as <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal()</a></code>):</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">top_8</span> <span class="op">&lt;-</span> <span class="va">team_wins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team_abbreviation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">team_abbreviation</span>, levels <span class="op">=</span> <span class="va">team_abbreviation</span><span class="op">)</span><span class="op">)</span></span>
@@ -545,12 +501,12 @@ nothing.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">team_abbreviation</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"mlb"</span>, alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_axes_sdv.html">scale_x_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"mlb"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/theme_sdv.html">theme_x_sdv</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sdv.html">theme_x_sdv</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Top 8 MLB Teams by Win %"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Top 8 MLB Teams by Winning Percentage"</span>,</span>
 <span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Win Percentage"</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Winning Percentage"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -558,7 +514,7 @@ nothing.</p>
 <h2 id="next-steps">Next Steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
 </h2>
 <ul>
-<li>Explore <a href="https://billpettitt.github.io/baseballr/" class="external-link">baseballr
+<li>Explore <a href="https://billpetti.github.io/baseballr/" class="external-link">baseballr
 documentation</a>
 </li>
 <li>Try combining with <a href="https://oddsapiR.sportsdataverse.org" class="external-link">oddsapiR</a> for betting

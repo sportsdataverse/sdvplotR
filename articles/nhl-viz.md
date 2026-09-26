@@ -319,8 +319,8 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
   geom_col(aes(fill = team_abbreviation), width = 0.6) +
   scale_fill_sdv(sport = "nhl", alpha = 0.7) +
   scale_x_sdv(sport = "nhl") +
-  theme_x_sdv() +
   theme_minimal() +
+  theme_x_sdv() +
   labs(
     title = "Top 8 NHL Teams by Win %",
     x = NULL,

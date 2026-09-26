@@ -123,6 +123,23 @@ NHL, college football, men’s and women’s college basketball), built on
   including the NFL. By default, IDs are read as before: GSIS for the
   NFL, ESPN elsewhere. The ID systems overlap: without `id_type`, Dirk
   Nowitzki’s NBA Stats ID drew ESPN’s Jared Jeffries.
+- [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+  resolves the MLB Stats API’s `"AZ"` (baseballr, Baseball Savant) and
+  FanGraphs’ `"WSN"`, so Arizona’s and Washington’s logos draw from that
+  data.
+- [`scale_color_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
+  and
+  [`scale_fill_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
+  color every key the rest of the package accepts (provider aliases such
+  as `"AZ"` or `"GSW"`, full names, historical abbreviations), not only
+  canonical abbreviations, which drew grey.
+- [`theme_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
+  and
+  [`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
+  work after a complete theme such as
+  [`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+  on ‘ggplot2’ 4, which sets the position-specific axis text elements
+  itself; axis logos drew as raw HTML there.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
