@@ -41,3 +41,10 @@ test_that("axis html helpers embed images and keep unknown labels", {
   expect_identical(h[2], "nope")
   expect_match(headshot_html("00-0033873", "nfl", type = "width"), "^<img")
 })
+
+test_that("Division I programs missing from ESPN's teams list are in the reference", {
+  # fetched one by one by data-raw/generate_logo_ref.R (ESPN ids 2815, 2511, 88, 2598, 2385)
+  expect_true(all(c("LIN", "QUC", "USI", "SFPA") %in% team_reference("mbb")$team_abbr))
+  expect_true(all(c("MERC", "SFPA") %in% team_reference("wbb")$team_abbr))
+  expect_false(anyNA(logo_from_team(c("LIN", "QUC", "USI", "SFPA"), sport = "mbb")))
+})
