@@ -48,12 +48,14 @@ ggsave
 headshot
 headshots
 hoopR
+hoopR's
 js
 leaderboard
 leaderboards
 magrittr
 metapackage
 mlbplotR
+nba
 nbaplotR
 nflfastR
 nflplotR
@@ -70,7 +72,9 @@ scannable
 sdvplotR's
 sportsdataverse
 sportyR
+sportyR's
 unmapped
 wehoop
+wnba
 wordmark
 wordmarks

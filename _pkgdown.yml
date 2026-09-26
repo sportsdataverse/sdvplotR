@@ -104,12 +104,6 @@ reference:
       - geom_sdv_logos
       - geom_sdv_wordmarks
       - geom_sdv_headshots
-  - title: "Court Coordinates"
-    desc: >
-      Convert stats.nba.com / stats.wnba.com shot-location columns into the
-      sportyR basketball-court frame.
-    contents:
-      - sdv_court_coords
   - title: "Theme Elements"
     desc: >
       Image-based ggplot2 theme elements for axis text — replace tick labels
@@ -244,6 +238,12 @@ reference:
       - sdv_color_palette
       - sdv_team_factor
       - sdvplotR_clear_cache
+  - title: "Court Coordinates"
+    desc: >
+      Convert stats.nba.com / stats.wnba.com shot-location columns into the
+      sportyR basketball-court frame.
+    contents:
+      - sdv_court_coords
   - title: "Premade Plots"
     desc: High-level functions that build complete branded plots.
     contents:
