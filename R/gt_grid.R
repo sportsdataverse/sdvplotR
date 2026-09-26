@@ -258,7 +258,7 @@ gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list()
       # inner wrapper shrinks to the grid, outer one recenters it; "safe" centering
       # plus overflow-x keeps a grid wider than a phone scrollable instead of
       # spilling past both edges of the page
-      style = "display: flex; justify-content: safe center; overflow-x: auto;",
+      style = "display: flex; justify-content: center; justify-content: safe center; overflow-x: auto;",
       font_link,
       htmltools::div(
         style = "display: inline-block;",

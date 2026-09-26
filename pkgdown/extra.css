@@ -172,7 +172,9 @@ footer {
 
 /* ---- phones: a smaller logo so the title and intro keep a readable measure */
 @media (max-width: 575.98px) {
-  img.logo {
+  /* .template-home is pkgdown's own home-page selector (120px); match it */
+  img.logo,
+  .template-home img.logo {
     width: 72px;
     margin-left: 12px;
   }

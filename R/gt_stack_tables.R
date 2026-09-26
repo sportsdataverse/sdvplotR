@@ -176,7 +176,7 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
 
   composed <- if (has_header || has_footer) {
     htmltools::div(
-      style = "display: flex; justify-content: safe center; overflow-x: auto;",
+      style = "display: flex; justify-content: center; justify-content: safe center; overflow-x: auto;",
       font_link,
       htmltools::div(
         style = "display: inline-block;",
