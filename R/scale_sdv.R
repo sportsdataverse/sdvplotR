@@ -130,8 +130,11 @@ scale_fill_sdv <- function(
 #' @details The scale translates team names into raw image HTML and places the
 #'   HTML as axis labels. Because of the way ggplots are constructed, it is
 #'   necessary to adjust the theme after calling this scale. This can be done
-#'   by calling [theme_x_sdv()] or [theme_y_sdv()] or alternatively by manually
-#'   changing the relevant `axis.text` to [ggtext::element_markdown()].
+#'   by calling [theme_x_sdv()] or [theme_y_sdv()] after any complete theme such
+#'   as [ggplot2::theme_minimal()], which replaces every theme element. To set
+#'   the theme by hand, change the relevant `axis.text` and its position
+#'   children (`axis.text.x.bottom`, ...) to [ggtext::element_markdown()]:
+#'   complete themes in 'ggplot2' 4 set those children themselves.
 #'
 #' @param sport Character string identifying the sport.
 #' @param size The logo size in pixels. It is applied as height for an x-scale
@@ -327,7 +330,10 @@ theme_x_sdv <- function() {
     ))
   }
   loadNamespace("gridtext", versionCheck = list(op = ">=", version = "0.1.4"))
-  ggplot2::theme(axis.text.x = ggtext::element_markdown())
+  # ggplot2 4's complete themes (theme_minimal(), ...) set axis.text.x.bottom
+  # and .top themselves, which would shadow a markdown axis.text.x
+  md <- ggtext::element_markdown()
+  ggplot2::theme(axis.text.x = md, axis.text.x.bottom = md, axis.text.x.top = md)
 }
 
 #' @rdname theme_sdv
@@ -340,7 +346,10 @@ theme_y_sdv <- function() {
     ))
   }
   loadNamespace("gridtext", versionCheck = list(op = ">=", version = "0.1.4"))
-  ggplot2::theme(axis.text.y = ggtext::element_markdown())
+  # ggplot2 4's complete themes (theme_minimal(), ...) set axis.text.y.left
+  # and .right themselves, which would shadow a markdown axis.text.y
+  md <- ggtext::element_markdown()
+  ggplot2::theme(axis.text.y = md, axis.text.y.left = md, axis.text.y.right = md)
 }
 
 
@@ -356,7 +365,16 @@ get_team_colors <- function(sport, type = c("primary", "secondary")) {
 
   colors <- ref[[col_name]]
   names(colors) <- ref$team_abbr
+  colors <- colors[!is.na(colors)]
 
-  # Remove NAs
-  colors[!is.na(colors)]
+  # Manual scales match data values to these names exactly, so also name each
+  # color by every other key clean_team_abbrs() accepts: provider aliases
+  # ("AZ", "GSW"), full names and historical abbreviations ("MON").
+  keys <- unique(c(names(abbr_mapping[[sport]]), names(historical_team_mappings[[sport]])))
+  keys <- setdiff(keys, names(colors))
+  old <- options(sdvplotR.verbose = FALSE)
+  on.exit(options(old), add = TRUE)
+  canon <- clean_team_abbrs(keys, sport = sport, keep_non_matches = FALSE)
+  keep <- canon %in% names(colors)
+  c(colors, stats::setNames(unname(colors[canon[keep]]), keys[keep]))
 }

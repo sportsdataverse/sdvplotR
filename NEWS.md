@@ -70,6 +70,16 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   athlete IDs in any sport, including the NFL. By default, IDs are read as
   before: GSIS for the NFL, ESPN elsewhere. The ID systems overlap: without
   `id_type`, Dirk Nowitzki's NBA Stats ID drew ESPN's Jared Jeffries.
+* `clean_team_abbrs()` resolves the MLB Stats API's `"AZ"` (baseballr, Baseball
+  Savant) and FanGraphs' `"WSN"`, so Arizona's and Washington's logos draw from
+  that data.
+* `scale_color_sdv()` and `scale_fill_sdv()` color every key the rest of the
+  package accepts (provider aliases such as `"AZ"` or `"GSW"`, full names,
+  historical abbreviations), not only canonical abbreviations, which drew
+  grey.
+* `theme_x_sdv()` and `theme_y_sdv()` work after a complete theme such as
+  `theme_minimal()` on 'ggplot2' 4, which sets the position-specific axis text
+  elements itself; axis logos drew as raw HTML there.
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose

@@ -92,3 +92,30 @@ test_that("headshot axis scales pass id_type through", {
   sx <- scale_x_sdv_headshots(sport = "mlb", id_type = "league")
   expect_match(sx$labels("660271"), "img\\.mlbstatic\\.com/.*/people/660271/.*height = '20'")
 })
+
+test_that("color scales accept every key clean_team_abbrs() accepts", {
+  pal <- scale_fill_sdv(sport = "mlb")$palette(0)
+  expect_identical(pal[["AZ"]], pal[["ARI"]]) # MLB Stats API alias
+  expect_identical(pal[["CWS"]], pal[["CHW"]])
+  expect_identical(pal[["MON"]], pal[["WSH"]]) # historical (Expos)
+  expect_identical(scale_color_sdv(sport = "nba")$palette(0)[["GSW"]], get_team_colors("nba")[["GS"]])
+  # a canonical abbreviation keeps its own team's color
+  expect_identical(unname(pal[names(get_team_colors("mlb"))[1:30]]), unname(get_team_ref("mlb")$color1[match(names(get_team_colors("mlb"))[1:30], get_team_ref("mlb")$team_abbr)]))
+  df <- data.frame(team = c("AZ", "CWS"), v = 1:2)
+  built <- ggplot_build(ggplot(df, aes(team, v, fill = team)) + geom_col() + scale_fill_sdv(sport = "mlb"))
+  expect_false(any(built$data[[1]]$fill == "grey50"))
+})
+
+test_that("axis logo themes survive a complete theme added before them", {
+  skip_if_not_installed("ggtext")
+  df <- data.frame(t = c("**a**", "*b*"), v = 1:2)
+  axis_grob_classes <- function(p, side) {
+    g <- ggplotGrob(p)
+    ax <- g$grobs[[which(g$layout$name == side)]]
+    unlist(lapply(ax$children, function(ch) if (inherits(ch, "gtable")) lapply(ch$grobs, function(x) class(x)[1])))
+  }
+  px <- ggplot(df, aes(t, v)) + geom_col() + theme_minimal() + theme_x_sdv()
+  expect_true("richtext_grob" %in% axis_grob_classes(px, "axis-b"))
+  py <- ggplot(df, aes(v, t)) + geom_col() + theme_minimal() + theme_y_sdv()
+  expect_true("richtext_grob" %in% axis_grob_classes(py, "axis-l"))
+})

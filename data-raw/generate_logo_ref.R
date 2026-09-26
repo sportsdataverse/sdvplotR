@@ -209,7 +209,9 @@ aliases <- list(
   mlb = c(
     CWS = "CHW", WAS = "WSH", KCR = "KC", SDP = "SD", SFG = "SF", TBR = "TB", OAK = "ATH",
     ANA = "LAA", LAN = "LAD", SLN = "STL", NYA = "NYY", NYN = "NYM", CHA = "CHW", CHN = "CHC",
-    KCA = "KC", SDN = "SD", SFN = "SF", TBA = "TB", ARZ = "ARI"
+    KCA = "KC", SDN = "SD", SFN = "SF", TBA = "TB", ARZ = "ARI",
+    # MLB Stats API / Baseball Savant (baseballr) and FanGraphs / Baseball-Reference
+    AZ = "ARI", WSN = "WSH"
   ),
   nhl = c(
     WAS = "WSH", LAK = "LA", NJD = "NJ", SJS = "SJ", TBL = "TB", VEG = "VGK", MON = "MTL",
