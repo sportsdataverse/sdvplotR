@@ -223,3 +223,16 @@ test_that("check_id_type validates the id system for the sport", {
   expect_error(check_id_type("league", "cfb"), "not available by league player ID")
   expect_error(check_id_type("gsis", "nfl"))
 })
+
+test_that("the accent pass never errors on unmarked or latin1 input", {
+  latin1 <- iconv("Montr\u00e9al Canadiens", "UTF-8", "latin1")
+  expect_identical(clean_team_abbrs(latin1, "nhl", keep_non_matches = FALSE), "MTL")
+  skip_on_os("windows")
+  # a CSV read without an encoding in a C locale (a Docker image with no locale)
+  unmarked <- "Montr\u00e9al Canadiens"
+  Encoding(unmarked) <- "unknown"
+  withr::with_locale(c(LC_CTYPE = "C"), {
+    expect_no_error(clean_team_abbrs(c("TOR", unmarked), "nhl"))
+    expect_identical(clean_team_abbrs(c("TOR", latin1), "nhl", keep_non_matches = FALSE), c("TOR", "MTL"))
+  })
+})

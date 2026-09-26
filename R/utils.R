@@ -130,7 +130,8 @@ clean_team_abbrs <- function(
 }
 
 # chartr() rather than iconv(to = "ASCII//TRANSLIT"), whose output differs by
-# platform.
+# platform. enc2utf8() first: in a C locale chartr() stops on an unmarked
+# string holding UTF-8 bytes (a CSV read without an encoding).
 fold_accents <- function(x) {
   chartr(
     paste0(
@@ -140,7 +141,7 @@ fold_accents <- function(x) {
       "\u00ce\u00cf\u00d1\u00d2\u00d3\u00d4\u00d5\u00d6\u00d9\u00da\u00db\u00dc\u00dd"
     ),
     "aaaaaaceeeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY",
-    x
+    enc2utf8(x)
   )
 }
 
