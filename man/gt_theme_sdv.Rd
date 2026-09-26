@@ -39,6 +39,11 @@ logos from \code{\link[=gt_sdv_logos]{gt_sdv_logos()}} and team colors carry the
 heading are left-aligned. Column labels keep the case you give them rather
 than being forced to capitals. For a table dressed in one team's colors, see
 \code{\link[=gt_theme_sdv_team]{gt_theme_sdv_team()}}.
+
+The line under the column labels is a CSS \verb{::after} element. gt's CSS inliner
+removes those, so \code{gt::as_raw_html(inline_css = TRUE)} output (as used for
+email) shows the table without it; knitted documents, websites and images
+saved with \code{\link[=gt_save_crop]{gt_save_crop()}} keep it.
 }
 \section{Density}{
 

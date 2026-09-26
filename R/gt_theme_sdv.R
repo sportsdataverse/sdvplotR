@@ -13,6 +13,11 @@
 #' than being forced to capitals. For a table dressed in one team's colors, see
 #' [gt_theme_sdv_team()].
 #'
+#' The line under the column labels is a CSS `::after` element. gt's CSS inliner
+#' removes those, so `gt::as_raw_html(inline_css = TRUE)` output (as used for
+#' email) shows the table without it; knitted documents, websites and images
+#' saved with [gt_save_crop()] keep it.
+#'
 #' @section Density:
 #'
 #' `density` scales the theme's type and row padding together. `"comfortable"`
