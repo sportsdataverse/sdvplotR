@@ -259,40 +259,57 @@ counterparts:</p>
 </tr>
 </tbody>
 </table>
+<p>The image helpers (<code><a href="../reference/reactable_sdv_images.html">reactable_sdv_logos()</a></code>,
+<code><a href="../reference/reactable_sdv_images.html">reactable_sdv_headshots()</a></code>, …) return HTML, so their columns
+need <code>html = TRUE</code>.</p>
 <hr>
 </div>
 <div class="section level2">
 <h2 id="basic-team-logos-in-a-standings-table">Basic: Team logos in a standings table<a class="anchor" aria-label="anchor" href="#basic-team-logos-in-a-standings-table"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(reactable)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(sdvplotR)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(nflfastR)   <span class="co"># companion</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>season <span class="ot">&lt;-</span> nflreadr<span class="sc">::</span><span class="fu">most_recent_season</span>()</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>standings <span class="ot">&lt;-</span> nflreadr<span class="sc">::</span><span class="fu">load_standings</span>(<span class="at">seasons =</span> season) <span class="sc">|&gt;</span>\</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(pct), <span class="fu">desc</span>(div_wins)) <span class="sc">|&gt;</span>\</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">16</span>) <span class="sc">|&gt;</span>\</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(team_abbr, wins, losses, pct, div_rank)</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="fu">reactable</span>(</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  standings,</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">list</span>(</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    <span class="at">team_abbr =</span> <span class="fu">colDef</span>(</span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>      <span class="at">name =</span> <span class="st">"Team"</span>,</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>      <span class="at">cell =</span> <span class="fu">reactable_sdv_logos</span>(<span class="at">sport =</span> <span class="st">"nfl"</span>, <span class="at">height =</span> <span class="dv">28</span>),</span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>      <span class="at">html =</span> <span class="cn">TRUE</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>    ),</span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>    <span class="at">pct =</span> <span class="fu">colDef</span>(</span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>      <span class="at">format =</span> <span class="fu">colFormat</span>(<span class="at">digits =</span> <span class="dv">3</span>),</span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>      <span class="at">style =</span> <span class="fu">reactable_sdv_team_color_bar</span>(</span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>        standings,</span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>        <span class="at">team_col =</span> <span class="st">"team_abbr"</span>,</span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>        <span class="at">sport =</span> <span class="st">"nfl"</span>,</span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>        <span class="at">max_value =</span> <span class="dv">1</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>      )</span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>    )</span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>  )</span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sdvplotR.sportsdataverse.org/">sdvplotR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Regular-season records from nflreadr's schedules, one row per team per game,</span></span>
+<span><span class="co"># for the last completed regular season (NFL seasons are named for the year they</span></span>
+<span><span class="co"># start and end in early January)</span></span>
+<span><span class="va">season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"01-15"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="st">"REG"</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/clean_homeaway.html" class="external-link">clean_homeaway</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>team_abbr <span class="op">=</span> <span class="va">team</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>    wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">&gt;</span> <span class="va">opponent_score</span><span class="op">)</span>,</span>
+<span>    losses <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">&lt;</span> <span class="va">opponent_score</span><span class="op">)</span>,</span>
+<span>    pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">&gt;</span> <span class="va">opponent_score</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">==</span> <span class="va">opponent_score</span><span class="op">)</span>,</span>
+<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">pct</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
+<span>  <span class="va">standings</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    team_abbr <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"Team"</span>,</span>
+<span>      cell <span class="op">=</span> <span class="fu"><a href="../reference/reactable_sdv_images.html">reactable_sdv_logos</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span>,</span>
+<span>      html <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    pct <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
+<span>      format <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colFormat.html" class="external-link">colFormat</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>      style <span class="op">=</span> <span class="fu"><a href="../reference/reactable_sdv_team_color.html">reactable_sdv_team_color_bar</a></span><span class="op">(</span></span>
+<span>        <span class="va">standings</span>,</span>
+<span>        team_col <span class="op">=</span> <span class="st">"team_abbr"</span>,</span>
+<span>        sport <span class="op">=</span> <span class="st">"nfl"</span>,</span>
+<span>        max_value <span class="op">=</span> <span class="fl">1</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">
@@ -324,15 +341,12 @@ dark backgrounds:</p>
 <p>Replace column headers (e.g., per-team stat columns) with the team’s
 logo:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">nflverseR</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Example: per-team EPA/play in a wide table</span></span>
-<span><span class="va">team_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span>, <span class="st">"DAL"</span>, <span class="st">"PHI"</span>, <span class="st">"MIA"</span><span class="op">)</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="co"># A wide table with one column per team (example values)</span></span>
 <span><span class="va">wide_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  week <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
-<span>  KC  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, BUF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, SF  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>,</span>
-<span>  DAL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, PHI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, MIA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
+<span>  KC  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.21</span>, <span class="fl">0.05</span>, <span class="fl">0.14</span>, <span class="fl">0.30</span><span class="op">)</span>, BUF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.12</span>, <span class="fl">0.25</span>, <span class="fl">0.08</span>, <span class="fl">0.18</span><span class="op">)</span>,</span>
+<span>  SF  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.09</span>, <span class="fl">0.16</span>, <span class="fl">0.22</span>, <span class="fl">0.04</span><span class="op">)</span>, DAL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.03</span>, <span class="fl">0.11</span>, <span class="fl">0.02</span>, <span class="fl">0.07</span><span class="op">)</span>,</span>
+<span>  PHI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.19</span>, <span class="fl">0.12</span>, <span class="fl">0.23</span><span class="op">)</span>, MIA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="op">-</span><span class="fl">0.06</span>, <span class="fl">0.10</span>, <span class="fl">0.03</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
@@ -371,26 +385,25 @@ standings quickly:</p>
 <h2 id="player-headshots">Player headshots<a class="anchor" aria-label="anchor" href="#player-headshots"></a>
 </h2>
 <p>Headshots use the same <code><a href="../reference/reactable_sdv_images.html">reactable_sdv_headshots()</a></code> helper
-across all sports:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(nflreadr)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>roster <span class="ot">&lt;-</span> nflreadr<span class="sc">::</span><span class="fu">load_roster</span>(<span class="at">seasons =</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span>\</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(team <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span>)) <span class="sc">|&gt;</span>\</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">15</span>) <span class="sc">|&gt;</span>\</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(player_name, team, position, gsis_id)</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="fu">reactable</span>(</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  roster,</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">list</span>(</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>    <span class="at">player_name =</span> <span class="fu">colDef</span>(<span class="at">name =</span> <span class="st">"Player"</span>),</span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>    <span class="at">team =</span> <span class="fu">colDef</span>(<span class="at">cell =</span> <span class="fu">reactable_sdv_logos</span>(<span class="at">sport =</span> <span class="st">"nfl"</span>, <span class="at">height =</span> <span class="dv">24</span>)),</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    <span class="at">gsis_id =</span> <span class="fu">colDef</span>(</span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>      <span class="at">name =</span> <span class="st">"Headshot"</span>,</span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>      <span class="at">cell =</span> <span class="fu">reactable_sdv_headshots</span>(<span class="at">sport =</span> <span class="st">"nfl"</span>, <span class="at">height =</span> <span class="dv">40</span>),</span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>      <span class="at">html =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>    )</span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>  )</span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>)</span></code></pre></div>
+across all sports. NFL headshots take GSIS IDs, the <code>gsis_id</code>
+in nflreadr’s rosters:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">roster</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_rosters.html" class="external-link">load_rosters</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span><span class="op">)</span>, <span class="va">position</span> <span class="op">==</span> <span class="st">"QB"</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">gsis_id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">full_name</span>, <span class="va">team</span>, <span class="va">position</span>, <span class="va">gsis_id</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
+<span>  <span class="va">roster</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    full_name <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Player"</span><span class="op">)</span>,</span>
+<span>    team <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu"><a href="../reference/reactable_sdv_images.html">reactable_sdv_logos</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">24</span><span class="op">)</span>, html <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    gsis_id <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"Headshot"</span>,</span>
+<span>      cell <span class="op">=</span> <span class="fu"><a href="../reference/reactable_sdv_images.html">reactable_sdv_headshots</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>,</span>
+<span>      html <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">
@@ -401,63 +414,99 @@ across all sports:</p>
 <div class="section level3">
 <h3 id="nba-standings-hoopr">NBA standings (hoopR)<a class="anchor" aria-label="anchor" href="#nba-standings-hoopr"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(hoopR)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>nba_standings <span class="ot">&lt;-</span> hoopR<span class="sc">::</span><span class="fu">get_nba_standings</span>(<span class="at">season =</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span>\</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">reactable</span>(</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  nba_standings,</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">list</span>(</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="at">team =</span> <span class="fu">colDef</span>(<span class="at">cell =</span> <span class="fu">reactable_sdv_logos</span>(<span class="at">sport =</span> <span class="st">"nba"</span>, <span class="at">height =</span> <span class="dv">28</span>))</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  )</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># the last completed regular season (named for the year it ends, in mid-April)</span></span>
+<span><span class="va">nba_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"04-20"</span><span class="op">)</span></span>
+<span><span class="va">nba_standings</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html" class="external-link">load_nba_standings</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">nba_season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">stat_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wins"</span>, <span class="st">"losses"</span>, <span class="st">"winPercent"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team_abbreviation</span>, conference <span class="op">=</span> <span class="va">group_abbreviation</span>, <span class="va">stat_name</span>, <span class="va">value</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">stat_name</span>, values_from <span class="op">=</span> <span class="va">value</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">winPercent</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
+<span>  <span class="va">nba_standings</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    team <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu"><a href="../reference/reactable_sdv_images.html">reactable_sdv_logos</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nba"</span>, height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span>, html <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    winPercent <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Pct"</span>, format <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colFormat.html" class="external-link">colFormat</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="cfb-rankings-cfbfastr">CFB rankings (cfbfastR)<a class="anchor" aria-label="anchor" href="#cfb-rankings-cfbfastr"></a>
+<h3 id="cfb-power-ratings-cfbfastr">CFB power ratings (cfbfastR)<a class="anchor" aria-label="anchor" href="#cfb-power-ratings-cfbfastr"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(cfbfastR)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>cfb_ranks <span class="ot">&lt;-</span> cfbfastR<span class="sc">::</span><span class="fu">cfbd_ratings_sp</span>(<span class="at">year =</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span>\</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">25</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">reactable</span>(</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  cfb_ranks,</span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">list</span>(</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    <span class="at">team =</span> <span class="fu">colDef</span>(<span class="at">cell =</span> <span class="fu">reactable_sdv_logos</span>(<span class="at">sport =</span> <span class="st">"cfb"</span>, <span class="at">height =</span> <span class="dv">28</span>))</span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  )</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>)</span></code></pre></div>
+<p>ESPN’s Football Power Index, which needs no API key:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># the last completed college football regular season (it ends in mid-December)</span></span>
+<span><span class="va">cfb_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"12-15"</span><span class="op">)</span></span>
+<span><span class="va">cfb_fpi</span> <span class="op">&lt;-</span> <span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/espn_ratings_fpi.html" class="external-link">espn_ratings_fpi</a></span><span class="op">(</span>year <span class="op">=</span> <span class="va">cfb_season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># FPI arrives as text; sort it as a number</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>fpi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">fpi</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">fpi</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team_abbreviation</span>, <span class="va">fpi</span>, <span class="va">w</span>, <span class="va">l</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
+<span>  <span class="va">cfb_fpi</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    team <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu"><a href="../reference/reactable_sdv_images.html">reactable_sdv_logos</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span>, html <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    fpi <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"FPI"</span>, format <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colFormat.html" class="external-link">colFormat</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="nhl-skater-stats-fastrhockey">NHL skater stats (fastRhockey)<a class="anchor" aria-label="anchor" href="#nhl-skater-stats-fastrhockey"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(fastRhockey)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>nhl_skaters <span class="ot">&lt;-</span> fastRhockey<span class="sc">::</span><span class="fu">load_nhl_player_stats</span>(<span class="at">season =</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span>\</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">20</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">reactable</span>(</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  nhl_skaters,</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">list</span>(</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>    <span class="at">team_abbrev =</span> <span class="fu">colDef</span>(<span class="at">cell =</span> <span class="fu">reactable_sdv_logos</span>(<span class="at">sport =</span> <span class="st">"nhl"</span>, <span class="at">height =</span> <span class="dv">28</span>))</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  )</span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># the last completed regular season (named for the year it ends, in mid-April)</span></span>
+<span><span class="va">nhl_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"04-20"</span><span class="op">)</span></span>
+<span><span class="va">nhl_skaters</span> <span class="op">&lt;-</span> <span class="fu">fastRhockey</span><span class="fu">::</span><span class="fu"><a href="https://fastRhockey.sportsdataverse.org/reference/nhl_stats_skaters.html" class="external-link">nhl_stats_skaters</a></span><span class="op">(</span></span>
+<span>  season <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">nhl_season</span> <span class="op">-</span> <span class="fl">1</span>, <span class="va">nhl_season</span><span class="op">)</span>,</span>
+<span>  limit <span class="op">=</span> <span class="fl">20</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># a player traded mid-season lists every team; keep his last</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">".*,\\s*"</span>, <span class="st">""</span>, <span class="va">team_abbrevs</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">skater_full_name</span>, <span class="va">team</span>, <span class="va">player_id</span>, <span class="va">goals</span>, <span class="va">assists</span>, <span class="va">points</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
+<span>  <span class="va">nhl_skaters</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    team <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu"><a href="../reference/reactable_sdv_images.html">reactable_sdv_logos</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nhl"</span>, height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span>, html <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    player_id <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"Headshot"</span>,</span>
+<span>      <span class="co"># NHL API player ids: the NHL's own image CDN</span></span>
+<span>      cell <span class="op">=</span> <span class="fu"><a href="../reference/reactable_sdv_images.html">reactable_sdv_headshots</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nhl"</span>, id_type <span class="op">=</span> <span class="st">"league"</span>, height <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>,</span>
+<span>      html <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 </div>
 <div class="section level2">
 <h2 id="integration-with-reactablefmtr">Integration with reactablefmtr<a class="anchor" aria-label="anchor" href="#integration-with-reactablefmtr"></a>
 </h2>
-<p>These helpers compose cleanly with <a href="https://kentjohnson.github.io/reactablefmtr/" class="external-link"><code>reactablefmtr</code></a>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(reactablefmtr)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">reactable</span>(standings) <span class="sc">|&gt;</span>\</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">generate_img</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>    <span class="at">columns =</span> <span class="st">"team_abbr"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>    <span class="at">img_location =</span> <span class="st">"https://a.espncdn.com/i/teamlogos/nfl/500/${team_abbr}.png"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">28</span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  )</span></code></pre></div>
-<p>For sdvplotR’s richer variant resolution (dark/light/alt/classic),
-prefer the <code>reactable_sdv_*</code> helpers which handle URL
-resolution, historical team mappings, and variant fallbacks
-internally.</p>
+<p>These helpers compose cleanly with <a href="https://kcuilla.github.io/reactablefmtr/" class="external-link"><code>reactablefmtr</code></a>,
+whose <code><a href="https://kcuilla.github.io/reactablefmtr/reference/embed_img.html" class="external-link">embed_img()</a></code> draws a column that already holds image
+URLs:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kcuilla.github.io/reactablefmtr/" class="external-link">reactablefmtr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">standings</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span>, <span class="va">team_abbr</span>, logo <span class="op">=</span> <span class="va">logo_url</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"team_abbr"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">logo</span>, <span class="va">team_abbr</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">pct</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
+<span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      logo <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, cell <span class="op">=</span> <span class="fu"><a href="https://kcuilla.github.io/reactablefmtr/reference/embed_img.html" class="external-link">embed_img</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><code><a href="../reference/team_reference.html">team_reference()</a></code> holds every team’s logo URLs. For
+sdvplotR’s variant resolution (dark/light/alt/classic) and its aliases
+and historical team mappings inside the table itself, prefer the
+<code>reactable_sdv_*</code> helpers.</p>
 <hr>
 </div>
 <div class="section level2">

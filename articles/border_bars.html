@@ -242,6 +242,11 @@ Duke, my alma mater, using <code>gt_border_bars_top</code>.</p>
 purpose of this vignette is to show off some quick uses of the function,
 so we’re going to skip most discussion around the processing of this
 data.</p>
+<p><code>cbbdata</code> serves its data to registered users: create a
+free account once with <code>cbd_create_account()</code>, then log in
+with <code>cbd_login()</code> (it reads the <code>CBD_USER</code> and
+<code>CBD_PW</code> environment variables) before running the Duke
+example.</p>
 <p>Let’s define the metrics we care about and whether a higher value is
 better. We’re going to plot national percentiles on a location split
 (home vs. away).</p>
@@ -307,7 +312,7 @@ readable:</p>
 <span>      <span class="va">stat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"efg"</span>, <span class="st">"ftr"</span>, <span class="st">"oreb_rate"</span>, <span class="st">"tov_rate"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Offensive Four Factors"</span>,</span>
 <span>      <span class="va">stat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"def_efg"</span>, <span class="st">"def_ftr"</span>, <span class="st">"dreb_rate"</span>, <span class="st">"def_tov_rate"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Defensive Four Factors"</span>,</span>
 <span>      <span class="va">stat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two_pt_pct"</span>, <span class="st">"three_pt_pct"</span>, <span class="st">"ft_pct"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Offensive Shooting"</span>,</span>
-<span>      .default <span class="op">=</span> <span class="st">"Defensive Shooting"</span></span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"Defensive Shooting"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    stat <span class="op">=</span> <span class="va">dict</span><span class="op">[</span><span class="va">stat</span><span class="op">]</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>

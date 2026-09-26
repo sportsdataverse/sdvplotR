@@ -33,6 +33,11 @@ package](https://cbbdata.aweatherman.com). The purpose of this vignette
 is to show off some quick uses of the function, so we’re going to skip
 most discussion around the processing of this data.
 
+`cbbdata` serves its data to registered users: create a free account
+once with `cbd_create_account()`, then log in with `cbd_login()` (it
+reads the `CBD_USER` and `CBD_PW` environment variables) before running
+the Duke example.
+
 Let’s define the metrics we care about and whether a higher value is
 better. We’re going to plot national percentiles on a location split
 (home vs. away).
@@ -115,7 +120,7 @@ final_data <- final_data %>%
       stat %in% c("efg", "ftr", "oreb_rate", "tov_rate") ~ "Offensive Four Factors",
       stat %in% c("def_efg", "def_ftr", "dreb_rate", "def_tov_rate") ~ "Defensive Four Factors",
       stat %in% c("two_pt_pct", "three_pt_pct", "ft_pct") ~ "Offensive Shooting",
-      .default = "Defensive Shooting"
+      TRUE ~ "Defensive Shooting"
     ),
     stat = dict[stat]
   )

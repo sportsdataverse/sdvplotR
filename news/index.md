@@ -145,6 +145,13 @@ NHL, college football, men’s and women’s college basketball), built on
   matches team names regardless of accents, which providers write
   inconsistently: the NHL API’s “Montréal Canadiens” now resolves, as
   does an unaccented “San Jose State” against ESPN’s “San José State”.
+- College team data covers every Division I program. ESPN’s teams list
+  leaves some out (Lindenwood, Queens, Southern Indiana, Mercyhurst,
+  Saint Francis, UT Rio Grande Valley football), so they drew no logo;
+  they are now fetched one by one. Programs that just left a division
+  stay available for the season they played. ESPN box scores’ `"BUT"`
+  (Butler) and `"UNO"` (New Orleans) and ESPN FPI’s `"BUFF"` (Buffalo)
+  and `"AFA"` (Air Force) resolve.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)

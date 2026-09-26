@@ -26,9 +26,9 @@ and covers what each one does.
 
 ## The data
 
-We start with the top 25 of the NCAA’s NET rankings (from 2024-25), each
-team’s quadrant records, and its Wins Above Bubble (WAB) rank. The last
-line is the only unusual step.
+We start with the top 25 of the NCAA’s NET rankings, read from the
+NCAA’s own rankings page, with each team’s quadrant records and its NET
+rank the previous week. The last line is the only unusual step.
 [`cbbplotR`](https://cbbplotr.aweatherman.com/)’s `gt_cbb_teams()`
 replaces the team name with a logo-and-name markdown string, which we
 render later with
@@ -36,9 +36,18 @@ render later with
 
 ``` r
 
-data <- read_csv("net_example.csv") %>%
+net_page <- read_html("https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings")
+
+# the page states how current the rankings are ("Through Games Apr. 06 2026")
+as_of <- str_extract(html_text2(net_page), "Through Games [A-Za-z]+\\.? \\d+ \\d{4}")
+
+data <- html_table(html_element(net_page, "table")) %>%
+  select(
+    net = Rank, team = School, conf = Conf,
+    quad1 = `Quad 1`, quad2 = `Quad 2`, quad3 = `Quad 3`, quad4 = `Quad 4`,
+    prev_rk = Prev
+  ) %>%
   filter(net <= 25) %>%
-  select(net, team, quad1, quad2, quad3, quad4, wins_above_bubble_rk, conf) %>%
   gt_cbb_teams(team, logo_height = 20)
 ```
 
@@ -47,19 +56,19 @@ table.
 
 ``` r
 
-wab_domain <- range(data$wins_above_bubble_rk, na.rm = TRUE)
+prev_domain <- range(data$prev_rk, na.rm = TRUE)
 
 sizes <- c(13, 12)
 chunks <- split(data, rep(seq_along(sizes), sizes))
 ```
 
-`wab_domain` is the range of the WAB rank column across all 25 teams,
-and it matters because of how coloring works. A color scale is built
-from whatever data it sees. If each block builds its own scale, block
-one maps its colors to teams 1 to 13 and block two maps to teams 14 to
-25, so the same rank lands on a different shade depending on which block
-a team happens to fall in. Computing the domain once and handing it to
-both blocks keeps one scale across the whole table.
+`prev_domain` is the range of the previous-week rank column across all
+25 teams, and it matters because of how coloring works. A color scale is
+built from whatever data it sees. If each block builds its own scale,
+block one maps its colors to teams 1 to 13 and block two maps to teams
+14 to 25, so the same rank lands on a different shade depending on which
+block a team happens to fall in. Computing the domain once and handing
+it to both blocks keeps one scale across the whole table.
 
 `sizes` sets the split. We want 13 rows in the first block and 12 in the
 second. `rep(seq_along(sizes), sizes)` turns `c(13, 12)` into 13 `1`s
@@ -69,13 +78,13 @@ follows from the sizes you pick.
 
 ## Coloring a column by rank
 
-Inside the table we color the WAB rank column with
+Inside the table we color the previous-week rank column with
 [`gt_color_ranks()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_ranks.md),
 another new `v1.0` function.
 
 ``` r
 
-gt_color_ranks(wins_above_bubble_rk, domain = wab_domain)
+gt_color_ranks(prev_rk, domain = prev_domain)
 ```
 
 The arguments worth knowing:
@@ -84,7 +93,7 @@ The arguments worth knowing:
   named as `"package::palette"`. The default is a 5-color green-to-red
   ramp, which reads as good-to-bad.
 - `domain`: the value range mapped onto the palette. Left `NULL`, it is
-  taken from the column itself. We pass `wab_domain` so both blocks
+  taken from the column itself. We pass `prev_domain` so both blocks
   share a scale.
 - `reverse`: flip the palette, for when low numbers should be red
   instead of green.
@@ -100,7 +109,7 @@ something other than the default ramp:
 
 ``` r
 
-gt_color_ranks(wins_above_bubble_rk,
+gt_color_ranks(prev_rk,
   palette = "viridis::mako",
   pal_type = "continuous", reverse = TRUE
 )
@@ -121,16 +130,16 @@ tbls <- lapply(chunks, function(x) {
     cols_hide(conf) %>%
     cols_align(columns = -c(team), align = "center") %>%
     cols_align(columns = team, "left") %>%
-    cols_label(team = "Team", net = "NET", wins_above_bubble_rk = "WAB Rk.") %>%
+    cols_label(team = "Team", net = "NET", prev_rk = "Prev.") %>%
     cols_label_with(
       columns = starts_with("quad"),
       fn = function(x) paste0("Q", parse_number(x))
     ) %>%
     cols_width(team ~ px(140), starts_with("quad") ~ px(60)) %>%
     tab_spanner(columns = starts_with("quad"), label = "Quad Records") %>%
-    gt_color_ranks(wins_above_bubble_rk, domain = wab_domain) %>%
+    gt_color_ranks(prev_rk, domain = prev_domain) %>%
     fmt_markdown(team) %>%
-    gt_add_divider(team, color = "white", weight = px(10)) %>%
+    gtExtras::gt_add_divider(team, color = "white", weight = px(10)) %>%
     tab_options(
       data_row.padding = px(6),
       table_body.hlines.style = "solid",
@@ -140,7 +149,7 @@ tbls <- lapply(chunks, function(x) {
 })
 ```
 
-`gt_color_ranks(..., domain = wab_domain)` is the shared scale from
+`gt_color_ranks(..., domain = prev_domain)` is the shared scale from
 earlier. `fmt_markdown(team)` renders the logo strings `gt_cbb_teams()`
 produced. `gt_add_divider()` (from `gtExtras`) adds a white gap after
 the team column so the records do not crowd the logos.
@@ -157,8 +166,8 @@ Now the list goes to
 
 gt_grid(tbls,
   ncol = 2, gap = 30,
-  title = "Top 25 NET Rankings (2024-25)",
-  subtitle = "Rankings through April 11, 2024",
+  title = "Top 25 NET Rankings",
+  subtitle = as_of,
   title_style = list(
     font = "Oswald", size = 34, transform = "uppercase",
     margin_bottom = -4
@@ -208,8 +217,7 @@ per-conference or per-season. `file` writes the grid straight to a PNG.
 
 ## Spotlighting rows across blocks
 
-To make a point about the Big 12 having four teams in the NET top 20, we
-use
+To make a point about the Big 12’s teams in the NET top 20, we use
 [`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md),
 the last new `v1.0` function in this example. It lights the rows you
 name and dims the rest. Because it reads a filter expression against
@@ -231,18 +239,18 @@ tbls <- lapply(chunks, function(x) {
     cols_hide(conf) %>%
     cols_align(columns = -c(team), align = "center") %>%
     cols_align(columns = team, "left") %>%
-    cols_label(team = "Team", net = "NET", wins_above_bubble_rk = "WAB Rk.") %>%
+    cols_label(team = "Team", net = "NET", prev_rk = "Prev.") %>%
     cols_label_with(
       columns = starts_with("quad"),
       fn = function(x) paste0("Q", parse_number(x))
     ) %>%
     cols_width(team ~ px(140), starts_with("quad") ~ px(60)) %>%
     tab_spanner(columns = starts_with("quad"), label = "Quad Records") %>%
-    gt_color_ranks(wins_above_bubble_rk, domain = wab_domain) %>%
+    gt_color_ranks(prev_rk, domain = prev_domain) %>%
     fmt_markdown(team) %>%
-    gt_add_divider(team, color = "white", weight = px(10)) %>%
+    gtExtras::gt_add_divider(team, color = "white", weight = px(10)) %>%
     gt_spotlight(
-      rows = conf == "B12", if_none = "dim",
+      rows = conf == "Big 12" & net <= 20, if_none = "dim",
       accent_color = "darkred", dim_color = "lightgrey"
     ) %>%
     tab_options(
@@ -255,8 +263,8 @@ tbls <- lapply(chunks, function(x) {
 
 gt_grid(tbls,
   ncol = 2, gap = 30,
-  title = "The Big 12 has four teams inside the NET T-20",
-  subtitle = "Rankings through April 11, 2024",
+  title = paste("The Big 12 has", sum(data$conf[data$net <= 20] == "Big 12"), "teams inside the NET T-20"),
+  subtitle = as_of,
   title_style = list(
     font = "Oswald", size = 34, transform = "uppercase",
     margin_bottom = -4
@@ -273,10 +281,10 @@ gt_grid(tbls,
 
 This is why `conf` stayed hidden.
 [`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md)
-filters on it with `rows = conf == "B12"` even though the column is
-never drawn (because it still exists in the data we call in our lapply
-block). `rows` also accepts plain row numbers, like `rows = 1:5`, when
-you want to highlight by position.
+filters on it with `rows = conf == "Big 12" & net <= 20` even though the
+column is never drawn (because it still exists in the data we call in
+our lapply block). `rows` also accepts plain row numbers, like
+`rows = 1:5`, when you want to highlight by position.
 
 The rest of its arguments control the look:
 

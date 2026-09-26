@@ -219,7 +219,8 @@
 </h2>
 <p>This vignette demonstrates end-to-end workflows for ingesting data
 from SportsDataverse packages, creating visualizations with sdvplotR,
-and exporting results. We’ll cover common patterns for data engineering,
+and exporting results. Each workflow loads real data, processes it,
+draws it and saves it. We’ll cover common patterns for data engineering,
 visualization, and reporting.</p>
 </div>
 <div class="section level2">
@@ -231,54 +232,43 @@ visualization, and reporting.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Load companion packages</span></span>
-<span><span class="co"># library(nflfastR)      # NFL</span></span>
-<span><span class="co"># library(cfbfastR)      # CFB</span></span>
-<span><span class="co"># library(hoopR)         # NBA, MBB</span></span>
-<span><span class="co"># library(wehoop)        # WNBA, WBB</span></span>
-<span><span class="co"># library(baseballr)     # MLB</span></span>
-<span><span class="co"># library(fastRhockey)   # NHL</span></span>
-<span><span class="co"># library(oddsapiR)      # Betting odds</span></span>
-<span><span class="co"># library(sportyR)       # General sports data</span></span></code></pre></div>
+<span><span class="co"># Companion packages, called with pkg:: below:</span></span>
+<span><span class="co"># nflfastR / nflreadr (NFL), cfbfastR + cfbseedR (CFB), hoopR (NBA, MBB),</span></span>
+<span><span class="co"># wehoop (WNBA, WBB), baseballr (MLB), fastRhockey (NHL), oddsapiR (odds)</span></span>
+<span></span>
+<span><span class="co"># Exports go to a temporary directory; point this at your own folder</span></span>
+<span><span class="va">out_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="workflow-1-nfl-weekly-recap">Workflow 1: NFL Weekly Recap<a class="anchor" aria-label="anchor" href="#workflow-1-nfl-weekly-recap"></a>
 </h2>
-<p>Complete workflow for creating a weekly NFL recap:</p>
+<p>Complete workflow for creating an NFL passing recap:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Step 1: Load data with nflfastR</span></span>
-<span><span class="co"># pbp &lt;- nflfastR::load_pbp(</span></span>
-<span><span class="co">#   seasons = nflreadr::most_recent_season(),</span></span>
-<span><span class="co">#   file_type = "rds"</span></span>
-<span><span class="co"># )</span></span>
+<code class="sourceCode R"><span><span class="co"># Step 1: Load data with nflfastR, for the last completed regular season (NFL</span></span>
+<span><span class="co"># seasons are named for the year they start and end in early January)</span></span>
+<span><span class="va">season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"01-15"</span><span class="op">)</span></span>
+<span><span class="va">pbp</span> <span class="op">&lt;-</span> <span class="fu">nflfastR</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_pbp.html" class="external-link">load_pbp</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">season</span>, file_type <span class="op">=</span> <span class="st">"rds"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 2: Process data</span></span>
-<span><span class="co"># team_epa &lt;- pbp |&gt;</span></span>
-<span><span class="co">#   filter(pass == 1, !is.na(epa)) |&gt;</span></span>
-<span><span class="co">#   group_by(posteam) |&gt;</span></span>
-<span><span class="co">#   summarise(</span></span>
-<span><span class="co">#     mean_epa = mean(epa, na.rm = TRUE),</span></span>
-<span><span class="co">#     n_plays = n(),</span></span>
-<span><span class="co">#     .groups = "drop"</span></span>
-<span><span class="co">#   ) |&gt;</span></span>
-<span><span class="co">#   filter(n_plays &gt;= 100) |&gt;</span></span>
-<span><span class="co">#   arrange(desc(mean_epa)) |&gt;</span></span>
-<span><span class="co">#   head(10)</span></span>
+<span><span class="va">team_epa</span> <span class="op">&lt;-</span> <span class="va">pbp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pass</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">epa</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">posteam</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">posteam</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>    mean_epa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">epa</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    n_plays <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">n_plays</span> <span class="op">&gt;=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">mean_epa</span>, n <span class="op">=</span> <span class="fl">10</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 3: Create visualization</span></span>
-<span><span class="co"># For demonstration, use sample data</span></span>
-<span><span class="va">team_epa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  posteam <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span>, <span class="st">"PHI"</span>, <span class="st">"DAL"</span>, <span class="st">"MIA"</span>, <span class="st">"CIN"</span>, <span class="st">"BAL"</span>, <span class="st">"DET"</span>, <span class="st">"JAX"</span><span class="op">)</span>,</span>
-<span>  mean_epa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  n_plays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">200</span><span class="op">:</span><span class="fl">500</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
 <span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">team_epa</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">posteam</span>, <span class="va">mean_epa</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">mean_epa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">posteam</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Top 10 NFL Teams by Pass EPA"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/latest_season.html" class="external-link">most_recent_season</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="va">season</span><span class="op">)</span>,</span>
 <span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    y <span class="op">=</span> <span class="st">"Mean EPA per Play"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Data: nflfastR | Viz: sdvplotR"</span></span>
@@ -291,50 +281,44 @@ visualization, and reporting.</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 4: Export</span></span>
-<span><span class="co"># ggsave("nfl_weekly_recap.png",</span></span>
-<span><span class="co">#        plot = plot,</span></span>
-<span><span class="co">#        width = 12, height = 8, dpi = 300)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"nfl_weekly_recap.png"</span><span class="op">)</span>,</span>
+<span>       plot <span class="op">=</span> <span class="va">plot</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">8</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">plot</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="workflow-2-cfb-power-rankings">Workflow 2: CFB Power Rankings<a class="anchor" aria-label="anchor" href="#workflow-2-cfb-power-rankings"></a>
 </h2>
-<p>Complete workflow for CFB power rankings:</p>
+<p>Complete workflow for CFB tiers from passing efficiency:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Step 1: Load data with cfbfastR</span></span>
-<span><span class="co"># pbp &lt;- cfbfastR::load_cfb_pbp(</span></span>
-<span><span class="co">#   seasons = cfbfastR::most_recent_cfb_season(),</span></span>
-<span><span class="co">#   epa_wpa = TRUE</span></span>
-<span><span class="co"># )</span></span>
+<code class="sourceCode R"><span><span class="co"># Step 1: Load data with cfbfastR, for the last completed regular season (named</span></span>
+<span><span class="co"># for the year it starts; it ends in mid-December)</span></span>
+<span><span class="va">cfb_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"12-15"</span><span class="op">)</span></span>
+<span><span class="va">cfb_pbp</span> <span class="op">&lt;-</span> <span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/load_cfb_pbp.html" class="external-link">load_cfb_pbp</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">cfb_season</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Step 2: Process data</span></span>
-<span><span class="co"># team_perf &lt;- pbp |&gt;</span></span>
-<span><span class="co">#   filter(pass == 1, !is.na(EPA)) |&gt;</span></span>
-<span><span class="co">#   group_by(posteam) |&gt;</span></span>
-<span><span class="co">#   summarise(</span></span>
-<span><span class="co">#     mean_epa = mean(EPA, na.rm = TRUE),</span></span>
-<span><span class="co">#     n_plays = n(),</span></span>
-<span><span class="co">#     .groups = "drop"</span></span>
-<span><span class="co">#   ) |&gt;</span></span>
-<span><span class="co">#   filter(n_plays &gt;= 100) |&gt;</span></span>
-<span><span class="co">#   arrange(desc(mean_epa)) |&gt;</span></span>
-<span><span class="co">#   head(25)</span></span>
+<span><span class="co"># Step 2: Process data: EPA per pass play; clean_team_abbrs() turns school</span></span>
+<span><span class="co"># names into sdvplotR's abbreviations</span></span>
+<span><span class="va">team_perf</span> <span class="op">&lt;-</span> <span class="va">cfb_pbp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pass</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">EPA</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">pos_team</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="va">pos_team</span>, sport <span class="op">=</span> <span class="st">"cfb"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># FBS offenses only: the play-by-play also covers FCS games</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"cfb"</span><span class="op">)</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">[</span><span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"cfb"</span><span class="op">)</span><span class="op">$</span><span class="va">division</span> <span class="op">==</span> <span class="st">"FBS"</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>mean_epa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">EPA</span><span class="op">)</span>, n_plays <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">n_plays</span> <span class="op">&gt;=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">mean_epa</span>, n <span class="op">=</span> <span class="fl">16</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Step 3: Create tier plot</span></span>
-<span><span class="co"># For demonstration, use sample data</span></span>
-<span><span class="va">tier_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  tier_no <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>  team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UGA"</span>, <span class="st">"MICH"</span>, <span class="st">"WASH"</span>, <span class="st">"FSU"</span>, <span class="st">"OSU"</span>, <span class="st">"TEX"</span>, <span class="st">"ALA"</span>,</span>
-<span>           <span class="st">"ORE"</span>, <span class="st">"PSU"</span>, <span class="st">"MIZ"</span>, <span class="st">"AZ"</span>, <span class="st">"LSU"</span>,</span>
-<span>           <span class="st">"CLE"</span>, <span class="st">"GB"</span>, <span class="st">"LAR"</span>, <span class="st">"MIN"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<span><span class="co"># Step 3: Create tier plot (four tiers of four)</span></span>
+<span><span class="va">tier_data</span> <span class="op">&lt;-</span> <span class="va">team_perf</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tier_no <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, each <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">tier_no</span>, <span class="va">team</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tier_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_team_tiers.html">sdv_team_tiers</a></span><span class="op">(</span></span>
 <span>  <span class="va">tier_data</span>,</span>
 <span>  sport <span class="op">=</span> <span class="st">"cfb"</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"CFB Power Rankings"</span>,</span>
-<span>  subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Week"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span>, <span class="st">"of"</span>, <span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu">most_recent_cfb_season</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"CFB Passing Offense Tiers"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"EPA per pass play, season"</span>, <span class="va">cfb_season</span><span class="op">)</span>,</span>
 <span>  tier_desc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"1"</span> <span class="op">=</span> <span class="st">"Elite"</span>,</span>
 <span>    <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Contenders"</span>,</span>
@@ -344,48 +328,38 @@ visualization, and reporting.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 4: Export</span></span>
-<span><span class="co"># ggsave("cfb_power_rankings.png",</span></span>
-<span><span class="co">#        plot = tier_plot,</span></span>
-<span><span class="co">#        width = 14, height = 10, dpi = 300)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"cfb_power_rankings.png"</span><span class="op">)</span>,</span>
+<span>       plot <span class="op">=</span> <span class="va">tier_plot</span>, width <span class="op">=</span> <span class="fl">14</span>, height <span class="op">=</span> <span class="fl">10</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tier_plot</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="workflow-3-nba-player-comparison">Workflow 3: NBA Player Comparison<a class="anchor" aria-label="anchor" href="#workflow-3-nba-player-comparison"></a>
 </h2>
-<p>Complete workflow for comparing NBA players:</p>
+<p>Complete workflow for comparing NBA scorers:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Step 1: Load data with hoopR</span></span>
-<span><span class="co"># player_stats &lt;- hoopR::load_nba_player_stats(</span></span>
-<span><span class="co">#   seasons = hoopR::most_recent_nba_season(),</span></span>
-<span><span class="co">#   season_type = "Regular Season"</span></span>
-<span><span class="co"># )</span></span>
+<code class="sourceCode R"><span><span class="co"># Step 1: Load data with hoopR (ESPN player box scores) for the last completed</span></span>
+<span><span class="co"># regular season (hoopR names a season for the year it ends, in mid-April)</span></span>
+<span><span class="va">nba_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"04-20"</span><span class="op">)</span></span>
+<span><span class="co"># ESPN tags the All-Star games as regular season too; keeping the league's own</span></span>
+<span><span class="co"># teams drops them</span></span>
+<span><span class="va">nba_box</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html" class="external-link">load_nba_player_box</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">nba_season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season_type</span> <span class="op">==</span> <span class="fl">2</span>, <span class="op">!</span><span class="va">did_not_play</span>, <span class="va">team_abbreviation</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 2: Process data</span></span>
-<span><span class="co"># top_players &lt;- player_stats |&gt;</span></span>
-<span><span class="co">#   filter(!is.na(athlete_id)) |&gt;</span></span>
-<span><span class="co">#   group_by(athlete_id, athlete_display_name, team_abbreviation) |&gt;</span></span>
-<span><span class="co">#   summarise(</span></span>
-<span><span class="co">#     avg_points = mean(points, na.rm = TRUE),</span></span>
-<span><span class="co">#     games = n(),</span></span>
-<span><span class="co">#     .groups = "drop"</span></span>
-<span><span class="co">#   ) |&gt;</span></span>
-<span><span class="co">#   filter(games &gt;= 20) |&gt;</span></span>
-<span><span class="co">#   arrange(desc(avg_points)) |&gt;</span></span>
-<span><span class="co">#   head(8)</span></span>
+<span><span class="co"># one row per player: a player traded mid-season has box scores for two teams</span></span>
+<span><span class="va">top_players</span> <span class="op">&lt;-</span> <span class="va">nba_box</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">athlete_id</span>, <span class="va">athlete_display_name</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>    avg_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">points</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    games <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">games</span> <span class="op">&gt;=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">avg_points</span>, n <span class="op">=</span> <span class="fl">8</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Step 3: Create visualization</span></span>
-<span><span class="co"># For demonstration, use sample data</span></span>
-<span><span class="va">top_players</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  athlete_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1234"</span>, <span class="st">"5678"</span>, <span class="st">"9012"</span>, <span class="st">"3456"</span>, <span class="st">"7890"</span>, <span class="st">"2345"</span>, <span class="st">"6789"</span>, <span class="st">"0123"</span><span class="op">)</span>,</span>
-<span>  athlete_display_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"LeBron James"</span>, <span class="st">"Stephen Curry"</span>, <span class="st">"Kevin Durant"</span>,</span>
-<span>                          <span class="st">"Giannis Antetokounmpo"</span>, <span class="st">"Luka Doncic"</span>, <span class="st">"Jayson Tatum"</span>,</span>
-<span>                          <span class="st">"Nikola Jokic"</span>, <span class="st">"Joel Embiid"</span><span class="op">)</span>,</span>
-<span>  team_abbreviation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"LAL"</span>, <span class="st">"GSW"</span>, <span class="st">"PHX"</span>, <span class="st">"MIL"</span>, <span class="st">"DAL"</span>, <span class="st">"BOS"</span>, <span class="st">"DEN"</span>, <span class="st">"PHI"</span><span class="op">)</span>,</span>
-<span>  avg_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">25</span>, <span class="fl">35</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  games <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">20</span><span class="op">:</span><span class="fl">40</span>, <span class="fl">8</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
+<span><span class="co"># Step 3: Create visualization (athlete_id is an ESPN athlete ID, the default)</span></span>
 <span><span class="va">player_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">top_players</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">games</span>, y <span class="op">=</span> <span class="va">avg_points</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_headshots.html">geom_sdv_headshots</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>player_id <span class="op">=</span> <span class="va">athlete_id</span><span class="op">)</span>,</span>
@@ -400,7 +374,7 @@ visualization, and reporting.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Top 8 NBA Scorers"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/most_recent_nba_season.html" class="external-link">most_recent_nba_season</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="va">nba_season</span><span class="op">)</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Games Played"</span>,</span>
 <span>    y <span class="op">=</span> <span class="st">"Average Points per Game"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Data: hoopR | Viz: sdvplotR"</span></span>
@@ -408,9 +382,8 @@ visualization, and reporting.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 4: Export</span></span>
-<span><span class="co"># ggsave("nba_top_scorers.png",</span></span>
-<span><span class="co">#        plot = player_plot,</span></span>
-<span><span class="co">#        width = 12, height = 8, dpi = 300)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"nba_top_scorers.png"</span><span class="op">)</span>,</span>
+<span>       plot <span class="op">=</span> <span class="va">player_plot</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">8</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">player_plot</span></span></code></pre></div>
 </div>
@@ -419,62 +392,47 @@ visualization, and reporting.</p>
 </h2>
 <p>Complete workflow for MLB standings:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Step 1: Load data with baseballr</span></span>
-<span><span class="co"># team_stats &lt;- baseballr::get_team_stats(</span></span>
-<span><span class="co">#   season = baseballr::most_recent_mlb_season(),</span></span>
-<span><span class="co">#   team_id = NULL</span></span>
-<span><span class="co"># )</span></span>
+<code class="sourceCode R"><span><span class="co"># Step 1: Load data with baseballr (MLB Stats API; one string for both</span></span>
+<span><span class="co"># leagues, because mlb_standings() rejects a vector)</span></span>
+<span><span class="co"># the last completed regular season (it ends around October 1)</span></span>
+<span><span class="va">mlb_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"10-05"</span><span class="op">)</span></span>
+<span><span class="va">teams</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/mlb_teams.html" class="external-link">mlb_teams</a></span><span class="op">(</span>season <span class="op">=</span> <span class="va">mlb_season</span>, sport_ids <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">team_id</span>, <span class="va">team_abbreviation</span>, team_name <span class="op">=</span> <span class="va">team_full_name</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 2: Process data</span></span>
-<span><span class="co"># standings &lt;- team_stats |&gt;</span></span>
-<span><span class="co">#   filter(!is.na(team_abbreviation)) |&gt;</span></span>
-<span><span class="co">#   group_by(team_abbreviation) |&gt;</span></span>
-<span><span class="co">#   summarise(</span></span>
-<span><span class="co">#     wins = sum(win == 1, na.rm = TRUE),</span></span>
-<span><span class="co">#     games = n(),</span></span>
-<span><span class="co">#     .groups = "drop"</span></span>
-<span><span class="co">#   ) |&gt;</span></span>
-<span><span class="co">#   filter(games &gt;= 10) |&gt;</span></span>
-<span><span class="co">#   mutate(win_pct = wins / games) |&gt;</span></span>
-<span><span class="co">#   arrange(desc(win_pct)) |&gt;</span></span>
-<span><span class="co">#   head(15)</span></span>
+<span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/mlb_standings.html" class="external-link">mlb_standings</a></span><span class="op">(</span>season <span class="op">=</span> <span class="va">mlb_season</span>, league_id <span class="op">=</span> <span class="st">"103,104"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span></span>
+<span>    team_id <span class="op">=</span> <span class="va">team_records_team_id</span>,</span>
+<span>    wins <span class="op">=</span> <span class="va">team_records_wins</span>,</span>
+<span>    losses <span class="op">=</span> <span class="va">team_records_losses</span>,</span>
+<span>    win_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">team_records_winning_percentage</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">teams</span>, by <span class="op">=</span> <span class="st">"team_id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">win_pct</span>, n <span class="op">=</span> <span class="fl">15</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span>, logo <span class="op">=</span> <span class="va">team_abbreviation</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 3: Create gt table</span></span>
-<span><span class="co"># For demonstration, use sample data</span></span>
-<span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  team_abbreviation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"LAD"</span>, <span class="st">"ATL"</span>, <span class="st">"HOU"</span>, <span class="st">"BAL"</span>, <span class="st">"TB"</span>, <span class="st">"NYY"</span>,</span>
-<span>                        <span class="st">"PHI"</span>, <span class="st">"TEX"</span>, <span class="st">"TOR"</span>, <span class="st">"SEA"</span>, <span class="st">"SF"</span>, <span class="st">"CHC"</span>,</span>
-<span>                        <span class="st">"BOS"</span>, <span class="st">"STL"</span>, <span class="st">"CIN"</span><span class="op">)</span>,</span>
-<span>  wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">105</span>, <span class="fl">15</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  games <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">162</span>, <span class="fl">15</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    win_pct <span class="op">=</span> <span class="va">wins</span> <span class="op">/</span> <span class="va">games</span>,</span>
-<span>    logo <span class="op">=</span> <span class="va">team_abbreviation</span>,</span>
-<span>    rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">team_abbreviation</span>, <span class="va">wins</span>, <span class="va">games</span>, <span class="va">win_pct</span><span class="op">)</span></span>
-<span></span>
 <span><span class="va">standings_table</span> <span class="op">&lt;-</span> <span class="va">standings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="st">"mlb"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"win_pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
 <span>    rank <span class="op">=</span> <span class="st">"#"</span>,</span>
-<span>    logo <span class="op">=</span> <span class="st">"Team"</span>,</span>
-<span>    team_abbreviation <span class="op">=</span> <span class="st">"Abbrev"</span>,</span>
-<span>    wins <span class="op">=</span> <span class="st">"Wins"</span>,</span>
-<span>    games <span class="op">=</span> <span class="st">"Games"</span>,</span>
-<span>    win_pct <span class="op">=</span> <span class="st">"Win %"</span></span>
+<span>    logo <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    team_name <span class="op">=</span> <span class="st">"Team"</span>,</span>
+<span>    wins <span class="op">=</span> <span class="st">"W"</span>,</span>
+<span>    losses <span class="op">=</span> <span class="st">"L"</span>,</span>
+<span>    win_pct <span class="op">=</span> <span class="st">"Pct"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"MLB Top 15"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/most_recent_mlb_season.html" class="external-link">most_recent_mlb_season</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="va">mlb_season</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 4: Export to HTML</span></span>
-<span><span class="co"># standings_table |&gt;</span></span>
-<span><span class="co">#   gtsave("mlb_standings.html")</span></span>
+<span><span class="fu"><a href="https://gt.rstudio.com/reference/gtsave.html" class="external-link">gtsave</a></span><span class="op">(</span><span class="va">standings_table</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"mlb_standings.html"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">standings_table</span></span></code></pre></div>
 </div>
@@ -483,152 +441,101 @@ visualization, and reporting.</p>
 </h2>
 <p>Complete workflow for NHL team analysis:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Step 1: Load data with fastRhockey</span></span>
-<span><span class="co"># team_stats &lt;- fastRhockey::load_nhl_team_stats(</span></span>
-<span><span class="co">#   seasons = fastRhockey::most_recent_nhl_season(),</span></span>
-<span><span class="co">#   level = "team"</span></span>
-<span><span class="co"># )</span></span>
+<code class="sourceCode R"><span><span class="co"># Step 1: Load data with fastRhockey for the last completed regular season</span></span>
+<span><span class="co"># (named for the year it ends; the regular season ends in mid-April)</span></span>
+<span><span class="va">nhl_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"04-20"</span><span class="op">)</span></span>
+<span><span class="va">nhl_teams</span> <span class="op">&lt;-</span> <span class="fu">fastRhockey</span><span class="fu">::</span><span class="fu"><a href="https://fastRhockey.sportsdataverse.org/reference/nhl_stats_teams.html" class="external-link">nhl_stats_teams</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">nhl_season</span> <span class="op">-</span> <span class="fl">1</span>, <span class="va">nhl_season</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Step 2: Process data</span></span>
-<span><span class="co"># team_perf &lt;- team_stats |&gt;</span></span>
-<span><span class="co">#   filter(!is.na(team_abbreviation)) |&gt;</span></span>
-<span><span class="co">#   group_by(team_abbreviation) |&gt;</span></span>
-<span><span class="co">#   summarise(</span></span>
-<span><span class="co">#     avg_goals = mean(goals, na.rm = TRUE),</span></span>
-<span><span class="co">#     avg_assists = mean(assists, na.rm = TRUE),</span></span>
-<span><span class="co">#     games = n(),</span></span>
-<span><span class="co">#     .groups = "drop"</span></span>
-<span><span class="co">#   ) |&gt;</span></span>
-<span><span class="co">#   filter(games &gt;= 10)</span></span>
+<span><span class="co"># Step 2: Process data: the NHL's full team names become abbreviations</span></span>
+<span><span class="va">team_perf</span> <span class="op">&lt;-</span> <span class="va">nhl_teams</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="va">team_full_name</span>, sport <span class="op">=</span> <span class="st">"nhl"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 3: Create visualization</span></span>
-<span><span class="co"># For demonstration, use sample data</span></span>
-<span><span class="va">team_perf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  team_abbreviation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="../reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="st">"nhl"</span><span class="op">)</span>, <span class="fl">16</span><span class="op">)</span>,</span>
-<span>  avg_goals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span><span class="op">)</span>,</span>
-<span>  avg_assists <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span><span class="op">)</span>,</span>
-<span>  games <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">20</span><span class="op">:</span><span class="fl">40</span>, <span class="fl">16</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">nhl_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">team_perf</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">avg_goals</span>, y <span class="op">=</span> <span class="va">avg_assists</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">nhl_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">team_perf</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">goals_for_per_game</span>, y <span class="op">=</span> <span class="va">goals_against_per_game</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team_abbreviation</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
 <span>    sport <span class="op">=</span> <span class="st">"nhl"</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.075</span></span>
+<span>    width <span class="op">=</span> <span class="fl">0.06</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"NHL Team Performance"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="fu">fastRhockey</span><span class="fu">::</span><span class="fu"><a href="https://fastRhockey.sportsdataverse.org/reference/most_recent_nhl_season.html" class="external-link">most_recent_nhl_season</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span> <span class="st">"Average Goals per Game"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Average Assists per Game"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"NHL Goals For and Against"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Season "</span>, <span class="va">nhl_season</span> <span class="op">-</span> <span class="fl">1</span>, <span class="st">"-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">nhl_season</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Goals For per Game"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Goals Against per Game (fewer is better)"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Data: fastRhockey | Viz: sdvplotR"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 4: Export</span></span>
-<span><span class="co"># ggsave("nhl_team_performance.png",</span></span>
-<span><span class="co">#        plot = nhl_plot,</span></span>
-<span><span class="co">#        width = 12, height = 8, dpi = 300)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"nhl_team_performance.png"</span><span class="op">)</span>,</span>
+<span>       plot <span class="op">=</span> <span class="va">nhl_plot</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">8</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nhl_plot</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="workflow-6-betting-odds-integration">Workflow 6: Betting Odds Integration<a class="anchor" aria-label="anchor" href="#workflow-6-betting-odds-integration"></a>
 </h2>
-<p>Combine standings with betting odds using oddsapiR:</p>
+<p>Combine standings with betting lines from <a href="https://oddsapiR.sportsdataverse.org" class="external-link">oddsapiR</a>, which needs a
+free key from The Odds API in <code>ODDS_API_KEY</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Step 1: Load data</span></span>
-<span><span class="co"># standings &lt;- nflfastR::load_pbp(</span></span>
-<span><span class="co">#   seasons = nflreadr::most_recent_season(),</span></span>
-<span><span class="co">#   file_type = "rds"</span></span>
-<span><span class="co"># ) |&gt;</span></span>
-<span><span class="co">#   filter(!is.na(result)) |&gt;</span></span>
-<span><span class="co">#   group_by(posteam) |&gt;</span></span>
-<span><span class="co">#   summarise(</span></span>
-<span><span class="co">#     wins = sum(result &gt; 0, na.rm = TRUE),</span></span>
-<span><span class="co">#     games = n(),</span></span>
-<span><span class="co">#     .groups = "drop"</span></span>
-<span><span class="co">#   ) |&gt;</span></span>
-<span><span class="co">#   filter(games &gt;= 10) |&gt;</span></span>
-<span><span class="co">#   mutate(win_pct = wins / games) |&gt;</span></span>
-<span><span class="co">#   arrange(desc(win_pct))</span></span>
+<code class="sourceCode R"><span><span class="co"># Step 1: Load data: regular-season records from nflreadr's schedules</span></span>
+<span><span class="va">nfl_standings</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="st">"REG"</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/clean_homeaway.html" class="external-link">clean_homeaway</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>    wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">&gt;</span> <span class="va">opponent_score</span><span class="op">)</span>,</span>
+<span>    win_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">&gt;</span> <span class="va">opponent_score</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">==</span> <span class="va">opponent_score</span><span class="op">)</span>,</span>
+<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">win_pct</span>, n <span class="op">=</span> <span class="fl">8</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># odds &lt;- oddsapiR::get_odds(</span></span>
-<span><span class="co">#   sport = "americanfootball_nfl",</span></span>
-<span><span class="co">#   date = Sys.Date()</span></span>
-<span><span class="co"># )</span></span>
+<span><span class="co"># Step 2: Merge upcoming spreads when a key is set; odds name teams in full,</span></span>
+<span><span class="co"># and clean_team_abbrs() maps full names to abbreviations</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nzchar</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ODDS_API_KEY"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">spreads</span> <span class="op">&lt;-</span> <span class="fu">oddsapiR</span><span class="fu">::</span><span class="fu"><a href="https://oddsapiR.sportsdataverse.org/reference/toa_sports_odds.html" class="external-link">toa_sports_odds</a></span><span class="op">(</span>sport_key <span class="op">=</span> <span class="st">"americanfootball_nfl"</span>, markets <span class="op">=</span> <span class="st">"spreads"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="va">outcomes_name</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>spread <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">outcomes_point</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span>
+<span>  <span class="va">nfl_standings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">nfl_standings</span>, <span class="va">spreads</span>, by <span class="op">=</span> <span class="st">"team"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span></span>
-<span><span class="co"># Step 2: Merge data</span></span>
-<span><span class="co"># For demonstration, use sample data</span></span>
-<span><span class="va">standings_with_odds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span>, <span class="st">"PHI"</span>, <span class="st">"DAL"</span><span class="op">)</span>,</span>
-<span>  wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">7</span>, <span class="fl">7</span><span class="op">)</span>,</span>
-<span>  win_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.818</span>, <span class="fl">0.727</span>, <span class="fl">0.727</span>, <span class="fl">0.636</span>, <span class="fl">0.636</span><span class="op">)</span>,</span>
-<span>  spread <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">7.5</span>, <span class="op">-</span><span class="fl">3.5</span>, <span class="op">-</span><span class="fl">6.5</span>, <span class="op">-</span><span class="fl">10.5</span>, <span class="op">-</span><span class="fl">4.5</span><span class="op">)</span>,</span>
-<span>  moneyline <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">350</span>, <span class="op">-</span><span class="fl">180</span>, <span class="op">-</span><span class="fl">280</span>, <span class="op">-</span><span class="fl">550</span>, <span class="op">-</span><span class="fl">220</span><span class="op">)</span>,</span>
-<span>  logo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span>, <span class="st">"PHI"</span>, <span class="st">"DAL"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">odds_table</span> <span class="op">&lt;-</span> <span class="va">standings_with_odds</span> <span class="op">|&gt;</span></span>
+<span><span class="co"># Step 3: Create the table</span></span>
+<span><span class="va">odds_table</span> <span class="op">&lt;-</span> <span class="va">nfl_standings</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>logo <span class="op">=</span> <span class="va">team</span>, .before <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"win_pct"</span>, <span class="st">"spread"</span><span class="op">)</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"moneyline"</span>, decimals <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
-<span>    logo <span class="op">=</span> <span class="st">"Team"</span>,</span>
-<span>    team <span class="op">=</span> <span class="st">"Abbrev"</span>,</span>
-<span>    wins <span class="op">=</span> <span class="st">"Wins"</span>,</span>
-<span>    win_pct <span class="op">=</span> <span class="st">"Win %"</span>,</span>
-<span>    spread <span class="op">=</span> <span class="st">"Spread"</span>,</span>
-<span>    moneyline <span class="op">=</span> <span class="st">"ML"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"win_pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>logo <span class="op">=</span> <span class="st">""</span>, team <span class="op">=</span> <span class="st">"Team"</span>, wins <span class="op">=</span> <span class="st">"Wins"</span>, win_pct <span class="op">=</span> <span class="st">"Win %"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"NFL Standings with Betting Odds"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Combining Performance and Odds"</span></span>
+<span>    title <span class="op">=</span> <span class="st">"NFL Standings with Betting Lines"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Season"</span>, <span class="va">season</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Step 3: Export</span></span>
-<span><span class="co"># odds_table |&gt;</span></span>
-<span><span class="co">#   gtsave("nfl_standings_odds.html")</span></span>
+<span><span class="co"># Step 4: Export</span></span>
+<span><span class="fu"><a href="https://gt.rstudio.com/reference/gtsave.html" class="external-link">gtsave</a></span><span class="op">(</span><span class="va">odds_table</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"nfl_standings_odds.html"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">odds_table</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="workflow-7-automated-reporting-pipeline">Workflow 7: Automated Reporting Pipeline<a class="anchor" aria-label="anchor" href="#workflow-7-automated-reporting-pipeline"></a>
 </h2>
-<p>Create an automated reporting pipeline:</p>
+<p>Wrap the draw-and-export steps in a function that takes any sport’s
+standings, so one pipeline serves every league:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Define a function for automated reporting</span></span>
-<span><span class="va">generate_weekly_report</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sport</span>, <span class="va">week</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Generating"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">sport</span><span class="op">)</span>, <span class="st">"weekly report..."</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">generate_standings_report</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">standings</span>, <span class="va">sport</span>, <span class="va">out_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Generating "</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">sport</span><span class="op">)</span>, <span class="st">" standings report..."</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="co"># Step 1: Load data (sport-specific)</span></span>
-<span>  <span class="co"># In real implementation, load from appropriate package</span></span>
+<span>  <span class="va">standings</span> <span class="op">&lt;-</span> <span class="va">standings</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">win_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span>, logo <span class="op">=</span> <span class="va">team</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="co"># Step 2: Process data</span></span>
-<span>  <span class="co"># For demonstration, use sample data</span></span>
-<span>  <span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>    team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="../reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="va">sport</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span>,</span>
-<span>    wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">16</span>, <span class="fl">10</span><span class="op">)</span>,</span>
-<span>    losses <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">16</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>      win_pct <span class="op">=</span> <span class="va">wins</span> <span class="op">/</span> <span class="op">(</span><span class="va">wins</span> <span class="op">+</span> <span class="va">losses</span><span class="op">)</span>,</span>
-<span>      logo <span class="op">=</span> <span class="va">team</span>,</span>
-<span>      rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">win_pct</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># Step 3: Create visualizations</span></span>
 <span>  <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">standings</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">win_pct</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">win_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="va">sport</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">sport</span><span class="op">)</span>, <span class="st">"Standings"</span><span class="op">)</span>,</span>
-<span>      subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">week</span><span class="op">)</span>, <span class="st">"Current"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Week"</span>, <span class="va">week</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      x <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>      y <span class="op">=</span> <span class="st">"Win Percentage"</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">sport</span><span class="op">)</span>, <span class="st">"Standings"</span><span class="op">)</span>, x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Win Percentage"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
 <span>      axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
@@ -636,48 +543,46 @@ visualization, and reporting.</p>
 <span>    <span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">table</span> <span class="op">&lt;-</span> <span class="va">standings</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">team</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">team</span>, <span class="va">win_pct</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="va">sport</span>, height <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"win_pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="co"># Step 4: Export</span></span>
-<span>  <span class="va">timestamp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y%m%d_%H%M%S"</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># ggsave(paste0(sport, "_standings_", timestamp, ".png"),</span></span>
-<span>  <span class="co">#        plot = plot,</span></span>
-<span>  <span class="co">#        width = 12, height = 8, dpi = 300)</span></span>
-<span></span>
-<span>  <span class="co"># table |&gt;</span></span>
-<span>  <span class="co">#   gtsave(paste0(sport, "_standings_", timestamp, ".html"))</span></span>
-<span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Report generated:"</span>, <span class="va">timestamp</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># Include a timestamp in exported files</span></span>
+<span>  <span class="va">stamp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y%m%d_%H%M%S"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">sport</span>, <span class="st">"_standings_"</span>, <span class="va">stamp</span>, <span class="st">".png"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         plot <span class="op">=</span> <span class="va">plot</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">8</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gtsave.html" class="external-link">gtsave</a></span><span class="op">(</span><span class="va">table</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">sport</span>, <span class="st">"_standings_"</span>, <span class="va">stamp</span>, <span class="st">".html"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Report generated: "</span>, <span class="va">stamp</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>plot <span class="op">=</span> <span class="va">plot</span>, table <span class="op">=</span> <span class="va">table</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="co"># Generate reports for multiple sports</span></span>
-<span><span class="co"># nfl_report &lt;- generate_weekly_report("nfl", week = 10)</span></span>
-<span><span class="co"># nba_report &lt;- generate_weekly_report("nba")</span></span>
-<span><span class="co"># cfb_report &lt;- generate_weekly_report("cfb")</span></span></code></pre></div>
+<span><span class="co"># The same function for two leagues</span></span>
+<span><span class="va">nfl_report</span> <span class="op">&lt;-</span> <span class="fu">generate_standings_report</span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">nfl_standings</span>, <span class="va">team</span>, <span class="va">win_pct</span><span class="op">)</span>, <span class="st">"nfl"</span><span class="op">)</span></span>
+<span><span class="va">mlb_report</span> <span class="op">&lt;-</span> <span class="fu">generate_standings_report</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span><span class="va">standings</span>, team <span class="op">=</span> <span class="va">logo</span>, <span class="va">win_pct</span><span class="op">)</span>,</span>
+<span>  <span class="st">"mlb"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">nfl_report</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="workflow-8-multi-sport-comparison">Workflow 8: Multi-Sport Comparison<a class="anchor" aria-label="anchor" href="#workflow-8-multi-sport-comparison"></a>
 </h2>
-<p>Create a multi-sport comparison dashboard:</p>
+<p>Collect each league’s best record into one table:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load data from multiple sports</span></span>
-<span><span class="co"># nfl_data &lt;- nflfastR::load_pbp(seasons = nflreadr::most_recent_season())</span></span>
-<span><span class="co"># nba_data &lt;- hoopR::load_nba_team_stats(seasons = hoopR::most_recent_nba_season())</span></span>
-<span><span class="co"># mlb_data &lt;- baseballr::get_team_stats(season = baseballr::most_recent_mlb_season())</span></span>
+<code class="sourceCode R"><span><span class="va">nba_best</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html" class="external-link">load_nba_standings</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">nba_season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">stat_name</span> <span class="op">==</span> <span class="st">"winPercent"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">value</span>, n <span class="op">=</span> <span class="fl">1</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Create comparison table</span></span>
-<span><span class="co"># For demonstration, use sample data</span></span>
-<span><span class="va">multi_sport_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NFL"</span>, <span class="st">"NBA"</span>, <span class="st">"MLB"</span>, <span class="st">"NHL"</span>, <span class="st">"CFB"</span><span class="op">)</span>,</span>
-<span>  top_team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BOS"</span>, <span class="st">"LAD"</span>, <span class="st">"COL"</span>, <span class="st">"UGA"</span><span class="op">)</span>,</span>
-<span>  win_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.818</span>, <span class="fl">0.758</span>, <span class="fl">0.586</span>, <span class="fl">0.616</span>, <span class="fl">0.917</span><span class="op">)</span>,</span>
-<span>  conference <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AFC West"</span>, <span class="st">"Atlantic"</span>, <span class="st">"NL West"</span>, <span class="st">"Central"</span>, <span class="st">"SEC"</span><span class="op">)</span></span>
+<span><span class="va">multi_sport_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
+<span>  <span class="va">nfl_standings</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">win_pct</span>, n <span class="op">=</span> <span class="fl">1</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"NFL"</span>, top_team <span class="op">=</span> <span class="va">team</span>, <span class="va">win_pct</span><span class="op">)</span>,</span>
+<span>  <span class="va">nba_best</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"NBA"</span>, top_team <span class="op">=</span> <span class="va">team_abbreviation</span>, win_pct <span class="op">=</span> <span class="va">value</span><span class="op">)</span>,</span>
+<span>  <span class="va">standings</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">win_pct</span>, n <span class="op">=</span> <span class="fl">1</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"MLB"</span>, top_team <span class="op">=</span> <span class="va">logo</span>, <span class="va">win_pct</span><span class="op">)</span>,</span>
+<span>  <span class="va">team_perf</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">point_pct</span>, n <span class="op">=</span> <span class="fl">1</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"NHL (points %)"</span>, top_team <span class="op">=</span> <span class="va">team</span>, win_pct <span class="op">=</span> <span class="va">point_pct</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">comparison_table</span> <span class="op">&lt;-</span> <span class="va">multi_sport_comparison</span> <span class="op">|&gt;</span></span>
@@ -686,12 +591,11 @@ visualization, and reporting.</p>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
 <span>    sport <span class="op">=</span> <span class="st">"Sport"</span>,</span>
 <span>    top_team <span class="op">=</span> <span class="st">"Top Team"</span>,</span>
-<span>    win_pct <span class="op">=</span> <span class="st">"Win %"</span>,</span>
-<span>    conference <span class="op">=</span> <span class="st">"Conference/Division"</span></span>
+<span>    win_pct <span class="op">=</span> <span class="st">"Win %"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Multi-Sport Leaderboard"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Top Teams Across All Sports"</span></span>
+<span>    subtitle <span class="op">=</span> <span class="st">"The best record in each league's latest season"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html" class="external-link">tab_footnote</a></span><span class="op">(</span></span>
 <span>    footnote <span class="op">=</span> <span class="st">"Data: SportsDataverse packages | Viz: sdvplotR"</span>,</span>
@@ -737,14 +641,14 @@ comments</p></li>
 <span><span class="co">#   generate-report:</span></span>
 <span><span class="co">#     runs-on: ubuntu-latest</span></span>
 <span><span class="co">#     steps:</span></span>
-<span><span class="co">#       - uses: actions/checkout@v3</span></span>
+<span><span class="co">#       - uses: actions/checkout@v5</span></span>
 <span><span class="co">#       - uses: r-lib/actions/setup-r@v2</span></span>
 <span><span class="co">#       - name: Install packages</span></span>
 <span><span class="co">#         run: Rscript -e "install.packages(c('sdvplotR', 'nflfastR', 'gt'))"</span></span>
 <span><span class="co">#       - name: Generate report</span></span>
 <span><span class="co">#         run: Rscript scripts/weekly_report.R</span></span>
 <span><span class="co">#       - name: Upload artifacts</span></span>
-<span><span class="co">#         uses: actions/upload-artifact@v3</span></span>
+<span><span class="co">#         uses: actions/upload-artifact@v4</span></span>
 <span><span class="co">#         with:</span></span>
 <span><span class="co">#           name: weekly-reports</span></span>
 <span><span class="co">#           path: reports/</span></span></code></pre></div>

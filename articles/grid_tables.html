@@ -233,31 +233,41 @@ functions along the way, <code><a href="../reference/gt_color_ranks.html">gt_col
 <div class="section level2">
 <h2 id="the-data">The data<a class="anchor" aria-label="anchor" href="#the-data"></a>
 </h2>
-<p>We start with the top 25 of the NCAA’s NET rankings (from 2024-25),
-each team’s quadrant records, and its Wins Above Bubble (WAB) rank. The
-last line is the only unusual step. <a href="https://cbbplotr.aweatherman.com/" class="external-link"><code>cbbplotR</code></a>’s
+<p>We start with the top 25 of the NCAA’s NET rankings, read from the
+NCAA’s own rankings page, with each team’s quadrant records and its NET
+rank the previous week. The last line is the only unusual step. <a href="https://cbbplotr.aweatherman.com/" class="external-link"><code>cbbplotR</code></a>’s
 <code>gt_cbb_teams()</code> replaces the team name with a logo-and-name
 markdown string, which we render later with
 <code><a href="https://gt.rstudio.com/reference/fmt_markdown.html" class="external-link">fmt_markdown()</a></code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"net_example.csv"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">net_page</span> <span class="op">&lt;-</span> <span class="fu">read_html</span><span class="op">(</span><span class="st">"https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># the page states how current the rankings are ("Through Games Apr. 06 2026")</span></span>
+<span><span class="va">as_of</span> <span class="op">&lt;-</span> <span class="fu">str_extract</span><span class="op">(</span><span class="fu">html_text2</span><span class="op">(</span><span class="va">net_page</span><span class="op">)</span>, <span class="st">"Through Games [A-Za-z]+\\.? \\d+ \\d{4}"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">html_table</span><span class="op">(</span><span class="fu">html_element</span><span class="op">(</span><span class="va">net_page</span>, <span class="st">"table"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>    net <span class="op">=</span> <span class="va">Rank</span>, team <span class="op">=</span> <span class="va">School</span>, conf <span class="op">=</span> <span class="va">Conf</span>,</span>
+<span>    quad1 <span class="op">=</span> <span class="va">`Quad 1`</span>, quad2 <span class="op">=</span> <span class="va">`Quad 2`</span>, quad3 <span class="op">=</span> <span class="va">`Quad 3`</span>, quad4 <span class="op">=</span> <span class="va">`Quad 4`</span>,</span>
+<span>    prev_rk <span class="op">=</span> <span class="va">Prev</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">net</span> <span class="op">&lt;=</span> <span class="fl">25</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">net</span>, <span class="va">team</span>, <span class="va">quad1</span>, <span class="va">quad2</span>, <span class="va">quad3</span>, <span class="va">quad4</span>, <span class="va">wins_above_bubble_rk</span>, <span class="va">conf</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">gt_cbb_teams</span><span class="op">(</span><span class="va">team</span>, logo_height <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
 <p>Before splitting anything, two values are computed once, off the full
 table.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">wab_domain</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">wins_above_bubble_rk</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">prev_domain</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">prev_rk</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="va">chunks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">sizes</span><span class="op">)</span>, <span class="va">sizes</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><code>wab_domain</code> is the range of the WAB rank column across
-all 25 teams, and it matters because of how coloring works. A color
-scale is built from whatever data it sees. If each block builds its own
-scale, block one maps its colors to teams 1 to 13 and block two maps to
-teams 14 to 25, so the same rank lands on a different shade depending on
-which block a team happens to fall in. Computing the domain once and
-handing it to both blocks keeps one scale across the whole table.</p>
+<p><code>prev_domain</code> is the range of the previous-week rank
+column across all 25 teams, and it matters because of how coloring
+works. A color scale is built from whatever data it sees. If each block
+builds its own scale, block one maps its colors to teams 1 to 13 and
+block two maps to teams 14 to 25, so the same rank lands on a different
+shade depending on which block a team happens to fall in. Computing the
+domain once and handing it to both blocks keeps one scale across the
+whole table.</p>
 <p><code>sizes</code> sets the split. We want 13 rows in the first block
 and 12 in the second. <code>rep(seq_along(sizes), sizes)</code> turns
 <code>c(13, 12)</code> into 13 <code>1</code>s followed by 12
@@ -268,11 +278,11 @@ sizes you pick.</p>
 <div class="section level2">
 <h2 id="coloring-a-column-by-rank">Coloring a column by rank<a class="anchor" aria-label="anchor" href="#coloring-a-column-by-rank"></a>
 </h2>
-<p>Inside the table we color the WAB rank column with
+<p>Inside the table we color the previous-week rank column with
 <code><a href="../reference/gt_color_ranks.html">gt_color_ranks()</a></code>, another new <code>v1.0</code>
 function.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/gt_color_ranks.html">gt_color_ranks</a></span><span class="op">(</span><span class="va">wins_above_bubble_rk</span>, domain <span class="op">=</span> <span class="va">wab_domain</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gt_color_ranks.html">gt_color_ranks</a></span><span class="op">(</span><span class="va">prev_rk</span>, domain <span class="op">=</span> <span class="va">prev_domain</span><span class="op">)</span></span></code></pre></div>
 <p>The arguments worth knowing:</p>
 <ul>
 <li>
@@ -283,7 +293,7 @@ good-to-bad.</li>
 <li>
 <code>domain</code>: the value range mapped onto the palette. Left
 <code>NULL</code>, it is taken from the column itself. We pass
-<code>wab_domain</code> so both blocks share a scale.</li>
+<code>prev_domain</code> so both blocks share a scale.</li>
 <li>
 <code>reverse</code>: flip the palette, for when low numbers should
 be red instead of green.</li>
@@ -303,7 +313,7 @@ default.</li>
 on any numeric column. Reach for a <code>paletteer</code> palette when
 you want something other than the default ramp:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/gt_color_ranks.html">gt_color_ranks</a></span><span class="op">(</span><span class="va">wins_above_bubble_rk</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gt_color_ranks.html">gt_color_ranks</a></span><span class="op">(</span><span class="va">prev_rk</span>,</span>
 <span>  palette <span class="op">=</span> <span class="st">"viridis::mako"</span>,</span>
 <span>  pal_type <span class="op">=</span> <span class="st">"continuous"</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -322,16 +332,16 @@ frame.</p>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_hide.html" class="external-link">cols_hide</a></span><span class="op">(</span><span class="va">conf</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span>, align <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">team</span>, <span class="st">"left"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"Team"</span>, net <span class="op">=</span> <span class="st">"NET"</span>, wins_above_bubble_rk <span class="op">=</span> <span class="st">"WAB Rk."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"Team"</span>, net <span class="op">=</span> <span class="st">"NET"</span>, prev_rk <span class="op">=</span> <span class="st">"Prev."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label_with.html" class="external-link">cols_label_with</a></span><span class="op">(</span></span>
 <span>      columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span>,</span>
 <span>      fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Q"</span>, <span class="fu">parse_number</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_width.html" class="external-link">cols_width</a></span><span class="op">(</span><span class="va">team</span> <span class="op">~</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">140</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">60</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Quad Records"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="../reference/gt_color_ranks.html">gt_color_ranks</a></span><span class="op">(</span><span class="va">wins_above_bubble_rk</span>, domain <span class="op">=</span> <span class="va">wab_domain</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/gt_color_ranks.html">gt_color_ranks</a></span><span class="op">(</span><span class="va">prev_rk</span>, domain <span class="op">=</span> <span class="va">prev_domain</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_markdown.html" class="external-link">fmt_markdown</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">gt_add_divider</span><span class="op">(</span><span class="va">team</span>, color <span class="op">=</span> <span class="st">"white"</span>, weight <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">gtExtras</span><span class="fu">::</span><span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_add_divider.html" class="external-link">gt_add_divider</a></span><span class="op">(</span><span class="va">team</span>, color <span class="op">=</span> <span class="st">"white"</span>, weight <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_options.html" class="external-link">tab_options</a></span><span class="op">(</span></span>
 <span>      data_row.padding <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,</span>
 <span>      table_body.hlines.style <span class="op">=</span> <span class="st">"solid"</span>,</span>
@@ -339,7 +349,7 @@ frame.</p>
 <span>      table_body.hlines.width <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><code>gt_color_ranks(..., domain = wab_domain)</code> is the shared
+<p><code>gt_color_ranks(..., domain = prev_domain)</code> is the shared
 scale from earlier. <code>fmt_markdown(team)</code> renders the logo
 strings <code>gt_cbb_teams()</code> produced.
 <code>gt_add_divider()</code> (from <code>gtExtras</code>) adds a white
@@ -354,8 +364,8 @@ but hides it from the table (for the second example).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gt_grid.html">gt_grid</a></span><span class="op">(</span><span class="va">tbls</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span>, gap <span class="op">=</span> <span class="fl">30</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"Top 25 NET Rankings (2024-25)"</span>,</span>
-<span>  subtitle <span class="op">=</span> <span class="st">"Rankings through April 11, 2024"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Top 25 NET Rankings"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="va">as_of</span>,</span>
 <span>  title_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    font <span class="op">=</span> <span class="st">"Oswald"</span>, size <span class="op">=</span> <span class="fl">34</span>, transform <span class="op">=</span> <span class="st">"uppercase"</span>,</span>
 <span>    margin_bottom <span class="op">=</span> <span class="op">-</span><span class="fl">4</span></span>
@@ -366,7 +376,7 @@ but hides it from the table (for the second example).</p>
 <span>  source_note <span class="op">=</span> <span class="st">"Example created by @andreweatherman using {gtUtils} v1.0"</span>,</span>
 <span>  caption_rule <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="images/grid_net.png" class="r-plt" alt="" width="1018"></p>
+<p><img src="images/grid_net.png" class="r-plt" alt="" width="1084"></p>
 <p><code>ncol</code> sets how many tables go across, and the number of
 rows follows from the list length. <code>gap</code> is the space between
 them in pixels. There is also an <code>align</code> argument
@@ -410,11 +420,11 @@ and <code>zoom</code> control that export.</p>
 <div class="section level2">
 <h2 id="spotlighting-rows-across-blocks">Spotlighting rows across blocks<a class="anchor" aria-label="anchor" href="#spotlighting-rows-across-blocks"></a>
 </h2>
-<p>To make a point about the Big 12 having four teams in the NET top 20,
-we use <code><a href="../reference/gt_spotlight.html">gt_spotlight()</a></code>, the last new <code>v1.0</code>
-function in this example. It lights the rows you name and dims the rest.
-Because it reads a filter expression against each block’s own data, it
-drops right into the <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>.</p>
+<p>To make a point about the Big 12’s teams in the NET top 20, we use
+<code><a href="../reference/gt_spotlight.html">gt_spotlight()</a></code>, the last new <code>v1.0</code> function in
+this example. It lights the rows you name and dims the rest. Because it
+reads a filter expression against each block’s own data, it drops right
+into the <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>.</p>
 <p>The wrinkle is that the Big 12 teams fall across both blocks. A plain
 <code><a href="../reference/gt_spotlight.html">gt_spotlight()</a></code> on a block with no matching rows would leave
 that block fully lit, so the second block would look untouched while the
@@ -428,18 +438,18 @@ across both.</p>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_hide.html" class="external-link">cols_hide</a></span><span class="op">(</span><span class="va">conf</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span>, align <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">team</span>, <span class="st">"left"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"Team"</span>, net <span class="op">=</span> <span class="st">"NET"</span>, wins_above_bubble_rk <span class="op">=</span> <span class="st">"WAB Rk."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"Team"</span>, net <span class="op">=</span> <span class="st">"NET"</span>, prev_rk <span class="op">=</span> <span class="st">"Prev."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label_with.html" class="external-link">cols_label_with</a></span><span class="op">(</span></span>
 <span>      columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span>,</span>
 <span>      fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Q"</span>, <span class="fu">parse_number</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_width.html" class="external-link">cols_width</a></span><span class="op">(</span><span class="va">team</span> <span class="op">~</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">140</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">60</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Quad Records"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="../reference/gt_color_ranks.html">gt_color_ranks</a></span><span class="op">(</span><span class="va">wins_above_bubble_rk</span>, domain <span class="op">=</span> <span class="va">wab_domain</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/gt_color_ranks.html">gt_color_ranks</a></span><span class="op">(</span><span class="va">prev_rk</span>, domain <span class="op">=</span> <span class="va">prev_domain</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_markdown.html" class="external-link">fmt_markdown</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">gt_add_divider</span><span class="op">(</span><span class="va">team</span>, color <span class="op">=</span> <span class="st">"white"</span>, weight <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">gtExtras</span><span class="fu">::</span><span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_add_divider.html" class="external-link">gt_add_divider</a></span><span class="op">(</span><span class="va">team</span>, color <span class="op">=</span> <span class="st">"white"</span>, weight <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="../reference/gt_spotlight.html">gt_spotlight</a></span><span class="op">(</span></span>
-<span>      rows <span class="op">=</span> <span class="va">conf</span> <span class="op">==</span> <span class="st">"B12"</span>, if_none <span class="op">=</span> <span class="st">"dim"</span>,</span>
+<span>      rows <span class="op">=</span> <span class="va">conf</span> <span class="op">==</span> <span class="st">"Big 12"</span> <span class="op">&amp;</span> <span class="va">net</span> <span class="op">&lt;=</span> <span class="fl">20</span>, if_none <span class="op">=</span> <span class="st">"dim"</span>,</span>
 <span>      accent_color <span class="op">=</span> <span class="st">"darkred"</span>, dim_color <span class="op">=</span> <span class="st">"lightgrey"</span></span>
 <span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_options.html" class="external-link">tab_options</a></span><span class="op">(</span></span>
@@ -452,8 +462,8 @@ across both.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/gt_grid.html">gt_grid</a></span><span class="op">(</span><span class="va">tbls</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span>, gap <span class="op">=</span> <span class="fl">30</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"The Big 12 has four teams inside the NET T-20"</span>,</span>
-<span>  subtitle <span class="op">=</span> <span class="st">"Rankings through April 11, 2024"</span>,</span>
+<span>  title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"The Big 12 has"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">conf</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">net</span> <span class="op">&lt;=</span> <span class="fl">20</span><span class="op">]</span> <span class="op">==</span> <span class="st">"Big 12"</span><span class="op">)</span>, <span class="st">"teams inside the NET T-20"</span><span class="op">)</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="va">as_of</span>,</span>
 <span>  title_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    font <span class="op">=</span> <span class="st">"Oswald"</span>, size <span class="op">=</span> <span class="fl">34</span>, transform <span class="op">=</span> <span class="st">"uppercase"</span>,</span>
 <span>    margin_bottom <span class="op">=</span> <span class="op">-</span><span class="fl">4</span></span>
@@ -464,13 +474,14 @@ across both.</p>
 <span>  source_note <span class="op">=</span> <span class="st">"Example created by @andreweatherman using {gtUtils} v1.0"</span>,</span>
 <span>  caption_rule <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="images/grid_spotlight.png" class="r-plt" alt="" width="1018"></p>
+<p><img src="images/grid_spotlight.png" class="r-plt" alt="" width="1084"></p>
 <p>This is why <code>conf</code> stayed hidden.
 <code><a href="../reference/gt_spotlight.html">gt_spotlight()</a></code> filters on it with
-<code>rows = conf == "B12"</code> even though the column is never drawn
-(because it still exists in the data we call in our lapply block).
-<code>rows</code> also accepts plain row numbers, like
-<code>rows = 1:5</code>, when you want to highlight by position.</p>
+<code>rows = conf == "Big 12" &amp; net &lt;= 20</code> even though the
+column is never drawn (because it still exists in the data we call in
+our lapply block). <code>rows</code> also accepts plain row numbers,
+like <code>rows = 1:5</code>, when you want to highlight by
+position.</p>
 <p>The rest of its arguments control the look:</p>
 <ul>
 <li>
