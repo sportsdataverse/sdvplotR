@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
 ```{r setup, echo = FALSE}
 library(sdvplotR)
 library(gt)
-library(cbbplotR)
 library(tidyverse)
 library(rvest)
 ```
@@ -45,10 +44,9 @@ way, `gt_color_ranks()` and `gt_spotlight()`, and covers what each one does.
 
 We start with the top 25 of the NCAA's NET rankings, read from the NCAA's own
 rankings page, with each team's quadrant records and its NET rank the previous
-week. The last line is the only unusual
-step. [`cbbplotR`](https://cbbplotr.aweatherman.com/)'s `gt_cbb_teams()` replaces
-the team name with a logo-and-name markdown string, which we render later with
-`fmt_markdown()`.
+week. The NCAA writes school names its own way (`"Iowa St."`,
+`"St. John's (NY)"`), and sdvplotR resolves them as they are, so the names go
+into the table untouched and get their logos later.
 
 ```{r}
 net_page <- read_html("https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings")
@@ -62,8 +60,7 @@ data <- html_table(html_element(net_page, "table")) %>%
     quad1 = `Quad 1`, quad2 = `Quad 2`, quad3 = `Quad 3`, quad4 = `Quad 4`,
     prev_rk = Prev
   ) %>%
-  filter(net <= 25) %>%
-  gt_cbb_teams(team, logo_height = 20)
+  filter(net <= 25)
 ```
 
 Before splitting anything, two values are computed once, off the full table.
@@ -140,10 +137,10 @@ tbls <- lapply(chunks, function(x) {
       columns = starts_with("quad"),
       fn = function(x) paste0("Q", parse_number(x))
     ) %>%
-    cols_width(team ~ px(140), starts_with("quad") ~ px(60)) %>%
+    cols_width(team ~ px(165), starts_with("quad") ~ px(60)) %>%
     tab_spanner(columns = starts_with("quad"), label = "Quad Records") %>%
     gt_color_ranks(prev_rk, domain = prev_domain) %>%
-    fmt_markdown(team) %>%
+    gt_sdv_logos(team, sport = "mbb", height = 20, include_name = TRUE) %>%
     gtExtras::gt_add_divider(team, color = "white", weight = px(10)) %>%
     tab_options(
       data_row.padding = px(6),
@@ -155,7 +152,8 @@ tbls <- lapply(chunks, function(x) {
 ```
 
 `gt_color_ranks(..., domain = prev_domain)` is the shared scale from earlier.
-`fmt_markdown(team)` renders the logo strings `gt_cbb_teams()` produced.
+`gt_sdv_logos(team, ..., include_name = TRUE)` puts each school's logo in front
+of its name.
 `gt_add_divider()` (from `gtExtras`) adds a white gap after the team column so
 the records do not crowd the logos.
 
@@ -241,10 +239,10 @@ tbls <- lapply(chunks, function(x) {
       columns = starts_with("quad"),
       fn = function(x) paste0("Q", parse_number(x))
     ) %>%
-    cols_width(team ~ px(140), starts_with("quad") ~ px(60)) %>%
+    cols_width(team ~ px(165), starts_with("quad") ~ px(60)) %>%
     tab_spanner(columns = starts_with("quad"), label = "Quad Records") %>%
     gt_color_ranks(prev_rk, domain = prev_domain) %>%
-    fmt_markdown(team) %>%
+    gt_sdv_logos(team, sport = "mbb", height = 20, include_name = TRUE) %>%
     gtExtras::gt_add_divider(team, color = "white", weight = px(10)) %>%
     gt_spotlight(
       rows = conf == "Big 12" & net <= 20, if_none = "dim",
