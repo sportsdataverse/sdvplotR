@@ -39,7 +39,7 @@
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_drench()
 #'
-#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 #' # a brand color, with a matching export canvas; saving needs a headless
 #' # Chrome (webshot2)
 #' \donttest{
