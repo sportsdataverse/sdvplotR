@@ -104,6 +104,12 @@ NHL, college football, men’s and women’s college basketball), built on
   [`gt_save_batch()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_batch.md)
   now needs an explicit `dir` rather than writing to the working
   directory.
+- NFL player headshots work again. GSIS ids (`"00-0033873"`) resolve
+  through a crosswalk built from nflverse’s player table to each
+  player’s NFL.com image, or ESPN’s where NFL.com has none (24,825
+  players); they previously pointed at a URL built from the GSIS digits
+  that returned 404 for every player, in the geom, the gt and reactable
+  helpers, and the headshot axis scales.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)

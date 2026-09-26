@@ -1,8 +1,10 @@
 # ggplot2 Layer for Visualizing Player Headshots
 
 This geom is used to plot player headshots instead of points in a
-ggplot. It requires x, y aesthetics as well as a valid player identifier
-(GSIS ID for NFL, ESPN athlete ID for college, etc.).
+ggplot. It requires x, y aesthetics as well as a valid player
+identifier: a GSIS ID for the NFL (`"00-0033873"`, resolved through
+nflverse's player table to the player's NFL.com headshot) and an ESPN
+athlete ID for every other sport.
 
 ## Usage
 
@@ -173,7 +175,7 @@ aesthetics are in bold):
 
 - **player_id**:
 
-  \- The player's ID (sport-specific).
+  \- The player's ID: GSIS ID for the NFL, ESPN athlete ID otherwise.
 
 - `alpha = NULL`:
 
@@ -223,21 +225,6 @@ ggplot(df, aes(x = a, y = b)) +
   geom_label(aes(label = player_name), nudge_y = -0.35, alpha = 0.5) +
   coord_cartesian(xlim = c(0.5, 3.5), ylim = c(0.5, 3.5)) +
   theme_void()
-#> Warning: ggpath failed to read an image from
-#> https://static.www.nfl.com/image/private/t_headshot_desktop/f_auto/league/000033873.
-#> It will insert an empty graphic object instead. Here is the error message:
-#> Error in curl::curl_download(url, tmp, handle = h) : HTTP response code said
-#> error [static.www.nfl.com]: The requested URL returned error: 404
-#> Warning: ggpath failed to read an image from
-#> https://static.www.nfl.com/image/private/t_headshot_desktop/f_auto/league/000026498.
-#> It will insert an empty graphic object instead. Here is the error message:
-#> Error in curl::curl_download(url, tmp, handle = h) : HTTP response code said
-#> error [static.www.nfl.com]: The requested URL returned error: 404
-#> Warning: ggpath failed to read an image from
-#> https://static.www.nfl.com/image/private/t_headshot_desktop/f_auto/league/000035228.
-#> It will insert an empty graphic object instead. Here is the error message:
-#> Error in curl::curl_download(url, tmp, handle = h) : HTTP response code said
-#> error [static.www.nfl.com]: The requested URL returned error: 404
 
 # }
 ```

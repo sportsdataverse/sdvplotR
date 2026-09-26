@@ -41,6 +41,17 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   [`nflreadr::load_teams()`](https://nflreadr.nflverse.com/reference/load_teams.html).
   **Never hand-edit the `.rda`.**
 
+- `R/sysdata.rda` also holds `nfl_headshot_ids` (GSIS id -\> NFL.com
+  image `"<private|upload>/<id>"`, or `"espn/<id>"` where NFL.com has
+  none), built by `data-raw/nfl_headshot_ids.R` from
+  [`nflreadr::load_players()`](https://nflreadr.nflverse.com/reference/load_players.html).
+  NFL.com image ids are opaque (not the GSIS digits) and resolve only
+  under their own delivery type. Each data script re-saves the other’s
+  objects and stops before downloading if they are missing, so run
+  `nfl_headshot_ids.R` first on a fresh `sysdata.rda`. NFL headshots
+  take GSIS ids only: nflverse’s numeric id systems collide with ESPN
+  ids.
+
 - Canonical keys: nflverse abbreviations for the NFL (`LA`, `LV`,
   `WAS`), ESPN abbreviations everywhere else (`GS`, `NY`, `UTAH`, `ATH`,
   `CON`). Aliases from other providers live in the `aliases` list of the
@@ -132,6 +143,15 @@ devtools::build_readme()
 - `Suggests` is deliberately small (ggtext, gridtext, knitr, reactable,
   rmarkdown, sjmisc, testthat, withr); companion data packages are
   website / development needs, not package dependencies.
+
+## Formatting
+
+- Run `styler` only on files a change adds. styler 1.11 rewrites this
+  repo’s double-indent function signatures
+  (`f <- function(\n arg,\n arg) {`) in existing files, which turns a
+  small fix into a diff across every signature; lintr’s
+  indentation_linter also disagrees with that style (the known lints on
+  `main`).
 
 ## Commit convention
 
