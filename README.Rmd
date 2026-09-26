@@ -92,10 +92,11 @@ ggplot(df2, aes(x = team, y = score)) +
 ```{r gt-logos, eval = FALSE}
 library(gt)
 
-# Logos inside a gt table
+# Logos inside a gt table, styled with one of the table themes
 data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11)) |>
   gt() |>
-  gt_sdv_logos(columns = "team", sport = "nfl")
+  gt_sdv_logos(columns = "team", sport = "nfl") |>
+  gt_theme_athletic()
 ```
 
 ```{r reactable-logos, eval = FALSE}
@@ -112,6 +113,8 @@ reactable(
   )
 )
 ```
+
+The `gt` side also carries the [gtUtils](https://github.com/andreweatherman/gtUtils) toolkit by Andrew Weatherman: 18 table themes (`gt_theme_kenpom()`, `gt_theme_savant()`, `gt_theme_athletic()`, ...), color legends, cut lines, significance notation, outlier flags, faceted grids and `gt_save_crop()` / `gt_social_crop()` for publishing.
 
 Dark-mode logo variants are available through `variant = "dark"` in the table helpers, and `team_reference()` exposes the full reference data (ESPN ids, colors, conference / division) for every team.
 
@@ -180,6 +183,9 @@ See the full ecosystem at [sportsdataverse.org](https://sportsdataverse.org/).
 -   [Camden Kay](https://x.com/camdenkay) </br>
 <a href="https://x.com/camdenkay" target="blank"><img src="https://img.shields.io/twitter/follow/camdenkay?color=blue&label=%40camdenkay&logo=x&style=for-the-badge" alt="@camdenkay" /></a>
 <a href="https://github.com/camdenk" target="blank"><img src="https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge" alt="@camdenk" /></a>
+
+-   [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils) </br>
+<a href="https://github.com/andreweatherman" target="blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge" alt="@andreweatherman" /></a>
 
 ## **Code of Conduct**
 

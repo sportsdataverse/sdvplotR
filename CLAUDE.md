@@ -44,6 +44,15 @@ team abbr / player id
 - Wordmarks exist only for the NFL (nflverse). Other leagues resolve to `NA`
   and the helpers fall back gracefully.
 
+- **gtUtils port**: the generic `gt` table toolkit (themes, legends, cut
+  lines, save/crop helpers; `R/gt_*.R` other than `gt_sdv.R`, `R/utils-*.R`,
+  `R/data.R`, `R/deprecated.R`, `data/theme_bg.rda`) is copied from
+  Andrew Weatherman's [gtUtils](https://github.com/andreweatherman/gtUtils)
+  v1.0.0 (MIT, credited in `Authors@R` and `LICENSE.md`). These functions
+  work on any table, so they take no `sport` argument and skip
+  `clean_team_abbrs()`. When syncing from upstream, copy the files and retarget
+  `"gtUtils"` namespace strings (`gt_theme_preview()`, `deprecated.R`).
+
 ## Golden rules
 
 1. **Delegate rendering to ggpath.** Geoms set `data$path` then call
