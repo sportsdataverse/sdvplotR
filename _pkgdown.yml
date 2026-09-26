@@ -115,13 +115,38 @@ reference:
       - gt_sdv_headshots
       - gt_sdv_cols_label
       - gt_merge_stack_team_color
+  - title: "SportsDataverse Table Themes"
+    desc: >
+      The SportsDataverse house table, in light and dark, and a version dressed
+      in any team's colors.
+    contents:
+      - gt_theme_sdv
+      - gt_theme_sdv_team
   - title: "gt Table Themes"
     desc: >
       Editorial and broadcast-style themes for gt tables, ported from gtUtils.
       `theme_bg` holds each theme's background color for matching a saved
       image's canvas.
     contents:
-      - starts_with("gt_theme_")
+      - gt_theme_almanac
+      - gt_theme_athletic
+      - gt_theme_booktabs
+      - gt_theme_broadsheet
+      - gt_theme_brutalist
+      - gt_theme_drench
+      - gt_theme_gtutils
+      - gt_theme_kenpom
+      - gt_theme_midnight
+      - gt_theme_ncaa
+      - gt_theme_pl
+      - gt_theme_savant
+      - gt_theme_scoreboard
+      - gt_theme_sofa
+      - gt_theme_swiss
+      - gt_theme_terminal
+      - gt_theme_tier
+      - gt_theme_tufte
+      - gt_theme_preview
       - pal_midnight
       - theme_bg
   - title: "gt Table Annotations"
@@ -311,6 +336,8 @@ navbar:
         href: reference/reactable_sdv_images.html
       - text: "reactable: Team Colors"
         href: reference/reactable_sdv_team_color.html
+      - text: "gt: SportsDataverse Themes"
+        href: reference/gt_theme_sdv.html
       - text: "gt: Table Themes"
         href: reference/index.html#gt-table-themes
       - text: "gt: Save & Crop"
