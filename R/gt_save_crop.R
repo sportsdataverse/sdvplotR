@@ -26,7 +26,8 @@
 #' width with the height following, so several tables saved at the same `width`
 #' line up when posted together. The temporary file is removed afterward.
 #'
-#' @returns Writes the cropped image to `file`.
+#' @returns Invisibly, `file` after writing the cropped image to it, or the
+#'   encoded image as a raw vector when `file` is `NULL`.
 #'
 #' @examples
 #' \dontrun{
@@ -53,6 +54,7 @@ gt_save_crop <- function(data, file = NULL, bg = "white", whitespace = 50, zoom 
   .check_gt(data, arg = "data")
 
   tmp <- tempfile(fileext = ".png")
+  on.exit(unlink(tmp), add = TRUE)
   gtExtras::gtsave_extra(data, tmp, zoom = zoom, expand = expand)
 
   img <- magick::image_read(tmp) |>
@@ -64,6 +66,5 @@ gt_save_crop <- function(data, file = NULL, bg = "white", whitespace = 50, zoom 
     img <- magick::image_resize(img, glue::glue("{width}x"))
   }
 
-  magick::image_write(img, file)
-  unlink(tmp)
+  invisible(magick::image_write(img, file))
 }

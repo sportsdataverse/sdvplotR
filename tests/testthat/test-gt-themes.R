@@ -38,3 +38,24 @@ test_that("gt_sdv_logos keep their size inside a table theme", {
   expect_match(h, "kc\\.png\" style=\"height:30px;\"")
   expect_match(h, "buf\\.png\" style=\"height:30px;\"")
 })
+
+test_that("gt_save_crop returns the path, or the image bytes when file is NULL", {
+  # stand in for the headless-Chrome render: a white canvas with a black block
+  local_mocked_bindings(
+    gtsave_extra = function(data, filename, ...) {
+      canvas <- magick::image_blank(60, 40, "white")
+      block <- magick::image_blank(20, 10, "black")
+      magick::image_write(magick::image_composite(canvas, block, offset = "+20+15"), filename)
+    },
+    .package = "gtExtras"
+  )
+  tbl <- gt::gt(head(mtcars))
+
+  bytes <- gt_save_crop(tbl)
+  expect_type(bytes, "raw")
+  expect_identical(bytes[2:4], charToRaw("PNG"))
+
+  out <- withr::local_tempfile(fileext = ".png")
+  expect_identical(gt_save_crop(tbl, out, whitespace = 5), out)
+  expect_identical(dim(magick::image_data(magick::image_read(out)))[2:3], c(30L, 20L))
+})

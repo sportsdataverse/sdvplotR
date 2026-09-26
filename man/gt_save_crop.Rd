@@ -37,7 +37,8 @@ it, height following, so a series of tables can share one width. Defaults to
 \code{NULL}, which leaves the rendered width alone.}
 }
 \value{
-Writes the cropped image to \code{file}.
+Invisibly, \code{file} after writing the cropped image to it, or the
+encoded image as a raw vector when \code{file} is \code{NULL}.
 }
 \description{
 Renders a table to a PNG, JPG, or JPEG, trims the whitespace \code{gtExtras} leaves
