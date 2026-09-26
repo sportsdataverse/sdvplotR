@@ -36,7 +36,10 @@ team abbr / player id
   `data-raw/generate_logo_ref.R` from the ESPN `site.web.api.espn.com` teams
   endpoints (the `site.api.espn.com` host 403s non-browser clients), the ESPN
   core API group endpoints (FBS = 80, FCS = 81, D-I = 50) and
-  `nflreadr::load_teams()`. **Never hand-edit the `.rda`.**
+  `nflreadr::load_teams()`. College keys also take the NCAA.com, KenPom and
+  Torvik school names from sportsdataverse-py's NCAA / ESPN crosswalks and
+  `hoopR::load_mbb_team_crosswalk()`, joined on ESPN team id; ESPN's own keys
+  win and a name used for two schools is dropped. **Never hand-edit the `.rda`.**
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
   `headshot_gsis_map.rds` from this repo's `sdvplotr_infrastructure`
   pre-release (never "Latest", so `@*release` installs are unaffected)

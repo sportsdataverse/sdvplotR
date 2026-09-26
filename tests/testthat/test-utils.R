@@ -50,6 +50,13 @@ test_that("clean_team_abbrs handles case, names, aliases and history", {
   expect_identical(clean_team_abbrs(c("BUT", "UNO"), "wbb", keep_non_matches = FALSE), c("BTLR", "NOLA"))
   # ESPN's FPI writes Buffalo BUFF and Air Force AFA
   expect_identical(clean_team_abbrs(c("BUFF", "AFA"), "cfb", keep_non_matches = FALSE), c("BUF", "AF"))
+  # NCAA.com / stats.ncaa.org, KenPom and Torvik school names
+  ncaa <- c("Iowa St.", "St. John's (NY)", "Saint Mary's (CA)", "Southern California", "Miami (FL)", "Miami (OH)")
+  expect_identical(clean_team_abbrs(ncaa, "mbb", keep_non_matches = FALSE), c("ISU", "SJU", "SMC", "USC", "MIA", "M-OH"))
+  expect_identical(clean_team_abbrs(ncaa, "wbb", keep_non_matches = FALSE), c("ISU", "SJU", "SMC", "USC", "MIA", "M-OH"))
+  expect_identical(clean_team_abbrs(c("Iowa St.", "Southern California", "Miami (OH)"), "cfb", keep_non_matches = FALSE), c("ISU", "USC", "M-OH"))
+  # ESPN's own names keep their meaning
+  expect_identical(clean_team_abbrs(c("Miami", "Iowa State"), "mbb", keep_non_matches = FALSE), c("MIA", "ISU"))
   # accents fold on both sides: the NHL API's accented name, ESPN's accented key
   expect_identical(clean_team_abbrs("Montr\u00e9al Canadiens", "nhl", keep_non_matches = FALSE), "MTL")
   expect_identical(

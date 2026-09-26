@@ -84,6 +84,9 @@ team_reference <- function(sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", 
 #'   names (`"Kansas City Chiefs"`), common alternate abbreviations used by
 #'   other data sources (`"WSH"` / `"WAS"`, `"GNB"` / `"GB"`), and historical
 #'   abbreviations of relocated franchises (see [resolve_historical_abbr()]).
+#'   For the college sports it also takes the school names NCAA.com /
+#'   stats.ncaa.org, KenPom and Bart Torvik use (`"Iowa St."`,
+#'   `"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Southern California"`).
 #'
 #' @param abbr A character vector of abbreviations or team names.
 #' @inheritParams valid_team_names
@@ -94,6 +97,7 @@ team_reference <- function(sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", 
 #' @examples
 #' clean_team_abbrs(c("KC", "kansas city chiefs", "OAK", "WSH"), sport = "nfl")
 #' clean_team_abbrs(c("BOS", "GS", "INVALID"), sport = "nba", keep_non_matches = FALSE)
+#' clean_team_abbrs(c("Iowa St.", "St. John's (NY)", "Miami (OH)"), sport = "mbb")
 clean_team_abbrs <- function(
     abbr,
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),

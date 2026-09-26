@@ -28,8 +28,12 @@ used by sdvplotR. Matching is case-insensitive and understands full team
 names (\code{"Kansas City Chiefs"}), common alternate abbreviations used by
 other data sources (\code{"WSH"} / \code{"WAS"}, \code{"GNB"} / \code{"GB"}), and historical
 abbreviations of relocated franchises (see \code{\link[=resolve_historical_abbr]{resolve_historical_abbr()}}).
+For the college sports it also takes the school names NCAA.com /
+stats.ncaa.org, KenPom and Bart Torvik use (\code{"Iowa St."},
+\code{"St. John's (NY)"}, \code{"Saint Mary's (CA)"}, \code{"Southern California"}).
 }
 \examples{
 clean_team_abbrs(c("KC", "kansas city chiefs", "OAK", "WSH"), sport = "nfl")
 clean_team_abbrs(c("BOS", "GS", "INVALID"), sport = "nba", keep_non_matches = FALSE)
+clean_team_abbrs(c("Iowa St.", "St. John's (NY)", "Miami (OH)"), sport = "mbb")
 }

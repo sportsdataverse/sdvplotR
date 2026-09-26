@@ -9,9 +9,13 @@
 #   * nflreadr::load_teams() -- nflverse abbreviations, colors, wordmarks and
 #     divisions for the NFL (the canonical NFL keys follow nflverse so that
 #     nflfastR / nflreadr output plots without cleaning).
+#   * sportsdataverse-py's NCAA <-> ESPN team crosswalks (men's and women's
+#     basketball, 2009-10 on) and hoopR::load_mbb_team_crosswalk() -- the
+#     school names NCAA.com / stats.ncaa.org, KenPom and Bart Torvik use
+#     ("Iowa St.", "St. John's (NY)"), keyed by ESPN team id.
 #
 # Run from the package root:  Rscript data-raw/generate_logo_ref.R
-# Requires: httr, jsonlite, nflreadr, usethis (dev-only, not package deps).
+# Requires: httr, jsonlite, nflreadr, hoopR, usethis (dev-only, not package deps).
 
 
 `%||%` <- function(x, y) if (is.null(x)) y else x
@@ -254,6 +258,32 @@ aliases <- list(
   wbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF")
 )
 
+# School names other college sources use, by ESPN team id. ESPN's college
+# team ids are per school, so the basketball names also serve football. A name
+# that points at two schools is dropped rather than guessed.
+crosswalk_url <- paste0(
+  "https://raw.githubusercontent.com/sportsdataverse/sportsdataverse-py/main/",
+  "sportsdataverse/%s/data/ncaa_espn_team_crosswalk_%s.csv"
+)
+ncaa <- do.call(rbind, lapply(c("mbb", "wbb"), function(s) {
+  read.csv(sprintf(crosswalk_url, s, s), stringsAsFactors = FALSE)[, c("ncaa_team", "espn_team_id")]
+}))
+# the last two seasons hoopR has published (it refuses later ones)
+kp_season <- hoopR::most_recent_mbb_season()
+kp <- as.data.frame(hoopR::load_mbb_team_crosswalk(seasons = c(kp_season - 1, kp_season)))
+school_names <- data.frame(
+  name = c(ncaa$ncaa_team, kp$kp_team, kp$bart_team),
+  espn_team_id = as.integer(c(ncaa$espn_team_id, kp$espn_team_id, kp$espn_team_id)),
+  stringsAsFactors = FALSE
+)
+school_names <- unique(school_names[!is.na(school_names$name) & nzchar(school_names$name) &
+  !is.na(school_names$espn_team_id), ])
+school_names$key <- toupper(school_names$name)
+ambiguous <- unique(school_names$key[duplicated(school_names$key)])
+if (length(ambiguous)) message("dropping school names used for two schools: ", paste(ambiguous, collapse = ", "))
+school_names <- school_names[!school_names$key %in% ambiguous, ]
+message(nrow(school_names), " NCAA / KenPom / Torvik school names")
+
 abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(d) {
   keys <- c(
     d$team_abbr,
@@ -264,6 +294,11 @@ abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(d) {
   vals <- rep(d$team_abbr, 4)
   keep <- !is.na(keys) & !duplicated(keys)
   m <- stats::setNames(vals[keep], keys[keep])
+  if (d$sport[1] %in% c("cfb", "mbb", "wbb")) {
+    # ESPN's own keys win; only names ESPN doesn't use are added
+    sn <- school_names[school_names$espn_team_id %in% d$espn_team_id & !school_names$key %in% names(m), ]
+    m <- c(m, stats::setNames(d$team_abbr[match(sn$espn_team_id, d$espn_team_id)], sn$key))
+  }
   al <- aliases[[d$sport[1]]]
   al <- al[!names(al) %in% names(m)]
   stopifnot(all(al %in% d$team_abbr))
