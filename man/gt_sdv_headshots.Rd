@@ -34,10 +34,12 @@ GSIS IDs for the NFL and ESPN athlete IDs for every other sport. \code{"espn"}
 takes ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
 hoopR's and wehoop's \verb{espn_*()} functions. \code{"league"} takes the league's
 own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats \code{PERSON_ID}
-(hoopR's \verb{nba_*()}, wehoop's \verb{wnba_*()}), or the MLBAM ID (baseballr's
-\verb{mlb_*()}, Baseball Savant) for MLB, drawn from that league's image CDN;
-other sports have no league option. Both are plain digits, so a mismatch
-draws the wrong player or no image rather than an error. League CDNs draw
+(hoopR's \verb{nba_*()}, wehoop's \verb{wnba_*()}), the MLBAM ID (baseballr's
+\verb{mlb_*()}, Baseball Savant) for MLB, or the NHL API player ID
+(fastRhockey's \verb{nhl_*()} and \verb{load_nhl_*()}) for the NHL, drawn from
+that league's image CDN; college sports have no league option. ESPN and
+league IDs other than GSIS are plain digits, so a mismatch draws the
+wrong player or no image rather than an error. League CDNs draw
 a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
 from datacenter IPs, so a plot drawn on CI or a server can come back
 without those headshots.}

@@ -223,7 +223,7 @@ scale_y_sdv <- function(
 
 #' @param id_type Which ID system the player IDs hold: `NULL` (the default;
 #'   GSIS IDs for the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"`
-#'   (NBA / WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See [geom_sdv_headshots()].
+#'   (NBA / WNBA Stats `PERSON_ID`, MLBAM, NHL API, GSIS). See [geom_sdv_headshots()].
 #' @rdname scale_axes_sdv
 #' @export
 scale_x_sdv_headshots <- function(

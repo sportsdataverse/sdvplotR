@@ -52,5 +52,5 @@ test_that("gt headshot helpers pass id_type through", {
   lab <- html_of(gt(data.frame(`1642286` = 1, check.names = FALSE)) |>
     gt_sdv_cols_label(sport = "wnba", type = "headshot", id_type = "league"))
   expect_match(lab, "cdn\\.wnba\\.com/headshots/wnba/latest/260x190/1642286\\.png")
-  expect_error(gt_sdv_headshots(gt(df), columns = "id", sport = "nhl", id_type = "league"), "league player ID")
+  expect_error(gt_sdv_headshots(gt(df), columns = "id", sport = "mbb", id_type = "league"), "league player ID")
 })

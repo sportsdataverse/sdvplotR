@@ -44,5 +44,5 @@ test_that("element_sdv_headshot records and uses id_type", {
   )
   element_grob(e, label = "2544")
   expect_identical(seen, "league")
-  expect_error(element_sdv_headshot("nhl", id_type = "league"), "league player ID")
+  expect_error(element_sdv_headshot("wbb", id_type = "league"), "league player ID")
 })

@@ -111,6 +111,14 @@ clean_team_abbrs <- function(
     a[miss] <- unname(m[toupper(resolve_historical_abbr(abbr[miss], sport))])
   }
 
+  # third pass: accents, which providers write inconsistently (the NHL API's
+  # "Montr\u00e9al Canadiens", ESPN's "San Jos\u00e9 State"), folded on both sides
+  miss <- is.na(a) & !is.na(abbr)
+  if (any(miss)) {
+    folded <- stats::setNames(m, fold_accents(names(m)))
+    a[miss] <- unname(folded[toupper(fold_accents(abbr[miss]))])
+  }
+
   unmatched <- unique(abbr[is.na(a) & !is.na(abbr)])
   if (length(unmatched) && getOption("sdvplotR.verbose", default = interactive())) {
     cli::cli_warn("Abbreviations not found in {.val {sport}} mapping: {.val {unmatched}}")
@@ -119,6 +127,22 @@ clean_team_abbrs <- function(
   if (isTRUE(keep_non_matches)) a <- ifelse(!is.na(a), a, abbr)
 
   a
+}
+
+# chartr() rather than iconv(to = "ASCII//TRANSLIT"), whose output differs by
+# platform. enc2utf8() first: in a C locale chartr() stops on an unmarked
+# string holding UTF-8 bytes (a CSV read without an encoding).
+fold_accents <- function(x) {
+  chartr(
+    paste0(
+      "\u00e0\u00e1\u00e2\u00e3\u00e4\u00e5\u00e7\u00e8\u00e9\u00ea\u00eb\u00ec\u00ed",
+      "\u00ee\u00ef\u00f1\u00f2\u00f3\u00f4\u00f5\u00f6\u00f9\u00fa\u00fb\u00fc\u00fd",
+      "\u00c0\u00c1\u00c2\u00c3\u00c4\u00c5\u00c7\u00c8\u00c9\u00ca\u00cb\u00cc\u00cd",
+      "\u00ce\u00cf\u00d1\u00d2\u00d3\u00d4\u00d5\u00d6\u00d9\u00da\u00db\u00dc\u00dd"
+    ),
+    "aaaaaaceeeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY",
+    enc2utf8(x)
+  )
 }
 
 # ---------------------------------------------------------------------------
@@ -222,8 +246,9 @@ espn_headshot_url <- function(espn_id, sport) {
 
 # Headshots keyed by the league's own player id, as hoopR's
 # nba_player_headshot_url() / wehoop's wnba_playerheadshot() (NBA and WNBA Stats
-# PERSON_ID) and mlbplotR (MLBAM) build them. An unknown id gets the CDN's
-# silhouette, not a 404. cdn.nba.com and cdn.wnba.com answer 403 to datacenter
+# PERSON_ID), mlbplotR (MLBAM) and the NHL API (its `headshot` for players with
+# no current team: mugs/nhl/latest, the same image as the season/team mug)
+# build them. An unknown id gets the CDN's silhouette, not a 404. cdn.nba.com and cdn.wnba.com answer 403 to datacenter
 # IPs, so a ggplot drawn on CI or a server can come back without the image.
 league_headshot_url <- c(
   nba = "https://cdn.nba.com/headshots/nba/latest/260x190/%s.png",
@@ -231,7 +256,8 @@ league_headshot_url <- c(
   mlb = paste0(
     "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/",
     "w_213,q_auto:best/v1/people/%s/headshot/67/current.png"
-  )
+  ),
+  nhl = "https://assets.nhle.com/mugs/nhl/latest/%s.png"
 )
 
 # `id_type` for the exported headshot helpers: NULL keeps each sport's default
@@ -252,7 +278,7 @@ check_id_type <- function(id_type, sport) {
 
 # Player IDs are GSIS IDs for the NFL and ESPN athlete IDs everywhere else, unless
 # `id_type` says otherwise: "espn" takes ESPN athlete IDs for every sport,
-# "league" the league's own ID (GSIS; NBA / WNBA Stats PERSON_ID; MLBAM).
+# "league" the league's own ID (GSIS; NBA / WNBA Stats PERSON_ID; MLBAM; NHL API).
 # Both are plain digits, so which one an ID is can't be told from its shape.
 headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
   id_type <- id_type %||% if (sport == "nfl") "league" else "espn"

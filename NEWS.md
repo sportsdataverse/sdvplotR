@@ -66,7 +66,8 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
 * Every headshot helper takes `id_type`, so player IDs from sources other than
   ESPN draw the right player. `"league"` reads the league's own ID from its
   image CDN: NBA Stats and WNBA Stats `PERSON_ID` (hoopR's `nba_*()`, wehoop's
-  `wnba_*()`) and MLBAM (baseballr, Baseball Savant). `"espn"` reads ESPN
+  `wnba_*()`), MLBAM (baseballr, Baseball Savant) and NHL API player IDs
+  (fastRhockey's `nhl_*()` and `load_nhl_*()`). `"espn"` reads ESPN
   athlete IDs in any sport, including the NFL. By default, IDs are read as
   before: GSIS for the NFL, ESPN elsewhere. The ID systems overlap: without
   `id_type`, Dirk Nowitzki's NBA Stats ID drew ESPN's Jared Jeffries.
@@ -80,6 +81,10 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
 * `theme_x_sdv()` and `theme_y_sdv()` work after a complete theme such as
   `theme_minimal()` on 'ggplot2' 4, which sets the position-specific axis text
   elements itself; axis logos drew as raw HTML there.
+* `clean_team_abbrs()` matches team names regardless of accents, which
+  providers write inconsistently: the NHL API's "Montréal Canadiens" now
+  resolves, as does an unaccented "San Jose State" against ESPN's
+  "San José State".
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose

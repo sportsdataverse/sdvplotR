@@ -38,50 +38,40 @@ head(nhl_teams)
 
 ## Loading NHL Data
 
-Use `fastRhockey` to load NHL player and team statistics:
+Use `fastRhockey` to load team and skater statistics from the NHL Stats API:
 
 ```{r load-data}
-# Load NHL team stats
-team_stats <- fastRhockey::load_nhl_team_stats(
-  seasons = fastRhockey::most_recent_nhl_season(),
-  level = "team"
-)
+# fastRhockey keys seasons by their ending year: 2026 is 2025-26
+season <- fastRhockey::most_recent_nhl_season()
+season_id <- paste0(season - 1, season)
 
-# Load NHL player stats
-player_stats <- fastRhockey::load_nhl_player_stats(
-  seasons = fastRhockey::most_recent_nhl_season(),
-  season_type = "Regular Season"
-)
+# One row per team; clean_team_abbrs() turns the NHL's full names into
+# sdvplotR's abbreviations
+team_stats <- fastRhockey::nhl_stats_teams(season = season_id) |>
+  mutate(team_abbr = clean_team_abbrs(team_full_name, sport = "nhl"))
+
+# Every skater (limit = -1), keyed by NHL API player ID, so the goal and assist
+# leaderboards below rank the full list
+player_stats <- fastRhockey::nhl_stats_skaters(season = season_id, limit = -1)
 ```
 
 ## NHL Team Performance
 
-Visualize team performance with team logos:
+Plot every team's goals for against goals against, with team logos:
 
 ```{r team-performance}
-# Calculate team metrics
-team_perf <- team_stats |>
-  filter(!is.na(team_abbreviation)) |>
-  group_by(team_abbreviation) |>
-  summarise(
-    avg_goals = mean(goals, na.rm = TRUE),
-    avg_assists = mean(assists, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
-  ) |>
-  filter(games >= 10)
-
-ggplot(team_perf, aes(x = avg_goals, y = avg_assists)) +
+ggplot(team_stats, aes(x = goals_for_per_game, y = goals_against_per_game)) +
   geom_sdv_logos(
-    aes(team = team_abbreviation),
+    aes(team = team_abbr),
     sport = "nhl",
-    width = 0.075
+    width = 0.06
   ) +
+  scale_y_reverse() +
   labs(
-    title = "NHL Team Performance",
-    subtitle = paste("Season", fastRhockey::most_recent_nhl_season()),
-    x = "Average Goals per Game",
-    y = "Average Assists per Game",
+    title = "NHL Goals For and Against",
+    subtitle = paste0("Season ", season - 1, "-", substr(season, 3, 4)),
+    x = "Goals For per Game",
+    y = "Goals Against per Game (fewer is better)",
     caption = "Data: fastRhockey | Viz: sdvplotR"
   ) +
   theme_minimal()
@@ -89,31 +79,21 @@ ggplot(team_perf, aes(x = avg_goals, y = avg_assists)) +
 
 ## NHL Team Colors
 
-Use team colors to visualize win percentages:
+Use team colors to show points percentage:
 
 ```{r team-colors}
-# Calculate win percentage
 team_wins <- team_stats |>
-  filter(!is.na(team_abbreviation)) |>
-  group_by(team_abbreviation) |>
-  summarise(
-    wins = sum(win == 1, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
-  ) |>
-  filter(games >= 10) |>
-  mutate(win_pct = wins / games) |>
-  arrange(desc(win_pct)) |>
+  arrange(desc(point_pct)) |>
   head(20)
 
-ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
-  geom_col(aes(fill = team_abbreviation), width = 0.7) +
+ggplot(team_wins, aes(x = reorder(team_abbr, point_pct), y = point_pct)) +
+  geom_col(aes(fill = team_abbr), width = 0.7) +
   scale_fill_sdv(sport = "nhl", alpha = 0.8) +
   scale_y_continuous(labels = scales::percent) +
   labs(
-    title = "Top 20 NHL Teams by Win Percentage",
+    title = "Top 20 NHL Teams by Points Percentage",
     x = NULL,
-    y = "Win Percentage"
+    y = "Points Percentage"
   ) +
   theme_minimal() +
   theme(
@@ -124,42 +104,43 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
 
 ## Player Headshots
 
-Visualize top performers with player headshots:
+Plot the goal scoring leaders with their headshots:
 
 ```{r player-headshots}
-# Top goal scorers
 top_goals <- player_stats |>
-  filter(!is.na(player_id)) |>
-  group_by(player_id, player_name) |>
-  summarise(
-    total_goals = sum(goals, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
-  ) |>
-  filter(games >= 30) |>
-  arrange(desc(total_goals)) |>
-  head(8)
+  slice_max(goals, n = 8, with_ties = FALSE)
 
-ggplot(top_goals, aes(x = games, y = total_goals)) +
+ggplot(top_goals, aes(x = games_played, y = goals)) +
   geom_sdv_headshots(
     aes(player_id = player_id),
     sport = "nhl",
+    id_type = "league",
     height = 0.15
   ) +
   geom_label(
-    aes(label = player_name),
-    nudge_y = -3,
+    aes(label = skater_full_name),
+    nudge_y = -2,
     size = 3,
     alpha = 0.7
   ) +
   labs(
-    title = "Top 8 NHL Goal Scorers",
-    subtitle = paste("Season", fastRhockey::most_recent_nhl_season()),
+    title = "NHL Goal Scoring Leaders",
+    subtitle = paste0("Season ", season - 1, "-", substr(season, 3, 4)),
     x = "Games Played",
-    y = "Total Goals"
+    y = "Goals"
   ) +
   theme_minimal()
 ```
+
+### NHL API player IDs
+
+The NHL's own APIs, which fastRhockey's `nhl_*()` functions and its
+`load_nhl_*()` datasets come from, identify players by their NHL API ID
+(McDavid is 8478402), not their ESPN athlete ID, which is why these headshots
+pass `id_type = "league"`: it draws NHL API IDs from the NHL's image CDN. Leave
+`id_type` unset for ESPN athlete IDs, such as those in fastRhockey's
+`espn_nhl_*()` data. Both are plain
+numbers, so the wrong setting draws someone else or nothing.
 
 ## NHL Team Tiers
 
@@ -192,35 +173,29 @@ sdv_team_tiers(
 
 ## NHL Conference Map
 
-Visualize teams grouped by conference and division:
+Show each division's teams in a column, using the conference and division
+sdvplotR keeps for every team:
 
 ```{r conference-map}
-# Get team info with conferences
-nhl_info <- fastRhockey::nhl_teams() |>
-  select(team_abbreviation, team_name, conference_name, division_name)
-
-conference_map <- nhl_info |>
-  filter(!is.na(conference_name)) |>
-  mutate(
-    conf_div = paste(conference_name, division_name),
-    conf_div_num = as.numeric(factor(conf_div))
-  ) |>
-  arrange(conf_div_num, team_name) |>
-  mutate(
-    team_rank = row_number(),
-    .by = conf_div_num
-  )
+conference_map <- team_reference("nhl") |>
+  mutate(conf_div = paste(conference, division)) |>
+  arrange(conf_div, team_name) |>
+  group_by(conf_div) |>
+  mutate(team_rank = row_number()) |>
+  ungroup() |>
+  mutate(conf_div_num = as.numeric(factor(conf_div)))
 
 ggplot(conference_map, aes(x = conf_div_num, y = team_rank)) +
   geom_sdv_logos(
-    aes(team = team_abbreviation),
+    aes(team = team_abbr),
     sport = "nhl",
     width = 0.075
   ) +
   scale_x_continuous(
-    breaks = 1:length(unique(conference_map$conf_div)),
-    labels = unique(conference_map$conf_div)
+    breaks = seq_along(levels(factor(conference_map$conf_div))),
+    labels = levels(factor(conference_map$conf_div))
   ) +
+  scale_y_reverse() +
   labs(
     title = "NHL Teams by Conference & Division",
     x = NULL,
@@ -239,96 +214,84 @@ ggplot(conference_map, aes(x = conf_div_num, y = team_rank)) +
 Create a gt table with team logos:
 
 ```{r gt-table}
-standings_table <- team_wins |>
+team_wins |>
   head(15) |>
-  mutate(
-    logo = team_abbreviation,
-    rank = row_number()
-  ) |>
-  select(rank, logo, team_abbreviation, wins, games, win_pct)
-
-standings_table |>
+  mutate(rank = row_number(), logo = team_abbr) |>
+  select(rank, logo, team_full_name, wins, losses, ot_losses, points, point_pct) |>
   gt() |>
   gt_sdv_logos(columns = "logo", sport = "nhl", height = 35) |>
-  fmt_number(columns = "win_pct", decimals = 3) |>
+  fmt_number(columns = "point_pct", decimals = 3) |>
   cols_label(
     rank = "#",
-    logo = "Team",
-    team_abbreviation = "Abbrev",
-    wins = "Wins",
-    games = "Games",
-    win_pct = "Win %"
+    logo = "",
+    team_full_name = "Team",
+    wins = "W",
+    losses = "L",
+    ot_losses = "OTL",
+    points = "Pts",
+    point_pct = "Pts%"
   ) |>
   tab_header(
     title = "NHL Top 15",
-    subtitle = paste("Season", fastRhockey::most_recent_nhl_season())
+    subtitle = paste0("Season ", season - 1, "-", substr(season, 3, 4))
   )
 ```
 
 ## Player Performance Comparison
 
-Compare top players using headshots:
+Compare the goal scoring leaders with the assist leaders:
 
 ```{r player-comparison}
-# Top 5 goal scorers and point leaders
-top_5_goals <- top_goals |> head(5)
-top_5_points <- player_stats |>
-  filter(!is.na(player_id)) |>
-  group_by(player_id, player_name) |>
-  summarise(
-    total_points = sum(points, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
-  ) |>
-  filter(games >= 30) |>
-  arrange(desc(total_points)) |>
-  head(5)
-
-# Combine for comparison
 comparison <- bind_rows(
-  top_5_goals |> mutate(category = "Top Goals"),
-  top_5_points |> mutate(category = "Top Points")
-)
+  player_stats |>
+    slice_max(goals, n = 5, with_ties = FALSE) |>
+    transmute(player_id, category = "Goals", value = goals),
+  player_stats |>
+    slice_max(assists, n = 5, with_ties = FALSE) |>
+    transmute(player_id, category = "Assists", value = assists)
+) |>
+  group_by(category) |>
+  mutate(rank = row_number()) |>
+  ungroup()
 
-ggplot(comparison, aes(x = category, y = total_goals)) +
+ggplot(comparison, aes(x = rank, y = value)) +
   geom_sdv_headshots(
     aes(player_id = player_id),
     sport = "nhl",
-    width = 0.1
+    id_type = "league",
+    height = 0.2
   ) +
-  facet_wrap(~ category, scales = "free_y") +
+  facet_wrap(~category, scales = "free_y") +
+  scale_x_continuous(breaks = 1:5) +
   labs(
     title = "NHL Top Performers",
-    subtitle = paste("Season", fastRhockey::most_recent_nhl_season()),
-    x = NULL,
+    subtitle = paste0("Season ", season - 1, "-", substr(season, 3, 4)),
+    x = "Rank",
     y = NULL
   ) +
-  theme_minimal() +
-  theme(
-    axis.text = element_blank(),
-    panel.grid = element_blank()
-  )
+  theme_minimal()
 ```
 
 ## Axis Labels with Logos
 
-Replace axis labels with team logos:
+Replace axis labels with team logos (`theme_x_sdv()` needs the `ggtext`
+package, and goes after any complete theme such as `theme_minimal()`):
 
 ```{r axis-logos}
 top_8 <- team_wins |>
   head(8) |>
-  mutate(team_abbreviation = factor(team_abbreviation, levels = team_abbreviation))
+  mutate(team_abbr = factor(team_abbr, levels = team_abbr))
 
-ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
-  geom_col(aes(fill = team_abbreviation), width = 0.6) +
+ggplot(top_8, aes(x = team_abbr, y = point_pct)) +
+  geom_col(aes(fill = team_abbr), width = 0.6) +
   scale_fill_sdv(sport = "nhl", alpha = 0.7) +
   scale_x_sdv(sport = "nhl") +
   theme_minimal() +
   theme_x_sdv() +
   labs(
-    title = "Top 8 NHL Teams by Win %",
+    title = "Top 8 NHL Teams by Points Percentage",
     x = NULL,
-    y = "Win Percentage"
+    y = "Points Percentage"
   ) +
   theme(legend.position = "none")
 ```
