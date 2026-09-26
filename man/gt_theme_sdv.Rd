@@ -57,7 +57,6 @@ leaves every size as the theme sets it, \code{"compact"} scales both down, and
 }
 
 \examples{
-\dontrun{
 library(gt)
 standings <- data.frame(
   team = c("KC", "LAC", "DEN", "LV"),
@@ -69,7 +68,6 @@ gt(standings) |>
   gt_theme_sdv()
 
 gt(standings) |> gt_theme_sdv(style = "dark", density = "social")
-}
 
 }
 \seealso{

@@ -89,8 +89,10 @@
   styles <- gt_object[["_styles"]]
   if (!is.null(styles) && nrow(styles)) {
     for (i in seq_len(nrow(styles))) {
-      role <- role_of[[styles$locname[[i]]]]
-      if (is.null(role)) next
+      # single-bracket lookup: a location with no role (grand summary, stub
+      # grand summary) is NA and skipped, where [[ errored
+      role <- unname(role_of[styles$locname[[i]]])
+      if (is.na(role)) next
       sz <- styles$styles[[i]]$cell_text$size
       if (is.null(sz)) next
       gt_object[["_styles"]]$styles[[i]]$cell_text$size <- .theme_scale_len(sz, k[[role]])

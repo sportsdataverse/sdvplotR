@@ -61,7 +61,6 @@ leaves every size as the theme sets it, \code{"compact"} scales both down, and
 }
 
 \examples{
-\dontrun{
 library(gt)
 leaders <- data.frame(
   player = c("Patrick Mahomes", "Travis Kelce", "Isiah Pacheco"),
@@ -70,7 +69,6 @@ leaders <- data.frame(
 gt(leaders) |>
   tab_header("Chiefs yardage leaders", "2023 regular season") |>
   gt_theme_sdv_team(team = "KC", sport = "nfl")
-}
 
 }
 \seealso{

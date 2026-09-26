@@ -10,7 +10,7 @@
 #' \describe{
 #'   \item{theme}{The theme function name.}
 #'   \item{has_style}{The `style` value the row applies to (`"light"` or
-#'     `"dark"`) for [gt_theme_sofa()] and [gt_theme_tier()], or `""` for themes
+#'     `"dark"`) for [gt_theme_sdv()], [gt_theme_sofa()] and [gt_theme_tier()], or `""` for themes
 #'     without one.}
 #'   \item{bg}{The background color the theme applies, as a hex code.}
 #' }

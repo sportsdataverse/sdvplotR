@@ -38,7 +38,6 @@
 #' @seealso [gt_theme_sdv_team()], [theme_bg] for the background to pad a saved
 #'   image with.
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' standings <- data.frame(
 #'   team = c("KC", "LAC", "DEN", "LV"),
@@ -50,7 +49,6 @@
 #'   gt_theme_sdv()
 #'
 #' gt(standings) |> gt_theme_sdv(style = "dark", density = "social")
-#' }
 #'
 #' @export
 gt_theme_sdv <- function(gt_object, style = c("light", "dark"),
@@ -103,7 +101,6 @@ gt_theme_sdv <- function(gt_object, style = c("light", "dark"),
 #'
 #' @seealso [gt_theme_sdv()], [sdv_team_colors()].
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' leaders <- data.frame(
 #'   player = c("Patrick Mahomes", "Travis Kelce", "Isiah Pacheco"),
@@ -112,7 +109,6 @@ gt_theme_sdv <- function(gt_object, style = c("light", "dark"),
 #' gt(leaders) |>
 #'   tab_header("Chiefs yardage leaders", "2023 regular season") |>
 #'   gt_theme_sdv_team(team = "KC", sport = "nfl")
-#' }
 #'
 #' @export
 gt_theme_sdv_team <- function(gt_object, team = NULL,
@@ -129,13 +125,18 @@ gt_theme_sdv_team <- function(gt_object, team = NULL,
     if (length(team) != 1) {
       cli::cli_abort("{.arg team} must be a single team, not {length(team)}.")
     }
-    primary <- unname(sdv_team_colors(sport, team, "primary"))
-    secondary <- unname(sdv_team_colors(sport, team, "secondary"))
-    if (is.na(primary) || !nzchar(primary)) {
+    if (is.na(clean_team_abbrs(as.character(team), sport = sport, keep_non_matches = FALSE))) {
       cli::cli_abort(c(
         "No {toupper(sport)} team matches {.val {team}}.",
         "i" = "See {.run sdvplotR::valid_team_names(\"{sport}\")} for accepted keys."
       ))
+    }
+    primary <- unname(sdv_team_colors(sport, team, "primary"))
+    secondary <- unname(sdv_team_colors(sport, team, "secondary"))
+    if (is.na(primary) || !nzchar(primary)) {
+      cli::cli_warn("No colors on file for {toupper(sport)} team {.val {team}}; using the SportsDataverse colors.")
+      primary <- "#0B1A33"
+      secondary <- "#7FE6DC"
     }
     if (is.na(secondary) || !nzchar(secondary)) secondary <- primary
   }
@@ -192,8 +193,12 @@ gt_theme_sdv_team <- function(gt_object, team = NULL,
     gt::tab_style(
       locations = list(gt::cells_source_notes(), gt::cells_footnotes()),
       style = gt::cell_text(size = gt::px(12), color = pal$muted)
-    ) |>
-    gt::tab_options(
+    )
+
+  # the theme's options with the caller's `...` merged on top, so passing an
+  # option the theme also sets overrides it instead of erroring
+  opts <- utils::modifyList(
+    list(
       table.background.color = pal$bg,
       table.font.color = pal$text,
       table.font.size = gt::px(15),
@@ -215,9 +220,11 @@ gt_theme_sdv_team <- function(gt_object, team = NULL,
       table.border.top.style = "none",
       table.border.bottom.style = "none",
       source_notes.border.bottom.style = "none",
-      footnotes.border.bottom.style = "none",
-      ...
-    ) |>
+      footnotes.border.bottom.style = "none"
+    ),
+    list(...)
+  )
+  table <- do.call(gt::tab_options, c(list(table), opts)) |>
     gt::opt_css(c(
       # the horizon: one line under the column labels, drawn over the thead so
       # a gradient spans the whole table rather than restarting in each cell
