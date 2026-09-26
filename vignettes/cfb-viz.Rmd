@@ -19,8 +19,8 @@ knitr::opts_chunk$set(
 
 This vignette demonstrates how to create rich CFB (College Football) visualizations
 by combining [cfbfastR](https://cfbfastR.sportsdataverse.org) for play-by-play
-data, [cfbseedR](https://cfbseedR.sportsdataverse.org) for playoff/tournament
-analysis, and [sdvplotR](https://sdvplotr.sportsdataverse.org) for team logos,
+data, [cfbseedR](https://cfbseedR.sportsdataverse.org) for conference standings
+and College Football Playoff seeding, and [sdvplotR](https://sdvplotr.sportsdataverse.org) for team logos,
 colors, and gt tables.
 
 ## Setup
@@ -41,36 +41,30 @@ head(cfb_teams)
 
 ## Loading CFB Data
 
-Use `cfbfastR` to load play-by-play data:
+Use `cfbfastR` to load a season of play-by-play data:
 
 ```{r load-pbp}
-# Load recent season play-by-play
-pbp <- cfbfastR::load_cfb_pbp(
-  seasons = cfbfastR::most_recent_cfb_season(),
-  epa_wpa = TRUE
-)
+# College football seasons start in August; before then, use last season
+season <- as.integer(format(Sys.Date(), "%Y")) -
+  (as.integer(format(Sys.Date(), "%m")) < 8)
 
-# Filter to pass plays
+pbp <- cfbfastR::load_cfb_pbp(seasons = season)
+
+# Pass plays with an EPA value; clean_team_abbrs() turns the offense's school
+# name into sdvplotR's abbreviation
 pass_plays <- pbp |>
-  filter(
-    !is.na(EPA),
-    pass == 1,
-    !is.na(posteam)
-  )
+  filter(pass == 1, !is.na(EPA), !is.na(pos_team)) |>
+  mutate(team_abbr = clean_team_abbrs(pos_team, sport = "cfb"))
 ```
 
 ## Conference Standings with Logos
 
-Create a conference standings table with team logos:
+Rank one conference's passing offenses by EPA per play:
 
 ```{r conference-standings}
-# Get team info with conferences
-team_info <- cfbfastR::cfb_team_info() |>
-  filter(conference %in% c("SEC", "Big Ten", "ACC", "Big 12", "Pac-12"))
-
-# Calculate team performance
+# EPA per pass play for every team, with the conference sdvplotR keeps for it
 team_perf <- pass_plays |>
-  group_by(posteam) |>
+  group_by(team_abbr) |>
   summarise(
     mean_epa = mean(EPA, na.rm = TRUE),
     n_plays = n(),
@@ -78,23 +72,23 @@ team_perf <- pass_plays |>
   ) |>
   filter(n_plays >= 100) |>
   inner_join(
-    team_info |> select(school = school, conference),
-    by = c("posteam" = "school")
+    select(team_reference("cfb"), team_abbr, team_location, conference),
+    by = "team_abbr"
   )
 
-# Show SEC teams
 sec_teams <- team_perf |>
   filter(conference == "SEC") |>
   arrange(desc(mean_epa))
 
-ggplot(sec_teams, aes(x = reorder(posteam, mean_epa), y = mean_epa)) +
-  geom_col(aes(fill = posteam), width = 0.7) +
+ggplot(sec_teams, aes(x = reorder(team_abbr, mean_epa), y = mean_epa)) +
+  geom_col(aes(fill = team_abbr), width = 0.7) +
   scale_fill_sdv(sport = "cfb", alpha = 0.8) +
   labs(
-    title = "SEC Teams by Pass EPA per Play",
-    subtitle = paste("Season", cfbfastR::most_recent_cfb_season()),
+    title = "SEC Passing Efficiency",
+    subtitle = paste("Season", season),
     x = NULL,
-    y = "Mean EPA per Play"
+    y = "EPA per Pass Play",
+    caption = "Data: cfbfastR | Viz: sdvplotR"
   ) +
   theme_minimal() +
   theme(
@@ -105,35 +99,46 @@ ggplot(sec_teams, aes(x = reorder(posteam, mean_epa), y = mean_epa)) +
 
 ## Playoff Bracket with cfbseedR
 
-Use `cfbseedR` to simulate College Football Playoff brackets:
+`cfbseedR` applies each conference's tiebreakers and seeds a 12-team College
+Football Playoff from a season's results. This seeds the last completed season:
 
 ```{r playoff-bracket}
-# Get current CFP rankings (requires API key)
-# rankings <- cfbseedR::cfb_rankings(year = cfbfastR::most_recent_cfb_season())
+completed <- if (as.integer(format(Sys.Date(), "%m")) >= 8) season - 1 else season
+sched <- cfbfastR::load_cfb_schedules(completed)
 
-# Simulate playoff bracket
-# bracket_sim <- cfbseedR::cfb_simulate(
-#   rankings = rankings,
-#   n_sims = 1000
-# )
+# FBS and FCS teams: games against FCS count toward records, but only FBS
+# teams are seeded
+teams <- bind_rows(
+  sched |> transmute(team = home_team, conference = home_conference, division = toupper(home_division)),
+  sched |> transmute(team = away_team, conference = away_conference, division = toupper(away_division))
+) |>
+  distinct(team, .keep_all = TRUE) |>
+  filter(division %in% c("FBS", "FCS"))
 
-# For demonstration, create sample bracket data
-bracket_data <- data.frame(
-  seed = 1:12,
-  team = c("UGA", "MICH", "WASH", "FSU", "OSU", "TEX",
-           "ALA", "ORE", "PSU", "MIZ", "AZ", "LSU")
-)
+games <- cfbseedR::cfb_games_from_schedule(sched) |>
+  filter(
+    game_type != "POST", !is.na(result),
+    home_team %in% teams$team, away_team %in% teams$team
+  )
+
+standings <- cfbseedR::cfb_standings(games, teams, verbosity = "NONE")
+
+bracket_data <- standings |>
+  filter(team %in% teams$team[teams$division == "FBS"]) |>
+  cfbseedR::cfb_playoff_seeds(playoff_seeds = 12) |>
+  filter(!is.na(seed)) |>
+  mutate(team_abbr = clean_team_abbrs(team, sport = "cfb"))
 
 ggplot(bracket_data, aes(x = seed, y = 1)) +
   geom_sdv_logos(
-    aes(team = team),
+    aes(team = team_abbr),
     sport = "cfb",
-    width = 0.075
+    width = 0.07
   ) +
   scale_x_continuous(breaks = 1:12) +
   labs(
     title = "College Football Playoff Seeds",
-    subtitle = paste("Season", cfbfastR::most_recent_cfb_season()),
+    subtitle = paste("Season", completed, "from results alone"),
     x = "Seed",
     y = NULL
   ) +
@@ -145,14 +150,18 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   )
 ```
 
+Without committee rankings the field is seeded from results alone. Pass the
+committee's final rankings as `rankings =` to `cfb_playoff_seeds()` to seed
+the bracket the way the committee did.
+
 ## CFB Team Tiers
 
 Create a tier plot for top CFB teams:
 
 ```{r team-tiers}
-# Top 25 teams by EPA
+# The 25 best passing offenses by EPA per play, in tiers
 top_25 <- team_perf |>
-  top_n(25, wt = mean_epa) |>
+  slice_max(mean_epa, n = 25, with_ties = FALSE) |>
   mutate(
     tier_no = case_when(
       mean_epa > 0.3 ~ 1,
@@ -162,13 +171,13 @@ top_25 <- team_perf |>
       TRUE ~ 5
     )
   ) |>
-  select(tier_no, team = posteam)
+  select(tier_no, team = team_abbr)
 
 sdv_team_tiers(
   top_25,
   sport = "cfb",
-  title = "CFB Power Rankings",
-  subtitle = paste("Week", ceiling(runif(1, 1, 15)), "of", cfbfastR::most_recent_cfb_season()),
+  title = "CFB Passing Offense Tiers",
+  subtitle = paste("EPA per pass play, season", season),
   tier_desc = c(
     "1" = "Elite",
     "2" = "Playoff Contenders",
@@ -185,30 +194,29 @@ sdv_team_tiers(
 Visualize all FBS teams by conference:
 
 ```{r conference-map}
-# Get conference assignments
-conference_map <- team_info |>
-  filter(!is.na(conference)) |>
-  select(team = school, conference) |>
-  mutate(
-    conference_num = as.numeric(factor(conference)),
-    team_rank = row_number(),
-    .by = conference
-  ) |>
-  arrange(conference_num, team_rank)
+# FBS conferences, from the conferences sdvplotR keeps for every team
+conference_map <- team_reference("cfb") |>
+  filter(division == "FBS") |>
+  arrange(conference, team_location) |>
+  group_by(conference) |>
+  mutate(team_rank = row_number()) |>
+  ungroup() |>
+  mutate(conference_num = as.numeric(factor(conference)))
 
 ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   geom_sdv_logos(
-    aes(team = team),
+    aes(team = team_abbr),
     sport = "cfb",
-    width = 0.05
+    width = 0.04
   ) +
   scale_x_continuous(
-    breaks = 1:length(unique(conference_map$conference)),
-    labels = unique(conference_map$conference)
+    breaks = seq_along(levels(factor(conference_map$conference))),
+    labels = levels(factor(conference_map$conference))
   ) +
+  scale_y_reverse() +
   labs(
     title = "FBS Teams by Conference",
-    x = "Conference",
+    x = NULL,
     y = NULL
   ) +
   theme_minimal() +
@@ -224,31 +232,25 @@ ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
 Create a gt table with team logos:
 
 ```{r gt-table}
-standings_table <- team_perf |>
-  top_n(15, wt = mean_epa) |>
-  arrange(desc(mean_epa)) |>
-  mutate(
-    logo = posteam,
-    rank = row_number()
-  ) |>
-  select(rank, logo, posteam, conference, mean_epa, n_plays)
-
-standings_table |>
+team_perf |>
+  slice_max(mean_epa, n = 15, with_ties = FALSE) |>
+  mutate(rank = row_number(), logo = team_abbr) |>
+  select(rank, logo, team_location, conference, mean_epa, n_plays) |>
   gt() |>
   gt_sdv_logos(columns = "logo", sport = "cfb", height = 30) |>
   fmt_number(columns = "mean_epa", decimals = 3) |>
   fmt_number(columns = "n_plays", decimals = 0) |>
   cols_label(
     rank = "#",
-    logo = "Team",
-    posteam = "School",
+    logo = "",
+    team_location = "Team",
     conference = "Conf",
     mean_epa = "EPA/Play",
     n_plays = "Plays"
   ) |>
   tab_header(
-    title = "CFB Top 15 by Pass EPA",
-    subtitle = paste("Season", cfbfastR::most_recent_cfb_season())
+    title = "Top 15 CFB Passing Offenses",
+    subtitle = paste("Season", season)
   )
 ```
 
@@ -259,15 +261,16 @@ Visualize rivalry games with both team logos:
 ```{r rivalries}
 # Define rivalries
 rivalries <- data.frame(
-  team1 = c("BAMA", "AUB", "OSU", "MICH", "UGA", "UF"),
-  team2 = c("AUB", "BAMA", "MICH", "OSU", "UF", "UGA"),
+  team1 = c("ALA", "AUB", "OSU", "MICH", "UGA", "FLA"),
+  team2 = c("AUB", "ALA", "MICH", "OSU", "FLA", "UGA"),
   rivalry = c("Iron Bowl", "Iron Bowl", "The Game", "The Game",
               "World's Largest Outdoor Cocktail Party",
               "World's Largest Outdoor Cocktail Party")
 ) |>
-  distinct(rivalry, .keep_all = TRUE)
+  distinct(rivalry, .keep_all = TRUE) |>
+  mutate(row = row_number())
 
-ggplot(rivalries, aes(x = 1, y = row_number())) +
+ggplot(rivalries, aes(x = 1, y = row)) +
   geom_sdv_logos(
     aes(team = team1),
     sport = "cfb",
@@ -300,12 +303,11 @@ Replace axis labels with team logos:
 
 ```{r axis-logos}
 top_10 <- team_perf |>
-  top_n(10, wt = mean_epa) |>
-  arrange(desc(mean_epa)) |>
-  mutate(posteam = factor(posteam, levels = posteam))
+  slice_max(mean_epa, n = 10, with_ties = FALSE) |>
+  mutate(team_abbr = factor(team_abbr, levels = team_abbr))
 
-ggplot(top_10, aes(x = posteam, y = mean_epa)) +
-  geom_col(aes(fill = posteam), width = 0.6) +
+ggplot(top_10, aes(x = team_abbr, y = mean_epa)) +
+  geom_col(aes(fill = team_abbr), width = 0.6) +
   scale_fill_sdv(sport = "cfb", alpha = 0.7) +
   scale_x_sdv(sport = "cfb") +
   theme_minimal() +

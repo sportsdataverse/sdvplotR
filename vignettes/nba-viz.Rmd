@@ -38,20 +38,19 @@ head(nba_teams)
 
 ## Loading NBA Data
 
-Use `hoopR` to load NBA player and team statistics:
+Use `hoopR` to load this season's ESPN team and player box scores:
 
 ```{r load-data}
-# Load NBA team stats
-team_stats <- hoopR::load_nba_team_stats(
-  seasons = hoopR::most_recent_nba_season(),
-  level = "team"
-)
+season <- hoopR::most_recent_nba_season()
 
-# Load NBA player stats
-player_stats <- hoopR::load_nba_player_stats(
-  seasons = hoopR::most_recent_nba_season(),
-  season_type = "Regular Season"
-)
+# One row per team per game (ESPN box scores), regular season only
+team_stats <- hoopR::load_nba_team_box(seasons = season) |>
+  filter(season_type == 2)
+
+# One row per player per game, with ESPN athlete IDs; players who did not
+# play are dropped so games played counts real games
+player_stats <- hoopR::load_nba_player_box(seasons = season) |>
+  filter(season_type == 2, !did_not_play)
 ```
 
 ## NBA Team Performance
@@ -64,7 +63,7 @@ team_perf <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
   group_by(team_abbreviation) |>
   summarise(
-    avg_points = mean(points, na.rm = TRUE),
+    avg_points = mean(team_score, na.rm = TRUE),
     avg_rebounds = mean(total_rebounds, na.rm = TRUE),
     games = n(),
     .groups = "drop"
@@ -97,7 +96,7 @@ team_wins <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
   group_by(team_abbreviation) |>
   summarise(
-    wins = sum(win == 1, na.rm = TRUE),
+    wins = sum(team_winner, na.rm = TRUE),
     games = n(),
     .groups = "drop"
   ) |>
@@ -222,43 +221,36 @@ sdv_team_tiers(
 
 ## NBA Conference Map
 
-Visualize teams grouped by conference and division:
+Show each conference's teams in a column, using the conferences sdvplotR keeps
+for every team:
 
 ```{r conference-map}
-# Get team info with conferences
-nba_info <- hoopR::nba_teams() |>
-  select(team_abbreviation, team_name, conference_name, division_name)
+conference_map <- team_reference("nba") |>
+  arrange(conference, team_name) |>
+  group_by(conference) |>
+  mutate(team_rank = row_number()) |>
+  ungroup() |>
+  mutate(conference_num = as.numeric(factor(conference)))
 
-conference_map <- nba_info |>
-  filter(!is.na(conference_name)) |>
-  mutate(
-    conf_div = paste(conference_name, division_name),
-    conf_div_num = as.numeric(factor(conf_div))
-  ) |>
-  arrange(conf_div_num, team_name) |>
-  mutate(
-    team_rank = row_number(),
-    .by = conf_div_num
-  )
-
-ggplot(conference_map, aes(x = conf_div_num, y = team_rank)) +
+ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   geom_sdv_logos(
-    aes(team = team_abbreviation),
+    aes(team = team_abbr),
     sport = "nba",
-    width = 0.075
+    width = 0.08
   ) +
   scale_x_continuous(
-    breaks = 1:length(unique(conference_map$conf_div)),
-    labels = unique(conference_map$conf_div)
+    breaks = seq_along(levels(factor(conference_map$conference))),
+    labels = levels(factor(conference_map$conference)),
+    expand = expansion(add = 0.6)
   ) +
+  scale_y_reverse() +
   labs(
-    title = "NBA Teams by Conference & Division",
+    title = "NBA Teams by Conference",
     x = NULL,
     y = NULL
   ) +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
     axis.text.y = element_blank(),
     panel.grid = element_blank()
   )
@@ -297,47 +289,46 @@ standings_table |>
 
 ## Player Performance Comparison
 
-Compare top players using headshots:
+Compare the scoring leaders with the rebounding leaders:
 
 ```{r player-comparison}
-# Top 5 scorers and rebounders
-top_5_scorers <- top_scorers |> head(5)
-top_5_rebounders <- player_stats |>
-  filter(!is.na(athlete_id)) |>
+per_game <- player_stats |>
   group_by(athlete_id, athlete_display_name) |>
   summarise(
-    avg_rebounds = mean(total_rebounds, na.rm = TRUE),
+    points = mean(points, na.rm = TRUE),
+    rebounds = mean(rebounds, na.rm = TRUE),
     games = n(),
     .groups = "drop"
   ) |>
-  filter(games >= 20) |>
-  arrange(desc(avg_rebounds)) |>
-  head(5)
+  filter(games >= 20)
 
-# Combine for comparison
 comparison <- bind_rows(
-  top_5_scorers |> mutate(category = "Top Scorers"),
-  top_5_rebounders |> mutate(category = "Top Rebounders")
-)
+  per_game |>
+    slice_max(points, n = 5, with_ties = FALSE) |>
+    transmute(athlete_id, category = "Points per Game", value = points),
+  per_game |>
+    slice_max(rebounds, n = 5, with_ties = FALSE) |>
+    transmute(athlete_id, category = "Rebounds per Game", value = rebounds)
+) |>
+  group_by(category) |>
+  mutate(rank = row_number()) |>
+  ungroup()
 
-ggplot(comparison, aes(x = category, y = avg_points)) +
+ggplot(comparison, aes(x = rank, y = value)) +
   geom_sdv_headshots(
     aes(player_id = athlete_id),
     sport = "nba",
-    width = 0.1
+    height = 0.2
   ) +
-  facet_wrap(~ category, scales = "free_y") +
+  facet_wrap(~category, scales = "free_y") +
+  scale_x_continuous(breaks = 1:5) +
   labs(
     title = "NBA Top Performers",
-    subtitle = paste("Season", hoopR::most_recent_nba_season()),
-    x = NULL,
+    subtitle = paste("Season", season),
+    x = "Rank",
     y = NULL
   ) +
-  theme_minimal() +
-  theme(
-    axis.text = element_blank(),
-    panel.grid = element_blank()
-  )
+  theme_minimal()
 ```
 
 ## Axis Labels with Logos
