@@ -103,6 +103,15 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
 * `clean_team_abbrs()` folds typographic dashes and curly apostrophes, so
   Sports Reference's UNLV (`"Nevada-Las Vegas"` with an en dash) and a curly
   `"Saint Mary's"` resolve.
+* `gt_sdv_logos(include_name = TRUE)` keeps the cell's text after the logo,
+  the logo-and-name cell cbbplotR's `gt_cbb_teams()` built, for any sport.
+  `gt_sdv_logos()` and `gt_sdv_wordmarks()` also resolve names with an
+  ampersand ("Texas A&M", "William & Mary"): gt passes them HTML-escaped, so
+  they used to fall back to text.
+* The college basketball articles (tier list, border bars, grid tables,
+  window wins) no longer use cbbdata or cbbplotR: their data comes from
+  hoopR, the NCAA's NET page and Sports Reference, and their logos from
+  sdvplotR.
 * College team data covers every Division I program. ESPN's teams list leaves
   some out (Lindenwood, Queens, Southern Indiana, Mercyhurst, Saint Francis,
   UT Rio Grande Valley football), so they drew no logo; they are now fetched
