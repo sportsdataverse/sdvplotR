@@ -8,12 +8,7 @@ template:
   bootswatch: flatly
   includes:
     in_header: |
-      <!-- Privacy-friendly analytics by Plausible -->
-      <script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script>
-      <script>
-        window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-        plausible.init()
-      </script>
+      <script defer data-domain="sdvplotr.sportsdataverse.org" src="https://plausible.io/js/plausible.js"></script>
       <script type="application/ld+json">
       {"@context":"https://schema.org","@graph":[
         {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
@@ -66,11 +61,6 @@ template:
 
 toc:
   depth: 3
-
-# agent instruction files render as pages (pkgdown renders every root and
-# .github *.md); keep them out of the site search
-search:
-  exclude: ['CLAUDE.html', 'copilot-instructions.html']
 
 authors:
   Saiem Gilani:
