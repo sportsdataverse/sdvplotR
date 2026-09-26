@@ -44,12 +44,13 @@ box scores hold one row per team per game; joining each row to its opponent's
 row gives the possessions and points on both sides.
 
 ```{r, message=FALSE}
-# the last completed season (hoopR names it for the year it ends, in March)
+# the last completed season, tournament included (hoopR names it for the
+# year it ends; the Final Four is in early April)
 season <- as.integer(format(Sys.Date(), "%Y")) -
-  (format(Sys.Date(), "%m-%d") < "03-20")
+  (format(Sys.Date(), "%m-%d") < "04-10")
 
 acc <- team_reference("mbb") %>%
-  filter(type == "team", conference == "ACC")
+  filter(conference == "ACC")
 
 # possessions estimated from the box score
 box <- hoopR::load_mbb_team_box(seasons = season) %>%

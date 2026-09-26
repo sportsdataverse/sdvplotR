@@ -299,11 +299,11 @@ gt_sdv_image <- function(
         img_url,
         "\" style=\"height:",
         height,
-        if (include_name) ";vertical-align:middle;margin-right:0.35em",
+        if (isTRUE(include_name)) ";vertical-align:middle;margin-right:0.35em",
         ";\" alt=\"The ",
         htmltools::htmlEscape(team_abbr, attribute = TRUE),
         " logo\">",
-        if (include_name) x
+        if (isTRUE(include_name)) x
       )
 
       out <- lapply(out, gt::html)

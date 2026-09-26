@@ -99,6 +99,7 @@ team_factors <- function(data) {
     rename(team = team_location)
 }
 
+# ESPN labels every game home or away, neutral sites included
 home_splits <- games %>%
   filter(team_home_away == "home") %>%
   team_factors()
