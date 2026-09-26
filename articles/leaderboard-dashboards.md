@@ -57,7 +57,7 @@ standings |>
   ) |>
   tab_header(
     title = "NFL Standings",
-    subtitle = paste("Week", ceiling(runif(1, 1, 18)))
+    subtitle = "Example data"
   ) |>
   tab_footnote(
     footnote = "Data: nflfastR | Viz: sdvplotR",
@@ -93,7 +93,7 @@ standings_colored |>
   ) |>
   tab_header(
     title = "NFL Standings",
-    subtitle = paste("Week", ceiling(runif(1, 1, 18)))
+    subtitle = "Example data"
   ) |>
   data_color(
     columns = "pct",
@@ -212,14 +212,14 @@ standings_quartile |>
   ) |>
   tab_header(
     title = "NFL Standings by Quartile",
-    subtitle = paste("Week", ceiling(runif(1, 1, 18)))
+    subtitle = "Example data"
   ) |>
   tab_row_group(
-    group = "Elite Teams",
+    label = "Elite Teams",
     rows = pct >= 0.75
   ) |>
   tab_row_group(
-    group = "Playoff Teams",
+    label = "Playoff Teams",
     rows = pct >= 0.50 & pct < 0.75
   )
 ```
@@ -325,7 +325,7 @@ standings_conditional |>
   ) |>
   tab_header(
     title = "NFL Standings with Status",
-    subtitle = paste("Week", ceiling(runif(1, 1, 18)))
+    subtitle = "Example data"
   )
 ```
 

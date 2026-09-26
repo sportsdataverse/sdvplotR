@@ -270,7 +270,7 @@ real-time.</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"NFL Standings"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Week"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Example data"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html" class="external-link">tab_footnote</a></span><span class="op">(</span></span>
 <span>    footnote <span class="op">=</span> <span class="st">"Data: nflfastR | Viz: sdvplotR"</span>,</span>
@@ -304,7 +304,7 @@ real-time.</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"NFL Standings"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Week"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Example data"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/data_color.html" class="external-link">data_color</a></span><span class="op">(</span></span>
 <span>    columns <span class="op">=</span> <span class="st">"pct"</span>,</span>
@@ -417,14 +417,14 @@ real-time.</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"NFL Standings by Quartile"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Week"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Example data"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_row_group.html" class="external-link">tab_row_group</a></span><span class="op">(</span></span>
-<span>    group <span class="op">=</span> <span class="st">"Elite Teams"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Elite Teams"</span>,</span>
 <span>    rows <span class="op">=</span> <span class="va">pct</span> <span class="op">&gt;=</span> <span class="fl">0.75</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_row_group.html" class="external-link">tab_row_group</a></span><span class="op">(</span></span>
-<span>    group <span class="op">=</span> <span class="st">"Playoff Teams"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Playoff Teams"</span>,</span>
 <span>    rows <span class="op">=</span> <span class="va">pct</span> <span class="op">&gt;=</span> <span class="fl">0.50</span> <span class="op">&amp;</span> <span class="va">pct</span> <span class="op">&lt;</span> <span class="fl">0.75</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 </div>
@@ -524,7 +524,7 @@ real-time.</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"NFL Standings with Status"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Week"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Example data"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
