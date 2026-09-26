@@ -26,6 +26,7 @@ take a `style` argument:
 - has_style:
 
   The `style` value the row applies to (`"light"` or `"dark"`) for
+  [`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md),
   [`gt_theme_sofa()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sofa.md)
   and
   [`gt_theme_tier()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_tier.md),

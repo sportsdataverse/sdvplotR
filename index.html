@@ -91,6 +91,7 @@
     <li><a class="dropdown-item" href="reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
     <li><a class="dropdown-item" href="reference/reactable_sdv_images.html">reactable: Images</a></li>
     <li><a class="dropdown-item" href="reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
     <li><a class="dropdown-item" href="reference/index.html#gt-table-themes">gt: Table Themes</a></li>
     <li><a class="dropdown-item" href="reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
@@ -267,11 +268,16 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Logos inside a gt table, styled with one of the table themes</span></span>
+<span><span class="co"># Logos inside a gt table, in the SportsDataverse table theme</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span><span class="op">)</span>, wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">12</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/gt_theme_athletic.html">gt_theme_athletic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/gt_theme_sdv.html">gt_theme_sdv</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ...or dressed in one team's colors</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>player <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Patrick Mahomes"</span>, <span class="st">"Travis Kelce"</span><span class="op">)</span>, yards <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4183</span>, <span class="fl">984</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"KC"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span></span>
 <span></span>
@@ -285,7 +291,7 @@
 <span>    wins <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="reference/reactable_sdv_team_color.html">reactable_sdv_team_color_bar</a></span><span class="op">(</span><span class="va">df3</span>, <span class="st">"team"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The <code>gt</code> side also carries the <a href="https://github.com/andreweatherman/gtUtils" class="external-link">gtUtils</a> toolkit by Andrew Weatherman: 18 table themes (<code><a href="reference/gt_theme_kenpom.html">gt_theme_kenpom()</a></code>, <code><a href="reference/gt_theme_savant.html">gt_theme_savant()</a></code>, <code><a href="reference/gt_theme_athletic.html">gt_theme_athletic()</a></code>, …), color legends, cut lines, significance notation, outlier flags, faceted grids and <code><a href="reference/gt_save_crop.html">gt_save_crop()</a></code> / <code><a href="reference/gt_social_crop.html">gt_social_crop()</a></code> for publishing.</p>
+<p><code><a href="reference/gt_theme_sdv.html">gt_theme_sdv()</a></code> (light or <code>style = "dark"</code>) and <code><a href="reference/gt_theme_sdv_team.html">gt_theme_sdv_team()</a></code> are the SportsDataverse table themes. The <code>gt</code> side also carries the <a href="https://github.com/andreweatherman/gtUtils" class="external-link">gtUtils</a> toolkit by Andrew Weatherman: 18 table themes (<code><a href="reference/gt_theme_kenpom.html">gt_theme_kenpom()</a></code>, <code><a href="reference/gt_theme_savant.html">gt_theme_savant()</a></code>, <code><a href="reference/gt_theme_athletic.html">gt_theme_athletic()</a></code>, …), color legends, cut lines, significance notation, outlier flags, faceted grids and <code><a href="reference/gt_save_crop.html">gt_save_crop()</a></code> / <code><a href="reference/gt_social_crop.html">gt_social_crop()</a></code> for publishing.</p>
 <p>Dark-mode logo variants are available through <code>variant = "dark"</code> in the table helpers, and <code><a href="reference/team_reference.html">team_reference()</a></code> exposes the full reference data (ESPN ids, colors, conference / division) for every team.</p>
 </div>
 <div class="section level2">

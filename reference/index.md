@@ -60,6 +60,21 @@ or column labels, and stack team-colored text.
 - [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)
   : Merge and Stack Text in gt Tables with Team Colors
 
+## SportsDataverse Table Themes
+
+The SportsDataverse house table, in light and dark, and a version
+dressed in any team’s colors.
+
+- [`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md)
+  :
+
+  SportsDataverse theme for `gt` tables
+
+- [`gt_theme_sdv_team()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv_team.md)
+  :
+
+  Team-colored SportsDataverse theme for `gt` tables
+
 ## gt Table Themes
 
 Editorial and broadcast-style themes for gt tables, ported from gtUtils.
@@ -121,9 +136,6 @@ image’s canvas.
 
   Premier League theme for `gt` tables
 
-- [`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md)
-  : Preview data in every theme
-
 - [`gt_theme_savant()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_savant.md)
   :
 
@@ -158,6 +170,9 @@ image’s canvas.
   :
 
   Minimal-ink theme for `gt` tables
+
+- [`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md)
+  : Preview data in every theme
 
 - [`pal_midnight`](https://sdvplotR.sportsdataverse.org/reference/pal_midnight.md)
   : A rank palette for dark backgrounds

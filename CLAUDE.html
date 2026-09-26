@@ -62,6 +62,7 @@
     <li><a class="dropdown-item" href="reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
     <li><a class="dropdown-item" href="reference/reactable_sdv_images.html">reactable: Images</a></li>
     <li><a class="dropdown-item" href="reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
     <li><a class="dropdown-item" href="reference/index.html#gt-table-themes">gt: Table Themes</a></li>
     <li><a class="dropdown-item" href="reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
@@ -197,6 +198,7 @@
 <li><p>Canonical keys: nflverse abbreviations for the NFL (<code>LA</code>, <code>LV</code>, <code>WAS</code>), ESPN abbreviations everywhere else (<code>GS</code>, <code>NY</code>, <code>UTAH</code>, <code>ATH</code>, <code>CON</code>). Aliases from other providers live in the <code>aliases</code> list of the data script; relocations live in <code>R/historical_teams.R</code>.</p></li>
 <li><p>Wordmarks exist only for the NFL (nflverse). Other leagues resolve to <code>NA</code> and the helpers fall back gracefully.</p></li>
 <li><p><strong>gtUtils port</strong>: the generic <code>gt</code> table toolkit (themes, legends, cut lines, save/crop helpers; <code>R/gt_*.R</code> other than <code>gt_sdv.R</code>, <code>R/utils-*.R</code>, <code>R/data.R</code>, <code>R/deprecated.R</code>, <code>data/theme_bg.rda</code>) is copied from Andrew Weatherman’s <a href="https://github.com/andreweatherman/gtUtils" class="external-link">gtUtils</a> v1.0.0 (MIT, credited in <code>Authors@R</code> and <code>LICENSE.md</code>). These functions work on any table, so they take no <code>sport</code> argument and skip <code><a href="reference/clean_team_abbrs.html">clean_team_abbrs()</a></code>. The port has been restyled (styler, <code>|&gt;</code>, lintr), so sync upstream changes by diffing gtUtils against commit <code>619c64a</code> (the v1.0.0 the port was taken from; upstream has no tags) and applying the hunks, never by copying files over; keep <code>"sdvplotR"</code> in the namespace strings (<code><a href="reference/gt_theme_preview.html">gt_theme_preview()</a></code>, <code>deprecated.R</code>). <code>theme_bg</code> is built by <code>data-raw/theme_bg.R</code>; rerun it after adding or recoloring a theme.</p></li>
+<li><p><strong>SportsDataverse themes</strong>: <code><a href="reference/gt_theme_sdv.html">gt_theme_sdv()</a></code> / <code><a href="reference/gt_theme_sdv_team.html">gt_theme_sdv_team()</a></code> (<code>R/gt_theme_sdv.R</code>) share <code>.sdv_theme_build()</code>; a palette list decides the look. Their <code>man/figures</code> previews come from <code>data-raw/theme_previews.R</code> (real 2023 NFL data, saved with <code><a href="reference/gt_save_crop.html">gt_save_crop()</a></code>); rerun it after changing either theme.</p></li>
 </ul></div>
 <div class="section level2">
 <h2 id="golden-rules">Golden rules<a class="anchor" aria-label="anchor" href="#golden-rules"></a></h2>

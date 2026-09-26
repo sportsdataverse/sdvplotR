@@ -89,11 +89,16 @@ ggplot(df2, aes(x = team, y = score)) +
 
 library(gt)
 
-# Logos inside a gt table, styled with one of the table themes
+# Logos inside a gt table, in the SportsDataverse table theme
 data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11)) |>
   gt() |>
   gt_sdv_logos(columns = "team", sport = "nfl") |>
-  gt_theme_athletic()
+  gt_theme_sdv()
+
+# ...or dressed in one team's colors
+data.frame(player = c("Patrick Mahomes", "Travis Kelce"), yards = c(4183, 984)) |>
+  gt() |>
+  gt_theme_sdv_team(team = "KC", sport = "nfl")
 ```
 
 ``` r
@@ -112,7 +117,10 @@ reactable(
 )
 ```
 
-The `gt` side also carries the
+[`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md)
+(light or `style = "dark"`) and
+[`gt_theme_sdv_team()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv_team.md)
+are the SportsDataverse table themes. The `gt` side also carries the
 [gtUtils](https://github.com/andreweatherman/gtUtils) toolkit by Andrew
 Weatherman: 18 table themes
 ([`gt_theme_kenpom()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_kenpom.md),

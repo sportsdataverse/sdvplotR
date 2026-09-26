@@ -80,6 +80,18 @@ NHL, college football, men’s and women’s college basketball), built on
   [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md),
   and the `theme_bg` background lookup. The eight gtUtils articles are
   on the website as “gt Table Cookbooks”.
+- [`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md)
+  is the SportsDataverse house table theme, in light and
+  `style = "dark"`, and
+  [`gt_theme_sdv_team()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv_team.md)
+  dresses a table in one team’s colors from
+  [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md),
+  picking title text and line colors by contrast.
+- [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md)
+  and
+  [`gt_stack_tables()`](https://sdvplotR.sportsdataverse.org/reference/gt_stack_tables.md)
+  scroll inside their own box instead of overflowing the page when they
+  are wider than the screen.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
