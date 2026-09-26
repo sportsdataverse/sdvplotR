@@ -38,15 +38,22 @@ team abbr / player id
   core API group endpoints (FBS = 80, FCS = 81, D-I = 50) and
   `nflreadr::load_teams()`. **Never hand-edit the `.rda`.**
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
-  `headshot_gsis_map.rds` from this repo's `sdvplotr_infrastructure` release
-  through `nflreadr::rds_from_url()` (memoised a day; `sdvplotR_clear_cache()`
-  clears it). `data-raw/update_headshot_gsis_map.R` builds it from
-  `nflreadr::load_rosters()` 1999 onward (one file per season, a combined map
-  at each player's latest season, and `nfl_player_id_crosswalk.rds/csv`);
+  `headshot_gsis_map.rds` from this repo's `sdvplotr_infrastructure`
+  pre-release (never "Latest", so `@*release` installs are unaffected)
+  through `nflreadr::rds_from_url()`, memoised a day. A failed read (empty
+  map) is dropped from that cache so the next call retries, and
+  `sdvplotR_clear_cache()` drops only this URL, not the user's nflreadr cache.
+  `data-raw/update_headshot_gsis_map.R` builds it from
+  `nflreadr::load_rosters()` 1999 onward (one file per season; a combined map
+  at each player's latest season with an NFL.com image, else their latest
+  row; `nfl_player_id_crosswalk.rds/csv`), checks everything, then uploads;
   `.github/workflows/update-headshot-map.yaml` reruns the current season
-  weekly. NFL.com image ids are opaque (not the GSIS digits); URLs use the
-  sized `t_headshot_desktop` transform plus `.png` (gridtext needs the
-  extension). NFL headshots take GSIS ids only: nflverse's numeric id systems
+  weekly. NFL.com image ids are opaque (not the GSIS digits). Divergences from
+  nflplotR: URLs use the sized `t_headshot_desktop` transform (nflplotR the
+  full-size image) plus `.png` as nflplotR does (gridtext needs it); unknown
+  GSIS ids resolve to NA so each helper falls back as for every sport
+  (nflplotR draws a silhouette); players with no NFL.com image use their ESPN
+  headshot. NFL headshots take GSIS ids only: nflverse's numeric id systems
   collide with ESPN ids. Offline, the map is empty and NFL ids resolve to NA;
   tests mock `load_headshot_map()` (`tests/testthat/helper-headshots.R`).
 - When nflverse / nflplotR already does something (data, headshots, caching),

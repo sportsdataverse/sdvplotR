@@ -93,14 +93,14 @@ test_that("sdvplotR_clear_cache clears the caches and returns NULL", {
 
 test_that("NFL headshots resolve GSIS ids through the published map", {
   local_headshot_map()
-  u <- headshot_from_id(c("00-0033873", "00-0022044", "11765", "00-0099999", "bad", NA), sport = "nfl")
+  u <- headshot_from_id(c("00-0033873", "00-0031078", "11765", "00-0099999", "bad", NA), sport = "nfl")
   # NFL.com image at the sized transform, with the .png gridtext needs
   expect_identical(
     u[[1]],
     "https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png"
   )
   # a player with no NFL.com image falls back to their ESPN headshot
-  expect_identical(u[[2]], "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/4461.png")
+  expect_identical(u[[2]], "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/16885.png")
   # numeric NFL ids are ambiguous; unknown GSIS ids, garbage and NA stay NA
   expect_true(all(is.na(u[3:6])))
 })
@@ -115,6 +115,33 @@ test_that("load_headshot_map returns an empty map when the release can't be read
   m <- load_headshot_map()
   expect_identical(nrow(m), 0L)
   expect_true(all(c("gsis_id", "headshot_nfl", "espn_id") %in% names(m)))
+})
+
+test_that("a failed map read is not cached, so the next call retries", {
+  calls <- 0
+  reader <- memoise::memoise(function(url) {
+    calls <<- calls + 1
+    data.frame()
+  })
+  local_mocked_bindings(rds_from_url = reader, .package = "nflreadr")
+  load_headshot_map()
+  load_headshot_map()
+  expect_identical(calls, 2)
+})
+
+test_that("sdvplotR_clear_cache forgets the headshot map", {
+  calls <- 0
+  reader <- memoise::memoise(function(url) {
+    calls <<- calls + 1
+    headshot_map_fixture
+  })
+  local_mocked_bindings(rds_from_url = reader, .package = "nflreadr")
+  load_headshot_map()
+  load_headshot_map()
+  expect_identical(calls, 1) # a good read stays cached
+  suppressMessages(sdvplotR_clear_cache())
+  load_headshot_map()
+  expect_identical(calls, 2)
 })
 
 test_that("nfl_headshot_url sizes the image and adds .png once", {

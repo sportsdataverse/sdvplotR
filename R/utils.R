@@ -173,14 +173,29 @@ resolve_wordmark_url <- function(team, sport, variant = "primary") {
 # which nflreadr memoises for a day (option nflreadr.cache). Offline, the read
 # warns and returns no rows, so every NFL id resolves to NA and the helpers fall
 # back as they do for any unknown id.
+headshot_map_url <- paste0(
+  "https://github.com/sportsdataverse/sdvplotR/releases/download/",
+  "sdvplotr_infrastructure/headshot_gsis_map.rds"
+)
+
 load_headshot_map <- function() {
-  map <- nflreadr::rds_from_url(
-    "https://github.com/sportsdataverse/sdvplotR/releases/download/sdvplotr_infrastructure/headshot_gsis_map.rds"
-  )
-  if (!all(c("gsis_id", "headshot_nfl", "espn_id") %in% names(map))) {
+  map <- nflreadr::rds_from_url(headshot_map_url)
+  if (!nrow(map) || !all(c("gsis_id", "headshot_nfl", "espn_id") %in% names(map))) {
+    # nflreadr memoises a failed read too (an empty table, for a day); forget it
+    # so the next call retries rather than leaving NFL headshots blank
+    forget_headshot_map()
     map <- data.frame(gsis_id = character(), headshot_nfl = character(), espn_id = character())
   }
   map
+}
+
+# drop only sdvplotR's entry from nflreadr's memoised reader, not the rest of
+# the user's nflreadr cache (nflplotR's cache clearing is scoped the same way)
+forget_headshot_map <- function() {
+  if (memoise::is.memoised(nflreadr::rds_from_url)) {
+    memoise::drop_cache(nflreadr::rds_from_url)(headshot_map_url)
+  }
+  invisible(NULL)
 }
 
 # NFL.com image at the sized headshot transform rather than the full-size
@@ -267,7 +282,7 @@ headshot_html <- function(player_id, sport, type = c("height", "width"), size = 
 #' sdvplotR_clear_cache()
 sdvplotR_clear_cache <- function() {
   # the NFL headshot map is memoised by nflreadr's reader
-  nflreadr::clear_cache()
+  forget_headshot_map()
   if ("clear_cache" %in% getNamespaceExports("ggpath")) {
     getExportedValue("ggpath", "clear_cache")()
   }

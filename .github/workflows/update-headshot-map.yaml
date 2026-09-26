@@ -42,6 +42,8 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: any::nflreadr
+          dependencies: '"hard"'
+          install-pandoc: false
 
       - name: Rebuild and publish the headshot map
         run: Rscript data-raw/update_headshot_gsis_map.R "$MODE"
