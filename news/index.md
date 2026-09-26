@@ -115,6 +115,14 @@ NHL, college football, men’s and women’s college basketball), built on
   the gt and reactable helpers, and the headshot axis scales.
   [`sdvplotR_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR_clear_cache.md)
   now also clears the memoised map.
+- Every headshot helper takes `id_type`, so player IDs from sources
+  other than ESPN draw the right player. `"league"` reads the league’s
+  own ID from its image CDN: NBA Stats and WNBA Stats `PERSON_ID`
+  (hoopR’s `nba_*()`, wehoop’s `wnba_*()`) and MLBAM (baseballr,
+  Baseball Savant). `"espn"` reads ESPN athlete IDs in any sport,
+  including the NFL. By default, IDs are read as before: GSIS for the
+  NFL, ESPN elsewhere. The ID systems overlap: without `id_type`, Dirk
+  Nowitzki’s NBA Stats ID drew ESPN’s Jared Jeffries.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)

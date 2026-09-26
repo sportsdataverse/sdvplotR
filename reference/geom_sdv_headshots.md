@@ -4,7 +4,8 @@ This geom is used to plot player headshots instead of points in a
 ggplot. It requires x, y aesthetics as well as a valid player
 identifier: a GSIS ID for the NFL (`"00-0033873"`, resolved through the
 headshot map sdvplotR publishes from nflverse rosters to the player's
-NFL.com headshot) and an ESPN athlete ID for every other sport.
+NFL.com headshot) and an ESPN athlete ID for every other sport. Set
+`id_type` to plot IDs from another source.
 
 ## Usage
 
@@ -16,6 +17,7 @@ geom_sdv_headshots(
   position = "identity",
   ...,
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  id_type = NULL,
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -134,6 +136,21 @@ GeomSDVheadshot
 
   Character string identifying the sport.
 
+- id_type:
+
+  Which ID system `player_id` holds. `NULL` (the default) takes GSIS IDs
+  for the NFL and ESPN athlete IDs for every other sport. `"espn"` takes
+  ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
+  hoopR's and wehoop's `espn_*()` functions. `"league"` takes the
+  league's own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats
+  `PERSON_ID` (hoopR's `nba_*()`, wehoop's `wnba_*()`), or the MLBAM ID
+  (baseballr's `mlb_*()`, Baseball Savant) for MLB, drawn from that
+  league's image CDN; other sports have no league option. Both are plain
+  digits, so a mismatch draws the wrong player or no image rather than
+  an error. League CDNs draw a silhouette for an unknown ID, and the NBA
+  and WNBA CDNs refuse requests from datacenter IPs, so a plot drawn on
+  CI or a server can come back without those headshots.
+
 - na.rm:
 
   If `FALSE`, the default, missing values are removed with a warning. If
@@ -175,7 +192,8 @@ aesthetics are in bold):
 
 - **player_id**:
 
-  \- The player's ID: GSIS ID for the NFL, ESPN athlete ID otherwise.
+  \- The player's ID: GSIS ID for the NFL, ESPN athlete ID otherwise, or
+  as `id_type` says.
 
 - `alpha = NULL`:
 

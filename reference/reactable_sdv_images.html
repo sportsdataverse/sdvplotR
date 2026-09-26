@@ -200,7 +200,8 @@ resolved are returned unchanged so the original text is shown.</p>
 <span><span class="fu">reactable_sdv_headshots</span><span class="op">(</span></span>
 <span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="st">"nba"</span>, <span class="st">"wnba"</span>, <span class="st">"mlb"</span>, <span class="st">"nhl"</span>, <span class="st">"cfb"</span>, <span class="st">"mbb"</span>, <span class="st">"wbb"</span><span class="op">)</span>,</span>
 <span>  height <span class="op">=</span> <span class="fl">40</span>,</span>
-<span>  default_img <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  default_img <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id_type <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -226,6 +227,12 @@ image when the requested variant is not available for a team.</p></dd>
 <dt id="arg-default-img">default_img<a class="anchor" aria-label="anchor" href="#arg-default-img"></a></dt>
 <dd><p>Character. Fallback image URL used when the value cannot
 be resolved. If <code>NULL</code> (the default) the raw value is shown instead.</p></dd>
+
+
+<dt id="arg-id-type">id_type<a class="anchor" aria-label="anchor" href="#arg-id-type"></a></dt>
+<dd><p>Which ID system the player IDs hold: <code>NULL</code> (the default;
+GSIS IDs for the NFL, ESPN athlete IDs otherwise), <code>"espn"</code> or <code>"league"</code>
+(NBA / WNBA Stats <code>PERSON_ID</code>, MLBAM ID, GSIS). See <code><a href="geom_sdv_headshots.html">geom_sdv_headshots()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

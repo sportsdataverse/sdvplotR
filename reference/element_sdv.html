@@ -228,7 +228,8 @@ element such as <code>plot.background</code>. A thin wrapper around
 <span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  hjust <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vjust <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  size <span class="op">=</span> <span class="fl">0.5</span></span>
+<span>  size <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  id_type <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">element_sdv_raster</span><span class="op">(</span></span>
@@ -273,6 +274,12 @@ for black and white.</p></dd>
 
 <dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
 <dd><p>The output grob size in <code>cm</code>.</p></dd>
+
+
+<dt id="arg-id-type">id_type<a class="anchor" aria-label="anchor" href="#arg-id-type"></a></dt>
+<dd><p>Which ID system the player IDs hold: <code>NULL</code> (the default;
+GSIS IDs for the NFL, ESPN athlete IDs otherwise), <code>"espn"</code> or <code>"league"</code>
+(NBA / WNBA Stats <code>PERSON_ID</code>, MLBAM ID, GSIS). See <code><a href="geom_sdv_headshots.html">geom_sdv_headshots()</a></code>.</p></dd>
 
 
 <dt id="arg-image-path">image_path<a class="anchor" aria-label="anchor" href="#arg-image-path"></a></dt>

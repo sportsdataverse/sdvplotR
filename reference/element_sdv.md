@@ -46,7 +46,8 @@ element_sdv_headshot(
   color = NULL,
   hjust = NULL,
   vjust = NULL,
-  size = 0.5
+  size = 0.5,
+  id_type = NULL
 )
 
 element_sdv_raster(
@@ -90,6 +91,13 @@ element_sdv_raster(
 - size:
 
   The output grob size in `cm`.
+
+- id_type:
+
+  Which ID system the player IDs hold: `NULL` (the default; GSIS IDs for
+  the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"` (NBA /
+  WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See
+  [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md).
 
 - image_path:
 

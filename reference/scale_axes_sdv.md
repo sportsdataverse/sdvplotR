@@ -31,7 +31,8 @@ scale_x_sdv_headshots(
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "bottom",
-  size = 20
+  size = 20,
+  id_type = NULL
 )
 
 scale_y_sdv_headshots(
@@ -40,7 +41,8 @@ scale_y_sdv_headshots(
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "left",
-  size = 30
+  size = 30,
+  id_type = NULL
 )
 ```
 
@@ -73,6 +75,13 @@ scale_y_sdv_headshots(
 
   The logo size in pixels. It is applied as height for an x-scale and as
   width for a y-scale.
+
+- id_type:
+
+  Which ID system the player IDs hold: `NULL` (the default; GSIS IDs for
+  the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"` (NBA /
+  WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See
+  [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md).
 
 ## Value
 

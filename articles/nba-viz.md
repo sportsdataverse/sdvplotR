@@ -151,6 +151,41 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   theme_minimal()
 ```
 
+### NBA Stats player IDs
+
+The headshots above use ESPN athlete IDs, the `athlete_id` in hoopR’s
+`load_nba_*()` data. hoopR’s `nba_*()` functions read stats.nba.com,
+which numbers players differently (`PLAYER_ID`). Pass
+`id_type = "league"` to draw those from the NBA’s own image CDN. Both
+are plain numbers, so without it an NBA Stats ID is read as an ESPN ID
+and draws someone else or nothing: Dirk Nowitzki’s NBA Stats ID, 1717,
+is ESPN’s Jared Jeffries.
+
+``` r
+
+leaders <- hoopR::nba_leagueleaders(stat_category = "PTS")$LeagueLeaders |>
+  mutate(across(c(GP, PTS), as.numeric)) |>
+  head(8)
+
+ggplot(leaders, aes(x = GP, y = PTS)) +
+  geom_sdv_headshots(
+    aes(player_id = PLAYER_ID),
+    sport = "nba",
+    id_type = "league",
+    height = 0.15
+  ) +
+  labs(title = "NBA scoring leaders", x = "Games Played", y = "Points")
+```
+
+`id_type` works the same in
+[`gt_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_headshots.md),
+[`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md),
+the headshot axis scales and
+[`element_sdv_headshot()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md).
+The NBA’s image CDN refuses requests from datacenter IPs, so a plot
+rendered on CI or a server can come back without these headshots; tables
+are unaffected, because the reader’s browser loads the images.
+
 ## NBA Team Tiers
 
 Create a tier plot ranking NBA teams:

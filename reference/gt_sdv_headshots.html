@@ -3,11 +3,13 @@
 images in html tables with the 'gt' package. IDs are GSIS IDs for the NFL
 (&quot;00-0033873&quot;, resolved through the headshot map sdvplotR publishes from
 nflverse rosters to the player's NFL.com headshot) and ESPN athlete IDs for
-every other sport. IDs that resolve to no headshot are left as text."><meta property="og:description" content="Translate player IDs to player headshots and render these
+every other sport, or as id_type says. IDs that resolve to no headshot
+are left as text."><meta property="og:description" content="Translate player IDs to player headshots and render these
 images in html tables with the 'gt' package. IDs are GSIS IDs for the NFL
 (&quot;00-0033873&quot;, resolved through the headshot map sdvplotR publishes from
 nflverse rosters to the player's NFL.com headshot) and ESPN athlete IDs for
-every other sport. IDs that resolve to no headshot are left as text."><meta property="og:image" content="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png"><meta property="og:image:alt" content="sdvplotR hex logo"><meta name="twitter:card" content="summary"><meta name="twitter:creator" content="@saiemgilani"><meta name="twitter:site" content="@SportsDataverse"><!-- dependencies from examples --><!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script><script>
+every other sport, or as id_type says. IDs that resolve to no headshot
+are left as text."><meta property="og:image" content="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png"><meta property="og:image:alt" content="sdvplotR hex logo"><meta name="twitter:card" content="summary"><meta name="twitter:creator" content="@saiemgilani"><meta name="twitter:site" content="@SportsDataverse"><!-- dependencies from examples --><!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script><script>
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
   plausible.init()
 </script><script type="application/ld+json">
@@ -184,7 +186,8 @@ every other sport. IDs that resolve to no headshot are left as text."><meta prop
 images in html tables with the 'gt' package. IDs are GSIS IDs for the NFL
 (<code>"00-0033873"</code>, resolved through the headshot map sdvplotR publishes from
 nflverse rosters to the player's NFL.com headshot) and ESPN athlete IDs for
-every other sport. IDs that resolve to no headshot are left as text.</p>
+every other sport, or as <code>id_type</code> says. IDs that resolve to no headshot
+are left as text.</p>
     </div>
 
     <div class="section level2">
@@ -194,7 +197,8 @@ every other sport. IDs that resolve to no headshot are left as text.</p>
 <span>  <span class="va">columns</span>,</span>
 <span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="st">"nba"</span>, <span class="st">"wnba"</span>, <span class="st">"mlb"</span>, <span class="st">"nhl"</span>, <span class="st">"cfb"</span>, <span class="st">"mbb"</span>, <span class="st">"wbb"</span><span class="op">)</span>,</span>
 <span>  height <span class="op">=</span> <span class="fl">30</span>,</span>
-<span>  locations <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  locations <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id_type <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -225,6 +229,21 @@ argument <code>columns</code>. Otherwise, the cell or set of cells to be associa
 with the team name transformation. Only <code><a href="https://gt.rstudio.com/reference/cells_body.html" class="external-link">gt::cells_body()</a></code>,
 <code><a href="https://gt.rstudio.com/reference/cells_stub.html" class="external-link">gt::cells_stub()</a></code>, <code><a href="https://gt.rstudio.com/reference/cells_column_labels.html" class="external-link">gt::cells_column_labels()</a></code>, and
 <code><a href="https://gt.rstudio.com/reference/cells_row_groups.html" class="external-link">gt::cells_row_groups()</a></code> helper functions can be used here.</p></dd>
+
+
+<dt id="arg-id-type">id_type<a class="anchor" aria-label="anchor" href="#arg-id-type"></a></dt>
+<dd><p>Which ID system <code>player_id</code> holds. <code>NULL</code> (the default) takes
+GSIS IDs for the NFL and ESPN athlete IDs for every other sport. <code>"espn"</code>
+takes ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
+hoopR's and wehoop's <code>espn_*()</code> functions. <code>"league"</code> takes the league's
+own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats <code>PERSON_ID</code>
+(hoopR's <code>nba_*()</code>, wehoop's <code>wnba_*()</code>), or the MLBAM ID (baseballr's
+<code>mlb_*()</code>, Baseball Savant) for MLB, drawn from that league's image CDN;
+other sports have no league option. Both are plain digits, so a mismatch
+draws the wrong player or no image rather than an error. League CDNs draw
+a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
+from datacenter IPs, so a plot drawn on CI or a server can come back
+without those headshots.</p></dd>
 
 </dl></div>
     <div class="section level2">

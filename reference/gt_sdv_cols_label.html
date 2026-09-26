@@ -185,7 +185,8 @@ in column labels of 'gt' tables.</p>
 <span>  columns <span class="op">=</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="st">"nba"</span>, <span class="st">"wnba"</span>, <span class="st">"mlb"</span>, <span class="st">"nhl"</span>, <span class="st">"cfb"</span>, <span class="st">"mbb"</span>, <span class="st">"wbb"</span><span class="op">)</span>,</span>
 <span>  height <span class="op">=</span> <span class="fl">30</span>,</span>
-<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logo"</span>, <span class="st">"wordmark"</span>, <span class="st">"headshot"</span><span class="op">)</span></span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logo"</span>, <span class="st">"wordmark"</span>, <span class="st">"headshot"</span><span class="op">)</span>,</span>
+<span>  id_type <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -212,6 +213,21 @@ in column labels of 'gt' tables.</p>
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>One of <code>"logo"</code>, <code>"wordmark"</code> or <code>"headshot"</code>: whether the column
 names are team abbreviations (logo / wordmark) or player IDs (headshot).</p></dd>
+
+
+<dt id="arg-id-type">id_type<a class="anchor" aria-label="anchor" href="#arg-id-type"></a></dt>
+<dd><p>Which ID system <code>player_id</code> holds. <code>NULL</code> (the default) takes
+GSIS IDs for the NFL and ESPN athlete IDs for every other sport. <code>"espn"</code>
+takes ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
+hoopR's and wehoop's <code>espn_*()</code> functions. <code>"league"</code> takes the league's
+own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats <code>PERSON_ID</code>
+(hoopR's <code>nba_*()</code>, wehoop's <code>wnba_*()</code>), or the MLBAM ID (baseballr's
+<code>mlb_*()</code>, Baseball Savant) for MLB, drawn from that league's image CDN;
+other sports have no league option. Both are plain digits, so a mismatch
+draws the wrong player or no image rather than an error. League CDNs draw
+a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
+from datacenter IPs, so a plot drawn on CI or a server can come back
+without those headshots.</p></dd>
 
 </dl></div>
     <div class="section level2">

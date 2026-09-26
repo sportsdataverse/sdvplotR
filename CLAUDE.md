@@ -61,10 +61,23 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   transform (nflplotR the full-size image) plus `.png` as nflplotR does
   (gridtext needs it); unknown GSIS ids resolve to NA so each helper
   falls back as for every sport (nflplotR draws a silhouette); players
-  with no NFL.com image use their ESPN headshot. NFL headshots take GSIS
-  ids only: nflverse’s numeric id systems collide with ESPN ids.
-  Offline, the map is empty and NFL ids resolve to NA; tests mock
-  `load_headshot_map()` (`tests/testthat/helper-headshots.R`).
+  with no NFL.com image use their ESPN headshot. By default NFL
+  headshots take GSIS ids only: nflverse’s numeric id systems collide
+  with ESPN ids (`id_type = "espn"` takes ESPN’s). Offline, the map is
+  empty and NFL ids resolve to NA; tests mock `load_headshot_map()`
+  (`tests/testthat/helper-headshots.R`).
+
+- Other ID systems go through `id_type` on every headshot helper
+  (`check_id_type()` validates it, `headshot_from_id()` resolves it).
+  `NULL` keeps GSIS for the NFL and ESPN elsewhere; `"espn"` takes ESPN
+  athlete ids for any sport; `"league"` builds the league CDN URL from
+  `league_headshot_url` (NBA / WNBA Stats `PERSON_ID`, MLBAM, as hoopR,
+  wehoop and mlbplotR build them). Those CDNs are keyed by the league
+  id, so no map is needed; they serve a silhouette for unknown ids, and
+  cdn.nba.com / cdn.wnba.com return 403 to datacenter IPs (the droplet,
+  likely CI), so tests assert URLs only. NHL (the mug path needs season
+  and team) and college have no league option. ID systems can’t be told
+  apart by shape, so never guess.
 
 - When nflverse / nflplotR already does something (data, headshots,
   caching), follow their approach and document any divergence.

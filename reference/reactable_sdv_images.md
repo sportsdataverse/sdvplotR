@@ -26,7 +26,8 @@ reactable_sdv_wordmarks(
 reactable_sdv_headshots(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   height = 40,
-  default_img = NULL
+  default_img = NULL,
+  id_type = NULL
 )
 ```
 
@@ -51,6 +52,13 @@ reactable_sdv_headshots(
 
   Character. Fallback image URL used when the value cannot be resolved.
   If `NULL` (the default) the raw value is shown instead.
+
+- id_type:
+
+  Which ID system the player IDs hold: `NULL` (the default; GSIS IDs for
+  the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"` (NBA /
+  WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See
+  [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md).
 
 ## Value
 
