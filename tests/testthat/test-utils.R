@@ -91,28 +91,39 @@ test_that("sdvplotR_clear_cache is a quiet no-op that returns NULL", {
   expect_null(suppressMessages(sdvplotR_clear_cache()))
 })
 
-test_that("NFL headshots resolve GSIS ids through the crosswalk and ESPN ids directly", {
-  u <- headshot_from_id(c("00-0033873", "3139477", "00-9999999", "bad", NA), sport = "nfl")
-  # GSIS id -> NFL.com's own image id, at the sized transform
-  expect_match(
-    u[[1]],
-    "^https://static\\.www\\.nfl\\.com/image/(private|upload)/t_headshot_desktop/f_auto/league/[A-Za-z0-9_-]+$"
-  )
+test_that("NFL headshots resolve GSIS ids through the crosswalk", {
+  espn_gsis <- names(nfl_headshot_ids)[startsWith(nfl_headshot_ids, "espn/")][[1]]
+  u <- headshot_from_id(c("00-0033873", espn_gsis, "11765", "00-0099999", "bad", NA), sport = "nfl")
+  # GSIS id -> NFL.com's own image id, at the sized transform, with a .png the
+  # axis scales' image reader (gridtext) needs
   expect_identical(
-    sub(".*/(private|upload)/t_headshot_desktop/f_auto/league/", "\\1/", u[[1]]),
-    unname(nfl_headshot_ids[["00-0033873"]])
+    u[[1]],
+    paste0(
+      "https://static.www.nfl.com/image/",
+      sub("/", "/t_headshot_desktop/f_auto/league/", nfl_headshot_ids[["00-0033873"]], fixed = TRUE),
+      ".png"
+    )
   )
-  # numeric id -> ESPN athlete headshot, as for the other sports
-  expect_identical(u[[2]], "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/3139477.png")
-  # unknown GSIS id, garbage and NA stay NA so the helpers can fall back
-  expect_true(all(is.na(u[3:5])))
+  # players NFL.com has no image of fall back to ESPN's headshot
+  expect_identical(
+    u[[2]],
+    paste0(
+      "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/",
+      sub("^espn/", "", nfl_headshot_ids[[espn_gsis]]), ".png"
+    )
+  )
+  # numeric NFL ids are ambiguous; unknown GSIS ids, garbage and NA stay NA
+  expect_true(all(is.na(u[3:6])))
+})
+
+test_that("round numeric player ids are not written in scientific notation", {
+  expect_match(headshot_from_id(4000000, "nba"), "/full/4000000\\.png$")
 })
 
 test_that("the NFL headshot crosswalk is well formed", {
   expect_gt(length(nfl_headshot_ids), 20000)
   expect_false(anyDuplicated(names(nfl_headshot_ids)) > 0)
-  expect_true(all(grepl("^00-00", names(nfl_headshot_ids)) | grepl("^[A-Z]{3}", names(nfl_headshot_ids))))
-  expect_true(all(grepl("^(private|upload)/[A-Za-z0-9_-]+$", nfl_headshot_ids)))
+  expect_true(all(grepl("^((private|upload)/[A-Za-z0-9_-]+|espn/[0-9]+)$", nfl_headshot_ids)))
 })
 
 test_that("a resolved NFL headshot URL serves an image", {

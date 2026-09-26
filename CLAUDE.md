@@ -38,10 +38,13 @@ team abbr / player id
   core API group endpoints (FBS = 80, FCS = 81, D-I = 50) and
   `nflreadr::load_teams()`. **Never hand-edit the `.rda`.**
 - `R/sysdata.rda` also holds `nfl_headshot_ids` (GSIS id -> NFL.com image
-  `"<private|upload>/<id>"`), built by `data-raw/nfl_headshot_ids.R` from
-  `nflreadr::load_players()`. NFL.com image ids are opaque (not the GSIS
-  digits) and resolve only under their own delivery type. Each data script
-  re-saves the other's objects, so running either one keeps both.
+  `"<private|upload>/<id>"`, or `"espn/<id>"` where NFL.com has none), built
+  by `data-raw/nfl_headshot_ids.R` from `nflreadr::load_players()`. NFL.com
+  image ids are opaque (not the GSIS digits) and resolve only under their own
+  delivery type. Each data script re-saves the other's objects and stops
+  before downloading if they are missing, so run `nfl_headshot_ids.R` first on
+  a fresh `sysdata.rda`. NFL headshots take GSIS ids only: nflverse's numeric
+  id systems collide with ESPN ids.
 - Canonical keys: nflverse abbreviations for the NFL (`LA`, `LV`, `WAS`), ESPN
   abbreviations everywhere else (`GS`, `NY`, `UTAH`, `ATH`, `CON`). Aliases
   from other providers live in the `aliases` list of the data script;

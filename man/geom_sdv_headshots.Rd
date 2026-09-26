@@ -118,8 +118,9 @@ A ggplot2 layer.
 \description{
 This geom is used to plot player headshots instead
 of points in a ggplot. It requires x, y aesthetics as well as a valid
-player identifier: an ESPN athlete ID for every sport, or for the NFL also
-a GSIS ID (\code{"00-0033873"}), which resolves to the player's NFL.com headshot.
+player identifier: a GSIS ID for the NFL (\code{"00-0033873"}, resolved through
+nflverse's player table to the player's NFL.com headshot) and an ESPN
+athlete ID for every other sport.
 }
 \section{Aesthetics}{
 
@@ -127,7 +128,7 @@ a GSIS ID (\code{"00-0033873"}), which resolves to the player's NFL.com headshot
 \describe{
 \item{\strong{x}}{ - The x-coordinate.}
 \item{\strong{y}}{ - The y-coordinate.}
-\item{\strong{player_id}}{ - The player's ID: ESPN athlete ID, or GSIS ID for the NFL.}
+\item{\strong{player_id}}{ - The player's ID: GSIS ID for the NFL, ESPN athlete ID otherwise.}
 \item{\code{alpha = NULL}}{ - The alpha channel.}
 \item{\code{colour = NULL}}{ - The image will be colorized with this colour. Use \code{"b/w"} for black and white.}
 \item{\code{angle = 0}}{ - The angle of the image.}

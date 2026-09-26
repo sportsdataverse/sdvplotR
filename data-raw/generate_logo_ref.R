@@ -13,6 +13,16 @@
 # Run from the package root:  Rscript data-raw/generate_logo_ref.R
 # Requires: httr, jsonlite, nflreadr, usethis (dev-only, not package deps).
 
+# sysdata.rda also holds the NFL headshot crosswalk built by
+# data-raw/nfl_headshot_ids.R; carry it over rather than dropping it, and stop
+# before any download if it is missing (run nfl_headshot_ids.R first)
+nfl_headshot_ids <- local({
+  sys <- new.env()
+  load("R/sysdata.rda", envir = sys)
+  sys$nfl_headshot_ids
+})
+stopifnot(!is.null(nfl_headshot_ids))
+
 `%||%` <- function(x, y) if (is.null(x)) y else x
 
 espn_get <- function(url) {
@@ -233,14 +243,6 @@ abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(d) {
   c(m, al)
 })
 
-# sysdata.rda also holds the NFL headshot crosswalk built by
-# data-raw/nfl_headshot_ids.R; carry it over rather than dropping it
-nfl_headshot_ids <- local({
-  sys <- new.env()
-  load("R/sysdata.rda", envir = sys)
-  sys$nfl_headshot_ids
-})
-stopifnot(!is.null(nfl_headshot_ids))
 usethis::use_data(logo_ref, abbr_mapping, nfl_headshot_ids, internal = TRUE, overwrite = TRUE)
 
 cat("logo_ref:", nrow(logo_ref), "teams\n")
