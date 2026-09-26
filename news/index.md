@@ -80,6 +80,26 @@ NHL, college football, men’s and women’s college basketball), built on
   [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md),
   and the `theme_bg` background lookup. The eight gtUtils articles are
   on the website as “gt Table Cookbooks”.
+- [`gt_color_pills()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_pills.md),
+  [`gt_percentile_bar()`](https://sdvplotR.sportsdataverse.org/reference/gt_percentile_bar.md),
+  [`gt_fmt_tally()`](https://sdvplotR.sportsdataverse.org/reference/gt_fmt_tally.md),
+  [`gt_significance()`](https://sdvplotR.sportsdataverse.org/reference/gt_significance.md)
+  and
+  [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)
+  decorate each cell from its own row when row groups reorder the table.
+  gt hands
+  [`text_transform()`](https://gt.rstudio.com/reference/text_transform.html)
+  the cells in display order, so values computed in data order landed on
+  the wrong rows: pill colors that didn’t match their numbers, bars,
+  tallies and stacked names from other rows, and significance stars on
+  the wrong estimates. They now go through
+  [`gt::fmt()`](https://gt.rstudio.com/reference/fmt.html), which gt
+  applies in data order (stars, which follow the formatted estimate,
+  take one
+  [`text_transform()`](https://gt.rstudio.com/reference/text_transform.html)
+  per distinct mark).
+  [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)
+  also escapes the lower line’s text.
 - [`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md)
   is the SportsDataverse house table theme, in light and
   `style = "dark"`, and
@@ -145,6 +165,26 @@ NHL, college football, men’s and women’s college basketball), built on
   matches team names regardless of accents, which providers write
   inconsistently: the NHL API’s “Montréal Canadiens” now resolves, as
   does an unaccented “San Jose State” against ESPN’s “San José State”.
+- Conference logos, which cbbplotR drew and sdvplotR lacked: every
+  college conference ESPN has a logo for resolves like a team, so the
+  geoms, theme elements, gt, reactable and color scales draw `"SEC"`,
+  `"Big Ten"` or `"A-10"` with no new functions, and `"AFC"`, `"NFC"`
+  and `"NFL"` do too, as in nflplotR. Conference colors come from
+  cbbplotR.
+  [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md),
+  [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
+  and
+  [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md)
+  list them only with `include_conferences = TRUE` (nflplotR lists AFC /
+  NFC / NFL by default), so code that loops over teams still sees only
+  teams;
+  [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+  gains a `type` column (`"team"`, `"conference"`, `"league"`). Team
+  rows’ `conference` changes in three places: ESPN’s API labels the MAAC
+  as the old “Metro Conference”, so its teams read `"Metro"` and now
+  read `"MAAC"`; the AAC reads `"AAC"` instead of `"American"` (American
+  University’s name), and football’s SoCon reads `"SoCon"` instead of
+  `"Southern"` (Southern University’s).
 - [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   and every helper built on it take the school names NCAA.com /
   stats.ncaa.org, KenPom and Bart Torvik use for college teams
@@ -152,6 +192,22 @@ NHL, college football, men’s and women’s college basketball), built on
   `"Miami (OH)"`), from sportsdataverse-py’s NCAA / ESPN crosswalks and
   hoopR’s team crosswalk, so their tables plot without a lookup table.
   ESPN’s own names still win wherever they overlap.
+- [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+  folds typographic dashes and curly apostrophes, so Sports Reference’s
+  UNLV (`"Nevada-Las Vegas"` with an en dash) and a curly
+  `"Saint Mary's"` resolve.
+- `gt_sdv_logos(include_name = TRUE)` keeps the cell’s text after the
+  logo, the logo-and-name cell cbbplotR’s `gt_cbb_teams()` built, for
+  any sport.
+  [`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
+  and
+  [`gt_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_wordmarks.md)
+  also resolve names with an ampersand (“Texas A&M”, “William & Mary”):
+  gt passes them HTML-escaped, so they used to fall back to text.
+- The college basketball articles (tier list, border bars, grid tables,
+  window wins) no longer use cbbdata or cbbplotR: their data comes from
+  hoopR, the NCAA’s NET page and Sports Reference, and their logos from
+  sdvplotR.
 - College team data covers every Division I program. ESPN’s teams list
   leaves some out (Lindenwood, Queens, Southern Indiana, Mercyhurst,
   Saint Francis, UT Rio Grande Valley football), so they drew no logo;

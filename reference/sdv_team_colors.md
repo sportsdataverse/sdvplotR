@@ -8,7 +8,8 @@ Returns the primary and secondary colors (hex codes) for a given team.
 sdv_team_colors(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   team = NULL,
-  type = c("primary", "secondary", "all")
+  type = c("primary", "secondary", "all"),
+  include_conferences = FALSE
 )
 ```
 
@@ -26,6 +27,16 @@ sdv_team_colors(
 - type:
 
   Character string, `"primary"`, `"secondary"`, or `"all"`.
+
+- include_conferences:
+
+  If `TRUE`, also list the conferences sdvplotR has a logo for: the
+  college conferences (`"SEC"`, `"Big Ten"`, `"A-10"`) and `"AFC"`,
+  `"NFC"` and `"NFL"`. They resolve like teams in every helper either
+  way; the default, `FALSE`, lists teams only, so code that loops over
+  teams sees only teams (nflplotR's
+  [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
+  includes AFC, NFC and NFL).
 
 ## Value
 

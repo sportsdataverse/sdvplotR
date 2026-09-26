@@ -182,7 +182,8 @@ for a given sport.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">valid_team_names</span><span class="op">(</span></span>
 <span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="st">"nba"</span>, <span class="st">"wnba"</span>, <span class="st">"mlb"</span>, <span class="st">"nhl"</span>, <span class="st">"cfb"</span>, <span class="st">"mbb"</span>, <span class="st">"wbb"</span><span class="op">)</span>,</span>
-<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"abbreviation"</span>, <span class="st">"name"</span><span class="op">)</span></span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"abbreviation"</span>, <span class="st">"name"</span><span class="op">)</span>,</span>
+<span>  include_conferences <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -197,6 +198,15 @@ for a given sport.</p>
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>Character string, either <code>"abbreviation"</code> (default) or <code>"name"</code>.</p></dd>
+
+
+<dt id="arg-include-conferences">include_conferences<a class="anchor" aria-label="anchor" href="#arg-include-conferences"></a></dt>
+<dd><p>If <code>TRUE</code>, also list the conferences sdvplotR
+has a logo for: the college conferences (<code>"SEC"</code>, <code>"Big Ten"</code>, <code>"A-10"</code>)
+and <code>"AFC"</code>, <code>"NFC"</code> and <code>"NFL"</code>. They resolve like teams in every helper
+either way; the default, <code>FALSE</code>, lists teams only, so code that loops
+over teams sees only teams (nflplotR's <code>valid_team_names()</code> includes AFC,
+NFC and NFL).</p></dd>
 
 </dl></div>
     <div class="section level2">

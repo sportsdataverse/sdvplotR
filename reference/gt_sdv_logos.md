@@ -11,7 +11,8 @@ gt_sdv_logos(
   columns,
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   height = 30,
-  locations = NULL
+  locations = NULL,
+  include_name = FALSE
 )
 ```
 
@@ -46,6 +47,12 @@ gt_sdv_logos(
   and
   [`gt::cells_row_groups()`](https://gt.rstudio.com/reference/cells_row_groups.html)
   helper functions can be used here.
+
+- include_name:
+
+  If `TRUE`, keep the cell's text after the logo, so a cell shows logo
+  and name (what cbbplotR's `gt_cbb_teams()` did). Defaults to `FALSE`,
+  the logo alone.
 
 ## Value
 

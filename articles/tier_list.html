@@ -217,8 +217,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sdvplotR.sportsdataverse.org/">sdvplotR</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">cbbdata</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <p><code>sdvplotR</code> ships with a function that makes creating tier
 lists convenient and quick. However, you need to pass your data to
 <code>gt</code> in a specific format. This vignette walks through how to
@@ -227,42 +226,65 @@ create a simple tier list.</p>
 <div class="section level2">
 <h2 id="basic-tier-list">Basic Tier List<a class="anchor" aria-label="anchor" href="#basic-tier-list"></a>
 </h2>
-<p>For this example, we will be using data that is fetched from the <a href="https://www.cbbdata.aweatherman.com/" class="external-link">{cbbdata}</a> package. For
-conveniance, that data will be pushed to a gist for easy extraction.</p>
+<p>For this example, we rank the ACC’s men’s basketball teams by
+efficiency margin: points scored minus points allowed per 100
+possessions, over the last completed season, computed from <a href="https://hoopR.sportsdataverse.org" class="external-link"><code>hoopR</code></a>’s ESPN
+box scores.</p>
 <div class="section level3">
 <h3 id="processing">Processing<a class="anchor" aria-label="anchor" href="#processing"></a>
 </h3>
-<p>If you’re interested in how to pull the data from
-<code>cbbdata</code>:</p>
+<p><code><a href="../reference/team_reference.html">team_reference()</a></code> lists the ACC’s members, with their
+ESPN ids and logos. The box scores hold one row per team per game;
+joining each row to its opponent’s row gives the possessions and points
+on both sides.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cbd_kenpom_ratings</span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2024</span>, conf <span class="op">=</span> <span class="st">"ACC"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">adj_em</span><span class="op">)</span></span></code></pre></div>
-<p>First, let’s fetch the data form GitHub.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"https://gist.github.com/andreweatherman/a8aaa6057e9858cd11c3327fc32df5bb/raw/3a54e221ae529dc8a2f37077770d7fb1b573b2c9/gtUtils_example_tier_list.csv"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># the last completed season, tournament included (hoopR names it for the</span></span>
+<span><span class="co"># year it ends; the Final Four is in early April)</span></span>
+<span><span class="va">season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"04-10"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">acc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">conference</span> <span class="op">==</span> <span class="st">"ACC"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># possessions estimated from the box score</span></span>
+<span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_mbb_pbp.html" class="external-link">load_mbb_team_box</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">season</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>poss <span class="op">=</span> <span class="va">field_goals_attempted</span> <span class="op">-</span> <span class="va">offensive_rebounds</span> <span class="op">+</span> <span class="va">total_turnovers</span> <span class="op">+</span> <span class="fl">0.475</span> <span class="op">*</span> <span class="va">free_throws_attempted</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">box</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">acc</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">box</span>, <span class="va">game_id</span>, opponent_team_id <span class="op">=</span> <span class="va">team_id</span>, opp_poss <span class="op">=</span> <span class="va">poss</span><span class="op">)</span>,</span>
+<span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"game_id"</span>, <span class="st">"opponent_team_id"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>    eff_margin <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">-</span> <span class="va">opponent_team_score</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">poss</span> <span class="op">+</span> <span class="va">opp_poss</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="va">team_id</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">acc</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">team_id</span>, <span class="va">acc</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>We need to establish tiers and colors. For this example, we are going
 to use three distinct categories and use traditional tier list
 background colors.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Elite"</span>, <span class="st">"Average"</span>, <span class="st">"Poor"</span><span class="op">)</span></span>
 <span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#FF7F7F"</span>, <span class="st">"#FFDF7F"</span>, <span class="st">"#BFFF7F"</span><span class="op">)</span></span></code></pre></div>
 <p>Next, we need to bin our data into these tiers.
 <code>subset_rank</code> uses the <code>dense_rank</code> function to
-assign ordinal ranks based on our column of interest – adjusted
-efficiency margin. Next, we use the cut function to divide these ranks
-into distinct tiers based on quantiles, specifying the breaks at the
-25th and 75th percentiles. This means the data is split into three
-groups, with the lower 25% in one tier, the middle 50% in another, and
-the upper 25% in the final tier. The levels argument provides custom
-labels for each tier – referencing the <code>levels</code> vector above
-– while <code>include.lowest = TRUE</code> ensures the lowest rank is
-included in the first tier.</p>
+assign ordinal ranks based on our column of interest – efficiency
+margin. Next, we use the cut function to divide these ranks into
+distinct tiers based on quantiles, specifying the breaks at the 25th and
+75th percentiles. This means the data is split into three groups, with
+the lower 25% in one tier, the middle 50% in another, and the upper 25%
+in the final tier. The levels argument provides custom labels for each
+tier – referencing the <code>levels</code> vector above – while
+<code>include.lowest = TRUE</code> ensures the lowest rank is included
+in the first tier.</p>
 <p>Finally, tier_order is calculated as the rank within each tier using
 <code>dense_rank</code> again, but this time grouped by the tier to
 ensure the ordering is relative to each group.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    subset_rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">dense_rank</a></span><span class="op">(</span><span class="op">-</span><span class="va">adj_em</span><span class="op">)</span>,</span>
+<span>    subset_rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">dense_rank</a></span><span class="op">(</span><span class="op">-</span><span class="va">eff_margin</span><span class="op">)</span>,</span>
 <span>    tier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">subset_rank</span>,</span>
 <span>      breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">subset_rank</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>      labels <span class="op">=</span> <span class="va">levels</span>,</span>
@@ -270,14 +292,16 @@ ensure the ordering is relative to each group.</p>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tier_order <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">dense_rank</a></span><span class="op">(</span><span class="va">subset_rank</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">tier</span><span class="op">)</span></span></code></pre></div>
-<p>We can use <code>cbbdata</code> to grab team logos and join them onto
-our data. Importantly, we are going to use a dark table theme, so we
-need to grab the dark mode logos.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu">cbd_teams</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">common_team</span>, logo <span class="op">=</span> <span class="va">espn_dark_logo</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="../reference/team_reference.html">team_reference()</a></code> also carries each team’s logos. We are
+going to use a dark table theme, so we take the dark-mode logo, falling
+back to the primary one where ESPN has no dark version.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">acc</span>, team <span class="op">=</span> <span class="va">team_abbr</span>, <span class="va">logo_dark_url</span>, <span class="va">logo_url</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"team"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>logo <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">logo_dark_url</span>, <span class="va">logo_url</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, we need to pivot our data to a <em>wide</em> format. This
 ensures that we will be plotting logos horizontally.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">pivot_wider</span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">tier</span>, names_from <span class="op">=</span> <span class="va">tier_order</span>, values_from <span class="op">=</span> <span class="va">logo</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">tier</span>, <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -293,13 +317,13 @@ images from links - It applies the <code>gt_theme_tier</code> function
 using “dark” mode as a default - It forces all column labels to be
 blank</p>
 <p>Let’s apply it!</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/gt_tiers.html">gt_tiers</a></span><span class="op">(</span><span class="va">levels</span>, <span class="va">colors</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Example Tier List using gtUtils"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Ranking ACC teams by 2024 KenPom rating"</span></span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Ranking ACC teams by efficiency margin,"</span>, <span class="va">season</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="images/tier_list_example.png" class="r-plt" alt="" width="75%" style="display: block; margin: auto;"></p>
 <p>All done! You’ve created a tier list in <code>gt</code> using

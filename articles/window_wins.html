@@ -348,16 +348,18 @@ something, which leaves every other team-window as <code>NA</code>.</p>
 <div class="section level2">
 <h2 id="the-pivot-and-keeping-the-mask-aligned">The pivot, and keeping the mask aligned<a class="anchor" aria-label="anchor" href="#the-pivot-and-keeping-the-mask-aligned"></a>
 </h2>
-<p>We want one row per window and five logo columns in rank order. Logos
-come from <code>cbbdata</code> as a named vector, so we can look them up
-by team name.</p>
+<p>We want one row per window and five logo columns in rank order.
+<code><a href="../reference/team_reference.html">team_reference()</a></code> holds every school’s logo, so a vector of
+them named by abbreviation lets us look one up, and
+<code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> turns Sports Reference’s school names
+(<code>"Connecticut"</code>, <code>"Nevada-Las Vegas"</code>) into those
+abbreviations. It knows the names ESPN, the NCAA, KenPom and Torvik use,
+which covers every school in these windows; a Sports Reference name none
+of them shares (<code>"Brigham Young"</code>) would come back
+<code>NA</code> and draw no logo.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">cbbdata</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">logos</span> <span class="op">&lt;-</span> <span class="fu">cbd_teams</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">sr_team</span>, <span class="va">logo</span><span class="op">)</span></span>
-<span><span class="va">logos</span> <span class="op">&lt;-</span> <span class="va">logos</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">logo</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html" class="external-link">set_names</a></span><span class="op">(</span><span class="va">logos</span><span class="op">$</span><span class="va">team</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ref</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span></span>
+<span><span class="va">logos</span> <span class="op">&lt;-</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html" class="external-link">set_names</a></span><span class="op">(</span><span class="va">ref</span><span class="op">$</span><span class="va">logo_url</span>, <span class="va">ref</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">)</span></span></code></pre></div>
 <p><code>pivot_wider()</code> spreads one value column, so pivoting on
 the logo gives you logos and nothing else. The title count lives in
 <code>total_titles</code>, and it would be gone by the time we draw the
@@ -367,7 +369,7 @@ for what you draw (years and teams) and once for what you style by
 (titles).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ordered</span> <span class="op">&lt;-</span> <span class="va">plot_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>logo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">logos</span><span class="op">[</span><span class="va">team</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>logo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">logos</span><span class="op">[</span><span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="va">team</span>, sport <span class="op">=</span> <span class="st">"mbb"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">begin</span>, <span class="va">position</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># years + five teams</span></span>

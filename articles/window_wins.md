@@ -156,18 +156,21 @@ for teams that won something, which leaves every other team-window as
 
 ## The pivot, and keeping the mask aligned
 
-We want one row per window and five logo columns in rank order. Logos
-come from `cbbdata` as a named vector, so we can look them up by team
-name.
+We want one row per window and five logo columns in rank order.
+[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+holds every school’s logo, so a vector of them named by abbreviation
+lets us look one up, and
+[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+turns Sports Reference’s school names (`"Connecticut"`,
+`"Nevada-Las Vegas"`) into those abbreviations. It knows the names ESPN,
+the NCAA, KenPom and Torvik use, which covers every school in these
+windows; a Sports Reference name none of them shares (`"Brigham Young"`)
+would come back `NA` and draw no logo.
 
 ``` r
 
-library(cbbdata)
-
-logos <- cbd_teams() %>% select(team = sr_team, logo)
-logos <- logos %>%
-  pull(logo) %>%
-  rlang::set_names(logos$team)
+ref <- team_reference("mbb")
+logos <- rlang::set_names(ref$logo_url, ref$team_abbr)
 ```
 
 `pivot_wider()` spreads one value column, so pivoting on the logo gives
@@ -181,7 +184,7 @@ for what you draw (years and teams) and once for what you style by
 ``` r
 
 ordered <- plot_data %>%
-  mutate(logo = unname(logos[team])) %>%
+  mutate(logo = unname(logos[clean_team_abbrs(team, sport = "mbb")])) %>%
   arrange(begin, position)
 
 # years + five teams

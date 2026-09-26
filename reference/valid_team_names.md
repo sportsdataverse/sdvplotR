@@ -8,7 +8,8 @@ given sport.
 ``` r
 valid_team_names(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-  type = c("abbreviation", "name")
+  type = c("abbreviation", "name"),
+  include_conferences = FALSE
 )
 ```
 
@@ -22,6 +23,15 @@ valid_team_names(
 - type:
 
   Character string, either `"abbreviation"` (default) or `"name"`.
+
+- include_conferences:
+
+  If `TRUE`, also list the conferences sdvplotR has a logo for: the
+  college conferences (`"SEC"`, `"Big Ten"`, `"A-10"`) and `"AFC"`,
+  `"NFC"` and `"NFL"`. They resolve like teams in every helper either
+  way; the default, `FALSE`, lists teams only, so code that loops over
+  teams sees only teams (nflplotR's `valid_team_names()` includes AFC,
+  NFC and NFL).
 
 ## Value
 
