@@ -60,11 +60,12 @@ team abbr / player id
   (`check_id_type()` validates it, `headshot_from_id()` resolves it). `NULL`
   keeps GSIS for the NFL and ESPN elsewhere; `"espn"` takes ESPN athlete ids
   for any sport; `"league"` builds the league CDN URL from `league_headshot_url`
-  (NBA / WNBA Stats `PERSON_ID`, MLBAM, as hoopR, wehoop and mlbplotR build
-  them). Those CDNs are keyed by the league id, so no map is needed; they
+  (NBA / WNBA Stats `PERSON_ID`, MLBAM, NHL API id, as hoopR, wehoop,
+  mlbplotR and the NHL API build them; the NHL's `mugs/nhl/latest` path needs
+  no season or team). Those CDNs are keyed by the league id, so no map is needed; they
   serve a silhouette for unknown ids, and cdn.nba.com / cdn.wnba.com return
   403 to datacenter IPs (the droplet, likely CI), so tests assert URLs only.
-  NHL (the mug path needs season and team) and college have no league option.
+  College sports have no league option.
   ID systems can't be told apart by shape, so never guess.
 - When nflverse / nflplotR already does something (data, headshots, caching),
   follow their approach and document any divergence.

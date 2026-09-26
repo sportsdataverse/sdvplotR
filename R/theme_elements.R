@@ -86,7 +86,7 @@ element_sdv_wordmark <- function(
 
 #' @param id_type Which ID system the player IDs hold: `NULL` (the default;
 #'   GSIS IDs for the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"`
-#'   (NBA / WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See [geom_sdv_headshots()].
+#'   (NBA / WNBA Stats `PERSON_ID`, MLBAM, NHL API, GSIS). See [geom_sdv_headshots()].
 #' @rdname element_sdv
 #' @export
 element_sdv_headshot <- function(

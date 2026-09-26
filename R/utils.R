@@ -222,8 +222,9 @@ espn_headshot_url <- function(espn_id, sport) {
 
 # Headshots keyed by the league's own player id, as hoopR's
 # nba_player_headshot_url() / wehoop's wnba_playerheadshot() (NBA and WNBA Stats
-# PERSON_ID) and mlbplotR (MLBAM) build them. An unknown id gets the CDN's
-# silhouette, not a 404. cdn.nba.com and cdn.wnba.com answer 403 to datacenter
+# PERSON_ID), mlbplotR (MLBAM) and the NHL API (its `headshot` for players with
+# no current team: mugs/nhl/latest, the same image as the season/team mug)
+# build them. An unknown id gets the CDN's silhouette, not a 404. cdn.nba.com and cdn.wnba.com answer 403 to datacenter
 # IPs, so a ggplot drawn on CI or a server can come back without the image.
 league_headshot_url <- c(
   nba = "https://cdn.nba.com/headshots/nba/latest/260x190/%s.png",
@@ -231,7 +232,8 @@ league_headshot_url <- c(
   mlb = paste0(
     "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/",
     "w_213,q_auto:best/v1/people/%s/headshot/67/current.png"
-  )
+  ),
+  nhl = "https://assets.nhle.com/mugs/nhl/latest/%s.png"
 )
 
 # `id_type` for the exported headshot helpers: NULL keeps each sport's default
@@ -252,7 +254,7 @@ check_id_type <- function(id_type, sport) {
 
 # Player IDs are GSIS IDs for the NFL and ESPN athlete IDs everywhere else, unless
 # `id_type` says otherwise: "espn" takes ESPN athlete IDs for every sport,
-# "league" the league's own ID (GSIS; NBA / WNBA Stats PERSON_ID; MLBAM).
+# "league" the league's own ID (GSIS; NBA / WNBA Stats PERSON_ID; MLBAM; NHL API).
 # Both are plain digits, so which one an ID is can't be told from its shape.
 headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
   id_type <- id_type %||% if (sport == "nfl") "league" else "espn"

@@ -43,7 +43,7 @@ be resolved. If \code{NULL} (the default) the raw value is shown instead.}
 
 \item{id_type}{Which ID system the player IDs hold: \code{NULL} (the default;
 GSIS IDs for the NFL, ESPN athlete IDs otherwise), \code{"espn"} or \code{"league"}
-(NBA / WNBA Stats \code{PERSON_ID}, MLBAM ID, GSIS). See \code{\link[=geom_sdv_headshots]{geom_sdv_headshots()}}.}
+(NBA / WNBA Stats \code{PERSON_ID}, MLBAM, NHL API, GSIS). See \code{\link[=geom_sdv_headshots]{geom_sdv_headshots()}}.}
 }
 \value{
 A function with signature \verb{function(value, index)} suitable for the

@@ -177,6 +177,12 @@ test_that("id_type = 'league' resolves league ids on the league's own CDN", {
     headshot_from_id(1642286, "wnba", id_type = "league"),
     "https://cdn.wnba.com/headshots/wnba/latest/260x190/1642286.png"
   )
+  # the NHL API's own headshot for players with no current team; same image as
+  # the season/team mug, so no map is needed
+  expect_identical(
+    headshot_from_id(c(8478402, 8447400), "nhl", id_type = "league"),
+    c("https://assets.nhle.com/mugs/nhl/latest/8478402.png", "https://assets.nhle.com/mugs/nhl/latest/8447400.png")
+  )
   expect_match(
     headshot_from_id("660271", "mlb", id_type = "league"),
     "^https://img\\.mlbstatic\\.com/.*/v1/people/660271/headshot/67/current\\.png$"
@@ -205,7 +211,8 @@ test_that("check_id_type validates the id system for the sport", {
   expect_null(check_id_type(NULL, "nhl"))
   expect_identical(check_id_type("league", "wnba"), "league")
   expect_identical(check_id_type("espn", "nfl"), "espn")
-  expect_error(check_id_type("league", "nhl"), "not available by league player ID")
+  expect_identical(check_id_type("league", "nhl"), "league")
+  expect_error(check_id_type("league", "wbb"), "not available by league player ID")
   expect_error(check_id_type("league", "cfb"), "not available by league player ID")
   expect_error(check_id_type("gsis", "nfl"))
 })
