@@ -118,8 +118,9 @@ NHL, college football, men’s and women’s college basketball), built on
 - Every headshot helper takes `id_type`, so player IDs from sources
   other than ESPN draw the right player. `"league"` reads the league’s
   own ID from its image CDN: NBA Stats and WNBA Stats `PERSON_ID`
-  (hoopR’s `nba_*()`, wehoop’s `wnba_*()`) and MLBAM (baseballr,
-  Baseball Savant). `"espn"` reads ESPN athlete IDs in any sport,
+  (hoopR’s `nba_*()`, wehoop’s `wnba_*()`), MLBAM (baseballr, Baseball
+  Savant) and NHL API player IDs (fastRhockey’s `nhl_*()` and
+  `load_nhl_*()`). `"espn"` reads ESPN athlete IDs in any sport,
   including the NFL. By default, IDs are read as before: GSIS for the
   NFL, ESPN elsewhere. The ID systems overlap: without `id_type`, Dirk
   Nowitzki’s NBA Stats ID drew ESPN’s Jared Jeffries.
@@ -140,6 +141,10 @@ NHL, college football, men’s and women’s college basketball), built on
   [`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
   on ‘ggplot2’ 4, which sets the position-specific axis text elements
   itself; axis logos drew as raw HTML there.
+- [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+  matches team names regardless of accents, which providers write
+  inconsistently: the NHL API’s “Montréal Canadiens” now resolves, as
+  does an unaccented “San Jose State” against ESPN’s “San José State”.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)

@@ -80,7 +80,7 @@ scale_y_sdv_headshots(
 
   Which ID system the player IDs hold: `NULL` (the default; GSIS IDs for
   the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"` (NBA /
-  WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See
+  WNBA Stats `PERSON_ID`, MLBAM, NHL API, GSIS). See
   [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md).
 
 ## Value
@@ -96,8 +96,13 @@ by calling
 [`theme_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
 or
 [`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
-or alternatively by manually changing the relevant `axis.text` to
-[`ggtext::element_markdown()`](https://wilkelab.org/ggtext/reference/element_markdown.html).
+after any complete theme such as
+[`ggplot2::theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html),
+which replaces every theme element. To set the theme by hand, change the
+relevant `axis.text` and its position children (`axis.text.x.bottom`,
+...) to
+[`ggtext::element_markdown()`](https://wilkelab.org/ggtext/reference/element_markdown.html):
+complete themes in 'ggplot2' 4 set those children themselves.
 
 ## See also
 

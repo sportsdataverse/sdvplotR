@@ -48,13 +48,15 @@ gt_sdv_cols_label(
   ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
   hoopR's and wehoop's `espn_*()` functions. `"league"` takes the
   league's own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats
-  `PERSON_ID` (hoopR's `nba_*()`, wehoop's `wnba_*()`), or the MLBAM ID
-  (baseballr's `mlb_*()`, Baseball Savant) for MLB, drawn from that
-  league's image CDN; other sports have no league option. Both are plain
-  digits, so a mismatch draws the wrong player or no image rather than
-  an error. League CDNs draw a silhouette for an unknown ID, and the NBA
-  and WNBA CDNs refuse requests from datacenter IPs, so a plot drawn on
-  CI or a server can come back without those headshots.
+  `PERSON_ID` (hoopR's `nba_*()`, wehoop's `wnba_*()`), the MLBAM ID
+  (baseballr's `mlb_*()`, Baseball Savant) for MLB, or the NHL API
+  player ID (fastRhockey's `nhl_*()` and `load_nhl_*()`) for the NHL,
+  drawn from that league's image CDN; college sports have no league
+  option. ESPN and league IDs other than GSIS are plain digits, so a
+  mismatch draws the wrong player or no image rather than an error.
+  League CDNs draw a silhouette for an unknown ID, and the NBA and WNBA
+  CDNs refuse requests from datacenter IPs, so a plot drawn on CI or a
+  server can come back without those headshots.
 
 ## Value
 

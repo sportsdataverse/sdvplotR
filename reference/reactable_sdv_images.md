@@ -57,7 +57,7 @@ reactable_sdv_headshots(
 
   Which ID system the player IDs hold: `NULL` (the default; GSIS IDs for
   the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"` (NBA /
-  WNBA Stats `PERSON_ID`, MLBAM ID, GSIS). See
+  WNBA Stats `PERSON_ID`, MLBAM, NHL API, GSIS). See
   [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md).
 
 ## Value
