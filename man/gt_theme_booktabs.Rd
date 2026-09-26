@@ -50,7 +50,6 @@ and no fills. The type is a Times-compatible serif.
 }
 
 \examples{
-\dontrun{
 library(gt)
 
 gt(head(mtcars[c("mpg", "hp", "wt")], 8)) \%>\% gt_theme_booktabs()
@@ -66,7 +65,6 @@ data.frame(
   fmt_number(Estimate, decimals = 3) \%>\%
   gt_significance(Estimate, p) \%>\%
   gt_theme_booktabs(accent = "#1A3E6F")
-}
 
 }
 \seealso{

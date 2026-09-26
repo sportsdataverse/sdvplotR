@@ -30,7 +30,6 @@
 #' @returns Returns a data frame of the reshaped blocks.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' wide <- head(mtcars[c("mpg", "hp", "wt", "qsec")], 8)
@@ -48,7 +47,6 @@
 #'     condition = gt_snake_align(mask, n_cols = 2),
 #'     fill = "#EDBD68"
 #'   )
-#' }
 #'
 #' @seealso [gt_snake()], which reshapes the table itself and carries body
 #'   styling through.

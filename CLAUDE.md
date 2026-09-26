@@ -96,7 +96,11 @@ devtools::build_readme()
   offline code only). The 12 per-sport / cookbook vignettes are build-ignored
   in `.Rbuildignore` and published as pkgdown articles; they need the
   companion packages listed under `Config/Needs/website`.
-- Examples that download images are wrapped in `\donttest{}`.
+- Examples that download images are wrapped in `\donttest{}`. Never use
+  `\dontrun{}`: examples that save images through a headless Chrome go in an
+  `@examplesIf <webshot2 + Chrome available>` block wrapping `\donttest{}`
+  (see `R/gt_save_crop.R`) and write to `tempfile()` / `tempdir()`, never to
+  the working directory.
 - `Suggests` is deliberately small (ggtext, gridtext, knitr, reactable,
   rmarkdown, sjmisc, testthat, withr); companion data packages are website /
   development needs, not package dependencies.

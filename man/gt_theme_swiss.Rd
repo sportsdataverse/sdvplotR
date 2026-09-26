@@ -50,10 +50,8 @@ centered.
 }
 
 \examples{
-\dontrun{
 library(gt)
 gt(head(mtcars)) \%>\% gt_theme_swiss()
 gt(head(iris)) \%>\% gt_theme_swiss(accent = "#D33A2C")
-}
 
 }

@@ -72,7 +72,6 @@
 #'   [gt_legend_continuous()] for a legend explaining the scale.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars)) %>% gt_color_pills(mpg, domain = c(10, 35))
@@ -92,7 +91,6 @@
 #'     fill_type = "rank", palette = "viridis::mako",
 #'     digits = 0
 #'   )
-#' }
 #'
 #' @export
 gt_color_pills <- function(gt_object, columns, rows = NULL,

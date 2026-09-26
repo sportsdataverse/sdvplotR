@@ -121,7 +121,6 @@ subtitle come out near-black on whatever ground the theme sets later.
 }
 
 \examples{
-\dontrun{
 library(gt)
 
 # a named vector is the quickest way in
@@ -146,7 +145,6 @@ gt(head(mtcars[c("mpg", "cyl", "hp")], 6)) \%>\%
     heading_style = list(font = "Oswald", size = 20, transform = "uppercase"),
     label_style = list(size = 13, color = "#444444")
   )
-}
 
 }
 \seealso{

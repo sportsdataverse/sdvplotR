@@ -50,14 +50,12 @@ rules, no rules between rows, and no fills. A faint hairline closes the body.
 }
 
 \examples{
-\dontrun{
 library(gt)
 
 gt(head(mtcars[c("mpg", "hp", "wt")], 8)) \%>\% gt_theme_tufte()
 
 # a muted rust accent on the hairline
 gt(head(airquality, 8)) \%>\% gt_theme_tufte(accent = "#7B3F2B")
-}
 
 }
 \seealso{

@@ -32,11 +32,9 @@
 #' \if{html}{\figure{gt_theme_sofa_dark.png}{options: width=100\%}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_sofa()
 #' gt(head(mtcars)) %>% gt_theme_sofa(style = "dark")
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

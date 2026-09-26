@@ -30,11 +30,9 @@
 #' \if{html}{\figure{tier_list_example.png}{options: width=100\%}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_tier()
 #' gt(head(mtcars)) %>% gt_theme_tier(style = "light")
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

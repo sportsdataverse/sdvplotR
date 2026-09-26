@@ -38,7 +38,6 @@ Group heading rows are left alone; \code{gt::tab_options(row_group.background.co
 sets those, and it sets all of them at once.
 }
 \examples{
-\dontrun{
 library(gt)
 
 cars <- mtcars[c("mpg", "hp", "wt")]
@@ -51,6 +50,5 @@ gt(head(cars, 15), groupname_col = "cyl") \%>\%
 # shade from the first group instead, in a warmer tone
 gt(head(cars, 15), groupname_col = "cyl") \%>\%
   gt_group_stripes(color = "#FBF3E4", start = 1)
-}
 
 }

@@ -40,7 +40,6 @@ A label of one word, or one already shorter than \code{width}, is left alone. Th
 wrap is on whitespace only, so a single long word is never split.
 }
 \examples{
-\dontrun{
 library(gt)
 
 scores <- data.frame(
@@ -52,6 +51,5 @@ scores <- data.frame(
 gt(scores) \%>\%
   cols_label(sos = "Strength of Schedule", adj = "Adjusted Efficiency") \%>\%
   gt_wrap_labels(c(sos, adj), width = 10)
-}
 
 }

@@ -31,7 +31,6 @@
 #' @returns Returns a modified `gt` table with the selected columns filled by value.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' ranked <- data.frame(
@@ -48,7 +47,6 @@
 #'     palette = "viridis::mako", pal_type = "continuous",
 #'     reverse = TRUE
 #'   )
-#' }
 #'
 #' @seealso [gt_legend_continuous()] for explaining the scale, and [gt_color_pills()]
 #'   for a pill treatment instead of a full-cell fill.

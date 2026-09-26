@@ -114,7 +114,6 @@ set (or carried over from the input) so the CSS can be scoped to it. Set
 }
 
 \examples{
-\dontrun{
 library(gt)
 
 cars <- head(mtcars[c("mpg", "cyl", "hp")], 20)
@@ -145,7 +144,6 @@ gt(cars) \%>\%
     gt::cell_text(weight = "bold"),
     gt::cells_body(columns = model_1)
   )
-}
 
 }
 \seealso{

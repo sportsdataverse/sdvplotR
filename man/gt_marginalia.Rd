@@ -67,7 +67,6 @@ notes come out too dark to read once a dark theme lands on top. Pass \code{color
 and \code{rule_color} to fix them regardless of order.
 }
 \examples{
-\dontrun{
 library(gt)
 
 quarterly <- data.frame(
@@ -88,7 +87,6 @@ gt(quarterly) \%>\%
 # keep a heading, widen it, and drop the italics
 gt(quarterly) \%>\%
   gt_marginalia(Comment, label = "Commentary", width = 280, italic = FALSE)
-}
 
 }
 \seealso{

@@ -112,7 +112,6 @@ high end of the palette. Leaving \code{domain} unset falls back to the observed
 range and warns, since the color mapping then depends on the data present.
 }
 \examples{
-\dontrun{
 library(gt)
 
 gt(head(mtcars)) \%>\% gt_color_pills(mpg, domain = c(10, 35))
@@ -132,7 +131,6 @@ gt(head(mtcars)) \%>\%
     fill_type = "rank", palette = "viridis::mako",
     digits = 0
   )
-}
 
 }
 \seealso{

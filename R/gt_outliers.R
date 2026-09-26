@@ -42,7 +42,6 @@
 #' @returns Returns a modified `gt` table with outlying values marked.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' assays <- data.frame(
@@ -63,7 +62,6 @@
 #'
 #' # works on wider data too
 #' gt(head(airquality, 12)) %>% gt_outliers(c(Ozone, Wind, Temp))
-#' }
 #'
 #' @seealso [gt_highlight_na()] for missing values, and [gt_spotlight()] for
 #'   drawing attention to whole rows.

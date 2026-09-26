@@ -44,7 +44,6 @@
 #' @returns Returns a modified `gt` table with the change column added.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' revenue <- data.frame(
@@ -58,7 +57,6 @@
 #'
 #' # as a percent of Q1, with arrows
 #' gt(revenue) %>% gt_delta(Q1, Q2, percent = TRUE, arrows = TRUE)
-#' }
 #'
 #' @seealso [gt_scale_note()] for disclosing a divided scale.
 #' @import gt

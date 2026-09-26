@@ -61,7 +61,6 @@
 #' @returns Displays the grid in the viewer, or writes it to `file`.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' by_cyl <- lapply(split(mtcars, mtcars$cyl), function(d) {
@@ -103,8 +102,10 @@
 #'   subtitle_style = list(italic = TRUE, color = "#8A8A8A")
 #' )
 #'
-#' # straight to an image
-#' gt_grid(by_cyl, ncol = 3, file = "cylinders.png", bg = "#FBFAF7")
+#' @examplesIf requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' # straight to an image; saving needs a headless Chrome (webshot2)
+#' \donttest{
+#' gt_grid(by_cyl, ncol = 3, file = tempfile(fileext = ".png"), bg = "#FBFAF7")
 #' }
 #'
 #' @seealso [gt_stack_tables()] for a vertical stack, and [gt_snake()] for

@@ -30,7 +30,6 @@ Teens are handled correctly, so 11, 12 and 13 take "th" and not "st", "nd" and
 "rd". Values that are not numeric are left alone.
 }
 \examples{
-\dontrun{
 library(gt)
 
 ranked <- data.frame(
@@ -42,6 +41,5 @@ gt(ranked) \%>\% gt_fmt_rank(place)
 
 # flat, without the superscript
 gt(ranked) \%>\% gt_fmt_rank(place, superscript = FALSE)
-}
 
 }

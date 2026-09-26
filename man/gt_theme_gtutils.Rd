@@ -53,10 +53,8 @@ leaves every size as the theme sets it, \code{"compact"} scales both down, and
 }
 
 \examples{
-\dontrun{
 library(gt)
 gt(head(mtcars)) \%>\% gt_theme_gtutils()
 gt(head(mtcars)) \%>\% gt_theme_gtutils(density = "compact")
-}
 
 }

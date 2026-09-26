@@ -34,11 +34,9 @@
 #' \if{html}{\figure{gt_theme_gtutils.png}{options: width=100\%}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_gtutils()
 #' gt(head(mtcars)) %>% gt_theme_gtutils(density = "compact")
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

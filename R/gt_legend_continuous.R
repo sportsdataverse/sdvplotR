@@ -103,7 +103,6 @@
 #' @returns Returns a modified `gt` table with the legend added.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' # the legend matches whatever gt_color_ranks() drew
@@ -123,7 +122,6 @@
 #'     ),
 #'     labels_style = list(size = "9px", color = "#999999")
 #'   )
-#' }
 #'
 #' @seealso [gt_color_ranks()], and [gt_legend_discrete()] for a discrete key.
 #' @import gt

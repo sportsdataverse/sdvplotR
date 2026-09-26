@@ -63,7 +63,6 @@
 #' @importFrom glue glue
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' roster <- data.frame(
@@ -81,7 +80,6 @@
 #'     key_columns = "player", show_text = TRUE,
 #'     border_color = "#333333"
 #'   )
-#' }
 #'
 #' @export
 gt_indicator_boxes <- function(gt_object, columns = NULL, key_columns = NULL,

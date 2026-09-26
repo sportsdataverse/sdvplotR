@@ -54,6 +54,7 @@ Imports:
     tools,
     utils
 Suggests:
+    chromote,
     ggtext (>= 0.1.1),
     gridtext (>= 0.1.4),
     knitr,

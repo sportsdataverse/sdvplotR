@@ -73,7 +73,6 @@ Rows can be given as a filtering expression evaluated against the underlying
 data, or as plain row numbers.
 }
 \examples{
-\dontrun{
 library(gt)
 
 cars <- head(mtcars[c("mpg", "cyl", "hp")], 8)
@@ -99,7 +98,6 @@ tbls <- lapply(chunks, function(x) {
   gt(x) \%>\% gt_spotlight(rows = cyl == 8, if_none = "dim")
 })
 gt_grid(tbls, ncol = 2)
-}
 
 }
 \seealso{

@@ -58,7 +58,6 @@ with \code{\link[=gt_color_ranks]{gt_color_ranks()}} instead.
 }
 
 \examples{
-\dontrun{
 library(gt)
 gt(head(mtcars)) \%>\% gt_theme_midnight()
 
@@ -66,7 +65,6 @@ gt(head(mtcars)) \%>\% gt_theme_midnight()
 gt(head(airquality, 10)) \%>\%
   gt_theme_midnight() \%>\%
   gt_color_ranks(Temp, palette = pal_midnight)
-}
 
 }
 \seealso{

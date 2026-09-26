@@ -73,7 +73,6 @@ function stops with a message naming the icon and the version, instead of
 rendering a broken glyph.
 }
 \examples{
-\dontrun{
 library(gt)
 
 gt(head(mtcars)) \%>\%
@@ -86,7 +85,6 @@ gt(head(mtcars)) \%>\%
     caption = "Data: R built-in datasets",
     stack = TRUE, align = "left"
   )
-}
 
 }
 \seealso{

@@ -33,11 +33,9 @@
 #' \if{html}{\figure{gt_theme_kenpom.png}{options: width=100\%}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_kenpom()
 #' gt(head(mtcars)) %>% gt_theme_kenpom(density = "compact")
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

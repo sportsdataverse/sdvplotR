@@ -37,8 +37,8 @@
 #'
 #' @returns Invisibly, a character vector of the files written.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' \donttest{
 #' library(gt)
 #'
 #' build <- function(df, group) {
@@ -47,7 +47,7 @@
 #'     tab_header(title = paste(group, "cylinders"))
 #' }
 #'
-#' gt_save_batch(mtcars, cyl, build, "cars-{group}.png", dir = "out")
+#' gt_save_batch(mtcars, cyl, build, "cars-{group}.png", dir = tempdir())
 #' }
 #'
 #' @seealso [gt_grid()] for the same split composed into one image instead.

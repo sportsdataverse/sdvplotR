@@ -23,7 +23,6 @@
 #' @returns Returns a modified `gt` table with the selected labels wrapped.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' scores <- data.frame(
@@ -35,7 +34,6 @@
 #' gt(scores) %>%
 #'   cols_label(sos = "Strength of Schedule", adj = "Adjusted Efficiency") %>%
 #'   gt_wrap_labels(c(sos, adj), width = 10)
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

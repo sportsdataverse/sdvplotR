@@ -60,7 +60,6 @@ all. A formula or function must return one logical per row, and \code{NA} counts
 not matched. For more than one color, layer the calls, one per color.
 }
 \examples{
-\dontrun{
 library(gt)
 
 # a correlation matrix: flag strong pairs, but not the diagonal of ones
@@ -80,7 +79,6 @@ sched <- data.frame(
 gt(sched) \%>\%
   gt_highlight_cells(c(wk1, wk2), ~ grepl("^vs", .x), fill = "#CCE7F5") \%>\%
   gt_highlight_cells(c(wk1, wk2), ~ .x == "BYE", fill = "#D9D9D9")
-}
 
 }
 \seealso{

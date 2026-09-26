@@ -26,7 +26,6 @@
 #' @returns Returns a modified `gt` table with alternate groups banded.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' cars <- mtcars[c("mpg", "hp", "wt")]
@@ -39,7 +38,6 @@
 #' # shade from the first group instead, in a warmer tone
 #' gt(head(cars, 15), groupname_col = "cyl") %>%
 #'   gt_group_stripes(color = "#FBF3E4", start = 1)
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

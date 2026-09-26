@@ -27,7 +27,6 @@
 #'   disclosed.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' revenue <- data.frame(
@@ -41,7 +40,6 @@
 #'
 #' # disclose in the column labels instead
 #' gt(revenue) %>% gt_scale_note(c(FY24, FY23), divisor = 1e3, where = "label")
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

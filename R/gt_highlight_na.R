@@ -27,7 +27,6 @@
 #' @returns Returns a modified `gt` table with missing values styled.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(airquality, 10)) %>% gt_highlight_na(c(Ozone, Solar.R))
@@ -42,7 +41,6 @@
 #' # also catch placeholder strings left behind by a CSV import
 #' gt(head(airquality, 10)) %>%
 #'   gt_highlight_na(everything(), na_strings = c("NA", "N/A", "-"))
-#' }
 #'
 #' @seealso [gt_outliers()] for flagging values that are present but suspect.
 #' @import gt

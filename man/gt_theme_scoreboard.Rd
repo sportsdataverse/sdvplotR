@@ -50,13 +50,11 @@ if the accent is pale.
 }
 
 \examples{
-\dontrun{
 library(gt)
 gt(head(mtcars)) \%>\% gt_theme_scoreboard()
 
 # a brand color carries the whole table
 gt(head(mtcars)) \%>\% gt_theme_scoreboard(accent = "#0F766E")
-}
 
 }
 \seealso{

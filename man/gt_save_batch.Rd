@@ -67,7 +67,8 @@ posted together can come out at different widths. With it, every image is
 padded to the width of the widest before its border is added.
 }
 \examples{
-\dontrun{
+\dontshow{if (requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\donttest{
 library(gt)
 
 build <- function(df, group) {
@@ -76,9 +77,9 @@ build <- function(df, group) {
     tab_header(title = paste(group, "cylinders"))
 }
 
-gt_save_batch(mtcars, cyl, build, "cars-{group}.png", dir = "out")
+gt_save_batch(mtcars, cyl, build, "cars-{group}.png", dir = tempdir())
 }
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=gt_grid]{gt_grid()}} for the same split composed into one image instead.

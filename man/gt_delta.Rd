@@ -79,7 +79,6 @@ is shown as a magnitude behind the triangle, so a decrease reads as a down
 triangle in front of a positive number.
 }
 \examples{
-\dontrun{
 library(gt)
 
 revenue <- data.frame(
@@ -93,7 +92,6 @@ gt(revenue) \%>\% gt_delta(Q1, Q2)
 
 # as a percent of Q1, with arrows
 gt(revenue) \%>\% gt_delta(Q1, Q2, percent = TRUE, arrows = TRUE)
-}
 
 }
 \seealso{

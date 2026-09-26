@@ -58,14 +58,14 @@ The watermark sits behind the body cells, so it will be hidden wherever a cell
 has its own fill, from row striping or from \code{gt::data_color()}.
 }
 \examples{
-\dontrun{
 library(gt)
 
 gt(head(mtcars)) \%>\% gt_watermark(text = "DRAFT", angle = -30, opacity = 0.08)
 
+# any local image; R's own logo ships with every R install
+logo <- file.path(R.home("doc"), "html", "logo.jpg")
 gt(head(mtcars)) \%>\%
-  gt_watermark(image = "logo.png", size = "40\%", position = "right bottom")
-}
+  gt_watermark(image = logo, size = "40\%", position = "right bottom")
 
 }
 \seealso{

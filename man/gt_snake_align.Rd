@@ -42,7 +42,6 @@ match the names \code{\link[=gt_snake]{gt_snake()}} gives the table. The result 
 shape \code{\link[=gt_highlight_cells]{gt_highlight_cells()}} expects for the block of snaked columns.
 }
 \examples{
-\dontrun{
 library(gt)
 
 wide <- head(mtcars[c("mpg", "hp", "wt", "qsec")], 8)
@@ -60,7 +59,6 @@ wide \%>\%
     condition = gt_snake_align(mask, n_cols = 2),
     fill = "#EDBD68"
   )
-}
 
 }
 \seealso{

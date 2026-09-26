@@ -60,7 +60,6 @@ label. Naming \code{image_columns} leaves the rest untouched, so a text column c
 sit alongside the images.
 }
 \examples{
-\dontrun{
 library(gt)
 
 standings <- data.frame(
@@ -74,6 +73,5 @@ standings <- data.frame(
 
 gt(standings) \%>\%
   gt_tiers(levels = c("A", "B"), colors = c("#1B7837", "#B2182B"))
-}
 
 }

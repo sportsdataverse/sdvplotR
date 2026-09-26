@@ -77,7 +77,6 @@ A row is left alone if any of its counts are missing, so a partial tally is
 never shown. The share is also left blank where the counts sum to zero.
 }
 \examples{
-\dontrun{
 library(gt)
 
 suites <- data.frame(
@@ -106,7 +105,6 @@ league <- data.frame(
 )
 
 gt(league) \%>\% gt_fmt_tally(c(W, D, L), label = "W-D-L")
-}
 
 }
 \seealso{

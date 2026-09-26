@@ -41,7 +41,6 @@
 #' @returns Returns a modified `gt` table with the chosen rows emphasized.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' cars <- head(mtcars[c("mpg", "cyl", "hp")], 8)
@@ -67,7 +66,6 @@
 #'   gt(x) %>% gt_spotlight(rows = cyl == 8, if_none = "dim")
 #' })
 #' gt_grid(tbls, ncol = 2)
-#' }
 #'
 #' @seealso [gt_cutline()] for marking a threshold rather than a row.
 #' @import gt

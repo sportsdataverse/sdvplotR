@@ -50,11 +50,9 @@ without any extra formatting.
 }
 
 \examples{
-\dontrun{
 library(gt)
 gt(head(mtcars, 12)) \%>\% gt_theme_terminal()
 gt(head(airquality, 15)) \%>\% gt_theme_terminal(accent = "#7EE787")
-}
 
 }
 \seealso{

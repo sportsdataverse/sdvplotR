@@ -63,7 +63,6 @@ the defaults a p-value of 0.004 gets \verb{***} and not \code{*}. Values that me
 of the thresholds are left alone, as are \code{NA} p-values.
 }
 \examples{
-\dontrun{
 library(gt)
 
 fit <- lm(mpg ~ wt + hp + factor(cyl), data = mtcars)
@@ -84,7 +83,6 @@ gt(results) \%>\%
     levels = 0.05, symbols = "†",
     legend_text = "† p < .05"
   )
-}
 
 }
 \seealso{

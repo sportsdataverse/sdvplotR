@@ -31,14 +31,14 @@
 #' @returns Returns a modified `gt` table with a watermark behind the body.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars)) %>% gt_watermark(text = "DRAFT", angle = -30, opacity = 0.08)
 #'
+#' # any local image; R's own logo ships with every R install
+#' logo <- file.path(R.home("doc"), "html", "logo.jpg")
 #' gt(head(mtcars)) %>%
-#'   gt_watermark(image = "logo.png", size = "40%", position = "right bottom")
-#' }
+#'   gt_watermark(image = logo, size = "40%", position = "right bottom")
 #'
 #' @seealso [gt_social_tag()] for visible attribution in the source note.
 #' @import gt

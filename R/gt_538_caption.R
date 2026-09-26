@@ -41,7 +41,6 @@
 #' @returns Returns a modified `gt` table with the styled captions.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars[c("mpg", "hp", "wt")], 6)) %>%
@@ -49,7 +48,6 @@
 #'     top_caption = "Fuel economy and power",
 #'     bottom_caption = "Source: *1974 Motor Trend* road tests"
 #'   )
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

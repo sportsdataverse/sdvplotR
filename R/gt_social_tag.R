@@ -42,7 +42,6 @@
 #' rendering a broken glyph.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' gt(head(mtcars)) %>%
@@ -55,7 +54,6 @@
 #'     caption = "Data: R built-in datasets",
 #'     stack = TRUE, align = "left"
 #'   )
-#' }
 #'
 #' @seealso [gt_538_caption()].
 #' @import gt

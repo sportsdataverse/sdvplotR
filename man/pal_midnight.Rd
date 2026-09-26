@@ -16,11 +16,9 @@ built for white paper, and its mid-tones collapse into a dark ground. Pass this
 instead when using \code{\link[=gt_theme_midnight]{gt_theme_midnight()}} or \code{\link[=gt_theme_terminal]{gt_theme_terminal()}}.
 }
 \examples{
-\dontrun{
 gt::gt(head(airquality, 10)) \%>\%
   gt_theme_midnight() \%>\%
   gt_color_ranks(Temp, palette = pal_midnight)
-}
 
 }
 \seealso{

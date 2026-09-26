@@ -73,7 +73,6 @@ quartiles barely move, so the IQR fence stops at 10.75 and catches it. The
 masking is worst in small samples. Use \code{method = "sd"} if you want it anyway.
 }
 \examples{
-\dontrun{
 library(gt)
 
 assays <- data.frame(
@@ -94,7 +93,6 @@ gt(assays) \%>\%
 
 # works on wider data too
 gt(head(airquality, 12)) \%>\% gt_outliers(c(Ozone, Wind, Temp))
-}
 
 }
 \seealso{

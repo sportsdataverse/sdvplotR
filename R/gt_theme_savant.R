@@ -29,10 +29,8 @@
 #' \if{html}{\figure{gt_theme_savant.png}{options: width=100\%}}
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #' gt(head(mtcars)) %>% gt_theme_savant()
-#' }
 #'
 #' @import gt
 #' @importFrom magrittr %>%

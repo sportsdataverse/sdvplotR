@@ -34,7 +34,6 @@
 #' @returns Returns a modified `gt` table with significance notation applied.
 #'
 #' @examples
-#' \dontrun{
 #' library(gt)
 #'
 #' fit <- lm(mpg ~ wt + hp + factor(cyl), data = mtcars)
@@ -55,7 +54,6 @@
 #'     levels = 0.05, symbols = "†",
 #'     legend_text = "† p < .05"
 #'   )
-#' }
 #'
 #' @seealso [gt_fmt_rank()], which uses the same superscript approach for
 #'   ordinal suffixes.

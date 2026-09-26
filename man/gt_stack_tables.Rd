@@ -94,7 +94,6 @@ or a CSS string. Any key left out keeps its default.
 }
 
 \examples{
-\dontrun{
 library(gt)
 
 t1 <- gt(head(mtcars[c("mpg", "hp")]))
@@ -102,16 +101,19 @@ t2 <- gt(head(iris[c("Sepal.Length", "Species")]))
 
 gt_stack_tables(list(t1, t2))
 
-# one heading over the stack, saved straight to an image
+\dontshow{if (requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+# one heading over the stack, saved straight to an image; saving needs a
+# headless Chrome (webshot2)
+\donttest{
 gt_stack_tables(
   list(t1, t2),
   title = "Two tables",
   subtitle = "Stacked into one block",
   title_style = list(font = "Oswald", size = 30, transform = "uppercase"),
-  file = "stack.png"
+  file = tempfile(fileext = ".png")
 )
 }
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=gt_grid]{gt_grid()}} for a side-by-side grid and \code{\link[=gt_snake]{gt_snake()}} for folding one

@@ -165,7 +165,6 @@ arguments directly.
 }
 
 \examples{
-\dontrun{
 library(gt)
 
 # the legend matches whatever gt_color_ranks() drew
@@ -185,7 +184,6 @@ gt(head(airquality, 10)) \%>\%
     ),
     labels_style = list(size = "9px", color = "#999999")
   )
-}
 
 }
 \seealso{
