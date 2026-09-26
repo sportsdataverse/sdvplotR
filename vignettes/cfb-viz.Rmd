@@ -35,7 +35,7 @@ library(gt)
 
 # Get valid CFB team abbreviations
 cfb_teams <- valid_team_names("cfb")
-length(cfb_teams)  # ~130 FBS teams
+length(cfb_teams)  # every FBS and FCS program
 head(cfb_teams)
 ```
 
@@ -44,9 +44,10 @@ head(cfb_teams)
 Use `cfbfastR` to load a season of play-by-play data:
 
 ```{r load-pbp}
-# College football seasons start in August; before then, use last season
+# The last completed regular season (named for the year it starts; the regular
+# season ends in mid-December)
 season <- as.integer(format(Sys.Date(), "%Y")) -
-  (as.integer(format(Sys.Date(), "%m")) < 8)
+  (format(Sys.Date(), "%m-%d") < "12-15")
 
 pbp <- cfbfastR::load_cfb_pbp(seasons = season)
 
@@ -72,9 +73,10 @@ team_perf <- pass_plays |>
   ) |>
   filter(n_plays >= 100) |>
   inner_join(
-    select(team_reference("cfb"), team_abbr, team_location, conference),
+    select(team_reference("cfb"), team_abbr, team_location, conference, division),
     by = "team_abbr"
-  )
+  ) |>
+  filter(division == "FBS")
 
 sec_teams <- team_perf |>
   filter(conference == "SEC") |>
@@ -100,11 +102,10 @@ ggplot(sec_teams, aes(x = reorder(team_abbr, mean_epa), y = mean_epa)) +
 ## Playoff Bracket with cfbseedR
 
 `cfbseedR` applies each conference's tiebreakers and seeds a 12-team College
-Football Playoff from a season's results. This seeds the last completed season:
+Football Playoff from a season's results:
 
 ```{r playoff-bracket}
-completed <- if (as.integer(format(Sys.Date(), "%m")) >= 8) season - 1 else season
-sched <- cfbfastR::load_cfb_schedules(completed)
+sched <- cfbfastR::load_cfb_schedules(season)
 
 # FBS and FCS teams: games against FCS count toward records, but only FBS
 # teams are seeded
@@ -125,7 +126,8 @@ standings <- cfbseedR::cfb_standings(games, teams, verbosity = "NONE")
 
 bracket_data <- standings |>
   filter(team %in% teams$team[teams$division == "FBS"]) |>
-  cfbseedR::cfb_playoff_seeds(playoff_seeds = 12) |>
+  # the auto-bid rule in force that season
+  cfbseedR::cfb_playoff_seeds(playoff_seeds = 12, autobid = if (season >= 2026) "2026" else "2025") |>
   filter(!is.na(seed)) |>
   mutate(team_abbr = clean_team_abbrs(team, sport = "cfb"))
 
@@ -138,7 +140,7 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   scale_x_continuous(breaks = 1:12) +
   labs(
     title = "College Football Playoff Seeds",
-    subtitle = paste("Season", completed, "from results alone"),
+    subtitle = paste("Season", season, "from results alone"),
     x = "Seed",
     y = NULL
   ) +
@@ -150,9 +152,10 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   )
 ```
 
-Without committee rankings the field is seeded from results alone. Pass the
-committee's final rankings as `rankings =` to `cfb_playoff_seeds()` to seed
-the bracket the way the committee did.
+`autobid` picks the automatic-bid rule in force that season. Without committee
+rankings the field is seeded from results alone; pass the committee's final
+rankings as `rankings =` to `cfb_playoff_seeds()` to seed the bracket the way
+the committee did.
 
 ## CFB Team Tiers
 
