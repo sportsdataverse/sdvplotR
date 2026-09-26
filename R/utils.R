@@ -167,6 +167,31 @@ resolve_wordmark_url <- function(team, sport, variant = "primary") {
   ifelse(is.na(url), wordmark_from_team(team, sport), url)
 }
 
+# NFL headshot map: sdvplotR publishes it from nflverse rosters (1999 onward) to
+# its sdvplotr_infrastructure release (data-raw/update_headshot_gsis_map.R) and
+# reads it the way nflplotR reads its own map, through nflreadr::rds_from_url(),
+# which nflreadr memoises for a day (option nflreadr.cache). Offline, the read
+# warns and returns no rows, so every NFL id resolves to NA and the helpers fall
+# back as they do for any unknown id.
+load_headshot_map <- function() {
+  map <- nflreadr::rds_from_url(
+    "https://github.com/sportsdataverse/sdvplotR/releases/download/sdvplotr_infrastructure/headshot_gsis_map.rds"
+  )
+  if (!all(c("gsis_id", "headshot_nfl", "espn_id") %in% names(map))) {
+    map <- data.frame(gsis_id = character(), headshot_nfl = character(), espn_id = character())
+  }
+  map
+}
+
+# NFL.com image at the sized headshot transform rather than the full-size
+# f_auto,q_auto the roster stores (42-56 KB instead of up to 3.4 MB), with the
+# .png that nflplotR also appends: gridtext, behind the headshot axis scales,
+# picks its image reader by file extension
+nfl_headshot_url <- function(url) {
+  url <- sub("/f_auto,q_auto/", "/t_headshot_desktop/f_auto/", url, fixed = TRUE)
+  ifelse(grepl("\\.png$", url), url, paste0(url, ".png"))
+}
+
 # Player IDs are GSIS IDs for the NFL and ESPN athlete IDs everywhere else.
 headshot_from_id <- function(player_id, sport = "nfl") {
   # as.character() writes round numbers like 4000000 as "4e+06"
@@ -181,27 +206,21 @@ headshot_from_id <- function(player_id, sport = "nfl") {
     wbb = "womens-college-basketball"
   )
   url <- if (sport == "nfl") {
-    # GSIS ids resolve through nflverse's crosswalk: "<private|upload>/<id>" is
-    # NFL.com's own image id, "espn/<id>" an ESPN athlete id for players NFL.com
-    # has no image of. Bare numeric NFL ids are not accepted: nflverse's numeric
-    # id systems (nfl, pff, otc) collide with ESPN ids and would show the wrong
-    # player.
-    hit <- unname(nfl_headshot_ids[player_id])
+    # GSIS ids resolve through the headshot map sdvplotR publishes (see
+    # load_headshot_map()): NFL.com's image where the roster has one, otherwise
+    # the player's ESPN athlete headshot. Bare numeric NFL ids are not accepted:
+    # nflverse's numeric id systems (nfl, pff, otc) collide with ESPN ids.
+    map <- load_headshot_map()
+    i <- match(player_id, map$gsis_id)
+    nfl <- map$headshot_nfl[i]
+    espn <- map$espn_id[i]
     ifelse(
-      is.na(hit),
-      NA_character_,
+      !is.na(nfl),
+      nfl_headshot_url(nfl),
       ifelse(
-        startsWith(hit, "espn/"),
-        paste0(
-          "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/",
-          sub("^espn/", "", hit), ".png"
-        ),
-        # the .png suffix keeps extension-sniffing readers (gridtext, behind the
-        # headshot axis scales) working; NFL.com serves the same image with it
-        paste0(
-          "https://static.www.nfl.com/image/",
-          sub("/", "/t_headshot_desktop/f_auto/league/", hit, fixed = TRUE), ".png"
-        )
+        !is.na(espn),
+        paste0("https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/", espn, ".png"),
+        NA_character_
       )
     )
   } else {
@@ -235,20 +254,23 @@ headshot_html <- function(player_id, sport, type = c("height", "width"), size = 
 # Cache management
 # ---------------------------------------------------------------------------
 
-#' Clear the sdvplotR Image Cache
+#' Clear the sdvplotR Caches
 #'
-#' @description sdvplotR renders images through 'ggpath', which caches
-#'   downloaded images for the current session. This function clears that
-#'   cache when 'ggpath' exposes a cache-clearing function and is a no-op
-#'   otherwise.
+#' @description sdvplotR reads the NFL headshot map through 'nflreadr', which
+#'   memoises it for a day, and renders images through 'ggpath', which caches
+#'   downloaded images for the session. This function clears both (the
+#'   'ggpath' cache when 'ggpath' exposes a cache-clearing function), so the
+#'   next NFL headshot reads the current published map.
 #' @return Invisibly `NULL`, called for its side effect.
 #' @export
 #' @examples
 #' sdvplotR_clear_cache()
 sdvplotR_clear_cache <- function() {
+  # the NFL headshot map is memoised by nflreadr's reader
+  nflreadr::clear_cache()
   if ("clear_cache" %in% getNamespaceExports("ggpath")) {
     getExportedValue("ggpath", "clear_cache")()
-    cli::cli_alert_success("sdvplotR image cache cleared.")
   }
+  cli::cli_alert_success("sdvplotR cache cleared.")
   invisible(NULL)
 }

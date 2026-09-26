@@ -37,14 +37,20 @@ team abbr / player id
   endpoints (the `site.api.espn.com` host 403s non-browser clients), the ESPN
   core API group endpoints (FBS = 80, FCS = 81, D-I = 50) and
   `nflreadr::load_teams()`. **Never hand-edit the `.rda`.**
-- `R/sysdata.rda` also holds `nfl_headshot_ids` (GSIS id -> NFL.com image
-  `"<private|upload>/<id>"`, or `"espn/<id>"` where NFL.com has none), built
-  by `data-raw/nfl_headshot_ids.R` from `nflreadr::load_players()`. NFL.com
-  image ids are opaque (not the GSIS digits) and resolve only under their own
-  delivery type. Each data script re-saves the other's objects and stops
-  before downloading if they are missing, so run `nfl_headshot_ids.R` first on
-  a fresh `sysdata.rda`. NFL headshots take GSIS ids only: nflverse's numeric
-  id systems collide with ESPN ids.
+- NFL headshots follow nflplotR: `load_headshot_map()` reads
+  `headshot_gsis_map.rds` from this repo's `sdvplotr_infrastructure` release
+  through `nflreadr::rds_from_url()` (memoised a day; `sdvplotR_clear_cache()`
+  clears it). `data-raw/update_headshot_gsis_map.R` builds it from
+  `nflreadr::load_rosters()` 1999 onward (one file per season, a combined map
+  at each player's latest season, and `nfl_player_id_crosswalk.rds/csv`);
+  `.github/workflows/update-headshot-map.yaml` reruns the current season
+  weekly. NFL.com image ids are opaque (not the GSIS digits); URLs use the
+  sized `t_headshot_desktop` transform plus `.png` (gridtext needs the
+  extension). NFL headshots take GSIS ids only: nflverse's numeric id systems
+  collide with ESPN ids. Offline, the map is empty and NFL ids resolve to NA;
+  tests mock `load_headshot_map()` (`tests/testthat/helper-headshots.R`).
+- When nflverse / nflplotR already does something (data, headshots, caching),
+  follow their approach and document any divergence.
 - Canonical keys: nflverse abbreviations for the NFL (`LA`, `LV`, `WAS`), ESPN
   abbreviations everywhere else (`GS`, `NY`, `UTAH`, `ATH`, `CON`). Aliases
   from other providers live in the `aliases` list of the data script;

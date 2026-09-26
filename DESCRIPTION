@@ -46,6 +46,7 @@ Imports:
     htmltools,
     magick,
     magrittr (>= 2.0.0),
+    nflreadr (>= 1.5.0),
     paletteer,
     rlang (>= 1.0.0),
     scales (>= 1.1.0),
