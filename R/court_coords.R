@@ -55,6 +55,9 @@ sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy")
   }
   check_column_arg(x_column, "x_column")
   check_column_arg(y_column, "y_column")
+  if (identical(x_column, y_column)) {
+    cli::cli_abort("{.arg x_column} and {.arg y_column} must name different columns, not both {.val {x_column}}.")
+  }
 
   missing_cols <- setdiff(c(x_column, y_column), names(data))
   if (length(missing_cols) > 0) {
@@ -94,6 +97,11 @@ check_column_arg <- function(value, arg_name) {
 # labels' values, which would silently corrupt the coordinates.
 coerce_shot_coord <- function(values, column_name) {
   if (is.numeric(values)) {
+    return(as.numeric(values))
+  }
+  # An all-NA column is logical (`data.frame(x = NA)`, or readr reading an
+  # all-empty column): treat it as missing coordinates. TRUE/FALSE still errors.
+  if (is.logical(values) && all(is.na(values))) {
     return(as.numeric(values))
   }
   if (is.character(values)) {

@@ -33,6 +33,14 @@ test_that("sdv_court_coords validates x_column/y_column are single strings", {
   expect_error(sdv_court_coords(df, x_column = c("x_legacy", "y_legacy")), "single string")
 })
 
+test_that("sdv_court_coords rejects the same column for both axes", {
+  df <- data.frame(LOC_X = -224, LOC_Y = 39)
+  expect_error(
+    sdv_court_coords(df, x_column = "LOC_X", y_column = "LOC_X"),
+    "must name different columns"
+  )
+})
+
 test_that("sdv_court_coords coerces character columns", {
   df <- data.frame(x_legacy = c("-224", "240"), y_legacy = c("39", "29"))
   out <- sdv_court_coords(df)
@@ -54,6 +62,17 @@ test_that("sdv_court_coords propagates NA", {
 
   expect_equal(out$court_y, c(-22.4, NA))
   expect_true(is.na(out$court_x[2]))
+})
+
+test_that("sdv_court_coords treats all-NA logical columns as missing coordinates", {
+  df <- data.frame(x_legacy = c(NA, NA), y_legacy = c(NA, NA))
+  out <- sdv_court_coords(df)
+  expect_type(out$court_x, "double")
+  expect_type(out$court_y, "double")
+  expect_true(all(is.na(out$court_x)) && all(is.na(out$court_y)))
+
+  bad_lgl <- data.frame(x_legacy = c(TRUE, FALSE), y_legacy = c(39, 29))
+  expect_error(sdv_court_coords(bad_lgl), "numeric or character")
 })
 
 test_that("sdv_court_coords preserves the tibble class", {
