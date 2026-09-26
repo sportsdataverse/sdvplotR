@@ -59,6 +59,8 @@
     <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
     <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
     <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
     <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
@@ -86,6 +88,16 @@
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
     <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>gt Table Cookbooks</h6></li>
+    <li><a class="dropdown-item" href="../articles/styling.html">Styling Headers, Legends and Captions</a></li>
+    <li><a class="dropdown-item" href="../articles/saving_tables.html">Saving and Posting Tables</a></li>
+    <li><a class="dropdown-item" href="../articles/grid_tables.html">Faceted Tables</a></li>
+    <li><a class="dropdown-item" href="../articles/tier_list.html">Tier Lists</a></li>
+    <li><a class="dropdown-item" href="../articles/border_bars.html">Border Bars</a></li>
+    <li><a class="dropdown-item" href="../articles/delay_tables.html">Percentile Bars and Cut Lines</a></li>
+    <li><a class="dropdown-item" href="../articles/schedule_matrix.html">Schedule Matrix</a></li>
+    <li><a class="dropdown-item" href="../articles/window_wins.html">Rolling-Window Wins</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
 <li class="nav-item dropdown">
@@ -270,6 +282,480 @@
         </dt>
         <dd>Merge and Stack Text in gt Tables with Team Colors</dd>
       </dl></div><div class="section level2">
+      <h2 id="gt-table-themes">gt Table Themes<a class="anchor" aria-label="anchor" href="#gt-table-themes"></a></h2>
+
+      <div class="section-desc"><p>Editorial and broadcast-style themes for gt tables, ported from gtUtils. <code>theme_bg</code> holds each theme’s background color for matching a saved image’s canvas.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="gt_theme_almanac.html">gt_theme_almanac()</a></code>
+
+        </dt>
+        <dd>Record-book theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_athletic.html">gt_theme_athletic()</a></code>
+
+        </dt>
+        <dd>The Athletic theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_booktabs.html">gt_theme_booktabs()</a></code>
+
+        </dt>
+        <dd>Academic booktabs theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_broadsheet.html">gt_theme_broadsheet()</a></code>
+
+        </dt>
+        <dd>Editorial serif theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_brutalist.html">gt_theme_brutalist()</a></code>
+
+        </dt>
+        <dd>Heavy-rule display theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_drench.html">gt_theme_drench()</a></code>
+
+        </dt>
+        <dd>Saturated single-color theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_gtutils.html">gt_theme_gtutils()</a></code>
+
+        </dt>
+        <dd>gtUtils theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_kenpom.html">gt_theme_kenpom()</a></code>
+
+        </dt>
+        <dd>KenPom theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_midnight.html">gt_theme_midnight()</a></code>
+
+        </dt>
+        <dd>Dark theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_ncaa.html">gt_theme_ncaa()</a></code>
+
+        </dt>
+        <dd>NCAA theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_pl.html">gt_theme_pl()</a></code>
+
+        </dt>
+        <dd>Premier League theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_preview.html">gt_theme_preview()</a></code>
+
+        </dt>
+        <dd>Preview data in every theme</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_savant.html">gt_theme_savant()</a></code>
+
+        </dt>
+        <dd>Baseball Savant theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_scoreboard.html">gt_theme_scoreboard()</a></code>
+
+        </dt>
+        <dd>Broadcast-graphics theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_sofa.html">gt_theme_sofa()</a></code>
+
+        </dt>
+        <dd>SofaScore theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_swiss.html">gt_theme_swiss()</a></code>
+
+        </dt>
+        <dd>International Typographic Style theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_terminal.html">gt_theme_terminal()</a></code>
+
+        </dt>
+        <dd>Data-terminal theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_tier.html">gt_theme_tier()</a></code>
+
+        </dt>
+        <dd>Tier list theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="gt_theme_tufte.html">gt_theme_tufte()</a></code>
+
+        </dt>
+        <dd>Minimal-ink theme for <code>gt</code> tables</dd>
+
+        <dt>
+
+          <code><a href="pal_midnight.html">pal_midnight</a></code>
+
+        </dt>
+        <dd>A rank palette for dark backgrounds</dd>
+
+        <dt>
+
+          <code><a href="theme_bg.html">theme_bg</a></code>
+
+        </dt>
+        <dd>Background colors used by the <code>gt_theme_*()</code> table themes</dd>
+      </dl></div><div class="section level2">
+      <h2 id="gt-table-annotations">gt Table Annotations<a class="anchor" aria-label="anchor" href="#gt-table-annotations"></a></h2>
+
+      <div class="section-desc"><p>Captions, headers, cut lines, marginalia, watermarks and social tags.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="gt_538_caption.html">gt_538_caption()</a></code>
+
+        </dt>
+        <dd>Add a 538-style caption to a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_cutline.html">gt_cutline()</a></code>
+
+        </dt>
+        <dd>Draw a labeled cut line between rows of a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_marginalia.html">gt_marginalia()</a></code>
+
+        </dt>
+        <dd>Style a column as margin notes</dd>
+
+        <dt>
+
+          <code><a href="gt_column_subheaders.html">gt_column_subheaders()</a></code>
+
+        </dt>
+        <dd>Add stacked column headers with subtitles to a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_social_tag.html">gt_social_tag()</a></code>
+
+        </dt>
+        <dd>Add social handles to a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_title_header.html">gt_title_header()</a></code>
+
+        </dt>
+        <dd>Build a styled header block for a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_watermark.html">gt_watermark()</a></code>
+
+        </dt>
+        <dd>Put a watermark behind a <code>gt</code> table</dd>
+      </dl></div><div class="section level2">
+      <h2 id="gt-table-coloring">gt Table Coloring<a class="anchor" aria-label="anchor" href="#gt-table-coloring"></a></h2>
+
+      <div class="section-desc"><p>Legends, color pills, percentile bars, rank and result colors, highlights.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="gt_legend_continuous.html">gt_legend_continuous()</a></code>
+
+        </dt>
+        <dd>Add a color legend to a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_legend_discrete.html">gt_legend_discrete()</a></code>
+
+        </dt>
+        <dd>Add a discrete color key to a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_color_pills.html">gt_color_pills()</a></code>
+
+        </dt>
+        <dd>Add color pills to <code>gt</code> table columns</dd>
+
+        <dt>
+
+          <code><a href="gt_percentile_bar.html">gt_percentile_bar()</a></code>
+
+        </dt>
+        <dd>Draw percentile bars in a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_row_accent.html">gt_row_accent()</a></code>
+
+        </dt>
+        <dd>Put a colored bar on the leading edge of each row</dd>
+
+        <dt>
+
+          <code><a href="gt_color_ranks.html">gt_color_ranks()</a></code>
+
+        </dt>
+        <dd>Color ranked columns of a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_color_results.html">gt_color_results()</a></code>
+
+        </dt>
+        <dd>Color rows of a <code>gt</code> table by win, loss, or tie result</dd>
+
+        <dt>
+
+          <code><a href="gt_group_stripes.html">gt_group_stripes()</a></code>
+
+        </dt>
+        <dd>Band alternate row groups of a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_highlight_cells.html">gt_highlight_cells()</a></code>
+
+        </dt>
+        <dd>Fill individual cells in a <code>gt</code> table by a condition</dd>
+
+        <dt>
+
+          <code><a href="gt_highlight_na.html">gt_highlight_na()</a></code>
+
+        </dt>
+        <dd>Style and relabel missing values in a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_outliers.html">gt_outliers()</a></code>
+
+        </dt>
+        <dd>Flag outlying values in a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_indicator_boxes.html">gt_indicator_boxes()</a></code>
+
+        </dt>
+        <dd>Add colored indicator boxes to a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_spotlight.html">gt_spotlight()</a></code>
+
+        </dt>
+        <dd>Focus on rows of a <code>gt</code> table by dimming the rest</dd>
+      </dl></div><div class="section level2">
+      <h2 id="gt-table-formatting">gt Table Formatting<a class="anchor" aria-label="anchor" href="#gt-table-formatting"></a></h2>
+
+      <div class="section-desc"><p>Borders, deltas, rank and tally formats, significance, fonts, tiers.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="gt_bold_rows.html">gt_bold_rows()</a></code>
+
+        </dt>
+        <dd>Bold rows in a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_border_bars_bottom.html">gt_border_bars_bottom()</a></code>
+
+        </dt>
+        <dd>Add horizontal bars to the bottom of a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_border_bars_top.html">gt_border_bars_top()</a></code>
+
+        </dt>
+        <dd>Add horizontal bars to the top of a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_border_grid.html">gt_border_grid()</a></code>
+
+        </dt>
+        <dd>Add a border grid to a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_delta.html">gt_delta()</a></code>
+
+        </dt>
+        <dd>Add a computed change column to a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_fmt_rank.html">gt_fmt_rank()</a></code>
+
+        </dt>
+        <dd>Format numbers as ordinals in a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_fmt_tally.html">gt_fmt_tally()</a></code>
+
+        </dt>
+        <dd>Combine count columns into a single cell in a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_scale_note.html">gt_scale_note()</a></code>
+
+        </dt>
+        <dd>Scale columns and disclose the scaling</dd>
+
+        <dt>
+
+          <code><a href="gt_significance.html">gt_significance()</a></code>
+
+        </dt>
+        <dd>Add significance stars to a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_set_font.html">gt_set_font()</a></code>
+
+        </dt>
+        <dd>Set one font family across a whole <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_tiers.html">gt_tiers()</a></code>
+
+        </dt>
+        <dd>Color and bold the tier column of a <code>gt</code> table</dd>
+
+        <dt>
+
+          <code><a href="gt_wrap_labels.html">gt_wrap_labels()</a></code>
+
+        </dt>
+        <dd>Break long column labels across lines in a <code>gt</code> table</dd>
+      </dl></div><div class="section level2">
+      <h2 id="gt-table-layout">gt Table Layout<a class="anchor" aria-label="anchor" href="#gt-table-layout"></a></h2>
+
+      <div class="section-desc"><p>Arrange several tables, or one long table, into a single graphic.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="gt_grid.html">gt_grid()</a></code>
+
+        </dt>
+        <dd>Arrange several <code>gt</code> tables in a grid</dd>
+
+        <dt>
+
+          <code><a href="gt_snake.html">gt_snake()</a></code>
+
+        </dt>
+        <dd>Lay a long table out in side-by-side blocks</dd>
+
+        <dt>
+
+          <code><a href="gt_snake_align.html">gt_snake_align()</a></code>
+
+        </dt>
+        <dd>Reshape a parallel frame to match a snaked table</dd>
+
+        <dt>
+
+          <code><a href="gt_stack_tables.html">gt_stack_tables()</a></code>
+
+        </dt>
+        <dd>Stack several <code>gt</code> tables vertically</dd>
+      </dl></div><div class="section level2">
+      <h2 id="saving-gt-tables">Saving gt Tables<a class="anchor" aria-label="anchor" href="#saving-gt-tables"></a></h2>
+
+      <div class="section-desc"><p>Save, crop and pad tables for publication or social media.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="gt_save_batch.html">gt_save_batch()</a></code>
+
+        </dt>
+        <dd>Save a matched set of images, one per group</dd>
+
+        <dt>
+
+          <code><a href="gt_save_crop.html">gt_save_crop()</a></code>
+
+        </dt>
+        <dd>Save a <code>gt</code> table to an image and trim its whitespace</dd>
+
+        <dt>
+
+          <code><a href="gt_social_crop.html">gt_social_crop()</a></code>
+
+        </dt>
+        <dd>Save a <code>gt</code> table onto a fixed-ratio canvas</dd>
+      </dl></div><div class="section level2">
       <h2 id="reactable-table-helpers">reactable Table Helpers<a class="anchor" aria-label="anchor" href="#reactable-table-helpers"></a></h2>
 
       <div class="section-desc"><p>Cell renderers, column headers and team-colored cell styles for reactable tables.</p></div>
@@ -419,13 +905,29 @@
 
         </dt>
         <dd>Objects exported from other packages</dd>
+      </dl></div><div class="section level2">
+      <h2 id="deprecated">Deprecated<a class="anchor" aria-label="anchor" href="#deprecated"></a></h2>
+
+      <div class="section-desc"><p>Former gtUtils names, kept so ported code keeps working.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="sdvplotR-deprecated.html">gt_color_legend()</a></code> <code><a href="sdvplotR-deprecated.html">gt_centered_legend()</a></code>
+
+        </dt>
+        <dd>Deprecated legend functions</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://x.com/saiemgilani" class="external-link">Saiem Gilani</a>, <a href="https://x.com/mrcaseb" class="external-link">Sebastian Carl</a>, <a href="https://github.com/Kazink36" class="external-link">Jared Lee</a>, <a href="https://x.com/camdenkay" class="external-link">Camden Kay</a>.</p>
+  <p>Developed by <a href="https://x.com/saiemgilani" class="external-link">Saiem Gilani</a>, <a href="https://x.com/mrcaseb" class="external-link">Sebastian Carl</a>, <a href="https://github.com/Kazink36" class="external-link">Jared Lee</a>, <a href="https://x.com/camdenkay" class="external-link">Camden Kay</a>, <a href="https://github.com/andreweatherman" class="external-link">Andrew Weatherman</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

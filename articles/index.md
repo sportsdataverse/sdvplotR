@@ -40,3 +40,25 @@ reactable tables and end-to-end workflows.
   Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.md):
 - [End-to-End Workflows with sdvplotR and the SportsDataverse
   Ecosystem](https://sdvplotR.sportsdataverse.org/articles/workflows.md):
+
+### gt Table Cookbooks
+
+Themes, legends, cut lines, faceted grids and saving, ported with the
+gtUtils functions from Andrew Weatherman’s articles.
+
+- [Styling Headers, Legends, and
+  Captions](https://sdvplotR.sportsdataverse.org/articles/styling.md):
+- [Saving and Posting
+  Tables](https://sdvplotR.sportsdataverse.org/articles/saving_tables.md):
+- [Border
+  Bars](https://sdvplotR.sportsdataverse.org/articles/border_bars.md):
+- [Percentile Bars and Cut
+  Lines](https://sdvplotR.sportsdataverse.org/articles/delay_tables.md):
+- [Creating Faceted
+  Tables](https://sdvplotR.sportsdataverse.org/articles/grid_tables.md):
+- [Building a Schedule
+  Matrix](https://sdvplotR.sportsdataverse.org/articles/schedule_matrix.md):
+- [Creating Tier
+  Lists](https://sdvplotR.sportsdataverse.org/articles/tier_list.md):
+- [Winningest Programs in Rolling
+  Windows](https://sdvplotR.sportsdataverse.org/articles/window_wins.md):

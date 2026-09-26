@@ -24,8 +24,10 @@ on [`ggpath`](https://github.com/mrcaseb/ggpath).
     and the resolvers in `R/utils.R` (`logo_from_team()`,
     `wordmark_from_team()`, `headshot_from_id()`, `resolve_logo_url()`).
     Do not duplicate URL logic.
-3.  Every function takes `sport`, validated with
-    `rlang::arg_match0(sport, supported_sports())`.
+3.  Every team-aware function takes `sport`, validated with
+    `rlang::arg_match0(sport, supported_sports())`. The generic `gt`
+    table toolkit ported from gtUtils (themes, legends, save/crop) works
+    on any table and takes no `sport`.
 4.  Team data changes go in `data-raw/generate_logo_ref.R` or
     `R/historical_teams.R`, then regenerate `R/sysdata.rda`. Never
     hand-edit `NAMESPACE`, `man/`, `README.md` or the `.rda`.

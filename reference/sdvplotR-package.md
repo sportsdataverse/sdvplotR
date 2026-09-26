@@ -11,6 +11,9 @@ abbreviations used by different data providers, including historical
 abbreviations of relocated franchises, are cleaned to one canonical key
 per sport. Built on 'ggpath' following the conventions of 'nflplotR' and
 designed to work with the companion 'SportsDataverse' data packages.
+Also includes the 'gtUtils' table themes, color legends, cut lines,
+significance notation, outlier flags and cropping and saving helpers for
+'gt' tables.
 
 ## See also
 
@@ -37,6 +40,9 @@ Authors:
 - Jared Lee <13jaredlee@gmail.com>
 
 - Camden Kay <camdenk@gmail.com>
+
+- Andrew Weatherman <andrew@aweatherman.com> (Author of the 'gtUtils'
+  table functions) \[copyright holder\]
 
 Other contributors:
 

@@ -61,6 +61,25 @@ NHL, college football, men’s and women’s college basketball), built on
   and
   [`reactable_sdv_team_color_bg()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_team_color.md)
   do the same for ‘reactable’ tables.
+- The ‘gtUtils’ table toolkit by Andrew Weatherman ships in sdvplotR: 18
+  `gt_theme_*()` table themes plus
+  [`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md),
+  continuous and discrete color legends,
+  [`gt_cutline()`](https://sdvplotR.sportsdataverse.org/reference/gt_cutline.md),
+  [`gt_significance()`](https://sdvplotR.sportsdataverse.org/reference/gt_significance.md),
+  [`gt_outliers()`](https://sdvplotR.sportsdataverse.org/reference/gt_outliers.md),
+  color pills / ranks / results, percentile bars, border bars,
+  [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md),
+  [`gt_snake()`](https://sdvplotR.sportsdataverse.org/reference/gt_snake.md)
+  and
+  [`gt_stack_tables()`](https://sdvplotR.sportsdataverse.org/reference/gt_stack_tables.md)
+  layouts,
+  [`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md),
+  [`gt_save_batch()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_batch.md)
+  and
+  [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md),
+  and the `theme_bg` background lookup. The eight gtUtils articles are
+  on the website as “gt Table Cookbooks”.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)

@@ -17,8 +17,8 @@
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="sdvplotR • Sports Team Logo Plots in ggplot2, gt and reactable">
-<meta name="description" content="A unified set of functions to visualize sports data across the National Football League, National Basketball Association, Womens National Basketball Association, Major League Baseball, National Hockey League, and college football and basketball in ggplot2 plots, gt tables and reactable tables. Team logos, wordmarks and player headshots can be drawn as plot layers, as axis text and inside table cells, and team color scales map team identifiers to their official colors. Team abbreviations used by different data providers, including historical abbreviations of relocated franchises, are cleaned to one canonical key per sport. Built on ggpath following the conventions of nflplotR and designed to work with the companion SportsDataverse' data packages.">
-<meta property="og:description" content="A unified set of functions to visualize sports data across the National Football League, National Basketball Association, Womens National Basketball Association, Major League Baseball, National Hockey League, and college football and basketball in ggplot2 plots, gt tables and reactable tables. Team logos, wordmarks and player headshots can be drawn as plot layers, as axis text and inside table cells, and team color scales map team identifiers to their official colors. Team abbreviations used by different data providers, including historical abbreviations of relocated franchises, are cleaned to one canonical key per sport. Built on ggpath following the conventions of nflplotR and designed to work with the companion SportsDataverse' data packages.">
+<meta name="description" content="A unified set of functions to visualize sports data across the National Football League, National Basketball Association, Womens National Basketball Association, Major League Baseball, National Hockey League, and college football and basketball in ggplot2 plots, gt tables and reactable tables. Team logos, wordmarks and player headshots can be drawn as plot layers, as axis text and inside table cells, and team color scales map team identifiers to their official colors. Team abbreviations used by different data providers, including historical abbreviations of relocated franchises, are cleaned to one canonical key per sport. Built on ggpath following the conventions of nflplotR and designed to work with the companion SportsDataverse data packages. Also includes the gtUtils table themes, color legends, cut lines, significance notation, outlier flags and cropping and saving helpers for gt' tables.">
+<meta property="og:description" content="A unified set of functions to visualize sports data across the National Football League, National Basketball Association, Womens National Basketball Association, Major League Baseball, National Hockey League, and college football and basketball in ggplot2 plots, gt tables and reactable tables. Team logos, wordmarks and player headshots can be drawn as plot layers, as axis text and inside table cells, and team color scales map team identifiers to their official colors. Team abbreviations used by different data providers, including historical abbreviations of relocated franchises, are cleaned to one canonical key per sport. Built on ggpath following the conventions of nflplotR and designed to work with the companion SportsDataverse data packages. Also includes the gtUtils table themes, color legends, cut lines, significance notation, outlier flags and cropping and saving helpers for gt' tables.">
 <meta property="og:image" content="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png">
 <meta property="og:image:alt" content="sdvplotR hex logo">
 <meta name="twitter:card" content="summary">
@@ -88,6 +88,8 @@
     <li><a class="dropdown-item" href="reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
     <li><a class="dropdown-item" href="reference/reactable_sdv_images.html">reactable: Images</a></li>
     <li><a class="dropdown-item" href="reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
     <li><a class="dropdown-item" href="reference/valid_team_names.html">Valid Names</a></li>
@@ -117,6 +119,16 @@
     <li><a class="dropdown-item" href="articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="articles/reactable-integration.html">reactable Integration</a></li>
     <li><a class="dropdown-item" href="articles/workflows.html">End-to-End Workflows</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>gt Table Cookbooks</h6></li>
+    <li><a class="dropdown-item" href="articles/styling.html">Styling Headers, Legends and Captions</a></li>
+    <li><a class="dropdown-item" href="articles/saving_tables.html">Saving and Posting Tables</a></li>
+    <li><a class="dropdown-item" href="articles/grid_tables.html">Faceted Tables</a></li>
+    <li><a class="dropdown-item" href="articles/tier_list.html">Tier Lists</a></li>
+    <li><a class="dropdown-item" href="articles/border_bars.html">Border Bars</a></li>
+    <li><a class="dropdown-item" href="articles/delay_tables.html">Percentile Bars and Cut Lines</a></li>
+    <li><a class="dropdown-item" href="articles/schedule_matrix.html">Schedule Matrix</a></li>
+    <li><a class="dropdown-item" href="articles/window_wins.html">Rolling-Window Wins</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
@@ -252,10 +264,11 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Logos inside a gt table</span></span>
+<span><span class="co"># Logos inside a gt table, styled with one of the table themes</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span><span class="op">)</span>, wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">12</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/gt_theme_athletic.html">gt_theme_athletic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span></span>
 <span></span>
@@ -269,6 +282,7 @@
 <span>    wins <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="reference/reactable_sdv_team_color.html">reactable_sdv_team_color_bar</a></span><span class="op">(</span><span class="va">df3</span>, <span class="st">"team"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<p>The <code>gt</code> side also carries the <a href="https://github.com/andreweatherman/gtUtils" class="external-link">gtUtils</a> toolkit by Andrew Weatherman: 18 table themes (<code><a href="reference/gt_theme_kenpom.html">gt_theme_kenpom()</a></code>, <code><a href="reference/gt_theme_savant.html">gt_theme_savant()</a></code>, <code><a href="reference/gt_theme_athletic.html">gt_theme_athletic()</a></code>, …), color legends, cut lines, significance notation, outlier flags, faceted grids and <code><a href="reference/gt_save_crop.html">gt_save_crop()</a></code> / <code><a href="reference/gt_social_crop.html">gt_social_crop()</a></code> for publishing.</p>
 <p>Dark-mode logo variants are available through <code>variant = "dark"</code> in the table helpers, and <code><a href="reference/team_reference.html">team_reference()</a></code> exposes the full reference data (ESPN ids, colors, conference / division) for every team.</p>
 </div>
 <div class="section level2">
@@ -287,8 +301,8 @@
 <p><code>sdvplotR</code> draws the pictures; the companion packages fetch the data.</p>
 <table class="table">
 <colgroup>
-<col width="77%">
-<col width="22%">
+<col width="50%">
+<col width="50%">
 </colgroup>
 <thead><tr>
 <th>Package</th>
@@ -362,6 +376,7 @@
 <li><p><a href="https://x.com/mrcaseb" class="external-link">Sebastian Carl</a>  <a href="https://x.com/mrcaseb" target="blank" class="external-link"><img src="https://img.shields.io/twitter/follow/mrcaseb?color=blue&amp;label=%40mrcaseb&amp;logo=x&amp;style=for-the-badge" alt="@mrcaseb"></a> <a href="https://github.com/mrcaseb" target="blank" class="external-link"><img src="https://img.shields.io/github/followers/mrcaseb?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@mrcaseb"></a></p></li>
 <li><p><a href="https://github.com/Kazink36" class="external-link">Jared Lee</a>  <a href="https://github.com/Kazink36" target="blank" class="external-link"><img src="https://img.shields.io/github/followers/Kazink36?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@Kazink36"></a></p></li>
 <li><p><a href="https://x.com/camdenkay" class="external-link">Camden Kay</a>  <a href="https://x.com/camdenkay" target="blank" class="external-link"><img src="https://img.shields.io/twitter/follow/camdenkay?color=blue&amp;label=%40camdenkay&amp;logo=x&amp;style=for-the-badge" alt="@camdenkay"></a> <a href="https://github.com/camdenk" target="blank" class="external-link"><img src="https://img.shields.io/github/followers/camdenk?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@camdenk"></a></p></li>
+<li><p><a href="https://github.com/andreweatherman" class="external-link">Andrew Weatherman</a> (gtUtils)  <a href="https://github.com/andreweatherman" target="blank" class="external-link"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@andreweatherman"></a></p></li>
 </ul>
 </div>
 <div class="section level2">
@@ -376,8 +391,8 @@
 </h2>
 <p>To cite the <a href="https://sdvplotR.sportsdataverse.org/"><strong><code>sdvplotR</code></strong></a> R package in publications, use:</p>
 <p>BibTex Citation</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_sdvplotR</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden},</span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
@@ -428,6 +443,8 @@
 <a href="https://github.com/Kazink36" class="external-link">Jared Lee</a> <br><small class="roles"> Author </small>   </li>
 <li>
 <a href="https://x.com/camdenkay" class="external-link">Camden Kay</a> <br><small class="roles"> Author </small>   </li>
+<li>
+<a href="https://github.com/andreweatherman" class="external-link">Andrew Weatherman</a> <br><small class="roles"> Author, copyright holder </small>   </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -451,7 +468,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://x.com/saiemgilani" class="external-link">Saiem Gilani</a>, <a href="https://x.com/mrcaseb" class="external-link">Sebastian Carl</a>, <a href="https://github.com/Kazink36" class="external-link">Jared Lee</a>, <a href="https://x.com/camdenkay" class="external-link">Camden Kay</a>.</p>
+  <p>Developed by <a href="https://x.com/saiemgilani" class="external-link">Saiem Gilani</a>, <a href="https://x.com/mrcaseb" class="external-link">Sebastian Carl</a>, <a href="https://github.com/Kazink36" class="external-link">Jared Lee</a>, <a href="https://x.com/camdenkay" class="external-link">Camden Kay</a>, <a href="https://github.com/andreweatherman" class="external-link">Andrew Weatherman</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

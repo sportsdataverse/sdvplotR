@@ -89,10 +89,11 @@ ggplot(df2, aes(x = team, y = score)) +
 
 library(gt)
 
-# Logos inside a gt table
+# Logos inside a gt table, styled with one of the table themes
 data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11)) |>
   gt() |>
-  gt_sdv_logos(columns = "team", sport = "nfl")
+  gt_sdv_logos(columns = "team", sport = "nfl") |>
+  gt_theme_athletic()
 ```
 
 ``` r
@@ -110,6 +111,19 @@ reactable(
   )
 )
 ```
+
+The `gt` side also carries the
+[gtUtils](https://github.com/andreweatherman/gtUtils) toolkit by Andrew
+Weatherman: 18 table themes
+([`gt_theme_kenpom()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_kenpom.md),
+[`gt_theme_savant()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_savant.md),
+[`gt_theme_athletic()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_athletic.md),
+…), color legends, cut lines, significance notation, outlier flags,
+faceted grids and
+[`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md)
+/
+[`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md)
+for publishing.
 
 Dark-mode logo variants are available through `variant = "dark"` in the
 table helpers, and
@@ -194,6 +208,9 @@ stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=ee
   [![@camdenkay](https://img.shields.io/twitter/follow/camdenkay?color=blue&label=%40camdenkay&logo=x&style=for-the-badge)](https://x.com/camdenkay)
   [![@camdenk](https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge)](https://github.com/camdenk)
 
+- [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)
+  [![@andreweatherman](https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge)](https://github.com/andreweatherman)
+
 ## **Code of Conduct**
 
 Please note that the sdvplotR project is released with a [Contributor
@@ -209,8 +226,8 @@ package in publications, use:
 BibTex Citation
 
 ``` bibtex
-@misc{gilani_carl_lee_kay_sdvplotR,
-  author = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden},
+@misc{gilani_carl_lee_kay_weatherman_sdvplotR,
+  author = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},
   title = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},
   url = {https://sdvplotR.sportsdataverse.org},
   year = {2026}
