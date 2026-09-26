@@ -356,7 +356,16 @@ get_team_colors <- function(sport, type = c("primary", "secondary")) {
 
   colors <- ref[[col_name]]
   names(colors) <- ref$team_abbr
+  colors <- colors[!is.na(colors)]
 
-  # Remove NAs
-  colors[!is.na(colors)]
+  # Manual scales match data values to these names exactly, so also name each
+  # color by every other key clean_team_abbrs() accepts: provider aliases
+  # ("AZ", "GSW"), full names and historical abbreviations ("MON").
+  keys <- unique(c(names(abbr_mapping[[sport]]), names(historical_team_mappings[[sport]])))
+  keys <- setdiff(keys, names(colors))
+  old <- options(sdvplotR.verbose = FALSE)
+  on.exit(options(old), add = TRUE)
+  canon <- clean_team_abbrs(keys, sport = sport, keep_non_matches = FALSE)
+  keep <- canon %in% names(colors)
+  c(colors, stats::setNames(unname(colors[canon[keep]]), keys[keep]))
 }

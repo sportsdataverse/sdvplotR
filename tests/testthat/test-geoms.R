@@ -92,3 +92,17 @@ test_that("headshot axis scales pass id_type through", {
   sx <- scale_x_sdv_headshots(sport = "mlb", id_type = "league")
   expect_match(sx$labels("660271"), "img\\.mlbstatic\\.com/.*/people/660271/.*height = '20'")
 })
+
+test_that("color scales accept every key clean_team_abbrs() accepts", {
+  pal <- scale_fill_sdv(sport = "mlb")$palette(0)
+  expect_identical(pal[["AZ"]], pal[["ARI"]]) # MLB Stats API alias
+  expect_identical(pal[["CWS"]], pal[["CHW"]])
+  expect_identical(pal[["MON"]], pal[["WSH"]]) # historical (Expos)
+  expect_identical(scale_color_sdv(sport = "nba")$palette(0)[["GSW"]], get_team_colors("nba")[["GS"]])
+  # a canonical abbreviation keeps its own team's color
+  expect_identical(unname(pal[names(get_team_colors("mlb"))[1:30]]), unname(get_team_ref("mlb")$color1[match(names(get_team_colors("mlb"))[1:30], get_team_ref("mlb")$team_abbr)]))
+  df <- data.frame(team = c("AZ", "CWS"), v = 1:2)
+  built <- ggplot_build(ggplot(df, aes(team, v, fill = team)) + geom_col() + scale_fill_sdv(sport = "mlb"))
+  expect_false(any(built$data[[1]]$fill == "grey50"))
+})
+
