@@ -42,13 +42,14 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   College keys also take the NCAA.com, KenPom and Torvik school names
   from sportsdataverse-py’s NCAA / ESPN crosswalks and
   [`hoopR::load_mbb_team_crosswalk()`](https://hoopR.sportsdataverse.org/reference/load_nba_team_crosswalk.html),
-  joined on ESPN team id; ESPN’s own keys win and a name used for two
-  schools is dropped. Conferences are rows too (`type = "conference"`;
-  the NFL shield is `"league"`), following nflplotR’s AFC / NFC / NFL:
-  logos from the ESPN groups, colors copied from cbbplotR, keys added
-  only where no team uses the name (so the AAC is `"AAC"`), and the
-  script asserts each conference resolves to itself. Divergence from
-  nflplotR:
+  plus a hand-checked `sports_reference` table (the Sports Reference
+  names none of those use), all joined on ESPN team id; ESPN’s own keys
+  win and a name used for two schools is dropped. Conferences are rows
+  too (`type = "conference"`; the NFL shield is `"league"`), following
+  nflplotR’s AFC / NFC / NFL: logos from the ESPN groups, colors copied
+  from cbbplotR, keys added only where no team uses the name (so the AAC
+  is `"AAC"`), and the script asserts each conference resolves to
+  itself. Divergence from nflplotR:
   [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
   /
   [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)

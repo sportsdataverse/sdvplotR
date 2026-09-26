@@ -7,13 +7,13 @@ data sources (`"WSH"` / `"WAS"`, `"GNB"` / `"GB"`), and historical
 abbreviations of relocated franchises (see
 [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)).
 For the college sports it also takes the school names NCAA.com /
-stats.ncaa.org, KenPom and Bart Torvik use (`"Iowa St."`,
-`"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Southern California"`).
-Conference names resolve to the conference: ESPN's (`"SEC"`,
-`"Southeastern Conference"`) and the NCAA's, KenPom's and Torvik's
-(`"B10"`, `"MWC"`). Where a team already uses the name, the team wins,
-so the American Athletic Conference is `"AAC"` (`"American"` is American
-University).
+stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
+(`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`,
+`"Southern California"`, `"Brigham Young"`). Conference names resolve to
+the conference: ESPN's (`"SEC"`, `"Southeastern Conference"`) and the
+NCAA's, KenPom's and Torvik's (`"B10"`, `"MWC"`). Where a team already
+uses the name, the team wins, so the American Athletic Conference is
+`"AAC"` (`"American"` is American University).
 
 ## Usage
 

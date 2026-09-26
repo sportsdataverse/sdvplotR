@@ -5,7 +5,14 @@ ggplot. It requires x, y aesthetics as well as a valid player
 identifier: a GSIS ID for the NFL (`"00-0033873"`, resolved through the
 headshot map sdvplotR publishes from nflverse rosters to the player's
 NFL.com headshot) and an ESPN athlete ID for every other sport. Set
-`id_type` to plot IDs from another source.
+`id_type` to plot IDs from another source. A team's ESPN athlete IDs
+come with its roster:
+[`hoopR::espn_mbb_team_roster()`](https://hoopR.sportsdataverse.org/reference/espn_mbb_team.html)
+and `espn_nba_team_roster()`,
+[`wehoop::espn_wbb_team_roster()`](https://wehoop.sportsdataverse.org/reference/espn_wbb_team.html)
+and `espn_wnba_team_roster()`, and
+[`cfbfastR::espn_cfb_team_roster()`](https://cfbfastR.sportsdataverse.org/reference/espn_cfb_team_roster.html)
+each return an `athlete_id` column.
 
 ## Usage
 

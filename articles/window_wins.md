@@ -162,10 +162,8 @@ holds every school’s logo, so a vector of them named by abbreviation
 lets us look one up, and
 [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
 turns Sports Reference’s school names (`"Connecticut"`,
-`"Nevada-Las Vegas"`) into those abbreviations. It knows the names ESPN,
-the NCAA, KenPom and Torvik use, which covers every school in these
-windows; a Sports Reference name none of them shares (`"Brigham Young"`)
-would come back `NA` and draw no logo.
+`"Nevada-Las Vegas"`, `"Brigham Young"`) into those abbreviations; every
+Division I name on Sports Reference’s current season pages resolves.
 
 ``` r
 

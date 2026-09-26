@@ -352,11 +352,9 @@ something, which leaves every other team-window as <code>NA</code>.</p>
 <code><a href="../reference/team_reference.html">team_reference()</a></code> holds every school’s logo, so a vector of
 them named by abbreviation lets us look one up, and
 <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> turns Sports Reference’s school names
-(<code>"Connecticut"</code>, <code>"Nevada-Las Vegas"</code>) into those
-abbreviations. It knows the names ESPN, the NCAA, KenPom and Torvik use,
-which covers every school in these windows; a Sports Reference name none
-of them shares (<code>"Brigham Young"</code>) would come back
-<code>NA</code> and draw no logo.</p>
+(<code>"Connecticut"</code>, <code>"Nevada-Las Vegas"</code>,
+<code>"Brigham Young"</code>) into those abbreviations; every Division I
+name on Sports Reference’s current season pages resolves.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ref</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span></span>
 <span><span class="va">logos</span> <span class="op">&lt;-</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html" class="external-link">set_names</a></span><span class="op">(</span><span class="va">ref</span><span class="op">$</span><span class="va">logo_url</span>, <span class="va">ref</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">)</span></span></code></pre></div>

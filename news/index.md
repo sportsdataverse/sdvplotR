@@ -192,6 +192,12 @@ NHL, college football, men’s and women’s college basketball), built on
   `"Miami (OH)"`), from sportsdataverse-py’s NCAA / ESPN crosswalks and
   hoopR’s team crosswalk, so their tables plot without a lookup table.
   ESPN’s own names still win wherever they overlap.
+- Sports Reference’s college names resolve too: its whole 2025-26
+  Division I list, men’s and women’s (`"Brigham Young"`,
+  `"Virginia Commonwealth"`, `"Loyola (IL)"`), and the same schools’
+  football teams. The headshot docs name the hoopR, wehoop and cfbfastR
+  roster functions that return ESPN athlete ids (what cbbplotR’s
+  `get_espn_players()` fetched).
 - [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   folds typographic dashes and curly apostrophes, so Sports Reference’s
   UNLV (`"Nevada-Las Vegas"` with an en dash) and a curly
