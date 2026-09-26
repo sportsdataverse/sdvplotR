@@ -45,6 +45,14 @@
 #'
 #' @export
 sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy") {
+  # A named list passes the column checks below and would come back as a
+  # list, not a data frame.
+  if (!is.data.frame(data)) {
+    cli::cli_abort(c(
+      "{.arg data} must be a data frame.",
+      "i" = "Got a {.cls {class(data)}}."
+    ))
+  }
   check_column_arg(x_column, "x_column")
   check_column_arg(y_column, "y_column")
 
@@ -52,7 +60,7 @@ sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy")
   if (length(missing_cols) > 0) {
     cli::cli_abort(c(
       "{.arg data} is missing column{?s} {.val {missing_cols}}.",
-      "i" = "Pass the actual stats-API column names via {.arg x_column}/{.arg y_column} (e.g. {.val LOC_X}/{.val LOC_Y})."
+      "i" = "Pass the stats-API column names via {.arg x_column}/{.arg y_column} (e.g. {.val LOC_X}/{.val LOC_Y})."
     ))
   }
 

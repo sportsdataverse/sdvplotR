@@ -22,6 +22,11 @@ test_that("sdv_court_coords errors informatively on missing columns", {
   expect_error(sdv_court_coords(data.frame(a = 1)), "x_legacy")
 })
 
+test_that("sdv_court_coords rejects input that isn't a data frame", {
+  expect_error(sdv_court_coords(list(x_legacy = 1, y_legacy = 2)), "must be a data frame")
+  expect_error(sdv_court_coords(matrix(1:4, ncol = 2)), "must be a data frame")
+})
+
 test_that("sdv_court_coords validates x_column/y_column are single strings", {
   df <- data.frame(x_legacy = 0, y_legacy = 0)
   expect_error(sdv_court_coords(df, x_column = NULL), "single string")
