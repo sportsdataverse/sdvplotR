@@ -59,3 +59,13 @@ test_that("gt_save_crop returns the path, or the image bytes when file is NULL",
   expect_identical(gt_save_crop(tbl, out, whitespace = 5), out)
   expect_identical(dim(magick::image_data(magick::image_read(out)))[2:3], c(30L, 20L))
 })
+
+test_that("deprecated gt_bold_rows() arguments warn without setting options", {
+  rlang::local_options(rlib_warning_verbosity = "verbose")
+  expect_warning(
+    tbl <- gt_bold_rows(gt::gt(head(mtcars)), row = 2),
+    "deprecated"
+  )
+  expect_s3_class(tbl, "gt_tbl")
+  expect_null(getOption("sdvplotR_deprecated_row"))
+})

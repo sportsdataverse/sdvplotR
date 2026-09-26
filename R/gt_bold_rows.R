@@ -91,16 +91,16 @@ gt_bold_rows <- function(gt_object,
     )
 }
 
-# one warning per session per argument, so a loop does not spam
+# one warning per session per argument, so a loop does not spam; rlang
+# tracks the frequency, so no user option is set
 lifecycle_warn <- function(old, new) {
-  key <- paste0("sdvplotR_deprecated_", old)
-  if (isTRUE(getOption(key))) {
-    return(invisible())
-  }
-  options(stats::setNames(list(TRUE), key))
-  cli::cli_warn(c(
-    "{.arg {old}} is deprecated.",
-    "i" = "Use {.arg {new}}, which takes an expression such as {.code mpg > 20} \\
-           or a vector of row indices."
-  ))
+  cli::cli_warn(
+    c(
+      "{.arg {old}} is deprecated.",
+      "i" = "Use {.arg {new}}, which takes an expression such as {.code mpg > 20} \\
+             or a vector of row indices."
+    ),
+    .frequency = "once",
+    .frequency_id = paste0("sdvplotR_deprecated_", old)
+  )
 }
