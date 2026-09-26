@@ -131,8 +131,7 @@ gt_theme_brutalist <- function(gt_object, accent = "#FF3B00",
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 2),
-      footnotes.border.bottom.style = "none",
-      ...
+      footnotes.border.bottom.style = "none"
     ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
@@ -144,5 +143,7 @@ gt_theme_brutalist <- function(gt_object, accent = "#FF3B00",
         "padding-bottom: ", ceiling(d$pad / 2), "px !important; }"
       ),
       paste0("#", table_id, " .gt_subtitle { padding-bottom: ", d$pad + 2, "px !important; }")
-    ))
+    )) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

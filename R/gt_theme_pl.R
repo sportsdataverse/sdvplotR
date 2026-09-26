@@ -147,8 +147,7 @@ gt_theme_pl <- function(gt_object,
       source_notes.border.lr.style = "none",
       column_labels.border.bottom.style = "solid",
       column_labels.border.bottom.width = px(1),
-      column_labels.border.bottom.color = "#37003c",
-      ...
+      column_labels.border.bottom.color = "#37003c"
     ) |>
     gt::opt_css(
       c(
@@ -181,5 +180,7 @@ gt_theme_pl <- function(gt_object,
       ),
       add = TRUE
     ) |>
-    .theme_scale_output(density)
+    .theme_scale_output(density) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

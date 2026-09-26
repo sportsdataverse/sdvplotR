@@ -179,5 +179,7 @@ gt_theme_kenpom <- function(gt_object,
       paste0("#", table_id, " #toss_out_spanner_dev {display: none;}")
     ))
 
-  .theme_scale_output(table, density)
+  .theme_scale_output(table, density) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }

@@ -164,8 +164,7 @@ gt_theme_broadsheet <- function(gt_object, accent = "#A6081A",
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad),
-      footnotes.border.bottom.style = "none",
-      ...
+      footnotes.border.bottom.style = "none"
     ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
@@ -185,5 +184,7 @@ gt_theme_broadsheet <- function(gt_object, accent = "#A6081A",
       paste0("#", table_id, " .gt_title { padding-bottom: ", ceiling(d$pad / 2), "px !important; }"),
       # keep the source note off the closing rule
       paste0("#", table_id, " .gt_sourcenote { padding-top: ", d$pad + 4, "px; }")
-    ))
+    )) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }
