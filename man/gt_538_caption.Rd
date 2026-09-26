@@ -20,7 +20,7 @@ gt_538_caption(
 
 \item{top_caption}{Character. Text rendered as a footnote beneath the table,
 with a rule drawn under it. Accepts markdown. Defaults to \code{NULL}, which
-draws the rule with no text above it.}
+leaves out the footnote and, with it, the rule.}
 
 \item{bottom_caption}{Character. Text rendered as a source note below the top
 caption, aligned by \code{align}. Accepts markdown. Defaults to \code{NULL}, which

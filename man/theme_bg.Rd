@@ -17,8 +17,9 @@ without one.}
 }
 \source{
 Read back from each theme's \code{table.background.color} by
-\code{data-raw/theme_bg.R}; \code{\link[=gt_theme_drench]{gt_theme_drench()}} takes its background from its
-\code{color} argument, and the row holds the default.
+\code{data-raw/theme_bg.R}. \code{\link[=gt_theme_drench]{gt_theme_drench()}} takes its background from its
+\code{color} argument and \code{\link[=gt_theme_broadsheet]{gt_theme_broadsheet()}} from its \code{paper} argument;
+their rows hold the default.
 }
 \usage{
 theme_bg

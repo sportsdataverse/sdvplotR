@@ -176,7 +176,7 @@ d2 %>%
     md("For destination airports that saw at least 1,000 flights out of<br>NYC (JFK, LGA, EWR) in 2013.")
   ) %>%
   gt_538_caption(
-    md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
+    md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
     "Example created by @andreweatherman using {gtUtils} v1.0 and nycflights13 data"
   )
 ```

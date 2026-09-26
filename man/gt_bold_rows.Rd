@@ -40,9 +40,10 @@ fill their background. Rows are chosen by index or by a filter expression; with
 neither, every row is bolded.
 }
 \details{
-When \code{filter_statement} is supplied it is parsed and evaluated against the
-table's underlying data, and the rows it matches are bolded. A \code{row} vector
-takes over when no filter is given. The styling is applied with a single
+\code{rows} is evaluated against the table's underlying data, so \code{rows = mpg > 20}
+bolds the rows where that is \code{TRUE}; a numeric vector picks rows by index. The
+deprecated \code{row} is passed on to \code{rows}, and the deprecated \code{filter_statement}
+string, when given, takes precedence over \code{rows}. The styling is applied with a single
 \code{gt::tab_style()} over \code{gt::cells_body()}, so it covers every column of the
 chosen rows.
 }
@@ -55,7 +56,7 @@ gt(head(mtcars)) \%>\% gt_bold_rows()
 
 # bold and fill the rows above 20 mpg
 gt(head(mtcars)) \%>\%
-  gt_bold_rows(filter_statement = "mpg > 20", highlight_color = "#FFF3B0")
+  gt_bold_rows(rows = mpg > 20, highlight_color = "#FFF3B0")
 }
 
 }

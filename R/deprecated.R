@@ -3,8 +3,8 @@
 
 #' Deprecated legend functions
 #'
-#' These are the former names of the two legend helpers, kept for backward
-#' compatibility. Use the new names instead.
+#' These are the former gtUtils names of the two legend helpers, kept so code
+#' written for gtUtils keeps working. Use the new names instead.
 #'
 #' - `gt_color_legend()` is now [gt_legend_continuous()].
 #' - `gt_centered_legend()` is now [gt_legend_discrete()].

@@ -19,8 +19,8 @@ gt_centered_legend(gt_table, ...)
 Returns a modified \code{gt} table, from the replacement function.
 }
 \description{
-These are the former names of the two legend helpers, kept for backward
-compatibility. Use the new names instead.
+These are the former gtUtils names of the two legend helpers, kept so code
+written for gtUtils keeps working. Use the new names instead.
 }
 \details{
 \itemize{

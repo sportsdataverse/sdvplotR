@@ -47,8 +47,9 @@ Defaults to \code{"100\%"}.}
 \item{img_padding}{Numeric. Padding around the image in pixels, so it does not
 touch the edge. Defaults to \code{10}.}
 
-\item{img_align}{Character. The side the image padding is applied to, one of
-\code{"left"}, \code{"center"}, \code{"right"}. Defaults to \code{"right"}.}
+\item{img_align}{Character. The side the image padding is applied to,
+\code{"left"} or \code{"right"}; any other value applies no padding. Defaults to
+\code{"right"}.}
 
 \item{text}{Optional. Text to display in the bar. Defaults to \code{NULL}.}
 
@@ -59,8 +60,9 @@ touch the edge. Defaults to \code{10}.}
 
 \item{text_size}{Numeric. The font size in pixels. Defaults to \code{18}.}
 
-\item{text_align}{Character. The side the text padding is applied to, one of
-\code{"left"}, \code{"center"}, \code{"right"}. Defaults to \code{"left"}.}
+\item{text_align}{Character. The side the text padding is applied to,
+\code{"left"} or \code{"right"}; any other value applies no padding. Defaults to
+\code{"left"}.}
 
 \item{text_padding}{Numeric. Padding around the text in pixels. Defaults to
 \code{10}.}

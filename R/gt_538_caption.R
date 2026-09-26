@@ -8,7 +8,7 @@
 #' @param gt_object A `gt` table object to modify.
 #' @param top_caption Character. Text rendered as a footnote beneath the table,
 #'   with a rule drawn under it. Accepts markdown. Defaults to `NULL`, which
-#'   draws the rule with no text above it.
+#'   leaves out the footnote and, with it, the rule.
 #' @param bottom_caption Character. Text rendered as a source note below the top
 #'   caption, aligned by `align`. Accepts markdown. Defaults to `NULL`, which
 #'   shows only the top caption.

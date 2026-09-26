@@ -372,6 +372,14 @@ navbar:
         href: articles/grid_tables.html
       - text: "Tier Lists"
         href: articles/tier_list.html
+      - text: "Border Bars"
+        href: articles/border_bars.html
+      - text: "Percentile Bars and Cut Lines"
+        href: articles/delay_tables.html
+      - text: "Schedule Matrix"
+        href: articles/schedule_matrix.html
+      - text: "Rolling-Window Wins"
+        href: articles/window_wins.html
     news:
       icon: "fas fa-newspaper"
       text: " Changelog"

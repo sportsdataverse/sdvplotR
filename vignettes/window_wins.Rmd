@@ -29,7 +29,7 @@ exports as a narrow strip with a lot of empty space on either side.
 
 There are two ways to fold something like that. `gt_grid()` builds each half as
 its own table and arranges them, which the
-[grid tables](https://gtutils.aweatherman.com/articles/grid_tables.html)
+[grid tables](grid_tables.html)
 vignette covers. `gt_snake()` goes the other way and keeps one table, cutting the
 rows into side-by-side blocks that repeat the column labels. Because it stays a
 single table, everything you have already applied to the cells comes with it.
@@ -316,7 +316,7 @@ gt_legend_discrete(
   label_style = list(font = "Spline Sans Mono", size = 12, margin_bottom = 12)
 ) %>%
   gt_538_caption(
-    md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
+    md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
     "Example created by @andreweatherman using {gtUtils} v1.0"
   )
 ```
@@ -377,7 +377,7 @@ wide %>%
     label_style = list(font = "Spline Sans Mono", size = 12, margin_bottom = 12)
   ) %>%
   gt_538_caption(
-    md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
+    md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
     "Example created by @andreweatherman using {gtUtils} v1.0"
   )
 ```

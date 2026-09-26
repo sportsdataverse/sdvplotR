@@ -20,15 +20,17 @@
 #' @param img_height Numeric. The image height in pixels. Defaults to `30`.
 #' @param img_padding Numeric. Padding around the image in pixels, so it does not
 #'   touch the edge. Defaults to `10`.
-#' @param img_align Character. The side the image padding is applied to, one of
-#'   `"left"`, `"center"`, `"right"`. Defaults to `"right"`.
+#' @param img_align Character. The side the image padding is applied to,
+#'   `"left"` or `"right"`; any other value applies no padding. Defaults to
+#'   `"right"`.
 #' @param text Optional. Text to display in the bar. Defaults to `NULL`.
 #' @param text_weight Character. The font weight of the text. Defaults to
 #'   `"bold"`.
 #' @param text_color Character. The text color. Defaults to `"#FFFFFF"`.
 #' @param text_size Numeric. The font size in pixels. Defaults to `18`.
-#' @param text_align Character. The side the text padding is applied to, one of
-#'   `"left"`, `"center"`, `"right"`. Defaults to `"left"`.
+#' @param text_align Character. The side the text padding is applied to,
+#'   `"left"` or `"right"`; any other value applies no padding. Defaults to
+#'   `"left"`.
 #' @param text_padding Numeric. Padding around the text in pixels. Defaults to
 #'   `10`.
 #'
@@ -175,15 +177,17 @@ gt_border_bars_top <- function(gt_object,
 #' @param img_height Numeric. The image height in pixels. Defaults to `30`.
 #' @param img_padding Numeric. Padding around the image in pixels, so it does not
 #'   touch the edge. Defaults to `10`.
-#' @param img_align Character. The side the image padding is applied to, one of
-#'   `"left"`, `"center"`, `"right"`. Defaults to `"right"`.
+#' @param img_align Character. The side the image padding is applied to,
+#'   `"left"` or `"right"`; any other value applies no padding. Defaults to
+#'   `"right"`.
 #' @param text Optional. Text to display in the bar. Defaults to `NULL`.
 #' @param text_weight Character. The font weight of the text. Defaults to
 #'   `"bold"`.
 #' @param text_color Character. The text color. Defaults to `"#FFFFFF"`.
 #' @param text_size Numeric. The font size in pixels. Defaults to `18`.
-#' @param text_align Character. The side the text padding is applied to, one of
-#'   `"left"`, `"center"`, `"right"`. Defaults to `"left"`.
+#' @param text_align Character. The side the text padding is applied to,
+#'   `"left"` or `"right"`; any other value applies no padding. Defaults to
+#'   `"left"`.
 #' @param text_padding Numeric. Padding around the text in pixels. Defaults to
 #'   `10`.
 #'

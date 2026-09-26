@@ -16,8 +16,9 @@
 #' }
 #'
 #' @source Read back from each theme's `table.background.color` by
-#'   `data-raw/theme_bg.R`; [gt_theme_drench()] takes its background from its
-#'   `color` argument, and the row holds the default.
+#'   `data-raw/theme_bg.R`. [gt_theme_drench()] takes its background from its
+#'   `color` argument and [gt_theme_broadsheet()] from its `paper` argument;
+#'   their rows hold the default.
 #'
 #' @examples
 #' \dontrun{

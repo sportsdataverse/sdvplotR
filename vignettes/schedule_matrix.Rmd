@@ -258,7 +258,7 @@ gt(logos, id = "table") %>%
     label_style = list(font = "Oswald", size = 14, margin_bottom = 6)
   ) %>%
   gt_538_caption(
-    md('Install v1.0 using ... devtools::install_github("andreweatherman/gtutils")'),
+    md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
     "Example created by @andreweatherman using {gtUtils} v1.0"
   )
 ```

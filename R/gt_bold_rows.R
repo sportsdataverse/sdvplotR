@@ -17,9 +17,10 @@
 #'   directly rather than as a string.
 #'
 #' @details
-#' When `filter_statement` is supplied it is parsed and evaluated against the
-#' table's underlying data, and the rows it matches are bolded. A `row` vector
-#' takes over when no filter is given. The styling is applied with a single
+#' `rows` is evaluated against the table's underlying data, so `rows = mpg > 20`
+#' bolds the rows where that is `TRUE`; a numeric vector picks rows by index. The
+#' deprecated `row` is passed on to `rows`, and the deprecated `filter_statement`
+#' string, when given, takes precedence over `rows`. The styling is applied with a single
 #' `gt::tab_style()` over `gt::cells_body()`, so it covers every column of the
 #' chosen rows.
 #'
@@ -34,7 +35,7 @@
 #'
 #' # bold and fill the rows above 20 mpg
 #' gt(head(mtcars)) %>%
-#'   gt_bold_rows(filter_statement = "mpg > 20", highlight_color = "#FFF3B0")
+#'   gt_bold_rows(rows = mpg > 20, highlight_color = "#FFF3B0")
 #' }
 #'
 #' @export
