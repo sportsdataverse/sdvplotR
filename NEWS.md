@@ -38,6 +38,10 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   `gt_save_crop()`, `gt_save_batch()` and `gt_social_crop()`, and the
   `theme_bg` background lookup. The eight gtUtils articles are on the
   website as "gt Table Cookbooks".
+* `gt_theme_sdv()` is the SportsDataverse house table theme, in light and
+  `style = "dark"`, and `gt_theme_sdv_team()` dresses a table in one team's
+  colors from `sdv_team_colors()`, picking title text and line colors by
+  contrast.
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose

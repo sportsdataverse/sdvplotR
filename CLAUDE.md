@@ -55,6 +55,11 @@ team abbr / player id
   the hunks, never by copying files over; keep `"sdvplotR"` in the namespace
   strings (`gt_theme_preview()`, `deprecated.R`). `theme_bg` is built by
   `data-raw/theme_bg.R`; rerun it after adding or recoloring a theme.
+- **SportsDataverse themes**: `gt_theme_sdv()` / `gt_theme_sdv_team()`
+  (`R/gt_theme_sdv.R`) share `.sdv_theme_build()`; a palette list decides the
+  look. Their `man/figures` previews come from `data-raw/theme_previews.R`
+  (real 2023 NFL data, saved with `gt_save_crop()`); rerun it after changing
+  either theme.
 
 ## Golden rules
 

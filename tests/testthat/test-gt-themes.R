@@ -69,3 +69,29 @@ test_that("deprecated gt_bold_rows() arguments warn without setting options", {
   expect_s3_class(tbl, "gt_tbl")
   expect_null(getOption("sdvplotR_deprecated_row"))
 })
+
+test_that("gt_theme_sdv_team dresses the table in the team's colors", {
+  horizon <- function(h) regmatches(h, regexpr("thead::after \\{[^}]*background: #[0-9A-Fa-f]{6}", h))
+  kc <- html_of(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "KC", sport = "nfl"))
+  expect_match(kc, "#E31837")
+  expect_match(horizon(kc), "#FFB612$")
+
+  # a white secondary would vanish on the white table: the line takes the primary
+  duke <- html_of(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "DUKE", sport = "mbb"))
+  expect_match(horizon(duke), "#00539B$")
+
+  # a pale primary is unreadable as label text on white: labels go navy
+  no <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "NO", sport = "nfl")
+  label_styles <- no[["_styles"]][no[["_styles"]]$locname == "columns_columns", ]$styles
+  expect_identical(label_styles[[1]]$cell_text$color, "#0B1A33")
+
+  expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "nope"), "No NFL team matches")
+  expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = c("KC", "LV")), "single team")
+})
+
+test_that("gt_theme_sdv sets the navy background in dark style", {
+  tbl <- gt_theme_sdv(gt::gt(head(mtcars)), style = "dark")
+  opts <- tbl[["_options"]]
+  expect_identical(opts$value[[match("table_background_color", opts$parameter)]], "#0B1A33")
+  expect_error(gt_theme_sdv(gt::gt(head(mtcars)), style = "sepia"))
+})
