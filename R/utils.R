@@ -21,7 +21,9 @@ get_team_ref <- function(sport) {
 #' Output Valid Team Names
 #'
 #' @description Returns a character vector of valid team abbreviations or names
-#'   for a given sport.
+#'   for a given sport. Conferences are included wherever sdvplotR has their
+#'   logo: the college conferences (`"SEC"`, `"Big Ten"`, `"A-10"`) and, as in
+#'   nflplotR, `"AFC"`, `"NFC"` and `"NFL"`.
 #'
 #' @param sport Character string identifying the sport. One of
 #'   [supported_sports()].
@@ -49,12 +51,13 @@ valid_team_names <- function(
 #'   conference / division.
 #'
 #' @inheritParams valid_team_names
-#' @return A data frame with one row per team and columns:
+#' @return A data frame with one row per team, plus one per conference (and
+#'   the NFL itself) that sdvplotR has a logo for, and columns:
 #'
 #'   | col_name | type | description |
 #'   |---|---|---|
 #'   | sport | character | Sport key (`"nfl"`, `"nba"`, ...) |
-#'   | espn_team_id | character | ESPN team id |
+#'   | espn_team_id | integer | ESPN team id (`NA` for conferences) |
 #'   | team_abbr | character | Canonical team abbreviation |
 #'   | team_name | character | Full team name |
 #'   | team_short_name | character | Short display name |
@@ -68,6 +71,7 @@ valid_team_names <- function(
 #'   | color2 | character | Secondary team color (hex) |
 #'   | conference | character | Conference (`NA` for leagues without) |
 #'   | division | character | Division (`NA` for leagues without) |
+#'   | type | character | `"team"`, `"conference"` or `"league"` |
 #' @export
 #' @examples
 #' team_reference("nfl")
@@ -87,6 +91,11 @@ team_reference <- function(sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", 
 #'   For the college sports it also takes the school names NCAA.com /
 #'   stats.ncaa.org, KenPom and Bart Torvik use (`"Iowa St."`,
 #'   `"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Southern California"`).
+#'   Conference names resolve to the conference: ESPN's (`"SEC"`,
+#'   `"Southeastern Conference"`) and the NCAA's, KenPom's and Torvik's
+#'   (`"B10"`, `"MWC"`). Where a team already uses the name, the team wins, so
+#'   the American Athletic Conference is `"AAC"` (`"American"` is American
+#'   University).
 #'
 #' @param abbr A character vector of abbreviations or team names.
 #' @inheritParams valid_team_names

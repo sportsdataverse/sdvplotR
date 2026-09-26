@@ -6,7 +6,9 @@ test_that("supported_sports lists the eight leagues", {
 })
 
 test_that("valid_team_names returns complete, sorted pro rosters", {
-  expect_length(valid_team_names("nfl"), 32)
+  # 32 teams plus the AFC, NFC and NFL logos, as nflplotR
+  expect_length(valid_team_names("nfl"), 35)
+  expect_in(c("AFC", "NFC", "NFL"), valid_team_names("nfl"))
   expect_length(valid_team_names("nba"), 30)
   expect_length(valid_team_names("mlb"), 30)
   expect_length(valid_team_names("nhl"), 32)
@@ -27,12 +29,33 @@ test_that("team_reference carries the documented columns", {
   expect_in(
     c(
       "sport", "espn_team_id", "team_abbr", "team_name", "logo_url",
-      "logo_dark_url", "wordmark_url", "color1", "color2", "conference", "division"
+      "logo_dark_url", "wordmark_url", "color1", "color2", "conference", "division", "type"
     ),
     names(ref)
   )
-  expect_identical(nrow(ref), 32L)
+  expect_identical(sum(ref$type == "team"), 32L)
+  expect_setequal(ref$team_abbr[ref$type != "team"], c("AFC", "NFC", "NFL"))
   expect_false(anyNA(ref$logo_url))
+})
+
+test_that("conferences resolve like teams, and a team keeps a shared name", {
+  mbb <- team_reference("mbb")
+  confs <- mbb$team_abbr[mbb$type == "conference"]
+  expect_in(c("ACC", "Big Ten", "SEC", "A-10", "AAC", "MAAC", "WCC"), confs)
+  # every conference resolves to itself, and every team's conference has a row
+  # (the UAC has no ESPN logo)
+  expect_identical(clean_team_abbrs(confs, "mbb"), confs)
+  expect_in(setdiff(mbb$conference[mbb$type == "team"], "UAC"), confs)
+  # ESPN, NCAA and KenPom names for a conference
+  expect_identical(
+    clean_team_abbrs(c("Big Ten Conference", "B10", "Atlantic 10", "MWC"), "mbb", keep_non_matches = FALSE),
+    c("Big Ten", "Big Ten", "A-10", "Mountain West")
+  )
+  # names a team already uses stay the team's
+  expect_identical(clean_team_abbrs(c("American", "SC"), "mbb"), c("AMER", "SC"))
+  expect_identical(clean_team_abbrs("Southern", "cfb"), "SOU")
+  expect_match(logo_from_team("SEC", "cfb"), "ncaa_conf/500/sec.png$")
+  expect_match(logo_from_team("AFC", "nfl"), "nfl/500/afc.png$")
 })
 
 test_that("clean_team_abbrs handles case, names, aliases and history", {

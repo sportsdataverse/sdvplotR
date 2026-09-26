@@ -20,7 +20,9 @@ A sorted character vector of valid team identifiers.
 }
 \description{
 Returns a character vector of valid team abbreviations or names
-for a given sport.
+for a given sport. Conferences are included wherever sdvplotR has their
+logo: the college conferences (\code{"SEC"}, \code{"Big Ten"}, \code{"A-10"}) and, as in
+nflplotR, \code{"AFC"}, \code{"NFC"} and \code{"NFL"}.
 }
 \examples{
 valid_team_names("nfl")

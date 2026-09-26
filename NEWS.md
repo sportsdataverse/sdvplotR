@@ -85,6 +85,15 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   providers write inconsistently: the NHL API's "Montréal Canadiens" now
   resolves, as does an unaccented "San Jose State" against ESPN's
   "San José State".
+* Conference logos, which cbbplotR drew and sdvplotR lacked: every college
+  conference ESPN has a logo for resolves like a team, so the geoms, theme
+  elements, gt, reactable and color scales draw `"SEC"`, `"Big Ten"` or
+  `"A-10"` with no new functions, and `"AFC"`, `"NFC"` and `"NFL"` do too, as
+  in nflplotR. Conference colors come from cbbplotR. `team_reference()` gains
+  a `type` column (`"team"`, `"conference"`, `"league"`). ESPN's API labels
+  the MAAC as the old "Metro Conference", so its teams' `conference` read
+  `"Metro"`; they now read `"MAAC"`. The AAC's key is `"AAC"`, because
+  `"American"` is American University.
 * `clean_team_abbrs()` and every helper built on it take the school names
   NCAA.com / stats.ncaa.org, KenPom and Bart Torvik use for college teams
   (`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Miami (OH)"`),

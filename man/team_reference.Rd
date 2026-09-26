@@ -13,10 +13,11 @@ team_reference(
 \code{\link[=supported_sports]{supported_sports()}}.}
 }
 \value{
-A data frame with one row per team and columns:\tabular{lll}{
+A data frame with one row per team, plus one per conference (and
+the NFL itself) that sdvplotR has a logo for, and columns:\tabular{lll}{
    col_name \tab type \tab description \cr
    sport \tab character \tab Sport key (\code{"nfl"}, \code{"nba"}, ...) \cr
-   espn_team_id \tab character \tab ESPN team id \cr
+   espn_team_id \tab integer \tab ESPN team id (\code{NA} for conferences) \cr
    team_abbr \tab character \tab Canonical team abbreviation \cr
    team_name \tab character \tab Full team name \cr
    team_short_name \tab character \tab Short display name \cr
@@ -30,6 +31,7 @@ A data frame with one row per team and columns:\tabular{lll}{
    color2 \tab character \tab Secondary team color (hex) \cr
    conference \tab character \tab Conference (\code{NA} for leagues without) \cr
    division \tab character \tab Division (\code{NA} for leagues without) \cr
+   type \tab character \tab \code{"team"}, \code{"conference"} or \code{"league"} \cr
 }
 }
 \description{
