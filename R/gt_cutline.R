@@ -42,7 +42,9 @@
 #' The labeled row's cell backgrounds are cleared, since row striping and themed
 #' body fills would otherwise cover the label. The row's own color is then
 #' reapplied to the row itself, so a striped theme such as [gt_theme_almanac()]
-#' keeps an unbroken stripe pattern.
+#' keeps an unbroken stripe pattern. Colors set on individual cells in that row,
+#' such as [gt_color_ranks()] or [gt_color_pills()] fills, are cleared too; on a
+#' table with colored cells, draw the line unlabeled and describe it in a caption.
 #'
 #' Labeled lines assume the table has no row groups, since group heading rows
 #' shift the row positions the label CSS targets. The rule itself is unaffected.
