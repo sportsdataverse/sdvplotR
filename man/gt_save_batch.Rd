@@ -9,7 +9,7 @@ gt_save_batch(
   group,
   fn,
   file,
-  dir = ".",
+  dir,
   match_width = TRUE,
   bg = "white",
   whitespace = 50,
@@ -30,7 +30,8 @@ a \code{gt_tbl}.}
 replaced by the group value, as \code{"net-{group}.png"}.}
 
 \item{dir}{Character. The directory to write into. Created if it does not
-exist. Defaults to \code{"."}.}
+exist. There is no default, so a batch never lands in the working
+directory unasked; pass \code{"."} for that.}
 
 \item{match_width}{Logical. Should every image be padded to the width of the
 widest one, so a posted series shares one width? Defaults to \code{TRUE}.}

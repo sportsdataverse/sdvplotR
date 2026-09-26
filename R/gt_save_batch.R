@@ -12,7 +12,8 @@
 #' @param file Character. A file name pattern containing `{group}`, which is
 #'   replaced by the group value, as `"net-{group}.png"`.
 #' @param dir Character. The directory to write into. Created if it does not
-#'   exist. Defaults to `"."`.
+#'   exist. There is no default, so a batch never lands in the working
+#'   directory unasked; pass `"."` for that.
 #' @param match_width Logical. Should every image be padded to the width of the
 #'   widest one, so a posted series shares one width? Defaults to `TRUE`.
 #' @param bg Character. The background color of the padding. Defaults to
@@ -54,7 +55,7 @@
 #' @import gt
 #' @importFrom magrittr %>%
 #' @export
-gt_save_batch <- function(data, group, fn, file, dir = ".", match_width = TRUE,
+gt_save_batch <- function(data, group, fn, file, dir, match_width = TRUE,
                           bg = "white", whitespace = 50, zoom = 2, quiet = FALSE) {
   if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame.")
   if (!is.function(fn)) cli::cli_abort("{.arg fn} must be a function.")

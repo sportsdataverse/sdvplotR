@@ -121,3 +121,13 @@ test_that("density rescales a table styled on locations with no size role", {
     gt::tab_style(gt::cell_text(weight = "bold"), gt::cells_grand_summary())
   expect_s3_class(gt_theme_sdv(g, density = "social"), "gt_tbl")
 })
+
+test_that("gt_save_batch() needs an explicit dir and fails before rendering", {
+  wd <- withr::local_tempdir()
+  withr::local_dir(wd)
+  expect_error(
+    gt_save_batch(mtcars, cyl, function(d, g) gt::gt(head(d)), "cars-{group}.png"),
+    "dir"
+  )
+  expect_length(list.files(wd, recursive = TRUE), 0)
+})
