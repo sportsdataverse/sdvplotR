@@ -76,8 +76,11 @@ render images.
 The scale translates team names into raw image HTML and places the
 HTML as axis labels. Because of the way ggplots are constructed, it is
 necessary to adjust the theme after calling this scale. This can be done
-by calling \code{\link[=theme_x_sdv]{theme_x_sdv()}} or \code{\link[=theme_y_sdv]{theme_y_sdv()}} or alternatively by manually
-changing the relevant \code{axis.text} to \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}}.
+by calling \code{\link[=theme_x_sdv]{theme_x_sdv()}} or \code{\link[=theme_y_sdv]{theme_y_sdv()}} after any complete theme such
+as \code{\link[ggplot2:theme_minimal]{ggplot2::theme_minimal()}}, which replaces every theme element. To set
+the theme by hand, change the relevant \code{axis.text} and its position
+children (\code{axis.text.x.bottom}, ...) to \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}}:
+complete themes in 'ggplot2' 4 set those children themselves.
 }
 \examples{
 \donttest{
