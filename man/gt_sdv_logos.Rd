@@ -9,7 +9,8 @@ gt_sdv_logos(
   columns,
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   height = 30,
-  locations = NULL
+  locations = NULL,
+  include_name = FALSE
 )
 }
 \arguments{
@@ -27,6 +28,10 @@ argument \code{columns}. Otherwise, the cell or set of cells to be associated
 with the team name transformation. Only \code{\link[gt:cells_body]{gt::cells_body()}},
 \code{\link[gt:cells_stub]{gt::cells_stub()}}, \code{\link[gt:cells_column_labels]{gt::cells_column_labels()}}, and
 \code{\link[gt:cells_row_groups]{gt::cells_row_groups()}} helper functions can be used here.}
+
+\item{include_name}{If \code{TRUE}, keep the cell's text after the logo, so a
+cell shows logo and name (what cbbplotR's \code{gt_cbb_teams()} did). Defaults
+to \code{FALSE}, the logo alone.}
 }
 \value{
 An object of class \code{gt_tbl}.
@@ -50,6 +55,11 @@ df <- data.frame(
 df |>
   gt() |>
   gt_sdv_logos(columns = "logo", sport = "nfl")
+
+# logo and name in one cell; NCAA.com school names resolve too
+data.frame(team = c("Iowa St.", "St. John's (NY)"), net = c(8, 12)) |>
+  gt() |>
+  gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE)
 }
 }
 \seealso{
