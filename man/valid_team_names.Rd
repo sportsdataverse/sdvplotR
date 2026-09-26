@@ -6,7 +6,8 @@
 \usage{
 valid_team_names(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-  type = c("abbreviation", "name")
+  type = c("abbreviation", "name"),
+  include_conferences = FALSE
 )
 }
 \arguments{
@@ -14,15 +15,20 @@ valid_team_names(
 \code{\link[=supported_sports]{supported_sports()}}.}
 
 \item{type}{Character string, either \code{"abbreviation"} (default) or \code{"name"}.}
+
+\item{include_conferences}{If \code{TRUE}, also list the conferences sdvplotR
+has a logo for: the college conferences (\code{"SEC"}, \code{"Big Ten"}, \code{"A-10"})
+and \code{"AFC"}, \code{"NFC"} and \code{"NFL"}. They resolve like teams in every helper
+either way; the default, \code{FALSE}, lists teams only, so code that loops
+over teams sees only teams (nflplotR's \code{valid_team_names()} includes AFC,
+NFC and NFL).}
 }
 \value{
 A sorted character vector of valid team identifiers.
 }
 \description{
 Returns a character vector of valid team abbreviations or names
-for a given sport. Conferences are included wherever sdvplotR has their
-logo: the college conferences (\code{"SEC"}, \code{"Big Ten"}, \code{"A-10"}) and, as in
-nflplotR, \code{"AFC"}, \code{"NFC"} and \code{"NFL"}.
+for a given sport.
 }
 \examples{
 valid_team_names("nfl")
