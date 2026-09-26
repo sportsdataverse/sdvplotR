@@ -133,11 +133,12 @@ ggplot(top_goals, aes(x = games_played, y = goals)) +
 
 ### NHL API player IDs
 
-The NHL's own APIs, which fastRhockey's `nhl_*()` functions read, identify
-players by their NHL API ID (McDavid is 8478402), not their ESPN athlete ID,
-which is why these headshots pass `id_type = "league"`: it draws NHL API IDs
-from the NHL's image CDN. Leave `id_type` unset for ESPN athlete IDs, such as
-those in fastRhockey's `espn_nhl_*()` and `load_nhl_*()` data. Both are plain
+The NHL's own APIs, which fastRhockey's `nhl_*()` functions and its
+`load_nhl_*()` datasets come from, identify players by their NHL API ID
+(McDavid is 8478402), not their ESPN athlete ID, which is why these headshots
+pass `id_type = "league"`: it draws NHL API IDs from the NHL's image CDN. Leave
+`id_type` unset for ESPN athlete IDs, such as those in fastRhockey's
+`espn_nhl_*()` data. Both are plain
 numbers, so the wrong setting draws someone else or nothing.
 
 ## NHL Team Tiers

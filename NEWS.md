@@ -67,7 +67,7 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   ESPN draw the right player. `"league"` reads the league's own ID from its
   image CDN: NBA Stats and WNBA Stats `PERSON_ID` (hoopR's `nba_*()`, wehoop's
   `wnba_*()`), MLBAM (baseballr, Baseball Savant) and NHL API player IDs
-  (fastRhockey's `nhl_*()`). `"espn"` reads ESPN
+  (fastRhockey's `nhl_*()` and `load_nhl_*()`). `"espn"` reads ESPN
   athlete IDs in any sport, including the NFL. By default, IDs are read as
   before: GSIS for the NFL, ESPN elsewhere. The ID systems overlap: without
   `id_type`, Dirk Nowitzki's NBA Stats ID drew ESPN's Jared Jeffries.
