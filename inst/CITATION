@@ -9,20 +9,21 @@ note <- sprintf("R package version %s", meta$Version)
 bibentry(
   bibtype  = "Misc",
   header   = "To cite the sdvplotR R package in publications, use:",
-  key      = "gilani_carl_lee_kay_sdvplotR",
+  key      = "gilani_carl_lee_kay_weatherman_sdvplotR",
   author   = c(
     person("Saiem",     "Gilani", email = "saiem.gilani@gmail.com",
            comment = c(ORCID = "0000-0002-7194-9067")),
     person("Sebastian", "Carl",   email = "mrcaseb@gmail.com"),
     person("Jared",     "Lee",    email = "13jaredlee@gmail.com"),
-    person("Camden",    "Kay",    email = "camdenk@gmail.com")
+    person("Camden",    "Kay",    email = "camdenk@gmail.com"),
+    person("Andrew",    "Weatherman", email = "andrew@aweatherman.com")
   ),
   title    = "sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.",
   url      = "https://sdvplotR.sportsdataverse.org",
   year     = year,
   note     = note,
   textVersion = paste0(
-    "Saiem Gilani, Sebastian Carl, Jared Lee, and Camden Kay (", year, "). ",
+    "Saiem Gilani, Sebastian Carl, Jared Lee, Camden Kay, and Andrew Weatherman (", year, "). ",
     "sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting. ",
     note, ". Retrieved from https://sdvplotR.sportsdataverse.org"
   )

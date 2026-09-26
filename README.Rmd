@@ -198,8 +198,8 @@ To cite the [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) R package in
 BibTex Citation
 
 ``` bibtex
-@misc{gilani_carl_lee_kay_sdvplotR,
-  author = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden},
+@misc{gilani_carl_lee_kay_weatherman_sdvplotR,
+  author = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},
   title = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},
   url = {https://sdvplotR.sportsdataverse.org},
   year = {2026}
