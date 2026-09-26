@@ -208,9 +208,11 @@ gt_color_pills <- function(gt_object, columns, rows = NULL,
       character(1)
     ))
     w <- if (length(widths)) max(widths, na.rm = TRUE) else 1
-    .transform_rows(tbl, cn, keep, function(x, i) {
+    html <- rep(NA_character_, nrow(data))
+    html[keep] <- vapply(keep, function(i) {
       generate_pill_html(vals[[cn]][[i]], scaled[[cn]][[i]], max_width = w)
-    })
+    }, character(1))
+    .fmt_rows(tbl, cn, html)
   }, cols, init = gt_object)
 
   .record_scale(out, cols, palette, domain, reverse, pal_type)

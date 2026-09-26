@@ -368,27 +368,20 @@ gt_merge_stack_team_color <- function(
   team_color[is.na(team_color)] <- "grey"
 
   col1_bare <- rlang::enexpr(col1) |> rlang::as_string()
-  row_name_var <- gt_object[["_boxbox"]][["var"]][which(gt_object[["_boxbox"]][["type"]] == "stub")]
   col2_bare <- rlang::enexpr(col2) |> rlang::as_string()
   data_in <- gt_object[["_data"]][[col2_bare]]
 
-  gt_object |>
-    gt::text_transform(
-      locations = if (isTRUE(row_name_var == col1_bare)) {
-        gt::cells_stub(rows = gt::everything())
-      } else {
-        gt::cells_body(columns = {{ col1 }})
-      },
-      fn = function(x) {
-        glue::glue(
-          "<div style='line-height:{font_size_top - 2}px'>",
-          "<span style='font-weight:bold;font-variant:small-caps;color:{color};font-size:{font_size_top}px'>",
-          "{x}</span></div>\n",
-          "<div style='line-height:{font_size_bottom - 2}px'>",
-          "<span style='font-weight:bold;color:{team_color};font-size:{font_size_bottom}px'>",
-          "{data_in}</span></div>"
-        )
-      }
-    ) |>
+  # built per data row and set through fmt(), which gt applies in data order
+  # (the stub column included), so row groups can't shuffle the pairs
+  top <- htmltools::htmlEscape(as.character(gt_object[["_data"]][[col1_bare]]))
+  html <- glue::glue(
+    "<div style='line-height:{font_size_top - 2}px'>",
+    "<span style='font-weight:bold;font-variant:small-caps;color:{color};font-size:{font_size_top}px'>",
+    "{top}</span></div>\n",
+    "<div style='line-height:{font_size_bottom - 2}px'>",
+    "<span style='font-weight:bold;color:{team_color};font-size:{font_size_bottom}px'>",
+    "{htmltools::htmlEscape(as.character(data_in))}</span></div>"
+  )
+  .fmt_rows(gt_object, col1_bare, as.character(html)) |>
     gt::cols_hide(columns = {{ col2 }})
 }

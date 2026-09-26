@@ -100,14 +100,10 @@ gt_significance <- function(gt_object, columns, p_columns,
   # take the last p-value column's stars
   gt_object <- Reduce(function(tbl, i) {
     marks <- stars(suppressWarnings(as.numeric(data[[p_cols[[i]]]])))
-    .transform_rows(tbl, est_cols[[i]], seq_along(marks), function(x, r) {
-      m <- marks[[r]]
-      if (!nzchar(m)) {
-        return(x)
-      }
-      if (superscript) m <- paste0("<sup style='font-size:", size, ";'>", m, "</sup>")
-      paste0(x, m)
-    })
+    if (superscript) {
+      marks <- ifelse(nzchar(marks), paste0("<sup style='font-size:", size, ";'>", marks, "</sup>"), "")
+    }
+    .append_rows(tbl, est_cols[[i]], marks)
   }, seq_along(est_cols), init = gt_object)
 
   if (isTRUE(hide_p)) {

@@ -232,7 +232,9 @@ gt_percentile_bar <- function(gt_object, columns, rows = NULL,
   # the same bars
   gt_object <- Reduce(function(tbl, nm) {
     v <- rescale(suppressWarnings(as.numeric(data[[nm]])))
-    .transform_rows(tbl, nm, keep, function(x, i) cell_for(v[[i]]))
+    html <- rep(NA_character_, length(v))
+    html[keep] <- vapply(v[keep], cell_for, character(1))
+    .fmt_rows(tbl, nm, html)
   }, cols, init = gt_object)
 
   if (!is.null(width)) {

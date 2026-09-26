@@ -233,16 +233,41 @@
   paste0("#", table_id, " td { font-variant-numeric: tabular-nums; }")
 }
 
-# One text_transform() per data row: gt hands text_transform() the cells in
-# display order, which row groups change, so a vector computed in data order
-# can't be returned for a whole column at once. fn(x, i) gets the cell's text
-# and its data row.
-.transform_rows <- function(gt_object, column, rows, fn) {
-  Reduce(function(tbl, i) {
-    gt::text_transform(
-      tbl,
-      locations = gt::cells_body(columns = tidyselect::all_of(column), rows = i),
-      fn = function(x) fn(x, i)
-    )
-  }, rows, init = gt_object)
+# gt hands text_transform() the cells in display order, which row groups
+# change, but runs fmt() functions over the rows in data order. So HTML built
+# per data row goes in through fmt(): `html` has one string per data row, and
+# NA leaves that row's cell alone.
+.fmt_rows <- function(gt_object, column, html) {
+  rows <- which(!is.na(html))
+  if (!length(rows)) {
+    return(gt_object)
+  }
+  gt::fmt(gt_object, columns = tidyselect::all_of(column), rows = rows, fns = .constant(html[rows]))
+}
+
+# A mark that follows the text gt has already formatted (significance stars)
+# has to stay a text_transform(). One per distinct mark: every cell it touches
+# gets the same suffix, so the order gt passes them in doesn't matter. The
+# closures and locations come from the factories below, so each holds only
+# its rows and string, never a copy of the table.
+.append_rows <- function(gt_object, column, suffix) {
+  for (s in unique(suffix[!is.na(suffix) & nzchar(suffix)])) {
+    rows <- which(suffix == s)
+    gt_object <- gt::text_transform(gt_object, locations = .body_cell(column, rows), fn = .appender(s))
+  }
+  gt_object
+}
+
+.constant <- function(value) {
+  force(value)
+  function(x) value
+}
+
+.appender <- function(suffix) {
+  force(suffix)
+  function(x) paste0(x, suffix)
+}
+
+.body_cell <- function(column, rows) {
+  gt::cells_body(columns = tidyselect::all_of(column), rows = rows)
 }

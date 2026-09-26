@@ -38,12 +38,16 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   `gt_save_crop()`, `gt_save_batch()` and `gt_social_crop()`, and the
   `theme_bg` background lookup. The eight gtUtils articles are on the
   website as "gt Table Cookbooks".
-* `gt_color_pills()`, `gt_percentile_bar()`, `gt_fmt_tally()` and
-  `gt_significance()` decorate each cell from its own row when row groups
-  reorder the table. gt hands `text_transform()` the cells in display order,
-  so values computed in data order landed on the wrong rows: pill colors that
-  didn't match their numbers, bars and tallies from other rows, and
-  significance stars on the wrong estimates.
+* `gt_color_pills()`, `gt_percentile_bar()`, `gt_fmt_tally()`,
+  `gt_significance()` and `gt_merge_stack_team_color()` decorate each cell
+  from its own row when row groups reorder the table. gt hands
+  `text_transform()` the cells in display order, so values computed in data
+  order landed on the wrong rows: pill colors that didn't match their numbers,
+  bars, tallies and stacked names from other rows, and significance stars on
+  the wrong estimates. They now go through `gt::fmt()`, which gt applies in
+  data order (stars, which follow the formatted estimate, take one
+  `text_transform()` per distinct mark). `gt_merge_stack_team_color()` also
+  escapes the lower line's text.
 * `gt_theme_sdv()` is the SportsDataverse house table theme, in light and
   `style = "dark"`, and `gt_theme_sdv_team()` dresses a table in one team's
   colors from `sdv_team_colors()`, picking title text and line colors by
