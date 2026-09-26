@@ -38,7 +38,7 @@
 #'
 #' @returns Invisibly, a character vector of the files written.
 #'
-#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 #' \donttest{
 #' library(gt)
 #'

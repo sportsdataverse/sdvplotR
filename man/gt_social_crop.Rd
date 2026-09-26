@@ -50,7 +50,7 @@ given aspect ratio, for posting to social platforms. The table itself is never
 cropped; the short side of the canvas is expanded until the ratio is met.
 }
 \examples{
-\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 \donttest{
 library(gt)
 
