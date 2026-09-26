@@ -42,6 +42,8 @@ test_that("clean_team_abbrs handles case, names, aliases and history", {
   )
   expect_identical(clean_team_abbrs(c("GSW", "SEA", "Lakers"), "nba"), c("GS", "OKC", "LAL"))
   expect_identical(clean_team_abbrs(c("OAK", "CWS", "MON"), "mlb"), c("ATH", "CHW", "WSH"))
+  # the MLB Stats API / Savant (baseballr) and FanGraphs / Baseball-Reference keys
+  expect_identical(clean_team_abbrs(c("AZ", "WSN"), "mlb", keep_non_matches = FALSE), c("ARI", "WSH"))
   expect_identical(clean_team_abbrs(c("ARI", "LAK", "PHX"), "nhl"), c("UTAH", "LA", "UTAH"))
 })
 
