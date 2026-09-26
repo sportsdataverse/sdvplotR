@@ -203,17 +203,14 @@ gt_color_pills <- function(gt_object, columns, rows = NULL,
   # one pass per column. width is per column, so each column's pills line up with
   # each other rather than with the widest value in the whole selection
   out <- Reduce(function(tbl, cn) {
-    v <- scaled[[cn]][keep]
     widths <- nchar(vapply(
       vals[[cn]][keep], function(z) format_value(z, digits, format_type),
       character(1)
     ))
     w <- if (length(widths)) max(widths, na.rm = TRUE) else 1
-    tbl |>
-      text_transform(
-        locations = cells_body(columns = tidyselect::all_of(cn), rows = keep),
-        fn = function(x) mapply(generate_pill_html, x, v, MoreArgs = list(max_width = w))
-      )
+    .transform_rows(tbl, cn, keep, function(x, i) {
+      generate_pill_html(vals[[cn]][[i]], scaled[[cn]][[i]], max_width = w)
+    })
   }, cols, init = gt_object)
 
   .record_scale(out, cols, palette, domain, reverse, pal_type)

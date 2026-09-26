@@ -135,20 +135,16 @@ gt_fmt_tally <- function(gt_object, columns, separator = "-", label = NULL,
   }
 
   # the tally goes in the first column
-  gt_object <- gt_object |>
-    gt::text_transform(
-      locations = gt::cells_body(columns = tidyselect::all_of(cols[[1]])),
-      fn = function(x) ifelse(is.na(display), x, display)
-    )
+  gt_object <- .transform_rows(gt_object, cols[[1]], seq_along(display), function(x, i) {
+    if (is.na(display[[i]])) x else display[[i]]
+  })
 
   # the last column either carries the share or gets hidden along with the rest
   if (isTRUE(share) && share_location == "column") {
     carrier <- cols[[length(cols)]]
-    gt_object <- gt_object |>
-      gt::text_transform(
-        locations = gt::cells_body(columns = tidyselect::all_of(carrier)),
-        fn = function(x) ifelse(is.na(share_str), x, share_str)
-      )
+    gt_object <- .transform_rows(gt_object, carrier, seq_along(share_str), function(x, i) {
+      if (is.na(share_str[[i]])) x else share_str[[i]]
+    })
     gt_object <- relabel(gt_object, carrier, share_label)
     spent <- cols[-c(1, length(cols))]
   } else {

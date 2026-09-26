@@ -232,3 +232,17 @@
   # not font-feature-settings: 'tnum', which also spaces out commas in some faces
   paste0("#", table_id, " td { font-variant-numeric: tabular-nums; }")
 }
+
+# One text_transform() per data row: gt hands text_transform() the cells in
+# display order, which row groups change, so a vector computed in data order
+# can't be returned for a whole column at once. fn(x, i) gets the cell's text
+# and its data row.
+.transform_rows <- function(gt_object, column, rows, fn) {
+  Reduce(function(tbl, i) {
+    gt::text_transform(
+      tbl,
+      locations = gt::cells_body(columns = tidyselect::all_of(column), rows = i),
+      fn = function(x) fn(x, i)
+    )
+  }, rows, init = gt_object)
+}

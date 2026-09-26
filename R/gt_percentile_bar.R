@@ -231,13 +231,8 @@ gt_percentile_bar <- function(gt_object, columns, rows = NULL,
   # loop variable would be the last column's by then and every column would draw
   # the same bars
   gt_object <- Reduce(function(tbl, nm) {
-    v <- rescale(suppressWarnings(as.numeric(data[[nm]])))[keep]
-    cells <- vapply(v, cell_for, character(1))
-    tbl |>
-      gt::text_transform(
-        locations = gt::cells_body(columns = tidyselect::all_of(nm), rows = keep),
-        fn = function(x) cells
-      )
+    v <- rescale(suppressWarnings(as.numeric(data[[nm]])))
+    .transform_rows(tbl, nm, keep, function(x, i) cell_for(v[[i]]))
   }, cols, init = gt_object)
 
   if (!is.null(width)) {
