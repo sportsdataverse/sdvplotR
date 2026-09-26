@@ -108,11 +108,39 @@ test_that("gt_theme_sdv sets the navy background in dark style", {
   expect_error(gt_theme_sdv(gt::gt(head(mtcars)), style = "sepia"), "must be one of")
 })
 
-test_that("options passed through ... override the SDV theme's own", {
-  tbl <- gt_theme_sdv(gt::gt(head(mtcars)), table.background.color = "#FF0000", heading.align = "center")
-  opts <- tbl[["_options"]]
-  expect_identical(opts$value[[match("table_background_color", opts$parameter)]], "#FF0000")
-  expect_identical(opts$value[[match("heading_align", opts$parameter)]], "center")
+test_that("every theme lets options passed through ... override its own", {
+  themes <- setdiff(
+    grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE),
+    "gt_theme_preview"
+  )
+  for (nm in themes) {
+    tbl <- get(nm, envir = asNamespace("sdvplotR"))(
+      gt::gt(head(mtcars)),
+      table.background.color = "#123456", heading.align = "center"
+    )
+    opts <- tbl[["_options"]]
+    expect_identical(opts$value[[match("table_background_color", opts$parameter)]], "#123456", info = nm)
+    expect_identical(opts$value[[match("heading_align", opts$parameter)]], "center", info = nm)
+  }
+})
+
+test_that("the caller's options survive density scaling and forced striping", {
+  opt <- function(tbl, name) tbl[["_options"]]$value[[match(name, tbl[["_options"]]$parameter)]]
+  themes <- setdiff(
+    grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE),
+    "gt_theme_preview"
+  )
+  for (nm in themes) {
+    tbl <- get(nm, envir = asNamespace("sdvplotR"))(
+      gt::gt(head(mtcars)),
+      density = "compact", table.font.size = gt::px(20)
+    )
+    expect_identical(opt(tbl, "table_font_size"), "20px", info = nm)
+  }
+  for (nm in c("gt_theme_savant", "gt_theme_ncaa")) {
+    tbl <- get(nm)(gt::gt(head(mtcars)), row.striping.include_table_body = FALSE)
+    expect_false(opt(tbl, "row_striping_include_table_body"), info = nm)
+  }
 })
 
 test_that("density rescales a table styled on locations with no size role", {

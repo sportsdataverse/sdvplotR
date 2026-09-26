@@ -135,8 +135,7 @@ gt_theme_midnight <- function(gt_object, accent = "#5B8DEF",
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad),
-      footnotes.border.bottom.style = "none",
-      ...
+      footnotes.border.bottom.style = "none"
     ) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
@@ -145,7 +144,9 @@ gt_theme_midnight <- function(gt_object, accent = "#5B8DEF",
       paste0("#", table_id, " td, #", table_id, " th { line-height: 1.55; }"),
       paste0("#", table_id, " .gt_subtitle { padding-bottom: ", d$pad + 8, "px !important; }"),
       paste0("#", table_id, " .gt_title { padding-bottom: ", ceiling(d$pad / 2), "px !important; }")
-    ))
+    )) |>
+    # the caller's options last, after density scaling and striping, so they win
+    gt::tab_options(...)
 }
 
 #' A rank palette for dark backgrounds
