@@ -256,10 +256,14 @@ check_id_type <- function(id_type, sport) {
 # Both are plain digits, so which one an ID is can't be told from its shape.
 headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
   id_type <- id_type %||% if (sport == "nfl") "league" else "espn"
-  # as.character() writes round numbers like 4000000 as "4e+06"
-  old <- options(list(stringsAsFactors = FALSE, scipen = 999))
-  on.exit(options(old), add = TRUE)
-  player_id <- as.character(player_id)
+  # as.character() writes round numbers like 4000000 as "4e+06", and scipen
+  # only changes the notation: it keeps 15 significant digits. sprintf() is
+  # exact for every integer a double holds.
+  player_id <- if (is.numeric(player_id)) {
+    ifelse(is.na(player_id), NA_character_, sprintf("%.0f", player_id))
+  } else {
+    as.character(player_id)
+  }
   numeric_id <- grepl("^[0-9]+$", player_id)
 
   url <- if (id_type == "espn") {
