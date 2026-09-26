@@ -101,7 +101,7 @@ t2 <- gt(head(iris[c("Sepal.Length", "Species")]))
 
 gt_stack_tables(list(t1, t2))
 
-\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 # one heading over the stack, saved straight to an image; saving needs a
 # headless Chrome (webshot2)
 \donttest{

@@ -63,7 +63,7 @@ the background, so it stays readable whatever \code{color} you pass.
 library(gt)
 gt(head(mtcars)) \%>\% gt_theme_drench()
 
-\dontshow{if (interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 # a brand color, with a matching export canvas; saving needs a headless
 # Chrome (webshot2)
 \donttest{

@@ -33,7 +33,7 @@
 #'   themes = c("gt_theme_sdv", "gt_theme_kenpom", "gt_theme_athletic")
 #' )
 #'
-#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 #' # a subset, saved as one wide image; saving needs a headless Chrome (webshot2)
 #' \donttest{
 #' gt_theme_preview(

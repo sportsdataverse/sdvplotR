@@ -102,7 +102,7 @@
 #'   subtitle_style = list(italic = TRUE, color = "#8A8A8A")
 #' )
 #'
-#' @examplesIf interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+#' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 #' # straight to an image; saving needs a headless Chrome (webshot2)
 #' \donttest{
 #' gt_grid(by_cyl, ncol = 3, file = tempfile(fileext = ".png"), bg = "#FBFAF7")

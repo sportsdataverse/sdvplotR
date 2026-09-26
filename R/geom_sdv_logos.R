@@ -13,13 +13,16 @@
 #' \describe{
 #'   \item{**x**}{ - The x-coordinate.}
 #'   \item{**y**}{ - The y-coordinate.}
-#'   \item{**team**}{ - The team abbreviation. Should be one of [valid_team_names()]. The function tries to clean team names internally.}
+#'   \item{**team**}{ - The team abbreviation. Should be one of [valid_team_names()]. The
+#'   function tries to clean team names internally.}
 #'   \item{`alpha = NULL`}{ - The alpha channel, i.e. transparency level, as a numerical value between 0 and 1.}
-#'   \item{`colour = NULL`}{ - The image will be colorized with this colour. Use the special character `"b/w"` to set it to black and white.}
+#'   \item{`colour = NULL`}{ - The image will be colorized with this colour. Use the special
+#'   character `"b/w"` to set it to black and white.}
 #'   \item{`angle = 0`}{ - The angle of the image as a numerical value between 0 and 360 degrees.}
 #'   \item{`hjust = 0.5`}{ - The horizontal adjustment relative to the given x coordinate.}
 #'   \item{`vjust = 0.5`}{ - The vertical adjustment relative to the given y coordinate.}
-#'   \item{`width = 1.0`}{ - The desired width of the image in `npc` (Normalised Parent Coordinates). A typical size is `width = 0.075`.}
+#'   \item{`width = 1.0`}{ - The desired width of the image in `npc` (Normalised Parent
+#'   Coordinates). A typical size is `width = 0.075`.}
 #'   \item{`height = 1.0`}{ - The desired height of the image in `npc`. A typical size is `height = 0.1`.}
 #' }
 #'

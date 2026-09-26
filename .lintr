@@ -1,16 +1,35 @@
 linters: linters_with_defaults(
     line_length_linter(120),
-    object_name_linter(styles = c("snake_case", "CamelCase", "dotted.case")),
+    object_name_linter(
+      styles = c("snake_case", "CamelCase", "dotted.case"),
+      # infix operators (`%||%`, which lintr sees as `||`) and exports named
+      # after the package
+      regexes = c(infix = "^[^[:alnum:]]+$", package_prefixed = "^sdvplotR_[a-z_]+$")
+    ),
     cyclocomp_linter(complexity_limit = 25),
     object_length_linter(length = 40),
     # Relax some tidyverse defaults for a plotting package
-    commented_code_linter = NULL
+    commented_code_linter = NULL,
+    # Signatures double-indent their arguments and close with `) {` on its own
+    # line (CLAUDE.md, Formatting); indentation_linter has no setting for that
+    indentation_linter = NULL
   )
 exclusions: list(
     "tests/testthat",
     "data-raw",
     "vignettes",
     "R/zzz.R",
-    "R/sdvplotR-package.R"
+    "R/sdvplotR-package.R",
+    # the gtUtils port keeps upstream's structure so upstream changes apply as
+    # diffs (CLAUDE.md); its long functions are not split here
+    "R/gt_cutline.R" = list(cyclocomp_linter = Inf),
+    "R/gt_grid.R" = list(cyclocomp_linter = Inf),
+    "R/gt_legend_continuous.R" = list(cyclocomp_linter = Inf),
+    "R/gt_legend_discrete.R" = list(cyclocomp_linter = Inf),
+    "R/gt_outliers.R" = list(cyclocomp_linter = Inf),
+    "R/gt_percentile_bar.R" = list(cyclocomp_linter = Inf),
+    "R/gt_snake.R" = list(cyclocomp_linter = Inf),
+    "R/gt_stack_tables.R" = list(cyclocomp_linter = Inf),
+    "R/gt_wrap_labels.R" = list(cyclocomp_linter = Inf)
   )
 encoding: "UTF-8"
