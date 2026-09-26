@@ -41,10 +41,10 @@ head(nfl_teams)
 Use `nflfastR` to load a season of play-by-play data:
 
 ```{r load-pbp}
-# The last completed season: from September on, the season under way is too
-# young for the per-play and per-passer cutoffs below
-season <- nflreadr::most_recent_season() -
-  (as.integer(format(Sys.Date(), "%m")) >= 9)
+# The last completed regular season (NFL seasons are named for the year they
+# start, and the regular season ends in early January)
+season <- as.integer(format(Sys.Date(), "%Y")) - 1 -
+  (format(Sys.Date(), "%m-%d") < "01-15")
 
 pbp <- nflfastR::load_pbp(seasons = season, file_type = "rds")
 
@@ -230,31 +230,25 @@ standings_table |>
 Visualize teams grouped by division:
 
 ```{r division-map}
-divisions <- data.frame(
-  team = nfl_teams,
-  division = c(
-    rep(c("AFC East", "AFC North", "AFC South", "AFC West"), each = 4),
-    rep(c("NFC East", "NFC North", "NFC South", "NFC West"), each = 4)
-  )
-) |>
-  mutate(
-    x = as.numeric(factor(division)),
-    y = rep(4:1, 8)
-  )
+# Each team's division, from the reference data sdvplotR keeps for every team
+divisions <- team_reference("nfl") |>
+  arrange(division, team_name) |>
+  group_by(division) |>
+  mutate(y = row_number()) |>
+  ungroup() |>
+  mutate(x = as.numeric(factor(division)))
 
 ggplot(divisions, aes(x = x, y = y)) +
   geom_sdv_logos(
-    aes(team = team),
+    aes(team = team_abbr),
     sport = "nfl",
     width = 0.075
   ) +
   scale_x_continuous(
-    breaks = 1:8,
-    labels = c(
-      "AFC East", "AFC North", "AFC South", "AFC West",
-      "NFC East", "NFC North", "NFC South", "NFC West"
-    )
+    breaks = seq_along(levels(factor(divisions$division))),
+    labels = levels(factor(divisions$division))
   ) +
+  scale_y_reverse() +
   labs(
     title = "NFL Teams by Division",
     x = NULL,
@@ -262,6 +256,7 @@ ggplot(divisions, aes(x = x, y = y)) +
   ) +
   theme_minimal() +
   theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
     axis.text.y = element_blank(),
     panel.grid = element_blank()
   )
