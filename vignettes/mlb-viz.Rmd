@@ -193,7 +193,9 @@ Show each division's teams in a column:
 division_map <- teams |>
   mutate(division_num = as.numeric(factor(division_name))) |>
   arrange(division_num, team_name) |>
-  mutate(team_rank = row_number(), .by = division_num)
+  group_by(division_num) |>
+  mutate(team_rank = row_number()) |>
+  ungroup()
 
 ggplot(division_map, aes(x = division_num, y = team_rank)) +
   geom_sdv_logos(
@@ -267,7 +269,9 @@ comparison <- bind_rows(
     slice_max(value, n = 5, with_ties = FALSE) |>
     transmute(player_id, category = "Batting Average", value)
 ) |>
-  mutate(rank = row_number(), .by = category)
+  group_by(category) |>
+  mutate(rank = row_number()) |>
+  ungroup()
 
 ggplot(comparison, aes(x = rank, y = value)) +
   geom_sdv_headshots(
