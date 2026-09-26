@@ -29,8 +29,9 @@ names (\code{"Kansas City Chiefs"}), common alternate abbreviations used by
 other data sources (\code{"WSH"} / \code{"WAS"}, \code{"GNB"} / \code{"GB"}), and historical
 abbreviations of relocated franchises (see \code{\link[=resolve_historical_abbr]{resolve_historical_abbr()}}).
 For the college sports it also takes the school names NCAA.com /
-stats.ncaa.org, KenPom and Bart Torvik use (\code{"Iowa St."},
-\code{"St. John's (NY)"}, \code{"Saint Mary's (CA)"}, \code{"Southern California"}).
+stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
+(\code{"Iowa St."}, \code{"St. John's (NY)"}, \code{"Saint Mary's (CA)"},
+\code{"Southern California"}, \code{"Brigham Young"}).
 Conference names resolve to the conference: ESPN's (\code{"SEC"},
 \code{"Southeastern Conference"}) and the NCAA's, KenPom's and Torvik's
 (\code{"B10"}, \code{"MWC"}). Where a team already uses the name, the team wins, so
