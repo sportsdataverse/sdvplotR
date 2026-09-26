@@ -441,6 +441,9 @@ abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(ref) {
     stopifnot(identical(unname(m[toupper(cf$team_abbr)]), cf$team_abbr))
   }
   al <- aliases[[d$sport[1]]]
+  # a curated alias must not lose to a crosswalk or conference name
+  clash <- names(al) %in% names(m) & m[names(al)] != al
+  if (any(clash)) stop(d$sport[1], " aliases shadowed by other keys: ", paste(names(al)[clash], collapse = ", "))
   al <- al[!names(al) %in% names(m)]
   stopifnot(all(al %in% d$team_abbr))
   c(m, al)

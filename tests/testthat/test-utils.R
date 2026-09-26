@@ -6,9 +6,10 @@ test_that("supported_sports lists the eight leagues", {
 })
 
 test_that("valid_team_names returns complete, sorted pro rosters", {
-  # 32 teams plus the AFC, NFC and NFL logos, as nflplotR
-  expect_length(valid_team_names("nfl"), 35)
-  expect_in(c("AFC", "NFC", "NFL"), valid_team_names("nfl"))
+  expect_length(valid_team_names("nfl"), 32)
+  # the AFC, NFC and NFL logos only when asked for
+  expect_length(valid_team_names("nfl", include_conferences = TRUE), 35)
+  expect_in(c("AFC", "NFC", "NFL"), valid_team_names("nfl", include_conferences = TRUE))
   expect_length(valid_team_names("nba"), 30)
   expect_length(valid_team_names("mlb"), 30)
   expect_length(valid_team_names("nhl"), 32)
@@ -33,18 +34,20 @@ test_that("team_reference carries the documented columns", {
     ),
     names(ref)
   )
-  expect_identical(sum(ref$type == "team"), 32L)
-  expect_setequal(ref$team_abbr[ref$type != "team"], c("AFC", "NFC", "NFL"))
+  expect_identical(nrow(ref), 32L)
   expect_false(anyNA(ref$logo_url))
+  all <- team_reference("nfl", include_conferences = TRUE)
+  expect_setequal(all$team_abbr[all$type != "team"], c("AFC", "NFC", "NFL"))
+  expect_setequal(names(sdv_team_colors("cfb")), team_reference("cfb")$team_abbr[!is.na(team_reference("cfb")$color1)])
 })
 
 test_that("conferences resolve like teams, and a team keeps a shared name", {
-  mbb <- team_reference("mbb")
+  mbb <- team_reference("mbb", include_conferences = TRUE)
   confs <- mbb$team_abbr[mbb$type == "conference"]
   expect_in(c("ACC", "Big Ten", "SEC", "A-10", "AAC", "MAAC", "WCC"), confs)
   # every conference resolves to itself, and every team's conference has a row
   # (the UAC has no ESPN logo)
-  expect_identical(clean_team_abbrs(confs, "mbb"), confs)
+  expect_identical(clean_team_abbrs(confs, "mbb", keep_non_matches = FALSE), confs)
   expect_in(setdiff(mbb$conference[mbb$type == "team"], "UAC"), confs)
   # ESPN, NCAA and KenPom names for a conference
   expect_identical(
