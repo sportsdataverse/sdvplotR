@@ -1,8 +1,10 @@
-# Clear the sdvplotR Image Cache
+# Clear the sdvplotR Caches
 
-sdvplotR renders images through 'ggpath', which caches downloaded images
-for the current session. This function clears that cache when 'ggpath'
-exposes a cache-clearing function and is a no-op otherwise.
+sdvplotR reads the NFL headshot map through 'nflreadr', which memoises
+it for a day, and renders images through 'ggpath', which caches
+downloaded images for the session. This function clears both (the
+'ggpath' cache when 'ggpath' exposes a cache-clearing function), so the
+next NFL headshot reads the current published map.
 
 ## Usage
 
@@ -18,4 +20,5 @@ Invisibly `NULL`, called for its side effect.
 
 ``` r
 sdvplotR_clear_cache()
+#> ✔ sdvplotR cache cleared.
 ```

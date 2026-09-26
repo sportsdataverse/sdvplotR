@@ -20,7 +20,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/sportsdataverse/sdvplotR/blob/sdvplotr_infrastructure/inst/CITATION)
+[`inst/CITATION`](https://github.com/sportsdataverse/sdvplotR/blob/main/inst/CITATION)
 
 Saiem Gilani, Sebastian Carl, Jared Lee, Camden Kay, and Andrew
 Weatherman (2026). sdvplotR: The SportsDataverse's R Package for

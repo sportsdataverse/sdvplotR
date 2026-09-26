@@ -2,9 +2,9 @@
 
 This geom is used to plot player headshots instead of points in a
 ggplot. It requires x, y aesthetics as well as a valid player
-identifier: a GSIS ID for the NFL (`"00-0033873"`, resolved through
-nflverse's player table to the player's NFL.com headshot) and an ESPN
-athlete ID for every other sport.
+identifier: a GSIS ID for the NFL (`"00-0033873"`, resolved through the
+headshot map sdvplotR publishes from nflverse rosters to the player's
+NFL.com headshot) and an ESPN athlete ID for every other sport.
 
 ## Usage
 

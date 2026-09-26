@@ -2,9 +2,10 @@
 
 Translate player IDs to player headshots and render these images in html
 tables with the 'gt' package. IDs are GSIS IDs for the NFL
-(`"00-0033873"`, resolved to the player's NFL.com headshot) and ESPN
-athlete IDs for every other sport. IDs that resolve to no headshot are
-left as text.
+(`"00-0033873"`, resolved through the headshot map sdvplotR publishes
+from nflverse rosters to the player's NFL.com headshot) and ESPN athlete
+IDs for every other sport. IDs that resolve to no headshot are left as
+text.
 
 ## Usage
 

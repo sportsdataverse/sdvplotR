@@ -423,7 +423,7 @@ reference data and colors; control the image cache.
 - [`sdv_team_factor()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_factor.md)
   : Order Team Names as a Factor
 - [`sdvplotR_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR_clear_cache.md)
-  : Clear the sdvplotR Image Cache
+  : Clear the sdvplotR Caches
 
 ## Premade Plots
 
