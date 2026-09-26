@@ -14,6 +14,8 @@
 #     basketball, 2009-10 on) and hoopR::load_mbb_team_crosswalk() -- the
 #     school names NCAA.com / stats.ncaa.org, KenPom and Bart Torvik use
 #     ("Iowa St.", "St. John's (NY)"), keyed by ESPN team id.
+#   * Sports Reference's school names that none of those use, mapped by hand to
+#     ESPN ids below (each checked against the school's mascot).
 #
 # Run from the package root:  Rscript data-raw/generate_logo_ref.R
 # Requires: httr, jsonlite, nflreadr, hoopR, usethis (dev-only, not package deps).
@@ -364,10 +366,8 @@ aliases <- list(
   # write Butler BUT and New Orleans UNO, and FPI writes Buffalo BUFF and Air
   # Force AFA
   cfb = c(BUFF = "BUF", AFA = "AF"),
-  # Sports Reference writes UNLV "Nevada-Las Vegas" (with an en dash, which
-  # clean_team_abbrs() folds to a hyphen)
-  mbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF", "NEVADA-LAS VEGAS" = "UNLV"),
-  wbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF", "NEVADA-LAS VEGAS" = "UNLV")
+  mbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF"),
+  wbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF")
 )
 
 # School names other college sources use, by ESPN team id. ESPN's college
@@ -385,9 +385,23 @@ ncaa <- do.call(rbind, lapply(c("mbb", "wbb"), function(s) {
 # the last two seasons hoopR has published (it refuses later ones)
 kp_season <- hoopR::most_recent_mbb_season()
 kp <- as.data.frame(hoopR::load_mbb_team_crosswalk(seasons = c(kp_season - 1, kp_season)))
+# Sports Reference's season pages name these schools differently from ESPN, the
+# NCAA, KenPom and Torvik; the rest of its 2025-26 Division I list resolves.
+# Mapped by hand to ESPN ids and checked against each school's mascot on its
+# index. Dashes are hyphens here: clean_team_abbrs() folds Sports Reference's
+# en dashes to them.
+sports_reference <- c(
+  "Brigham Young" = 252L, "Southern Methodist" = 2567L, "Texas Christian" = 2628L,
+  "Virginia Commonwealth" = 2670L, "Louisiana State" = 99L, "Illinois-Chicago" = 82L,
+  "Texas-Rio Grande Valley" = 292L, "College of Charleston" = 232L, "TAMUCC" = 357L,
+  "Appalachian State" = 2026L, "Southern Mississippi" = 2572L, "Loyola (IL)" = 2350L,
+  "Tennessee-Martin" = 2630L, "Nicholls State" = 2447L, "Central Connecticut State" = 2115L,
+  "Loyola (MD)" = 2352L, "Massachusetts-Lowell" = 2349L, "Maryland-Eastern Shore" = 2379L,
+  "Louisiana-Monroe" = 2433L, "Nevada-Las Vegas" = 2439L
+)
 school_names <- data.frame(
-  name = c(ncaa$ncaa_team, kp$kp_team, kp$bart_team),
-  espn_team_id = as.integer(c(ncaa$espn_team_id, kp$espn_team_id, kp$espn_team_id)),
+  name = c(ncaa$ncaa_team, kp$kp_team, kp$bart_team, names(sports_reference)),
+  espn_team_id = as.integer(c(ncaa$espn_team_id, kp$espn_team_id, kp$espn_team_id, sports_reference)),
   stringsAsFactors = FALSE
 )
 school_names <- unique(school_names[!is.na(school_names$name) & nzchar(school_names$name) &
@@ -396,7 +410,7 @@ school_names$key <- toupper(school_names$name)
 ambiguous <- unique(school_names$key[duplicated(school_names$key)])
 if (length(ambiguous)) message("dropping school names used for two schools: ", paste(ambiguous, collapse = ", "))
 school_names <- school_names[!school_names$key %in% ambiguous, ]
-message(nrow(school_names), " NCAA / KenPom / Torvik school names")
+message(nrow(school_names), " NCAA / KenPom / Torvik / Sports Reference school names")
 
 # Conference names the same sources use ("Big Ten", "A-10", "B10", "MWC"),
 # mapped to ESPN's full conference name by majority over the latest season's

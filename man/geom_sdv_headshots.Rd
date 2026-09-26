@@ -137,7 +137,11 @@ of points in a ggplot. It requires x, y aesthetics as well as a valid
 player identifier: a GSIS ID for the NFL (\code{"00-0033873"}, resolved through
 the headshot map sdvplotR publishes from nflverse rosters to the player's
 NFL.com headshot) and an ESPN athlete ID for every other sport. Set
-\code{id_type} to plot IDs from another source.
+\code{id_type} to plot IDs from another source. A team's ESPN athlete IDs come
+with its roster: \code{hoopR::espn_mbb_team_roster()} and
+\code{espn_nba_team_roster()}, \code{wehoop::espn_wbb_team_roster()} and
+\code{espn_wnba_team_roster()}, and \code{cfbfastR::espn_cfb_team_roster()} each
+return an \code{athlete_id} column.
 }
 \section{Aesthetics}{
 
