@@ -45,6 +45,9 @@ test_that("clean_team_abbrs handles case, names, aliases and history", {
   # the MLB Stats API / Savant (baseballr) and FanGraphs / Baseball-Reference keys
   expect_identical(clean_team_abbrs(c("AZ", "WSN"), "mlb", keep_non_matches = FALSE), c("ARI", "WSH"))
   expect_identical(clean_team_abbrs(c("ARI", "LAK", "PHX"), "nhl"), c("UTAH", "LA", "UTAH"))
+  # ESPN box scores abbreviate Butler and New Orleans differently from its teams list
+  expect_identical(clean_team_abbrs(c("BUT", "UNO"), "mbb", keep_non_matches = FALSE), c("BTLR", "NOLA"))
+  expect_identical(clean_team_abbrs(c("BUT", "UNO"), "wbb", keep_non_matches = FALSE), c("BTLR", "NOLA"))
   # accents fold on both sides: the NHL API's accented name, ESPN's accented key
   expect_identical(clean_team_abbrs("Montr\u00e9al Canadiens", "nhl", keep_non_matches = FALSE), "MTL")
   expect_identical(

@@ -22,51 +22,73 @@ espn_get <- function(url) {
   jsonlite::fromJSON(httr::content(resp, as = "text", encoding = "UTF-8"), simplifyVector = FALSE)
 }
 
+pick_logo <- function(logos, want, exclude = character()) {
+  for (l in logos) {
+    rel <- unlist(l$rel)
+    if (all(want %in% rel) && !any(exclude %in% rel)) return(l$href)
+  }
+  NULL
+}
+hex <- function(x) if (is.null(x) || !nzchar(x)) NA_character_ else paste0("#", toupper(x))
+
+team_row <- function(t, slug) {
+  data.frame(
+    sport = slug,
+    espn_team_id = as.integer(t$id),
+    team_abbr = toupper(t$abbreviation),
+    team_name = t$displayName,
+    team_short_name = t$shortDisplayName %||% t$displayName,
+    team_location = t$location %||% NA_character_,
+    team_mascot = t$name %||% NA_character_,
+    logo_url = pick_logo(t$logos, "default", "dark") %||% pick_logo(t$logos, character()) %||% NA_character_,
+    logo_dark_url = pick_logo(t$logos, "dark", "scoreboard") %||% NA_character_,
+    logo_scoreboard_url = pick_logo(t$logos, "scoreboard", "dark") %||% NA_character_,
+    wordmark_url = NA_character_,
+    color1 = hex(t$color),
+    color2 = hex(t$alternateColor),
+    conference = NA_character_,
+    division = NA_character_,
+    stringsAsFactors = FALSE
+  )
+}
+
 espn_teams <- function(sport, league, slug) {
   j <- espn_get(sprintf(
     "https://site.web.api.espn.com/apis/site/v2/sports/%s/%s/teams?limit=1000",
     sport, league
   ))
   teams <- lapply(j$sports[[1]]$leagues[[1]]$teams, `[[`, "team")
-  pick_logo <- function(logos, want, exclude = character()) {
-    for (l in logos) {
-      rel <- unlist(l$rel)
-      if (all(want %in% rel) && !any(exclude %in% rel)) return(l$href)
-    }
-    NULL
-  }
-  hex <- function(x) if (is.null(x) || !nzchar(x)) NA_character_ else paste0("#", toupper(x))
-  out <- lapply(teams, function(t) {
-    data.frame(
-      sport = slug,
-      espn_team_id = as.integer(t$id),
-      team_abbr = toupper(t$abbreviation),
-      team_name = t$displayName,
-      team_short_name = t$shortDisplayName %||% t$displayName,
-      team_location = t$location %||% NA_character_,
-      team_mascot = t$name %||% NA_character_,
-      logo_url = pick_logo(t$logos, "default", "dark") %||% pick_logo(t$logos, character()) %||% NA_character_,
-      logo_dark_url = pick_logo(t$logos, "dark", "scoreboard") %||% NA_character_,
-      logo_scoreboard_url = pick_logo(t$logos, "scoreboard", "dark") %||% NA_character_,
-      wordmark_url = NA_character_,
-      color1 = hex(t$color),
-      color2 = hex(t$alternateColor),
-      conference = NA_character_,
-      division = NA_character_,
-      stringsAsFactors = FALSE
-    )
+  out <- do.call(rbind, lapply(teams, team_row, slug = slug))
+  out[!is.na(out$logo_url), ]
+}
+
+# The teams list above leaves out some Division I programs (362 of 365 in
+# men's basketball for 2025-26, and not the same ones as women's), so members
+# of a core-API group that it lacks are fetched one by one.
+espn_teams_by_id <- function(sport, league, slug, ids) {
+  out <- lapply(ids, function(id) {
+    t <- espn_get(sprintf(
+      "https://site.web.api.espn.com/apis/site/v2/sports/%s/%s/teams/%s",
+      sport, league, id
+    ))$team
+    if (is.null(t)) NULL else team_row(t, slug)
   })
   out <- do.call(rbind, out)
+  if (is.null(out)) return(NULL)
   out[!is.na(out$logo_url), ]
 }
 
 # ids of the teams in an ESPN core-API group (FBS = 80, FCS = 81, D-I = 50),
-# split by conference (the group's children)
+# split by conference (the group's children), over every season given: a
+# program that just left the group (Saint Francis, D-I men's basketball
+# through 2025-26) stays drawable for the season it played. The first season
+# listed wins a program's conference.
 core_group_membership <- function(sport, league, seasons, group) {
   base <- sprintf(
     "https://sports.core.api.espn.com/v2/sports/%s/leagues/%s/seasons/%%s/types/2/groups/%s",
     sport, league, group
   )
+  found <- NULL
   for (season in seasons) {
     kids <- try(espn_get(sprintf(paste0(base, "/children?limit=100"), season)), silent = TRUE)
     if (inherits(kids, "try-error") || !length(kids$items)) next
@@ -78,9 +100,11 @@ core_group_membership <- function(sport, league, seasons, group) {
       data.frame(espn_team_id = ids, conference = conf$shortName %||% conf$name, stringsAsFactors = FALSE)
     })
     message(league, " group ", group, ": season ", season, ", ", length(out), " conferences")
-    return(do.call(rbind, out))
+    out <- do.call(rbind, out)
+    found <- rbind(found, out[!out$espn_team_id %in% found$espn_team_id, ])
   }
-  stop("no season found for ", league, " group ", group)
+  if (is.null(found)) stop("no season found for ", league, " group ", group)
+  found
 }
 
 college <- function(sport, league, slug, groups, seasons) {
@@ -90,6 +114,11 @@ college <- function(sport, league, slug, groups, seasons) {
     m <- core_group_membership(sport, league, seasons, groups[[g]])
     m$division <- g
     keep <- rbind(keep, m[!m$espn_team_id %in% keep$espn_team_id, ])
+  }
+  missing <- setdiff(keep$espn_team_id, d$espn_team_id)
+  if (length(missing)) {
+    message(slug, ": fetching ", length(missing), " group member(s) missing from the teams list")
+    d <- rbind(d, espn_teams_by_id(sport, league, slug, missing))
   }
   d <- d[d$espn_team_id %in% keep$espn_team_id, ]
   idx <- match(d$espn_team_id, keep$espn_team_id)
@@ -217,7 +246,10 @@ aliases <- list(
     WAS = "WSH", LAK = "LA", NJD = "NJ", SJS = "SJ", TBL = "TB", VEG = "VGK", MON = "MTL",
     UTA = "UTAH", CLB = "CBJ", NAS = "NSH", WIN = "WPG"
   ),
-  cfb = character(), mbb = character(), wbb = character()
+  cfb = character(),
+  # ESPN box scores abbreviate these two differently from its teams list
+  mbb = c(BUT = "BTLR", UNO = "NOLA"),
+  wbb = c(BUT = "BTLR", UNO = "NOLA")
 )
 
 abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(d) {

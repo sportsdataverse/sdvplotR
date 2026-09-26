@@ -85,6 +85,12 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   providers write inconsistently: the NHL API's "Montréal Canadiens" now
   resolves, as does an unaccented "San Jose State" against ESPN's
   "San José State".
+* College team data covers every Division I program. ESPN's teams list leaves
+  some out (Lindenwood, Queens, Southern Indiana, Mercyhurst, Saint Francis,
+  UT Rio Grande Valley football), so they drew no logo; they are now fetched
+  one by one. Programs that just left a division stay available for the season
+  they played, and ESPN box scores' `"BUT"` (Butler) and `"UNO"` (New Orleans)
+  resolve.
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose
