@@ -41,16 +41,22 @@ head(nba_teams)
 Use `hoopR` to load this season's ESPN team and player box scores:
 
 ```{r load-data}
-season <- hoopR::most_recent_nba_season()
+# The last completed regular season (hoopR names a season for the year it
+# ends; the regular season ends in mid-April)
+season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "04-20")
 
-# One row per team per game (ESPN box scores), regular season only
+# One row per team per game (ESPN box scores), regular season only. ESPN tags
+# the All-Star games as regular season too; keeping the league's own teams
+# drops them
+league_teams <- team_reference("nba")$team_abbr
 team_stats <- hoopR::load_nba_team_box(seasons = season) |>
-  filter(season_type == 2)
+  filter(season_type == 2, team_abbreviation %in% league_teams)
 
 # One row per player per game, with ESPN athlete IDs; players who did not
 # play are dropped so games played counts real games
 player_stats <- hoopR::load_nba_player_box(seasons = season) |>
-  filter(season_type == 2, !did_not_play)
+  filter(season_type == 2, !did_not_play, team_abbreviation %in% league_teams)
 ```
 
 ## NBA Team Performance
@@ -78,7 +84,7 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   ) +
   labs(
     title = "NBA Team Performance",
-    subtitle = paste("Season", hoopR::most_recent_nba_season()),
+    subtitle = paste("Season", season),
     x = "Average Points per Game",
     y = "Average Rebounds per Game",
     caption = "Data: hoopR | Viz: sdvplotR"
@@ -153,7 +159,7 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   ) +
   labs(
     title = "Top 8 NBA Scorers",
-    subtitle = paste("Season", hoopR::most_recent_nba_season()),
+    subtitle = paste("Season", season),
     x = "Games Played",
     y = "Average Points per Game"
   ) +
@@ -170,7 +176,7 @@ NBA Stats ID is read as an ESPN ID and draws someone else or nothing: Dirk
 Nowitzki's NBA Stats ID, 1717, is ESPN's Jared Jeffries.
 
 ```{r nba-stats-headshots}
-leaders <- hoopR::nba_leagueleaders(stat_category = "PTS")$LeagueLeaders |>
+leaders <- hoopR::nba_leagueleaders(season = hoopR::year_to_season(season - 1), stat_category = "PTS")$LeagueLeaders |>
   mutate(across(c(GP, PTS), as.numeric)) |>
   head(8)
 
@@ -283,7 +289,7 @@ standings_table |>
   ) |>
   tab_header(
     title = "NBA Top 10",
-    subtitle = paste("Season", hoopR::most_recent_nba_season())
+    subtitle = paste("Season", season)
   )
 ```
 

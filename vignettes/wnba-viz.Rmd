@@ -41,16 +41,21 @@ head(wnba_teams)
 Use `wehoop` to load this season's ESPN team and player box scores:
 
 ```{r load-data}
-season <- wehoop::most_recent_wnba_season()
+# The last completed regular season (it ends in mid-September)
+season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "09-20")
 
-# One row per team per game (ESPN box scores), regular season only
+# One row per team per game (ESPN box scores), regular season only. ESPN tags
+# the All-Star games as regular season too; keeping the league's own teams
+# drops them
+league_teams <- team_reference("wnba")$team_abbr
 team_stats <- wehoop::load_wnba_team_box(seasons = season) |>
-  filter(season_type == 2)
+  filter(season_type == 2, team_abbreviation %in% league_teams)
 
 # One row per player per game, with ESPN athlete IDs; players who did not
 # play are dropped so games played counts real games
 player_stats <- wehoop::load_wnba_player_box(seasons = season) |>
-  filter(season_type == 2, !did_not_play)
+  filter(season_type == 2, !did_not_play, team_abbreviation %in% league_teams)
 ```
 
 ## WNBA Team Performance
@@ -78,7 +83,7 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   ) +
   labs(
     title = "WNBA Team Performance",
-    subtitle = paste("Season", wehoop::most_recent_wnba_season()),
+    subtitle = paste("Season", season),
     x = "Average Points per Game",
     y = "Average Rebounds per Game",
     caption = "Data: wehoop | Viz: sdvplotR"
@@ -102,8 +107,7 @@ team_wins <- team_stats |>
   ) |>
   filter(games >= 10) |>
   mutate(win_pct = wins / games) |>
-  arrange(desc(win_pct)) |>
-  head(12)
+  arrange(desc(win_pct))
 
 ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   geom_col(aes(fill = team_abbreviation), width = 0.7) +
@@ -153,7 +157,7 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   ) +
   labs(
     title = "Top 8 WNBA Scorers",
-    subtitle = paste("Season", wehoop::most_recent_wnba_season()),
+    subtitle = paste("Season", season),
     x = "Games Played",
     y = "Average Points per Game"
   ) +
@@ -169,7 +173,7 @@ those from the WNBA's own image CDN. Both are plain numbers, so without it a
 WNBA Stats ID is read as an ESPN ID and draws someone else or nothing.
 
 ```{r wnba-stats-headshots}
-leaders <- wehoop::wnba_leagueleaders()$LeagueLeaders |>
+leaders <- wehoop::wnba_leagueleaders(season = season)$LeagueLeaders |>
   mutate(across(c(GP, PTS), as.numeric)) |>
   head(8)
 
@@ -285,7 +289,7 @@ standings_table |>
   ) |>
   tab_header(
     title = "WNBA Standings",
-    subtitle = paste("Season", wehoop::most_recent_wnba_season())
+    subtitle = paste("Season", season)
   )
 ```
 
