@@ -107,18 +107,13 @@ version, instead of rendering a broken glyph.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 gt(head(mtcars)) %>%
   gt_social_tag(c(x = "@yourhandle", gh = "yourname"))
 
-# with a caption line above, stacked and left-aligned
-gt(head(mtcars)) %>%
-  gt_social_tag(
-    c(x = "@yourhandle", web = "example.com"),
-    caption = "Data: R built-in datasets",
-    stack = TRUE, align = "left"
-  )
-} # }
+
+  
+
+mpg
 ```

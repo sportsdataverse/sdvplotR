@@ -90,7 +90,6 @@ so call this after any other label changes or they will be overwritten.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 mtcars %>%
@@ -101,5 +100,16 @@ mtcars %>%
     hp = list(heading = "Horsepower", subtitle = "HP"),
     heading_color = "blue", subtitle_color = "gray"
   )
-} # }
+
+
+  
+
+
+  
+    Top
+  
+  
+
+    Bottom
+  
 ```

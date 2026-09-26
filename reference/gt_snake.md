@@ -150,7 +150,6 @@ for stacking separate tables vertically.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 cars <- head(mtcars[c("mpg", "cyl", "hp")], 20)
@@ -161,25 +160,19 @@ gt(cars) %>%
   gt_snake(n_cols = 2) %>%
   gt_theme_broadsheet()
 
-# or set the block length and let the count follow
-gt(cars) %>%
-  gt_snake(rows_per_col = 7, gap = 30) %>%
-  gt_theme_swiss()
 
-# formatting after the reshape: note the suffixed names
-gt(cars) %>%
-  gt_snake(n_cols = 2) %>%
-  gt_theme_swiss() %>%
-  fmt_number(starts_with("mpg"), decimals = 1) %>%
-  cols_align(columns = everything(), align = "center")
+  
 
-# and picking out a single block
-gt(cars) %>%
-  gt_snake(n_cols = 2) %>%
-  gt_theme_swiss() %>%
-  tab_style(
-    gt::cell_text(weight = "bold"),
-    gt::cells_body(columns = model_1)
-  )
-} # }
+
+
+
+
+
+
+
+
+
+
+
+mpg
 ```

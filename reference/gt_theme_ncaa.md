@@ -59,8 +59,14 @@ export at.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 gt(head(mtcars)) %>% gt_theme_ncaa()
-} # }
+
+
+  
+
+
+
+        toss_out_spanner_dev
+      
 ```

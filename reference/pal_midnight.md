@@ -26,9 +26,12 @@ A character vector of five hex colors, running best to worst.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 gt::gt(head(airquality, 10)) %>%
   gt_theme_midnight() %>%
   gt_color_ranks(Temp, palette = pal_midnight)
-} # }
+
+
+  
+
+Ozone
 ```

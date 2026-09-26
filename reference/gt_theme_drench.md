@@ -79,13 +79,11 @@ for a restrained dark background instead.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 gt(head(mtcars)) %>% gt_theme_drench()
 
-# a brand color, with a matching export canvas
-gt(head(mtcars)) %>%
-  gt_theme_drench(color = "#4B1E78", density = "social") %>%
-  gt_social_crop(bg = "#4B1E78")
-} # }
+
+  
+
+mpg
 ```

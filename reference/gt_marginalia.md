@@ -98,7 +98,6 @@ for a labeled break between rows.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 quarterly <- data.frame(
@@ -116,8 +115,14 @@ gt(quarterly) %>%
   gt_theme_broadsheet() %>%
   gt_marginalia(Comment)
 
-# keep a heading, widen it, and drop the italics
-gt(quarterly) %>%
-  gt_marginalia(Comment, label = "Commentary", width = 280, italic = FALSE)
-} # }
+
+  
+
+
+
+
+
+
+
+Line
 ```

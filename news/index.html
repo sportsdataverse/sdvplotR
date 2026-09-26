@@ -192,6 +192,7 @@
 <li>
 <code><a href="../reference/gt_grid.html">gt_grid()</a></code> and <code><a href="../reference/gt_stack_tables.html">gt_stack_tables()</a></code> scroll inside their own box instead of overflowing the page when they are wider than the screen.</li>
 <li>Two articles walk through what the gt side adds and why: “SportsDataverse Table Themes” (the house theme, dark style, team colors and their contrast rules, density, overrides, saving) and “Team Tables with the gt Toolkit” (a 2023 playoff-picture table built from logos, a cut line, rank colors, captions and a two-conference grid).</li>
+<li>Every example runs: examples that only build tables run as plain examples, and those that save images through a headless Chrome are <code>\donttest{}</code> blocks that run in an interactive session with <code>webshot2</code> and Chrome available (checks skip them). <code><a href="../reference/gt_save_batch.html">gt_save_batch()</a></code> now needs an explicit <code>dir</code> rather than writing to the working directory.</li>
 <li>
 <code><a href="../reference/sdv_team_tiers.html">sdv_team_tiers()</a></code> builds tier charts, and <code><a href="../reference/ggtitle_image.html">ggtitle_image()</a></code> places a logo next to a plot title.</li>
 <li>

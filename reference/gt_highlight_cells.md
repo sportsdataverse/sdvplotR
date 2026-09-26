@@ -94,7 +94,6 @@ for whole-column and whole-row fills.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 # a correlation matrix: flag strong pairs, but not the diagonal of ones
@@ -105,14 +104,6 @@ cordf %>%
   gt_highlight_cells(-var, ~ .x > 0.7 & .x < 1, fill = "#FFD1A9") %>%
   gt_highlight_cells(-var, ~ .x < -0.7, fill = "#A9D0FF")
 
-# a schedule matrix: home games one color, byes another
-sched <- data.frame(
-  team = c("Alpha", "Bravo", "Charlie"),
-  wk1 = c("vs X", "@ Y", "BYE"),
-  wk2 = c("@ W", "vs V", "@ U")
-)
-gt(sched) %>%
-  gt_highlight_cells(c(wk1, wk2), ~ grepl("^vs", .x), fill = "#CCE7F5") %>%
-  gt_highlight_cells(c(wk1, wk2), ~ .x == "BYE", fill = "#D9D9D9")
-} # }
+
+  
 ```

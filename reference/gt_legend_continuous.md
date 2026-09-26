@@ -244,7 +244,6 @@ for a discrete key.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 # the legend matches whatever gt_color_ranks() drew
@@ -252,17 +251,8 @@ gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>%
   gt_color_ranks(columns = mpg) %>%
   gt_legend_continuous(columns = mpg, title = "Miles per gallon")
 
-# discrete blocks, labeled at every bin edge, title to the left
-gt(head(airquality, 10)) %>%
-  gt_color_ranks(columns = Temp) %>%
-  gt_legend_continuous(
-    columns = Temp, type = "blocks", n_bins = 5, labels = "edges",
-    title = "Temp (F)", title_position = "left",
-    title_style = list(
-      weight = 600, transform = "uppercase",
-      spacing = "0.08em", size = "10px"
-    ),
-    labels_style = list(size = "9px", color = "#999999")
-  )
-} # }
+
+  
+
+mpg
 ```

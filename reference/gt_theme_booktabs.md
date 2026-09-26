@@ -72,21 +72,12 @@ for significance notation.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>% gt_theme_booktabs()
 
-# a regression table, with significance stars and a colored rule
-fit <- lm(mpg ~ wt + hp, data = mtcars)
-data.frame(
-  Term = names(coef(fit)),
-  Estimate = coef(fit),
-  p = summary(fit)$coefficients[, 4]
-) %>%
-  gt() %>%
-  fmt_number(Estimate, decimals = 3) %>%
-  gt_significance(Estimate, p) %>%
-  gt_theme_booktabs(accent = "#1A3E6F")
-} # }
+
+  
+
+mpg
 ```

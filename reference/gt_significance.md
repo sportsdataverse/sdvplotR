@@ -94,7 +94,6 @@ which uses the same superscript approach for ordinal suffixes.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 fit <- lm(mpg ~ wt + hp + factor(cyl), data = mtcars)
@@ -109,11 +108,8 @@ gt(results) %>%
   fmt_number(c(Estimate, SE), decimals = 3) %>%
   gt_significance(Estimate, p)
 
-# daggers instead of stars, at a single threshold
-gt(results) %>%
-  gt_significance(Estimate, p,
-    levels = 0.05, symbols = "†",
-    legend_text = "† p < .05"
-  )
-} # }
+
+  
+
+Term
 ```

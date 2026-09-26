@@ -66,14 +66,13 @@ so it covers every column of the chosen rows.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 # bold every row
 gt(head(mtcars)) %>% gt_bold_rows()
 
-# bold and fill the rows above 20 mpg
-gt(head(mtcars)) %>%
-  gt_bold_rows(rows = mpg > 20, highlight_color = "#FFF3B0")
-} # }
+
+  
+
+mpg
 ```

@@ -81,13 +81,11 @@ for a denser dark look.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 gt(head(mtcars)) %>% gt_theme_midnight()
 
-# color scales need lifting on a dark ground; see pal_midnight
-gt(head(airquality, 10)) %>%
-  gt_theme_midnight() %>%
-  gt_color_ranks(Temp, palette = pal_midnight)
-} # }
+
+  
+
+mpg
 ```

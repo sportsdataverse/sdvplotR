@@ -85,12 +85,12 @@ for visible attribution in the source note.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 gt(head(mtcars)) %>% gt_watermark(text = "DRAFT", angle = -30, opacity = 0.08)
 
-gt(head(mtcars)) %>%
-  gt_watermark(image = "logo.png", size = "40%", position = "right bottom")
-} # }
+
+  
+
+mpg
 ```

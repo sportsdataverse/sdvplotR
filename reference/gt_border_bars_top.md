@@ -119,14 +119,19 @@ exported table.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 gt(head(mtcars)) %>%
   gt_border_bars_top(c("#1B7837", "#FFFFFF", "#B2182B"))
 
-# a single bar carrying a title
-gt(head(iris)) %>%
-  gt_border_bars_top("#22223B", text = "Iris measurements", bar_height = 34)
-} # }
+
+  
+
+
+
+
+
+
+  
+mpg
 ```

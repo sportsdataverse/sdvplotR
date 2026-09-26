@@ -188,7 +188,7 @@ width so a posted series does not come out at ragged sizes.</p>
 <span>  <span class="va">group</span>,</span>
 <span>  <span class="va">fn</span>,</span>
 <span>  <span class="va">file</span>,</span>
-<span>  dir <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  <span class="va">dir</span>,</span>
 <span>  match_width <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  bg <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>  whitespace <span class="op">=</span> <span class="fl">50</span>,</span>
@@ -222,7 +222,8 @@ replaced by the group value, as <code>"net-{group}.png"</code>.</p></dd>
 
 <dt id="arg-dir">dir<a class="anchor" aria-label="anchor" href="#arg-dir"></a></dt>
 <dd><p>Character. The directory to write into. Created if it does not
-exist. Defaults to <code>"."</code>.</p></dd>
+exist. There is no default, so a batch never lands in the working
+directory unasked; pass <code>"."</code> for that.</p></dd>
 
 
 <dt id="arg-match-width">match_width<a class="anchor" aria-label="anchor" href="#arg-match-width"></a></dt>
@@ -271,7 +272,8 @@ padded to the width of the widest before its border is added.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive() &amp;&amp; requireNamespace("webshot2", quietly = TRUE) &amp;&amp; isTRUE(file.exists(suppressMessages(chromote::find_chrome())))</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">build</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">group</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -280,9 +282,9 @@ padded to the width of the widest before its border is added.</p>
 <span class="r-in"><span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">group</span>, <span class="st">"cylinders"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">gt_save_batch</span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">cyl</span>, <span class="va">build</span>, <span class="st">"cars-{group}.png"</span>, dir <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">gt_save_batch</span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">cyl</span>, <span class="va">build</span>, <span class="st">"cars-{group}.png"</span>, dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

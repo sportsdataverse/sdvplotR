@@ -172,25 +172,12 @@ for a legend explaining the scale.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 gt(head(mtcars)) %>% gt_color_pills(mpg, domain = c(10, 35))
 
-# several columns on one shared domain
-gt(head(mtcars)) %>% gt_color_pills(c(disp, hp), domain = c(50, 500))
 
-# tidyselect works too
-gt(head(mtcars)) %>% gt_color_pills(where(is.numeric), domain = c(0, 500))
+  
 
-# only the rows that clear a threshold; the rest keep their raw value
-gt(head(mtcars)) %>% gt_color_pills(mpg, rows = mpg > 20, domain = c(10, 35))
-
-# color by rank rather than value, with a paletteer palette
-gt(head(mtcars)) %>%
-  gt_color_pills(hp,
-    fill_type = "rank", palette = "viridis::mako",
-    digits = 0
-  )
-} # }
+mpg
 ```

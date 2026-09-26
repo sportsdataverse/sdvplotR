@@ -107,7 +107,6 @@ for marking a threshold rather than a row.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 cars <- head(mtcars[c("mpg", "cyl", "hp")], 8)
@@ -116,22 +115,8 @@ cars$model <- rownames(cars)
 # by expression
 gt(cars) %>% gt_spotlight(rows = cyl == 8)
 
-# by position, with an accent bar
-gt(cars) %>%
-  gt_spotlight(rows = 2, accent_color = "#0054AD", fill = "#EEF3FA")
 
-# narrowing the spotlight to some columns dims the rest of the row too
-gt(cars) %>% gt_spotlight(mpg:cyl, rows = 3, accent_color = "darkblue")
+  
 
-# put the bar somewhere other than the first column
-gt(cars) %>%
-  gt_spotlight(hp, rows = 3, accent_color = "darkblue", accent_column = hp)
-
-# across several tables: blocks without the row dim rather than staying lit
-chunks <- split(cars, ceiling(seq_len(nrow(cars)) / 4))
-tbls <- lapply(chunks, function(x) {
-  gt(x) %>% gt_spotlight(rows = cyl == 8, if_none = "dim")
-})
-gt_grid(tbls, ncol = 2)
-} # }
+mpg
 ```

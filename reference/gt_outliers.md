@@ -109,7 +109,6 @@ for drawing attention to whole rows.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 assays <- data.frame(
@@ -121,14 +120,8 @@ assays <- data.frame(
 # the default fence catches both the high and the low reading
 gt(assays) %>% gt_outliers(c(Run1, Run2), note = TRUE)
 
-# an explicit acceptance range, flagging only the high side
-gt(assays) %>%
-  gt_outliers(c(Run1, Run2),
-    method = "bounds", bounds = c(9, 11),
-    side = "high", fill = "#FDECEA", symbol = "†"
-  )
 
-# works on wider data too
-gt(head(airquality, 12)) %>% gt_outliers(c(Ozone, Wind, Temp))
-} # }
+  
+
+Sample
 ```

@@ -147,7 +147,6 @@ allows a different test per column.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 roster <- data.frame(
@@ -159,11 +158,8 @@ roster <- data.frame(
 
 gt(roster) %>% gt_indicator_boxes(key_columns = "player")
 
-# print the underlying values and draw a border
-gt(roster) %>%
-  gt_indicator_boxes(
-    key_columns = "player", show_text = TRUE,
-    border_color = "#333333"
-  )
-} # }
+
+  
+
+player
 ```

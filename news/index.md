@@ -97,6 +97,13 @@ NHL, college football, men’s and women’s college basketball), built on
   colors and their contrast rules, density, overrides, saving) and “Team
   Tables with the gt Toolkit” (a 2023 playoff-picture table built from
   logos, a cut line, rank colors, captions and a two-conference grid).
+- Every example runs: examples that only build tables run as plain
+  examples, and those that save images through a headless Chrome are
+  `\donttest{}` blocks that run in an interactive session with
+  `webshot2` and Chrome available (checks skip them).
+  [`gt_save_batch()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_batch.md)
+  now needs an explicit `dir` rather than writing to the working
+  directory.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)

@@ -67,9 +67,11 @@ export at.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 gt(head(mtcars)) %>% gt_theme_tier()
-gt(head(mtcars)) %>% gt_theme_tier(style = "light")
-} # }
+
+
+  
+
+mpg
 ```

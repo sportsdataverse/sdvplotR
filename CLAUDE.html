@@ -229,7 +229,9 @@
 <div class="section level2">
 <h2 id="cran-packaging-notes">CRAN packaging notes<a class="anchor" aria-label="anchor" href="#cran-packaging-notes"></a></h2>
 <ul><li>Only <code>vignettes/getting-started.Rmd</code> ships in the tarball (it evaluates offline code only). The 12 per-sport / cookbook vignettes are build-ignored in <code>.Rbuildignore</code> and published as pkgdown articles; they need the companion packages listed under <code>Config/Needs/website</code>.</li>
-<li>Examples that download images are wrapped in <code>\donttest{}</code>.</li>
+<li>Examples that download images are wrapped in <code>\donttest{}</code>. Never use <code>\dontrun{}</code>: examples that save images through a headless Chrome go in an <code>@examplesIf interactive() &amp;&amp; &lt;webshot2 + Chrome available&gt;</code> block wrapping <code>\donttest{}</code> (see <code>R/gt_save_crop.R</code>) and write to <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile()</a></code> / <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir()</a></code>, never to the working directory. <code><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive()</a></code> is required: chromote starts Chrome through processx’s supervisor, whose fifo connections stay open for the session, and R CMD check’s <code>cleanEx()</code> then fails with “connections left open”.</li>
+<li>
+<code>\figure{}</code> options use <code>style="width:100\%"</code>, not <code>width=100\%</code>; checkRd wants width/height attributes in pixels.</li>
 <li>
 <code>Suggests</code> is deliberately small (ggtext, gridtext, knitr, reactable, rmarkdown, sjmisc, testthat, withr); companion data packages are website / development needs, not package dependencies.</li>
 </ul></div>

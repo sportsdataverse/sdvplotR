@@ -51,7 +51,6 @@ all of them at once.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 cars <- mtcars[c("mpg", "hp", "wt")]
@@ -61,8 +60,8 @@ gt(head(cars, 15), groupname_col = "cyl") %>%
   gt_theme_broadsheet() %>%
   gt_group_stripes()
 
-# shade from the first group instead, in a warmer tone
-gt(head(cars, 15), groupname_col = "cyl") %>%
-  gt_group_stripes(color = "#FBF3E4", start = 1)
-} # }
+
+  
+
+mpg
 ```

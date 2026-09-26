@@ -65,9 +65,14 @@ export at.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 gt(head(mtcars)) %>% gt_theme_kenpom()
-gt(head(mtcars)) %>% gt_theme_kenpom(density = "compact")
-} # }
+
+
+  
+
+
+
+        toss_out_spanner_dev
+      
 ```

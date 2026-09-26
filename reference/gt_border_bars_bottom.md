@@ -121,14 +121,13 @@ renders in an exported table.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 gt(head(mtcars)) %>%
   gt_border_bars_bottom(c("#1B7837", "#FFFFFF", "#B2182B"))
 
-# a single bar carrying a credit line
-gt(head(iris)) %>%
-  gt_border_bars_bottom("#22223B", text = "Source: iris", bar_height = 28)
-} # }
+
+  
+
+mpg
 ```

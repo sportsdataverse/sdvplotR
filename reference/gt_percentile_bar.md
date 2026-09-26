@@ -157,7 +157,6 @@ fill and the marker take the same color, mapped from the value.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 metrics <- data.frame(
@@ -167,12 +166,12 @@ metrics <- data.frame(
 
 gt(metrics) %>% gt_percentile_bar(pct)
 
-# the same values stored 0-1 render identically under the default scale = "auto"
-metrics$pct <- metrics$pct / 100
-gt(metrics) %>% gt_percentile_bar(pct)
 
-# a row that did not qualify
-metrics$pct[2] <- NA
-gt(metrics) %>% gt_percentile_bar(pct, na_label = "Not qualified")
-} # }
+  
+
+
+
+
+
+metric
 ```

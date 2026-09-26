@@ -78,13 +78,12 @@ for explaining a colored column.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>% gt_theme_broadsheet()
 
-# financial-press pink, sized for an image export
-gt(head(airquality, 8)) %>%
-  gt_theme_broadsheet(paper = "salmon", accent = "#0F5257", density = "social")
-} # }
+
+  
+
+mpg
 ```

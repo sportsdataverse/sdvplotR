@@ -69,9 +69,11 @@ for a color scale that survives a dark ground.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 gt(head(mtcars, 12)) %>% gt_theme_terminal()
-gt(head(airquality, 15)) %>% gt_theme_terminal(accent = "#7EE787")
-} # }
+
+
+  
+
+mpg
 ```

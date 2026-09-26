@@ -112,7 +112,6 @@ for disclosing a divided scale.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 revenue <- data.frame(
@@ -124,7 +123,8 @@ revenue <- data.frame(
 # absolute change, colored by sign
 gt(revenue) %>% gt_delta(Q1, Q2)
 
-# as a percent of Q1, with arrows
-gt(revenue) %>% gt_delta(Q1, Q2, percent = TRUE, arrows = TRUE)
-} # }
+
+  
+
+Segment
 ```

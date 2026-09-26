@@ -44,13 +44,12 @@ first, since that CSS is keyed on `#<table_id>`.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 gt(head(mtcars)) %>% gt_border_grid()
 
-# heavier gray lines, including around the labels
-gt(head(iris)) %>%
-  gt_border_grid(color = "#BBBBBB", weight = 2, include_labels = TRUE)
-} # }
+
+  
+
+mpg
 ```

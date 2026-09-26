@@ -12,7 +12,7 @@ gt_save_batch(
   group,
   fn,
   file,
-  dir = ".",
+  dir,
   match_width = TRUE,
   bg = "white",
   whitespace = 50,
@@ -45,7 +45,8 @@ gt_save_batch(
 - dir:
 
   Character. The directory to write into. Created if it does not exist.
-  Defaults to `"."`.
+  There is no default, so a batch never lands in the working directory
+  unasked; pass `"."` for that.
 
 - match_width:
 
@@ -93,7 +94,8 @@ for the same split composed into one image instead.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (FALSE) { # interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+# \donttest{
 library(gt)
 
 build <- function(df, group) {
@@ -102,6 +104,7 @@ build <- function(df, group) {
     tab_header(title = paste(group, "cylinders"))
 }
 
-gt_save_batch(mtcars, cyl, build, "cars-{group}.png", dir = "out")
-} # }
+gt_save_batch(mtcars, cyl, build, "cars-{group}.png", dir = tempdir())
+# }
+}
 ```

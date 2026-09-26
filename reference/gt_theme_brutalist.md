@@ -62,9 +62,11 @@ export at.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 gt(head(mtcars)) %>% gt_theme_brutalist()
-gt(head(mtcars)) %>% gt_theme_brutalist(accent = "#0033FF", density = "social")
-} # }
+
+
+  
+
+mpg
 ```

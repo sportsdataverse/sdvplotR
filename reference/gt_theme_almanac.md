@@ -69,11 +69,11 @@ export at.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 gt(head(mtcars, 12)) %>% gt_theme_almanac()
 
-# banding off, cooler accent
-gt(head(airquality, 15)) %>% gt_theme_almanac(stripe = NA, accent = "#1F3A5F")
-} # }
+
+  
+
+mpg
 ```

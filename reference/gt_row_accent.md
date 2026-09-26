@@ -90,7 +90,6 @@ for emphasis rather than a key.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 teams <- data.frame(
@@ -106,13 +105,8 @@ gt(teams) %>%
     SEC = "#B8232F"
   ))
 
-# or straight from a column of colors
-teams$color <- c("#003366", "#C8102E", "#B8232F", "#C8102E")
-gt(teams) %>% gt_row_accent(color)
 
-# only some rows: by expression, by indices, or by one row number
-gt(teams) %>% gt_row_accent(color, rows = net <= 10)
-gt(teams) %>% gt_row_accent(color, rows = c(1, 3))
-gt(teams) %>% gt_row_accent(color, rows = 2)
-} # }
+  
+
+team
 ```

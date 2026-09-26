@@ -79,15 +79,17 @@ for padding onto a fixed-ratio canvas.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (FALSE) { # interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+# \donttest{
 library(gt)
 
 gt(head(mtcars)) %>%
   gt_theme_broadsheet() %>%
-  gt_save_crop("mtcars.png")
+  gt_save_crop(tempfile(fileext = ".png"))
 
 # pin a shared width across a series
 gt(head(iris)) %>%
-  gt_save_crop("iris.png", width = 900, bg = "#FBFAF7")
-} # }
+  gt_save_crop(tempfile(fileext = ".png"), width = 900, bg = "#FBFAF7")
+# }
+}
 ```

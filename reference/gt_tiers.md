@@ -82,7 +82,6 @@ column can sit alongside the images.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 standings <- data.frame(
@@ -96,5 +95,7 @@ standings <- data.frame(
 
 gt(standings) %>%
   gt_tiers(levels = c("A", "B"), colors = c("#1B7837", "#B2182B"))
-} # }
+
+
+  
 ```

@@ -177,30 +177,16 @@ for a continuous ramp.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 # a named vector is the quickest way in
 gt(head(mtcars[c("mpg", "cyl", "hp")], 6)) %>%
   gt_legend_discrete(c("Efficient" = "#CCE7F5", "Thirsty" = "#F5CCCC"))
 
-# rounded swatches below the table, labels on the swatches
-gt(head(mtcars[c("mpg", "cyl", "hp")], 6)) %>%
-  gt_legend_discrete(
-    c("Yes" = "#FCCF10", "No" = "#EEEEEE"),
-    heading = "Qualified",
-    label_placement = "inside",
-    location = "bottom",
-    shape = "rounded"
-  )
 
-# style the heading and labels through lists, the same way gt_grid() does
-gt(head(mtcars[c("mpg", "cyl", "hp")], 6)) %>%
-  gt_legend_discrete(
-    c("Home" = "#CCE7F5", "Away" = "#FFFFFF", "Bye" = "#EEEEEE"),
-    heading = "2025 Schedule",
-    heading_style = list(font = "Oswald", size = 20, transform = "uppercase"),
-    label_style = list(size = 13, color = "#444444")
-  )
-} # }
+  
+
+
+
+EfficientThirsty
 ```

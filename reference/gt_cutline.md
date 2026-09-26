@@ -123,7 +123,6 @@ for drawing attention to a row.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 efficient <- head(mtcars[order(-mtcars$mpg), c("mpg", "hp", "wt")], 12)
@@ -134,8 +133,8 @@ gt(efficient) %>%
   gt_theme_broadsheet() %>%
   gt_cutline(after = 6, label = "Top six")
 
-# two lines, one of them unlabeled
-gt(efficient) %>%
-  gt_cutline(after = c(3, 6), label = c("Shortlist", NA), color = "#0054AD")
-} # }
+
+  
+
+mpg
 ```

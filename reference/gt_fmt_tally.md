@@ -111,7 +111,6 @@ for ordinal formatting.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 suites <- data.frame(
@@ -123,22 +122,8 @@ suites <- data.frame(
 # renders as "142-8"
 gt(suites) %>% gt_fmt_tally(c(Passed, Failed), label = "Result")
 
-# renders as "142-8 (94.7%)"
-gt(suites) %>% gt_fmt_tally(c(Passed, Failed), share = TRUE)
 
-# the failure rate instead, in its own column
-gt(suites) %>%
-  gt_fmt_tally(c(Passed, Failed),
-    share = TRUE, share_of = "Failed",
-    share_location = "column", share_label = "Fail rate"
-  )
+  
 
-# three counts, as in a league table
-league <- data.frame(
-  Club = c("Arsenal", "Chelsea"),
-  W = c(26, 18), D = c(6, 10), L = c(6, 10)
-)
-
-gt(league) %>% gt_fmt_tally(c(W, D, L), label = "W-D-L")
-} # }
+Suite
 ```

@@ -86,7 +86,6 @@ rendered table, so calling it first on a dark theme borrows a near-black
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 gt(head(mtcars[c("mpg", "hp", "wt")], 6)) %>%
@@ -94,5 +93,9 @@ gt(head(mtcars[c("mpg", "hp", "wt")], 6)) %>%
     top_caption = "Fuel economy and power",
     bottom_caption = "Source: *1974 Motor Trend* road tests"
   )
-} # }
+
+
+  
+
+mpg1
 ```

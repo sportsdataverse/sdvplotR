@@ -71,7 +71,6 @@ which reshapes the table itself and carries body styling through.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 wide <- head(mtcars[c("mpg", "hp", "wt", "qsec")], 8)
@@ -89,5 +88,20 @@ wide %>%
     condition = gt_snake_align(mask, n_cols = 2),
     fill = "#EDBD68"
   )
-} # }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+mpg
 ```

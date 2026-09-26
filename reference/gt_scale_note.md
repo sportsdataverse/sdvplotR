@@ -75,7 +75,6 @@ and its `scale_by` argument, so the underlying data is left untouched.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 revenue <- data.frame(
@@ -87,7 +86,8 @@ revenue <- data.frame(
 # values render as 4.8, 2.1, 1.4 with "Figures in millions." beneath
 gt(revenue) %>% gt_scale_note(c(FY24, FY23), divisor = 1e6, decimals = 1)
 
-# disclose in the column labels instead
-gt(revenue) %>% gt_scale_note(c(FY24, FY23), divisor = 1e3, where = "label")
-} # }
+
+  
+
+Segment
 ```

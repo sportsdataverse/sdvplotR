@@ -42,7 +42,6 @@ Teens are handled correctly, so 11, 12 and 13 take "th" and not "st",
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 ranked <- data.frame(
@@ -52,7 +51,8 @@ ranked <- data.frame(
 
 gt(ranked) %>% gt_fmt_rank(place)
 
-# flat, without the superscript
-gt(ranked) %>% gt_fmt_rank(place, superscript = FALSE)
-} # }
+
+  
+
+model
 ```

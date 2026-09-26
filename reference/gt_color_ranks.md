@@ -97,7 +97,6 @@ for a pill treatment instead of a full-cell fill.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 
 ranked <- data.frame(
@@ -108,11 +107,8 @@ ranked <- data.frame(
 
 gt(ranked) %>% gt_color_ranks(c(mpg_rank, hp_rank))
 
-# a paletteer palette, reversed
-gt(ranked) %>%
-  gt_color_ranks(mpg_rank,
-    palette = "viridis::mako", pal_type = "continuous",
-    reverse = TRUE
-  )
-} # }
+
+  
+
+model
 ```
