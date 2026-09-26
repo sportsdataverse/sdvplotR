@@ -167,7 +167,7 @@ resolve_wordmark_url <- function(team, sport, variant = "primary") {
   ifelse(is.na(url), wordmark_from_team(team, sport), url)
 }
 
-# Player IDs are GSIS IDs for the NFL and ESPN athlete IDs everywhere else.
+# Player IDs are ESPN athlete IDs everywhere; the NFL also takes GSIS IDs.
 headshot_from_id <- function(player_id, sport = "nfl") {
   player_id <- as.character(player_id)
   espn_slug <- c(
@@ -176,13 +176,20 @@ headshot_from_id <- function(player_id, sport = "nfl") {
     wbb = "womens-college-basketball"
   )
   url <- if (sport == "nfl") {
+    # GSIS ids resolve through nflverse's crosswalk to NFL.com's own image id
+    # ("<delivery type>/<id>"); numeric ids are ESPN athlete ids, as elsewhere
+    nfl <- unname(nfl_headshot_ids[player_id])
     ifelse(
-      grepl("^00-00[0-9]{5}$", player_id),
+      !is.na(nfl),
       paste0(
-        "https://static.www.nfl.com/image/private/t_headshot_desktop/f_auto/league/",
-        gsub("-", "", player_id)
+        "https://static.www.nfl.com/image/",
+        sub("/", "/t_headshot_desktop/f_auto/league/", nfl, fixed = TRUE)
       ),
-      NA_character_
+      ifelse(
+        grepl("^[0-9]+$", player_id),
+        paste0("https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/", player_id, ".png"),
+        NA_character_
+      )
     )
   } else {
     ifelse(

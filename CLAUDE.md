@@ -37,6 +37,11 @@ team abbr / player id
   endpoints (the `site.api.espn.com` host 403s non-browser clients), the ESPN
   core API group endpoints (FBS = 80, FCS = 81, D-I = 50) and
   `nflreadr::load_teams()`. **Never hand-edit the `.rda`.**
+- `R/sysdata.rda` also holds `nfl_headshot_ids` (GSIS id -> NFL.com image
+  `"<private|upload>/<id>"`), built by `data-raw/nfl_headshot_ids.R` from
+  `nflreadr::load_players()`. NFL.com image ids are opaque (not the GSIS
+  digits) and resolve only under their own delivery type. Each data script
+  re-saves the other's objects, so running either one keeps both.
 - Canonical keys: nflverse abbreviations for the NFL (`LA`, `LV`, `WAS`), ESPN
   abbreviations everywhere else (`GS`, `NY`, `UTAH`, `ATH`, `CON`). Aliases
   from other providers live in the `aliases` list of the data script;
@@ -109,6 +114,14 @@ devtools::build_readme()
 - `Suggests` is deliberately small (ggtext, gridtext, knitr, reactable,
   rmarkdown, sjmisc, testthat, withr); companion data packages are website /
   development needs, not package dependencies.
+
+## Formatting
+
+- Run `styler` only on files a change adds. styler 1.11 rewrites this repo's
+  double-indent function signatures (`f <- function(\n    arg,\n    arg) {`)
+  in existing files, which turns a small fix into a diff across every
+  signature; lintr's indentation_linter also disagrees with that style (the
+  known lints on `main`).
 
 ## Commit convention
 

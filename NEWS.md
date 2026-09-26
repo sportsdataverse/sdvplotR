@@ -54,6 +54,11 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   blocks that run in an interactive session with `webshot2` and Chrome
   available (checks skip them). `gt_save_batch()`
   now needs an explicit `dir` rather than writing to the working directory.
+* NFL player headshots work again. GSIS ids (`"00-0033873"`) resolve through a
+  crosswalk built from nflverse's player table to each player's NFL.com image
+  (24,659 players); they previously pointed at a URL built from the GSIS digits
+  that returned 404 for every player. NFL headshots also accept ESPN athlete
+  ids, like every other sport.
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose

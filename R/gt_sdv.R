@@ -94,7 +94,9 @@ gt_sdv_wordmarks <- function(
 #' Render Player Headshots in 'gt' Tables
 #'
 #' @description Translate player IDs to player headshots and render these
-#'   images in html tables with the 'gt' package.
+#'   images in html tables with the 'gt' package. IDs are ESPN athlete IDs; for
+#'   the NFL a GSIS ID (`"00-0033873"`) also works and resolves to the player's
+#'   NFL.com headshot. IDs that resolve to no headshot are left as text.
 #'
 #' @inheritParams gt_sdv_logos
 #' @return An object of class `gt_tbl`.

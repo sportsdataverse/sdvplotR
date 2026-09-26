@@ -90,3 +90,34 @@ test_that("sdv_team_factor keeps only valid, cleaned teams as levels", {
 test_that("sdvplotR_clear_cache is a quiet no-op that returns NULL", {
   expect_null(suppressMessages(sdvplotR_clear_cache()))
 })
+
+test_that("NFL headshots resolve GSIS ids through the crosswalk and ESPN ids directly", {
+  u <- headshot_from_id(c("00-0033873", "3139477", "00-9999999", "bad", NA), sport = "nfl")
+  # GSIS id -> NFL.com's own image id, at the sized transform
+  expect_match(
+    u[[1]],
+    "^https://static\\.www\\.nfl\\.com/image/(private|upload)/t_headshot_desktop/f_auto/league/[A-Za-z0-9_-]+$"
+  )
+  expect_identical(
+    sub(".*/(private|upload)/t_headshot_desktop/f_auto/league/", "\\1/", u[[1]]),
+    unname(nfl_headshot_ids[["00-0033873"]])
+  )
+  # numeric id -> ESPN athlete headshot, as for the other sports
+  expect_identical(u[[2]], "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/3139477.png")
+  # unknown GSIS id, garbage and NA stay NA so the helpers can fall back
+  expect_true(all(is.na(u[3:5])))
+})
+
+test_that("the NFL headshot crosswalk is well formed", {
+  expect_gt(length(nfl_headshot_ids), 20000)
+  expect_false(anyDuplicated(names(nfl_headshot_ids)) > 0)
+  expect_true(all(grepl("^00-00", names(nfl_headshot_ids)) | grepl("^[A-Z]{3}", names(nfl_headshot_ids))))
+  expect_true(all(grepl("^(private|upload)/[A-Za-z0-9_-]+$", nfl_headshot_ids)))
+})
+
+test_that("a resolved NFL headshot URL serves an image", {
+  skip_on_cran()
+  skip_if_offline()
+  h <- curlGetHeaders(headshot_from_id("00-0033873", sport = "nfl"))
+  expect_identical(attr(h, "status"), 200L)
+})
