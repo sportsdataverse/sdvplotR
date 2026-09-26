@@ -33,3 +33,4 @@
 ^vignettes/(border_bars|delay_tables|grid_tables|saving_tables|schedule_matrix|styling|tier_list|window_wins)\.Rmd$
 ^vignettes/images$
 ^\.git$
+^vignettes/(sdv-table-themes|gt-toolkit)\.Rmd$

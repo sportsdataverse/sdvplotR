@@ -44,6 +44,11 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   contrast.
 * `gt_grid()` and `gt_stack_tables()` scroll inside their own box instead of
   overflowing the page when they are wider than the screen.
+* Two articles walk through what the gt side adds and why: "SportsDataverse
+  Table Themes" (the house theme, dark style, team colors and their contrast
+  rules, density, overrides, saving) and "Team Tables with the gt Toolkit" (a
+  2023 playoff-picture table built from logos, a cut line, rank colors,
+  captions and a two-conference grid).
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose

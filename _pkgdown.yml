@@ -281,6 +281,13 @@ articles:
       - leaderboard-dashboards
       - reactable-integration
       - workflows
+  - title: "gt Tables"
+    desc: >
+      The SportsDataverse table themes, and the team layer and the gt table
+      toolkit working together on one table.
+    contents:
+      - sdv-table-themes
+      - gt-toolkit
   - title: "gt Table Cookbooks"
     desc: >
       Themes, legends, cut lines, faceted grids and saving, ported with the
@@ -402,6 +409,12 @@ navbar:
         href: articles/reactable-integration.html
       - text: "End-to-End Workflows"
         href: articles/workflows.html
+      - text: --------------------------------
+      - text: "gt Tables"
+      - text: "SportsDataverse Table Themes"
+        href: articles/sdv-table-themes.html
+      - text: "Team Tables with the gt Toolkit"
+        href: articles/gt-toolkit.html
       - text: --------------------------------
       - text: "gt Table Cookbooks"
       - text: "Styling Headers, Legends and Captions"
