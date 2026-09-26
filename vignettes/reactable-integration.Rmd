@@ -32,6 +32,9 @@ All functions follow the same **sport / variant / size** contract as their
 | `height` | Image height in pixels |
 | `team_col`, `value_col` | Column names for color / bar resolution |
 
+The image helpers (`reactable_sdv_logos()`, `reactable_sdv_headshots()`, ...)
+return HTML, so their columns need `html = TRUE`.
+
 ---
 
 ## Basic: Team logos in a standings table
@@ -39,13 +42,24 @@ All functions follow the same **sport / variant / size** contract as their
 ```{r standings}
 library(reactable)
 library(sdvplotR)
-library(nflfastR)   # companion
+library(dplyr)
 
-season <- nflreadr::most_recent_season()
-standings <- nflreadr::load_standings(seasons = season) |>\
-  dplyr::arrange(desc(pct), desc(div_wins)) |>\
-  dplyr::slice_head(n = 16) |>\
-  dplyr::select(team_abbr, wins, losses, pct, div_rank)
+# Regular-season records from nflreadr's schedules, one row per team per game
+season <- nflreadr::most_recent_season() -
+  (as.integer(format(Sys.Date(), "%m")) >= 9)
+
+standings <- nflreadr::load_schedules(season) |>
+  filter(game_type == "REG", !is.na(result)) |>
+  nflreadr::clean_homeaway() |>
+  group_by(team_abbr = team) |>
+  summarise(
+    wins = sum(team_score > opponent_score),
+    losses = sum(team_score < opponent_score),
+    pct = mean(team_score > opponent_score) + 0.5 * mean(team_score == opponent_score),
+    .groups = "drop"
+  ) |>
+  arrange(desc(pct)) |>
+  slice_head(n = 16)
 
 reactable(
   standings,
@@ -99,15 +113,12 @@ reactable(
 Replace column headers (e.g., per-team stat columns) with the team's logo:
 
 ```{r header-logos}
-library(nflverseR)
-
-# Example: per-team EPA/play in a wide table
-team_cols <- c("KC", "BUF", "SF", "DAL", "PHI", "MIA")
-
+# A wide table with one column per team (example values)
 wide_df <- data.frame(
   week = 1:4,
-  KC  = runif(4), BUF = runif(4), SF  = runif(4),
-  DAL = runif(4), PHI = runif(4), MIA = runif(4)
+  KC  = c(0.21, 0.05, 0.14, 0.30), BUF = c(0.12, 0.25, 0.08, 0.18),
+  SF  = c(0.09, 0.16, 0.22, 0.04), DAL = c(-0.03, 0.11, 0.02, 0.07),
+  PHI = c(0.15, 0.19, 0.12, 0.23), MIA = c(0.01, -0.06, 0.10, 0.03)
 )
 
 reactable(
@@ -147,21 +158,19 @@ reactable(
 
 ## Player headshots
 
-Headshots use the same `reactable_sdv_headshots()` helper across all sports:
+Headshots use the same `reactable_sdv_headshots()` helper across all sports.
+NFL headshots take GSIS IDs, the `gsis_id` in nflreadr's rosters:
 
 ```{r headshots}
-library(nflreadr)
-
-roster <- nflreadr::load_roster(seasons = 2024) |>\
-  dplyr::filter(team %in% c("KC", "BUF", "SF")) |>\
-  dplyr::slice_sample(n = 15) |>\
-  dplyr::select(player_name, team, position, gsis_id)
+roster <- nflreadr::load_rosters(seasons = season) |>
+  filter(team %in% c("KC", "BUF", "SF"), position == "QB", !is.na(gsis_id)) |>
+  select(full_name, team, position, gsis_id)
 
 reactable(
   roster,
   columns = list(
-    player_name = colDef(name = "Player"),
-    team = colDef(cell = reactable_sdv_logos(sport = "nfl", height = 24)),
+    full_name = colDef(name = "Player"),
+    team = colDef(cell = reactable_sdv_logos(sport = "nfl", height = 24), html = TRUE),
     gsis_id = colDef(
       name = "Headshot",
       cell = reactable_sdv_headshots(sport = "nfl", height = 40),
@@ -180,29 +189,37 @@ All helpers work identically across sports — only the `sport` argument changes
 ### NBA standings (hoopR)
 
 ```{r nba}
-library(hoopR)
-nba_standings <- hoopR::get_nba_standings(season = 2024) |>\
-  dplyr::slice_head(n = 10)
+nba_standings <- hoopR::load_nba_standings(seasons = hoopR::most_recent_nba_season()) |>
+  filter(stat_name %in% c("wins", "losses", "winPercent")) |>
+  select(team = team_abbreviation, conference = group_abbreviation, stat_name, value) |>
+  tidyr::pivot_wider(names_from = stat_name, values_from = value) |>
+  arrange(desc(winPercent)) |>
+  slice_head(n = 10)
 
 reactable(
   nba_standings,
   columns = list(
-    team = colDef(cell = reactable_sdv_logos(sport = "nba", height = 28))
+    team = colDef(cell = reactable_sdv_logos(sport = "nba", height = 28), html = TRUE),
+    winPercent = colDef(name = "Pct", format = colFormat(digits = 3))
   )
 )
 ```
 
-### CFB rankings (cfbfastR)
+### CFB power ratings (cfbfastR)
+
+ESPN's Football Power Index, which needs no API key:
 
 ```{r cfb}
-library(cfbfastR)
-cfb_ranks <- cfbfastR::cfbd_ratings_sp(year = 2024) |>\
-  dplyr::slice_head(n = 25)
+cfb_fpi <- cfbfastR::espn_ratings_fpi(year = season) |>
+  arrange(desc(fpi)) |>
+  select(team = team_abbreviation, fpi, w, l) |>
+  slice_head(n = 25)
 
 reactable(
-  cfb_ranks,
+  cfb_fpi,
   columns = list(
-    team = colDef(cell = reactable_sdv_logos(sport = "cfb", height = 28))
+    team = colDef(cell = reactable_sdv_logos(sport = "cfb", height = 28), html = TRUE),
+    fpi = colDef(name = "FPI", format = colFormat(digits = 1))
   )
 )
 ```
@@ -210,14 +227,25 @@ reactable(
 ### NHL skater stats (fastRhockey)
 
 ```{r nhl}
-library(fastRhockey)
-nhl_skaters <- fastRhockey::load_nhl_player_stats(season = 2024) |>\
-  dplyr::slice_head(n = 20)
+nhl_season <- fastRhockey::most_recent_nhl_season()
+nhl_skaters <- fastRhockey::nhl_stats_skaters(
+  season = paste0(nhl_season - 1, nhl_season),
+  limit = 20
+) |>
+  # a player traded mid-season lists every team; keep his last
+  mutate(team = sub(".*,\\s*", "", team_abbrevs)) |>
+  select(skater_full_name, team, player_id, goals, assists, points)
 
 reactable(
   nhl_skaters,
   columns = list(
-    team_abbrev = colDef(cell = reactable_sdv_logos(sport = "nhl", height = 28))
+    team = colDef(cell = reactable_sdv_logos(sport = "nhl", height = 28), html = TRUE),
+    player_id = colDef(
+      name = "Headshot",
+      # NHL API player ids: the NHL's own image CDN
+      cell = reactable_sdv_headshots(sport = "nhl", id_type = "league", height = 40),
+      html = TRUE
+    )
   )
 )
 ```
@@ -227,22 +255,25 @@ reactable(
 ## Integration with reactablefmtr
 
 These helpers compose cleanly with
-[`reactablefmtr`](https://kentjohnson.github.io/reactablefmtr/):
+[`reactablefmtr`](https://kcuilla.github.io/reactablefmtr/), whose
+`embed_img()` draws a column that already holds image URLs:
 
 ```{r fmtr}
 library(reactablefmtr)
 
-reactable(standings) |>\
-  generate_img(
-    columns = "team_abbr",
-    img_location = "https://a.espncdn.com/i/teamlogos/nfl/500/${team_abbr}.png",
-    height = 28
+standings |>
+  left_join(select(team_reference("nfl"), team_abbr, logo = logo_url), by = "team_abbr") |>
+  select(logo, team_abbr, wins, losses, pct) |>
+  reactable(
+    columns = list(
+      logo = colDef(name = "", cell = embed_img(height = 28))
+    )
   )
 ```
 
-For sdvplotR's richer variant resolution (dark/light/alt/classic), prefer the
-`reactable_sdv_*` helpers which handle URL resolution, historical team
-mappings, and variant fallbacks internally.
+`team_reference()` holds every team's logo URLs. For sdvplotR's variant
+resolution (dark/light/alt/classic) and its aliases and historical team
+mappings inside the table itself, prefer the `reactable_sdv_*` helpers.
 
 ---
 
