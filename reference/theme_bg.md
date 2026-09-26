@@ -58,7 +58,7 @@ bg <- theme_bg$bg[theme_bg$theme == "gt_theme_gtutils"]
 bg
 #> [1] "#FFFDF5"
 
-if (FALSE) { # interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+if (FALSE) { # interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 # saving needs a headless Chrome (webshot2)
 # \donttest{
 gt::gt(head(mtcars)) %>%

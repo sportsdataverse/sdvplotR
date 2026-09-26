@@ -1235,7 +1235,7 @@ long table into blocks.</p></div>
 <td headers="Species" class="gt_row gt_center">setosa</td></tr></tbody></table></div>
   </div>
 </div><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive() &amp;&amp; requireNamespace("webshot2", quietly = TRUE) &amp;&amp; isTRUE(file.exists(suppressMessages(chromote::find_chrome())))</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive() &amp;&amp; rlang::is_installed("webshot2") &amp;&amp; isTRUE(file.exists(chromote::find_chrome()))</span></span></span>
 <span class="r-in"><span><span class="co"># one heading over the stack, saved straight to an image; saving needs a</span></span></span>
 <span class="r-in"><span><span class="co"># headless Chrome (webshot2)</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>

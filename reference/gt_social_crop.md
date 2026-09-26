@@ -79,7 +79,7 @@ for a plain trimmed save.
 ## Examples
 
 ``` r
-if (FALSE) { # interactive() && requireNamespace("webshot2", quietly = TRUE) && isTRUE(file.exists(suppressMessages(chromote::find_chrome())))
+if (FALSE) { # interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 # \donttest{
 library(gt)
 
