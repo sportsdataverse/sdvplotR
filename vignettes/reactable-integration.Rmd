@@ -44,9 +44,11 @@ library(reactable)
 library(sdvplotR)
 library(dplyr)
 
-# Regular-season records from nflreadr's schedules, one row per team per game
-season <- nflreadr::most_recent_season() -
-  (as.integer(format(Sys.Date(), "%m")) >= 9)
+# Regular-season records from nflreadr's schedules, one row per team per game,
+# for the last completed regular season (NFL seasons are named for the year they
+# start and end in early January)
+season <- as.integer(format(Sys.Date(), "%Y")) - 1 -
+  (format(Sys.Date(), "%m-%d") < "01-15")
 
 standings <- nflreadr::load_schedules(season) |>
   filter(game_type == "REG", !is.na(result)) |>
@@ -189,7 +191,10 @@ All helpers work identically across sports — only the `sport` argument changes
 ### NBA standings (hoopR)
 
 ```{r nba}
-nba_standings <- hoopR::load_nba_standings(seasons = hoopR::most_recent_nba_season()) |>
+# the last completed regular season (named for the year it ends, in mid-April)
+nba_season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "04-20")
+nba_standings <- hoopR::load_nba_standings(seasons = nba_season) |>
   filter(stat_name %in% c("wins", "losses", "winPercent")) |>
   select(team = team_abbreviation, conference = group_abbreviation, stat_name, value) |>
   tidyr::pivot_wider(names_from = stat_name, values_from = value) |>
@@ -210,7 +215,10 @@ reactable(
 ESPN's Football Power Index, which needs no API key:
 
 ```{r cfb}
-cfb_fpi <- cfbfastR::espn_ratings_fpi(year = season) |>
+# the last completed college football regular season (it ends in mid-December)
+cfb_season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "12-15")
+cfb_fpi <- cfbfastR::espn_ratings_fpi(year = cfb_season) |>
   arrange(desc(fpi)) |>
   select(team = team_abbreviation, fpi, w, l) |>
   slice_head(n = 25)
@@ -227,7 +235,9 @@ reactable(
 ### NHL skater stats (fastRhockey)
 
 ```{r nhl}
-nhl_season <- fastRhockey::most_recent_nhl_season()
+# the last completed regular season (named for the year it ends, in mid-April)
+nhl_season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "04-20")
 nhl_skaters <- fastRhockey::nhl_stats_skaters(
   season = paste0(nhl_season - 1, nhl_season),
   limit = 20

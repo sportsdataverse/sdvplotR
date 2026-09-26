@@ -43,10 +43,10 @@ out_dir <- tempdir()
 Complete workflow for creating an NFL passing recap:
 
 ```{r nfl-workflow}
-# Step 1: Load data with nflfastR (the last completed season; from September
-# on, the season under way is too young for the 100-play cutoff)
-season <- nflreadr::most_recent_season() -
-  (as.integer(format(Sys.Date(), "%m")) >= 9)
+# Step 1: Load data with nflfastR, for the last completed regular season (NFL
+# seasons are named for the year they start and end in early January)
+season <- as.integer(format(Sys.Date(), "%Y")) - 1 -
+  (format(Sys.Date(), "%m-%d") < "01-15")
 pbp <- nflfastR::load_pbp(seasons = season, file_type = "rds")
 
 # Step 2: Process data
@@ -91,9 +91,10 @@ plot
 Complete workflow for CFB tiers from passing efficiency:
 
 ```{r cfb-workflow}
-# Step 1: Load data with cfbfastR (college seasons start in August)
+# Step 1: Load data with cfbfastR, for the last completed regular season (named
+# for the year it starts; it ends in mid-December)
 cfb_season <- as.integer(format(Sys.Date(), "%Y")) -
-  (as.integer(format(Sys.Date(), "%m")) < 8)
+  (format(Sys.Date(), "%m-%d") < "12-15")
 cfb_pbp <- cfbfastR::load_cfb_pbp(seasons = cfb_season)
 
 # Step 2: Process data: EPA per pass play; clean_team_abbrs() turns school
@@ -136,8 +137,11 @@ tier_plot
 Complete workflow for comparing NBA scorers:
 
 ```{r nba-workflow}
-# Step 1: Load data with hoopR (ESPN player box scores, regular season)
-nba_box <- hoopR::load_nba_player_box(seasons = hoopR::most_recent_nba_season()) |>
+# Step 1: Load data with hoopR (ESPN player box scores) for the last completed
+# regular season (hoopR names a season for the year it ends, in mid-April)
+nba_season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "04-20")
+nba_box <- hoopR::load_nba_player_box(seasons = nba_season) |>
   filter(season_type == 2, !did_not_play)
 
 # Step 2: Process data
@@ -166,7 +170,7 @@ player_plot <- ggplot(top_players, aes(x = games, y = avg_points)) +
   ) +
   labs(
     title = "Top 8 NBA Scorers",
-    subtitle = paste("Season", hoopR::most_recent_nba_season()),
+    subtitle = paste("Season", nba_season),
     x = "Games Played",
     y = "Average Points per Game",
     caption = "Data: hoopR | Viz: sdvplotR"
@@ -187,7 +191,9 @@ Complete workflow for MLB standings:
 ```{r mlb-workflow}
 # Step 1: Load data with baseballr (MLB Stats API; one string for both
 # leagues, because mlb_standings() rejects a vector)
-mlb_season <- baseballr::most_recent_mlb_season()
+# the last completed regular season (it ends around October 1)
+mlb_season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "10-05")
 teams <- baseballr::mlb_teams(season = mlb_season, sport_ids = 1) |>
   select(team_id, team_abbreviation, team_name = team_full_name)
 
@@ -233,8 +239,10 @@ standings_table
 Complete workflow for NHL team analysis:
 
 ```{r nhl-workflow}
-# Step 1: Load data with fastRhockey (seasons keyed by their ending year)
-nhl_season <- fastRhockey::most_recent_nhl_season()
+# Step 1: Load data with fastRhockey for the last completed regular season
+# (named for the year it ends; the regular season ends in mid-April)
+nhl_season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "04-20")
 nhl_teams <- fastRhockey::nhl_stats_teams(season = paste0(nhl_season - 1, nhl_season))
 
 # Step 2: Process data: the NHL's full team names become abbreviations
@@ -365,7 +373,7 @@ nfl_report$plot
 Collect each league's best record into one table:
 
 ```{r multi-sport-comparison}
-nba_best <- hoopR::load_nba_standings(seasons = hoopR::most_recent_nba_season()) |>
+nba_best <- hoopR::load_nba_standings(seasons = nba_season) |>
   filter(stat_name == "winPercent") |>
   slice_max(value, n = 1, with_ties = FALSE)
 
