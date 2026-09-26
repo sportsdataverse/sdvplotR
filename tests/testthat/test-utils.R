@@ -87,48 +87,81 @@ test_that("sdv_team_factor keeps only valid, cleaned teams as levels", {
   expect_identical(as.character(f), c("KC", "BUF", "LV", NA))
 })
 
-test_that("sdvplotR_clear_cache is a quiet no-op that returns NULL", {
+test_that("sdvplotR_clear_cache clears the caches and returns NULL", {
   expect_null(suppressMessages(sdvplotR_clear_cache()))
 })
 
-test_that("NFL headshots resolve GSIS ids through the crosswalk", {
-  espn_gsis <- names(nfl_headshot_ids)[startsWith(nfl_headshot_ids, "espn/")][[1]]
-  u <- headshot_from_id(c("00-0033873", espn_gsis, "11765", "00-0099999", "bad", NA), sport = "nfl")
-  # GSIS id -> NFL.com's own image id, at the sized transform, with a .png the
-  # axis scales' image reader (gridtext) needs
+test_that("NFL headshots resolve GSIS ids through the published map", {
+  local_headshot_map()
+  u <- headshot_from_id(c("00-0033873", "00-0031078", "11765", "00-0099999", "bad", NA), sport = "nfl")
+  # NFL.com image at the sized transform, with the .png gridtext needs
   expect_identical(
     u[[1]],
-    paste0(
-      "https://static.www.nfl.com/image/",
-      sub("/", "/t_headshot_desktop/f_auto/league/", nfl_headshot_ids[["00-0033873"]], fixed = TRUE),
-      ".png"
-    )
+    "https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png"
   )
-  # players NFL.com has no image of fall back to ESPN's headshot
-  expect_identical(
-    u[[2]],
-    paste0(
-      "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/",
-      sub("^espn/", "", nfl_headshot_ids[[espn_gsis]]), ".png"
-    )
-  )
+  # a player with no NFL.com image falls back to their ESPN headshot
+  expect_identical(u[[2]], "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/16885.png")
   # numeric NFL ids are ambiguous; unknown GSIS ids, garbage and NA stay NA
   expect_true(all(is.na(u[3:6])))
+})
+
+test_that("with no map (offline) every NFL id resolves to NA", {
+  local_headshot_map(data.frame(gsis_id = character(), headshot_nfl = character(), espn_id = character()))
+  expect_identical(headshot_from_id(c("00-0033873", NA), "nfl"), c(NA_character_, NA_character_))
+})
+
+test_that("load_headshot_map returns an empty map when the release can't be read", {
+  local_mocked_bindings(rds_from_url = function(...) data.frame(), .package = "nflreadr")
+  m <- load_headshot_map()
+  expect_identical(nrow(m), 0L)
+  expect_true(all(c("gsis_id", "headshot_nfl", "espn_id") %in% names(m)))
+})
+
+test_that("a failed map read is not cached, so the next call retries", {
+  calls <- 0
+  reader <- memoise::memoise(function(url) {
+    calls <<- calls + 1
+    data.frame()
+  })
+  local_mocked_bindings(rds_from_url = reader, .package = "nflreadr")
+  load_headshot_map()
+  load_headshot_map()
+  expect_identical(calls, 2)
+})
+
+test_that("sdvplotR_clear_cache forgets the headshot map", {
+  calls <- 0
+  reader <- memoise::memoise(function(url) {
+    calls <<- calls + 1
+    headshot_map_fixture
+  })
+  local_mocked_bindings(rds_from_url = reader, .package = "nflreadr")
+  load_headshot_map()
+  load_headshot_map()
+  expect_identical(calls, 1) # a good read stays cached
+  suppressMessages(sdvplotR_clear_cache())
+  load_headshot_map()
+  expect_identical(calls, 2)
+})
+
+test_that("nfl_headshot_url sizes the image and adds .png once", {
+  expect_identical(
+    nfl_headshot_url("https://static.www.nfl.com/image/private/f_auto,q_auto/league/abc"),
+    "https://static.www.nfl.com/image/private/t_headshot_desktop/f_auto/league/abc.png"
+  )
+  expect_identical(nfl_headshot_url("https://x.test/a.png"), "https://x.test/a.png")
 })
 
 test_that("round numeric player ids are not written in scientific notation", {
   expect_match(headshot_from_id(4000000, "nba"), "/full/4000000\\.png$")
 })
 
-test_that("the NFL headshot crosswalk is well formed", {
-  expect_gt(length(nfl_headshot_ids), 20000)
-  expect_false(anyDuplicated(names(nfl_headshot_ids)) > 0)
-  expect_true(all(grepl("^((private|upload)/[A-Za-z0-9_-]+|espn/[0-9]+)$", nfl_headshot_ids)))
-})
-
-test_that("a resolved NFL headshot URL serves an image", {
+test_that("the published headshot map loads and serves Mahomes' image", {
   skip_on_cran()
   skip_if_offline()
+  m <- load_headshot_map()
+  expect_gt(nrow(m), 15000)
+  expect_false(anyDuplicated(m$gsis_id) > 0)
   h <- curlGetHeaders(headshot_from_id("00-0033873", sport = "nfl"))
   expect_identical(attr(h, "status"), 200L)
 })

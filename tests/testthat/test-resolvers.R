@@ -21,14 +21,12 @@ test_that("NFL wordmarks come from nflverse, other leagues have none", {
 })
 
 test_that("headshot_from_id builds sport-specific URLs", {
-  # NFL: GSIS ids go through the crosswalk to NFL.com's own image id
-  expect_match(
-    headshot_from_id("00-0033873", "nfl"),
-    paste0("/league/", sub("^[a-z]+/", "", nfl_headshot_ids[["00-0033873"]]), "\\.png$")
-  )
+  local_headshot_map()
+  # NFL: GSIS ids go through the published map to NFL.com's own image id
+  expect_match(headshot_from_id("00-0033873", "nfl"), "/league/wdckwtob1lybvkmxnf7p\\.png$")
   # bare numeric NFL ids are ambiguous (nfl / pff / otc ids collide with ESPN's)
   expect_identical(headshot_from_id("11765", "nfl"), NA_character_)
-  # a well-formed GSIS id that is not in the crosswalk
+  # a well-formed GSIS id that is not in the map
   expect_identical(headshot_from_id("00-0099999", "nfl"), NA_character_)
   expect_match(headshot_from_id("3917315", "cfb"), "college-football/players/full/3917315\\.png$")
   expect_match(headshot_from_id(3917315, "mbb"), "mens-college-basketball")
@@ -37,6 +35,7 @@ test_that("headshot_from_id builds sport-specific URLs", {
 })
 
 test_that("axis html helpers embed images and keep unknown labels", {
+  local_headshot_map()
   h <- logo_html(c("KC", "nope"), "nfl", type = "height", size = 20)
   expect_match(h[1], "^<img src='https://.*height = '20'>$")
   expect_identical(h[2], "nope")

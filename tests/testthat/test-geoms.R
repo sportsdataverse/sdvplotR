@@ -34,6 +34,7 @@ test_that("color and fill scales carry team colours", {
 })
 
 test_that("axis scales produce image labels", {
+  local_headshot_map()
   sx <- scale_x_sdv(sport = "nfl", size = 20)
   expect_s3_class(sx, "ScaleDiscretePosition")
   expect_match(sx$labels(c("KC", "BUF")), "^<img src='https://.*height = '20'>$")
