@@ -80,6 +80,10 @@ test_that("clean_team_abbrs handles case, names, aliases and history", {
   expect_identical(clean_team_abbrs(c("Iowa St.", "Southern California", "Miami (OH)"), "cfb", keep_non_matches = FALSE), c("ISU", "USC", "M-OH"))
   # ESPN's own names keep their meaning
   expect_identical(clean_team_abbrs(c("Miami", "Iowa State"), "mbb", keep_non_matches = FALSE), c("MIA", "ISU"))
+  # typographic dashes and apostrophes fold too: Sports Reference's UNLV, a curly "Saint Mary's"
+  unlv <- intToUtf8(c(78, 101, 118, 97, 100, 97, 8211, 76, 97, 115, 32, 86, 101, 103, 97, 115))
+  smc <- intToUtf8(c(83, 97, 105, 110, 116, 32, 77, 97, 114, 121, 8217, 115))
+  expect_identical(clean_team_abbrs(c(unlv, "Nevada-Las Vegas", smc), "mbb", keep_non_matches = FALSE), c("UNLV", "UNLV", "SMC"))
   # accents fold on both sides: the NHL API's accented name, ESPN's accented key
   expect_identical(clean_team_abbrs("Montr\u00e9al Canadiens", "nhl", keep_non_matches = FALSE), "MTL")
   expect_identical(

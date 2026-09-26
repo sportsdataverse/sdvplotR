@@ -100,6 +100,9 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   from sportsdataverse-py's NCAA / ESPN crosswalks and hoopR's team crosswalk,
   so their tables plot without a lookup table. ESPN's own names still win
   wherever they overlap.
+* `clean_team_abbrs()` folds typographic dashes and curly apostrophes, so
+  Sports Reference's UNLV (`"Nevada-Las Vegas"` with an en dash) and a curly
+  `"Saint Mary's"` resolve.
 * College team data covers every Division I program. ESPN's teams list leaves
   some out (Lindenwood, Queens, Southern Indiana, Mercyhurst, Saint Francis,
   UT Rio Grande Valley football), so they drew no logo; they are now fetched
