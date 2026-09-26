@@ -5,14 +5,20 @@
 \alias{theme_bg}
 \title{Background colors used by the \verb{gt_theme_*()} table themes}
 \format{
-A tibble with three columns:
+A tibble with one row per theme, and one per style for the themes
+that take a \code{style} argument:
 \describe{
 \item{theme}{The theme function name.}
-\item{has_style}{Whether the theme sets additional styling beyond the
-background.}
-\item{bg}{The background color the theme applies, as a hex code or a color
-name.}
+\item{has_style}{The \code{style} value the row applies to (\code{"light"} or
+\code{"dark"}) for \code{\link[=gt_theme_sofa]{gt_theme_sofa()}} and \code{\link[=gt_theme_tier]{gt_theme_tier()}}, or \code{""} for themes
+without one.}
+\item{bg}{The background color the theme applies, as a hex code.}
 }
+}
+\source{
+Read back from each theme's \code{table.background.color} by
+\code{data-raw/theme_bg.R}; \code{\link[=gt_theme_drench]{gt_theme_drench()}} takes its background from its
+\code{color} argument, and the row holds the default.
 }
 \usage{
 theme_bg

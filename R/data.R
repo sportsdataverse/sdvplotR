@@ -5,14 +5,19 @@
 #' [gt_social_crop()] pad the image using their own `bg` argument, and a mismatch
 #' shows up as a border around the table.
 #'
-#' @format A tibble with three columns:
+#' @format A tibble with one row per theme, and one per style for the themes
+#'   that take a `style` argument:
 #' \describe{
 #'   \item{theme}{The theme function name.}
-#'   \item{has_style}{Whether the theme sets additional styling beyond the
-#'     background.}
-#'   \item{bg}{The background color the theme applies, as a hex code or a color
-#'     name.}
+#'   \item{has_style}{The `style` value the row applies to (`"light"` or
+#'     `"dark"`) for [gt_theme_sofa()] and [gt_theme_tier()], or `""` for themes
+#'     without one.}
+#'   \item{bg}{The background color the theme applies, as a hex code.}
 #' }
+#'
+#' @source Read back from each theme's `table.background.color` by
+#'   `data-raw/theme_bg.R`; [gt_theme_drench()] takes its background from its
+#'   `color` argument, and the row holds the default.
 #'
 #' @examples
 #' \dontrun{

@@ -13,6 +13,22 @@ test_that("every gt_theme_* returns a gt table that renders", {
   }
 })
 
+test_that("theme_bg matches the background every theme applies", {
+  themes <- setdiff(
+    grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE),
+    "gt_theme_preview"
+  )
+  expect_setequal(unique(theme_bg$theme), themes)
+  for (i in seq_len(nrow(theme_bg))) {
+    row <- theme_bg[i, ]
+    args <- if (nzchar(row$has_style)) list(style = row$has_style) else list()
+    tbl <- do.call(row$theme, c(list(gt::gt(head(mtcars))), args))
+    opts <- tbl[["_options"]]
+    applied <- opts$value[[match("table_background_color", opts$parameter)]]
+    expect_identical(applied, row$bg, info = paste(row$theme, row$has_style))
+  }
+})
+
 test_that("gt_sdv_logos keep their size inside a table theme", {
   df <- data.frame(team = c("KC", "BUF"), wins = c(15, 13))
   h <- gt::gt(df) |>
