@@ -2,7 +2,9 @@
 #'
 #' @description This geom is used to plot player headshots instead
 #'   of points in a ggplot. It requires x, y aesthetics as well as a valid
-#'   player identifier (GSIS ID for NFL, ESPN athlete ID for college, etc.).
+#'   player identifier: a GSIS ID for the NFL (`"00-0033873"`, resolved through
+#'   nflverse's player table to the player's NFL.com headshot) and an ESPN
+#'   athlete ID for every other sport.
 #'
 #' @inheritParams ggplot2::geom_point
 #' @param sport Character string identifying the sport.
@@ -12,7 +14,7 @@
 #' \describe{
 #'   \item{**x**}{ - The x-coordinate.}
 #'   \item{**y**}{ - The y-coordinate.}
-#'   \item{**player_id**}{ - The player's ID (sport-specific).}
+#'   \item{**player_id**}{ - The player's ID: GSIS ID for the NFL, ESPN athlete ID otherwise.}
 #'   \item{`alpha = NULL`}{ - The alpha channel.}
 #'   \item{`colour = NULL`}{ - The image will be colorized with this colour. Use `"b/w"` for black and white.}
 #'   \item{`angle = 0`}{ - The angle of the image.}

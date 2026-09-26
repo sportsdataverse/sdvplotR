@@ -33,7 +33,9 @@ An object of class \code{gt_tbl}.
 }
 \description{
 Translate player IDs to player headshots and render these
-images in html tables with the 'gt' package.
+images in html tables with the 'gt' package. IDs are GSIS IDs for the NFL
+(\code{"00-0033873"}, resolved to the player's NFL.com headshot) and ESPN athlete
+IDs for every other sport. IDs that resolve to no headshot are left as text.
 }
 \examples{
 \donttest{

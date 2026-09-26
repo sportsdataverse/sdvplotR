@@ -16,7 +16,9 @@ test_that("gt_sdv_logos and wordmarks render img tags and keep unknown text", {
 test_that("gt_sdv_headshots renders headshots and keeps unresolvable ids", {
   df <- data.frame(id = c("00-0033873", "bad"))
   h <- html_of(gt(df) |> gt_sdv_headshots(columns = "id", sport = "nfl"))
-  expect_match(h, "000033873")
+  image_id <- sub("^[a-z]+/", "", nfl_headshot_ids[["00-0033873"]])
+  expect_match(h, paste0("league/", image_id, "\\.png"))
+  expect_no_match(h, "000033873") # the old URL built from the GSIS digits
   expect_match(h, "bad")
 })
 
@@ -28,7 +30,7 @@ test_that("gt_sdv_cols_label swaps column labels for images", {
   expect_match(h, "other")
   h2 <- html_of(gt(data.frame(`00-0033873` = 1, check.names = FALSE)) |>
     gt_sdv_cols_label(sport = "nfl", type = "headshot"))
-  expect_match(h2, "000033873")
+  expect_match(h2, paste0("league/", sub("^[a-z]+/", "", nfl_headshot_ids[["00-0033873"]])))
 })
 
 test_that("gt_merge_stack_team_color stacks and colours text", {

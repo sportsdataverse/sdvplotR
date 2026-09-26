@@ -169,20 +169,40 @@ resolve_wordmark_url <- function(team, sport, variant = "primary") {
 
 # Player IDs are GSIS IDs for the NFL and ESPN athlete IDs everywhere else.
 headshot_from_id <- function(player_id, sport = "nfl") {
-  player_id <- as.character(player_id)
+  # as.character() writes round numbers like 4000000 as "4e+06"
+  player_id <- if (is.numeric(player_id)) {
+    ifelse(is.na(player_id), NA_character_, sprintf("%.0f", player_id))
+  } else {
+    as.character(player_id)
+  }
   espn_slug <- c(
     nba = "nba", wnba = "wnba", mlb = "mlb", nhl = "nhl",
     cfb = "college-football", mbb = "mens-college-basketball",
     wbb = "womens-college-basketball"
   )
   url <- if (sport == "nfl") {
+    # GSIS ids resolve through nflverse's crosswalk: "<private|upload>/<id>" is
+    # NFL.com's own image id, "espn/<id>" an ESPN athlete id for players NFL.com
+    # has no image of. Bare numeric NFL ids are not accepted: nflverse's numeric
+    # id systems (nfl, pff, otc) collide with ESPN ids and would show the wrong
+    # player.
+    hit <- unname(nfl_headshot_ids[player_id])
     ifelse(
-      grepl("^00-00[0-9]{5}$", player_id),
-      paste0(
-        "https://static.www.nfl.com/image/private/t_headshot_desktop/f_auto/league/",
-        gsub("-", "", player_id)
-      ),
-      NA_character_
+      is.na(hit),
+      NA_character_,
+      ifelse(
+        startsWith(hit, "espn/"),
+        paste0(
+          "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/",
+          sub("^espn/", "", hit), ".png"
+        ),
+        # the .png suffix keeps extension-sniffing readers (gridtext, behind the
+        # headshot axis scales) working; NFL.com serves the same image with it
+        paste0(
+          "https://static.www.nfl.com/image/",
+          sub("/", "/t_headshot_desktop/f_auto/league/", hit, fixed = TRUE), ".png"
+        )
+      )
     )
   } else {
     ifelse(

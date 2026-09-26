@@ -21,8 +21,15 @@ test_that("NFL wordmarks come from nflverse, other leagues have none", {
 })
 
 test_that("headshot_from_id builds sport-specific URLs", {
-  expect_match(headshot_from_id("00-0033873", "nfl"), "nfl\\.com.*000033873$")
-  expect_identical(headshot_from_id("123", "nfl"), NA_character_)
+  # NFL: GSIS ids go through the crosswalk to NFL.com's own image id
+  expect_match(
+    headshot_from_id("00-0033873", "nfl"),
+    paste0("/league/", sub("^[a-z]+/", "", nfl_headshot_ids[["00-0033873"]]), "\\.png$")
+  )
+  # bare numeric NFL ids are ambiguous (nfl / pff / otc ids collide with ESPN's)
+  expect_identical(headshot_from_id("11765", "nfl"), NA_character_)
+  # a well-formed GSIS id that is not in the crosswalk
+  expect_identical(headshot_from_id("00-0099999", "nfl"), NA_character_)
   expect_match(headshot_from_id("3917315", "cfb"), "college-football/players/full/3917315\\.png$")
   expect_match(headshot_from_id(3917315, "mbb"), "mens-college-basketball")
   expect_match(headshot_from_id("1966", "nba"), "headshots/nba/")

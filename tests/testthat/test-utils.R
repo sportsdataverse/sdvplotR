@@ -90,3 +90,45 @@ test_that("sdv_team_factor keeps only valid, cleaned teams as levels", {
 test_that("sdvplotR_clear_cache is a quiet no-op that returns NULL", {
   expect_null(suppressMessages(sdvplotR_clear_cache()))
 })
+
+test_that("NFL headshots resolve GSIS ids through the crosswalk", {
+  espn_gsis <- names(nfl_headshot_ids)[startsWith(nfl_headshot_ids, "espn/")][[1]]
+  u <- headshot_from_id(c("00-0033873", espn_gsis, "11765", "00-0099999", "bad", NA), sport = "nfl")
+  # GSIS id -> NFL.com's own image id, at the sized transform, with a .png the
+  # axis scales' image reader (gridtext) needs
+  expect_identical(
+    u[[1]],
+    paste0(
+      "https://static.www.nfl.com/image/",
+      sub("/", "/t_headshot_desktop/f_auto/league/", nfl_headshot_ids[["00-0033873"]], fixed = TRUE),
+      ".png"
+    )
+  )
+  # players NFL.com has no image of fall back to ESPN's headshot
+  expect_identical(
+    u[[2]],
+    paste0(
+      "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/",
+      sub("^espn/", "", nfl_headshot_ids[[espn_gsis]]), ".png"
+    )
+  )
+  # numeric NFL ids are ambiguous; unknown GSIS ids, garbage and NA stay NA
+  expect_true(all(is.na(u[3:6])))
+})
+
+test_that("round numeric player ids are not written in scientific notation", {
+  expect_match(headshot_from_id(4000000, "nba"), "/full/4000000\\.png$")
+})
+
+test_that("the NFL headshot crosswalk is well formed", {
+  expect_gt(length(nfl_headshot_ids), 20000)
+  expect_false(anyDuplicated(names(nfl_headshot_ids)) > 0)
+  expect_true(all(grepl("^((private|upload)/[A-Za-z0-9_-]+|espn/[0-9]+)$", nfl_headshot_ids)))
+})
+
+test_that("a resolved NFL headshot URL serves an image", {
+  skip_on_cran()
+  skip_if_offline()
+  h <- curlGetHeaders(headshot_from_id("00-0033873", sport = "nfl"))
+  expect_identical(attr(h, "status"), 200L)
+})
