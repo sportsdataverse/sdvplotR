@@ -36,6 +36,10 @@ gh <- function(...) {
   if (!identical(status, 0L)) stop("gh ", paste(c(...)[1:2], collapse = " "), " failed (status ", status, ")")
   invisible(TRUE)
 }
+# --clobber deletes each asset, then uploads its replacement (gh retries a 5xx
+# three times), as nflversedata::nflverse_upload() does. An upload that still
+# fails leaves that asset missing and this run red; readers resolve NFL ids to
+# NA meanwhile and retry each call, so a rerun restores headshots at once.
 upload <- function(files) gh("release", "upload", tag, files, "--clobber", "-R", repo)
 
 # the release is created once; later runs only upload
