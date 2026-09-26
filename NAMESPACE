@@ -116,10 +116,6 @@ export(theme_y_sdv)
 export(valid_team_names)
 import(glue)
 import(gt)
-import(htmltools)
-import(magick)
-import(paletteer)
-import(scales)
 importFrom(dplyr,filter)
 importFrom(ggpath,
   GeomFromPath,

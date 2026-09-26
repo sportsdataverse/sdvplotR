@@ -56,7 +56,6 @@
 #'   gt_border_bars_top("#22223B", text = "Iris measurements", bar_height = 34)
 #' }
 #'
-#' @import htmltools
 #' @import gt
 #'
 #' @importFrom dplyr filter
@@ -212,7 +211,6 @@ gt_border_bars_top <- function(gt_object,
 #'   gt_border_bars_bottom("#22223B", text = "Source: iris", bar_height = 28)
 #' }
 #'
-#' @import htmltools
 #' @import gt
 #'
 #' @export

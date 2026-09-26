@@ -37,7 +37,6 @@
 #' }
 #'
 #' @seealso [gt_save_crop()] for a plain trimmed save.
-#' @import magick
 #' @importFrom magrittr %>%
 #' @export
 gt_social_crop <- function(data, file = NULL, aspect_ratio = "1:1", bg = "white",

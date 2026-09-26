@@ -9,7 +9,7 @@ reactable. It is the multi-league successor to `nflplotR` / `cfbplotR` /
 function instead of one package per league.
 
 - **Version**: 0.1.0 (`DESCRIPTION`); first CRAN submission in preparation
-- **R**: >= 4.1; `ggplot2 (>= 3.5.0)`, `ggpath (>= 1.1.0)`, `gt (>= 0.8.0)`
+- **R**: >= 4.1; `ggplot2 (>= 3.5.0)`, `ggpath (>= 1.1.0)`, `gt (>= 0.10.0)`
 - **License**: MIT; **Branch**: `main`
 - **Docs**: <https://sdvplotR.sportsdataverse.org> (pkgdown, deployed to
   `gh-pages` by `.github/workflows/pkgdown.yaml`)

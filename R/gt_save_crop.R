@@ -43,7 +43,6 @@
 #' }
 #'
 #' @seealso [gt_social_crop()] for padding onto a fixed-ratio canvas.
-#' @import magick
 #' @importFrom gtExtras gtsave_extra
 #' @importFrom glue glue
 #' @importFrom magrittr %>%

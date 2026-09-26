@@ -224,6 +224,6 @@ gt_indicator_boxes <- function(gt_object, columns = NULL, key_columns = NULL,
   gt_object |>
     cols_align(
       align = "center",
-      columns = all_of(cols_to_transform)
+      columns = tidyselect::all_of(cols_to_transform)
     )
 }

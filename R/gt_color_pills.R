@@ -62,10 +62,8 @@
 #' high end of the palette. Leaving `domain` unset falls back to the observed
 #' range and warns, since the color mapping then depends on the data present.
 #'
-#' @import scales
 #' @import gt
 #' @import glue
-#' @import paletteer
 #' @importFrom magrittr %>%
 #'
 #' @returns Returns a modified `gt` table with color pills in the selected columns.
