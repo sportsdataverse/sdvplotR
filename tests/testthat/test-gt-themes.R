@@ -108,11 +108,20 @@ test_that("gt_theme_sdv sets the navy background in dark style", {
   expect_error(gt_theme_sdv(gt::gt(head(mtcars)), style = "sepia"), "must be one of")
 })
 
-test_that("options passed through ... override the SDV theme's own", {
-  tbl <- gt_theme_sdv(gt::gt(head(mtcars)), table.background.color = "#FF0000", heading.align = "center")
-  opts <- tbl[["_options"]]
-  expect_identical(opts$value[[match("table_background_color", opts$parameter)]], "#FF0000")
-  expect_identical(opts$value[[match("heading_align", opts$parameter)]], "center")
+test_that("every theme lets options passed through ... override its own", {
+  themes <- setdiff(
+    grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE),
+    "gt_theme_preview"
+  )
+  for (nm in themes) {
+    tbl <- get(nm, envir = asNamespace("sdvplotR"))(
+      gt::gt(head(mtcars)),
+      table.background.color = "#123456", heading.align = "center"
+    )
+    opts <- tbl[["_options"]]
+    expect_identical(opts$value[[match("table_background_color", opts$parameter)]], "#123456", info = nm)
+    expect_identical(opts$value[[match("heading_align", opts$parameter)]], "center", info = nm)
+  }
 })
 
 test_that("density rescales a table styled on locations with no size role", {

@@ -85,7 +85,7 @@ gt_theme_tier <- function(gt_object, style = "dark",
       align = "center",
       columns = gt::everything()
     ) |>
-    gt::tab_options(
+    .theme_tab_options(list(
       data_row.padding = 1,
       table_body.hlines.color = "transparent",
       # column_labels.border.top.style = 'solid',
@@ -109,9 +109,8 @@ gt_theme_tier <- function(gt_object, style = "dark",
       table.border.top.color = base_color,
       table.border.right.color = base_color,
       table.border.bottom.color = base_color,
-      table.border.left.color = base_color,
-      ...
-    ) |>
+      table.border.left.color = base_color
+    ), ...) |>
     gt::opt_css(c(
       paste0(
         "#",

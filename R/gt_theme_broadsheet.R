@@ -128,7 +128,7 @@ gt_theme_broadsheet <- function(gt_object, accent = "#A6081A",
         size = gt::px(d$source), color = secondary
       )
     ) |>
-    gt::tab_options(
+    .theme_tab_options(list(
       table.background.color = stock$bg,
       table.font.size = gt::px(d$body),
       data_row.padding = gt::px(d$pad),
@@ -164,9 +164,8 @@ gt_theme_broadsheet <- function(gt_object, accent = "#A6081A",
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad),
-      footnotes.border.bottom.style = "none",
-      ...
-    ) |>
+      footnotes.border.bottom.style = "none"
+    ), ...) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, stock$bg),

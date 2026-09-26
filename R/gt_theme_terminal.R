@@ -98,7 +98,7 @@ gt_theme_terminal <- function(gt_object, accent = "#FFB86C",
       locations = gt::cells_footnotes(),
       style = gt::cell_text(size = gt::px(d$source), color = secondary)
     ) |>
-    gt::tab_options(
+    .theme_tab_options(list(
       table.background.color = ground,
       heading.background.color = ground,
       column_labels.background.color = ground,
@@ -135,9 +135,8 @@ gt_theme_terminal <- function(gt_object, accent = "#FFB86C",
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 2),
-      footnotes.border.bottom.style = "none",
-      ...
-    ) |>
+      footnotes.border.bottom.style = "none"
+    ), ...) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, ground),

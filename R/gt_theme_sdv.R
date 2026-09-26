@@ -200,9 +200,8 @@ gt_theme_sdv_team <- function(gt_object, team = NULL,
       style = gt::cell_text(size = gt::px(12), color = pal$muted)
     )
 
-  # the theme's options with the caller's `...` merged on top, so passing an
-  # option the theme also sets overrides it instead of erroring
-  opts <- utils::modifyList(
+  table <- .theme_tab_options(
+    table,
     list(
       table.background.color = pal$bg,
       table.font.color = pal$text,
@@ -227,9 +226,8 @@ gt_theme_sdv_team <- function(gt_object, team = NULL,
       source_notes.border.bottom.style = "none",
       footnotes.border.bottom.style = "none"
     ),
-    list(...)
-  )
-  table <- do.call(gt::tab_options, c(list(table), opts)) |>
+    ...
+  ) |>
     gt::opt_css(c(
       # the horizon: one line under the column labels, drawn over the thead so
       # a gradient spans the whole table rather than restarting in each cell

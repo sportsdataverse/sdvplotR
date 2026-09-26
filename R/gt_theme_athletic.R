@@ -116,7 +116,7 @@ gt_theme_athletic <- function(gt_object,
       align = "center",
       columns = gt::everything()
     ) |>
-    gt::tab_options(
+    .theme_tab_options(list(
       table.font.size = 12,
       column_labels.border.top.style = "none",
       column_labels.border.bottom.style = "solid",
@@ -135,9 +135,8 @@ gt_theme_athletic <- function(gt_object,
       row_group.border.bottom.width = px(1),
       row_group.border.bottom.color = "black",
       row_group.border.bottom.style = "solid",
-      row_group.padding = px(1.5),
-      ...
-    ) |>
+      row_group.padding = px(1.5)
+    ), ...) |>
     gt::opt_css(c(
       paste0(
         "#",

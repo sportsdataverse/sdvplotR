@@ -129,7 +129,7 @@ gt_theme_gtutils <- function(gt_object,
       align = "center",
       columns = gt::everything()
     ) |>
-    gt::tab_options(
+    .theme_tab_options(list(
       data_row.padding = 1,
       table_body.hlines.color = "transparent",
       # column_labels.border.top.style = 'solid',
@@ -155,9 +155,8 @@ gt_theme_gtutils <- function(gt_object,
       table.border.top.color = "#FFFDF5",
       table.border.right.color = "#FFFDF5",
       table.border.bottom.color = "#FFFDF5",
-      table.border.left.color = "#FFFDF5",
-      ...
-    ) |>
+      table.border.left.color = "#FFFDF5"
+    ), ...) |>
     gt::opt_css(c(
       paste0(
         "#",

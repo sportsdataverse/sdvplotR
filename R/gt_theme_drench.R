@@ -117,7 +117,7 @@ gt_theme_drench <- function(gt_object, color = "#123F5E",
       locations = gt::cells_footnotes(),
       style = gt::cell_text(size = gt::px(d$source), color = secondary)
     ) |>
-    gt::tab_options(
+    .theme_tab_options(list(
       table.background.color = color,
       heading.background.color = color,
       column_labels.background.color = color,
@@ -146,9 +146,8 @@ gt_theme_drench <- function(gt_object, color = "#123F5E",
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 2),
-      footnotes.border.bottom.style = "none",
-      ...
-    ) |>
+      footnotes.border.bottom.style = "none"
+    ), ...) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, color),

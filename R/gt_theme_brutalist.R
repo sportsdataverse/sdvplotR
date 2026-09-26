@@ -94,7 +94,7 @@ gt_theme_brutalist <- function(gt_object, accent = "#FF3B00",
       locations = gt::cells_footnotes(),
       style = gt::cell_text(size = gt::px(d$source), color = ink, weight = 500)
     ) |>
-    gt::tab_options(
+    .theme_tab_options(list(
       table.background.color = "#FFFFFF",
       column_labels.background.color = ink,
       table.font.size = gt::px(d$body),
@@ -131,9 +131,8 @@ gt_theme_brutalist <- function(gt_object, accent = "#FF3B00",
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 2),
-      footnotes.border.bottom.style = "none",
-      ...
-    ) |>
+      footnotes.border.bottom.style = "none"
+    ), ...) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, "#FFFFFF"),

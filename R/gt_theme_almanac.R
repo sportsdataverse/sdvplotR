@@ -105,7 +105,7 @@ gt_theme_almanac <- function(gt_object, accent = "#8C2F1E",
         size = gt::px(d$source + 1), color = secondary
       )
     ) |>
-    gt::tab_options(
+    .theme_tab_options(list(
       table.background.color = "#FFFFFF",
       row.striping.background_color = if (is.na(stripe)) "#FFFFFF" else stripe,
       table.font.size = gt::px(d$body),
@@ -137,9 +137,8 @@ gt_theme_almanac <- function(gt_object, accent = "#8C2F1E",
       source_notes.border.lr.style = "none",
       source_notes.border.bottom.style = "none",
       source_notes.padding = gt::px(d$pad + 2),
-      footnotes.border.bottom.style = "none",
-      ...
-    ) |>
+      footnotes.border.bottom.style = "none"
+    ), ...) |>
     gt::opt_css(c(
       .theme_tabular_nums(table_id),
       .theme_last_row_border(table_id, "#FFFFFF"),
