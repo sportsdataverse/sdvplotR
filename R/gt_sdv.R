@@ -16,6 +16,9 @@
 #'   with the team name transformation. Only [gt::cells_body()],
 #'   [gt::cells_stub()], [gt::cells_column_labels()], and
 #'   [gt::cells_row_groups()] helper functions can be used here.
+#' @param include_name If `TRUE`, keep the cell's text after the logo, so a
+#'   cell shows logo and name (what cbbplotR's `gt_cbb_teams()` did). Defaults
+#'   to `FALSE`, the logo alone.
 #'
 #' @return An object of class `gt_tbl`.
 #' @seealso [gt_sdv_wordmarks()], [gt_sdv_headshots()], [gt_sdv_cols_label()]
@@ -35,13 +38,19 @@
 #' df |>
 #'   gt() |>
 #'   gt_sdv_logos(columns = "logo", sport = "nfl")
+#'
+#' # logo and name in one cell; NCAA.com school names resolve too
+#' data.frame(team = c("Iowa St.", "St. John's (NY)"), net = c(8, 12)) |>
+#'   gt() |>
+#'   gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE)
 #' }
 gt_sdv_logos <- function(
     gt_object,
     columns,
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     height = 30,
-    locations = NULL
+    locations = NULL,
+    include_name = FALSE
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
 
@@ -51,7 +60,8 @@ gt_sdv_logos <- function(
     height = height,
     locations = locations,
     sport = sport,
-    type = "logo"
+    type = "logo",
+    include_name = include_name
   )
 }
 
@@ -253,7 +263,8 @@ gt_sdv_image <- function(
     height = 30,
     locations = NULL,
     sport = "nfl",
-    type = c("logo", "wordmark")
+    type = c("logo", "wordmark"),
+    include_name = FALSE
 ) {
   type <- match.arg(type)
 
@@ -269,8 +280,9 @@ gt_sdv_image <- function(
     data = gt_object,
     locations = locations,
     fn = function(x) {
+      # gt passes the cell text HTML-escaped ("Texas A&amp;M")
       team_abbr <- clean_team_abbrs(
-        as.character(x),
+        html_unescape(as.character(x)),
         sport = sport,
         keep_non_matches = FALSE
       )
@@ -287,9 +299,11 @@ gt_sdv_image <- function(
         img_url,
         "\" style=\"height:",
         height,
+        if (isTRUE(include_name)) ";vertical-align:middle;margin-right:0.35em",
         ";\" alt=\"The ",
-        team_abbr,
-        " logo\">"
+        htmltools::htmlEscape(team_abbr, attribute = TRUE),
+        " logo\">",
+        if (isTRUE(include_name)) x
       )
 
       out <- lapply(out, gt::html)
@@ -384,4 +398,12 @@ gt_merge_stack_team_color <- function(
   )
   .fmt_rows(gt_object, col1_bare, as.character(html)) |>
     gt::cols_hide(columns = {{ col2 }})
+}
+
+# undo the escaping gt applies to cell text before text_transform() sees it;
+# &amp; last, so "&amp;lt;" stays "&lt;"
+html_unescape <- function(x) {
+  entities <- c("&lt;" = "<", "&gt;" = ">", "&quot;" = "\"", "&#39;" = "'", "&amp;" = "&")
+  for (e in names(entities)) x <- gsub(e, entities[[e]], x, fixed = TRUE)
+  x
 }

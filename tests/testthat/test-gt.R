@@ -13,6 +13,20 @@ test_that("gt_sdv_logos and wordmarks render img tags and keep unknown text", {
   expect_match(html_of(t2), "wordmarks/KC\\.png")
 })
 
+test_that("gt_sdv_logos resolves escaped names and can keep the name", {
+  df <- data.frame(team = c("Texas A&M", "St. John's (NY)", "nope"), n = 1:3)
+  # gt hands text_transform() "Texas A&amp;M"; it still resolves
+  h <- html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "mbb", height = 20))
+  expect_match(h, "ncaa/500/245\\.png")
+  expect_match(h, "ncaa/500/2599\\.png")
+  expect_no_match(h, "Texas A&amp;M</td>")
+  # include_name keeps the (escaped) text after the logo
+  h <- html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE))
+  expect_match(h, "245\\.png\" style=\"height:20px;vertical-align:middle;margin-right:0.35em;\" alt=\"The TA&amp;M logo\">Texas A&amp;M")
+  expect_match(h, ">St. John's \\(NY\\)</td>")
+  expect_match(h, ">nope</td>")
+})
+
 test_that("gt_sdv_headshots renders headshots and keeps unresolvable ids", {
   local_headshot_map()
   df <- data.frame(id = c("00-0033873", "bad"))

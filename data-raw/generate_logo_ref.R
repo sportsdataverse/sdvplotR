@@ -364,8 +364,10 @@ aliases <- list(
   # write Butler BUT and New Orleans UNO, and FPI writes Buffalo BUFF and Air
   # Force AFA
   cfb = c(BUFF = "BUF", AFA = "AF"),
-  mbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF"),
-  wbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF")
+  # Sports Reference writes UNLV "Nevada-Las Vegas" (with an en dash, which
+  # clean_team_abbrs() folds to a hyphen)
+  mbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF", "NEVADA-LAS VEGAS" = "UNLV"),
+  wbb = c(BUT = "BTLR", UNO = "NOLA", BUFF = "BUF", AFA = "AF", "NEVADA-LAS VEGAS" = "UNLV")
 )
 
 # School names other college sources use, by ESPN team id. ESPN's college
