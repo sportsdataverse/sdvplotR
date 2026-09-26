@@ -24,7 +24,6 @@ In essence, it places colored bars at the top or bottom of your table. You're ab
 In this vignette, we're going to explore three distinct uses of the `gt_border_bars` family.
 
 ```{r setup, eval=FALSE}
-library(cbbdata)
 library(tidyverse)
 library(gt)
 library(sdvplotR)
@@ -34,36 +33,79 @@ library(sdvplotR)
 
 I'm a basketball guy at heart. A lot of my visualization work concerns college basketball -- so let's create a 2024 metric recap for Duke, my alma mater, using `gt_border_bars_top`.
 
-For data, we're going to use my [{cbbdata} package](https://cbbdata.aweatherman.com). The purpose of this vignette is to show off some quick uses of the function, so we're going to skip most discussion around the processing of this data.
+For data, we're going to compute every Division I team's numbers from [`hoopR`](https://hoopR.sportsdataverse.org)'s ESPN box scores. The purpose of this vignette is to show off some quick uses of the function, so we're going to skip most discussion around the processing of this data.
 
-`cbbdata` serves its data to registered users: create a free account once with
-`cbd_create_account()`, then log in with `cbd_login()` (it reads the `CBD_USER`
-and `CBD_PW` environment variables) before running the Duke example.
-
-Let's define the metrics we care about and whether a higher value is better. We're going to plot national percentiles on a location split (home vs. away).
+Let's define the metrics we care about and whether a higher value is better. We're going to plot national percentiles on a location split (home vs. away). The efficiency numbers are raw points per 100 possessions, not adjusted for opponents.
 
 ```{r}
 stats_to_consider <- c(
-  "team", "barthag", "adj_o", "adj_d", "adj_t", "efg", "def_efg", "ftr", "def_ftr",
+  "team", "off_eff", "def_eff", "tempo", "efg", "def_efg", "ftr", "def_ftr",
   "oreb_rate", "dreb_rate", "tov_rate", "def_tov_rate",
   "two_pt_pct", "three_pt_pct", "ft_pct", "def_two_pt_pct",
   "def_three_pt_pct", "def_ft_pct"
 )
 
 higher_better <- c(
-  "barthag", "adj_o", "adj_t", "efg", "ftr", "oreb_rate", "def_tov_rate",
+  "off_eff", "tempo", "efg", "ftr", "oreb_rate", "dreb_rate", "def_tov_rate",
   "two_pt_pct", "three_pt_pct", "ft_pct"
 )
 ```
 
-Let's get the data:
+Let's get the data. The box scores hold one row per team per game, so joining each
+row to its opponent's row puts both ends of the floor side by side. Possessions
+are estimated from the box score.
 
 ```{r}
-home_splits <- cbd_torvik_team_factors(venue = "home", year = 2024) %>%
-  select(all_of(stats_to_consider))
+box <- hoopR::load_mbb_team_box(seasons = 2024) %>%
+  mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
 
-away_splits <- cbd_torvik_team_factors(venue = "away", year = 2024) %>%
-  select(all_of(stats_to_consider))
+games <- box %>%
+  # Division I teams only; the box scores also hold their games against other divisions
+  filter(team_id %in% team_reference("mbb")$espn_team_id) %>%
+  inner_join(
+    select(box, game_id,
+      opponent_team_id = team_id, opp_score = team_score, opp_poss = poss,
+      opp_fgm = field_goals_made, opp_fga = field_goals_attempted,
+      opp_3pm = three_point_field_goals_made, opp_3pa = three_point_field_goals_attempted,
+      opp_ftm = free_throws_made, opp_fta = free_throws_attempted,
+      opp_oreb = offensive_rebounds, opp_dreb = defensive_rebounds, opp_tov = total_turnovers
+    ),
+    by = c("game_id", "opponent_team_id")
+  )
+
+team_factors <- function(data) {
+  data %>%
+    summarise(
+      off_eff = 100 * sum(team_score) / sum(poss),
+      def_eff = 100 * sum(opp_score) / sum(opp_poss),
+      tempo = mean((poss + opp_poss) / 2),
+      efg = (sum(field_goals_made) + 0.5 * sum(three_point_field_goals_made)) / sum(field_goals_attempted),
+      def_efg = (sum(opp_fgm) + 0.5 * sum(opp_3pm)) / sum(opp_fga),
+      ftr = sum(free_throws_attempted) / sum(field_goals_attempted),
+      def_ftr = sum(opp_fta) / sum(opp_fga),
+      oreb_rate = sum(offensive_rebounds) / sum(offensive_rebounds + opp_dreb),
+      dreb_rate = sum(defensive_rebounds) / sum(defensive_rebounds + opp_oreb),
+      tov_rate = sum(total_turnovers) / sum(poss),
+      def_tov_rate = sum(opp_tov) / sum(opp_poss),
+      two_pt_pct = sum(field_goals_made - three_point_field_goals_made) /
+        sum(field_goals_attempted - three_point_field_goals_attempted),
+      three_pt_pct = sum(three_point_field_goals_made) / sum(three_point_field_goals_attempted),
+      ft_pct = sum(free_throws_made) / sum(free_throws_attempted),
+      def_two_pt_pct = sum(opp_fgm - opp_3pm) / sum(opp_fga - opp_3pa),
+      def_three_pt_pct = sum(opp_3pm) / sum(opp_3pa),
+      def_ft_pct = sum(opp_ftm) / sum(opp_fta),
+      .by = team_location
+    ) %>%
+    rename(team = team_location)
+}
+
+home_splits <- games %>%
+  filter(team_home_away == "home") %>%
+  team_factors()
+
+away_splits <- games %>%
+  filter(team_home_away == "away") %>%
+  team_factors()
 ```
 
 Here's a quick function to take that data and calculate percentiles using `dplyr`. We're going to pivot the data to a long format for later use.
@@ -96,7 +138,7 @@ For final processing, we need to do two more things: a) add the general "group" 
 dict <- data.frame(
   stat = unique(final_data$stat),
   new_name = c(
-    "Barthag", "Adj. Off", "Adj. Def", "Adj. Tempo", "Eff. FG%", "Eff. FG%",
+    "Off. Efficiency", "Def. Efficiency", "Tempo", "Eff. FG%", "Eff. FG%",
     "FTA per FGA", "FTA per FGA", "Off. Rebound Rate", "Def. Rebound Rate",
     "Turnover Rate", "Turnover Rate", "2FG%", "3FG%", "FT%", "2FG%", "3FG%", "FT%"
   )
@@ -106,7 +148,7 @@ final_data <- final_data %>%
   filter(team == "Duke") %>%
   mutate(
     stat_group = case_when(
-      stat %in% c("barthag", "adj_o", "adj_d", "adj_t") ~ "Metrics",
+      stat %in% c("off_eff", "def_eff", "tempo") ~ "Efficiency",
       stat %in% c("efg", "ftr", "oreb_rate", "tov_rate") ~ "Offensive Four Factors",
       stat %in% c("def_efg", "def_ftr", "dreb_rate", "def_tov_rate") ~ "Defensive Four Factors",
       stat %in% c("two_pt_pct", "three_pt_pct", "ft_pct") ~ "Offensive Shooting",
@@ -141,7 +183,7 @@ final_data %>%
     domain = c(0, 1), format_type = "percent", digits = 1,
     palette = "ggsci::green_material"
   ) %>%
-  gt_538_caption("Data pulled using {cbbdata} from Barttorvik", "Viz. by @andreweatherman for a {gtUtils} vignette") %>%
+  gt_538_caption("Data: ESPN box scores via {hoopR}", "Viz. by @andreweatherman for a {gtUtils} vignette") %>%
   cols_width(home:away ~ px(90)) %>%
   cols_label(stat = "", home = "At Home", away = "On Road") %>%
   cols_align(columns = -stat, "center") %>%
