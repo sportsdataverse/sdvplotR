@@ -749,6 +749,16 @@ reactable tables and end-to-end workflows.
 - [End-to-End Workflows with sdvplotR and the SportsDataverse
   Ecosystem](https://sdvplotR.sportsdataverse.org/articles/workflows.md):
 
+### gt Tables
+
+The SportsDataverse table themes, and the team layer and the gt table
+toolkit working together on one table.
+
+- [SportsDataverse Table
+  Themes](https://sdvplotR.sportsdataverse.org/articles/sdv-table-themes.md):
+- [Team Tables with the gt
+  Toolkit](https://sdvplotR.sportsdataverse.org/articles/gt-toolkit.md):
+
 ### gt Table Cookbooks
 
 Themes, legends, cut lines, faceted grids and saving, ported with the

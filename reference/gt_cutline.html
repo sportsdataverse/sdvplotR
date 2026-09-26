@@ -97,6 +97,10 @@ cutoff or qualifying threshold."><meta property="og:image" content="https://raw.
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
     <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
     <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
+    <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
+    <li><a class="dropdown-item" href="../articles/gt-toolkit.html">Team Tables with the gt Toolkit</a></li>
+    <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>gt Table Cookbooks</h6></li>
     <li><a class="dropdown-item" href="../articles/styling.html">Styling Headers, Legends and Captions</a></li>
     <li><a class="dropdown-item" href="../articles/saving_tables.html">Saving and Posting Tables</a></li>
@@ -267,7 +271,9 @@ labeled row is given extra padding for the label to sit in.</p>
 <p>The labeled row's cell backgrounds are cleared, since row striping and themed
 body fills would otherwise cover the label. The row's own color is then
 reapplied to the row itself, so a striped theme such as <code><a href="gt_theme_almanac.html">gt_theme_almanac()</a></code>
-keeps an unbroken stripe pattern.</p>
+keeps an unbroken stripe pattern. Colors set on individual cells in that row,
+such as <code><a href="gt_color_ranks.html">gt_color_ranks()</a></code> or <code><a href="gt_color_pills.html">gt_color_pills()</a></code> fills, are cleared too; on a
+table with colored cells, draw the line unlabeled and describe it in a caption.</p>
 <p>Labeled lines assume the table has no row groups, since group heading rows
 shift the row positions the label CSS targets. The rule itself is unaffected.</p>
 <p>Apply the theme before this function. The stripe color is read from the

@@ -101,6 +101,10 @@ matching the dark mode of the package websites.'><meta property="og:image" conte
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
     <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
     <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
+    <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
+    <li><a class="dropdown-item" href="../articles/gt-toolkit.html">Team Tables with the gt Toolkit</a></li>
+    <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>gt Table Cookbooks</h6></li>
     <li><a class="dropdown-item" href="../articles/styling.html">Styling Headers, Legends and Captions</a></li>
     <li><a class="dropdown-item" href="../articles/saving_tables.html">Saving and Posting Tables</a></li>
@@ -227,6 +231,10 @@ logos from <code><a href="gt_sdv_logos.html">gt_sdv_logos()</a></code> and team 
 heading are left-aligned. Column labels keep the case you give them rather
 than being forced to capitals. For a table dressed in one team's colors, see
 <code><a href="gt_theme_sdv_team.html">gt_theme_sdv_team()</a></code>.</p>
+<p>The line under the column labels is a CSS <code>::after</code> element. gt's CSS inliner
+removes those, so <code>gt::as_raw_html(inline_css = TRUE)</code> output (as used for
+email) shows the table without it; knitted documents, websites and images
+saved with <code><a href="gt_save_crop.html">gt_save_crop()</a></code> keep it.</p>
     </div>
     <div class="section level2">
     <h2 id="density">Density<a class="anchor" aria-label="anchor" href="#density"></a></h2>

@@ -92,6 +92,11 @@ NHL, college football, men’s and women’s college basketball), built on
   [`gt_stack_tables()`](https://sdvplotR.sportsdataverse.org/reference/gt_stack_tables.md)
   scroll inside their own box instead of overflowing the page when they
   are wider than the screen.
+- Two articles walk through what the gt side adds and why:
+  “SportsDataverse Table Themes” (the house theme, dark style, team
+  colors and their contrast rules, density, overrides, saving) and “Team
+  Tables with the gt Toolkit” (a 2023 playoff-picture table built from
+  logos, a cut line, rank colors, captions and a two-conference grid).
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
