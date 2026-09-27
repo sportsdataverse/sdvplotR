@@ -5,7 +5,7 @@
 #'   hoop, relative to the shooter's basket. hoopR's/wehoop's
 #'   `load_nba_stats_shots()` / `load_wnba_stats_shots()` ship these columns
 #'   as `x_legacy`/`y_legacy` (snake_case); the `Shot_Chart_Detail` element of
-#'   hoopR's `nba_shotchartdetail()` ships the same values as the
+#'   hoopR's `nba_shotchartdetail()` uses the same frame, in the
 #'   `LOC_X`/`LOC_Y` columns stats.nba.com returns (upper snake case). This
 #'   converts them (feet, not tenths) into the frame
 #'   `sportyR::geom_basketball("nba")` draws: origin at center court, baseline

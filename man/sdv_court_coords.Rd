@@ -33,7 +33,7 @@ locations in the NBA's legacy frame: tenths of a foot, origin at the
 hoop, relative to the shooter's basket. hoopR's/wehoop's
 \code{load_nba_stats_shots()} / \code{load_wnba_stats_shots()} ship these columns
 as \code{x_legacy}/\code{y_legacy} (snake_case); the \code{Shot_Chart_Detail} element of
-hoopR's \code{nba_shotchartdetail()} ships the same values as the
+hoopR's \code{nba_shotchartdetail()} uses the same frame, in the
 \code{LOC_X}/\code{LOC_Y} columns stats.nba.com returns (upper snake case). This
 converts them (feet, not tenths) into the frame
 \code{sportyR::geom_basketball("nba")} draws: origin at center court, baseline
