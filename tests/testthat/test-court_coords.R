@@ -39,6 +39,10 @@ test_that("sdv_court_coords rejects the same column for both axes", {
     sdv_court_coords(df, x_column = "LOC_X", y_column = "LOC_X"),
     "must name different columns"
   )
+  expect_error(
+    sdv_court_coords(df, x_column = c(x = "LOC_X"), y_column = c(y = "LOC_X")),
+    "must name different columns"
+  )
 })
 
 test_that("sdv_court_coords coerces character columns", {

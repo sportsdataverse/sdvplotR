@@ -72,7 +72,9 @@ sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy")
   }
   check_column_arg(x_column, "x_column")
   check_column_arg(y_column, "y_column")
-  if (identical(x_column, y_column)) {
+  # `==`, not identical(): identical() also compares names, so c(x = "LOC_X")
+  # and c(y = "LOC_X") would slip through.
+  if (x_column == y_column) {
     cli::cli_abort("{.arg x_column} and {.arg y_column} must name different columns, not both {.val {x_column}}.")
   }
 
