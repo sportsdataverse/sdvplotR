@@ -242,6 +242,12 @@ reference:
     desc: High-level functions that build complete branded plots.
     contents:
       - sdv_team_tiers
+  - title: "Playing Surfaces"
+    desc: >
+      Regulation courts, fields and rinks from 'sportyR', styled in a team's
+      colors with its logo at center.
+    contents:
+      - sdv_surface
   - title: "Plot Titles"
     desc: Add a logo or image next to a ggplot2 title.
     contents:
@@ -344,6 +350,8 @@ navbar:
       - text: "Premade Plots"
       - text: "Team Tiers"
         href: reference/sdv_team_tiers.html
+      - text: "Playing Surfaces"
+        href: reference/sdv_surface.html
       - text: --------------------------------
       - text: "Tables"
       - text: "gt: Logos / Wordmarks"
