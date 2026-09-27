@@ -16,6 +16,9 @@
 #     ("Iowa St.", "St. John's (NY)"), keyed by ESPN team id.
 #   * Sports Reference's school names that none of those use, mapped by hand to
 #     ESPN ids below (each checked against the school's mascot).
+#   * sportsdataverse-data's `{cfb,mbb,wbb}_groups` releases -- every name a
+#     source has used for a conference lineage ("Pac-10", "Mid-Continent"),
+#     joined to the conference rows on ESPN group id.
 #
 # Run from the package root:  Rscript data-raw/generate_logo_ref.R
 # Requires: httr, jsonlite, nflreadr, hoopR, usethis (dev-only, not package deps).
@@ -131,6 +134,7 @@ core_group_membership <- function(sport, league, seasons, group) {
         conf_name = conf$name,
         conf_short = conf$midsizeName %||% conf$shortName %||% conf$name,
         conf_logo = if (length(conf$logos)) conf$logos[[1]]$href else NA_character_,
+        conf_id = as.character(conf$id),
         stringsAsFactors = FALSE
       )
     })
@@ -169,6 +173,7 @@ college <- function(sport, league, slug, groups, seasons) {
   cf <- keep[!duplicated(keep$conference), ]
   if (any(is.na(cf$conf_logo))) message(slug, ": no logo for conference(s): ", paste(cf$conference[is.na(cf$conf_logo)], collapse = ", "))
   cf <- cf[!is.na(cf$conf_logo), ]
+  cf_ids <- cf$conf_id
   ci <- match(cf$conf_name, conf_colors$name)
   if (anyNA(ci)) message(slug, ": no color for conference(s): ", paste(cf$conference[is.na(ci)], collapse = ", "))
   cf <- data.frame(
@@ -190,7 +195,10 @@ college <- function(sport, league, slug, groups, seasons) {
     type = "conference",
     stringsAsFactors = FALSE
   )
-  rbind(d[order(d$team_abbr), ], cf[order(cf$team_abbr), ])
+  out <- rbind(d[order(d$team_abbr), ], cf[order(cf$team_abbr), ])
+  # each conference row's ESPN group id, for the historical names below
+  attr(out, "conf_ids") <- stats::setNames(cf_ids, cf$team_abbr)
+  out
 }
 
 # Conference colors from cbbplotR (Andrew Weatherman, MIT), keyed by ESPN's
@@ -326,6 +334,7 @@ cfb <- college("football", "college-football", "cfb", c(FBS = 80, FCS = 81), c(y
 mbb <- college("basketball", "mens-college-basketball", "mbb", c("D-I" = 50), c(yr + 1, yr))
 wbb <- college("basketball", "womens-college-basketball", "wbb", c("D-I" = 50), c(yr + 1, yr))
 
+conf_ids <- list(cfb = attr(cfb, "conf_ids"), mbb = attr(mbb, "conf_ids"), wbb = attr(wbb, "conf_ids"))
 logo_ref <- rbind(pro, cfb, mbb, wbb)
 rownames(logo_ref) <- NULL
 stopifnot(!anyNA(logo_ref$team_abbr), !anyNA(logo_ref$logo_url))
@@ -427,8 +436,57 @@ conf_names <- conf_votes[!duplicated(conf_votes$name) & conf_votes$share > 0.5, 
 conf_names$key <- toupper(conf_names$name)
 conf_names <- conf_names[!duplicated(conf_names$key), ]
 
+# Historical conference names, from sportsdataverse-data's `{lg}_groups`
+# releases (built by sdv-reference-data): every name, short name, abbreviation
+# and code a source has used for a conference lineage, so "Pac-10", "Pac-8"
+# and "AAWU" draw the Pac-12. A lineage reaches its conference row through the
+# ESPN group id both carry. A name two lineages share ("South"), or one that
+# already resolves to something else (South Alabama's "USA"), is skipped and
+# logged, never overwritten; lineages without a conference row (the WAC, the
+# Big East's football years) get no names.
+groups_url <- "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/%s_groups/%s_%s.csv"
+read_groups <- function(lg, table) {
+  read.csv(sprintf(groups_url, lg, lg, table), colClasses = "character", na.strings = "")
+}
+college_sports <- c(cfb = "cfb", mbb = "mbb", wbb = "wbb")
+group_aliases <- lapply(college_sports, read_groups, table = "group_aliases")
+group_lineages <- lapply(college_sports, read_groups, table = "groups")
+
+# Every name of each conference row's lineage: key, the row's abbr, and the
+# lineages sharing the key (NA when only this one uses it)
+lineage_keys <- function(sport, ids) {
+  al <- group_aliases[[sport]]
+  espn <- unique(al[al$source == "espn", c("group_id", "source_id")])
+  lin <- espn$group_id[match(ids, espn$source_id)]
+  one <- !is.na(lin) & !ids %in% espn$source_id[duplicated(espn$source_id)] & !lin %in% lin[duplicated(lin)]
+  if (any(!one)) message(sport, ": no single lineage for conference row(s): ", paste(names(ids)[!one], collapse = ", "))
+  row_of <- stats::setNames(names(ids)[one], lin[one])
+  lg <- group_lineages[[sport]]
+  no_row <- setdiff(lg$group_id[lg$level == "conference"], names(row_of))
+  message(sport, ": ", length(no_row), " conference lineage(s) have no conference row, so no names")
+  keys <- al[al$name_kind %in% c("name", "short_name", "abbreviation", "code"), ]
+  keys$key <- toupper(gsub("\\s+", " ", trimws(keys$value)))
+  keys <- unique(keys[!is.na(keys$key) & nzchar(keys$key), c("group_id", "key")])
+  shared <- tapply(keys$group_id, keys$key, function(g) if (length(g) > 1) paste(g, collapse = ", ") else NA_character_)
+  k <- keys[keys$group_id %in% names(row_of), ]
+  data.frame(key = k$key, abbr = unname(row_of[k$group_id]), shared = unname(shared[k$key]))
+}
+
+# The lineage names not yet mapped; `taken` holds the sport's keys so far
+historical_conf_keys <- function(sport, lk, taken) {
+  had <- unname(taken[lk$key])
+  lk <- lk[is.na(had) | had != lk$abbr, ]
+  had <- unname(taken[lk$key])
+  why <- ifelse(!is.na(had), paste("already resolves to", had), ifelse(is.na(lk$shared), NA, paste("used by", lk$shared)))
+  for (i in which(!is.na(why))) message(sport, ": skipping \"", lk$key[i], "\" for ", lk$abbr[i], " (", why[i], ")")
+  lk <- lk[is.na(why), ]
+  message(sport, ": ", nrow(lk), " historical conference name(s) added")
+  stats::setNames(lk$abbr, lk$key)
+}
+
 abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(ref) {
   d <- ref[ref$type == "team", ]
+  lk <- if (d$sport[1] %in% college_sports) lineage_keys(d$sport[1], conf_ids[[d$sport[1]]])
   keys <- c(
     d$team_abbr,
     toupper(d$team_name),
@@ -451,8 +509,16 @@ abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(ref) {
     cv <- rep(cf$team_abbr, 3)
     add <- !is.na(ck) & !duplicated(ck) & !ck %in% names(m)
     m <- c(m, stats::setNames(cv[add], ck[add]))
-    cn <- conf_names[conf_names$conf %in% cf$team_name & !conf_names$key %in% names(m), ]
-    m <- c(m, stats::setNames(cf$team_abbr[match(cn$conf, cf$team_name)], cn$key))
+    # the crosswalks name a conference as ESPN does or, since they moved to the
+    # groups release, by a name of its lineage ("The Summit League")
+    cn <- conf_names[!conf_names$key %in% names(m), ]
+    cn$abbr <- cf$team_abbr[match(cn$conf, cf$team_name)]
+    if (!is.null(lk)) {
+      u <- lk[is.na(lk$shared), ]
+      cn$abbr[is.na(cn$abbr)] <- u$abbr[match(toupper(cn$conf[is.na(cn$abbr)]), u$key)]
+    }
+    cn <- cn[!is.na(cn$abbr), ]
+    m <- c(m, stats::setNames(cn$abbr, cn$key))
     # every conference resolves to itself
     stopifnot(identical(unname(m[toupper(cf$team_abbr)]), cf$team_abbr))
   }
@@ -462,7 +528,9 @@ abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(ref) {
   if (any(clash)) stop(d$sport[1], " aliases shadowed by other keys: ", paste(names(al)[clash], collapse = ", "))
   al <- al[!names(al) %in% names(m)]
   stopifnot(all(al %in% d$team_abbr))
-  c(m, al)
+  m <- c(m, al)
+  if (!is.null(lk)) m <- c(m, historical_conf_keys(d$sport[1], lk, m))
+  m
 })
 
 # logo_history is built by data-raw/generate_logo_history.R (rerun it after

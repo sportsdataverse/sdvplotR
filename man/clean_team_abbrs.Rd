@@ -33,10 +33,11 @@ stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
 (\code{"Iowa St."}, \code{"St. John's (NY)"}, \code{"Saint Mary's (CA)"},
 \code{"Southern California"}, \code{"Brigham Young"}).
 Conference names resolve to the conference: ESPN's (\code{"SEC"},
-\code{"Southeastern Conference"}) and the NCAA's, KenPom's and Torvik's
-(\code{"B10"}, \code{"MWC"}). Where a team already uses the name, the team wins, so
-the American Athletic Conference is \code{"AAC"} (\code{"American"} is American
-University).
+\code{"Southeastern Conference"}), the NCAA's, KenPom's and Torvik's (\code{"B10"},
+\code{"MWC"}), and the names a conference went by before (\code{"Pac-10"},
+\code{"Mid-Continent Conference"}). Where a team already uses the name, the
+team wins, so the American Athletic Conference is \code{"AAC"} (\code{"American"}
+is American University).
 }
 \examples{
 clean_team_abbrs(c("KC", "kansas city chiefs", "OAK", "WSH"), sport = "nfl")
