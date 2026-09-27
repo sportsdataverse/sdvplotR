@@ -142,3 +142,15 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   next to a plot title.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose
   the reference data.
+* `geom_sdv_logos()` takes a `season` aesthetic and `gt_sdv_logos()` a
+  `season` argument (one season for the whole table): a team is drawn with the
+  mark it wore that season. The NHL has every club identity's primary and dark
+  marks since 1917-18, from the NHL's logo catalog, keyed by the identity's
+  triCode (`"QUE"`, `"HFD"`, `"ATL"`, `"TBL"`, and `"TB"` for the current
+  club); the NFL and WNBA have their relocated and defunct identities (the St.
+  Louis Rams, San Diego Chargers, Houston Comets, Sacramento Monarchs,
+  Charlotte Sting, Detroit and Tulsa Shock, San Antonio Silver Stars and
+  Stars). Other teams and seasons keep today's logo. The images are
+  content-addressed copies in the SportsDataverse asset archive, so they
+  don't change when ESPN reuses a file name; the NHL's are SVG files, read
+  with the 'rsvg' package (now in Suggests).

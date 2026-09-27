@@ -24,7 +24,29 @@
 #'   \item{`width = 1.0`}{ - The desired width of the image in `npc` (Normalised Parent
 #'   Coordinates). A typical size is `width = 0.075`.}
 #'   \item{`height = 1.0`}{ - The desired height of the image in `npc`. A typical size is `height = 0.1`.}
+#'   \item{`season = NA`}{ - The season whose logo to draw: the ending year for
+#'   the NHL (`1990` for 1989-90), the year elsewhere. Unmapped or `NA`, the
+#'   team's logo today. See the Historical logos section.}
 #' }
+#'
+#' @section Historical logos:
+#' Given a `season`, a team is drawn with the mark it wore that season where
+#' sdvplotR has one, and with today's logo otherwise. Coverage:
+#' * NHL: every club identity since 1917-18, primary and dark marks from the
+#'   NHL's own logo catalog. Teams are keyed by the NHL triCode of that
+#'   identity (`"QUE"`, `"HFD"`, `"ATL"`, `"MNS"`, `"TBL"`); current clubs also
+#'   answer to sdvplotR's abbreviation and full name (`"TB"`,
+#'   `"Tampa Bay Lightning"`).
+#' * NFL and WNBA: relocated and defunct identities only, one mark each: NFL
+#'   `"STL"` (1995-2015) and `"SD"` (1961-2016); WNBA `"HOU"`, `"SAC"`,
+#'   `"CHA"`, `"DET"`, `"TUL"`, `"SAS"` and `"SA"`.
+#' * No other league has per-season logos yet.
+#'
+#' A key only finds its own identity's marks: `"COL"` in 1990 draws today's
+#' Avalanche logo (the Nordiques are `"QUE"`), and `"STL"` in 2020 today's
+#' Rams. The images are copies kept in the SportsDataverse asset archive, so
+#' they don't change when a league reuses a file name. The NHL marks are SVG
+#' files, which 'ggpath' reads with the 'rsvg' package.
 #'
 #' @return A ggplot2 layer ([ggplot2::layer()]) that can be added to a plot
 #'   created with [ggplot2::ggplot()].
@@ -46,6 +68,19 @@
 #'   geom_sdv_logos(aes(team = teams), sport = "nfl", width = 0.075) +
 #'   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
 #'   theme_void()
+#'
+#' # the logo each team wore that season (NHL seasons are ending years;
+#' # the NHL's marks are SVG files, read with the 'rsvg' package)
+#' if (requireNamespace("rsvg", quietly = TRUE)) {
+#'   old <- data.frame(
+#'     x = 1:4, y = 1,
+#'     team = c("QUE", "HFD", "ATL", "WPG"),
+#'     season = c(1990, 1995, 2005, 2015)
+#'   )
+#'   ggplot(old, aes(x = x, y = y)) +
+#'     geom_sdv_logos(aes(team = team, season = season), sport = "nhl", width = 0.2) +
+#'     theme_void()
+#' }
 #' }
 geom_sdv_logos <- function(
     mapping = NULL,
@@ -83,11 +118,11 @@ GeomSDVlogo <- ggplot2::ggproto(
   required_aes = c("x", "y", "team"),
   default_aes = ggplot2::aes(
     alpha = NULL, colour = NULL, angle = 0, hjust = 0.5,
-    vjust = 0.5, width = 1.0, height = 1.0
+    vjust = 0.5, width = 1.0, height = 1.0, season = NA
   ),
   draw_panel = function(data, panel_params, coord, na.rm = FALSE, sport = "nfl") {
-    # Resolve team abbreviations to logo URLs
-    data$path <- logo_from_team(data$team, sport = sport)
+    # Resolve team abbreviations (and seasons) to logo URLs
+    data$path <- logo_from_team(data$team, sport = sport, season = data$season)
 
     # Delegate to ggpath for actual rendering
     ggpath::GeomFromPath$draw_panel(

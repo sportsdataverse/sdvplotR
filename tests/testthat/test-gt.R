@@ -27,6 +27,17 @@ test_that("gt_sdv_logos resolves escaped names and can keep the name", {
   expect_match(h, ">nope</td>")
 })
 
+test_that("gt_sdv_logos draws a season's marks", {
+  df <- data.frame(team = c("QUE", "COL", "nope"), n = 1:3)
+  h <- html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "nhl", season = 1990))
+  # the Nordiques' 1979-80 to 1994-95 mark; no 1990 Avalanche era, so today's logo
+  expect_match(h, "digitaloceanspaces\\.com/assets/public/sha256/3c/3c28d243dd")
+  expect_match(h, "teamlogos/nhl/500/col\\.png")
+  expect_match(h, ">nope</td>")
+  expect_no_match(html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "nhl")), "digitaloceanspaces")
+  expect_error(gt_sdv_logos(gt(df), columns = "team", sport = "nhl", season = 1990:1991), "single season")
+})
+
 test_that("gt_sdv_headshots renders headshots and keeps unresolvable ids", {
   local_headshot_map()
   df <- data.frame(id = c("00-0033873", "bad"))

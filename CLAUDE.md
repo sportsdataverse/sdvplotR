@@ -48,6 +48,20 @@ team abbr / player id
   `team_reference()` / `valid_team_names()` / `sdv_team_colors()` list
   conferences only with `include_conferences = TRUE`, because users filter and
   loop over those frames as teams. **Never hand-edit the `.rda`.**
+- `R/sysdata.rda` also holds `logo_history` (sport, key, season_from,
+  season_to, variant, url, identity_name): the season-aware marks behind
+  `season` in `geom_sdv_logos()` / `gt_sdv_logos()`, resolved by
+  `season_logo()` / `historical_logo_url()` in `R/utils.R`.
+  `data-raw/generate_logo_history.R` builds it from the sdv-assets manifest
+  (`manifest/marks.csv`): the NHL logo catalog (every era, NHL triCode keys,
+  ending-year seasons; current clubs also keyed by sdvplotR's abbreviation)
+  and ESPN's frozen NFL / WNBA relocated-identity files, whose seasons live
+  in `data-raw/logo_history_legacy.csv`. URLs are the archive's
+  content-addressed copies, never ESPN / NHL originals (overwritten in
+  place). A historical key never goes through `resolve_historical_abbr()`,
+  so `"COL"` never draws a Nordiques mark. Each script re-saves the other's
+  objects; rerun this one after `generate_logo_ref.R`. NHL marks are SVG,
+  which ggpath reads with `rsvg`.
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
   `headshot_gsis_map.rds` from this repo's `sdvplotr_infrastructure`
   pre-release (never "Latest", so `@*release` installs are unaffected)
@@ -150,7 +164,7 @@ devtools::build_readme()
 - `\figure{}` options use `style="width:100\%"`, not `width=100\%`; checkRd
   wants width/height attributes in pixels.
 - `Suggests` is deliberately small (ggtext, gridtext, knitr, reactable,
-  rmarkdown, sjmisc, testthat, withr); companion data packages are website /
+  rmarkdown, rsvg, sjmisc, testthat, withr); companion data packages are website /
   development needs, not package dependencies.
 
 ## Formatting
