@@ -61,6 +61,51 @@ test_that("conferences resolve like teams, and a team keeps a shared name", {
   expect_match(logo_from_team("AFC", "nfl"), "nfl/500/afc.png$")
 })
 
+test_that("historical conference names draw the conference's lineage", {
+  # sportsdataverse-data's cfb_groups / mbb_groups: Pac-8, Pac-10 and the AAWU
+  # are one lineage with the Pac-12
+  expect_identical(
+    clean_team_abbrs(c("Pac-10", "pac-10", "Pacific-10 Conference", "Pac-8", "AAWU"), "cfb", keep_non_matches = FALSE),
+    rep("Pac-12", 5)
+  )
+  expect_identical(clean_team_abbrs(c("Pac-10", "P10"), "mbb", keep_non_matches = FALSE), c("Pac-12", "Pac-12"))
+  expect_identical(clean_team_abbrs("Pac-10", "wbb", keep_non_matches = FALSE), "Pac-12")
+  expect_identical(logo_from_team("Pac-10", "cfb"), logo_from_team("Pac-12", "cfb"))
+  # other renamed conferences: Mid-Continent -> Summit, Midwestern Collegiate
+  # -> Horizon, Colonial -> CAA, Gateway -> MVFC, Colonial League -> Patriot
+  expect_identical(
+    clean_team_abbrs(
+      c("Mid-Continent Conference", "Midwestern Collegiate Conference", "Colonial Athletic Association"),
+      "mbb",
+      keep_non_matches = FALSE
+    ),
+    c("Summit", "Horizon", "CAA")
+  )
+  expect_identical(
+    clean_team_abbrs(c("Gateway Football Conference", "Colonial League", "I-AA Independents"), "cfb", keep_non_matches = FALSE),
+    c("MVFC", "Patriot", "FCS Indep.")
+  )
+  # a name two lineages share stays unmatched; a team's name stays the team's;
+  # a lineage without a conference row (the WAC, cfb's Big West) gets no names
+  expect_identical(
+    clean_team_abbrs(c("Western", "South", "USA", "Southern", "WAC", "Big West", "IND", "CL", "COL"), "cfb", keep_non_matches = FALSE),
+    c(NA, NA, "USA", "SOU", NA, NA, NA, NA, NA)
+  )
+  # generic short codes stay unmatched rather than drawing a conference logo
+  expect_identical(clean_team_abbrs("COL", "mbb", keep_non_matches = FALSE), NA_character_)
+  expect_identical(clean_team_abbrs(c("American", "WAC"), "mbb", keep_non_matches = FALSE), c("AMER", NA))
+})
+
+test_that("every key that resolved to a conference still resolves to it", {
+  # every key abbr_mapping sent to a conference / league row before the
+  # historical names were added (R/sysdata.rda at 3dd4514)
+  keys <- utils::read.csv(test_path("fixtures", "conference_keys.csv"), colClasses = "character")
+  for (s in unique(keys$sport)) {
+    k <- keys[keys$sport == s, ]
+    expect_identical(clean_team_abbrs(k$key, s, keep_non_matches = FALSE), k$abbr)
+  }
+})
+
 test_that("clean_team_abbrs handles case, names, aliases and history", {
   expect_identical(
     clean_team_abbrs(c("KC", "kc", "Kansas City Chiefs", "WSH", "GNB", "OAK"), "nfl"),

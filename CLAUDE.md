@@ -44,7 +44,12 @@ team abbr / player id
   (`type = "conference"`; the NFL shield is `"league"`), following nflplotR's
   AFC / NFC / NFL: logos from the ESPN groups, colors copied from cbbplotR,
   keys added only where no team uses the name (so the AAC is `"AAC"`), and the
-  script asserts each conference resolves to itself. Divergence from nflplotR:
+  script asserts each conference resolves to itself. Former conference names
+  (`"Pac-10"`) come from sportsdataverse-data's `{cfb,mbb,wbb}_groups`
+  releases (`group_aliases`), joined lineage -> row on the ESPN group id; a
+  name two lineages share, or one already mapped elsewhere, is skipped and
+  logged. `tests/testthat/fixtures/conference_keys.csv` pins every key that
+  resolved to a conference before them. Divergence from nflplotR:
   `team_reference()` / `valid_team_names()` / `sdv_team_colors()` list
   conferences only with `include_conferences = TRUE`, because users filter and
   loop over those frames as teams. **Never hand-edit the `.rda`.**

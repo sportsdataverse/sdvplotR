@@ -109,6 +109,16 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   AAC reads `"AAC"` instead of `"American"` (American University's name), and
   football's SoCon reads `"SoCon"` instead of `"Southern"` (Southern
   University's).
+* A conference's former names resolve to its logo: `"Pac-10"`, `"Pac-8"` and
+  `"AAWU"` draw the Pac-12, `"Mid-Continent Conference"` the Summit League,
+  `"Midwestern Collegiate Conference"` the Horizon League, `"Gateway"` the
+  MVFC and `"Colonial League"` the Patriot League. The names come from the
+  sportsdataverse-data `cfb_groups`, `mbb_groups` and `wbb_groups` releases,
+  which follow each conference through its renames. A name two conferences
+  have used (`"South"`, football's `"Western"`), or one a team already goes by
+  (South Alabama's `"USA"`), is left out, and conferences sdvplotR has no logo
+  for (the WAC, football's Big West and Big East) resolve to nothing, as
+  before.
 * `clean_team_abbrs()` and every helper built on it take the school names
   NCAA.com / stats.ncaa.org, KenPom and Bart Torvik use for college teams
   (`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Miami (OH)"`),
