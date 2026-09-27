@@ -88,9 +88,11 @@ test_that("historical conference names draw the conference's lineage", {
   # a name two lineages share stays unmatched; a team's name stays the team's;
   # a lineage without a conference row (the WAC, cfb's Big West) gets no names
   expect_identical(
-    clean_team_abbrs(c("Western", "South", "USA", "Southern", "WAC", "Big West"), "cfb", keep_non_matches = FALSE),
-    c(NA, NA, "USA", "SOU", NA, NA)
+    clean_team_abbrs(c("Western", "South", "USA", "Southern", "WAC", "Big West", "IND", "CL", "COL"), "cfb", keep_non_matches = FALSE),
+    c(NA, NA, "USA", "SOU", NA, NA, NA, NA, NA)
   )
+  # generic short codes stay unmatched rather than drawing a conference logo
+  expect_identical(clean_team_abbrs("COL", "mbb", keep_non_matches = FALSE), NA_character_)
   expect_identical(clean_team_abbrs(c("American", "WAC"), "mbb", keep_non_matches = FALSE), c("AMER", NA))
 })
 

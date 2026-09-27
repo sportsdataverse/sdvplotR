@@ -478,6 +478,8 @@ historical_conf_keys <- function(sport, lk, taken) {
   lk <- lk[is.na(had) | had != lk$abbr, ]
   had <- unname(taken[lk$key])
   why <- ifelse(!is.na(had), paste("already resolves to", had), ifelse(is.na(lk$shared), NA, paste("used by", lk$shared)))
+  # short generic codes a reader more likely means as a team ("IND" for Indiana) than as a conference
+  why[is.na(why) & lk$key %in% c("IND", "CL", "COL")] <- "generic short code"
   for (i in which(!is.na(why))) message(sport, ": skipping \"", lk$key[i], "\" for ", lk$abbr[i], " (", why[i], ")")
   lk <- lk[is.na(why), ]
   message(sport, ": ", nrow(lk), " historical conference name(s) added")
