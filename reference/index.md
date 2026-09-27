@@ -432,6 +432,14 @@ High-level functions that build complete branded plots.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   : Create Team Tier Plots
 
+## Playing Surfaces
+
+Regulation courts, fields and rinks from ‘sportyR’, styled in a team’s
+colors with its logo at center.
+
+- [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+  : Team-Styled Playing Surfaces
+
 ## Plot Titles
 
 Add a logo or image next to a ggplot2 title.

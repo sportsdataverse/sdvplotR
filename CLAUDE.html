@@ -55,6 +55,7 @@
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
     <li><a class="dropdown-item" href="reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="reference/sdv_surface.html">Playing Surfaces</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
     <li><a class="dropdown-item" href="reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
@@ -237,7 +238,9 @@
 <li>
 <code>\figure{}</code> options use <code>style="width:100\%"</code>, not <code>width=100\%</code>; checkRd wants width/height attributes in pixels.</li>
 <li>
-<code>Suggests</code> is deliberately small (ggtext, gridtext, knitr, reactable, rmarkdown, rsvg, sjmisc, testthat, withr); companion data packages are website / development needs, not package dependencies.</li>
+<code>Suggests</code> is deliberately small (chromote, ggtext, gridtext, knitr, reactable, rmarkdown, rsvg, sportyR, testthat, webshot2, withr); companion data packages are website / development needs, not package dependencies.</li>
+<li>
+<code><a href="reference/sdv_surface.html">sdv_surface()</a></code> calls ‘sportyR’ (GPL-3) through its exported functions only, after <code><a href="https://rlang.r-lib.org/reference/is_installed.html" class="external-link">rlang::check_installed()</a></code>. sdvplotR is MIT: never copy, vendor or translate sportyR source.</li>
 </ul></div>
 <div class="section level2">
 <h2 id="formatting">Formatting<a class="anchor" aria-label="anchor" href="#formatting"></a></h2>

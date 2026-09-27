@@ -235,6 +235,15 @@ NHL, college football, men’s and women’s college basketball), built on
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
   places a logo next to a plot title.
+- [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+  draws a court, field or rink for any of the eight leagues through
+  ‘sportyR’ (now in Suggests), as a ggplot to plot data on. Given a
+  team, a few features take its colors (basketball paint and apron,
+  football end zones, hockey center line, center circle and boards; a
+  baseball infield keeps its own), and `center_logo = TRUE` puts its
+  logo at center court, center ice or midfield. These are stylized
+  surfaces built from team colors, not the teams’ real floor, field or
+  rink designs.
 - [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md),
   [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
   and

@@ -214,9 +214,14 @@ devtools::build_readme()
   `cleanEx()` then fails with “connections left open”.
 - `\figure{}` options use `style="width:100\%"`, not `width=100\%`;
   checkRd wants width/height attributes in pixels.
-- `Suggests` is deliberately small (ggtext, gridtext, knitr, reactable,
-  rmarkdown, rsvg, sjmisc, testthat, withr); companion data packages are
-  website / development needs, not package dependencies.
+- `Suggests` is deliberately small (chromote, ggtext, gridtext, knitr,
+  reactable, rmarkdown, rsvg, sportyR, testthat, webshot2, withr);
+  companion data packages are website / development needs, not package
+  dependencies.
+- [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+  calls ‘sportyR’ (GPL-3) through its exported functions only, after
+  [`rlang::check_installed()`](https://rlang.r-lib.org/reference/is_installed.html).
+  sdvplotR is MIT: never copy, vendor or translate sportyR source.
 
 ## Formatting
 
