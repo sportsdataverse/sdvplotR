@@ -4,9 +4,10 @@
 #'   locations in the NBA's legacy frame: tenths of a foot, origin at the
 #'   hoop, relative to the shooter's basket. hoopR's/wehoop's
 #'   `load_nba_stats_shots()` / `load_wnba_stats_shots()` ship these columns
-#'   as `x_legacy`/`y_legacy` (snake_case); hoopR's `nba_shotchartdetail()`
-#'   ships the same values as stats.nba.com's own `LOC_X`/`LOC_Y` (upper
-#'   snake case). This rescales them (feet, not tenths) into the frame
+#'   as `x_legacy`/`y_legacy` (snake_case); the `Shot_Chart_Detail` element of
+#'   hoopR's `nba_shotchartdetail()` ships the same values as the
+#'   `LOC_X`/`LOC_Y` columns stats.nba.com returns (upper snake case). This
+#'   converts them (feet, not tenths) into the frame
 #'   `sportyR::geom_basketball("nba")` draws: origin at center court, baseline
 #'   at `x = -47`, basket on the **left** at `x = -41.75`.
 #'
@@ -14,18 +15,34 @@
 #'   `x_legacy`/`y_legacy`; tenths of a foot, hoop at the origin, relative to
 #'   the shooter's basket) maps with negative x as the shooter's left corner:
 #'   `court_y` is `x_column / 10` with no sign flip, so a left-corner three
-#'   lands at negative `court_y`, the same side as sportyR's left-side court
-#'   markings. Verified on real 2022-23 `shotchartdetail` data (Left Corner 3
-#'   `LOC_X` -249..-221, Right Corner 3 +221..+248).
+#'   lands at negative `court_y` (the TV-bottom sideline), which is the
+#'   shooter's left when facing the TV-left basket. Verified on real 2022-23
+#'   `shotchartdetail` data (Left Corner 3 `LOC_X` -249..-221, Right Corner 3
+#'   +221..+248).
 #'
-#'   The same frame applies to WNBA and NCAA shot data: sportyR's `"nba"`,
-#'   `"wnba"` and `"ncaa"` basketball courts share the same 94-foot floor and
-#'   5.25-foot basket offset.
+#'   Shots land on sportyR's TV-left half, so draw half-court charts with
+#'   `sportyR::geom_basketball("nba", display_range = "defense")` or the full
+#'   court; `display_range = "offense"` shows the TV-right half and none of
+#'   the shots.
+#'
+#'   The converted points also fit sportyR's `"wnba"` and `"ncaa"` courts,
+#'   which share the `"nba"` court's 94-foot floor and 5.25-foot basket
+#'   offset. The input must still be in the NBA legacy frame (tenths of a
+#'   foot, hoop at the origin: `x_legacy`/`y_legacy` or `LOC_X`/`LOC_Y`).
+#'   Don't pass ESPN `coordinate_x`/`coordinate_y` from hoopR/wehoop
+#'   play-by-play: they are already in feet on a center-court frame.
+#'
+#'   Coordinate columns must be numeric, or character holding numbers, which
+#'   is coerced (`nba_shotchartdetail()` returns every column as character).
+#'   Factors, `TRUE`/`FALSE` and strings that aren't numbers (such as `""` or
+#'   `"NA"`) raise an error. Missing values stay `NA`, and an all-`NA` column
+#'   (even a logical one) gives `NA` coordinates.
 #'
 #' @param data A data frame with shot-location columns, e.g. from
 #'   `hoopR::load_nba_stats_shots()` / `wehoop::load_wnba_stats_shots()`
-#'   (`x_legacy`/`y_legacy`) or `hoopR::nba_shotchartdetail()` (`LOC_X`/
-#'   `LOC_Y`; pass the actual names via `x_column`/`y_column`).
+#'   (`x_legacy`/`y_legacy`). `hoopR::nba_shotchartdetail()` returns a named
+#'   list: pass its `Shot_Chart_Detail` data frame and name the `LOC_X`/`LOC_Y`
+#'   columns, e.g. `sdv_court_coords(res$Shot_Chart_Detail, "LOC_X", "LOC_Y")`.
 #' @param x_column String naming the column holding the stats-API `LOC_X` /
 #'   `x_legacy` value (tenths of a foot). Default `"x_legacy"`.
 #' @param y_column String naming the column holding the stats-API `LOC_Y` /
@@ -36,8 +53,8 @@
 #'
 #'   | col_name | type | description |
 #'   |---|---|---|
-#'   | court_x | numeric | Baseline-axis position, feet (sportyR `geom_basketball("nba")` frame) |
-#'   | court_y | numeric | Sideline-axis position, feet (sportyR `geom_basketball("nba")` frame) |
+#'   | court_x | numeric | Feet along the court's length: baseline at -47, basket at -41.75, half-court line at 0 |
+#'   | court_y | numeric | Feet across the court's width: -25 to 25; negative = shooter's left (TV-bottom sideline) |
 #'
 #' @examples
 #' shots <- data.frame(x_legacy = c(-224, 240), y_legacy = c(39, 29))
@@ -82,12 +99,12 @@ sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy")
 # `x_column`/`y_column` must each name exactly one column: a NULL, a
 # length != 1 vector or an NA would silently drop the argument in the
 # setdiff() missing-column check above instead of raising a clear error.
-check_column_arg <- function(value, arg_name) {
+check_column_arg <- function(value, arg_name, call = rlang::caller_env()) {
   if (!is.character(value) || length(value) != 1 || is.na(value)) {
     cli::cli_abort(c(
       "{.arg {arg_name}} must be a single string.",
       "i" = "Got a {.cls {class(value)}} of length {length(value)}."
-    ))
+    ), call = call)
   }
 }
 
@@ -95,7 +112,7 @@ check_column_arg <- function(value, arg_name) {
 # and reject anything that doesn't round-trip cleanly. Factors are rejected
 # rather than coerced: as.numeric(factor) returns the level codes, not the
 # labels' values, which would silently corrupt the coordinates.
-coerce_shot_coord <- function(values, column_name) {
+coerce_shot_coord <- function(values, column_name, call = rlang::caller_env()) {
   if (is.numeric(values)) {
     return(as.numeric(values))
   }
@@ -111,12 +128,12 @@ coerce_shot_coord <- function(values, column_name) {
       cli::cli_abort(c(
         "Column {.val {column_name}} has value{?s} that can't be coerced to numeric: {.val {unique(values[bad])}}.",
         "i" = "Pass the correct column name via {.arg x_column}/{.arg y_column}, or fix the input data."
-      ))
+      ), call = call)
     }
     return(coerced)
   }
   cli::cli_abort(c(
     "Column {.val {column_name}} must be numeric or character, not {.cls {class(values)}}.",
     "i" = "Pass the correct column name via {.arg x_column}/{.arg y_column}, or fix the input data."
-  ))
+  ), call = call)
 }

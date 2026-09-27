@@ -18,8 +18,8 @@ test_that("sdv_court_coords honors custom x_column/y_column names", {
 })
 
 test_that("sdv_court_coords errors informatively on missing columns", {
-  expect_error(sdv_court_coords(data.frame(x_legacy = 0)), "y_legacy")
-  expect_error(sdv_court_coords(data.frame(a = 1)), "x_legacy")
+  expect_error(sdv_court_coords(data.frame(x_legacy = 0)), "missing column.*y_legacy")
+  expect_error(sdv_court_coords(data.frame(a = 1)), "missing column.*x_legacy")
 })
 
 test_that("sdv_court_coords rejects input that isn't a data frame", {
@@ -73,6 +73,16 @@ test_that("sdv_court_coords treats all-NA logical columns as missing coordinates
 
   bad_lgl <- data.frame(x_legacy = c(TRUE, FALSE), y_legacy = c(39, 29))
   expect_error(sdv_court_coords(bad_lgl), "numeric or character")
+})
+
+test_that("sdv_court_coords replaces existing court_x/court_y and keeps every other column", {
+  df <- data.frame(court_x = "old", x_legacy = -224, y_legacy = 39, player = "p", court_y = "old")
+  out <- sdv_court_coords(df)
+
+  expect_named(out, names(df))
+  expect_equal(out$court_x, -37.85)
+  expect_equal(out$court_y, -22.4)
+  expect_equal(out[c("x_legacy", "y_legacy", "player")], df[c("x_legacy", "y_legacy", "player")])
 })
 
 test_that("sdv_court_coords preserves the tibble class", {
