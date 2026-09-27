@@ -114,6 +114,27 @@ conf_key <- function(conf) {
   if (key %in% names(renamed)) renamed[[key]] else key
 }
 
+# Conferences ESPN no longer has a logo for, drawn with ESPN's archived mark so
+# historical data still draws them: the WAC (football group 16, which ended
+# after 2022; basketball group 30, which ESPN now labels with the name the WAC
+# took from 2026-27, the United Athletic Conference). `through` is the last
+# season the mark stands for: lineage_keys() gives the row no name a source
+# dates after it, so "UAC" and "United Athletic Conference" never draw the WAC.
+retired_confs <- data.frame(
+  sport = c("cfb", "mbb", "wbb"),
+  espn_team_id = NA_integer_,
+  conference = "WAC",
+  conf_name = "Western Athletic Conference",
+  conf_short = "WAC",
+  conf_logo = "https://a.espncdn.com/i/teamlogos/ncaa_conf/500/wac.png",
+  conf_id = c("16", "30", "30"),
+  # the WAC played Division I-A / FBS football from 1978 until it dropped football
+  # after 2012 (ESPN files group 16 under FCS today, which is not its history)
+  division = c("FBS", "D-I", "D-I"),
+  through = c(2022L, 2026L, 2026L),
+  stringsAsFactors = FALSE
+)
+
 core_group_membership <- function(sport, league, seasons, group) {
   base <- sprintf(
     "https://sports.core.api.espn.com/v2/sports/%s/leagues/%s/seasons/%%s/types/2/groups/%s",
@@ -173,6 +194,9 @@ college <- function(sport, league, slug, groups, seasons) {
   cf <- keep[!duplicated(keep$conference), ]
   if (any(is.na(cf$conf_logo))) message(slug, ": no logo for conference(s): ", paste(cf$conference[is.na(cf$conf_logo)], collapse = ", "))
   cf <- cf[!is.na(cf$conf_logo), ]
+  rc <- retired_confs[retired_confs$sport == slug, names(cf)]
+  if (any(rc$conference %in% cf$conference)) stop(slug, ": ESPN draws retired conference(s) again: ", paste(intersect(rc$conference, cf$conference), collapse = ", "))
+  cf <- rbind(cf, rc)
   cf_ids <- cf$conf_id
   ci <- match(cf$conf_name, conf_colors$name)
   if (anyNA(ci)) message(slug, ": no color for conference(s): ", paste(cf$conference[is.na(ci)], collapse = ", "))
@@ -215,21 +239,22 @@ conf_colors <- data.frame(
     "Mountain West Conference", "Northeast Conference", "Ohio Valley Conference",
     "Pac-12 Conference", "Patriot League", "Southeastern Conference",
     "Southern Conference", "Southland Conference", "Southwestern Athletic Conference",
-    "Summit League", "Sun Belt Conference", "West Coast Conference"
+    "Summit League", "Sun Belt Conference", "West Coast Conference",
+    "Western Athletic Conference"
   ),
   color1 = c(
     "#00B1E2", "#0E1D41", "#E2201B", "#003CA6", "#F2E60B", "#FA4238", "#07205B",
     "#0133A0", "#0082CB", "#0082CB", "#11175E", "#002648", "#002638", "#F5A018",
     "#18563F", "#084FA2", "#009844", "#582C82", "#CF162D", "#4E2D7F", "#035F9B",
     "#A51844", "#001A6F", "#00205A", "#012D74", "#001588", "#C1A552", "#E2201B",
-    "#01549E", "#0C2140", "#24CAD2"
+    "#01549E", "#0C2140", "#24CAD2", "#8A2432"
   ),
   color2 = c(
     "#121C4E", "#E2201B", "#E2201B", "#003CA6", "#4C4F54", "#FA4238", "#CF162D",
     "#43C6E7", "#ED7422", "#0082CB", "#A30145", "#002648", "#E31C47", "#F5A018",
     "#18563F", "#E2373F", "#0C2140", "#FEB81D", "#13216A", "#AFAFAF", "#035F9B",
     "#D0AE85", "#001A6F", "#D9291C", "#FFD040", "#001588", "#C1A552", "#E2201B",
-    "#01549E", "#F5A606", "#24CAD2"
+    "#01549E", "#F5A606", "#24CAD2", "#8A2432"
   ),
   stringsAsFactors = FALSE
 )
@@ -442,8 +467,8 @@ conf_names <- conf_names[!duplicated(conf_names$key), ]
 # and "AAWU" draw the Pac-12. A lineage reaches its conference row through the
 # ESPN group id both carry. A name two lineages share ("South"), or one that
 # already resolves to something else (South Alabama's "USA"), is skipped and
-# logged, never overwritten; lineages without a conference row (the WAC, the
-# Big East's football years) get no names.
+# logged, never overwritten; lineages without a conference row (the Big East's
+# football years) get no names.
 groups_url <- "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/%s_groups/%s_%s.csv"
 read_groups <- function(lg, table) {
   read.csv(sprintf(groups_url, lg, lg, table), colClasses = "character", na.strings = "")
@@ -466,9 +491,18 @@ lineage_keys <- function(sport, ids) {
   message(sport, ": ", length(no_row), " conference lineage(s) have no conference row, so no names")
   keys <- al[al$name_kind %in% c("name", "short_name", "abbreviation", "code"), ]
   keys$key <- toupper(gsub("\\s+", " ", trimws(keys$value)))
-  keys <- unique(keys[!is.na(keys$key) & nzchar(keys$key), c("group_id", "key")])
+  keys <- keys[!is.na(keys$key) & nzchar(keys$key), ]
+  # a retired row's mark ends at `through`: a name any source dates after it
+  # belongs to the lineage's later identity, not the mark
+  rc <- retired_confs[retired_confs$sport == sport, ]
+  end <- rc$through[match(row_of[keys$group_id], rc$conference)]
+  late <- unique(paste(keys$group_id, keys$key)[which(as.integer(keys$valid_from) > end)])
+  keys <- unique(keys[, c("group_id", "key")])
   shared <- tapply(keys$group_id, keys$key, function(g) if (length(g) > 1) paste(g, collapse = ", ") else NA_character_)
   k <- keys[keys$group_id %in% names(row_of), ]
+  gone <- paste(k$group_id, k$key) %in% late
+  for (i in which(gone)) message(sport, ": skipping \"", k$key[i], "\" for ", row_of[[k$group_id[i]]], " (dated after its mark)")
+  k <- k[!gone, ]
   data.frame(key = k$key, abbr = unname(row_of[k$group_id]), shared = unname(shared[k$key]))
 }
 

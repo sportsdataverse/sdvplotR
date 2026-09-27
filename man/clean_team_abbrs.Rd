@@ -35,7 +35,9 @@ stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
 Conference names resolve to the conference: ESPN's (\code{"SEC"},
 \code{"Southeastern Conference"}), the NCAA's, KenPom's and Torvik's (\code{"B10"},
 \code{"MWC"}), and the names a conference went by before (\code{"Pac-10"},
-\code{"Mid-Continent Conference"}). Where a team already uses the name, the
+\code{"Mid-Continent Conference"}). The WAC, which ESPN no longer draws, keeps
+its archived ESPN mark; \code{"UAC"}, the name the basketball WAC took for
+2026-27, does not resolve to it. Where a team already uses the name, the
 team wins, so the American Athletic Conference is \code{"AAC"} (\code{"American"}
 is American University).
 }

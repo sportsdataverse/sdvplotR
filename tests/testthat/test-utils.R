@@ -86,14 +86,35 @@ test_that("historical conference names draw the conference's lineage", {
     c("MVFC", "Patriot", "FCS Indep.")
   )
   # a name two lineages share stays unmatched; a team's name stays the team's;
-  # a lineage without a conference row (the WAC, cfb's Big West) gets no names
+  # a lineage without a conference row (cfb's Big West) gets no names
   expect_identical(
-    clean_team_abbrs(c("Western", "South", "USA", "Southern", "WAC", "Big West", "IND", "CL", "COL"), "cfb", keep_non_matches = FALSE),
-    c(NA, NA, "USA", "SOU", NA, NA, NA, NA, NA)
+    clean_team_abbrs(c("Western", "South", "USA", "Southern", "Big West", "IND", "CL", "COL"), "cfb", keep_non_matches = FALSE),
+    c(NA, NA, "USA", "SOU", NA, NA, NA, NA)
   )
   # generic short codes stay unmatched rather than drawing a conference logo
   expect_identical(clean_team_abbrs("COL", "mbb", keep_non_matches = FALSE), NA_character_)
-  expect_identical(clean_team_abbrs(c("American", "WAC"), "mbb", keep_non_matches = FALSE), c("AMER", NA))
+  expect_identical(clean_team_abbrs("American", "mbb", keep_non_matches = FALSE), "AMER")
+})
+
+test_that("the WAC draws ESPN's archived mark, and the UAC it became does not", {
+  # ESPN has no logo for football's WAC (gone after 2022) or for basketball
+  # group 30, which it now labels the United Athletic Conference
+  for (s in c("cfb", "mbb", "wbb")) {
+    expect_identical(
+      clean_team_abbrs(c("WAC", "wac", "Western Athletic Conference"), s, keep_non_matches = FALSE),
+      rep("WAC", 3)
+    )
+    expect_match(logo_from_team("WAC", s), "ncaa_conf/500/wac.png$")
+    expect_identical(
+      clean_team_abbrs(c("UAC", "United Athletic Conference"), s, keep_non_matches = FALSE),
+      c(NA_character_, NA_character_)
+    )
+  }
+  # CFBD's short name for football's WAC
+  expect_identical(clean_team_abbrs("Western Athletic", "cfb", keep_non_matches = FALSE), "WAC")
+  # a conference row, listed with the conferences only
+  expect_false("WAC" %in% valid_team_names("mbb"))
+  expect_true("WAC" %in% valid_team_names("mbb", include_conferences = TRUE))
 })
 
 test_that("every key that resolved to a conference still resolves to it", {

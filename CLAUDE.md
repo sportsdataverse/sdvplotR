@@ -48,7 +48,11 @@ team abbr / player id
   (`"Pac-10"`) come from sportsdataverse-data's `{cfb,mbb,wbb}_groups`
   releases (`group_aliases`), joined lineage -> row on the ESPN group id; a
   name two lineages share, or one already mapped elsewhere, is skipped and
-  logged. `tests/testthat/fixtures/conference_keys.csv` pins every key that
+  logged. A conference ESPN no longer has a logo for (the WAC) is a
+  `retired_confs` row in the script with ESPN's archived mark; its `through`
+  season drops every lineage name a source dates after it, so the UAC the
+  basketball WAC became never draws the WAC.
+  `tests/testthat/fixtures/conference_keys.csv` pins every key that
   resolved to a conference before them. Divergence from nflplotR:
   `team_reference()` / `valid_team_names()` / `sdv_team_colors()` list
   conferences only with `include_conferences = TRUE`, because users filter and
