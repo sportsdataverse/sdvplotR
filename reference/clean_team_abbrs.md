@@ -13,8 +13,11 @@ stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
 the conference: ESPN's (`"SEC"`, `"Southeastern Conference"`), the
 NCAA's, KenPom's and Torvik's (`"B10"`, `"MWC"`), and the names a
 conference went by before (`"Pac-10"`, `"Mid-Continent Conference"`).
-Where a team already uses the name, the team wins, so the American
-Athletic Conference is `"AAC"` (`"American"` is American University).
+The WAC, which ESPN no longer draws, keeps its archived ESPN mark;
+`"UAC"`, the name the basketball WAC took for 2026-27, does not resolve
+to it. Where a team already uses the name, the team wins, so the
+American Athletic Conference is `"AAC"` (`"American"` is American
+University).
 
 ## Usage
 
