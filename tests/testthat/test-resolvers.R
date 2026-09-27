@@ -92,3 +92,9 @@ test_that("without a season every sport resolves as before", {
   }
   expect_identical(logo_from_team("QUE", "nhl"), logo_from_team("COL", "nhl"))
 })
+
+test_that("a current NHL season draws today's logo, and NHL season ids are refused", {
+  expect_identical(logo_from_team(c("TOR", "WPG", "TB"), "nhl", season = 2026), logo_from_team(c("TOR", "WPG", "TB"), "nhl"))
+  expect_false(any(logo_history$sport == "nhl" & logo_history$season_to >= 2027))
+  expect_error(logo_from_team("QUE", "nhl", season = 19891990), "single years")
+})

@@ -33,7 +33,8 @@
 #' Given a `season`, a team is drawn with the mark it wore that season where
 #' sdvplotR has one, and with today's logo otherwise. Coverage:
 #' * NHL: every club identity since 1917-18, primary and dark marks from the
-#'   NHL's own logo catalog. Teams are keyed by the NHL triCode of that
+#'   NHL's own logo catalog; a club's current era draws today's logo. Teams
+#'   are keyed by the NHL triCode of that
 #'   identity (`"QUE"`, `"HFD"`, `"ATL"`, `"MNS"`, `"TBL"`); current clubs also
 #'   answer to sdvplotR's abbreviation and full name (`"TB"`,
 #'   `"Tampa Bay Lightning"`).
@@ -46,7 +47,8 @@
 #' Avalanche logo (the Nordiques are `"QUE"`), and `"STL"` in 2020 today's
 #' Rams. The images are copies kept in the SportsDataverse asset archive, so
 #' they don't change when a league reuses a file name. The NHL marks are SVG
-#' files, which 'ggpath' reads with the 'rsvg' package.
+#' files, which 'ggpath' reads with the 'rsvg' package. `season` takes single
+#' years: the ending year for the NHL (`2005` for 2004-05).
 #'
 #' @return A ggplot2 layer ([ggplot2::layer()]) that can be added to a plot
 #'   created with [ggplot2::ggplot()].

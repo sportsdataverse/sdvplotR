@@ -225,6 +225,9 @@ season_logo <- function(url, team, sport, season, variant = "primary") {
   if (is.null(season)) {
     return(url)
   }
+  if (any(suppressWarnings(as.numeric(as.character(season))) > 9999, na.rm = TRUE)) {
+    cli::cli_abort("{.arg season} takes single years (the ending year for NHL, NBA, MBB and WBB: 2005 for 2004-05), not ids like {.val 20042005}.")
+  }
   hist <- historical_logo_url(team, sport, season, variant)
   url <- rep_len(url, length(hist))
   url[!is.na(hist)] <- hist[!is.na(hist)]

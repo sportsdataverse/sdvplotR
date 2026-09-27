@@ -151,7 +151,8 @@ Given a \code{season}, a team is drawn with the mark it wore that season where
 sdvplotR has one, and with today's logo otherwise. Coverage:
 \itemize{
 \item NHL: every club identity since 1917-18, primary and dark marks from the
-NHL's own logo catalog. Teams are keyed by the NHL triCode of that
+NHL's own logo catalog; a club's current era draws today's logo. Teams
+are keyed by the NHL triCode of that
 identity (\code{"QUE"}, \code{"HFD"}, \code{"ATL"}, \code{"MNS"}, \code{"TBL"}); current clubs also
 answer to sdvplotR's abbreviation and full name (\code{"TB"},
 \code{"Tampa Bay Lightning"}).
@@ -165,7 +166,8 @@ A key only finds its own identity's marks: \code{"COL"} in 1990 draws today's
 Avalanche logo (the Nordiques are \code{"QUE"}), and \code{"STL"} in 2020 today's
 Rams. The images are copies kept in the SportsDataverse asset archive, so
 they don't change when a league reuses a file name. The NHL marks are SVG
-files, which 'ggpath' reads with the 'rsvg' package.
+files, which 'ggpath' reads with the 'rsvg' package. \code{season} takes single
+years: the ending year for the NHL (\code{2005} for 2004-05).
 }
 
 \examples{

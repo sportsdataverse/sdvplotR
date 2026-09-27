@@ -96,6 +96,10 @@ extra <- nhl_history[nhl_history$key %in% names(renamed), ]
 extra$key <- unname(renamed[extra$key])
 nhl_history <- rbind(nhl_history, extra)
 
+# A club's current era is left out: its season then resolves to today's logo
+# (ESPN's PNG, the same mark), so only true historical eras need rsvg.
+nhl_history <- nhl_history[nhl_history$season_to < max(nhl_history$season_to), ]
+
 # ---------------------------------------------------------------------------
 # NFL / WNBA relocated and defunct identities (ESPN's frozen statics)
 # ---------------------------------------------------------------------------
