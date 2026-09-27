@@ -1,0 +1,10 @@
+sport,key,espn_abbr,season_from,season_to,identity_name,source_note
+nfl,STL,stl,1995,2015,St. Louis Rams,"Rams played in St. Louis 1995-2015 and moved back to Los Angeles for 2016 (Pro Football Reference, Rams franchise index). ESPN's frozen mark is the 2000-2015 navy and gold horn, used here for the whole identity."
+nfl,SD,sd,1961,2016,San Diego Chargers,"Chargers played in San Diego 1961-2016 after their first season (1960) in Los Angeles and moved back for 2017 (Pro Football Reference, Chargers franchise index). ESPN's frozen mark is the final San Diego bolt (navy outline), used here for the whole identity."
+wnba,HOU,hou,1997,2008,Houston Comets,"Charter team 1997, folded after the 2008 season (Basketball Reference, WNBA teams index)."
+wnba,SAC,sac,1997,2009,Sacramento Monarchs,"Charter team 1997, folded after the 2009 season (Basketball Reference, WNBA teams index)."
+wnba,CHA,cha,1997,2006,Charlotte Sting,"Charter team 1997, folded after the 2006 season (Basketball Reference, WNBA teams index)."
+wnba,DET,det,1998,2009,Detroit Shock,"Expansion team 1998, moved to Tulsa for 2010 (Basketball Reference, Dallas Wings franchise index)."
+wnba,TUL,tul,2010,2015,Tulsa Shock,"Tulsa 2010-2015, moved to Dallas as the Wings for 2016 (Basketball Reference, Dallas Wings franchise index)."
+wnba,SAS,sas,2003,2013,San Antonio Silver Stars,"Utah Starzz moved to San Antonio for 2003; renamed the Stars for 2014 (Basketball Reference, Las Vegas Aces franchise index)."
+wnba,SA,sa,2014,2017,San Antonio Stars,"Renamed from the Silver Stars for 2014, moved to Las Vegas as the Aces for 2018 (Basketball Reference, Las Vegas Aces franchise index)."
