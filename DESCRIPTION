@@ -63,6 +63,7 @@ Suggests:
     reactable,
     rmarkdown,
     rsvg,
+    sportyR,
     testthat (>= 3.0.0),
     webshot2,
     withr

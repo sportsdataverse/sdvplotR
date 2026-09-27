@@ -150,6 +150,13 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   ESPN FPI's `"BUFF"` (Buffalo) and `"AFA"` (Air Force) resolve.
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
+* `sdv_surface()` draws a court, field or rink for any of the eight leagues
+  through 'sportyR' (now in Suggests), as a ggplot to plot data on. Given a
+  team, a few features take its colors (basketball paint and apron, football
+  end zones, hockey center line, center circle and boards; a baseball infield
+  keeps its own), and `center_logo = TRUE` puts its logo at center court,
+  center ice or midfield. These are stylized surfaces built from team colors,
+  not the teams' real floor, field or rink designs.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose
   the reference data.
 * `geom_sdv_logos()` takes a `season` aesthetic and `gt_sdv_logos()` a
