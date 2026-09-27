@@ -48,3 +48,53 @@ test_that("Division I programs missing from ESPN's teams list are in the referen
   expect_true(all(c("MERC", "SFPA") %in% team_reference("wbb")$team_abbr))
   expect_false(anyNA(logo_from_team(c("LIN", "QUC", "USI", "SFPA"), sport = "mbb")))
 })
+
+# the first ten hex digits of an archived mark's sha256
+sha <- function(url) sub("^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/assets/public/sha256/../([0-9a-f]{10}).*$", "\\1", url)
+
+test_that("a season draws the mark the team wore that season", {
+  # NHL catalog eras: QUE_19791980-19941995, CHI_19571958-19611962, TBL_20012002-20062007
+  expect_identical(sha(logo_from_team("QUE", "nhl", season = 1990)), "3c28d243dd")
+  expect_identical(sha(logo_from_team("CHI", "nhl", season = 1960)), "f039358b7c")
+  tb <- logo_from_team(c("TB", "TBL", "Tampa Bay Lightning"), "nhl", season = 2005)
+  expect_identical(sha(tb), rep("a976228f16", 3))
+  # a current key never draws a relocated identity: no 1990 COL era, no 2005 WPG era
+  expect_identical(logo_from_team("COL", "nhl", season = 1990), logo_from_team("COL", "nhl"))
+  expect_identical(logo_from_team("WPG", "nhl", season = 2005), logo_from_team("WPG", "nhl"))
+  # NFL / WNBA relocated and defunct identities: ESPN's frozen stl.png and hou.png
+  stl <- logo_from_team(c("STL", "STL"), "nfl", season = c(2010, 2020))
+  expect_identical(sha(stl[1]), "519d52b925")
+  expect_identical(stl[2], logo_from_team("LA", "nfl"))
+  expect_identical(sha(logo_from_team("HOU", "wnba", season = 2000)), "8486bacdb1")
+  expect_true(all(startsWith(logo_history$url, "https://sdv.nyc3.cdn.digitaloceanspaces.com/")))
+})
+
+test_that("season lookups are vectorised and fall back element by element", {
+  urls <- logo_from_team("TB", "nhl", season = c(1995, 2005, NA, 1980))
+  expect_identical(sha(urls[1:2]), c("0f2d71a124", "a976228f16"))
+  expect_identical(urls[3:4], rep(logo_from_team("TB", "nhl"), 2))
+  expect_identical(logo_from_team(c("QUE", "nope", NA), "nhl", season = 1990)[2:3], rep(NA_character_, 2))
+  # dark marks, and variants with no historical mark fall back to the season's primary
+  dark <- resolve_logo_url("QUE", "nhl", "dark", season = 1990)
+  expect_match(dark, "digitaloceanspaces")
+  expect_false(identical(dark, logo_from_team("QUE", "nhl", season = 1990)))
+  expect_identical(resolve_logo_url("QUE", "nhl", "helmet", season = 1990), logo_from_team("QUE", "nhl", season = 1990))
+})
+
+test_that("without a season every sport resolves as before", {
+  for (s in supported_sports()) {
+    teams <- c(valid_team_names(s)[1:5], "QUE", "STL", "HOU", "nope", NA)
+    today <- lookup_team_column(teams, s, "logo_url")
+    expect_identical(logo_from_team(teams, s), today)
+    expect_identical(logo_from_team(teams, s, season = NA), today)
+    expect_identical(resolve_logo_url(teams, s, "dark", season = NULL), resolve_logo_url(teams, s, "dark"))
+    expect_false(any(grepl("digitaloceanspaces", today)))
+  }
+  expect_identical(logo_from_team("QUE", "nhl"), logo_from_team("COL", "nhl"))
+})
+
+test_that("a current NHL season draws today's logo, and NHL season ids are refused", {
+  expect_identical(logo_from_team(c("TOR", "WPG", "TB"), "nhl", season = 2026), logo_from_team(c("TOR", "WPG", "TB"), "nhl"))
+  expect_false(any(logo_history$sport == "nhl" & logo_history$season_to >= 2027))
+  expect_error(logo_from_team("QUE", "nhl", season = 19891990), "single years")
+})

@@ -19,7 +19,11 @@
 #' @param include_name If `TRUE`, keep the cell's text after the logo, so a
 #'   cell shows logo and name (what cbbplotR's `gt_cbb_teams()` did). Defaults
 #'   to `FALSE`, the logo alone.
+#' @param season `NULL` (the default) for today's logos, or one season whose
+#'   marks every cell shows (the ending year for the NHL). See the Historical
+#'   logos section.
 #'
+#' @inheritSection geom_sdv_logos Historical logos
 #' @return An object of class `gt_tbl`.
 #' @seealso [gt_sdv_wordmarks()], [gt_sdv_headshots()], [gt_sdv_cols_label()]
 #' @export
@@ -43,6 +47,11 @@
 #' data.frame(team = c("Iowa St.", "St. John's (NY)"), net = c(8, 12)) |>
 #'   gt() |>
 #'   gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE)
+#'
+#' # the marks of the 1994-95 season
+#' data.frame(team = c("QUE", "HFD", "WIN"), pts = c(65, 43, 39)) |>
+#'   gt() |>
+#'   gt_sdv_logos(columns = "team", sport = "nhl", season = 1995)
 #' }
 gt_sdv_logos <- function(
     gt_object,
@@ -50,9 +59,13 @@ gt_sdv_logos <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     height = 30,
     locations = NULL,
-    include_name = FALSE
+    include_name = FALSE,
+    season = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
+  if (!is.null(season) && length(season) != 1) {
+    cli::cli_abort("{.arg season} must be {.code NULL} or a single season.")
+  }
 
   gt_sdv_image(
     gt_object = gt_object,
@@ -61,7 +74,8 @@ gt_sdv_logos <- function(
     locations = locations,
     sport = sport,
     type = "logo",
-    include_name = include_name
+    include_name = include_name,
+    season = season
   )
 }
 
@@ -264,7 +278,8 @@ gt_sdv_image <- function(
     locations = NULL,
     sport = "nfl",
     type = c("logo", "wordmark"),
-    include_name = FALSE
+    include_name = FALSE,
+    season = NULL
 ) {
   type <- match.arg(type)
 
@@ -281,14 +296,12 @@ gt_sdv_image <- function(
     locations = locations,
     fn = function(x) {
       # gt passes the cell text HTML-escaped ("Texas A&amp;M")
-      team_abbr <- clean_team_abbrs(
-        html_unescape(as.character(x)),
-        sport = sport,
-        keep_non_matches = FALSE
-      )
+      text <- html_unescape(as.character(x))
+      team_abbr <- clean_team_abbrs(text, sport = sport, keep_non_matches = FALSE)
 
       if (type == "logo") {
-        img_url <- logo_from_team(team_abbr, sport = sport)
+        # a season's mark is looked up by the cell text: "QUE" is cleaned to "COL"
+        img_url <- season_logo(logo_from_team(team_abbr, sport = sport), text, sport, season)
       } else {
         img_url <- wordmark_from_team(team_abbr, sport = sport)
       }

@@ -127,14 +127,28 @@ clean_team_abbrs <- function(
     keep_non_matches = TRUE) {
   sport <- rlang::arg_match0(sport, supported_sports())
   abbr <- as.character(abbr)
+  a <- match_team_abbrs(abbr, sport)
 
+  unmatched <- unique(abbr[is.na(a) & !is.na(abbr)])
+  if (length(unmatched) && getOption("sdvplotR.verbose", default = interactive())) {
+    cli::cli_warn("Abbreviations not found in {.val {sport}} mapping: {.val {unmatched}}")
+  }
+
+  if (isTRUE(keep_non_matches)) a <- ifelse(!is.na(a), a, abbr)
+
+  a
+}
+
+# The passes of clean_team_abbrs(), NA where none matches. `historical = FALSE`
+# skips the relocated-franchise pass, so a season-aware lookup keeps "QUE" off
+# the Avalanche.
+match_team_abbrs <- function(abbr, sport, historical = TRUE) {
   m <- abbr_mapping[[sport]]
-  key <- toupper(abbr)
-  a <- unname(m[key])
+  a <- unname(m[toupper(abbr)])
 
   # second pass: historical franchise abbreviations
   miss <- is.na(a) & !is.na(abbr)
-  if (any(miss)) {
+  if (historical && any(miss)) {
     a[miss] <- unname(m[toupper(resolve_historical_abbr(abbr[miss], sport))])
   }
 
@@ -146,13 +160,6 @@ clean_team_abbrs <- function(
     folded <- stats::setNames(m, fold_accents(names(m)))
     a[miss] <- unname(folded[toupper(fold_accents(abbr[miss]))])
   }
-
-  unmatched <- unique(abbr[is.na(a) & !is.na(abbr)])
-  if (length(unmatched) && getOption("sdvplotR.verbose", default = interactive())) {
-    cli::cli_warn("Abbreviations not found in {.val {sport}} mapping: {.val {unmatched}}")
-  }
-
-  if (isTRUE(keep_non_matches)) a <- ifelse(!is.na(a), a, abbr)
 
   a
 }
@@ -187,8 +194,8 @@ lookup_team_column <- function(team, sport, column) {
   unname(ref[[column]][match(team, ref$team_abbr)])
 }
 
-logo_from_team <- function(team, sport = "nfl") {
-  lookup_team_column(team, sport, "logo_url")
+logo_from_team <- function(team, sport = "nfl", season = NULL) {
+  season_logo(lookup_team_column(team, sport, "logo_url"), team, sport, season)
 }
 
 wordmark_from_team <- function(team, sport = "nfl") {
@@ -196,7 +203,7 @@ wordmark_from_team <- function(team, sport = "nfl") {
 }
 
 # Variant-aware lookups with fallback to the primary image.
-resolve_logo_url <- function(team, sport, variant = "primary") {
+resolve_logo_url <- function(team, sport, variant = "primary", season = NULL) {
   variant <- rlang::arg_match0(variant, logo_variants)
   col <- switch(variant,
     primary = "logo_url",
@@ -207,7 +214,49 @@ resolve_logo_url <- function(team, sport, variant = "primary") {
     helmet  = "helmet_url"
   )
   url <- if (col %in% names(logo_ref)) lookup_team_column(team, sport, col) else NA_character_
-  ifelse(is.na(url), logo_from_team(team, sport), url)
+  url <- ifelse(is.na(url), logo_from_team(team, sport), url)
+  season_logo(url, team, sport, season, variant)
+}
+
+# Season-aware logos (logo_history, built by data-raw/generate_logo_history.R).
+# `url` is today's logo; wherever `season` is given and logo_history has the
+# team's mark for it, that mark replaces it. `season = NULL` returns `url`.
+season_logo <- function(url, team, sport, season, variant = "primary") {
+  if (is.null(season)) {
+    return(url)
+  }
+  if (any(suppressWarnings(as.numeric(as.character(season))) > 9999, na.rm = TRUE)) {
+    cli::cli_abort("{.arg season} takes single years (the ending year for NHL, NBA, MBB and WBB: 2005 for 2004-05), not ids like {.val 20042005}.")
+  }
+  hist <- historical_logo_url(team, sport, season, variant)
+  url <- rep_len(url, length(hist))
+  url[!is.na(hist)] <- hist[!is.na(hist)]
+  url
+}
+
+# The mark `team` wore in `season` (vectorised over both), NA where
+# logo_history has none. A key is looked up as given ("QUE", "TBL"), then as
+# its canonical abbreviation ("Tampa Bay Lightning" -> "TB"), never through the
+# relocation table, which would hand the Avalanche the Nordiques' seasons. A
+# dark lookup falls back to that season's primary mark.
+historical_logo_url <- function(team, sport, season, variant = "primary") {
+  n <- if (length(team) && length(season)) max(length(team), length(season)) else 0L
+  key <- toupper(rep_len(as.character(team), n))
+  season <- rep_len(as.numeric(as.character(season)), n)
+  keys <- list(key, match_team_abbrs(key, sport, historical = FALSE))
+  h <- logo_history[logo_history$sport == sport, , drop = FALSE]
+  url <- rep(NA_character_, n)
+  for (v in unique(c(variant, "primary"))) {
+    hv <- h[h$variant == v, , drop = FALSE]
+    for (k in keys) {
+      i <- which(is.na(url) & !is.na(k) & !is.na(season))
+      url[i] <- vapply(i, function(j) {
+        hit <- hv$url[hv$key == k[j] & hv$season_from <= season[j] & hv$season_to >= season[j]]
+        if (length(hit)) hit[1] else NA_character_
+      }, character(1))
+    }
+  }
+  url
 }
 
 resolve_wordmark_url <- function(team, sport, variant = "primary") {

@@ -119,3 +119,30 @@ test_that("axis logo themes survive a complete theme added before them", {
   py <- ggplot(df, aes(v, t)) + geom_col() + theme_minimal() + theme_y_sdv()
   expect_true("richtext_grob" %in% axis_grob_classes(py, "axis-l"))
 })
+
+test_that("geom_sdv_logos passes the season aesthetic to the resolver", {
+  df <- data.frame(x = 1:2, y = 1:2, team = c("QUE", "COL"), season = c(1990, NA))
+  seen <- list()
+  local_mocked_bindings(
+    logo_from_team = function(team, sport, season = NULL) {
+      seen[[length(seen) + 1]] <<- season
+      rep(NA_character_, length(team))
+    },
+    .package = "sdvplotR"
+  )
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team, season = season), sport = "nhl")))
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team), sport = "nhl")))
+  expect_identical(seen[[1]], c(1990, NA))
+  expect_identical(seen[[2]], c(NA, NA))
+})
+
+test_that("geom_sdv_logos draws period marks with and without a season", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_not_installed("rsvg")
+  df <- data.frame(x = 1:2, y = 1, team = c("QUE", "HFD"), season = c(1990, 1995))
+  for (m in list(aes(team = team, season = season), aes(team = team))) {
+    expect_no_warning(g <- layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(m, sport = "nhl"))[[1]])
+    expect_true(all(vapply(g$children, inherits, logical(1), "rastergrob")))
+  }
+})

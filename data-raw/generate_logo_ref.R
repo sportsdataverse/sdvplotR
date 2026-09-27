@@ -465,7 +465,14 @@ abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(ref) {
   c(m, al)
 })
 
-usethis::use_data(logo_ref, abbr_mapping, internal = TRUE, overwrite = TRUE)
+# logo_history is built by data-raw/generate_logo_history.R (rerun it after
+# this script: its canonical keys come from abbr_mapping); keep it
+logo_history <- local({
+  e <- new.env()
+  load("R/sysdata.rda", envir = e)
+  e$logo_history
+})
+usethis::use_data(logo_ref, abbr_mapping, logo_history, internal = TRUE, overwrite = TRUE)
 
 cat("logo_ref:", nrow(logo_ref), "teams\n")
 print(table(logo_ref$sport, logo_ref$division, useNA = "ifany"))
