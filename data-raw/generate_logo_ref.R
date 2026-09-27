@@ -128,8 +128,9 @@ retired_confs <- data.frame(
   conf_short = "WAC",
   conf_logo = "https://a.espncdn.com/i/teamlogos/ncaa_conf/500/wac.png",
   conf_id = c("16", "30", "30"),
-  # ESPN files football's WAC under FCS (81) in every season
-  division = c("FCS", "D-I", "D-I"),
+  # the WAC played Division I-A / FBS football from 1978 until it dropped football
+  # after 2012 (ESPN files group 16 under FCS today, which is not its history)
+  division = c("FBS", "D-I", "D-I"),
   through = c(2022L, 2026L, 2026L),
   stringsAsFactors = FALSE
 )
