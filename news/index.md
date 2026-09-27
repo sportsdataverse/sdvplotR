@@ -230,3 +230,18 @@ NHL, college football, men’s and women’s college basketball), built on
   and
   [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md)
   expose the reference data.
+- [`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
+  takes a `season` aesthetic and
+  [`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
+  a `season` argument (one season for the whole table): a team is drawn
+  with the mark it wore that season. The NHL has every club identity’s
+  primary and dark marks since 1917-18, from the NHL’s logo catalog,
+  keyed by the identity’s triCode (`"QUE"`, `"HFD"`, `"ATL"`, `"TBL"`,
+  and `"TB"` for the current club); the NFL and WNBA have their
+  relocated and defunct identities (the St. Louis Rams, San Diego
+  Chargers, Houston Comets, Sacramento Monarchs, Charlotte Sting,
+  Detroit and Tulsa Shock, San Antonio Silver Stars and Stars). Other
+  teams and seasons keep today’s logo. The images are content-addressed
+  copies in the SportsDataverse asset archive, so they don’t change when
+  ESPN reuses a file name; the NHL’s are SVG files, read with the ‘rsvg’
+  package (now in Suggests).

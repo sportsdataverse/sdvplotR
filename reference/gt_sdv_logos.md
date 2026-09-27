@@ -12,7 +12,8 @@ gt_sdv_logos(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   height = 30,
   locations = NULL,
-  include_name = FALSE
+  include_name = FALSE,
+  season = NULL
 )
 ```
 
@@ -54,9 +55,39 @@ gt_sdv_logos(
   and name (what cbbplotR's `gt_cbb_teams()` did). Defaults to `FALSE`,
   the logo alone.
 
+- season:
+
+  `NULL` (the default) for today's logos, or one season whose marks
+  every cell shows (the ending year for the NHL). See the Historical
+  logos section.
+
 ## Value
 
 An object of class `gt_tbl`.
+
+## Historical logos
+
+Given a `season`, a team is drawn with the mark it wore that season
+where sdvplotR has one, and with today's logo otherwise. Coverage:
+
+- NHL: every club identity since 1917-18, primary and dark marks from
+  the NHL's own logo catalog; a club's current era draws today's logo.
+  Teams are keyed by the NHL triCode of that identity (`"QUE"`, `"HFD"`,
+  `"ATL"`, `"MNS"`, `"TBL"`); current clubs also answer to sdvplotR's
+  abbreviation and full name (`"TB"`, `"Tampa Bay Lightning"`).
+
+- NFL and WNBA: relocated and defunct identities only, one mark each:
+  NFL `"STL"` (1995-2015) and `"SD"` (1961-2016); WNBA `"HOU"`, `"SAC"`,
+  `"CHA"`, `"DET"`, `"TUL"`, `"SAS"` and `"SA"`.
+
+- No other league has per-season logos yet.
+
+A key only finds its own identity's marks: `"COL"` in 1990 draws today's
+Avalanche logo (the Nordiques are `"QUE"`), and `"STL"` in 2020 today's
+Rams. The images are copies kept in the SportsDataverse asset archive,
+so they don't change when a league reuses a file name. The NHL marks are
+SVG files, which 'ggpath' reads with the 'rsvg' package. `season` takes
+single years: the ending year for the NHL (`2005` for 2004-05).
 
 ## See also
 

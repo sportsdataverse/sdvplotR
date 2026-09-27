@@ -92,22 +92,22 @@ gt_theme_preview(
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#beuxlluygi table {
+#ygiofoxrwb table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#beuxlluygi thead, #beuxlluygi tbody, #beuxlluygi tfoot, #beuxlluygi tr, #beuxlluygi td, #beuxlluygi th {
+#ygiofoxrwb thead, #ygiofoxrwb tbody, #ygiofoxrwb tfoot, #ygiofoxrwb tr, #ygiofoxrwb td, #ygiofoxrwb th {
   border-style: none;
 }
 
-#beuxlluygi p {
+#ygiofoxrwb p {
   margin: 0;
   padding: 0;
 }
 
-#beuxlluygi .gt_table {
+#ygiofoxrwb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -133,12 +133,12 @@ gt_theme_preview(
   border-left-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_caption {
+#ygiofoxrwb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#beuxlluygi .gt_title {
+#ygiofoxrwb .gt_title {
   color: #0B1A33;
   font-size: 125%;
   font-weight: initial;
@@ -150,7 +150,7 @@ gt_theme_preview(
   border-bottom-width: 0;
 }
 
-#beuxlluygi .gt_subtitle {
+#ygiofoxrwb .gt_subtitle {
   color: #0B1A33;
   font-size: 85%;
   font-weight: initial;
@@ -162,7 +162,7 @@ gt_theme_preview(
   border-top-width: 0;
 }
 
-#beuxlluygi .gt_heading {
+#ygiofoxrwb .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -174,13 +174,13 @@ gt_theme_preview(
   border-right-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_bottom_border {
+#ygiofoxrwb .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_col_headings {
+#ygiofoxrwb .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -195,7 +195,7 @@ gt_theme_preview(
   border-right-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_col_heading {
+#ygiofoxrwb .gt_col_heading {
   color: #0B1A33;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -215,7 +215,7 @@ gt_theme_preview(
   overflow-x: hidden;
 }
 
-#beuxlluygi .gt_column_spanner_outer {
+#ygiofoxrwb .gt_column_spanner_outer {
   color: #0B1A33;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -227,15 +227,15 @@ gt_theme_preview(
   padding-right: 4px;
 }
 
-#beuxlluygi .gt_column_spanner_outer:first-child {
+#ygiofoxrwb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#beuxlluygi .gt_column_spanner_outer:last-child {
+#ygiofoxrwb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#beuxlluygi .gt_column_spanner {
+#ygiofoxrwb .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -247,11 +247,11 @@ gt_theme_preview(
   width: 100%;
 }
 
-#beuxlluygi .gt_spanner_row {
+#ygiofoxrwb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#beuxlluygi .gt_group_heading {
+#ygiofoxrwb .gt_group_heading {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -277,7 +277,7 @@ gt_theme_preview(
   text-align: left;
 }
 
-#beuxlluygi .gt_empty_group_heading {
+#ygiofoxrwb .gt_empty_group_heading {
   padding: 0.5px;
   color: #0B1A33;
   background-color: #FFFFFF;
@@ -292,15 +292,15 @@ gt_theme_preview(
   vertical-align: middle;
 }
 
-#beuxlluygi .gt_from_md > :first-child {
+#ygiofoxrwb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#beuxlluygi .gt_from_md > :last-child {
+#ygiofoxrwb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#beuxlluygi .gt_row {
+#ygiofoxrwb .gt_row {
   padding-top: 3.5px;
   padding-bottom: 3.5px;
   padding-left: 5px;
@@ -319,7 +319,7 @@ gt_theme_preview(
   overflow-x: hidden;
 }
 
-#beuxlluygi .gt_stub {
+#ygiofoxrwb .gt_stub {
   color: #0B1A33;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -332,7 +332,7 @@ gt_theme_preview(
   padding-right: 5px;
 }
 
-#beuxlluygi .gt_stub_row_group {
+#ygiofoxrwb .gt_stub_row_group {
   color: #0B1A33;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -346,15 +346,15 @@ gt_theme_preview(
   vertical-align: top;
 }
 
-#beuxlluygi .gt_row_group_first td {
+#ygiofoxrwb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#beuxlluygi .gt_row_group_first th {
+#ygiofoxrwb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#beuxlluygi .gt_summary_row {
+#ygiofoxrwb .gt_summary_row {
   color: #0B1A33;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -364,16 +364,16 @@ gt_theme_preview(
   padding-right: 5px;
 }
 
-#beuxlluygi .gt_first_summary_row {
+#ygiofoxrwb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_first_summary_row.thick {
+#ygiofoxrwb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#beuxlluygi .gt_last_summary_row {
+#ygiofoxrwb .gt_last_summary_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -383,7 +383,7 @@ gt_theme_preview(
   border-bottom-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_grand_summary_row {
+#ygiofoxrwb .gt_grand_summary_row {
   color: #0B1A33;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -393,7 +393,7 @@ gt_theme_preview(
   padding-right: 5px;
 }
 
-#beuxlluygi .gt_first_grand_summary_row {
+#ygiofoxrwb .gt_first_grand_summary_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -403,7 +403,7 @@ gt_theme_preview(
   border-top-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_last_grand_summary_row_top {
+#ygiofoxrwb .gt_last_grand_summary_row_top {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -413,11 +413,11 @@ gt_theme_preview(
   border-bottom-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_striped {
+#ygiofoxrwb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#beuxlluygi .gt_table_body {
+#ygiofoxrwb .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -426,7 +426,7 @@ gt_theme_preview(
   border-bottom-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_footnotes {
+#ygiofoxrwb .gt_footnotes {
   color: #0B1A33;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -440,7 +440,7 @@ gt_theme_preview(
   border-right-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_footnote {
+#ygiofoxrwb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 2px;
@@ -449,7 +449,7 @@ gt_theme_preview(
   padding-right: 5px;
 }
 
-#beuxlluygi .gt_sourcenotes {
+#ygiofoxrwb .gt_sourcenotes {
   color: #0B1A33;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -463,7 +463,7 @@ gt_theme_preview(
   border-right-color: #D3D3D3;
 }
 
-#beuxlluygi .gt_sourcenote {
+#ygiofoxrwb .gt_sourcenote {
   font-size: 90%;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -471,80 +471,80 @@ gt_theme_preview(
   padding-right: 5px;
 }
 
-#beuxlluygi .gt_left {
+#ygiofoxrwb .gt_left {
   text-align: left;
 }
 
-#beuxlluygi .gt_center {
+#ygiofoxrwb .gt_center {
   text-align: center;
 }
 
-#beuxlluygi .gt_right {
+#ygiofoxrwb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#beuxlluygi .gt_font_normal {
+#ygiofoxrwb .gt_font_normal {
   font-weight: normal;
 }
 
-#beuxlluygi .gt_font_bold {
+#ygiofoxrwb .gt_font_bold {
   font-weight: bold;
 }
 
-#beuxlluygi .gt_font_italic {
+#ygiofoxrwb .gt_font_italic {
   font-style: italic;
 }
 
-#beuxlluygi .gt_super {
+#ygiofoxrwb .gt_super {
   font-size: 65%;
 }
 
-#beuxlluygi .gt_footnote_marks {
+#ygiofoxrwb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#beuxlluygi .gt_asterisk {
+#ygiofoxrwb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#beuxlluygi .gt_indent_1 {
+#ygiofoxrwb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#beuxlluygi .gt_indent_2 {
+#ygiofoxrwb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#beuxlluygi .gt_indent_3 {
+#ygiofoxrwb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#beuxlluygi .gt_indent_4 {
+#ygiofoxrwb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#beuxlluygi .gt_indent_5 {
+#ygiofoxrwb .gt_indent_5 {
   text-indent: 25px;
 }
 
-#beuxlluygi .katex-display {
+#ygiofoxrwb .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#beuxlluygi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ygiofoxrwb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
-#beuxlluygi thead {
+#ygiofoxrwb thead {
   position: relative;
 }
 
-#beuxlluygi thead::after {
+#ygiofoxrwb thead::after {
   content: "";
   position: absolute;
   left: 0;
@@ -554,31 +554,31 @@ gt_theme_preview(
   background: linear-gradient(90deg, #3346F0, #7FE6DC);
 }
 
-#beuxlluygi .gt_col_headings th {
+#ygiofoxrwb .gt_col_headings th {
   padding-bottom: 10px;
 }
 
-#beuxlluygi .gt_heading, #beuxlluygi .gt_sourcenote, #beuxlluygi .gt_footnote, #beuxlluygi .gt_col_headings th:first-child, #beuxlluygi tbody td:first-child {
+#ygiofoxrwb .gt_heading, #ygiofoxrwb .gt_sourcenote, #ygiofoxrwb .gt_footnote, #ygiofoxrwb .gt_col_headings th:first-child, #ygiofoxrwb tbody td:first-child {
   padding-left: 14px !important;
 }
 
-#beuxlluygi .gt_heading, #beuxlluygi .gt_sourcenote, #beuxlluygi .gt_footnote, #beuxlluygi .gt_col_headings th:last-child, #beuxlluygi tbody td:last-child {
+#ygiofoxrwb .gt_heading, #ygiofoxrwb .gt_sourcenote, #ygiofoxrwb .gt_footnote, #ygiofoxrwb .gt_col_headings th:last-child, #ygiofoxrwb tbody td:last-child {
   padding-right: 14px !important;
 }
 
-#beuxlluygi .gt_title {
+#ygiofoxrwb .gt_title {
   padding-top: 12px !important;
 }
 
-#beuxlluygi .gt_subtitle {
+#ygiofoxrwb .gt_subtitle {
   padding-bottom: 12px !important;
 }
 
-#beuxlluygi tbody tr:last-child {
+#ygiofoxrwb tbody tr:last-child {
   border-bottom: 2px solid #FFFFFF;
 }
 
-#beuxlluygi td {
+#ygiofoxrwb td {
   font-variant-numeric: tabular-nums;
 }
 
