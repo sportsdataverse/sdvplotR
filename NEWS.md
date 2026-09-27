@@ -117,8 +117,14 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   which follow each conference through its renames. A name two conferences
   have used (`"South"`, football's `"Western"`), or one a team already goes by
   (South Alabama's `"USA"`), is left out, and conferences sdvplotR has no logo
-  for (the WAC, football's Big West and Big East) resolve to nothing, as
-  before.
+  for (football's Big West and Big East) resolve to nothing, as before.
+* The WAC, which ESPN no longer draws (football's WAC ended after 2022, and
+  ESPN labels the basketball WAC with the name it took for 2026-27, the
+  United Athletic Conference), is a conference row in all three college
+  sports with ESPN's archived WAC mark, so `"WAC"`, `"Western Athletic
+  Conference"` and football's `"Western Athletic"` draw it. `"UAC"` and
+  `"United Athletic Conference"` stay unmatched: the WAC mark stands for the
+  seasons through 2025-26 only.
 * `clean_team_abbrs()` and every helper built on it take the school names
   NCAA.com / stats.ncaa.org, KenPom and Bart Torvik use for college teams
   (`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Miami (OH)"`),
