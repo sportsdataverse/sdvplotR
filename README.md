@@ -38,6 +38,8 @@ argument.
 Part of the [SportsDataverse](https://sportsdataverse.org/) family of R
 packages for sports analytics.
 
+Data freshness and pipeline status for every SportsDataverse dataset: [sportsdataverse.org/status](https://sportsdataverse.org/status).
+
 ## **Installation**
 
 Once on CRAN, install the released version with:
