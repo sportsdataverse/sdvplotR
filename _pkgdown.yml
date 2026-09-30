@@ -316,7 +316,7 @@ articles:
 
 navbar:
   structure:
-    left: [home, reference, articles, news, network, data]
+    left: [home, reference, articles, news, network, data, status]
     right: [search, twitter, github, lightswitch]
   components:
     home:
@@ -521,6 +521,9 @@ navbar:
         href: https://github.com/nflverse/nflverse-data
       - text: "CollegeFootballData.com"
         href: https://collegefootballdata.com
+    status:
+      text: "Data status"
+      href: https://sportsdataverse.org/status
     twitter:
       icon: "fab fa-x-twitter fa-lg"
       href: https://x.com/SportsDataverse
