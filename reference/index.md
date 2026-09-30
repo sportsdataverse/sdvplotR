@@ -425,6 +425,15 @@ reference data and colors; control the image cache.
 - [`sdvplotR_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR_clear_cache.md)
   : Clear the sdvplotR Caches
 
+## Court Coordinates
+
+Convert stats.nba.com / stats.wnba.com shot-location columns into the
+sportyR basketball-court frame.
+
+- [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)
+  : Convert stats.nba.com/stats.wnba.com Shot Locations to a sportyR
+  Court Frame
+
 ## Premade Plots
 
 High-level functions that build complete branded plots.

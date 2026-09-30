@@ -61,6 +61,13 @@ NHL, college football, men’s and women’s college basketball), built on
   and
   [`reactable_sdv_team_color_bg()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_team_color.md)
   do the same for ‘reactable’ tables.
+- [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)
+  converts stats.nba.com / stats.wnba.com legacy shot locations
+  (`x_legacy`/`y_legacy`, or `LOC_X`/`LOC_Y` from the
+  `Shot_Chart_Detail` element of
+  [`hoopR::nba_shotchartdetail()`](https://hoopR.sportsdataverse.org/reference/nba_shotchartdetail.html))
+  into the `sportyR::geom_basketball("nba")` court frame; the converted
+  points also fit sportyR’s `"wnba"` and `"ncaa"` courts.
 - The ‘gtUtils’ table toolkit by Andrew Weatherman ships in sdvplotR: 18
   `gt_theme_*()` table themes plus
   [`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md),
