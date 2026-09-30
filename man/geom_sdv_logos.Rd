@@ -139,7 +139,35 @@ character \code{"b/w"} to set it to black and white.}
 \item{\code{width = 1.0}}{ - The desired width of the image in \code{npc} (Normalised Parent
 Coordinates). A typical size is \code{width = 0.075}.}
 \item{\code{height = 1.0}}{ - The desired height of the image in \code{npc}. A typical size is \code{height = 0.1}.}
+\item{\code{season = NA}}{ - The season whose logo to draw: the ending year for
+the NHL (\code{1990} for 1989-90), the year elsewhere. Unmapped or \code{NA}, the
+team's logo today. See the Historical logos section.}
 }
+}
+
+\section{Historical logos}{
+
+Given a \code{season}, a team is drawn with the mark it wore that season where
+sdvplotR has one, and with today's logo otherwise. Coverage:
+\itemize{
+\item NHL: every club identity since 1917-18, primary and dark marks from the
+NHL's own logo catalog; a club's current era draws today's logo. Teams
+are keyed by the NHL triCode of that
+identity (\code{"QUE"}, \code{"HFD"}, \code{"ATL"}, \code{"MNS"}, \code{"TBL"}); current clubs also
+answer to sdvplotR's abbreviation and full name (\code{"TB"},
+\code{"Tampa Bay Lightning"}).
+\item NFL and WNBA: relocated and defunct identities only, one mark each: NFL
+\code{"STL"} (1995-2015) and \code{"SD"} (1961-2016); WNBA \code{"HOU"}, \code{"SAC"},
+\code{"CHA"}, \code{"DET"}, \code{"TUL"}, \code{"SAS"} and \code{"SA"}.
+\item No other league has per-season logos yet.
+}
+
+A key only finds its own identity's marks: \code{"COL"} in 1990 draws today's
+Avalanche logo (the Nordiques are \code{"QUE"}), and \code{"STL"} in 2020 today's
+Rams. The images are copies kept in the SportsDataverse asset archive, so
+they don't change when a league reuses a file name. The NHL marks are SVG
+files, which 'ggpath' reads with the 'rsvg' package. \code{season} takes single
+years: the ending year for the NHL (\code{2005} for 2004-05).
 }
 
 \examples{
@@ -159,5 +187,18 @@ ggplot(df, aes(x = a, y = b)) +
   geom_sdv_logos(aes(team = teams), sport = "nfl", width = 0.075) +
   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
   theme_void()
+
+# the logo each team wore that season (NHL seasons are ending years;
+# the NHL's marks are SVG files, read with the 'rsvg' package)
+if (requireNamespace("rsvg", quietly = TRUE)) {
+  old <- data.frame(
+    x = 1:4, y = 1,
+    team = c("QUE", "HFD", "ATL", "WPG"),
+    season = c(1990, 1995, 2005, 2015)
+  )
+  ggplot(old, aes(x = x, y = y)) +
+    geom_sdv_logos(aes(team = team, season = season), sport = "nhl", width = 0.2) +
+    theme_void()
+}
 }
 }

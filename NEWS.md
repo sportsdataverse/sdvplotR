@@ -43,6 +43,16 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   `gt_save_crop()`, `gt_save_batch()` and `gt_social_crop()`, and the
   `theme_bg` background lookup. The eight gtUtils articles are on the
   website as "gt Table Cookbooks".
+* `gt_color_pills()`, `gt_percentile_bar()`, `gt_fmt_tally()`,
+  `gt_significance()` and `gt_merge_stack_team_color()` decorate each cell
+  from its own row when row groups reorder the table. gt hands
+  `text_transform()` the cells in display order, so values computed in data
+  order landed on the wrong rows: pill colors that didn't match their numbers,
+  bars, tallies and stacked names from other rows, and significance stars on
+  the wrong estimates. They now go through `gt::fmt()`, which gt applies in
+  data order (stars, which follow the formatted estimate, take one
+  `text_transform()` per distinct mark). `gt_merge_stack_team_color()` also
+  escapes the lower line's text.
 * `gt_theme_sdv()` is the SportsDataverse house table theme, in light and
   `style = "dark"`, and `gt_theme_sdv_team()` dresses a table in one team's
   colors from `sdv_team_colors()`, picking title text and line colors by
@@ -90,6 +100,59 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   providers write inconsistently: the NHL API's "Montréal Canadiens" now
   resolves, as does an unaccented "San Jose State" against ESPN's
   "San José State".
+* Conference logos, which cbbplotR drew and sdvplotR lacked: every college
+  conference ESPN has a logo for resolves like a team, so the geoms, theme
+  elements, gt, reactable and color scales draw `"SEC"`, `"Big Ten"` or
+  `"A-10"` with no new functions, and `"AFC"`, `"NFC"` and `"NFL"` do too, as
+  in nflplotR. Conference colors come from cbbplotR. `team_reference()`,
+  `valid_team_names()` and `sdv_team_colors()` list them only with
+  `include_conferences = TRUE` (nflplotR lists AFC / NFC / NFL by default), so
+  code that loops over teams still sees only teams; `team_reference()` gains a
+  `type` column (`"team"`, `"conference"`, `"league"`). Team rows'
+  `conference` changes in three places: ESPN's API labels the MAAC as the old
+  "Metro Conference", so its teams read `"Metro"` and now read `"MAAC"`; the
+  AAC reads `"AAC"` instead of `"American"` (American University's name), and
+  football's SoCon reads `"SoCon"` instead of `"Southern"` (Southern
+  University's).
+* A conference's former names resolve to its logo: `"Pac-10"`, `"Pac-8"` and
+  `"AAWU"` draw the Pac-12, `"Mid-Continent Conference"` the Summit League,
+  `"Midwestern Collegiate Conference"` the Horizon League, `"Gateway"` the
+  MVFC and `"Colonial League"` the Patriot League. The names come from the
+  sportsdataverse-data `cfb_groups`, `mbb_groups` and `wbb_groups` releases,
+  which follow each conference through its renames. A name two conferences
+  have used (`"South"`, football's `"Western"`), or one a team already goes by
+  (South Alabama's `"USA"`), is left out, and conferences sdvplotR has no logo
+  for (football's Big West and Big East) resolve to nothing, as before.
+* The WAC, which ESPN no longer draws (football's WAC ended after 2022, and
+  ESPN labels the basketball WAC with the name it took for 2026-27, the
+  United Athletic Conference), is a conference row in all three college
+  sports with ESPN's archived WAC mark, so `"WAC"`, `"Western Athletic
+  Conference"` and football's `"Western Athletic"` draw it. `"UAC"` and
+  `"United Athletic Conference"` stay unmatched: the WAC mark stands for the
+  seasons through 2025-26 only.
+* `clean_team_abbrs()` and every helper built on it take the school names
+  NCAA.com / stats.ncaa.org, KenPom and Bart Torvik use for college teams
+  (`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`, `"Miami (OH)"`),
+  from sportsdataverse-py's NCAA / ESPN crosswalks and hoopR's team crosswalk,
+  so their tables plot without a lookup table. ESPN's own names still win
+  wherever they overlap.
+* Sports Reference's college names resolve too: its whole 2025-26 Division I
+  list, men's and women's (`"Brigham Young"`, `"Virginia Commonwealth"`,
+  `"Loyola (IL)"`), and the same schools' football teams. The headshot docs
+  name the hoopR, wehoop and cfbfastR roster functions that return ESPN
+  athlete ids (what cbbplotR's `get_espn_players()` fetched).
+* `clean_team_abbrs()` folds typographic dashes and curly apostrophes, so
+  Sports Reference's UNLV (`"Nevada-Las Vegas"` with an en dash) and a curly
+  `"Saint Mary's"` resolve.
+* `gt_sdv_logos(include_name = TRUE)` keeps the cell's text after the logo,
+  the logo-and-name cell cbbplotR's `gt_cbb_teams()` built, for any sport.
+  `gt_sdv_logos()` and `gt_sdv_wordmarks()` also resolve names with an
+  ampersand ("Texas A&M", "William & Mary"): gt passes them HTML-escaped, so
+  they used to fall back to text.
+* The college basketball articles (tier list, border bars, grid tables,
+  window wins) no longer use cbbdata or cbbplotR: their data comes from
+  hoopR, the NCAA's NET page and Sports Reference, and their logos from
+  sdvplotR.
 * College team data covers every Division I program. ESPN's teams list leaves
   some out (Lindenwood, Queens, Southern Indiana, Mercyhurst, Saint Francis,
   UT Rio Grande Valley football), so they drew no logo; they are now fetched
@@ -98,5 +161,24 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   ESPN FPI's `"BUFF"` (Buffalo) and `"AFA"` (Air Force) resolve.
 * `sdv_team_tiers()` builds tier charts, and `ggtitle_image()` places a logo
   next to a plot title.
+* `sdv_surface()` draws a court, field or rink for any of the eight leagues
+  through 'sportyR' (now in Suggests), as a ggplot to plot data on. Given a
+  team, a few features take its colors (basketball paint and apron, football
+  end zones, hockey center line, center circle and boards; a baseball infield
+  keeps its own), and `center_logo = TRUE` puts its logo at center court,
+  center ice or midfield. These are stylized surfaces built from team colors,
+  not the teams' real floor, field or rink designs.
 * `valid_team_names()`, `team_reference()` and `supported_sports()` expose
   the reference data.
+* `geom_sdv_logos()` takes a `season` aesthetic and `gt_sdv_logos()` a
+  `season` argument (one season for the whole table): a team is drawn with the
+  mark it wore that season. The NHL has every club identity's primary and dark
+  marks since 1917-18, from the NHL's logo catalog, keyed by the identity's
+  triCode (`"QUE"`, `"HFD"`, `"ATL"`, `"TBL"`, and `"TB"` for the current
+  club); the NFL and WNBA have their relocated and defunct identities (the St.
+  Louis Rams, San Diego Chargers, Houston Comets, Sacramento Monarchs,
+  Charlotte Sting, Detroit and Tulsa Shock, San Antonio Silver Stars and
+  Stars). Other teams and seasons keep today's logo. The images are
+  content-addressed copies in the SportsDataverse asset archive, so they
+  don't change when ESPN reuses a file name; the NHL's are SVG files, read
+  with the 'rsvg' package (now in Suggests).

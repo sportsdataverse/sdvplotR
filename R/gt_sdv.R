@@ -16,7 +16,14 @@
 #'   with the team name transformation. Only [gt::cells_body()],
 #'   [gt::cells_stub()], [gt::cells_column_labels()], and
 #'   [gt::cells_row_groups()] helper functions can be used here.
+#' @param include_name If `TRUE`, keep the cell's text after the logo, so a
+#'   cell shows logo and name (what cbbplotR's `gt_cbb_teams()` did). Defaults
+#'   to `FALSE`, the logo alone.
+#' @param season `NULL` (the default) for today's logos, or one season whose
+#'   marks every cell shows (the ending year for the NHL). See the Historical
+#'   logos section.
 #'
+#' @inheritSection geom_sdv_logos Historical logos
 #' @return An object of class `gt_tbl`.
 #' @seealso [gt_sdv_wordmarks()], [gt_sdv_headshots()], [gt_sdv_cols_label()]
 #' @export
@@ -35,15 +42,30 @@
 #' df |>
 #'   gt() |>
 #'   gt_sdv_logos(columns = "logo", sport = "nfl")
+#'
+#' # logo and name in one cell; NCAA.com school names resolve too
+#' data.frame(team = c("Iowa St.", "St. John's (NY)"), net = c(8, 12)) |>
+#'   gt() |>
+#'   gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE)
+#'
+#' # the marks of the 1994-95 season
+#' data.frame(team = c("QUE", "HFD", "WIN"), pts = c(65, 43, 39)) |>
+#'   gt() |>
+#'   gt_sdv_logos(columns = "team", sport = "nhl", season = 1995)
 #' }
 gt_sdv_logos <- function(
     gt_object,
     columns,
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     height = 30,
-    locations = NULL
+    locations = NULL,
+    include_name = FALSE,
+    season = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
+  if (!is.null(season) && length(season) != 1) {
+    cli::cli_abort("{.arg season} must be {.code NULL} or a single season.")
+  }
 
   gt_sdv_image(
     gt_object = gt_object,
@@ -51,7 +73,9 @@ gt_sdv_logos <- function(
     height = height,
     locations = locations,
     sport = sport,
-    type = "logo"
+    type = "logo",
+    include_name = include_name,
+    season = season
   )
 }
 
@@ -253,7 +277,9 @@ gt_sdv_image <- function(
     height = 30,
     locations = NULL,
     sport = "nfl",
-    type = c("logo", "wordmark")
+    type = c("logo", "wordmark"),
+    include_name = FALSE,
+    season = NULL
 ) {
   type <- match.arg(type)
 
@@ -269,14 +295,13 @@ gt_sdv_image <- function(
     data = gt_object,
     locations = locations,
     fn = function(x) {
-      team_abbr <- clean_team_abbrs(
-        as.character(x),
-        sport = sport,
-        keep_non_matches = FALSE
-      )
+      # gt passes the cell text HTML-escaped ("Texas A&amp;M")
+      text <- html_unescape(as.character(x))
+      team_abbr <- clean_team_abbrs(text, sport = sport, keep_non_matches = FALSE)
 
       if (type == "logo") {
-        img_url <- logo_from_team(team_abbr, sport = sport)
+        # a season's mark is looked up by the cell text: "QUE" is cleaned to "COL"
+        img_url <- season_logo(logo_from_team(team_abbr, sport = sport), text, sport, season)
       } else {
         img_url <- wordmark_from_team(team_abbr, sport = sport)
       }
@@ -287,9 +312,11 @@ gt_sdv_image <- function(
         img_url,
         "\" style=\"height:",
         height,
+        if (isTRUE(include_name)) ";vertical-align:middle;margin-right:0.35em",
         ";\" alt=\"The ",
-        team_abbr,
-        " logo\">"
+        htmltools::htmlEscape(team_abbr, attribute = TRUE),
+        " logo\">",
+        if (isTRUE(include_name)) x
       )
 
       out <- lapply(out, gt::html)
@@ -368,27 +395,28 @@ gt_merge_stack_team_color <- function(
   team_color[is.na(team_color)] <- "grey"
 
   col1_bare <- rlang::enexpr(col1) |> rlang::as_string()
-  row_name_var <- gt_object[["_boxbox"]][["var"]][which(gt_object[["_boxbox"]][["type"]] == "stub")]
   col2_bare <- rlang::enexpr(col2) |> rlang::as_string()
   data_in <- gt_object[["_data"]][[col2_bare]]
 
-  gt_object |>
-    gt::text_transform(
-      locations = if (isTRUE(row_name_var == col1_bare)) {
-        gt::cells_stub(rows = gt::everything())
-      } else {
-        gt::cells_body(columns = {{ col1 }})
-      },
-      fn = function(x) {
-        glue::glue(
-          "<div style='line-height:{font_size_top - 2}px'>",
-          "<span style='font-weight:bold;font-variant:small-caps;color:{color};font-size:{font_size_top}px'>",
-          "{x}</span></div>\n",
-          "<div style='line-height:{font_size_bottom - 2}px'>",
-          "<span style='font-weight:bold;color:{team_color};font-size:{font_size_bottom}px'>",
-          "{data_in}</span></div>"
-        )
-      }
-    ) |>
+  # built per data row and set through fmt(), which gt applies in data order
+  # (the stub column included), so row groups can't shuffle the pairs
+  top <- htmltools::htmlEscape(as.character(gt_object[["_data"]][[col1_bare]]))
+  html <- glue::glue(
+    "<div style='line-height:{font_size_top - 2}px'>",
+    "<span style='font-weight:bold;font-variant:small-caps;color:{color};font-size:{font_size_top}px'>",
+    "{top}</span></div>\n",
+    "<div style='line-height:{font_size_bottom - 2}px'>",
+    "<span style='font-weight:bold;color:{team_color};font-size:{font_size_bottom}px'>",
+    "{htmltools::htmlEscape(as.character(data_in))}</span></div>"
+  )
+  .fmt_rows(gt_object, col1_bare, as.character(html)) |>
     gt::cols_hide(columns = {{ col2 }})
+}
+
+# undo the escaping gt applies to cell text before text_transform() sees it;
+# &amp; last, so "&amp;lt;" stays "&lt;"
+html_unescape <- function(x) {
+  entities <- c("&lt;" = "<", "&gt;" = ">", "&quot;" = "\"", "&#39;" = "'", "&amp;" = "&")
+  for (e in names(entities)) x <- gsub(e, entities[[e]], x, fixed = TRUE)
+  x
 }

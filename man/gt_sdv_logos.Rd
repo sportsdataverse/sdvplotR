@@ -9,7 +9,9 @@ gt_sdv_logos(
   columns,
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   height = 30,
-  locations = NULL
+  locations = NULL,
+  include_name = FALSE,
+  season = NULL
 )
 }
 \arguments{
@@ -27,6 +29,14 @@ argument \code{columns}. Otherwise, the cell or set of cells to be associated
 with the team name transformation. Only \code{\link[gt:cells_body]{gt::cells_body()}},
 \code{\link[gt:cells_stub]{gt::cells_stub()}}, \code{\link[gt:cells_column_labels]{gt::cells_column_labels()}}, and
 \code{\link[gt:cells_row_groups]{gt::cells_row_groups()}} helper functions can be used here.}
+
+\item{include_name}{If \code{TRUE}, keep the cell's text after the logo, so a
+cell shows logo and name (what cbbplotR's \code{gt_cbb_teams()} did). Defaults
+to \code{FALSE}, the logo alone.}
+
+\item{season}{\code{NULL} (the default) for today's logos, or one season whose
+marks every cell shows (the ending year for the NHL). See the Historical
+logos section.}
 }
 \value{
 An object of class \code{gt_tbl}.
@@ -35,6 +45,31 @@ An object of class \code{gt_tbl}.
 Translate team abbreviations into logos and render these images
 in html tables with the 'gt' package.
 }
+\section{Historical logos}{
+
+Given a \code{season}, a team is drawn with the mark it wore that season where
+sdvplotR has one, and with today's logo otherwise. Coverage:
+\itemize{
+\item NHL: every club identity since 1917-18, primary and dark marks from the
+NHL's own logo catalog; a club's current era draws today's logo. Teams
+are keyed by the NHL triCode of that
+identity (\code{"QUE"}, \code{"HFD"}, \code{"ATL"}, \code{"MNS"}, \code{"TBL"}); current clubs also
+answer to sdvplotR's abbreviation and full name (\code{"TB"},
+\code{"Tampa Bay Lightning"}).
+\item NFL and WNBA: relocated and defunct identities only, one mark each: NFL
+\code{"STL"} (1995-2015) and \code{"SD"} (1961-2016); WNBA \code{"HOU"}, \code{"SAC"},
+\code{"CHA"}, \code{"DET"}, \code{"TUL"}, \code{"SAS"} and \code{"SA"}.
+\item No other league has per-season logos yet.
+}
+
+A key only finds its own identity's marks: \code{"COL"} in 1990 draws today's
+Avalanche logo (the Nordiques are \code{"QUE"}), and \code{"STL"} in 2020 today's
+Rams. The images are copies kept in the SportsDataverse asset archive, so
+they don't change when a league reuses a file name. The NHL marks are SVG
+files, which 'ggpath' reads with the 'rsvg' package. \code{season} takes single
+years: the ending year for the NHL (\code{2005} for 2004-05).
+}
+
 \examples{
 \donttest{
 library(gt)
@@ -50,6 +85,16 @@ df <- data.frame(
 df |>
   gt() |>
   gt_sdv_logos(columns = "logo", sport = "nfl")
+
+# logo and name in one cell; NCAA.com school names resolve too
+data.frame(team = c("Iowa St.", "St. John's (NY)"), net = c(8, 12)) |>
+  gt() |>
+  gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE)
+
+# the marks of the 1994-95 season
+data.frame(team = c("QUE", "HFD", "WIN"), pts = c(65, 43, 39)) |>
+  gt() |>
+  gt_sdv_logos(columns = "team", sport = "nhl", season = 1995)
 }
 }
 \seealso{

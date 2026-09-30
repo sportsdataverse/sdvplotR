@@ -26,6 +26,12 @@ get_team_ref <- function(sport) {
 #' @param sport Character string identifying the sport. One of
 #'   [supported_sports()].
 #' @param type Character string, either `"abbreviation"` (default) or `"name"`.
+#' @param include_conferences If `TRUE`, also list the conferences sdvplotR
+#'   has a logo for: the college conferences (`"SEC"`, `"Big Ten"`, `"A-10"`)
+#'   and `"AFC"`, `"NFC"` and `"NFL"`. They resolve like teams in every helper
+#'   either way; the default, `FALSE`, lists teams only, so code that loops
+#'   over teams sees only teams (nflplotR's `valid_team_names()` includes AFC,
+#'   NFC and NFL).
 #' @return A sorted character vector of valid team identifiers.
 #' @export
 #' @examples
@@ -33,11 +39,12 @@ get_team_ref <- function(sport) {
 #' valid_team_names("nba", type = "name")
 valid_team_names <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-    type = c("abbreviation", "name")) {
+    type = c("abbreviation", "name"),
+    include_conferences = FALSE) {
   sport <- rlang::arg_match0(sport, supported_sports())
   type <- rlang::arg_match0(type, c("abbreviation", "name"))
 
-  ref <- get_team_ref(sport)
+  ref <- team_rows(get_team_ref(sport), include_conferences)
   col <- if (type == "abbreviation") "team_abbr" else "team_name"
   sort(unique(ref[[col]]))
 }
@@ -49,12 +56,14 @@ valid_team_names <- function(
 #'   conference / division.
 #'
 #' @inheritParams valid_team_names
-#' @return A data frame with one row per team and columns:
+#' @return A data frame with one row per team (plus, with
+#'   `include_conferences = TRUE`, one per conference and the NFL itself) and
+#'   columns:
 #'
 #'   | col_name | type | description |
 #'   |---|---|---|
 #'   | sport | character | Sport key (`"nfl"`, `"nba"`, ...) |
-#'   | espn_team_id | character | ESPN team id |
+#'   | espn_team_id | integer | ESPN team id (`NA` for conferences) |
 #'   | team_abbr | character | Canonical team abbreviation |
 #'   | team_name | character | Full team name |
 #'   | team_short_name | character | Short display name |
@@ -68,13 +77,21 @@ valid_team_names <- function(
 #'   | color2 | character | Secondary team color (hex) |
 #'   | conference | character | Conference (`NA` for leagues without) |
 #'   | division | character | Division (`NA` for leagues without) |
+#'   | type | character | `"team"`, `"conference"` or `"league"` |
 #' @export
 #' @examples
 #' team_reference("nfl")
 #' head(team_reference("nba"))
-team_reference <- function(sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")) {
+team_reference <- function(
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    include_conferences = FALSE) {
   sport <- rlang::arg_match0(sport, supported_sports())
-  get_team_ref(sport)
+  team_rows(get_team_ref(sport), include_conferences)
+}
+
+# the public listings show teams only unless conferences are asked for
+team_rows <- function(ref, include_conferences = FALSE) {
+  if (isTRUE(include_conferences)) ref else ref[ref$type == "team", , drop = FALSE]
 }
 
 #' Standardize Team Abbreviations
@@ -84,6 +101,18 @@ team_reference <- function(sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", 
 #'   names (`"Kansas City Chiefs"`), common alternate abbreviations used by
 #'   other data sources (`"WSH"` / `"WAS"`, `"GNB"` / `"GB"`), and historical
 #'   abbreviations of relocated franchises (see [resolve_historical_abbr()]).
+#'   For the college sports it also takes the school names NCAA.com /
+#'   stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
+#'   (`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`,
+#'   `"Southern California"`, `"Brigham Young"`).
+#'   Conference names resolve to the conference: ESPN's (`"SEC"`,
+#'   `"Southeastern Conference"`), the NCAA's, KenPom's and Torvik's (`"B10"`,
+#'   `"MWC"`), and the names a conference went by before (`"Pac-10"`,
+#'   `"Mid-Continent Conference"`). The WAC, which ESPN no longer draws, keeps
+#'   its archived ESPN mark; `"UAC"`, the name the basketball WAC took for
+#'   2026-27, does not resolve to it. Where a team already uses the name, the
+#'   team wins, so the American Athletic Conference is `"AAC"` (`"American"`
+#'   is American University).
 #'
 #' @param abbr A character vector of abbreviations or team names.
 #' @inheritParams valid_team_names
@@ -94,30 +123,14 @@ team_reference <- function(sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", 
 #' @examples
 #' clean_team_abbrs(c("KC", "kansas city chiefs", "OAK", "WSH"), sport = "nfl")
 #' clean_team_abbrs(c("BOS", "GS", "INVALID"), sport = "nba", keep_non_matches = FALSE)
+#' clean_team_abbrs(c("Iowa St.", "St. John's (NY)", "Miami (OH)"), sport = "mbb")
 clean_team_abbrs <- function(
     abbr,
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     keep_non_matches = TRUE) {
   sport <- rlang::arg_match0(sport, supported_sports())
   abbr <- as.character(abbr)
-
-  m <- abbr_mapping[[sport]]
-  key <- toupper(abbr)
-  a <- unname(m[key])
-
-  # second pass: historical franchise abbreviations
-  miss <- is.na(a) & !is.na(abbr)
-  if (any(miss)) {
-    a[miss] <- unname(m[toupper(resolve_historical_abbr(abbr[miss], sport))])
-  }
-
-  # third pass: accents, which providers write inconsistently (the NHL API's
-  # "Montr\u00e9al Canadiens", ESPN's "San Jos\u00e9 State"), folded on both sides
-  miss <- is.na(a) & !is.na(abbr)
-  if (any(miss)) {
-    folded <- stats::setNames(m, fold_accents(names(m)))
-    a[miss] <- unname(folded[toupper(fold_accents(abbr[miss]))])
-  }
+  a <- match_team_abbrs(abbr, sport)
 
   unmatched <- unique(abbr[is.na(a) & !is.na(abbr)])
   if (length(unmatched) && getOption("sdvplotR.verbose", default = interactive())) {
@@ -129,20 +142,49 @@ clean_team_abbrs <- function(
   a
 }
 
+# The passes of clean_team_abbrs(), NA where none matches. `historical = FALSE`
+# skips the relocated-franchise pass, so a season-aware lookup keeps "QUE" off
+# the Avalanche.
+match_team_abbrs <- function(abbr, sport, historical = TRUE) {
+  m <- abbr_mapping[[sport]]
+  a <- unname(m[toupper(abbr)])
+
+  # second pass: historical franchise abbreviations
+  miss <- is.na(a) & !is.na(abbr)
+  if (historical && any(miss)) {
+    a[miss] <- unname(m[toupper(resolve_historical_abbr(abbr[miss], sport))])
+  }
+
+  # third pass: accents and typographic punctuation, which providers write
+  # inconsistently (the NHL API's "Montr\u00e9al Canadiens", ESPN's "San Jos\u00e9
+  # State", Sports Reference's "Nevada\u2013Las Vegas"), folded on both sides
+  miss <- is.na(a) & !is.na(abbr)
+  if (any(miss)) {
+    folded <- stats::setNames(m, fold_accents(names(m)))
+    a[miss] <- unname(folded[toupper(fold_accents(abbr[miss]))])
+  }
+
+  a
+}
+
 # chartr() rather than iconv(to = "ASCII//TRANSLIT"), whose output differs by
 # platform. enc2utf8() first: in a C locale chartr() stops on an unmarked
 # string holding UTF-8 bytes (a CSV read without an encoding).
 fold_accents <- function(x) {
-  chartr(
+  x <- chartr(
     paste0(
       "\u00e0\u00e1\u00e2\u00e3\u00e4\u00e5\u00e7\u00e8\u00e9\u00ea\u00eb\u00ec\u00ed",
       "\u00ee\u00ef\u00f1\u00f2\u00f3\u00f4\u00f5\u00f6\u00f9\u00fa\u00fb\u00fc\u00fd",
       "\u00c0\u00c1\u00c2\u00c3\u00c4\u00c5\u00c7\u00c8\u00c9\u00ca\u00cb\u00cc\u00cd",
-      "\u00ce\u00cf\u00d1\u00d2\u00d3\u00d4\u00d5\u00d6\u00d9\u00da\u00db\u00dc\u00dd"
+      "\u00ce\u00cf\u00d1\u00d2\u00d3\u00d4\u00d5\u00d6\u00d9\u00da\u00db\u00dc\u00dd",
+      # curly apostrophes ("Saint Mary\u2019s")
+      "\u2018\u2019"
     ),
-    "aaaaaaceeeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY",
+    "aaaaaaceeeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY''",
     enc2utf8(x)
   )
+  # en and em dashes ("Nevada\u2013Las Vegas"); chartr() would read "-" as a range
+  gsub("[\u2013\u2014]", "-", x)
 }
 
 # ---------------------------------------------------------------------------
@@ -155,8 +197,8 @@ lookup_team_column <- function(team, sport, column) {
   unname(ref[[column]][match(team, ref$team_abbr)])
 }
 
-logo_from_team <- function(team, sport = "nfl") {
-  lookup_team_column(team, sport, "logo_url")
+logo_from_team <- function(team, sport = "nfl", season = NULL) {
+  season_logo(lookup_team_column(team, sport, "logo_url"), team, sport, season)
 }
 
 wordmark_from_team <- function(team, sport = "nfl") {
@@ -164,7 +206,7 @@ wordmark_from_team <- function(team, sport = "nfl") {
 }
 
 # Variant-aware lookups with fallback to the primary image.
-resolve_logo_url <- function(team, sport, variant = "primary") {
+resolve_logo_url <- function(team, sport, variant = "primary", season = NULL) {
   variant <- rlang::arg_match0(variant, logo_variants)
   col <- switch(variant,
     primary = "logo_url",
@@ -175,7 +217,49 @@ resolve_logo_url <- function(team, sport, variant = "primary") {
     helmet  = "helmet_url"
   )
   url <- if (col %in% names(logo_ref)) lookup_team_column(team, sport, col) else NA_character_
-  ifelse(is.na(url), logo_from_team(team, sport), url)
+  url <- ifelse(is.na(url), logo_from_team(team, sport), url)
+  season_logo(url, team, sport, season, variant)
+}
+
+# Season-aware logos (logo_history, built by data-raw/generate_logo_history.R).
+# `url` is today's logo; wherever `season` is given and logo_history has the
+# team's mark for it, that mark replaces it. `season = NULL` returns `url`.
+season_logo <- function(url, team, sport, season, variant = "primary") {
+  if (is.null(season)) {
+    return(url)
+  }
+  if (any(suppressWarnings(as.numeric(as.character(season))) > 9999, na.rm = TRUE)) {
+    cli::cli_abort("{.arg season} takes single years (the ending year for NHL, NBA, MBB and WBB: 2005 for 2004-05), not ids like {.val 20042005}.")
+  }
+  hist <- historical_logo_url(team, sport, season, variant)
+  url <- rep_len(url, length(hist))
+  url[!is.na(hist)] <- hist[!is.na(hist)]
+  url
+}
+
+# The mark `team` wore in `season` (vectorised over both), NA where
+# logo_history has none. A key is looked up as given ("QUE", "TBL"), then as
+# its canonical abbreviation ("Tampa Bay Lightning" -> "TB"), never through the
+# relocation table, which would hand the Avalanche the Nordiques' seasons. A
+# dark lookup falls back to that season's primary mark.
+historical_logo_url <- function(team, sport, season, variant = "primary") {
+  n <- if (length(team) && length(season)) max(length(team), length(season)) else 0L
+  key <- toupper(rep_len(as.character(team), n))
+  season <- rep_len(as.numeric(as.character(season)), n)
+  keys <- list(key, match_team_abbrs(key, sport, historical = FALSE))
+  h <- logo_history[logo_history$sport == sport, , drop = FALSE]
+  url <- rep(NA_character_, n)
+  for (v in unique(c(variant, "primary"))) {
+    hv <- h[h$variant == v, , drop = FALSE]
+    for (k in keys) {
+      i <- which(is.na(url) & !is.na(k) & !is.na(season))
+      url[i] <- vapply(i, function(j) {
+        hit <- hv$url[hv$key == k[j] & hv$season_from <= season[j] & hv$season_to >= season[j]]
+        if (length(hit)) hit[1] else NA_character_
+      }, character(1))
+    }
+  }
+  url
 }
 
 resolve_wordmark_url <- function(team, sport, variant = "primary") {

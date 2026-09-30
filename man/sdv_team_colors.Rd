@@ -7,7 +7,8 @@
 sdv_team_colors(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   team = NULL,
-  type = c("primary", "secondary", "all")
+  type = c("primary", "secondary", "all"),
+  include_conferences = FALSE
 )
 }
 \arguments{
@@ -17,6 +18,13 @@ sdv_team_colors(
 If \code{NULL}, returns colors for all teams.}
 
 \item{type}{Character string, \code{"primary"}, \code{"secondary"}, or \code{"all"}.}
+
+\item{include_conferences}{If \code{TRUE}, also list the conferences sdvplotR
+has a logo for: the college conferences (\code{"SEC"}, \code{"Big Ten"}, \code{"A-10"})
+and \code{"AFC"}, \code{"NFC"} and \code{"NFL"}. They resolve like teams in every helper
+either way; the default, \code{FALSE}, lists teams only, so code that loops
+over teams sees only teams (nflplotR's \code{valid_team_names()} includes AFC,
+NFC and NFL).}
 }
 \value{
 With \code{team} supplied, a named character vector (one element per

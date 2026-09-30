@@ -7,6 +7,9 @@ test_that("supported_sports lists the eight leagues", {
 
 test_that("valid_team_names returns complete, sorted pro rosters", {
   expect_length(valid_team_names("nfl"), 32)
+  # the AFC, NFC and NFL logos only when asked for
+  expect_length(valid_team_names("nfl", include_conferences = TRUE), 35)
+  expect_in(c("AFC", "NFC", "NFL"), valid_team_names("nfl", include_conferences = TRUE))
   expect_length(valid_team_names("nba"), 30)
   expect_length(valid_team_names("mlb"), 30)
   expect_length(valid_team_names("nhl"), 32)
@@ -27,12 +30,101 @@ test_that("team_reference carries the documented columns", {
   expect_in(
     c(
       "sport", "espn_team_id", "team_abbr", "team_name", "logo_url",
-      "logo_dark_url", "wordmark_url", "color1", "color2", "conference", "division"
+      "logo_dark_url", "wordmark_url", "color1", "color2", "conference", "division", "type"
     ),
     names(ref)
   )
   expect_identical(nrow(ref), 32L)
   expect_false(anyNA(ref$logo_url))
+  all <- team_reference("nfl", include_conferences = TRUE)
+  expect_setequal(all$team_abbr[all$type != "team"], c("AFC", "NFC", "NFL"))
+  expect_setequal(names(sdv_team_colors("cfb")), team_reference("cfb")$team_abbr[!is.na(team_reference("cfb")$color1)])
+})
+
+test_that("conferences resolve like teams, and a team keeps a shared name", {
+  mbb <- team_reference("mbb", include_conferences = TRUE)
+  confs <- mbb$team_abbr[mbb$type == "conference"]
+  expect_in(c("ACC", "Big Ten", "SEC", "A-10", "AAC", "MAAC", "WCC"), confs)
+  # every conference resolves to itself, and every team's conference has a row
+  # (the UAC has no ESPN logo)
+  expect_identical(clean_team_abbrs(confs, "mbb", keep_non_matches = FALSE), confs)
+  expect_in(setdiff(mbb$conference[mbb$type == "team"], "UAC"), confs)
+  # ESPN, NCAA and KenPom names for a conference
+  expect_identical(
+    clean_team_abbrs(c("Big Ten Conference", "B10", "Atlantic 10", "MWC"), "mbb", keep_non_matches = FALSE),
+    c("Big Ten", "Big Ten", "A-10", "Mountain West")
+  )
+  # names a team already uses stay the team's
+  expect_identical(clean_team_abbrs(c("American", "SC"), "mbb"), c("AMER", "SC"))
+  expect_identical(clean_team_abbrs("Southern", "cfb"), "SOU")
+  expect_match(logo_from_team("SEC", "cfb"), "ncaa_conf/500/sec.png$")
+  expect_match(logo_from_team("AFC", "nfl"), "nfl/500/afc.png$")
+})
+
+test_that("historical conference names draw the conference's lineage", {
+  # sportsdataverse-data's cfb_groups / mbb_groups: Pac-8, Pac-10 and the AAWU
+  # are one lineage with the Pac-12
+  expect_identical(
+    clean_team_abbrs(c("Pac-10", "pac-10", "Pacific-10 Conference", "Pac-8", "AAWU"), "cfb", keep_non_matches = FALSE),
+    rep("Pac-12", 5)
+  )
+  expect_identical(clean_team_abbrs(c("Pac-10", "P10"), "mbb", keep_non_matches = FALSE), c("Pac-12", "Pac-12"))
+  expect_identical(clean_team_abbrs("Pac-10", "wbb", keep_non_matches = FALSE), "Pac-12")
+  expect_identical(logo_from_team("Pac-10", "cfb"), logo_from_team("Pac-12", "cfb"))
+  # other renamed conferences: Mid-Continent -> Summit, Midwestern Collegiate
+  # -> Horizon, Colonial -> CAA, Gateway -> MVFC, Colonial League -> Patriot
+  expect_identical(
+    clean_team_abbrs(
+      c("Mid-Continent Conference", "Midwestern Collegiate Conference", "Colonial Athletic Association"),
+      "mbb",
+      keep_non_matches = FALSE
+    ),
+    c("Summit", "Horizon", "CAA")
+  )
+  expect_identical(
+    clean_team_abbrs(c("Gateway Football Conference", "Colonial League", "I-AA Independents"), "cfb", keep_non_matches = FALSE),
+    c("MVFC", "Patriot", "FCS Indep.")
+  )
+  # a name two lineages share stays unmatched; a team's name stays the team's;
+  # a lineage without a conference row (cfb's Big West) gets no names
+  expect_identical(
+    clean_team_abbrs(c("Western", "South", "USA", "Southern", "Big West", "IND", "CL", "COL"), "cfb", keep_non_matches = FALSE),
+    c(NA, NA, "USA", "SOU", NA, NA, NA, NA)
+  )
+  # generic short codes stay unmatched rather than drawing a conference logo
+  expect_identical(clean_team_abbrs("COL", "mbb", keep_non_matches = FALSE), NA_character_)
+  expect_identical(clean_team_abbrs("American", "mbb", keep_non_matches = FALSE), "AMER")
+})
+
+test_that("the WAC draws ESPN's archived mark, and the UAC it became does not", {
+  # ESPN has no logo for football's WAC (gone after 2022) or for basketball
+  # group 30, which it now labels the United Athletic Conference
+  for (s in c("cfb", "mbb", "wbb")) {
+    expect_identical(
+      clean_team_abbrs(c("WAC", "wac", "Western Athletic Conference"), s, keep_non_matches = FALSE),
+      rep("WAC", 3)
+    )
+    expect_match(logo_from_team("WAC", s), "ncaa_conf/500/wac.png$")
+    expect_identical(
+      clean_team_abbrs(c("UAC", "United Athletic Conference"), s, keep_non_matches = FALSE),
+      c(NA_character_, NA_character_)
+    )
+  }
+  # CFBD's short name for football's WAC
+  expect_identical(clean_team_abbrs("Western Athletic", "cfb", keep_non_matches = FALSE), "WAC")
+  # a conference row, listed with the conferences only
+  expect_false("WAC" %in% valid_team_names("mbb"))
+  expect_true("WAC" %in% valid_team_names("mbb", include_conferences = TRUE))
+})
+
+test_that("every key that resolved to a conference still resolves to it", {
+  # every key abbr_mapping sent to a conference / league row before the
+  # historical names were added (R/sysdata.rda at 3dd4514)
+  keys <- utils::read.csv(test_path("fixtures", "conference_keys.csv"), colClasses = "character")
+  for (s in unique(keys$sport)) {
+    k <- keys[keys$sport == s, ]
+    expect_identical(clean_team_abbrs(k$key, s, keep_non_matches = FALSE), k$abbr)
+  }
 })
 
 test_that("clean_team_abbrs handles case, names, aliases and history", {
@@ -50,6 +142,21 @@ test_that("clean_team_abbrs handles case, names, aliases and history", {
   expect_identical(clean_team_abbrs(c("BUT", "UNO"), "wbb", keep_non_matches = FALSE), c("BTLR", "NOLA"))
   # ESPN's FPI writes Buffalo BUFF and Air Force AFA
   expect_identical(clean_team_abbrs(c("BUFF", "AFA"), "cfb", keep_non_matches = FALSE), c("BUF", "AF"))
+  # NCAA.com / stats.ncaa.org, KenPom and Torvik school names
+  ncaa <- c("Iowa St.", "St. John's (NY)", "Saint Mary's (CA)", "Southern California", "Miami (FL)", "Miami (OH)")
+  expect_identical(clean_team_abbrs(ncaa, "mbb", keep_non_matches = FALSE), c("ISU", "SJU", "SMC", "USC", "MIA", "M-OH"))
+  expect_identical(clean_team_abbrs(ncaa, "wbb", keep_non_matches = FALSE), c("ISU", "SJU", "SMC", "USC", "MIA", "M-OH"))
+  expect_identical(clean_team_abbrs(c("Iowa St.", "Southern California", "Miami (OH)"), "cfb", keep_non_matches = FALSE), c("ISU", "USC", "M-OH"))
+  # ESPN's own names keep their meaning
+  expect_identical(clean_team_abbrs(c("Miami", "Iowa State"), "mbb", keep_non_matches = FALSE), c("MIA", "ISU"))
+  # Sports Reference's names, keyed by ESPN id, so they serve football too
+  sr <- c("Brigham Young", "Virginia Commonwealth", "Loyola (IL)", "Texas-Rio Grande Valley")
+  expect_identical(clean_team_abbrs(sr, "mbb", keep_non_matches = FALSE), c("BYU", "VCU", "LUC", "RGV"))
+  expect_identical(clean_team_abbrs(c("Brigham Young", "Louisiana State", "Nevada-Las Vegas"), "cfb", keep_non_matches = FALSE), c("BYU", "LSU", "UNLV"))
+  # typographic dashes and apostrophes fold too: Sports Reference's UNLV, a curly "Saint Mary's"
+  unlv <- intToUtf8(c(78, 101, 118, 97, 100, 97, 8211, 76, 97, 115, 32, 86, 101, 103, 97, 115))
+  smc <- intToUtf8(c(83, 97, 105, 110, 116, 32, 77, 97, 114, 121, 8217, 115))
+  expect_identical(clean_team_abbrs(c(unlv, "Nevada-Las Vegas", smc), "mbb", keep_non_matches = FALSE), c("UNLV", "UNLV", "SMC"))
   # accents fold on both sides: the NHL API's accented name, ESPN's accented key
   expect_identical(clean_team_abbrs("Montr\u00e9al Canadiens", "nhl", keep_non_matches = FALSE), "MTL")
   expect_identical(

@@ -36,7 +36,41 @@ team abbr / player id
   `data-raw/generate_logo_ref.R` from the ESPN `site.web.api.espn.com` teams
   endpoints (the `site.api.espn.com` host 403s non-browser clients), the ESPN
   core API group endpoints (FBS = 80, FCS = 81, D-I = 50) and
-  `nflreadr::load_teams()`. **Never hand-edit the `.rda`.**
+  `nflreadr::load_teams()`. College keys also take the NCAA.com, KenPom and
+  Torvik school names from sportsdataverse-py's NCAA / ESPN crosswalks and
+  `hoopR::load_mbb_team_crosswalk()`, plus a hand-checked `sports_reference`
+  table (the Sports Reference names none of those use), all joined on ESPN
+  team id; ESPN's own keys win and a name used for two schools is dropped. Conferences are rows too
+  (`type = "conference"`; the NFL shield is `"league"`), following nflplotR's
+  AFC / NFC / NFL: logos from the ESPN groups, colors copied from cbbplotR,
+  keys added only where no team uses the name (so the AAC is `"AAC"`), and the
+  script asserts each conference resolves to itself. Former conference names
+  (`"Pac-10"`) come from sportsdataverse-data's `{cfb,mbb,wbb}_groups`
+  releases (`group_aliases`), joined lineage -> row on the ESPN group id; a
+  name two lineages share, or one already mapped elsewhere, is skipped and
+  logged. A conference ESPN no longer has a logo for (the WAC) is a
+  `retired_confs` row in the script with ESPN's archived mark; its `through`
+  season drops every lineage name a source dates after it, so the UAC the
+  basketball WAC became never draws the WAC.
+  `tests/testthat/fixtures/conference_keys.csv` pins every key that
+  resolved to a conference before them. Divergence from nflplotR:
+  `team_reference()` / `valid_team_names()` / `sdv_team_colors()` list
+  conferences only with `include_conferences = TRUE`, because users filter and
+  loop over those frames as teams. **Never hand-edit the `.rda`.**
+- `R/sysdata.rda` also holds `logo_history` (sport, key, season_from,
+  season_to, variant, url, identity_name): the season-aware marks behind
+  `season` in `geom_sdv_logos()` / `gt_sdv_logos()`, resolved by
+  `season_logo()` / `historical_logo_url()` in `R/utils.R`.
+  `data-raw/generate_logo_history.R` builds it from the sdv-assets manifest
+  (`manifest/marks.csv`): the NHL logo catalog (every era, NHL triCode keys,
+  ending-year seasons; current clubs also keyed by sdvplotR's abbreviation)
+  and ESPN's frozen NFL / WNBA relocated-identity files, whose seasons live
+  in `data-raw/logo_history_legacy.csv`. URLs are the archive's
+  content-addressed copies, never ESPN / NHL originals (overwritten in
+  place). A historical key never goes through `resolve_historical_abbr()`,
+  so `"COL"` never draws a Nordiques mark. Each script re-saves the other's
+  objects; rerun this one after `generate_logo_ref.R`. NHL marks are SVG,
+  which ggpath reads with `rsvg`.
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
   `headshot_gsis_map.rds` from this repo's `sdvplotr_infrastructure`
   pre-release (never "Latest", so `@*release` installs are unaffected)
@@ -138,9 +172,12 @@ devtools::build_readme()
   fails with "connections left open".
 - `\figure{}` options use `style="width:100\%"`, not `width=100\%`; checkRd
   wants width/height attributes in pixels.
-- `Suggests` is deliberately small (ggtext, gridtext, knitr, reactable,
-  rmarkdown, sjmisc, testthat, withr); companion data packages are website /
+- `Suggests` is deliberately small (chromote, ggtext, gridtext, knitr, reactable,
+  rmarkdown, rsvg, sportyR, testthat, webshot2, withr); companion data packages are website /
   development needs, not package dependencies.
+- `sdv_surface()` calls 'sportyR' (GPL-3) through its exported functions only,
+  after `rlang::check_installed()`. sdvplotR is MIT: never copy, vendor or
+  translate sportyR source.
 
 ## Formatting
 

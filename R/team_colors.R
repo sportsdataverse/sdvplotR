@@ -9,6 +9,7 @@
 #' @param team Character string or vector of team name(s) or abbreviation(s).
 #'   If `NULL`, returns colors for all teams.
 #' @param type Character string, `"primary"`, `"secondary"`, or `"all"`.
+#' @inheritParams valid_team_names
 #'
 #' @return With `team` supplied, a named character vector (one element per
 #'   team, `NA` for unmatched teams): the primary or secondary hex code, or for
@@ -37,7 +38,8 @@
 sdv_team_colors <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     team = NULL,
-    type = c("primary", "secondary", "all")
+    type = c("primary", "secondary", "all"),
+    include_conferences = FALSE
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
   type <- rlang::arg_match0(type, c("primary", "secondary", "all"))
@@ -45,6 +47,7 @@ sdv_team_colors <- function(
   team_ref <- get_team_ref(sport)
 
   if (is.null(team)) {
+    team_ref <- team_rows(team_ref, include_conferences)
     # Return all teams' colors
     if (type == "all") {
       return(

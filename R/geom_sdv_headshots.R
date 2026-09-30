@@ -5,7 +5,11 @@
 #'   player identifier: a GSIS ID for the NFL (`"00-0033873"`, resolved through
 #'   the headshot map sdvplotR publishes from nflverse rosters to the player's
 #'   NFL.com headshot) and an ESPN athlete ID for every other sport. Set
-#'   `id_type` to plot IDs from another source.
+#'   `id_type` to plot IDs from another source. A team's ESPN athlete IDs come
+#'   with its roster: `hoopR::espn_mbb_team_roster()` and
+#'   `espn_nba_team_roster()`, `wehoop::espn_wbb_team_roster()` and
+#'   `espn_wnba_team_roster()`, and `cfbfastR::espn_cfb_team_roster()` each
+#'   return an `athlete_id` column.
 #'
 #' @inheritParams ggplot2::geom_point
 #' @param sport Character string identifying the sport.

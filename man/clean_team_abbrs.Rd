@@ -28,8 +28,21 @@ used by sdvplotR. Matching is case-insensitive and understands full team
 names (\code{"Kansas City Chiefs"}), common alternate abbreviations used by
 other data sources (\code{"WSH"} / \code{"WAS"}, \code{"GNB"} / \code{"GB"}), and historical
 abbreviations of relocated franchises (see \code{\link[=resolve_historical_abbr]{resolve_historical_abbr()}}).
+For the college sports it also takes the school names NCAA.com /
+stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
+(\code{"Iowa St."}, \code{"St. John's (NY)"}, \code{"Saint Mary's (CA)"},
+\code{"Southern California"}, \code{"Brigham Young"}).
+Conference names resolve to the conference: ESPN's (\code{"SEC"},
+\code{"Southeastern Conference"}), the NCAA's, KenPom's and Torvik's (\code{"B10"},
+\code{"MWC"}), and the names a conference went by before (\code{"Pac-10"},
+\code{"Mid-Continent Conference"}). The WAC, which ESPN no longer draws, keeps
+its archived ESPN mark; \code{"UAC"}, the name the basketball WAC took for
+2026-27, does not resolve to it. Where a team already uses the name, the
+team wins, so the American Athletic Conference is \code{"AAC"} (\code{"American"}
+is American University).
 }
 \examples{
 clean_team_abbrs(c("KC", "kansas city chiefs", "OAK", "WSH"), sport = "nfl")
 clean_team_abbrs(c("BOS", "GS", "INVALID"), sport = "nba", keep_non_matches = FALSE)
+clean_team_abbrs(c("Iowa St.", "St. John's (NY)", "Miami (OH)"), sport = "mbb")
 }

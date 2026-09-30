@@ -22,7 +22,6 @@ knitr::opts_chunk$set(
 library(sdvplotR)
 library(gt)
 library(tidyverse)
-library(cbbdata)
 ```
 
 `sdvplotR` ships with a function that makes creating tier lists convenient and quick. However, you need to pass your data to `gt` in a specific format. This vignette walks through how to create a simple tier list.
@@ -33,20 +32,41 @@ knitr::include_graphics("images/tier_list_example.png")
 
 ## Basic Tier List
 
-For this example, we will be using data that is fetched from the [{cbbdata}](https://www.cbbdata.aweatherman.com/) package. For conveniance, that data will be pushed to a gist for easy extraction.
+For this example, we rank the ACC's men's basketball teams by efficiency margin:
+points scored minus points allowed per 100 possessions, over the last completed
+season, computed from [`hoopR`](https://hoopR.sportsdataverse.org)'s ESPN box
+scores.
 
 ### Processing
 
-If you're interested in how to pull the data from `cbbdata`:
-
-```{r}
-cbd_kenpom_ratings(year = 2024, conf = "ACC") %>% select(team, adj_em)
-```
-
-First, let's fetch the data form GitHub.
+`team_reference()` lists the ACC's members, with their ESPN ids and logos. The
+box scores hold one row per team per game; joining each row to its opponent's
+row gives the possessions and points on both sides.
 
 ```{r, message=FALSE}
-data <- read_csv("https://gist.github.com/andreweatherman/a8aaa6057e9858cd11c3327fc32df5bb/raw/3a54e221ae529dc8a2f37077770d7fb1b573b2c9/gtUtils_example_tier_list.csv")
+# the last completed season, tournament included (hoopR names it for the
+# year it ends; the Final Four is in early April)
+season <- as.integer(format(Sys.Date(), "%Y")) -
+  (format(Sys.Date(), "%m-%d") < "04-10")
+
+acc <- team_reference("mbb") %>%
+  filter(conference == "ACC")
+
+# possessions estimated from the box score
+box <- hoopR::load_mbb_team_box(seasons = season) %>%
+  mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
+
+data <- box %>%
+  filter(team_id %in% acc$espn_team_id) %>%
+  inner_join(
+    select(box, game_id, opponent_team_id = team_id, opp_poss = poss),
+    by = c("game_id", "opponent_team_id")
+  ) %>%
+  summarise(
+    eff_margin = 100 * sum(team_score - opponent_team_score) / sum((poss + opp_poss) / 2),
+    .by = team_id
+  ) %>%
+  mutate(team = acc$team_abbr[match(team_id, acc$espn_team_id)])
 ```
 
 We need to establish tiers and colors. For this example, we are going to use three distinct categories and use traditional tier list background colors.
@@ -56,14 +76,14 @@ levels <- c("Elite", "Average", "Poor")
 colors <- c("#FF7F7F", "#FFDF7F", "#BFFF7F")
 ```
 
-Next, we need to bin our data into these tiers. `subset_rank` uses the `dense_rank` function to assign ordinal ranks based on our column of interest -- adjusted efficiency margin. Next, we use the cut function to divide these ranks into distinct tiers based on quantiles, specifying the breaks at the 25th and 75th percentiles. This means the data is split into three groups, with the lower 25% in one tier, the middle 50% in another, and the upper 25% in the final tier. The levels argument provides custom labels for each tier -- referencing the `levels` vector above -- while `include.lowest = TRUE` ensures the lowest rank is included in the first tier.
+Next, we need to bin our data into these tiers. `subset_rank` uses the `dense_rank` function to assign ordinal ranks based on our column of interest -- efficiency margin. Next, we use the cut function to divide these ranks into distinct tiers based on quantiles, specifying the breaks at the 25th and 75th percentiles. This means the data is split into three groups, with the lower 25% in one tier, the middle 50% in another, and the upper 25% in the final tier. The levels argument provides custom labels for each tier -- referencing the `levels` vector above -- while `include.lowest = TRUE` ensures the lowest rank is included in the first tier.
 
 Finally, tier_order is calculated as the rank within each tier using `dense_rank` again, but this time grouped by the tier to ensure the ordering is relative to each group.
 
 ```{r}
 data <- data %>%
   mutate(
-    subset_rank = dense_rank(-adj_em),
+    subset_rank = dense_rank(-eff_margin),
     tier = cut(subset_rank,
       breaks = quantile(subset_rank, probs = c(0, 0.25, 0.75, 1)),
       labels = levels,
@@ -73,10 +93,14 @@ data <- data %>%
   mutate(tier_order = dense_rank(subset_rank), .by = tier)
 ```
 
-We can use `cbbdata` to grab team logos and join them onto our data. Importantly, we are going to use a dark table theme, so we need to grab the dark mode logos.
+`team_reference()` also carries each team's logos. We are going to use a dark
+table theme, so we take the dark-mode logo, falling back to the primary one where
+ESPN has no dark version.
 
 ```{r}
-data <- data %>% left_join(cbd_teams() %>% select(team = common_team, logo = espn_dark_logo))
+data <- data %>%
+  left_join(select(acc, team = team_abbr, logo_dark_url, logo_url), by = "team") %>%
+  mutate(logo = coalesce(logo_dark_url, logo_url))
 ```
 
 Finally, we need to pivot our data to a *wide* format. This ensures that we will be plotting logos horizontally.
@@ -109,7 +133,7 @@ data %>%
   gt_tiers(levels, colors) %>%
   tab_header(
     title = "Example Tier List using gtUtils",
-    subtitle = "Ranking ACC teams by 2024 KenPom rating"
+    subtitle = paste("Ranking ACC teams by efficiency margin,", season)
   )
 ```
 
