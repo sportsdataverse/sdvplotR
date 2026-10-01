@@ -294,3 +294,7 @@ NHL, college football, men’s and women’s college basketball), built on
   [`gt_delta()`](https://sdvplotR.sportsdataverse.org/reference/gt_delta.md)
   and
   [`gt_percentile_bar()`](https://sdvplotR.sportsdataverse.org/reference/gt_percentile_bar.md).
+  “Signature Ribbon” draws one NBA shooter’s attempts by shot distance
+  as a ribbon whose thickness is his share of attempts and whose fill is
+  his field goal percentage minus the league’s, from the
+  `nba_stats_metric_curves` release.

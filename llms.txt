@@ -812,3 +812,5 @@ SportsDataverse data with sdvplotR’s tables and scales.
   Grid](https://sdvplotR.sportsdataverse.org/articles/shot-grid.md):
 - [Rolling
   Form](https://sdvplotR.sportsdataverse.org/articles/rolling-form.md):
+- [Signature
+  Ribbon](https://sdvplotR.sportsdataverse.org/articles/signature-ribbon.md):

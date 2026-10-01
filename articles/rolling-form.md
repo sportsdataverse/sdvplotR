@@ -107,8 +107,8 @@ nrow(pool)
 #> [1] 226
 
 movers <- bind_rows(
-  Risers = slice_max(pool, delta_prev, n = 5),
-  Fallers = slice_min(pool, delta_prev, n = 5),
+  Risers = slice_max(pool, delta_prev, n = 5, with_ties = FALSE),
+  Fallers = slice_min(pool, delta_prev, n = 5, with_ties = FALSE),
   .id = "group"
 ) |>
   select(group, entity_name, prev, cur, n, pct, delta_prev_rank)

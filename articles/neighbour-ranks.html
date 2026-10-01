@@ -136,6 +136,7 @@
     <li><a class="dropdown-item" href="../articles/neighbour-ranks.html">Neighbour Ranks</a></li>
     <li><a class="dropdown-item" href="../articles/shot-grid.html">Shot Grid</a></li>
     <li><a class="dropdown-item" href="../articles/rolling-form.html">Rolling Form</a></li>
+    <li><a class="dropdown-item" href="../articles/signature-ribbon.html">Signature Ribbon</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
@@ -240,7 +241,7 @@ metric next to a <code>_rank</code> column.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summaries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/load_espn_cfb_team_summaries.html" class="external-link">load_espn_cfb_team_summaries</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">summaries</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 136 577</span></span>
+<span><span class="co">#&gt; [1] 136 781</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"_rank$"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">summaries</span><span class="op">)</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "playsgame_off_rank"      "TEPA_off_rank"          </span></span>
 <span><span class="co">#&gt; [3] "EPAgame_off_rank"        "EPAplay_off_rank"       </span></span>
@@ -278,18 +279,18 @@ the focal team moves off centre.</p>
 <span></span>
 <span><span class="va">focal</span> <span class="op">&lt;-</span> <span class="st">"Illinois"</span></span>
 <span><span class="fu">neighbours</span><span class="op">(</span><span class="va">summaries</span>, <span class="va">focal</span>, <span class="st">"net_adj_epa"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    rank          team     value</span></span>
-<span><span class="co">#&gt; 1    32      Virginia 0.1533069</span></span>
-<span><span class="co">#&gt; 2    33           LSU 0.1486576</span></span>
-<span><span class="co">#&gt; 3    34    Pittsburgh 0.1438143</span></span>
-<span><span class="co">#&gt; 4    35 Arizona State 0.1424861</span></span>
-<span><span class="co">#&gt; 5    36        Toledo 0.1391341</span></span>
-<span><span class="co">#&gt; 6    37      Illinois 0.1279642</span></span>
-<span><span class="co">#&gt; 7    38           TCU 0.1278274</span></span>
-<span><span class="co">#&gt; 8    39    Iowa State 0.1232703</span></span>
-<span><span class="co">#&gt; 9    40  Old Dominion 0.1184463</span></span>
-<span><span class="co">#&gt; 10   41      NC State 0.1066756</span></span>
-<span><span class="co">#&gt; 11   42   Wake Forest 0.1014395</span></span></code></pre></div>
+<span><span class="co">#&gt;    rank          team      value</span></span>
+<span><span class="co">#&gt; 1    33 Arizona State 0.14895167</span></span>
+<span><span class="co">#&gt; 2    34           LSU 0.14863508</span></span>
+<span><span class="co">#&gt; 3    35           TCU 0.14363305</span></span>
+<span><span class="co">#&gt; 4    36    Iowa State 0.14187993</span></span>
+<span><span class="co">#&gt; 5    37    Pittsburgh 0.14057645</span></span>
+<span><span class="co">#&gt; 6    38      Illinois 0.12903856</span></span>
+<span><span class="co">#&gt; 7    39        Toledo 0.12589637</span></span>
+<span><span class="co">#&gt; 8    40  Old Dominion 0.12225295</span></span>
+<span><span class="co">#&gt; 9    41   Wake Forest 0.10366062</span></span>
+<span><span class="co">#&gt; 10   42      NC State 0.10080771</span></span>
+<span><span class="co">#&gt; 11   43          Duke 0.09787713</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="the-table">The table<a class="anchor" aria-label="anchor" href="#the-table"></a>
@@ -823,70 +824,70 @@ shape as the columns it fills.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="rank" class="gt_row gt_right" style="background-color: #95C0A2; color: #000000;">32</td>
-<td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/258.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The UVA logo">Virginia</td>
-<td headers="value" class="gt_row gt_right">0.153</td>
-</tr>
-<tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #98C2A4; color: #000000;">33</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The LSU logo">LSU</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/9.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ASU logo">Arizona State</td>
 <td headers="value" class="gt_row gt_right">0.149</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #9BC4A6; color: #000000;">34</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/221.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The PITT logo">Pittsburgh</td>
-<td headers="value" class="gt_row gt_right">0.144</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The LSU logo">LSU</td>
+<td headers="value" class="gt_row gt_right">0.149</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #9EC5A7; color: #000000;">35</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/9.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ASU logo">Arizona State</td>
-<td headers="value" class="gt_row gt_right">0.142</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TCU logo">TCU</td>
+<td headers="value" class="gt_row gt_right">0.144</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #A0C6A8; color: #000000;">36</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TOL logo">Toledo</td>
-<td headers="value" class="gt_row gt_right">0.139</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/66.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ISU logo">Iowa State</td>
+<td headers="value" class="gt_row gt_right">0.142</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #A2C7A9; color: #000000;">37</td>
-<td headers="team" class="gt_row gt_left" style="background-color: #FFF3B0; font-weight: bold;">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ILL logo">Illinois</td>
-<td headers="value" class="gt_row gt_right" style="background-color: #FFF3B0; font-weight: bold;">0.128</td>
+<td headers="team" class="gt_row gt_left">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/221.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The PITT logo">Pittsburgh</td>
+<td headers="value" class="gt_row gt_right">0.141</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #A5C8AA; color: #000000;">38</td>
-<td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TCU logo">TCU</td>
-<td headers="value" class="gt_row gt_right">0.128</td>
+<td headers="team" class="gt_row gt_left" style="background-color: #FFF3B0; font-weight: bold;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ILL logo">Illinois</td>
+<td headers="value" class="gt_row gt_right" style="background-color: #FFF3B0; font-weight: bold;">0.129</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #A7C8AC; color: #000000;">39</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/66.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ISU logo">Iowa State</td>
-<td headers="value" class="gt_row gt_right">0.123</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TOL logo">Toledo</td>
+<td headers="value" class="gt_row gt_right">0.126</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #AAC9AD; color: #000000;">40</td>
 <td headers="team" class="gt_row gt_left">
 <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/295.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ODU logo">Old Dominion</td>
-<td headers="value" class="gt_row gt_right">0.118</td>
+<td headers="value" class="gt_row gt_right">0.122</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #ACCAAE; color: #000000;">41</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/152.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The NCSU logo">NC State</td>
-<td headers="value" class="gt_row gt_right">0.107</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/154.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The WAKE logo">Wake Forest</td>
+<td headers="value" class="gt_row gt_right">0.104</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #AFCBAF; color: #000000;">42</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/154.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The WAKE logo">Wake Forest</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/152.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The NCSU logo">NC State</td>
 <td headers="value" class="gt_row gt_right">0.101</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right" style="background-color: #B1CCB0; color: #000000;">43</td>
+<td headers="team" class="gt_row gt_left">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/150.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The DUKE logo">Duke</td>
+<td headers="value" class="gt_row gt_right">0.098</td>
 </tr>
 </tbody>
 </table>
@@ -1426,70 +1427,70 @@ shape as the columns it fills.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="rank" class="gt_row gt_right" style="background-color: #95C0A2; color: #000000;">32</td>
-<td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/258.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The UVA logo">Virginia</td>
-<td headers="value" class="gt_row gt_right">0.153</td>
-</tr>
-<tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #98C2A4; color: #000000;">33</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The LSU logo">LSU</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/9.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ASU logo">Arizona State</td>
 <td headers="value" class="gt_row gt_right">0.149</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #9BC4A6; color: #000000;">34</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/221.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The PITT logo">Pittsburgh</td>
-<td headers="value" class="gt_row gt_right">0.144</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The LSU logo">LSU</td>
+<td headers="value" class="gt_row gt_right">0.149</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #9EC5A7; color: #000000;">35</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/9.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ASU logo">Arizona State</td>
-<td headers="value" class="gt_row gt_right">0.142</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TCU logo">TCU</td>
+<td headers="value" class="gt_row gt_right">0.144</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #A0C6A8; color: #000000;">36</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TOL logo">Toledo</td>
-<td headers="value" class="gt_row gt_right">0.139</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/66.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ISU logo">Iowa State</td>
+<td headers="value" class="gt_row gt_right">0.142</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #A2C7A9; color: #000000;">37</td>
-<td headers="team" class="gt_row gt_left" style="background-color: #FFF3B0; font-weight: bold;">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ILL logo">Illinois</td>
-<td headers="value" class="gt_row gt_right" style="background-color: #FFF3B0; font-weight: bold;">0.128</td>
+<td headers="team" class="gt_row gt_left">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/221.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The PITT logo">Pittsburgh</td>
+<td headers="value" class="gt_row gt_right">0.141</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #A5C8AA; color: #000000;">38</td>
-<td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TCU logo">TCU</td>
-<td headers="value" class="gt_row gt_right">0.128</td>
+<td headers="team" class="gt_row gt_left" style="background-color: #FFF3B0; font-weight: bold;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ILL logo">Illinois</td>
+<td headers="value" class="gt_row gt_right" style="background-color: #FFF3B0; font-weight: bold;">0.129</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #A7C8AC; color: #000000;">39</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/66.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ISU logo">Iowa State</td>
-<td headers="value" class="gt_row gt_right">0.123</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TOL logo">Toledo</td>
+<td headers="value" class="gt_row gt_right">0.126</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #AAC9AD; color: #000000;">40</td>
 <td headers="team" class="gt_row gt_left">
 <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/295.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ODU logo">Old Dominion</td>
-<td headers="value" class="gt_row gt_right">0.118</td>
+<td headers="value" class="gt_row gt_right">0.122</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #ACCAAE; color: #000000;">41</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/152.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The NCSU logo">NC State</td>
-<td headers="value" class="gt_row gt_right">0.107</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/154.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The WAKE logo">Wake Forest</td>
+<td headers="value" class="gt_row gt_right">0.104</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #AFCBAF; color: #000000;">42</td>
 <td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/154.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The WAKE logo">Wake Forest</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/152.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The NCSU logo">NC State</td>
 <td headers="value" class="gt_row gt_right">0.101</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right" style="background-color: #B1CCB0; color: #000000;">43</td>
+<td headers="team" class="gt_row gt_left">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/150.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The DUKE logo">Duke</td>
+<td headers="value" class="gt_row gt_right">0.098</td>
 </tr>
 </tbody>
 </table>
@@ -2032,13 +2033,13 @@ shape as the columns it fills.</p>
 <td headers="rank" class="gt_row gt_right" style="background-color: #93BEA0; color: #000000;">31</td>
 <td headers="team" class="gt_row gt_left">
 <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TEX logo">Texas</td>
-<td headers="value" class="gt_row gt_right">0.131</td>
+<td headers="value" class="gt_row gt_right">0.132</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #95C0A2; color: #000000;">32</td>
 <td headers="team" class="gt_row gt_left" style="background-color: #FFF3B0; font-weight: bold;">
 <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ILL logo">Illinois</td>
-<td headers="value" class="gt_row gt_right" style="background-color: #FFF3B0; font-weight: bold;">0.130</td>
+<td headers="value" class="gt_row gt_right" style="background-color: #FFF3B0; font-weight: bold;">0.131</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #98C2A4; color: #000000;">33</td>
@@ -2584,12 +2585,6 @@ shape as the columns it fills.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="rank" class="gt_row gt_right" style="background-color: #E0A183; color: #000000;">95</td>
-<td headers="team" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2050.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The BALL logo">Ball State</td>
-<td headers="value" class="gt_row gt_right">0.133</td>
-</tr>
-<tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #E09F80; color: #000000;">96</td>
 <td headers="team" class="gt_row gt_left">
 <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The FLA logo">Florida</td>
@@ -2615,15 +2610,15 @@ shape as the columns it fills.</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #DD9576; color: #000000;">100</td>
-<td headers="team" class="gt_row gt_left" style="background-color: #FFF3B0; font-weight: bold;">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ILL logo">Illinois</td>
-<td headers="value" class="gt_row gt_right" style="background-color: #FFF3B0; font-weight: bold;">0.140</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_right" style="background-color: #DC9373; color: #000000;">101</td>
 <td headers="team" class="gt_row gt_left">
 <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2026.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The APP logo">App State</td>
 <td headers="value" class="gt_row gt_right">0.141</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right" style="background-color: #DC9373; color: #000000;">101</td>
+<td headers="team" class="gt_row gt_left" style="background-color: #FFF3B0; font-weight: bold;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ILL logo">Illinois</td>
+<td headers="value" class="gt_row gt_right" style="background-color: #FFF3B0; font-weight: bold;">0.142</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right" style="background-color: #DB9171; color: #000000;">102</td>
@@ -2648,6 +2643,12 @@ shape as the columns it fills.</p>
 <td headers="team" class="gt_row gt_left">
 <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/326.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TXST logo">Texas State</td>
 <td headers="value" class="gt_row gt_right">0.145</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right" style="background-color: #D8896A; color: #FFFFFF;">106</td>
+<td headers="team" class="gt_row gt_left">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2429.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The CLT logo">Charlotte</td>
+<td headers="value" class="gt_row gt_right">0.150</td>
 </tr>
 </tbody>
 </table>
@@ -2692,9 +2693,9 @@ bottom teams land on.</p>
 <span><span class="co">#&gt; 4          Miami    4   4</span></span>
 <span><span class="co">#&gt; 5     Texas Tech    5   5</span></span>
 <span><span class="co">#&gt; 6         Oregon    6   6</span></span>
-<span><span class="co">#&gt; 7      UL Monroe  131   6</span></span>
-<span><span class="co">#&gt; 8          Akron  132   7</span></span>
-<span><span class="co">#&gt; 9      Charlotte  133   8</span></span>
+<span><span class="co">#&gt; 7     Kent State  131   6</span></span>
+<span><span class="co">#&gt; 8      Charlotte  132   7</span></span>
+<span><span class="co">#&gt; 9          Akron  133   8</span></span>
 <span><span class="co">#&gt; 10    Ball State  134   9</span></span>
 <span><span class="co">#&gt; 11   Sam Houston  135  10</span></span>
 <span><span class="co">#&gt; 12 Massachusetts  136  11</span></span></code></pre></div>

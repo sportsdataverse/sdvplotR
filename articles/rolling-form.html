@@ -136,6 +136,7 @@
     <li><a class="dropdown-item" href="../articles/neighbour-ranks.html">Neighbour Ranks</a></li>
     <li><a class="dropdown-item" href="../articles/shot-grid.html">Shot Grid</a></li>
     <li><a class="dropdown-item" href="../articles/rolling-form.html">Rolling Form</a></li>
+    <li><a class="dropdown-item" href="../articles/signature-ribbon.html">Signature Ribbon</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
@@ -320,8 +321,8 @@ average.</p>
 <span><span class="co">#&gt; [1] 226</span></span>
 <span></span>
 <span><span class="va">movers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
-<span>  Risers <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">pool</span>, <span class="va">delta_prev</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span>  Fallers <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span><span class="va">pool</span>, <span class="va">delta_prev</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  Risers <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">pool</span>, <span class="va">delta_prev</span>, n <span class="op">=</span> <span class="fl">5</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  Fallers <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span><span class="va">pool</span>, <span class="va">delta_prev</span>, n <span class="op">=</span> <span class="fl">5</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  .id <span class="op">=</span> <span class="st">"group"</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">entity_name</span>, <span class="va">prev</span>, <span class="va">cur</span>, <span class="va">n</span>, <span class="va">pct</span>, <span class="va">delta_prev_rank</span><span class="op">)</span></span>

@@ -21,6 +21,7 @@ articles:
   schedule_matrix: schedule_matrix.html
   sdv-table-themes: sdv-table-themes.html
   shot-grid: shot-grid.html
+  signature-ribbon: signature-ribbon.html
   social-posting: social-posting.html
   styling: styling.html
   tier_list: tier_list.html
@@ -28,7 +29,7 @@ articles:
   window_wins: window_wins.html
   wnba-viz: wnba-viz.html
   workflows: workflows.html
-last_built: 2026-10-01T17:00Z
+last_built: 2026-10-01T17:10Z
 urls:
   reference: https://sdvplotR.sportsdataverse.org/reference
   article: https://sdvplotR.sportsdataverse.org/articles
