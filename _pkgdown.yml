@@ -320,6 +320,7 @@ articles:
     contents:
       - neighbour-ranks
       - shot-grid
+      - rolling-form
 
 navbar:
   structure:
@@ -460,6 +461,8 @@ navbar:
         href: articles/neighbour-ranks.html
       - text: "Shot Grid"
         href: articles/shot-grid.html
+      - text: "Rolling Form"
+        href: articles/rolling-form.html
     news:
       icon: "fas fa-newspaper"
       text: " Changelog"

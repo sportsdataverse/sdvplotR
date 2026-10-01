@@ -34,4 +34,4 @@
 ^vignettes/images$
 ^\.git$
 ^vignettes/(sdv-table-themes|gt-toolkit)\.Rmd$
-^vignettes/(neighbour-ranks|shot-grid)\.Rmd$
+^vignettes/(neighbour-ranks|shot-grid|rolling-form)\.Rmd$

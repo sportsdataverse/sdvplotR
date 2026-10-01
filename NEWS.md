@@ -189,3 +189,6 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   colors one NBA player's half court, in 3 ft squares, by his field goal
   percentage minus the league's from the same square, from
   `hoopR::load_nba_shots()`, with the court drawn in plain 'ggplot2'.
+  "Rolling Form" lists the college football teams whose last 150 offensive
+  plays rose or fell most against the 150 before, from the
+  `cfb_rolling_windows` release, with `gt_delta()` and `gt_percentile_bar()`.
