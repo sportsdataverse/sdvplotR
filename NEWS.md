@@ -182,3 +182,7 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   content-addressed copies in the SportsDataverse asset archive, so they
   don't change when ESPN reuses a file name; the NHL's are SVG files, read
   with the 'rsvg' package (now in Suggests).
+* A "Visual recipes" article group rebuilds SportsDataverse web visuals as
+  static tables and plots on real data. "Neighbour Ranks" shows one college
+  football team with the five teams ranked above and below it on three
+  metrics, from `cfbfastR::load_espn_cfb_team_summaries()`.
