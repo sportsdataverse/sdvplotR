@@ -808,3 +808,5 @@ SportsDataverse data with sdvplotR’s tables and scales.
 
 - [Neighbour
   Ranks](https://sdvplotR.sportsdataverse.org/articles/neighbour-ranks.md):
+- [Shot
+  Grid](https://sdvplotR.sportsdataverse.org/articles/shot-grid.md):

@@ -283,3 +283,8 @@ NHL, college football, men’s and women’s college basketball), built on
   college football team with the five teams ranked above and below it on
   three metrics, from
   [`cfbfastR::load_espn_cfb_team_summaries()`](https://cfbfastR.sportsdataverse.org/reference/load_espn_cfb_team_summaries.html).
+  “Shot Grid” colors one NBA player’s half court, in 3 ft squares, by
+  his field goal percentage minus the league’s from the same square,
+  from
+  [`hoopR::load_nba_shots()`](https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html),
+  with the court drawn in plain ‘ggplot2’.
