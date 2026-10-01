@@ -152,12 +152,16 @@ Tiles go under the court lines. The view stops 37 ft from the baseline
 shown square fits inside it. The fill runs from the team's secondary color
 (below the league) through grey (level with it) to its primary color (above
 it), capped at 20 points either way so one hot corner does not wash out the
-rest. Alpha follows attempts.
+rest. Alpha follows attempts. If a team's secondary color is close to grey or
+white, the "below" end would blur into the midpoint: pass a darker color as
+`below` for that team.
 
 ```{r plot, fig.alt = "Half-court grid of Shai Gilgeous-Alexander's 2025-26 regular-season field goal attempts. Each 3 ft square is colored by his field goal percentage minus the league's from the same square, and drawn more solid where he took more shots. Squares with fewer than 5 attempts are left out."}
 stopifnot(max(shown$by) + bin / 2 <= 31.75)
 shooter_team <- unique(fga$team_abbrev[fga$athlete_name_1 %in% shooter])
 shooter_team
+# a player traded mid-season has two teams: pick one before taking its colors
+stopifnot(length(shooter_team) == 1)
 above <- sdv_team_colors("nba", shooter_team, type = "primary")
 below <- sdv_team_colors("nba", shooter_team, type = "secondary")
 
