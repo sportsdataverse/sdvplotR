@@ -82,15 +82,15 @@ focal team's name and value are filled with `gt_highlight_cells()`, which takes
 a logical mask the same shape as the columns it fills.
 
 ```{r table}
-neighbour_table <- function(data, team, metric, label) {
-  win <- neighbours(data, team, metric)
-  is_focal <- win$team == team
+neighbour_table <- function(data, focal_team, metric, label) {
+  win <- neighbours(data, focal_team, metric)
+  is_focal <- win$team == focal_team
   gt(win) |>
     tab_header(title = label) |>
     gt_sdv_logos(team, sport = "cfb", height = 20, include_name = TRUE) |>
     fmt_number(value, decimals = 3) |>
     cols_label(rank = "Rank", team = "Team", value = "Value") |>
-    gt_theme_sdv_team(team = team, sport = "cfb", density = "compact") |>
+    gt_theme_sdv_team(team = focal_team, sport = "cfb", density = "compact") |>
     gt_color_ranks(rank, domain = c(1, nrow(data))) |>
     gt_highlight_cells(c(team, value), cbind(is_focal, is_focal), bold = TRUE)
 }
