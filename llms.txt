@@ -800,3 +800,11 @@ gtUtils functions from Andrew Weatherman’s articles.
   Lists](https://sdvplotR.sportsdataverse.org/articles/tier_list.md):
 - [Winningest Programs in Rolling
   Windows](https://sdvplotR.sportsdataverse.org/articles/window_wins.md):
+
+### Visual recipes
+
+Static versions of SportsDataverse web visuals, built on real
+SportsDataverse data with sdvplotR’s tables and scales.
+
+- [Neighbour
+  Ranks](https://sdvplotR.sportsdataverse.org/articles/neighbour-ranks.md):

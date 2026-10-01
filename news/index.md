@@ -278,3 +278,8 @@ NHL, college football, men’s and women’s college basketball), built on
   copies in the SportsDataverse asset archive, so they don’t change when
   ESPN reuses a file name; the NHL’s are SVG files, read with the ‘rsvg’
   package (now in Suggests).
+- A “Visual recipes” article group rebuilds SportsDataverse web visuals
+  as static tables and plots on real data. “Neighbour Ranks” shows one
+  college football team with the five teams ranked above and below it on
+  three metrics, from
+  [`cfbfastR::load_espn_cfb_team_summaries()`](https://cfbfastR.sportsdataverse.org/reference/load_espn_cfb_team_summaries.html).
