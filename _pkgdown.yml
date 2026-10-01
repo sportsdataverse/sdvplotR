@@ -321,6 +321,7 @@ articles:
       - neighbour-ranks
       - shot-grid
       - rolling-form
+      - signature-ribbon
 
 navbar:
   structure:
@@ -463,6 +464,8 @@ navbar:
         href: articles/shot-grid.html
       - text: "Rolling Form"
         href: articles/rolling-form.html
+      - text: "Signature Ribbon"
+        href: articles/signature-ribbon.html
     news:
       icon: "fas fa-newspaper"
       text: " Changelog"
