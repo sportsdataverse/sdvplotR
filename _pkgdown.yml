@@ -313,6 +313,12 @@ articles:
       - schedule_matrix
       - tier_list
       - window_wins
+  - title: "Visual recipes"
+    desc: >
+      Static versions of SportsDataverse web visuals, built on real
+      SportsDataverse data with sdvplotR's tables and scales.
+    contents:
+      - neighbour-ranks
 
 navbar:
   structure:
@@ -447,6 +453,10 @@ navbar:
         href: articles/schedule_matrix.html
       - text: "Rolling-Window Wins"
         href: articles/window_wins.html
+      - text: --------------------------------
+      - text: "Visual recipes"
+      - text: "Neighbour Ranks"
+        href: articles/neighbour-ranks.html
     news:
       icon: "fas fa-newspaper"
       text: " Changelog"
