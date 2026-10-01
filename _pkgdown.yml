@@ -319,6 +319,7 @@ articles:
       SportsDataverse data with sdvplotR's tables and scales.
     contents:
       - neighbour-ranks
+      - shot-grid
 
 navbar:
   structure:
@@ -457,6 +458,8 @@ navbar:
       - text: "Visual recipes"
       - text: "Neighbour Ranks"
         href: articles/neighbour-ranks.html
+      - text: "Shot Grid"
+        href: articles/shot-grid.html
     news:
       icon: "fas fa-newspaper"
       text: " Changelog"
