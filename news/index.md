@@ -287,4 +287,10 @@ NHL, college football, men’s and women’s college basketball), built on
   his field goal percentage minus the league’s from the same square,
   from
   [`hoopR::load_nba_shots()`](https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html),
-  with the court drawn in plain ‘ggplot2’.
+  with the court drawn in plain ‘ggplot2’. “Rolling Form” lists the
+  college football teams whose last 150 offensive plays rose or fell
+  most against the 150 before, from the `cfb_rolling_windows` release,
+  with
+  [`gt_delta()`](https://sdvplotR.sportsdataverse.org/reference/gt_delta.md)
+  and
+  [`gt_percentile_bar()`](https://sdvplotR.sportsdataverse.org/reference/gt_percentile_bar.md).

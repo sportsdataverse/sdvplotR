@@ -82,3 +82,5 @@ SportsDataverse data with sdvplotR’s tables and scales.
   Ranks](https://sdvplotR.sportsdataverse.org/articles/neighbour-ranks.md):
 - [Shot
   Grid](https://sdvplotR.sportsdataverse.org/articles/shot-grid.md):
+- [Rolling
+  Form](https://sdvplotR.sportsdataverse.org/articles/rolling-form.md):
