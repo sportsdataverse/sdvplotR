@@ -192,3 +192,7 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   "Rolling Form" lists the college football teams whose last 150 offensive
   plays rose or fell most against the 150 before, from the
   `cfb_rolling_windows` release, with `gt_delta()` and `gt_percentile_bar()`.
+  "Signature Ribbon" draws one NBA shooter's attempts by shot distance as a
+  ribbon whose thickness is his share of attempts and whose fill is his field
+  goal percentage minus the league's, from the `nba_stats_metric_curves`
+  release.
