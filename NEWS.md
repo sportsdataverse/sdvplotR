@@ -185,4 +185,7 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
 * A "Visual recipes" article group rebuilds SportsDataverse web visuals as
   static tables and plots on real data. "Neighbour Ranks" shows one college
   football team with the five teams ranked above and below it on three
-  metrics, from `cfbfastR::load_espn_cfb_team_summaries()`.
+  metrics, from `cfbfastR::load_espn_cfb_team_summaries()`. "Shot Grid"
+  colors one NBA player's half court, in 3 ft squares, by his field goal
+  percentage minus the league's from the same square, from
+  `hoopR::load_nba_shots()`, with the court drawn in plain 'ggplot2'.
