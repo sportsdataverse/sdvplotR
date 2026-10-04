@@ -1,5 +1,12 @@
 # Articles
 
+### Gallery
+
+- [Gallery](https://sdvplotR.sportsdataverse.org/articles/gallery.md):
+
+  Every article by its picture: a figure the article draws, or a preview
+  of a table theme for the articles built on tables.
+
 ### Getting Started
 
 - [Getting Started with

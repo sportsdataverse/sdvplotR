@@ -14,6 +14,9 @@ approach established by [nflplotR](https://nflplotr.nflverse.com/),
 [mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `sport`
 argument.
 
+![Every NFL team's 2023 regular season drawn as its logo, placed by
+points scored and allowed per game.](reference/figures/README-home.png)
+
 Part of the [SportsDataverse](https://sportsdataverse.org/) family of R
 packages for sports analytics.
 

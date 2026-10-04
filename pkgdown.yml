@@ -5,6 +5,7 @@ articles:
   border_bars: border_bars.html
   cfb-viz: cfb-viz.html
   delay_tables: delay_tables.html
+  gallery: gallery.html
   getting-started: getting-started.html
   grid_tables: grid_tables.html
   gt-toolkit: gt-toolkit.html
@@ -29,7 +30,7 @@ articles:
   window_wins: window_wins.html
   wnba-viz: wnba-viz.html
   workflows: workflows.html
-last_built: 2026-10-04T21:06Z
+last_built: 2026-10-04T21:43Z
 urls:
   reference: https://sdvplotR.sportsdataverse.org/reference
   article: https://sdvplotR.sportsdataverse.org/articles

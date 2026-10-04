@@ -14,6 +14,9 @@ approach established by [nflplotR](https://nflplotr.nflverse.com/),
 [mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `sport`
 argument.
 
+![Every NFL team's 2023 regular season drawn as its logo, placed by
+points scored and allowed per game.](reference/figures/README-home.png)
+
 Part of the [SportsDataverse](https://sportsdataverse.org/) family of R
 packages for sports analytics.
 
@@ -727,6 +730,13 @@ Former gtUtils names, kept so ported code keeps working.
   : Deprecated legend functions
 
 # Articles
+
+### Gallery
+
+- [Gallery](https://sdvplotR.sportsdataverse.org/articles/gallery.md):
+
+  Every article by its picture: a figure the article draws, or a preview
+  of a table theme for the articles built on tables.
 
 ### Getting Started
 
