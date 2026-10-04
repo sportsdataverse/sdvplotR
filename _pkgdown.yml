@@ -380,6 +380,14 @@ navbar:
         href: reference/gt_theme_sdv.html
       - text: "gt: Table Themes"
         href: reference/index.html#gt-table-themes
+      - text: "gt: Annotations"
+        href: reference/index.html#gt-table-annotations
+      - text: "gt: Coloring"
+        href: reference/index.html#gt-table-coloring
+      - text: "gt: Formatting"
+        href: reference/index.html#gt-table-formatting
+      - text: "gt: Layout"
+        href: reference/index.html#gt-table-layout
       - text: "gt: Save & Crop"
         href: reference/gt_save_crop.html
       - text: --------------------------------
