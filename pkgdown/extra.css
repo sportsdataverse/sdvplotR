@@ -125,6 +125,14 @@ small.nav-text.text-muted {
   line-height: 1.65rem;
 }
 
+/* pkgdown sticks #toc 56px down; this navbar is taller, so the first line sat under it */
+@media (min-width: 576px) {
+  #toc {
+    top: 80px;
+    max-height: calc(100vh - 80px - 1rem);
+  }
+}
+
 /* the home sidebar is ~180px wide at tablet widths; keep README badges inside it */
 aside img {
   max-width: 100%;
