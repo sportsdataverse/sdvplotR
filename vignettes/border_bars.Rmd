@@ -11,9 +11,9 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  message = FALSE,
   out.width = "75%",
-  fig.align = "center",
-  eval = FALSE
+  fig.align = "center"
 )
 ```
 
@@ -23,7 +23,7 @@ In essence, it places colored bars at the top or bottom of your table. You're ab
 
 In this vignette, we're going to explore three distinct uses of the `gt_border_bars` family.
 
-```{r setup, eval=FALSE}
+```{r setup}
 library(tidyverse)
 library(gt)
 library(sdvplotR)
@@ -202,10 +202,6 @@ final_data %>%
   )
 ```
 
-```{r, echo=FALSE, eval=TRUE}
-knitr::include_graphics("images/border-bars-player-report.png")
-```
-
 ## Table Footers
 
 Another possibility is using `gt_border_bars_bottom` to include a company or personal logo. For this example, let's pull a TidyTuesday dataset about Rolling Stone's "500 Greatest Albums" and pull the top 15.
@@ -215,7 +211,7 @@ data <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
   slice_min(rank_2020, n = 15)
 ```
 
-Again, this is a really quick and small example. The table itself is pretty basic. We use `gt_theme_sofa` on light mode, throw in some row striping, and include *both* top and bottom bars. In the bottom bar, we add some source text, push it 12px size, and toss it on normal weight. The image we placed in the bottom *could* be clearer, but there's nothing that we can do about that. We stretch it to 100px wide and 30px tall. And with fewer than 20 lines of code, we have a decent start to a table!
+Again, this is a really quick and small example. The table itself is pretty basic. We use `gt_theme_sofa` on light mode, throw in some row striping, and include *both* top and bottom bars. In the bottom bar, we add some source text, push it 12px size, and toss it on normal weight. The image in the bottom bar is the sdvplotR hex logo, drawn 26px wide and 30px tall to keep its shape. And with fewer than 20 lines of code, we have a decent start to a table!
 
 ```{r}
 data %>%
@@ -229,19 +225,15 @@ data %>%
   opt_row_striping() %>%
   gt_border_bars_bottom("#1c2632",
     bar_height = 25,
-    img = "https://www.sxsw.com/wp-content/uploads/2022/11/RollingStone-BW.png",
+    img = "https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png",
     text = "Data pulled from Tidy Tuesday",
-    img_width = 100, img_height = 30, text_size = 12, text_weight = "normal"
+    img_width = 26, img_height = 30, text_size = 12, text_weight = "normal"
   ) %>%
   gt_border_bars_top("#1c2632", bar_height = 5) %>%
   tab_header(
     title = "The 15 Greatest Albums of All Time",
     subtitle = md("Surveying the 2020 Rolling Stone's *500 Greatest Albums List*")
   )
-```
-
-```{r, echo=FALSE, eval=TRUE}
-knitr::include_graphics("images/border-bars-rolling-stones.png")
 ```
 
 ## Just for fun
@@ -265,8 +257,4 @@ data %>%
   gt_theme_gtutils() %>%
   tab_header("Example Title", "Example Subtitle") %>%
   gt_border_bars_bottom(c("#EDBD68", "#F2704E", "#DE5152", "#A43845", "#602B53"))
-```
-
-```{r, echo=FALSE, eval=TRUE}
-knitr::include_graphics("images/border-bars-for-fun.png")
 ```

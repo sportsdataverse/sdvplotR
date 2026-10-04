@@ -12,8 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   message = FALSE,
-  warning = FALSE,
-  eval = FALSE
+  warning = FALSE
 )
 ```
 
@@ -31,7 +30,9 @@ This vignette covers the export side of the package: `gt_save_crop()`,
 `gt_social_crop()`, `gt_save_batch()`, the `"social"` density on every theme,
 and the two attribution functions, `gt_watermark()` and `gt_social_tag()`.
 
-Everything below runs on `mtcars`.
+Everything below runs on `mtcars`. The chunks that write an image are not run
+when this site is built, because they drive a headless Chrome; the picture under
+each one is what it writes.
 
 ```{r}
 cars <- head(mtcars, 8)
@@ -49,7 +50,7 @@ tbl <- gt(cars) %>%
 `gt_save_crop()` renders the table, trims the whitespace around it, then pads it
 back by a fixed amount so the image has an even margin on all four sides.
 
-```{r}
+```{r, eval = FALSE}
 tbl %>% gt_save_crop(file = "table.png")
 ```
 
@@ -65,7 +66,7 @@ default, so the output is retina-sized.
 image to an exact pixel width, holding the aspect ratio. The table above comes
 out 696 by 814. With `width = 900` it becomes 900 by 1053.
 
-```{r}
+```{r, eval = FALSE}
 tbl %>% gt_save_crop(file = "table.png", width = 900)
 ```
 
@@ -82,16 +83,12 @@ built for this (17px body, roomier rows, and a larger title).
 gt(cars) %>% gt_theme_broadsheet(density = "social")
 ```
 
-```{r, eval=TRUE, echo=FALSE}
-knitr::include_graphics("images/save_density.png")
-```
-
 ## A fixed canvas
 
 Some destinations want a shape rather than a size. `gt_social_crop()` centers the
 table on a canvas of a target aspect ratio.
 
-```{r}
+```{r, eval = FALSE}
 gt(cars) %>%
   gt_theme_broadsheet(density = "social") %>%
   gt_social_crop(aspect_ratio = "1:1", bg = "#FBFAF7", file = "square.png")
@@ -113,7 +110,7 @@ ratio. `gravity` moves the table on the canvas if you do not want it centered.
 `gt_watermark()` puts a faint wordmark behind the table body, and
 `gt_social_tag()` puts handles and icons in the source note.
 
-```{r}
+```{r, eval = FALSE}
 tbl %>%
   gt_watermark(
     text = "sdvplotR", opacity = 0.06, size = "62%", angle = 20,
@@ -152,7 +149,7 @@ line for a narrow table.
 `gt_save_batch()` splits the data, builds a table for each group with a function
 you supply, and writes one image per group.
 
-```{r}
+```{r, eval = FALSE}
 bcars <- mtcars
 bcars$car <- rownames(bcars)
 bcars <- bcars[c("car", "cyl", "mpg", "hp")]
