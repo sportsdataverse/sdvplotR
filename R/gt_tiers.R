@@ -115,7 +115,7 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
     # fmt_image() writes no alt, and a path or URL names nothing, so say what the image is
     text_transform(
       locations = cells_body(columns = tidyselect::all_of(img_cols)),
-      fn = function(x) sub("<img ", "<img alt=\"Tier list entry\" ", x, fixed = TRUE)
+      fn = function(x) gsub("<img ", "<img alt=\"Tier list entry\" ", x, fixed = TRUE)
     ) |>
     sub_missing(missing_text = "") |>
     cols_label(everything() ~ "")

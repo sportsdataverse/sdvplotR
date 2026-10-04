@@ -276,7 +276,7 @@ team_perf |>
 
 Visualize rivalry games with both team logos:
 
-```{r rivalries, fig.alt = "Four college football rivalry pairings, such as the Iron Bowl and The Game, each pair shown as two team logos side by side with the rivalry name below."}
+```{r rivalries, fig.alt = "Three college football rivalry pairings, such as the Iron Bowl and The Game, each pair shown as two team logos side by side with the rivalry name below."}
 # Define rivalries
 rivalries <- data.frame(
   team1 = c("ALA", "AUB", "OSU", "MICH", "UGA", "FLA"),

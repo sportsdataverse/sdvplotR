@@ -98,7 +98,7 @@ $(function () {
   window.addEventListener("load", markCards);
   // htmlwidgets (reactable) draw after load: look again as they appear, for the first seconds
   var timer;
-  var seen = new MutationObserver(function () { clearTimeout(timer); timer = setTimeout(markCards, 100); });
+  var seen = new MutationObserver(function () { clearTimeout(timer); timer = setTimeout(function () { markCards(); markAll(); }, 100); });
   seen.observe(document.querySelector("main"), { childList: true, subtree: true });
   setTimeout(function () { seen.disconnect(); }, 5000);
 });

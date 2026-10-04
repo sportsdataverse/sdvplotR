@@ -63,7 +63,7 @@ data <- read_csv("https://github.com/sportsdataverse/cfbfastR-data/raw/refs/head
     team_logo = paste0(base, team_id, ".png"),
     location = ifelse(neutral_site == TRUE, "neutral", location)
   ) %>%
-  select(team, team_logo, week, location, opponent_logo)
+  select(team, team_logo, week, location, opponent_logo, opponent)
 ```
 
 `clean_homeaway()` sets `location` to `"home"` or `"away"`, so we fold the
@@ -78,6 +78,11 @@ logos <- data %>%
   )
 
 wk <- setdiff(names(logos), c("team", "team_logo"))
+
+# the same grid of opponent names, for each logo's alt text
+opp_names <- data %>%
+  arrange(team) %>%
+  pivot_wider(id_cols = team, names_from = week, values_from = opponent, names_sort = TRUE)
 ```
 
 `names_sort = TRUE` sorts the week columns. Because `week` is numeric, they come
@@ -240,9 +245,12 @@ gt(logos, id = "table") %>%
   text_transform(cells_body(columns = team),
     fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))
   ) %>%
-  text_transform(cells_body(columns = all_of(wk)),
-    fn = \(x) sub("<img ", "<img alt=\"Opponent logo\" ", x, fixed = TRUE)
-  ) %>%
+  reduce(wk, .init = ., .f = function(g, c) {
+    text_transform(g, cells_body(columns = all_of(c)), fn = function(x) {
+      alt <- htmltools::htmlEscape(opp_names[[c]], attribute = TRUE)
+      unname(ifelse(is.na(alt), x, mapply(\(tag, a) sub("<img ", paste0("<img alt=\"", a, "\" "), tag, fixed = TRUE), x, alt)))
+    })
+  }) %>%
   cols_align(columns = -team, "center") %>%
   gt_border_grid(weight = 2) %>%
   tab_options(table_body.hlines.width = px(2)) %>%
