@@ -12,13 +12,12 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   message = FALSE,
-  eval = FALSE,
   out.width = "75%",
   fig.align = "center"
 )
 ```
 
-```{r setup, message=FALSE, eval=FALSE}
+```{r setup, message=FALSE}
 library(sdvplotR)
 library(gt)
 library(tidyverse)
@@ -127,7 +126,7 @@ print(data)
 
 Let's apply it!
 
-```{r, eval = FALSE}
+```{r tier-table}
 data %>%
   gt() %>%
   gt_tiers(levels, colors) %>%
@@ -135,10 +134,6 @@ data %>%
     title = "Example Tier List using gtUtils",
     subtitle = paste("Ranking ACC teams by efficiency margin,", season)
   )
-```
-
-```{r, echo = FALSE, out.width="75%", eval=TRUE}
-knitr::include_graphics("images/tier_list_example.png")
 ```
 
 All done! You've created a tier list in `gt` using `sdvplotR`. The tier list function is somewhat limited: a) it only supports image cells and b) it will not "wrap" your logos to condense the width (you can play around with image_height to do this).

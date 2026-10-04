@@ -12,8 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   message = FALSE,
-  warning = FALSE,
-  eval = FALSE
+  warning = FALSE
 )
 ```
 
@@ -48,7 +47,7 @@ week. The NCAA writes school names its own way (`"Iowa St."`,
 `"St. John's (NY)"`), and sdvplotR resolves them as they are, so the names go
 into the table untouched and get their logos later.
 
-```{r}
+```{r net-scrape, eval = FALSE}
 net_page <- read_html("https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings")
 
 # the page states how current the rankings are ("Through Games Apr. 06 2026")
@@ -62,6 +61,16 @@ data <- html_table(html_element(net_page, "table")) %>%
   ) %>%
   filter(net <= 25)
 ```
+
+```{r net-fixture, include = FALSE}
+fx <- readRDS("fixtures/grid_tables/ncaa_net.rds")
+as_of <- fx$as_of
+data <- fx$data
+```
+
+The tables below use a snapshot of this page taken on
+`r format(fx$taken, "%B %d, %Y")` (`r fx$package`), because ncaa.com is not
+scraped when this site is built.
 
 Before splitting anything, two values are computed once, off the full table.
 
@@ -181,10 +190,6 @@ gt_grid(tbls,
 )
 ```
 
-```{r, eval=TRUE, echo=FALSE}
-knitr::include_graphics("images/grid_net.png")
-```
-
 `ncol` sets how many tables go across, and the number of rows follows from the
 list length. `gap` is the space between them in pixels. There is also an `align`
 argument (`"top"`, `"center"`, `"bottom"`) for when the blocks are different
@@ -270,10 +275,6 @@ gt_grid(tbls,
   source_note = "Example created by @andreweatherman using {gtUtils} v1.0",
   caption_rule = TRUE
 )
-```
-
-```{r, eval=TRUE, echo=FALSE}
-knitr::include_graphics("images/grid_spotlight.png")
 ```
 
 This is why `conf` stayed hidden. `gt_spotlight()` filters on it with `rows =

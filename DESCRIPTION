@@ -76,12 +76,15 @@ Config/Needs/website:
     cfbseedR,
     fastRhockey,
     ggrepel,
+    ggsci,
     hoopR,
     nflfastR,
     nflreadr,
+    nycflights13,
     oddsapiR,
     kcuilla/reactablefmtr,
     sportyR,
+    tidyverse,
     wehoop
 Config/Needs/development:
     devtools,

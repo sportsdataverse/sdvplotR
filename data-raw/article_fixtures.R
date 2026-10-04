@@ -248,7 +248,9 @@ write_readme <- function() {
   kb <- file.size(file.path(fixture_dir, files)) / 1024
   rows <- vapply(seq_along(files), function(i) {
     x <- readRDS(file.path(fixture_dir, files[i]))
-    season <- x$season_id %||% x$season %||% x$mlb_season %||% x$nhl_season %||% x$cfb_season %||% "n/a"
+    # exact names: `$` partial-matches (x$season would pick up a `season_results` element)
+    season <- x[["season_id"]] %||% x[["season"]] %||% x[["mlb_season"]] %||% x[["nhl_season"]] %||%
+      x[["cfb_season"]] %||% "n/a"
     sprintf("| `%s` | `%s` | %s | %s | %s | %.1f |", files[i], x$call, season, format(x$taken), x$package, kb[i])
   }, character(1))
   writeLines(c(

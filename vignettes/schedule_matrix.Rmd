@@ -12,8 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   message = FALSE,
-  warning = FALSE,
-  eval = FALSE
+  warning = FALSE
 )
 ```
 
@@ -144,9 +143,11 @@ columns. `reduce()` threads the table through one call per week, and
 
 After the images render, we drop a muted `BYE` into the empty cells.
 
-```{r, eval = FALSE}
+```{r byemark}
 byemark <- "<span style=\"color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em\">BYE</span>"
+```
 
+```{r, eval = FALSE}
 reduce(wk, .init = ., .f = function(g, c) {
   b <- which(is.na(logos[[c]]))
   if (!length(b)) {
@@ -164,7 +165,7 @@ tag. We find the missing rows per column and write the mark straight into them.
 
 We can render the team logo and name together in a flex container and pin the column width so a long name wraps instead of stretching the table.
 
-```{r, eval = FALSE}
+```{r team-cell}
 team_cell <- function(name, logo) {
   sprintf(
     '<div style="display:flex; align-items:center; gap:8px;">
@@ -174,7 +175,9 @@ team_cell <- function(name, logo) {
     logo, name
   )
 }
+```
 
+```{r, eval = FALSE}
 text_transform(cells_body(columns = team),
   fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))
 )
@@ -261,9 +264,5 @@ gt(logos, id = "table") %>%
     md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
     "Example created by @andreweatherman using {gtUtils} v1.0"
   )
-```
-
-```{r, eval=TRUE, echo=FALSE}
-knitr::include_graphics("images/schedule_matrix.png")
 ```
 
