@@ -1,6 +1,6 @@
 # Snapshots for the pkgdown articles' calls that cannot run when the site builds: APIs a CI
-# runner cannot rely on (the MLB and NHL stats APIs, ESPN's), web scrapes and a call that needs
-# a key. Each function runs the article's own code for that step, keeps the rows and columns the
+# runner cannot rely on (the MLB and NHL stats APIs, ESPN's) and web scrapes.
+# Each function runs the article's own code for that step, keeps the rows and columns the
 # article goes on to use, and returns them with the call it made. The runner saves each one as
 # vignettes/fixtures/<article>/<name>.rds, stamped with the date and the package version, and
 # rewrites vignettes/fixtures/README.md from what is on disk.
@@ -8,7 +8,6 @@
 # Run from the package root:
 #   Rscript data-raw/article_fixtures.R                        # every fixture
 #   Rscript data-raw/article_fixtures.R mlb-viz/mlb_stats_api  # one (names: see `fixtures`)
-# workflows/odds_spreads needs ODDS_API_KEY (a free key from The Odds API).
 #
 # Limits: 200 KB a file, 2 MB in all; .rds only (qs does not build on R 4.6).
 
@@ -161,23 +160,6 @@ fx_workflows_nhl <- function() {
   list(nhl_season = nhl_season, nhl_teams = nhl_teams, call = "fastRhockey::nhl_stats_teams()", package = "fastRhockey")
 }
 
-fx_workflows_odds <- function() {
-  # workflows, chunk odds-spreads (step 2)
-  if (!nzchar(Sys.getenv("ODDS_API_KEY"))) {
-    stop("ODDS_API_KEY is not set: the odds snapshot needs a key from The Odds API")
-  }
-  spreads <- oddsapiR::toa_sports_odds(sport_key = "americanfootball_nfl", markets = "spreads") |>
-    mutate(team = clean_team_abbrs(outcomes_name, sport = "nfl")) |>
-    group_by(team) |>
-    summarise(spread = median(outcomes_point, na.rm = TRUE), .groups = "drop")
-  stopifnot(nrow(spreads) > 0, !anyNA(spreads$team))
-  list(
-    spreads = spreads,
-    call = 'oddsapiR::toa_sports_odds(sport_key = "americanfootball_nfl", markets = "spreads")',
-    package = "oddsapiR"
-  )
-}
-
 fixtures <- list(
   "mlb-viz/mlb_stats_api" = fx_mlb_viz,
   "nhl-viz/nhl_stats_api" = fx_nhl_viz,
@@ -185,8 +167,7 @@ fixtures <- list(
   "reactable-integration/espn_fpi" = fx_reactable_fpi,
   "reactable-integration/nhl_skaters" = fx_reactable_nhl,
   "workflows/mlb_standings" = fx_workflows_mlb,
-  "workflows/nhl_teams" = fx_workflows_nhl,
-  "workflows/odds_spreads" = fx_workflows_odds
+  "workflows/nhl_teams" = fx_workflows_nhl
 )
 
 fixture_dir <- file.path("vignettes", "fixtures")
@@ -222,7 +203,7 @@ write_readme <- function() {
     "# Article fixtures",
     "",
     "Snapshots of the calls the pkgdown articles cannot make when the site builds: APIs a CI",
-    "runner cannot rely on, web scrapes and a call that needs a key. Each article shows the real",
+    "runner cannot rely on and web scrapes. Each article shows the real",
     "call, then reads its file here. `data-raw/article_fixtures.R` writes every file and this",
     "table; refresh one with `Rscript data-raw/article_fixtures.R <article>/<name>`.",
     "Limits: 200 KB a file, 2 MB in all.",

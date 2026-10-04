@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  message = FALSE
 )
 ```
 
@@ -214,7 +214,7 @@ reactable(
 
 ESPN's Football Power Index, which needs no API key:
 
-```{r cfb}
+```{r cfb-data, eval = FALSE}
 # the last completed college football regular season (it ends in mid-December)
 cfb_season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "12-15")
@@ -224,7 +224,19 @@ cfb_fpi <- cfbfastR::espn_ratings_fpi(year = cfb_season) |>
   arrange(desc(fpi)) |>
   select(team = team_abbreviation, fpi, w, l) |>
   slice_head(n = 25)
+```
 
+```{r cfb-fixture, include = FALSE}
+fx_fpi <- readRDS("fixtures/reactable-integration/espn_fpi.rds")
+cfb_season <- fx_fpi$cfb_season
+cfb_fpi <- fx_fpi$cfb_fpi
+```
+
+The table below uses a snapshot of this call taken on
+`r format(fx_fpi$taken, "%B %d, %Y")` (`r fx_fpi$package`), because ESPN's API is
+not called when this site is built.
+
+```{r cfb}
 reactable(
   cfb_fpi,
   columns = list(
@@ -236,7 +248,7 @@ reactable(
 
 ### NHL skater stats (fastRhockey)
 
-```{r nhl}
+```{r nhl-data, eval = FALSE}
 # the last completed regular season (named for the year it ends, in mid-April)
 nhl_season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "04-20")
@@ -247,7 +259,19 @@ nhl_skaters <- fastRhockey::nhl_stats_skaters(
   # a player traded mid-season lists every team; keep his last
   mutate(team = sub(".*,\\s*", "", team_abbrevs)) |>
   select(skater_full_name, team, player_id, goals, assists, points)
+```
 
+```{r nhl-fixture, include = FALSE}
+fx_nhl <- readRDS("fixtures/reactable-integration/nhl_skaters.rds")
+nhl_season <- fx_nhl$nhl_season
+nhl_skaters <- fx_nhl$nhl_skaters
+```
+
+The table below uses a snapshot of this call taken on
+`r format(fx_nhl$taken, "%B %d, %Y")` (`r fx_nhl$package`), because the NHL Stats
+API is not called when this site is built.
+
+```{r nhl}
 reactable(
   nhl_skaters,
   columns = list(

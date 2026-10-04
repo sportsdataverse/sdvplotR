@@ -11,7 +11,10 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  message = FALSE,
+  fig.width = 7,
+  fig.height = 5,
+  dpi = 96
 )
 ```
 
@@ -193,7 +196,7 @@ player_plot
 
 Complete workflow for MLB standings:
 
-```{r mlb-workflow}
+```{r mlb-workflow-data, eval = FALSE}
 # Step 1: Load data with baseballr (MLB Stats API; one string for both
 # leagues, because mlb_standings() rejects a vector)
 # the last completed regular season (it ends around October 1)
@@ -214,7 +217,19 @@ standings <- baseballr::mlb_standings(season = mlb_season, league_id = "103,104"
   slice_max(win_pct, n = 15, with_ties = FALSE) |>
   mutate(rank = row_number(), logo = team_abbreviation) |>
   select(rank, logo, team_name, wins, losses, win_pct)
+```
 
+```{r mlb-workflow-fixture, include = FALSE}
+fx_mlb <- readRDS("fixtures/workflows/mlb_standings.rds")
+mlb_season <- fx_mlb$mlb_season
+standings <- fx_mlb$standings
+```
+
+Steps 1 and 2 are not run when this site is built, because the MLB Stats API is
+not called there; the rest of this workflow uses a snapshot of `standings` taken
+on `r format(fx_mlb$taken, "%B %d, %Y")` (`r fx_mlb$package`).
+
+```{r mlb-workflow}
 # Step 3: Create gt table
 standings_table <- standings |>
   gt() |>
@@ -243,13 +258,25 @@ standings_table
 
 Complete workflow for NHL team analysis:
 
-```{r nhl-workflow}
+```{r nhl-workflow-data, eval = FALSE}
 # Step 1: Load data with fastRhockey for the last completed regular season
 # (named for the year it ends; the regular season ends in mid-April)
 nhl_season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "04-20")
 nhl_teams <- fastRhockey::nhl_stats_teams(season = paste0(nhl_season - 1, nhl_season))
+```
 
+```{r nhl-workflow-fixture, include = FALSE}
+fx_nhl <- readRDS("fixtures/workflows/nhl_teams.rds")
+nhl_season <- fx_nhl$nhl_season
+nhl_teams <- fx_nhl$nhl_teams
+```
+
+Step 1 is not run when this site is built, because the NHL Stats API is not
+called there; the rest of this workflow uses a snapshot of `nhl_teams` taken on
+`r format(fx_nhl$taken, "%B %d, %Y")` (`r fx_nhl$package`).
+
+```{r nhl-workflow}
 # Step 2: Process data: the NHL's full team names become abbreviations
 team_perf <- nhl_teams |>
   mutate(team = clean_team_abbrs(team_full_name, sport = "nhl"))

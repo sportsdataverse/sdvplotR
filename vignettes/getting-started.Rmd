@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+# the examples draw sample values at random; a fixed seed keeps the output the same between builds
+set.seed(2026)
 ```
 
 ## Introduction
@@ -62,7 +64,7 @@ ggplot(df, aes(x = x, y = y)) +
 
 Map team names to their official colors using the color scales:
 
-```{r colors, eval=FALSE}
+```{r colors, fig.width = 7, fig.height = 4}
 df <- data.frame(
   team = valid_team_names("nfl")[1:8],
   value = runif(8, 0, 1)
