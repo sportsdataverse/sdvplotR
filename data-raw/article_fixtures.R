@@ -104,40 +104,6 @@ fx_grid_tables <- function() {
   )
 }
 
-fx_window_wins <- function() {
-  # window_wins, chunks ratings-scrape and champs-scrape; three seconds between pages, as the
-  # article explains (Sports Reference rate-limits)
-  season_results <- purrr::map_dfr(1980:2026, function(year) {
-    Sys.sleep(3)
-    suppressWarnings(
-      rvest::read_html(glue::glue("https://www.sports-reference.com/cbb/seasons/men/{year}-ratings.html")) |>
-        rvest::html_nodes("#ratings") |>
-        rvest::html_table() |>
-        purrr::pluck(1) |>
-        janitor::row_to_names(1) |>
-        janitor::clean_names() |>
-        mutate(year = year, across(w:l, as.numeric)) |>
-        filter(!is.na(w)) |>
-        select(team = school, wins = w, losses = l, year)
-    )
-  }, .progress = "Sports Reference ratings pages")
-  champs <- rvest::read_html("https://www.sports-reference.com/cbb/seasons/") |>
-    rvest::html_nodes("#seasons_NCAAM") |>
-    rvest::html_table() |>
-    purrr::pluck(1) |>
-    janitor::clean_names() |>
-    mutate(year = readr::parse_number(tournament)) |>
-    select(year, team = ncaa_champion) |>
-    filter(year >= 1954 & year != 2020)
-  stopifnot(setequal(unique(season_results$year), 1980:2026), nrow(champs) > 60)
-  list(
-    season_results = season_results,
-    champs = champs,
-    call = "rvest::read_html() on sports-reference.com: 47 men's ratings pages (1980-2026) and the seasons page",
-    package = "rvest"
-  )
-}
-
 fx_reactable_fpi <- function() {
   # reactable-integration, chunk cfb-data
   cfb_season <- this_year() - before("12-15")
@@ -216,7 +182,6 @@ fixtures <- list(
   "mlb-viz/mlb_stats_api" = fx_mlb_viz,
   "nhl-viz/nhl_stats_api" = fx_nhl_viz,
   "grid_tables/ncaa_net" = fx_grid_tables,
-  "window_wins/sports_reference" = fx_window_wins,
   "reactable-integration/espn_fpi" = fx_reactable_fpi,
   "reactable-integration/nhl_skaters" = fx_reactable_nhl,
   "workflows/mlb_standings" = fx_workflows_mlb,

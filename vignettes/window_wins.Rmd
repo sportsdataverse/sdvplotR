@@ -12,7 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   message = FALSE,
-  warning = FALSE
+  warning = FALSE,
+  eval = FALSE
 )
 ```
 
@@ -46,7 +47,7 @@ lives.
 Sports Reference publishes one ratings page per season, so we ask for 47 of them
 and stack the results.
 
-```{r ratings-scrape, eval = FALSE}
+```{r}
 library(rvest)
 library(janitor)
 library(glue)
@@ -67,15 +68,6 @@ season_results <- map_dfr(1980:2026, function(year) {
   )
 }, .progress = "Getting data")
 ```
-
-```{r ratings-fixture, include = FALSE}
-fx <- readRDS("fixtures/window_wins/sports_reference.rds")
-season_results <- fx$season_results
-```
-
-The tables below use a snapshot of these pages taken on
-`r format(fx$taken, "%B %d, %Y")` (`r fx$package`), because Sports Reference is
-not scraped when this site is built.
 
 Three things in there are worth pulling out.
 
@@ -130,7 +122,7 @@ starting in 2018 does not have ten seasons in it yet).
 The shading comes from national titles won inside each window, which means a
 second scrape and the same windowing logic.
 
-```{r champs-scrape, eval = FALSE}
+```{r}
 champs <- read_html("https://www.sports-reference.com/cbb/seasons/") %>%
   html_nodes("#seasons_NCAAM") %>%
   html_table() %>%
@@ -139,15 +131,7 @@ champs <- read_html("https://www.sports-reference.com/cbb/seasons/") %>%
   mutate(year = parse_number(tournament)) %>%
   select(year, team = ncaa_champion) %>%
   filter(year >= 1954 & year != 2020)
-```
 
-```{r champs-fixture, include = FALSE}
-champs <- fx$champs
-```
-
-This page is read from the same snapshot.
-
-```{r champs-windows}
 calculate_titles <- function(start_year, data) {
   data %>%
     filter(between(year, start_year, start_year + 9)) %>%
@@ -262,11 +246,9 @@ gap blank.
 With the cells shaded, we render the URLs as images. After the fold, each column
 carries its block number as a suffix, running `1_1` through `5_2`.
 
-```{r logo-cols}
+```{r}
 logo_cols <- unlist(lapply(1:2, function(i) paste0(pos, "_", i)))
-```
 
-```{r, eval = FALSE}
 # ... %>%
 reduce(logo_cols, .init = ., .f = ~ rlang::inject(
   gtExtras::gt_img_rows(.x, columns = !!rlang::sym(.y), height = 35)
@@ -284,7 +266,7 @@ intermediate.
 The rest is ordinary `gt`. Each block gets a spanner, the year column gets a
 label and a fixed width, and a dotted rule separates the logos.
 
-```{r, eval = FALSE}
+```{r}
 # ... %>%
 cols_align(columns = everything(), "center") %>%
   tab_spanner(columns = matches("[0-9]_1"), label = "Most Wins In 10-Yr Window", id = 1) %>%
@@ -312,7 +294,7 @@ thin solid separator on every column. Anything lighter won't be applied!
 
 `gt_legend_discrete()` takes a named vector of `label = color` and draws the key.
 
-```{r, eval = FALSE}
+```{r}
 # ... %>%
 gt_legend_discrete(
   c(
@@ -398,4 +380,8 @@ wide %>%
     md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
     "Example created by @andreweatherman using {gtUtils} v1.0"
   )
+```
+
+```{r, eval=TRUE, echo=FALSE}
+knitr::include_graphics("images/window_wins.png")
 ```
