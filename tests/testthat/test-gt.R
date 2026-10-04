@@ -119,7 +119,7 @@ test_that("gt_tiers and the border bars give every image an alt", {
   d <- data.frame(tier = c("A", "B"), logo = c("https://x/1.png", "https://x/2.png"))
   h <- html_of(gt(d) |> gt_tiers(levels = c("A", "B"), colors = c("#1B7837", "#B2182B")))
   expect_length(img_tags(h), 2)
-  expect_true(all(nzchar(alts_of(h))))
+  expect_identical(alts_of(h), rep("Tier list entry", 2))
   h <- html_of(gt(data.frame(x = 1)) |> gt_border_bars_top(colors = c("#E31837", "#FFB612"), img = "https://x/y.png"))
   expect_identical(alts_of(h), "")
   h <- html_of(gt(data.frame(x = 1)) |> gt_border_bars_bottom(colors = c("#E31837", "#FFB612"), img = "https://x/y.png"))
