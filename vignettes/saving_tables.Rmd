@@ -54,7 +54,7 @@ back by a fixed amount so the image has an even margin on all four sides.
 tbl %>% gt_save_crop(file = "table.png")
 ```
 
-```{r, eval=TRUE, echo=FALSE, out.width="55%"}
+```{r, eval=TRUE, echo=FALSE, out.width="55%", fig.alt = "A cropped table image titled Fuel economy and power, listing eight 1974 cars with miles per gallon, horsepower and weight, with an even margin around it."}
 knitr::include_graphics("images/save_crop.png")
 ```
 
@@ -94,7 +94,7 @@ gt(cars) %>%
   gt_social_crop(aspect_ratio = "1:1", bg = "#FBFAF7", file = "square.png")
 ```
 
-```{r, eval=TRUE, echo=FALSE, out.width="60%"}
+```{r, eval=TRUE, echo=FALSE, out.width="60%", fig.alt = "The same fuel economy table saved as a square social image, centered on a cream background."}
 knitr::include_graphics("images/save_social.png")
 ```
 
@@ -122,7 +122,7 @@ tbl %>%
   gt_save_crop(file = "branded.png")
 ```
 
-```{r, eval=TRUE, echo=FALSE, out.width="55%"}
+```{r, eval=TRUE, echo=FALSE, out.width="55%", fig.alt = "The fuel economy table with a faint gtUtils watermark across the rows, a Built with gtUtils caption and a footer with an X handle and a GitHub name."}
 knitr::include_graphics("images/save_watermark.png")
 ```
 
@@ -167,7 +167,7 @@ gt_save_batch(
 )
 ```
 
-```{r, eval=TRUE, echo=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.alt = "Three tables side by side, one each for 6-, 4- and 8-cylinder cars, listing miles per gallon and horsepower per car."}
 knitr::include_graphics("images/save_batch.png")
 ```
 

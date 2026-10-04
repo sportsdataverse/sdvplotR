@@ -25,7 +25,7 @@ library(tidyverse)
 
 `sdvplotR` ships with a function that makes creating tier lists convenient and quick. However, you need to pass your data to `gt` in a specific format. This vignette walks through how to create a simple tier list.
 
-```{r, echo = FALSE, out.width="75%", eval=TRUE}
+```{r, echo = FALSE, out.width="75%", eval=TRUE, fig.alt = "Example tier list on a dark background: ACC team logos ranked into Elite, Average and Poor rows by efficiency margin."}
 knitr::include_graphics("images/tier_list_example.png")
 ```
 

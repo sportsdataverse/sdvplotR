@@ -144,7 +144,7 @@ columns. `reduce()` threads the table through one call per week, and
 After the images render, we drop a muted `BYE` into the empty cells.
 
 ```{r byemark}
-byemark <- "<span style=\"color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em\">BYE</span>"
+byemark <- "<span style=\"color:#565C64;font-size:8px;font-weight:600;letter-spacing:0.12em\">BYE</span>"
 ```
 
 ```{r, eval = FALSE}
@@ -159,7 +159,7 @@ reduce(wk, .init = ., .f = function(g, c) {
 
 This has to run after `gt_img_rows()`, not through `sub_missing()`, because
 `gt_img_rows()` would otherwise wrap the placeholder text in a broken `<img>`
-tag. We find the missing rows per column and write the mark straight into them.
+tag. We find the missing rows per column and write the mark straight into them. `gt_img_rows()` writes no `alt`, so the full pipeline below adds `alt="Opponent logo"` to each logo with one more `text_transform()`, and the logo beside a team name gets an empty `alt` because the name is already there.
 
 ## Logo and name in the team column
 
@@ -169,7 +169,7 @@ We can render the team logo and name together in a flex container and pin the co
 team_cell <- function(name, logo) {
   sprintf(
     '<div style="display:flex; align-items:center; gap:8px;">
-     <img src="%s" style="height:26px; width:26px; object-fit:contain; flex:none;">
+     <img src="%s" alt="" style="height:26px; width:26px; object-fit:contain; flex:none;">
      <span style="font-family:\'Oswald\',sans-serif; font-size:14px; font-weight:500;
                   line-height:1.05;">%s</span></div>',
     logo, name
@@ -239,6 +239,9 @@ gt(logos, id = "table") %>%
   }) %>%
   text_transform(cells_body(columns = team),
     fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))
+  ) %>%
+  text_transform(cells_body(columns = all_of(wk)),
+    fn = \(x) sub("<img ", "<img alt=\"Opponent logo\" ", x, fixed = TRUE)
   ) %>%
   cols_align(columns = -team, "center") %>%
   gt_border_grid(weight = 2) %>%
