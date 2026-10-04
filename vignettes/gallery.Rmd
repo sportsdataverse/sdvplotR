@@ -1,0 +1,85 @@
+---
+title: "Gallery"
+description: >
+  Every article by its picture: a figure the article draws, or a preview of a
+  table theme for the articles built on tables.
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Gallery}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Each picture links to its article. A plot is the figure that article draws when
+this site is built; an article built on tables shows a preview of a table theme
+from the package.
+
+```{r gallery}
+# A figure is <article>_files/figure-html/<chunk label>-1.png, written when that
+# article builds, so the chunk labels named here must not change. A theme preview
+# is a man/figures file, which pkgdown publishes under reference/figures/. Both
+# paths start with "../" so pkgdown does not look for them under vignettes/.
+fig <- function(article, label) {
+  sprintf("../articles/%s_files/figure-html/%s-1.png", article, label)
+}
+preview <- function(name) sprintf("../reference/figures/%s.png", name)
+
+cards <- data.frame(
+  article = c(
+    "getting-started",
+    "nfl-viz", "cfb-viz", "nba-viz", "wnba-viz", "mlb-viz", "nhl-viz", "mbb-viz", "wbb-viz",
+    "social-posting", "leaderboard-dashboards", "reactable-integration", "workflows",
+    "sdv-table-themes", "gt-toolkit",
+    "styling", "saving_tables", "border_bars", "delay_tables", "grid_tables",
+    "schedule_matrix", "tier_list", "window_wins",
+    "neighbour-ranks", "shot-grid", "rolling-form", "signature-ribbon"
+  ),
+  title = c(
+    "Getting Started",
+    "NFL", "College Football", "NBA", "WNBA", "MLB", "NHL",
+    "Men's College Basketball", "Women's College Basketball",
+    "Social Posting", "Leaderboard Dashboards", "reactable Integration", "End-to-End Workflows",
+    "SportsDataverse Table Themes", "Team Tables with the gt Toolkit",
+    "Styling Headers, Legends and Captions", "Saving and Posting Tables", "Border Bars",
+    "Percentile Bars and Cut Lines", "Faceted Tables", "Schedule Matrix", "Tier Lists",
+    "Rolling-Window Wins",
+    "Neighbour Ranks", "Shot Grid", "Rolling Form", "Signature Ribbon"
+  ),
+  image = c(
+    fig("getting-started", "colors"),
+    fig("nfl-viz", "epa-plot"), fig("cfb-viz", "playoff-bracket"),
+    fig("nba-viz", "team-performance"), fig("wnba-viz", "team-performance"),
+    fig("mlb-viz", "team-performance"), fig("nhl-viz", "team-performance"),
+    fig("mbb-viz", "team-performance"), fig("wbb-viz", "team-performance"),
+    fig("social-posting", "logo-scatter"), preview("gt_theme_sdv"),
+    preview("gt_theme_sdv_team"), fig("workflows", "cfb-workflow"),
+    preview("gt_theme_sdv"), preview("gt_theme_sdv_dark"),
+    preview("gt_theme_terminal"), preview("gt_theme_broadsheet"), preview("gt_theme_savant"),
+    preview("gt_theme_almanac"), preview("gt_theme_swiss"), preview("gt_theme_scoreboard"),
+    preview("tier_list_example"), preview("gt_theme_athletic"),
+    preview("gt_theme_sdv_team"), fig("shot-grid", "plot"),
+    preview("gt_theme_sdv"), fig("signature-ribbon", "plot")
+  )
+)
+cards$alt <- ifelse(
+  grepl("figure-html", cards$image),
+  paste("A figure from the", cards$title, "article"),
+  paste("A table theme preview for the", cards$title, "article")
+)
+
+htmltools::div(
+  class = "sdv-gallery",
+  lapply(seq_len(nrow(cards)), function(i) {
+    htmltools::a(
+      class = "sdv-gallery-card",
+      href = paste0(cards$article[i], ".html"),
+      htmltools::img(src = cards$image[i], alt = cards$alt[i], loading = "lazy"),
+      htmltools::span(cards$title[i])
+    )
+  })
+)
+```

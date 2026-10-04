@@ -30,6 +30,11 @@ knitr::opts_chunk$set(
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports team logos, wordmarks, player headshots and team colors across **eight leagues** — NFL, NBA, WNBA, MLB, NHL, college football, and men's and women's college basketball — in [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots, [**`gt`**](https://gt.rstudio.com/) tables and [**`reactable`**](https://glin.github.io/reactable/) tables. It is built on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the approach established by [nflplotR](https://nflplotr.nflverse.com/), [cfbplotR](https://cfbplotR.sportsdataverse.org/), [nbaplotR](https://mrcaseb.github.io/nbaplotR/) and [mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `sport` argument.
 
+```{r home-figure, echo = FALSE, fig.alt = "Every NFL team's 2023 regular season drawn as its logo, placed by points scored and allowed per game."}
+# drawn once by data-raw/home_figure.R, so the home page never waits on a live fetch
+knitr::include_graphics("man/figures/README-home.png")
+```
+
 Part of the [SportsDataverse](https://sportsdataverse.org/) family of R packages for sports analytics.
 
 Data freshness and pipeline status for every SportsDataverse dataset: [sportsdataverse.org/status](https://sportsdataverse.org/status).
