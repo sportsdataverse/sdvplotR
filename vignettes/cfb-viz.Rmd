@@ -106,7 +106,18 @@ ggplot(sec_teams, aes(x = reorder(team_abbr, mean_epa), y = mean_epa)) +
 ## Playoff Bracket with cfbseedR
 
 `cfbseedR` applies each conference's tiebreakers and seeds a 12-team College
-Football Playoff from a season's results:
+Football Playoff from a season's results.
+
+Unlike `load_cfb_pbp()`, `cfbfastR::load_cfb_schedules()` reads the
+CollegeFootballData.com API, which needs a free API key. Get one at
+<https://collegefootballdata.com/key> and register it for the session before
+running this chunk:
+
+```{r cfbd-key, eval = FALSE}
+Sys.setenv(CFBD_API_KEY = "YOUR-API-KEY-HERE")
+# to keep it across sessions, add CFBD_API_KEY=YOUR-API-KEY-HERE to
+# ~/.Renviron (usethis::edit_r_environ()); see ?cfbfastR::register_cfbd
+```
 
 ```{r playoff-bracket}
 sched <- cfbfastR::load_cfb_schedules(season)

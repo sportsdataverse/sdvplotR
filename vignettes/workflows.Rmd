@@ -281,8 +281,11 @@ nhl_plot
 ## Workflow 6: Betting Odds Integration
 
 Combine standings with betting lines from
-[oddsapiR](https://oddsapiR.sportsdataverse.org), which needs a free key from
-The Odds API in `ODDS_API_KEY`:
+[oddsapiR](https://oddsapiR.sportsdataverse.org), which reads The Odds API and
+needs a free key from <https://the-odds-api.com>. Set it for the session with
+`Sys.setenv(ODDS_API_KEY = "YOUR-API-KEY-HERE")`, or add
+`ODDS_API_KEY=YOUR-API-KEY-HERE` to `~/.Renviron` to keep it. Without a key the
+table below shows records only:
 
 ```{r odds-workflow}
 # Step 1: Load data: regular-season records from nflreadr's schedules
@@ -303,7 +306,7 @@ if (nzchar(Sys.getenv("ODDS_API_KEY"))) {
   spreads <- oddsapiR::toa_sports_odds(sport_key = "americanfootball_nfl", markets = "spreads") |>
     mutate(team = clean_team_abbrs(outcomes_name, sport = "nfl")) |>
     group_by(team) |>
-    summarise(spread = median(outcomes_point, na.rm = TRUE), .groups = "drop")
+    summarise(Spread = median(outcomes_point, na.rm = TRUE), .groups = "drop")
   nfl_standings <- left_join(nfl_standings, spreads, by = "team")
 }
 
@@ -313,6 +316,7 @@ odds_table <- nfl_standings |>
   gt() |>
   gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
   fmt_number(columns = "win_pct", decimals = 3) |>
+  sub_missing(missing_text = "") |>
   cols_label(logo = "", team = "Team", wins = "Wins", win_pct = "Win %") |>
   tab_header(
     title = "NFL Standings with Betting Lines",
