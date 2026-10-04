@@ -22,7 +22,7 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_brutalist.png}{options: style="width:100\%"}}
+#' \if{html}{\figure{gt_theme_brutalist.png}{options: style="width:100\%" alt="gt_theme_brutalist preview"}}
 #'
 #' @examples
 #' library(gt)
@@ -143,5 +143,6 @@ gt_theme_brutalist <- function(gt_object, accent = "#FF3B00",
       paste0("#", table_id, " .gt_subtitle { padding-bottom: ", d$pad + 2, "px !important; }")
     )) |>
     # the caller's options last, after density scaling and striping, so they win
-    gt::tab_options(...)
+    gt::tab_options(...) |>
+    .theme_bs_host()
 }

@@ -28,8 +28,8 @@
 #' rather than by rules. Row groups are closed with a black bottom border.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_sofa_light.png}{options: style="width:100\%"}}
-#' \if{html}{\figure{gt_theme_sofa_dark.png}{options: style="width:100\%"}}
+#' \if{html}{\figure{gt_theme_sofa_light.png}{options: style="width:100\%" alt="gt_theme_sofa_light preview"}}
+#' \if{html}{\figure{gt_theme_sofa_dark.png}{options: style="width:100\%" alt="gt_theme_sofa_dark preview"}}
 #'
 #' @examples
 #' library(gt)
@@ -179,5 +179,6 @@ gt_theme_sofa <- function(gt_object, style = "light",
     )) |>
     .theme_scale_output(density) |>
     # the caller's options last, after density scaling and striping, so they win
-    gt::tab_options(...)
+    gt::tab_options(...) |>
+    .theme_bs_host()
 }

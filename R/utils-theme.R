@@ -233,6 +233,17 @@
   paste0("#", table_id, " td { font-variant-numeric: tabular-nums; }")
 }
 
+# Bootstrap hosts (pkgdown, Quarto) add `.table` to gt's <table>, and its cell rule paints every td
+# with the page's --bs-table-bg and --bs-table-color: a light theme goes dark-on-dark on a dark page.
+# Hand both back to the table, so cells show .gt_table's own background and inherit its text color.
+.theme_bs_host <- function(gt_object) {
+  res <- .table_id(gt_object)
+  gt::opt_css(
+    res$object,
+    paste0("#", res$id, " .gt_table {--bs-table-bg: transparent; --bs-table-color: currentcolor;}")
+  )
+}
+
 # gt hands text_transform() the cells in display order, which row groups
 # change, but runs fmt() functions over the rows in data order. So HTML built
 # per data row goes in through fmt(): `html` has one string per data row, and

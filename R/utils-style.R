@@ -55,3 +55,15 @@
   fonts <- unlist(lapply(list(...), function(s) s$font))
   unique(fonts[!vapply(fonts, is.null, logical(1))])
 }
+
+# Google's css2 endpoint answers 400 to a weight range a family does not fully cover
+# (`wght@100..900` fails for Oswald, Lato, Bungee and Fira Mono), and the font then never loads.
+# A discrete list is lenient: it returns the faces that exist. gt::google_font() builds this query.
+.google_fonts_href <- function(fonts) {
+  axes <- paste0(rep(0:1, each = 9), ",", rep(seq(100, 900, 100), 2), collapse = ";")
+  paste0(
+    "https://fonts.googleapis.com/css2?",
+    paste0("family=", gsub(" ", "+", fonts), ":ital,wght@", axes, collapse = "&"),
+    "&display=swap"
+  )
+}

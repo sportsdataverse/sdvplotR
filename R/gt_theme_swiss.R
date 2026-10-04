@@ -25,7 +25,7 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_swiss.png}{options: style="width:100\%"}}
+#' \if{html}{\figure{gt_theme_swiss.png}{options: style="width:100\%" alt="gt_theme_swiss preview"}}
 #'
 #' @examples
 #' library(gt)
@@ -135,5 +135,6 @@ gt_theme_swiss <- function(gt_object, accent = "#111111",
       paste0("#", table_id, " .gt_subtitle { padding-bottom: ", d$pad + 14, "px !important; }")
     )) |>
     # the caller's options last, after density scaling and striping, so they win
-    gt::tab_options(...)
+    gt::tab_options(...) |>
+    .theme_bs_host()
 }

@@ -27,7 +27,7 @@
 #' the table. Pairs with [gt_tiers()], which builds the tier rows themselves.
 #'
 #' @section Figures:
-#' \if{html}{\figure{tier_list_example.png}{options: style="width:100\%"}}
+#' \if{html}{\figure{tier_list_example.png}{options: style="width:100\%" alt="tier_list_example preview"}}
 #'
 #' @examples
 #' library(gt)
@@ -139,5 +139,6 @@ gt_theme_tier <- function(gt_object, style = "dark",
 
   .theme_scale_output(table, density) |>
     # the caller's options last, after density scaling and striping, so they win
-    gt::tab_options(...)
+    gt::tab_options(...) |>
+    .theme_bs_host()
 }
