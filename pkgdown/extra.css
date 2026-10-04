@@ -203,20 +203,9 @@ table.gt_table {
   --bs-link-color-rgb: 156, 203, 255;
 }
 
-/* ---- anchors clear the navbar; phones get the TOC first and a copy button -- */
+/* ---- anchors clear the navbar; touch devices get the copy button ----------- */
 /* pkgdown assumes a 56px navbar; this one is 70-72px */
 html { scroll-padding-top: 5.5rem; }
-@media (max-width: 767.98px) {
-  .row > aside:has(#toc) { order: -1; margin-bottom: 1rem; }
-  #toc {
-    position: static;
-    max-height: 9rem;
-    overflow-y: auto;
-    border: 1px solid rgba(128, 132, 128, 0.35);
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-  }
-}
 /* the copy button is visibility:hidden until :hover, which touch never fires */
 @media (hover: none) {
   .hasCopyButton .btn-copy-ex { visibility: visible; }
