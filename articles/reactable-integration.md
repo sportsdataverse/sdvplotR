@@ -228,6 +228,13 @@ cfb_fpi <- cfbfastR::espn_ratings_fpi(year = cfb_season) |>
   arrange(desc(fpi)) |>
   select(team = team_abbreviation, fpi, w, l) |>
   slice_head(n = 25)
+```
+
+The table below uses a snapshot of this call taken on October 04, 2026
+(cfbfastR 3.0.0), because ESPN’s API is not called when this site is
+built.
+
+``` r
 
 reactable(
   cfb_fpi,
@@ -252,6 +259,13 @@ nhl_skaters <- fastRhockey::nhl_stats_skaters(
   # a player traded mid-season lists every team; keep his last
   mutate(team = sub(".*,\\s*", "", team_abbrevs)) |>
   select(skater_full_name, team, player_id, goals, assists, points)
+```
+
+The table below uses a snapshot of this call taken on October 04, 2026
+(fastRhockey 1.0.0), because the NHL Stats API is not called when this
+site is built.
+
+``` r
 
 reactable(
   nhl_skaters,

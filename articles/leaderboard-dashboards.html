@@ -284,6 +284,554 @@ real-time.</p>
 <span>    footnote <span class="op">=</span> <span class="st">"Data: nflfastR | Viz: sdvplotR"</span>,</span>
 <span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_title.html" class="external-link">cells_title</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="st">"title"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<div id="yafmoldpel" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yafmoldpel table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#yafmoldpel thead, #yafmoldpel tbody, #yafmoldpel tfoot, #yafmoldpel tr, #yafmoldpel td, #yafmoldpel th {
+  border-style: none;
+}
+
+#yafmoldpel p {
+  margin: 0;
+  padding: 0;
+}
+
+#yafmoldpel .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#yafmoldpel .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#yafmoldpel .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#yafmoldpel .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#yafmoldpel .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#yafmoldpel .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#yafmoldpel .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#yafmoldpel .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#yafmoldpel .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#yafmoldpel .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#yafmoldpel .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#yafmoldpel .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#yafmoldpel .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#yafmoldpel .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#yafmoldpel .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yafmoldpel .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#yafmoldpel .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#yafmoldpel .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#yafmoldpel .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yafmoldpel .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#yafmoldpel .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yafmoldpel .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#yafmoldpel .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yafmoldpel .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yafmoldpel .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yafmoldpel .gt_left {
+  text-align: left;
+}
+
+#yafmoldpel .gt_center {
+  text-align: center;
+}
+
+#yafmoldpel .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#yafmoldpel .gt_font_normal {
+  font-weight: normal;
+}
+
+#yafmoldpel .gt_font_bold {
+  font-weight: bold;
+}
+
+#yafmoldpel .gt_font_italic {
+  font-style: italic;
+}
+
+#yafmoldpel .gt_super {
+  font-size: 65%;
+}
+
+#yafmoldpel .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#yafmoldpel .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#yafmoldpel .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#yafmoldpel .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#yafmoldpel .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#yafmoldpel .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#yafmoldpel .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#yafmoldpel .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#yafmoldpel div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="7" class="gt_heading gt_title gt_font_normal" style>NFL Standings<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Example data</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="logo">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">Abbrev</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">W</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">L</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="ties">T</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pct">Win %</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="rank" class="gt_row gt_right">1</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:35px;" alt="The KC logo"></td>
+<td headers="team" class="gt_row gt_left">KC</td>
+<td headers="wins" class="gt_row gt_right">9</td>
+<td headers="losses" class="gt_row gt_right">2</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.818</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">2</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:35px;" alt="The BUF logo"></td>
+<td headers="team" class="gt_row gt_left">BUF</td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.727</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">3</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:35px;" alt="The SF logo"></td>
+<td headers="team" class="gt_row gt_left">SF</td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.727</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">4</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:35px;" alt="The PHI logo"></td>
+<td headers="team" class="gt_row gt_left">PHI</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">4</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.636</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">5</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:35px;" alt="The DAL logo"></td>
+<td headers="team" class="gt_row gt_left">DAL</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">4</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.636</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">6</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:35px;" alt="The MIA logo"></td>
+<td headers="team" class="gt_row gt_left">MIA</td>
+<td headers="wins" class="gt_row gt_right">6</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.545</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">7</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:35px;" alt="The CIN logo"></td>
+<td headers="team" class="gt_row gt_left">CIN</td>
+<td headers="wins" class="gt_row gt_right">6</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.545</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">8</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:35px;" alt="The BAL logo"></td>
+<td headers="team" class="gt_row gt_left">BAL</td>
+<td headers="wins" class="gt_row gt_right">6</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.545</td>
+</tr>
+</tbody>
+<tfoot><tr class="gt_footnotes">
+<td class="gt_footnote" colspan="7">
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Data: nflfastR | Viz: sdvplotR</td>
+    </tr></tfoot>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="advanced-leaderboard-with-team-colors">Advanced Leaderboard with Team Colors<a class="anchor" aria-label="anchor" href="#advanced-leaderboard-with-team-colors"></a>
@@ -316,8 +864,572 @@ real-time.</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/data_color.html" class="external-link">data_color</a></span><span class="op">(</span></span>
 <span>    columns <span class="op">=</span> <span class="st">"pct"</span>,</span>
-<span>    palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lightblue"</span>, <span class="st">"darkblue"</span><span class="op">)</span></span>
+<span>    palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lightblue"</span>, <span class="st">"darkblue"</span><span class="op">)</span>,</span>
+<span>    <span class="co"># pick black or white text by WCAG contrast (gt's default, APCA, put white text on</span></span>
+<span>    <span class="co"># mid-blue cells at 3.1:1)</span></span>
+<span>    contrast_algo <span class="op">=</span> <span class="st">"wcag"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<div id="zbxsonqljv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zbxsonqljv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zbxsonqljv thead, #zbxsonqljv tbody, #zbxsonqljv tfoot, #zbxsonqljv tr, #zbxsonqljv td, #zbxsonqljv th {
+  border-style: none;
+}
+
+#zbxsonqljv p {
+  margin: 0;
+  padding: 0;
+}
+
+#zbxsonqljv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zbxsonqljv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zbxsonqljv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zbxsonqljv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zbxsonqljv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zbxsonqljv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zbxsonqljv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zbxsonqljv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zbxsonqljv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zbxsonqljv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zbxsonqljv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zbxsonqljv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zbxsonqljv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zbxsonqljv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zbxsonqljv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zbxsonqljv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zbxsonqljv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zbxsonqljv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zbxsonqljv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zbxsonqljv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zbxsonqljv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zbxsonqljv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zbxsonqljv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zbxsonqljv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zbxsonqljv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zbxsonqljv .gt_left {
+  text-align: left;
+}
+
+#zbxsonqljv .gt_center {
+  text-align: center;
+}
+
+#zbxsonqljv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zbxsonqljv .gt_font_normal {
+  font-weight: normal;
+}
+
+#zbxsonqljv .gt_font_bold {
+  font-weight: bold;
+}
+
+#zbxsonqljv .gt_font_italic {
+  font-style: italic;
+}
+
+#zbxsonqljv .gt_super {
+  font-size: 65%;
+}
+
+#zbxsonqljv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zbxsonqljv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zbxsonqljv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zbxsonqljv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zbxsonqljv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zbxsonqljv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zbxsonqljv .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#zbxsonqljv .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#zbxsonqljv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="9" class="gt_heading gt_title gt_font_normal" style>NFL Standings</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Example data</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="logo">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">Abbrev</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">W</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">L</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="ties">T</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pct">Win %</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="primary_color">primary_color</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="secondary_color">secondary_color</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="rank" class="gt_row gt_right">1</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:35px;" alt="The KC logo"></td>
+<td headers="team" class="gt_row gt_left">KC</td>
+<td headers="wins" class="gt_row gt_right">9</td>
+<td headers="losses" class="gt_row gt_right">2</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right" style="background-color: #00008B; color: #FFFFFF;">0.818</td>
+<td headers="primary_color" class="gt_row gt_left">#E31837</td>
+<td headers="secondary_color" class="gt_row gt_left">#FFB612</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">2</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:35px;" alt="The BUF logo"></td>
+<td headers="team" class="gt_row gt_left">BUF</td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right" style="background-color: #564BAA; color: #FFFFFF;">0.727</td>
+<td headers="primary_color" class="gt_row gt_left">#00338D</td>
+<td headers="secondary_color" class="gt_row gt_left">#C60C30</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">3</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:35px;" alt="The SF logo"></td>
+<td headers="team" class="gt_row gt_left">SF</td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right" style="background-color: #564BAA; color: #FFFFFF;">0.727</td>
+<td headers="primary_color" class="gt_row gt_left">#AA0000</td>
+<td headers="secondary_color" class="gt_row gt_left">#B3995D</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">4</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:35px;" alt="The PHI logo"></td>
+<td headers="team" class="gt_row gt_left">PHI</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">4</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right" style="background-color: #8590C8; color: #000000;">0.636</td>
+<td headers="primary_color" class="gt_row gt_left">#004C54</td>
+<td headers="secondary_color" class="gt_row gt_left">#A5ACAF</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">5</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:35px;" alt="The DAL logo"></td>
+<td headers="team" class="gt_row gt_left">DAL</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">4</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right" style="background-color: #8590C8; color: #000000;">0.636</td>
+<td headers="primary_color" class="gt_row gt_left">#002244</td>
+<td headers="secondary_color" class="gt_row gt_left">#B0B7BC</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">6</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:35px;" alt="The MIA logo"></td>
+<td headers="team" class="gt_row gt_left">MIA</td>
+<td headers="wins" class="gt_row gt_right">6</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right" style="background-color: #ADD8E6; color: #000000;">0.545</td>
+<td headers="primary_color" class="gt_row gt_left">#008E97</td>
+<td headers="secondary_color" class="gt_row gt_left">#F58220</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">7</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:35px;" alt="The CIN logo"></td>
+<td headers="team" class="gt_row gt_left">CIN</td>
+<td headers="wins" class="gt_row gt_right">6</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right" style="background-color: #ADD8E6; color: #000000;">0.545</td>
+<td headers="primary_color" class="gt_row gt_left">#FB4F14</td>
+<td headers="secondary_color" class="gt_row gt_left">#000000</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">8</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:35px;" alt="The BAL logo"></td>
+<td headers="team" class="gt_row gt_left">BAL</td>
+<td headers="wins" class="gt_row gt_right">6</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right" style="background-color: #ADD8E6; color: #000000;">0.545</td>
+<td headers="primary_color" class="gt_row gt_left">#241773</td>
+<td headers="secondary_color" class="gt_row gt_left">#9E7C0C</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="multi-sport-leaderboard">Multi-Sport Leaderboard<a class="anchor" aria-label="anchor" href="#multi-sport-leaderboard"></a>
@@ -355,6 +1467,572 @@ real-time.</p>
 <span>    title <span class="op">=</span> <span class="st">"Multi-Sport Leaderboard"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Top Teams Across Sports"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<div id="rbelxepclc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rbelxepclc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#rbelxepclc thead, #rbelxepclc tbody, #rbelxepclc tfoot, #rbelxepclc tr, #rbelxepclc td, #rbelxepclc th {
+  border-style: none;
+}
+
+#rbelxepclc p {
+  margin: 0;
+  padding: 0;
+}
+
+#rbelxepclc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#rbelxepclc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#rbelxepclc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#rbelxepclc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rbelxepclc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rbelxepclc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rbelxepclc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rbelxepclc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rbelxepclc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#rbelxepclc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#rbelxepclc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rbelxepclc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rbelxepclc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rbelxepclc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rbelxepclc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rbelxepclc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#rbelxepclc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#rbelxepclc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#rbelxepclc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rbelxepclc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#rbelxepclc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rbelxepclc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rbelxepclc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rbelxepclc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rbelxepclc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rbelxepclc .gt_left {
+  text-align: left;
+}
+
+#rbelxepclc .gt_center {
+  text-align: center;
+}
+
+#rbelxepclc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rbelxepclc .gt_font_normal {
+  font-weight: normal;
+}
+
+#rbelxepclc .gt_font_bold {
+  font-weight: bold;
+}
+
+#rbelxepclc .gt_font_italic {
+  font-style: italic;
+}
+
+#rbelxepclc .gt_super {
+  font-size: 65%;
+}
+
+#rbelxepclc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#rbelxepclc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#rbelxepclc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#rbelxepclc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#rbelxepclc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#rbelxepclc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#rbelxepclc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#rbelxepclc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#rbelxepclc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="6" class="gt_heading gt_title gt_font_normal" style>Multi-Sport Leaderboard</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Top Teams Across Sports</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="sport">Sport</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">W</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">L</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pct">Win %</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="sport" class="gt_row gt_left">NFL</td>
+<td headers="rank" class="gt_row gt_right">1</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:30px;" alt="The KC logo"></td>
+<td headers="wins" class="gt_row gt_right">9</td>
+<td headers="losses" class="gt_row gt_right">2</td>
+<td headers="pct" class="gt_row gt_right">0.818</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">NFL</td>
+<td headers="rank" class="gt_row gt_right">2</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:30px;" alt="The BUF logo"></td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">0.727</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">NFL</td>
+<td headers="rank" class="gt_row gt_right">3</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:30px;" alt="The SF logo"></td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">0.727</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">NFL</td>
+<td headers="rank" class="gt_row gt_right">4</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:30px;" alt="The PHI logo"></td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">4</td>
+<td headers="pct" class="gt_row gt_right">0.636</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">NBA</td>
+<td headers="rank" class="gt_row gt_right">5</td>
+<td headers="team" class="gt_row gt_left">BOS</td>
+<td headers="wins" class="gt_row gt_right">25</td>
+<td headers="losses" class="gt_row gt_right">8</td>
+<td headers="pct" class="gt_row gt_right">0.758</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">NBA</td>
+<td headers="rank" class="gt_row gt_right">6</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:30px;" alt="The DEN logo"></td>
+<td headers="wins" class="gt_row gt_right">23</td>
+<td headers="losses" class="gt_row gt_right">10</td>
+<td headers="pct" class="gt_row gt_right">0.697</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">NBA</td>
+<td headers="rank" class="gt_row gt_right">7</td>
+<td headers="team" class="gt_row gt_left">MIL</td>
+<td headers="wins" class="gt_row gt_right">22</td>
+<td headers="losses" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">0.667</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">NBA</td>
+<td headers="rank" class="gt_row gt_right">8</td>
+<td headers="team" class="gt_row gt_left">PHX</td>
+<td headers="wins" class="gt_row gt_right">20</td>
+<td headers="losses" class="gt_row gt_right">13</td>
+<td headers="pct" class="gt_row gt_right">0.606</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">MLB</td>
+<td headers="rank" class="gt_row gt_right">9</td>
+<td headers="team" class="gt_row gt_left">LAD</td>
+<td headers="wins" class="gt_row gt_right">95</td>
+<td headers="losses" class="gt_row gt_right">67</td>
+<td headers="pct" class="gt_row gt_right">0.586</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">MLB</td>
+<td headers="rank" class="gt_row gt_right">10</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:30px;" alt="The ATL logo"></td>
+<td headers="wins" class="gt_row gt_right">90</td>
+<td headers="losses" class="gt_row gt_right">72</td>
+<td headers="pct" class="gt_row gt_right">0.556</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">MLB</td>
+<td headers="rank" class="gt_row gt_right">11</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:30px;" alt="The HOU logo"></td>
+<td headers="wins" class="gt_row gt_right">88</td>
+<td headers="losses" class="gt_row gt_right">74</td>
+<td headers="pct" class="gt_row gt_right">0.543</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">MLB</td>
+<td headers="rank" class="gt_row gt_right">12</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:30px;" alt="The BAL logo"></td>
+<td headers="wins" class="gt_row gt_right">85</td>
+<td headers="losses" class="gt_row gt_right">77</td>
+<td headers="pct" class="gt_row gt_right">0.525</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="player-leaderboard-with-headshots">Player Leaderboard with Headshots<a class="anchor" aria-label="anchor" href="#player-leaderboard-with-headshots"></a>
@@ -392,6 +2070,513 @@ real-time.</p>
 <span>    title <span class="op">=</span> <span class="st">"NFL Quarterback Leaderboard"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Top Passers by Yards"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<div id="cjdhrbmile" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cjdhrbmile table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cjdhrbmile thead, #cjdhrbmile tbody, #cjdhrbmile tfoot, #cjdhrbmile tr, #cjdhrbmile td, #cjdhrbmile th {
+  border-style: none;
+}
+
+#cjdhrbmile p {
+  margin: 0;
+  padding: 0;
+}
+
+#cjdhrbmile .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cjdhrbmile .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cjdhrbmile .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cjdhrbmile .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cjdhrbmile .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cjdhrbmile .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cjdhrbmile .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cjdhrbmile .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cjdhrbmile .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#cjdhrbmile .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#cjdhrbmile .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cjdhrbmile .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cjdhrbmile .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cjdhrbmile .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cjdhrbmile .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cjdhrbmile .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cjdhrbmile .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cjdhrbmile .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#cjdhrbmile .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cjdhrbmile .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cjdhrbmile .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cjdhrbmile .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cjdhrbmile .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cjdhrbmile .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cjdhrbmile .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cjdhrbmile .gt_left {
+  text-align: left;
+}
+
+#cjdhrbmile .gt_center {
+  text-align: center;
+}
+
+#cjdhrbmile .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cjdhrbmile .gt_font_normal {
+  font-weight: normal;
+}
+
+#cjdhrbmile .gt_font_bold {
+  font-weight: bold;
+}
+
+#cjdhrbmile .gt_font_italic {
+  font-style: italic;
+}
+
+#cjdhrbmile .gt_super {
+  font-size: 65%;
+}
+
+#cjdhrbmile .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cjdhrbmile .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cjdhrbmile .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cjdhrbmile .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cjdhrbmile .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cjdhrbmile .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cjdhrbmile .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#cjdhrbmile .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#cjdhrbmile div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="7" class="gt_heading gt_title gt_font_normal" style>NFL Quarterback Leaderboard</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Top Passers by Yards</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="player_id">Player</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="player_name">Name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pass_yds">Yards</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pass_td">TD</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pass_int">INT</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="rank" class="gt_row gt_right">1</td>
+<td headers="player_id" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png" style="height:40px;"></td>
+<td headers="player_name" class="gt_row gt_left">P. Mahomes</td>
+<td headers="team" class="gt_row gt_left">KC</td>
+<td headers="pass_yds" class="gt_row gt_right">4,200.00</td>
+<td headers="pass_td" class="gt_row gt_right">32.00</td>
+<td headers="pass_int" class="gt_row gt_right">8.00</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">2</td>
+<td headers="player_id" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png" style="height:40px;"></td>
+<td headers="player_name" class="gt_row gt_left">M. Stafford</td>
+<td headers="team" class="gt_row gt_left">LAR</td>
+<td headers="pass_yds" class="gt_row gt_right">3,800.00</td>
+<td headers="pass_td" class="gt_row gt_right">28.00</td>
+<td headers="pass_int" class="gt_row gt_right">12.00</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">3</td>
+<td headers="player_id" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/btfruyf33adgnjzpcuen.png" style="height:40px;"></td>
+<td headers="player_name" class="gt_row gt_left">K. Murray</td>
+<td headers="team" class="gt_row gt_left">ARI</td>
+<td headers="pass_yds" class="gt_row gt_right">3,500.00</td>
+<td headers="pass_td" class="gt_row gt_right">25.00</td>
+<td headers="pass_int" class="gt_row gt_right">10.00</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">4</td>
+<td headers="player_id" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yxs7ix2pmcfv5k1qn1sk.png" style="height:40px;"></td>
+<td headers="player_name" class="gt_row gt_left">J. Allen</td>
+<td headers="team" class="gt_row gt_left">BUF</td>
+<td headers="pass_yds" class="gt_row gt_right">4,100.00</td>
+<td headers="pass_td" class="gt_row gt_right">30.00</td>
+<td headers="pass_int" class="gt_row gt_right">9.00</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="quartile-based-leaderboard">Quartile-Based Leaderboard<a class="anchor" aria-label="anchor" href="#quartile-based-leaderboard"></a>
@@ -435,6 +2620,564 @@ real-time.</p>
 <span>    label <span class="op">=</span> <span class="st">"Playoff Teams"</span>,</span>
 <span>    rows <span class="op">=</span> <span class="va">pct</span> <span class="op">&gt;=</span> <span class="fl">0.50</span> <span class="op">&amp;</span> <span class="va">pct</span> <span class="op">&lt;</span> <span class="fl">0.75</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<div id="imripgreek" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#imripgreek table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#imripgreek thead, #imripgreek tbody, #imripgreek tfoot, #imripgreek tr, #imripgreek td, #imripgreek th {
+  border-style: none;
+}
+
+#imripgreek p {
+  margin: 0;
+  padding: 0;
+}
+
+#imripgreek .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#imripgreek .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#imripgreek .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#imripgreek .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#imripgreek .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#imripgreek .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#imripgreek .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#imripgreek .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#imripgreek .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#imripgreek .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#imripgreek .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#imripgreek .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#imripgreek .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#imripgreek .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#imripgreek .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#imripgreek .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#imripgreek .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#imripgreek .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#imripgreek .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imripgreek .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#imripgreek .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#imripgreek .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#imripgreek .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imripgreek .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#imripgreek .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#imripgreek .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#imripgreek .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imripgreek .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#imripgreek .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#imripgreek .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#imripgreek .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#imripgreek .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#imripgreek .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imripgreek .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#imripgreek .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imripgreek .gt_left {
+  text-align: left;
+}
+
+#imripgreek .gt_center {
+  text-align: center;
+}
+
+#imripgreek .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#imripgreek .gt_font_normal {
+  font-weight: normal;
+}
+
+#imripgreek .gt_font_bold {
+  font-weight: bold;
+}
+
+#imripgreek .gt_font_italic {
+  font-style: italic;
+}
+
+#imripgreek .gt_super {
+  font-size: 65%;
+}
+
+#imripgreek .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#imripgreek .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#imripgreek .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#imripgreek .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#imripgreek .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#imripgreek .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#imripgreek .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#imripgreek .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#imripgreek div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="8" class="gt_heading gt_title gt_font_normal" style>NFL Standings by Quartile</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Example data</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="logo">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">Abbrev</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">W</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">L</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="ties">T</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pct">Win %</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="quartile">Quartile</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row">
+<th colspan="8" class="gt_group_heading" scope="colgroup" id="Playoff Teams">Playoff Teams</th>
+    </tr>
+<tr class="gt_row_group_first">
+<td headers="Playoff Teams  rank" class="gt_row gt_right">2</td>
+<td headers="Playoff Teams  logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:35px;" alt="The BUF logo"></td>
+<td headers="Playoff Teams  team" class="gt_row gt_left">BUF</td>
+<td headers="Playoff Teams  wins" class="gt_row gt_right">8</td>
+<td headers="Playoff Teams  losses" class="gt_row gt_right">3</td>
+<td headers="Playoff Teams  ties" class="gt_row gt_right">0</td>
+<td headers="Playoff Teams  pct" class="gt_row gt_right">0.727</td>
+<td headers="Playoff Teams  quartile" class="gt_row gt_left">Q2 (Good)</td>
+</tr>
+<tr>
+<td headers="Playoff Teams  rank" class="gt_row gt_right">3</td>
+<td headers="Playoff Teams  logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:35px;" alt="The SF logo"></td>
+<td headers="Playoff Teams  team" class="gt_row gt_left">SF</td>
+<td headers="Playoff Teams  wins" class="gt_row gt_right">8</td>
+<td headers="Playoff Teams  losses" class="gt_row gt_right">3</td>
+<td headers="Playoff Teams  ties" class="gt_row gt_right">0</td>
+<td headers="Playoff Teams  pct" class="gt_row gt_right">0.727</td>
+<td headers="Playoff Teams  quartile" class="gt_row gt_left">Q2 (Good)</td>
+</tr>
+<tr>
+<td headers="Playoff Teams  rank" class="gt_row gt_right">4</td>
+<td headers="Playoff Teams  logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:35px;" alt="The PHI logo"></td>
+<td headers="Playoff Teams  team" class="gt_row gt_left">PHI</td>
+<td headers="Playoff Teams  wins" class="gt_row gt_right">7</td>
+<td headers="Playoff Teams  losses" class="gt_row gt_right">4</td>
+<td headers="Playoff Teams  ties" class="gt_row gt_right">0</td>
+<td headers="Playoff Teams  pct" class="gt_row gt_right">0.636</td>
+<td headers="Playoff Teams  quartile" class="gt_row gt_left">Q2 (Good)</td>
+</tr>
+<tr>
+<td headers="Playoff Teams  rank" class="gt_row gt_right">5</td>
+<td headers="Playoff Teams  logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:35px;" alt="The DAL logo"></td>
+<td headers="Playoff Teams  team" class="gt_row gt_left">DAL</td>
+<td headers="Playoff Teams  wins" class="gt_row gt_right">7</td>
+<td headers="Playoff Teams  losses" class="gt_row gt_right">4</td>
+<td headers="Playoff Teams  ties" class="gt_row gt_right">0</td>
+<td headers="Playoff Teams  pct" class="gt_row gt_right">0.636</td>
+<td headers="Playoff Teams  quartile" class="gt_row gt_left">Q2 (Good)</td>
+</tr>
+<tr>
+<td headers="Playoff Teams  rank" class="gt_row gt_right">6</td>
+<td headers="Playoff Teams  logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:35px;" alt="The MIA logo"></td>
+<td headers="Playoff Teams  team" class="gt_row gt_left">MIA</td>
+<td headers="Playoff Teams  wins" class="gt_row gt_right">6</td>
+<td headers="Playoff Teams  losses" class="gt_row gt_right">5</td>
+<td headers="Playoff Teams  ties" class="gt_row gt_right">0</td>
+<td headers="Playoff Teams  pct" class="gt_row gt_right">0.545</td>
+<td headers="Playoff Teams  quartile" class="gt_row gt_left">Q2 (Good)</td>
+</tr>
+<tr>
+<td headers="Playoff Teams  rank" class="gt_row gt_right">7</td>
+<td headers="Playoff Teams  logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:35px;" alt="The CIN logo"></td>
+<td headers="Playoff Teams  team" class="gt_row gt_left">CIN</td>
+<td headers="Playoff Teams  wins" class="gt_row gt_right">6</td>
+<td headers="Playoff Teams  losses" class="gt_row gt_right">5</td>
+<td headers="Playoff Teams  ties" class="gt_row gt_right">0</td>
+<td headers="Playoff Teams  pct" class="gt_row gt_right">0.545</td>
+<td headers="Playoff Teams  quartile" class="gt_row gt_left">Q2 (Good)</td>
+</tr>
+<tr>
+<td headers="Playoff Teams  rank" class="gt_row gt_right">8</td>
+<td headers="Playoff Teams  logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:35px;" alt="The BAL logo"></td>
+<td headers="Playoff Teams  team" class="gt_row gt_left">BAL</td>
+<td headers="Playoff Teams  wins" class="gt_row gt_right">6</td>
+<td headers="Playoff Teams  losses" class="gt_row gt_right">5</td>
+<td headers="Playoff Teams  ties" class="gt_row gt_right">0</td>
+<td headers="Playoff Teams  pct" class="gt_row gt_right">0.545</td>
+<td headers="Playoff Teams  quartile" class="gt_row gt_left">Q2 (Good)</td>
+</tr>
+<tr class="gt_group_heading_row">
+<th colspan="8" class="gt_group_heading" scope="colgroup" id="Elite Teams">Elite Teams</th>
+    </tr>
+<tr class="gt_row_group_first">
+<td headers="Elite Teams  rank" class="gt_row gt_right">1</td>
+<td headers="Elite Teams  logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:35px;" alt="The KC logo"></td>
+<td headers="Elite Teams  team" class="gt_row gt_left">KC</td>
+<td headers="Elite Teams  wins" class="gt_row gt_right">9</td>
+<td headers="Elite Teams  losses" class="gt_row gt_right">2</td>
+<td headers="Elite Teams  ties" class="gt_row gt_right">0</td>
+<td headers="Elite Teams  pct" class="gt_row gt_right">0.818</td>
+<td headers="Elite Teams  quartile" class="gt_row gt_left">Q1 (Elite)</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="quarto-dashboard-integration">Quarto Dashboard Integration<a class="anchor" aria-label="anchor" href="#quarto-dashboard-integration"></a>
@@ -499,6 +3242,548 @@ real-time.</p>
 <span></span>
 <span><span class="co"># Update standings</span></span>
 <span><span class="fu">update_standings</span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
+<div id="feqctoqhuu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#feqctoqhuu table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#feqctoqhuu thead, #feqctoqhuu tbody, #feqctoqhuu tfoot, #feqctoqhuu tr, #feqctoqhuu td, #feqctoqhuu th {
+  border-style: none;
+}
+
+#feqctoqhuu p {
+  margin: 0;
+  padding: 0;
+}
+
+#feqctoqhuu .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#feqctoqhuu .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#feqctoqhuu .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#feqctoqhuu .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#feqctoqhuu .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#feqctoqhuu .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#feqctoqhuu .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#feqctoqhuu .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#feqctoqhuu .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#feqctoqhuu .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#feqctoqhuu .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#feqctoqhuu .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#feqctoqhuu .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#feqctoqhuu .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#feqctoqhuu .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#feqctoqhuu .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#feqctoqhuu .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#feqctoqhuu .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#feqctoqhuu .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#feqctoqhuu .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#feqctoqhuu .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#feqctoqhuu .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#feqctoqhuu .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#feqctoqhuu .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#feqctoqhuu .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#feqctoqhuu .gt_left {
+  text-align: left;
+}
+
+#feqctoqhuu .gt_center {
+  text-align: center;
+}
+
+#feqctoqhuu .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#feqctoqhuu .gt_font_normal {
+  font-weight: normal;
+}
+
+#feqctoqhuu .gt_font_bold {
+  font-weight: bold;
+}
+
+#feqctoqhuu .gt_font_italic {
+  font-style: italic;
+}
+
+#feqctoqhuu .gt_super {
+  font-size: 65%;
+}
+
+#feqctoqhuu .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#feqctoqhuu .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#feqctoqhuu .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#feqctoqhuu .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#feqctoqhuu .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#feqctoqhuu .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#feqctoqhuu .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#feqctoqhuu .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#feqctoqhuu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pct">pct</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="logo">logo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">rank</th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="team" class="gt_row gt_left">CLE</td>
+<td headers="wins" class="gt_row gt_right">16</td>
+<td headers="losses" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">1.000</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:30px;" alt="The CLE logo"></td>
+<td headers="rank" class="gt_row gt_right">4</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left">BAL</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">2</td>
+<td headers="pct" class="gt_row gt_right">0.778</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:30px;" alt="The BAL logo"></td>
+<td headers="rank" class="gt_row gt_right">6</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left">JAX</td>
+<td headers="wins" class="gt_row gt_right">15</td>
+<td headers="losses" class="gt_row gt_right">6</td>
+<td headers="pct" class="gt_row gt_right">0.714</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:30px;" alt="The JAX logo"></td>
+<td headers="rank" class="gt_row gt_right">7</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left">SF</td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">0.615</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:30px;" alt="The SF logo"></td>
+<td headers="rank" class="gt_row gt_right">1</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left">NO</td>
+<td headers="wins" class="gt_row gt_right">11</td>
+<td headers="losses" class="gt_row gt_right">9</td>
+<td headers="pct" class="gt_row gt_right">0.550</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:30px;" alt="The NO logo"></td>
+<td headers="rank" class="gt_row gt_right">9</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left">NYJ</td>
+<td headers="wins" class="gt_row gt_right">14</td>
+<td headers="losses" class="gt_row gt_right">13</td>
+<td headers="pct" class="gt_row gt_right">0.519</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:30px;" alt="The NYJ logo"></td>
+<td headers="rank" class="gt_row gt_right">8</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left">BUF</td>
+<td headers="wins" class="gt_row gt_right">5</td>
+<td headers="losses" class="gt_row gt_right">7</td>
+<td headers="pct" class="gt_row gt_right">0.417</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:30px;" alt="The BUF logo"></td>
+<td headers="rank" class="gt_row gt_right">2</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left">MIA</td>
+<td headers="wins" class="gt_row gt_right">2</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">0.400</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:30px;" alt="The MIA logo"></td>
+<td headers="rank" class="gt_row gt_right">10</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left">LA</td>
+<td headers="wins" class="gt_row gt_right">3</td>
+<td headers="losses" class="gt_row gt_right">16</td>
+<td headers="pct" class="gt_row gt_right">0.158</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:30px;" alt="The LA logo"></td>
+<td headers="rank" class="gt_row gt_right">3</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left">DAL</td>
+<td headers="wins" class="gt_row gt_right">0</td>
+<td headers="losses" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">0.000</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:30px;" alt="The DAL logo"></td>
+<td headers="rank" class="gt_row gt_right">5</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="conditional-formatting">Conditional Formatting<a class="anchor" aria-label="anchor" href="#conditional-formatting"></a>
@@ -534,6 +3819,558 @@ real-time.</p>
 <span>    title <span class="op">=</span> <span class="st">"NFL Standings with Status"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Example data"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<div id="dumazlcusm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dumazlcusm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#dumazlcusm thead, #dumazlcusm tbody, #dumazlcusm tfoot, #dumazlcusm tr, #dumazlcusm td, #dumazlcusm th {
+  border-style: none;
+}
+
+#dumazlcusm p {
+  margin: 0;
+  padding: 0;
+}
+
+#dumazlcusm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#dumazlcusm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#dumazlcusm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#dumazlcusm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#dumazlcusm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#dumazlcusm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#dumazlcusm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#dumazlcusm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#dumazlcusm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#dumazlcusm .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#dumazlcusm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dumazlcusm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#dumazlcusm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#dumazlcusm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#dumazlcusm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dumazlcusm .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#dumazlcusm .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#dumazlcusm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#dumazlcusm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dumazlcusm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#dumazlcusm .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dumazlcusm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#dumazlcusm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dumazlcusm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dumazlcusm .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dumazlcusm .gt_left {
+  text-align: left;
+}
+
+#dumazlcusm .gt_center {
+  text-align: center;
+}
+
+#dumazlcusm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#dumazlcusm .gt_font_normal {
+  font-weight: normal;
+}
+
+#dumazlcusm .gt_font_bold {
+  font-weight: bold;
+}
+
+#dumazlcusm .gt_font_italic {
+  font-style: italic;
+}
+
+#dumazlcusm .gt_super {
+  font-size: 65%;
+}
+
+#dumazlcusm .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#dumazlcusm .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#dumazlcusm .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#dumazlcusm .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#dumazlcusm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#dumazlcusm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#dumazlcusm .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#dumazlcusm .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#dumazlcusm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="8" class="gt_heading gt_title gt_font_normal" style>NFL Standings with Status</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Example data</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="logo">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">Abbrev</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">W</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">L</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="ties">T</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pct">Win %</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="performance">Status</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="rank" class="gt_row gt_right">1</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:35px;" alt="The KC logo"></td>
+<td headers="team" class="gt_row gt_left">KC</td>
+<td headers="wins" class="gt_row gt_right">9</td>
+<td headers="losses" class="gt_row gt_right">2</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.818</td>
+<td headers="performance" class="gt_row gt_left">🔥 Hot</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">2</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:35px;" alt="The BUF logo"></td>
+<td headers="team" class="gt_row gt_left">BUF</td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.727</td>
+<td headers="performance" class="gt_row gt_left">✅ Good</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">3</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:35px;" alt="The SF logo"></td>
+<td headers="team" class="gt_row gt_left">SF</td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.727</td>
+<td headers="performance" class="gt_row gt_left">✅ Good</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">4</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:35px;" alt="The PHI logo"></td>
+<td headers="team" class="gt_row gt_left">PHI</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">4</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.636</td>
+<td headers="performance" class="gt_row gt_left">✅ Good</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">5</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:35px;" alt="The DAL logo"></td>
+<td headers="team" class="gt_row gt_left">DAL</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">4</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.636</td>
+<td headers="performance" class="gt_row gt_left">✅ Good</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">6</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:35px;" alt="The MIA logo"></td>
+<td headers="team" class="gt_row gt_left">MIA</td>
+<td headers="wins" class="gt_row gt_right">6</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.545</td>
+<td headers="performance" class="gt_row gt_left">✅ Good</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">7</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:35px;" alt="The CIN logo"></td>
+<td headers="team" class="gt_row gt_left">CIN</td>
+<td headers="wins" class="gt_row gt_right">6</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.545</td>
+<td headers="performance" class="gt_row gt_left">✅ Good</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">8</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:35px;" alt="The BAL logo"></td>
+<td headers="team" class="gt_row gt_left">BAL</td>
+<td headers="wins" class="gt_row gt_right">6</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.545</td>
+<td headers="performance" class="gt_row gt_left">✅ Good</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="integrating-with-oddsapir">Integrating with oddsapiR<a class="anchor" aria-label="anchor" href="#integrating-with-oddsapir"></a>
@@ -574,6 +4411,528 @@ real-time.</p>
 <span>    title <span class="op">=</span> <span class="st">"NFL Standings with Betting Odds"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Combining Performance and Odds"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<div id="afrtratjub" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#afrtratjub table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#afrtratjub thead, #afrtratjub tbody, #afrtratjub tfoot, #afrtratjub tr, #afrtratjub td, #afrtratjub th {
+  border-style: none;
+}
+
+#afrtratjub p {
+  margin: 0;
+  padding: 0;
+}
+
+#afrtratjub .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#afrtratjub .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#afrtratjub .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#afrtratjub .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#afrtratjub .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#afrtratjub .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#afrtratjub .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#afrtratjub .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#afrtratjub .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#afrtratjub .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#afrtratjub .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#afrtratjub .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#afrtratjub .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#afrtratjub .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#afrtratjub .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#afrtratjub .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#afrtratjub .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#afrtratjub .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#afrtratjub .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#afrtratjub .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#afrtratjub .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#afrtratjub .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#afrtratjub .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#afrtratjub .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#afrtratjub .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#afrtratjub .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#afrtratjub .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#afrtratjub .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#afrtratjub .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#afrtratjub .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#afrtratjub .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#afrtratjub .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#afrtratjub .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#afrtratjub .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#afrtratjub .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#afrtratjub .gt_left {
+  text-align: left;
+}
+
+#afrtratjub .gt_center {
+  text-align: center;
+}
+
+#afrtratjub .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#afrtratjub .gt_font_normal {
+  font-weight: normal;
+}
+
+#afrtratjub .gt_font_bold {
+  font-weight: bold;
+}
+
+#afrtratjub .gt_font_italic {
+  font-style: italic;
+}
+
+#afrtratjub .gt_super {
+  font-size: 65%;
+}
+
+#afrtratjub .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#afrtratjub .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#afrtratjub .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#afrtratjub .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#afrtratjub .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#afrtratjub .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#afrtratjub .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#afrtratjub .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#afrtratjub div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="10" class="gt_heading gt_title gt_font_normal" style>NFL Standings with Betting Odds</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Combining Performance and Odds</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="logo">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">Abbrev</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">W</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">L</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="ties">ties</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pct">Win %</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="spread">Spread</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="moneyline">ML</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="total">O/U</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="rank" class="gt_row gt_right">1</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:35px;" alt="The KC logo"></td>
+<td headers="team" class="gt_row gt_left">KC</td>
+<td headers="wins" class="gt_row gt_right">9</td>
+<td headers="losses" class="gt_row gt_right">2</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.8</td>
+<td headers="spread" class="gt_row gt_right">−7.5</td>
+<td headers="moneyline" class="gt_row gt_right">−350</td>
+<td headers="total" class="gt_row gt_right">48.5</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">2</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:35px;" alt="The BUF logo"></td>
+<td headers="team" class="gt_row gt_left">BUF</td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.7</td>
+<td headers="spread" class="gt_row gt_right">−3.5</td>
+<td headers="moneyline" class="gt_row gt_right">−180</td>
+<td headers="total" class="gt_row gt_right">51.5</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">3</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:35px;" alt="The SF logo"></td>
+<td headers="team" class="gt_row gt_left">SF</td>
+<td headers="wins" class="gt_row gt_right">8</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.7</td>
+<td headers="spread" class="gt_row gt_right">−6.5</td>
+<td headers="moneyline" class="gt_row gt_right">−280</td>
+<td headers="total" class="gt_row gt_right">47.5</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">4</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:35px;" alt="The PHI logo"></td>
+<td headers="team" class="gt_row gt_left">PHI</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">4</td>
+<td headers="ties" class="gt_row gt_right">0</td>
+<td headers="pct" class="gt_row gt_right">0.6</td>
+<td headers="spread" class="gt_row gt_right">−10.5</td>
+<td headers="moneyline" class="gt_row gt_right">−550</td>
+<td headers="total" class="gt_row gt_right">45.5</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="best-practices-for-dashboards">Best Practices for Dashboards<a class="anchor" aria-label="anchor" href="#best-practices-for-dashboards"></a>

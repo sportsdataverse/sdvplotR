@@ -67,6 +67,20 @@ standings |>
   )
 ```
 
+| NFL Standings¹ |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|
+| Example data |  |  |  |  |  |  |
+| \# | Team | Abbrev | W | L | T | Win % |
+| 1 | ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.818 |
+| 2 | ![The BUF logo](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.727 |
+| 3 | ![The SF logo](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.727 |
+| 4 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.636 |
+| 5 | ![The DAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | DAL | 7 | 4 | 0 | 0.636 |
+| 6 | ![The MIA logo](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | MIA | 6 | 5 | 0 | 0.545 |
+| 7 | ![The CIN logo](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | CIN | 6 | 5 | 0 | 0.545 |
+| 8 | ![The BAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | BAL | 6 | 5 | 0 | 0.545 |
+| ¹ Data: nflfastR \| Viz: sdvplotR |  |  |  |  |  |  |
+
 ## Advanced Leaderboard with Team Colors
 
 Create a leaderboard with team-colored rows:
@@ -99,9 +113,25 @@ standings_colored |>
   ) |>
   data_color(
     columns = "pct",
-    palette = c("lightblue", "darkblue")
+    palette = c("lightblue", "darkblue"),
+    # pick black or white text by WCAG contrast (gt's default, APCA, put white text on
+    # mid-blue cells at 3.1:1)
+    contrast_algo = "wcag"
   )
 ```
+
+| NFL Standings |  |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|----|
+| Example data |  |  |  |  |  |  |  |  |
+| \# | Team | Abbrev | W | L | T | Win % | primary_color | secondary_color |
+| 1 | ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.818 | \#E31837 | \#FFB612 |
+| 2 | ![The BUF logo](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.727 | \#00338D | \#C60C30 |
+| 3 | ![The SF logo](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.727 | \#AA0000 | \#B3995D |
+| 4 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.636 | \#004C54 | \#A5ACAF |
+| 5 | ![The DAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | DAL | 7 | 4 | 0 | 0.636 | \#002244 | \#B0B7BC |
+| 6 | ![The MIA logo](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | MIA | 6 | 5 | 0 | 0.545 | \#008E97 | \#F58220 |
+| 7 | ![The CIN logo](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | CIN | 6 | 5 | 0 | 0.545 | \#FB4F14 | \#000000 |
+| 8 | ![The BAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | BAL | 6 | 5 | 0 | 0.545 | \#241773 | \#9E7C0C |
 
 ## Multi-Sport Leaderboard
 
@@ -142,6 +172,23 @@ multi_sport_standings |>
   )
 ```
 
+| Multi-Sport Leaderboard |  |  |  |  |  |
+|----|----|----|----|----|----|
+| Top Teams Across Sports |  |  |  |  |  |
+| Sport | \# | Team | W | L | Win % |
+| NFL | 1 | ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | 9 | 2 | 0.818 |
+| NFL | 2 | ![The BUF logo](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | 8 | 3 | 0.727 |
+| NFL | 3 | ![The SF logo](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 8 | 3 | 0.727 |
+| NFL | 4 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | 7 | 4 | 0.636 |
+| NBA | 5 | BOS | 25 | 8 | 0.758 |
+| NBA | 6 | ![The DEN logo](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | 23 | 10 | 0.697 |
+| NBA | 7 | MIL | 22 | 11 | 0.667 |
+| NBA | 8 | PHX | 20 | 13 | 0.606 |
+| MLB | 9 | LAD | 95 | 67 | 0.586 |
+| MLB | 10 | ![The ATL logo](https://a.espncdn.com/i/teamlogos/nfl/500/atl.png) | 90 | 72 | 0.556 |
+| MLB | 11 | ![The HOU logo](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | 88 | 74 | 0.543 |
+| MLB | 12 | ![The BAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | 85 | 77 | 0.525 |
+
 ## Player Leaderboard with Headshots
 
 Create a player stats table with headshots:
@@ -180,6 +227,15 @@ player_stats |>
     subtitle = "Top Passers by Yards"
   )
 ```
+
+| NFL Quarterback Leaderboard |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|
+| Top Passers by Yards |  |  |  |  |  |  |
+| \# | Player | Name | Team | Yards | TD | INT |
+| 1 | ![](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png) | P. Mahomes | KC | 4,200.00 | 32.00 | 8.00 |
+| 2 | ![](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | M. Stafford | LAR | 3,800.00 | 28.00 | 12.00 |
+| 3 | ![](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/btfruyf33adgnjzpcuen.png) | K. Murray | ARI | 3,500.00 | 25.00 | 10.00 |
+| 4 | ![](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yxs7ix2pmcfv5k1qn1sk.png) | J. Allen | BUF | 4,100.00 | 30.00 | 9.00 |
 
 ## Quartile-Based Leaderboard
 
@@ -225,6 +281,21 @@ standings_quartile |>
     rows = pct >= 0.50 & pct < 0.75
   )
 ```
+
+| NFL Standings by Quartile |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|
+| Example data |  |  |  |  |  |  |  |
+| \# | Team | Abbrev | W | L | T | Win % | Quartile |
+| Playoff Teams |  |  |  |  |  |  |  |
+| 2 | ![The BUF logo](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.727 | Q2 (Good) |
+| 3 | ![The SF logo](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.727 | Q2 (Good) |
+| 4 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.636 | Q2 (Good) |
+| 5 | ![The DAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | DAL | 7 | 4 | 0 | 0.636 | Q2 (Good) |
+| 6 | ![The MIA logo](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | MIA | 6 | 5 | 0 | 0.545 | Q2 (Good) |
+| 7 | ![The CIN logo](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | CIN | 6 | 5 | 0 | 0.545 | Q2 (Good) |
+| 8 | ![The BAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | BAL | 6 | 5 | 0 | 0.545 | Q2 (Good) |
+| Elite Teams |  |  |  |  |  |  |  |
+| 1 | ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.818 | Q1 (Elite) |
 
 ## Quarto Dashboard Integration
 
@@ -294,6 +365,19 @@ update_standings <- function(sport = "nfl", week = NULL) {
 update_standings("nfl")
 ```
 
+| team | wins | losses | pct | logo | rank |
+|----|----|----|----|----|----|
+| CLE | 16 | 0 | 1.000 | ![The CLE logo](https://a.espncdn.com/i/teamlogos/nfl/500/cle.png) | 4 |
+| BAL | 7 | 2 | 0.778 | ![The BAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | 6 |
+| JAX | 15 | 6 | 0.714 | ![The JAX logo](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | 7 |
+| SF | 8 | 5 | 0.615 | ![The SF logo](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 1 |
+| NO | 11 | 9 | 0.550 | ![The NO logo](https://a.espncdn.com/i/teamlogos/nfl/500/no.png) | 9 |
+| NYJ | 14 | 13 | 0.519 | ![The NYJ logo](https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png) | 8 |
+| BUF | 5 | 7 | 0.417 | ![The BUF logo](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | 2 |
+| MIA | 2 | 3 | 0.400 | ![The MIA logo](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | 10 |
+| LA | 3 | 16 | 0.158 | ![The LA logo](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | 3 |
+| DAL | 0 | 11 | 0.000 | ![The DAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | 5 |
+
 ## Conditional Formatting
 
 Apply conditional formatting based on performance:
@@ -330,6 +414,19 @@ standings_conditional |>
     subtitle = "Example data"
   )
 ```
+
+| NFL Standings with Status |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|
+| Example data |  |  |  |  |  |  |  |
+| \# | Team | Abbrev | W | L | T | Win % | Status |
+| 1 | ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.818 | 🔥 Hot |
+| 2 | ![The BUF logo](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.727 | ✅ Good |
+| 3 | ![The SF logo](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.727 | ✅ Good |
+| 4 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.636 | ✅ Good |
+| 5 | ![The DAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | DAL | 7 | 4 | 0 | 0.636 | ✅ Good |
+| 6 | ![The MIA logo](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | MIA | 6 | 5 | 0 | 0.545 | ✅ Good |
+| 7 | ![The CIN logo](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | CIN | 6 | 5 | 0 | 0.545 | ✅ Good |
+| 8 | ![The BAL logo](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | BAL | 6 | 5 | 0 | 0.545 | ✅ Good |
 
 ## Integrating with oddsapiR
 
@@ -372,6 +469,15 @@ standings_with_odds |>
     subtitle = "Combining Performance and Odds"
   )
 ```
+
+| NFL Standings with Betting Odds |  |  |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|----|----|
+| Combining Performance and Odds |  |  |  |  |  |  |  |  |  |
+| \# | Team | Abbrev | W | L | ties | Win % | Spread | ML | O/U |
+| 1 | ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.8 | −7.5 | −350 | 48.5 |
+| 2 | ![The BUF logo](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.7 | −3.5 | −180 | 51.5 |
+| 3 | ![The SF logo](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.7 | −6.5 | −280 | 47.5 |
+| 4 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.6 | −10.5 | −550 | 45.5 |
 
 ## Best Practices for Dashboards
 

@@ -293,6 +293,7 @@ visualization, and reporting.</p>
 <span>       plot <span class="op">=</span> <span class="va">plot</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">8</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">plot</span></span></code></pre></div>
+<p><img src="workflows_files/figure-html/nfl-workflow-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="workflow-2-cfb-power-rankings">Workflow 2: CFB Power Rankings<a class="anchor" aria-label="anchor" href="#workflow-2-cfb-power-rankings"></a>
@@ -340,6 +341,7 @@ visualization, and reporting.</p>
 <span>       plot <span class="op">=</span> <span class="va">tier_plot</span>, width <span class="op">=</span> <span class="fl">14</span>, height <span class="op">=</span> <span class="fl">10</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tier_plot</span></span></code></pre></div>
+<p><img src="workflows_files/figure-html/cfb-workflow-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="workflow-3-nba-player-comparison">Workflow 3: NBA Player Comparison<a class="anchor" aria-label="anchor" href="#workflow-3-nba-player-comparison"></a>
@@ -394,6 +396,7 @@ visualization, and reporting.</p>
 <span>       plot <span class="op">=</span> <span class="va">player_plot</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">8</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">player_plot</span></span></code></pre></div>
+<p><img src="workflows_files/figure-html/nba-workflow-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="workflow-4-mlb-standings-dashboard">Workflow 4: MLB Standings Dashboard<a class="anchor" aria-label="anchor" href="#workflow-4-mlb-standings-dashboard"></a>
@@ -419,9 +422,13 @@ visualization, and reporting.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">teams</span>, by <span class="op">=</span> <span class="st">"team_id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">win_pct</span>, n <span class="op">=</span> <span class="fl">15</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span>, logo <span class="op">=</span> <span class="va">team_abbreviation</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Step 3: Create gt table</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span></span></code></pre></div>
+<p>Steps 1 and 2 are not run when this site is built, because the MLB
+Stats API is not called there; the rest of this workflow uses a snapshot
+of <code>standings</code> taken on October 04, 2026 (baseballr
+2.0.0).</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 3: Create gt table</span></span>
 <span><span class="va">standings_table</span> <span class="op">&lt;-</span> <span class="va">standings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="st">"mlb"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -443,19 +450,613 @@ visualization, and reporting.</p>
 <span><span class="fu"><a href="https://gt.rstudio.com/reference/gtsave.html" class="external-link">gtsave</a></span><span class="op">(</span><span class="va">standings_table</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"mlb_standings.html"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">standings_table</span></span></code></pre></div>
+<div id="eexombwkke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#eexombwkke table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#eexombwkke thead, #eexombwkke tbody, #eexombwkke tfoot, #eexombwkke tr, #eexombwkke td, #eexombwkke th {
+  border-style: none;
+}
+
+#eexombwkke p {
+  margin: 0;
+  padding: 0;
+}
+
+#eexombwkke .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#eexombwkke .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#eexombwkke .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#eexombwkke .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#eexombwkke .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#eexombwkke .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#eexombwkke .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#eexombwkke .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#eexombwkke .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#eexombwkke .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#eexombwkke .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#eexombwkke .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#eexombwkke .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#eexombwkke .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#eexombwkke .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#eexombwkke .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#eexombwkke .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#eexombwkke .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#eexombwkke .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#eexombwkke .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#eexombwkke .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#eexombwkke .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#eexombwkke .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_left {
+  text-align: left;
+}
+
+#eexombwkke .gt_center {
+  text-align: center;
+}
+
+#eexombwkke .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#eexombwkke .gt_font_normal {
+  font-weight: normal;
+}
+
+#eexombwkke .gt_font_bold {
+  font-weight: bold;
+}
+
+#eexombwkke .gt_font_italic {
+  font-style: italic;
+}
+
+#eexombwkke .gt_super {
+  font-size: 65%;
+}
+
+#eexombwkke .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#eexombwkke .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#eexombwkke .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#eexombwkke .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#eexombwkke .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#eexombwkke .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#eexombwkke .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#eexombwkke .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#eexombwkke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="6" class="gt_heading gt_title gt_font_normal" style>MLB Top 15</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Season 2025</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="logo"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team_name">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">W</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">L</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="win_pct">Pct</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="rank" class="gt_row gt_right">1</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/mil.png" style="height:35px;" alt="The MIL logo"></td>
+<td headers="team_name" class="gt_row gt_left">Milwaukee Brewers</td>
+<td headers="wins" class="gt_row gt_right">97</td>
+<td headers="losses" class="gt_row gt_right">65</td>
+<td headers="win_pct" class="gt_row gt_right">0.599</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">2</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/phi.png" style="height:35px;" alt="The PHI logo"></td>
+<td headers="team_name" class="gt_row gt_left">Philadelphia Phillies</td>
+<td headers="wins" class="gt_row gt_right">96</td>
+<td headers="losses" class="gt_row gt_right">66</td>
+<td headers="win_pct" class="gt_row gt_right">0.593</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">3</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" style="height:35px;" alt="The TOR logo"></td>
+<td headers="team_name" class="gt_row gt_left">Toronto Blue Jays</td>
+<td headers="wins" class="gt_row gt_right">94</td>
+<td headers="losses" class="gt_row gt_right">68</td>
+<td headers="win_pct" class="gt_row gt_right">0.580</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">4</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png" style="height:35px;" alt="The NYY logo"></td>
+<td headers="team_name" class="gt_row gt_left">New York Yankees</td>
+<td headers="wins" class="gt_row gt_right">94</td>
+<td headers="losses" class="gt_row gt_right">68</td>
+<td headers="win_pct" class="gt_row gt_right">0.580</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">5</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/lad.png" style="height:35px;" alt="The LAD logo"></td>
+<td headers="team_name" class="gt_row gt_left">Los Angeles Dodgers</td>
+<td headers="wins" class="gt_row gt_right">93</td>
+<td headers="losses" class="gt_row gt_right">69</td>
+<td headers="win_pct" class="gt_row gt_right">0.574</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">6</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" style="height:35px;" alt="The CHC logo"></td>
+<td headers="team_name" class="gt_row gt_left">Chicago Cubs</td>
+<td headers="wins" class="gt_row gt_right">92</td>
+<td headers="losses" class="gt_row gt_right">70</td>
+<td headers="win_pct" class="gt_row gt_right">0.568</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">7</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/sea.png" style="height:35px;" alt="The SEA logo"></td>
+<td headers="team_name" class="gt_row gt_left">Seattle Mariners</td>
+<td headers="wins" class="gt_row gt_right">90</td>
+<td headers="losses" class="gt_row gt_right">72</td>
+<td headers="win_pct" class="gt_row gt_right">0.556</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">8</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/sd.png" style="height:35px;" alt="The SD logo"></td>
+<td headers="team_name" class="gt_row gt_left">San Diego Padres</td>
+<td headers="wins" class="gt_row gt_right">90</td>
+<td headers="losses" class="gt_row gt_right">72</td>
+<td headers="win_pct" class="gt_row gt_right">0.556</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">9</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" style="height:35px;" alt="The BOS logo"></td>
+<td headers="team_name" class="gt_row gt_left">Boston Red Sox</td>
+<td headers="wins" class="gt_row gt_right">89</td>
+<td headers="losses" class="gt_row gt_right">73</td>
+<td headers="win_pct" class="gt_row gt_right">0.549</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">10</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/cle.png" style="height:35px;" alt="The CLE logo"></td>
+<td headers="team_name" class="gt_row gt_left">Cleveland Guardians</td>
+<td headers="wins" class="gt_row gt_right">88</td>
+<td headers="losses" class="gt_row gt_right">74</td>
+<td headers="win_pct" class="gt_row gt_right">0.543</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">11</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/det.png" style="height:35px;" alt="The DET logo"></td>
+<td headers="team_name" class="gt_row gt_left">Detroit Tigers</td>
+<td headers="wins" class="gt_row gt_right">87</td>
+<td headers="losses" class="gt_row gt_right">75</td>
+<td headers="win_pct" class="gt_row gt_right">0.537</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">12</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/hou.png" style="height:35px;" alt="The HOU logo"></td>
+<td headers="team_name" class="gt_row gt_left">Houston Astros</td>
+<td headers="wins" class="gt_row gt_right">87</td>
+<td headers="losses" class="gt_row gt_right">75</td>
+<td headers="win_pct" class="gt_row gt_right">0.537</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">13</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/nym.png" style="height:35px;" alt="The NYM logo"></td>
+<td headers="team_name" class="gt_row gt_left">New York Mets</td>
+<td headers="wins" class="gt_row gt_right">83</td>
+<td headers="losses" class="gt_row gt_right">79</td>
+<td headers="win_pct" class="gt_row gt_right">0.512</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">14</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/cin.png" style="height:35px;" alt="The CIN logo"></td>
+<td headers="team_name" class="gt_row gt_left">Cincinnati Reds</td>
+<td headers="wins" class="gt_row gt_right">83</td>
+<td headers="losses" class="gt_row gt_right">79</td>
+<td headers="win_pct" class="gt_row gt_right">0.512</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">15</td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/kc.png" style="height:35px;" alt="The KC logo"></td>
+<td headers="team_name" class="gt_row gt_left">Kansas City Royals</td>
+<td headers="wins" class="gt_row gt_right">82</td>
+<td headers="losses" class="gt_row gt_right">80</td>
+<td headers="win_pct" class="gt_row gt_right">0.506</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="workflow-5-nhl-team-performance">Workflow 5: NHL Team Performance<a class="anchor" aria-label="anchor" href="#workflow-5-nhl-team-performance"></a>
 </h2>
 <p>Complete workflow for NHL team analysis:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Step 1: Load data with fastRhockey for the last completed regular season</span></span>
 <span><span class="co"># (named for the year it ends; the regular season ends in mid-April)</span></span>
 <span><span class="va">nhl_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
 <span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"04-20"</span><span class="op">)</span></span>
-<span><span class="va">nhl_teams</span> <span class="op">&lt;-</span> <span class="fu">fastRhockey</span><span class="fu">::</span><span class="fu"><a href="https://fastRhockey.sportsdataverse.org/reference/nhl_stats_teams.html" class="external-link">nhl_stats_teams</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">nhl_season</span> <span class="op">-</span> <span class="fl">1</span>, <span class="va">nhl_season</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Step 2: Process data: the NHL's full team names become abbreviations</span></span>
+<span><span class="va">nhl_teams</span> <span class="op">&lt;-</span> <span class="fu">fastRhockey</span><span class="fu">::</span><span class="fu"><a href="https://fastRhockey.sportsdataverse.org/reference/nhl_stats_teams.html" class="external-link">nhl_stats_teams</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">nhl_season</span> <span class="op">-</span> <span class="fl">1</span>, <span class="va">nhl_season</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Step 1 is not run when this site is built, because the NHL Stats API
+is not called there; the rest of this workflow uses a snapshot of
+<code>nhl_teams</code> taken on October 04, 2026 (fastRhockey
+1.0.0).</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 2: Process data: the NHL's full team names become abbreviations</span></span>
 <span><span class="va">team_perf</span> <span class="op">&lt;-</span> <span class="va">nhl_teams</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="va">team_full_name</span>, sport <span class="op">=</span> <span class="st">"nhl"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -481,6 +1082,7 @@ visualization, and reporting.</p>
 <span>       plot <span class="op">=</span> <span class="va">nhl_plot</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">8</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nhl_plot</span></span></code></pre></div>
+<p><img src="workflows_files/figure-html/nhl-workflow-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="workflow-6-betting-odds-integration">Workflow 6: Betting Odds Integration<a class="anchor" aria-label="anchor" href="#workflow-6-betting-odds-integration"></a>
@@ -490,7 +1092,7 @@ The Odds API and needs a free key from <a href="https://the-odds-api.com" class=
 <code>Sys.setenv(ODDS_API_KEY = "YOUR-API-KEY-HERE")</code>, or add
 <code>ODDS_API_KEY=YOUR-API-KEY-HERE</code> to <code>~/.Renviron</code>
 to keep it. Without a key the table below shows records only:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Step 1: Load data: regular-season records from nflreadr's schedules</span></span>
 <span><span class="va">nfl_standings</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="st">"REG"</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -503,10 +1105,17 @@ to keep it. Without a key the table below shows records only:</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">win_pct</span>, n <span class="op">=</span> <span class="fl">8</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Step 2: Merge upcoming spreads when a key is set; odds name teams in full,</span></span>
+<span><span class="co"># Step 2: Merge upcoming spreads when a key is set and the API answers (a spent</span></span>
+<span><span class="co"># quota or an outage leaves the records-only table); odds name teams in full,</span></span>
 <span><span class="co"># and clean_team_abbrs() maps full names to abbreviations</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nzchar</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ODDS_API_KEY"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">spreads</span> <span class="op">&lt;-</span> <span class="fu">oddsapiR</span><span class="fu">::</span><span class="fu"><a href="https://oddsapiR.sportsdataverse.org/reference/toa_sports_odds.html" class="external-link">toa_sports_odds</a></span><span class="op">(</span>sport_key <span class="op">=</span> <span class="st">"americanfootball_nfl"</span>, markets <span class="op">=</span> <span class="st">"spreads"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">odds</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nzchar</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ODDS_API_KEY"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span></span>
+<span>    <span class="fu">oddsapiR</span><span class="fu">::</span><span class="fu"><a href="https://oddsapiR.sportsdataverse.org/reference/toa_sports_odds.html" class="external-link">toa_sports_odds</a></span><span class="op">(</span>sport_key <span class="op">=</span> <span class="st">"americanfootball_nfl"</span>, markets <span class="op">=</span> <span class="st">"spreads"</span><span class="op">)</span>,</span>
+<span>    error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="cn">NULL</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">NROW</a></span><span class="op">(</span><span class="va">odds</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">spreads</span> <span class="op">&lt;-</span> <span class="va">odds</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="va">outcomes_name</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>Spread <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">outcomes_point</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span>
@@ -530,13 +1139,538 @@ to keep it. Without a key the table below shows records only:</p>
 <span><span class="fu"><a href="https://gt.rstudio.com/reference/gtsave.html" class="external-link">gtsave</a></span><span class="op">(</span><span class="va">odds_table</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"nfl_standings_odds.html"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">odds_table</span></span></code></pre></div>
+<div id="kgufivjubq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kgufivjubq table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#kgufivjubq thead, #kgufivjubq tbody, #kgufivjubq tfoot, #kgufivjubq tr, #kgufivjubq td, #kgufivjubq th {
+  border-style: none;
+}
+
+#kgufivjubq p {
+  margin: 0;
+  padding: 0;
+}
+
+#kgufivjubq .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kgufivjubq .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kgufivjubq .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kgufivjubq .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kgufivjubq .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kgufivjubq .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kgufivjubq .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kgufivjubq .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kgufivjubq .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kgufivjubq .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kgufivjubq .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kgufivjubq .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kgufivjubq .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kgufivjubq .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kgufivjubq .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kgufivjubq .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kgufivjubq .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kgufivjubq .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kgufivjubq .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kgufivjubq .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_left {
+  text-align: left;
+}
+
+#kgufivjubq .gt_center {
+  text-align: center;
+}
+
+#kgufivjubq .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kgufivjubq .gt_font_normal {
+  font-weight: normal;
+}
+
+#kgufivjubq .gt_font_bold {
+  font-weight: bold;
+}
+
+#kgufivjubq .gt_font_italic {
+  font-style: italic;
+}
+
+#kgufivjubq .gt_super {
+  font-size: 65%;
+}
+
+#kgufivjubq .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kgufivjubq .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kgufivjubq .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kgufivjubq .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kgufivjubq .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kgufivjubq .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kgufivjubq .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#kgufivjubq .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#kgufivjubq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="5" class="gt_heading gt_title gt_font_normal" style>NFL Standings with Betting Lines</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Season 2025</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="logo"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">Wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="win_pct">Win %</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Spread">Spread</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:35px;" alt="The DEN logo"></td>
+<td headers="team" class="gt_row gt_left">DEN</td>
+<td headers="wins" class="gt_row gt_right">14</td>
+<td headers="win_pct" class="gt_row gt_right">0.824</td>
+<td headers="Spread" class="gt_row gt_right">-1.5</td>
+</tr>
+<tr>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:35px;" alt="The NE logo"></td>
+<td headers="team" class="gt_row gt_left">NE</td>
+<td headers="wins" class="gt_row gt_right">14</td>
+<td headers="win_pct" class="gt_row gt_right">0.824</td>
+<td headers="Spread" class="gt_row gt_right"><br></td>
+</tr>
+<tr>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:35px;" alt="The SEA logo"></td>
+<td headers="team" class="gt_row gt_left">SEA</td>
+<td headers="wins" class="gt_row gt_right">14</td>
+<td headers="win_pct" class="gt_row gt_right">0.824</td>
+<td headers="Spread" class="gt_row gt_right">-8.5</td>
+</tr>
+<tr>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:35px;" alt="The JAX logo"></td>
+<td headers="team" class="gt_row gt_left">JAX</td>
+<td headers="wins" class="gt_row gt_right">13</td>
+<td headers="win_pct" class="gt_row gt_right">0.765</td>
+<td headers="Spread" class="gt_row gt_right"><br></td>
+</tr>
+<tr>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:35px;" alt="The BUF logo"></td>
+<td headers="team" class="gt_row gt_left">BUF</td>
+<td headers="wins" class="gt_row gt_right">12</td>
+<td headers="win_pct" class="gt_row gt_right">0.706</td>
+<td headers="Spread" class="gt_row gt_right"><br></td>
+</tr>
+<tr>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:35px;" alt="The HOU logo"></td>
+<td headers="team" class="gt_row gt_left">HOU</td>
+<td headers="wins" class="gt_row gt_right">12</td>
+<td headers="win_pct" class="gt_row gt_right">0.706</td>
+<td headers="Spread" class="gt_row gt_right"><br></td>
+</tr>
+<tr>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:35px;" alt="The LA logo"></td>
+<td headers="team" class="gt_row gt_left">LA</td>
+<td headers="wins" class="gt_row gt_right">12</td>
+<td headers="win_pct" class="gt_row gt_right">0.706</td>
+<td headers="Spread" class="gt_row gt_right"><br></td>
+</tr>
+<tr>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:35px;" alt="The SF logo"></td>
+<td headers="team" class="gt_row gt_left">SF</td>
+<td headers="wins" class="gt_row gt_right">12</td>
+<td headers="win_pct" class="gt_row gt_right">0.706</td>
+<td headers="Spread" class="gt_row gt_right">1.5</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="workflow-7-automated-reporting-pipeline">Workflow 7: Automated Reporting Pipeline<a class="anchor" aria-label="anchor" href="#workflow-7-automated-reporting-pipeline"></a>
 </h2>
 <p>Wrap the draw-and-export steps in a function that takes any sport’s
 standings, so one pipeline serves every league:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">generate_standings_report</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">standings</span>, <span class="va">sport</span>, <span class="va">out_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Generating "</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">sport</span><span class="op">)</span>, <span class="st">" standings report..."</span><span class="op">)</span></span>
 <span></span>
@@ -577,12 +1711,13 @@ standings, so one pipeline serves every league:</p>
 <span>  <span class="st">"mlb"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">nfl_report</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
+<p><img src="workflows_files/figure-html/automated-pipeline-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="workflow-8-multi-sport-comparison">Workflow 8: Multi-Sport Comparison<a class="anchor" aria-label="anchor" href="#workflow-8-multi-sport-comparison"></a>
 </h2>
 <p>Collect each league’s best record into one table:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nba_best</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html" class="external-link">load_nba_standings</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">nba_season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">stat_name</span> <span class="op">==</span> <span class="st">"winPercent"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">value</span>, n <span class="op">=</span> <span class="fl">1</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -615,6 +1750,498 @@ standings, so one pipeline serves every league:</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">comparison_table</span></span></code></pre></div>
+<div id="cbwjcfdjag" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cbwjcfdjag table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cbwjcfdjag thead, #cbwjcfdjag tbody, #cbwjcfdjag tfoot, #cbwjcfdjag tr, #cbwjcfdjag td, #cbwjcfdjag th {
+  border-style: none;
+}
+
+#cbwjcfdjag p {
+  margin: 0;
+  padding: 0;
+}
+
+#cbwjcfdjag .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cbwjcfdjag .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cbwjcfdjag .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cbwjcfdjag .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cbwjcfdjag .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cbwjcfdjag .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cbwjcfdjag .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cbwjcfdjag .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cbwjcfdjag .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#cbwjcfdjag .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#cbwjcfdjag .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cbwjcfdjag .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cbwjcfdjag .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cbwjcfdjag .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cbwjcfdjag .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cbwjcfdjag .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cbwjcfdjag .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cbwjcfdjag .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#cbwjcfdjag .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cbwjcfdjag .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cbwjcfdjag .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cbwjcfdjag .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cbwjcfdjag .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cbwjcfdjag .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cbwjcfdjag .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cbwjcfdjag .gt_left {
+  text-align: left;
+}
+
+#cbwjcfdjag .gt_center {
+  text-align: center;
+}
+
+#cbwjcfdjag .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cbwjcfdjag .gt_font_normal {
+  font-weight: normal;
+}
+
+#cbwjcfdjag .gt_font_bold {
+  font-weight: bold;
+}
+
+#cbwjcfdjag .gt_font_italic {
+  font-style: italic;
+}
+
+#cbwjcfdjag .gt_super {
+  font-size: 65%;
+}
+
+#cbwjcfdjag .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cbwjcfdjag .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cbwjcfdjag .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cbwjcfdjag .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cbwjcfdjag .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cbwjcfdjag .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cbwjcfdjag .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#cbwjcfdjag .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#cbwjcfdjag div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="3" class="gt_heading gt_title gt_font_normal" style>Multi-Sport Leaderboard<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>The best record in each league's latest season</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="sport">Sport</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="top_team">Top Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="win_pct">Win %</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="sport" class="gt_row gt_left">NFL</td>
+<td headers="top_team" class="gt_row gt_left">DEN</td>
+<td headers="win_pct" class="gt_row gt_right">0.824</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">NBA</td>
+<td headers="top_team" class="gt_row gt_left">OKC</td>
+<td headers="win_pct" class="gt_row gt_right">0.780</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">MLB</td>
+<td headers="top_team" class="gt_row gt_left">MIL</td>
+<td headers="win_pct" class="gt_row gt_right">0.599</td>
+</tr>
+<tr>
+<td headers="sport" class="gt_row gt_left">NHL (points %)</td>
+<td headers="top_team" class="gt_row gt_left">COL</td>
+<td headers="win_pct" class="gt_row gt_right">0.738</td>
+</tr>
+</tbody>
+<tfoot><tr class="gt_footnotes">
+<td class="gt_footnote" colspan="3">
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Data: SportsDataverse packages | Viz: sdvplotR</td>
+    </tr></tfoot>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="best-practices-for-workflows">Best Practices for Workflows<a class="anchor" aria-label="anchor" href="#best-practices-for-workflows"></a>
@@ -640,7 +2267,7 @@ comments</p></li>
 <h2 id="scheduling-automated-reports">Scheduling Automated Reports<a class="anchor" aria-label="anchor" href="#scheduling-automated-reports"></a>
 </h2>
 <p>Use cron or GitHub Actions for automated reporting:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example: GitHub Actions workflow</span></span>
 <span><span class="co"># .github/workflows/weekly_report.yml</span></span>
 <span></span>

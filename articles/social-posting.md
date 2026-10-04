@@ -77,6 +77,8 @@ ggplot(game_data, aes(x = time_left)) +
   )
 ```
 
+![](social-posting_files/figure-html/win-probability-1.png)
+
 ## Logo-Rich Scatter Plots
 
 Create eye-catching scatter plots with team logos:
@@ -112,6 +114,8 @@ ggplot(epa_data, aes(x = offensive_epa, y = defensive_epa)) +
     plot.caption = element_text(color = "grey60", size = 9)
   )
 ```
+
+![](social-posting_files/figure-html/logo-scatter-1.png)
 
 ## Instagram-Style Square Exports
 
@@ -151,6 +155,8 @@ ggplot(top_9, aes(x = x, y = y)) +
   )
 ```
 
+![](social-posting_files/figure-html/instagram-square-1.png)
+
 ## Twitter/X Optimized Graphics
 
 Create graphics optimized for Twitter/X (16:9 aspect ratio):
@@ -188,6 +194,8 @@ ggplot(power_rankings, aes(x = rank, y = points)) +
     legend.position = "none"
   )
 ```
+
+![](social-posting_files/figure-html/twitter-graphic-1.png)
 
 ## ggsave Best Practices
 
@@ -242,6 +250,8 @@ sample_plot <- ggplot(data.frame(x = 1:5, y = 1:5), aes(x, y)) +
 
 add_branding(sample_plot, "@SportsDataverse")
 ```
+
+![](social-posting_files/figure-html/branding-1.png)
 
 ## Multi-Sport Weekly Recap
 
@@ -320,6 +330,8 @@ ggplot(multi_sport_data, aes(x = rank, y = 1)) +
   )
 ```
 
+![](social-posting_files/figure-html/multi-sport-recap-1.png)
+
 ## Color Palette Showcases
 
 Create graphics showcasing team color palettes:
@@ -349,6 +361,8 @@ ggplot(color_data, aes(x = x, y = y)) +
     plot.subtitle = element_text(color = "grey40", size = 12)
   )
 ```
+
+![](social-posting_files/figure-html/color-palettes-1.png)
 
 ## Tips for Social Media Success
 

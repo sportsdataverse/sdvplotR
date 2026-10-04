@@ -76,6 +76,8 @@ ggsave(file.path(out_dir, "nfl_weekly_recap.png"),
 plot
 ```
 
+![](workflows_files/figure-html/nfl-workflow-1.png)
+
 ## Workflow 2: CFB Power Rankings
 
 Complete workflow for CFB tiers from passing efficiency:
@@ -124,6 +126,8 @@ ggsave(file.path(out_dir, "cfb_power_rankings.png"),
 
 tier_plot
 ```
+
+![](workflows_files/figure-html/cfb-workflow-1.png)
 
 ## Workflow 3: NBA Player Comparison
 
@@ -181,6 +185,8 @@ ggsave(file.path(out_dir, "nba_top_scorers.png"),
 player_plot
 ```
 
+![](workflows_files/figure-html/nba-workflow-1.png)
+
 ## Workflow 4: MLB Standings Dashboard
 
 Complete workflow for MLB standings:
@@ -207,6 +213,13 @@ standings <- baseballr::mlb_standings(season = mlb_season, league_id = "103,104"
   slice_max(win_pct, n = 15, with_ties = FALSE) |>
   mutate(rank = row_number(), logo = team_abbreviation) |>
   select(rank, logo, team_name, wins, losses, win_pct)
+```
+
+Steps 1 and 2 are not run when this site is built, because the MLB Stats
+API is not called there; the rest of this workflow uses a snapshot of
+`standings` taken on October 04, 2026 (baseballr 2.0.0).
+
+``` r
 
 # Step 3: Create gt table
 standings_table <- standings |>
@@ -232,6 +245,26 @@ gtsave(standings_table, file.path(out_dir, "mlb_standings.html"))
 standings_table
 ```
 
+| MLB Top 15 |  |  |  |  |  |
+|----|----|----|----|----|----|
+| Season 2025 |  |  |  |  |  |
+| \# |  | Team | W | L | Pct |
+| 1 | ![The MIL logo](https://a.espncdn.com/i/teamlogos/mlb/500/mil.png) | Milwaukee Brewers | 97 | 65 | 0.599 |
+| 2 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/mlb/500/phi.png) | Philadelphia Phillies | 96 | 66 | 0.593 |
+| 3 | ![The TOR logo](https://a.espncdn.com/i/teamlogos/mlb/500/tor.png) | Toronto Blue Jays | 94 | 68 | 0.580 |
+| 4 | ![The NYY logo](https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png) | New York Yankees | 94 | 68 | 0.580 |
+| 5 | ![The LAD logo](https://a.espncdn.com/i/teamlogos/mlb/500/lad.png) | Los Angeles Dodgers | 93 | 69 | 0.574 |
+| 6 | ![The CHC logo](https://a.espncdn.com/i/teamlogos/mlb/500/chc.png) | Chicago Cubs | 92 | 70 | 0.568 |
+| 7 | ![The SEA logo](https://a.espncdn.com/i/teamlogos/mlb/500/sea.png) | Seattle Mariners | 90 | 72 | 0.556 |
+| 8 | ![The SD logo](https://a.espncdn.com/i/teamlogos/mlb/500/sd.png) | San Diego Padres | 90 | 72 | 0.556 |
+| 9 | ![The BOS logo](https://a.espncdn.com/i/teamlogos/mlb/500/bos.png) | Boston Red Sox | 89 | 73 | 0.549 |
+| 10 | ![The CLE logo](https://a.espncdn.com/i/teamlogos/mlb/500/cle.png) | Cleveland Guardians | 88 | 74 | 0.543 |
+| 11 | ![The DET logo](https://a.espncdn.com/i/teamlogos/mlb/500/det.png) | Detroit Tigers | 87 | 75 | 0.537 |
+| 12 | ![The HOU logo](https://a.espncdn.com/i/teamlogos/mlb/500/hou.png) | Houston Astros | 87 | 75 | 0.537 |
+| 13 | ![The NYM logo](https://a.espncdn.com/i/teamlogos/mlb/500/nym.png) | New York Mets | 83 | 79 | 0.512 |
+| 14 | ![The CIN logo](https://a.espncdn.com/i/teamlogos/mlb/500/cin.png) | Cincinnati Reds | 83 | 79 | 0.512 |
+| 15 | ![The KC logo](https://a.espncdn.com/i/teamlogos/mlb/500/kc.png) | Kansas City Royals | 82 | 80 | 0.506 |
+
 ## Workflow 5: NHL Team Performance
 
 Complete workflow for NHL team analysis:
@@ -243,6 +276,13 @@ Complete workflow for NHL team analysis:
 nhl_season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "04-20")
 nhl_teams <- fastRhockey::nhl_stats_teams(season = paste0(nhl_season - 1, nhl_season))
+```
+
+Step 1 is not run when this site is built, because the NHL Stats API is
+not called there; the rest of this workflow uses a snapshot of
+`nhl_teams` taken on October 04, 2026 (fastRhockey 1.0.0).
+
+``` r
 
 # Step 2: Process data: the NHL's full team names become abbreviations
 team_perf <- nhl_teams |>
@@ -272,6 +312,8 @@ ggsave(file.path(out_dir, "nhl_team_performance.png"),
 nhl_plot
 ```
 
+![](workflows_files/figure-html/nhl-workflow-1.png)
+
 ## Workflow 6: Betting Odds Integration
 
 Combine standings with betting lines from
@@ -295,10 +337,17 @@ nfl_standings <- nflreadr::load_schedules(season) |>
   ) |>
   slice_max(win_pct, n = 8, with_ties = FALSE)
 
-# Step 2: Merge upcoming spreads when a key is set; odds name teams in full,
+# Step 2: Merge upcoming spreads when a key is set and the API answers (a spent
+# quota or an outage leaves the records-only table); odds name teams in full,
 # and clean_team_abbrs() maps full names to abbreviations
-if (nzchar(Sys.getenv("ODDS_API_KEY"))) {
-  spreads <- oddsapiR::toa_sports_odds(sport_key = "americanfootball_nfl", markets = "spreads") |>
+odds <- if (nzchar(Sys.getenv("ODDS_API_KEY"))) {
+  tryCatch(
+    oddsapiR::toa_sports_odds(sport_key = "americanfootball_nfl", markets = "spreads"),
+    error = function(e) NULL
+  )
+}
+if (NROW(odds) > 0) {
+  spreads <- odds |>
     mutate(team = clean_team_abbrs(outcomes_name, sport = "nfl")) |>
     group_by(team) |>
     summarise(Spread = median(outcomes_point, na.rm = TRUE), .groups = "drop")
@@ -323,6 +372,8 @@ gtsave(odds_table, file.path(out_dir, "nfl_standings_odds.html"))
 
 odds_table
 ```
+
+[TABLE]
 
 ## Workflow 7: Automated Reporting Pipeline
 
@@ -373,6 +424,8 @@ mlb_report <- generate_standings_report(
 nfl_report$plot
 ```
 
+![](workflows_files/figure-html/automated-pipeline-1.png)
+
 ## Workflow 8: Multi-Sport Comparison
 
 Collect each league’s best record into one table:
@@ -412,6 +465,16 @@ comparison_table <- multi_sport_comparison |>
 
 comparison_table
 ```
+
+| Multi-Sport Leaderboard¹                          |          |       |
+|---------------------------------------------------|----------|-------|
+| The best record in each league's latest season    |          |       |
+| Sport                                             | Top Team | Win % |
+| NFL                                               | DEN      | 0.824 |
+| NBA                                               | OKC      | 0.780 |
+| MLB                                               | MIL      | 0.599 |
+| NHL (points %)                                    | COL      | 0.738 |
+| ¹ Data: SportsDataverse packages \| Viz: sdvplotR |          |       |
 
 ## Best Practices for Workflows
 

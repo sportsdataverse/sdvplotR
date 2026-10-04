@@ -76,6 +76,8 @@ ggplot(df, aes(x = team, y = value)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+![](getting-started_files/figure-html/colors-1.png)
+
 ## Theme Elements
 
 Replace axis labels with logos using theme elements:
