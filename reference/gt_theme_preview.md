@@ -582,6 +582,11 @@ gt_theme_preview(
   font-variant-numeric: tabular-nums;
 }
 
+#ygiofoxrwb .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+
 
 
 mpg

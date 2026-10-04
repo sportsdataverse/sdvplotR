@@ -62,7 +62,7 @@ export at.
 
 ## Figures
 
-![](figures/tier_list_example.png)
+![Example tier list table](figures/tier_list_example.png)
 
 ## Examples
 

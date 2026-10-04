@@ -66,7 +66,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_broadsheet.png)
+![Preview of the broadsheet theme](figures/gt_theme_broadsheet.png)
 
 ## See also
 

@@ -69,7 +69,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_midnight.png)
+![Preview of the midnight theme](figures/gt_theme_midnight.png)
 
 ## See also
 

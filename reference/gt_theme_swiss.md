@@ -59,7 +59,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_swiss.png)
+![Preview of the swiss theme](figures/gt_theme_swiss.png)
 
 ## Examples
 

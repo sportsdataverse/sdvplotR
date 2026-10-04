@@ -72,9 +72,11 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_sdv.png)
+![Preview of the SportsDataverse theme, light
+style](figures/gt_theme_sdv.png)
 
-![](figures/gt_theme_sdv_dark.png)
+![Preview of the SportsDataverse theme, dark
+style](figures/gt_theme_sdv_dark.png)
 
 ## See also
 

@@ -61,7 +61,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_athletic.png)
+![Preview of the athletic theme](figures/gt_theme_athletic.png)
 
 ## Examples
 

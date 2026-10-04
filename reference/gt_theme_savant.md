@@ -56,7 +56,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_savant.png)
+![Preview of the savant theme](figures/gt_theme_savant.png)
 
 ## Examples
 

@@ -298,3 +298,13 @@ NHL, college football, men’s and women’s college basketball), built on
   as a ribbon whose thickness is his share of attempts and whose fill is
   his field goal percentage minus the league’s, from the
   `nba_stats_metric_curves` release.
+- Every `gt_theme_*()` keeps its own row colors on a Bootstrap page
+  (pkgdown, Quarto) in either color mode. Before, the page’s table
+  variables painted the cells, so a light theme was unreadable on a dark
+  page and a dark theme on a light one.
+- [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md)
+  and
+  [`gt_stack_tables()`](https://sdvplotR.sportsdataverse.org/reference/gt_stack_tables.md)
+  request Google fonts by discrete weights. The `wght@100..900` range
+  they asked for is rejected for most families, so the font silently
+  never loaded.

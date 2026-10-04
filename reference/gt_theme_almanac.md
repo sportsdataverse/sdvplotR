@@ -64,7 +64,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_almanac.png)
+![Preview of the almanac theme](figures/gt_theme_almanac.png)
 
 ## Examples
 

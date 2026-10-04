@@ -69,7 +69,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_drench.png)
+![Preview of the drench theme](figures/gt_theme_drench.png)
 
 ## See also
 

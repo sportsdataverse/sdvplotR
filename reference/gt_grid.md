@@ -657,6 +657,11 @@ gt_grid(by_cyl, ncol = 2)
   padding-top: 10px;
 }
 
+#kbjkhrvvqe .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+
 
 
 

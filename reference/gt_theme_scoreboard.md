@@ -59,7 +59,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_scoreboard.png)
+![Preview of the scoreboard theme](figures/gt_theme_scoreboard.png)
 
 ## See also
 

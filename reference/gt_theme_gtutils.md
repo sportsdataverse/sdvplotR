@@ -60,7 +60,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_gtutils.png)
+![Preview of the gtUtils theme](figures/gt_theme_gtutils.png)
 
 ## Examples
 

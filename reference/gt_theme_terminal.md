@@ -59,7 +59,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_terminal.png)
+![Preview of the terminal theme](figures/gt_theme_terminal.png)
 
 ## See also
 

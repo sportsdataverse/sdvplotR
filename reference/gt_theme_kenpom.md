@@ -60,7 +60,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_kenpom.png)
+![Preview of the KenPom theme](figures/gt_theme_kenpom.png)
 
 ## Examples
 

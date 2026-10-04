@@ -67,7 +67,8 @@ navy and cyan.
 
 ## Figures
 
-![](figures/gt_theme_sdv_team.png)
+![Preview of the SportsDataverse team theme, in team
+colors](figures/gt_theme_sdv_team.png)
 
 ## Density
 

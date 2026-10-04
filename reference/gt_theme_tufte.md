@@ -60,7 +60,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_tufte.png)
+![Preview of the tufte theme](figures/gt_theme_tufte.png)
 
 ## See also
 

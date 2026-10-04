@@ -51,7 +51,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_pl.png)
+![Preview of the Premier League theme](figures/gt_theme_pl.png)
 
 ## Examples
 

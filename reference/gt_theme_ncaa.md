@@ -54,7 +54,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_ncaa.png)
+![Preview of the NCAA theme](figures/gt_theme_ncaa.png)
 
 ## Examples
 

@@ -60,7 +60,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_booktabs.png)
+![Preview of the booktabs theme](figures/gt_theme_booktabs.png)
 
 ## See also
 

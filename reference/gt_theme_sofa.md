@@ -61,7 +61,9 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_sofa_light.png)![](figures/gt_theme_sofa_dark.png)
+![Preview of the sofa theme, light
+style](figures/gt_theme_sofa_light.png)![Preview of the sofa theme, dark
+style](figures/gt_theme_sofa_dark.png)
 
 ## Examples
 

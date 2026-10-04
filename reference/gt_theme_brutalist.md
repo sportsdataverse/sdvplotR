@@ -57,7 +57,7 @@ export at.
 
 ## Figures
 
-![](figures/gt_theme_brutalist.png)
+![Preview of the brutalist theme](figures/gt_theme_brutalist.png)
 
 ## Examples
 
