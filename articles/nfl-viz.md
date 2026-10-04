@@ -22,6 +22,7 @@ library(gt)
 # Get valid NFL team abbreviations
 nfl_teams <- valid_team_names("nfl")
 head(nfl_teams)
+#> [1] "ARI" "ATL" "BAL" "BUF" "CAR" "CHI"
 ```
 
 ## Loading NFL Data
@@ -35,7 +36,8 @@ Use `nflfastR` to load a season of play-by-play data:
 season <- as.integer(format(Sys.Date(), "%Y")) - 1 -
   (format(Sys.Date(), "%m-%d") < "01-15")
 
-pbp <- nflfastR::load_pbp(seasons = season, file_type = "rds")
+pbp <- nflfastR::load_pbp(seasons = season, file_type = "rds") |>
+  filter(season_type == "REG") # drop playoff plays
 
 # Filter to pass plays only for EPA analysis
 pass_plays <- pbp |>
@@ -84,6 +86,8 @@ ggplot(team_epa, aes(x = n_plays, y = mean_epa)) +
   )
 ```
 
+![](nfl-viz_files/figure-html/epa-plot-1.png)
+
 ## Team Standings with Colors
 
 Use team colors to visualize win-loss records:
@@ -119,6 +123,8 @@ ggplot(head(standings, 16), aes(x = reorder(team, win_pct), y = win_pct)) +
   )
 ```
 
+![](nfl-viz_files/figure-html/standings-colors-1.png)
+
 ## Quarterback Headshots
 
 Visualize quarterback performance with player headshots:
@@ -142,14 +148,22 @@ ggplot(qb_epa, aes(x = n_passes, y = mean_epa)) +
   geom_sdv_headshots(
     aes(player_id = passer_player_id),
     sport = "nfl",
-    height = 0.15
+    height = 0.1
   ) +
-  geom_label(
+  # Labels sit a fixed share of the y range below their face; ggrepel moves
+  # the ones that would collide and draws a connector back to the player
+  ggrepel::geom_label_repel(
     aes(label = passer),
-    nudge_y = -0.02,
+    nudge_y = -0.22 * diff(range(qb_epa$mean_epa)),
     size = 3,
-    alpha = 0.7
+    alpha = 0.7,
+    box.padding = 0.5,
+    point.size = 12,
+    min.segment.length = 0,
+    seed = 1
   ) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
   labs(
     title = "Top 8 Quarterbacks by EPA per Pass",
     x = "Number of Passes",
@@ -157,6 +171,8 @@ ggplot(qb_epa, aes(x = n_passes, y = mean_epa)) +
   ) +
   theme_minimal()
 ```
+
+![](nfl-viz_files/figure-html/qb-headshots-1.png)
 
 ## NFL Team Tiers
 
@@ -185,6 +201,8 @@ sdv_team_tiers(
   )
 )
 ```
+
+![](nfl-viz_files/figure-html/team-tiers-1.png)
 
 ## NFL Standings Table with Logos
 
@@ -218,6 +236,21 @@ standings_table |>
     subtitle = paste("Season", season)
   )
 ```
+
+| NFL Standings |  |  |  |  |
+|----|----|----|----|----|
+| Season 2025 |  |  |  |  |
+| Team | Name | Wins | Games | Win % |
+| ![The DEN logo](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Broncos | 14 | 17 | 0.824 |
+| ![The NE logo](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | Patriots | 14 | 17 | 0.824 |
+| ![The SEA logo](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | Seahawks | 14 | 17 | 0.824 |
+| ![The JAX logo](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | Jaguars | 13 | 17 | 0.765 |
+| ![The BUF logo](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | Bills | 12 | 17 | 0.706 |
+| ![The HOU logo](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | Texans | 12 | 17 | 0.706 |
+| ![The LA logo](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | Rams | 12 | 17 | 0.706 |
+| ![The SF logo](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 49ers | 12 | 17 | 0.706 |
+| ![The CHI logo](https://a.espncdn.com/i/teamlogos/nfl/500/chi.png) | Bears | 11 | 17 | 0.647 |
+| ![The LAC logo](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Chargers | 11 | 17 | 0.647 |
 
 ## NFL Division Map with Logos
 
@@ -257,6 +290,8 @@ ggplot(divisions, aes(x = x, y = y)) +
   )
 ```
 
+![](nfl-viz_files/figure-html/division-map-1.png)
+
 ## Axis Labels with Logos
 
 Replace axis labels with team logos using
@@ -281,6 +316,8 @@ ggplot(top_8, aes(x = team, y = win_pct)) +
   ) +
   theme(legend.position = "none")
 ```
+
+![](nfl-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

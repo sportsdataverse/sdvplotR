@@ -22,6 +22,7 @@ library(gt)
 # Get valid NBA team abbreviations
 nba_teams <- valid_team_names("nba")
 head(nba_teams)
+#> [1] "ATL" "BKN" "BOS" "CHA" "CHI" "CLE"
 ```
 
 ## Loading NBA Data
@@ -82,6 +83,8 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   theme_minimal()
 ```
 
+![](nba-viz_files/figure-html/team-performance-1.png)
+
 ## NBA Team Colors
 
 Use team colors to visualize win percentages:
@@ -118,6 +121,8 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   )
 ```
 
+![](nba-viz_files/figure-html/team-colors-1.png)
+
 ## Player Headshots
 
 Visualize top performers with player headshots:
@@ -141,14 +146,22 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   geom_sdv_headshots(
     aes(player_id = athlete_id),
     sport = "nba",
-    height = 0.15
+    height = 0.1
   ) +
-  geom_label(
+  # Labels sit a fixed share of the y range below their face; ggrepel moves
+  # the ones that would collide and draws a connector back to the player
+  ggrepel::geom_label_repel(
     aes(label = athlete_display_name),
-    nudge_y = -1.5,
+    nudge_y = -0.22 * diff(range(top_scorers$avg_points)),
     size = 3,
-    alpha = 0.7
+    alpha = 0.7,
+    box.padding = 0.5,
+    point.size = 12,
+    min.segment.length = 0,
+    seed = 1
   ) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
   labs(
     title = "Top 8 NBA Scorers",
     subtitle = paste("Season", season),
@@ -157,6 +170,8 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   ) +
   theme_minimal()
 ```
+
+![](nba-viz_files/figure-html/player-headshots-1.png)
 
 ### NBA Stats player IDs
 
@@ -189,9 +204,11 @@ ggplot(leaders, aes(x = GP, y = PTS)) +
 [`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md),
 the headshot axis scales and
 [`element_sdv_headshot()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md).
-The NBA’s image CDN refuses requests from datacenter IPs, so a plot
-rendered on CI or a server can come back without these headshots; tables
-are unaffected, because the reader’s browser loads the images.
+The chunk above is not run when this site is built: stats.nba.com and
+the NBA’s image CDN both refuse requests from datacenter IPs, the build
+server’s included, so a plot rendered on CI or a server comes back
+without these headshots. Tables are unaffected, because the reader’s
+browser loads the images.
 
 ## NBA Team Tiers
 
@@ -199,7 +216,7 @@ Create a tier plot ranking NBA teams:
 
 ``` r
 
-# Sample tier assignments
+# Example tier assignments (replace with your own rankings)
 tier_data <- data.frame(
   tier_no = c(1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5),
   team = c("BOS", "DEN", "MIL", "PHX", "LAL", "GSW", "MIA",
@@ -211,8 +228,8 @@ tier_data <- data.frame(
 sdv_team_tiers(
   tier_data,
   sport = "nba",
-  title = "NBA Power Rankings",
-  subtitle = paste("As of", Sys.Date()),
+  title = "NBA Team Tiers",
+  subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Championship Contenders",
     "2" = "Playoff Favorites",
@@ -222,6 +239,8 @@ sdv_team_tiers(
   )
 )
 ```
+
+![](nba-viz_files/figure-html/team-tiers-1.png)
 
 ## NBA Conference Map
 
@@ -261,6 +280,8 @@ ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
+![](nba-viz_files/figure-html/conference-map-1.png)
+
 ## NBA Standings Table with Logos
 
 Create a gt table with team logos:
@@ -292,6 +313,21 @@ standings_table |>
     subtitle = paste("Season", season)
   )
 ```
+
+| NBA Top 10 |  |  |  |  |  |
+|----|----|----|----|----|----|
+| Season 2026 |  |  |  |  |  |
+| \# | Team | Abbrev | Wins | Games | Win % |
+| 1 | ![The OKC logo](https://a.espncdn.com/i/teamlogos/nba/500/okc.png) | OKC | 64 | 82 | 0.780 |
+| 2 | ![The SA logo](https://a.espncdn.com/i/teamlogos/nba/500/sa.png) | SA | 62 | 83 | 0.747 |
+| 3 | ![The DET logo](https://a.espncdn.com/i/teamlogos/nba/500/det.png) | DET | 60 | 82 | 0.732 |
+| 4 | ![The BOS logo](https://a.espncdn.com/i/teamlogos/nba/500/bos.png) | BOS | 56 | 82 | 0.683 |
+| 5 | ![The DEN logo](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | DEN | 54 | 82 | 0.659 |
+| 6 | ![The NY logo](https://a.espncdn.com/i/teamlogos/nba/500/ny.png) | NY | 54 | 83 | 0.651 |
+| 7 | ![The LAL logo](https://a.espncdn.com/i/teamlogos/nba/500/lal.png) | LAL | 53 | 82 | 0.646 |
+| 8 | ![The CLE logo](https://a.espncdn.com/i/teamlogos/nba/500/cle.png) | CLE | 52 | 82 | 0.634 |
+| 9 | ![The HOU logo](https://a.espncdn.com/i/teamlogos/nba/500/hou.png) | HOU | 52 | 82 | 0.634 |
+| 10 | ![The MIN logo](https://a.espncdn.com/i/teamlogos/nba/500/min.png) | MIN | 49 | 82 | 0.598 |
 
 ## Player Performance Comparison
 
@@ -338,6 +374,8 @@ ggplot(comparison, aes(x = rank, y = value)) +
   theme_minimal()
 ```
 
+![](nba-viz_files/figure-html/player-comparison-1.png)
+
 ## Axis Labels with Logos
 
 Replace axis labels with team logos:
@@ -361,6 +399,8 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
   ) +
   theme(legend.position = "none")
 ```
+
+![](nba-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

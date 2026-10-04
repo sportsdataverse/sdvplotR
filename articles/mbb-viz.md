@@ -23,7 +23,9 @@ library(gt)
 # Get valid MBB team abbreviations
 mbb_teams <- valid_team_names("mbb")
 length(mbb_teams)  # ~350+ D1 teams
+#> [1] 366
 head(mbb_teams)
+#> [1] "AAMU" "ACU"  "AF"   "AKR"  "ALA"  "ALCN"
 ```
 
 ## Loading MBB Data
@@ -82,6 +84,8 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   theme_minimal()
 ```
 
+![](mbb-viz_files/figure-html/team-performance-1.png)
+
 ## MBB Team Colors
 
 Use team colors to visualize win percentages:
@@ -118,6 +122,8 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   )
 ```
 
+![](mbb-viz_files/figure-html/team-colors-1.png)
+
 ## Player Headshots
 
 Visualize top performers with player headshots:
@@ -141,14 +147,22 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   geom_sdv_headshots(
     aes(player_id = athlete_id),
     sport = "mbb",
-    height = 0.15
+    height = 0.1
   ) +
-  geom_label(
+  # Labels sit a fixed share of the y range below their face; ggrepel moves
+  # the ones that would collide and draws a connector back to the player
+  ggrepel::geom_label_repel(
     aes(label = athlete_display_name),
-    nudge_y = -1.5,
+    nudge_y = -0.22 * diff(range(top_scorers$avg_points)),
     size = 3,
-    alpha = 0.7
+    alpha = 0.7,
+    box.padding = 0.5,
+    point.size = 12,
+    min.segment.length = 0,
+    seed = 1
   ) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
   labs(
     title = "Top 8 MBB Scorers",
     subtitle = paste("Season", season),
@@ -157,6 +171,8 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   ) +
   theme_minimal()
 ```
+
+![](mbb-viz_files/figure-html/player-headshots-1.png)
 
 ## Tournament Seeds with Logos
 
@@ -177,12 +193,12 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   geom_sdv_logos(
     aes(team = team),
     sport = "mbb",
-    width = 0.075
+    width = 0.042
   ) +
   scale_x_continuous(breaks = 1:16) +
   labs(
-    title = "NCAA Tournament Seeds",
-    subtitle = paste("Season", season),
+    title = "Example NCAA Tournament Seeds",
+    subtitle = "Example seeds for illustration, not a real bracket",
     x = "Seed",
     y = NULL
   ) +
@@ -193,6 +209,8 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
     panel.grid.minor = element_blank()
   )
 ```
+
+![](mbb-viz_files/figure-html/march-madness-1.png)
 
 ## MBB Team Tiers
 
@@ -228,6 +246,8 @@ sdv_team_tiers(
   presort = TRUE
 )
 ```
+
+![](mbb-viz_files/figure-html/team-tiers-1.png)
 
 ## MBB Conference Map
 
@@ -267,6 +287,8 @@ ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
+![](mbb-viz_files/figure-html/conference-map-1.png)
+
 ## MBB Standings Table with Logos
 
 Create a gt table with team logos:
@@ -299,6 +321,31 @@ standings_table |>
   )
 ```
 
+| MBB Top 20 |  |  |  |  |  |
+|----|----|----|----|----|----|
+| Season 2026 |  |  |  |  |  |
+| \# | Team | Abbrev | Wins | Games | Win % |
+| 1 | ![The M-OH logo](https://a.espncdn.com/i/teamlogos/ncaa/500/193.png) | M-OH | 31 | 32 | 0.969 |
+| 2 | ![The ARIZ logo](https://a.espncdn.com/i/teamlogos/ncaa/500/12.png) | ARIZ | 32 | 34 | 0.941 |
+| 3 | ![The DUKE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/150.png) | DUKE | 32 | 34 | 0.941 |
+| 4 | ![The MICH logo](https://a.espncdn.com/i/teamlogos/ncaa/500/130.png) | MICH | 31 | 34 | 0.912 |
+| 5 | ![The GONZ logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2250.png) | GONZ | 30 | 33 | 0.909 |
+| 6 | ![The HPU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2272.png) | HPU | 30 | 34 | 0.882 |
+| 7 | ![The CONN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/41.png) | CONN | 29 | 34 | 0.853 |
+| 8 | ![The UVA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png) | UVA | 29 | 34 | 0.853 |
+| 9 | ![The AKR logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2006.png) | AKR | 29 | 34 | 0.853 |
+| 10 | ![The SLU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/139.png) | SLU | 28 | 33 | 0.848 |
+| 11 | ![The MCN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2377.png) | MCN | 28 | 33 | 0.848 |
+| 12 | ![The SFA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2617.png) | SFA | 28 | 33 | 0.848 |
+| 13 | ![The SMC logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2608.png) | SMC | 27 | 32 | 0.844 |
+| 14 | ![The HOU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/248.png) | HOU | 28 | 34 | 0.824 |
+| 15 | ![The USU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/328.png) | USU | 28 | 34 | 0.824 |
+| 16 | ![The SJU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2599.png) | SJU | 28 | 34 | 0.824 |
+| 17 | ![The NEB logo](https://a.espncdn.com/i/teamlogos/ncaa/500/158.png) | NEB | 26 | 32 | 0.812 |
+| 18 | ![The UNCW logo](https://a.espncdn.com/i/teamlogos/ncaa/500/350.png) | UNCW | 26 | 32 | 0.812 |
+| 19 | ![The BEL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2057.png) | BEL | 26 | 32 | 0.812 |
+| 20 | ![The YALE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/43.png) | YALE | 24 | 30 | 0.800 |
+
 ## Axis Labels with Logos
 
 Replace axis labels with team logos:
@@ -322,6 +369,8 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
   ) +
   theme(legend.position = "none")
 ```
+
+![](mbb-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

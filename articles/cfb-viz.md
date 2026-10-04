@@ -26,7 +26,9 @@ library(gt)
 # Get valid CFB team abbreviations
 cfb_teams <- valid_team_names("cfb")
 length(cfb_teams)  # every FBS and FCS program
+#> [1] 267
 head(cfb_teams)
+#> [1] "AAMU" "ACU"  "AF"   "AKR"  "ALA"  "ALCN"
 ```
 
 ## Loading CFB Data
@@ -40,7 +42,8 @@ Use `cfbfastR` to load a season of play-by-play data:
 season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "12-15")
 
-pbp <- cfbfastR::load_cfb_pbp(seasons = season)
+pbp <- cfbfastR::load_cfb_pbp(seasons = season) |>
+  filter(season_type == "regular") # drop bowl and playoff plays
 
 # Pass plays with an EPA value; clean_team_abbrs() turns the offense's school
 # name into sdvplotR's abbreviation
@@ -91,10 +94,26 @@ ggplot(sec_teams, aes(x = reorder(team_abbr, mean_epa), y = mean_epa)) +
   )
 ```
 
+![](cfb-viz_files/figure-html/conference-standings-1.png)
+
 ## Playoff Bracket with cfbseedR
 
 `cfbseedR` applies each conference’s tiebreakers and seeds a 12-team
-College Football Playoff from a season’s results:
+College Football Playoff from a season’s results.
+
+Unlike
+[`load_cfb_pbp()`](https://cfbfastR.sportsdataverse.org/reference/load_cfb_pbp.html),
+[`cfbfastR::load_cfb_schedules()`](https://cfbfastR.sportsdataverse.org/reference/load_cfb_schedules.html)
+reads the CollegeFootballData.com API, which needs a free API key. Get
+one at <https://collegefootballdata.com/key> and register it for the
+session before running this chunk:
+
+``` r
+
+Sys.setenv(CFBD_API_KEY = "YOUR-API-KEY-HERE")
+# to keep it across sessions, add CFBD_API_KEY=YOUR-API-KEY-HERE to
+# ~/.Renviron (usethis::edit_r_environ()); see ?cfbfastR::register_cfbd
+```
 
 ``` r
 
@@ -145,6 +164,8 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   )
 ```
 
+![](cfb-viz_files/figure-html/playoff-bracket-1.png)
+
 `autobid` picks the automatic-bid rule in force that season. Without
 committee rankings the field is seeded from results alone; pass the
 committee’s final rankings as `rankings =` to
@@ -187,6 +208,8 @@ sdv_team_tiers(
 )
 ```
 
+![](cfb-viz_files/figure-html/team-tiers-1.png)
+
 ## Conference Map
 
 Visualize all FBS teams by conference:
@@ -226,6 +249,8 @@ ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
+![](cfb-viz_files/figure-html/conference-map-1.png)
+
 ## CFB Standings Table with Logos
 
 Create a gt table with team logos:
@@ -253,6 +278,26 @@ team_perf |>
     subtitle = paste("Season", season)
   )
 ```
+
+| Top 15 CFB Passing Offenses |  |  |  |  |  |
+|----|----|----|----|----|----|
+| Season 2025 |  |  |  |  |  |
+| \# |  | Team | Conf | EPA/Play | Plays |
+| 1 | ![The OSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/194.png) | Ohio State | Big Ten | 0.386 | 384 |
+| 2 | ![The USC logo](https://a.espncdn.com/i/teamlogos/ncaa/500/30.png) | USC | Big Ten | 0.370 | 396 |
+| 3 | ![The VAN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/238.png) | Vanderbilt | SEC | 0.350 | 376 |
+| 4 | ![The UNT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/249.png) | North Texas | AAC | 0.346 | 450 |
+| 5 | ![The NDSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2449.png) | North Dakota State | Mountain West | 0.324 | 310 |
+| 6 | ![The CONN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/41.png) | UConn | FBS Indep. | 0.310 | 442 |
+| 7 | ![The CIN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png) | Cincinnati | Big 12 | 0.285 | 353 |
+| 8 | ![The IU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/84.png) | Indiana | Big Ten | 0.280 | 361 |
+| 9 | ![The AF logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2005.png) | Air Force | Mountain West | 0.266 | 179 |
+| 10 | ![The GT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/59.png) | Georgia Tech | ACC | 0.239 | 360 |
+| 11 | ![The TEM logo](https://a.espncdn.com/i/teamlogos/ncaa/500/218.png) | Temple | AAC | 0.224 | 341 |
+| 12 | ![The MIA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png) | Miami | ACC | 0.223 | 388 |
+| 13 | ![The USF logo](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png) | South Florida | AAC | 0.214 | 383 |
+| 14 | ![The MISS logo](https://a.espncdn.com/i/teamlogos/ncaa/500/145.png) | Ole Miss | SEC | 0.214 | 419 |
+| 15 | ![The RUTG logo](https://a.espncdn.com/i/teamlogos/ncaa/500/164.png) | Rutgers | Big Ten | 0.213 | 429 |
 
 ## Rivalry Matchups
 
@@ -298,6 +343,8 @@ ggplot(rivalries, aes(x = 1, y = row)) +
   theme_void()
 ```
 
+![](cfb-viz_files/figure-html/rivalries-1.png)
+
 ## Axis Labels with Logos
 
 Replace axis labels with team logos:
@@ -321,6 +368,8 @@ ggplot(top_10, aes(x = team_abbr, y = mean_epa)) +
   ) +
   theme(legend.position = "none")
 ```
+
+![](cfb-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

@@ -22,6 +22,7 @@ library(gt)
 # Get valid WNBA team abbreviations
 wnba_teams <- valid_team_names("wnba")
 head(wnba_teams)
+#> [1] "ATL" "CHI" "CON" "DAL" "GS"  "IND"
 ```
 
 ## Loading WNBA Data
@@ -81,6 +82,8 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   theme_minimal()
 ```
 
+![](wnba-viz_files/figure-html/team-performance-1.png)
+
 ## WNBA Team Colors
 
 Use team colors to visualize win percentages:
@@ -116,6 +119,8 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   )
 ```
 
+![](wnba-viz_files/figure-html/team-colors-1.png)
+
 ## Player Headshots
 
 Visualize top performers with player headshots:
@@ -139,14 +144,22 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   geom_sdv_headshots(
     aes(player_id = athlete_id),
     sport = "wnba",
-    height = 0.15
+    height = 0.1
   ) +
-  geom_label(
+  # Labels sit a fixed share of the y range below their face; ggrepel moves
+  # the ones that would collide and draws a connector back to the player
+  ggrepel::geom_label_repel(
     aes(label = athlete_display_name),
-    nudge_y = -1.0,
+    nudge_y = -0.22 * diff(range(top_scorers$avg_points)),
     size = 3,
-    alpha = 0.7
+    alpha = 0.7,
+    box.padding = 0.5,
+    point.size = 12,
+    min.segment.length = 0,
+    seed = 1
   ) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
   labs(
     title = "Top 8 WNBA Scorers",
     subtitle = paste("Season", season),
@@ -155,6 +168,8 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   ) +
   theme_minimal()
 ```
+
+![](wnba-viz_files/figure-html/player-headshots-1.png)
 
 ### WNBA Stats player IDs
 
@@ -186,9 +201,11 @@ ggplot(leaders, aes(x = GP, y = PTS)) +
 [`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md),
 the headshot axis scales and
 [`element_sdv_headshot()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md).
-The WNBA’s image CDN refuses requests from datacenter IPs, so a plot
-rendered on CI or a server can come back without these headshots; tables
-are unaffected, because the reader’s browser loads the images.
+The chunk above is not run when this site is built: stats.wnba.com and
+the WNBA’s image CDN both refuse requests from datacenter IPs, the build
+server’s included, so a plot rendered on CI or a server comes back
+without these headshots. Tables are unaffected, because the reader’s
+browser loads the images.
 
 ## WNBA Team Tiers
 
@@ -196,7 +213,7 @@ Create a tier plot ranking WNBA teams:
 
 ``` r
 
-# Sample tier assignments
+# Example tier assignments (replace with your own rankings)
 tier_data <- data.frame(
   tier_no = c(1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5),
   team = c("LV", "NY", "WAS", "DAL", "MIN",
@@ -208,8 +225,8 @@ tier_data <- data.frame(
 sdv_team_tiers(
   tier_data,
   sport = "wnba",
-  title = "WNBA Power Rankings",
-  subtitle = paste("As of", Sys.Date()),
+  title = "WNBA Team Tiers",
+  subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Championship Favorites",
     "2" = "Contenders",
@@ -219,6 +236,8 @@ sdv_team_tiers(
   )
 )
 ```
+
+![](wnba-viz_files/figure-html/team-tiers-1.png)
 
 ## WNBA Conference Standings
 
@@ -262,6 +281,8 @@ ggplot(conference_standings, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
+![](wnba-viz_files/figure-html/conference-standings-1.png)
+
 ## WNBA Standings Table with Logos
 
 Create a gt table with team logos:
@@ -292,6 +313,26 @@ standings_table |>
     subtitle = paste("Season", season)
   )
 ```
+
+| WNBA Standings |  |  |  |  |  |
+|----|----|----|----|----|----|
+| Season 2026 |  |  |  |  |  |
+| \# | Team | Abbrev | Wins | Games | Win % |
+| 1 | ![The MIN logo](https://a.espncdn.com/i/teamlogos/wnba/500/min.png) | MIN | 33 | 44 | 0.750 |
+| 2 | ![The GS logo](https://a.espncdn.com/i/teamlogos/wnba/500/gs.png) | GS | 32 | 44 | 0.727 |
+| 3 | ![The LV logo](https://a.espncdn.com/i/teamlogos/wnba/500/lv.png) | LV | 31 | 45 | 0.689 |
+| 4 | ![The ATL logo](https://a.espncdn.com/i/teamlogos/wnba/500/atl.png) | ATL | 30 | 44 | 0.682 |
+| 5 | ![The IND logo](https://a.espncdn.com/i/teamlogos/wnba/500/ind.png) | IND | 28 | 44 | 0.636 |
+| 6 | ![The WSH logo](https://a.espncdn.com/i/teamlogos/wnba/500/wsh.png) | WSH | 28 | 44 | 0.636 |
+| 7 | ![The DAL logo](https://a.espncdn.com/i/teamlogos/wnba/500/dal.png) | DAL | 27 | 44 | 0.614 |
+| 8 | ![The NY logo](https://a.espncdn.com/i/teamlogos/wnba/500/ny.png) | NY | 27 | 45 | 0.600 |
+| 9 | ![The POR logo](https://a.espncdn.com/i/teamlogos/wnba/500/por.png) | POR | 17 | 44 | 0.386 |
+| 10 | ![The CHI logo](https://a.espncdn.com/i/teamlogos/wnba/500/chi.png) | CHI | 16 | 44 | 0.364 |
+| 11 | ![The LA logo](https://a.espncdn.com/i/teamlogos/wnba/500/la.png) | LA | 16 | 44 | 0.364 |
+| 12 | ![The PHX logo](https://a.espncdn.com/i/teamlogos/wnba/500/phx.png) | PHX | 16 | 44 | 0.364 |
+| 13 | ![The CON logo](https://a.espncdn.com/i/teamlogos/wnba/500/con.png) | CON | 11 | 44 | 0.250 |
+| 14 | ![The TOR logo](https://a.espncdn.com/i/teamlogos/wnba/500/tor.png) | TOR | 11 | 44 | 0.250 |
+| 15 | ![The SEA logo](https://a.espncdn.com/i/teamlogos/wnba/500/sea.png) | SEA | 8 | 44 | 0.182 |
 
 ## Player Performance Comparison
 
@@ -338,6 +379,8 @@ ggplot(comparison, aes(x = rank, y = value)) +
   theme_minimal()
 ```
 
+![](wnba-viz_files/figure-html/player-comparison-1.png)
+
 ## Axis Labels with Logos
 
 Replace axis labels with team logos:
@@ -361,6 +404,8 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
   ) +
   theme(legend.position = "none")
 ```
+
+![](wnba-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

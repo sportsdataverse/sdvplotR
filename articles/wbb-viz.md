@@ -23,7 +23,9 @@ library(gt)
 # Get valid WBB team abbreviations
 wbb_teams <- valid_team_names("wbb")
 length(wbb_teams)  # ~350+ D1 teams
+#> [1] 364
 head(wbb_teams)
+#> [1] "AAMU" "ACU"  "AF"   "AKR"  "ALA"  "ALCN"
 ```
 
 ## Loading WBB Data
@@ -82,6 +84,8 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   theme_minimal()
 ```
 
+![](wbb-viz_files/figure-html/team-performance-1.png)
+
 ## WBB Team Colors
 
 Use team colors to visualize win percentages:
@@ -118,6 +122,8 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   )
 ```
 
+![](wbb-viz_files/figure-html/team-colors-1.png)
+
 ## Player Headshots
 
 Visualize top performers with player headshots:
@@ -141,14 +147,22 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   geom_sdv_headshots(
     aes(player_id = athlete_id),
     sport = "wbb",
-    height = 0.15
+    height = 0.1
   ) +
-  geom_label(
+  # Labels sit a fixed share of the y range below their face; ggrepel moves
+  # the ones that would collide and draws a connector back to the player
+  ggrepel::geom_label_repel(
     aes(label = athlete_display_name),
-    nudge_y = -1.5,
+    nudge_y = -0.22 * diff(range(top_scorers$avg_points)),
     size = 3,
-    alpha = 0.7
+    alpha = 0.7,
+    box.padding = 0.5,
+    point.size = 12,
+    min.segment.length = 0,
+    seed = 1
   ) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
   labs(
     title = "Top 8 WBB Scorers",
     subtitle = paste("Season", season),
@@ -157,6 +171,8 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   ) +
   theme_minimal()
 ```
+
+![](wbb-viz_files/figure-html/player-headshots-1.png)
 
 ## Tournament Seeds with Logos
 
@@ -177,12 +193,12 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   geom_sdv_logos(
     aes(team = team),
     sport = "wbb",
-    width = 0.075
+    width = 0.042
   ) +
   scale_x_continuous(breaks = 1:16) +
   labs(
-    title = "NCAA Women's Tournament Seeds",
-    subtitle = paste("Season", season),
+    title = "Example NCAA Women's Tournament Seeds",
+    subtitle = "Example seeds for illustration, not a real bracket",
     x = "Seed",
     y = NULL
   ) +
@@ -193,6 +209,8 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
     panel.grid.minor = element_blank()
   )
 ```
+
+![](wbb-viz_files/figure-html/ncaa-tournament-1.png)
 
 ## WBB Team Tiers
 
@@ -228,6 +246,8 @@ sdv_team_tiers(
   presort = TRUE
 )
 ```
+
+![](wbb-viz_files/figure-html/team-tiers-1.png)
 
 ## WBB Conference Map
 
@@ -267,6 +287,8 @@ ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
+![](wbb-viz_files/figure-html/conference-map-1.png)
+
 ## WBB Standings Table with Logos
 
 Create a gt table with team logos:
@@ -299,6 +321,31 @@ standings_table |>
   )
 ```
 
+| WBB Top 20 |  |  |  |  |  |
+|----|----|----|----|----|----|
+| Season 2026 |  |  |  |  |  |
+| \# | Team | Abbrev | Wins | Games | Win % |
+| 1 | ![The CONN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/41.png) | CONN | 34 | 34 | 1.000 |
+| 2 | ![The UCLA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/26.png) | UCLA | 31 | 32 | 0.969 |
+| 3 | ![The MUR logo](https://a.espncdn.com/i/teamlogos/ncaa/500/93.png) | MUR | 31 | 34 | 0.912 |
+| 4 | ![The TEX logo](https://a.espncdn.com/i/teamlogos/ncaa/500/251.png) | TEX | 31 | 34 | 0.912 |
+| 5 | ![The SC logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png) | SC | 31 | 34 | 0.912 |
+| 6 | ![The PRIN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/163.png) | PRIN | 26 | 29 | 0.897 |
+| 7 | ![The FDU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/161.png) | FDU | 30 | 34 | 0.882 |
+| 8 | ![The URI logo](https://a.espncdn.com/i/teamlogos/ncaa/500/227.png) | URI | 28 | 32 | 0.875 |
+| 9 | ![The FAIR logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2217.png) | FAIR | 28 | 32 | 0.875 |
+| 10 | ![The NDSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2449.png) | NDSU | 28 | 32 | 0.875 |
+| 11 | ![The VAN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/238.png) | VAN | 27 | 31 | 0.871 |
+| 12 | ![The IDHO logo](https://a.espncdn.com/i/teamlogos/ncaa/500/70.png) | IDHO | 29 | 34 | 0.853 |
+| 13 | ![The TCU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png) | TCU | 29 | 34 | 0.853 |
+| 14 | ![The RICE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/242.png) | RICE | 28 | 33 | 0.848 |
+| 15 | ![The MCN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2377.png) | MCN | 28 | 33 | 0.848 |
+| 16 | ![The LSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/99.png) | LSU | 27 | 32 | 0.844 |
+| 17 | ![The COFC logo](https://a.espncdn.com/i/teamlogos/ncaa/500/232.png) | COFC | 27 | 32 | 0.844 |
+| 18 | ![The HPU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2272.png) | HPU | 27 | 32 | 0.844 |
+| 19 | ![The WIU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2710.png) | WIU | 26 | 31 | 0.839 |
+| 20 | ![The SDSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/21.png) | SDSU | 25 | 30 | 0.833 |
+
 ## Axis Labels with Logos
 
 Replace axis labels with team logos:
@@ -321,7 +368,11 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
     y = "Win Percentage"
   ) +
   theme(legend.position = "none")
+#> Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:
+#> known incorrect sRGB profile
 ```
+
+![](wbb-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 
