@@ -198,7 +198,7 @@ tier_data <- data.frame(
 sdv_team_tiers(
   tier_data,
   sport = "mlb",
-  title = "MLB Power Rankings",
+  title = "MLB Team Tiers",
   subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "World Series Favorites",

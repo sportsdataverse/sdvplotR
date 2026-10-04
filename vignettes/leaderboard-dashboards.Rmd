@@ -77,7 +77,7 @@ standings |>
     subtitle = "Example data"
   ) |>
   tab_footnote(
-    footnote = "Data: nflfastR | Viz: sdvplotR",
+    footnote = "Example data | Viz: sdvplotR",
     locations = cells_title(groups = "title")
   )
 ```

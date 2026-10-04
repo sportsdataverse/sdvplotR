@@ -232,7 +232,7 @@ top_25 <- team_wins |>
 sdv_team_tiers(
   top_25,
   sport = "mbb",
-  title = "MBB Power Rankings",
+  title = "MBB Team Tiers",
   subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Elite",
