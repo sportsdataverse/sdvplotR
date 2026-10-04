@@ -289,6 +289,10 @@ html { scroll-padding-top: 5.5rem; }
 [data-bs-theme="dark"] .html-widget {
   filter: none;
 }
+/* bootstrap-pkgdown dims every image in a code block to 0.66 in dark mode, which grays the card */
+[data-bs-theme="dark"] pre .r-plt.img img {
+  opacity: 1;
+}
 /* a widget with no theme of its own draws a white table but inherits the page's light text:
    give it dark text */
 [data-bs-theme="dark"] main .html-widget {
