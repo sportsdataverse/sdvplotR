@@ -52,7 +52,8 @@ Use `cfbfastR` to load a season of play-by-play data:
 season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "12-15")
 
-pbp <- cfbfastR::load_cfb_pbp(seasons = season)
+pbp <- cfbfastR::load_cfb_pbp(seasons = season) |>
+  filter(season_type == "regular") # drop bowl and playoff plays
 
 # Pass plays with an EPA value; clean_team_abbrs() turns the offense's school
 # name into sdvplotR's abbreviation

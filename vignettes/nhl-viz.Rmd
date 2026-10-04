@@ -132,14 +132,22 @@ ggplot(top_goals, aes(x = games_played, y = goals)) +
     aes(player_id = player_id),
     sport = "nhl",
     id_type = "league",
-    height = 0.15
+    height = 0.1
   ) +
-  geom_label(
+  # Labels sit a fixed share of the y range below their face; ggrepel moves
+  # the ones that would collide and draws a connector back to the player
+  ggrepel::geom_label_repel(
     aes(label = skater_full_name),
-    nudge_y = -2,
+    nudge_y = -0.22 * diff(range(top_goals$goals)),
     size = 3,
-    alpha = 0.7
+    alpha = 0.7,
+    box.padding = 0.5,
+    point.size = 12,
+    min.segment.length = 0,
+    seed = 1
   ) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
   labs(
     title = "NHL Goal Scoring Leaders",
     subtitle = paste0("Season ", season - 1, "-", substr(season, 3, 4)),

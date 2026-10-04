@@ -152,14 +152,22 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   geom_sdv_headshots(
     aes(player_id = athlete_id),
     sport = "nba",
-    height = 0.15
+    height = 0.1
   ) +
-  geom_label(
+  # Labels sit a fixed share of the y range below their face; ggrepel moves
+  # the ones that would collide and draws a connector back to the player
+  ggrepel::geom_label_repel(
     aes(label = athlete_display_name),
-    nudge_y = -1.5,
+    nudge_y = -0.22 * diff(range(top_scorers$avg_points)),
     size = 3,
-    alpha = 0.7
+    alpha = 0.7,
+    box.padding = 0.5,
+    point.size = 12,
+    min.segment.length = 0,
+    seed = 1
   ) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
   labs(
     title = "Top 8 NBA Scorers",
     subtitle = paste("Season", season),
@@ -205,7 +213,7 @@ because the reader's browser loads the images.
 Create a tier plot ranking NBA teams:
 
 ```{r team-tiers}
-# Sample tier assignments
+# Example tier assignments (replace with your own rankings)
 tier_data <- data.frame(
   tier_no = c(1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5),
   team = c("BOS", "DEN", "MIL", "PHX", "LAL", "GSW", "MIA",
@@ -217,8 +225,8 @@ tier_data <- data.frame(
 sdv_team_tiers(
   tier_data,
   sport = "nba",
-  title = "NBA Power Rankings",
-  subtitle = paste("As of", Sys.Date()),
+  title = "NBA Team Tiers",
+  subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Championship Contenders",
     "2" = "Playoff Favorites",

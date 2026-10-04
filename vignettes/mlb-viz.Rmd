@@ -148,14 +148,22 @@ ggplot(top_hr, aes(x = games_played, y = home_runs)) +
     aes(player_id = player_id),
     sport = "mlb",
     id_type = "league",
-    height = 0.15
+    height = 0.1
   ) +
-  geom_label(
+  # Labels sit a fixed share of the y range below their face; ggrepel moves
+  # the ones that would collide and draws a connector back to the player
+  ggrepel::geom_label_repel(
     aes(label = player_full_name),
-    nudge_y = -3,
+    nudge_y = -0.22 * diff(range(top_hr$home_runs)),
     size = 3,
-    alpha = 0.7
+    alpha = 0.7,
+    box.padding = 0.5,
+    point.size = 12,
+    min.segment.length = 0,
+    seed = 1
   ) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
   labs(
     title = "MLB Home Run Leaders",
     subtitle = paste("Season", season),
