@@ -251,7 +251,7 @@ get their logos later.</p>
 <code class="sourceCode R"><span><span class="va">net_page</span> <span class="op">&lt;-</span> <span class="fu">read_html</span><span class="op">(</span><span class="st">"https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># the page states how current the rankings are ("Through Games Apr. 06 2026")</span></span>
-<span><span class="va">as_of</span> <span class="op">&lt;-</span> <span class="fu">str_extract</span><span class="op">(</span><span class="fu">html_text2</span><span class="op">(</span><span class="va">net_page</span><span class="op">)</span>, <span class="st">"Through Games [A-Za-z]+\\.? \\d+ \\d{4}"</span><span class="op">)</span></span>
+<span><span class="va">as_of</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html" class="external-link">str_extract</a></span><span class="op">(</span><span class="fu">html_text2</span><span class="op">(</span><span class="va">net_page</span><span class="op">)</span>, <span class="st">"Through Games [A-Za-z]+\\.? \\d+ \\d{4}"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">html_table</span><span class="op">(</span><span class="fu">html_element</span><span class="op">(</span><span class="va">net_page</span>, <span class="st">"table"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
@@ -260,6 +260,9 @@ get their logos later.</p>
 <span>    prev_rk <span class="op">=</span> <span class="va">Prev</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">net</span> <span class="op">&lt;=</span> <span class="fl">25</span><span class="op">)</span></span></code></pre></div>
+<p>The tables below use a snapshot of this page taken on October 04,
+2026 (rvest 1.0.5), because ncaa.com is not scraped when this site is
+built.</p>
 <p>Before splitting anything, two values are computed once, off the full
 table.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -342,7 +345,7 @@ frame.</p>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"Team"</span>, net <span class="op">=</span> <span class="st">"NET"</span>, prev_rk <span class="op">=</span> <span class="st">"Prev."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label_with.html" class="external-link">cols_label_with</a></span><span class="op">(</span></span>
 <span>      columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span>,</span>
-<span>      fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Q"</span>, <span class="fu">parse_number</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span>      fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Q"</span>, <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html" class="external-link">parse_number</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_width.html" class="external-link">cols_width</a></span><span class="op">(</span><span class="va">team</span> <span class="op">~</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">165</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">60</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Quad Records"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -384,7 +387,1295 @@ but hides it from the table (for the second example).</p>
 <span>  source_note <span class="op">=</span> <span class="st">"Example created by @andreweatherman using {gtUtils} v1.0"</span>,</span>
 <span>  caption_rule <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="images/grid_net.png" class="r-plt" alt="" width="1047"></p>
+<div style="display: flex; justify-content: center; justify-content: safe center; overflow-x: auto;">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
+<div style="display: inline-block;">
+<div>
+<div style="font-family:'Oswald', system-ui, -apple-system, sans-serif;font-size:34px;color:#111111;font-weight:700;text-transform:uppercase;text-align:center;margin-bottom:-4px;">Top 25 NET Rankings</div>
+<div style="font-family:system-ui, -apple-system, sans-serif;font-size:16px;color:#8A8A8A;font-weight:400;font-style:italic;text-align:center;margin-bottom:12px;">Through Games Apr. 06 2026</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, max-content); gap: 30px; align-items: start; justify-content: center;">
+<div>
+<div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#mwlefoodfi table {
+  font-family: Archivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#mwlefoodfi thead, #mwlefoodfi tbody, #mwlefoodfi tfoot, #mwlefoodfi tr, #mwlefoodfi td, #mwlefoodfi th {
+  border-style: none;
+}
+
+#mwlefoodfi p {
+  margin: 0;
+  padding: 0;
+}
+
+#mwlefoodfi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#mwlefoodfi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#mwlefoodfi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 9px;
+  padding-bottom: 11px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#mwlefoodfi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 8px;
+  padding-bottom: 9px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#mwlefoodfi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#mwlefoodfi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#mwlefoodfi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#mwlefoodfi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+  vertical-align: bottom;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#mwlefoodfi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#mwlefoodfi .gt_group_heading {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#mwlefoodfi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#mwlefoodfi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#mwlefoodfi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#mwlefoodfi .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#mwlefoodfi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#mwlefoodfi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#mwlefoodfi .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+}
+
+#mwlefoodfi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_left {
+  text-align: left;
+}
+
+#mwlefoodfi .gt_center {
+  text-align: center;
+}
+
+#mwlefoodfi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#mwlefoodfi .gt_font_normal {
+  font-weight: normal;
+}
+
+#mwlefoodfi .gt_font_bold {
+  font-weight: bold;
+}
+
+#mwlefoodfi .gt_font_italic {
+  font-style: italic;
+}
+
+#mwlefoodfi .gt_super {
+  font-size: 65%;
+}
+
+#mwlefoodfi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#mwlefoodfi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#mwlefoodfi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#mwlefoodfi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#mwlefoodfi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#mwlefoodfi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#mwlefoodfi .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#mwlefoodfi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#mwlefoodfi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#mwlefoodfi td {
+  font-variant-numeric: tabular-nums;
+}
+
+#mwlefoodfi tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#mwlefoodfi .gt_col_heading, #mwlefoodfi .gt_column_spanner {
+  letter-spacing: 0.12em;
+}
+
+#mwlefoodfi .gt_group_heading {
+  letter-spacing: 0.12em;
+}
+
+#mwlefoodfi .gt_title {
+  letter-spacing: -0.02em;
+  padding-bottom: 3px !important;
+}
+
+#mwlefoodfi .gt_subtitle {
+  padding-bottom: 20px !important;
+}
+
+#mwlefoodfi .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style>
+<table class="table gt_table" style="table-layout:fixed;" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col>
+<col style="width:165px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col>
+</colgroup>
+<thead>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="net">NET</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase; border-right-width: 10px; border-right-style: solid; border-right-color: white;" scope="col" id="team">Team</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" scope="colgroup" id="Quad Records">
+        <div class="gt_column_spanner">Quad Records</div>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="prev_rk">Prev.</th>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad1">Q1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad2">Q2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad3">Q3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad4">Q4</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">1</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/130.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The MICH logo">Michigan</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">21-3</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #4D9476;">2</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">2</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/150.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The DUKE logo">Duke</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">19-3</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #3D8B6E;">1</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">3</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/12.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ARIZ logo">Arizona</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">19-3</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #5C9D7F;">3</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The FLA logo">Florida</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">12-7</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">2-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #6BA688;">4</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ILL logo">Illinois</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">10-9</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #A3C7AA;">8</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/248.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The HOU logo">Houston</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">10-7</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">10-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #79AE91;">5</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/66.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ISU logo">Iowa St.</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8-8</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">10-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #88B799;">6</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The PUR logo">Purdue</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">13-9</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #B0CBAF;">9</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/41.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The CONN logo">UConn</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">11-4</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">11-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #BCD0B5;">10</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">10</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2250.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The GONZ logo">Gonzaga</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-3</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">12-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #96C0A2;">7</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">11</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/127.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The MSU logo">Michigan St.</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">10-7</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #C9D4BB;">11</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">12</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/158.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The NEB logo">Nebraska</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">10-7</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #EDE0CC;">14</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">13</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2599.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The SJU logo">St. John's (NY)</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-6</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">12-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #E9C7AF;">16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+<div id="eexombwkke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#eexombwkke table {
+  font-family: Archivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#eexombwkke thead, #eexombwkke tbody, #eexombwkke tfoot, #eexombwkke tr, #eexombwkke td, #eexombwkke th {
+  border-style: none;
+}
+
+#eexombwkke p {
+  margin: 0;
+  padding: 0;
+}
+
+#eexombwkke .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#eexombwkke .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#eexombwkke .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#eexombwkke .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 9px;
+  padding-bottom: 11px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#eexombwkke .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 8px;
+  padding-bottom: 9px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#eexombwkke .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#eexombwkke .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#eexombwkke .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#eexombwkke .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+  vertical-align: bottom;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#eexombwkke .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#eexombwkke .gt_group_heading {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#eexombwkke .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#eexombwkke .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#eexombwkke .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#eexombwkke .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#eexombwkke .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#eexombwkke .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#eexombwkke .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#eexombwkke .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#eexombwkke .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#eexombwkke .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#eexombwkke .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#eexombwkke .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+}
+
+#eexombwkke .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_left {
+  text-align: left;
+}
+
+#eexombwkke .gt_center {
+  text-align: center;
+}
+
+#eexombwkke .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#eexombwkke .gt_font_normal {
+  font-weight: normal;
+}
+
+#eexombwkke .gt_font_bold {
+  font-weight: bold;
+}
+
+#eexombwkke .gt_font_italic {
+  font-style: italic;
+}
+
+#eexombwkke .gt_super {
+  font-size: 65%;
+}
+
+#eexombwkke .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#eexombwkke .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#eexombwkke .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#eexombwkke .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#eexombwkke .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#eexombwkke .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#eexombwkke .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#eexombwkke .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#eexombwkke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#eexombwkke td {
+  font-variant-numeric: tabular-nums;
+}
+
+#eexombwkke tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#eexombwkke .gt_col_heading, #eexombwkke .gt_column_spanner {
+  letter-spacing: 0.12em;
+}
+
+#eexombwkke .gt_group_heading {
+  letter-spacing: 0.12em;
+}
+
+#eexombwkke .gt_title {
+  letter-spacing: -0.02em;
+  padding-bottom: 3px !important;
+}
+
+#eexombwkke .gt_subtitle {
+  padding-bottom: 20px !important;
+}
+
+#eexombwkke .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style>
+<table class="table gt_table" style="table-layout:fixed;" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col>
+<col style="width:165px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col>
+</colgroup>
+<thead>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="net">NET</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase; border-right-width: 10px; border-right-style: solid; border-right-color: white;" scope="col" id="team">Team</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" scope="colgroup" id="Quad Records">
+        <div class="gt_column_spanner">Quad Records</div>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="prev_rk">Prev.</th>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad1">Q1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad2">Q2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad3">Q3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad4">Q4</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">14</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ALA logo">Alabama</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-8</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-2</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">2-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #E4AF92;">18</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">15</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The VAN logo">Vanderbilt</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">10-8</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">2-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #E1DCC6;">13</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">16</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/258.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The UVA logo">Virginia</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8-5</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #D5D8C0;">12</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">17</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TENN logo">Tennessee</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8-11</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">2-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #DD9677;">20</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">18</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ARK logo">Arkansas</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-9</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #EBD4BD;">15</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">19</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/97.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The LOU logo">Louisville</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-11</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #E7BBA1;">17</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">20</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TTU logo">Texas Tech</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-10</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: 400; background-color: #E1A285;">19</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">21</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2305.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The KU logo">Kansas</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8-10</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #D98B6C;">21</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">22</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The IOWA logo">Iowa</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-10</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5-2</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #BE4D3A;">27</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">23</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/252.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The BYU logo">BYU</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-10</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">8-2</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #D1775B;">23</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">24</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2608.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The SMC logo">Saint Mary's (CA)</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">1-5</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">11-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #D58163;">22</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">25</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/328.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The USU logo">Utah St.</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5-5</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: 400; background-color: #C35842;">26</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div>
+<div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:left;margin-top:10px;padding-bottom:6px;border-bottom:1px solid #8A8A8A;">Install using ... pak::pak("sportsdataverse/sdvplotR")</div>
+<div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:right;margin-top:6px;">Example created by @andreweatherman using {gtUtils} v1.0</div>
+</div>
+</div>
+</div>
 <p><code>ncol</code> sets how many tables go across, and the number of
 rows follows from the list length. <code>gap</code> is the space between
 them in pixels. There is also an <code>align</code> argument
@@ -449,7 +1740,7 @@ across both.</p>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"Team"</span>, net <span class="op">=</span> <span class="st">"NET"</span>, prev_rk <span class="op">=</span> <span class="st">"Prev."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label_with.html" class="external-link">cols_label_with</a></span><span class="op">(</span></span>
 <span>      columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span>,</span>
-<span>      fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Q"</span>, <span class="fu">parse_number</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span>      fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Q"</span>, <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html" class="external-link">parse_number</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_width.html" class="external-link">cols_width</a></span><span class="op">(</span><span class="va">team</span> <span class="op">~</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">165</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">60</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"quad"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Quad Records"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -482,7 +1773,1295 @@ across both.</p>
 <span>  source_note <span class="op">=</span> <span class="st">"Example created by @andreweatherman using {gtUtils} v1.0"</span>,</span>
 <span>  caption_rule <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="images/grid_spotlight.png" class="r-plt" alt="" width="1051"></p>
+<div style="display: flex; justify-content: center; justify-content: safe center; overflow-x: auto;">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
+<div style="display: inline-block;">
+<div>
+<div style="font-family:'Oswald', system-ui, -apple-system, sans-serif;font-size:34px;color:#111111;font-weight:700;text-transform:uppercase;text-align:center;margin-bottom:-4px;">The Big 12 has 4 teams inside the NET T-20</div>
+<div style="font-family:system-ui, -apple-system, sans-serif;font-size:16px;color:#8A8A8A;font-weight:400;font-style:italic;text-align:center;margin-bottom:12px;">Through Games Apr. 06 2026</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, max-content); gap: 30px; align-items: start; justify-content: center;">
+<div>
+<div id="ulbfdpbcyv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#ulbfdpbcyv table {
+  font-family: Archivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ulbfdpbcyv thead, #ulbfdpbcyv tbody, #ulbfdpbcyv tfoot, #ulbfdpbcyv tr, #ulbfdpbcyv td, #ulbfdpbcyv th {
+  border-style: none;
+}
+
+#ulbfdpbcyv p {
+  margin: 0;
+  padding: 0;
+}
+
+#ulbfdpbcyv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ulbfdpbcyv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ulbfdpbcyv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 9px;
+  padding-bottom: 11px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ulbfdpbcyv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 8px;
+  padding-bottom: 9px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ulbfdpbcyv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ulbfdpbcyv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ulbfdpbcyv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ulbfdpbcyv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+  vertical-align: bottom;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ulbfdpbcyv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ulbfdpbcyv .gt_group_heading {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ulbfdpbcyv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ulbfdpbcyv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ulbfdpbcyv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ulbfdpbcyv .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ulbfdpbcyv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ulbfdpbcyv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ulbfdpbcyv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ulbfdpbcyv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ulbfdpbcyv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ulbfdpbcyv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ulbfdpbcyv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ulbfdpbcyv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ulbfdpbcyv .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+}
+
+#ulbfdpbcyv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ulbfdpbcyv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ulbfdpbcyv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ulbfdpbcyv .gt_left {
+  text-align: left;
+}
+
+#ulbfdpbcyv .gt_center {
+  text-align: center;
+}
+
+#ulbfdpbcyv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ulbfdpbcyv .gt_font_normal {
+  font-weight: normal;
+}
+
+#ulbfdpbcyv .gt_font_bold {
+  font-weight: bold;
+}
+
+#ulbfdpbcyv .gt_font_italic {
+  font-style: italic;
+}
+
+#ulbfdpbcyv .gt_super {
+  font-size: 65%;
+}
+
+#ulbfdpbcyv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ulbfdpbcyv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ulbfdpbcyv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ulbfdpbcyv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ulbfdpbcyv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ulbfdpbcyv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ulbfdpbcyv .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ulbfdpbcyv .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ulbfdpbcyv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#ulbfdpbcyv td {
+  font-variant-numeric: tabular-nums;
+}
+
+#ulbfdpbcyv tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#ulbfdpbcyv .gt_col_heading, #ulbfdpbcyv .gt_column_spanner {
+  letter-spacing: 0.12em;
+}
+
+#ulbfdpbcyv .gt_group_heading {
+  letter-spacing: 0.12em;
+}
+
+#ulbfdpbcyv .gt_title {
+  letter-spacing: -0.02em;
+  padding-bottom: 3px !important;
+}
+
+#ulbfdpbcyv .gt_subtitle {
+  padding-bottom: 20px !important;
+}
+
+#ulbfdpbcyv .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style>
+<table class="table gt_table" style="table-layout:fixed;" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col>
+<col style="width:165px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col>
+</colgroup>
+<thead>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="net">NET</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase; border-right-width: 10px; border-right-style: solid; border-right-color: white;" scope="col" id="team">Team</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" scope="colgroup" id="Quad Records">
+        <div class="gt_column_spanner">Quad Records</div>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="prev_rk">Prev.</th>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad1">Q1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad2">Q2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad3">Q3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad4">Q4</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">1</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/130.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The MICH logo">Michigan</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">21-3</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #4D9476;">2</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">2</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/150.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The DUKE logo">Duke</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">19-3</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #3D8B6E;">1</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold; border-left-width: 4px; border-left-style: solid; border-left-color: darkred;">3</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: bold; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/12.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ARIZ logo">Arizona</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">19-3</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">7-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">3-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: bold; background-color: #5C9D7F;">3</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">4</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The FLA logo">Florida</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">12-7</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">2-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #6BA688;">4</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">5</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ILL logo">Illinois</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">10-9</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #A3C7AA;">8</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold; border-left-width: 4px; border-left-style: solid; border-left-color: darkred;">6</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: bold; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/248.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The HOU logo">Houston</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">10-7</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">10-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #FFFFFF; font-size: 14px; font-weight: bold; background-color: #79AE91;">5</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold; border-left-width: 4px; border-left-style: solid; border-left-color: darkred;">7</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: bold; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/66.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ISU logo">Iowa St.</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">8-8</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">10-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: bold; background-color: #88B799;">6</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">8</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The PUR logo">Purdue</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">13-9</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">8-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #B0CBAF;">9</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/41.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The CONN logo">UConn</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">11-4</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">11-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #BCD0B5;">10</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">10</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2250.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The GONZ logo">Gonzaga</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-3</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">12-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">8-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #96C0A2;">7</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">11</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/127.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The MSU logo">Michigan St.</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">10-7</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">4-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #C9D4BB;">11</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">12</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/158.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The NEB logo">Nebraska</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">10-7</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #EDE0CC;">14</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">13</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2599.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The SJU logo">St. John's (NY)</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-6</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">12-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #E9C7AF;">16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+<div id="kgufivjubq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#kgufivjubq table {
+  font-family: Archivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#kgufivjubq thead, #kgufivjubq tbody, #kgufivjubq tfoot, #kgufivjubq tr, #kgufivjubq td, #kgufivjubq th {
+  border-style: none;
+}
+
+#kgufivjubq p {
+  margin: 0;
+  padding: 0;
+}
+
+#kgufivjubq .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kgufivjubq .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kgufivjubq .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 9px;
+  padding-bottom: 11px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kgufivjubq .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 8px;
+  padding-bottom: 9px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kgufivjubq .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kgufivjubq .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kgufivjubq .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kgufivjubq .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+  vertical-align: bottom;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kgufivjubq .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kgufivjubq .gt_group_heading {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kgufivjubq .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kgufivjubq .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kgufivjubq .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kgufivjubq .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kgufivjubq .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kgufivjubq .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kgufivjubq .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kgufivjubq .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kgufivjubq .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kgufivjubq .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #111111;
+}
+
+#kgufivjubq .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kgufivjubq .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgufivjubq .gt_left {
+  text-align: left;
+}
+
+#kgufivjubq .gt_center {
+  text-align: center;
+}
+
+#kgufivjubq .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kgufivjubq .gt_font_normal {
+  font-weight: normal;
+}
+
+#kgufivjubq .gt_font_bold {
+  font-weight: bold;
+}
+
+#kgufivjubq .gt_font_italic {
+  font-style: italic;
+}
+
+#kgufivjubq .gt_super {
+  font-size: 65%;
+}
+
+#kgufivjubq .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kgufivjubq .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kgufivjubq .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kgufivjubq .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kgufivjubq .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kgufivjubq .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kgufivjubq .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#kgufivjubq .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#kgufivjubq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#kgufivjubq td {
+  font-variant-numeric: tabular-nums;
+}
+
+#kgufivjubq tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#kgufivjubq .gt_col_heading, #kgufivjubq .gt_column_spanner {
+  letter-spacing: 0.12em;
+}
+
+#kgufivjubq .gt_group_heading {
+  letter-spacing: 0.12em;
+}
+
+#kgufivjubq .gt_title {
+  letter-spacing: -0.02em;
+  padding-bottom: 3px !important;
+}
+
+#kgufivjubq .gt_subtitle {
+  padding-bottom: 20px !important;
+}
+
+#kgufivjubq .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style>
+<table class="table gt_table" style="table-layout:fixed;" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col>
+<col style="width:165px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col style="width:60px;">
+<col>
+</colgroup>
+<thead>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="net">NET</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase; border-right-width: 10px; border-right-style: solid; border-right-color: white;" scope="col" id="team">Team</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" scope="colgroup" id="Quad Records">
+        <div class="gt_column_spanner">Quad Records</div>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="prev_rk">Prev.</th>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad1">Q1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad2">Q2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad3">Q3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #111111; font-size: 10px; font-weight: 500; text-transform: uppercase;" scope="col" id="quad4">Q4</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">14</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ALA logo">Alabama</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-8</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-2</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">2-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #E4AF92;">18</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">15</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The VAN logo">Vanderbilt</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">10-8</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">2-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #E1DCC6;">13</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">16</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/258.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The UVA logo">Virginia</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">8-5</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #D5D8C0;">12</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">17</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TENN logo">Tennessee</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">8-11</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">8-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">2-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #DD9677;">20</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">18</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The ARK logo">Arkansas</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-9</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #EBD4BD;">15</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">19</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/97.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The LOU logo">Louisville</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-11</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #E7BBA1;">17</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold; border-left-width: 4px; border-left-style: solid; border-left-color: darkred;">20</td>
+<td headers="team" class="gt_row gt_left" style="color: #111111; font-size: 14px; font-weight: bold; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The TTU logo">Texas Tech</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">7-10</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">5-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">8-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #111111; font-size: 14px; font-weight: bold;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #000000; font-size: 14px; font-weight: bold; background-color: #E1A285;">19</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">21</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2305.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The KU logo">Kansas</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">8-10</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">4-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #D98B6C;">21</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">22</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The IOWA logo">Iowa</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-10</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">5-2</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">6-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #BE4D3A;">27</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">23</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/252.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The BYU logo">BYU</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-10</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">8-2</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">3-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #D1775B;">23</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">24</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2608.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The SMC logo">Saint Mary's (CA)</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">1-5</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">11-0</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">7-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #D58163;">22</td>
+</tr>
+<tr>
+<td headers="net" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">25</td>
+<td headers="team" class="gt_row gt_left" style="color: #D3D3D3; font-size: 14px; font-weight: 400; border-right-width: 10px; border-right-style: solid; border-right-color: white;">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/328.png" style="height:20px;vertical-align:middle;margin-right:0.35em;" alt="The USU logo">Utah St.</td>
+<td headers="quad1" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">5-5</td>
+<td headers="quad2" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad3" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">9-1</td>
+<td headers="quad4" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400;">5-0</td>
+<td headers="prev_rk" class="gt_row gt_center" style="color: #D3D3D3; font-size: 14px; font-weight: 400; background-color: #C35842;">26</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div>
+<div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:left;margin-top:10px;padding-bottom:6px;border-bottom:1px solid #8A8A8A;">Install using ... pak::pak("sportsdataverse/sdvplotR")</div>
+<div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:right;margin-top:6px;">Example created by @andreweatherman using {gtUtils} v1.0</div>
+</div>
+</div>
+</div>
 <p>This is why <code>conf</code> stayed hidden.
 <code><a href="../reference/gt_spotlight.html">gt_spotlight()</a></code> filters on it with
 <code>rows = conf == "Big 12" &amp; net &lt;= 20</code> even though the

@@ -252,7 +252,7 @@ team’s own logo.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">base</span> <span class="op">&lt;-</span> <span class="st">"http://a.espncdn.com/i/teamlogos/ncaa/500/"</span></span>
 <span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"https://github.com/sportsdataverse/cfbfastR-data/raw/refs/heads/main/schedules/csv/cfb_schedules_2025.csv"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="st">"https://github.com/sportsdataverse/cfbfastR-data/raw/refs/heads/main/schedules/csv/cfb_schedules_2025.csv"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season_type</span> <span class="op">==</span> <span class="st">"regular"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">home_team</span>, <span class="va">away_team</span>, <span class="va">week</span>, <span class="va">home_conference</span>, <span class="va">away_conference</span>,</span>
@@ -273,7 +273,7 @@ value.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">logos</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">pivot_wider</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span></span>
 <span>    id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">team_logo</span><span class="op">)</span>, names_from <span class="op">=</span> <span class="va">week</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">opponent_logo</span>, names_sort <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span></span>
@@ -288,11 +288,11 @@ team’s logo alongside its row without a second join.</p>
 <div class="section level2">
 <h2 id="carrying-the-location-as-a-parallel-mask">Carrying the location as a parallel mask<a class="anchor" aria-label="anchor" href="#carrying-the-location-as-a-parallel-mask"></a>
 </h2>
-<p><code>pivot_wider()</code> on the opponent logo loses the location.
+<p><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider()</a></code> on the opponent logo loses the location.
 But we can pivot it into its own frame of the same shape and turn each
 state into a logical mask.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">locs</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">pivot_wider</span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">team</span>, names_from <span class="op">=</span> <span class="va">week</span>, values_from <span class="op">=</span> <span class="va">location</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">locs</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">team</span>, names_from <span class="op">=</span> <span class="va">week</span>, values_from <span class="op">=</span> <span class="va">location</span><span class="op">)</span></span>
 <span><span class="va">locs</span> <span class="op">&lt;-</span> <span class="va">locs</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">logos</span><span class="op">$</span><span class="va">team</span>, <span class="va">locs</span><span class="op">$</span><span class="va">team</span><span class="op">)</span>, <span class="op">]</span></span>
 <span></span>
 <span><span class="va">home_mask</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">locs</span><span class="op">[</span>, <span class="va">wk</span><span class="op">]</span> <span class="op">==</span> <span class="st">"home"</span><span class="op">)</span></span>
@@ -338,7 +338,7 @@ the fill.</p>
 <p><code>gt_img_rows()</code> takes a single column, and it reads a
 quoted number like <code>"1"</code> as a position rather than a name, so
 <code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of()</a></code> fails on our numeric week columns.
-<code>reduce()</code> threads the table through one call per week, and
+<code><a href="https://purrr.tidyverse.org/reference/reduce.html" class="external-link">reduce()</a></code> threads the table through one call per week, and
 <code>!!rlang::sym(.y)</code> hands each column in as a bare name, which
 is the form <code>gt_img_rows()</code> wants. Keeping this inside the
 pipe means no stored intermediate.</p>
@@ -349,9 +349,9 @@ pipe means no stored intermediate.</p>
 <p>After the images render, we drop a muted <code>BYE</code> into the
 empty cells.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">byemark</span> <span class="op">&lt;-</span> <span class="st">"&lt;span style=\"color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em\"&gt;BYE&lt;/span&gt;"</span></span>
-<span></span>
-<span><span class="fu">reduce</span><span class="op">(</span><span class="va">wk</span>, .init <span class="op">=</span> <span class="va">.</span>, .f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">g</span>, <span class="va">c</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">byemark</span> <span class="op">&lt;-</span> <span class="st">"&lt;span style=\"color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em\"&gt;BYE&lt;/span&gt;"</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html" class="external-link">reduce</a></span><span class="op">(</span><span class="va">wk</span>, .init <span class="op">=</span> <span class="va">.</span>, .f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">g</span>, <span class="va">c</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">logos</span><span class="op">[[</span><span class="va">c</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
@@ -370,7 +370,7 @@ into them.</p>
 <p>We can render the team logo and name together in a flex container and
 pin the column width so a long name wraps instead of stretching the
 table.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">team_cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">logo</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
 <span>    <span class="st">'&lt;div style="display:flex; align-items:center; gap:8px;"&gt;</span></span>
@@ -379,9 +379,9 @@ table.</p>
 <span><span class="st">                  line-height:1.05;"&gt;%s&lt;/span&gt;&lt;/div&gt;'</span>,</span>
 <span>    <span class="va">logo</span>, <span class="va">name</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://gt.rstudio.com/reference/text_transform.html" class="external-link">text_transform</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html" class="external-link">cells_body</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://gt.rstudio.com/reference/text_transform.html" class="external-link">text_transform</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html" class="external-link">cells_body</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
 <span>  fn <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span><span class="va">team_cell</span>, <span class="va">logos</span><span class="op">$</span><span class="va">team</span>, <span class="va">logos</span><span class="op">$</span><span class="va">team_logo</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><code>flex:none</code> holds the logo at 26px so the name takes the
@@ -397,7 +397,7 @@ turning, e.g., “Texas A&amp;M” into “Texas A&amp;M”.</p>
 partner to <code><a href="../reference/gt_legend_continuous.html">gt_legend_continuous()</a></code>. Pass it a named vector
 of <code>label = color</code> and it renders the swatches, using the
 same fills as the cells so the key matches the table.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gt_legend_discrete.html">gt_legend_discrete</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Home Game"</span> <span class="op">=</span> <span class="st">"#FBE7C6"</span>, <span class="st">"Away Game"</span> <span class="op">=</span> <span class="st">"#FFFFFF"</span>,</span>
@@ -427,7 +427,7 @@ key up tight under the title.</p>
 <h2 id="putting-it-together">Putting it together<a class="anchor" aria-label="anchor" href="#putting-it-together"></a>
 </h2>
 <p>The whole pipeline, from the wide frame to the finished image:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">logos</span>, id <span class="op">=</span> <span class="st">"table"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_scoreboard.html">gt_theme_scoreboard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_hide.html" class="external-link">cols_hide</a></span><span class="op">(</span><span class="va">team_logo</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -438,7 +438,7 @@ key up tight under the title.</p>
 <span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html" class="external-link">reduce</a></span><span class="op">(</span><span class="va">wk</span>, .init <span class="op">=</span> <span class="va">.</span>, .f <span class="op">=</span> <span class="op">~</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/inject.html" class="external-link">inject</a></span><span class="op">(</span></span>
 <span>    <span class="fu">gtExtras</span><span class="fu">::</span><span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_img_rows.html" class="external-link">gt_img_rows</a></span><span class="op">(</span><span class="va">.x</span>, columns <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">.y</span><span class="op">)</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span></span>
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">reduce</span><span class="op">(</span><span class="va">wk</span>, .init <span class="op">=</span> <span class="va">.</span>, .f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">g</span>, <span class="va">c</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html" class="external-link">reduce</a></span><span class="op">(</span><span class="va">wk</span>, .init <span class="op">=</span> <span class="va">.</span>, .f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">g</span>, <span class="va">c</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">logos</span><span class="op">[[</span><span class="va">c</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
@@ -472,7 +472,922 @@ key up tight under the title.</p>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">'Install using ... pak::pak("sportsdataverse/sdvplotR")'</span><span class="op">)</span>,</span>
 <span>    <span class="st">"Example created by @andreweatherman using {gtUtils} v1.0"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="images/schedule_matrix.png" class="r-plt" alt="" width="1488"></p>
+<div id="table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#table table {
+  font-family: Barlow, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#table thead, #table tbody, #table tfoot, #table tr, #table td, #table th {
+  border-style: none;
+}
+
+#table p {
+  margin: 0;
+  padding: 0;
+}
+
+#table .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#table .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#table .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#table .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#table .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_col_heading {
+  color: #FFFFFF;
+  background-color: #0E1621;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#table .gt_column_spanner_outer {
+  color: #FFFFFF;
+  background-color: #0E1621;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#table .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#table .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#table .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#table .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#table .gt_group_heading {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#table .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#table .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#table .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#table .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #E6E9ED;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#table .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#table .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#table .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#table .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#table .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#table .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#table .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#table .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #0E1621;
+}
+
+#table .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_left {
+  text-align: left;
+}
+
+#table .gt_center {
+  text-align: center;
+}
+
+#table .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#table .gt_font_normal {
+  font-weight: normal;
+}
+
+#table .gt_font_bold {
+  font-weight: bold;
+}
+
+#table .gt_font_italic {
+  font-style: italic;
+}
+
+#table .gt_super {
+  font-size: 65%;
+}
+
+#table .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#table .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#table .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#table .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#table .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#table .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#table .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#table .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#table div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#table td {
+  font-variant-numeric: tabular-nums;
+}
+
+#table tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#table .gt_col_heading, #table .gt_column_spanner {
+  letter-spacing: 0.06em;
+}
+
+#table .gt_group_heading {
+  letter-spacing: 0.06em;
+}
+
+#table .gt_heading {
+  letter-spacing: 0.01em;
+}
+
+#table .gt_subtitle {
+  padding-bottom: 9px !important;
+}
+
+#table .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+
+#table .gt_row {
+  border-top-color: black;
+}
+
+#table .gt_footnote {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #333333;
+  font-size: 12px;
+}
+
+#table .gt_footnote_marks {
+  display: none !important;
+}
+
+#table .gt_sourcenote {
+  text-align: right;
+}
+</style>
+<table class="table gt_table" style="table-layout:fixed;width:0px;" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width:140px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+<col style="width:50px;">
+</colgroup>
+<thead>
+<tr class="gt_heading">
+<td colspan="16" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #141719; font-family: Oswald; font-size: 26px; font-weight: 700; text-transform: uppercase;"><div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+<div style="font-family:'Oswald', sans-serif;font-size:36px;color:#000000;font-weight:600;text-transform:uppercase;margin-bottom:-5px;">2025 SEC Football Schedule</div>
+<div style="display:flex; flex-wrap:wrap; gap:8px; flex-direction:row; justify-content:center; align-items:center;">
+<span style="display:inline-block; padding:2px 9px; background-color:#FBE7C6; border-radius:0px; border:1.5px solid black; font-family:'Oswald', sans-serif;font-size:14px;color:#000000;margin-bottom:6px;">Home Game</span><span style="display:inline-block; padding:2px 9px; background-color:#FFFFFF; border-radius:0px; border:1.5px solid black; font-family:'Oswald', sans-serif;font-size:14px;color:#000000;margin-bottom:6px;">Away Game</span><span style="display:inline-block; padding:2px 9px; background-color:#CFE0C3; border-radius:0px; border:1.5px solid black; font-family:'Oswald', sans-serif;font-size:14px;color:#000000;margin-bottom:6px;">Neutral Game</span><span style="display:inline-block; padding:2px 9px; background-color:#E4E4E4; border-radius:0px; border:1.5px solid black; font-family:'Oswald', sans-serif;font-size:14px;color:#000000;margin-bottom:6px;">Bye Week</span>
+</div>
+</div></td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="team"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a1">1<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a2">2<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a3">3<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a4">4<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a5">5<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a6">6<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a7">7<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a8">8<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a9">9<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a10">10<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a11">11<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a12">12<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a13">13<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a14">14<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #FFFFFF; font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; text-transform: uppercase;" scope="col" id="a15">15<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Alabama</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/52.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2433.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/275.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:35px;"></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/142.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/201.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2197.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:35px;"></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Arkansas</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2010.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2032.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/145.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/235.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/87.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/245.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/344.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/142.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Auburn</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/239.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2050.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/6.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/201.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/245.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/142.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/96.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2382.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Florida</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2341.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/58.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2390.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:35px;"></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/245.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/344.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/96.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/145.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/52.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Georgia</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/276.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2046.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/96.png" style="height:35px;"></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/145.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/344.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2429.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/59.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:35px;"></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/96.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Kentucky</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2649.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/145.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2199.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:35px;"></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2635.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/97.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">LSU</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/228.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2348.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2545.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/145.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/245.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/98.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/201.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/344.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Mississippi State</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2572.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/9.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2016.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2459.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/245.png" style="height:35px;"></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/142.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/145.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/142.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Missouri</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2110.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2305.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/309.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/113.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/245.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/344.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/201.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/201.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Oklahoma</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2287.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/130.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/218.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2309.png" style="height:35px;"></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/145.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/142.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/145.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Ole Miss</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2247.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/96.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2655.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/265.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/201.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2643.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/344.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">South Carolina</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/259.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2569.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/142.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/96.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/201.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/145.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/245.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/324.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/228.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Tennessee</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/183.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2193.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/5.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/344.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/96.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/201.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/166.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Texas</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/194.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/23.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2638.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2534.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:35px;"></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/201.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/96.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/344.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/61.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/245.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/245.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Texas A&amp;M</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2636.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/328.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/87.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/344.png" style="height:35px;"></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/57.png" style="height:35px;"></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/8.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/142.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" style="height:35px;"></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2535.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="color: #141719; font-size: 12px; font-weight: 500; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><div style="display:flex; align-items:center; gap:8px;">
+     <img src="http://a.espncdn.com/i/teamlogos/ncaa/500/238.png" style="height:26px; width:26px; object-fit:contain; flex:none;"><span style="font-family:'Oswald',sans-serif; font-size:14px; font-weight:500;
+                  line-height:1.05;">Vanderbilt</span>
+</div></td>
+<td headers="1" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2127.png" style="height:35px;"></td>
+<td headers="2" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/259.png" style="height:35px;"></td>
+<td headers="3" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" style="height:35px;"></td>
+<td headers="4" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2247.png" style="height:35px;"></td>
+<td headers="5" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/328.png" style="height:35px;"></td>
+<td headers="6" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:35px;"></td>
+<td headers="7" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="8" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/99.png" style="height:35px;"></td>
+<td headers="9" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/142.png" style="height:35px;"></td>
+<td headers="10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/251.png" style="height:35px;"></td>
+<td headers="11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2.png" style="height:35px;"></td>
+<td headers="12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+<td headers="13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/96.png" style="height:35px;"></td>
+<td headers="14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" style="height:35px;"></td>
+<td headers="15" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #E4E4E4;"><span style="color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em">BYE</span></td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="gt_footnotes">
+<td class="gt_footnote" style="color: #5A6069; font-size: 10px;" colspan="16">
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <span class="gt_from_md">Install using … pak::pak(“sportsdataverse/sdvplotR”)</span>
+</td>
+    </tr>
+<tr class="gt_sourcenotes">
+<td class="gt_sourcenote" style="color: #5A6069; font-size: 10px;" colspan="16"><span class="gt_from_md">Example created by @andreweatherman using {gtUtils} v1.0</span></td>
+    </tr>
+</tfoot>
+</table>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

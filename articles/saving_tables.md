@@ -19,7 +19,9 @@ functions,
 and
 [`gt_social_tag()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_tag.md).
 
-Everything below runs on `mtcars`.
+Everything below runs on `mtcars`. The chunks that write an image are
+not run when this site is built, because they drive a headless Chrome;
+the picture under each one is what it writes.
 
 ``` r
 
@@ -75,7 +77,16 @@ larger title).
 gt(cars) %>% gt_theme_broadsheet(density = "social")
 ```
 
-![](images/save_density.png)
+| car               | mpg  | hp  | wt    |
+|-------------------|------|-----|-------|
+| Mazda RX4         | 21.0 | 110 | 2.620 |
+| Mazda RX4 Wag     | 21.0 | 110 | 2.875 |
+| Datsun 710        | 22.8 | 93  | 2.320 |
+| Hornet 4 Drive    | 21.4 | 110 | 3.215 |
+| Hornet Sportabout | 18.7 | 175 | 3.440 |
+| Valiant           | 18.1 | 105 | 3.460 |
+| Duster 360        | 14.3 | 245 | 3.570 |
+| Merc 240D         | 24.4 | 62  | 3.190 |
 
 ## A fixed canvas
 

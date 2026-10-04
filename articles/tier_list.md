@@ -122,6 +122,13 @@ data <- data %>%
 Great – if your data looks similar to this, you’re ready to make a tier
 list!
 
+    #> # A tibble: 3 × 9
+    #>   tier    `1`                          `2`   `3`   `4`   `5`   `6`   `7`   `8`  
+    #>   <fct>   <chr>                        <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+    #> 1 Elite   https://a.espncdn.com/i/tea… http… http… http… http… NA    NA    NA   
+    #> 2 Average https://a.espncdn.com/i/tea… http… http… http… http… http… http… http…
+    #> 3 Poor    https://a.espncdn.com/i/tea… http… http… http… http… NA    NA    NA
+
 ### Plotting
 
 `gt_tiers` does a few things under the hood: - It renders images from
@@ -141,7 +148,7 @@ data %>%
   )
 ```
 
-![](images/tier_list_example.png)
+[TABLE]
 
 All done! You’ve created a tier list in `gt` using `sdvplotR`. The tier
 list function is somewhat limited: a) it only supports image cells and

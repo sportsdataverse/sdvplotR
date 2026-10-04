@@ -271,13 +271,13 @@ joining each row to its opponent’s row puts both ends of the floor side
 by side. Possessions are estimated from the box score.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_mbb_pbp.html" class="external-link">load_mbb_team_box</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="fl">2024</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>poss <span class="op">=</span> <span class="va">field_goals_attempted</span> <span class="op">-</span> <span class="va">offensive_rebounds</span> <span class="op">+</span> <span class="va">total_turnovers</span> <span class="op">+</span> <span class="fl">0.475</span> <span class="op">*</span> <span class="va">free_throws_attempted</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>poss <span class="op">=</span> <span class="va">field_goals_attempted</span> <span class="op">-</span> <span class="va">offensive_rebounds</span> <span class="op">+</span> <span class="va">total_turnovers</span> <span class="op">+</span> <span class="fl">0.475</span> <span class="op">*</span> <span class="va">free_throws_attempted</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">games</span> <span class="op">&lt;-</span> <span class="va">box</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Division I teams only; the box scores also hold their games against other divisions</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">inner_join</span><span class="op">(</span></span>
-<span>    <span class="fu">select</span><span class="op">(</span><span class="va">box</span>, <span class="va">game_id</span>,</span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">box</span>, <span class="va">game_id</span>,</span>
 <span>      opponent_team_id <span class="op">=</span> <span class="va">team_id</span>, opp_score <span class="op">=</span> <span class="va">team_score</span>, opp_poss <span class="op">=</span> <span class="va">poss</span>,</span>
 <span>      opp_fgm <span class="op">=</span> <span class="va">field_goals_made</span>, opp_fga <span class="op">=</span> <span class="va">field_goals_attempted</span>,</span>
 <span>      opp_3pm <span class="op">=</span> <span class="va">three_point_field_goals_made</span>, opp_3pa <span class="op">=</span> <span class="va">three_point_field_goals_attempted</span>,</span>
@@ -289,7 +289,7 @@ by side. Possessions are estimated from the box score.</p>
 <span></span>
 <span><span class="va">team_factors</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">summarise</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
 <span>      off_eff <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">poss</span><span class="op">)</span>,</span>
 <span>      def_eff <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">opp_score</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">opp_poss</span><span class="op">)</span>,</span>
 <span>      tempo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">poss</span> <span class="op">+</span> <span class="va">opp_poss</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,</span>
@@ -310,16 +310,16 @@ by side. Possessions are estimated from the box score.</p>
 <span>      def_ft_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">opp_ftm</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">opp_fta</span><span class="op">)</span>,</span>
 <span>      .by <span class="op">=</span> <span class="va">team_location</span></span>
 <span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">rename</span><span class="op">(</span>team <span class="op">=</span> <span class="va">team_location</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team_location</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># ESPN labels every game home or away, neutral sites included</span></span>
 <span><span class="va">home_splits</span> <span class="op">&lt;-</span> <span class="va">games</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_home_away</span> <span class="op">==</span> <span class="st">"home"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_home_away</span> <span class="op">==</span> <span class="st">"home"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">team_factors</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">away_splits</span> <span class="op">&lt;-</span> <span class="va">games</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_home_away</span> <span class="op">==</span> <span class="st">"away"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_home_away</span> <span class="op">==</span> <span class="st">"away"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">team_factors</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Here’s a quick function to take that data and calculate percentiles
 using <code>dplyr</code>. We’re going to pivot the data to a long format
@@ -327,12 +327,12 @@ for later use.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">calculate_percentiles</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">location</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">mutate</span><span class="op">(</span></span>
-<span>      <span class="fu">across</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">higher_better</span><span class="op">)</span>, <span class="op">~</span> <span class="fu">percent_rank</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="fu">across</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">stats_to_consider</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"team"</span>, <span class="va">higher_better</span><span class="op">)</span><span class="op">)</span>, <span class="op">~</span> <span class="fu">percent_rank</span><span class="op">(</span><span class="op">-</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">higher_better</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/percent_rank.html" class="external-link">percent_rank</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">stats_to_consider</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"team"</span>, <span class="va">higher_better</span><span class="op">)</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/percent_rank.html" class="external-link">percent_rank</a></span><span class="op">(</span><span class="op">-</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">-</span><span class="va">team</span>, names_to <span class="op">=</span> <span class="st">"stat"</span>, values_to <span class="op">=</span> <span class="st">"percentile"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">mutate</span><span class="op">(</span>location <span class="op">=</span> <span class="va">location</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">team</span>, names_to <span class="op">=</span> <span class="st">"stat"</span>, values_to <span class="op">=</span> <span class="st">"percentile"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>location <span class="op">=</span> <span class="va">location</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now, let’s calculate those percentiles on each split and combine the
 data. We need to pivot the final result to a wide format so that we can
@@ -341,8 +341,8 @@ plot home and away <em>columns</em>.</p>
 <code class="sourceCode R"><span><span class="va">home_percentiles</span> <span class="op">&lt;-</span> <span class="fu">calculate_percentiles</span><span class="op">(</span><span class="va">home_splits</span>, <span class="st">"home"</span><span class="op">)</span></span>
 <span><span class="va">away_percentiles</span> <span class="op">&lt;-</span> <span class="fu">calculate_percentiles</span><span class="op">(</span><span class="va">away_splits</span>, <span class="st">"away"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">final_data</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">home_percentiles</span>, <span class="va">away_percentiles</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">location</span>, values_from <span class="op">=</span> <span class="va">percentile</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">final_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">home_percentiles</span>, <span class="va">away_percentiles</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">location</span>, values_from <span class="op">=</span> <span class="va">percentile</span><span class="op">)</span></span></code></pre></div>
 <p>For final processing, we need to do two more things: a) add the
 general “group” of each stat and b) rename each stat to something more
 readable:</p>
@@ -354,12 +354,12 @@ readable:</p>
 <span>    <span class="st">"FTA per FGA"</span>, <span class="st">"FTA per FGA"</span>, <span class="st">"Off. Rebound Rate"</span>, <span class="st">"Def. Rebound Rate"</span>,</span>
 <span>    <span class="st">"Turnover Rate"</span>, <span class="st">"Turnover Rate"</span>, <span class="st">"2FG%"</span>, <span class="st">"3FG%"</span>, <span class="st">"FT%"</span>, <span class="st">"2FG%"</span>, <span class="st">"3FG%"</span>, <span class="st">"FT%"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">deframe</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/enframe.html" class="external-link">deframe</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">final_data</span> <span class="op">&lt;-</span> <span class="va">final_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team</span> <span class="op">==</span> <span class="st">"Duke"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    stat_group <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team</span> <span class="op">==</span> <span class="st">"Duke"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    stat_group <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="va">stat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"off_eff"</span>, <span class="st">"def_eff"</span>, <span class="st">"tempo"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Efficiency"</span>,</span>
 <span>      <span class="va">stat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"efg"</span>, <span class="st">"ftr"</span>, <span class="st">"oreb_rate"</span>, <span class="st">"tov_rate"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Offensive Four Factors"</span>,</span>
 <span>      <span class="va">stat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"def_efg"</span>, <span class="st">"def_ftr"</span>, <span class="st">"dreb_rate"</span>, <span class="st">"def_tov_rate"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Defensive Four Factors"</span>,</span>
@@ -395,7 +395,7 @@ using <code>text_align</code> or <code>img_align</code>.</p>
 descriptive with additional time or effort.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">final_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">stat_group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">stat_group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_hide.html" class="external-link">cols_hide</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_savant.html">gt_theme_savant</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -423,7 +423,646 @@ descriptive with additional time or effort.</p>
 <span>    img_height <span class="op">=</span> <span class="fl">40</span>,</span>
 <span>    bar_height <span class="op">=</span> <span class="fl">60</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="images/border-bars-player-report.png" class="r-plt" alt="" width="75%" style="display: block; margin: auto;"></p>
+<div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#mwlefoodfi table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#mwlefoodfi thead, #mwlefoodfi tbody, #mwlefoodfi tfoot, #mwlefoodfi tr, #mwlefoodfi td, #mwlefoodfi th {
+  border-style: none;
+}
+
+#mwlefoodfi p {
+  margin: 0;
+  padding: 0;
+}
+
+#mwlefoodfi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#mwlefoodfi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#mwlefoodfi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#mwlefoodfi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #000000;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#mwlefoodfi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#mwlefoodfi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#mwlefoodfi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#mwlefoodfi .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#mwlefoodfi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#mwlefoodfi .gt_group_heading {
+  padding-top: 1.5px;
+  padding-bottom: 1.5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#mwlefoodfi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  vertical-align: middle;
+}
+
+#mwlefoodfi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#mwlefoodfi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#mwlefoodfi .gt_row {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: rgba(255, 255, 255, 0);
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#mwlefoodfi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#mwlefoodfi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#mwlefoodfi .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #FFFFFF;
+}
+
+#mwlefoodfi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_left {
+  text-align: left;
+}
+
+#mwlefoodfi .gt_center {
+  text-align: center;
+}
+
+#mwlefoodfi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#mwlefoodfi .gt_font_normal {
+  font-weight: normal;
+}
+
+#mwlefoodfi .gt_font_bold {
+  font-weight: bold;
+}
+
+#mwlefoodfi .gt_font_italic {
+  font-style: italic;
+}
+
+#mwlefoodfi .gt_super {
+  font-size: 65%;
+}
+
+#mwlefoodfi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#mwlefoodfi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#mwlefoodfi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#mwlefoodfi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#mwlefoodfi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#mwlefoodfi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#mwlefoodfi .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#mwlefoodfi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#mwlefoodfi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#mwlefoodfi tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#mwlefoodfi .gt_col_heading {
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+#mwlefoodfi .gt_subtitle {
+  padding-top: 0px !important;
+  padding-bottom: 4px !important;
+}
+
+#mwlefoodfi .gt_heading {
+  padding-bottom: 0px;
+  padding-top: 6px;
+}
+
+#mwlefoodfi .gt_column_spanner {
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#mwlefoodfi .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+
+#mwlefoodfi .gt_footnote {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #333333;
+  font-size: 12px;
+}
+
+#mwlefoodfi .gt_footnote_marks {
+  display: none !important;
+}
+
+#mwlefoodfi .gt_sourcenote {
+  text-align: right;
+}
+
+#mwlefoodfi .gt_caption {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+</style>
+<table class="table gt_table" style="table-layout:fixed;" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<caption>
+<style>@import url('https://fonts.googleapis.com/css2?family='Roboto+Condensed':ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');</style>
+<div style="display: flex; justify-content: space-between; align-items: center; height: 60px; background-color: black; width: 100%; margin-left: auto; margin-right: auto;">
+<span style="font-weight:bold; color:#FFFFFF; font-size:20px; padding-left: 10px; font-family: 'Roboto Condensed';">2024 Recap: Duke</span><img src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/150.png" width="40px" height="40px" style="padding-right:10px;">
+</div>
+</caption>
+  <colgroup>
+<col>
+<col style="width:90px;">
+<col style="width:90px;">
+</colgroup>
+<thead><tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;" scope="col" id="stat"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;" scope="col" id="home">At Home<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;" scope="col" id="away">On Road<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row">
+<th colspan="3" class="gt_group_heading" style="color: #FFFDF5; font-family: 'Roboto Condensed'; font-size: 14px; font-weight: 650; background-color: #000000;" scope="colgroup" id="Efficiency">Efficiency</th>
+    </tr>
+<tr class="gt_row_group_first">
+<td headers="Efficiency  stat" class="gt_row gt_left" style="font-family: 'Roboto Condensed'; font-size: 14px;">Off. Efficiency</td>
+<td headers="Efficiency  home" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #2C7930; color: #FFFFFF; border-radius: 10px; text-align: center; ">90.3%</span></td>
+<td headers="Efficiency  away" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #1F6524; color: #FFFFFF; border-radius: 10px; text-align: center; ">97.5%</span></td>
+</tr>
+<tr>
+<td headers="Efficiency  stat" class="gt_row gt_left gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px;">Def. Efficiency</td>
+<td headers="Efficiency  home" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #409A44; color: #000000; border-radius: 10px; text-align: center; ">70.1%</span></td>
+<td headers="Efficiency  away" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #348738; color: #000000; border-radius: 10px; text-align: center; ">82.5%</span></td>
+</tr>
+<tr>
+<td headers="Efficiency  stat" class="gt_row gt_left" style="font-family: 'Roboto Condensed'; font-size: 14px;">Tempo</td>
+<td headers="Efficiency  home" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #92CE94; color: #000000; border-radius: 10px; text-align: center; ">28.3%</span></td>
+<td headers="Efficiency  away" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #D3EBD4; color: #000000; border-radius: 10px; text-align: center; ">7.2%</span></td>
+</tr>
+<tr class="gt_group_heading_row">
+<th colspan="3" class="gt_group_heading" style="color: #FFFDF5; font-family: 'Roboto Condensed'; font-size: 14px; font-weight: 650; background-color: #000000;" scope="colgroup" id="Offensive Four Factors">Offensive Four Factors</th>
+    </tr>
+<tr class="gt_row_group_first">
+<td headers="Offensive Four Factors  stat" class="gt_row gt_left gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px;">Eff. FG%</td>
+<td headers="Offensive Four Factors  home" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #358839; color: #000000; border-radius: 10px; text-align: center; ">81.4%</span></td>
+<td headers="Offensive Four Factors  away" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #2A772E; color: #FFFFFF; border-radius: 10px; text-align: center; ">91.1%</span></td>
+</tr>
+<tr>
+<td headers="Offensive Four Factors  stat" class="gt_row gt_left" style="font-family: 'Roboto Condensed'; font-size: 14px;">FTA per FGA</td>
+<td headers="Offensive Four Factors  home" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #46A54A; color: #000000; border-radius: 10px; text-align: center; ">62.9%</span></td>
+<td headers="Offensive Four Factors  away" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #4DAF51; color: #000000; border-radius: 10px; text-align: center; ">55.1%</span></td>
+</tr>
+<tr>
+<td headers="Offensive Four Factors  stat" class="gt_row gt_left gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px;">Off. Rebound Rate</td>
+<td headers="Offensive Four Factors  home" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #64BA68; color: #000000; border-radius: 10px; text-align: center; ">45.4%</span></td>
+<td headers="Offensive Four Factors  away" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #1E6323; color: #FFFFFF; border-radius: 10px; text-align: center; ">98.1%</span></td>
+</tr>
+<tr>
+<td headers="Offensive Four Factors  stat" class="gt_row gt_left" style="font-family: 'Roboto Condensed'; font-size: 14px;">Turnover Rate</td>
+<td headers="Offensive Four Factors  home" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #256E29; color: #FFFFFF; border-radius: 10px; text-align: center; ">94.2%</span></td>
+<td headers="Offensive Four Factors  away" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #44A248; color: #000000; border-radius: 10px; text-align: center; ">65.4%</span></td>
+</tr>
+<tr class="gt_group_heading_row">
+<th colspan="3" class="gt_group_heading" style="color: #FFFDF5; font-family: 'Roboto Condensed'; font-size: 14px; font-weight: 650; background-color: #000000;" scope="colgroup" id="Defensive Four Factors">Defensive Four Factors</th>
+    </tr>
+<tr class="gt_row_group_first">
+<td headers="Defensive Four Factors  stat" class="gt_row gt_left gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px;">Eff. FG%</td>
+<td headers="Defensive Four Factors  home" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #49AA4D; color: #000000; border-radius: 10px; text-align: center; ">59.3%</span></td>
+<td headers="Defensive Four Factors  away" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #39903D; color: #000000; border-radius: 10px; text-align: center; ">76.7%</span></td>
+</tr>
+<tr>
+<td headers="Defensive Four Factors  stat" class="gt_row gt_left" style="font-family: 'Roboto Condensed'; font-size: 14px;">FTA per FGA</td>
+<td headers="Defensive Four Factors  home" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #429E46; color: #000000; border-radius: 10px; text-align: center; ">67.9%</span></td>
+<td headers="Defensive Four Factors  away" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #358A39; color: #000000; border-radius: 10px; text-align: center; ">80.6%</span></td>
+</tr>
+<tr>
+<td headers="Defensive Four Factors  stat" class="gt_row gt_left gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px;">Def. Rebound Rate</td>
+<td headers="Defensive Four Factors  home" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #368A3A; color: #000000; border-radius: 10px; text-align: center; ">80.1%</span></td>
+<td headers="Defensive Four Factors  away" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #398F3D; color: #000000; border-radius: 10px; text-align: center; ">77.0%</span></td>
+</tr>
+<tr>
+<td headers="Defensive Four Factors  stat" class="gt_row gt_left" style="font-family: 'Roboto Condensed'; font-size: 14px;">Turnover Rate</td>
+<td headers="Defensive Four Factors  home" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #5EB762; color: #000000; border-radius: 10px; text-align: center; ">47.9%</span></td>
+<td headers="Defensive Four Factors  away" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #87C989; color: #000000; border-radius: 10px; text-align: center; ">31.6%</span></td>
+</tr>
+<tr class="gt_group_heading_row">
+<th colspan="3" class="gt_group_heading" style="color: #FFFDF5; font-family: 'Roboto Condensed'; font-size: 14px; font-weight: 650; background-color: #000000;" scope="colgroup" id="Offensive Shooting">Offensive Shooting</th>
+    </tr>
+<tr class="gt_row_group_first">
+<td headers="Offensive Shooting  stat" class="gt_row gt_left gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px;">2FG%</td>
+<td headers="Offensive Shooting  home" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #3F9A43; color: #000000; border-radius: 10px; text-align: center; ">70.4%</span></td>
+<td headers="Offensive Shooting  away" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #388D3C; color: #000000; border-radius: 10px; text-align: center; ">78.1%</span></td>
+</tr>
+<tr>
+<td headers="Offensive Shooting  stat" class="gt_row gt_left" style="font-family: 'Roboto Condensed'; font-size: 14px;">3FG%</td>
+<td headers="Offensive Shooting  home" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #2E7D32; color: #FFFFFF; border-radius: 10px; text-align: center; ">88.6%</span></td>
+<td headers="Offensive Shooting  away" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #2A772E; color: #FFFFFF; border-radius: 10px; text-align: center; ">91.1%</span></td>
+</tr>
+<tr>
+<td headers="Offensive Shooting  stat" class="gt_row gt_left gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px;">FT%</td>
+<td headers="Offensive Shooting  home" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #57B45A; color: #000000; border-radius: 10px; text-align: center; ">51.2%</span></td>
+<td headers="Offensive Shooting  away" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #4EB052; color: #000000; border-radius: 10px; text-align: center; ">54.6%</span></td>
+</tr>
+<tr class="gt_group_heading_row">
+<th colspan="3" class="gt_group_heading" style="color: #FFFDF5; font-family: 'Roboto Condensed'; font-size: 14px; font-weight: 650; background-color: #000000;" scope="colgroup" id="Defensive Shooting">Defensive Shooting</th>
+    </tr>
+<tr class="gt_row_group_first">
+<td headers="Defensive Shooting  stat" class="gt_row gt_left" style="font-family: 'Roboto Condensed'; font-size: 14px;">2FG%</td>
+<td headers="Defensive Shooting  home" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #55B359; color: #000000; border-radius: 10px; text-align: center; ">51.8%</span></td>
+<td headers="Defensive Shooting  away" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #44A248; color: #000000; border-radius: 10px; text-align: center; ">64.8%</span></td>
+</tr>
+<tr>
+<td headers="Defensive Shooting  stat" class="gt_row gt_left gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px;">3FG%</td>
+<td headers="Defensive Shooting  home" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #46A44A; color: #000000; border-radius: 10px; text-align: center; ">63.4%</span></td>
+<td headers="Defensive Shooting  away" class="gt_row gt_center gt_striped" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #368A3A; color: #000000; border-radius: 10px; text-align: center; ">80.3%</span></td>
+</tr>
+<tr>
+<td headers="Defensive Shooting  stat" class="gt_row gt_left" style="font-family: 'Roboto Condensed'; font-size: 14px;">FT%</td>
+<td headers="Defensive Shooting  home" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #358939; color: #000000; border-radius: 10px; text-align: center; ">81.2%</span></td>
+<td headers="Defensive Shooting  away" class="gt_row gt_center" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold;"><span style="display: inline-block; width: 5ch; padding-left: 3px; padding-right: 3px; height: 25px; line-height: 25px; background-color: #216725; color: #FFFFFF; border-radius: 10px; text-align: center; ">96.7%</span></td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="gt_footnotes">
+<td class="gt_footnote" style="font-family: 'Roboto Condensed'; font-size: 12px;" colspan="3">
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <span class="gt_from_md">Data: ESPN box scores via {hoopR}</span>
+</td>
+    </tr>
+<tr class="gt_sourcenotes">
+<td class="gt_sourcenote" style="font-family: 'Roboto Condensed'; font-size: 12px;" colspan="3"><span class="gt_from_md">Viz. by @andreweatherman for a {gtUtils} vignette</span></td>
+    </tr>
+</tfoot>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="table-footers">Table Footers<a class="anchor" aria-label="anchor" href="#table-footers"></a>
@@ -433,20 +1072,19 @@ include a company or personal logo. For this example, let’s pull a
 TidyTuesday dataset about Rolling Stone’s “500 Greatest Albums” and pull
 the top 15.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-05-07/rolling_stone.csv"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">slice_min</span><span class="op">(</span><span class="va">rank_2020</span>, n <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-05-07/rolling_stone.csv"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span><span class="va">rank_2020</span>, n <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></code></pre></div>
 <p>Again, this is a really quick and small example. The table itself is
 pretty basic. We use <code>gt_theme_sofa</code> on light mode, throw in
 some row striping, and include <em>both</em> top and bottom bars. In the
 bottom bar, we add some source text, push it 12px size, and toss it on
-normal weight. The image we placed in the bottom <em>could</em> be
-clearer, but there’s nothing that we can do about that. We stretch it to
-100px wide and 30px tall. And with fewer than 20 lines of code, we have
-a decent start to a table!</p>
+normal weight. The image in the bottom bar is the sdvplotR hex logo,
+drawn 26px wide and 30px tall to keep its shape. And with fewer than 20
+lines of code, we have a decent start to a table!</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>album <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">rank_2020</span>, <span class="st">". "</span>, <span class="va">album</span>, <span class="st">" ("</span>, <span class="va">release_year</span>, <span class="st">")"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">album</span>, artist <span class="op">=</span> <span class="va">clean_name</span>, gender <span class="op">=</span> <span class="va">artist_gender</span>, <span class="va">genre</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>album <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">rank_2020</span>, <span class="st">". "</span>, <span class="va">album</span>, <span class="st">" ("</span>, <span class="va">release_year</span>, <span class="st">")"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">album</span>, artist <span class="op">=</span> <span class="va">clean_name</span>, gender <span class="op">=</span> <span class="va">artist_gender</span>, <span class="va">genre</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"table"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_sofa.html">gt_theme_sofa</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -455,16 +1093,635 @@ a decent start to a table!</p>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/opt_row_striping.html" class="external-link">opt_row_striping</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/gt_border_bars_bottom.html">gt_border_bars_bottom</a></span><span class="op">(</span><span class="st">"#1c2632"</span>,</span>
 <span>    bar_height <span class="op">=</span> <span class="fl">25</span>,</span>
-<span>    img <span class="op">=</span> <span class="st">"https://www.sxsw.com/wp-content/uploads/2022/11/RollingStone-BW.png"</span>,</span>
+<span>    img <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png"</span>,</span>
 <span>    text <span class="op">=</span> <span class="st">"Data pulled from Tidy Tuesday"</span>,</span>
-<span>    img_width <span class="op">=</span> <span class="fl">100</span>, img_height <span class="op">=</span> <span class="fl">30</span>, text_size <span class="op">=</span> <span class="fl">12</span>, text_weight <span class="op">=</span> <span class="st">"normal"</span></span>
+<span>    img_width <span class="op">=</span> <span class="fl">26</span>, img_height <span class="op">=</span> <span class="fl">30</span>, text_size <span class="op">=</span> <span class="fl">12</span>, text_weight <span class="op">=</span> <span class="st">"normal"</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/gt_border_bars_top.html">gt_border_bars_top</a></span><span class="op">(</span><span class="st">"#1c2632"</span>, bar_height <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"The 15 Greatest Albums of All Time"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"Surveying the 2020 Rolling Stone's *500 Greatest Albums List*"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="images/border-bars-rolling-stones.png" class="r-plt" alt="" width="75%" style="display: block; margin: auto;"></p>
+<div id="table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#table table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#table thead, #table tbody, #table tfoot, #table tr, #table td, #table th {
+  border-style: none;
+}
+
+#table p {
+  margin: 0;
+  padding: 0;
+}
+
+#table .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0EAD6;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #F0EAD6;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #F0EAD6;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #F0EAD6;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #F0EAD6;
+}
+
+#table .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#table .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #F0EAD6;
+  border-bottom-width: 0;
+}
+
+#table .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #F0EAD6;
+  border-top-width: 0;
+}
+
+#table .gt_heading {
+  background-color: #F0EAD6;
+  text-align: left;
+  border-bottom-color: #F0EAD6;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_col_heading {
+  color: #333333;
+  background-color: #F0EAD6;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#table .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0EAD6;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#table .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#table .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#table .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#table .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#table .gt_group_heading {
+  padding-top: 1.5px;
+  padding-bottom: 1.5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #F0EAD6;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#table .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0EAD6;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  vertical-align: middle;
+}
+
+#table .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#table .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#table .gt_row {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: rgba(255, 255, 255, 0);
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#table .gt_stub {
+  color: #333333;
+  background-color: #F0EAD6;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_stub_row_group {
+  color: #333333;
+  background-color: #F0EAD6;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#table .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#table .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#table .gt_summary_row {
+  color: #333333;
+  background-color: #F0EAD6;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#table .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#table .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0EAD6;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#table .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#table .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_footnotes {
+  color: #333333;
+  background-color: #F0EAD6;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0EAD6;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_left {
+  text-align: left;
+}
+
+#table .gt_center {
+  text-align: center;
+}
+
+#table .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#table .gt_font_normal {
+  font-weight: normal;
+}
+
+#table .gt_font_bold {
+  font-weight: bold;
+}
+
+#table .gt_font_italic {
+  font-style: italic;
+}
+
+#table .gt_super {
+  font-size: 65%;
+}
+
+#table .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#table .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#table .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#table .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#table .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#table .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#table .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#table .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#table div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#table tbody tr:last-child {
+  border-bottom: 2px solid #F0EAD6;
+}
+
+#table .gt_col_heading {
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+#table .gt_subtitle {
+  padding-top: 0px !important;
+  padding-bottom: 4px !important;
+}
+
+#table .gt_sourcenote {
+  border-bottom-color: #F0EAD6 !important;
+}
+
+#table .gt_heading {
+  padding-bottom: 0px;
+  padding-top: 6px;
+}
+
+#table .gt_column_spanner {
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#table .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+
+#table .gt_sourcenote {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-bottom: 0px;
+}
+
+#table .gt_caption {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<caption><div style="background-color: transparent; width: 100%; margin-left: auto; margin-right: auto;"><div style="height: 5px; background-color: #1c2632;"></div></div></caption>
+  <thead>
+<tr class="gt_heading">
+<td colspan="4" class="gt_heading gt_title gt_font_normal" style="font-family: 'Sofia Sans Condensed'; font-size: 22px; font-weight: bold;">The 15 Greatest Albums of All Time</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><span class="gt_from_md">Surveying the 2020 Rolling Stone’s <em>500 Greatest Albums List</em></span></td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-family: 'Sofia Sans Condensed'; font-size: 14px; font-weight: bold;" scope="col" id="album">album</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-family: 'Sofia Sans Condensed'; font-size: 14px; font-weight: bold;" scope="col" id="artist">artist</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-family: 'Sofia Sans Condensed'; font-size: 14px; font-weight: bold;" scope="col" id="gender">gender</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-family: 'Sofia Sans Condensed'; font-size: 14px; font-weight: bold;" scope="col" id="genre">genre</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="album" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">1. What's Going On (1971)</td>
+<td headers="artist" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Marvin Gaye</td>
+<td headers="gender" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Soul/Gospel/R&amp;B</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">2. Pet Sounds (1966)</td>
+<td headers="artist" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">The Beach Boys</td>
+<td headers="gender" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">—</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">3. Blue (1971)</td>
+<td headers="artist" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Joni Mitchell</td>
+<td headers="gender" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Female</td>
+<td headers="genre" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Country/Folk/Country Rock/Folk Rock</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">4. Songs in the Key of Life (1976)</td>
+<td headers="artist" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Stevie Wonder</td>
+<td headers="gender" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Soul/Gospel/R&amp;B</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">5. Abbey Road (1969)</td>
+<td headers="artist" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">The Beatles</td>
+<td headers="gender" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">—</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">6. Nevermind (1991)</td>
+<td headers="artist" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Nirvana</td>
+<td headers="gender" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Indie/Alternative Rock</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">7. Rumours (1977)</td>
+<td headers="artist" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Fleetwood Mac</td>
+<td headers="gender" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male/Female</td>
+<td headers="genre" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Singer-Songwriter/Heartland Rock</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">8. Purple Rain (1984)</td>
+<td headers="artist" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Prince</td>
+<td headers="gender" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male/Female</td>
+<td headers="genre" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">—</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">9. Blood on the Tracks (1975)</td>
+<td headers="artist" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Bob Dylan</td>
+<td headers="gender" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Country/Folk/Country Rock/Folk Rock</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">10. The Miseducation of Lauryn Hill (1998)</td>
+<td headers="artist" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Lauryn Hill</td>
+<td headers="gender" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Female</td>
+<td headers="genre" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Hip-Hop/Rap</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">11. Revolver (1966)</td>
+<td headers="artist" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">The Beatles</td>
+<td headers="gender" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">—</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">12. Thriller (1982)</td>
+<td headers="artist" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Michael Jackson</td>
+<td headers="gender" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Soul/Gospel/R&amp;B</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">13. I Never Loved a Man the Way I Love You (1967)</td>
+<td headers="artist" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Aretha Franklin</td>
+<td headers="gender" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Female</td>
+<td headers="genre" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Soul/Gospel/R&amp;B</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">14. Exile on Main St. (1972)</td>
+<td headers="artist" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Rolling Stones</td>
+<td headers="gender" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Blues/Blues Rock</td>
+</tr>
+<tr>
+<td headers="album" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">15. It Takes a Nation of Millions to Hold Us Back (1988)</td>
+<td headers="artist" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Public Enemy</td>
+<td headers="gender" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Male</td>
+<td headers="genre" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Hip-Hop/Rap</td>
+</tr>
+</tbody>
+<tfoot><tr class="gt_sourcenotes">
+<td class="gt_sourcenote" style="font-family: 'Sofia Sans Condensed'; font-size: 10px;" colspan="4">
+<style>@import url('https://fonts.googleapis.com/css2?family='Sofia+Sans+Condensed':ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');</style>
+<div style="display: flex; justify-content: space-between; align-items: center; height: 25px; background-color: #1c2632; width: 100%; margin-left: auto; margin-right: auto;">
+<span style="font-weight:normal; color:#FFFFFF; font-size:12px; padding-left: 10px; font-family: 'Sofia Sans Condensed';">Data pulled from Tidy Tuesday</span><img src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png" width="26px" height="30px" style="padding-right:10px;">
+</div>
+</td>
+    </tr></tfoot>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="just-for-fun">Just for fun<a class="anchor" aria-label="anchor" href="#just-for-fun"></a>
@@ -481,9 +1738,9 @@ at the top and the last color is at the bottom.</p>
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_seed.html" class="external-link">with_seed</a></span><span class="op">(</span></span>
 <span>  seed <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  <span class="op">{</span></span>
-<span>    <span class="fu">nycflights13</span><span class="fu">::</span><span class="va">flights</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>      <span class="fu">slice_sample</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>      <span class="fu">select</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
+<span>    <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html" class="external-link">flights</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -492,7 +1749,683 @@ at the top and the last color is at the bottom.</p>
 <span>  <span class="fu"><a href="../reference/gt_theme_gtutils.html">gt_theme_gtutils</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="st">"Example Title"</span>, <span class="st">"Example Subtitle"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/gt_border_bars_bottom.html">gt_border_bars_bottom</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#EDBD68"</span>, <span class="st">"#F2704E"</span>, <span class="st">"#DE5152"</span>, <span class="st">"#A43845"</span>, <span class="st">"#602B53"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="images/border-bars-for-fun.png" class="r-plt" alt="" width="75%" style="display: block; margin: auto;"></p>
+<div id="pbcyvkgufi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Almarai:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Almarai:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Almarai:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#pbcyvkgufi table {
+  font-family: Almarai, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pbcyvkgufi thead, #pbcyvkgufi tbody, #pbcyvkgufi tfoot, #pbcyvkgufi tr, #pbcyvkgufi td, #pbcyvkgufi th {
+  border-style: none;
+}
+
+#pbcyvkgufi p {
+  margin: 0;
+  padding: 0;
+}
+
+#pbcyvkgufi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  background-color: #FFFDF5;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #FFFDF5;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #FFFDF5;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #FFFDF5;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #FFFDF5;
+}
+
+#pbcyvkgufi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pbcyvkgufi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFDF5;
+  border-bottom-width: 0;
+}
+
+#pbcyvkgufi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFDF5;
+  border-top-width: 0;
+}
+
+#pbcyvkgufi .gt_heading {
+  background-color: #FFFDF5;
+  text-align: left;
+  border-bottom-color: #FFFDF5;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFDF5;
+  font-size: 100%;
+  font-weight: 500;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pbcyvkgufi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFDF5;
+  font-size: 100%;
+  font-weight: 500;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pbcyvkgufi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pbcyvkgufi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pbcyvkgufi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pbcyvkgufi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pbcyvkgufi .gt_group_heading {
+  padding-top: 1.5px;
+  padding-bottom: 1.5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFDF5;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pbcyvkgufi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFDF5;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  vertical-align: middle;
+}
+
+#pbcyvkgufi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pbcyvkgufi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pbcyvkgufi .gt_row {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: rgba(255, 255, 255, 0);
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pbcyvkgufi .gt_stub {
+  color: #333333;
+  background-color: #FFFDF5;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbcyvkgufi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFDF5;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pbcyvkgufi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pbcyvkgufi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pbcyvkgufi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFDF5;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbcyvkgufi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pbcyvkgufi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFDF5;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbcyvkgufi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pbcyvkgufi .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFDF5;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbcyvkgufi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFDF5;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pbcyvkgufi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbcyvkgufi .gt_left {
+  text-align: left;
+}
+
+#pbcyvkgufi .gt_center {
+  text-align: center;
+}
+
+#pbcyvkgufi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pbcyvkgufi .gt_font_normal {
+  font-weight: normal;
+}
+
+#pbcyvkgufi .gt_font_bold {
+  font-weight: bold;
+}
+
+#pbcyvkgufi .gt_font_italic {
+  font-style: italic;
+}
+
+#pbcyvkgufi .gt_super {
+  font-size: 65%;
+}
+
+#pbcyvkgufi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pbcyvkgufi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pbcyvkgufi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pbcyvkgufi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pbcyvkgufi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pbcyvkgufi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pbcyvkgufi .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#pbcyvkgufi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#pbcyvkgufi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#pbcyvkgufi tbody tr:last-child {
+  border-bottom: 2px solid #FFFDF5;
+}
+
+#pbcyvkgufi .gt_col_heading {
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+#pbcyvkgufi .gt_subtitle {
+  padding-top: 0px !important;
+  padding-bottom: 4px !important;
+}
+
+#pbcyvkgufi .gt_sourcenote {
+  border-bottom-color: #FFFDF5 !important;
+}
+
+#pbcyvkgufi .gt_heading {
+  padding-bottom: 0px;
+  padding-top: 6px;
+}
+
+#pbcyvkgufi .gt_column_spanner {
+  padding-bottom: 2px;
+}
+
+#pbcyvkgufi .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+
+#pbcyvkgufi .gt_sourcenote {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-bottom: 0px;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="8" class="gt_heading gt_title gt_font_normal" style="font-family: 'Signika Negative'; font-weight: 650;">Example Title</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="font-family: 'Signika Negative'; font-weight: 500;">Example Subtitle</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Signika Negative'; font-size: 14px; font-weight: 650;" scope="col" id="year">year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Signika Negative'; font-size: 14px; font-weight: 650;" scope="col" id="month">month</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Signika Negative'; font-size: 14px; font-weight: 650;" scope="col" id="day">day</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Signika Negative'; font-size: 14px; font-weight: 650;" scope="col" id="dep_time">dep_time</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Signika Negative'; font-size: 14px; font-weight: 650;" scope="col" id="sched_dep_time">sched_dep_time</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Signika Negative'; font-size: 14px; font-weight: 650;" scope="col" id="dep_delay">dep_delay</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Signika Negative'; font-size: 14px; font-weight: 650;" scope="col" id="arr_time">arr_time</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Signika Negative'; font-size: 14px; font-weight: 650;" scope="col" id="sched_arr_time">sched_arr_time</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">3</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">17</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">755</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">800</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">-5</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">943</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1004</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">12</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">31</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1430</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1432</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">-2</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1546</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1555</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">5</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">20</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1157</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1115</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">42</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1428</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1410</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">4</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">4</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">921</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">930</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">-9</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1237</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1244</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">12</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">12</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">828</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">830</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">-2</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1032</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1037</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">11</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">30</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1614</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1615</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">-1</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1833</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1852</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">3</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">12</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1135</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1140</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">-5</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1427</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1445</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">12</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">6</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2011</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1900</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">71</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2202</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2035</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">7</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">19</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1939</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1830</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">69</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2048</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1955</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">11</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">4</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1414</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1414</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">0</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1536</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1534</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">4</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1953</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2000</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">-7</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2054</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2117</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">20</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">757</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">800</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">-3</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1059</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1127</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">12</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">17</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1405</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1246</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">79</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1750</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1538</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2013</td>
+<td headers="month" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">2</td>
+<td headers="day" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">3</td>
+<td headers="dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1500</td>
+<td headers="sched_dep_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1444</td>
+<td headers="dep_delay" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">16</td>
+<td headers="arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1750</td>
+<td headers="sched_arr_time" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8A817C;">1745</td>
+</tr>
+<tr>
+<td headers="year" class="gt_row gt_center">2013</td>
+<td headers="month" class="gt_row gt_center">1</td>
+<td headers="day" class="gt_row gt_center">13</td>
+<td headers="dep_time" class="gt_row gt_center">807</td>
+<td headers="sched_dep_time" class="gt_row gt_center">807</td>
+<td headers="dep_delay" class="gt_row gt_center">0</td>
+<td headers="arr_time" class="gt_row gt_center">1006</td>
+<td headers="sched_arr_time" class="gt_row gt_center">1010</td>
+</tr>
+</tbody>
+<tfoot><tr class="gt_sourcenotes">
+<td class="gt_sourcenote" style="font-family: Almarai; font-size: 12px;" colspan="8"><div style="background-color: transparent; width: 100%; margin-left: auto; margin-right: auto;">
+<div style="height: 10px; background-color: #EDBD68;"></div>
+<div style="height: 10px; background-color: #F2704E;"></div>
+<div style="height: 10px; background-color: #DE5152;"></div>
+<div style="height: 10px; background-color: #A43845;"></div>
+<div style="height: 10px; background-color: #602B53;"></div>
+</div></td>
+    </tr></tfoot>
+</table>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

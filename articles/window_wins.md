@@ -152,9 +152,9 @@ cancelled. That row still exists on the page with an empty champion, and
 left in, it counts a title for a team named `""`.
 
 Bucketing into `"0"`, `"1"`, and `"2+"` keeps the key short. The
-`replace_na()` at the end matters because the join only produces rows
-for teams that won something, which leaves every other team-window as
-`NA`.
+[`replace_na()`](https://tidyr.tidyverse.org/reference/replace_na.html)
+at the end matters because the join only produces rows for teams that
+won something, which leaves every other team-window as `NA`.
 
 ## The pivot, and keeping the mask aligned
 
@@ -173,9 +173,10 @@ ref <- team_reference("mbb")
 logos <- rlang::set_names(ref$logo_url, ref$team_abbr)
 ```
 
-`pivot_wider()` spreads one value column, so pivoting on the logo gives
-you logos and nothing else. The title count lives in `total_titles`, and
-it would be gone by the time we draw the table.
+[`pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)
+spreads one value column, so pivoting on the logo gives you logos and
+nothing else. The title count lives in `total_titles`, and it would be
+gone by the time we draw the table.
 
 The way around it is to pivot twice from the same ordered frame, once
 for what you draw (years and teams) and once for what you style by
@@ -272,10 +273,11 @@ reduce(logo_cols, .init = ., .f = ~ rlang::inject(
 ```
 
 `gt_img_rows()` takes one column at a time, and it reads a quoted string
-like `"1_1"` as a position rather than a name. `reduce()` threads the
-table through one call per column, and `!!rlang::sym(.y)` hands each one
-over as a bare name, which is the form it wants. Keeping this inside the
-pipe avoids a stored intermediate.
+like `"1_1"` as a position rather than a name.
+[`reduce()`](https://purrr.tidyverse.org/reference/reduce.html) threads
+the table through one call per column, and `!!rlang::sym(.y)` hands each
+one over as a bare name, which is the form it wants. Keeping this inside
+the pipe avoids a stored intermediate.
 
 ## Spanners, widths, and rules
 

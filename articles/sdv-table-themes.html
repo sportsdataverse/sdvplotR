@@ -4152,7 +4152,9 @@ and keep everything else:</p>
 </h2>
 <p><code>theme_bg</code> records the background each theme paints. Pass
 it to <code><a href="../reference/gt_save_crop.html">gt_save_crop()</a></code> so the padding around the saved image
-matches the table instead of framing it in white.</p>
+matches the table instead of framing it in white. Saving drives a
+headless Chrome through <code>webshot2</code>, so this chunk is not run
+here.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bg</span> <span class="op">&lt;-</span> <span class="va">theme_bg</span><span class="op">$</span><span class="va">bg</span><span class="op">[</span><span class="va">theme_bg</span><span class="op">$</span><span class="va">theme</span> <span class="op">==</span> <span class="st">"gt_theme_sdv"</span> <span class="op">&amp;</span> <span class="va">theme_bg</span><span class="op">$</span><span class="va">has_style</span> <span class="op">==</span> <span class="st">"dark"</span><span class="op">]</span></span>
 <span></span>

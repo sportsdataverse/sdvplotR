@@ -78,9 +78,9 @@ its row without a second join.
 
 ## Carrying the location as a parallel mask
 
-`pivot_wider()` on the opponent logo loses the location. But we can
-pivot it into its own frame of the same shape and turn each state into a
-logical mask.
+[`pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)
+on the opponent logo loses the location. But we can pivot it into its
+own frame of the same shape and turn each state into a logical mask.
 
 ``` r
 
@@ -143,10 +143,11 @@ purrr::reduce(wk, .init = ., .f = ~ rlang::inject(
 `gt_img_rows()` takes a single column, and it reads a quoted number like
 `"1"` as a position rather than a name, so
 [`all_of()`](https://tidyselect.r-lib.org/reference/all_of.html) fails
-on our numeric week columns. `reduce()` threads the table through one
-call per week, and `!!rlang::sym(.y)` hands each column in as a bare
-name, which is the form `gt_img_rows()` wants. Keeping this inside the
-pipe means no stored intermediate.
+on our numeric week columns.
+[`reduce()`](https://purrr.tidyverse.org/reference/reduce.html) threads
+the table through one call per week, and `!!rlang::sym(.y)` hands each
+column in as a bare name, which is the form `gt_img_rows()` wants.
+Keeping this inside the pipe means no stored intermediate.
 
 ## Marking the byes
 
@@ -155,6 +156,9 @@ After the images render, we drop a muted `BYE` into the empty cells.
 ``` r
 
 byemark <- "<span style=\"color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em\">BYE</span>"
+```
+
+``` r
 
 reduce(wk, .init = ., .f = function(g, c) {
   b <- which(is.na(logos[[c]]))
@@ -188,6 +192,9 @@ team_cell <- function(name, logo) {
     logo, name
   )
 }
+```
+
+``` r
 
 text_transform(cells_body(columns = team),
   fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))
@@ -287,4 +294,4 @@ gt(logos, id = "table") %>%
   )
 ```
 
-![](images/schedule_matrix.png)
+[TABLE]

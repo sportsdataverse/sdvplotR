@@ -231,7 +231,8 @@ standings_table |> gt_theme_sdv(heading.align = "center")
 `theme_bg` records the background each theme paints. Pass it to
 [`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md)
 so the padding around the saved image matches the table instead of
-framing it in white.
+framing it in white. Saving drives a headless Chrome through `webshot2`,
+so this chunk is not run here.
 
 ``` r
 

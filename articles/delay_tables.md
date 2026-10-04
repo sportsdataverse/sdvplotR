@@ -73,7 +73,7 @@ d1 %>%
   )
 ```
 
-![](images/delays_percentile.png)
+[TABLE]
 
 The `delay_ptile` column is stored on a 0-1 scale, but the markers read
 71, 33, 89, and so on. That is
@@ -172,7 +172,7 @@ d2 %>%
   )
 ```
 
-![](images/delays_cutline.png)
+[TABLE]
 
 There are two cut lines here, one for each group.
 `gt_cutline(after = 8, ...)` draws the rule between rows 8 and 9, where

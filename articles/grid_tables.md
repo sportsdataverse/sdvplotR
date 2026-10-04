@@ -50,6 +50,9 @@ data <- html_table(html_element(net_page, "table")) %>%
   filter(net <= 25)
 ```
 
+The tables below use a snapshot of this page taken on October 04, 2026
+(rvest 1.0.5), because ncaa.com is not scraped when this site is built.
+
 Before splitting anything, two values are computed once, off the full
 table.
 
@@ -180,7 +183,17 @@ gt_grid(tbls,
 )
 ```
 
-![](images/grid_net.png)
+Top 25 NET Rankings
+
+Through Games Apr. 06 2026
+
+[TABLE]
+
+[TABLE]
+
+Install using ... pak::pak("sportsdataverse/sdvplotR")
+
+Example created by @andreweatherman using {gtUtils} v1.0
 
 `ncol` sets how many tables go across, and the number of rows follows
 from the list length. `gap` is the space between them in pixels. There
@@ -277,7 +290,17 @@ gt_grid(tbls,
 )
 ```
 
-![](images/grid_spotlight.png)
+The Big 12 has 4 teams inside the NET T-20
+
+Through Games Apr. 06 2026
+
+[TABLE]
+
+[TABLE]
+
+Install using ... pak::pak("sportsdataverse/sdvplotR")
+
+Example created by @andreweatherman using {gtUtils} v1.0
 
 This is why `conf` stayed hidden.
 [`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md)

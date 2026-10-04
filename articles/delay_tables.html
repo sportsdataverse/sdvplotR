@@ -236,7 +236,7 @@ average arrival delay. Alongside the raw delay we compute a percentile,
 so each destination can be read against every other qualifying airport,
 not just the 15 shown.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va">flights</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html" class="external-link">flights</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">150</span>, .by <span class="op">=</span> <span class="va">dest</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
 <span>    avg_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -279,7 +279,665 @@ column into a filled track with a numbered marker at the tip.</p>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Example created by @andreweatherman using {gtUtils} v1.0"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="images/delays_percentile.png" class="r-plt" alt="" width="543"></p>
+<div id="table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#table table {
+  font-family: 'Zilla Slab', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#table thead, #table tbody, #table tfoot, #table tr, #table td, #table th {
+  border-style: none;
+}
+
+#table p {
+  margin: 0;
+  padding: 0;
+}
+
+#table .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #8C2F1E;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#table .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#table .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#table .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#table .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #1A1A1A;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#table .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#table .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#table .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#table .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #1A1A1A;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#table .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#table .gt_group_heading {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D8D8D4;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#table .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D8D8D4;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#table .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#table .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#table .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#table .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#table .gt_row_group_first td {
+  border-top-width: 1px;
+}
+
+#table .gt_row_group_first th {
+  border-top-width: 1px;
+}
+
+#table .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#table .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#table .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#table .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_striped {
+  background-color: #F1F1EF;
+}
+
+#table .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #1A1A1A;
+}
+
+#table .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_left {
+  text-align: left;
+}
+
+#table .gt_center {
+  text-align: center;
+}
+
+#table .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#table .gt_font_normal {
+  font-weight: normal;
+}
+
+#table .gt_font_bold {
+  font-weight: bold;
+}
+
+#table .gt_font_italic {
+  font-style: italic;
+}
+
+#table .gt_super {
+  font-size: 65%;
+}
+
+#table .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#table .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#table .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#table .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#table .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#table .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#table .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#table .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#table div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#table td {
+  font-variant-numeric: tabular-nums;
+}
+
+#table tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#table .gt_col_heading, #table .gt_column_spanner {
+  letter-spacing: 0.05em;
+}
+
+#table .gt_group_heading {
+  letter-spacing: 0.05em;
+}
+
+#table .gt_subtitle {
+  padding-bottom: 9px !important;
+}
+
+#table .gt_title {
+  padding-bottom: 2px !important;
+}
+
+#table .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style>
+<table class="table gt_table" style="table-layout:fixed;" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col>
+<col>
+<col>
+<col style="width:220px;">
+</colgroup>
+<thead>
+<tr class="gt_heading">
+<td colspan="4" class="gt_heading gt_title gt_font_normal" style="color: #1A1A1A; font-size: 22px; font-weight: 700;">Avg. Arrival Delays For Flights Departing NYC (2013)</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #6B6B68; font-size: 13px; font-weight: 400;">For destination airports that saw at least 7,000 flights out of NYC (JFK, LGA, EWR) in 2013</td>
+    </tr>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="color: #1A1A1A; font-family: 'Archivo Narrow'; font-size: 10px; font-weight: 700; text-transform: uppercase;" scope="col" id="dest">Destination</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="color: #1A1A1A; font-family: 'Archivo Narrow'; font-size: 10px; font-weight: 700; text-transform: uppercase;" scope="col" id="flights">flights</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="Flight Delay">
+        <div class="gt_column_spanner">Flight Delay</div>
+      </th>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #1A1A1A; font-family: 'Archivo Narrow'; font-size: 10px; font-weight: 700; text-transform: uppercase;" scope="col" id="avg_delay">Avg. Delay</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #1A1A1A; font-family: 'Archivo Narrow'; font-size: 10px; font-weight: 700; text-transform: uppercase;" scope="col" id="delay_ptile">Delay percentile<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 12px;">ORD</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">17,283</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;">5m 52s</td>
+<td headers="delay_ptile" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.7079 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D69091;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.7079 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D69091; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">71</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left gt_striped" style="color: #1A1A1A; font-size: 12px;">ATL</td>
+<td headers="flights" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">17,215</td>
+<td headers="avg_delay" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;">11m 18s</td>
+<td headers="delay_ptile" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.3258 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#9CA3C0;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.3258 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#9CA3C0; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">33</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 12px;">LAX</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">16,174</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;">32s</td>
+<td headers="delay_ptile" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.8876 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D65A64;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.8876 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D65A64; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">89</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left gt_striped" style="color: #1A1A1A; font-size: 12px;">BOS</td>
+<td headers="flights" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">15,508</td>
+<td headers="avg_delay" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;">2m 54s</td>
+<td headers="delay_ptile" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.8427 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D7696F;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.8427 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D7696F; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">84</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 12px;">MCO</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">14,082</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;">5m 27s</td>
+<td headers="delay_ptile" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.7191 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D68D8E;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.7191 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D68D8E; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">72</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left gt_striped" style="color: #1A1A1A; font-size: 12px;">CLT</td>
+<td headers="flights" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">14,064</td>
+<td headers="avg_delay" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;">7m 21s</td>
+<td headers="delay_ptile" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.6180 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D3A9A9;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.6180 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D3A9A9; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">62</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 12px;">SFO</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">13,331</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;">2m 40s</td>
+<td headers="delay_ptile" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.8539 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D7656C;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.8539 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D7656C; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">85</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left gt_striped" style="color: #1A1A1A; font-size: 12px;">FLL</td>
+<td headers="flights" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">12,055</td>
+<td headers="avg_delay" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;">8m 4s</td>
+<td headers="delay_ptile" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.5393 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#CDBEBE;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.5393 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#CDBEBE; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">54</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 12px;">MIA</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">11,728</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;">17s</td>
+<td headers="delay_ptile" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9101 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D6535E;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.9101 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D6535E; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">91</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left gt_striped" style="color: #1A1A1A; font-size: 12px;">DCA</td>
+<td headers="flights" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">9,705</td>
+<td headers="avg_delay" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;">9m 4s</td>
+<td headers="delay_ptile" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.4494 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#BCBEC6;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.4494 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#BCBEC6; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">45</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 12px;">DTW</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">9,384</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;">5m 25s</td>
+<td headers="delay_ptile" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.7303 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D78A8B;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.7303 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D78A8B; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">73</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left gt_striped" style="color: #1A1A1A; font-size: 12px;">DFW</td>
+<td headers="flights" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">8,738</td>
+<td headers="avg_delay" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;">19s</td>
+<td headers="delay_ptile" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.8989 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D65761;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.8989 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D65761; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">90</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 12px;">RDU</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">8,163</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;">10m 3s</td>
+<td headers="delay_ptile" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.4157 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#B4B6C5;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.4157 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#B4B6C5; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">42</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left gt_striped" style="color: #1A1A1A; font-size: 12px;">TPA</td>
+<td headers="flights" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">7,466</td>
+<td headers="avg_delay" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;">7m 24s</td>
+<td headers="delay_ptile" class="gt_row gt_center gt_striped" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.6067 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D2ACAC;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.6067 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D2ACAC; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">61</div>
+</div></td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 12px;">DEN</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px; border-right-width: 1.5px; border-right-style: solid; border-right-color: black;">7,266</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;">8m 36s</td>
+<td headers="delay_ptile" class="gt_row gt_center" style="color: #1A1A1A; font-size: 12px;"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.4944 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#C8C8C9;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.4944 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#C8C8C9; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">49</div>
+</div></td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="gt_footnotes">
+<td class="gt_footnote" style="color: #6B6B68; font-family: 'Archivo Narrow'; font-size: 11px;" colspan="4">
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Percentile among all destinations with at least 100 NYC-inbound flights in 2013</td>
+    </tr>
+<tr class="gt_sourcenotes">
+<td class="gt_sourcenote" style="color: #6B6B68; font-family: 'Archivo Narrow'; font-size: 11px;" colspan="4">Example created by @andreweatherman using {gtUtils} v1.0</td>
+    </tr>
+</tfoot>
+</table>
+</div>
 <p>The <code>delay_ptile</code> column is stored on a 0-1 scale, but the
 markers read 71, 33, 89, and so on. That is
 <code><a href="../reference/gt_percentile_bar.html">gt_percentile_bar()</a></code>’s <code>scale</code> argument, which
@@ -322,9 +980,9 @@ real volume, which had the worst arrival delays and which had the best?
 We take the 8 highest and 8 lowest average delays and stack them in one
 sorted table.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">airport_dict</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va">airports</span><span class="op">$</span><span class="va">name</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">set_names</span><span class="op">(</span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va">airports</span><span class="op">$</span><span class="va">faa</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">airport_dict</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/airports.html" class="external-link">airports</a></span><span class="op">$</span><span class="va">name</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html" class="external-link">set_names</a></span><span class="op">(</span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/airports.html" class="external-link">airports</a></span><span class="op">$</span><span class="va">faa</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va">flights</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html" class="external-link">flights</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">1000</span>, .by <span class="op">=</span> <span class="va">dest</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
 <span>    avg_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -376,7 +1034,647 @@ last 8, already sorted worst to best.</p>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">'Install using ... pak::pak("sportsdataverse/sdvplotR")'</span><span class="op">)</span>,</span>
 <span>    <span class="st">"Example created by @andreweatherman using {gtUtils} v1.0 and nycflights13 data"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="images/delays_cutline.png" class="r-plt" alt="" width="427"></p>
+<div id="table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#table table {
+  font-family: 'Zilla Slab', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#table thead, #table tbody, #table tfoot, #table tr, #table td, #table th {
+  border-style: none;
+}
+
+#table p {
+  margin: 0;
+  padding: 0;
+}
+
+#table .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #2168AB;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#table .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#table .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#table .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#table .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #1A1A1A;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#table .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#table .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#table .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#table .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #1A1A1A;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#table .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#table .gt_group_heading {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D8D8D4;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#table .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D8D8D4;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#table .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#table .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#table .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#table .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#table .gt_row_group_first td {
+  border-top-width: 1px;
+}
+
+#table .gt_row_group_first th {
+  border-top-width: 1px;
+}
+
+#table .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#table .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#table .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#table .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#table .gt_striped {
+  background-color: #F1F1EF;
+}
+
+#table .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #1A1A1A;
+}
+
+#table .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#table .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#table .gt_left {
+  text-align: left;
+}
+
+#table .gt_center {
+  text-align: center;
+}
+
+#table .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#table .gt_font_normal {
+  font-weight: normal;
+}
+
+#table .gt_font_bold {
+  font-weight: bold;
+}
+
+#table .gt_font_italic {
+  font-style: italic;
+}
+
+#table .gt_super {
+  font-size: 65%;
+}
+
+#table .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#table .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#table .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#table .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#table .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#table .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#table .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#table .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#table div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#table td {
+  font-variant-numeric: tabular-nums;
+}
+
+#table tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#table .gt_col_heading, #table .gt_column_spanner {
+  letter-spacing: 0.05em;
+}
+
+#table .gt_group_heading {
+  letter-spacing: 0.05em;
+}
+
+#table .gt_subtitle {
+  padding-bottom: 9px !important;
+}
+
+#table .gt_title {
+  padding-bottom: 2px !important;
+}
+
+#table .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+
+#table tbody tr:nth-child(1) td {
+  padding-top: 22px !important;
+  background-color: transparent !important;
+}
+
+#table tbody tr:nth-child(1) {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22228%22%20height%3D%2213%22%3E%3Ctext%20x%3D%220%22%20y%3D%229.5%22%20font-family%3D%22Helvetica%2CArial%2Csans-serif%22%20font-size%3D%229%22%20font-weight%3D%22700%22%20letter-spacing%3D%221.1%22%20fill%3D%22darkred%22%3EHIGHEST%20AVG.%20ARRIVAL%20DELAYS%3C%2Ftext%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: left 5px;
+}
+
+#table tbody tr:nth-child(8) td {
+  padding-bottom: 12px !important;
+}
+
+#table tbody tr:nth-child(9) td {
+  padding-top: 22px !important;
+  background-color: transparent !important;
+}
+
+#table tbody tr:nth-child(9) {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22220%22%20height%3D%2213%22%3E%3Ctext%20x%3D%220%22%20y%3D%229.5%22%20font-family%3D%22Helvetica%2CArial%2Csans-serif%22%20font-size%3D%229%22%20font-weight%3D%22700%22%20letter-spacing%3D%221.1%22%20fill%3D%22darkgreen%22%3ELOWEST%20AVG.%20ARRIVAL%20DELAYS%3C%2Ftext%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: left 5px;
+}
+
+#table .gt_col_heading {
+  padding-bottom: 8px !important;
+  font-size: 12px !important;
+}
+
+#table .gt_footnote {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #333333;
+  font-size: 12px;
+}
+
+#table .gt_footnote_marks {
+  display: none !important;
+}
+
+#table .gt_sourcenote {
+  text-align: right;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="3" class="gt_heading gt_title gt_font_normal" style="color: #1A1A1A; font-size: 22px; font-weight: 700;"><span class="gt_from_md">Which airports experienced the longest<br>average arrival delays from NYC-inbound<br>flights?</span></td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #6B6B68; font-size: 13px; font-weight: 400;"><span class="gt_from_md">For destination airports that saw at least 1,000 flights out of<br>NYC (JFK, LGA, EWR) in 2013.</span></td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #1A1A1A; font-family: 'Archivo Narrow'; font-size: 10px; font-weight: 700; text-transform: uppercase;" scope="col" id="dest">Destination Airport<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #1A1A1A; font-family: 'Archivo Narrow'; font-size: 10px; font-weight: 700; text-transform: uppercase;" scope="col" id="flights">flights<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #1A1A1A; font-family: 'Archivo Narrow'; font-size: 10px; font-weight: 700; text-transform: uppercase;" scope="col" id="avg_delay">Avg. Delay<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px; border-top-width: 2px; border-top-style: dashed; border-top-color: darkred;">Richmond Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px; border-top-width: 2px; border-top-style: dashed; border-top-color: darkred;">2,454</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #8B0000; font-size: 14px; border-top-width: 2px; border-top-style: dashed; border-top-color: darkred;">20m 6s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Cincinnati Northern Kentucky Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">3,941</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #8B0000; font-size: 14px;">15m 21s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Manchester Regional Airport</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">1,009</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #8B0000; font-size: 14px;">14m 47s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Kansas City Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">2,008</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #8B0000; font-size: 14px;">14m 30s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">General Mitchell Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">2,802</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #8B0000; font-size: 14px;">14m 10s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Piedmont Triad</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">1,606</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #8B0000; font-size: 14px;">14m 6s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Washington Dulles Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">5,700</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #8B0000; font-size: 14px;">13m 51s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">James M Cox Dayton Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">1,525</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #8B0000; font-size: 14px;">12m 40s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px; border-top-width: 2px; border-top-style: dashed; border-top-color: darkgreen;">Luis Munoz Marin Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px; border-top-width: 2px; border-top-style: dashed; border-top-color: darkgreen;">5,819</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #006400; font-size: 14px; border-top-width: 2px; border-top-style: dashed; border-top-color: darkgreen;">2m 31s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Phoenix Sky Harbor Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">4,656</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #006400; font-size: 14px;">2m 5s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Los Angeles Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">16,174</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #006400; font-size: 14px;">32s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Dallas Fort Worth Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">8,738</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #006400; font-size: 14px;">19s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Miami Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">11,728</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #006400; font-size: 14px;">17s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Mc Carran Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">5,997</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #006400; font-size: 14px;">15s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Salt Lake City Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">2,467</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #006400; font-size: 14px;">10s</td>
+</tr>
+<tr>
+<td headers="dest" class="gt_row gt_left" style="color: #1A1A1A; font-size: 14px;">Seattle Tacoma Intl</td>
+<td headers="flights" class="gt_row gt_center" style="color: #1A1A1A; font-size: 14px;">3,923</td>
+<td headers="avg_delay" class="gt_row gt_center" style="color: #006400; font-size: 14px;">−1m 5s</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="gt_footnotes">
+<td class="gt_footnote" style="color: #6B6B68; font-family: 'Archivo Narrow'; font-size: 11px;" colspan="3">
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <span class="gt_from_md">Install using … pak::pak(“sportsdataverse/sdvplotR”)</span>
+</td>
+    </tr>
+<tr class="gt_sourcenotes">
+<td class="gt_sourcenote" style="color: #6B6B68; font-family: 'Archivo Narrow'; font-size: 11px;" colspan="3"><span class="gt_from_md">Example created by @andreweatherman using {gtUtils} v1.0 and nycflights13 data</span></td>
+    </tr>
+</tfoot>
+</table>
+</div>
 <p>There are two cut lines here, one for each group.
 <code>gt_cutline(after = 8, ...)</code> draws the rule between rows 8
 and 9, where the highest delays give way to the lowest. The label sits

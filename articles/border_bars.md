@@ -228,7 +228,37 @@ final_data %>%
   )
 ```
 
-![](images/border-bars-player-report.png)
+| ¹                                                 | At Home¹ | On Road¹ |
+|---------------------------------------------------|----------|----------|
+| Efficiency                                        |          |          |
+| Off. Efficiency                                   | 90.3%    | 97.5%    |
+| Def. Efficiency                                   | 70.1%    | 82.5%    |
+| Tempo                                             | 28.3%    | 7.2%     |
+| Offensive Four Factors                            |          |          |
+| Eff. FG%                                          | 81.4%    | 91.1%    |
+| FTA per FGA                                       | 62.9%    | 55.1%    |
+| Off. Rebound Rate                                 | 45.4%    | 98.1%    |
+| Turnover Rate                                     | 94.2%    | 65.4%    |
+| Defensive Four Factors                            |          |          |
+| Eff. FG%                                          | 59.3%    | 76.7%    |
+| FTA per FGA                                       | 67.9%    | 80.6%    |
+| Def. Rebound Rate                                 | 80.1%    | 77.0%    |
+| Turnover Rate                                     | 47.9%    | 31.6%    |
+| Offensive Shooting                                |          |          |
+| 2FG%                                              | 70.4%    | 78.1%    |
+| 3FG%                                              | 88.6%    | 91.1%    |
+| FT%                                               | 51.2%    | 54.6%    |
+| Defensive Shooting                                |          |          |
+| 2FG%                                              | 51.8%    | 64.8%    |
+| 3FG%                                              | 63.4%    | 80.3%    |
+| FT%                                               | 81.2%    | 96.7%    |
+| ¹ Data: ESPN box scores via {hoopR}               |          |          |
+| Viz. by @andreweatherman for a {gtUtils} vignette |          |          |
+
+2024 Recap:
+Duke![](https://a.espncdn.com/i/teamlogos/ncaa/500-dark/150.png) {.table
+.gt_table style="table-layout:fixed;" quarto-disable-processing="false"
+quarto-bootstrap="false"}
 
 ## Table Footers
 
@@ -246,10 +276,9 @@ Again, this is a really quick and small example. The table itself is
 pretty basic. We use `gt_theme_sofa` on light mode, throw in some row
 striping, and include *both* top and bottom bars. In the bottom bar, we
 add some source text, push it 12px size, and toss it on normal weight.
-The image we placed in the bottom *could* be clearer, but there’s
-nothing that we can do about that. We stretch it to 100px wide and 30px
-tall. And with fewer than 20 lines of code, we have a decent start to a
-table!
+The image in the bottom bar is the sdvplotR hex logo, drawn 26px wide
+and 30px tall to keep its shape. And with fewer than 20 lines of code,
+we have a decent start to a table!
 
 ``` r
 
@@ -264,9 +293,9 @@ data %>%
   opt_row_striping() %>%
   gt_border_bars_bottom("#1c2632",
     bar_height = 25,
-    img = "https://www.sxsw.com/wp-content/uploads/2022/11/RollingStone-BW.png",
+    img = "https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png",
     text = "Data pulled from Tidy Tuesday",
-    img_width = 100, img_height = 30, text_size = 12, text_weight = "normal"
+    img_width = 26, img_height = 30, text_size = 12, text_weight = "normal"
   ) %>%
   gt_border_bars_top("#1c2632", bar_height = 5) %>%
   tab_header(
@@ -275,7 +304,7 @@ data %>%
   )
 ```
 
-![](images/border-bars-rolling-stones.png)
+[TABLE]
 
 ## Just for fun
 
@@ -306,4 +335,4 @@ data %>%
   gt_border_bars_bottom(c("#EDBD68", "#F2704E", "#DE5152", "#A43845", "#602B53"))
 ```
 
-![](images/border-bars-for-fun.png)
+[TABLE]
