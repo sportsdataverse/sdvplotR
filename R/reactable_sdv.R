@@ -5,7 +5,9 @@
 #'
 #' @description Cell renderers for [reactable::colDef()] that translate team
 #'   abbreviations (or player IDs) into `<img>` tags. Values that cannot be
-#'   resolved are returned unchanged so the original text is shown.
+#'   resolved are returned unchanged so the original text is shown. Logos and
+#'   wordmarks get the team's full name as `alt` text, headshots
+#'   `"Player <id> headshot"`.
 #'
 #' @param sport Character string identifying the sport. One of
 #'   [supported_sports()].
@@ -45,7 +47,7 @@ reactable_sdv_logos <- function(
   sport <- rlang::arg_match0(sport, supported_sports())
   variant <- rlang::arg_match0(variant, logo_variants)
   function(value, index) {
-    img_tag(resolve_logo_url(value, sport, variant), value, height, default_img)
+    img_tag(resolve_logo_url(value, sport, variant), team_alt(value, sport), height, default_img)
   }
 }
 
@@ -60,7 +62,7 @@ reactable_sdv_wordmarks <- function(
   sport <- rlang::arg_match0(sport, supported_sports())
   variant <- rlang::arg_match0(variant, wordmark_variants)
   function(value, index) {
-    img_tag(resolve_wordmark_url(value, sport, variant), value, height, default_img)
+    img_tag(resolve_wordmark_url(value, sport, variant), team_alt(value, sport), height, default_img)
   }
 }
 
@@ -78,16 +80,22 @@ reactable_sdv_headshots <- function(
   sport <- rlang::arg_match0(sport, supported_sports())
   id_type <- check_id_type(id_type, sport)
   function(value, index) {
-    img_tag(headshot_from_id(value, sport = sport, id_type = id_type), value, height, default_img)
+    img_tag(headshot_from_id(value, sport = sport, id_type = id_type), headshot_alt(value), height, default_img, value)
   }
 }
 
-img_tag <- function(url, value, height, default_img) {
-  if (is.na(url) || !nzchar(url)) url <- default_img
+# `alt` is the image's alt text; `value` (the cell's raw value) is shown as
+# text when there is no image, and is the alt of the `default_img` stand-in.
+img_tag <- function(url, alt, height, default_img, value = alt) {
+  force(value)
+  if (is.na(url) || !nzchar(url)) {
+    url <- default_img
+    alt <- value
+  }
   if (is.null(url)) return(as.character(value))
   sprintf(
     '<img src="%s" style="height:%spx;vertical-align:middle;" alt="%s" />',
-    url, height, as.character(value)
+    url, height, htmltools::htmlEscape(as.character(alt), attribute = TRUE)
   )
 }
 
@@ -127,7 +135,10 @@ reactable_sdv_cols_label <- function(
     out[[nm]] <- reactable::colDef(
       name = "",
       html = TRUE,
-      header = sprintf('<img src="%s" style="height:%spx;" alt="%s" />', url, height, nm),
+      header = sprintf(
+        '<img src="%s" style="height:%spx;" alt="%s" />',
+        url, height, htmltools::htmlEscape(team_alt(nm, sport), attribute = TRUE)
+      ),
       ...
     )
   }

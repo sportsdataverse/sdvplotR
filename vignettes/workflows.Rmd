@@ -45,7 +45,7 @@ out_dir <- tempdir()
 
 Complete workflow for creating an NFL passing recap:
 
-```{r nfl-workflow}
+```{r nfl-workflow, fig.alt = "Bar chart of the top 10 NFL teams by pass EPA in the latest completed season, each bar filled in the team's color."}
 # Step 1: Load data with nflfastR, for the last completed regular season (NFL
 # seasons are named for the year they start and end in early January)
 season <- as.integer(format(Sys.Date(), "%Y")) - 1 -
@@ -93,7 +93,7 @@ plot
 
 Complete workflow for CFB tiers from passing efficiency:
 
-```{r cfb-workflow}
+```{r cfb-workflow, fig.alt = "College football team logos grouped into tiers by passing offense EPA per pass play in the latest completed season."}
 # Step 1: Load data with cfbfastR, for the last completed regular season (named
 # for the year it starts; it ends in mid-December)
 cfb_season <- as.integer(format(Sys.Date(), "%Y")) -
@@ -141,7 +141,7 @@ tier_plot
 
 Complete workflow for comparing NBA scorers:
 
-```{r nba-workflow}
+```{r nba-workflow, fig.alt = "Top 8 NBA scorers of the latest completed season, each drawn as a headshot placed by games played (horizontal) and points per game (vertical), with a name label under each."}
 # Step 1: Load data with hoopR (ESPN player box scores) for the last completed
 # regular season (hoopR names a season for the year it ends, in mid-April)
 nba_season <- as.integer(format(Sys.Date(), "%Y")) -
@@ -276,7 +276,7 @@ Step 1 is not run when this site is built, because the NHL Stats API is not
 called there; the rest of this workflow uses a snapshot of `nhl_teams` taken on
 `r format(fx_nhl$taken, "%B %d, %Y")` (`r fx_nhl$package`).
 
-```{r nhl-workflow}
+```{r nhl-workflow, fig.alt = "NHL teams in the latest completed season, each drawn as its logo, placed by goals scored per game (horizontal) and goals allowed per game (vertical)."}
 # Step 2: Process data: the NHL's full team names become abbreviations
 team_perf <- nhl_teams |>
   mutate(team = clean_team_abbrs(team_full_name, sport = "nhl"))
@@ -368,7 +368,7 @@ odds_table
 Wrap the draw-and-export steps in a function that takes any sport's
 standings, so one pipeline serves every league:
 
-```{r automated-pipeline}
+```{r automated-pipeline, fig.alt = "Bar chart of team win percentage from the automated report workflow, each bar filled in the team's color."}
 generate_standings_report <- function(standings, sport, out_dir = tempdir()) {
   message("Generating ", toupper(sport), " standings report...")
 

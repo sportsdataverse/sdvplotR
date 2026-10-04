@@ -55,3 +55,21 @@ jobs:
           clean: false
           branch: gh-pages
           folder: docs
+
+      # After the deploy, so a dead card never blocks a content deploy; the run still turns red.
+      # A renamed chunk leaves the gallery card pointing at a figure that is no longer built.
+      - name: Check gallery images exist
+        run: |
+          cd docs/articles
+          test -f gallery.html || { echo "::error::docs/articles/gallery.html was not built"; exit 1; }
+          srcs=$(tr '\n' ' ' < gallery.html | grep -o '<img[^>]*src="[^"]*"' | sed 's/.*src="//; s/"$//')
+          [ -n "$srcs" ] || { echo "::error::gallery.html has no images (markup changed?)"; exit 1; }
+          missing=0
+          for src in $srcs; do
+            case "$src" in http*|data:*) continue ;; esac
+            if [ ! -f "$src" ]; then
+              echo "::error::gallery.html points at $src, which is not under docs/"
+              missing=1
+            fi
+          done
+          exit $missing

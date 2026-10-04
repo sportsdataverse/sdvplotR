@@ -92,7 +92,7 @@ The MLB Stats API writes some team abbreviations differently from ESPN
 
 Plot every team's runs scored against runs allowed, with team logos:
 
-```{r team-performance}
+```{r team-performance, fig.alt = "MLB teams in the latest completed season, each drawn as its logo, placed by runs scored (horizontal) and runs allowed (vertical)."}
 ggplot(team_stats, aes(x = runs_scored, y = runs_allowed)) +
   geom_sdv_logos(
     aes(team = team_abbreviation),
@@ -114,7 +114,7 @@ ggplot(team_stats, aes(x = runs_scored, y = runs_allowed)) +
 
 Use team colors to show winning percentage:
 
-```{r team-colors}
+```{r team-colors, fig.alt = "Bar chart of the 20 MLB teams with the best winning percentage in the latest completed season, each bar filled in the team's color."}
 team_wins <- team_stats |>
   arrange(desc(win_pct)) |>
   head(20)
@@ -139,7 +139,7 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
 
 Plot the home run leaders with their headshots:
 
-```{r player-headshots}
+```{r player-headshots, fig.alt = "MLB home runs leaders of the latest completed season, each drawn as a headshot placed by games played (horizontal) and home runs (vertical), with a name label under each."}
 top_hr <- player_stats |>
   slice_max(home_runs, n = 8, with_ties = FALSE)
 
@@ -185,7 +185,7 @@ numbers, so the wrong setting draws someone else or nothing.
 
 Create a tier plot ranking MLB teams:
 
-```{r team-tiers}
+```{r team-tiers, fig.alt = "MLB team logos grouped into labeled tiers, from the top tier to the bottom. The tiers are examples."}
 # Sample tier assignments
 tier_data <- data.frame(
   tier_no = c(1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5),
@@ -198,8 +198,8 @@ tier_data <- data.frame(
 sdv_team_tiers(
   tier_data,
   sport = "mlb",
-  title = "MLB Power Rankings",
-  subtitle = paste("As of", Sys.Date()),
+  title = "MLB Team Tiers",
+  subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "World Series Favorites",
     "2" = "Contenders",
@@ -214,7 +214,7 @@ sdv_team_tiers(
 
 Show each division's teams in a column:
 
-```{r division-map}
+```{r division-map, fig.alt = "Grid of MLB team logos, one column per division, so each team sits under its division."}
 division_map <- teams |>
   mutate(division_num = as.numeric(factor(division_name))) |>
   arrange(division_num, team_name) |>
@@ -292,7 +292,7 @@ qualified <- fx$qualified
 
 This call is read from the same snapshot.
 
-```{r player-comparison}
+```{r player-comparison, fig.alt = "MLB top performers of the latest completed season in two panels, home runs and batting average; each leader is drawn as a headshot ranked within its panel."}
 comparison <- bind_rows(
   player_stats |>
     slice_max(home_runs, n = 5, with_ties = FALSE) |>
@@ -329,7 +329,7 @@ ggplot(comparison, aes(x = rank, y = value)) +
 Replace axis labels with team logos (`theme_x_sdv()` needs the `ggtext`
 package, and goes after any complete theme such as `theme_minimal()`):
 
-```{r axis-logos}
+```{r axis-logos, fig.alt = "Bar chart of the top 8 MLB teams by winning percentage, with each team's logo in place of its name on the horizontal axis and bars in team colors."}
 top_8 <- team_wins |>
   head(8) |>
   mutate(team_abbreviation = factor(team_abbreviation, levels = team_abbreviation))

@@ -76,7 +76,7 @@ not called when this site is built.
 
 Plot every team's goals for against goals against, with team logos:
 
-```{r team-performance}
+```{r team-performance, fig.alt = "NHL teams in the latest completed season, each drawn as its logo, placed by goals scored per game (horizontal) and goals allowed per game (vertical)."}
 ggplot(team_stats, aes(x = goals_for_per_game, y = goals_against_per_game)) +
   geom_sdv_logos(
     aes(team = team_abbr),
@@ -98,7 +98,7 @@ ggplot(team_stats, aes(x = goals_for_per_game, y = goals_against_per_game)) +
 
 Use team colors to show points percentage:
 
-```{r team-colors}
+```{r team-colors, fig.alt = "Bar chart of the 20 NHL teams with the best points percentage in the latest completed season, each bar filled in the team's color."}
 team_wins <- team_stats |>
   arrange(desc(point_pct)) |>
   head(20)
@@ -123,7 +123,7 @@ ggplot(team_wins, aes(x = reorder(team_abbr, point_pct), y = point_pct)) +
 
 Plot the goal scoring leaders with their headshots:
 
-```{r player-headshots}
+```{r player-headshots, fig.alt = "NHL goals leaders of the latest completed season, each drawn as a headshot placed by games played (horizontal) and goals (vertical), with a name label under each."}
 top_goals <- player_stats |>
   slice_max(goals, n = 8, with_ties = FALSE)
 
@@ -171,7 +171,7 @@ numbers, so the wrong setting draws someone else or nothing.
 
 Create a tier plot ranking NHL teams:
 
-```{r team-tiers}
+```{r team-tiers, fig.alt = "NHL team logos grouped into labeled tiers, from the top tier to the bottom. The tiers are examples."}
 # Sample tier assignments
 tier_data <- data.frame(
   tier_no = c(1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5),
@@ -184,8 +184,8 @@ tier_data <- data.frame(
 sdv_team_tiers(
   tier_data,
   sport = "nhl",
-  title = "NHL Power Rankings",
-  subtitle = paste("As of", Sys.Date()),
+  title = "NHL Team Tiers",
+  subtitle = paste0("Example tiers, ", season - 1, "-", substr(season, 3, 4), " season"),
   tier_desc = c(
     "1" = "Stanley Cup Favorites",
     "2" = "Contenders",
@@ -201,7 +201,7 @@ sdv_team_tiers(
 Show each division's teams in a column, using the conference and division
 sdvplotR keeps for every team:
 
-```{r conference-map}
+```{r conference-map, fig.alt = "Grid of NHL team logos, one column per conference and division, so each team sits under its conference and division."}
 conference_map <- team_reference("nhl") |>
   mutate(conf_div = paste(conference, division)) |>
   arrange(conf_div, team_name) |>
@@ -266,7 +266,7 @@ team_wins |>
 
 Compare the goal scoring leaders with the assist leaders:
 
-```{r player-comparison}
+```{r player-comparison, fig.alt = "NHL top performers of the latest completed season in two panels, goals and assists; each leader is drawn as a headshot ranked within its panel."}
 comparison <- bind_rows(
   player_stats |>
     slice_max(goals, n = 5, with_ties = FALSE) |>
@@ -302,7 +302,7 @@ ggplot(comparison, aes(x = rank, y = value)) +
 Replace axis labels with team logos (`theme_x_sdv()` needs the `ggtext`
 package, and goes after any complete theme such as `theme_minimal()`):
 
-```{r axis-logos}
+```{r axis-logos, fig.alt = "Bar chart of the top 8 NHL teams by points percentage, with each team's logo in place of its name on the horizontal axis and bars in team colors."}
 top_8 <- team_wins |>
   head(8) |>
   mutate(team_abbr = factor(team_abbr, levels = team_abbr))

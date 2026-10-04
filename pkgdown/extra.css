@@ -125,6 +125,14 @@ small.nav-text.text-muted {
   line-height: 1.65rem;
 }
 
+/* pkgdown sticks #toc 56px down; this navbar is taller, so the first line sat under it */
+@media (min-width: 576px) {
+  #toc {
+    top: 80px;
+    max-height: calc(100vh - 80px - 1rem);
+  }
+}
+
 /* the home sidebar is ~180px wide at tablet widths; keep README badges inside it */
 aside img {
   max-width: 100%;
@@ -277,8 +285,13 @@ html { scroll-padding-top: 5.5rem; }
    hue-rotate(180deg)), which turns every team logo and team color into its negative and shows
    tier_list's dark picture as cream (F17). Show them as drawn. */
 [data-bs-theme="dark"] img.r-plt,
+[data-bs-theme="dark"] pre .r-plt.img img,
 [data-bs-theme="dark"] .html-widget {
   filter: none;
+}
+/* bootstrap-pkgdown dims every image in a code block to 0.66 in dark mode, which grays the card */
+[data-bs-theme="dark"] pre .r-plt.img img {
+  opacity: 1;
 }
 /* a widget with no theme of its own draws a white table but inherits the page's light text:
    give it dark text */
@@ -319,14 +332,22 @@ html { scroll-padding-top: 5.5rem; }
 }
 
 /* ---- dark mode: figures, widgets and light tables on a light card --------- */
-/* figures and widgets already show as drawn (the "not inverted" section above); give them, and
-   the light gt tables pkgdown/extra.js marks (.sdv-card), a light card instead of a bare white
-   rectangle on the dark page; the home page's README figure has no r-plt class, so it is named */
+/* figures and widgets already show as drawn (the "not inverted" section above); pkgdown/extra.js
+   measures each one and marks the light ones, with the light gt tables, .sdv-card: a light card
+   instead of a bare white rectangle on the dark page. Dark ones (the tier plots) get no frame.
+   Covers article and reference figures, theme previews and the home page's README figure. */
+/* figures keep their card padding from the first paint, so marking one light after it loads
+   changes only its background, not its size */
 [data-bs-theme="dark"] main img.r-plt,
-[data-bs-theme="dark"] main img[src*="README-home"],
-[data-bs-theme="dark"] main .html-widget,
+[data-bs-theme="dark"] main pre .r-plt.img img,
+[data-bs-theme="dark"] main img[src*="README-home"] {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
 [data-bs-theme="dark"] main .sdv-card {
   background-color: #F4F6FA;
   border-radius: 0.5rem;
+}
+[data-bs-theme="dark"] main .sdv-card:not(img) {
   padding: 0.5rem;
 }

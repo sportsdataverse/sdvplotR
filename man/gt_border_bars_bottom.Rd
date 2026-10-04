@@ -37,8 +37,8 @@ Defaults to \code{"100\%"}.}
 \item{bar_align}{Character. Alignment of the block when \code{bar_width} is under
 \code{"100\%"}. One of \code{"left"}, \code{"center"}, \code{"right"}. Defaults to \code{"center"}.}
 
-\item{img}{Optional. A URL for an image to render in the bar. Defaults to
-\code{NULL}.}
+\item{img}{Optional. A URL for an image to render in the bar. It is
+decorative, so it carries an empty \code{alt}. Defaults to \code{NULL}.}
 
 \item{img_width}{Numeric. The image width in pixels. Defaults to \code{30}.}
 

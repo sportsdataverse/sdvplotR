@@ -201,6 +201,16 @@ logo_from_team <- function(team, sport = "nfl", season = NULL) {
   season_logo(lookup_team_column(team, sport, "logo_url"), team, sport, season)
 }
 
+# Alt text for an image: the team's full name (`team` as the cell holds it;
+# an unresolved value falls back to itself), or "Player <id> headshot" for an
+# id, which is all a headshot helper has to go on.
+team_alt <- function(team, sport) {
+  nm <- lookup_team_column(team, sport, "team_name")
+  ifelse(is.na(nm), as.character(team), nm)
+}
+
+headshot_alt <- function(id) paste0("Player ", id, " headshot")
+
 wordmark_from_team <- function(team, sport = "nfl") {
   lookup_team_column(team, sport, "wordmark_url")
 }

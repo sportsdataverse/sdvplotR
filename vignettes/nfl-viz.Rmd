@@ -66,7 +66,7 @@ pass_plays <- pbp |>
 Create a scatter plot showing team EPA (Expected Points Added) per play, with
 team logos replacing the data points:
 
-```{r epa-plot}
+```{r epa-plot, fig.alt = "NFL teams' pass EPA per play against number of pass plays in the latest completed season, each team drawn as its logo, with a dashed line at zero EPA."}
 team_epa <- pass_plays |>
   group_by(posteam) |>
   summarise(
@@ -102,7 +102,7 @@ ggplot(team_epa, aes(x = n_plays, y = mean_epa)) +
 
 Use team colors to visualize win-loss records:
 
-```{r standings-colors}
+```{r standings-colors, fig.alt = "Bar chart of the 16 NFL teams with the best win percentage in the latest completed season, each bar filled in the team's color."}
 # Regular-season records from the schedule, one row per team per game
 standings <- nflreadr::load_schedules(season) |>
   filter(game_type == "REG", !is.na(result)) |>
@@ -136,7 +136,7 @@ ggplot(head(standings, 16), aes(x = reorder(team, win_pct), y = win_pct)) +
 
 Visualize quarterback performance with player headshots:
 
-```{r qb-headshots}
+```{r qb-headshots, fig.alt = "Top 8 NFL quarterbacks by EPA per pass in the latest completed season, each drawn as a headshot placed by passes thrown (horizontal) and mean EPA per pass (vertical), with a name label under each."}
 # Top QBs by EPA
 qb_epa <- pass_plays |>
   filter(pass == 1, !is.na(passer_player_id)) |>
@@ -182,7 +182,7 @@ ggplot(qb_epa, aes(x = n_passes, y = mean_epa)) +
 
 Create a tier plot ranking NFL teams:
 
-```{r team-tiers}
+```{r team-tiers, fig.alt = "NFL team logos grouped into labeled tiers, from the top tier to the bottom. The tiers are examples."}
 # Sample tier assignments (replace with your own rankings)
 tier_data <- data.frame(
   tier_no = c(1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4),
@@ -194,7 +194,7 @@ tier_data <- data.frame(
 sdv_team_tiers(
   tier_data,
   sport = "nfl",
-  title = "NFL Power Rankings",
+  title = "NFL Team Tiers",
   subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Elite",
@@ -241,7 +241,7 @@ standings_table |>
 
 Visualize teams grouped by division:
 
-```{r division-map}
+```{r division-map, fig.alt = "Grid of NFL team logos, one column per division, so each team sits under its division."}
 # Each team's division, from the reference data sdvplotR keeps for every team
 divisions <- team_reference("nfl") |>
   arrange(division, team_name) |>
@@ -278,7 +278,7 @@ ggplot(divisions, aes(x = x, y = y)) +
 
 Replace axis labels with team logos using `scale_x_sdv()`:
 
-```{r axis-logos}
+```{r axis-logos, fig.alt = "Bar chart of the top 8 NFL teams by win percentage, with each team's logo in place of its name on the horizontal axis and bars in team colors."}
 top_8 <- standings |>
   head(8) |>
   mutate(team = factor(team, levels = team))

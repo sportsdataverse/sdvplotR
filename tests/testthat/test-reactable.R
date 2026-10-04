@@ -38,3 +38,14 @@ test_that("reactable_sdv_headshots passes id_type through", {
   expect_match(reactable_sdv_headshots("wnba", id_type = "league")("1642286", 1), "cdn\\.wnba\\.com/.*/1642286\\.png")
   expect_match(reactable_sdv_headshots("nba")("1966", 1), "a\\.espncdn\\.com/.*/nba/players/full/1966\\.png")
 })
+
+test_that("reactable image helpers alt-name the team or the player id", {
+  alt <- function(x) sub('.*alt="([^"]*)".*', "\\1", x)
+  expect_identical(alt(reactable_sdv_logos("nfl")("KC", 1)), "Kansas City Chiefs")
+  expect_identical(alt(reactable_sdv_wordmarks("nfl")("KC", 1)), "Kansas City Chiefs")
+  expect_identical(alt(reactable_sdv_headshots("cfb")("3917315", 1)), "Player 3917315 headshot")
+  skip_if_not_installed("reactable")
+  cols <- reactable_sdv_cols_label(data.frame(KC = 1, BUF = 2), sport = "nfl")
+  expect_identical(alt(cols$KC$header), "Kansas City Chiefs")
+  expect_identical(alt(cols$BUF$header), "Buffalo Bills")
+})

@@ -52,7 +52,9 @@ A function with signature \verb{function(value, index)} suitable for the
 \description{
 Cell renderers for \code{\link[reactable:colDef]{reactable::colDef()}} that translate team
 abbreviations (or player IDs) into \verb{<img>} tags. Values that cannot be
-resolved are returned unchanged so the original text is shown.
+resolved are returned unchanged so the original text is shown. Logos and
+wordmarks get the team's full name as \code{alt} text, headshots
+\code{"Player <id> headshot"}.
 }
 \examples{
 \dontshow{if (requireNamespace("reactable", quietly = TRUE)) withAutoprint(\{ # examplesIf}

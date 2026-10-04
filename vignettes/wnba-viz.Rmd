@@ -65,7 +65,7 @@ player_stats <- wehoop::load_wnba_player_box(seasons = season) |>
 
 Visualize team performance with team logos:
 
-```{r team-performance}
+```{r team-performance, fig.alt = "WNBA teams in the latest completed season, each drawn as its logo, placed by average points (horizontal) and average rebounds (vertical) per game."}
 # Calculate team metrics
 team_perf <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
@@ -98,7 +98,7 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
 
 Use team colors to visualize win percentages:
 
-```{r team-colors}
+```{r team-colors, fig.alt = "Bar chart of WNBA teams by win percentage in the latest completed season, each bar filled in the team's color."}
 # Calculate win percentage
 team_wins <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
@@ -132,7 +132,7 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
 
 Visualize top performers with player headshots:
 
-```{r player-headshots}
+```{r player-headshots, fig.alt = "WNBA points per game leaders of the latest completed season, each drawn as a headshot placed by games played (horizontal) and points per game (vertical), with a name label under each."}
 # Top scorers
 top_scorers <- player_stats |>
   filter(!is.na(athlete_id)) |>
@@ -209,7 +209,7 @@ because the reader's browser loads the images.
 
 Create a tier plot ranking WNBA teams:
 
-```{r team-tiers}
+```{r team-tiers, fig.alt = "WNBA team logos grouped into labeled tiers, from the top tier to the bottom. The tiers are examples."}
 # Example tier assignments (replace with your own rankings)
 tier_data <- data.frame(
   tier_no = c(1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5),
@@ -238,7 +238,7 @@ sdv_team_tiers(
 
 Visualize teams by conference:
 
-```{r conference-standings}
+```{r conference-standings, fig.alt = "Grid of WNBA team logos, one column per conference, with the team with the best record at the top of each column."}
 # Every team's winning percentage, with the conference sdvplotR keeps for it
 conference_standings <- team_stats |>
   group_by(team_abbreviation) |>
@@ -309,7 +309,7 @@ standings_table |>
 
 Compare the scoring leaders with the assist leaders:
 
-```{r player-comparison}
+```{r player-comparison, fig.alt = "WNBA top performers of the latest completed season in two panels, points per game and assists per game; each leader is drawn as a headshot ranked within its panel."}
 per_game <- player_stats |>
   group_by(athlete_id, athlete_display_name) |>
   summarise(
@@ -353,7 +353,7 @@ ggplot(comparison, aes(x = rank, y = value)) +
 
 Replace axis labels with team logos:
 
-```{r axis-logos}
+```{r axis-logos, fig.alt = "Bar chart of the top 8 WNBA teams by win percentage, with each team's logo in place of its name on the horizontal axis and bars in team colors."}
 top_8 <- team_wins |>
   head(8) |>
   mutate(team_abbreviation = factor(team_abbreviation, levels = team_abbreviation))

@@ -55,18 +55,19 @@ cards <- data.frame(
     fig("nba-viz", "team-performance"), fig("wnba-viz", "team-performance"),
     fig("mlb-viz", "team-performance"), fig("nhl-viz", "team-performance"),
     fig("mbb-viz", "team-performance"), fig("wbb-viz", "team-performance"),
-    fig("social-posting", "logo-scatter"), preview("gt_theme_sdv"),
-    preview("gt_theme_sdv_team"), fig("workflows", "cfb-workflow"),
+    fig("social-posting", "logo-scatter"), preview("gt_theme_pl"),
+    preview("gt_theme_sofa_light"), fig("workflows", "cfb-workflow"),
     preview("gt_theme_sdv"), preview("gt_theme_sdv_dark"),
     preview("gt_theme_terminal"), preview("gt_theme_broadsheet"), preview("gt_theme_savant"),
     preview("gt_theme_almanac"), preview("gt_theme_swiss"), preview("gt_theme_scoreboard"),
     preview("tier_list_example"), preview("gt_theme_athletic"),
-    preview("gt_theme_sdv_team"), fig("shot-grid", "plot"),
-    preview("gt_theme_sdv"), fig("signature-ribbon", "plot")
+    preview("gt_theme_tufte"), fig("shot-grid", "plot"),
+    preview("gt_theme_kenpom"), fig("signature-ribbon", "plot")
   )
 )
-# Each picture sits inside a link whose text is the article title, so its alt text names only
+# Every card has its own picture (checked below). Each picture sits inside a link whose text is the article title, so its alt text names only
 # the kind of picture: a screen reader reads "Figure, NFL", not the title twice.
+stopifnot(!anyDuplicated(cards$image)) # a repeated picture fails the build
 cards$alt <- ifelse(grepl("figure-html", cards$image), "Figure", "Table theme preview")
 
 htmltools::div(

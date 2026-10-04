@@ -66,7 +66,7 @@ pass_plays <- pbp |>
 
 Rank one conference's passing offenses by EPA per play:
 
-```{r conference-standings}
+```{r conference-standings, fig.alt = "Bar chart of Southeastern Conference teams' EPA per pass play in the latest completed season, sorted from lowest to highest, each bar filled in the team's color."}
 # EPA per pass play for every team, with the conference sdvplotR keeps for it
 team_perf <- pass_plays |>
   group_by(team_abbr) |>
@@ -119,7 +119,7 @@ Sys.setenv(CFBD_API_KEY = "YOUR-API-KEY-HERE")
 # ~/.Renviron (usethis::edit_r_environ()); see ?cfbfastR::register_cfbd
 ```
 
-```{r playoff-bracket}
+```{r playoff-bracket, fig.alt = "The 12 College Football Playoff seeds of the latest completed season computed from results alone, each team drawn as its logo in seed order."}
 sched <- cfbfastR::load_cfb_schedules(season)
 
 # FBS and FCS teams: games against FCS count toward records, but only FBS
@@ -176,7 +176,7 @@ the committee did.
 
 Create a tier plot for top CFB teams:
 
-```{r team-tiers}
+```{r team-tiers, fig.alt = "College football team logos grouped into labeled tiers, from the top tier to the bottom. Teams are the 25 best passing offenses by EPA per play."}
 # The 25 best passing offenses by EPA per play, in tiers
 top_25 <- team_perf |>
   slice_max(mean_epa, n = 25, with_ties = FALSE) |>
@@ -211,7 +211,7 @@ sdv_team_tiers(
 
 Visualize all FBS teams by conference:
 
-```{r conference-map}
+```{r conference-map, fig.alt = "Grid of FBS team logos, one column per conference, so each team sits under its conference."}
 # FBS conferences, from the conferences sdvplotR keeps for every team
 conference_map <- team_reference("cfb") |>
   filter(division == "FBS") |>
@@ -276,7 +276,7 @@ team_perf |>
 
 Visualize rivalry games with both team logos:
 
-```{r rivalries}
+```{r rivalries, fig.alt = "Three college football rivalry pairings, such as the Iron Bowl and The Game, each pair shown as two team logos side by side with the rivalry name below."}
 # Define rivalries
 rivalries <- data.frame(
   team1 = c("ALA", "AUB", "OSU", "MICH", "UGA", "FLA"),
@@ -319,7 +319,7 @@ ggplot(rivalries, aes(x = 1, y = row)) +
 
 Replace axis labels with team logos:
 
-```{r axis-logos}
+```{r axis-logos, fig.alt = "Bar chart of the top 10 college football teams by pass EPA per play, with each team's logo in place of its name on the horizontal axis and bars in team colors."}
 top_10 <- team_perf |>
   slice_max(mean_epa, n = 10, with_ties = FALSE) |>
   mutate(team_abbr = factor(team_abbr, levels = team_abbr))

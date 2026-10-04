@@ -17,8 +17,9 @@
 #'   [gt::cells_stub()], [gt::cells_column_labels()], and
 #'   [gt::cells_row_groups()] helper functions can be used here.
 #' @param include_name If `TRUE`, keep the cell's text after the logo, so a
-#'   cell shows logo and name (what cbbplotR's `gt_cbb_teams()` did). Defaults
-#'   to `FALSE`, the logo alone.
+#'   cell shows logo and name (what cbbplotR's `gt_cbb_teams()` did), and the
+#'   image gets an empty `alt` so the name is not read twice. Defaults to
+#'   `FALSE`, the logo alone, whose `alt` is the team's full name.
 #' @param season `NULL` (the default) for today's logos, or one season whose
 #'   marks every cell shows (the ending year for the NHL). See the Historical
 #'   logos section.
@@ -171,7 +172,7 @@ gt_sdv_headshots <- function(
 
       # web_image() needs a URL for every cell; IDs with none stay as text
       image_urls[missing] <- headshot_placeholder
-      img_tags <- gt::web_image(image_urls, height = height)
+      img_tags <- headshot_img(image_urls, x, height)
       img_tags[missing] <- x[missing]
 
       img_tags
@@ -232,7 +233,7 @@ gt_sdv_cols_label <- function(
     fn = function(x) {
       if (type == "headshot") {
         image_url <- headshot_from_id(x, sport = sport, id_type = id_type)
-        out <- gt::web_image(image_url, height = height)
+        out <- headshot_img(image_url, x, height)
         out[is.na(image_url)] <- x[is.na(image_url)]
       } else {
         team_abbr <- clean_team_abbrs(
@@ -253,9 +254,9 @@ gt_sdv_cols_label <- function(
           img_url,
           "\" style=\"height:",
           height,
-          ";\" alt=\"The ",
-          team_abbr,
-          " logo\">"
+          ";\" alt=\"",
+          htmltools::htmlEscape(team_alt(team_abbr, sport), attribute = TRUE),
+          "\">"
         )
 
         # If the image url is NA we didn't find a match. Return the actual value
@@ -270,6 +271,14 @@ gt_sdv_cols_label <- function(
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
+
+# What gt::web_image() writes, plus the alt text it has no argument for.
+headshot_img <- function(url, id, height) {
+  paste0(
+    "<img src=\"", url, "\" style=\"height:", height, ";\" alt=\"",
+    htmltools::htmlEscape(headshot_alt(id), attribute = TRUE), "\">"
+  )
+}
 
 gt_sdv_image <- function(
     gt_object,
@@ -313,9 +322,10 @@ gt_sdv_image <- function(
         "\" style=\"height:",
         height,
         if (isTRUE(include_name)) ";vertical-align:middle;margin-right:0.35em",
-        ";\" alt=\"The ",
-        htmltools::htmlEscape(team_abbr, attribute = TRUE),
-        " logo\">",
+        # with include_name the cell's own text already names the team
+        ";\" alt=\"",
+        if (!isTRUE(include_name)) htmltools::htmlEscape(team_alt(team_abbr, sport), attribute = TRUE),
+        "\">",
         if (isTRUE(include_name)) x
       )
 

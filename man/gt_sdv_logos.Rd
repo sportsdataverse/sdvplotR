@@ -31,8 +31,9 @@ with the team name transformation. Only \code{\link[gt:cells_body]{gt::cells_bod
 \code{\link[gt:cells_row_groups]{gt::cells_row_groups()}} helper functions can be used here.}
 
 \item{include_name}{If \code{TRUE}, keep the cell's text after the logo, so a
-cell shows logo and name (what cbbplotR's \code{gt_cbb_teams()} did). Defaults
-to \code{FALSE}, the logo alone.}
+cell shows logo and name (what cbbplotR's \code{gt_cbb_teams()} did), and the
+image gets an empty \code{alt} so the name is not read twice. Defaults to
+\code{FALSE}, the logo alone, whose \code{alt} is the team's full name.}
 
 \item{season}{\code{NULL} (the default) for today's logos, or one season whose
 marks every cell shows (the ending year for the NHL). See the Historical

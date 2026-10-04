@@ -65,7 +65,7 @@ player_stats <- wehoop::load_wbb_player_box(seasons = season) |>
 
 Visualize team performance with team logos:
 
-```{r team-performance}
+```{r team-performance, fig.alt = "Women's college basketball teams in the latest completed season, each drawn as its logo, placed by average points (horizontal) and average rebounds (vertical) per game."}
 # Calculate team metrics
 team_perf <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
@@ -98,7 +98,7 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
 
 Use team colors to visualize win percentages:
 
-```{r team-colors}
+```{r team-colors, fig.alt = "Bar chart of the 25 women's college basketball teams with the best win percentage in the latest completed season, each bar filled in the team's color."}
 # Calculate win percentage
 team_wins <- team_stats |>
   filter(!is.na(team_abbreviation)) |>
@@ -133,7 +133,7 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
 
 Visualize top performers with player headshots:
 
-```{r player-headshots}
+```{r player-headshots, fig.alt = "Women's college basketball points per game leaders of the latest completed season, each drawn as a headshot placed by games played (horizontal) and points per game (vertical), with a name label under each."}
 # Top scorers
 top_scorers <- player_stats |>
   filter(!is.na(athlete_id)) |>
@@ -181,7 +181,7 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
 Plot a set of tournament seeds with team logos. These seeds are an example;
 swap in the real bracket once it is announced:
 
-```{r ncaa-tournament}
+```{r ncaa-tournament, fig.alt = "Example NCAA women's tournament seeds, each team drawn as its logo in seed order; the seeds are for illustration, not a real bracket."}
 # For demonstration, create sample bracket data
 bracket_data <- data.frame(
   seed = 1:16,
@@ -215,7 +215,7 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
 
 Create a tier plot ranking WBB teams:
 
-```{r team-tiers}
+```{r team-tiers, fig.alt = "Women's college basketball team logos grouped into labeled tiers, from the top tier to the bottom. The tiers are examples."}
 # Top 25 teams by win percentage
 top_25 <- team_wins |>
   mutate(
@@ -232,7 +232,7 @@ top_25 <- team_wins |>
 sdv_team_tiers(
   top_25,
   sport = "wbb",
-  title = "WBB Power Rankings",
+  title = "WBB Team Tiers",
   subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Elite",
@@ -249,7 +249,7 @@ sdv_team_tiers(
 
 Show each major conference's teams in a column:
 
-```{r conference-map}
+```{r conference-map, fig.alt = "Grid of women's college basketball team logos, one column per major conference, so each team sits under its major conference."}
 # The five major conferences, from the conferences sdvplotR keeps for every team
 conference_map <- team_reference("wbb") |>
   filter(conference %in% c("ACC", "Big 12", "Big East", "Big Ten", "SEC")) |>
@@ -317,7 +317,7 @@ standings_table |>
 
 Replace axis labels with team logos:
 
-```{r axis-logos}
+```{r axis-logos, fig.alt = "Bar chart of the top 8 women's college basketball teams by win percentage, with each team's logo in place of its name on the horizontal axis and bars in team colors."}
 top_8 <- team_wins |>
   head(8) |>
   mutate(team_abbreviation = factor(team_abbreviation, levels = team_abbreviation))
