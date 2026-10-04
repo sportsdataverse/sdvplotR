@@ -65,11 +65,9 @@ cards <- data.frame(
     preview("gt_theme_sdv"), fig("signature-ribbon", "plot")
   )
 )
-cards$alt <- ifelse(
-  grepl("figure-html", cards$image),
-  paste("A figure from the", cards$title, "article"),
-  paste("A table theme preview for the", cards$title, "article")
-)
+# Each picture sits inside a link whose text is the article title, so its alt text names only
+# the kind of picture: a screen reader reads "Figure, NFL", not the title twice.
+cards$alt <- ifelse(grepl("figure-html", cards$image), "Figure", "Table theme preview")
 
 htmltools::div(
   class = "sdv-gallery",
