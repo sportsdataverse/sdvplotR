@@ -11,7 +11,10 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  message = FALSE,
+  fig.width = 7,
+  fig.height = 5,
+  dpi = 96
 )
 ```
 
@@ -172,7 +175,7 @@ numbers players differently (`PLAYER_ID`). Pass `id_type = "league"` to draw
 those from the WNBA's own image CDN. Both are plain numbers, so without it a
 WNBA Stats ID is read as an ESPN ID and draws someone else or nothing.
 
-```{r wnba-stats-headshots}
+```{r wnba-stats-headshots, eval = FALSE}
 leaders <- wehoop::wnba_leagueleaders(season = season)$LeagueLeaders |>
   mutate(across(c(GP, PTS), as.numeric)) |>
   head(8)
@@ -188,10 +191,11 @@ ggplot(leaders, aes(x = GP, y = PTS)) +
 ```
 
 `id_type` works the same in `gt_sdv_headshots()`, `reactable_sdv_headshots()`,
-the headshot axis scales and `element_sdv_headshot()`. The WNBA's image CDN
-refuses requests from datacenter IPs, so a plot rendered on CI or a server can
-come back without these headshots; tables are unaffected, because the reader's
-browser loads the images.
+the headshot axis scales and `element_sdv_headshot()`. The chunk above is not
+run when this site is built: stats.wnba.com and the WNBA's image CDN both refuse
+requests from datacenter IPs, the build server's included, so a plot rendered on
+CI or a server comes back without these headshots. Tables are unaffected,
+because the reader's browser loads the images.
 
 ## WNBA Team Tiers
 
