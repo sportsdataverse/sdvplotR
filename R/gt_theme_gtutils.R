@@ -31,7 +31,7 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_gtutils.png}{options: style="width:100\%"}}
+#' \if{html}{\figure{gt_theme_gtutils.png}{options: style="width:100\%" alt="Preview of the gtUtils theme"}}
 #'
 #' @examples
 #' library(gt)
@@ -190,5 +190,6 @@ gt_theme_gtutils <- function(gt_object,
 
   .theme_scale_output(table, density) |>
     # the caller's options last, after density scaling and striping, so they win
-    gt::tab_options(...)
+    gt::tab_options(...) |>
+    .theme_bs_host()
 }

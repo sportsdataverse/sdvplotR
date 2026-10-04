@@ -46,7 +46,7 @@ centered.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_swiss.png}{options: style="width:100\%"}}
+\if{html}{\figure{gt_theme_swiss.png}{options: style="width:100\%" alt="Preview of the swiss theme"}}
 }
 
 \examples{

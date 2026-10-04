@@ -147,11 +147,7 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
   font_link <- if (length(fonts)) {
     htmltools::tags$link(
       rel = "stylesheet",
-      href = paste0(
-        "https://fonts.googleapis.com/css2?",
-        paste0("family=", gsub(" ", "+", fonts), ":wght@100..900", collapse = "&"),
-        "&display=swap"
-      )
+      href = .google_fonts_href(fonts)
     )
   }
 

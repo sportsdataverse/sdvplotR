@@ -26,7 +26,7 @@
 #' table.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_savant.png}{options: style="width:100\%"}}
+#' \if{html}{\figure{gt_theme_savant.png}{options: style="width:100\%" alt="Preview of the savant theme"}}
 #'
 #' @examples
 #' library(gt)
@@ -133,5 +133,6 @@ gt_theme_savant <- function(gt_object,
     )) |>
     .theme_scale_output(density) |>
     # the caller's options last, after density scaling and striping, so they win
-    gt::tab_options(...)
+    gt::tab_options(...) |>
+    .theme_bs_host()
 }

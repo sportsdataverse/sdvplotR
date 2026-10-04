@@ -159,3 +159,40 @@ test_that("gt_save_batch() needs an explicit dir and fails before rendering", {
   )
   expect_length(list.files(wd, recursive = TRUE), 0)
 })
+
+test_that("every theme hands the Bootstrap table variables back to the table", {
+  # pkgdown and Quarto add Bootstrap's `.table` class to gt's <table>; its cell rule paints every
+  # td with the page's --bs-table-bg, so a light theme went dark-on-dark on a dark page
+  guard <- "--bs-table-bg:\\s*transparent;\\s*--bs-table-color:\\s*currentcolor"
+  for (i in seq_len(nrow(theme_bg))) {
+    row <- theme_bg[i, ]
+    args <- if (nzchar(row$has_style)) list(style = row$has_style) else list()
+    html <- html_of(do.call(row$theme, c(list(gt::gt(head(mtcars))), args)))
+    expect_match(html, guard, info = paste(row$theme, row$has_style))
+  }
+  team <- html_of(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "KC", sport = "nfl"))
+  expect_match(team, guard)
+})
+
+test_that("Google Fonts links ask for discrete weights, not a range", {
+  # css2 answers 400 to `wght@100..900` for a family that does not span it (Oswald, Lato, Bungee),
+  # and the font then never loads
+  href <- .google_fonts_href(c("Oswald", "Fira Mono"))
+  expect_false(grepl("..", href, fixed = TRUE))
+  expect_match(href, "family=Oswald:ital,wght@0,100;", fixed = TRUE)
+  expect_match(href, "&family=Fira+Mono:ital,wght@0,100;", fixed = TRUE)
+  expect_match(href, "&display=swap$")
+})
+
+test_that("theme preview figures carry a plain alt text", {
+  # R's HTML help LaTeX-escapes `_` in the options string, so a file-name alt reads "gt\_theme\_x"
+  src <- list.files(testthat::test_path("..", "..", "R"), "^gt_theme_.*\\.R$", full.names = TRUE)
+  skip_if_not(length(src) > 0, "R/ sources not available (installed-package check)")
+  lines <- unlist(lapply(src, readLines, warn = FALSE))
+  figs <- grep("\\\\figure\\{", lines, value = TRUE)
+  expect_gte(length(figs), 22)
+  alt <- sub('.*alt="([^"]*)".*', "\\1", figs)
+  expect_true(all(grepl('alt="', figs, fixed = TRUE)))
+  expect_false(any(grepl("[_\\\\]", alt)))
+  expect_true(all(nchar(alt) <= 80))
+})
