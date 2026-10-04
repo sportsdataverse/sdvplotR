@@ -187,3 +187,37 @@ footer {
     text-shadow: 0 0 8px var(--sdv-glow);
   }
 }
+
+/* ---- gt tables keep their own rows in either page mode -------------------- */
+/* pkgdown gives gt's <table> the Bootstrap `.table` class, whose cell rule paints every td with the
+   page background (--bs-table-bg) and the page's table text color. Hand both back to the table:
+   cells show .gt_table's own background and inherit its text color. */
+table.gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+
+/* ---- dark mode links outside #main and aside (the footer) ----------------- */
+[data-bs-theme="dark"] {
+  --bs-link-color: #9CCBFF;
+  --bs-link-color-rgb: 156, 203, 255;
+}
+
+/* ---- anchors clear the navbar; phones get the TOC first and a copy button -- */
+/* pkgdown assumes a 56px navbar; this one is 70-72px */
+html { scroll-padding-top: 5.5rem; }
+@media (max-width: 767.98px) {
+  .row > aside:has(#toc) { order: -1; margin-bottom: 1rem; }
+  #toc {
+    position: static;
+    max-height: 9rem;
+    overflow-y: auto;
+    border: 1px solid rgba(128, 132, 128, 0.35);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+}
+/* the copy button is visibility:hidden until :hover, which touch never fires */
+@media (hover: none) {
+  .hasCopyButton .btn-copy-ex { visibility: visible; }
+}
