@@ -18,10 +18,7 @@ template:
     in_header: |
       <!-- Privacy-friendly analytics by Plausible -->
       <script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script>
-      <script>
-        window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-        plausible.init()
-      </script>
+      <script src="https://sdvplotr.sportsdataverse.org/plausible-init.js"></script>
       <script type="application/ld+json">
       {"@context":"https://schema.org","@graph":[
         {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
@@ -47,7 +44,7 @@ template:
     primary: "#0B1A33"
     secondary: "#2680E4"
     success: "#2680E4"
-    link-color: "#2680E4"
+    link-color: "#1D6FCB"
     link-hover-color: "#1a5a9e"
     nav-link-hover-color: "#2680E4"
     nav-link-focus-color: "#2680E4"
@@ -56,7 +53,7 @@ template:
     navbar-brand-hover-color: "#2680E4"
     nav-tabs-link-active-bg: "#2680E4"
     nav-pills-link-active-color: "#2680E4"
-    btn-link-color: "#2680E4"
+    btn-link-color: "#1D6FCB"
     btn-link-hover-color: "#1a5a9e"
     dropdown-link-color: "#2680E4"
     input-btn-focus-color: "#2680E4"
