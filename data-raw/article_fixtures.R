@@ -233,9 +233,13 @@ save_fixture <- function(x, name) {
   x$package <- paste(x$package, utils::packageVersion(x$package))
   path <- file.path(fixture_dir, paste0(name, ".rds"))
   dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
-  saveRDS(x, path, compress = "xz")
-  kb <- file.size(path) / 1024
-  if (kb > 200) stop(path, " is ", round(kb), " KB; the limit is 200 KB")
+  # write beside the target, check the size, and only then move it into place
+  tmp <- tempfile(tmpdir = dirname(path), fileext = ".rds")
+  on.exit(unlink(tmp))
+  saveRDS(x, tmp, compress = "xz")
+  kb <- file.size(tmp) / 1024
+  if (kb > 200) stop(path, " would be ", round(kb), " KB; the limit is 200 KB")
+  file.rename(tmp, path)
   message(sprintf("%s  %.1f KB  %s", path, kb, x$package))
 }
 
@@ -244,7 +248,8 @@ write_readme <- function() {
   kb <- file.size(file.path(fixture_dir, files)) / 1024
   rows <- vapply(seq_along(files), function(i) {
     x <- readRDS(file.path(fixture_dir, files[i]))
-    sprintf("| `%s` | `%s` | %s | %s | %.1f |", files[i], x$call, format(x$taken), x$package, kb[i])
+    season <- x$season_id %||% x$season %||% x$mlb_season %||% x$nhl_season %||% x$cfb_season %||% "n/a"
+    sprintf("| `%s` | `%s` | %s | %s | %s | %.1f |", files[i], x$call, season, format(x$taken), x$package, kb[i])
   }, character(1))
   writeLines(c(
     "# Article fixtures",
@@ -255,8 +260,8 @@ write_readme <- function() {
     "table; refresh one with `Rscript data-raw/article_fixtures.R <article>/<name>`.",
     "Limits: 200 KB a file, 2 MB in all.",
     "",
-    "| File | Call | Taken | Package | KB |",
-    "|---|---|---|---|---|",
+    "| File | Call | Season | Taken | Package | KB |",
+    "|---|---|---|---|---|---|",
     rows,
     "",
     sprintf("Total: %.1f KB.", sum(kb))
