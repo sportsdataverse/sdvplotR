@@ -1,5 +1,7 @@
 # End-to-End Workflows with sdvplotR and the SportsDataverse Ecosystem
 
+On this page
+
 ## Introduction
 
 This vignette demonstrates end-to-end workflows for ingesting data from

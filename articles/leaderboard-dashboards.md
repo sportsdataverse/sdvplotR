@@ -1,5 +1,7 @@
 # Leaderboard Dashboards with sdvplotR, gt, and Quarto
 
+On this page
+
 ## Introduction
 
 This vignette demonstrates how to create interactive leaderboard

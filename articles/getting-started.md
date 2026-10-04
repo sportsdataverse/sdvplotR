@@ -1,5 +1,7 @@
 # Getting Started with sdvplotR
 
+On this page
+
 ## Introduction
 
 `sdvplotR` provides a unified interface for visualizing sports data

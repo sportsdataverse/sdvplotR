@@ -1,5 +1,7 @@
 # Neighbour Ranks
 
+On this page
+
 A rank says where a team sits, but not how close the teams around it
 are. This recipe puts one team in the middle of an 11-row table, the
 five teams ranked just above it and the five just below, so the gap to

@@ -1,5 +1,7 @@
 # Border Bars
 
+On this page
+
 I’ll be honest: I didn’t know what to call this function. I still don’t
 think that `gt_border_bars` is a particularly *good* name. That said,
 this function offers *so much* versatility for your table designs.

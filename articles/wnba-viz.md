@@ -1,5 +1,7 @@
 # WNBA Visualizations with wehoop and sdvplotR
 
+On this page
+
 ## Introduction
 
 This vignette demonstrates how to create rich WNBA visualizations by

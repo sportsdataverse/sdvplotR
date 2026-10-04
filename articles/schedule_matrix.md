@@ -1,5 +1,7 @@
 # Building a Schedule Matrix
 
+On this page
+
 The catch with a schedule matrix is the coloring. You want a cell shaded
 by whether that game is home, away, or on a neutral field, and a
 different shade for a bye. That is a decision made cell by cell, not

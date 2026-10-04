@@ -1,5 +1,7 @@
 # reactable Integration
 
+On this page
+
 ## Overview
 
 `sdvplotR` provides a family of helpers for embedding team logos,

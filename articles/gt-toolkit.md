@@ -1,5 +1,7 @@
 # Team Tables with the gt Toolkit
 
+On this page
+
 sdvplotR has two kinds of `gt` helpers, and this article uses both on
 one table.
 

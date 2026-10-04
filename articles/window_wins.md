@@ -1,5 +1,7 @@
 # Winningest Programs in Rolling Windows
 
+On this page
+
 Every ten-year window since 1980 gives you 38 rows, and each row holds a
 year range and five logos. That is a table six columns wide and 38 rows
 tall, which exports as a narrow strip with a lot of empty space on

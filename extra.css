@@ -102,7 +102,6 @@ small.nav-text.text-muted {
   color: var(--sdv-cyan);
   font-weight: 700;
   font-size: 14px;
-  animation: glow 2.5s ease-in-out infinite alternate;
 }
 .dropdown-item {
   color: #EAEBEC;
@@ -182,7 +181,7 @@ footer {
 
 /* ---- honour reduced-motion: keep the glow, stop it pulsing ---------------- */
 @media (prefers-reduced-motion: reduce) {
-  .navbar-brand, .dropdown-header {
+  .navbar-brand {
     animation: none;
     text-shadow: 0 0 8px var(--sdv-glow);
   }
@@ -209,4 +208,80 @@ html { scroll-padding-top: 5.5rem; }
 /* the copy button is visibility:hidden until :hover, which touch never fires */
 @media (hover: none) {
   .hasCopyButton .btn-copy-ex { visibility: visible; }
+}
+
+/* ---- dark mode: the search box takes the navbar's colors ------------------- */
+/* text 10.9:1 and placeholder 5.9:1 on #16305C; border 3.6:1 on the #0B1A33 bar */
+[data-bs-theme="dark"] .navbar input[type="search"] {
+  background-color: var(--sdv-navy-2);
+  border-color: #5B7299;
+  color: #EAEBEC;
+}
+[data-bs-theme="dark"] .navbar input[type="search"]::placeholder {
+  color: #9FB0CC;
+}
+[data-bs-theme="dark"] .navbar input[type="search"]:focus {
+  border-color: var(--sdv-cyan);
+  box-shadow: 0 0 0 0.2rem rgba(127, 230, 220, 0.35);
+}
+
+/* ---- keyboard focus in the navbar reads as focus, not as hover ------------- */
+.navbar-nav .nav-link:focus-visible,
+.dropdown-item:focus-visible {
+  outline: 2px solid var(--sdv-cyan);
+  outline-offset: 2px;
+}
+
+/* ---- phones: "On this page" as a collapsed disclosure under the title ------ */
+/* pkgdown/templates/content-article.html adds the <details>; pkgdown/extra.js fills it */
+.toc-mobile {
+  margin: 0 0 1.25rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+}
+.toc-mobile > summary {
+  font-family: "Chivo", "Lato", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.25rem 0;
+}
+.toc-mobile ul {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding-left: 0;
+}
+.toc-mobile ul ul { padding-left: 1rem; }
+/* the copied list keeps bootstrap-toc's "nav navbar-nav" classes, so the navbar's link rule
+   (#B7C4DA, 1.76:1 on white) reaches it; same specificity, later rule: the body link color wins */
+.toc-mobile .nav-link {
+  display: block;
+  padding: 0.35rem 0;
+  font-size: 15px;
+  color: var(--bs-link-color);
+}
+@media (max-width: 767.98px) {
+  /* the same list, once: the aside would repeat it after the article */
+  .template-article aside:has(> #toc) { display: none; }
+}
+
+/* ---- a fade on the right edge of code and tables that scroll sideways ------ */
+/* pkgdown/extra.js sets .is-clipped while there is more content to the right */
+.is-clipped {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+}
+
+/* ---- dark mode: figures and widgets as drawn, not inverted ----------------- */
+/* pkgdown inverts article figures and htmlwidgets in dark mode (filter: invert(100%)
+   hue-rotate(180deg)), which turns every team logo and team color into its negative and shows
+   tier_list's dark picture as cream (F17). Show them as drawn. */
+[data-bs-theme="dark"] img.r-plt,
+[data-bs-theme="dark"] .html-widget {
+  filter: none;
+}
+/* a widget with no theme of its own draws a white table but inherits the page's light text:
+   give it dark text */
+[data-bs-theme="dark"] main .html-widget {
+  color: #212529;
 }

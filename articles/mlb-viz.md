@@ -1,5 +1,7 @@
 # MLB Visualizations with baseballr and sdvplotR
 
+On this page
+
 ## Introduction
 
 This vignette demonstrates how to create rich MLB visualizations by

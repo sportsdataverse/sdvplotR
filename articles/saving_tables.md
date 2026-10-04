@@ -1,5 +1,7 @@
 # Saving and Posting Tables
 
+On this page
+
 A table built for a browser and a table built for a feed are not the
 same object.
 [`gt::gtsave()`](https://gt.rstudio.com/reference/gtsave.html) writes

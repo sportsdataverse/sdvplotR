@@ -1,5 +1,7 @@
 # Creating Faceted Tables
 
+On this page
+
 Nobody likes a long table. Put 25 rows next to a handful of columns and
 you get an image twice as tall as it is wide, mostly empty, with half
 the values scrolled off the bottom of a feed. The fix is to fold that

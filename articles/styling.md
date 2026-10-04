@@ -1,5 +1,7 @@
 # Styling Headers, Legends, and Captions
 
+On this page
+
 Five functions in the package take styling as named lists rather than as
 a long tail of arguments.
 [`gt_title_header()`](https://sdvplotR.sportsdataverse.org/reference/gt_title_header.md)

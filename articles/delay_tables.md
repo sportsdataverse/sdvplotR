@@ -1,5 +1,7 @@
 # Percentile Bars and Cut Lines
 
+On this page
+
 A table of numbers tells you the values. It does not tell you which ones
 stand out, or where the line falls between a good group and a bad one.
 Two `v1.0` functions handle those jobs:

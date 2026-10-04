@@ -1,5 +1,7 @@
 # Signature Ribbon
 
+On this page
+
 Every shooter has a shape: how often he shoots from each distance, and
 how well. This recipe draws that shape as a ribbon. The x axis is shot
 distance in 1 ft buckets, the ribbon’s thickness is the share of his

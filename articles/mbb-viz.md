@@ -1,5 +1,7 @@
 # MBB Visualizations with hoopR and sdvplotR
 
+On this page
+
 ## Introduction
 
 This vignette demonstrates how to create rich MBB (Men’s College

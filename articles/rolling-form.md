@@ -1,5 +1,7 @@
 # Rolling Form
 
+On this page
+
 A season average is slow to move. A team’s form changes faster: the
 offense that struggled in September can look different over its last two
 games or so. This recipe compares each team’s last 150 offensive plays

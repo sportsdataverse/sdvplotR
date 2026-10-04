@@ -1,5 +1,7 @@
 # SportsDataverse Table Themes
 
+On this page
+
 sdvplotR puts team logos, headshots and colors inside `gt` tables. The
 table around them still needs a look, and two themes are built for that:
 

@@ -16,7 +16,7 @@
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Creating Faceted Tables">
+<script src="../extra.js"></script><meta property="og:title" content="Creating Faceted Tables">
 <!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script><script src="https://sdvplotr.sportsdataverse.org/plausible-init.js"></script><script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
   {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
@@ -84,6 +84,10 @@
     <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
     <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
     <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
@@ -217,9 +221,8 @@
       <div class="d-none name"><code>grid_tables.Rmd</code></div>
     </div>
 
-    
-    
-<p>Nobody likes a long table. Put 25 rows next to a handful of columns
+    <!-- sdvplotR: phones get "On this page" here, collapsed; pkgdown/extra.js copies the list in -->
+    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p>Nobody likes a long table. Put 25 rows next to a handful of columns
 and you get an image twice as tall as it is wide, mostly empty, with
 half the values scrolled off the bottom of a feed. The fix is to fold
 that one tall table into two shorter ones and set them side by side.</p>

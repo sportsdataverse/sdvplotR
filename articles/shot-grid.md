@@ -1,5 +1,7 @@
 # Shot Grid
 
+On this page
+
 A shot chart with one dot per attempt shows where a player shoots, but
 not whether he makes them more often than anyone else from there. This
 recipe cuts the half court into 3 ft squares and colors each square by
