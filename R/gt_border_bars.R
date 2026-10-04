@@ -94,7 +94,7 @@ gt_border_bars_top <- function(gt_object,
 
   google_font <- tryCatch(
     {
-      gt::google_font(font_info)$import_stmt
+      gt::google_font(gsub("[\"']", "", font_info))$import_stmt # a theme quotes a multi-word family
     },
     error = function(e) {
       NULL # no font rec. above
@@ -247,7 +247,7 @@ gt_border_bars_bottom <- function(gt_object,
 
   google_font <- tryCatch(
     {
-      gt::google_font(font_info)$import_stmt
+      gt::google_font(gsub("[\"']", "", font_info))$import_stmt # a theme quotes a multi-word family
     },
     error = function(e) {
       NULL

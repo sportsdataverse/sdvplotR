@@ -125,3 +125,13 @@ test_that("gt_tiers and the border bars give every image an alt", {
   h <- html_of(gt(data.frame(x = 1)) |> gt_border_bars_bottom(colors = c("#E31837", "#FFB612"), img = "https://x/y.png"))
   expect_identical(alts_of(h), "")
 })
+
+test_that("border bars request the Google font by its bare family name", {
+  d <- gt(data.frame(x = 1)) |> gt_theme_scoreboard() |> tab_header("t")
+  for (f in list(gt_border_bars_top, gt_border_bars_bottom)) {
+    h <- html_of(f(d, colors = c("#E31837", "#FFB612"), text = "x"))
+    expect_match(h, "family=Barlow+Condensed:", fixed = TRUE)
+    # the family inside the request carries no quote characters
+    expect_no_match(h, "family='", fixed = TRUE)
+  }
+})
