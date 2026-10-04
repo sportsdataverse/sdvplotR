@@ -33,4 +33,17 @@ $(function () {
   // logos and fonts load after this runs and change the widths
   window.addEventListener("load", markAll);
   window.addEventListener("resize", markAll);
+
+  // Dark mode puts light gt tables on a light card (extra.css, .sdv-card). A table's theme sets
+  // its background, so read it: an opaque, light background gets the card; a dark one does not.
+  document.querySelectorAll("main table.gt_table").forEach(function (t) {
+    var c = getComputedStyle(t).backgroundColor.match(/[\d.]+/g);
+    if (!c || (c.length > 3 && Number(c[3]) === 0)) return;
+    if (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2] <= 160) return;
+    // gt_grid() draws its title and caption outside the tables, in dark text with no
+    // background of its own: put the whole grid on the card
+    var grid = t.closest('div[style*="inline-block"]');
+    var outer = grid && grid.parentElement;
+    (outer && outer.matches('div[style*="display: flex"]') ? outer : t.parentElement).classList.add("sdv-card");
+  });
 });
