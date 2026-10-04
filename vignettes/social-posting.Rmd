@@ -11,8 +11,13 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  message = FALSE,
+  fig.width = 7,
+  fig.height = 5,
+  dpi = 96
 )
+# the sample data below is drawn at random; a fixed seed keeps the figures the same between builds
+set.seed(2026)
 ```
 
 ## Introduction
