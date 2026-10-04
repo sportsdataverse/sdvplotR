@@ -79,11 +79,11 @@ ggplot(game_data, aes(x = time_left)) +
   scale_x_reverse() +
   scale_y_continuous(labels = scales::percent) +
   labs(
-    title = "Win Probability: KC vs BUF",
-    subtitle = "Week 10 Recap",
+    title = "Win Probability: KC vs BUF (example data)",
+    subtitle = "Example data, not a real game",
     x = "Time Remaining",
     y = "Win Probability",
-    caption = "Data: nflfastR | Viz: sdvplotR"
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_minimal() +
   theme(
@@ -114,11 +114,11 @@ ggplot(epa_data, aes(x = offensive_epa, y = defensive_epa)) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
   geom_vline(xintercept = 0, linetype = "dashed", color = "grey50") +
   labs(
-    title = "NFL Team EPA Analysis",
-    subtitle = "Offensive vs Defensive Performance",
+    title = "NFL Team EPA Analysis (example data)",
+    subtitle = "Offensive vs Defensive Performance, example data",
     x = "Offensive EPA per Play",
     y = "Defensive EPA per Play",
-    caption = "Data: nflfastR | Viz: sdvplotR"
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_minimal() +
   theme(
@@ -155,8 +155,8 @@ ggplot(top_9, aes(x = x, y = y)) +
   ) +
   coord_equal() +
   labs(
-    title = "Top 9 NFL Teams by Win %",
-    caption = "Data: nflfastR | Viz: sdvplotR"
+    title = "Top 9 NFL Teams by Win % (example data)",
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_void() +
   theme(
@@ -187,11 +187,11 @@ ggplot(power_rankings, aes(x = rank, y = points)) +
   scale_fill_sdv(sport = "nfl", alpha = 0.8) +
   scale_y_continuous(limits = c(0, 120)) +
   labs(
-    title = "Week 10 Power Rankings",
-    subtitle = "Top 10 NFL Teams",
+    title = "Example Power Rankings",
+    subtitle = "Top 10 NFL Teams, example data",
     x = "Rank",
     y = "Power Rating",
-    caption = "Data: nflfastR | Viz: sdvplotR"
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_minimal() +
   theme(
@@ -236,7 +236,7 @@ Add consistent branding to your graphics:
 # Create a branded footer function
 add_branding <- function(plot, username = "@YourHandle") {
   plot +
-    labs(caption = paste0("Data: nflfastR | Viz: sdvplotR | ", username)) +
+    labs(caption = paste0("Viz: sdvplotR | ", username)) +
     theme(
       plot.caption = element_text(
         color = "grey60",
@@ -317,9 +317,9 @@ ggplot(multi_sport_data, aes(x = rank, y = 1)) +
   ) +
   scale_x_continuous(breaks = 1:5) +
   labs(
-    title = "Weekly Power Rankings",
-    subtitle = "Top Teams Across All Sports",
-    caption = "Data: SportsDataverse | Viz: sdvplotR"
+    title = "Example Power Rankings",
+    subtitle = "Top Teams Across All Sports, example data",
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_minimal() +
   theme(

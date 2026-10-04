@@ -199,7 +199,7 @@ sdv_team_tiers(
   tier_data,
   sport = "mlb",
   title = "MLB Power Rankings",
-  subtitle = paste("As of", Sys.Date()),
+  subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "World Series Favorites",
     "2" = "Contenders",

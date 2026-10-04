@@ -185,7 +185,7 @@ sdv_team_tiers(
   tier_data,
   sport = "nhl",
   title = "NHL Power Rankings",
-  subtitle = paste("As of", Sys.Date()),
+  subtitle = paste0("Example tiers, ", season - 1, "-", substr(season, 3, 4), " season"),
   tier_desc = c(
     "1" = "Stanley Cup Favorites",
     "2" = "Contenders",
