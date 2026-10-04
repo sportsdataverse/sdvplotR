@@ -83,6 +83,7 @@ Config/Needs/website:
     nycflights13,
     oddsapiR,
     kcuilla/reactablefmtr,
+    rvest,
     sportyR,
     tidyverse,
     wehoop
