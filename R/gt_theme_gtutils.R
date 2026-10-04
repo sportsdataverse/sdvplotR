@@ -31,7 +31,7 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_gtutils.png}{options: style="width:100\%" alt="gt_theme_gtutils preview"}}
+#' \if{html}{\figure{gt_theme_gtutils.png}{options: style="width:100\%" alt="Preview of the gtUtils theme"}}
 #'
 #' @examples
 #' library(gt)

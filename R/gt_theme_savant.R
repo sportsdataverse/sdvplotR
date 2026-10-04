@@ -26,7 +26,7 @@
 #' table.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_savant.png}{options: style="width:100\%" alt="gt_theme_savant preview"}}
+#' \if{html}{\figure{gt_theme_savant.png}{options: style="width:100\%" alt="Preview of the savant theme"}}
 #'
 #' @examples
 #' library(gt)

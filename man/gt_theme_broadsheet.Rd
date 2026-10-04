@@ -50,7 +50,7 @@ rather than a colored band.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_broadsheet.png}{options: style="width:100\%" alt="gt_theme_broadsheet preview"}}
+\if{html}{\figure{gt_theme_broadsheet.png}{options: style="width:100\%" alt="Preview of the broadsheet theme"}}
 }
 
 \examples{

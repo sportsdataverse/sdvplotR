@@ -25,7 +25,7 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_swiss.png}{options: style="width:100\%" alt="gt_theme_swiss preview"}}
+#' \if{html}{\figure{gt_theme_swiss.png}{options: style="width:100\%" alt="Preview of the swiss theme"}}
 #'
 #' @examples
 #' library(gt)

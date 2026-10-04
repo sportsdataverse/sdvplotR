@@ -36,9 +36,9 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_sdv.png}{options: style="width:100\%" alt="gt_theme_sdv preview"}}
+#' \if{html}{\figure{gt_theme_sdv.png}{options: style="width:100\%" alt="Preview of the SportsDataverse theme, light style"}}
 #'
-#' \if{html}{\figure{gt_theme_sdv_dark.png}{options: style="width:100\%" alt="gt_theme_sdv_dark preview"}}
+#' \if{html}{\figure{gt_theme_sdv_dark.png}{options: style="width:100\%" alt="Preview of the SportsDataverse theme, dark style"}}
 #'
 #' @seealso [gt_theme_sdv_team()], [theme_bg] for the background to pad a saved
 #'   image with.
@@ -102,7 +102,7 @@ gt_theme_sdv <- function(gt_object, style = c("light", "dark"),
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_sdv_team.png}{options: style="width:100\%" alt="gt_theme_sdv_team preview"}}
+#' \if{html}{\figure{gt_theme_sdv_team.png}{options: style="width:100\%" alt="Preview of the SportsDataverse team theme, in team colors"}}
 #'
 #' @seealso [gt_theme_sdv()], [sdv_team_colors()].
 #' @examples

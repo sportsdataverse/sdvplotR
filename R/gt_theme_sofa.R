@@ -28,8 +28,8 @@
 #' rather than by rules. Row groups are closed with a black bottom border.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_sofa_light.png}{options: style="width:100\%" alt="gt_theme_sofa_light preview"}}
-#' \if{html}{\figure{gt_theme_sofa_dark.png}{options: style="width:100\%" alt="gt_theme_sofa_dark preview"}}
+#' \if{html}{\figure{gt_theme_sofa_light.png}{options: style="width:100\%" alt="Preview of the sofa theme, light style"}}
+#' \if{html}{\figure{gt_theme_sofa_dark.png}{options: style="width:100\%" alt="Preview of the sofa theme, dark style"}}
 #'
 #' @examples
 #' library(gt)

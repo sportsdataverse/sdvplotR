@@ -25,7 +25,7 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_almanac.png}{options: style="width:100\%" alt="gt_theme_almanac preview"}}
+#' \if{html}{\figure{gt_theme_almanac.png}{options: style="width:100\%" alt="Preview of the almanac theme"}}
 #'
 #' @examples
 #' library(gt)

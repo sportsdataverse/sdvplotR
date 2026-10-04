@@ -56,7 +56,7 @@ the background, so it stays readable whatever \code{color} you pass.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_drench.png}{options: style="width:100\%" alt="gt_theme_drench preview"}}
+\if{html}{\figure{gt_theme_drench.png}{options: style="width:100\%" alt="Preview of the drench theme"}}
 }
 
 \examples{

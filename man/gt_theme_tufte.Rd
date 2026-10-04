@@ -46,7 +46,7 @@ rules, no rules between rows, and no fills. A faint hairline closes the body.
 
 \section{Figures}{
 
-\if{html}{\figure{gt_theme_tufte.png}{options: style="width:100\%" alt="gt_theme_tufte preview"}}
+\if{html}{\figure{gt_theme_tufte.png}{options: style="width:100\%" alt="Preview of the tufte theme"}}
 }
 
 \examples{

@@ -183,3 +183,16 @@ test_that("Google Fonts links ask for discrete weights, not a range", {
   expect_match(href, "&family=Fira+Mono:ital,wght@0,100;", fixed = TRUE)
   expect_match(href, "&display=swap$")
 })
+
+test_that("theme preview figures carry a plain alt text", {
+  # R's HTML help LaTeX-escapes `_` in the options string, so a file-name alt reads "gt\_theme\_x"
+  src <- list.files(testthat::test_path("..", "..", "R"), "^gt_theme_.*\\.R$", full.names = TRUE)
+  skip_if_not(length(src) > 0, "R/ sources not available (installed-package check)")
+  lines <- unlist(lapply(src, readLines, warn = FALSE))
+  figs <- grep("\\\\figure\\{", lines, value = TRUE)
+  expect_gte(length(figs), 22)
+  alt <- sub('.*alt="([^"]*)".*', "\\1", figs)
+  expect_true(all(grepl('alt="', figs, fixed = TRUE)))
+  expect_false(any(grepl("[_\\\\]", alt)))
+  expect_true(all(nchar(alt) <= 80))
+})

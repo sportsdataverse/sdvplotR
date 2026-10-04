@@ -28,7 +28,7 @@
 #' so it does not double the rule that closes the table.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_ncaa.png}{options: style="width:100\%" alt="gt_theme_ncaa preview"}}
+#' \if{html}{\figure{gt_theme_ncaa.png}{options: style="width:100\%" alt="Preview of the NCAA theme"}}
 #'
 #' @examples
 #' library(gt)

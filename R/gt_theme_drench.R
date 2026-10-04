@@ -33,7 +33,7 @@
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
 #' @section Figures:
-#' \if{html}{\figure{gt_theme_drench.png}{options: style="width:100\%" alt="gt_theme_drench preview"}}
+#' \if{html}{\figure{gt_theme_drench.png}{options: style="width:100\%" alt="Preview of the drench theme"}}
 #'
 #' @examples
 #' library(gt)
