@@ -283,11 +283,11 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_reverse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/percent_format.html" class="external-link">percent</a></span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Win Probability: KC vs BUF"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Week 10 Recap"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Win Probability: KC vs BUF (example data)"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Example data, not a real game"</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Time Remaining"</span>,</span>
 <span>    y <span class="op">=</span> <span class="st">"Win Probability"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Data: nflfastR | Viz: sdvplotR"</span></span>
+<span>    caption <span class="op">=</span> <span class="st">"Example data | Viz: sdvplotR"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
@@ -295,7 +295,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey40"</span>, size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
 <span>    plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey60"</span>, size <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="social-posting_files/figure-html/win-probability-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="social-posting_files/figure-html/win-probability-1.png" class="r-plt" alt="Example win probability chart for a Kansas City Chiefs and Buffalo Bills game: two overlapping red and blue areas show each team's chance of winning over the time left, with both team logos in the middle." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="logo-rich-scatter-plots">Logo-Rich Scatter Plots<a class="anchor" aria-label="anchor" href="#logo-rich-scatter-plots"></a>
@@ -318,11 +318,11 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"NFL Team EPA Analysis"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Offensive vs Defensive Performance"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"NFL Team EPA Analysis (example data)"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Offensive vs Defensive Performance, example data"</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Offensive EPA per Play"</span>,</span>
 <span>    y <span class="op">=</span> <span class="st">"Defensive EPA per Play"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Data: nflfastR | Viz: sdvplotR"</span></span>
+<span>    caption <span class="op">=</span> <span class="st">"Example data | Viz: sdvplotR"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
@@ -330,7 +330,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey40"</span>, size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
 <span>    plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey60"</span>, size <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="social-posting_files/figure-html/logo-scatter-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="social-posting_files/figure-html/logo-scatter-1.png" class="r-plt" alt="NFL teams placed by offensive EPA (horizontal) and defensive EPA (vertical), each drawn as its logo, with dashed lines at zero." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="instagram-style-square-exports">Instagram-Style Square Exports<a class="anchor" aria-label="anchor" href="#instagram-style-square-exports"></a>
@@ -359,15 +359,15 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Top 9 NFL Teams by Win %"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Data: nflfastR | Viz: sdvplotR"</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Top 9 NFL Teams by Win % (example data)"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"Example data | Viz: sdvplotR"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
 <span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">18</span>, hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
 <span>    plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey60"</span>, size <span class="op">=</span> <span class="fl">10</span>, hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="social-posting_files/figure-html/instagram-square-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="social-posting_files/figure-html/instagram-square-1.png" class="r-plt" alt="Square graphic of the top 9 NFL teams by win percentage, each team's logo in a grid with a label under it." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="twitterx-optimized-graphics">Twitter/X Optimized Graphics<a class="anchor" aria-label="anchor" href="#twitterx-optimized-graphics"></a>
@@ -391,11 +391,11 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Week 10 Power Rankings"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Top 10 NFL Teams"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Example Power Rankings"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Top 10 NFL Teams, example data"</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Rank"</span>,</span>
 <span>    y <span class="op">=</span> <span class="st">"Power Rating"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Data: nflfastR | Viz: sdvplotR"</span></span>
+<span>    caption <span class="op">=</span> <span class="st">"Example data | Viz: sdvplotR"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
@@ -404,7 +404,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>    plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey60"</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
 <span>    legend.position <span class="op">=</span> <span class="st">"none"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="social-posting_files/figure-html/twitter-graphic-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="social-posting_files/figure-html/twitter-graphic-1.png" class="r-plt" alt="Example power rankings of the top 10 NFL teams: a bar for each team's points, filled in team colors, with the team's logo at the end of the bar." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="ggsave-best-practices">ggsave Best Practices<a class="anchor" aria-label="anchor" href="#ggsave-best-practices"></a>
@@ -439,7 +439,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <code class="sourceCode R"><span><span class="co"># Create a branded footer function</span></span>
 <span><span class="va">add_branding</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">plot</span>, <span class="va">username</span> <span class="op">=</span> <span class="st">"@YourHandle"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">plot</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Data: nflfastR | Viz: sdvplotR | "</span>, <span class="va">username</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Viz: sdvplotR | "</span>, <span class="va">username</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
 <span>      plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span></span>
 <span>        color <span class="op">=</span> <span class="st">"grey60"</span>,</span>
@@ -455,7 +455,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">add_branding</span><span class="op">(</span><span class="va">sample_plot</span>, <span class="st">"@SportsDataverse"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="social-posting_files/figure-html/branding-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="social-posting_files/figure-html/branding-1.png" class="r-plt" alt="A plain example scatter plot of five points on a diagonal, shown with the sdvplotR branding caption below it." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="multi-sport-weekly-recap">Multi-Sport Weekly Recap<a class="anchor" aria-label="anchor" href="#multi-sport-weekly-recap"></a>
@@ -520,9 +520,9 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Weekly Power Rankings"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Top Teams Across All Sports"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Data: SportsDataverse | Viz: sdvplotR"</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Example Power Rankings"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Top Teams Across All Sports, example data"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"Example data | Viz: sdvplotR"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
@@ -531,7 +531,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span>,</span>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey40"</span>, size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="social-posting_files/figure-html/multi-sport-recap-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="social-posting_files/figure-html/multi-sport-recap-1.png" class="r-plt" alt="Top teams from several sports in one weekly power rankings graphic, each ranked team drawn as its logo with labels under it." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="color-palette-showcases">Color Palette Showcases<a class="anchor" aria-label="anchor" href="#color-palette-showcases"></a>
@@ -560,7 +560,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span>,</span>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey40"</span>, size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="social-posting_files/figure-html/color-palettes-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="social-posting_files/figure-html/color-palettes-1.png" class="r-plt" alt="Bar chart of NFL team primary colors, one bar per team filled in that team's color." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="tips-for-social-media-success">Tips for Social Media Success<a class="anchor" aria-label="anchor" href="#tips-for-social-media-success"></a>

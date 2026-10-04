@@ -84,7 +84,10 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   theme_minimal()
 ```
 
-![](mbb-viz_files/figure-html/team-performance-1.png)
+![Men's college basketball teams in the latest completed season, each
+drawn as its logo, placed by average points (horizontal) and average
+rebounds (vertical) per
+game.](mbb-viz_files/figure-html/team-performance-1.png)
 
 ## MBB Team Colors
 
@@ -122,7 +125,9 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   )
 ```
 
-![](mbb-viz_files/figure-html/team-colors-1.png)
+![Bar chart of the 25 men's college basketball teams with the best win
+percentage in the latest completed season, each bar filled in the team's
+color.](mbb-viz_files/figure-html/team-colors-1.png)
 
 ## Player Headshots
 
@@ -172,7 +177,10 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   theme_minimal()
 ```
 
-![](mbb-viz_files/figure-html/player-headshots-1.png)
+![Men's college basketball points per game leaders of the latest
+completed season, each drawn as a headshot placed by games played
+(horizontal) and points per game (vertical), with a name label under
+each.](mbb-viz_files/figure-html/player-headshots-1.png)
 
 ## Tournament Seeds with Logos
 
@@ -210,7 +218,9 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   )
 ```
 
-![](mbb-viz_files/figure-html/march-madness-1.png)
+![Example NCAA tournament seeds, each team drawn as its logo in seed
+order; the seeds are for illustration, not a real
+bracket.](mbb-viz_files/figure-html/march-madness-1.png)
 
 ## MBB Team Tiers
 
@@ -234,7 +244,7 @@ top_25 <- team_wins |>
 sdv_team_tiers(
   top_25,
   sport = "mbb",
-  title = "MBB Power Rankings",
+  title = "MBB Team Tiers",
   subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Elite",
@@ -247,7 +257,9 @@ sdv_team_tiers(
 )
 ```
 
-![](mbb-viz_files/figure-html/team-tiers-1.png)
+![Men's college basketball team logos grouped into labeled tiers, from
+the top tier to the bottom. The tiers are
+examples.](mbb-viz_files/figure-html/team-tiers-1.png)
 
 ## MBB Conference Map
 
@@ -287,7 +299,9 @@ ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
-![](mbb-viz_files/figure-html/conference-map-1.png)
+![Grid of men's college basketball team logos, one column per major
+conference, so each team sits under its major
+conference.](mbb-viz_files/figure-html/conference-map-1.png)
 
 ## MBB Standings Table with Logos
 
@@ -325,26 +339,26 @@ standings_table |>
 |----|----|----|----|----|----|
 | Season 2026 |  |  |  |  |  |
 | \# | Team | Abbrev | Wins | Games | Win % |
-| 1 | ![The M-OH logo](https://a.espncdn.com/i/teamlogos/ncaa/500/193.png) | M-OH | 31 | 32 | 0.969 |
-| 2 | ![The ARIZ logo](https://a.espncdn.com/i/teamlogos/ncaa/500/12.png) | ARIZ | 32 | 34 | 0.941 |
-| 3 | ![The DUKE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/150.png) | DUKE | 32 | 34 | 0.941 |
-| 4 | ![The MICH logo](https://a.espncdn.com/i/teamlogos/ncaa/500/130.png) | MICH | 31 | 34 | 0.912 |
-| 5 | ![The GONZ logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2250.png) | GONZ | 30 | 33 | 0.909 |
-| 6 | ![The HPU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2272.png) | HPU | 30 | 34 | 0.882 |
-| 7 | ![The CONN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/41.png) | CONN | 29 | 34 | 0.853 |
-| 8 | ![The UVA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png) | UVA | 29 | 34 | 0.853 |
-| 9 | ![The AKR logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2006.png) | AKR | 29 | 34 | 0.853 |
-| 10 | ![The SLU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/139.png) | SLU | 28 | 33 | 0.848 |
-| 11 | ![The MCN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2377.png) | MCN | 28 | 33 | 0.848 |
-| 12 | ![The SFA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2617.png) | SFA | 28 | 33 | 0.848 |
-| 13 | ![The SMC logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2608.png) | SMC | 27 | 32 | 0.844 |
-| 14 | ![The HOU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/248.png) | HOU | 28 | 34 | 0.824 |
-| 15 | ![The USU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/328.png) | USU | 28 | 34 | 0.824 |
-| 16 | ![The SJU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2599.png) | SJU | 28 | 34 | 0.824 |
-| 17 | ![The NEB logo](https://a.espncdn.com/i/teamlogos/ncaa/500/158.png) | NEB | 26 | 32 | 0.812 |
-| 18 | ![The UNCW logo](https://a.espncdn.com/i/teamlogos/ncaa/500/350.png) | UNCW | 26 | 32 | 0.812 |
-| 19 | ![The BEL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2057.png) | BEL | 26 | 32 | 0.812 |
-| 20 | ![The YALE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/43.png) | YALE | 24 | 30 | 0.800 |
+| 1 | ![Miami (OH) RedHawks](https://a.espncdn.com/i/teamlogos/ncaa/500/193.png) | M-OH | 31 | 32 | 0.969 |
+| 2 | ![Arizona Wildcats](https://a.espncdn.com/i/teamlogos/ncaa/500/12.png) | ARIZ | 32 | 34 | 0.941 |
+| 3 | ![Duke Blue Devils](https://a.espncdn.com/i/teamlogos/ncaa/500/150.png) | DUKE | 32 | 34 | 0.941 |
+| 4 | ![Michigan Wolverines](https://a.espncdn.com/i/teamlogos/ncaa/500/130.png) | MICH | 31 | 34 | 0.912 |
+| 5 | ![Gonzaga Bulldogs](https://a.espncdn.com/i/teamlogos/ncaa/500/2250.png) | GONZ | 30 | 33 | 0.909 |
+| 6 | ![High Point Panthers](https://a.espncdn.com/i/teamlogos/ncaa/500/2272.png) | HPU | 30 | 34 | 0.882 |
+| 7 | ![UConn Huskies](https://a.espncdn.com/i/teamlogos/ncaa/500/41.png) | CONN | 29 | 34 | 0.853 |
+| 8 | ![Virginia Cavaliers](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png) | UVA | 29 | 34 | 0.853 |
+| 9 | ![Akron Zips](https://a.espncdn.com/i/teamlogos/ncaa/500/2006.png) | AKR | 29 | 34 | 0.853 |
+| 10 | ![Saint Louis Billikens](https://a.espncdn.com/i/teamlogos/ncaa/500/139.png) | SLU | 28 | 33 | 0.848 |
+| 11 | ![McNeese Cowboys](https://a.espncdn.com/i/teamlogos/ncaa/500/2377.png) | MCN | 28 | 33 | 0.848 |
+| 12 | ![Stephen F. Austin Lumberjacks](https://a.espncdn.com/i/teamlogos/ncaa/500/2617.png) | SFA | 28 | 33 | 0.848 |
+| 13 | ![Saint Mary's Gaels](https://a.espncdn.com/i/teamlogos/ncaa/500/2608.png) | SMC | 27 | 32 | 0.844 |
+| 14 | ![Houston Cougars](https://a.espncdn.com/i/teamlogos/ncaa/500/248.png) | HOU | 28 | 34 | 0.824 |
+| 15 | ![Utah State Aggies](https://a.espncdn.com/i/teamlogos/ncaa/500/328.png) | USU | 28 | 34 | 0.824 |
+| 16 | ![St. John's Red Storm](https://a.espncdn.com/i/teamlogos/ncaa/500/2599.png) | SJU | 28 | 34 | 0.824 |
+| 17 | ![Nebraska Cornhuskers](https://a.espncdn.com/i/teamlogos/ncaa/500/158.png) | NEB | 26 | 32 | 0.812 |
+| 18 | ![UNC Wilmington Seahawks](https://a.espncdn.com/i/teamlogos/ncaa/500/350.png) | UNCW | 26 | 32 | 0.812 |
+| 19 | ![Belmont Bruins](https://a.espncdn.com/i/teamlogos/ncaa/500/2057.png) | BEL | 26 | 32 | 0.812 |
+| 20 | ![Yale Bulldogs](https://a.espncdn.com/i/teamlogos/ncaa/500/43.png) | YALE | 24 | 30 | 0.800 |
 
 ## Axis Labels with Logos
 
@@ -370,7 +384,10 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
   theme(legend.position = "none")
 ```
 
-![](mbb-viz_files/figure-html/axis-logos-1.png)
+![Bar chart of the top 8 men's college basketball teams by win
+percentage, with each team's logo in place of its name on the horizontal
+axis and bars in team
+colors.](mbb-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

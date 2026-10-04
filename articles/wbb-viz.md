@@ -84,7 +84,10 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   theme_minimal()
 ```
 
-![](wbb-viz_files/figure-html/team-performance-1.png)
+![Women's college basketball teams in the latest completed season, each
+drawn as its logo, placed by average points (horizontal) and average
+rebounds (vertical) per
+game.](wbb-viz_files/figure-html/team-performance-1.png)
 
 ## WBB Team Colors
 
@@ -122,7 +125,9 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   )
 ```
 
-![](wbb-viz_files/figure-html/team-colors-1.png)
+![Bar chart of the 25 women's college basketball teams with the best win
+percentage in the latest completed season, each bar filled in the team's
+color.](wbb-viz_files/figure-html/team-colors-1.png)
 
 ## Player Headshots
 
@@ -172,7 +177,10 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   theme_minimal()
 ```
 
-![](wbb-viz_files/figure-html/player-headshots-1.png)
+![Women's college basketball points per game leaders of the latest
+completed season, each drawn as a headshot placed by games played
+(horizontal) and points per game (vertical), with a name label under
+each.](wbb-viz_files/figure-html/player-headshots-1.png)
 
 ## Tournament Seeds with Logos
 
@@ -210,7 +218,9 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   )
 ```
 
-![](wbb-viz_files/figure-html/ncaa-tournament-1.png)
+![Example NCAA women's tournament seeds, each team drawn as its logo in
+seed order; the seeds are for illustration, not a real
+bracket.](wbb-viz_files/figure-html/ncaa-tournament-1.png)
 
 ## WBB Team Tiers
 
@@ -234,7 +244,7 @@ top_25 <- team_wins |>
 sdv_team_tiers(
   top_25,
   sport = "wbb",
-  title = "WBB Power Rankings",
+  title = "WBB Team Tiers",
   subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Elite",
@@ -247,7 +257,9 @@ sdv_team_tiers(
 )
 ```
 
-![](wbb-viz_files/figure-html/team-tiers-1.png)
+![Women's college basketball team logos grouped into labeled tiers, from
+the top tier to the bottom. The tiers are
+examples.](wbb-viz_files/figure-html/team-tiers-1.png)
 
 ## WBB Conference Map
 
@@ -287,7 +299,9 @@ ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
-![](wbb-viz_files/figure-html/conference-map-1.png)
+![Grid of women's college basketball team logos, one column per major
+conference, so each team sits under its major
+conference.](wbb-viz_files/figure-html/conference-map-1.png)
 
 ## WBB Standings Table with Logos
 
@@ -325,26 +339,26 @@ standings_table |>
 |----|----|----|----|----|----|
 | Season 2026 |  |  |  |  |  |
 | \# | Team | Abbrev | Wins | Games | Win % |
-| 1 | ![The CONN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/41.png) | CONN | 34 | 34 | 1.000 |
-| 2 | ![The UCLA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/26.png) | UCLA | 31 | 32 | 0.969 |
-| 3 | ![The MUR logo](https://a.espncdn.com/i/teamlogos/ncaa/500/93.png) | MUR | 31 | 34 | 0.912 |
-| 4 | ![The TEX logo](https://a.espncdn.com/i/teamlogos/ncaa/500/251.png) | TEX | 31 | 34 | 0.912 |
-| 5 | ![The SC logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png) | SC | 31 | 34 | 0.912 |
-| 6 | ![The PRIN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/163.png) | PRIN | 26 | 29 | 0.897 |
-| 7 | ![The FDU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/161.png) | FDU | 30 | 34 | 0.882 |
-| 8 | ![The URI logo](https://a.espncdn.com/i/teamlogos/ncaa/500/227.png) | URI | 28 | 32 | 0.875 |
-| 9 | ![The FAIR logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2217.png) | FAIR | 28 | 32 | 0.875 |
-| 10 | ![The NDSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2449.png) | NDSU | 28 | 32 | 0.875 |
-| 11 | ![The VAN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/238.png) | VAN | 27 | 31 | 0.871 |
-| 12 | ![The IDHO logo](https://a.espncdn.com/i/teamlogos/ncaa/500/70.png) | IDHO | 29 | 34 | 0.853 |
-| 13 | ![The TCU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png) | TCU | 29 | 34 | 0.853 |
-| 14 | ![The RICE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/242.png) | RICE | 28 | 33 | 0.848 |
-| 15 | ![The MCN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2377.png) | MCN | 28 | 33 | 0.848 |
-| 16 | ![The LSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/99.png) | LSU | 27 | 32 | 0.844 |
-| 17 | ![The COFC logo](https://a.espncdn.com/i/teamlogos/ncaa/500/232.png) | COFC | 27 | 32 | 0.844 |
-| 18 | ![The HPU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2272.png) | HPU | 27 | 32 | 0.844 |
-| 19 | ![The WIU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2710.png) | WIU | 26 | 31 | 0.839 |
-| 20 | ![The SDSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/21.png) | SDSU | 25 | 30 | 0.833 |
+| 1 | ![UConn Huskies](https://a.espncdn.com/i/teamlogos/ncaa/500/41.png) | CONN | 34 | 34 | 1.000 |
+| 2 | ![UCLA Bruins](https://a.espncdn.com/i/teamlogos/ncaa/500/26.png) | UCLA | 31 | 32 | 0.969 |
+| 3 | ![Murray State Racers](https://a.espncdn.com/i/teamlogos/ncaa/500/93.png) | MUR | 31 | 34 | 0.912 |
+| 4 | ![Texas Longhorns](https://a.espncdn.com/i/teamlogos/ncaa/500/251.png) | TEX | 31 | 34 | 0.912 |
+| 5 | ![South Carolina Gamecocks](https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png) | SC | 31 | 34 | 0.912 |
+| 6 | ![Princeton Tigers](https://a.espncdn.com/i/teamlogos/ncaa/500/163.png) | PRIN | 26 | 29 | 0.897 |
+| 7 | ![Fairleigh Dickinson Knights](https://a.espncdn.com/i/teamlogos/ncaa/500/161.png) | FDU | 30 | 34 | 0.882 |
+| 8 | ![Rhode Island Rams](https://a.espncdn.com/i/teamlogos/ncaa/500/227.png) | URI | 28 | 32 | 0.875 |
+| 9 | ![Fairfield Stags](https://a.espncdn.com/i/teamlogos/ncaa/500/2217.png) | FAIR | 28 | 32 | 0.875 |
+| 10 | ![North Dakota State Bison](https://a.espncdn.com/i/teamlogos/ncaa/500/2449.png) | NDSU | 28 | 32 | 0.875 |
+| 11 | ![Vanderbilt Commodores](https://a.espncdn.com/i/teamlogos/ncaa/500/238.png) | VAN | 27 | 31 | 0.871 |
+| 12 | ![Idaho Vandals](https://a.espncdn.com/i/teamlogos/ncaa/500/70.png) | IDHO | 29 | 34 | 0.853 |
+| 13 | ![TCU Horned Frogs](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png) | TCU | 29 | 34 | 0.853 |
+| 14 | ![Rice Owls](https://a.espncdn.com/i/teamlogos/ncaa/500/242.png) | RICE | 28 | 33 | 0.848 |
+| 15 | ![McNeese Cowgirls](https://a.espncdn.com/i/teamlogos/ncaa/500/2377.png) | MCN | 28 | 33 | 0.848 |
+| 16 | ![LSU Tigers](https://a.espncdn.com/i/teamlogos/ncaa/500/99.png) | LSU | 27 | 32 | 0.844 |
+| 17 | ![Charleston Cougars](https://a.espncdn.com/i/teamlogos/ncaa/500/232.png) | COFC | 27 | 32 | 0.844 |
+| 18 | ![High Point Panthers](https://a.espncdn.com/i/teamlogos/ncaa/500/2272.png) | HPU | 27 | 32 | 0.844 |
+| 19 | ![Western Illinois Leathernecks](https://a.espncdn.com/i/teamlogos/ncaa/500/2710.png) | WIU | 26 | 31 | 0.839 |
+| 20 | ![San Diego State Aztecs](https://a.espncdn.com/i/teamlogos/ncaa/500/21.png) | SDSU | 25 | 30 | 0.833 |
 
 ## Axis Labels with Logos
 
@@ -372,7 +386,10 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
 #> known incorrect sRGB profile
 ```
 
-![](wbb-viz_files/figure-html/axis-logos-1.png)
+![Bar chart of the top 8 women's college basketball teams by win
+percentage, with each team's logo in place of its name on the horizontal
+axis and bars in team
+colors.](wbb-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

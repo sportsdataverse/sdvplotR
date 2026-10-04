@@ -14,7 +14,9 @@ convenient and quick. However, you need to pass your data to `gt` in a
 specific format. This vignette walks through how to create a simple tier
 list.
 
-![](images/tier_list_example.png)
+![Example tier list on a dark background: ACC team logos ranked into
+Elite, Average and Poor rows by efficiency
+margin.](images/tier_list_example.png)
 
 ## Basic Tier List
 

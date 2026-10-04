@@ -46,7 +46,9 @@ a fixed amount so the image has an even margin on all four sides.
 tbl %>% gt_save_crop(file = "table.png")
 ```
 
-![](images/save_crop.png)
+![A cropped table image titled Fuel economy and power, listing eight
+1974 cars with miles per gallon, horsepower and weight, with an even
+margin around it.](images/save_crop.png)
 
 `whitespace` sets that margin in pixels and `bg` sets its color, which
 should match the theme’s background. `zoom` controls the render scale,
@@ -101,7 +103,8 @@ gt(cars) %>%
   gt_social_crop(aspect_ratio = "1:1", bg = "#FBFAF7", file = "square.png")
 ```
 
-![](images/save_social.png)
+![The same fuel economy table saved as a square social image, centered
+on a cream background.](images/save_social.png)
 
 `aspect_ratio` reads `"1:1"`, `"16:9"`, `"4x5"`, or a bare number like
 `1.91`.
@@ -132,7 +135,9 @@ tbl %>%
   gt_save_crop(file = "branded.png")
 ```
 
-![](images/save_watermark.png)
+![The fuel economy table with a faint gtUtils watermark across the rows,
+a Built with gtUtils caption and a footer with an X handle and a GitHub
+name.](images/save_watermark.png)
 
 Two things about the watermark.
 
@@ -182,7 +187,8 @@ gt_save_batch(
 )
 ```
 
-![](images/save_batch.png)
+![Three tables side by side, one each for 6-, 4- and 8-cylinder cars,
+listing miles per gallon and horsepower per car.](images/save_batch.png)
 
 `file` is a pattern rather than a path. `{group}` is replaced by each
 group’s value, so this writes `out/cyl-4.png`, `out/cyl-6.png`, and

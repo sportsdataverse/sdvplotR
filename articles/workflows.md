@@ -76,7 +76,9 @@ ggsave(file.path(out_dir, "nfl_weekly_recap.png"),
 plot
 ```
 
-![](workflows_files/figure-html/nfl-workflow-1.png)
+![Bar chart of the top 10 NFL teams by pass EPA in the latest completed
+season, each bar filled in the team's
+color.](workflows_files/figure-html/nfl-workflow-1.png)
 
 ## Workflow 2: CFB Power Rankings
 
@@ -127,7 +129,9 @@ ggsave(file.path(out_dir, "cfb_power_rankings.png"),
 tier_plot
 ```
 
-![](workflows_files/figure-html/cfb-workflow-1.png)
+![College football team logos grouped into tiers by passing offense EPA
+per pass play in the latest completed
+season.](workflows_files/figure-html/cfb-workflow-1.png)
 
 ## Workflow 3: NBA Player Comparison
 
@@ -185,7 +189,10 @@ ggsave(file.path(out_dir, "nba_top_scorers.png"),
 player_plot
 ```
 
-![](workflows_files/figure-html/nba-workflow-1.png)
+![Top 8 NBA scorers of the latest completed season, each drawn as a
+headshot placed by games played (horizontal) and points per game
+(vertical), with a name label under
+each.](workflows_files/figure-html/nba-workflow-1.png)
 
 ## Workflow 4: MLB Standings Dashboard
 
@@ -249,21 +256,21 @@ standings_table
 |----|----|----|----|----|----|
 | Season 2025 |  |  |  |  |  |
 | \# |  | Team | W | L | Pct |
-| 1 | ![The MIL logo](https://a.espncdn.com/i/teamlogos/mlb/500/mil.png) | Milwaukee Brewers | 97 | 65 | 0.599 |
-| 2 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/mlb/500/phi.png) | Philadelphia Phillies | 96 | 66 | 0.593 |
-| 3 | ![The TOR logo](https://a.espncdn.com/i/teamlogos/mlb/500/tor.png) | Toronto Blue Jays | 94 | 68 | 0.580 |
-| 4 | ![The NYY logo](https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png) | New York Yankees | 94 | 68 | 0.580 |
-| 5 | ![The LAD logo](https://a.espncdn.com/i/teamlogos/mlb/500/lad.png) | Los Angeles Dodgers | 93 | 69 | 0.574 |
-| 6 | ![The CHC logo](https://a.espncdn.com/i/teamlogos/mlb/500/chc.png) | Chicago Cubs | 92 | 70 | 0.568 |
-| 7 | ![The SEA logo](https://a.espncdn.com/i/teamlogos/mlb/500/sea.png) | Seattle Mariners | 90 | 72 | 0.556 |
-| 8 | ![The SD logo](https://a.espncdn.com/i/teamlogos/mlb/500/sd.png) | San Diego Padres | 90 | 72 | 0.556 |
-| 9 | ![The BOS logo](https://a.espncdn.com/i/teamlogos/mlb/500/bos.png) | Boston Red Sox | 89 | 73 | 0.549 |
-| 10 | ![The CLE logo](https://a.espncdn.com/i/teamlogos/mlb/500/cle.png) | Cleveland Guardians | 88 | 74 | 0.543 |
-| 11 | ![The DET logo](https://a.espncdn.com/i/teamlogos/mlb/500/det.png) | Detroit Tigers | 87 | 75 | 0.537 |
-| 12 | ![The HOU logo](https://a.espncdn.com/i/teamlogos/mlb/500/hou.png) | Houston Astros | 87 | 75 | 0.537 |
-| 13 | ![The NYM logo](https://a.espncdn.com/i/teamlogos/mlb/500/nym.png) | New York Mets | 83 | 79 | 0.512 |
-| 14 | ![The CIN logo](https://a.espncdn.com/i/teamlogos/mlb/500/cin.png) | Cincinnati Reds | 83 | 79 | 0.512 |
-| 15 | ![The KC logo](https://a.espncdn.com/i/teamlogos/mlb/500/kc.png) | Kansas City Royals | 82 | 80 | 0.506 |
+| 1 | ![Milwaukee Brewers](https://a.espncdn.com/i/teamlogos/mlb/500/mil.png) | Milwaukee Brewers | 97 | 65 | 0.599 |
+| 2 | ![Philadelphia Phillies](https://a.espncdn.com/i/teamlogos/mlb/500/phi.png) | Philadelphia Phillies | 96 | 66 | 0.593 |
+| 3 | ![Toronto Blue Jays](https://a.espncdn.com/i/teamlogos/mlb/500/tor.png) | Toronto Blue Jays | 94 | 68 | 0.580 |
+| 4 | ![New York Yankees](https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png) | New York Yankees | 94 | 68 | 0.580 |
+| 5 | ![Los Angeles Dodgers](https://a.espncdn.com/i/teamlogos/mlb/500/lad.png) | Los Angeles Dodgers | 93 | 69 | 0.574 |
+| 6 | ![Chicago Cubs](https://a.espncdn.com/i/teamlogos/mlb/500/chc.png) | Chicago Cubs | 92 | 70 | 0.568 |
+| 7 | ![Seattle Mariners](https://a.espncdn.com/i/teamlogos/mlb/500/sea.png) | Seattle Mariners | 90 | 72 | 0.556 |
+| 8 | ![San Diego Padres](https://a.espncdn.com/i/teamlogos/mlb/500/sd.png) | San Diego Padres | 90 | 72 | 0.556 |
+| 9 | ![Boston Red Sox](https://a.espncdn.com/i/teamlogos/mlb/500/bos.png) | Boston Red Sox | 89 | 73 | 0.549 |
+| 10 | ![Cleveland Guardians](https://a.espncdn.com/i/teamlogos/mlb/500/cle.png) | Cleveland Guardians | 88 | 74 | 0.543 |
+| 11 | ![Detroit Tigers](https://a.espncdn.com/i/teamlogos/mlb/500/det.png) | Detroit Tigers | 87 | 75 | 0.537 |
+| 12 | ![Houston Astros](https://a.espncdn.com/i/teamlogos/mlb/500/hou.png) | Houston Astros | 87 | 75 | 0.537 |
+| 13 | ![New York Mets](https://a.espncdn.com/i/teamlogos/mlb/500/nym.png) | New York Mets | 83 | 79 | 0.512 |
+| 14 | ![Cincinnati Reds](https://a.espncdn.com/i/teamlogos/mlb/500/cin.png) | Cincinnati Reds | 83 | 79 | 0.512 |
+| 15 | ![Kansas City Royals](https://a.espncdn.com/i/teamlogos/mlb/500/kc.png) | Kansas City Royals | 82 | 80 | 0.506 |
 
 ## Workflow 5: NHL Team Performance
 
@@ -312,7 +319,9 @@ ggsave(file.path(out_dir, "nhl_team_performance.png"),
 nhl_plot
 ```
 
-![](workflows_files/figure-html/nhl-workflow-1.png)
+![NHL teams in the latest completed season, each drawn as its logo,
+placed by goals scored per game (horizontal) and goals allowed per game
+(vertical).](workflows_files/figure-html/nhl-workflow-1.png)
 
 ## Workflow 6: Betting Odds Integration
 
@@ -373,7 +382,18 @@ gtsave(odds_table, file.path(out_dir, "nfl_standings_odds.html"))
 odds_table
 ```
 
-[TABLE]
+| NFL Standings with Betting Lines |  |  |  |  |
+|----|----|----|----|----|
+| Season 2025 |  |  |  |  |
+|  | Team | Wins | Win % | Spread |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | DEN | 14 | 0.824 | -3.50 |
+| ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | NE | 14 | 0.824 | -3.50 |
+| ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | SEA | 14 | 0.824 | -3.25 |
+| ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | JAX | 13 | 0.765 | -3.50 |
+| ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 12 | 0.706 | 2.50 |
+| ![Houston Texans](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | HOU | 12 | 0.706 | -6.50 |
+| ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | LA | 12 | 0.706 | -2.50 |
+| ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 12 | 0.706 | 3.00 |
 
 ## Workflow 7: Automated Reporting Pipeline
 
@@ -424,7 +444,9 @@ mlb_report <- generate_standings_report(
 nfl_report$plot
 ```
 
-![](workflows_files/figure-html/automated-pipeline-1.png)
+![Bar chart of team win percentage from the automated report workflow,
+each bar filled in the team's
+color.](workflows_files/figure-html/automated-pipeline-1.png)
 
 ## Workflow 8: Multi-Sport Comparison
 

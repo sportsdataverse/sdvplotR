@@ -302,7 +302,7 @@ play, with team logos replacing the data points:</p>
 <span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>,</span>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey40"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="nfl-viz_files/figure-html/epa-plot-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nfl-viz_files/figure-html/epa-plot-1.png" class="r-plt" alt="NFL teams' pass EPA per play against number of pass plays in the latest completed season, each team drawn as its logo, with a dashed line at zero EPA." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="team-standings-with-colors">Team Standings with Colors<a class="anchor" aria-label="anchor" href="#team-standings-with-colors"></a>
@@ -336,7 +336,7 @@ play, with team logos replacing the data points:</p>
 <span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    legend.position <span class="op">=</span> <span class="st">"none"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="nfl-viz_files/figure-html/standings-colors-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nfl-viz_files/figure-html/standings-colors-1.png" class="r-plt" alt="Bar chart of the 16 NFL teams with the best win percentage in the latest completed season, each bar filled in the team's color." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="quarterback-headshots">Quarterback Headshots<a class="anchor" aria-label="anchor" href="#quarterback-headshots"></a>
@@ -382,7 +382,7 @@ play, with team logos replacing the data points:</p>
 <span>    y <span class="op">=</span> <span class="st">"Mean EPA per Pass"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nfl-viz_files/figure-html/qb-headshots-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nfl-viz_files/figure-html/qb-headshots-1.png" class="r-plt" alt="Top 8 NFL quarterbacks by EPA per pass in the latest completed season, each drawn as a headshot placed by passes thrown (horizontal) and mean EPA per pass (vertical), with a name label under each." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="nfl-team-tiers">NFL Team Tiers<a class="anchor" aria-label="anchor" href="#nfl-team-tiers"></a>
@@ -400,7 +400,7 @@ play, with team logos replacing the data points:</p>
 <span><span class="fu"><a href="../reference/sdv_team_tiers.html">sdv_team_tiers</a></span><span class="op">(</span></span>
 <span>  <span class="va">tier_data</span>,</span>
 <span>  sport <span class="op">=</span> <span class="st">"nfl"</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"NFL Power Rankings"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"NFL Team Tiers"</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Example tiers,"</span>, <span class="va">season</span>, <span class="st">"season"</span><span class="op">)</span>,</span>
 <span>  tier_desc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"1"</span> <span class="op">=</span> <span class="st">"Elite"</span>,</span>
@@ -409,7 +409,7 @@ play, with team logos replacing the data points:</p>
 <span>    <span class="st">"4"</span> <span class="op">=</span> <span class="st">"Rebuilding"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="nfl-viz_files/figure-html/team-tiers-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nfl-viz_files/figure-html/team-tiers-1.png" class="r-plt" alt="NFL team logos grouped into labeled tiers, from the top tier to the bottom. The tiers are examples." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="nfl-standings-table-with-logos">NFL Standings Table with Logos<a class="anchor" aria-label="anchor" href="#nfl-standings-table-with-logos"></a>
@@ -908,70 +908,70 @@ play, with team logos replacing the data points:</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:35px;" alt="The DEN logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:35px;" alt="Denver Broncos"></td>
 <td headers="team_name" class="gt_row gt_left">Broncos</td>
 <td headers="wins" class="gt_row gt_right">14</td>
 <td headers="games" class="gt_row gt_right">17</td>
 <td headers="win_pct" class="gt_row gt_right">0.824</td>
 </tr>
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:35px;" alt="The NE logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:35px;" alt="New England Patriots"></td>
 <td headers="team_name" class="gt_row gt_left">Patriots</td>
 <td headers="wins" class="gt_row gt_right">14</td>
 <td headers="games" class="gt_row gt_right">17</td>
 <td headers="win_pct" class="gt_row gt_right">0.824</td>
 </tr>
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:35px;" alt="The SEA logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:35px;" alt="Seattle Seahawks"></td>
 <td headers="team_name" class="gt_row gt_left">Seahawks</td>
 <td headers="wins" class="gt_row gt_right">14</td>
 <td headers="games" class="gt_row gt_right">17</td>
 <td headers="win_pct" class="gt_row gt_right">0.824</td>
 </tr>
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:35px;" alt="The JAX logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:35px;" alt="Jacksonville Jaguars"></td>
 <td headers="team_name" class="gt_row gt_left">Jaguars</td>
 <td headers="wins" class="gt_row gt_right">13</td>
 <td headers="games" class="gt_row gt_right">17</td>
 <td headers="win_pct" class="gt_row gt_right">0.765</td>
 </tr>
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:35px;" alt="The BUF logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:35px;" alt="Buffalo Bills"></td>
 <td headers="team_name" class="gt_row gt_left">Bills</td>
 <td headers="wins" class="gt_row gt_right">12</td>
 <td headers="games" class="gt_row gt_right">17</td>
 <td headers="win_pct" class="gt_row gt_right">0.706</td>
 </tr>
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:35px;" alt="The HOU logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:35px;" alt="Houston Texans"></td>
 <td headers="team_name" class="gt_row gt_left">Texans</td>
 <td headers="wins" class="gt_row gt_right">12</td>
 <td headers="games" class="gt_row gt_right">17</td>
 <td headers="win_pct" class="gt_row gt_right">0.706</td>
 </tr>
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:35px;" alt="The LA logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:35px;" alt="Los Angeles Rams"></td>
 <td headers="team_name" class="gt_row gt_left">Rams</td>
 <td headers="wins" class="gt_row gt_right">12</td>
 <td headers="games" class="gt_row gt_right">17</td>
 <td headers="win_pct" class="gt_row gt_right">0.706</td>
 </tr>
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:35px;" alt="The SF logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:35px;" alt="San Francisco 49ers"></td>
 <td headers="team_name" class="gt_row gt_left">49ers</td>
 <td headers="wins" class="gt_row gt_right">12</td>
 <td headers="games" class="gt_row gt_right">17</td>
 <td headers="win_pct" class="gt_row gt_right">0.706</td>
 </tr>
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:35px;" alt="The CHI logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:35px;" alt="Chicago Bears"></td>
 <td headers="team_name" class="gt_row gt_left">Bears</td>
 <td headers="wins" class="gt_row gt_right">11</td>
 <td headers="games" class="gt_row gt_right">17</td>
 <td headers="win_pct" class="gt_row gt_right">0.647</td>
 </tr>
 <tr>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:35px;" alt="The LAC logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:35px;" alt="Los Angeles Chargers"></td>
 <td headers="team_name" class="gt_row gt_left">Chargers</td>
 <td headers="wins" class="gt_row gt_right">11</td>
 <td headers="games" class="gt_row gt_right">17</td>
@@ -1016,7 +1016,7 @@ play, with team logos replacing the data points:</p>
 <span>    axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    panel.grid <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="nfl-viz_files/figure-html/division-map-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nfl-viz_files/figure-html/division-map-1.png" class="r-plt" alt="Grid of NFL team logos, one column per division, so each team sits under its division." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="axis-labels-with-logos">Axis Labels with Logos<a class="anchor" aria-label="anchor" href="#axis-labels-with-logos"></a>
@@ -1040,7 +1040,7 @@ play, with team logos replacing the data points:</p>
 <span>    y <span class="op">=</span> <span class="st">"Win Percentage"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nfl-viz_files/figure-html/axis-logos-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nfl-viz_files/figure-html/axis-logos-1.png" class="r-plt" alt="Bar chart of the top 8 NFL teams by win percentage, with each team's logo in place of its name on the horizontal axis and bars in team colors." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="next-steps">Next Steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>

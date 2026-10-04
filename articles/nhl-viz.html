@@ -291,7 +291,7 @@ logos:</p>
 <span>    caption <span class="op">=</span> <span class="st">"Data: fastRhockey | Viz: sdvplotR"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nhl-viz_files/figure-html/team-performance-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nhl-viz_files/figure-html/team-performance-1.png" class="r-plt" alt="NHL teams in the latest completed season, each drawn as its logo, placed by goals scored per game (horizontal) and goals allowed per game (vertical)." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="nhl-team-colors">NHL Team Colors<a class="anchor" aria-label="anchor" href="#nhl-team-colors"></a>
@@ -316,7 +316,7 @@ logos:</p>
 <span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    legend.position <span class="op">=</span> <span class="st">"none"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="nhl-viz_files/figure-html/team-colors-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nhl-viz_files/figure-html/team-colors-1.png" class="r-plt" alt="Bar chart of the 20 NHL teams with the best points percentage in the latest completed season, each bar filled in the team's color." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="player-headshots">Player Headshots<a class="anchor" aria-label="anchor" href="#player-headshots"></a>
@@ -354,7 +354,7 @@ logos:</p>
 <span>    y <span class="op">=</span> <span class="st">"Goals"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nhl-viz_files/figure-html/player-headshots-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nhl-viz_files/figure-html/player-headshots-1.png" class="r-plt" alt="NHL goals leaders of the latest completed season, each drawn as a headshot placed by games played (horizontal) and goals (vertical), with a name label under each." width="672"></p>
 <div class="section level3">
 <h3 id="nhl-api-player-ids">NHL API player IDs<a class="anchor" aria-label="anchor" href="#nhl-api-player-ids"></a>
 </h3>
@@ -385,8 +385,8 @@ the wrong setting draws someone else or nothing.</p>
 <span><span class="fu"><a href="../reference/sdv_team_tiers.html">sdv_team_tiers</a></span><span class="op">(</span></span>
 <span>  <span class="va">tier_data</span>,</span>
 <span>  sport <span class="op">=</span> <span class="st">"nhl"</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"NHL Power Rankings"</span>,</span>
-<span>  subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"As of"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"NHL Team Tiers"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Example tiers, "</span>, <span class="va">season</span> <span class="op">-</span> <span class="fl">1</span>, <span class="st">"-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">season</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">" season"</span><span class="op">)</span>,</span>
 <span>  tier_desc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"1"</span> <span class="op">=</span> <span class="st">"Stanley Cup Favorites"</span>,</span>
 <span>    <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Contenders"</span>,</span>
@@ -395,7 +395,7 @@ the wrong setting draws someone else or nothing.</p>
 <span>    <span class="st">"5"</span> <span class="op">=</span> <span class="st">"Rebuilding"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="nhl-viz_files/figure-html/team-tiers-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nhl-viz_files/figure-html/team-tiers-1.png" class="r-plt" alt="NHL team logos grouped into labeled tiers, from the top tier to the bottom. The tiers are examples." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="nhl-conference-map">NHL Conference Map<a class="anchor" aria-label="anchor" href="#nhl-conference-map"></a>
@@ -433,7 +433,7 @@ division sdvplotR keeps for every team:</p>
 <span>    axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    panel.grid <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="nhl-viz_files/figure-html/conference-map-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nhl-viz_files/figure-html/conference-map-1.png" class="r-plt" alt="Grid of NHL team logos, one column per conference and division, so each team sits under its conference and division." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="nhl-standings-table-with-logos">NHL Standings Table with Logos<a class="anchor" aria-label="anchor" href="#nhl-standings-table-with-logos"></a>
@@ -932,7 +932,7 @@ division sdvplotR keeps for every team:</p>
 <tbody class="gt_table_body">
 <tr>
 <td headers="rank" class="gt_row gt_right">1</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/col.png" style="height:35px;" alt="The COL logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/col.png" style="height:35px;" alt="Colorado Avalanche"></td>
 <td headers="team_full_name" class="gt_row gt_left">Colorado Avalanche</td>
 <td headers="wins" class="gt_row gt_right">55</td>
 <td headers="losses" class="gt_row gt_right">16</td>
@@ -942,7 +942,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">2</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/car.png" style="height:35px;" alt="The CAR logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/car.png" style="height:35px;" alt="Carolina Hurricanes"></td>
 <td headers="team_full_name" class="gt_row gt_left">Carolina Hurricanes</td>
 <td headers="wins" class="gt_row gt_right">53</td>
 <td headers="losses" class="gt_row gt_right">22</td>
@@ -952,7 +952,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">3</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/dal.png" style="height:35px;" alt="The DAL logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/dal.png" style="height:35px;" alt="Dallas Stars"></td>
 <td headers="team_full_name" class="gt_row gt_left">Dallas Stars</td>
 <td headers="wins" class="gt_row gt_right">50</td>
 <td headers="losses" class="gt_row gt_right">20</td>
@@ -962,7 +962,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">4</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/buf.png" style="height:35px;" alt="The BUF logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/buf.png" style="height:35px;" alt="Buffalo Sabres"></td>
 <td headers="team_full_name" class="gt_row gt_left">Buffalo Sabres</td>
 <td headers="wins" class="gt_row gt_right">50</td>
 <td headers="losses" class="gt_row gt_right">23</td>
@@ -972,7 +972,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">5</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/mtl.png" style="height:35px;" alt="The MTL logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/mtl.png" style="height:35px;" alt="Montreal Canadiens"></td>
 <td headers="team_full_name" class="gt_row gt_left">Montréal Canadiens</td>
 <td headers="wins" class="gt_row gt_right">48</td>
 <td headers="losses" class="gt_row gt_right">24</td>
@@ -982,7 +982,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">6</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/tb.png" style="height:35px;" alt="The TB logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/tb.png" style="height:35px;" alt="Tampa Bay Lightning"></td>
 <td headers="team_full_name" class="gt_row gt_left">Tampa Bay Lightning</td>
 <td headers="wins" class="gt_row gt_right">50</td>
 <td headers="losses" class="gt_row gt_right">26</td>
@@ -992,7 +992,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">7</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/min.png" style="height:35px;" alt="The MIN logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/min.png" style="height:35px;" alt="Minnesota Wild"></td>
 <td headers="team_full_name" class="gt_row gt_left">Minnesota Wild</td>
 <td headers="wins" class="gt_row gt_right">46</td>
 <td headers="losses" class="gt_row gt_right">24</td>
@@ -1002,7 +1002,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">8</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/bos.png" style="height:35px;" alt="The BOS logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/bos.png" style="height:35px;" alt="Boston Bruins"></td>
 <td headers="team_full_name" class="gt_row gt_left">Boston Bruins</td>
 <td headers="wins" class="gt_row gt_right">45</td>
 <td headers="losses" class="gt_row gt_right">27</td>
@@ -1012,7 +1012,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">9</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/ott.png" style="height:35px;" alt="The OTT logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/ott.png" style="height:35px;" alt="Ottawa Senators"></td>
 <td headers="team_full_name" class="gt_row gt_left">Ottawa Senators</td>
 <td headers="wins" class="gt_row gt_right">44</td>
 <td headers="losses" class="gt_row gt_right">27</td>
@@ -1022,7 +1022,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">10</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/pit.png" style="height:35px;" alt="The PIT logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/pit.png" style="height:35px;" alt="Pittsburgh Penguins"></td>
 <td headers="team_full_name" class="gt_row gt_left">Pittsburgh Penguins</td>
 <td headers="wins" class="gt_row gt_right">41</td>
 <td headers="losses" class="gt_row gt_right">25</td>
@@ -1032,7 +1032,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">11</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/phi.png" style="height:35px;" alt="The PHI logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/phi.png" style="height:35px;" alt="Philadelphia Flyers"></td>
 <td headers="team_full_name" class="gt_row gt_left">Philadelphia Flyers</td>
 <td headers="wins" class="gt_row gt_right">43</td>
 <td headers="losses" class="gt_row gt_right">27</td>
@@ -1042,7 +1042,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">12</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png" style="height:35px;" alt="The WSH logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png" style="height:35px;" alt="Washington Capitals"></td>
 <td headers="team_full_name" class="gt_row gt_left">Washington Capitals</td>
 <td headers="wins" class="gt_row gt_right">43</td>
 <td headers="losses" class="gt_row gt_right">30</td>
@@ -1052,7 +1052,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">13</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/vgk.png" style="height:35px;" alt="The VGK logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/vgk.png" style="height:35px;" alt="Vegas Golden Knights"></td>
 <td headers="team_full_name" class="gt_row gt_left">Vegas Golden Knights</td>
 <td headers="wins" class="gt_row gt_right">39</td>
 <td headers="losses" class="gt_row gt_right">26</td>
@@ -1062,7 +1062,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">14</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/edm.png" style="height:35px;" alt="The EDM logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/edm.png" style="height:35px;" alt="Edmonton Oilers"></td>
 <td headers="team_full_name" class="gt_row gt_left">Edmonton Oilers</td>
 <td headers="wins" class="gt_row gt_right">41</td>
 <td headers="losses" class="gt_row gt_right">30</td>
@@ -1072,7 +1072,7 @@ division sdvplotR keeps for every team:</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">15</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/utah.png" style="height:35px;" alt="The UTAH logo"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/utah.png" style="height:35px;" alt="Utah Mammoth"></td>
 <td headers="team_full_name" class="gt_row gt_left">Utah Mammoth</td>
 <td headers="wins" class="gt_row gt_right">43</td>
 <td headers="losses" class="gt_row gt_right">33</td>
@@ -1117,7 +1117,7 @@ division sdvplotR keeps for every team:</p>
 <span>    y <span class="op">=</span> <span class="cn">NULL</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nhl-viz_files/figure-html/player-comparison-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nhl-viz_files/figure-html/player-comparison-1.png" class="r-plt" alt="NHL top performers of the latest completed season in two panels, goals and assists; each leader is drawn as a headshot ranked within its panel." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="axis-labels-with-logos">Axis Labels with Logos<a class="anchor" aria-label="anchor" href="#axis-labels-with-logos"></a>
@@ -1142,7 +1142,7 @@ as <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="e
 <span>    y <span class="op">=</span> <span class="st">"Points Percentage"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nhl-viz_files/figure-html/axis-logos-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="nhl-viz_files/figure-html/axis-logos-1.png" class="r-plt" alt="Bar chart of the top 8 NHL teams by points percentage, with each team's logo in place of its name on the horizontal axis and bars in team colors." width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="next-steps">Next Steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>

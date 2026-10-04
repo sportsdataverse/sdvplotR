@@ -96,7 +96,8 @@ reactable(
     team_abbr = colDef(
       cell = reactable_sdv_logos(sport = "nfl", variant = "dark", height = 28),
       html = TRUE
-    )
+    ),
+    pct = colDef(format = colFormat(digits = 3))
   )
 )
 ```
@@ -149,7 +150,10 @@ reactable(
     ),
     wins    = colDef(style = reactable_sdv_team_color_bg(standings, "team_abbr", sport = "nfl")),
     losses  = colDef(style = reactable_sdv_team_color_bg(standings, "team_abbr", sport = "nfl")),
-    pct     = colDef(style = reactable_sdv_team_color_bg(standings, "team_abbr", sport = "nfl"))
+    pct     = colDef(
+      format = colFormat(digits = 3),
+      style = reactable_sdv_team_color_bg(standings, "team_abbr", sport = "nfl")
+    )
   )
 )
 ```
@@ -299,7 +303,17 @@ standings |>
   select(logo, team_abbr, wins, losses, pct) |>
   reactable(
     columns = list(
-      logo = colDef(name = "", cell = embed_img(height = 28))
+      logo = colDef(
+        name = "",
+        # embed_img() writes no alt: give each logo its team abbreviation
+        cell = function(value, index, name) {
+          htmltools::tagQuery(embed_img(height = 28)(value, index, name))$
+            find("img")$
+            addAttrs(alt = standings$team_abbr[[index]])$
+            allTags()
+        }
+      ),
+      pct = colDef(format = colFormat(digits = 3))
     )
   )
 ```

@@ -56,7 +56,8 @@ gt_border_bars_bottom(
 
 - img:
 
-  Optional. A URL for an image to render in the bar. Defaults to `NULL`.
+  Optional. A URL for an image to render in the bar. It is decorative,
+  so it carries an empty `alt`. Defaults to `NULL`.
 
 - img_width:
 

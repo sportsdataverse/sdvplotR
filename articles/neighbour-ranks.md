@@ -119,17 +119,17 @@ neighbour_table(summaries, focal, "net_adj_epa", metrics[["net_adj_epa"]])
 | Net adj. EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 30 | ![The LOU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/97.png)Louisville | 0.149 |
-| 31 | ![The USF logo](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png)South Florida | 0.146 |
-| 32 | ![The UVA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png)Virginia | 0.140 |
-| 33 | ![The TCU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.134 |
-| 34 | ![The ISU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.133 |
-| 35 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.128 |
-| 36 | ![The ECU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/151.png)East Carolina | 0.128 |
-| 37 | ![The TENN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
-| 38 | ![The TOL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.115 |
-| 39 | ![The PITT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.112 |
-| 40 | ![The ODU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.112 |
+| 30 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/97.png)Louisville | 0.149 |
+| 31 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png)South Florida | 0.146 |
+| 32 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png)Virginia | 0.140 |
+| 33 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.134 |
+| 34 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.133 |
+| 35 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.128 |
+| 36 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/151.png)East Carolina | 0.128 |
+| 37 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
+| 38 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.115 |
+| 39 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.112 |
+| 40 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.112 |
 
 ## Three metrics side by side
 
@@ -158,47 +158,47 @@ Illinois and its neighbours
 | Net adj. EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 30 | ![The LOU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/97.png)Louisville | 0.149 |
-| 31 | ![The USF logo](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png)South Florida | 0.146 |
-| 32 | ![The UVA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png)Virginia | 0.140 |
-| 33 | ![The TCU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.134 |
-| 34 | ![The ISU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.133 |
-| 35 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.128 |
-| 36 | ![The ECU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/151.png)East Carolina | 0.128 |
-| 37 | ![The TENN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
-| 38 | ![The TOL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.115 |
-| 39 | ![The PITT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.112 |
-| 40 | ![The ODU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.112 |
+| 30 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/97.png)Louisville | 0.149 |
+| 31 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png)South Florida | 0.146 |
+| 32 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png)Virginia | 0.140 |
+| 33 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.134 |
+| 34 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.133 |
+| 35 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.128 |
+| 36 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/151.png)East Carolina | 0.128 |
+| 37 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
+| 38 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.115 |
+| 39 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.112 |
+| 40 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.112 |
 
 | Offense EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 29 | ![The EMU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2199.png)Eastern Michigan | 0.120 |
-| 30 | ![The SMU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png)SMU | 0.119 |
-| 31 | ![The UAB logo](https://a.espncdn.com/i/teamlogos/ncaa/500/5.png)UAB | 0.116 |
-| 32 | ![The ARMY logo](https://a.espncdn.com/i/teamlogos/ncaa/500/349.png)Army | 0.113 |
-| 33 | ![The OHIO logo](https://a.espncdn.com/i/teamlogos/ncaa/500/195.png)Ohio | 0.111 |
-| 34 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.111 |
-| 35 | ![The PSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/213.png)Penn State | 0.109 |
-| 36 | ![The TEM logo](https://a.espncdn.com/i/teamlogos/ncaa/500/218.png)Temple | 0.106 |
-| 37 | ![The TEX logo](https://a.espncdn.com/i/teamlogos/ncaa/500/251.png)Texas | 0.104 |
-| 38 | ![The NCSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.100 |
-| 39 | ![The USU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/328.png)Utah State | 0.093 |
+| 29 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2199.png)Eastern Michigan | 0.120 |
+| 30 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png)SMU | 0.119 |
+| 31 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/5.png)UAB | 0.116 |
+| 32 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/349.png)Army | 0.113 |
+| 33 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/195.png)Ohio | 0.111 |
+| 34 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.111 |
+| 35 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/213.png)Penn State | 0.109 |
+| 36 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/218.png)Temple | 0.106 |
+| 37 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/251.png)Texas | 0.104 |
+| 38 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.100 |
+| 39 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/328.png)Utah State | 0.093 |
 
 | Defense EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 94 | ![The MRSH logo](https://a.espncdn.com/i/teamlogos/ncaa/500/276.png)Marshall | 0.108 |
-| 95 | ![The UNT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/249.png)North Texas | 0.110 |
-| 96 | ![The UL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/309.png)Louisiana | 0.111 |
-| 97 | ![The MSST logo](https://a.espncdn.com/i/teamlogos/ncaa/500/344.png)Mississippi State | 0.112 |
-| 98 | ![The NCSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.114 |
-| 99 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.117 |
-| 100 | ![The SJSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/23.png)San José State | 0.118 |
-| 101 | ![The KENT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png)Kent State | 0.118 |
-| 102 | ![The APP logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2026.png)App State | 0.119 |
-| 103 | ![The TXST logo](https://a.espncdn.com/i/teamlogos/ncaa/500/326.png)Texas State | 0.119 |
-| 104 | ![The TENN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
+| 94 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/276.png)Marshall | 0.108 |
+| 95 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/249.png)North Texas | 0.110 |
+| 96 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/309.png)Louisiana | 0.111 |
+| 97 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/344.png)Mississippi State | 0.112 |
+| 98 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.114 |
+| 99 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.117 |
+| 100 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/23.png)San José State | 0.118 |
+| 101 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png)Kent State | 0.118 |
+| 102 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2026.png)App State | 0.119 |
+| 103 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/326.png)Texas State | 0.119 |
+| 104 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
 
 Data: cfbfastR::load_espn_cfb_team_summaries()
 

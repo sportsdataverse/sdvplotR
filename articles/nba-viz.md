@@ -83,7 +83,9 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   theme_minimal()
 ```
 
-![](nba-viz_files/figure-html/team-performance-1.png)
+![NBA teams in the latest completed season, each drawn as its logo,
+placed by average points (horizontal) and average rebounds (vertical)
+per game.](nba-viz_files/figure-html/team-performance-1.png)
 
 ## NBA Team Colors
 
@@ -121,7 +123,9 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   )
 ```
 
-![](nba-viz_files/figure-html/team-colors-1.png)
+![Bar chart of the 16 NBA teams with the best win percentage in the
+latest completed season, each bar filled in the team's
+color.](nba-viz_files/figure-html/team-colors-1.png)
 
 ## Player Headshots
 
@@ -171,7 +175,10 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   theme_minimal()
 ```
 
-![](nba-viz_files/figure-html/player-headshots-1.png)
+![NBA points per game leaders of the latest completed season, each drawn
+as a headshot placed by games played (horizontal) and points per game
+(vertical), with a name label under
+each.](nba-viz_files/figure-html/player-headshots-1.png)
 
 ### NBA Stats player IDs
 
@@ -240,7 +247,9 @@ sdv_team_tiers(
 )
 ```
 
-![](nba-viz_files/figure-html/team-tiers-1.png)
+![NBA team logos grouped into labeled tiers, from the top tier to the
+bottom. The tiers are
+examples.](nba-viz_files/figure-html/team-tiers-1.png)
 
 ## NBA Conference Map
 
@@ -280,7 +289,8 @@ ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
-![](nba-viz_files/figure-html/conference-map-1.png)
+![Grid of NBA team logos, one column per conference, so each team sits
+under its conference.](nba-viz_files/figure-html/conference-map-1.png)
 
 ## NBA Standings Table with Logos
 
@@ -318,16 +328,16 @@ standings_table |>
 |----|----|----|----|----|----|
 | Season 2026 |  |  |  |  |  |
 | \# | Team | Abbrev | Wins | Games | Win % |
-| 1 | ![The OKC logo](https://a.espncdn.com/i/teamlogos/nba/500/okc.png) | OKC | 64 | 82 | 0.780 |
-| 2 | ![The SA logo](https://a.espncdn.com/i/teamlogos/nba/500/sa.png) | SA | 62 | 83 | 0.747 |
-| 3 | ![The DET logo](https://a.espncdn.com/i/teamlogos/nba/500/det.png) | DET | 60 | 82 | 0.732 |
-| 4 | ![The BOS logo](https://a.espncdn.com/i/teamlogos/nba/500/bos.png) | BOS | 56 | 82 | 0.683 |
-| 5 | ![The DEN logo](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | DEN | 54 | 82 | 0.659 |
-| 6 | ![The NY logo](https://a.espncdn.com/i/teamlogos/nba/500/ny.png) | NY | 54 | 83 | 0.651 |
-| 7 | ![The LAL logo](https://a.espncdn.com/i/teamlogos/nba/500/lal.png) | LAL | 53 | 82 | 0.646 |
-| 8 | ![The CLE logo](https://a.espncdn.com/i/teamlogos/nba/500/cle.png) | CLE | 52 | 82 | 0.634 |
-| 9 | ![The HOU logo](https://a.espncdn.com/i/teamlogos/nba/500/hou.png) | HOU | 52 | 82 | 0.634 |
-| 10 | ![The MIN logo](https://a.espncdn.com/i/teamlogos/nba/500/min.png) | MIN | 49 | 82 | 0.598 |
+| 1 | ![Oklahoma City Thunder](https://a.espncdn.com/i/teamlogos/nba/500/okc.png) | OKC | 64 | 82 | 0.780 |
+| 2 | ![San Antonio Spurs](https://a.espncdn.com/i/teamlogos/nba/500/sa.png) | SA | 62 | 83 | 0.747 |
+| 3 | ![Detroit Pistons](https://a.espncdn.com/i/teamlogos/nba/500/det.png) | DET | 60 | 82 | 0.732 |
+| 4 | ![Boston Celtics](https://a.espncdn.com/i/teamlogos/nba/500/bos.png) | BOS | 56 | 82 | 0.683 |
+| 5 | ![Denver Nuggets](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | DEN | 54 | 82 | 0.659 |
+| 6 | ![New York Knicks](https://a.espncdn.com/i/teamlogos/nba/500/ny.png) | NY | 54 | 83 | 0.651 |
+| 7 | ![Los Angeles Lakers](https://a.espncdn.com/i/teamlogos/nba/500/lal.png) | LAL | 53 | 82 | 0.646 |
+| 8 | ![Cleveland Cavaliers](https://a.espncdn.com/i/teamlogos/nba/500/cle.png) | CLE | 52 | 82 | 0.634 |
+| 9 | ![Houston Rockets](https://a.espncdn.com/i/teamlogos/nba/500/hou.png) | HOU | 52 | 82 | 0.634 |
+| 10 | ![Minnesota Timberwolves](https://a.espncdn.com/i/teamlogos/nba/500/min.png) | MIN | 49 | 82 | 0.598 |
 
 ## Player Performance Comparison
 
@@ -374,7 +384,10 @@ ggplot(comparison, aes(x = rank, y = value)) +
   theme_minimal()
 ```
 
-![](nba-viz_files/figure-html/player-comparison-1.png)
+![NBA top performers of the latest completed season in two panels,
+points per game and rebounds per game; each leader is drawn as a
+headshot ranked within its
+panel.](nba-viz_files/figure-html/player-comparison-1.png)
 
 ## Axis Labels with Logos
 
@@ -400,7 +413,9 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
   theme(legend.position = "none")
 ```
 
-![](nba-viz_files/figure-html/axis-logos-1.png)
+![Bar chart of the top 8 NBA teams by win percentage, with each team's
+logo in place of its name on the horizontal axis and bars in team
+colors.](nba-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

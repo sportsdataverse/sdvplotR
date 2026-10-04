@@ -23,11 +23,10 @@ College
 Basketball](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.md)
 [![Figure](../articles/social-posting_files/figure-html/logo-scatter-1.png)Social
 Posting](https://sdvplotR.sportsdataverse.org/articles/social-posting.md)
-[![Table theme
-preview](../reference/figures/gt_theme_sdv.png)Leaderboard
+[![Table theme preview](../reference/figures/gt_theme_pl.png)Leaderboard
 Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md)
 [![Table theme
-preview](../reference/figures/gt_theme_sdv_team.png)reactable
+preview](../reference/figures/gt_theme_sofa_light.png)reactable
 Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.md)
 [![Figure](../articles/workflows_files/figure-html/cfb-workflow-1.png)End-to-End
 Workflows](https://sdvplotR.sportsdataverse.org/articles/workflows.md)
@@ -61,11 +60,11 @@ Lists](https://sdvplotR.sportsdataverse.org/articles/tier_list.md)
 preview](../reference/figures/gt_theme_athletic.png)Rolling-Window
 Wins](https://sdvplotR.sportsdataverse.org/articles/window_wins.md)
 [![Table theme
-preview](../reference/figures/gt_theme_sdv_team.png)Neighbour
+preview](../reference/figures/gt_theme_tufte.png)Neighbour
 Ranks](https://sdvplotR.sportsdataverse.org/articles/neighbour-ranks.md)
 [![Figure](../articles/shot-grid_files/figure-html/plot-1.png)Shot
 Grid](https://sdvplotR.sportsdataverse.org/articles/shot-grid.md)
-[![Table theme preview](../reference/figures/gt_theme_sdv.png)Rolling
+[![Table theme preview](../reference/figures/gt_theme_kenpom.png)Rolling
 Form](https://sdvplotR.sportsdataverse.org/articles/rolling-form.md)
 [![Figure](../articles/signature-ribbon_files/figure-html/plot-1.png)Signature
 Ribbon](https://sdvplotR.sportsdataverse.org/articles/signature-ribbon.md)

@@ -410,4 +410,7 @@ wide %>%
   )
 ```
 
-![](images/window_wins.png)
+![Two-panel table of the winningest college basketball programs over
+10-year windows from 1980-1989 to 2017-2026, each row listing the top
+five programs by logo, shaded by how many titles the program won in the
+window.](images/window_wins.png)

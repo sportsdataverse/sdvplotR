@@ -86,7 +86,9 @@ ggplot(team_epa, aes(x = n_plays, y = mean_epa)) +
   )
 ```
 
-![](nfl-viz_files/figure-html/epa-plot-1.png)
+![NFL teams' pass EPA per play against number of pass plays in the
+latest completed season, each team drawn as its logo, with a dashed line
+at zero EPA.](nfl-viz_files/figure-html/epa-plot-1.png)
 
 ## Team Standings with Colors
 
@@ -123,7 +125,9 @@ ggplot(head(standings, 16), aes(x = reorder(team, win_pct), y = win_pct)) +
   )
 ```
 
-![](nfl-viz_files/figure-html/standings-colors-1.png)
+![Bar chart of the 16 NFL teams with the best win percentage in the
+latest completed season, each bar filled in the team's
+color.](nfl-viz_files/figure-html/standings-colors-1.png)
 
 ## Quarterback Headshots
 
@@ -172,7 +176,10 @@ ggplot(qb_epa, aes(x = n_passes, y = mean_epa)) +
   theme_minimal()
 ```
 
-![](nfl-viz_files/figure-html/qb-headshots-1.png)
+![Top 8 NFL quarterbacks by EPA per pass in the latest completed season,
+each drawn as a headshot placed by passes thrown (horizontal) and mean
+EPA per pass (vertical), with a name label under
+each.](nfl-viz_files/figure-html/qb-headshots-1.png)
 
 ## NFL Team Tiers
 
@@ -191,7 +198,7 @@ tier_data <- data.frame(
 sdv_team_tiers(
   tier_data,
   sport = "nfl",
-  title = "NFL Power Rankings",
+  title = "NFL Team Tiers",
   subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "Elite",
@@ -202,7 +209,9 @@ sdv_team_tiers(
 )
 ```
 
-![](nfl-viz_files/figure-html/team-tiers-1.png)
+![NFL team logos grouped into labeled tiers, from the top tier to the
+bottom. The tiers are
+examples.](nfl-viz_files/figure-html/team-tiers-1.png)
 
 ## NFL Standings Table with Logos
 
@@ -241,16 +250,16 @@ standings_table |>
 |----|----|----|----|----|
 | Season 2025 |  |  |  |  |
 | Team | Name | Wins | Games | Win % |
-| ![The DEN logo](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Broncos | 14 | 17 | 0.824 |
-| ![The NE logo](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | Patriots | 14 | 17 | 0.824 |
-| ![The SEA logo](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | Seahawks | 14 | 17 | 0.824 |
-| ![The JAX logo](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | Jaguars | 13 | 17 | 0.765 |
-| ![The BUF logo](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | Bills | 12 | 17 | 0.706 |
-| ![The HOU logo](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | Texans | 12 | 17 | 0.706 |
-| ![The LA logo](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | Rams | 12 | 17 | 0.706 |
-| ![The SF logo](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 49ers | 12 | 17 | 0.706 |
-| ![The CHI logo](https://a.espncdn.com/i/teamlogos/nfl/500/chi.png) | Bears | 11 | 17 | 0.647 |
-| ![The LAC logo](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Chargers | 11 | 17 | 0.647 |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Broncos | 14 | 17 | 0.824 |
+| ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | Patriots | 14 | 17 | 0.824 |
+| ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | Seahawks | 14 | 17 | 0.824 |
+| ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | Jaguars | 13 | 17 | 0.765 |
+| ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | Bills | 12 | 17 | 0.706 |
+| ![Houston Texans](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | Texans | 12 | 17 | 0.706 |
+| ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | Rams | 12 | 17 | 0.706 |
+| ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 49ers | 12 | 17 | 0.706 |
+| ![Chicago Bears](https://a.espncdn.com/i/teamlogos/nfl/500/chi.png) | Bears | 11 | 17 | 0.647 |
+| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Chargers | 11 | 17 | 0.647 |
 
 ## NFL Division Map with Logos
 
@@ -290,7 +299,8 @@ ggplot(divisions, aes(x = x, y = y)) +
   )
 ```
 
-![](nfl-viz_files/figure-html/division-map-1.png)
+![Grid of NFL team logos, one column per division, so each team sits
+under its division.](nfl-viz_files/figure-html/division-map-1.png)
 
 ## Axis Labels with Logos
 
@@ -317,7 +327,9 @@ ggplot(top_8, aes(x = team, y = win_pct)) +
   theme(legend.position = "none")
 ```
 
-![](nfl-viz_files/figure-html/axis-logos-1.png)
+![Bar chart of the top 8 NFL teams by win percentage, with each team's
+logo in place of its name on the horizontal axis and bars in team
+colors.](nfl-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

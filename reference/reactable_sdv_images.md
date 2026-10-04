@@ -4,7 +4,8 @@ Cell renderers for
 [`reactable::colDef()`](https://glin.github.io/reactable/reference/colDef.html)
 that translate team abbreviations (or player IDs) into `<img>` tags.
 Values that cannot be resolved are returned unchanged so the original
-text is shown.
+text is shown. Logos and wordmarks get the team's full name as `alt`
+text, headshots `"Player <id> headshot"`.
 
 ## Usage
 
@@ -87,5 +88,5 @@ reactable(
   )
 )
 
-{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team":["KC","BUF","SF"],"wins":[13,12,11]},"columns":[{"id":"team","name":"team","type":"character","cell":["<img src=\"https://a.espncdn.com/i/teamlogos/nfl/500/kc.png\" style=\"height:30px;vertical-align:middle;\" alt=\"KC\" />","<img src=\"https://a.espncdn.com/i/teamlogos/nfl/500/buf.png\" style=\"height:30px;vertical-align:middle;\" alt=\"BUF\" />","<img src=\"https://a.espncdn.com/i/teamlogos/nfl/500/sf.png\" style=\"height:30px;vertical-align:middle;\" alt=\"SF\" />"],"html":true},{"id":"wins","name":"wins","type":"numeric"}],"dataKey":"316b90fa9ba7f260efd50e896f583a4b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}
+{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team":["KC","BUF","SF"],"wins":[13,12,11]},"columns":[{"id":"team","name":"team","type":"character","cell":["<img src=\"https://a.espncdn.com/i/teamlogos/nfl/500/kc.png\" style=\"height:30px;vertical-align:middle;\" alt=\"Kansas City Chiefs\" />","<img src=\"https://a.espncdn.com/i/teamlogos/nfl/500/buf.png\" style=\"height:30px;vertical-align:middle;\" alt=\"Buffalo Bills\" />","<img src=\"https://a.espncdn.com/i/teamlogos/nfl/500/sf.png\" style=\"height:30px;vertical-align:middle;\" alt=\"San Francisco 49ers\" />"],"html":true},{"id":"wins","name":"wins","type":"numeric"}],"dataKey":"47037ccad90e2a1630e62ac4f7c95edb"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}
 ```

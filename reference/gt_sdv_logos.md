@@ -52,8 +52,9 @@ gt_sdv_logos(
 - include_name:
 
   If `TRUE`, keep the cell's text after the logo, so a cell shows logo
-  and name (what cbbplotR's `gt_cbb_teams()` did). Defaults to `FALSE`,
-  the logo alone.
+  and name (what cbbplotR's `gt_cbb_teams()` did), and the image gets an
+  empty `alt` so the name is not read twice. Defaults to `FALSE`, the
+  logo alone, whose `alt` is the team's full name.
 
 - season:
 

@@ -63,11 +63,11 @@ ggplot(game_data, aes(x = time_left)) +
   scale_x_reverse() +
   scale_y_continuous(labels = scales::percent) +
   labs(
-    title = "Win Probability: KC vs BUF",
-    subtitle = "Week 10 Recap",
+    title = "Win Probability: KC vs BUF (example data)",
+    subtitle = "Example data, not a real game",
     x = "Time Remaining",
     y = "Win Probability",
-    caption = "Data: nflfastR | Viz: sdvplotR"
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_minimal() +
   theme(
@@ -77,7 +77,10 @@ ggplot(game_data, aes(x = time_left)) +
   )
 ```
 
-![](social-posting_files/figure-html/win-probability-1.png)
+![Example win probability chart for a Kansas City Chiefs and Buffalo
+Bills game: two overlapping red and blue areas show each team's chance
+of winning over the time left, with both team logos in the
+middle.](social-posting_files/figure-html/win-probability-1.png)
 
 ## Logo-Rich Scatter Plots
 
@@ -101,11 +104,11 @@ ggplot(epa_data, aes(x = offensive_epa, y = defensive_epa)) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
   geom_vline(xintercept = 0, linetype = "dashed", color = "grey50") +
   labs(
-    title = "NFL Team EPA Analysis",
-    subtitle = "Offensive vs Defensive Performance",
+    title = "NFL Team EPA Analysis (example data)",
+    subtitle = "Offensive vs Defensive Performance, example data",
     x = "Offensive EPA per Play",
     y = "Defensive EPA per Play",
-    caption = "Data: nflfastR | Viz: sdvplotR"
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_minimal() +
   theme(
@@ -115,7 +118,9 @@ ggplot(epa_data, aes(x = offensive_epa, y = defensive_epa)) +
   )
 ```
 
-![](social-posting_files/figure-html/logo-scatter-1.png)
+![NFL teams placed by offensive EPA (horizontal) and defensive EPA
+(vertical), each drawn as its logo, with dashed lines at
+zero.](social-posting_files/figure-html/logo-scatter-1.png)
 
 ## Instagram-Style Square Exports
 
@@ -145,8 +150,8 @@ ggplot(top_9, aes(x = x, y = y)) +
   ) +
   coord_equal() +
   labs(
-    title = "Top 9 NFL Teams by Win %",
-    caption = "Data: nflfastR | Viz: sdvplotR"
+    title = "Top 9 NFL Teams by Win % (example data)",
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_void() +
   theme(
@@ -155,7 +160,9 @@ ggplot(top_9, aes(x = x, y = y)) +
   )
 ```
 
-![](social-posting_files/figure-html/instagram-square-1.png)
+![Square graphic of the top 9 NFL teams by win percentage, each team's
+logo in a grid with a label under
+it.](social-posting_files/figure-html/instagram-square-1.png)
 
 ## Twitter/X Optimized Graphics
 
@@ -180,11 +187,11 @@ ggplot(power_rankings, aes(x = rank, y = points)) +
   scale_fill_sdv(sport = "nfl", alpha = 0.8) +
   scale_y_continuous(limits = c(0, 120)) +
   labs(
-    title = "Week 10 Power Rankings",
-    subtitle = "Top 10 NFL Teams",
+    title = "Example Power Rankings",
+    subtitle = "Top 10 NFL Teams, example data",
     x = "Rank",
     y = "Power Rating",
-    caption = "Data: nflfastR | Viz: sdvplotR"
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_minimal() +
   theme(
@@ -195,7 +202,9 @@ ggplot(power_rankings, aes(x = rank, y = points)) +
   )
 ```
 
-![](social-posting_files/figure-html/twitter-graphic-1.png)
+![Example power rankings of the top 10 NFL teams: a bar for each team's
+points, filled in team colors, with the team's logo at the end of the
+bar.](social-posting_files/figure-html/twitter-graphic-1.png)
 
 ## ggsave Best Practices
 
@@ -233,7 +242,7 @@ Add consistent branding to your graphics:
 # Create a branded footer function
 add_branding <- function(plot, username = "@YourHandle") {
   plot +
-    labs(caption = paste0("Data: nflfastR | Viz: sdvplotR | ", username)) +
+    labs(caption = paste0("Viz: sdvplotR | ", username)) +
     theme(
       plot.caption = element_text(
         color = "grey60",
@@ -251,7 +260,9 @@ sample_plot <- ggplot(data.frame(x = 1:5, y = 1:5), aes(x, y)) +
 add_branding(sample_plot, "@SportsDataverse")
 ```
 
-![](social-posting_files/figure-html/branding-1.png)
+![A plain example scatter plot of five points on a diagonal, shown with
+the sdvplotR branding caption below
+it.](social-posting_files/figure-html/branding-1.png)
 
 ## Multi-Sport Weekly Recap
 
@@ -317,9 +328,9 @@ ggplot(multi_sport_data, aes(x = rank, y = 1)) +
   ) +
   scale_x_continuous(breaks = 1:5) +
   labs(
-    title = "Weekly Power Rankings",
-    subtitle = "Top Teams Across All Sports",
-    caption = "Data: SportsDataverse | Viz: sdvplotR"
+    title = "Example Power Rankings",
+    subtitle = "Top Teams Across All Sports, example data",
+    caption = "Example data | Viz: sdvplotR"
   ) +
   theme_minimal() +
   theme(
@@ -330,7 +341,9 @@ ggplot(multi_sport_data, aes(x = rank, y = 1)) +
   )
 ```
 
-![](social-posting_files/figure-html/multi-sport-recap-1.png)
+![Top teams from several sports in one weekly power rankings graphic,
+each ranked team drawn as its logo with labels under
+it.](social-posting_files/figure-html/multi-sport-recap-1.png)
 
 ## Color Palette Showcases
 
@@ -362,7 +375,8 @@ ggplot(color_data, aes(x = x, y = y)) +
   )
 ```
 
-![](social-posting_files/figure-html/color-palettes-1.png)
+![Bar chart of NFL team primary colors, one bar per team filled in that
+team's color.](social-posting_files/figure-html/color-palettes-1.png)
 
 ## Tips for Social Media Success
 

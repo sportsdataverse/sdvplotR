@@ -76,7 +76,9 @@ ggplot(df, aes(x = team, y = value)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-![](getting-started_files/figure-html/colors-1.png)
+![Bar chart of example values for NFL teams, each bar filled and
+outlined in the team's primary and secondary
+colors.](getting-started_files/figure-html/colors-1.png)
 
 ## Theme Elements
 

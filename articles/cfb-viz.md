@@ -94,7 +94,10 @@ ggplot(sec_teams, aes(x = reorder(team_abbr, mean_epa), y = mean_epa)) +
   )
 ```
 
-![](cfb-viz_files/figure-html/conference-standings-1.png)
+![Bar chart of Southeastern Conference teams' EPA per pass play in the
+latest completed season, sorted from lowest to highest, each bar filled
+in the team's
+color.](cfb-viz_files/figure-html/conference-standings-1.png)
 
 ## Playoff Bracket with cfbseedR
 
@@ -164,7 +167,9 @@ ggplot(bracket_data, aes(x = seed, y = 1)) +
   )
 ```
 
-![](cfb-viz_files/figure-html/playoff-bracket-1.png)
+![The 12 College Football Playoff seeds of the latest completed season
+computed from results alone, each team drawn as its logo in seed
+order.](cfb-viz_files/figure-html/playoff-bracket-1.png)
 
 `autobid` picks the automatic-bid rule in force that season. Without
 committee rankings the field is seeded from results alone; pass the
@@ -208,7 +213,9 @@ sdv_team_tiers(
 )
 ```
 
-![](cfb-viz_files/figure-html/team-tiers-1.png)
+![College football team logos grouped into labeled tiers, from the top
+tier to the bottom. Teams are the 25 best passing offenses by EPA per
+play.](cfb-viz_files/figure-html/team-tiers-1.png)
 
 ## Conference Map
 
@@ -249,7 +256,8 @@ ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
-![](cfb-viz_files/figure-html/conference-map-1.png)
+![Grid of FBS team logos, one column per conference, so each team sits
+under its conference.](cfb-viz_files/figure-html/conference-map-1.png)
 
 ## CFB Standings Table with Logos
 
@@ -283,21 +291,21 @@ team_perf |>
 |----|----|----|----|----|----|
 | Season 2025 |  |  |  |  |  |
 | \# |  | Team | Conf | EPA/Play | Plays |
-| 1 | ![The OSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/194.png) | Ohio State | Big Ten | 0.386 | 384 |
-| 2 | ![The USC logo](https://a.espncdn.com/i/teamlogos/ncaa/500/30.png) | USC | Big Ten | 0.370 | 396 |
-| 3 | ![The VAN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/238.png) | Vanderbilt | SEC | 0.350 | 376 |
-| 4 | ![The UNT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/249.png) | North Texas | AAC | 0.346 | 450 |
-| 5 | ![The NDSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2449.png) | North Dakota State | Mountain West | 0.324 | 310 |
-| 6 | ![The CONN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/41.png) | UConn | FBS Indep. | 0.310 | 442 |
-| 7 | ![The CIN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png) | Cincinnati | Big 12 | 0.285 | 353 |
-| 8 | ![The IU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/84.png) | Indiana | Big Ten | 0.280 | 361 |
-| 9 | ![The AF logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2005.png) | Air Force | Mountain West | 0.266 | 179 |
-| 10 | ![The GT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/59.png) | Georgia Tech | ACC | 0.239 | 360 |
-| 11 | ![The TEM logo](https://a.espncdn.com/i/teamlogos/ncaa/500/218.png) | Temple | AAC | 0.224 | 341 |
-| 12 | ![The MIA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png) | Miami | ACC | 0.223 | 388 |
-| 13 | ![The USF logo](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png) | South Florida | AAC | 0.214 | 383 |
-| 14 | ![The MISS logo](https://a.espncdn.com/i/teamlogos/ncaa/500/145.png) | Ole Miss | SEC | 0.214 | 419 |
-| 15 | ![The RUTG logo](https://a.espncdn.com/i/teamlogos/ncaa/500/164.png) | Rutgers | Big Ten | 0.213 | 429 |
+| 1 | ![Ohio State Buckeyes](https://a.espncdn.com/i/teamlogos/ncaa/500/194.png) | Ohio State | Big Ten | 0.386 | 384 |
+| 2 | ![USC Trojans](https://a.espncdn.com/i/teamlogos/ncaa/500/30.png) | USC | Big Ten | 0.370 | 396 |
+| 3 | ![Vanderbilt Commodores](https://a.espncdn.com/i/teamlogos/ncaa/500/238.png) | Vanderbilt | SEC | 0.350 | 376 |
+| 4 | ![North Texas Mean Green](https://a.espncdn.com/i/teamlogos/ncaa/500/249.png) | North Texas | AAC | 0.346 | 450 |
+| 5 | ![North Dakota State Bison](https://a.espncdn.com/i/teamlogos/ncaa/500/2449.png) | North Dakota State | Mountain West | 0.324 | 310 |
+| 6 | ![UConn Huskies](https://a.espncdn.com/i/teamlogos/ncaa/500/41.png) | UConn | FBS Indep. | 0.310 | 442 |
+| 7 | ![Cincinnati Bearcats](https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png) | Cincinnati | Big 12 | 0.285 | 353 |
+| 8 | ![Indiana Hoosiers](https://a.espncdn.com/i/teamlogos/ncaa/500/84.png) | Indiana | Big Ten | 0.280 | 361 |
+| 9 | ![Air Force Falcons](https://a.espncdn.com/i/teamlogos/ncaa/500/2005.png) | Air Force | Mountain West | 0.266 | 179 |
+| 10 | ![Georgia Tech Yellow Jackets](https://a.espncdn.com/i/teamlogos/ncaa/500/59.png) | Georgia Tech | ACC | 0.239 | 360 |
+| 11 | ![Temple Owls](https://a.espncdn.com/i/teamlogos/ncaa/500/218.png) | Temple | AAC | 0.224 | 341 |
+| 12 | ![Miami Hurricanes](https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png) | Miami | ACC | 0.223 | 388 |
+| 13 | ![South Florida Bulls](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png) | South Florida | AAC | 0.214 | 383 |
+| 14 | ![Ole Miss Rebels](https://a.espncdn.com/i/teamlogos/ncaa/500/145.png) | Ole Miss | SEC | 0.214 | 419 |
+| 15 | ![Rutgers Scarlet Knights](https://a.espncdn.com/i/teamlogos/ncaa/500/164.png) | Rutgers | Big Ten | 0.213 | 429 |
 
 ## Rivalry Matchups
 
@@ -343,7 +351,9 @@ ggplot(rivalries, aes(x = 1, y = row)) +
   theme_void()
 ```
 
-![](cfb-viz_files/figure-html/rivalries-1.png)
+![Three college football rivalry pairings, such as the Iron Bowl and The
+Game, each pair shown as two team logos side by side with the rivalry
+name below.](cfb-viz_files/figure-html/rivalries-1.png)
 
 ## Axis Labels with Logos
 
@@ -369,7 +379,9 @@ ggplot(top_10, aes(x = team_abbr, y = mean_epa)) +
   theme(legend.position = "none")
 ```
 
-![](cfb-viz_files/figure-html/axis-logos-1.png)
+![Bar chart of the top 10 college football teams by pass EPA per play,
+with each team's logo in place of its name on the horizontal axis and
+bars in team colors.](cfb-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

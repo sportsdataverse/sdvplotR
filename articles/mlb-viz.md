@@ -91,7 +91,9 @@ ggplot(team_stats, aes(x = runs_scored, y = runs_allowed)) +
   theme_minimal()
 ```
 
-![](mlb-viz_files/figure-html/team-performance-1.png)
+![MLB teams in the latest completed season, each drawn as its logo,
+placed by runs scored (horizontal) and runs allowed
+(vertical).](mlb-viz_files/figure-html/team-performance-1.png)
 
 ## MLB Team Colors
 
@@ -119,7 +121,9 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   )
 ```
 
-![](mlb-viz_files/figure-html/team-colors-1.png)
+![Bar chart of the 20 MLB teams with the best winning percentage in the
+latest completed season, each bar filled in the team's
+color.](mlb-viz_files/figure-html/team-colors-1.png)
 
 ## Player Headshots
 
@@ -160,7 +164,10 @@ ggplot(top_hr, aes(x = games_played, y = home_runs)) +
   theme_minimal()
 ```
 
-![](mlb-viz_files/figure-html/player-headshots-1.png)
+![MLB home runs leaders of the latest completed season, each drawn as a
+headshot placed by games played (horizontal) and home runs (vertical),
+with a name label under
+each.](mlb-viz_files/figure-html/player-headshots-1.png)
 
 ### MLBAM player IDs
 
@@ -189,8 +196,8 @@ tier_data <- data.frame(
 sdv_team_tiers(
   tier_data,
   sport = "mlb",
-  title = "MLB Power Rankings",
-  subtitle = paste("As of", Sys.Date()),
+  title = "MLB Team Tiers",
+  subtitle = paste("Example tiers,", season, "season"),
   tier_desc = c(
     "1" = "World Series Favorites",
     "2" = "Contenders",
@@ -201,7 +208,9 @@ sdv_team_tiers(
 )
 ```
 
-![](mlb-viz_files/figure-html/team-tiers-1.png)
+![MLB team logos grouped into labeled tiers, from the top tier to the
+bottom. The tiers are
+examples.](mlb-viz_files/figure-html/team-tiers-1.png)
 
 ## MLB Division Map
 
@@ -240,7 +249,8 @@ ggplot(division_map, aes(x = division_num, y = team_rank)) +
   )
 ```
 
-![](mlb-viz_files/figure-html/division-map-1.png)
+![Grid of MLB team logos, one column per division, so each team sits
+under its division.](mlb-viz_files/figure-html/division-map-1.png)
 
 ## MLB Standings Table with Logos
 
@@ -273,21 +283,21 @@ team_wins |>
 |----|----|----|----|----|----|
 | Season 2025 |  |  |  |  |  |
 | \# |  | Team | W | L | Pct |
-| 1 | ![The MIL logo](https://a.espncdn.com/i/teamlogos/mlb/500/mil.png) | Milwaukee Brewers | 97 | 65 | 0.599 |
-| 2 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/mlb/500/phi.png) | Philadelphia Phillies | 96 | 66 | 0.593 |
-| 3 | ![The TOR logo](https://a.espncdn.com/i/teamlogos/mlb/500/tor.png) | Toronto Blue Jays | 94 | 68 | 0.580 |
-| 4 | ![The NYY logo](https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png) | New York Yankees | 94 | 68 | 0.580 |
-| 5 | ![The LAD logo](https://a.espncdn.com/i/teamlogos/mlb/500/lad.png) | Los Angeles Dodgers | 93 | 69 | 0.574 |
-| 6 | ![The CHC logo](https://a.espncdn.com/i/teamlogos/mlb/500/chc.png) | Chicago Cubs | 92 | 70 | 0.568 |
-| 7 | ![The SEA logo](https://a.espncdn.com/i/teamlogos/mlb/500/sea.png) | Seattle Mariners | 90 | 72 | 0.556 |
-| 8 | ![The SD logo](https://a.espncdn.com/i/teamlogos/mlb/500/sd.png) | San Diego Padres | 90 | 72 | 0.556 |
-| 9 | ![The BOS logo](https://a.espncdn.com/i/teamlogos/mlb/500/bos.png) | Boston Red Sox | 89 | 73 | 0.549 |
-| 10 | ![The CLE logo](https://a.espncdn.com/i/teamlogos/mlb/500/cle.png) | Cleveland Guardians | 88 | 74 | 0.543 |
-| 11 | ![The DET logo](https://a.espncdn.com/i/teamlogos/mlb/500/det.png) | Detroit Tigers | 87 | 75 | 0.537 |
-| 12 | ![The HOU logo](https://a.espncdn.com/i/teamlogos/mlb/500/hou.png) | Houston Astros | 87 | 75 | 0.537 |
-| 13 | ![The NYM logo](https://a.espncdn.com/i/teamlogos/mlb/500/nym.png) | New York Mets | 83 | 79 | 0.512 |
-| 14 | ![The CIN logo](https://a.espncdn.com/i/teamlogos/mlb/500/cin.png) | Cincinnati Reds | 83 | 79 | 0.512 |
-| 15 | ![The KC logo](https://a.espncdn.com/i/teamlogos/mlb/500/kc.png) | Kansas City Royals | 82 | 80 | 0.506 |
+| 1 | ![Milwaukee Brewers](https://a.espncdn.com/i/teamlogos/mlb/500/mil.png) | Milwaukee Brewers | 97 | 65 | 0.599 |
+| 2 | ![Philadelphia Phillies](https://a.espncdn.com/i/teamlogos/mlb/500/phi.png) | Philadelphia Phillies | 96 | 66 | 0.593 |
+| 3 | ![Toronto Blue Jays](https://a.espncdn.com/i/teamlogos/mlb/500/tor.png) | Toronto Blue Jays | 94 | 68 | 0.580 |
+| 4 | ![New York Yankees](https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png) | New York Yankees | 94 | 68 | 0.580 |
+| 5 | ![Los Angeles Dodgers](https://a.espncdn.com/i/teamlogos/mlb/500/lad.png) | Los Angeles Dodgers | 93 | 69 | 0.574 |
+| 6 | ![Chicago Cubs](https://a.espncdn.com/i/teamlogos/mlb/500/chc.png) | Chicago Cubs | 92 | 70 | 0.568 |
+| 7 | ![Seattle Mariners](https://a.espncdn.com/i/teamlogos/mlb/500/sea.png) | Seattle Mariners | 90 | 72 | 0.556 |
+| 8 | ![San Diego Padres](https://a.espncdn.com/i/teamlogos/mlb/500/sd.png) | San Diego Padres | 90 | 72 | 0.556 |
+| 9 | ![Boston Red Sox](https://a.espncdn.com/i/teamlogos/mlb/500/bos.png) | Boston Red Sox | 89 | 73 | 0.549 |
+| 10 | ![Cleveland Guardians](https://a.espncdn.com/i/teamlogos/mlb/500/cle.png) | Cleveland Guardians | 88 | 74 | 0.543 |
+| 11 | ![Detroit Tigers](https://a.espncdn.com/i/teamlogos/mlb/500/det.png) | Detroit Tigers | 87 | 75 | 0.537 |
+| 12 | ![Houston Astros](https://a.espncdn.com/i/teamlogos/mlb/500/hou.png) | Houston Astros | 87 | 75 | 0.537 |
+| 13 | ![New York Mets](https://a.espncdn.com/i/teamlogos/mlb/500/nym.png) | New York Mets | 83 | 79 | 0.512 |
+| 14 | ![Cincinnati Reds](https://a.espncdn.com/i/teamlogos/mlb/500/cin.png) | Cincinnati Reds | 83 | 79 | 0.512 |
+| 15 | ![Kansas City Royals](https://a.espncdn.com/i/teamlogos/mlb/500/kc.png) | Kansas City Royals | 82 | 80 | 0.506 |
 
 ## Player Performance Comparison
 
@@ -339,7 +349,9 @@ ggplot(comparison, aes(x = rank, y = value)) +
   theme_minimal()
 ```
 
-![](mlb-viz_files/figure-html/player-comparison-1.png)
+![MLB top performers of the latest completed season in two panels, home
+runs and batting average; each leader is drawn as a headshot ranked
+within its panel.](mlb-viz_files/figure-html/player-comparison-1.png)
 
 ## Axis Labels with Logos
 
@@ -368,7 +380,9 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
   theme(legend.position = "none")
 ```
 
-![](mlb-viz_files/figure-html/axis-logos-1.png)
+![Bar chart of the top 8 MLB teams by winning percentage, with each
+team's logo in place of its name on the horizontal axis and bars in team
+colors.](mlb-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 

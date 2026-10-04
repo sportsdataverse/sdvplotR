@@ -52,7 +52,7 @@ data <- read_csv("https://github.com/sportsdataverse/cfbfastR-data/raw/refs/head
     team_logo = paste0(base, team_id, ".png"),
     location = ifelse(neutral_site == TRUE, "neutral", location)
   ) %>%
-  select(team, team_logo, week, location, opponent_logo)
+  select(team, team_logo, week, location, opponent_logo, opponent)
 ```
 
 `clean_homeaway()` sets `location` to `"home"` or `"away"`, so we fold
@@ -69,6 +69,11 @@ logos <- data %>%
   )
 
 wk <- setdiff(names(logos), c("team", "team_logo"))
+
+# the same grid of opponent names, for each logo's alt text
+opp_names <- data %>%
+  arrange(team) %>%
+  pivot_wider(id_cols = team, names_from = week, values_from = opponent, names_sort = TRUE)
 ```
 
 `names_sort = TRUE` sorts the week columns. Because `week` is numeric,
@@ -155,7 +160,7 @@ After the images render, we drop a muted `BYE` into the empty cells.
 
 ``` r
 
-byemark <- "<span style=\"color:#8A9099;font-size:8px;font-weight:600;letter-spacing:0.12em\">BYE</span>"
+byemark <- "<span style=\"color:#565C64;font-size:8px;font-weight:600;letter-spacing:0.12em\">BYE</span>"
 ```
 
 ``` r
@@ -173,7 +178,11 @@ This has to run after `gt_img_rows()`, not through
 [`sub_missing()`](https://gt.rstudio.com/reference/sub_missing.html),
 because `gt_img_rows()` would otherwise wrap the placeholder text in a
 broken `<img>` tag. We find the missing rows per column and write the
-mark straight into them.
+mark straight into them. `gt_img_rows()` writes no `alt`, so the full
+pipeline below adds `alt="Opponent logo"` to each logo with one more
+[`text_transform()`](https://gt.rstudio.com/reference/text_transform.html),
+and the logo beside a team name gets an empty `alt` because the name is
+already there.
 
 ## Logo and name in the team column
 
@@ -186,7 +195,7 @@ table.
 team_cell <- function(name, logo) {
   sprintf(
     '<div style="display:flex; align-items:center; gap:8px;">
-     <img src="%s" style="height:26px; width:26px; object-fit:contain; flex:none;">
+     <img src="%s" alt="" style="height:26px; width:26px; object-fit:contain; flex:none;">
      <span style="font-family:\'Oswald\',sans-serif; font-size:14px; font-weight:500;
                   line-height:1.05;">%s</span></div>',
     logo, name
@@ -268,6 +277,12 @@ gt(logos, id = "table") %>%
   text_transform(cells_body(columns = team),
     fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))
   ) %>%
+  reduce(wk, .init = ., .f = function(g, c) {
+    text_transform(g, cells_body(columns = all_of(c)), fn = function(x) {
+      alt <- htmltools::htmlEscape(opp_names[[c]], attribute = TRUE)
+      unname(ifelse(is.na(alt), x, mapply(\(tag, a) sub("<img ", paste0("<img alt=\"", a, "\" "), tag, fixed = TRUE), x, alt)))
+    })
+  }) %>%
   cols_align(columns = -team, "center") %>%
   gt_border_grid(weight = 2) %>%
   tab_options(table_body.hlines.width = px(2)) %>%

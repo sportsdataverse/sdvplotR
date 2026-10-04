@@ -60,10 +60,10 @@ standings_table |> gt_theme_sdv()
 |----|----|----|----|----|
 | 2023 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
-| ![The LV logo](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
-| ![The DEN logo](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
-| ![The LAC logo](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
+| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
+| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
+| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
 | Data: nflverse |  |  |  |  |
 
 The line under the column labels is the SportsDataverse gradient, the
@@ -85,10 +85,10 @@ standings_table |> gt_theme_sdv(style = "dark")
 |----|----|----|----|----|
 | 2023 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
-| ![The LV logo](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
-| ![The DEN logo](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
-| ![The LAC logo](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
+| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
+| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
+| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
 | Data: nflverse |  |  |  |  |
 
 ## A team’s colors
@@ -198,10 +198,10 @@ standings_table |> gt_theme_sdv(density = "compact")
 |----|----|----|----|----|
 | 2023 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
-| ![The LV logo](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
-| ![The DEN logo](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
-| ![The LAC logo](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
+| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
+| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
+| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
 | Data: nflverse |  |  |  |  |
 
 ## Changing one thing
@@ -220,10 +220,10 @@ standings_table |> gt_theme_sdv(heading.align = "center")
 |----|----|----|----|----|
 | 2023 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![The KC logo](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
-| ![The LV logo](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
-| ![The DEN logo](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
-| ![The LAC logo](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
+| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
+| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
+| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
 | Data: nflverse |  |  |  |  |
 
 ## Saving an image

@@ -72,12 +72,13 @@ The theme is applied once with
 the image columns are passed through
 [`gt::fmt_image()`](https://gt.rstudio.com/reference/fmt_image.html) at
 `img_height`, and all column labels are cleared, so the input for those
-columns must be image paths or URLs. The function then reduces over
-`levels`, and for each level fills the matching `tier_column` cells with
-the paired color and sets their text to black or white, whichever
-measures higher contrast against that fill, so each band keeps a legible
-label. Naming `image_columns` leaves the rest untouched, so a text
-column can sit alongside the images.
+columns must be image paths or URLs. A path or URL names nothing, so
+each image gets the `alt` text `"Tier list entry"`. The function then
+reduces over `levels`, and for each level fills the matching
+`tier_column` cells with the paired color and sets their text to black
+or white, whichever measures higher contrast against that fill, so each
+band keeps a legible label. Naming `image_columns` leaves the rest
+untouched, so a text column can sit alongside the images.
 
 ## Examples
 

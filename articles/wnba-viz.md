@@ -82,7 +82,9 @@ ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
   theme_minimal()
 ```
 
-![](wnba-viz_files/figure-html/team-performance-1.png)
+![WNBA teams in the latest completed season, each drawn as its logo,
+placed by average points (horizontal) and average rebounds (vertical)
+per game.](wnba-viz_files/figure-html/team-performance-1.png)
 
 ## WNBA Team Colors
 
@@ -119,7 +121,9 @@ ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
   )
 ```
 
-![](wnba-viz_files/figure-html/team-colors-1.png)
+![Bar chart of WNBA teams by win percentage in the latest completed
+season, each bar filled in the team's
+color.](wnba-viz_files/figure-html/team-colors-1.png)
 
 ## Player Headshots
 
@@ -169,7 +173,10 @@ ggplot(top_scorers, aes(x = games, y = avg_points)) +
   theme_minimal()
 ```
 
-![](wnba-viz_files/figure-html/player-headshots-1.png)
+![WNBA points per game leaders of the latest completed season, each
+drawn as a headshot placed by games played (horizontal) and points per
+game (vertical), with a name label under
+each.](wnba-viz_files/figure-html/player-headshots-1.png)
 
 ### WNBA Stats player IDs
 
@@ -237,7 +244,9 @@ sdv_team_tiers(
 )
 ```
 
-![](wnba-viz_files/figure-html/team-tiers-1.png)
+![WNBA team logos grouped into labeled tiers, from the top tier to the
+bottom. The tiers are
+examples.](wnba-viz_files/figure-html/team-tiers-1.png)
 
 ## WNBA Conference Standings
 
@@ -281,7 +290,9 @@ ggplot(conference_standings, aes(x = conference_num, y = team_rank)) +
   )
 ```
 
-![](wnba-viz_files/figure-html/conference-standings-1.png)
+![Grid of WNBA team logos, one column per conference, with the team with
+the best record at the top of each
+column.](wnba-viz_files/figure-html/conference-standings-1.png)
 
 ## WNBA Standings Table with Logos
 
@@ -318,21 +329,21 @@ standings_table |>
 |----|----|----|----|----|----|
 | Season 2026 |  |  |  |  |  |
 | \# | Team | Abbrev | Wins | Games | Win % |
-| 1 | ![The MIN logo](https://a.espncdn.com/i/teamlogos/wnba/500/min.png) | MIN | 33 | 44 | 0.750 |
-| 2 | ![The GS logo](https://a.espncdn.com/i/teamlogos/wnba/500/gs.png) | GS | 32 | 44 | 0.727 |
-| 3 | ![The LV logo](https://a.espncdn.com/i/teamlogos/wnba/500/lv.png) | LV | 31 | 45 | 0.689 |
-| 4 | ![The ATL logo](https://a.espncdn.com/i/teamlogos/wnba/500/atl.png) | ATL | 30 | 44 | 0.682 |
-| 5 | ![The IND logo](https://a.espncdn.com/i/teamlogos/wnba/500/ind.png) | IND | 28 | 44 | 0.636 |
-| 6 | ![The WSH logo](https://a.espncdn.com/i/teamlogos/wnba/500/wsh.png) | WSH | 28 | 44 | 0.636 |
-| 7 | ![The DAL logo](https://a.espncdn.com/i/teamlogos/wnba/500/dal.png) | DAL | 27 | 44 | 0.614 |
-| 8 | ![The NY logo](https://a.espncdn.com/i/teamlogos/wnba/500/ny.png) | NY | 27 | 45 | 0.600 |
-| 9 | ![The POR logo](https://a.espncdn.com/i/teamlogos/wnba/500/por.png) | POR | 17 | 44 | 0.386 |
-| 10 | ![The CHI logo](https://a.espncdn.com/i/teamlogos/wnba/500/chi.png) | CHI | 16 | 44 | 0.364 |
-| 11 | ![The LA logo](https://a.espncdn.com/i/teamlogos/wnba/500/la.png) | LA | 16 | 44 | 0.364 |
-| 12 | ![The PHX logo](https://a.espncdn.com/i/teamlogos/wnba/500/phx.png) | PHX | 16 | 44 | 0.364 |
-| 13 | ![The CON logo](https://a.espncdn.com/i/teamlogos/wnba/500/con.png) | CON | 11 | 44 | 0.250 |
-| 14 | ![The TOR logo](https://a.espncdn.com/i/teamlogos/wnba/500/tor.png) | TOR | 11 | 44 | 0.250 |
-| 15 | ![The SEA logo](https://a.espncdn.com/i/teamlogos/wnba/500/sea.png) | SEA | 8 | 44 | 0.182 |
+| 1 | ![Minnesota Lynx](https://a.espncdn.com/i/teamlogos/wnba/500/min.png) | MIN | 33 | 44 | 0.750 |
+| 2 | ![Golden State Valkyries](https://a.espncdn.com/i/teamlogos/wnba/500/gs.png) | GS | 32 | 44 | 0.727 |
+| 3 | ![Las Vegas Aces](https://a.espncdn.com/i/teamlogos/wnba/500/lv.png) | LV | 31 | 45 | 0.689 |
+| 4 | ![Atlanta Dream](https://a.espncdn.com/i/teamlogos/wnba/500/atl.png) | ATL | 30 | 44 | 0.682 |
+| 5 | ![Indiana Fever](https://a.espncdn.com/i/teamlogos/wnba/500/ind.png) | IND | 28 | 44 | 0.636 |
+| 6 | ![Washington Mystics](https://a.espncdn.com/i/teamlogos/wnba/500/wsh.png) | WSH | 28 | 44 | 0.636 |
+| 7 | ![Dallas Wings](https://a.espncdn.com/i/teamlogos/wnba/500/dal.png) | DAL | 27 | 44 | 0.614 |
+| 8 | ![New York Liberty](https://a.espncdn.com/i/teamlogos/wnba/500/ny.png) | NY | 27 | 45 | 0.600 |
+| 9 | ![Portland Fire](https://a.espncdn.com/i/teamlogos/wnba/500/por.png) | POR | 17 | 44 | 0.386 |
+| 10 | ![Chicago Sky](https://a.espncdn.com/i/teamlogos/wnba/500/chi.png) | CHI | 16 | 44 | 0.364 |
+| 11 | ![Los Angeles Sparks](https://a.espncdn.com/i/teamlogos/wnba/500/la.png) | LA | 16 | 44 | 0.364 |
+| 12 | ![Phoenix Mercury](https://a.espncdn.com/i/teamlogos/wnba/500/phx.png) | PHX | 16 | 44 | 0.364 |
+| 13 | ![Connecticut Sun](https://a.espncdn.com/i/teamlogos/wnba/500/con.png) | CON | 11 | 44 | 0.250 |
+| 14 | ![Toronto Tempo](https://a.espncdn.com/i/teamlogos/wnba/500/tor.png) | TOR | 11 | 44 | 0.250 |
+| 15 | ![Seattle Storm](https://a.espncdn.com/i/teamlogos/wnba/500/sea.png) | SEA | 8 | 44 | 0.182 |
 
 ## Player Performance Comparison
 
@@ -379,7 +390,10 @@ ggplot(comparison, aes(x = rank, y = value)) +
   theme_minimal()
 ```
 
-![](wnba-viz_files/figure-html/player-comparison-1.png)
+![WNBA top performers of the latest completed season in two panels,
+points per game and assists per game; each leader is drawn as a headshot
+ranked within its
+panel.](wnba-viz_files/figure-html/player-comparison-1.png)
 
 ## Axis Labels with Logos
 
@@ -405,7 +419,9 @@ ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
   theme(legend.position = "none")
 ```
 
-![](wnba-viz_files/figure-html/axis-logos-1.png)
+![Bar chart of the top 8 WNBA teams by win percentage, with each team's
+logo in place of its name on the horizontal axis and bars in team
+colors.](wnba-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 
