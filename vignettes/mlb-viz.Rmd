@@ -11,7 +11,10 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  message = FALSE,
+  fig.width = 7,
+  fig.height = 5,
+  dpi = 96
 )
 ```
 
@@ -40,7 +43,7 @@ head(mlb_teams)
 
 Use `baseballr` to load team and player statistics from the MLB Stats API:
 
-```{r load-data}
+```{r load-data, eval = FALSE}
 # The last completed regular season (it ends around October 1)
 season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "10-05")
@@ -69,6 +72,18 @@ player_stats <- baseballr::mlb_stats(
   player_pool = "All"
 )
 ```
+
+```{r load-data-fixture, include = FALSE}
+fx <- readRDS("fixtures/mlb-viz/mlb_stats_api.rds")
+season <- fx$season
+teams <- fx$teams
+team_stats <- fx$team_stats
+player_stats <- fx$player_stats
+```
+
+The output below uses a snapshot of these calls taken on
+`r format(fx$taken, "%B %d, %Y")` (`r fx$package`), because the MLB Stats API is
+not called when this site is built.
 
 The MLB Stats API writes some team abbreviations differently from ESPN
 (`AZ`, `CWS`); sdvplotR accepts either.
@@ -254,14 +269,22 @@ team_wins |>
 Compare the home run leaders with the batting average leaders among
 qualified hitters:
 
-```{r player-comparison}
+```{r player-comparison-data, eval = FALSE}
 qualified <- baseballr::mlb_stats(
   stat_type = "season",
   stat_group = "hitting",
   season = season,
   player_pool = "Qualified"
 )
+```
 
+```{r player-comparison-fixture, include = FALSE}
+qualified <- fx$qualified
+```
+
+This call is read from the same snapshot.
+
+```{r player-comparison}
 comparison <- bind_rows(
   player_stats |>
     slice_max(home_runs, n = 5, with_ties = FALSE) |>

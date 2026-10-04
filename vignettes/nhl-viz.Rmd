@@ -11,7 +11,10 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  message = FALSE,
+  fig.width = 7,
+  fig.height = 5,
+  dpi = 96
 )
 ```
 
@@ -40,7 +43,7 @@ head(nhl_teams)
 
 Use `fastRhockey` to load team and skater statistics from the NHL Stats API:
 
-```{r load-data}
+```{r load-data, eval = FALSE}
 # The last completed regular season (fastRhockey names a season for the year
 # it ends; the regular season ends in mid-April)
 season <- as.integer(format(Sys.Date(), "%Y")) -
@@ -56,6 +59,18 @@ team_stats <- fastRhockey::nhl_stats_teams(season = season_id) |>
 # leaderboards below rank the full list
 player_stats <- fastRhockey::nhl_stats_skaters(season = season_id, limit = -1)
 ```
+
+```{r load-data-fixture, include = FALSE}
+fx <- readRDS("fixtures/nhl-viz/nhl_stats_api.rds")
+season <- fx$season
+season_id <- fx$season_id
+team_stats <- fx$team_stats
+player_stats <- fx$player_stats
+```
+
+The output below uses a snapshot of these calls taken on
+`r format(fx$taken, "%B %d, %Y")` (`r fx$package`), because the NHL Stats API is
+not called when this site is built.
 
 ## NHL Team Performance
 
