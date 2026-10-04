@@ -327,10 +327,17 @@ nfl_standings <- nflreadr::load_schedules(season) |>
   ) |>
   slice_max(win_pct, n = 8, with_ties = FALSE)
 
-# Step 2: Merge upcoming spreads when a key is set; odds name teams in full,
+# Step 2: Merge upcoming spreads when a key is set and the API answers (a spent
+# quota or an outage leaves the records-only table); odds name teams in full,
 # and clean_team_abbrs() maps full names to abbreviations
-if (nzchar(Sys.getenv("ODDS_API_KEY"))) {
-  spreads <- oddsapiR::toa_sports_odds(sport_key = "americanfootball_nfl", markets = "spreads") |>
+odds <- if (nzchar(Sys.getenv("ODDS_API_KEY"))) {
+  tryCatch(
+    oddsapiR::toa_sports_odds(sport_key = "americanfootball_nfl", markets = "spreads"),
+    error = function(e) NULL
+  )
+}
+if (NROW(odds) > 0) {
+  spreads <- odds |>
     mutate(team = clean_team_abbrs(outcomes_name, sport = "nfl")) |>
     group_by(team) |>
     summarise(Spread = median(outcomes_point, na.rm = TRUE), .groups = "drop")
