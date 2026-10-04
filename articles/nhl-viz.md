@@ -23,6 +23,7 @@ library(gt)
 # Get valid NHL team abbreviations
 nhl_teams <- valid_team_names("nhl")
 head(nhl_teams)
+#> [1] "ANA" "BOS" "BUF" "CAR" "CBJ" "CGY"
 ```
 
 ## Loading NHL Data
@@ -48,6 +49,10 @@ team_stats <- fastRhockey::nhl_stats_teams(season = season_id) |>
 player_stats <- fastRhockey::nhl_stats_skaters(season = season_id, limit = -1)
 ```
 
+The output below uses a snapshot of these calls taken on October 04,
+2026 (fastRhockey 1.0.0), because the NHL Stats API is not called when
+this site is built.
+
 ## NHL Team Performance
 
 Plot every team’s goals for against goals against, with team logos:
@@ -70,6 +75,8 @@ ggplot(team_stats, aes(x = goals_for_per_game, y = goals_against_per_game)) +
   ) +
   theme_minimal()
 ```
+
+![](nhl-viz_files/figure-html/team-performance-1.png)
 
 ## NHL Team Colors
 
@@ -96,6 +103,8 @@ ggplot(team_wins, aes(x = reorder(team_abbr, point_pct), y = point_pct)) +
     legend.position = "none"
   )
 ```
+
+![](nhl-viz_files/figure-html/team-colors-1.png)
 
 ## Player Headshots
 
@@ -127,6 +136,8 @@ ggplot(top_goals, aes(x = games_played, y = goals)) +
   ) +
   theme_minimal()
 ```
+
+![](nhl-viz_files/figure-html/player-headshots-1.png)
 
 ### NHL API player IDs
 
@@ -168,6 +179,8 @@ sdv_team_tiers(
 )
 ```
 
+![](nhl-viz_files/figure-html/team-tiers-1.png)
+
 ## NHL Conference Map
 
 Show each division’s teams in a column, using the conference and
@@ -207,6 +220,8 @@ ggplot(conference_map, aes(x = conf_div_num, y = team_rank)) +
   )
 ```
 
+![](nhl-viz_files/figure-html/conference-map-1.png)
+
 ## NHL Standings Table with Logos
 
 Create a gt table with team logos:
@@ -235,6 +250,26 @@ team_wins |>
     subtitle = paste0("Season ", season - 1, "-", substr(season, 3, 4))
   )
 ```
+
+| NHL Top 15 |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|
+| Season 2025-26 |  |  |  |  |  |  |  |
+| \# |  | Team | W | L | OTL | Pts | Pts% |
+| 1 | ![The COL logo](https://a.espncdn.com/i/teamlogos/nhl/500/col.png) | Colorado Avalanche | 55 | 16 | 11 | 121 | 0.738 |
+| 2 | ![The CAR logo](https://a.espncdn.com/i/teamlogos/nhl/500/car.png) | Carolina Hurricanes | 53 | 22 | 7 | 113 | 0.689 |
+| 3 | ![The DAL logo](https://a.espncdn.com/i/teamlogos/nhl/500/dal.png) | Dallas Stars | 50 | 20 | 12 | 112 | 0.683 |
+| 4 | ![The BUF logo](https://a.espncdn.com/i/teamlogos/nhl/500/buf.png) | Buffalo Sabres | 50 | 23 | 9 | 109 | 0.665 |
+| 5 | ![The MTL logo](https://a.espncdn.com/i/teamlogos/nhl/500/mtl.png) | Montréal Canadiens | 48 | 24 | 10 | 106 | 0.646 |
+| 6 | ![The TB logo](https://a.espncdn.com/i/teamlogos/nhl/500/tb.png) | Tampa Bay Lightning | 50 | 26 | 6 | 106 | 0.646 |
+| 7 | ![The MIN logo](https://a.espncdn.com/i/teamlogos/nhl/500/min.png) | Minnesota Wild | 46 | 24 | 12 | 104 | 0.634 |
+| 8 | ![The BOS logo](https://a.espncdn.com/i/teamlogos/nhl/500/bos.png) | Boston Bruins | 45 | 27 | 10 | 100 | 0.610 |
+| 9 | ![The OTT logo](https://a.espncdn.com/i/teamlogos/nhl/500/ott.png) | Ottawa Senators | 44 | 27 | 11 | 99 | 0.604 |
+| 10 | ![The PIT logo](https://a.espncdn.com/i/teamlogos/nhl/500/pit.png) | Pittsburgh Penguins | 41 | 25 | 16 | 98 | 0.598 |
+| 11 | ![The PHI logo](https://a.espncdn.com/i/teamlogos/nhl/500/phi.png) | Philadelphia Flyers | 43 | 27 | 12 | 98 | 0.598 |
+| 12 | ![The WSH logo](https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png) | Washington Capitals | 43 | 30 | 9 | 95 | 0.579 |
+| 13 | ![The VGK logo](https://a.espncdn.com/i/teamlogos/nhl/500/vgk.png) | Vegas Golden Knights | 39 | 26 | 17 | 95 | 0.579 |
+| 14 | ![The EDM logo](https://a.espncdn.com/i/teamlogos/nhl/500/edm.png) | Edmonton Oilers | 41 | 30 | 11 | 93 | 0.567 |
+| 15 | ![The UTAH logo](https://a.espncdn.com/i/teamlogos/nhl/500/utah.png) | Utah Mammoth | 43 | 33 | 6 | 92 | 0.561 |
 
 ## Player Performance Comparison
 
@@ -272,6 +307,8 @@ ggplot(comparison, aes(x = rank, y = value)) +
   theme_minimal()
 ```
 
+![](nhl-viz_files/figure-html/player-comparison-1.png)
+
 ## Axis Labels with Logos
 
 Replace axis labels with team logos
@@ -298,6 +335,8 @@ ggplot(top_8, aes(x = team_abbr, y = point_pct)) +
   ) +
   theme(legend.position = "none")
 ```
+
+![](nhl-viz_files/figure-html/axis-logos-1.png)
 
 ## Next Steps
 
