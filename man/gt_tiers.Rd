@@ -52,7 +52,8 @@ bands.
 \details{
 The theme is applied once with \code{\link[=gt_theme_tier]{gt_theme_tier()}}, the image columns are passed
 through \code{gt::fmt_image()} at \code{img_height}, and all column labels are cleared,
-so the input for those columns must be image paths or URLs. The function then
+so the input for those columns must be image paths or URLs. A path or URL
+names nothing, so each image gets the \code{alt} text \code{"Tier list entry"}. The function then
 reduces over \code{levels}, and for each level fills the matching \code{tier_column}
 cells with the paired color and sets their text to black or white, whichever
 measures higher contrast against that fill, so each band keeps a legible

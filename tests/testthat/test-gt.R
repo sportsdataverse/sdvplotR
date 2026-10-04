@@ -22,7 +22,7 @@ test_that("gt_sdv_logos resolves escaped names and can keep the name", {
   expect_no_match(h, "Texas A&amp;M</td>")
   # include_name keeps the (escaped) text after the logo
   h <- html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE))
-  expect_match(h, "245\\.png\" style=\"height:20px;vertical-align:middle;margin-right:0.35em;\" alt=\"The TA&amp;M logo\">Texas A&amp;M")
+  expect_match(h, "245\\.png\" style=\"height:20px;vertical-align:middle;margin-right:0.35em;\" alt=\"\">Texas A&amp;M")
   expect_match(h, ">St. John's \\(NY\\)</td>")
   expect_match(h, ">nope</td>")
 })
@@ -78,4 +78,50 @@ test_that("gt headshot helpers pass id_type through", {
     gt_sdv_cols_label(sport = "wnba", type = "headshot", id_type = "league"))
   expect_match(lab, "cdn\\.wnba\\.com/headshots/wnba/latest/260x190/1642286\\.png")
   expect_error(gt_sdv_headshots(gt(df), columns = "id", sport = "mbb", id_type = "league"), "league player ID")
+})
+
+# alt text: every <img> a table helper writes carries one
+img_tags <- function(h) regmatches(h, gregexpr("<img[^>]*>", h))[[1]]
+alts_of <- function(h) sub('.*alt="([^"]*)".*', "\\1", img_tags(h))
+
+test_that("gt_sdv_logos and wordmarks alt-name the team, or stay empty beside its name", {
+  df <- data.frame(team = c("KC", "nope"), n = 1:2)
+  for (f in list(gt_sdv_logos, gt_sdv_wordmarks)) {
+    h <- html_of(f(gt(df), columns = "team", sport = "nfl"))
+    expect_true(all(grepl('alt="', img_tags(h), fixed = TRUE)))
+    expect_identical(alts_of(h), "Kansas City Chiefs")
+  }
+  # the name is already text beside the logo, so a screen reader reads it once
+  h <- html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "nfl", include_name = TRUE))
+  expect_identical(alts_of(h), "")
+  # escaped, college names resolve to the full team name
+  h <- html_of(gt(data.frame(team = "Texas A&M")) |> gt_sdv_logos(columns = "team", sport = "mbb"))
+  expect_identical(alts_of(h), "Texas A&amp;M Aggies")
+})
+
+test_that("headshot helpers alt-text an id as Player <id> headshot", {
+  local_headshot_map()
+  h <- html_of(gt(data.frame(id = c("00-0033873", "bad"))) |> gt_sdv_headshots(columns = "id", sport = "nfl"))
+  expect_identical(alts_of(h), "Player 00-0033873 headshot")
+  h <- html_of(gt(data.frame(`00-0033873` = 1, check.names = FALSE)) |>
+    gt_sdv_cols_label(sport = "nfl", type = "headshot"))
+  expect_identical(alts_of(h), "Player 00-0033873 headshot")
+})
+
+test_that("gt_sdv_cols_label alt-names the team for logo and wordmark labels", {
+  for (type in c("logo", "wordmark")) {
+    h <- html_of(gt(data.frame(KC = 1, BUF = 2)) |> gt_sdv_cols_label(sport = "nfl", type = type))
+    expect_identical(alts_of(h), c("Kansas City Chiefs", "Buffalo Bills"))
+  }
+})
+
+test_that("gt_tiers and the border bars give every image an alt", {
+  d <- data.frame(tier = c("A", "B"), logo = c("https://x/1.png", "https://x/2.png"))
+  h <- html_of(gt(d) |> gt_tiers(levels = c("A", "B"), colors = c("#1B7837", "#B2182B")))
+  expect_length(img_tags(h), 2)
+  expect_true(all(nzchar(alts_of(h))))
+  h <- html_of(gt(data.frame(x = 1)) |> gt_border_bars_top(colors = c("#E31837", "#FFB612"), img = "https://x/y.png"))
+  expect_identical(alts_of(h), "")
+  h <- html_of(gt(data.frame(x = 1)) |> gt_border_bars_bottom(colors = c("#E31837", "#FFB612"), img = "https://x/y.png"))
+  expect_identical(alts_of(h), "")
 })

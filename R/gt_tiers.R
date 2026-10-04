@@ -27,7 +27,8 @@
 #' @details
 #' The theme is applied once with [gt_theme_tier()], the image columns are passed
 #' through `gt::fmt_image()` at `img_height`, and all column labels are cleared,
-#' so the input for those columns must be image paths or URLs. The function then
+#' so the input for those columns must be image paths or URLs. A path or URL
+#' names nothing, so each image gets the `alt` text `"Tier list entry"`. The function then
 #' reduces over `levels`, and for each level fills the matching `tier_column`
 #' cells with the paired color and sets their text to black or white, whichever
 #' measures higher contrast against that fill, so each band keeps a legible
@@ -111,6 +112,11 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
   gt_object <- gt_object |>
     gt_theme_tier(style = style) |>
     fmt_image(columns = tidyselect::all_of(img_cols), height = img_height) |>
+    # fmt_image() writes no alt, and a path or URL names nothing, so say what the image is
+    text_transform(
+      locations = cells_body(columns = tidyselect::all_of(img_cols)),
+      fn = function(x) sub("<img ", "<img alt=\"Tier list entry\" ", x, fixed = TRUE)
+    ) |>
     sub_missing(missing_text = "") |>
     cols_label(everything() ~ "")
 

@@ -14,8 +14,8 @@
 #'   Defaults to `"100%"`.
 #' @param bar_align Character. Alignment of the block when `bar_width` is under
 #'   `"100%"`. One of `"left"`, `"center"`, `"right"`. Defaults to `"center"`.
-#' @param img Optional. A URL for an image to render in the bar. Defaults to
-#'   `NULL`.
+#' @param img Optional. A URL for an image to render in the bar. It is
+#'   decorative, so it carries an empty `alt`. Defaults to `NULL`.
 #' @param img_width Numeric. The image width in pixels. Defaults to `30`.
 #' @param img_height Numeric. The image height in pixels. Defaults to `30`.
 #' @param img_padding Numeric. Padding around the image in pixels, so it does not
@@ -136,7 +136,7 @@ gt_border_bars_top <- function(gt_object,
       if (!is.null(img)) {
         paste0(
           '<img src="', img, '" width="', img_width, 'px" height="', img_height,
-          'px" style="padding-', img_align, ":", img_padding, 'px;" />'
+          'px" style="padding-', img_align, ":", img_padding, 'px;" alt="" />'
         )
       } else {
         ""
@@ -169,8 +169,8 @@ gt_border_bars_top <- function(gt_object,
 #'   Defaults to `"100%"`.
 #' @param bar_align Character. Alignment of the block when `bar_width` is under
 #'   `"100%"`. One of `"left"`, `"center"`, `"right"`. Defaults to `"center"`.
-#' @param img Optional. A URL for an image to render in the bar. Defaults to
-#'   `NULL`.
+#' @param img Optional. A URL for an image to render in the bar. It is
+#'   decorative, so it carries an empty `alt`. Defaults to `NULL`.
 #' @param img_width Numeric. The image width in pixels. Defaults to `30`.
 #' @param img_height Numeric. The image height in pixels. Defaults to `30`.
 #' @param img_padding Numeric. Padding around the image in pixels, so it does not
@@ -289,7 +289,7 @@ gt_border_bars_bottom <- function(gt_object,
       if (!is.null(img)) {
         paste0(
           '<img src="', img, '" width="', img_width, 'px" height="', img_height,
-          'px" style="padding-', img_align, ":", img_padding, 'px;" />'
+          'px" style="padding-', img_align, ":", img_padding, 'px;" alt="" />'
         )
       } else {
         ""
