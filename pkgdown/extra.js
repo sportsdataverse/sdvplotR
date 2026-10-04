@@ -23,7 +23,7 @@ $(function () {
   // after this handler runs, so they are collected again on load.
   var SCROLLERS =
     "main pre, main div:has(> table.gt_table), main table.table:not(.gt_table), " +
-    'main div[style*="overflow-x: auto"], main .reactable .rt-table';
+    'main div[style*="overflow-x: auto"], main .ReactTable .rt-table';
   function mark(el) {
     el.classList.toggle("is-clipped", el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
   }
@@ -75,7 +75,7 @@ $(function () {
     }
   }
   function cardWidget(w) {
-    for (var el = w.querySelector(".reactable") || w; el && el !== document.body; el = el.parentElement) {
+    for (var el = w.querySelector(".ReactTable") || w; el && el !== document.body; el = el.parentElement) {
       var c = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
       if (c && !(c.length > 3 && Number(c[3]) === 0)) return isLight(c);
     }
@@ -89,10 +89,16 @@ $(function () {
       var go = function () { if (cardImg(img)) img.classList.add("sdv-card"); };
       if (img.complete && img.naturalWidth) go(); else img.addEventListener("load", go, { once: true });
     });
+    // a widget draws after this handler runs: decide once its table exists (load runs this again)
     document.querySelectorAll("main .html-widget").forEach(function (w) {
-      if (cardWidget(w)) w.classList.add("sdv-card");
+      if (w.firstElementChild) w.classList.toggle("sdv-card", cardWidget(w));
     });
   }
   markCards();
   window.addEventListener("load", markCards);
+  // htmlwidgets (reactable) draw after load: look again as they appear, for the first seconds
+  var timer;
+  var seen = new MutationObserver(function () { clearTimeout(timer); timer = setTimeout(markCards, 100); });
+  seen.observe(document.querySelector("main"), { childList: true, subtree: true });
+  setTimeout(function () { seen.disconnect(); }, 5000);
 });
