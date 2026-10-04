@@ -75,6 +75,7 @@ Config/Needs/website:
     cfbfastR,
     cfbseedR,
     fastRhockey,
+    ggrepel,
     hoopR,
     nflfastR,
     nflreadr,

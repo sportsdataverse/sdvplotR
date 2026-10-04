@@ -11,7 +11,10 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  message = FALSE,
+  fig.width = 7,
+  fig.height = 5,
+  dpi = 96
 )
 ```
 
@@ -46,7 +49,8 @@ Use `nflfastR` to load a season of play-by-play data:
 season <- as.integer(format(Sys.Date(), "%Y")) - 1 -
   (format(Sys.Date(), "%m-%d") < "01-15")
 
-pbp <- nflfastR::load_pbp(seasons = season, file_type = "rds")
+pbp <- nflfastR::load_pbp(seasons = season, file_type = "rds") |>
+  filter(season_type == "REG") # drop playoff plays
 
 # Filter to pass plays only for EPA analysis
 pass_plays <- pbp |>
@@ -150,14 +154,22 @@ ggplot(qb_epa, aes(x = n_passes, y = mean_epa)) +
   geom_sdv_headshots(
     aes(player_id = passer_player_id),
     sport = "nfl",
-    height = 0.15
+    height = 0.1
   ) +
-  geom_label(
+  # Labels sit a fixed share of the y range below their face; ggrepel moves
+  # the ones that would collide and draws a connector back to the player
+  ggrepel::geom_label_repel(
     aes(label = passer),
-    nudge_y = -0.02,
+    nudge_y = -0.22 * diff(range(qb_epa$mean_epa)),
     size = 3,
-    alpha = 0.7
+    alpha = 0.7,
+    box.padding = 0.5,
+    point.size = 12,
+    min.segment.length = 0,
+    seed = 1
   ) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
   labs(
     title = "Top 8 Quarterbacks by EPA per Pass",
     x = "Number of Passes",
