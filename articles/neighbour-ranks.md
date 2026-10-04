@@ -74,18 +74,18 @@ neighbours <- function(data, team, metric, k = 5) {
 
 focal <- "Illinois"
 neighbours(summaries, focal, "net_adj_epa")
-#>    rank          team      value
-#> 1    33 Arizona State 0.14895167
-#> 2    34           LSU 0.14863508
-#> 3    35           TCU 0.14363305
-#> 4    36    Iowa State 0.14187993
-#> 5    37    Pittsburgh 0.14057645
-#> 6    38      Illinois 0.12903856
-#> 7    39        Toledo 0.12589637
-#> 8    40  Old Dominion 0.12225295
-#> 9    41   Wake Forest 0.10366062
-#> 10   42      NC State 0.10080771
-#> 11   43          Duke 0.09787713
+#>    rank          team     value
+#> 1    30    Louisville 0.1487155
+#> 2    31 South Florida 0.1463640
+#> 3    32      Virginia 0.1397002
+#> 4    33           TCU 0.1341972
+#> 5    34    Iowa State 0.1333091
+#> 6    35      Illinois 0.1278535
+#> 7    36 East Carolina 0.1276368
+#> 8    37     Tennessee 0.1206984
+#> 9    38        Toledo 0.1150806
+#> 10   39    Pittsburgh 0.1124272
+#> 11   40  Old Dominion 0.1124005
 ```
 
 ## The table
@@ -117,17 +117,17 @@ neighbour_table(summaries, focal, "net_adj_epa", metrics[["net_adj_epa"]])
 | Net adj. EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 33 | ![The ASU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/9.png)Arizona State | 0.149 |
-| 34 | ![The LSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/99.png)LSU | 0.149 |
-| 35 | ![The TCU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.144 |
-| 36 | ![The ISU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.142 |
-| 37 | ![The PITT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.141 |
-| 38 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.129 |
-| 39 | ![The TOL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.126 |
-| 40 | ![The ODU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.122 |
-| 41 | ![The WAKE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/154.png)Wake Forest | 0.104 |
-| 42 | ![The NCSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.101 |
-| 43 | ![The DUKE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/150.png)Duke | 0.098 |
+| 30 | ![The LOU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/97.png)Louisville | 0.149 |
+| 31 | ![The USF logo](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png)South Florida | 0.146 |
+| 32 | ![The UVA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png)Virginia | 0.140 |
+| 33 | ![The TCU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.134 |
+| 34 | ![The ISU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.133 |
+| 35 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.128 |
+| 36 | ![The ECU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/151.png)East Carolina | 0.128 |
+| 37 | ![The TENN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
+| 38 | ![The TOL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.115 |
+| 39 | ![The PITT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.112 |
+| 40 | ![The ODU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.112 |
 
 ## Three metrics side by side
 
@@ -156,47 +156,47 @@ Illinois and its neighbours
 | Net adj. EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 33 | ![The ASU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/9.png)Arizona State | 0.149 |
-| 34 | ![The LSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/99.png)LSU | 0.149 |
-| 35 | ![The TCU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.144 |
-| 36 | ![The ISU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.142 |
-| 37 | ![The PITT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.141 |
-| 38 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.129 |
-| 39 | ![The TOL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.126 |
-| 40 | ![The ODU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.122 |
-| 41 | ![The WAKE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/154.png)Wake Forest | 0.104 |
-| 42 | ![The NCSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.101 |
-| 43 | ![The DUKE logo](https://a.espncdn.com/i/teamlogos/ncaa/500/150.png)Duke | 0.098 |
+| 30 | ![The LOU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/97.png)Louisville | 0.149 |
+| 31 | ![The USF logo](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png)South Florida | 0.146 |
+| 32 | ![The UVA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png)Virginia | 0.140 |
+| 33 | ![The TCU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.134 |
+| 34 | ![The ISU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.133 |
+| 35 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.128 |
+| 36 | ![The ECU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/151.png)East Carolina | 0.128 |
+| 37 | ![The TENN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
+| 38 | ![The TOL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.115 |
+| 39 | ![The PITT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.112 |
+| 40 | ![The ODU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.112 |
 
 | Offense EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 27 | ![The MEM logo](https://a.espncdn.com/i/teamlogos/ncaa/500/235.png)Memphis | 0.144 |
-| 28 | ![The SMU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png)SMU | 0.141 |
-| 29 | ![The ARMY logo](https://a.espncdn.com/i/teamlogos/ncaa/500/349.png)Army | 0.138 |
-| 30 | ![The RUTG logo](https://a.espncdn.com/i/teamlogos/ncaa/500/164.png)Rutgers | 0.134 |
-| 31 | ![The TEX logo](https://a.espncdn.com/i/teamlogos/ncaa/500/251.png)Texas | 0.132 |
-| 32 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.131 |
-| 33 | ![The OHIO logo](https://a.espncdn.com/i/teamlogos/ncaa/500/195.png)Ohio | 0.129 |
-| 34 | ![The EMU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2199.png)Eastern Michigan | 0.126 |
-| 35 | ![The MICH logo](https://a.espncdn.com/i/teamlogos/ncaa/500/130.png)Michigan | 0.123 |
-| 36 | ![The UAB logo](https://a.espncdn.com/i/teamlogos/ncaa/500/5.png)UAB | 0.120 |
-| 37 | ![The PSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/213.png)Penn State | 0.119 |
+| 29 | ![The EMU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2199.png)Eastern Michigan | 0.120 |
+| 30 | ![The SMU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png)SMU | 0.119 |
+| 31 | ![The UAB logo](https://a.espncdn.com/i/teamlogos/ncaa/500/5.png)UAB | 0.116 |
+| 32 | ![The ARMY logo](https://a.espncdn.com/i/teamlogos/ncaa/500/349.png)Army | 0.113 |
+| 33 | ![The OHIO logo](https://a.espncdn.com/i/teamlogos/ncaa/500/195.png)Ohio | 0.111 |
+| 34 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.111 |
+| 35 | ![The PSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/213.png)Penn State | 0.109 |
+| 36 | ![The TEM logo](https://a.espncdn.com/i/teamlogos/ncaa/500/218.png)Temple | 0.106 |
+| 37 | ![The TEX logo](https://a.espncdn.com/i/teamlogos/ncaa/500/251.png)Texas | 0.104 |
+| 38 | ![The NCSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.100 |
+| 39 | ![The USU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/328.png)Utah State | 0.093 |
 
 | Defense EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 96 | ![The FLA logo](https://a.espncdn.com/i/teamlogos/ncaa/500/57.png)Florida | 0.135 |
-| 97 | ![The MRSH logo](https://a.espncdn.com/i/teamlogos/ncaa/500/276.png)Marshall | 0.135 |
-| 98 | ![The MSST logo](https://a.espncdn.com/i/teamlogos/ncaa/500/344.png)Mississippi State | 0.136 |
-| 99 | ![The UL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/309.png)Louisiana | 0.138 |
-| 100 | ![The APP logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2026.png)App State | 0.141 |
-| 101 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.142 |
-| 102 | ![The TEM logo](https://a.espncdn.com/i/teamlogos/ncaa/500/218.png)Temple | 0.144 |
-| 103 | ![The CAL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/25.png)California | 0.145 |
-| 104 | ![The SJSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/23.png)San José State | 0.145 |
-| 105 | ![The TXST logo](https://a.espncdn.com/i/teamlogos/ncaa/500/326.png)Texas State | 0.145 |
-| 106 | ![The CLT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2429.png)Charlotte | 0.150 |
+| 94 | ![The MRSH logo](https://a.espncdn.com/i/teamlogos/ncaa/500/276.png)Marshall | 0.108 |
+| 95 | ![The UNT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/249.png)North Texas | 0.110 |
+| 96 | ![The UL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/309.png)Louisiana | 0.111 |
+| 97 | ![The MSST logo](https://a.espncdn.com/i/teamlogos/ncaa/500/344.png)Mississippi State | 0.112 |
+| 98 | ![The NCSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.114 |
+| 99 | ![The ILL logo](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.117 |
+| 100 | ![The SJSU logo](https://a.espncdn.com/i/teamlogos/ncaa/500/23.png)San José State | 0.118 |
+| 101 | ![The KENT logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png)Kent State | 0.118 |
+| 102 | ![The APP logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2026.png)App State | 0.119 |
+| 103 | ![The TXST logo](https://a.espncdn.com/i/teamlogos/ncaa/500/326.png)Texas State | 0.119 |
+| 104 | ![The TENN logo](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
 
 Data: cfbfastR::load_espn_cfb_team_summaries()
 
@@ -233,8 +233,8 @@ data.frame(
 #> 4          Miami    4   4
 #> 5     Texas Tech    5   5
 #> 6         Oregon    6   6
-#> 7     Kent State  131   6
-#> 8      Charlotte  132   7
+#> 7      Charlotte  131   6
+#> 8        Buffalo  132   7
 #> 9          Akron  133   8
 #> 10    Ball State  134   9
 #> 11   Sam Houston  135  10

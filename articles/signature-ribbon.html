@@ -17,10 +17,7 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Signature Ribbon">
-<!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script><script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script><script type="application/ld+json">
+<!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script><script src="https://sdvplotr.sportsdataverse.org/plausible-init.js"></script><script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
   {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
    "name":"sdvplotR","alternateName":"sdvplotR: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'",
@@ -248,12 +245,12 @@ season’s ending year, so <code>2026</code> is 2025-26.</p>
 <span><span class="va">curves</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_from_url.html" class="external-link">load_from_url</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">curves</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">curves</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 14721    14</span></span>
+<span><span class="co">#&gt; [1] 14881    14</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">curves</span>, <span class="va">entity_type</span>, <span class="va">metric</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   entity_type                  metric     n</span></span>
 <span><span class="co">#&gt; 1      league fg_pct_by_shot_distance    37</span></span>
-<span><span class="co">#&gt; 2      player fg_pct_by_shot_distance 13594</span></span>
-<span><span class="co">#&gt; 3        team fg_pct_by_shot_distance  1090</span></span></code></pre></div>
+<span><span class="co">#&gt; 2      player fg_pct_by_shot_distance 13760</span></span>
+<span><span class="co">#&gt; 3        team fg_pct_by_shot_distance  1084</span></span></code></pre></div>
 <p>Each row is one bucket of one curve: <code>attempts</code>,
 <code>successes</code> and <code>rate</code> between <code>x_lo</code>
 and <code>x_hi</code> feet, for the league, a team or a player. The
@@ -264,43 +261,43 @@ league curve is the reference:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x_lo</span>, <span class="va">x_hi</span>, league_attempts <span class="op">=</span> <span class="va">attempts</span>, league_rate <span class="op">=</span> <span class="va">rate</span><span class="op">)</span></span>
 <span><span class="va">league</span></span>
 <span><span class="co">#&gt;    x_lo x_hi league_attempts league_rate</span></span>
-<span><span class="co">#&gt; 1     0    1           23833   0.4921747</span></span>
-<span><span class="co">#&gt; 2     1    2           18252   0.7962415</span></span>
-<span><span class="co">#&gt; 3     2    3           19535   0.6661889</span></span>
-<span><span class="co">#&gt; 4     3    4           14511   0.5678451</span></span>
-<span><span class="co">#&gt; 5     4    5           10408   0.4867410</span></span>
-<span><span class="co">#&gt; 6     5    6            7431   0.4381644</span></span>
-<span><span class="co">#&gt; 7     6    7            6790   0.4244477</span></span>
-<span><span class="co">#&gt; 8     7    8            5650   0.4299115</span></span>
-<span><span class="co">#&gt; 9     8    9            4994   0.4327193</span></span>
-<span><span class="co">#&gt; 10    9   10            4633   0.4442046</span></span>
-<span><span class="co">#&gt; 11   10   11            4383   0.4405658</span></span>
-<span><span class="co">#&gt; 12   11   12            4489   0.4479840</span></span>
-<span><span class="co">#&gt; 13   12   13            4105   0.4679659</span></span>
-<span><span class="co">#&gt; 14   13   14            3949   0.4464421</span></span>
-<span><span class="co">#&gt; 15   14   15            3242   0.4386181</span></span>
-<span><span class="co">#&gt; 16   15   16            3023   0.4310288</span></span>
-<span><span class="co">#&gt; 17   16   17            2829   0.4340756</span></span>
-<span><span class="co">#&gt; 18   17   18            2435   0.4127310</span></span>
-<span><span class="co">#&gt; 19   18   19            2234   0.4019696</span></span>
-<span><span class="co">#&gt; 20   19   20            1834   0.4007634</span></span>
-<span><span class="co">#&gt; 21   20   21            1425   0.3901754</span></span>
-<span><span class="co">#&gt; 22   21   22            1061   0.3675778</span></span>
-<span><span class="co">#&gt; 23   22   23             669   0.3662182</span></span>
-<span><span class="co">#&gt; 24   23   24             423   0.3546099</span></span>
-<span><span class="co">#&gt; 25   24   25           11119   0.3833978</span></span>
-<span><span class="co">#&gt; 26   25   26           20641   0.3617557</span></span>
-<span><span class="co">#&gt; 27   26   27           24900   0.3544177</span></span>
-<span><span class="co">#&gt; 28   27   28           13589   0.3415262</span></span>
-<span><span class="co">#&gt; 29   28   29            6005   0.3422148</span></span>
-<span><span class="co">#&gt; 30   29   30            2571   0.3131077</span></span>
-<span><span class="co">#&gt; 31   30   31            1297   0.2991519</span></span>
-<span><span class="co">#&gt; 32   31   32             598   0.3043478</span></span>
-<span><span class="co">#&gt; 33   32   33             311   0.2926045</span></span>
-<span><span class="co">#&gt; 34   33   34             167   0.2634731</span></span>
-<span><span class="co">#&gt; 35   34   35              93   0.2150538</span></span>
-<span><span class="co">#&gt; 36   35   50             188   0.2659574</span></span>
-<span><span class="co">#&gt; 37   50   95              15   0.4666667</span></span></code></pre></div>
+<span><span class="co">#&gt; 1     0    1           16067   0.7557727</span></span>
+<span><span class="co">#&gt; 2     1    2           21037   0.7346580</span></span>
+<span><span class="co">#&gt; 3     2    3           17128   0.6091196</span></span>
+<span><span class="co">#&gt; 4     3    4           12132   0.5264590</span></span>
+<span><span class="co">#&gt; 5     4    5            8569   0.4536119</span></span>
+<span><span class="co">#&gt; 6     5    6            7158   0.4301481</span></span>
+<span><span class="co">#&gt; 7     6    7            6276   0.4236775</span></span>
+<span><span class="co">#&gt; 8     7    8            5166   0.4351529</span></span>
+<span><span class="co">#&gt; 9     8    9            4874   0.4456299</span></span>
+<span><span class="co">#&gt; 10    9   10            4474   0.4398748</span></span>
+<span><span class="co">#&gt; 11   10   11            4391   0.4383967</span></span>
+<span><span class="co">#&gt; 12   11   12            4403   0.4599137</span></span>
+<span><span class="co">#&gt; 13   12   13            3971   0.4686477</span></span>
+<span><span class="co">#&gt; 14   13   14            3633   0.4340765</span></span>
+<span><span class="co">#&gt; 15   14   15            3058   0.4372139</span></span>
+<span><span class="co">#&gt; 16   15   16            2997   0.4267601</span></span>
+<span><span class="co">#&gt; 17   16   17            2630   0.4288973</span></span>
+<span><span class="co">#&gt; 18   17   18            2331   0.4024024</span></span>
+<span><span class="co">#&gt; 19   18   19            2010   0.4009950</span></span>
+<span><span class="co">#&gt; 20   19   20            1654   0.3966143</span></span>
+<span><span class="co">#&gt; 21   20   21            1276   0.3887147</span></span>
+<span><span class="co">#&gt; 22   21   22             785   0.3528662</span></span>
+<span><span class="co">#&gt; 23   22   23            8059   0.3762253</span></span>
+<span><span class="co">#&gt; 24   23   24           14069   0.3906461</span></span>
+<span><span class="co">#&gt; 25   24   25           13249   0.3742169</span></span>
+<span><span class="co">#&gt; 26   25   26           26040   0.3561060</span></span>
+<span><span class="co">#&gt; 27   26   27           19441   0.3476159</span></span>
+<span><span class="co">#&gt; 28   27   28            9095   0.3402969</span></span>
+<span><span class="co">#&gt; 29   28   29            3933   0.3325706</span></span>
+<span><span class="co">#&gt; 30   29   30            1796   0.3084633</span></span>
+<span><span class="co">#&gt; 31   30   31             913   0.2968237</span></span>
+<span><span class="co">#&gt; 32   31   32             432   0.2916667</span></span>
+<span><span class="co">#&gt; 33   32   33             211   0.2938389</span></span>
+<span><span class="co">#&gt; 34   33   34             130   0.2538462</span></span>
+<span><span class="co">#&gt; 35   34   35              73   0.1780822</span></span>
+<span><span class="co">#&gt; 36   35   50             157   0.2738854</span></span>
+<span><span class="co">#&gt; 37   50   95              14   0.5000000</span></span></code></pre></div>
 <p>The buckets are 1 ft wide out to 35 ft, then 35 to 50 and 50 to 95.
 Those last two are mostly end-of-quarter heaves, so the ribbon stops at
 35 ft.</p>
@@ -336,11 +333,11 @@ join in from the league curve as zero attempts.</p>
 <span>    sample <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">attempts</span> <span class="op">&lt;</span> <span class="fl">10</span>, <span class="st">"Under 10 attempts"</span>, <span class="st">"10+ attempts"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">ribbon</span><span class="op">$</span><span class="va">attempts</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1452</span></span>
+<span><span class="co">#&gt; [1] 1454</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">ribbon</span>, <span class="va">sample</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              sample  n</span></span>
-<span><span class="co">#&gt; 1      10+ attempts 29</span></span>
-<span><span class="co">#&gt; 2 Under 10 attempts  6</span></span></code></pre></div>
+<span><span class="co">#&gt; 1      10+ attempts 30</span></span>
+<span><span class="co">#&gt; 2 Under 10 attempts  5</span></span></code></pre></div>
 <p>The team colors come from the team rows, whose
 <code>entity_name</code> is the team’s abbreviation. The file gives each
 player one <code>team_id</code>, so a player traded mid-season still

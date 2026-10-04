@@ -17,10 +17,7 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Rolling Form">
-<!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script><script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script><script type="application/ld+json">
+<!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script><script src="https://sdvplotr.sportsdataverse.org/plausible-init.js"></script><script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
   {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
    "name":"sdvplotR","alternateName":"sdvplotR: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'",
@@ -249,7 +246,7 @@ with packages the site already uses. The <code>.parquet</code> and
 <span><span class="va">windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_from_url.html" class="external-link">load_from_url</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">windows</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">windows</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 23778    20</span></span>
+<span><span class="co">#&gt; [1] 24660    20</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">windows</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "season"          "entity_type"     "entity_id"       "entity_name"    </span></span>
 <span><span class="co">#&gt;  [5] "team_id"         "metric"          "window_unit"     "window_n"       </span></span>
@@ -275,31 +272,31 @@ events before those.</li>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">windows</span>, <span class="va">entity_type</span>, <span class="va">metric</span>, <span class="va">window_unit</span>, <span class="va">window_n</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    entity_type       metric window_unit window_n    n</span></span>
-<span><span class="co">#&gt; 1       player          epa       carry       50 1902</span></span>
-<span><span class="co">#&gt; 2       player          epa       carry      100 1902</span></span>
-<span><span class="co">#&gt; 3       player          epa    dropback       50  583</span></span>
-<span><span class="co">#&gt; 4       player          epa    dropback      100  583</span></span>
-<span><span class="co">#&gt; 5       player          epa    dropback      300  583</span></span>
-<span><span class="co">#&gt; 6       player          epa      target       30 2935</span></span>
-<span><span class="co">#&gt; 7       player          epa      target       60 2935</span></span>
-<span><span class="co">#&gt; 8       player success_rate       carry       50 1902</span></span>
-<span><span class="co">#&gt; 9       player success_rate       carry      100 1902</span></span>
-<span><span class="co">#&gt; 10      player success_rate    dropback       50  583</span></span>
-<span><span class="co">#&gt; 11      player success_rate    dropback      100  583</span></span>
-<span><span class="co">#&gt; 12      player success_rate    dropback      300  583</span></span>
-<span><span class="co">#&gt; 13      player success_rate      target       30 2935</span></span>
-<span><span class="co">#&gt; 14      player success_rate      target       60 2935</span></span>
-<span><span class="co">#&gt; 15        team          epa        play      150  233</span></span>
-<span><span class="co">#&gt; 16        team          epa        play      300  233</span></span>
-<span><span class="co">#&gt; 17        team success_rate        play      150  233</span></span>
-<span><span class="co">#&gt; 18        team success_rate        play      300  233</span></span></code></pre></div>
+<span><span class="co">#&gt; 1       player          epa       carry       50 1983</span></span>
+<span><span class="co">#&gt; 2       player          epa       carry      100 1983</span></span>
+<span><span class="co">#&gt; 3       player          epa    dropback       50  606</span></span>
+<span><span class="co">#&gt; 4       player          epa    dropback      100  606</span></span>
+<span><span class="co">#&gt; 5       player          epa    dropback      300  606</span></span>
+<span><span class="co">#&gt; 6       player          epa      target       30 3038</span></span>
+<span><span class="co">#&gt; 7       player          epa      target       60 3038</span></span>
+<span><span class="co">#&gt; 8       player success_rate       carry       50 1983</span></span>
+<span><span class="co">#&gt; 9       player success_rate       carry      100 1983</span></span>
+<span><span class="co">#&gt; 10      player success_rate    dropback       50  606</span></span>
+<span><span class="co">#&gt; 11      player success_rate    dropback      100  606</span></span>
+<span><span class="co">#&gt; 12      player success_rate    dropback      300  606</span></span>
+<span><span class="co">#&gt; 13      player success_rate      target       30 3038</span></span>
+<span><span class="co">#&gt; 14      player success_rate      target       60 3038</span></span>
+<span><span class="co">#&gt; 15        team          epa        play      150  235</span></span>
+<span><span class="co">#&gt; 16        team          epa        play      300  235</span></span>
+<span><span class="co">#&gt; 17        team success_rate        play      150  235</span></span>
+<span><span class="co">#&gt; 18        team success_rate        play      300  235</span></span></code></pre></div>
 <p>This file is the season in progress. The date shows how current it
 is:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">as_of</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">windows</span><span class="op">$</span><span class="va">as_of_date</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">as_of</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">as_of</span></span>
-<span><span class="co">#&gt; [1] "2026-09-26"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "2026-10-03"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="risers-and-fallers">Risers and fallers<a class="anchor" aria-label="anchor" href="#risers-and-fallers"></a>
@@ -318,7 +315,7 @@ average.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pct <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/percent_rank.html" class="external-link">percent_rank</a></span><span class="op">(</span><span class="va">cur</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">pool</span><span class="op">$</span><span class="va">n</span> <span class="op">==</span> <span class="fl">150</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">anyDuplicated</a></span><span class="op">(</span><span class="va">pool</span><span class="op">$</span><span class="va">entity_id</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pool</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 226</span></span>
+<span><span class="co">#&gt; [1] 228</span></span>
 <span></span>
 <span><span class="va">movers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
 <span>  Risers <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">pool</span>, <span class="va">delta_prev</span>, n <span class="op">=</span> <span class="fl">5</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
@@ -328,27 +325,27 @@ average.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">entity_name</span>, <span class="va">prev</span>, <span class="va">cur</span>, <span class="va">n</span>, <span class="va">pct</span>, <span class="va">delta_prev_rank</span><span class="op">)</span></span>
 <span><span class="va">movers</span></span>
 <span><span class="co">#&gt;      group               entity_name        prev        cur   n        pct</span></span>
-<span><span class="co">#&gt; 1   Risers      Alabama Crimson Tide -0.10151620  0.4945306 150 100.000000</span></span>
-<span><span class="co">#&gt; 2   Risers    Oklahoma State Cowboys -0.13878441  0.4332472 150  99.111111</span></span>
-<span><span class="co">#&gt; 3   Risers       South Florida Bulls -0.10999821  0.3512151 150  96.444444</span></span>
-<span><span class="co">#&gt; 4   Risers               BYU Cougars -0.01676469  0.3991717 150  98.666667</span></span>
-<span><span class="co">#&gt; 5   Risers     Northwestern Wildcats -0.12312879  0.2857645 150  92.888889</span></span>
-<span><span class="co">#&gt; 6  Fallers    Northern Iowa Panthers  0.26090279 -0.3017157 150   8.000000</span></span>
-<span><span class="co">#&gt; 7  Fallers      Holy Cross Crusaders  0.26830223 -0.2380549 150  15.555556</span></span>
-<span><span class="co">#&gt; 8  Fallers        Maryland Terrapins  0.27575280 -0.1924150 150  20.444444</span></span>
-<span><span class="co">#&gt; 9  Fallers   Louisiana Tech Bulldogs  0.14168189 -0.3138782 150   5.777778</span></span>
-<span><span class="co">#&gt; 10 Fallers Northwestern State Demons -0.16528011 -0.5938391 150   0.000000</span></span>
+<span><span class="co">#&gt; 1   Risers    Oklahoma State Cowboys -0.13790512  0.3903912 150  99.118943</span></span>
+<span><span class="co">#&gt; 2   Risers      Alabama Crimson Tide -0.02997469  0.4872760 150 100.000000</span></span>
+<span><span class="co">#&gt; 3   Risers   Eastern Michigan Eagles -0.19182284  0.1630189 150  83.259912</span></span>
+<span><span class="co">#&gt; 4   Risers Northern Illinois Huskies -0.21333734  0.1371255 150  81.057269</span></span>
+<span><span class="co">#&gt; 5   Risers        UL Monroe Warhawks -0.07478280  0.2696251 150  96.475771</span></span>
+<span><span class="co">#&gt; 6  Fallers    Northern Iowa Panthers  0.27039169 -0.2732075 150   9.691630</span></span>
+<span><span class="co">#&gt; 7  Fallers  Arizona State Sun Devils  0.26964756 -0.2649843 150  11.013216</span></span>
+<span><span class="co">#&gt; 8  Fallers        Maryland Terrapins  0.17069542 -0.3486037 150   2.202643</span></span>
+<span><span class="co">#&gt; 9  Fallers      Holy Cross Crusaders  0.30123470 -0.2041681 150  18.502203</span></span>
+<span><span class="co">#&gt; 10 Fallers           Charlotte 49ers  0.10459681 -0.3135271 150   4.845815</span></span>
 <span><span class="co">#&gt;    delta_prev_rank</span></span>
 <span><span class="co">#&gt; 1                1</span></span>
 <span><span class="co">#&gt; 2                2</span></span>
 <span><span class="co">#&gt; 3                3</span></span>
 <span><span class="co">#&gt; 4                4</span></span>
 <span><span class="co">#&gt; 5                5</span></span>
-<span><span class="co">#&gt; 6              226</span></span>
-<span><span class="co">#&gt; 7              225</span></span>
-<span><span class="co">#&gt; 8              224</span></span>
-<span><span class="co">#&gt; 9              223</span></span>
-<span><span class="co">#&gt; 10             222</span></span></code></pre></div>
+<span><span class="co">#&gt; 6              228</span></span>
+<span><span class="co">#&gt; 7              227</span></span>
+<span><span class="co">#&gt; 8              226</span></span>
+<span><span class="co">#&gt; 9              225</span></span>
+<span><span class="co">#&gt; 10             224</span></span></code></pre></div>
 <p>The pool holds every team the release covers, FCS programs as well as
 FBS.</p>
 </div>
@@ -894,7 +891,7 @@ vision.</p>
 <td colspan="6" class="gt_heading gt_title gt_font_normal" style="color: #0B1A33; font-family: Chivo; font-size: 18.6px; font-weight: 800;">Offensive form: last 150 plays vs the 150 before</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 12.1px;">EPA per play, 2026 season, as of 2026-09-26</td>
+<td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 12.1px;">EPA per play, 2026 season, as of 2026-10-03</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 11.7px; font-weight: 500;" scope="col" id="entity_name">Team</th>
@@ -911,66 +908,66 @@ vision.</p>
     </tr>
 <tr class="gt_row_group_first">
 <td headers="Risers  entity_name" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The ALA logo">Alabama Crimson Tide</td>
-<td headers="Risers  prev" class="gt_row gt_right">−0.102</td>
-<td headers="Risers  cur" class="gt_row gt_right">0.495 (n = 150)</td>
-<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.596</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/197.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The OKST logo">Oklahoma State Cowboys</td>
+<td headers="Risers  prev" class="gt_row gt_right">−0.138</td>
+<td headers="Risers  cur" class="gt_row gt_right">0.390 (n = 150)</td>
+<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.528</td>
 <td headers="Risers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 1.0000 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D22D49;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 1.0000 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D22D49; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">100</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9912 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D2324B;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.9912 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D2324B; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">99</div>
 </div></td>
 <td headers="Risers  delta_prev_rank" class="gt_row gt_right">1</td>
 </tr>
 <tr>
 <td headers="Risers  entity_name" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/197.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The OKST logo">Oklahoma State Cowboys</td>
-<td headers="Risers  prev" class="gt_row gt_right">−0.139</td>
-<td headers="Risers  cur" class="gt_row gt_right">0.433 (n = 150)</td>
-<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.572</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/333.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The ALA logo">Alabama Crimson Tide</td>
+<td headers="Risers  prev" class="gt_row gt_right">−0.030</td>
+<td headers="Risers  cur" class="gt_row gt_right">0.487 (n = 150)</td>
+<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.517</td>
 <td headers="Risers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9911 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D2324B;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.9911 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D2324B; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">99</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 1.0000 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D22D49;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 1.0000 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D22D49; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">100</div>
 </div></td>
 <td headers="Risers  delta_prev_rank" class="gt_row gt_right">2</td>
 </tr>
 <tr>
 <td headers="Risers  entity_name" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/58.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The USF logo">South Florida Bulls</td>
-<td headers="Risers  prev" class="gt_row gt_right">−0.110</td>
-<td headers="Risers  cur" class="gt_row gt_right">0.351 (n = 150)</td>
-<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.461</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2199.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The EMU logo">Eastern Michigan Eagles</td>
+<td headers="Risers  prev" class="gt_row gt_right">−0.192</td>
+<td headers="Risers  cur" class="gt_row gt_right">0.163 (n = 150)</td>
+<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.355</td>
 <td headers="Risers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9644 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D43E51;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.9644 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D43E51; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">96</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.8326 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D76C71;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.8326 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D76C71; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">83</div>
 </div></td>
 <td headers="Risers  delta_prev_rank" class="gt_row gt_right">3</td>
 </tr>
 <tr>
 <td headers="Risers  entity_name" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/252.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The BYU logo">BYU Cougars</td>
-<td headers="Risers  prev" class="gt_row gt_right">−0.017</td>
-<td headers="Risers  cur" class="gt_row gt_right">0.399 (n = 150)</td>
-<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.416</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2459.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The NIU logo">Northern Illinois Huskies</td>
+<td headers="Risers  prev" class="gt_row gt_right">−0.213</td>
+<td headers="Risers  cur" class="gt_row gt_right">0.137 (n = 150)</td>
+<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.350</td>
 <td headers="Risers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9867 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D3344C;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.9867 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D3344C; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">99</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.8106 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D77377;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.8106 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D77377; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">81</div>
 </div></td>
 <td headers="Risers  delta_prev_rank" class="gt_row gt_right">4</td>
 </tr>
 <tr>
 <td headers="Risers  entity_name" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/77.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The NU logo">Northwestern Wildcats</td>
-<td headers="Risers  prev" class="gt_row gt_right">−0.123</td>
-<td headers="Risers  cur" class="gt_row gt_right">0.286 (n = 150)</td>
-<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.409</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2433.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The ULM logo">UL Monroe Warhawks</td>
+<td headers="Risers  prev" class="gt_row gt_right">−0.075</td>
+<td headers="Risers  cur" class="gt_row gt_right">0.270 (n = 150)</td>
+<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.344</td>
 <td headers="Risers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9289 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D54C5A;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.9289 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D54C5A; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">93</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9648 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D43E51;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.9648 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D43E51; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">96</div>
 </div></td>
 <td headers="Risers  delta_prev_rank" class="gt_row gt_right">5</td>
 </tr>
@@ -980,67 +977,67 @@ vision.</p>
 <tr class="gt_row_group_first">
 <td headers="Fallers  entity_name" class="gt_row gt_left">
 <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2460.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The UNI logo">Northern Iowa Panthers</td>
-<td headers="Fallers  prev" class="gt_row gt_right">0.261</td>
-<td headers="Fallers  cur" class="gt_row gt_right">−0.302 (n = 150)</td>
-<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.563</td>
+<td headers="Fallers  prev" class="gt_row gt_right">0.270</td>
+<td headers="Fallers  cur" class="gt_row gt_right">−0.273 (n = 150)</td>
+<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.544</td>
 <td headers="Fallers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.0800 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#5570B2;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.0800 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#5570B2; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">8</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.0969 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#5B74B3;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.0969 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#5B74B3; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">10</div>
+</div></td>
+<td headers="Fallers  delta_prev_rank" class="gt_row gt_right">228</td>
+</tr>
+<tr>
+<td headers="Fallers  entity_name" class="gt_row gt_left">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/9.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The ASU logo">Arizona State Sun Devils</td>
+<td headers="Fallers  prev" class="gt_row gt_right">0.270</td>
+<td headers="Fallers  cur" class="gt_row gt_right">−0.265 (n = 150)</td>
+<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.535</td>
+<td headers="Fallers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.1101 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#5F76B4;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.1101 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#5F76B4; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">11</div>
+</div></td>
+<td headers="Fallers  delta_prev_rank" class="gt_row gt_right">227</td>
+</tr>
+<tr>
+<td headers="Fallers  entity_name" class="gt_row gt_left">
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/120.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The MD logo">Maryland Terrapins</td>
+<td headers="Fallers  prev" class="gt_row gt_right">0.171</td>
+<td headers="Fallers  cur" class="gt_row gt_right">−0.349 (n = 150)</td>
+<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.519</td>
+<td headers="Fallers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.0220 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#4065AE;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.0220 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#4065AE; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">2</div>
 </div></td>
 <td headers="Fallers  delta_prev_rank" class="gt_row gt_right">226</td>
 </tr>
 <tr>
 <td headers="Fallers  entity_name" class="gt_row gt_left">
 <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/107.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The HC logo">Holy Cross Crusaders</td>
-<td headers="Fallers  prev" class="gt_row gt_right">0.268</td>
-<td headers="Fallers  cur" class="gt_row gt_right">−0.238 (n = 150)</td>
-<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.506</td>
+<td headers="Fallers  prev" class="gt_row gt_right">0.301</td>
+<td headers="Fallers  cur" class="gt_row gt_right">−0.204 (n = 150)</td>
+<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.505</td>
 <td headers="Fallers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.1556 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#6D7FB6;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.1556 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#6D7FB6; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">16</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.1850 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#7685B8;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.1850 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#7685B8; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">19</div>
 </div></td>
 <td headers="Fallers  delta_prev_rank" class="gt_row gt_right">225</td>
 </tr>
 <tr>
 <td headers="Fallers  entity_name" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/120.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The MD logo">Maryland Terrapins</td>
-<td headers="Fallers  prev" class="gt_row gt_right">0.276</td>
-<td headers="Fallers  cur" class="gt_row gt_right">−0.192 (n = 150)</td>
-<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.468</td>
+<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2429.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The CLT logo">Charlotte 49ers</td>
+<td headers="Fallers  prev" class="gt_row gt_right">0.105</td>
+<td headers="Fallers  cur" class="gt_row gt_right">−0.314 (n = 150)</td>
+<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.418</td>
 <td headers="Fallers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.2044 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#7B89B9;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.2044 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#7B89B9; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">20</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.0485 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#4A6AB0;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.0485 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#4A6AB0; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">5</div>
 </div></td>
 <td headers="Fallers  delta_prev_rank" class="gt_row gt_right">224</td>
-</tr>
-<tr>
-<td headers="Fallers  entity_name" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2348.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The LT logo">Louisiana Tech Bulldogs</td>
-<td headers="Fallers  prev" class="gt_row gt_right">0.142</td>
-<td headers="Fallers  cur" class="gt_row gt_right">−0.314 (n = 150)</td>
-<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.456</td>
-<td headers="Fallers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.0578 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#4D6CB1;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.0578 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#4D6CB1; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">6</div>
-</div></td>
-<td headers="Fallers  delta_prev_rank" class="gt_row gt_right">223</td>
-</tr>
-<tr>
-<td headers="Fallers  entity_name" class="gt_row gt_left">
-<img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2466.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="The NWST logo">Northwestern State Demons</td>
-<td headers="Fallers  prev" class="gt_row gt_right">−0.165</td>
-<td headers="Fallers  cur" class="gt_row gt_right">−0.594 (n = 150)</td>
-<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.429</td>
-<td headers="Fallers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.0000 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#3661AD;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.0000 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#3661AD; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">0</div>
-</div></td>
-<td headers="Fallers  delta_prev_rank" class="gt_row gt_right">222</td>
 </tr>
 </tbody>
 <tfoot><tr class="gt_sourcenotes">
