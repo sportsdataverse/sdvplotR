@@ -394,7 +394,9 @@ aliases <- list(
   ),
   nhl = c(
     WAS = "WSH", LAK = "LA", NJD = "NJ", SJS = "SJ", TBL = "TB", VEG = "VGK", MON = "MTL",
-    UTA = "UTAH", CLB = "CBJ", NAS = "NSH", WIN = "WPG"
+    UTA = "UTAH", CLB = "CBJ", NAS = "NSH"
+    # no WIN: it is the original Jets (1979-96), mapped to Utah in
+    # R/historical_teams.R; today's Jets are WPG
   ),
   # ESPN feeds abbreviate these differently from its teams list: box scores
   # write Butler BUT and New Orleans UNO, and FPI writes Buffalo BUFF and Air

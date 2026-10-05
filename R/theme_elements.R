@@ -16,7 +16,10 @@
 #'
 #' @details The elements translate team abbreviations or player IDs into
 #'   logo images or player headshots for the specified sport. Rendering is
-#'   delegated to [ggpath::element_path()].
+#'   delegated to [ggpath::element_path()], which they extend. Set on a parent
+#'   element such as `axis.text.x`, they also replace the position children
+#'   (`axis.text.x.bottom`, `axis.text.y.left`, ...) that complete themes like
+#'   [ggplot2::theme_minimal()] set, keeping the child's spacing.
 #'
 #' @param sport Character string identifying the sport. One of
 #'   [supported_sports()].
@@ -32,8 +35,9 @@
 #' @param ... Other arguments passed on to [ggpath::element_raster()].
 #'
 #' @return `element_sdv_logo()`, `element_sdv_wordmark()` and
-#'   `element_sdv_headshot()` return an S3 object of class `element`;
-#'   `element_sdv_raster()` returns a [ggpath::element_raster()].
+#'   `element_sdv_headshot()` return a theme element extending
+#'   [ggpath::element_path()]; `element_sdv_raster()` returns a
+#'   [ggpath::element_raster()].
 #'
 #' @rdname element_sdv
 #' @seealso [ggpath::element_path()], [ggpath::element_raster()]
@@ -67,7 +71,7 @@ element_sdv_logo <- function(
     vjust = NULL,
     size = 0.5
 ) {
-  new_sdv_element("element_sdv_logo", sport, alpha, colour, color, hjust, vjust, size)
+  new_sdv_element(sdv_logo_element, sport, alpha, colour, color, hjust, vjust, size)
 }
 
 #' @rdname element_sdv
@@ -81,7 +85,7 @@ element_sdv_wordmark <- function(
     vjust = NULL,
     size = 0.5
 ) {
-  new_sdv_element("element_sdv_wordmark", sport, alpha, colour, color, hjust, vjust, size)
+  new_sdv_element(sdv_wordmark_element, sport, alpha, colour, color, hjust, vjust, size)
 }
 
 #' @param id_type Which ID system the player IDs hold: `NULL` (the default;
@@ -99,9 +103,11 @@ element_sdv_headshot <- function(
     size = 0.5,
     id_type = NULL
 ) {
-  element <- new_sdv_element("element_sdv_headshot", sport, alpha, colour, color, hjust, vjust, size)
-  element$id_type <- check_id_type(id_type, element$sport)
-  element
+  sport <- rlang::arg_match0(sport, supported_sports())
+  new_sdv_element(
+    sdv_headshot_element, sport, alpha, colour, color, hjust, vjust, size,
+    id_type = check_id_type(id_type, sport)
+  )
 }
 
 #' @rdname element_sdv
@@ -132,63 +138,68 @@ element_sdv_raster <- function(
   )
 }
 
-new_sdv_element <- function(class, sport, alpha, colour, color, hjust, vjust, size) {
+# The elements are S7 subclasses of ggpath::element_path, carrying ggplot2's
+# own S3 classes ("element_text", "element") as ggplot2's elements do. In
+# ggplot2 4 a child element (theme_minimal()'s axis.text.x.bottom) only lets
+# its parent (axis.text.x) win when the parent is such a subclass of it;
+# otherwise the child stays a plain element_text, inherits colour = NA and
+# size = 0.5, and the axis draws nothing. ggpath::element_path and S3 lists
+# both fail that test.
+sdv_logo_element <- S7::new_class(
+  "element_sdv_logo",
+  parent = ggpath::element_path,
+  properties = list(sport = S7::class_character),
+  package = NULL
+)
+sdv_wordmark_element <- S7::new_class(
+  "element_sdv_wordmark",
+  parent = ggpath::element_path,
+  properties = list(sport = S7::class_character),
+  package = NULL
+)
+sdv_headshot_element <- S7::new_class(
+  "element_sdv_headshot",
+  parent = ggpath::element_path,
+  properties = list(
+    sport = S7::class_character,
+    id_type = S7::new_union(NULL, S7::class_character)
+  ),
+  package = NULL
+)
+
+new_sdv_element <- function(cls, sport, alpha, colour, color, hjust, vjust, size, ...) {
   sport <- rlang::arg_match0(sport, supported_sports())
-  if (!is.null(color)) colour <- color
-  structure(
-    list(
-      sport = sport,
-      alpha = alpha,
-      colour = colour,
-      hjust = hjust,
-      vjust = vjust,
-      size = size
-    ),
-    class = c(class, "element_text", "element")
+  element <- cls(
+    sport = sport,
+    alpha = alpha %||% 1,
+    colour = as.character(color %||% colour),
+    hjust = hjust %||% 0.5,
+    vjust = vjust %||% 0.5,
+    size = size,
+    ...
   )
-}
-
-# ggpath::element_path() is an S7 object, so it has to be constructed through
-# its constructor rather than by re-classing a plain list.
-sdv_element_to_path_grob <- function(element, label, x, y, alpha, colour,
-                                     hjust, vjust, size, ...) {
-  ep <- ggpath::element_path(
-    alpha = alpha %||% element$alpha %||% 1,
-    colour = as.character(colour %||% element$colour %||% "transparent"),
-    hjust = hjust %||% element$hjust %||% 0.5,
-    vjust = vjust %||% element$vjust %||% 0.5,
-    size = size %||% element$size %||% 0.5
-  )
-  ggplot2::element_grob(ep, label = label, x = x, y = y, ...)
+  class(element) <- union(class(element), c("element_text", "element"))
+  element
 }
 
 #' @export
-element_grob.element_sdv_logo <- function(element, label = "", x = NULL, y = NULL,
-                                          alpha = NULL, colour = NULL,
-                                          hjust = NULL, vjust = NULL,
-                                          size = NULL, ...) {
+element_grob.element_sdv_logo <- function(element, label = "", ...) {
   if (is.null(label)) return(ggplot2::zeroGrob())
-  label <- logo_from_team(label, sport = element$sport)
-  sdv_element_to_path_grob(element, label, x, y, alpha, colour, hjust, vjust, size, ...)
+  label <- logo_from_team(label, sport = element@sport)
+  NextMethod()
 }
 
 #' @export
-element_grob.element_sdv_wordmark <- function(element, label = "", x = NULL, y = NULL,
-                                              alpha = NULL, colour = NULL,
-                                              hjust = NULL, vjust = NULL,
-                                              size = NULL, ...) {
+element_grob.element_sdv_wordmark <- function(element, label = "", ...) {
   if (is.null(label)) return(ggplot2::zeroGrob())
-  label <- wordmark_from_team(label, sport = element$sport)
-  sdv_element_to_path_grob(element, label, x, y, alpha, colour, hjust, vjust, size, ...)
+  label <- wordmark_from_team(label, sport = element@sport)
+  NextMethod()
 }
 
 #' @export
-element_grob.element_sdv_headshot <- function(element, label = "", x = NULL, y = NULL,
-                                              alpha = NULL, colour = NULL,
-                                              hjust = NULL, vjust = NULL,
-                                              size = NULL, ...) {
+element_grob.element_sdv_headshot <- function(element, label = "", ...) {
   if (is.null(label)) return(ggplot2::zeroGrob())
-  label <- headshot_from_id(label, sport = element$sport, id_type = element$id_type)
+  label <- headshot_from_id(label, sport = element@sport, id_type = element@id_type)
   label[is.na(label)] <- headshot_placeholder
-  sdv_element_to_path_grob(element, label, x, y, alpha, colour, hjust, vjust, size, ...)
+  NextMethod()
 }

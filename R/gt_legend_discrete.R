@@ -157,19 +157,8 @@ gt_legend_discrete <- function(gt_object, key_info = NULL, heading = NULL, subti
 
   colors <- .hex6(colors)
 
-  # tones off the table background. an unthemed table carries "" here, not NA
-  opt <- gt_object[["_options"]]
-  bg <- opt$value[opt$parameter == "table_background_color"]
-  bg <- if (length(bg)) as.character(bg[[1]]) else NA_character_
-  valid <- !is.na(bg) && nzchar(bg) &&
-    isTRUE(tryCatch(
-      {
-        grDevices::col2rgb(bg)
-        TRUE
-      },
-      error = function(e) FALSE
-    ))
-  if (!valid) bg <- "#FFFFFF"
+  # tones off the table background
+  bg <- .table_background(gt_object)
   ink <- .theme_on_color(bg)
 
   # per-element defaults, user lists over the top

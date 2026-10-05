@@ -30,6 +30,47 @@ test_that("logo axis elements render through ggpath", {
   expect_s3_class(ggplot_gtable(ggplot_build(p)), "gtable")
 })
 
+test_that("image axis text set on axis.text.x / .y survives theme_minimal()'s position children", {
+  # theme_minimal() sets axis.text.x.bottom / axis.text.y.left itself, and in
+  # ggplot2 4 the child renders: it has to come out as the image element
+  els <- list(
+    element_sdv_logo = element_sdv_logo("nba"),
+    element_sdv_wordmark = element_sdv_wordmark("nfl"),
+    element_sdv_headshot = element_sdv_headshot("nba", id_type = "league")
+  )
+  for (cls in names(els)) {
+    th <- theme_minimal() + theme(axis.text.x = els[[cls]], axis.text.y = els[[cls]])
+    for (child in c("axis.text.x.bottom", "axis.text.x.top", "axis.text.y.left", "axis.text.y.right")) {
+      el <- calc_element(child, th)
+      expect_s3_class(el, cls)
+      expect_identical(el@sport, els[[cls]]@sport)
+    }
+    # and keeps the child's own spacing
+    expect_identical(
+      calc_element("axis.text.x.bottom", th)@margin,
+      calc_element("axis.text.x.bottom", theme_minimal())@margin
+    )
+  }
+  expect_identical(calc_element("axis.text.y.left", th)@id_type, "league")
+
+  img <- withr::local_tempfile(fileext = ".png")
+  grDevices::png(img, width = 20, height = 20)
+  grid::grid.rect(gp = grid::gpar(fill = "red"))
+  grDevices::dev.off()
+  local_mocked_bindings(logo_from_team = function(team, sport, ...) rep(img, length(team)), .package = "sdvplotR")
+  axis_grob_classes <- function(p, side) {
+    g <- ggplotGrob(p)
+    ax <- g$grobs[[which(g$layout$name == side)]]
+    unlist(lapply(ax$children, function(ch) if (inherits(ch, "gtable")) lapply(ch$grobs, function(x) class(x)[1])))
+  }
+  withr::local_pdf(withr::local_tempfile(fileext = ".pdf"))
+  df <- data.frame(team = c("KC", "BUF"), v = 1:2)
+  px <- ggplot(df, aes(team, v)) + geom_col() + theme_minimal() + theme(axis.text.x = element_sdv_logo("nfl"))
+  expect_true("ggpath_element" %in% axis_grob_classes(px, "axis-b"))
+  py <- ggplot(df, aes(v, team)) + geom_col() + theme_minimal() + theme(axis.text.y = element_sdv_logo("nfl"))
+  expect_true("ggpath_element" %in% axis_grob_classes(py, "axis-l"))
+})
+
 test_that("element_sdv_headshot records and uses id_type", {
   e <- element_sdv_headshot("nba", id_type = "league")
   expect_identical(e$id_type, "league")

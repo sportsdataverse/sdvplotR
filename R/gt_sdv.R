@@ -350,6 +350,12 @@ gt_sdv_image <- function(
 #'   stacking column 1's text on top of column 2's. Top text is in all caps with
 #'   black bold text, while the lower text is smaller and colored by the team name.
 #'
+#' @details The lower text takes the team's primary color when it clears a
+#'   4.5:1 contrast ratio (WCAG AA) against the cell background, else the secondary
+#'   color, else the primary darkened (or lightened, on a dark background)
+#'   until it does, so a light primary such as Missouri's gold stays readable
+#'   on a white table and keeps its gold on a dark one.
+#'
 #' @param gt_object An existing gt table object of class `gt_tbl`.
 #' @param col1 The column to stack on top. Will be all caps, black bold text.
 #' @param col2 The column to merge and place below. Will be smaller and colored.
@@ -358,6 +364,11 @@ gt_sdv_image <- function(
 #' @param font_size_top Font size for the top text.
 #' @param font_size_bottom Font size for the bottom text.
 #' @param color The color for the top text.
+#' @param background The cell background the lower text is checked against.
+#'   `NULL` (the default) reads the table's background color, so a table
+#'   theme such as [gt_theme_midnight()] applied **before** this function is
+#'   taken into account; a theme applied afterwards isn't seen, so set
+#'   `background` then. A table with no background color set counts as white.
 #'
 #' @return An object of class `gt_tbl`.
 #' @export
@@ -384,7 +395,8 @@ gt_merge_stack_team_color <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
     font_size_top = 14,
     font_size_bottom = 12,
-    color = "black"
+    color = "black",
+    background = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
 
@@ -400,9 +412,12 @@ gt_merge_stack_team_color <- function(
     cli::cli_abort("Must include a column of team names, `team_col` is NULL")
   }
 
-  # Get team colors
   team_color <- sdv_team_colors(sport = sport, team = team_bare, type = "primary")
   team_color[is.na(team_color)] <- "grey"
+  team_color <- sdv_readable_ink(
+    team_color, sdv_team_colors(sport = sport, team = team_bare, type = "secondary"),
+    background %||% .table_background(gt_object)
+  )
 
   col1_bare <- rlang::enexpr(col1) |> rlang::as_string()
   col2_bare <- rlang::enexpr(col2) |> rlang::as_string()
@@ -421,6 +436,23 @@ gt_merge_stack_team_color <- function(
   )
   .fmt_rows(gt_object, col1_bare, as.character(html)) |>
     gt::cols_hide(columns = {{ col2 }})
+}
+
+# Text color that clears `target` contrast on `bg`: the primary, else the
+# secondary, else the primary blended toward black / white (whichever reads on
+# `bg`) until it passes. Vectorised over the team colors.
+sdv_readable_ink <- function(primary, secondary, bg, target = 4.5) {
+  toward <- .theme_on_color(bg)
+  vapply(seq_along(primary), function(i) {
+    for (cand in c(primary[i], secondary[i])) {
+      if (!is.na(cand) && .theme_contrast(cand, bg) >= target) return(cand)
+    }
+    for (w in seq(0.95, 0, by = -0.05)) {
+      cand <- .theme_mix(primary[i], toward, w)
+      if (.theme_contrast(cand, bg) >= target) return(cand)
+    }
+    toward
+  }, character(1), USE.NAMES = FALSE)
 }
 
 # undo the escaping gt applies to cell text before text_transform() sees it;

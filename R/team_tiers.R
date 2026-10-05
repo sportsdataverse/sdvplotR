@@ -30,6 +30,10 @@
 #'   logos will be rendered on each run. If `TRUE` the team abbreviations will
 #'   be plotted instead of the logos. This is much faster and helps with plot
 #'   development.
+#' @param theme `"dark"` (the default: a near-black background with white
+#'   labels) or `"light"` (a white background with dark labels and lines), for
+#'   dark logos such as Toronto's, Iowa's or West Virginia's, which nearly
+#'   vanish on the dark one.
 #'
 #' @return A ggplot object.
 #' @export
@@ -49,6 +53,9 @@
 #'
 #' # Plot team tiers
 #' sdv_team_tiers(df, sport = "nfl")
+#'
+#' # dark logos read better on the light theme
+#' sdv_team_tiers(df, sport = "nfl", theme = "light")
 #' }
 sdv_team_tiers <- function(
     data,
@@ -69,9 +76,11 @@ sdv_team_tiers <- function(
     alpha = 0.8,
     width = 0.075,
     no_line_below_tier = NULL,
-    devel = FALSE
+    devel = FALSE,
+    theme = c("dark", "light")
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
+  theme <- rlang::arg_match(theme)
 
   required_vars <- c("tier_no", "team")
 
@@ -81,8 +90,14 @@ sdv_team_tiers <- function(
     )
   }
 
-  bg <- "#1e1e1e"
-  lines <- "#e0e0e0"
+  # background, tier lines, title and labels, subtitle and caption; the light
+  # colors are sdvplot's (Python), each well past 4.5:1 on white
+  look <- switch(theme,
+    dark = c(bg = "#1e1e1e", lines = "#e0e0e0", text = "white", muted = "#8e8e93"),
+    light = c(bg = "#ffffff", lines = "#3a3a3c", text = "#1e1e1e", muted = "#636366")
+  )
+  bg <- look[["bg"]]
+  lines <- look[["lines"]]
 
   tiers <- sort(unique(data$tier_no))
   tierlines <- tiers[!tiers %in% no_line_below_tier] + 0.5
@@ -127,7 +142,7 @@ sdv_team_tiers <- function(
 
   if (isTRUE(devel)) {
     p <- p +
-      ggplot2::geom_text(ggplot2::aes(label = .data$team), color = "white")
+      ggplot2::geom_text(ggplot2::aes(label = .data$team), color = look[["text"]])
   }
 
   p <- p +
@@ -143,13 +158,13 @@ sdv_team_tiers <- function(
     ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
     ggplot2::theme_minimal(base_size = 11.5) +
     ggplot2::theme(
-      plot.title = ggplot2::element_text(color = "white", face = "bold"),
-      plot.subtitle = ggplot2::element_text(color = "#8e8e93"),
-      plot.caption = ggplot2::element_text(color = "#8e8e93", hjust = 1),
+      plot.title = ggplot2::element_text(color = look[["text"]], face = "bold"),
+      plot.subtitle = ggplot2::element_text(color = look[["muted"]]),
+      plot.caption = ggplot2::element_text(color = look[["muted"]], hjust = 1),
       plot.title.position = "plot",
       axis.text.x = ggplot2::element_blank(),
       axis.text.y = ggplot2::element_text(
-        color = "white",
+        color = look[["text"]],
         face = "bold",
         size = ggplot2::rel(1.1)
       ),

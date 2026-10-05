@@ -2,6 +2,7 @@
 
 S3method(element_grob,element_sdv_headshot)
 S3method(element_grob,element_sdv_logo)
+S3method(element_grob,element_sdv_title_image)
 S3method(element_grob,element_sdv_wordmark)
 export("%>%")
 export(GeomFromPath)

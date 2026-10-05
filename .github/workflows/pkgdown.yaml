@@ -3,6 +3,17 @@ on:
     branches:
       - main
       - master
+  # A broken article fails its PR instead of main's deploy (the deploy step below is skipped on PRs).
+  pull_request:
+    branches: [main, master]
+    paths:
+      - "vignettes/**"
+      - "_pkgdown.yml"
+      - "DESCRIPTION"
+      - "R/**"
+      - "man/**"
+      - "pkgdown/**"
+      - ".github/workflows/pkgdown.yaml"
   release:
     types: [published]
   schedule:

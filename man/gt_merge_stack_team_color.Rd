@@ -12,7 +12,8 @@ gt_merge_stack_team_color(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
   font_size_top = 14,
   font_size_bottom = 12,
-  color = "black"
+  color = "black",
+  background = NULL
 )
 }
 \arguments{
@@ -31,6 +32,12 @@ gt_merge_stack_team_color(
 \item{font_size_bottom}{Font size for the bottom text.}
 
 \item{color}{The color for the top text.}
+
+\item{background}{The cell background the lower text is checked against.
+\code{NULL} (the default) reads the table's background color, so a table
+theme such as \code{\link[=gt_theme_midnight]{gt_theme_midnight()}} applied \strong{before} this function is
+taken into account; a theme applied afterwards isn't seen, so set
+\code{background} then. A table with no background color set counts as white.}
 }
 \value{
 An object of class \code{gt_tbl}.
@@ -39,6 +46,13 @@ An object of class \code{gt_tbl}.
 Takes an existing \code{gt} table and merges column 1 and column 2,
 stacking column 1's text on top of column 2's. Top text is in all caps with
 black bold text, while the lower text is smaller and colored by the team name.
+}
+\details{
+The lower text takes the team's primary color when it clears a
+4.5:1 contrast ratio (WCAG AA) against the cell background, else the secondary
+color, else the primary darkened (or lightened, on a dark background)
+until it does, so a light primary such as Missouri's gold stays readable
+on a white table and keeps its gold on a dark one.
 }
 \examples{
 \donttest{
