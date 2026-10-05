@@ -23,12 +23,19 @@
 #' @param image_columns Optional. The columns to render as images. When `NULL`,
 #'   every column other than `tier_column` is rendered as images. Defaults to
 #'   `NULL`.
+#' @param alt Optional. A function that takes the image paths or URLs and
+#'   returns their alt text, one string per image, such as
+#'   `function(url) names_by_url[url]`. Defaults to `NULL`, which names a team
+#'   logo or wordmark the package knows (any URL in [team_reference()], and the
+#'   season logos `season` draws) by the team, and any other image by its file
+#'   name without the extension.
 #'
 #' @details
 #' The theme is applied once with [gt_theme_tier()], the image columns are passed
 #' through `gt::fmt_image()` at `img_height`, and all column labels are cleared,
-#' so the input for those columns must be image paths or URLs. A path or URL
-#' names nothing, so each image gets the `alt` text `"Tier list entry"`. The function then
+#' so the input for those columns must be image paths or URLs. Each image gets
+#' its own `alt` text from `alt`, so a screen reader can tell the entries
+#' apart. The function then
 #' reduces over `levels`, and for each level fills the matching `tier_column`
 #' cells with the paired color and sets their text to black or white, whichever
 #' measures higher contrast against that fill, so each band keeps a legible
@@ -57,8 +64,16 @@
 #' @export
 gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
                      img_height = "55px", tier_column = "tier",
-                     image_columns = NULL) {
+                     image_columns = NULL, alt = NULL) {
   .check_gt(gt_object)
+  alt <- alt %||% .tier_alt
+  if (!is.function(alt)) {
+    cli::cli_abort(c(
+      "{.arg alt} must be a function that takes the image URLs.",
+      "x" = "Got {.cls {class(alt)}}.",
+      "i" = "Use {.code alt = function(url) ...}, or leave it {.code NULL} to name each team."
+    ))
+  }
 
   # a named vector of tier = color says the same thing in one object, and is the
   # shape gt_legend_discrete() already takes, so one mapping can feed both
@@ -113,10 +128,10 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
   gt_object <- gt_object |>
     gt_theme_tier(style = style) |>
     fmt_image(columns = tidyselect::all_of(img_cols), height = img_height) |>
-    # fmt_image() writes no alt, and a path or URL names nothing, so say what the image is
+    # fmt_image() writes no alt, so each image takes one from its own URL
     text_transform(
       locations = cells_body(columns = tidyselect::all_of(img_cols)),
-      fn = function(x) gsub("<img ", "<img alt=\"Tier list entry\" ", x, fixed = TRUE)
+      fn = function(x) .alt_images(x, alt)
     ) |>
     sub_missing(missing_text = "") |>
     cols_label(everything() ~ "")
@@ -141,4 +156,32 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
   }, levels, init = gt_object)
 
   .record_key(out, stats::setNames(colors, levels))
+}
+
+# alt text on each <img> fmt_image() wrote, from the URL it holds
+.alt_images <- function(x, alt) {
+  tags <- gregexpr('<img src="[^"]*"', x)
+  regmatches(x, tags) <- lapply(regmatches(x, tags), function(tag) {
+    if (!length(tag)) {
+      return(tag)
+    }
+    src <- substr(tag, 11, nchar(tag) - 1)
+    txt <- as.character(alt(src))
+    if (length(txt) != length(src)) {
+      cli::cli_abort("{.arg alt} returned {length(txt)} string{?s} for {length(src)} image{?s}.")
+    }
+    txt[is.na(txt)] <- ""
+    paste0('<img alt="', htmltools::htmlEscape(txt, attribute = TRUE), '" src="', src, '"')
+  })
+  x
+}
+
+# a logo or wordmark the package draws is named by its team, anything else by
+# its file name
+.tier_alt <- function(url) {
+  cols <- c("logo_url", "logo_dark_url", "logo_scoreboard_url", "wordmark_url")
+  known <- c(unlist(logo_ref[cols], use.names = FALSE), logo_history$url)
+  team <- c(rep(logo_ref$team_name, length(cols)), logo_history$identity_name)
+  out <- team[match(url, known)]
+  ifelse(is.na(out), sub("\\.[^./]*$", "", basename(url)), out)
 }

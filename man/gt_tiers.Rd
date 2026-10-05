@@ -11,7 +11,8 @@ gt_tiers(
   style = "dark",
   img_height = "55px",
   tier_column = "tier",
-  image_columns = NULL
+  image_columns = NULL,
+  alt = NULL
 )
 }
 \arguments{
@@ -39,6 +40,13 @@ Defaults to \code{"tier"}.}
 \item{image_columns}{Optional. The columns to render as images. When \code{NULL},
 every column other than \code{tier_column} is rendered as images. Defaults to
 \code{NULL}.}
+
+\item{alt}{Optional. A function that takes the image paths or URLs and
+returns their alt text, one string per image, such as
+\code{function(url) names_by_url[url]}. Defaults to \code{NULL}, which names a team
+logo or wordmark the package knows (any URL in \code{\link[=team_reference]{team_reference()}}, and the
+season logos \code{season} draws) by the team, and any other image by its file
+name without the extension.}
 }
 \value{
 Returns a modified \code{gt} table with the tier column colored and bolded.
@@ -52,8 +60,9 @@ bands.
 \details{
 The theme is applied once with \code{\link[=gt_theme_tier]{gt_theme_tier()}}, the image columns are passed
 through \code{gt::fmt_image()} at \code{img_height}, and all column labels are cleared,
-so the input for those columns must be image paths or URLs. A path or URL
-names nothing, so each image gets the \code{alt} text \code{"Tier list entry"}. The function then
+so the input for those columns must be image paths or URLs. Each image gets
+its own \code{alt} text from \code{alt}, so a screen reader can tell the entries
+apart. The function then
 reduces over \code{levels}, and for each level fills the matching \code{tier_column}
 cells with the paired color and sets their text to black or white, whichever
 measures higher contrast against that fill, so each band keeps a legible

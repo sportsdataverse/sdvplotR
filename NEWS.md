@@ -244,3 +244,8 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   longer vanishes on a white table and stays gold on `gt_theme_midnight()`.
   The new `background` argument defaults to the table's own background color
   (white when unset); a theme applied after this function isn't seen.
+* `gt_tiers()` gives each image its own alt text, so a screen reader can tell
+  the entries apart (they all read "Tier list entry"). A logo or wordmark from
+  `team_reference()`, or a season logo, takes the team's name; any other image
+  its file name. The new `alt` argument takes a function of the image URLs for
+  your own text.
