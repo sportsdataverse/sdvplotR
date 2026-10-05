@@ -742,8 +742,8 @@ each line.](nhl-viz_files/figure-html/points-race-1.png)
 How far every team went, from the playoff game IDs (the seventh digit is
 the round), with regular-season points deciding the order within a tier.
 [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
-with `theme = "light"` draws the list on white; on its default dark
-background the black logos would disappear.
+draws each team’s dark-background logo on its dark background, so the
+Capitals’, Lightning’s and Maple Leafs’ marks stay visible.
 
 ``` r
 
@@ -776,8 +776,7 @@ sdv_team_tiers(
     "5" = "First round",
     "6" = "Missed the playoffs"
   ),
-  width = 0.05,
-  theme = "light"
+  width = 0.05
 )
 ```
 

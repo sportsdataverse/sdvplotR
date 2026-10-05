@@ -1858,9 +1858,9 @@ close to one already used in its division, and then its secondary.</p>
 </h2>
 <p>How far every team went, from the playoff game IDs (the seventh digit
 is the round), with regular-season points deciding the order within a
-tier. <code><a href="../reference/sdv_team_tiers.html">sdv_team_tiers()</a></code> with <code>theme = "light"</code>
-draws the list on white; on its default dark background the black logos
-would disappear.</p>
+tier. <code><a href="../reference/sdv_team_tiers.html">sdv_team_tiers()</a></code> draws each team’s dark-background
+logo on its dark background, so the Capitals’, Lightning’s and Maple
+Leafs’ marks stay visible.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reached</span> <span class="op">&lt;-</span> <span class="va">team_box</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1891,8 +1891,7 @@ would disappear.</p>
 <span>    <span class="st">"5"</span> <span class="op">=</span> <span class="st">"First round"</span>,</span>
 <span>    <span class="st">"6"</span> <span class="op">=</span> <span class="st">"Missed the playoffs"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  width <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  theme <span class="op">=</span> <span class="st">"light"</span></span>
+<span>  width <span class="op">=</span> <span class="fl">0.05</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="nhl-viz_files/figure-html/playoff-tiers-1.png" class="r-plt" alt="Tier list of the 32 NHL teams in 2025-26, drawn as logos in six rows: the Stanley Cup champion, the other finalist, the conference finalists, the second-round teams, the first-round teams and the teams that missed the playoffs." width="960"></p>
 </div>

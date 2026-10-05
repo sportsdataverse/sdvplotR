@@ -397,3 +397,13 @@ NHL, college football, men’s and women’s college basketball), built on
   “reactable Integration” article’s dark Houston Texans logo 404’d),
   which left a broken image; the `<img>` now swaps to the primary logo
   instead.
+- [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
+  takes `variant`, default `"auto"`: the dark theme now draws each
+  team’s dark-background logo (the `"dark"` variant), so dark marks such
+  as the Capitals’, the Giants’, Penn State’s or Iowa’s no longer fade
+  into the near-black background; the light theme still draws the
+  primary logos. Every team in the team data has a dark logo; a row
+  without one (most conferences) draws its primary logo, with no
+  warning. Pass `variant = "primary"` for the old look, or any other
+  logo variant. This matches ‘sdvplot’ (Python), whose `team_tiers()`
+  made the same change.

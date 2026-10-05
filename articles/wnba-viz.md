@@ -227,9 +227,9 @@ axis.](wnba-viz_files/figure-html/net-rating-1.png)
 [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
 draws a tier list from `tier_no` and `team`. The tiers here are cut from
 the net ratings above, so they are the season’s numbers. Its default
-background is dark, and Toronto’s dark plum mark all but disappears on
-it, so `theme = "light"` draws the list on white and `alpha = 1` draws
-the logos at full strength.
+background is dark, where each team draws its dark-background logo
+(Toronto’s plum mark turns light blue), and `alpha = 1` draws the logos
+at full strength.
 
 ``` r
 
@@ -245,8 +245,7 @@ sdv_team_tiers(
   subtitle = "Regular-season net rating per 100 possessions, cut at +5, 0 and -5",
   caption = source_note,
   tier_desc = c("1" = "Title contenders", "2" = "Playoff teams", "3" = "Fringe", "4" = "Rebuilding"),
-  alpha = 1,
-  theme = "light"
+  alpha = 1
 )
 ```
 

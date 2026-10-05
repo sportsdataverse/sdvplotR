@@ -462,9 +462,8 @@ axis.](wbb-viz_files/figure-html/top-25-1.png)
 The NCAA tournament seeds four teams to a line, so seed lines make
 natural tiers: the top four by net rating on the 1 line, the next four
 on the 2 line, and so on. This is a seed list from one rating, not the
-committee’s bracket. West Virginia’s navy mark is hard to see on the
-Tiermaker’s default dark background, so `theme = "light"` draws the list
-on white.
+committee’s bracket. On the Tiermaker’s dark background each team draws
+its dark-background logo, so West Virginia’s navy mark comes out white.
 
 ``` r
 
@@ -480,8 +479,7 @@ sdv_team_tiers(
   caption = source_note,
   tier_desc = c("1" = "1 seeds", "2" = "2 seeds", "3" = "3 seeds", "4" = "4 seeds"),
   alpha = 1,
-  width = 0.1,
-  theme = "light"
+  width = 0.1
 )
 ```
 

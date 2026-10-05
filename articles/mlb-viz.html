@@ -1682,8 +1682,9 @@ year they were founded.</p>
 team column. The tiers here come from the standings’ clinch codes
 (<code>y</code> and <code>z</code> won a division, <code>w</code> a wild
 card) and the games behind the last wild card; within a tier the teams
-go by wins. <code>theme = "light"</code> draws the list on white; on the
-default dark background the navy and brown logos would disappear.</p>
+go by wins. On the dark background each team draws its dark-background
+logo, so the navy and brown marks (the Yankees’, the Padres’, the
+Royals’) come out white or gold instead of disappearing.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">field</span> <span class="op">&lt;-</span> <span class="va">standings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
@@ -1711,8 +1712,7 @@ default dark background the navy and brown logos would disappear.</p>
 <span>    <span class="st">"3"</span> <span class="op">=</span> <span class="st">"Missed by 5 games or fewer"</span>,</span>
 <span>    <span class="st">"4"</span> <span class="op">=</span> <span class="st">"Missed by more"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  width <span class="op">=</span> <span class="fl">0.06</span>,</span>
-<span>  theme <span class="op">=</span> <span class="st">"light"</span></span>
+<span>  width <span class="op">=</span> <span class="fl">0.06</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="mlb-viz_files/figure-html/team-tiers-1.png" class="r-plt" alt="Tier list of the 30 MLB teams in 2026, drawn as logos in four rows: division winners, wild cards, teams that missed the postseason by five games or fewer, and teams that missed by more." width="864"></p>
 </div>

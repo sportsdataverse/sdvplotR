@@ -318,7 +318,8 @@ so each team’s last round is how far it went, and the title game’s
 winner is the champion.
 [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
 turns that into a tier list of the Sweet 16, best adjusted efficiency
-margin first within each tier.
+margin first within each tier. On its dark background each team draws
+its dark-background logo, so Iowa’s black hawkeye is gold.
 
 ``` r
 
@@ -356,8 +357,7 @@ sdv_team_tiers(
     "1" = "Champion", "2" = "Runner-up", "3" = "Final Four",
     "4" = "Elite Eight", "5" = "Sweet 16"
   ),
-  alpha = 1,
-  theme = "light" # Iowa's black hawkeye vanishes on the default dark background
+  alpha = 1
 )
 ```
 

@@ -1909,7 +1909,8 @@ colors the rating.</p>
 game’s round, so each team’s last round is how far it went, and the
 title game’s winner is the champion. <code><a href="../reference/sdv_team_tiers.html">sdv_team_tiers()</a></code> turns
 that into a tier list of the Sweet 16, best adjusted efficiency margin
-first within each tier.</p>
+first within each tier. On its dark background each team draws its
+dark-background logo, so Iowa’s black hawkeye is gold.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"First Four"</span> <span class="op">=</span> <span class="fl">0</span>, <span class="st">"1st Round"</span> <span class="op">=</span> <span class="fl">1</span>, <span class="st">"2nd Round"</span> <span class="op">=</span> <span class="fl">2</span>, <span class="st">"Sweet 16"</span> <span class="op">=</span> <span class="fl">3</span>,</span>
@@ -1945,8 +1946,7 @@ first within each tier.</p>
 <span>    <span class="st">"1"</span> <span class="op">=</span> <span class="st">"Champion"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Runner-up"</span>, <span class="st">"3"</span> <span class="op">=</span> <span class="st">"Final Four"</span>,</span>
 <span>    <span class="st">"4"</span> <span class="op">=</span> <span class="st">"Elite Eight"</span>, <span class="st">"5"</span> <span class="op">=</span> <span class="st">"Sweet 16"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  theme <span class="op">=</span> <span class="st">"light"</span> <span class="co"># Iowa's black hawkeye vanishes on the default dark background</span></span>
+<span>  alpha <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="mbb-viz_files/figure-html/team-tiers-1.png" class="r-plt" alt="The 16 teams of the 2026 men's NCAA tournament Sweet 16 as logos in five tiers by how far they went: Champion, Runner-up, Final Four, Elite Eight and Sweet 16." width="864"></p>
 </div>

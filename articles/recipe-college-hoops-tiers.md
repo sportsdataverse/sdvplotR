@@ -174,15 +174,19 @@ tier_list()
 each tier labelled with its rating range, still on the dark
 background.](recipe-college-hoops-tiers_files/figure-html/labels-1.png)
 
-## 5. Fix the contrast
+## 5. Light or dark
 
-On the Tiermaker’s dark background, the dark logos almost vanish: Iowa’s
-black hawk, Penn State’s navy lion, Michigan State’s dark green Spartan.
-Most college logos are drawn for a white page, so the fix is a light
-background: `theme = "light"` draws the list on white, with the text and
-tier lines turned dark. The logos go to full opacity too (`alpha = 1`);
-the default 0.8 softens them against the dark background but washes them
-out on white.
+On the Tiermaker’s dark background,
+[`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
+draws each school’s dark-background logo (its default
+`variant = "auto"`), so Iowa’s hawk is gold, Michigan State’s Spartan
+white and Penn State’s lion outlined instead of fading into the
+background. A light background suits a page or feed that is white
+anyway: `theme = "light"` draws the list on white, with the text and
+tier lines turned dark, and each school’s usual logo. The logos go to
+full opacity too (`alpha = 1`); the default 0.8 softens them against the
+dark background but washes them out on white. The exports below use the
+light one.
 
 ``` r
 

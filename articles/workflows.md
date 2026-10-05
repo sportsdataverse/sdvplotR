@@ -389,7 +389,7 @@ odds_table
 | ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | DEN | 14 | 0.824 | -3.5 |
 | ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | NE | 14 | 0.824 | -3.5 |
 | ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | SEA | 14 | 0.824 | -3.0 |
-| ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | JAX | 13 | 0.765 | -5.5 |
+| ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | JAX | 13 | 0.765 | -6.5 |
 | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 12 | 0.706 | 3.0 |
 | ![Houston Texans](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | HOU | 12 | 0.706 | -7.0 |
 | ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | LA | 12 | 0.706 | -3.0 |

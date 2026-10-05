@@ -661,8 +661,9 @@ axis.](mlb-viz_files/figure-html/franchise-eras-1.png)
 draws a tier list from a tier and a team column. The tiers here come
 from the standings’ clinch codes (`y` and `z` won a division, `w` a wild
 card) and the games behind the last wild card; within a tier the teams
-go by wins. `theme = "light"` draws the list on white; on the default
-dark background the navy and brown logos would disappear.
+go by wins. On the dark background each team draws its dark-background
+logo, so the navy and brown marks (the Yankees’, the Padres’, the
+Royals’) come out white or gold instead of disappearing.
 
 ``` r
 
@@ -692,8 +693,7 @@ sdv_team_tiers(
     "3" = "Missed by 5 games or fewer",
     "4" = "Missed by more"
   ),
-  width = 0.06,
-  theme = "light"
+  width = 0.06
 )
 ```
 
