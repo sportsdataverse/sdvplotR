@@ -17,7 +17,8 @@ sdv_team_tiers(
   width = 0.075,
   no_line_below_tier = NULL,
   devel = FALSE,
-  theme = c("dark", "light")
+  theme = c("dark", "light"),
+  variant = "auto"
 )
 }
 \arguments{
@@ -56,9 +57,16 @@ be plotted instead of the logos. This is much faster and helps with plot
 development.}
 
 \item{theme}{\code{"dark"} (the default: a near-black background with white
-labels) or \code{"light"} (a white background with dark labels and lines), for
-dark logos such as Toronto's, Iowa's or West Virginia's, which nearly
-vanish on the dark one.}
+labels) or \code{"light"} (a white background with dark labels and lines).}
+
+\item{variant}{The logo variant to draw. \code{"auto"} (the default) draws each
+team's dark-background logo (\code{"dark"}) on the dark theme and its primary
+logo on the light theme, so dark marks such as the Capitals', the Giants'
+or Penn State's don't fade into the dark background. A team with no dark
+logo draws its primary one, with no warning. Any other value is one of
+\code{"primary"}, \code{"dark"}, \code{"light"}, \code{"alt"}, \code{"classic"} or \code{"helmet"}, drawn
+on either theme, with the same fallback. \code{"primary"} gives the old look,
+which drew the primary logo on both themes.}
 }
 \value{
 A ggplot object.
@@ -85,7 +93,7 @@ df <- data.frame(
 # Plot team tiers
 sdv_team_tiers(df, sport = "nfl")
 
-# dark logos read better on the light theme
+# each team's primary logo on white
 sdv_team_tiers(df, sport = "nfl", theme = "light")
 }
 }
