@@ -286,9 +286,14 @@ articles:
       - wbb-viz
   - title: "Cookbooks"
     desc: >
-      Cross-sport patterns: social-media export, leaderboard dashboards,
-      reactable tables and end-to-end workflows.
+      Task-oriented, cross-league recipes: logos and headshots in ggplot2,
+      team colors and themes, interactive charts, playing surfaces and shot
+      charts, and reactable tables.
     contents:
+      - cookbook-ggplot-logos
+      - cookbook-colors-themes
+      - cookbook-interactive
+      - cookbook-surfaces-shot-charts
       - social-posting
       - leaderboard-dashboards
       - reactable-integration
@@ -434,6 +439,14 @@ navbar:
         href: articles/wbb-viz.html
       - text: --------------------------------
       - text: "Cookbooks"
+      - text: "Logos in ggplot2"
+        href: articles/cookbook-ggplot-logos.html
+      - text: "Team Colors and Themes"
+        href: articles/cookbook-colors-themes.html
+      - text: "Interactive Charts"
+        href: articles/cookbook-interactive.html
+      - text: "Surfaces and Shot Charts"
+        href: articles/cookbook-surfaces-shot-charts.html
       - text: "Social Posting"
         href: articles/social-posting.html
       - text: "Leaderboard Dashboards"
