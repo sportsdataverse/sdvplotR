@@ -29,9 +29,13 @@
 #'   of the row. Name a column when the row you are lighting sits elsewhere, as
 #'   with the second block of a [gt_snake()] table. More than one may be given,
 #'   which draws a bar against each. Defaults to `NULL`.
-#' @param dim_color Character. The text color applied to every other row. Pass
-#'   `NULL` to leave the other rows alone, emphasizing without dimming. Defaults
-#'   to `"#BBBBBB"`.
+#' @param dim_color Character. The text color applied to every other row.
+#'   `"auto"`, the default, blends the table's text toward its background until
+#'   it sits just above 4.5:1 contrast against it (WCAG AA for text), so the
+#'   rows read as muted rather than disabled, on a light or a dark theme. Apply
+#'   the theme first: the background is read from the table as set so far.
+#'   Pass a color to choose it yourself, or `NULL` to leave the other rows
+#'   alone, emphasizing without dimming.
 #' @param if_none Character. What to do when `rows` matches nothing. `"warn"`
 #'   leaves the table alone and says so. `"dim"` dims the whole table, which is
 #'   what you want when several tables are laid out together with [gt_grid()] and
@@ -74,10 +78,17 @@
 gt_spotlight <- function(gt_object, rows, columns = gt::everything(),
                          fill = NULL, text_color = NULL, bold = TRUE,
                          accent_color = NULL, accent_width = 4,
-                         accent_column = NULL, dim_color = "#BBBBBB",
+                         accent_column = NULL, dim_color = "auto",
                          if_none = c("warn", "dim", "ignore")) {
   .check_gt(gt_object)
   if_none <- match.arg(if_none)
+
+  # gtUtils dimmed to a fixed #BBBBBB: 1.9:1 on white, under WCAG AA, and on a
+  # dark theme barely dimmer than the text. muted but legible on either ground
+  if (identical(dim_color, "auto")) {
+    bg <- .table_background(gt_object)
+    dim_color <- .theme_secondary_on(bg, .theme_on_color(bg), target = 4.5)
+  }
 
   data <- gt_object[["_data"]]
   n <- nrow(data)

@@ -146,11 +146,57 @@ test_that("gt_sdv_cols_label alt-names the team for logo and wordmark labels", {
   }
 })
 
-test_that("gt_tiers and the border bars give every image an alt", {
-  d <- data.frame(tier = c("A", "B"), logo = c("https://x/1.png", "https://x/2.png"))
+test_that("gt_tiers alt-names each entry by the team its image shows", {
+  ref <- team_reference("nfl")
+  comets <- logo_history$url[logo_history$identity_name == "Houston Comets"][[1]]
+  d <- data.frame(
+    tier = c("A", "B"),
+    `1` = c(ref$logo_url[ref$team_abbr == "KC"], ref$logo_dark_url[ref$team_abbr == "BUF"]),
+    `2` = c("https://x/my-team.png", comets),
+    `3` = NA_character_,
+    check.names = FALSE
+  )
   h <- html_of(gt(d) |> gt_tiers(levels = c("A", "B"), colors = c("#1B7837", "#B2182B")))
-  expect_length(img_tags(h), 2)
-  expect_identical(alts_of(h), rep("Tier list entry", 2))
+  # a logo the package knows takes the team's name, anything else its file name
+  expect_identical(alts_of(h), c("Kansas City Chiefs", "my-team", "Buffalo Bills", "Houston Comets"))
+  h <- html_of(gt(d) |> gt_tiers(c(A = "#1B7837", B = "#B2182B"), alt = function(url) paste("Logo", basename(url))))
+  expect_identical(alts_of(h), c("Logo kc.png", "Logo my-team.png", "Logo buf.png", paste("Logo", basename(comets))))
+  expect_snapshot(gt(d) |> gt_tiers(c(A = "#1B7837", B = "#B2182B"), alt = "Logo"), error = TRUE)
+})
+
+test_that("gt_tiers alt-names a local image by its path, not the data URI gt embeds", {
+  dir <- withr::local_tempdir()
+  osu <- file.path(dir, "Ohio State.png")
+  mich <- file.path(dir, "Michigan.png")
+  magick::image_write(magick::image_blank(4, 4, "red"), osu, format = "png")
+  magick::image_write(magick::image_blank(4, 4, "blue"), mich, format = "png")
+  # groups render the rows out of data order (y, y, x), and the NA cell stays empty
+  d <- data.frame(
+    grp = c("y", "x", "y"), tier = c("A", "B", "A"),
+    `1` = c(osu, mich, paste(mich, osu, sep = ", ")),
+    `2` = c(NA, "https://x/kc.png", osu),
+    check.names = FALSE
+  )
+  tbl <- gt(d, groupname_col = "grp")
+  h <- html_of(tbl |> gt_tiers(c(A = "#1B7837", B = "#B2182B"), image_columns = c("1", "2")))
+  expect_match(h, "src=\"data:image/png;base64,", fixed = TRUE)
+  expect_identical(
+    alts_of(h),
+    c("Ohio State", "Michigan", "Ohio State", "Ohio State", "Michigan", "kc")
+  )
+  seen <- NULL
+  h <- html_of(tbl |> gt_tiers(c(A = "#1B7837", B = "#B2182B"), image_columns = c("1", "2"), alt = function(x) {
+    seen <<- c(seen, x)
+    basename(x)
+  }))
+  expect_setequal(seen, c(osu, mich, "https://x/kc.png"))
+  expect_identical(
+    alts_of(h),
+    c("Ohio State.png", "Michigan.png", "Ohio State.png", "Ohio State.png", "Michigan.png", "kc.png")
+  )
+})
+
+test_that("the border bars give their image an empty alt", {
   h <- html_of(gt(data.frame(x = 1)) |> gt_border_bars_top(colors = c("#E31837", "#FFB612"), img = "https://x/y.png"))
   expect_identical(alts_of(h), "")
   h <- html_of(gt(data.frame(x = 1)) |> gt_border_bars_bottom(colors = c("#E31837", "#FFB612"), img = "https://x/y.png"))
@@ -171,4 +217,26 @@ test_that("border bars request the Google font by its bare family name", {
     # the family inside the request carries no quote characters
     expect_no_match(h, "family='", fixed = TRUE)
   }
+})
+
+test_that("gt_spotlight dims the other rows to a tone that still passes WCAG AA", {
+  d <- data.frame(team = c("A", "B", "C"), wins = 1:3)
+  # one style attribute per body cell, row by row
+  td_styles <- function(h) regmatches(h, gregexpr("<td[^>]*>", h))[[1]]
+  td_color <- function(s) regmatches(s, regexpr("#[0-9A-Fa-f]{6}", s))
+  for (tbl in list(gt(d), gt_theme_midnight(gt(d)))) {
+    bg <- .table_background(tbl)
+    s <- td_styles(html_of(gt_spotlight(tbl, rows = 2)))
+    # the lit row keeps the theme's own text color and is bolded
+    expect_true(all(grepl("font-weight: bold", s[3:4], fixed = TRUE)))
+    expect_false(any(grepl("font-weight: bold", s[-(3:4)], fixed = TRUE)))
+    dim <- unique(vapply(s[-(3:4)], td_color, ""))
+    expect_length(dim, 1)
+    expect_gte(.theme_contrast(dim, bg), 4.5)
+    # still muted next to full-strength text, so the spotlight reads
+    expect_lt(.theme_contrast(dim, bg), .theme_contrast(.theme_on_color(bg), bg) / 2)
+  }
+  # a color you pass is used as is
+  s <- td_styles(html_of(gt_spotlight(gt(d), rows = 2, dim_color = "#BBBBBB")))
+  expect_match(s[1], "color: #BBBBBB;", fixed = TRUE)
 })

@@ -49,3 +49,19 @@ test_that("reactable image helpers alt-name the team or the player id", {
   expect_identical(alt(cols$KC$header), "Kansas City Chiefs")
   expect_identical(alt(cols$BUF$header), "Buffalo Bills")
 })
+
+test_that("a logo variant falls back to the primary logo when it fails to load", {
+  primary <- logo_from_team("HOU", "nfl")
+  h <- reactable_sdv_logos("nfl", variant = "dark")("HOU", 1)
+  expect_match(h, "500-dark/hou.png", fixed = TRUE)
+  expect_match(h, paste0(" onerror=\"this.onerror=null;this.src=&#39;", primary, "&#39;\""), fixed = TRUE)
+  # the primary logo has nothing to fall back to
+  expect_no_match(reactable_sdv_logos("nfl")("HOU", 1), "onerror", fixed = TRUE)
+  # a key the data has no dark logo for (a conference) gets the primary outright
+  no_dark <- logo_ref$team_abbr[logo_ref$sport == "cfb" & is.na(logo_ref$logo_dark_url)][[1]]
+  expect_identical(resolve_logo_url(no_dark, "cfb", "dark"), logo_from_team(no_dark, "cfb"))
+  expect_no_match(reactable_sdv_logos("cfb", variant = "dark")(no_dark, 1), "onerror", fixed = TRUE)
+  skip_if_not_installed("reactable")
+  cols <- reactable_sdv_cols_label(data.frame(HOU = 1), sport = "nfl", variant = "dark")
+  expect_match(cols$HOU$header, paste0("this.src=&#39;", primary, "&#39;"), fixed = TRUE)
+})

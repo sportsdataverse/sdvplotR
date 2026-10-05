@@ -23,12 +23,19 @@
 #' @param image_columns Optional. The columns to render as images. When `NULL`,
 #'   every column other than `tier_column` is rendered as images. Defaults to
 #'   `NULL`.
+#' @param alt Optional. A function that takes the image paths or URLs and
+#'   returns their alt text, one string per image, such as
+#'   `function(url) names_by_url[url]`. Defaults to `NULL`, which names a team
+#'   logo or wordmark the package knows (any URL in [team_reference()], and the
+#'   season logos `season` draws) by the team, and any other image by its file
+#'   name without the extension.
 #'
 #' @details
 #' The theme is applied once with [gt_theme_tier()], the image columns are passed
 #' through `gt::fmt_image()` at `img_height`, and all column labels are cleared,
-#' so the input for those columns must be image paths or URLs. A path or URL
-#' names nothing, so each image gets the `alt` text `"Tier list entry"`. The function then
+#' so the input for those columns must be image paths or URLs. Each image gets
+#' its own `alt` text from `alt`, so a screen reader can tell the entries
+#' apart. The function then
 #' reduces over `levels`, and for each level fills the matching `tier_column`
 #' cells with the paired color and sets their text to black or white, whichever
 #' measures higher contrast against that fill, so each band keeps a legible
@@ -57,8 +64,16 @@
 #' @export
 gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
                      img_height = "55px", tier_column = "tier",
-                     image_columns = NULL) {
+                     image_columns = NULL, alt = NULL) {
   .check_gt(gt_object)
+  alt <- alt %||% .tier_alt
+  if (!is.function(alt)) {
+    cli::cli_abort(c(
+      "{.arg alt} must be a function that takes the image URLs.",
+      "x" = "Got {.cls {class(alt)}}.",
+      "i" = "Use {.code alt = function(url) ...}, or leave it {.code NULL} to name each team."
+    ))
+  }
 
   # a named vector of tier = color says the same thing in one object, and is the
   # shape gt_legend_discrete() already takes, so one mapping can feed both
@@ -113,13 +128,9 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
   gt_object <- gt_object |>
     gt_theme_tier(style = style) |>
     fmt_image(columns = tidyselect::all_of(img_cols), height = img_height) |>
-    # fmt_image() writes no alt, and a path or URL names nothing, so say what the image is
-    text_transform(
-      locations = cells_body(columns = tidyselect::all_of(img_cols)),
-      fn = function(x) gsub("<img ", "<img alt=\"Tier list entry\" ", x, fixed = TRUE)
-    ) |>
     sub_missing(missing_text = "") |>
-    cols_label(everything() ~ "")
+    cols_label(everything() ~ "") |>
+    .alt_images(data, img_cols, alt)
 
   # each level fills its own tier cells and takes its own contrast text color
   out <- Reduce(function(gt_object, level) {
@@ -141,4 +152,61 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
   }, levels, init = gt_object)
 
   .record_key(out, stats::setNames(colors, levels))
+}
+
+# alt text on each <img> fmt_image() wrote, from the path or URL in its cell
+.alt_images <- function(gt_object, data, cols, alt) {
+  # the alt comes from the value the cell held: fmt_image() swaps a local file
+  # for a data URI, which names nothing
+  cells <- lapply(cols, function(col) as.character(data[[col]]))
+  vals <- unique(unlist(cells))
+  vals <- vals[!is.na(vals) & nzchar(vals)]
+  if (!length(vals)) {
+    return(gt_object)
+  }
+  # one image per piece, split the way fmt_image() splits a cell
+  pieces <- strsplit(vals, ",\\s*")
+  src <- unlist(pieces)
+  txt <- as.character(alt(src))
+  if (length(txt) != length(src)) {
+    cli::cli_abort("{.arg alt} returned {length(txt)} string{?s} for {length(src)} image{?s}.")
+  }
+  txt[is.na(txt)] <- ""
+  alts <- utils::relist(htmltools::htmlEscape(txt, attribute = TRUE), pieces)
+
+  # one transform per distinct value, so every cell it touches holds that value
+  # whatever order gt renders the rows in (row groups reorder them)
+  for (i in seq_along(cols)) {
+    for (j in which(vals %in% cells[[i]])) {
+      gt_object <- text_transform(gt_object,
+        locations = cells_body(
+          columns = tidyselect::all_of(cols[[i]]),
+          rows = which(cells[[i]] == vals[[j]])
+        ),
+        fn = .alt_tagger(alts[[j]])
+      )
+    }
+  }
+  gt_object
+}
+
+.alt_tagger <- function(alt) {
+  force(alt)
+  function(x) {
+    tags <- gregexpr("<img ", x, fixed = TRUE)
+    regmatches(x, tags) <- lapply(regmatches(x, tags), function(tag) {
+      if (length(tag) == length(alt)) paste0('<img alt="', alt, '" ') else tag
+    })
+    x
+  }
+}
+
+# a logo or wordmark the package draws is named by its team, anything else by
+# its file name
+.tier_alt <- function(url) {
+  cols <- c("logo_url", "logo_dark_url", "logo_scoreboard_url", "wordmark_url")
+  known <- c(unlist(logo_ref[cols], use.names = FALSE), logo_history$url)
+  team <- c(rep(logo_ref$team_name, length(cols)), logo_history$identity_name)
+  out <- team[match(url, known)]
+  ifelse(is.na(out), sub("\\.[^./]*$", "", basename(url)), out)
 }

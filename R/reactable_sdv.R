@@ -13,7 +13,8 @@
 #'   [supported_sports()].
 #' @param variant Character. Logo variant: `"primary"`, `"dark"`, `"light"`,
 #'   `"alt"`, `"classic"`, or `"helmet"` (NFL only). Falls back to the primary
-#'   image when the requested variant is not available for a team.
+#'   image when the requested variant is not available for a team, and, in the
+#'   browser, when the variant's file fails to load.
 #' @param height Numeric. Image height in pixels.
 #' @param default_img Character. Fallback image URL used when the value cannot
 #'   be resolved. If `NULL` (the default) the raw value is shown instead.
@@ -47,7 +48,9 @@ reactable_sdv_logos <- function(
   sport <- rlang::arg_match0(sport, supported_sports())
   variant <- rlang::arg_match0(variant, logo_variants)
   function(value, index) {
-    img_tag(resolve_logo_url(value, sport, variant), team_alt(value, sport), height, default_img)
+    img_tag(resolve_logo_url(value, sport, variant), team_alt(value, sport), height, default_img,
+      fallback = logo_from_team(value, sport)
+    )
   }
 }
 
@@ -62,7 +65,9 @@ reactable_sdv_wordmarks <- function(
   sport <- rlang::arg_match0(sport, supported_sports())
   variant <- rlang::arg_match0(variant, wordmark_variants)
   function(value, index) {
-    img_tag(resolve_wordmark_url(value, sport, variant), team_alt(value, sport), height, default_img)
+    img_tag(resolve_wordmark_url(value, sport, variant), team_alt(value, sport), height, default_img,
+      fallback = wordmark_from_team(value, sport)
+    )
   }
 }
 
@@ -86,17 +91,29 @@ reactable_sdv_headshots <- function(
 
 # `alt` is the image's alt text; `value` (the cell's raw value) is shown as
 # text when there is no image, and is the alt of the `default_img` stand-in.
-img_tag <- function(url, alt, height, default_img, value = alt) {
+# `fallback` is the primary image a variant (dark, light, ...) swaps to in the
+# browser when the variant fails to load.
+img_tag <- function(url, alt, height, default_img, value = alt, fallback = NA) {
   force(value)
   if (is.na(url) || !nzchar(url)) {
     url <- default_img
     alt <- value
+    fallback <- NA
   }
   if (is.null(url)) return(as.character(value))
   sprintf(
-    '<img src="%s" style="height:%spx;vertical-align:middle;" alt="%s" />',
-    url, height, htmltools::htmlEscape(as.character(alt), attribute = TRUE)
+    '<img src="%s" style="height:%spx;vertical-align:middle;" alt="%s"%s />',
+    url, height, htmltools::htmlEscape(as.character(alt), attribute = TRUE),
+    img_onerror(url, fallback)
   )
+}
+
+# ESPN can drop a variant file the team data still lists (a dark logo has
+# 404'd), so a variant image falls back to the primary rather than breaking.
+img_onerror <- function(url, fallback) {
+  if (is.na(fallback) || identical(url, fallback)) return("")
+  js <- paste0("this.onerror=null;this.src='", gsub("'", "\\\\'", fallback), "'")
+  paste0(' onerror="', htmltools::htmlEscape(js, attribute = TRUE), '"')
 }
 
 #' Replace 'reactable' Column Headers with Team Logos
@@ -136,8 +153,9 @@ reactable_sdv_cols_label <- function(
       name = "",
       html = TRUE,
       header = sprintf(
-        '<img src="%s" style="height:%spx;" alt="%s" />',
-        url, height, htmltools::htmlEscape(team_alt(nm, sport), attribute = TRUE)
+        '<img src="%s" style="height:%spx;" alt="%s"%s />',
+        url, height, htmltools::htmlEscape(team_alt(nm, sport), attribute = TRUE),
+        img_onerror(url, logo_from_team(nm, sport))
       ),
       ...
     )

@@ -157,6 +157,14 @@ pkgdown::check_pkgdown(); pkgdown::build_site()
 devtools::build_readme()
 ```
 
+A check NOTE "Found the following files/directories: ''NULL''" is not this
+package. R CMD check starts R with `R_LIBS_USER='NULL'`, and on Windows the
+quotes reach R. An R installed by rig 0.8.1 (the local R 4.6.1) has a
+`## rig R_LIBS_USER` block in `library/base/R/Rprofile` that skips only an
+unquoted `NULL`, so it runs `dir.create("'NULL'")` in the check directory as
+the examples start. R without that block (the local R 4.6.0, CRAN, GitHub
+Actions) gives no such NOTE.
+
 `Rscript data-raw/generate_logo_ref.R` regenerates team data;
 `Rscript data-raw/hex_logo.R` regenerates `man/figures/logo.png`.
 
