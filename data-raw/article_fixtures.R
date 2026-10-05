@@ -1,5 +1,5 @@
 # Snapshots for the pkgdown articles' calls that cannot run when the site builds: APIs a CI
-# runner cannot rely on (the MLB and NHL stats APIs, ESPN's) and web scrapes.
+# runner cannot rely on (the MLB and NHL stats APIs, Baseball Savant, ESPN's) and web scrapes.
 # Each function runs the article's own code for that step, keeps the rows and columns the
 # article goes on to use, and returns them with the call it made. The runner saves each one as
 # vignettes/fixtures/<article>/<name>.rds, stamped with the date and the package version, and
@@ -14,69 +14,132 @@
 pkgload::load_all(quiet = TRUE)
 library(dplyr, warn.conflicts = FALSE)
 
-# the season rules the articles use (see each article's load chunk)
+# the season rules the articles use (see each article's load chunk); mlb-viz and nhl-viz pin
+# their season instead
 this_year <- function() as.integer(format(Sys.Date(), "%Y"))
 before <- function(md) format(Sys.Date(), "%m-%d") < md
 
 fx_mlb_viz <- function() {
-  # mlb-viz, chunks load-data and player-comparison
-  season <- this_year() - before("10-05")
+  # mlb-viz, chunk load-data (the MLB Stats API calls)
+  season <- 2026
   teams <- baseballr::mlb_teams(season = season, sport_ids = 1) |>
-    select(team_id, team_abbreviation, team_name = team_full_name, division_name)
-  team_stats <- baseballr::mlb_standings(season = season, league_id = "103,104") |>
+    select(team_id, abbreviation = team_abbreviation, team_name = team_full_name, division = division_name)
+  standings <- baseballr::mlb_standings(season = season, league_id = "103,104") |>
     transmute(
       team_id = team_records_team_id,
-      wins = team_records_wins,
-      losses = team_records_losses,
-      win_pct = as.numeric(team_records_winning_percentage),
-      runs_scored = team_records_runs_scored,
-      runs_allowed = team_records_runs_allowed
+      rank = as.integer(team_records_division_rank),
+      w = team_records_wins,
+      l = team_records_losses,
+      gb = team_records_games_back,
+      wc_gb = team_records_wild_card_games_back,
+      rs = team_records_runs_scored,
+      ra = team_records_runs_allowed,
+      diff = team_records_run_differential,
+      strk = team_records_streak_streak_code,
+      clinch = team_records_clinch_indicator
     ) |>
     inner_join(teams, by = "team_id")
-  player_stats <- baseballr::mlb_stats(
-    stat_type = "season", stat_group = "hitting", season = season, player_pool = "All"
+  games <- baseballr::mlb_schedule(season = season, level_ids = "1") |>
+    filter(game_type == "R", status_detailed_state %in% c("Final", "Completed Early")) |>
+    transmute(
+      game_pk,
+      date = as.Date(official_date),
+      home_id = teams_home_team_id,
+      away_id = teams_away_team_id,
+      home_score = teams_home_score,
+      away_score = teams_away_score
+    )
+  hitters <- baseballr::mlb_stats(
+    stat_type = "season", stat_group = "hitting", season = season, player_pool = "All",
+    sort_stat = "homeRuns", order = "desc", limit = 40
+  ) |>
+    select(player_id, player = player_full_name, team_id, games_played, home_runs)
+  # nine franchises that moved, by Stats API team id: every season's name and abbreviation
+  moved <- c(133, 144, 119, 137, 110, 142, 140, 120, 158)
+  identities <- lapply(1901:season, \(s) baseballr::mlb_teams(season = s, sport_ids = 1)) |>
+    bind_rows() |>
+    filter(team_id %in% moved) |>
+    select(team_id, season, name = team_full_name, abbreviation = team_abbreviation)
+  stopifnot(
+    nrow(standings) == 30, !anyNA(standings$division), nrow(games) == 2430,
+    nrow(hitters) == 40, setequal(identities$team_id, moved)
   )
-  qualified <- baseballr::mlb_stats(
-    stat_type = "season", stat_group = "hitting", season = season, player_pool = "Qualified"
-  )
-  stopifnot(nrow(teams) == 30, nrow(team_stats) == 30)
   list(
     season = season,
-    teams = teams,
-    team_stats = team_stats,
-    # the article plots the top 8 by home runs and the top 5 by batting average
-    player_stats = player_stats |>
-      select(player_id, player_full_name, games_played, home_runs) |>
-      slice_max(home_runs, n = 40, with_ties = FALSE),
-    qualified = qualified |>
-      select(player_id, avg) |>
-      slice_max(as.numeric(avg), n = 40, with_ties = FALSE),
-    call = 'baseballr::mlb_teams(), mlb_standings(league_id = "103,104"), mlb_stats(player_pool = "All", "Qualified")',
+    standings = standings,
+    games = games,
+    hitters = hitters,
+    identities = identities,
+    call = paste(
+      'baseballr::mlb_teams(), mlb_standings(league_id = "103,104"), mlb_schedule(),',
+      'mlb_stats(player_pool = "All"), mlb_teams(season = 1901:2026)'
+    ),
+    package = "baseballr"
+  )
+}
+
+fx_mlb_viz_savant <- function() {
+  # mlb-viz, chunk load-savant (the Baseball Savant calls)
+  season <- 2026
+  team_xstats <- baseballr::statcast_leaderboards(
+    leaderboard = "expected_statistics", year = season, player_type = "batter-team"
+  ) |>
+    select(team_id, woba, est_woba)
+  contact <- baseballr::statcast_leaderboards(
+    leaderboard = "exit_velocity_barrels", year = season, player_type = "batter"
+  ) |>
+    select(player_id, name = `last_name, first_name`, attempts, avg_hit_speed, brl_percent)
+  # every home run the season's home run leader(s) hit, with Statcast's hit coordinates
+  hitters <- baseballr::mlb_stats(
+    stat_type = "season", stat_group = "hitting", season = season, player_pool = "All",
+    sort_stat = "homeRuns", order = "desc", limit = 40
+  )
+  leaders <- hitters$player_id[hitters$home_runs == max(hitters$home_runs)]
+  homers <- lapply(leaders, \(id) {
+    baseballr::statcast_search_batters(paste0(season, "-03-01"), paste0(season, "-10-01"), batterid = id)
+  }) |>
+    bind_rows() |>
+    filter(events == "home_run", game_type == "R") |>
+    select(batter, game_date, hc_x, hc_y, hit_distance_sc, launch_speed)
+  stopifnot(
+    nrow(team_xstats) == 30, nrow(contact) > 100,
+    all(table(homers$batter) == max(hitters$home_runs))
+  )
+  list(
+    season = season,
+    team_xstats = team_xstats,
+    contact = contact,
+    homers = homers,
+    call = paste(
+      'baseballr::statcast_leaderboards("expected_statistics", "exit_velocity_barrels"),',
+      "statcast_search_batters()"
+    ),
     package = "baseballr"
   )
 }
 
 fx_nhl_viz <- function() {
-  # nhl-viz, chunk load-data
-  season <- this_year() - before("04-20")
-  season_id <- paste0(season - 1, season)
-  team_stats <- fastRhockey::nhl_stats_teams(season = season_id) |>
-    mutate(team_abbr = clean_team_abbrs(team_full_name, sport = "nhl"))
-  player_stats <- fastRhockey::nhl_stats_skaters(season = season_id, limit = -1)
-  stopifnot(nrow(team_stats) >= 32, !anyNA(team_stats$team_abbr))
+  # nhl-viz, chunk load-api (api-web.nhle.com and records.nhl.com)
+  season <- 2026
+  standings <- fastRhockey::nhl_standings(date = "2026-04-16") |>
+    select(
+      team_abbr, team_name, conference_name, division_name, division_sequence, games_played,
+      wins, losses, ot_losses, points, point_pctg, regulation_wins, goals_for, goals_against,
+      goal_differential, streak_code, streak_count
+    )
+  # one franchise's every season: the Winnipeg Jets (1979), the Coyotes, Utah
+  lineage <- fastRhockey::nhl_records_franchise_season_results() |>
+    filter(game_type_id == 2, team_id %in% c(33, 27, 53, 59, 68), season_id <= 20252026) |>
+    select(season_id, team_id, tri_code, team_name, games_played, points)
+  stopifnot(
+    nrow(standings) == 32, all(standings$games_played == 82),
+    nrow(lineage) == 46, !anyDuplicated(lineage$season_id)
+  )
   list(
     season = season,
-    season_id = season_id,
-    team_stats = team_stats |>
-      select(
-        team_full_name, team_abbr, goals_for_per_game, goals_against_per_game,
-        point_pct, wins, losses, ot_losses, points
-      ),
-    # the article plots the top 8 by goals and the top 5 by goals and by assists
-    player_stats = player_stats |>
-      select(player_id, skater_full_name, games_played, goals, assists) |>
-      filter(min_rank(desc(goals)) <= 40 | min_rank(desc(assists)) <= 40),
-    call = "fastRhockey::nhl_stats_teams(), nhl_stats_skaters(limit = -1)",
+    standings = standings,
+    lineage = lineage,
+    call = "fastRhockey::nhl_standings(), nhl_records_franchise_season_results()",
     package = "fastRhockey"
   )
 }
@@ -183,7 +246,8 @@ fx_recipe_mlb <- function() {
 
 fixtures <- list(
   "mlb-viz/mlb_stats_api" = fx_mlb_viz,
-  "nhl-viz/nhl_stats_api" = fx_nhl_viz,
+  "mlb-viz/savant" = fx_mlb_viz_savant,
+  "nhl-viz/nhl_api" = fx_nhl_viz,
   "grid_tables/ncaa_net" = fx_grid_tables,
   "reactable-integration/espn_fpi" = fx_reactable_fpi,
   "reactable-integration/nhl_skaters" = fx_reactable_nhl,
