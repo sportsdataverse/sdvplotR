@@ -194,11 +194,9 @@ ggplot(nhl_scoring, aes(x = factor(team, levels = team), y = gpg)) +
 
 Or keep the plain scale and set the axis text to an image element:
 `element_sdv_logo()`, or `element_sdv_wordmark()` for the NFL, the only league
-with wordmarks. Set the element on the positioned axis text
-(`axis.text.y.left`, `axis.text.x.bottom`): ggplot2's complete themes set
-those themselves, and they win over a plain `axis.text.y`. `size` is in
-centimetres along the image's longer side, so a wide wordmark needs a bigger
-value than a square logo.
+with wordmarks, on `axis.text.y` (or `axis.text.x`), after the complete theme.
+`size` is in centimetres along the image's longer side, so a wide wordmark
+needs a bigger value than a square logo.
 
 ```{r axis-wordmarks, fig.height = 4.5, fig.alt = "Horizontal bar chart of the ten NFL teams with the most sacks in the 2025 regular season, each bar in the team's primary color, with team wordmarks instead of abbreviations on the y axis."}
 nfl_sacks <- nfl_weeks |>
@@ -215,7 +213,7 @@ ggplot(nfl_sacks, aes(x = sacks, y = factor(team, levels = rev(team)))) +
     caption = "Data: nflreadr::load_team_stats()"
   ) +
   theme_minimal() +
-  theme(axis.text.y.left = element_sdv_wordmark(sport = "nfl", size = 2.2))
+  theme(axis.text.y = element_sdv_wordmark(sport = "nfl", size = 2.2))
 ```
 
 `scale_y_sdv()` with `theme_y_sdv()` does the same for a y axis; image
@@ -381,10 +379,11 @@ identity (`"QUE"`, `"HFD"`, `"ATL"`), with `season` as the ending year.
 ## 8. Put a logo beside the title
 
 `ggtitle_image()` sets the title with a team's logo (or any image URL) beside
-it, and `theme_title_image()` renders it. `image_height` is in pixels: the
-image sits on the text's baseline, so keep it close to the title's height or
-the logo rides above the words. The Super Bowl champion's offense, week by
-week:
+it, and `theme_title_image()` renders it with the image centred on the words.
+`image_height` is in pixels; a logo taller than the text opens up the title
+line around it. Add `theme_title_image()` after any other `plot.title`
+setting, since a later one replaces it. The Super Bowl champion's offense, week
+by week:
 
 ```{r title-logo, fig.alt = "Bar chart of the Seattle Seahawks' offensive EPA per play in each game of the 2025 regular season, labelled by opponent. Positive weeks are in Seattle's primary color, negative weeks in its secondary color, and the Seahawks logo sits beside the title."}
 sea <- nfl_weeks |>

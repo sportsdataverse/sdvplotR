@@ -101,9 +101,8 @@ ggplot(teams, aes(x = off_epa, y = def_epa)) +
 
 Offensive success rate against the league average, sorted, with each bar in its
 team's primary color from `scale_fill_sdv()`. The x axis keeps the
-abbreviations as its labels and `element_sdv_logo()` draws them as logos.
-Complete themes such as `theme_minimal()` set the bottom axis's own element,
-`axis.text.x.bottom`, so the logo element goes there.
+abbreviations as its labels, and `element_sdv_logo()` set on `axis.text.x`
+draws them as logos.
 
 ```{r axis-logos, fig.height = 4.8, fig.alt = "Bar chart of each NFL team's offensive success rate in the 2025 regular season minus the league average, sorted from highest to lowest, with bars in team colors and each team's logo in place of its name on the horizontal axis."}
 league_sr <- mean(plays$success)
@@ -128,7 +127,7 @@ ggplot(ranked, aes(x = team, y = sr_diff)) +
   theme(
     legend.position = "none",
     panel.grid.major.x = element_blank(),
-    axis.text.x.bottom = element_sdv_logo(sport = "nfl", size = 0.5)
+    axis.text.x = element_sdv_logo(sport = "nfl", size = 0.5)
   )
 ```
 
@@ -231,7 +230,7 @@ ggplot(running, aes(x = week, y = diff, color = team)) +
 
 nflfastR's `home_wp` traced through the Super Bowl. `ggtitle_image()` puts the
 winner's logo beside the title (with `theme_title_image()`, which renders the
-title as markdown). The fills are the teams' colors from `sdv_team_colors()`;
+title as markdown and centres the logo on the words). The fills are the teams' colors from `sdv_team_colors()`;
 Seattle and New England share the same navy, so when the two primaries match
 the away team switches to its secondary color.
 
@@ -356,12 +355,12 @@ top_qbs |>
 
 Schedules use the abbreviation a team had that season: `OAK` until 2019, `SD`
 until 2016, `STL` until 2015. `resolve_historical_abbr()` maps each to today's
-franchise, and `clean_team_abbrs()` applies that mapping and returns the key
-sdvplotR's data uses: nflverse's `LA` for the Rams, where the common
-abbreviation is `LAR`.
+franchise and passes anything else through, so it reads only the old codes.
+`clean_team_abbrs()` applies the same mapping and every other spelling too, so
+other sources' `LAR` and a full name become nflverse's `LA` as well:
 
 ```{r relocation-keys}
-data.frame(abbr = c("OAK", "SD", "STL")) |>
+data.frame(abbr = c("OAK", "SD", "STL", "LAR", "Los Angeles Rams")) |>
   mutate(
     current = resolve_historical_abbr(abbr, sport = "nfl"),
     key = clean_team_abbrs(abbr, sport = "nfl")
