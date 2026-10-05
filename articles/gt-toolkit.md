@@ -29,22 +29,30 @@ library(gt)
 
 ## The data
 
-The final 2023 AFC standings, typed in so the article builds offline.
-The seven playoff seeds come first in seed order, followed by the rest
-by record.
+The final 2025 standings.
+[`nflseedR::nfl_standings()`](https://nflseedr.com/reference/nfl_standings.html)
+computes them from nflverse’s schedule, read with `nflreadr`, NFL
+tiebreakers included; its `conf_rank` is each team’s place in its
+conference, so ranks 1-7 are the playoff seeds. The seeds come first in
+seed order, followed by the rest.
 
 ``` r
 
-afc <- data.frame(
-  team = c(
-    "BAL", "BUF", "KC", "HOU", "CLE", "MIA", "PIT",
-    "CIN", "IND", "JAX", "DEN", "LV", "NYJ", "TEN", "LAC", "NE"
-  ),
-  seed = c(1:7, rep(NA, 9)),
-  w = c(13, 11, 11, 10, 11, 11, 10, 9, 9, 9, 8, 8, 7, 6, 5, 4)
-)
-afc$l <- 17 - afc$w
-afc$pct <- afc$w / 17
+standings <- nflseedR::nfl_standings(nflreadr::load_schedules(2025), verbosity = "NONE")
+
+conference_standings <- function(conference) {
+  s <- standings[standings$conf == conference, ]
+  s <- s[order(s$conf_rank), ]
+  data.frame(
+    team = s$team,
+    seed = ifelse(s$conf_rank <= 7, s$conf_rank, NA),
+    w = s$true_wins,
+    l = s$losses,
+    pct = s$win_pct
+  )
+}
+
+afc <- conference_standings("AFC")
 ```
 
 ## Step by step
@@ -60,7 +68,7 @@ base <- function(df, conference) {
     cols_label(team = "", seed = "Seed", w = "W", l = "L", pct = "Win pct") |>
     sub_missing(columns = "seed", missing_text = "") |>
     fmt(columns = "pct", fns = function(x) sub("^0", "", sprintf("%.3f", x))) |>
-    tab_header(paste(conference, "playoff picture"), "Final 2023 standings")
+    tab_header(paste(conference, "playoff picture"), "Final 2025 standings")
 }
 base(afc, "AFC")
 ```
@@ -81,12 +89,11 @@ base(afc, "AFC") |>
 [TABLE]
 
 [`gt_color_ranks()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_ranks.md)
-colors a column by rank, which shows where the wins cluster (four teams
-at 11 wins, three at 9) faster than reading the numbers;
-`reverse = TRUE` puts the most wins at the green end. The cut line’s
-label sits in the row below the line and clears that row’s cell colors,
-so with colored cells, keep the line unlabeled and say what it means in
-the caption.
+colors a column by its values, which shows where the wins cluster faster
+than reading the numbers; `reverse = TRUE` puts the most wins at the
+green end. The cut line’s label sits in the row below the line and
+clears that row’s cell colors, so with colored cells, keep the line
+unlabeled and say what it means in the caption.
 [`gt_538_caption()`](https://sdvplotR.sportsdataverse.org/reference/gt_538_caption.md)
 separates that note from the source line.
 [`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md)
@@ -101,7 +108,7 @@ playoff_table <- function(df, conference, density = "comfortable") {
     gt_color_ranks(columns = "w", reverse = TRUE) |>
     gt_538_caption(
       top_caption = "Above the line: playoff teams.",
-      bottom_caption = "Data: nflverse"
+      bottom_caption = "Data: nflverse via nflreadr and nflseedR"
     ) |>
     gt_theme_sdv(density = density)
 }
@@ -120,28 +127,19 @@ and the tables stay narrow enough to sit side by side.
 
 ``` r
 
-nfc <- data.frame(
-  team = c(
-    "SF", "DAL", "DET", "TB", "PHI", "LA", "GB",
-    "NO", "SEA", "ATL", "CHI", "MIN", "NYG", "ARI", "WAS", "CAR"
-  ),
-  seed = c(1:7, rep(NA, 9)),
-  w = c(12, 12, 12, 9, 11, 10, 9, 9, 9, 7, 7, 7, 6, 4, 4, 2)
-)
-nfc$l <- 17 - nfc$w
-nfc$pct <- nfc$w / 17
+nfc <- conference_standings("NFC")
 
 gt_grid(
   list(playoff_table(afc, "AFC"), playoff_table(nfc, "NFC")),
   ncol = 2,
-  title = "The 2023 NFL playoff field",
+  title = "The 2025 NFL playoff field",
   subtitle = "Final regular-season standings",
   caption = "Seeds 1-4 won their division; 5-7 are wild cards.",
   title_style = list(font = "Chivo", weight = 800)
 )
 ```
 
-The 2023 NFL playoff field
+The 2025 NFL playoff field
 
 Final regular-season standings
 
@@ -174,7 +172,7 @@ playoff_table(afc, "AFC", density = "social") |>
 
 gt_grid(
   list(playoff_table(afc, "AFC"), playoff_table(nfc, "NFC")),
-  title = "The 2023 NFL playoff field",
+  title = "The 2025 NFL playoff field",
   file = "playoff-field.png"
 )
 ```
@@ -184,14 +182,20 @@ gt_grid(
 - [SportsDataverse Table
   Themes](https://sdvplotR.sportsdataverse.org/articles/sdv-table-themes.md)
   covers the house theme, the dark style and team colors.
-- The gt table cookbooks go deeper on single tools: [styling headers,
-  legends and
+- The rest of the Tables cookbook goes deeper on single tools: [styling
+  headers, legends and
   captions](https://sdvplotR.sportsdataverse.org/articles/styling.md),
   [percentile bars and cut
   lines](https://sdvplotR.sportsdataverse.org/articles/delay_tables.md),
   [faceted
   tables](https://sdvplotR.sportsdataverse.org/articles/grid_tables.md),
   [tier
-  lists](https://sdvplotR.sportsdataverse.org/articles/tier_list.md) and
-  [saving and
+  lists](https://sdvplotR.sportsdataverse.org/articles/tier_list.md),
+  [border
+  bars](https://sdvplotR.sportsdataverse.org/articles/border_bars.md),
+  [schedule
+  matrices](https://sdvplotR.sportsdataverse.org/articles/schedule_matrix.md),
+  [rolling
+  windows](https://sdvplotR.sportsdataverse.org/articles/window_wins.md)
+  and [saving and
   posting](https://sdvplotR.sportsdataverse.org/articles/saving_tables.md).

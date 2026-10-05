@@ -95,21 +95,17 @@ charts, and reactable tables.
 - [reactable
   Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.md):
 
-### gt Tables
+### Tables cookbook
 
-The SportsDataverse table themes, and the team layer and the gt table
-toolkit working together on one table.
+gt tables on SportsDataverse data: the house themes, standings with cut
+lines, percentile bars, rank changes, schedule matrices, tier lists,
+faceted and snaked layouts, and saving for social. The gt\_\* toolkit
+comes from Andrew Weatherman’s gtUtils.
 
 - [SportsDataverse Table
   Themes](https://sdvplotR.sportsdataverse.org/articles/sdv-table-themes.md):
 - [Team Tables with the gt
   Toolkit](https://sdvplotR.sportsdataverse.org/articles/gt-toolkit.md):
-
-### gt Table Cookbooks
-
-Themes, legends, cut lines, faceted grids and saving, ported with the
-gtUtils functions from Andrew Weatherman’s articles.
-
 - [Styling Headers, Legends, and
   Captions](https://sdvplotR.sportsdataverse.org/articles/styling.md):
 - [Saving and Posting
@@ -124,7 +120,7 @@ gtUtils functions from Andrew Weatherman’s articles.
   Matrix](https://sdvplotR.sportsdataverse.org/articles/schedule_matrix.md):
 - [Creating Tier
   Lists](https://sdvplotR.sportsdataverse.org/articles/tier_list.md):
-- [Winningest Programs in Rolling
+- [Winningest Franchises in Rolling
   Windows](https://sdvplotR.sportsdataverse.org/articles/window_wins.md):
 
 ### Recipes

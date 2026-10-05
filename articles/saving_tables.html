@@ -123,11 +123,9 @@
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables cookbook</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
     <li><a class="dropdown-item" href="../articles/gt-toolkit.html">Team Tables with the gt Toolkit</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>gt Table Cookbooks</h6></li>
     <li><a class="dropdown-item" href="../articles/styling.html">Styling Headers, Legends and Captions</a></li>
     <li><a class="dropdown-item" href="../articles/saving_tables.html">Saving and Posting Tables</a></li>
     <li><a class="dropdown-item" href="../articles/grid_tables.html">Faceted Tables</a></li>
@@ -237,99 +235,96 @@
     </div>
 
     <!-- sdvplotR: phones get "On this page" here, collapsed; pkgdown/extra.js copies the list in -->
-    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p>A table built for a browser and a table built for a feed are not the
+    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sdvplotR.sportsdataverse.org/">sdvplotR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
+<p>A table built for a browser and a table built for a feed are not the
 same object. <code><a href="https://gt.rstudio.com/reference/gtsave.html" class="external-link">gt::gtsave()</a></code> writes what the browser rendered,
 margins included, at whatever size the page happened to be. Posting
 wants a trimmed image, a predictable width across a set, and often a
 specific shape.</p>
-<p>This vignette covers the export side of the package:
-<code><a href="../reference/gt_save_crop.html">gt_save_crop()</a></code>, <code><a href="../reference/gt_social_crop.html">gt_social_crop()</a></code>,
-<code><a href="../reference/gt_save_batch.html">gt_save_batch()</a></code>, the <code>"social"</code> density on every
-theme, and the two attribution functions, <code><a href="../reference/gt_watermark.html">gt_watermark()</a></code>
-and <code><a href="../reference/gt_social_tag.html">gt_social_tag()</a></code>.</p>
-<p>Everything below runs on <code>mtcars</code>. The chunks that write
-an image are not run when this site is built, because they drive a
-headless Chrome; the picture under each one is what it writes.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fl">8</span><span class="op">)</span></span>
-<span><span class="va">cars</span><span class="op">$</span><span class="va">car</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span>
-<span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="va">cars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"car"</span>, <span class="st">"mpg"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span><span class="op">)</span><span class="op">]</span></span>
-<span></span>
-<span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/gt_theme_broadsheet.html">gt_theme_broadsheet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="st">"Fuel economy and power"</span>, <span class="st">"1974 Motor Trend road tests"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p>This article covers the export side of the package on one real table,
+the NFL’s most efficient passers of 2025, and one batch, a standings
+image for each AFC division: <code><a href="../reference/gt_save_crop.html">gt_save_crop()</a></code>,
+<code><a href="../reference/gt_social_crop.html">gt_social_crop()</a></code>, <code><a href="../reference/gt_save_batch.html">gt_save_batch()</a></code>, the
+<code>"social"</code> density on every theme, and the two attribution
+functions, <code><a href="../reference/gt_watermark.html">gt_watermark()</a></code> and <code><a href="../reference/gt_social_tag.html">gt_social_tag()</a></code>.
+The data is nflverse’s, read with <a href="https://nflreadr.nflverse.com" class="external-link"><code>nflreadr</code></a>. These
+functions come from Andrew Weatherman’s <a href="https://github.com/andreweatherman/gtUtils" class="external-link">gtUtils</a>, and this
+article follows his saving guide.</p>
+<p>Saving drives a headless Chrome through <code>webshot2</code>. Each
+save below is shown as code, and the picture under it is the image that
+code writes, made when this page was built.</p>
 <div class="section level2">
-<h2 id="trimming-and-padding">Trimming and padding<a class="anchor" aria-label="anchor" href="#trimming-and-padding"></a>
+<h2 id="the-table">The table<a class="anchor" aria-label="anchor" href="#the-table"></a>
 </h2>
-<p><code><a href="../reference/gt_save_crop.html">gt_save_crop()</a></code> renders the table, trims the whitespace
-around it, then pads it back by a fixed amount so the image has an even
-margin on all four sides.</p>
+<p>The ten quarterbacks with the most EPA per dropback (pass attempts
+plus sacks) among those with at least 300 dropbacks in the 2025 regular
+season, with NFL.com headshots and team logos.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/gt_save_crop.html">gt_save_crop</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"table.png"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="images/save_crop.png" class="r-plt" alt="A cropped table image titled Fuel economy and power, listing eight 1974 cars with miles per gallon, horsepower and weight, with an even margin around it." width="55%"></p>
-<p><code>whitespace</code> sets that margin in pixels and
-<code>bg</code> sets its color, which should match the theme’s
-background. <code>zoom</code> controls the render scale, at
-<code>2</code> by default, so the output is retina-sized.</p>
-<p><code>width</code> is the one to know about for a series. Passing it
-scales the finished image to an exact pixel width, holding the aspect
-ratio. The table above comes out 696 by 814. With
-<code>width = 900</code> it becomes 900 by 1053.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/gt_save_crop.html">gt_save_crop</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"table.png"</span>, width <span class="op">=</span> <span class="fl">900</span><span class="op">)</span></span></code></pre></div>
-<p>Leave <code>file</code> unset and the image is returned rather than
-written, which is useful when you want to keep working on it with
-<code>magick</code>.</p>
-</div>
-<div class="section level2">
-<h2 id="sizing-type-for-an-image">Sizing type for an image<a class="anchor" aria-label="anchor" href="#sizing-type-for-an-image"></a>
-</h2>
-<p>Type sized for a browser reads small once the image is scaled into a
-feed. Every theme in the package takes a <code>density</code> argument,
-and <code>"social"</code> is the setting built for this (17px body,
-roomier rows, and a larger title).</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/gt_theme_broadsheet.html">gt_theme_broadsheet</a></span><span class="op">(</span>density <span class="op">=</span> <span class="st">"social"</span><span class="op">)</span></span></code></pre></div>
-<div id="eexombwkke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#eexombwkke table {
-  font-family: 'Source Serif 4', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+<code class="sourceCode R"><span><span class="va">qbs</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_player_stats.html" class="external-link">load_player_stats</a></span><span class="op">(</span><span class="fl">2025</span>, summary_level <span class="op">=</span> <span class="st">"reg"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">position</span> <span class="op">==</span> <span class="st">"QB"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dropbacks <span class="op">=</span> <span class="va">attempts</span> <span class="op">+</span> <span class="va">sacks_suffered</span>, epa_db <span class="op">=</span> <span class="va">passing_epa</span> <span class="op">/</span> <span class="va">dropbacks</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dropbacks</span> <span class="op">&gt;=</span> <span class="fl">300</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">epa_db</span><span class="op">)</span>, <span class="va">player_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">player_id</span>, <span class="va">player_display_name</span>, <span class="va">recent_team</span>, <span class="va">dropbacks</span>, <span class="va">epa_db</span>, <span class="va">passing_cpoe</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">passers</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="../reference/gt_sdv_headshots.html">gt_sdv_headshots</a></span><span class="op">(</span><span class="va">player_id</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">34</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">recent_team</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span><span class="va">epa_db</span>, decimals <span class="op">=</span> <span class="fl">2</span>, force_sign <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span><span class="va">passing_cpoe</span>, decimals <span class="op">=</span> <span class="fl">1</span>, force_sign <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
+<span>      rank <span class="op">=</span> <span class="st">""</span>, player_id <span class="op">=</span> <span class="st">""</span>, player_display_name <span class="op">=</span> <span class="st">"Quarterback"</span>, recent_team <span class="op">=</span> <span class="st">""</span>,</span>
+<span>      dropbacks <span class="op">=</span> <span class="st">"Dropbacks"</span>, epa_db <span class="op">=</span> <span class="st">"EPA/db"</span>, passing_cpoe <span class="op">=</span> <span class="st">"CPOE"</span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="op">-</span><span class="va">player_display_name</span>, <span class="st">"center"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="st">"The NFL's most efficient passers, 2025"</span>, <span class="st">"EPA per dropback, regular season, 300 or more dropbacks"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span><span class="st">"Data: nflverse player stats via nflreadr"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gt_theme_sdv.html">gt_theme_sdv</a></span><span class="op">(</span><span class="fu">passers</span><span class="op">(</span><span class="va">qbs</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tbl</span></span></code></pre></div>
+<div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#mwlefoodfi table {
+  font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#eexombwkke thead, #eexombwkke tbody, #eexombwkke tfoot, #eexombwkke tr, #eexombwkke td, #eexombwkke th {
+#mwlefoodfi thead, #mwlefoodfi tbody, #mwlefoodfi tfoot, #mwlefoodfi tr, #mwlefoodfi td, #mwlefoodfi th {
   border-style: none;
 }
 
-#eexombwkke p {
+#mwlefoodfi p {
   margin: 0;
   padding: 0;
 }
 
-#eexombwkke .gt_table {
+#mwlefoodfi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
   margin-left: auto;
   margin-right: auto;
-  color: #333333;
-  font-size: 17px;
+  color: #0B1A33;
+  font-size: 15px;
   font-weight: normal;
   font-style: normal;
-  background-color: #FBFAF7;
+  background-color: #FFFFFF;
   width: auto;
-  border-top-style: solid;
+  border-top-style: none;
   border-top-width: 2px;
-  border-top-color: #A6081A;
+  border-top-color: #A8A8A8;
   border-right-style: none;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
@@ -341,39 +336,39 @@ roomier rows, and a larger title).</p>
   border-left-color: #D3D3D3;
 }
 
-#eexombwkke .gt_caption {
+#mwlefoodfi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#eexombwkke .gt_title {
-  color: #333333;
+#mwlefoodfi .gt_title {
+  color: #0B1A33;
   font-size: 125%;
   font-weight: initial;
-  padding-top: 9px;
-  padding-bottom: 9px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
-  border-bottom-color: #FBFAF7;
+  border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
 
-#eexombwkke .gt_subtitle {
-  color: #333333;
+#mwlefoodfi .gt_subtitle {
+  color: #0B1A33;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 8px;
-  padding-bottom: 10px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-color: #FBFAF7;
+  border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#eexombwkke .gt_heading {
-  background-color: #FBFAF7;
+#mwlefoodfi .gt_heading {
+  background-color: #FFFFFF;
   text-align: left;
-  border-bottom-color: #FBFAF7;
+  border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
   border-left-color: #D3D3D3;
@@ -382,19 +377,19 @@ roomier rows, and a larger title).</p>
   border-right-color: #D3D3D3;
 }
 
-#eexombwkke .gt_bottom_border {
+#mwlefoodfi .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#eexombwkke .gt_col_headings {
+#mwlefoodfi .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 1.5px;
-  border-bottom-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
   border-left-style: none;
   border-left-width: 1px;
   border-left-color: #D3D3D3;
@@ -403,9 +398,9 @@ roomier rows, and a larger title).</p>
   border-right-color: #D3D3D3;
 }
 
-#eexombwkke .gt_col_heading {
-  color: #333333;
-  background-color: #FBFAF7;
+#mwlefoodfi .gt_col_heading {
+  color: #0B1A33;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: normal;
   text-transform: inherit;
@@ -416,16 +411,16 @@ roomier rows, and a larger title).</p>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: bottom;
-  padding-top: 7px;
-  padding-bottom: 8px;
+  padding-top: 6px;
+  padding-bottom: 7px;
   padding-left: 5px;
   padding-right: 5px;
   overflow-x: hidden;
 }
 
-#eexombwkke .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FBFAF7;
+#mwlefoodfi .gt_column_spanner_outer {
+  color: #0B1A33;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: normal;
   text-transform: inherit;
@@ -435,43 +430,43 @@ roomier rows, and a larger title).</p>
   padding-right: 4px;
 }
 
-#eexombwkke .gt_column_spanner_outer:first-child {
+#mwlefoodfi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eexombwkke .gt_column_spanner_outer:last-child {
+#mwlefoodfi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eexombwkke .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 1.5px;
-  border-bottom-color: #16130F;
+#mwlefoodfi .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
   vertical-align: bottom;
-  padding-top: 7px;
-  padding-bottom: 7px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#eexombwkke .gt_spanner_row {
+#mwlefoodfi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#eexombwkke .gt_group_heading {
-  padding-top: 6px;
-  padding-bottom: 6px;
+#mwlefoodfi .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
   padding-left: 5px;
   padding-right: 5px;
-  color: #333333;
-  background-color: #FBFAF7;
+  color: #0B1A33;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #16130F;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -485,38 +480,38 @@ roomier rows, and a larger title).</p>
   text-align: left;
 }
 
-#eexombwkke .gt_empty_group_heading {
+#mwlefoodfi .gt_empty_group_heading {
   padding: 0.5px;
-  color: #333333;
-  background-color: #FBFAF7;
+  color: #0B1A33;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #16130F;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
 
-#eexombwkke .gt_from_md > :first-child {
+#mwlefoodfi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eexombwkke .gt_from_md > :last-child {
+#mwlefoodfi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eexombwkke .gt_row {
-  padding-top: 9px;
-  padding-bottom: 9px;
+#mwlefoodfi .gt_row {
+  padding-top: 7px;
+  padding-bottom: 7px;
   padding-left: 5px;
   padding-right: 5px;
   margin: 10px;
   border-top-style: solid;
   border-top-width: 1px;
-  border-top-color: #DEDAD2;
+  border-top-color: #E3E8F1;
   border-left-style: none;
   border-left-width: 1px;
   border-left-color: #D3D3D3;
@@ -527,9 +522,9 @@ roomier rows, and a larger title).</p>
   overflow-x: hidden;
 }
 
-#eexombwkke .gt_stub {
-  color: #333333;
-  background-color: #FBFAF7;
+#mwlefoodfi .gt_stub {
+  color: #0B1A33;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
@@ -540,9 +535,9 @@ roomier rows, and a larger title).</p>
   padding-right: 5px;
 }
 
-#eexombwkke .gt_stub_row_group {
-  color: #333333;
-  background-color: #FBFAF7;
+#mwlefoodfi .gt_stub_row_group {
+  color: #0B1A33;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
@@ -554,17 +549,17 @@ roomier rows, and a larger title).</p>
   vertical-align: top;
 }
 
-#eexombwkke .gt_row_group_first td {
-  border-top-width: 1px;
+#mwlefoodfi .gt_row_group_first td {
+  border-top-width: 2px;
 }
 
-#eexombwkke .gt_row_group_first th {
-  border-top-width: 1px;
+#mwlefoodfi .gt_row_group_first th {
+  border-top-width: 2px;
 }
 
-#eexombwkke .gt_summary_row {
-  color: #333333;
-  background-color: #FBFAF7;
+#mwlefoodfi .gt_summary_row {
+  color: #0B1A33;
+  background-color: #FFFFFF;
   text-transform: inherit;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -572,16 +567,16 @@ roomier rows, and a larger title).</p>
   padding-right: 5px;
 }
 
-#eexombwkke .gt_first_summary_row {
+#mwlefoodfi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#eexombwkke .gt_first_summary_row.thick {
+#mwlefoodfi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#eexombwkke .gt_last_summary_row {
+#mwlefoodfi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -591,9 +586,9 @@ roomier rows, and a larger title).</p>
   border-bottom-color: #D3D3D3;
 }
 
-#eexombwkke .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FBFAF7;
+#mwlefoodfi .gt_grand_summary_row {
+  color: #0B1A33;
+  background-color: #FFFFFF;
   text-transform: inherit;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -601,7 +596,7 @@ roomier rows, and a larger title).</p>
   padding-right: 5px;
 }
 
-#eexombwkke .gt_first_grand_summary_row {
+#mwlefoodfi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -611,7 +606,7 @@ roomier rows, and a larger title).</p>
   border-top-color: #D3D3D3;
 }
 
-#eexombwkke .gt_last_grand_summary_row_top {
+#mwlefoodfi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -621,22 +616,22 @@ roomier rows, and a larger title).</p>
   border-bottom-color: #D3D3D3;
 }
 
-#eexombwkke .gt_striped {
+#mwlefoodfi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eexombwkke .gt_table_body {
+#mwlefoodfi .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
 }
 
-#eexombwkke .gt_footnotes {
-  color: #333333;
-  background-color: #FBFAF7;
+#mwlefoodfi .gt_footnotes {
+  color: #0B1A33;
+  background-color: #FFFFFF;
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -648,7 +643,7 @@ roomier rows, and a larger title).</p>
   border-right-color: #D3D3D3;
 }
 
-#eexombwkke .gt_footnote {
+#mwlefoodfi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -657,9 +652,9 @@ roomier rows, and a larger title).</p>
   padding-right: 5px;
 }
 
-#eexombwkke .gt_sourcenotes {
-  color: #333333;
-  background-color: #FBFAF7;
+#mwlefoodfi .gt_sourcenotes {
+  color: #0B1A33;
+  background-color: #FFFFFF;
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -671,218 +666,897 @@ roomier rows, and a larger title).</p>
   border-right-color: #D3D3D3;
 }
 
-#eexombwkke .gt_sourcenote {
+#mwlefoodfi .gt_sourcenote {
   font-size: 90%;
-  padding-top: 9px;
-  padding-bottom: 9px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-#eexombwkke .gt_left {
+#mwlefoodfi .gt_left {
   text-align: left;
 }
 
-#eexombwkke .gt_center {
+#mwlefoodfi .gt_center {
   text-align: center;
 }
 
-#eexombwkke .gt_right {
+#mwlefoodfi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eexombwkke .gt_font_normal {
+#mwlefoodfi .gt_font_normal {
   font-weight: normal;
 }
 
-#eexombwkke .gt_font_bold {
+#mwlefoodfi .gt_font_bold {
   font-weight: bold;
 }
 
-#eexombwkke .gt_font_italic {
+#mwlefoodfi .gt_font_italic {
   font-style: italic;
 }
 
-#eexombwkke .gt_super {
+#mwlefoodfi .gt_super {
   font-size: 65%;
 }
 
-#eexombwkke .gt_footnote_marks {
+#mwlefoodfi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#eexombwkke .gt_asterisk {
+#mwlefoodfi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#eexombwkke .gt_indent_1 {
+#mwlefoodfi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#eexombwkke .gt_indent_2 {
+#mwlefoodfi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#eexombwkke .gt_indent_3 {
+#mwlefoodfi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#eexombwkke .gt_indent_4 {
+#mwlefoodfi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#eexombwkke .gt_indent_5 {
+#mwlefoodfi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#eexombwkke .katex-display {
+#mwlefoodfi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#eexombwkke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mwlefoodfi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
-#eexombwkke td {
+#mwlefoodfi thead {
+  position: relative;
+}
+
+#mwlefoodfi thead::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3346F0, #7FE6DC);
+}
+
+#mwlefoodfi .gt_col_headings th {
+  padding-bottom: 10px;
+}
+
+#mwlefoodfi .gt_heading, #mwlefoodfi .gt_sourcenote, #mwlefoodfi .gt_footnote, #mwlefoodfi .gt_col_headings th:first-child, #mwlefoodfi tbody td:first-child {
+  padding-left: 14px !important;
+}
+
+#mwlefoodfi .gt_heading, #mwlefoodfi .gt_sourcenote, #mwlefoodfi .gt_footnote, #mwlefoodfi .gt_col_headings th:last-child, #mwlefoodfi tbody td:last-child {
+  padding-right: 14px !important;
+}
+
+#mwlefoodfi .gt_title {
+  padding-top: 12px !important;
+}
+
+#mwlefoodfi .gt_subtitle {
+  padding-bottom: 12px !important;
+}
+
+#mwlefoodfi tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#mwlefoodfi td {
   font-variant-numeric: tabular-nums;
 }
 
-#eexombwkke tbody tr:last-child {
-  border-bottom: 2px solid #FBFAF7;
-}
-
-#eexombwkke .gt_col_heading, #eexombwkke .gt_column_spanner {
-  letter-spacing: 0.09em;
-}
-
-#eexombwkke .gt_row_group_first td {
-  padding-top: 7px;
-}
-
-#eexombwkke .gt_group_heading {
-  letter-spacing: 0.08em;
-}
-
-#eexombwkke .gt_subtitle {
-  padding-bottom: 17px !important;
-}
-
-#eexombwkke .gt_title {
-  padding-bottom: 5px !important;
-}
-
-#eexombwkke .gt_sourcenote {
-  padding-top: 13px;
-}
-
-#eexombwkke .gt_table {
+#mwlefoodfi .gt_table {
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 12px; font-weight: 600; text-transform: uppercase;" scope="col" id="car">car</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 12px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 12px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 12px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead>
+<thead>
+<tr class="gt_heading">
+<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #0B1A33; font-family: Chivo; font-size: 22px; font-weight: 800;">The NFL's most efficient passers, 2025</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">EPA per dropback, regular season, 300 or more dropbacks</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="rank"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="player_id"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="player_display_name">Quarterback</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="recent_team"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="dropbacks">Dropbacks</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="epa_db">EPA/db</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="passing_cpoe">CPOE</th>
+    </tr>
+</thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="car" class="gt_row gt_left" style="color: #16130F; font-size: 17px;">Mazda RX4</td>
-<td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">2.620</td>
+<td headers="rank" class="gt_row gt_center">1</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/s1nmoon2xnrc3bnyulv4.png" style="height:34px;" alt="Player 00-0039851 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Drake Maye</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="dropbacks" class="gt_row gt_center">539</td>
+<td headers="epa_db" class="gt_row gt_center">+0.31</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+10.8</td>
 </tr>
 <tr>
-<td headers="car" class="gt_row gt_left" style="color: #16130F; font-size: 17px;">Mazda RX4 Wag</td>
-<td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">2.875</td>
+<td headers="rank" class="gt_row gt_center">2</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png" style="height:34px;" alt="Player 00-0026498 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Matthew Stafford</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:24px;" alt="Los Angeles Rams"></td>
+<td headers="dropbacks" class="gt_row gt_center">620</td>
+<td headers="epa_db" class="gt_row gt_center">+0.24</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+1.5</td>
 </tr>
 <tr>
-<td headers="car" class="gt_row gt_left" style="color: #16130F; font-size: 17px;">Datsun 710</td>
-<td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">93</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">2.320</td>
+<td headers="rank" class="gt_row gt_center">3</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png" style="height:34px;" alt="Player 00-0036264 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Jordan Love</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:24px;" alt="Green Bay Packers"></td>
+<td headers="dropbacks" class="gt_row gt_center">460</td>
+<td headers="epa_db" class="gt_row gt_center">+0.24</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+5.5</td>
 </tr>
 <tr>
-<td headers="car" class="gt_row gt_left" style="color: #16130F; font-size: 17px;">Hornet 4 Drive</td>
-<td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">21.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">3.215</td>
+<td headers="rank" class="gt_row gt_center">4</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png" style="height:34px;" alt="Player 00-0033077 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Dak Prescott</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:24px;" alt="Dallas Cowboys"></td>
+<td headers="dropbacks" class="gt_row gt_center">631</td>
+<td headers="epa_db" class="gt_row gt_center">+0.18</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+2.2</td>
 </tr>
 <tr>
-<td headers="car" class="gt_row gt_left" style="color: #16130F; font-size: 17px;">Hornet Sportabout</td>
-<td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">18.7</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">175</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">3.440</td>
+<td headers="rank" class="gt_row gt_center">5</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png" style="height:34px;" alt="Player 00-0033106 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Jared Goff</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:24px;" alt="Detroit Lions"></td>
+<td headers="dropbacks" class="gt_row gt_center">616</td>
+<td headers="epa_db" class="gt_row gt_center">+0.17</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+1.8</td>
 </tr>
 <tr>
-<td headers="car" class="gt_row gt_left" style="color: #16130F; font-size: 17px;">Valiant</td>
-<td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">18.1</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">105</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">3.460</td>
+<td headers="rank" class="gt_row gt_center">6</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ohvvctuykzwrpqer7xgl.png" style="height:34px;" alt="Player 00-0035710 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Daniel Jones</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:24px;" alt="Indianapolis Colts"></td>
+<td headers="dropbacks" class="gt_row gt_center">406</td>
+<td headers="epa_db" class="gt_row gt_center">+0.16</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+2.3</td>
 </tr>
 <tr>
-<td headers="car" class="gt_row gt_left" style="color: #16130F; font-size: 17px;">Duster 360</td>
-<td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">14.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">245</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">3.570</td>
+<td headers="rank" class="gt_row gt_center">7</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/fyay8vruj0cqmhopufzk.png" style="height:34px;" alt="Player 00-0034869 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Sam Darnold</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:24px;" alt="Seattle Seahawks"></td>
+<td headers="dropbacks" class="gt_row gt_center">504</td>
+<td headers="epa_db" class="gt_row gt_center">+0.15</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+5.2</td>
 </tr>
 <tr>
-<td headers="car" class="gt_row gt_left" style="color: #16130F; font-size: 17px;">Merc 240D</td>
-<td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">24.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">62</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 17px;">3.190</td>
+<td headers="rank" class="gt_row gt_center">8</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mbdwfwiuhl0ib5ajtmzq.png" style="height:34px;" alt="Player 00-0036972 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Mac Jones</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:24px;" alt="San Francisco 49ers"></td>
+<td headers="dropbacks" class="gt_row gt_center">305</td>
+<td headers="epa_db" class="gt_row gt_center">+0.15</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+3.7</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center">9</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mjwbioajzldkq1vzoz2d.png" style="height:34px;" alt="Player 00-0034857 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Josh Allen</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:24px;" alt="Buffalo Bills"></td>
+<td headers="dropbacks" class="gt_row gt_center">500</td>
+<td headers="epa_db" class="gt_row gt_center">+0.14</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+3.5</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center">10</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png" style="height:34px;" alt="Player 00-0033873 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Patrick Mahomes</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:24px;" alt="Kansas City Chiefs"></td>
+<td headers="dropbacks" class="gt_row gt_center">536</td>
+<td headers="epa_db" class="gt_row gt_center">+0.13</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+0.3</td>
 </tr>
 </tbody>
+<tfoot><tr class="gt_sourcenotes">
+<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="7">Data: nflverse player stats via nflreadr</td>
+    </tr></tfoot>
+</table>
+</div>
+<p><code>passers()</code> builds the table without a theme, so each
+section below can dress the same rows its own way.</p>
+</div>
+<div class="section level2">
+<h2 id="trimming-and-padding">1. Trimming and padding<a class="anchor" aria-label="anchor" href="#trimming-and-padding"></a>
+</h2>
+<p><code><a href="../reference/gt_save_crop.html">gt_save_crop()</a></code> renders the table, trims the whitespace
+around it, then pads it back by a fixed amount so the image has an even
+margin on all four sides. <code>whitespace</code> sets that margin in
+pixels and <code>bg</code> its color, which should match the theme’s
+background: <code>theme_bg</code> records the background every theme
+paints.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bg</span> <span class="op">&lt;-</span> <span class="va">theme_bg</span><span class="op">$</span><span class="va">bg</span><span class="op">[</span><span class="va">theme_bg</span><span class="op">$</span><span class="va">theme</span> <span class="op">==</span> <span class="st">"gt_theme_sdv"</span> <span class="op">&amp;</span> <span class="va">theme_bg</span><span class="op">$</span><span class="va">has_style</span> <span class="op">==</span> <span class="st">"light"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">tbl</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/gt_save_crop.html">gt_save_crop</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"passers.png"</span>, bg <span class="op">=</span> <span class="va">bg</span><span class="op">)</span></span></code></pre></div>
+<p><img src="saving_tables_files/figure-html/passers.png" class="r-plt" alt="The saved image of the passers table: ten quarterbacks with headshots and team logos, trimmed and padded evenly on a white background." width="70%"></p>
+<p><code>zoom</code> controls the render scale, at <code>2</code> by
+default, so the output is retina-sized. <code>width</code> is the one to
+know about for a series: passing it scales the finished image to an
+exact pixel width, holding the aspect ratio, so every image in a set
+lines up.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tbl</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/gt_save_crop.html">gt_save_crop</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"passers.png"</span>, bg <span class="op">=</span> <span class="va">bg</span>, width <span class="op">=</span> <span class="fl">1080</span><span class="op">)</span></span></code></pre></div>
+<p>Leave <code>file</code> unset and the image is returned rather than
+written, which is useful when you want to keep working on it with
+<code>magick</code>.</p>
+</div>
+<div class="section level2">
+<h2 id="sizing-type-for-an-image">2. Sizing type for an image<a class="anchor" aria-label="anchor" href="#sizing-type-for-an-image"></a>
+</h2>
+<p>Type sized for a browser reads small once the image is scaled into a
+feed. Every theme in the package takes a <code>density</code> argument,
+and <code>"social"</code> is the setting built for this (larger body
+type, roomier rows, and a larger title).</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">qbs</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">passers</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_theme_sdv.html">gt_theme_sdv</a></span><span class="op">(</span>density <span class="op">=</span> <span class="st">"social"</span><span class="op">)</span></span></code></pre></div>
+<div id="yvkgufivju" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#yvkgufivju table {
+  font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#yvkgufivju thead, #yvkgufivju tbody, #yvkgufivju tfoot, #yvkgufivju tr, #yvkgufivju td, #yvkgufivju th {
+  border-style: none;
+}
+
+#yvkgufivju p {
+  margin: 0;
+  padding: 0;
+}
+
+#yvkgufivju .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #0B1A33;
+  font-size: 18.2px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#yvkgufivju .gt_title {
+  color: #0B1A33;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#yvkgufivju .gt_subtitle {
+  color: #0B1A33;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#yvkgufivju .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_col_heading {
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 9px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#yvkgufivju .gt_column_spanner_outer {
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#yvkgufivju .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#yvkgufivju .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#yvkgufivju .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#yvkgufivju .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#yvkgufivju .gt_group_heading {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#yvkgufivju .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#yvkgufivju .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#yvkgufivju .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#yvkgufivju .gt_row {
+  padding-top: 10.5px;
+  padding-bottom: 10.5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #E3E8F1;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#yvkgufivju .gt_stub {
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yvkgufivju .gt_stub_row_group {
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#yvkgufivju .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#yvkgufivju .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#yvkgufivju .gt_summary_row {
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yvkgufivju .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#yvkgufivju .gt_last_summary_row {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_grand_summary_row {
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yvkgufivju .gt_first_grand_summary_row {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_last_grand_summary_row_top {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#yvkgufivju .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_footnotes {
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yvkgufivju .gt_sourcenotes {
+  color: #0B1A33;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yvkgufivju .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yvkgufivju .gt_left {
+  text-align: left;
+}
+
+#yvkgufivju .gt_center {
+  text-align: center;
+}
+
+#yvkgufivju .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#yvkgufivju .gt_font_normal {
+  font-weight: normal;
+}
+
+#yvkgufivju .gt_font_bold {
+  font-weight: bold;
+}
+
+#yvkgufivju .gt_font_italic {
+  font-style: italic;
+}
+
+#yvkgufivju .gt_super {
+  font-size: 65%;
+}
+
+#yvkgufivju .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#yvkgufivju .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#yvkgufivju .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#yvkgufivju .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#yvkgufivju .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#yvkgufivju .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#yvkgufivju .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#yvkgufivju .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#yvkgufivju div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#yvkgufivju thead {
+  position: relative;
+}
+
+#yvkgufivju thead::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3346F0, #7FE6DC);
+}
+
+#yvkgufivju .gt_col_headings th {
+  padding-bottom: 10px;
+}
+
+#yvkgufivju .gt_heading, #yvkgufivju .gt_sourcenote, #yvkgufivju .gt_footnote, #yvkgufivju .gt_col_headings th:first-child, #yvkgufivju tbody td:first-child {
+  padding-left: 14px !important;
+}
+
+#yvkgufivju .gt_heading, #yvkgufivju .gt_sourcenote, #yvkgufivju .gt_footnote, #yvkgufivju .gt_col_headings th:last-child, #yvkgufivju tbody td:last-child {
+  padding-right: 14px !important;
+}
+
+#yvkgufivju .gt_title {
+  padding-top: 12px !important;
+}
+
+#yvkgufivju .gt_subtitle {
+  padding-bottom: 12px !important;
+}
+
+#yvkgufivju tbody tr:last-child {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#yvkgufivju td {
+  font-variant-numeric: tabular-nums;
+}
+
+#yvkgufivju .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #0B1A33; font-family: Chivo; font-size: 28.8px; font-weight: 800;">The NFL's most efficient passers, 2025</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 17.7px;">EPA per dropback, regular season, 300 or more dropbacks</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 15.6px; font-weight: 500;" scope="col" id="rank"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 15.6px; font-weight: 500;" scope="col" id="player_id"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 15.6px; font-weight: 500;" scope="col" id="player_display_name">Quarterback</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 15.6px; font-weight: 500;" scope="col" id="recent_team"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 15.6px; font-weight: 500;" scope="col" id="dropbacks">Dropbacks</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 15.6px; font-weight: 500;" scope="col" id="epa_db">EPA/db</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 15.6px; font-weight: 500;" scope="col" id="passing_cpoe">CPOE</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="rank" class="gt_row gt_center">1</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/s1nmoon2xnrc3bnyulv4.png" style="height:34px;" alt="Player 00-0039851 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Drake Maye</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="dropbacks" class="gt_row gt_center">539</td>
+<td headers="epa_db" class="gt_row gt_center">+0.31</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+10.8</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center">2</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png" style="height:34px;" alt="Player 00-0026498 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Matthew Stafford</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:24px;" alt="Los Angeles Rams"></td>
+<td headers="dropbacks" class="gt_row gt_center">620</td>
+<td headers="epa_db" class="gt_row gt_center">+0.24</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+1.5</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center">3</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png" style="height:34px;" alt="Player 00-0036264 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Jordan Love</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:24px;" alt="Green Bay Packers"></td>
+<td headers="dropbacks" class="gt_row gt_center">460</td>
+<td headers="epa_db" class="gt_row gt_center">+0.24</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+5.5</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center">4</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png" style="height:34px;" alt="Player 00-0033077 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Dak Prescott</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:24px;" alt="Dallas Cowboys"></td>
+<td headers="dropbacks" class="gt_row gt_center">631</td>
+<td headers="epa_db" class="gt_row gt_center">+0.18</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+2.2</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center">5</td>
+<td headers="player_id" class="gt_row gt_center"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png" style="height:34px;" alt="Player 00-0033106 headshot"></td>
+<td headers="player_display_name" class="gt_row gt_left">Jared Goff</td>
+<td headers="recent_team" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:24px;" alt="Detroit Lions"></td>
+<td headers="dropbacks" class="gt_row gt_center">616</td>
+<td headers="epa_db" class="gt_row gt_center">+0.17</td>
+<td headers="passing_cpoe" class="gt_row gt_center">+1.8</td>
+</tr>
+</tbody>
+<tfoot><tr class="gt_sourcenotes">
+<td class="gt_sourcenote" style="color: #4A5A75; font-size: 14.2px;" colspan="7">Data: nflverse player stats via nflreadr</td>
+    </tr></tfoot>
 </table>
 </div>
 </div>
 <div class="section level2">
-<h2 id="a-fixed-canvas">A fixed canvas<a class="anchor" aria-label="anchor" href="#a-fixed-canvas"></a>
+<h2 id="a-fixed-canvas">3. A fixed canvas<a class="anchor" aria-label="anchor" href="#a-fixed-canvas"></a>
 </h2>
 <p>Some destinations want a shape rather than a size.
 <code><a href="../reference/gt_social_crop.html">gt_social_crop()</a></code> centers the table on a canvas of a target
-aspect ratio.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/gt_theme_broadsheet.html">gt_theme_broadsheet</a></span><span class="op">(</span>density <span class="op">=</span> <span class="st">"social"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/gt_social_crop.html">gt_social_crop</a></span><span class="op">(</span>aspect_ratio <span class="op">=</span> <span class="st">"1:1"</span>, bg <span class="op">=</span> <span class="st">"#FBFAF7"</span>, file <span class="op">=</span> <span class="st">"square.png"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="images/save_social.png" class="r-plt" alt="The same fuel economy table saved as a square social image, centered on a cream background." width="60%"></p>
+aspect ratio. Here the top five, at social density, go on a 4:5 portrait
+canvas.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">qbs</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">passers</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_theme_sdv.html">gt_theme_sdv</a></span><span class="op">(</span>density <span class="op">=</span> <span class="st">"social"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_social_crop.html">gt_social_crop</a></span><span class="op">(</span>aspect_ratio <span class="op">=</span> <span class="st">"4:5"</span>, bg <span class="op">=</span> <span class="va">bg</span>, file <span class="op">=</span> <span class="st">"passers-4x5.png"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="saving_tables_files/figure-html/passers-4x5.png" class="r-plt" alt="The top five passers saved as a 4:5 portrait image, the table centered on a white canvas with room above and below it." width="55%"></p>
 <p><code>aspect_ratio</code> reads <code>"1:1"</code>,
 <code>"16:9"</code>, <code>"4x5"</code>, or a bare number like
-<code>1.91</code>.</p>
-<p>The canvas always grows to fit. The same table comes out 834 by 834
-at <code>"1:1"</code> and 1483 by 834 at <code>"16:9"</code>, so the
-height held and the width expanded. It works that way in both
-directions, which means the table is never cropped to make the ratio.
-<code>gravity</code> moves the table on the canvas if you do not want it
-centered.</p>
+<code>1.91</code>. The canvas always grows to fit: it keeps the table’s
+size and widens or lengthens the canvas around it, so the table is never
+cropped to make the ratio. <code>gravity</code> moves the table on the
+canvas if you do not want it centered.</p>
 </div>
 <div class="section level2">
-<h2 id="attribution">Attribution<a class="anchor" aria-label="anchor" href="#attribution"></a>
+<h2 id="attribution">4. Attribution<a class="anchor" aria-label="anchor" href="#attribution"></a>
 </h2>
 <p><code><a href="../reference/gt_watermark.html">gt_watermark()</a></code> puts a faint wordmark behind the table
 body, and <code><a href="../reference/gt_social_tag.html">gt_social_tag()</a></code> puts handles and icons in the
 source note.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">qbs</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">passers</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_theme_broadsheet.html">gt_theme_broadsheet</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_watermark.html">gt_watermark</a></span><span class="op">(</span></span>
 <span>    text <span class="op">=</span> <span class="st">"sdvplotR"</span>, opacity <span class="op">=</span> <span class="fl">0.06</span>, size <span class="op">=</span> <span class="st">"62%"</span>, angle <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>    font <span class="op">=</span> <span class="st">"Helvetica"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/gt_social_tag.html">gt_social_tag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"@andreweatherman"</span>, gh <span class="op">=</span> <span class="st">"andreweatherman"</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_social_tag.html">gt_social_tag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"@SportsDataverse"</span>, gh <span class="op">=</span> <span class="st">"sportsdataverse"</span><span class="op">)</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Built with sdvplotR"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/gt_save_crop.html">gt_save_crop</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"branded.png"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="images/save_watermark.png" class="r-plt" alt="The fuel economy table with a faint gtUtils watermark across the rows, a Built with gtUtils caption and a footer with an X handle and a GitHub name." width="55%"></p>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_save_crop.html">gt_save_crop</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"passers-branded.png"</span>, bg <span class="op">=</span> <span class="st">"#FBFAF7"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="saving_tables_files/figure-html/passers-branded.png" class="r-plt" alt="The passers table on a cream broadsheet theme with a faint sdvplotR watermark across the rows and a footer with an X handle and a GitHub name." width="70%"></p>
 <p>Two things about the watermark.</p>
 <p>It is drawn as an SVG background image, because that is the only way
 to sit behind the body without taking up a row. An SVG background cannot
@@ -903,43 +1577,67 @@ Font Awesome icon name. <code>stack = TRUE</code> puts one account per
 line for a narrow table.</p>
 </div>
 <div class="section level2">
-<h2 id="one-image-per-group">One image per group<a class="anchor" aria-label="anchor" href="#one-image-per-group"></a>
+<h2 id="one-image-per-group">5. One image per group<a class="anchor" aria-label="anchor" href="#one-image-per-group"></a>
 </h2>
 <p><code><a href="../reference/gt_save_batch.html">gt_save_batch()</a></code> splits the data, builds a table for each
-group with a function you supply, and writes one image per group.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bcars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span></span>
-<span><span class="va">bcars</span><span class="op">$</span><span class="va">car</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">bcars</span><span class="op">)</span></span>
-<span><span class="va">bcars</span> <span class="op">&lt;-</span> <span class="va">bcars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"car"</span>, <span class="st">"cyl"</span>, <span class="st">"mpg"</span>, <span class="st">"hp"</span><span class="op">)</span><span class="op">]</span></span>
+group with a function you supply, and writes one image per group. The
+groups here are the four AFC divisions: each team’s 2025 regular-season
+record from the schedule, its division from
+<code><a href="../reference/team_reference.html">team_reference()</a></code>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nfl_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/gt_save_batch.html">gt_save_batch</a></span><span class="op">(</span></span>
-<span>  <span class="va">bcars</span>,</span>
-<span>  group <span class="op">=</span> <span class="va">cyl</span>,</span>
-<span>  file <span class="op">=</span> <span class="st">"cyl-{group}.png"</span>,</span>
-<span>  dir <span class="op">=</span> <span class="st">"out"</span>,</span>
-<span>  fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">g</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"car"</span>, <span class="st">"mpg"</span>, <span class="st">"hp"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>      <span class="fu"><a href="../reference/gt_theme_broadsheet.html">gt_theme_broadsheet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>      <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">g</span>, <span class="st">"-cylinder cars"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
+<span><span class="va">records</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="st">"REG"</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">home_score</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">home_team</span>, <span class="va">away_team</span>, <span class="va">home_score</span>, <span class="va">away_score</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/clean_homeaway.html" class="external-link">clean_homeaway</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>    w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">&gt;</span> <span class="va">opponent_score</span><span class="op">)</span>,</span>
+<span>    l <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">&lt;</span> <span class="va">opponent_score</span><span class="op">)</span>,</span>
+<span>    t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">==</span> <span class="va">opponent_score</span><span class="op">)</span>,</span>
+<span>    pf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span><span class="op">)</span>,</span>
+<span>    pa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">opponent_score</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="va">team</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>division <span class="op">=</span> <span class="va">nfl_teams</span><span class="op">$</span><span class="va">division</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">nfl_teams</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">startsWith</a></span><span class="op">(</span><span class="va">division</span>, <span class="st">"AFC"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">division</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">w</span> <span class="op">+</span> <span class="va">t</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>, <span class="va">team</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">division_table</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">division</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">df</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">w</span>, <span class="va">l</span>, <span class="va">t</span>, <span class="va">pf</span>, <span class="va">pa</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">team</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">""</span>, w <span class="op">=</span> <span class="st">"W"</span>, l <span class="op">=</span> <span class="st">"L"</span>, t <span class="op">=</span> <span class="st">"T"</span>, pf <span class="op">=</span> <span class="st">"PF"</span>, pa <span class="op">=</span> <span class="st">"PA"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"center"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="va">division</span>, <span class="st">"2025 regular season"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span><span class="st">"Data: nflverse schedules via nflreadr"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="../reference/gt_theme_sdv.html">gt_theme_sdv</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><code>division_table()</code> receives one group’s rows and the
+group’s value, and returns a <code>gt_tbl</code>; anything else raises
+an error naming what came back instead. Teams are ordered by record with
+the abbreviation as a tiebreaker, not by the NFL’s tiebreaking rules, so
+the table shows no rank.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gt_save_batch.html">gt_save_batch</a></span><span class="op">(</span></span>
+<span>  <span class="va">records</span>,</span>
+<span>  group <span class="op">=</span> <span class="va">division</span>,</span>
+<span>  fn <span class="op">=</span> <span class="va">division_table</span>,</span>
+<span>  file <span class="op">=</span> <span class="st">"{group}.png"</span>,</span>
+<span>  dir <span class="op">=</span> <span class="st">"afc"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="images/save_batch.png" class="r-plt" alt="Three tables side by side, one each for 6-, 4- and 8-cylinder cars, listing miles per gallon and horsepower per car." width="786"></p>
+<p><img src="saving_tables_files/figure-html/afc-east.png" class="r-plt" alt="A standings image for one AFC division: four team logos with wins, losses, ties, points for and points against." width="24%"><img src="saving_tables_files/figure-html/afc-north.png" class="r-plt" alt="A standings image for one AFC division: four team logos with wins, losses, ties, points for and points against." width="24%"><img src="saving_tables_files/figure-html/afc-south.png" class="r-plt" alt="A standings image for one AFC division: four team logos with wins, losses, ties, points for and points against." width="24%"><img src="saving_tables_files/figure-html/afc-west.png" class="r-plt" alt="A standings image for one AFC division: four team logos with wins, losses, ties, points for and points against." width="24%"></p>
 <p><code>file</code> is a pattern rather than a path.
-<code>{group}</code> is replaced by each group’s value, so this writes
-<code>out/cyl-4.png</code>, <code>out/cyl-6.png</code>, and
-<code>out/cyl-8.png</code>. The directory is created if it does not
-exist.</p>
-<p><code>fn</code> receives that group’s rows and the group value, and
-has to return a <code>gt_tbl</code>. Anything else raises an error
-naming what came back instead.</p>
+<code>{group}</code> is replaced by each group’s value, made safe for a
+file name, so this writes one image per division. The directory is
+created if it does not exist.</p>
 <p><code>match_width</code> is on by default and is the reason to use
-this over a loop. The three groups here hold 11, 7, and 14 cars, so the
-tables render at different widths. Every image is padded out to the
-widest of them, giving 524 pixels across all three with heights of 680,
-944, and 1142.</p>
-<p>Set <code>match_width = FALSE</code> to keep each image at its
-natural width, and <code>quiet = TRUE</code> to suppress the per-group
-progress messages.</p>
+this over a loop: every image is padded out to the width of the widest,
+so a set posted side by side lines up. Set
+<code>match_width = FALSE</code> to keep each image at its natural
+width, and <code>quiet = TRUE</code> to suppress the per-group progress
+messages.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

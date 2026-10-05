@@ -123,11 +123,9 @@
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables cookbook</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
     <li><a class="dropdown-item" href="../articles/gt-toolkit.html">Team Tables with the gt Toolkit</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>gt Table Cookbooks</h6></li>
     <li><a class="dropdown-item" href="../articles/styling.html">Styling Headers, Legends and Captions</a></li>
     <li><a class="dropdown-item" href="../articles/saving_tables.html">Saving and Posting Tables</a></li>
     <li><a class="dropdown-item" href="../articles/grid_tables.html">Faceted Tables</a></li>
@@ -263,20 +261,27 @@ built.</p>
 <div class="section level2">
 <h2 id="the-data">The data<a class="anchor" aria-label="anchor" href="#the-data"></a>
 </h2>
-<p>The final 2023 AFC standings, typed in so the article builds offline.
-The seven playoff seeds come first in seed order, followed by the rest
-by record.</p>
+<p>The final 2025 standings. <code><a href="https://nflseedr.com/reference/nfl_standings.html" class="external-link">nflseedR::nfl_standings()</a></code>
+computes them from nflverse’s schedule, read with <code>nflreadr</code>,
+NFL tiebreakers included; its <code>conf_rank</code> is each team’s
+place in its conference, so ranks 1-7 are the playoff seeds. The seeds
+come first in seed order, followed by the rest.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">afc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"BAL"</span>, <span class="st">"BUF"</span>, <span class="st">"KC"</span>, <span class="st">"HOU"</span>, <span class="st">"CLE"</span>, <span class="st">"MIA"</span>, <span class="st">"PIT"</span>,</span>
-<span>    <span class="st">"CIN"</span>, <span class="st">"IND"</span>, <span class="st">"JAX"</span>, <span class="st">"DEN"</span>, <span class="st">"LV"</span>, <span class="st">"NYJ"</span>, <span class="st">"TEN"</span>, <span class="st">"LAC"</span>, <span class="st">"NE"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">11</span>, <span class="fl">11</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">11</span>, <span class="fl">10</span>, <span class="fl">9</span>, <span class="fl">9</span>, <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">7</span>, <span class="fl">6</span>, <span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">afc</span><span class="op">$</span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fl">17</span> <span class="op">-</span> <span class="va">afc</span><span class="op">$</span><span class="va">w</span></span>
-<span><span class="va">afc</span><span class="op">$</span><span class="va">pct</span> <span class="op">&lt;-</span> <span class="va">afc</span><span class="op">$</span><span class="va">w</span> <span class="op">/</span> <span class="fl">17</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu">nflseedR</span><span class="fu">::</span><span class="fu"><a href="https://nflseedr.com/reference/nfl_standings.html" class="external-link">nfl_standings</a></span><span class="op">(</span><span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span>, verbosity <span class="op">=</span> <span class="st">"NONE"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conference_standings</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">conference</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">standings</span><span class="op">[</span><span class="va">standings</span><span class="op">$</span><span class="va">conf</span> <span class="op">==</span> <span class="va">conference</span>, <span class="op">]</span></span>
+<span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">s</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">conf_rank</span><span class="op">)</span>, <span class="op">]</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    team <span class="op">=</span> <span class="va">s</span><span class="op">$</span><span class="va">team</span>,</span>
+<span>    seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">conf_rank</span> <span class="op">&lt;=</span> <span class="fl">7</span>, <span class="va">s</span><span class="op">$</span><span class="va">conf_rank</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>    w <span class="op">=</span> <span class="va">s</span><span class="op">$</span><span class="va">true_wins</span>,</span>
+<span>    l <span class="op">=</span> <span class="va">s</span><span class="op">$</span><span class="va">losses</span>,</span>
+<span>    pct <span class="op">=</span> <span class="va">s</span><span class="op">$</span><span class="va">win_pct</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">afc</span> <span class="op">&lt;-</span> <span class="fu">conference_standings</span><span class="op">(</span><span class="st">"AFC"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-by-step">Step by step<a class="anchor" aria-label="anchor" href="#step-by-step"></a>
@@ -290,7 +295,7 @@ by record.</p>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">""</span>, seed <span class="op">=</span> <span class="st">"Seed"</span>, w <span class="op">=</span> <span class="st">"W"</span>, l <span class="op">=</span> <span class="st">"L"</span>, pct <span class="op">=</span> <span class="st">"Win pct"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"seed"</span>, missing_text <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/fmt.html" class="external-link">fmt</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"pct"</span>, fns <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"^0"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.3f"</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">conference</span>, <span class="st">"playoff picture"</span><span class="op">)</span>, <span class="st">"Final 2023 standings"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">conference</span>, <span class="st">"playoff picture"</span><span class="op">)</span>, <span class="st">"Final 2025 standings"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">base</span><span class="op">(</span><span class="va">afc</span>, <span class="st">"AFC"</span><span class="op">)</span></span></code></pre></div>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -748,7 +753,7 @@ by record.</p>
 <td colspan="5" class="gt_heading gt_title gt_font_normal" style>AFC playoff picture</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Final 2023 standings</td>
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Final 2025 standings</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team"></th>
@@ -760,116 +765,116 @@ by record.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:24px;" alt="Baltimore Ravens"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:24px;" alt="Denver Broncos"></td>
 <td headers="seed" class="gt_row gt_right">1</td>
+<td headers="w" class="gt_row gt_right">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="seed" class="gt_row gt_right">2</td>
+<td headers="w" class="gt_row gt_right">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
+<td headers="seed" class="gt_row gt_right">3</td>
 <td headers="w" class="gt_row gt_right">13</td>
 <td headers="l" class="gt_row gt_right">4</td>
 <td headers="pct" class="gt_row gt_right">.765</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:24px;" alt="Buffalo Bills"></td>
-<td headers="seed" class="gt_row gt_right">2</td>
-<td headers="w" class="gt_row gt_right">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:24px;" alt="Kansas City Chiefs"></td>
-<td headers="seed" class="gt_row gt_right">3</td>
-<td headers="w" class="gt_row gt_right">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:24px;" alt="Houston Texans"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
 <td headers="seed" class="gt_row gt_right">4</td>
 <td headers="w" class="gt_row gt_right">10</td>
 <td headers="l" class="gt_row gt_right">7</td>
 <td headers="pct" class="gt_row gt_right">.588</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:24px;" alt="Cleveland Browns"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:24px;" alt="Houston Texans"></td>
 <td headers="seed" class="gt_row gt_right">5</td>
-<td headers="w" class="gt_row gt_right">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
+<td headers="w" class="gt_row gt_right">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:24px;" alt="Miami Dolphins"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:24px;" alt="Buffalo Bills"></td>
 <td headers="seed" class="gt_row gt_right">6</td>
+<td headers="w" class="gt_row gt_right">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:24px;" alt="Los Angeles Chargers"></td>
+<td headers="seed" class="gt_row gt_right">7</td>
 <td headers="w" class="gt_row gt_right">11</td>
 <td headers="l" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
-<td headers="seed" class="gt_row gt_right">7</td>
-<td headers="w" class="gt_row gt_right">10</td>
-<td headers="l" class="gt_row gt_right">7</td>
-<td headers="pct" class="gt_row gt_right">.588</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:24px;" alt="Cincinnati Bengals"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
 </tr>
 <tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:24px;" alt="Indianapolis Colts"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
+<td headers="w" class="gt_row gt_right">8</td>
+<td headers="l" class="gt_row gt_right">9</td>
+<td headers="pct" class="gt_row gt_right">.471</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:24px;" alt="Denver Broncos"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:24px;" alt="Baltimore Ravens"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
 <td headers="w" class="gt_row gt_right">8</td>
 <td headers="l" class="gt_row gt_right">9</td>
 <td headers="pct" class="gt_row gt_right">.471</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:24px;" alt="Las Vegas Raiders"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:24px;" alt="New York Jets"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:24px;" alt="Miami Dolphins"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
 <td headers="w" class="gt_row gt_right">7</td>
 <td headers="l" class="gt_row gt_right">10</td>
 <td headers="pct" class="gt_row gt_right">.412</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:24px;" alt="Tennessee Titans"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:24px;" alt="Cincinnati Bengals"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
 <td headers="w" class="gt_row gt_right">6</td>
 <td headers="l" class="gt_row gt_right">11</td>
 <td headers="pct" class="gt_row gt_right">.353</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:24px;" alt="Los Angeles Chargers"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:24px;" alt="Kansas City Chiefs"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right">6</td>
+<td headers="l" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">.353</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:24px;" alt="Cleveland Browns"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
 <td headers="w" class="gt_row gt_right">5</td>
 <td headers="l" class="gt_row gt_right">12</td>
 <td headers="pct" class="gt_row gt_right">.294</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:24px;" alt="Las Vegas Raiders"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">4</td>
-<td headers="l" class="gt_row gt_right">13</td>
-<td headers="pct" class="gt_row gt_right">.235</td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:24px;" alt="New York Jets"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:24px;" alt="Tennessee Titans"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
 </tr>
 </tbody>
 </table>
@@ -1346,7 +1351,7 @@ row, with a label, so readers don’t have to count seeds.</p>
 <td colspan="5" class="gt_heading gt_title gt_font_normal" style>AFC playoff picture</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Final 2023 standings</td>
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Final 2025 standings</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team"></th>
@@ -1358,130 +1363,129 @@ row, with a label, so readers don’t have to count seeds.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:24px;" alt="Baltimore Ravens"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:24px;" alt="Denver Broncos"></td>
 <td headers="seed" class="gt_row gt_right">1</td>
+<td headers="w" class="gt_row gt_right">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="seed" class="gt_row gt_right">2</td>
+<td headers="w" class="gt_row gt_right">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
+<td headers="seed" class="gt_row gt_right">3</td>
 <td headers="w" class="gt_row gt_right">13</td>
 <td headers="l" class="gt_row gt_right">4</td>
 <td headers="pct" class="gt_row gt_right">.765</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:24px;" alt="Buffalo Bills"></td>
-<td headers="seed" class="gt_row gt_right">2</td>
-<td headers="w" class="gt_row gt_right">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:24px;" alt="Kansas City Chiefs"></td>
-<td headers="seed" class="gt_row gt_right">3</td>
-<td headers="w" class="gt_row gt_right">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:24px;" alt="Houston Texans"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
 <td headers="seed" class="gt_row gt_right">4</td>
 <td headers="w" class="gt_row gt_right">10</td>
 <td headers="l" class="gt_row gt_right">7</td>
 <td headers="pct" class="gt_row gt_right">.588</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:24px;" alt="Cleveland Browns"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:24px;" alt="Houston Texans"></td>
 <td headers="seed" class="gt_row gt_right">5</td>
+<td headers="w" class="gt_row gt_right">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:24px;" alt="Buffalo Bills"></td>
+<td headers="seed" class="gt_row gt_right">6</td>
+<td headers="w" class="gt_row gt_right">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:24px;" alt="Los Angeles Chargers"></td>
+<td headers="seed" class="gt_row gt_right">7</td>
 <td headers="w" class="gt_row gt_right">11</td>
 <td headers="l" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">.647</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:24px;" alt="Indianapolis Colts"></td>
+<td headers="seed" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><br></td>
+<td headers="w" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">8</td>
+<td headers="l" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">9</td>
+<td headers="pct" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">.471</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:24px;" alt="Baltimore Ravens"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right">8</td>
+<td headers="l" class="gt_row gt_right">9</td>
+<td headers="pct" class="gt_row gt_right">.471</td>
 </tr>
 <tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:24px;" alt="Miami Dolphins"></td>
-<td headers="seed" class="gt_row gt_right">6</td>
-<td headers="w" class="gt_row gt_right">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
-<td headers="seed" class="gt_row gt_right">7</td>
-<td headers="w" class="gt_row gt_right">10</td>
-<td headers="l" class="gt_row gt_right">7</td>
-<td headers="pct" class="gt_row gt_right">.588</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:24px;" alt="Cincinnati Bengals"></td>
-<td headers="seed" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><br></td>
-<td headers="w" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">9</td>
-<td headers="l" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">8</td>
-<td headers="pct" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:24px;" alt="Indianapolis Colts"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:24px;" alt="Denver Broncos"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:24px;" alt="Las Vegas Raiders"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:24px;" alt="New York Jets"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
 <td headers="w" class="gt_row gt_right">7</td>
 <td headers="l" class="gt_row gt_right">10</td>
 <td headers="pct" class="gt_row gt_right">.412</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:24px;" alt="Tennessee Titans"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:24px;" alt="Cincinnati Bengals"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
 <td headers="w" class="gt_row gt_right">6</td>
 <td headers="l" class="gt_row gt_right">11</td>
 <td headers="pct" class="gt_row gt_right">.353</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:24px;" alt="Los Angeles Chargers"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:24px;" alt="Kansas City Chiefs"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right">6</td>
+<td headers="l" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">.353</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:24px;" alt="Cleveland Browns"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
 <td headers="w" class="gt_row gt_right">5</td>
 <td headers="l" class="gt_row gt_right">12</td>
 <td headers="pct" class="gt_row gt_right">.294</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:24px;" alt="Las Vegas Raiders"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right">4</td>
-<td headers="l" class="gt_row gt_right">13</td>
-<td headers="pct" class="gt_row gt_right">.235</td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:24px;" alt="New York Jets"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:24px;" alt="Tennessee Titans"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><code><a href="../reference/gt_color_ranks.html">gt_color_ranks()</a></code> colors a column by rank, which shows
-where the wins cluster (four teams at 11 wins, three at 9) faster than
-reading the numbers; <code>reverse = TRUE</code> puts the most wins at
-the green end. The cut line’s label sits in the row below the line and
-clears that row’s cell colors, so with colored cells, keep the line
-unlabeled and say what it means in the caption.
-<code><a href="../reference/gt_538_caption.html">gt_538_caption()</a></code> separates that note from the source line.
-<code><a href="../reference/gt_theme_sdv.html">gt_theme_sdv()</a></code> goes last so it styles everything added
-before it, and <code>density</code> is passed through for the saved
-version below.</p>
+<p><code><a href="../reference/gt_color_ranks.html">gt_color_ranks()</a></code> colors a column by its values, which
+shows where the wins cluster faster than reading the numbers;
+<code>reverse = TRUE</code> puts the most wins at the green end. The cut
+line’s label sits in the row below the line and clears that row’s cell
+colors, so with colored cells, keep the line unlabeled and say what it
+means in the caption. <code><a href="../reference/gt_538_caption.html">gt_538_caption()</a></code> separates that note
+from the source line. <code><a href="../reference/gt_theme_sdv.html">gt_theme_sdv()</a></code> goes last so it styles
+everything added before it, and <code>density</code> is passed through
+for the saved version below.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">playoff_table</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">conference</span>, <span class="va">density</span> <span class="op">=</span> <span class="st">"comfortable"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">base</span><span class="op">(</span><span class="va">df</span>, <span class="va">conference</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1489,7 +1493,7 @@ version below.</p>
 <span>    <span class="fu"><a href="../reference/gt_color_ranks.html">gt_color_ranks</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"w"</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="../reference/gt_538_caption.html">gt_538_caption</a></span><span class="op">(</span></span>
 <span>      top_caption <span class="op">=</span> <span class="st">"Above the line: playoff teams."</span>,</span>
-<span>      bottom_caption <span class="op">=</span> <span class="st">"Data: nflverse"</span></span>
+<span>      bottom_caption <span class="op">=</span> <span class="st">"Data: nflverse via nflreadr and nflseedR"</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="../reference/gt_theme_sdv.html">gt_theme_sdv</a></span><span class="op">(</span>density <span class="op">=</span> <span class="va">density</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -2016,7 +2020,7 @@ version below.</p>
 <td colspan="5" class="gt_heading gt_title gt_font_normal" style="color: #0B1A33; font-family: Chivo; font-size: 22px; font-weight: 800;">AFC playoff picture</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">Final 2023 standings</td>
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">Final 2025 standings</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="team"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
@@ -2032,116 +2036,116 @@ version below.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:24px;" alt="Baltimore Ravens"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:24px;" alt="Denver Broncos"></td>
 <td headers="seed" class="gt_row gt_right">1</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">13</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="seed" class="gt_row gt_right">2</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
+<td headers="seed" class="gt_row gt_right">3</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #62A082; color: #FFFFFF;">13</td>
 <td headers="l" class="gt_row gt_right">4</td>
 <td headers="pct" class="gt_row gt_right">.765</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:24px;" alt="Buffalo Bills"></td>
-<td headers="seed" class="gt_row gt_right">2</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #93BEA0; color: #000000;">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:24px;" alt="Kansas City Chiefs"></td>
-<td headers="seed" class="gt_row gt_right">3</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #93BEA0; color: #000000;">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
+<td headers="seed" class="gt_row gt_right">4</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #C2D1B8; color: #000000;">10</td>
+<td headers="l" class="gt_row gt_right">7</td>
+<td headers="pct" class="gt_row gt_right">.588</td>
 </tr>
 <tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:24px;" alt="Houston Texans"></td>
-<td headers="seed" class="gt_row gt_right">4</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #B8CEB3; color: #000000;">10</td>
-<td headers="l" class="gt_row gt_right">7</td>
-<td headers="pct" class="gt_row gt_right">.588</td>
+<td headers="seed" class="gt_row gt_right">5</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #84B597; color: #000000;">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:24px;" alt="Cleveland Browns"></td>
-<td headers="seed" class="gt_row gt_right">5</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #93BEA0; color: #000000;">11</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:24px;" alt="Buffalo Bills"></td>
+<td headers="seed" class="gt_row gt_right">6</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #84B597; color: #000000;">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:24px;" alt="Los Angeles Chargers"></td>
+<td headers="seed" class="gt_row gt_right">7</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #A4C8AA; color: #000000;">11</td>
 <td headers="l" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">.647</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:24px;" alt="Indianapolis Colts"></td>
+<td headers="seed" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><br></td>
+<td headers="w" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A; background-color: #EBD1BB; color: #000000;">8</td>
+<td headers="l" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">9</td>
+<td headers="pct" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">.471</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:24px;" alt="Baltimore Ravens"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #EBD1BB; color: #000000;">8</td>
+<td headers="l" class="gt_row gt_right">9</td>
+<td headers="pct" class="gt_row gt_right">.471</td>
 </tr>
 <tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:24px;" alt="Miami Dolphins"></td>
-<td headers="seed" class="gt_row gt_right">6</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #93BEA0; color: #000000;">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
-<td headers="seed" class="gt_row gt_right">7</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #B8CEB3; color: #000000;">10</td>
-<td headers="l" class="gt_row gt_right">7</td>
-<td headers="pct" class="gt_row gt_right">.588</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:24px;" alt="Cincinnati Bengals"></td>
-<td headers="seed" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><br></td>
-<td headers="w" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A; background-color: #DBDAC4; color: #000000;">9</td>
-<td headers="l" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">8</td>
-<td headers="pct" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:24px;" alt="Indianapolis Colts"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #DBDAC4; color: #000000;">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #DBDAC4; color: #000000;">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:24px;" alt="Denver Broncos"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #EBCEB7; color: #000000;">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:24px;" alt="Las Vegas Raiders"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #EBCEB7; color: #000000;">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:24px;" alt="New York Jets"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #E3AB8E; color: #000000;">7</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #E5B499; color: #000000;">7</td>
 <td headers="l" class="gt_row gt_right">10</td>
 <td headers="pct" class="gt_row gt_right">.412</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:24px;" alt="Tennessee Titans"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:24px;" alt="Cincinnati Bengals"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #D8896A; color: #FFFFFF;">6</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #DD9778; color: #000000;">6</td>
 <td headers="l" class="gt_row gt_right">11</td>
 <td headers="pct" class="gt_row gt_right">.353</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:24px;" alt="Los Angeles Chargers"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:24px;" alt="Kansas City Chiefs"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #CC6C51; color: #FFFFFF;">5</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #DD9778; color: #000000;">6</td>
+<td headers="l" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">.353</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:24px;" alt="Cleveland Browns"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #D47E61; color: #FFFFFF;">5</td>
 <td headers="l" class="gt_row gt_right">12</td>
 <td headers="pct" class="gt_row gt_right">.294</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:24px;" alt="Las Vegas Raiders"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">4</td>
-<td headers="l" class="gt_row gt_right">13</td>
-<td headers="pct" class="gt_row gt_right">.235</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:24px;" alt="New York Jets"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:24px;" alt="Tennessee Titans"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
 </tr>
 </tbody>
 <tfoot>
@@ -2151,7 +2155,7 @@ version below.</p>
 </td>
     </tr>
 <tr class="gt_sourcenotes">
-<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5"><span class="gt_from_md">Data: nflverse</span></td>
+<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5"><span class="gt_from_md">Data: nflverse via nflreadr and nflseedR</span></td>
     </tr>
 </tfoot>
 </table>
@@ -2166,21 +2170,12 @@ line; a note that applies to both goes in the grid’s
 <code>caption</code>, so each table’s own caption stays short and the
 tables stay narrow enough to sit side by side.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"SF"</span>, <span class="st">"DAL"</span>, <span class="st">"DET"</span>, <span class="st">"TB"</span>, <span class="st">"PHI"</span>, <span class="st">"LA"</span>, <span class="st">"GB"</span>,</span>
-<span>    <span class="st">"NO"</span>, <span class="st">"SEA"</span>, <span class="st">"ATL"</span>, <span class="st">"CHI"</span>, <span class="st">"MIN"</span>, <span class="st">"NYG"</span>, <span class="st">"ARI"</span>, <span class="st">"WAS"</span>, <span class="st">"CAR"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">12</span>, <span class="fl">12</span>, <span class="fl">9</span>, <span class="fl">11</span>, <span class="fl">10</span>, <span class="fl">9</span>, <span class="fl">9</span>, <span class="fl">9</span>, <span class="fl">7</span>, <span class="fl">7</span>, <span class="fl">7</span>, <span class="fl">6</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">nfc</span><span class="op">$</span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fl">17</span> <span class="op">-</span> <span class="va">nfc</span><span class="op">$</span><span class="va">w</span></span>
-<span><span class="va">nfc</span><span class="op">$</span><span class="va">pct</span> <span class="op">&lt;-</span> <span class="va">nfc</span><span class="op">$</span><span class="va">w</span> <span class="op">/</span> <span class="fl">17</span></span>
+<code class="sourceCode R"><span><span class="va">nfc</span> <span class="op">&lt;-</span> <span class="fu">conference_standings</span><span class="op">(</span><span class="st">"NFC"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/gt_grid.html">gt_grid</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">playoff_table</span><span class="op">(</span><span class="va">afc</span>, <span class="st">"AFC"</span><span class="op">)</span>, <span class="fu">playoff_table</span><span class="op">(</span><span class="va">nfc</span>, <span class="st">"NFC"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"The 2023 NFL playoff field"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"The 2025 NFL playoff field"</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="st">"Final regular-season standings"</span>,</span>
 <span>  caption <span class="op">=</span> <span class="st">"Seeds 1-4 won their division; 5-7 are wild cards."</span>,</span>
 <span>  title_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>font <span class="op">=</span> <span class="st">"Chivo"</span>, weight <span class="op">=</span> <span class="fl">800</span><span class="op">)</span></span>
@@ -2189,7 +2184,7 @@ tables stay narrow enough to sit side by side.</p>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
 <div style="display: inline-block;">
 <div>
-<div style="font-family:'Chivo', system-ui, -apple-system, sans-serif;font-size:28px;color:#111111;font-weight:800;text-align:center;margin-bottom:4px;">The 2023 NFL playoff field</div>
+<div style="font-family:'Chivo', system-ui, -apple-system, sans-serif;font-size:28px;color:#111111;font-weight:800;text-align:center;margin-bottom:4px;">The 2025 NFL playoff field</div>
 <div style="font-family:system-ui, -apple-system, sans-serif;font-size:16px;color:#666666;font-weight:400;text-align:center;margin-bottom:12px;">Final regular-season standings</div>
 </div>
 <div style="display: grid; grid-template-columns: repeat(2, max-content); gap: 24px; align-items: start; justify-content: center;">
@@ -2716,7 +2711,7 @@ tables stay narrow enough to sit side by side.</p>
 <td colspan="5" class="gt_heading gt_title gt_font_normal" style="color: #0B1A33; font-family: Chivo; font-size: 22px; font-weight: 800;">AFC playoff picture</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">Final 2023 standings</td>
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">Final 2025 standings</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="team"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
@@ -2732,116 +2727,116 @@ tables stay narrow enough to sit side by side.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:24px;" alt="Baltimore Ravens"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:24px;" alt="Denver Broncos"></td>
 <td headers="seed" class="gt_row gt_right">1</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">13</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="seed" class="gt_row gt_right">2</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
+<td headers="seed" class="gt_row gt_right">3</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #62A082; color: #FFFFFF;">13</td>
 <td headers="l" class="gt_row gt_right">4</td>
 <td headers="pct" class="gt_row gt_right">.765</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:24px;" alt="Buffalo Bills"></td>
-<td headers="seed" class="gt_row gt_right">2</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #93BEA0; color: #000000;">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:24px;" alt="Kansas City Chiefs"></td>
-<td headers="seed" class="gt_row gt_right">3</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #93BEA0; color: #000000;">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
+<td headers="seed" class="gt_row gt_right">4</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #C2D1B8; color: #000000;">10</td>
+<td headers="l" class="gt_row gt_right">7</td>
+<td headers="pct" class="gt_row gt_right">.588</td>
 </tr>
 <tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:24px;" alt="Houston Texans"></td>
-<td headers="seed" class="gt_row gt_right">4</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #B8CEB3; color: #000000;">10</td>
-<td headers="l" class="gt_row gt_right">7</td>
-<td headers="pct" class="gt_row gt_right">.588</td>
+<td headers="seed" class="gt_row gt_right">5</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #84B597; color: #000000;">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:24px;" alt="Cleveland Browns"></td>
-<td headers="seed" class="gt_row gt_right">5</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #93BEA0; color: #000000;">11</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:24px;" alt="Buffalo Bills"></td>
+<td headers="seed" class="gt_row gt_right">6</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #84B597; color: #000000;">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:24px;" alt="Los Angeles Chargers"></td>
+<td headers="seed" class="gt_row gt_right">7</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #A4C8AA; color: #000000;">11</td>
 <td headers="l" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">.647</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:24px;" alt="Indianapolis Colts"></td>
+<td headers="seed" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><br></td>
+<td headers="w" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A; background-color: #EBD1BB; color: #000000;">8</td>
+<td headers="l" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">9</td>
+<td headers="pct" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">.471</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:24px;" alt="Baltimore Ravens"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #EBD1BB; color: #000000;">8</td>
+<td headers="l" class="gt_row gt_right">9</td>
+<td headers="pct" class="gt_row gt_right">.471</td>
 </tr>
 <tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:24px;" alt="Miami Dolphins"></td>
-<td headers="seed" class="gt_row gt_right">6</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #93BEA0; color: #000000;">11</td>
-<td headers="l" class="gt_row gt_right">6</td>
-<td headers="pct" class="gt_row gt_right">.647</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
-<td headers="seed" class="gt_row gt_right">7</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #B8CEB3; color: #000000;">10</td>
-<td headers="l" class="gt_row gt_right">7</td>
-<td headers="pct" class="gt_row gt_right">.588</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:24px;" alt="Cincinnati Bengals"></td>
-<td headers="seed" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><br></td>
-<td headers="w" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A; background-color: #DBDAC4; color: #000000;">9</td>
-<td headers="l" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">8</td>
-<td headers="pct" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:24px;" alt="Indianapolis Colts"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #DBDAC4; color: #000000;">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #DBDAC4; color: #000000;">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:24px;" alt="Denver Broncos"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #EBCEB7; color: #000000;">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:24px;" alt="Las Vegas Raiders"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #EBCEB7; color: #000000;">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:24px;" alt="New York Jets"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #E3AB8E; color: #000000;">7</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #E5B499; color: #000000;">7</td>
 <td headers="l" class="gt_row gt_right">10</td>
 <td headers="pct" class="gt_row gt_right">.412</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:24px;" alt="Tennessee Titans"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:24px;" alt="Cincinnati Bengals"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #D8896A; color: #FFFFFF;">6</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #DD9778; color: #000000;">6</td>
 <td headers="l" class="gt_row gt_right">11</td>
 <td headers="pct" class="gt_row gt_right">.353</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:24px;" alt="Los Angeles Chargers"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:24px;" alt="Kansas City Chiefs"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #CC6C51; color: #FFFFFF;">5</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #DD9778; color: #000000;">6</td>
+<td headers="l" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">.353</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:24px;" alt="Cleveland Browns"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #D47E61; color: #FFFFFF;">5</td>
 <td headers="l" class="gt_row gt_right">12</td>
 <td headers="pct" class="gt_row gt_right">.294</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:24px;" alt="Las Vegas Raiders"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">4</td>
-<td headers="l" class="gt_row gt_right">13</td>
-<td headers="pct" class="gt_row gt_right">.235</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:24px;" alt="New York Jets"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:24px;" alt="Tennessee Titans"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
 </tr>
 </tbody>
 <tfoot>
@@ -2851,7 +2846,7 @@ tables stay narrow enough to sit side by side.</p>
 </td>
     </tr>
 <tr class="gt_sourcenotes">
-<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5"><span class="gt_from_md">Data: nflverse</span></td>
+<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5"><span class="gt_from_md">Data: nflverse via nflreadr and nflseedR</span></td>
     </tr>
 </tfoot>
 </table>
@@ -3380,7 +3375,7 @@ tables stay narrow enough to sit side by side.</p>
 <td colspan="5" class="gt_heading gt_title gt_font_normal" style="color: #0B1A33; font-family: Chivo; font-size: 22px; font-weight: 800;">NFC playoff picture</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">Final 2023 standings</td>
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">Final 2025 standings</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="team"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
@@ -3396,116 +3391,116 @@ tables stay narrow enough to sit side by side.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:24px;" alt="San Francisco 49ers"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:24px;" alt="Seattle Seahawks"></td>
 <td headers="seed" class="gt_row gt_right">1</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">12</td>
-<td headers="l" class="gt_row gt_right">5</td>
-<td headers="pct" class="gt_row gt_right">.706</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:24px;" alt="Dallas Cowboys"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:24px;" alt="Chicago Bears"></td>
 <td headers="seed" class="gt_row gt_right">2</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">12</td>
-<td headers="l" class="gt_row gt_right">5</td>
-<td headers="pct" class="gt_row gt_right">.706</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:24px;" alt="Detroit Lions"></td>
-<td headers="seed" class="gt_row gt_right">3</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #3D8B6E; color: #FFFFFF;">12</td>
-<td headers="l" class="gt_row gt_right">5</td>
-<td headers="pct" class="gt_row gt_right">.706</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:24px;" alt="Tampa Bay Buccaneers"></td>
-<td headers="seed" class="gt_row gt_right">4</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #ADCBAE; color: #000000;">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:24px;" alt="Philadelphia Eagles"></td>
-<td headers="seed" class="gt_row gt_right">5</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #65A284; color: #FFFFFF;">11</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #A4C8AA; color: #000000;">11</td>
 <td headers="l" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">.647</td>
 </tr>
 <tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:24px;" alt="Philadelphia Eagles"></td>
+<td headers="seed" class="gt_row gt_right">3</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #A4C8AA; color: #000000;">11</td>
+<td headers="l" class="gt_row gt_right">6</td>
+<td headers="pct" class="gt_row gt_right">.647</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/car.png" style="height:24px;" alt="Carolina Panthers"></td>
+<td headers="seed" class="gt_row gt_right">4</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #EBD1BB; color: #000000;">8</td>
+<td headers="l" class="gt_row gt_right">9</td>
+<td headers="pct" class="gt_row gt_right">.471</td>
+</tr>
+<tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:24px;" alt="Los Angeles Rams"></td>
+<td headers="seed" class="gt_row gt_right">5</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #84B597; color: #000000;">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:24px;" alt="San Francisco 49ers"></td>
 <td headers="seed" class="gt_row gt_right">6</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #8BB99B; color: #000000;">10</td>
-<td headers="l" class="gt_row gt_right">7</td>
-<td headers="pct" class="gt_row gt_right">.588</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #84B597; color: #000000;">12</td>
+<td headers="l" class="gt_row gt_right">5</td>
+<td headers="pct" class="gt_row gt_right">.706</td>
 </tr>
 <tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:24px;" alt="Green Bay Packers"></td>
 <td headers="seed" class="gt_row gt_right">7</td>
-<td headers="w" class="gt_row gt_right" style="background-color: #ADCBAE; color: #000000;">9</td>
-<td headers="l" class="gt_row gt_right">8</td>
-<td headers="pct" class="gt_row gt_right">.529</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #DFDBC5; color: #000000;">9</td>
+<td headers="l" class="gt_row gt_right">7</td>
+<td headers="pct" class="gt_row gt_right">.559</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:24px;" alt="New Orleans Saints"></td>
+<td headers="team" class="gt_row gt_left" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:24px;" alt="Minnesota Vikings"></td>
 <td headers="seed" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;"><br></td>
-<td headers="w" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A; background-color: #ADCBAE; color: #000000;">9</td>
+<td headers="w" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A; background-color: #DFDBC5; color: #000000;">9</td>
 <td headers="l" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">8</td>
 <td headers="pct" class="gt_row gt_right" style="border-top-width: 2px; border-top-style: dashed; border-top-color: #A6081A;">.529</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:24px;" alt="Seattle Seahawks"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:24px;" alt="Detroit Lions"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #ADCBAE; color: #000000;">9</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #DFDBC5; color: #000000;">9</td>
 <td headers="l" class="gt_row gt_right">8</td>
 <td headers="pct" class="gt_row gt_right">.529</td>
 </tr>
 <tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:24px;" alt="Tampa Bay Buccaneers"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #EBD1BB; color: #000000;">8</td>
+<td headers="l" class="gt_row gt_right">9</td>
+<td headers="pct" class="gt_row gt_right">.471</td>
+</tr>
+<tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:24px;" alt="Atlanta Falcons"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #EDE0CC; color: #000000;">7</td>
-<td headers="l" class="gt_row gt_right">10</td>
-<td headers="pct" class="gt_row gt_right">.412</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #EBD1BB; color: #000000;">8</td>
+<td headers="l" class="gt_row gt_right">9</td>
+<td headers="pct" class="gt_row gt_right">.471</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:24px;" alt="Chicago Bears"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:24px;" alt="Dallas Cowboys"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #EDE0CC; color: #000000;">7</td>
-<td headers="l" class="gt_row gt_right">10</td>
-<td headers="pct" class="gt_row gt_right">.412</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #E5B499; color: #000000;">7</td>
+<td headers="l" class="gt_row gt_right">9</td>
+<td headers="pct" class="gt_row gt_right">.441</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:24px;" alt="Minnesota Vikings"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:24px;" alt="New Orleans Saints"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #EDE0CC; color: #000000;">7</td>
-<td headers="l" class="gt_row gt_right">10</td>
-<td headers="pct" class="gt_row gt_right">.412</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:24px;" alt="New York Giants"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #E8C0A6; color: #000000;">6</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #DD9778; color: #000000;">6</td>
 <td headers="l" class="gt_row gt_right">11</td>
 <td headers="pct" class="gt_row gt_right">.353</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:24px;" alt="Arizona Cardinals"></td>
-<td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #D68365; color: #FFFFFF;">4</td>
-<td headers="l" class="gt_row gt_right">13</td>
-<td headers="pct" class="gt_row gt_right">.235</td>
-</tr>
-<tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:24px;" alt="Washington Commanders"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #D68365; color: #FFFFFF;">4</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #D47E61; color: #FFFFFF;">5</td>
+<td headers="l" class="gt_row gt_right">12</td>
+<td headers="pct" class="gt_row gt_right">.294</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:24px;" alt="New York Giants"></td>
+<td headers="seed" class="gt_row gt_right"><br></td>
+<td headers="w" class="gt_row gt_right" style="background-color: #C9664D; color: #FFFFFF;">4</td>
 <td headers="l" class="gt_row gt_right">13</td>
 <td headers="pct" class="gt_row gt_right">.235</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/car.png" style="height:24px;" alt="Carolina Panthers"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:24px;" alt="Arizona Cardinals"></td>
 <td headers="seed" class="gt_row gt_right"><br></td>
-<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">2</td>
-<td headers="l" class="gt_row gt_right">15</td>
-<td headers="pct" class="gt_row gt_right">.118</td>
+<td headers="w" class="gt_row gt_right" style="background-color: #BE4D3A; color: #FFFFFF;">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
 </tr>
 </tbody>
 <tfoot>
@@ -3515,7 +3510,7 @@ tables stay narrow enough to sit side by side.</p>
 </td>
     </tr>
 <tr class="gt_sourcenotes">
-<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5"><span class="gt_from_md">Data: nflverse</span></td>
+<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5"><span class="gt_from_md">Data: nflverse via nflreadr and nflseedR</span></td>
     </tr>
 </tfoot>
 </table>
@@ -3547,7 +3542,7 @@ give it a <code>file</code>. Saving drives a headless Chrome through
 <span></span>
 <span><span class="fu"><a href="../reference/gt_grid.html">gt_grid</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">playoff_table</span><span class="op">(</span><span class="va">afc</span>, <span class="st">"AFC"</span><span class="op">)</span>, <span class="fu">playoff_table</span><span class="op">(</span><span class="va">nfc</span>, <span class="st">"NFC"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"The 2023 NFL playoff field"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"The 2025 NFL playoff field"</span>,</span>
 <span>  file <span class="op">=</span> <span class="st">"playoff-field.png"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -3558,7 +3553,8 @@ give it a <code>file</code>. Saving drives a headless Chrome through
 <li>
 <a href="sdv-table-themes.html">SportsDataverse Table Themes</a>
 covers the house theme, the dark style and team colors.</li>
-<li>The gt table cookbooks go deeper on single tools: <a href="styling.html">styling headers, legends and captions</a>, <a href="delay_tables.html">percentile bars and cut lines</a>, <a href="grid_tables.html">faceted tables</a>, <a href="tier_list.html">tier lists</a> and <a href="saving_tables.html">saving and posting</a>.</li>
+<li>The rest of the Tables cookbook goes deeper on single tools: <a href="styling.html">styling headers, legends and captions</a>, <a href="delay_tables.html">percentile bars and cut lines</a>, <a href="grid_tables.html">faceted tables</a>, <a href="tier_list.html">tier lists</a>, <a href="border_bars.html">border
+bars</a>, <a href="schedule_matrix.html">schedule matrices</a>, <a href="window_wins.html">rolling windows</a> and <a href="saving_tables.html">saving and posting</a>.</li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

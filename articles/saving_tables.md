@@ -2,6 +2,13 @@
 
 On this page
 
+``` r
+
+library(sdvplotR)
+library(gt)
+library(dplyr)
+```
+
 A table built for a browser and a table built for a feed are not the
 same object.
 [`gt::gtsave()`](https://gt.rstudio.com/reference/gtsave.html) writes
@@ -9,7 +16,9 @@ what the browser rendered, margins included, at whatever size the page
 happened to be. Posting wants a trimmed image, a predictable width
 across a set, and often a specific shape.
 
-This vignette covers the export side of the package:
+This article covers the export side of the package on one real table,
+the NFL’s most efficient passers of 2025, and one batch, a standings
+image for each AFC division:
 [`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md),
 [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md),
 [`gt_save_batch()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_batch.md),
@@ -18,104 +27,157 @@ functions,
 [`gt_watermark()`](https://sdvplotR.sportsdataverse.org/reference/gt_watermark.md)
 and
 [`gt_social_tag()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_tag.md).
+The data is nflverse’s, read with
+[`nflreadr`](https://nflreadr.nflverse.com). These functions come from
+Andrew Weatherman’s
+[gtUtils](https://github.com/andreweatherman/gtUtils), and this article
+follows his saving guide.
 
-Everything below runs on `mtcars`. The chunks that write an image are
-not run when this site is built, because they drive a headless Chrome;
-the picture under each one is what it writes.
+Saving drives a headless Chrome through `webshot2`. Each save below is
+shown as code, and the picture under it is the image that code writes,
+made when this page was built.
+
+## The table
+
+The ten quarterbacks with the most EPA per dropback (pass attempts plus
+sacks) among those with at least 300 dropbacks in the 2025 regular
+season, with NFL.com headshots and team logos.
 
 ``` r
 
-cars <- head(mtcars, 8)
-cars$car <- rownames(cars)
-cars <- cars[c("car", "mpg", "hp", "wt")]
+qbs <- nflreadr::load_player_stats(2025, summary_level = "reg") |>
+  filter(position == "QB") |>
+  mutate(dropbacks = attempts + sacks_suffered, epa_db = passing_epa / dropbacks) |>
+  filter(dropbacks >= 300) |>
+  arrange(desc(epa_db), player_id) |>
+  slice_head(n = 10) |>
+  mutate(rank = row_number()) |>
+  select(rank, player_id, player_display_name, recent_team, dropbacks, epa_db, passing_cpoe)
 
-tbl <- gt(cars) %>%
-  gt_theme_broadsheet() %>%
-  tab_header("Fuel economy and power", "1974 Motor Trend road tests") %>%
-  fmt_number(c(mpg, wt), decimals = 1)
+passers <- function(df) {
+  gt(df) |>
+    gt_sdv_headshots(player_id, sport = "nfl", height = 34) |>
+    gt_sdv_logos(recent_team, sport = "nfl", height = 24) |>
+    fmt_number(epa_db, decimals = 2, force_sign = TRUE) |>
+    fmt_number(passing_cpoe, decimals = 1, force_sign = TRUE) |>
+    cols_label(
+      rank = "", player_id = "", player_display_name = "Quarterback", recent_team = "",
+      dropbacks = "Dropbacks", epa_db = "EPA/db", passing_cpoe = "CPOE"
+    ) |>
+    cols_align(columns = -player_display_name, "center") |>
+    tab_header("The NFL's most efficient passers, 2025", "EPA per dropback, regular season, 300 or more dropbacks") |>
+    tab_source_note("Data: nflverse player stats via nflreadr")
+}
+
+tbl <- gt_theme_sdv(passers(qbs))
+tbl
 ```
 
-## Trimming and padding
+| The NFL's most efficient passers, 2025 |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|
+| EPA per dropback, regular season, 300 or more dropbacks |  |  |  |  |  |  |
+|  |  | Quarterback |  | Dropbacks | EPA/db | CPOE |
+| 1 | ![Player 00-0039851 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/s1nmoon2xnrc3bnyulv4.png) | Drake Maye | ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | 539 | +0.31 | +10.8 |
+| 2 | ![Player 00-0026498 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | Matthew Stafford | ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | 620 | +0.24 | +1.5 |
+| 3 | ![Player 00-0036264 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png) | Jordan Love | ![Green Bay Packers](https://a.espncdn.com/i/teamlogos/nfl/500/gb.png) | 460 | +0.24 | +5.5 |
+| 4 | ![Player 00-0033077 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png) | Dak Prescott | ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | 631 | +0.18 | +2.2 |
+| 5 | ![Player 00-0033106 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png) | Jared Goff | ![Detroit Lions](https://a.espncdn.com/i/teamlogos/nfl/500/det.png) | 616 | +0.17 | +1.8 |
+| 6 | ![Player 00-0035710 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ohvvctuykzwrpqer7xgl.png) | Daniel Jones | ![Indianapolis Colts](https://a.espncdn.com/i/teamlogos/nfl/500/ind.png) | 406 | +0.16 | +2.3 |
+| 7 | ![Player 00-0034869 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/fyay8vruj0cqmhopufzk.png) | Sam Darnold | ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | 504 | +0.15 | +5.2 |
+| 8 | ![Player 00-0036972 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mbdwfwiuhl0ib5ajtmzq.png) | Mac Jones | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 305 | +0.15 | +3.7 |
+| 9 | ![Player 00-0034857 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mjwbioajzldkq1vzoz2d.png) | Josh Allen | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | 500 | +0.14 | +3.5 |
+| 10 | ![Player 00-0033873 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png) | Patrick Mahomes | ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | 536 | +0.13 | +0.3 |
+| Data: nflverse player stats via nflreadr |  |  |  |  |  |  |
+
+`passers()` builds the table without a theme, so each section below can
+dress the same rows its own way.
+
+## 1. Trimming and padding
 
 [`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md)
 renders the table, trims the whitespace around it, then pads it back by
 a fixed amount so the image has an even margin on all four sides.
+`whitespace` sets that margin in pixels and `bg` its color, which should
+match the theme’s background: `theme_bg` records the background every
+theme paints.
 
 ``` r
 
-tbl %>% gt_save_crop(file = "table.png")
+bg <- theme_bg$bg[theme_bg$theme == "gt_theme_sdv" & theme_bg$has_style == "light"]
+
+tbl |> gt_save_crop(file = "passers.png", bg = bg)
 ```
 
-![A cropped table image titled Fuel economy and power, listing eight
-1974 cars with miles per gallon, horsepower and weight, with an even
-margin around it.](images/save_crop.png)
+![The saved image of the passers table: ten quarterbacks with headshots
+and team logos, trimmed and padded evenly on a white
+background.](saving_tables_files/figure-html/passers.png)
 
-`whitespace` sets that margin in pixels and `bg` sets its color, which
-should match the theme’s background. `zoom` controls the render scale,
-at `2` by default, so the output is retina-sized.
-
-`width` is the one to know about for a series. Passing it scales the
-finished image to an exact pixel width, holding the aspect ratio. The
-table above comes out 696 by 814. With `width = 900` it becomes 900 by
-1053.
+`zoom` controls the render scale, at `2` by default, so the output is
+retina-sized. `width` is the one to know about for a series: passing it
+scales the finished image to an exact pixel width, holding the aspect
+ratio, so every image in a set lines up.
 
 ``` r
 
-tbl %>% gt_save_crop(file = "table.png", width = 900)
+tbl |> gt_save_crop(file = "passers.png", bg = bg, width = 1080)
 ```
 
 Leave `file` unset and the image is returned rather than written, which
 is useful when you want to keep working on it with `magick`.
 
-## Sizing type for an image
+## 2. Sizing type for an image
 
 Type sized for a browser reads small once the image is scaled into a
 feed. Every theme in the package takes a `density` argument, and
-`"social"` is the setting built for this (17px body, roomier rows, and a
-larger title).
+`"social"` is the setting built for this (larger body type, roomier
+rows, and a larger title).
 
 ``` r
 
-gt(cars) %>% gt_theme_broadsheet(density = "social")
+qbs |>
+  slice_head(n = 5) |>
+  passers() |>
+  gt_theme_sdv(density = "social")
 ```
 
-| car               | mpg  | hp  | wt    |
-|-------------------|------|-----|-------|
-| Mazda RX4         | 21.0 | 110 | 2.620 |
-| Mazda RX4 Wag     | 21.0 | 110 | 2.875 |
-| Datsun 710        | 22.8 | 93  | 2.320 |
-| Hornet 4 Drive    | 21.4 | 110 | 3.215 |
-| Hornet Sportabout | 18.7 | 175 | 3.440 |
-| Valiant           | 18.1 | 105 | 3.460 |
-| Duster 360        | 14.3 | 245 | 3.570 |
-| Merc 240D         | 24.4 | 62  | 3.190 |
+| The NFL's most efficient passers, 2025 |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|
+| EPA per dropback, regular season, 300 or more dropbacks |  |  |  |  |  |  |
+|  |  | Quarterback |  | Dropbacks | EPA/db | CPOE |
+| 1 | ![Player 00-0039851 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/s1nmoon2xnrc3bnyulv4.png) | Drake Maye | ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | 539 | +0.31 | +10.8 |
+| 2 | ![Player 00-0026498 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | Matthew Stafford | ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | 620 | +0.24 | +1.5 |
+| 3 | ![Player 00-0036264 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png) | Jordan Love | ![Green Bay Packers](https://a.espncdn.com/i/teamlogos/nfl/500/gb.png) | 460 | +0.24 | +5.5 |
+| 4 | ![Player 00-0033077 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png) | Dak Prescott | ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | 631 | +0.18 | +2.2 |
+| 5 | ![Player 00-0033106 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png) | Jared Goff | ![Detroit Lions](https://a.espncdn.com/i/teamlogos/nfl/500/det.png) | 616 | +0.17 | +1.8 |
+| Data: nflverse player stats via nflreadr |  |  |  |  |  |  |
 
-## A fixed canvas
+## 3. A fixed canvas
 
 Some destinations want a shape rather than a size.
 [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md)
-centers the table on a canvas of a target aspect ratio.
+centers the table on a canvas of a target aspect ratio. Here the top
+five, at social density, go on a 4:5 portrait canvas.
 
 ``` r
 
-gt(cars) %>%
-  gt_theme_broadsheet(density = "social") %>%
-  gt_social_crop(aspect_ratio = "1:1", bg = "#FBFAF7", file = "square.png")
+qbs |>
+  slice_head(n = 5) |>
+  passers() |>
+  gt_theme_sdv(density = "social") |>
+  gt_social_crop(aspect_ratio = "4:5", bg = bg, file = "passers-4x5.png")
 ```
 
-![The same fuel economy table saved as a square social image, centered
-on a cream background.](images/save_social.png)
+![The top five passers saved as a 4:5 portrait image, the table centered
+on a white canvas with room above and below
+it.](saving_tables_files/figure-html/passers-4x5.png)
 
 `aspect_ratio` reads `"1:1"`, `"16:9"`, `"4x5"`, or a bare number like
-`1.91`.
+`1.91`. The canvas always grows to fit: it keeps the table’s size and
+widens or lengthens the canvas around it, so the table is never cropped
+to make the ratio. `gravity` moves the table on the canvas if you do not
+want it centered.
 
-The canvas always grows to fit. The same table comes out 834 by 834 at
-`"1:1"` and 1483 by 834 at `"16:9"`, so the height held and the width
-expanded. It works that way in both directions, which means the table is
-never cropped to make the ratio. `gravity` moves the table on the canvas
-if you do not want it centered.
-
-## Attribution
+## 4. Attribution
 
 [`gt_watermark()`](https://sdvplotR.sportsdataverse.org/reference/gt_watermark.md)
 puts a faint wordmark behind the table body, and
@@ -124,20 +186,22 @@ puts handles and icons in the source note.
 
 ``` r
 
-tbl %>%
+qbs |>
+  passers() |>
+  gt_theme_broadsheet() |>
   gt_watermark(
     text = "sdvplotR", opacity = 0.06, size = "62%", angle = 20,
     font = "Helvetica"
-  ) %>%
-  gt_social_tag(c(x = "@andreweatherman", gh = "andreweatherman"),
+  ) |>
+  gt_social_tag(c(x = "@SportsDataverse", gh = "sportsdataverse"),
     caption = "Built with sdvplotR"
-  ) %>%
-  gt_save_crop(file = "branded.png")
+  ) |>
+  gt_save_crop(file = "passers-branded.png", bg = "#FBFAF7")
 ```
 
-![The fuel economy table with a faint gtUtils watermark across the rows,
-a Built with gtUtils caption and a footer with an X handle and a GitHub
-name.](images/save_watermark.png)
+![The passers table on a cream broadsheet theme with a faint sdvplotR
+watermark across the rows and a footer with an X handle and a GitHub
+name.](saving_tables_files/figure-html/passers-branded.png)
 
 Two things about the watermark.
 
@@ -162,46 +226,84 @@ aliases (`x`, `bsky`, `ig`, `gh`, `yt`, `web`, `email` among others) and
 falls back to any Font Awesome icon name. `stack = TRUE` puts one
 account per line for a narrow table.
 
-## One image per group
+## 5. One image per group
 
 [`gt_save_batch()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_batch.md)
 splits the data, builds a table for each group with a function you
-supply, and writes one image per group.
+supply, and writes one image per group. The groups here are the four AFC
+divisions: each team’s 2025 regular-season record from the schedule, its
+division from
+[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md).
 
 ``` r
 
-bcars <- mtcars
-bcars$car <- rownames(bcars)
-bcars <- bcars[c("car", "cyl", "mpg", "hp")]
+nfl_teams <- team_reference("nfl")
+
+records <- nflreadr::load_schedules(2025) |>
+  filter(game_type == "REG", !is.na(home_score)) |>
+  select(home_team, away_team, home_score, away_score) |>
+  nflreadr::clean_homeaway() |>
+  summarise(
+    w = sum(team_score > opponent_score),
+    l = sum(team_score < opponent_score),
+    t = sum(team_score == opponent_score),
+    pf = sum(team_score),
+    pa = sum(opponent_score),
+    .by = team
+  ) |>
+  mutate(division = nfl_teams$division[match(team, nfl_teams$team_abbr)]) |>
+  filter(startsWith(division, "AFC")) |>
+  arrange(division, desc(w + t / 2), team)
+
+division_table <- function(df, division) {
+  df |>
+    select(team, w, l, t, pf, pa) |>
+    gt() |>
+    gt_sdv_logos(team, sport = "nfl", height = 28) |>
+    cols_label(team = "", w = "W", l = "L", t = "T", pf = "PF", pa = "PA") |>
+    cols_align(columns = everything(), "center") |>
+    tab_header(division, "2025 regular season") |>
+    tab_source_note("Data: nflverse schedules via nflreadr") |>
+    gt_theme_sdv()
+}
+```
+
+`division_table()` receives one group’s rows and the group’s value, and
+returns a `gt_tbl`; anything else raises an error naming what came back
+instead. Teams are ordered by record with the abbreviation as a
+tiebreaker, not by the NFL’s tiebreaking rules, so the table shows no
+rank.
+
+``` r
 
 gt_save_batch(
-  bcars,
-  group = cyl,
-  file = "cyl-{group}.png",
-  dir = "out",
-  fn = function(df, g) {
-    gt(df[c("car", "mpg", "hp")]) %>%
-      gt_theme_broadsheet() %>%
-      tab_header(paste0(g, "-cylinder cars"))
-  }
+  records,
+  group = division,
+  fn = division_table,
+  file = "{group}.png",
+  dir = "afc"
 )
 ```
 
-![Three tables side by side, one each for 6-, 4- and 8-cylinder cars,
-listing miles per gallon and horsepower per car.](images/save_batch.png)
+![A standings image for one AFC division: four team logos with wins,
+losses, ties, points for and points
+against.](saving_tables_files/figure-html/afc-east.png)![A standings
+image for one AFC division: four team logos with wins, losses, ties,
+points for and points
+against.](saving_tables_files/figure-html/afc-north.png)![A standings
+image for one AFC division: four team logos with wins, losses, ties,
+points for and points
+against.](saving_tables_files/figure-html/afc-south.png)![A standings
+image for one AFC division: four team logos with wins, losses, ties,
+points for and points
+against.](saving_tables_files/figure-html/afc-west.png)
 
 `file` is a pattern rather than a path. `{group}` is replaced by each
-group’s value, so this writes `out/cyl-4.png`, `out/cyl-6.png`, and
-`out/cyl-8.png`. The directory is created if it does not exist.
-
-`fn` receives that group’s rows and the group value, and has to return a
-`gt_tbl`. Anything else raises an error naming what came back instead.
+group’s value, made safe for a file name, so this writes one image per
+division. The directory is created if it does not exist.
 
 `match_width` is on by default and is the reason to use this over a
-loop. The three groups here hold 11, 7, and 14 cars, so the tables
-render at different widths. Every image is padded out to the widest of
-them, giving 524 pixels across all three with heights of 680, 944, and
-1142.
-
-Set `match_width = FALSE` to keep each image at its natural width, and
-`quiet = TRUE` to suppress the per-group progress messages.
+loop: every image is padded out to the width of the widest, so a set
+posted side by side lines up. Set `match_width = FALSE` to keep each
+image at its natural width, and `quiet = TRUE` to suppress the per-group
+progress messages.

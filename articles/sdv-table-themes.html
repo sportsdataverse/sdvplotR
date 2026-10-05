@@ -123,11 +123,9 @@
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables cookbook</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
     <li><a class="dropdown-item" href="../articles/gt-toolkit.html">Team Tables with the gt Toolkit</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>gt Table Cookbooks</h6></li>
     <li><a class="dropdown-item" href="../articles/styling.html">Styling Headers, Legends and Captions</a></li>
     <li><a class="dropdown-item" href="../articles/saving_tables.html">Saving and Posting Tables</a></li>
     <li><a class="dropdown-item" href="../articles/grid_tables.html">Faceted Tables</a></li>
@@ -259,25 +257,33 @@ thing in the table.</p>
 <div class="section level2">
 <h2 id="the-data">The data<a class="anchor" aria-label="anchor" href="#the-data"></a>
 </h2>
-<p>The final 2023 AFC West standings, typed in so this article builds
-offline. The logos come from <code><a href="../reference/gt_sdv_logos.html">gt_sdv_logos()</a></code>, which resolves
-the abbreviations through <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code>.</p>
+<p>The final 2025 AFC West standings.
+<code><a href="https://nflseedr.com/reference/nfl_standings.html" class="external-link">nflseedR::nfl_standings()</a></code> computes them from nflverse’s
+schedule, read with <code>nflreadr</code>, NFL tiebreakers included, and
+<code><a href="../reference/team_reference.html">team_reference()</a></code> adds each team’s full name. The logos come
+from <code><a href="../reference/gt_sdv_logos.html">gt_sdv_logos()</a></code>, which resolves the abbreviations
+through <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"LV"</span>, <span class="st">"DEN"</span>, <span class="st">"LAC"</span><span class="op">)</span>,</span>
-<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kansas City Chiefs"</span>, <span class="st">"Las Vegas Raiders"</span>, <span class="st">"Denver Broncos"</span>, <span class="st">"Los Angeles Chargers"</span><span class="op">)</span>,</span>
-<span>  w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>,</span>
-<span>  l <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">9</span>, <span class="fl">9</span>, <span class="fl">12</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nfl_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu">nflseedR</span><span class="fu">::</span><span class="fu"><a href="https://nflseedr.com/reference/nfl_standings.html" class="external-link">nfl_standings</a></span><span class="op">(</span><span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span>, verbosity <span class="op">=</span> <span class="st">"NONE"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">division</span> <span class="op">==</span> <span class="st">"AFC West"</span><span class="op">)</span></span>
+<span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="va">standings</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">standings</span><span class="op">$</span><span class="va">div_rank</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  team <span class="op">=</span> <span class="va">standings</span><span class="op">$</span><span class="va">team</span>,</span>
+<span>  name <span class="op">=</span> <span class="va">nfl_teams</span><span class="op">$</span><span class="va">team_name</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">standings</span><span class="op">$</span><span class="va">team</span>, <span class="va">nfl_teams</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>  w <span class="op">=</span> <span class="va">standings</span><span class="op">$</span><span class="va">true_wins</span>,</span>
+<span>  l <span class="op">=</span> <span class="va">standings</span><span class="op">$</span><span class="va">losses</span>,</span>
+<span>  pct <span class="op">=</span> <span class="va">standings</span><span class="op">$</span><span class="va">win_pct</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">standings</span><span class="op">$</span><span class="va">pct</span> <span class="op">&lt;-</span> <span class="va">standings</span><span class="op">$</span><span class="va">w</span> <span class="op">/</span> <span class="op">(</span><span class="va">standings</span><span class="op">$</span><span class="va">w</span> <span class="op">+</span> <span class="va">standings</span><span class="op">$</span><span class="va">l</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">standings_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">standings</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">26</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">""</span>, name <span class="op">=</span> <span class="st">"Team"</span>, w <span class="op">=</span> <span class="st">"W"</span>, l <span class="op">=</span> <span class="st">"L"</span>, pct <span class="op">=</span> <span class="st">"Win pct"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># win percentage without the leading zero, as box scores print it (.647)</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt.html" class="external-link">fmt</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"pct"</span>, fns <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"^0"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.3f"</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="st">"AFC West standings"</span>, <span class="st">"2023 regular season"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span><span class="st">"Data: nflverse"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="st">"AFC West standings"</span>, <span class="st">"2025 regular season"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span><span class="st">"Data: nflverse via nflreadr and nflseedR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="the-house-theme">The house theme<a class="anchor" aria-label="anchor" href="#the-house-theme"></a>
@@ -791,7 +797,7 @@ the abbreviations through <code><a href="../reference/clean_team_abbrs.html">cle
 <td colspan="5" class="gt_heading gt_title gt_font_normal" style="color: #0B1A33; font-family: Chivo; font-size: 22px; font-weight: 800;">AFC West standings</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">2023 regular season</td>
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">2025 regular season</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="team"></th>
@@ -803,36 +809,36 @@ the abbreviations through <code><a href="../reference/clean_team_abbrs.html">cle
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:26px;" alt="Kansas City Chiefs"></td>
-<td headers="name" class="gt_row gt_left">Kansas City Chiefs</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:26px;" alt="Denver Broncos"></td>
+<td headers="name" class="gt_row gt_left">Denver Broncos</td>
+<td headers="w" class="gt_row gt_right">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:26px;" alt="Los Angeles Chargers"></td>
+<td headers="name" class="gt_row gt_left">Los Angeles Chargers</td>
 <td headers="w" class="gt_row gt_right">11</td>
 <td headers="l" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">.647</td>
 </tr>
 <tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:26px;" alt="Kansas City Chiefs"></td>
+<td headers="name" class="gt_row gt_left">Kansas City Chiefs</td>
+<td headers="w" class="gt_row gt_right">6</td>
+<td headers="l" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">.353</td>
+</tr>
+<tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:26px;" alt="Las Vegas Raiders"></td>
 <td headers="name" class="gt_row gt_left">Las Vegas Raiders</td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:26px;" alt="Denver Broncos"></td>
-<td headers="name" class="gt_row gt_left">Denver Broncos</td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:26px;" alt="Los Angeles Chargers"></td>
-<td headers="name" class="gt_row gt_left">Los Angeles Chargers</td>
-<td headers="w" class="gt_row gt_right">5</td>
-<td headers="l" class="gt_row gt_right">12</td>
-<td headers="pct" class="gt_row gt_right">.294</td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
 </tr>
 </tbody>
 <tfoot><tr class="gt_sourcenotes">
-<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5">Data: nflverse</td>
+<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5">Data: nflverse via nflreadr and nflseedR</td>
     </tr></tfoot>
 </table>
 </div>
@@ -1355,7 +1361,7 @@ posts that sit on a dark background.</p>
 <td colspan="5" class="gt_heading gt_title gt_font_normal" style="color: #FFFFFF; font-family: Chivo; font-size: 22px; font-weight: 800;">AFC West standings</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #A9B8D0; font-family: Lato; font-size: 14px;">2023 regular season</td>
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #A9B8D0; font-family: Lato; font-size: 14px;">2025 regular season</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #9CCBFF; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="team"></th>
@@ -1367,36 +1373,36 @@ posts that sit on a dark background.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:26px;" alt="Kansas City Chiefs"></td>
-<td headers="name" class="gt_row gt_left">Kansas City Chiefs</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:26px;" alt="Denver Broncos"></td>
+<td headers="name" class="gt_row gt_left">Denver Broncos</td>
+<td headers="w" class="gt_row gt_right">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:26px;" alt="Los Angeles Chargers"></td>
+<td headers="name" class="gt_row gt_left">Los Angeles Chargers</td>
 <td headers="w" class="gt_row gt_right">11</td>
 <td headers="l" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">.647</td>
 </tr>
 <tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:26px;" alt="Kansas City Chiefs"></td>
+<td headers="name" class="gt_row gt_left">Kansas City Chiefs</td>
+<td headers="w" class="gt_row gt_right">6</td>
+<td headers="l" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">.353</td>
+</tr>
+<tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:26px;" alt="Las Vegas Raiders"></td>
 <td headers="name" class="gt_row gt_left">Las Vegas Raiders</td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:26px;" alt="Denver Broncos"></td>
-<td headers="name" class="gt_row gt_left">Denver Broncos</td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:26px;" alt="Los Angeles Chargers"></td>
-<td headers="name" class="gt_row gt_left">Los Angeles Chargers</td>
-<td headers="w" class="gt_row gt_right">5</td>
-<td headers="l" class="gt_row gt_right">12</td>
-<td headers="pct" class="gt_row gt_right">.294</td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
 </tr>
 </tbody>
 <tfoot><tr class="gt_sourcenotes">
-<td class="gt_sourcenote" style="color: #A9B8D0; font-size: 12px;" colspan="5">Data: nflverse</td>
+<td class="gt_sourcenote" style="color: #A9B8D0; font-size: 12px;" colspan="5">Data: nflverse via nflreadr and nflseedR</td>
     </tr></tfoot>
 </table>
 </div>
@@ -1409,18 +1415,31 @@ the colors <code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</
 filled with the primary color, the line under the labels uses the
 secondary color, and the labels are set in the primary color. Any
 abbreviation, alias or full name <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> accepts
-works as <code>team</code>.</p>
+works as <code>team</code>. Here the division winner’s yardage leaders,
+from nflverse’s season player stats, wear the winner’s colors.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  player <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Patrick Mahomes"</span>, <span class="st">"Travis Kelce"</span>, <span class="st">"Isiah Pacheco"</span><span class="op">)</span>,</span>
-<span>  stat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Passing"</span>, <span class="st">"Receiving"</span>, <span class="st">"Rushing"</span><span class="op">)</span>,</span>
-<span>  yards <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4183</span>, <span class="fl">984</span>, <span class="fl">935</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">winner</span> <span class="op">&lt;-</span> <span class="va">standings</span><span class="op">$</span><span class="va">team</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">players</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_player_stats.html" class="external-link">load_player_stats</a></span><span class="op">(</span><span class="fl">2025</span>, summary_level <span class="op">=</span> <span class="st">"reg"</span><span class="op">)</span></span>
+<span><span class="va">players</span> <span class="op">&lt;-</span> <span class="va">players</span><span class="op">[</span><span class="va">players</span><span class="op">$</span><span class="va">recent_team</span> <span class="op">==</span> <span class="va">winner</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="va">leader</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">stat</span>, <span class="va">label</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">top</span> <span class="op">&lt;-</span> <span class="va">players</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">players</span><span class="op">[[</span><span class="va">stat</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="op">]</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>player <span class="op">=</span> <span class="va">top</span><span class="op">$</span><span class="va">player_display_name</span>, stat <span class="op">=</span> <span class="va">label</span>, yards <span class="op">=</span> <span class="va">top</span><span class="op">[[</span><span class="va">stat</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
+<span>  <span class="fu">leader</span><span class="op">(</span><span class="st">"passing_yards"</span>, <span class="st">"Passing"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">leader</span><span class="op">(</span><span class="st">"receiving_yards"</span>, <span class="st">"Receiving"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">leader</span><span class="op">(</span><span class="st">"rushing_yards"</span>, <span class="st">"Rushing"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>player <span class="op">=</span> <span class="st">"Player"</span>, stat <span class="op">=</span> <span class="st">""</span>, yards <span class="op">=</span> <span class="st">"Yards"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"yards"</span>, decimals <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="st">"Chiefs yardage leaders"</span>, <span class="st">"2023 regular season"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"KC"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">nfl_teams</span><span class="op">$</span><span class="va">team_mascot</span><span class="op">[</span><span class="va">nfl_teams</span><span class="op">$</span><span class="va">team_abbr</span> <span class="op">==</span> <span class="va">winner</span><span class="op">]</span>, <span class="st">"yardage leaders"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"2025 regular season"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">winner</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
 <div id="ulbfdpbcyv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -1498,7 +1517,7 @@ works as <code>team</code>.</p>
 }
 
 #ulbfdpbcyv .gt_heading {
-  background-color: #E31837;
+  background-color: #002244;
   text-align: left;
   border-bottom-color: #FFFFFF;
   border-left-style: none;
@@ -1886,7 +1905,7 @@ works as <code>team</code>.</p>
   right: 0;
   bottom: 0;
   height: 4px;
-  background: #FFB612;
+  background: #FB4F14;
 }
 
 #ulbfdpbcyv .gt_col_headings th {
@@ -1925,32 +1944,32 @@ works as <code>team</code>.</p>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading">
-<td colspan="3" class="gt_heading gt_title gt_font_normal" style="color: #FFFFFF; font-family: Chivo; font-size: 22px; font-weight: 800;">Chiefs yardage leaders</td>
+<td colspan="3" class="gt_heading gt_title gt_font_normal" style="color: #FFFFFF; font-family: Chivo; font-size: 22px; font-weight: 800;">Broncos yardage leaders</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #FFFFFF; font-family: Lato; font-size: 14px;">2023 regular season</td>
+<td colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #8090A2; font-family: Lato; font-size: 14px;">2025 regular season</td>
     </tr>
 <tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #E31837; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="player">Player</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #E31837; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="stat"></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #E31837; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="yards">Yards</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #002244; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="player">Player</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #002244; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="stat"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #002244; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="yards">Yards</th>
     </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="player" class="gt_row gt_left">Patrick Mahomes</td>
+<td headers="player" class="gt_row gt_left">Bo Nix</td>
 <td headers="stat" class="gt_row gt_left">Passing</td>
-<td headers="yards" class="gt_row gt_right">4,183</td>
+<td headers="yards" class="gt_row gt_right">3,931</td>
 </tr>
 <tr>
-<td headers="player" class="gt_row gt_left">Travis Kelce</td>
+<td headers="player" class="gt_row gt_left">Courtland Sutton</td>
 <td headers="stat" class="gt_row gt_left">Receiving</td>
-<td headers="yards" class="gt_row gt_right">984</td>
+<td headers="yards" class="gt_row gt_right">1,017</td>
 </tr>
 <tr>
-<td headers="player" class="gt_row gt_left">Isiah Pacheco</td>
+<td headers="player" class="gt_row gt_left">J.K. Dobbins</td>
 <td headers="stat" class="gt_row gt_left">Rushing</td>
-<td headers="yards" class="gt_row gt_right">935</td>
+<td headers="yards" class="gt_row gt_right">772</td>
 </tr>
 </tbody>
 </table>
@@ -3555,7 +3574,7 @@ at.</p>
 <td colspan="5" class="gt_heading gt_title gt_font_normal" style="color: #0B1A33; font-family: Chivo; font-size: 18.6px; font-weight: 800;">AFC West standings</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 12.1px;">2023 regular season</td>
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 12.1px;">2025 regular season</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 11.7px; font-weight: 500;" scope="col" id="team"></th>
@@ -3567,36 +3586,36 @@ at.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:26px;" alt="Kansas City Chiefs"></td>
-<td headers="name" class="gt_row gt_left">Kansas City Chiefs</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:26px;" alt="Denver Broncos"></td>
+<td headers="name" class="gt_row gt_left">Denver Broncos</td>
+<td headers="w" class="gt_row gt_right">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:26px;" alt="Los Angeles Chargers"></td>
+<td headers="name" class="gt_row gt_left">Los Angeles Chargers</td>
 <td headers="w" class="gt_row gt_right">11</td>
 <td headers="l" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">.647</td>
 </tr>
 <tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:26px;" alt="Kansas City Chiefs"></td>
+<td headers="name" class="gt_row gt_left">Kansas City Chiefs</td>
+<td headers="w" class="gt_row gt_right">6</td>
+<td headers="l" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">.353</td>
+</tr>
+<tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:26px;" alt="Las Vegas Raiders"></td>
 <td headers="name" class="gt_row gt_left">Las Vegas Raiders</td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:26px;" alt="Denver Broncos"></td>
-<td headers="name" class="gt_row gt_left">Denver Broncos</td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:26px;" alt="Los Angeles Chargers"></td>
-<td headers="name" class="gt_row gt_left">Los Angeles Chargers</td>
-<td headers="w" class="gt_row gt_right">5</td>
-<td headers="l" class="gt_row gt_right">12</td>
-<td headers="pct" class="gt_row gt_right">.294</td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
 </tr>
 </tbody>
 <tfoot><tr class="gt_sourcenotes">
-<td class="gt_sourcenote" style="color: #4A5A75; font-size: 10.9px;" colspan="5">Data: nflverse</td>
+<td class="gt_sourcenote" style="color: #4A5A75; font-size: 10.9px;" colspan="5">Data: nflverse via nflreadr and nflseedR</td>
     </tr></tfoot>
 </table>
 </div>
@@ -4116,7 +4135,7 @@ and keep everything else:</p>
 <td colspan="5" class="gt_heading gt_title gt_font_normal" style="color: #0B1A33; font-family: Chivo; font-size: 22px; font-weight: 800;">AFC West standings</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">2023 regular season</td>
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #4A5A75; font-family: Lato; font-size: 14px;">2025 regular season</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 13px; font-weight: 500;" scope="col" id="team"></th>
@@ -4128,36 +4147,36 @@ and keep everything else:</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:26px;" alt="Kansas City Chiefs"></td>
-<td headers="name" class="gt_row gt_left">Kansas City Chiefs</td>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:26px;" alt="Denver Broncos"></td>
+<td headers="name" class="gt_row gt_left">Denver Broncos</td>
+<td headers="w" class="gt_row gt_right">14</td>
+<td headers="l" class="gt_row gt_right">3</td>
+<td headers="pct" class="gt_row gt_right">.824</td>
+</tr>
+<tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:26px;" alt="Los Angeles Chargers"></td>
+<td headers="name" class="gt_row gt_left">Los Angeles Chargers</td>
 <td headers="w" class="gt_row gt_right">11</td>
 <td headers="l" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">.647</td>
 </tr>
 <tr>
+<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:26px;" alt="Kansas City Chiefs"></td>
+<td headers="name" class="gt_row gt_left">Kansas City Chiefs</td>
+<td headers="w" class="gt_row gt_right">6</td>
+<td headers="l" class="gt_row gt_right">11</td>
+<td headers="pct" class="gt_row gt_right">.353</td>
+</tr>
+<tr>
 <td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:26px;" alt="Las Vegas Raiders"></td>
 <td headers="name" class="gt_row gt_left">Las Vegas Raiders</td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:26px;" alt="Denver Broncos"></td>
-<td headers="name" class="gt_row gt_left">Denver Broncos</td>
-<td headers="w" class="gt_row gt_right">8</td>
-<td headers="l" class="gt_row gt_right">9</td>
-<td headers="pct" class="gt_row gt_right">.471</td>
-</tr>
-<tr>
-<td headers="team" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:26px;" alt="Los Angeles Chargers"></td>
-<td headers="name" class="gt_row gt_left">Los Angeles Chargers</td>
-<td headers="w" class="gt_row gt_right">5</td>
-<td headers="l" class="gt_row gt_right">12</td>
-<td headers="pct" class="gt_row gt_right">.294</td>
+<td headers="w" class="gt_row gt_right">3</td>
+<td headers="l" class="gt_row gt_right">14</td>
+<td headers="pct" class="gt_row gt_right">.176</td>
 </tr>
 </tbody>
 <tfoot><tr class="gt_sourcenotes">
-<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5">Data: nflverse</td>
+<td class="gt_sourcenote" style="color: #4A5A75; font-size: 12px;" colspan="5">Data: nflverse via nflreadr and nflseedR</td>
     </tr></tfoot>
 </table>
 </div>

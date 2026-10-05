@@ -204,9 +204,11 @@ turns the abbreviation column into logos.
 [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)
 stacks each team’s name over its overall record, the record in the
 team’s own color, so the logo, name and record read as one block. And
-gtExtras’ `gt_plt_winloss()` draws the list of conference results as a
-strip of pills, one per game in date order: a team’s conference season,
-wins up and losses down, in one glance.
+gtExtras’
+[`gt_plt_winloss()`](https://jthomasmock.github.io/gtExtras/reference/gt_plt_winloss.html)
+draws the list of conference results as a strip of pills, one per game
+in date order: a team’s conference season, wins up and losses down, in
+one glance.
 
 ``` r
 

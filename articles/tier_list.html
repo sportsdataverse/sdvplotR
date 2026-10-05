@@ -123,11 +123,9 @@
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables cookbook</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
     <li><a class="dropdown-item" href="../articles/gt-toolkit.html">Team Tables with the gt Toolkit</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>gt Table Cookbooks</h6></li>
     <li><a class="dropdown-item" href="../articles/styling.html">Styling Headers, Legends and Captions</a></li>
     <li><a class="dropdown-item" href="../articles/saving_tables.html">Saving and Posting Tables</a></li>
     <li><a class="dropdown-item" href="../articles/grid_tables.html">Faceted Tables</a></li>
@@ -237,123 +235,113 @@
     </div>
 
     <!-- sdvplotR: phones get "On this page" here, collapsed; pkgdown/extra.js copies the list in -->
-    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p>A tier list ranks teams into colored bands, best band on top, each
+band a row of logos. <code><a href="../reference/gt_tiers.html">gt_tiers()</a></code> draws one from a
+<code>gt</code> table, but it needs the data in a particular shape: one
+row per tier, a <code>tier</code> column naming it, and one column per
+slot holding an image URL. This article builds two:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>The 2025 NFL season</strong> in four tiers by EPA per play
+margin, from <a href="https://www.nflfastr.com" class="external-link"><code>nflfastR</code></a>’s
+play-by-play, on a light ground.</li>
+<li>
+<strong>The ACC’s 2025-26 men’s basketball season</strong> in three
+tiers by efficiency margin, from <a href="https://hoopR.sportsdataverse.org" class="external-link"><code>hoopR</code></a>’s ESPN
+box scores, on the default dark ground.</li>
+</ol>
+<p><code><a href="../reference/gt_tiers.html">gt_tiers()</a></code> and <code><a href="../reference/gt_theme_tier.html">gt_theme_tier()</a></code> come from
+Andrew Weatherman’s <a href="https://github.com/andreweatherman/gtUtils" class="external-link">gtUtils</a>, and this
+article follows his tier-list example.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sdvplotR.sportsdataverse.org/">sdvplotR</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
-<p><code>sdvplotR</code> ships with a function that makes creating tier
-lists convenient and quick. However, you need to pass your data to
-<code>gt</code> in a specific format. This vignette walks through how to
-create a simple tier list.</p>
-<p><img src="images/tier_list_example.png" class="r-plt" alt="Example tier list on a dark background: ACC team logos ranked into Elite, Average and Poor rows by efficiency margin." width="75%" style="display: block; margin: auto;"></p>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="basic-tier-list">Basic Tier List<a class="anchor" aria-label="anchor" href="#basic-tier-list"></a>
+<h2 id="nfl-teams-by-epa-per-play-margin">1. NFL teams by EPA per play margin<a class="anchor" aria-label="anchor" href="#nfl-teams-by-epa-per-play-margin"></a>
 </h2>
-<p>For this example, we rank the ACC’s men’s basketball teams by
-efficiency margin: points scored minus points allowed per 100
-possessions, over the last completed season, computed from <a href="https://hoopR.sportsdataverse.org" class="external-link"><code>hoopR</code></a>’s ESPN
-box scores.</p>
-<div class="section level3">
-<h3 id="processing">Processing<a class="anchor" aria-label="anchor" href="#processing"></a>
-</h3>
-<p><code><a href="../reference/team_reference.html">team_reference()</a></code> lists the ACC’s members, with their
-ESPN ids and logos. The box scores hold one row per team per game;
-joining each row to its opponent’s row gives the possessions and points
-on both sides.</p>
+<p>A team’s EPA per play margin is the expected points it added per
+offensive snap minus the expected points it allowed per defensive snap,
+over pass and run plays. One season of play-by-play holds both ends.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># the last completed season, tournament included (hoopR names it for the</span></span>
-<span><span class="co"># year it ends; the Final Four is in early April)</span></span>
-<span><span class="va">season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
-<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"04-10"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">pbp</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_pbp.html" class="external-link">load_pbp</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season_type</span> <span class="op">==</span> <span class="st">"REG"</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">epa</span><span class="op">)</span>, <span class="va">pass</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">rush</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">acc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">conference</span> <span class="op">==</span> <span class="st">"ACC"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># possessions estimated from the box score</span></span>
-<span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_mbb_pbp.html" class="external-link">load_mbb_team_box</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">season</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>poss <span class="op">=</span> <span class="va">field_goals_attempted</span> <span class="op">-</span> <span class="va">offensive_rebounds</span> <span class="op">+</span> <span class="va">total_turnovers</span> <span class="op">+</span> <span class="fl">0.475</span> <span class="op">*</span> <span class="va">free_throws_attempted</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">box</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">acc</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">box</span>, <span class="va">game_id</span>, opponent_team_id <span class="op">=</span> <span class="va">team_id</span>, opp_poss <span class="op">=</span> <span class="va">poss</span><span class="op">)</span>,</span>
-<span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"game_id"</span>, <span class="st">"opponent_team_id"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    eff_margin <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">-</span> <span class="va">opponent_team_score</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">poss</span> <span class="op">+</span> <span class="va">opp_poss</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    .by <span class="op">=</span> <span class="va">team_id</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">acc</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">team_id</span>, <span class="va">acc</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p>We need to establish tiers and colors. For this example, we are going
-to use three distinct categories and use traditional tier list
-background colors.</p>
+<span><span class="va">nfl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="va">pbp</span>, off_epa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">epa</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">posteam</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="va">pbp</span>, def_epa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">epa</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">defteam</span><span class="op">)</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>posteam <span class="op">=</span> <span class="st">"defteam"</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">posteam</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="va">off_epa</span> <span class="op">-</span> <span class="va">def_epa</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="binning-into-tiers">Binning into tiers<a class="anchor" aria-label="anchor" href="#binning-into-tiers"></a>
+</h3>
+<p>Four tiers: the top eight, the next eight, and so on.
+<code><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number()</a></code> ranks the teams with the abbreviation as a
+tiebreaker, so a rebuild bins them the same way, and integer division by
+eight turns the rank into a tier. <code>tier_order</code> is each team’s
+place within its tier, which becomes its column.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Elite"</span>, <span class="st">"Average"</span>, <span class="st">"Poor"</span><span class="op">)</span></span>
-<span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#FF7F7F"</span>, <span class="st">"#FFDF7F"</span>, <span class="st">"#BFFF7F"</span><span class="op">)</span></span></code></pre></div>
-<p>Next, we need to bin our data into these tiers.
-<code>subset_rank</code> uses the <code>dense_rank</code> function to
-assign ordinal ranks based on our column of interest – efficiency
-margin. Next, we use the cut function to divide these ranks into
-distinct tiers based on quantiles, specifying the breaks at the 25th and
-75th percentiles. This means the data is split into three groups, with
-the lower 25% in one tier, the middle 50% in another, and the upper 25%
-in the final tier. The levels argument provides custom labels for each
-tier – referencing the <code>levels</code> vector above – while
-<code>include.lowest = TRUE</code> ensures the lowest rank is included
-in the first tier.</p>
-<p>Finally, tier_order is calculated as the rank within each tier using
-<code>dense_rank</code> again, but this time grouped by the tier to
-ensure the ordering is relative to each group.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">nfl_tiers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Contenders <span class="op">=</span> <span class="st">"#1B7837"</span>, Solid <span class="op">=</span> <span class="st">"#7FBF7B"</span>, Shaky <span class="op">=</span> <span class="st">"#F1B6A8"</span>, Rebuilding <span class="op">=</span> <span class="st">"#B2182B"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">nfl</span> <span class="op">&lt;-</span> <span class="va">nfl</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">margin</span><span class="op">)</span>, <span class="va">team</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    subset_rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">dense_rank</a></span><span class="op">(</span><span class="op">-</span><span class="va">eff_margin</span><span class="op">)</span>,</span>
-<span>    tier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">subset_rank</span>,</span>
-<span>      breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">subset_rank</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      labels <span class="op">=</span> <span class="va">levels</span>,</span>
-<span>      include.lowest <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tier_order <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">dense_rank</a></span><span class="op">(</span><span class="va">subset_rank</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">tier</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/team_reference.html">team_reference()</a></code> also carries each team’s logos. We are
-going to use a dark table theme, so we take the dark-mode logo, falling
-back to the primary one where ESPN has no dark version.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">acc</span>, team <span class="op">=</span> <span class="va">team_abbr</span>, <span class="va">logo_dark_url</span>, <span class="va">logo_url</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"team"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>logo <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">logo_dark_url</span>, <span class="va">logo_url</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Finally, we need to pivot our data to a <em>wide</em> format. This
-ensures that we will be plotting logos horizontally.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">tier</span>, names_from <span class="op">=</span> <span class="va">tier_order</span>, values_from <span class="op">=</span> <span class="va">logo</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">tier</span>, <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    tier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">nfl_tiers</span><span class="op">)</span><span class="op">[</span><span class="op">(</span><span class="va">rank</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span> <span class="fl">8</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">nfl_tiers</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    tier_order <span class="op">=</span> <span class="op">(</span><span class="va">rank</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">8</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><code>nfl_tiers</code> is a named vector of
+<code>tier = color</code>. <code><a href="../reference/gt_tiers.html">gt_tiers()</a></code> takes that shape
+directly, and so does <code><a href="../reference/gt_legend_discrete.html">gt_legend_discrete()</a></code>, so one object
+can drive both.</p>
+</div>
+<div class="section level3">
+<h3 id="the-image-columns">The image columns<a class="anchor" aria-label="anchor" href="#the-image-columns"></a>
+</h3>
+<p>The images come from sdvplotR’s own team table:
+<code><a href="../reference/team_reference.html">team_reference()</a></code> holds every team’s logo URLs, keyed by the
+same nflverse abbreviations the play-by-play uses.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">logos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team_abbr</span>, logo <span class="op">=</span> <span class="va">logo_url</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">nfl_wide</span> <span class="op">&lt;-</span> <span class="va">nfl</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">logos</span>, by <span class="op">=</span> <span class="st">"team"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">tier</span>, names_from <span class="op">=</span> <span class="va">tier_order</span>, values_from <span class="op">=</span> <span class="va">logo</span>, names_sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">tier</span><span class="op">)</span></span></code></pre></div>
-<p>Great – if your data looks similar to this, you’re ready to make a
-tier list!</p>
-<pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 9</span></span></span>
-<span><span class="co">#&gt;   tier    `1`                          `2`   `3`   `4`   `5`   `6`   `7`   `8`  </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Elite   https://a.espncdn.com/i/tea… http… http… http… http… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Average https://a.espncdn.com/i/tea… http… http… http… http… http… http… http…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Poor    https://a.espncdn.com/i/tea… http… http… http… http… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span></span></code></pre>
+<p><code>arrange(tier)</code> sorts by the factor levels, so the best
+tier is on top rather than whichever comes first alphabetically. Each
+row now holds a tier name and eight logo URLs:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nfl_wide</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 3</span></span></span>
+<span><span class="co">#&gt;   tier       `1`                                               `2`              </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Contenders https://a.espncdn.com/i/teamlogos/nfl/500/lar.png https://a.espncd…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Solid      https://a.espncdn.com/i/teamlogos/nfl/500/gb.png  https://a.espncd…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Shaky      https://a.espncdn.com/i/teamlogos/nfl/500/pit.png https://a.espncd…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Rebuilding https://a.espncdn.com/i/teamlogos/nfl/500/cle.png https://a.espncd…</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="plotting">Plotting<a class="anchor" aria-label="anchor" href="#plotting"></a>
 </h3>
-<p><code>gt_tiers</code> does a few things under the hood: - It renders
-images from links - It applies the <code>gt_theme_tier</code> function
-using “dark” mode as a default - It forces all column labels to be
-blank</p>
-<p>Let’s apply it!</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/gt_tiers.html">gt_tiers</a></span><span class="op">(</span><span class="va">levels</span>, <span class="va">colors</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<p><code><a href="../reference/gt_tiers.html">gt_tiers()</a></code> applies <code><a href="../reference/gt_theme_tier.html">gt_theme_tier()</a></code> (dark
+unless <code>style = "light"</code>), renders every column other than
+<code>tier</code> as an image, clears the column labels, and fills each
+tier cell with its color, with black or white text by whichever
+contrasts more.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nfl_wide</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_tiers.html">gt_tiers</a></span><span class="op">(</span><span class="va">nfl_tiers</span>, style <span class="op">=</span> <span class="st">"light"</span>, img_height <span class="op">=</span> <span class="st">"46px"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Example Tier List using gtUtils"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Ranking ACC teams by efficiency margin,"</span>, <span class="va">season</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>    title <span class="op">=</span> <span class="st">"The 2025 NFL season in four tiers"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Ranked by EPA per play margin: offense minus defense, pass and run plays, regular season"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span><span class="st">"Data: nflverse play-by-play via nflfastR"</span><span class="op">)</span></span></code></pre></div>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -379,24 +367,24 @@ blank</p>
   line-height: normal;
   margin-left: auto;
   margin-right: auto;
-  color: #FFFFFF;
+  color: #333333;
   font-size: 16px;
   font-weight: 500;
   font-style: normal;
-  background-color: #1A1A17;
+  background-color: #FFFFFF;
   width: auto;
   border-top-style: none;
   border-top-width: 2px;
-  border-top-color: #1A1A17;
+  border-top-color: #FFFFFF;
   border-right-style: none;
   border-right-width: 2px;
-  border-right-color: #1A1A17;
+  border-right-color: #FFFFFF;
   border-bottom-style: none;
   border-bottom-width: 2px;
-  border-bottom-color: #1A1A17;
+  border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 2px;
-  border-left-color: #1A1A17;
+  border-left-color: #FFFFFF;
 }
 
 #mwlefoodfi .gt_caption {
@@ -405,33 +393,33 @@ blank</p>
 }
 
 #mwlefoodfi .gt_title {
-  color: #FFFFFF;
+  color: #333333;
   font-size: 125%;
   font-weight: initial;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
-  border-bottom-color: #1A1A17;
+  border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
 
 #mwlefoodfi .gt_subtitle {
-  color: #FFFFFF;
+  color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 3px;
   padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-color: #1A1A17;
+  border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
 #mwlefoodfi .gt_heading {
-  background-color: #1A1A17;
+  background-color: #FFFFFF;
   text-align: left;
-  border-bottom-color: #1A1A17;
+  border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
   border-left-color: #D3D3D3;
@@ -462,8 +450,8 @@ blank</p>
 }
 
 #mwlefoodfi .gt_col_heading {
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: 500;
   text-transform: inherit;
@@ -482,8 +470,8 @@ blank</p>
 }
 
 #mwlefoodfi .gt_column_spanner_outer {
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: 500;
   text-transform: inherit;
@@ -522,8 +510,8 @@ blank</p>
   padding-bottom: 1.5px;
   padding-left: 5px;
   padding-right: 5px;
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
@@ -545,8 +533,8 @@ blank</p>
 
 #mwlefoodfi .gt_empty_group_heading {
   padding: 0.5px;
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   border-top-style: none;
@@ -586,8 +574,8 @@ blank</p>
 }
 
 #mwlefoodfi .gt_stub {
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
@@ -599,8 +587,8 @@ blank</p>
 }
 
 #mwlefoodfi .gt_stub_row_group {
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
@@ -621,8 +609,8 @@ blank</p>
 }
 
 #mwlefoodfi .gt_summary_row {
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   text-transform: inherit;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -650,8 +638,8 @@ blank</p>
 }
 
 #mwlefoodfi .gt_grand_summary_row {
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   text-transform: inherit;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -693,8 +681,8 @@ blank</p>
 }
 
 #mwlefoodfi .gt_footnotes {
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -716,8 +704,8 @@ blank</p>
 }
 
 #mwlefoodfi .gt_sourcenotes {
-  color: #FFFFFF;
-  background-color: #1A1A17;
+  color: #333333;
+  background-color: #FFFFFF;
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -807,7 +795,7 @@ blank</p>
 }
 
 #mwlefoodfi tbody tr:last-child {
-  border-bottom: 2px solid #1a1a17;
+  border-bottom: 2px solid #ffffff;
 }
 
 #mwlefoodfi .gt_col_heading {
@@ -821,7 +809,7 @@ blank</p>
 }
 
 #mwlefoodfi .gt_sourcenote {
-  border-bottom-color: #1a1a17 !important;
+  border-bottom-color: #ffffff !important;
 }
 
 #mwlefoodfi .gt_heading {
@@ -837,10 +825,627 @@ blank</p>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading">
-<td colspan="9" class="gt_heading gt_title gt_font_normal" style="font-family: Oswald; font-weight: 650;">Example Tier List using gtUtils</td>
+<td colspan="9" class="gt_heading gt_title gt_font_normal" style="font-family: Oswald; font-weight: 650;">The 2025 NFL season in four tiers</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="font-family: Oswald; font-weight: 500;">Ranking ACC teams by efficiency margin, 2026</td>
+<td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="font-family: Oswald; font-weight: 500;">Ranked by EPA per play margin: offense minus defense, pass and run plays, regular season</td>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="tier"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="a1"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="a2"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="a3"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="a4"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="a5"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="a6"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="a7"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="a8"></th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="tier" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; background-color: #1B7837; color: #FFFFFF; font-weight: bold;">Contenders</td>
+<td headers="1" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="2" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="3" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="4" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="5" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="6" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="7" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="8" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:46px;vertical-align:middle;"></span></td>
+</tr>
+<tr>
+<td headers="tier" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; background-color: #7FBF7B; color: #000000; font-weight: bold;">Solid</td>
+<td headers="1" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="2" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="3" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="4" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="5" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="6" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="7" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="8" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:46px;vertical-align:middle;"></span></td>
+</tr>
+<tr>
+<td headers="tier" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; background-color: #F1B6A8; color: #000000; font-weight: bold;">Shaky</td>
+<td headers="1" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="2" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="3" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="4" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="5" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="6" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="7" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="8" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/car.png" style="height:46px;vertical-align:middle;"></span></td>
+</tr>
+<tr>
+<td headers="tier" class="gt_row gt_center" style="background-color: #B2182B; color: #FFFFFF; font-weight: bold;">Rebuilding</td>
+<td headers="1" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="2" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="3" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="4" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="5" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="6" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="7" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:46px;vertical-align:middle;"></span></td>
+<td headers="8" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:46px;vertical-align:middle;"></span></td>
+</tr>
+</tbody>
+<tfoot><tr class="gt_sourcenotes">
+<td class="gt_sourcenote" colspan="9">Data: nflverse play-by-play via nflfastR</td>
+    </tr></tfoot>
+</table>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="the-acc-by-efficiency-margin">2. The ACC by efficiency margin<a class="anchor" aria-label="anchor" href="#the-acc-by-efficiency-margin"></a>
+</h2>
+<p>For the second list we rank the ACC’s men’s basketball teams by
+efficiency margin: points scored minus points allowed per 100
+possessions over the 2025-26 season, tournaments included.
+<code><a href="../reference/team_reference.html">team_reference()</a></code> lists the conference’s members, with their
+ESPN ids and logos. The box scores hold one row per team per game;
+joining each row to its opponent’s row gives the possessions on both
+sides.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">acc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">conference</span> <span class="op">==</span> <span class="st">"ACC"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># possessions estimated from the box score</span></span>
+<span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_mbb_pbp.html" class="external-link">load_mbb_team_box</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="fl">2026</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>poss <span class="op">=</span> <span class="va">field_goals_attempted</span> <span class="op">-</span> <span class="va">offensive_rebounds</span> <span class="op">+</span> <span class="va">total_turnovers</span> <span class="op">+</span> <span class="fl">0.475</span> <span class="op">*</span> <span class="va">free_throws_attempted</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">acc_margin</span> <span class="op">&lt;-</span> <span class="va">box</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">acc</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">box</span>, <span class="va">game_id</span>, opponent_team_id <span class="op">=</span> <span class="va">team_id</span>, opp_poss <span class="op">=</span> <span class="va">poss</span><span class="op">)</span>,</span>
+<span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"game_id"</span>, <span class="st">"opponent_team_id"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>    eff_margin <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">-</span> <span class="va">opponent_team_score</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">poss</span> <span class="op">+</span> <span class="va">opp_poss</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="va">team_id</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">acc</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">team_id</span>, <span class="va">acc</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p>This time the tiers are uneven: the top quarter, the middle half and
+the bottom quarter. <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut()</a></code> divides the ranks at their 25th
+and 75th percentiles.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">acc_tiers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Elite <span class="op">=</span> <span class="st">"#FF7F7F"</span>, Average <span class="op">=</span> <span class="st">"#FFDF7F"</span>, Poor <span class="op">=</span> <span class="st">"#BFFF7F"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">acc_margin</span> <span class="op">&lt;-</span> <span class="va">acc_margin</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">eff_margin</span><span class="op">)</span>, <span class="va">team</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    tier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">rank</span>,</span>
+<span>      breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">rank</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">acc_tiers</span><span class="op">)</span>,</span>
+<span>      include.lowest <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tier_order <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">tier</span><span class="op">)</span></span></code></pre></div>
+<p>A dark table wants dark-mode logos. <code><a href="../reference/team_reference.html">team_reference()</a></code>
+carries both, so we take the dark one and fall back to the primary where
+ESPN has no dark version.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">acc_wide</span> <span class="op">&lt;-</span> <span class="va">acc_margin</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">acc</span>, team <span class="op">=</span> <span class="va">team_abbr</span>, <span class="va">logo_dark_url</span>, <span class="va">logo_url</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"team"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>logo <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">logo_dark_url</span>, <span class="va">logo_url</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">tier</span>, names_from <span class="op">=</span> <span class="va">tier_order</span>, values_from <span class="op">=</span> <span class="va">logo</span>, names_sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">tier</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">acc_wide</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_tiers.html">gt_tiers</a></span><span class="op">(</span><span class="va">acc_tiers</span>, img_height <span class="op">=</span> <span class="st">"48px"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"The ACC in three tiers"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Efficiency margin per 100 possessions, 2025-26 men's basketball"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span><span class="st">"Data: ESPN box scores via hoopR"</span><span class="op">)</span></span></code></pre></div>
+<div id="eexombwkke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#eexombwkke table {
+  font-family: Oswald, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#eexombwkke thead, #eexombwkke tbody, #eexombwkke tfoot, #eexombwkke tr, #eexombwkke td, #eexombwkke th {
+  border-style: none;
+}
+
+#eexombwkke p {
+  margin: 0;
+  padding: 0;
+}
+
+#eexombwkke .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  background-color: #1A1A17;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #1A1A17;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #1A1A17;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #1A1A17;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #1A1A17;
+}
+
+#eexombwkke .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#eexombwkke .gt_title {
+  color: #FFFFFF;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #1A1A17;
+  border-bottom-width: 0;
+}
+
+#eexombwkke .gt_subtitle {
+  color: #FFFFFF;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #1A1A17;
+  border-top-width: 0;
+}
+
+#eexombwkke .gt_heading {
+  background-color: #1A1A17;
+  text-align: left;
+  border-bottom-color: #1A1A17;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_col_heading {
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  font-size: 100%;
+  font-weight: 500;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#eexombwkke .gt_column_spanner_outer {
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  font-size: 100%;
+  font-weight: 500;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#eexombwkke .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#eexombwkke .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#eexombwkke .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#eexombwkke .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#eexombwkke .gt_group_heading {
+  padding-top: 1.5px;
+  padding-bottom: 1.5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#eexombwkke .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
+  vertical-align: middle;
+}
+
+#eexombwkke .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#eexombwkke .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#eexombwkke .gt_row {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: rgba(255, 255, 255, 0);
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#eexombwkke .gt_stub {
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_stub_row_group {
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#eexombwkke .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#eexombwkke .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#eexombwkke .gt_summary_row {
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#eexombwkke .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#eexombwkke .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_grand_summary_row {
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#eexombwkke .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#eexombwkke .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eexombwkke .gt_footnotes {
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_sourcenotes {
+  color: #FFFFFF;
+  background-color: #1A1A17;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eexombwkke .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eexombwkke .gt_left {
+  text-align: left;
+}
+
+#eexombwkke .gt_center {
+  text-align: center;
+}
+
+#eexombwkke .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#eexombwkke .gt_font_normal {
+  font-weight: normal;
+}
+
+#eexombwkke .gt_font_bold {
+  font-weight: bold;
+}
+
+#eexombwkke .gt_font_italic {
+  font-style: italic;
+}
+
+#eexombwkke .gt_super {
+  font-size: 65%;
+}
+
+#eexombwkke .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#eexombwkke .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#eexombwkke .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#eexombwkke .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#eexombwkke .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#eexombwkke .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#eexombwkke .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#eexombwkke .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#eexombwkke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#eexombwkke tbody tr:last-child {
+  border-bottom: 2px solid #1a1a17;
+}
+
+#eexombwkke .gt_col_heading {
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+#eexombwkke .gt_subtitle {
+  padding-top: 0px !important;
+  padding-bottom: 4px !important;
+}
+
+#eexombwkke .gt_sourcenote {
+  border-bottom-color: #1a1a17 !important;
+}
+
+#eexombwkke .gt_heading {
+  padding-bottom: 0px;
+  padding-top: 6px;
+}
+
+#eexombwkke .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading">
+<td colspan="9" class="gt_heading gt_title gt_font_normal" style="font-family: Oswald; font-weight: 650;">The ACC in three tiers</td>
+    </tr>
+<tr class="gt_heading">
+<td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="font-family: Oswald; font-weight: 500;">Efficiency margin per 100 possessions, 2025-26 men's basketball</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="tier"></th>
@@ -857,46 +1462,47 @@ blank</p>
 <tbody class="gt_table_body">
 <tr>
 <td headers="tier" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; background-color: #FF7F7F; color: #000000; font-weight: bold;">Elite</td>
-<td headers="1" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/150.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="2" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/258.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="3" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/97.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="4" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2390.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="5" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/153.png" style="height:55px;vertical-align:middle;"></span></td>
+<td headers="1" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/150.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="2" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/258.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="3" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/97.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="4" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2390.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="5" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/153.png" style="height:48px;vertical-align:middle;"></span></td>
 <td headers="6" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><br></td>
 <td headers="7" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><br></td>
 <td headers="8" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><br></td>
 </tr>
 <tr>
 <td headers="tier" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; background-color: #FFDF7F; color: #000000; font-weight: bold;">Average</td>
-<td headers="1" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/228.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="2" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/152.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="3" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2567.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="4" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/25.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="5" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/259.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="6" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/24.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="7" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/52.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="8" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/154.png" style="height:55px;vertical-align:middle;"></span></td>
+<td headers="1" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/228.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="2" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/152.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="3" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2567.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="4" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/25.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="5" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/259.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="6" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/24.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="7" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/52.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="8" class="gt_row gt_center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/154.png" style="height:48px;vertical-align:middle;"></span></td>
 </tr>
 <tr>
 <td headers="tier" class="gt_row gt_center" style="background-color: #BFFF7F; color: #000000; font-weight: bold;">Poor</td>
-<td headers="1" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/183.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="2" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/87.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="3" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/221.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="4" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/103.png" style="height:55px;vertical-align:middle;"></span></td>
-<td headers="5" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/59.png" style="height:55px;vertical-align:middle;"></span></td>
+<td headers="1" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/183.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="2" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/87.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="3" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/221.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="4" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/103.png" style="height:48px;vertical-align:middle;"></span></td>
+<td headers="5" class="gt_row gt_center"><span style="white-space:nowrap;"><img alt="Tier list entry" src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/59.png" style="height:48px;vertical-align:middle;"></span></td>
 <td headers="6" class="gt_row gt_center"><br></td>
 <td headers="7" class="gt_row gt_center"><br></td>
 <td headers="8" class="gt_row gt_center"><br></td>
 </tr>
 </tbody>
+<tfoot><tr class="gt_sourcenotes">
+<td class="gt_sourcenote" colspan="9">Data: ESPN box scores via hoopR</td>
+    </tr></tfoot>
 </table>
 </div>
-<p>All done! You’ve created a tier list in <code>gt</code> using
-<code>sdvplotR</code>. The tier list function is somewhat limited: a) it
-only supports image cells and b) it will not “wrap” your logos to
-condense the width (you can play around with image_height to do
-this).</p>
-</div>
+<p>The middle tier holds half the conference, so it runs the widest.
+<code><a href="../reference/gt_tiers.html">gt_tiers()</a></code> does not wrap a long row; shrink
+<code>img_height</code> or split the tier when a row gets too wide for
+where the table is going.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

@@ -24,29 +24,38 @@ library(gt)
 
 ## The data
 
-The final 2023 AFC West standings, typed in so this article builds
-offline. The logos come from
+The final 2025 AFC West standings.
+[`nflseedR::nfl_standings()`](https://nflseedr.com/reference/nfl_standings.html)
+computes them from nflverse’s schedule, read with `nflreadr`, NFL
+tiebreakers included, and
+[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+adds each team’s full name. The logos come from
 [`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md),
 which resolves the abbreviations through
 [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md).
 
 ``` r
 
+nfl_teams <- team_reference("nfl")
+
+standings <- nflseedR::nfl_standings(nflreadr::load_schedules(2025), verbosity = "NONE") |>
+  subset(division == "AFC West")
+standings <- standings[order(standings$div_rank), ]
 standings <- data.frame(
-  team = c("KC", "LV", "DEN", "LAC"),
-  name = c("Kansas City Chiefs", "Las Vegas Raiders", "Denver Broncos", "Los Angeles Chargers"),
-  w = c(11, 8, 8, 5),
-  l = c(6, 9, 9, 12)
+  team = standings$team,
+  name = nfl_teams$team_name[match(standings$team, nfl_teams$team_abbr)],
+  w = standings$true_wins,
+  l = standings$losses,
+  pct = standings$win_pct
 )
-standings$pct <- standings$w / (standings$w + standings$l)
 
 standings_table <- gt(standings) |>
   gt_sdv_logos(columns = "team", sport = "nfl", height = 26) |>
   cols_label(team = "", name = "Team", w = "W", l = "L", pct = "Win pct") |>
   # win percentage without the leading zero, as box scores print it (.647)
   fmt(columns = "pct", fns = function(x) sub("^0", "", sprintf("%.3f", x))) |>
-  tab_header("AFC West standings", "2023 regular season") |>
-  tab_source_note("Data: nflverse")
+  tab_header("AFC West standings", "2025 regular season") |>
+  tab_source_note("Data: nflverse via nflreadr and nflseedR")
 ```
 
 ## The house theme
@@ -58,13 +67,13 @@ standings_table |> gt_theme_sdv()
 
 | AFC West standings |  |  |  |  |
 |----|----|----|----|----|
-| 2023 regular season |  |  |  |  |
+| 2025 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
-| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
-| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
-| Data: nflverse |  |  |  |  |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 14 | 3 | .824 |
+| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 11 | 6 | .647 |
+| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 6 | 11 | .353 |
+| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 3 | 14 | .176 |
+| Data: nflverse via nflreadr and nflseedR |  |  |  |  |
 
 The line under the column labels is the SportsDataverse gradient, the
 same one in the package logo. It is the only decoration, drawn once
@@ -83,13 +92,13 @@ standings_table |> gt_theme_sdv(style = "dark")
 
 | AFC West standings |  |  |  |  |
 |----|----|----|----|----|
-| 2023 regular season |  |  |  |  |
+| 2025 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
-| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
-| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
-| Data: nflverse |  |  |  |  |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 14 | 3 | .824 |
+| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 11 | 6 | .647 |
+| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 6 | 11 | .353 |
+| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 3 | 14 | .176 |
+| Data: nflverse via nflreadr and nflseedR |  |  |  |  |
 
 ## A team’s colors
 
@@ -100,29 +109,42 @@ returns: the title block is filled with the primary color, the line
 under the labels uses the secondary color, and the labels are set in the
 primary color. Any abbreviation, alias or full name
 [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-accepts works as `team`.
+accepts works as `team`. Here the division winner’s yardage leaders,
+from nflverse’s season player stats, wear the winner’s colors.
 
 ``` r
 
-data.frame(
-  player = c("Patrick Mahomes", "Travis Kelce", "Isiah Pacheco"),
-  stat = c("Passing", "Receiving", "Rushing"),
-  yards = c(4183, 984, 935)
+winner <- standings$team[1]
+players <- nflreadr::load_player_stats(2025, summary_level = "reg")
+players <- players[players$recent_team == winner, ]
+
+leader <- function(stat, label) {
+  top <- players[which.max(players[[stat]]), ]
+  data.frame(player = top$player_display_name, stat = label, yards = top[[stat]])
+}
+
+rbind(
+  leader("passing_yards", "Passing"),
+  leader("receiving_yards", "Receiving"),
+  leader("rushing_yards", "Rushing")
 ) |>
   gt() |>
   cols_label(player = "Player", stat = "", yards = "Yards") |>
   fmt_number(columns = "yards", decimals = 0) |>
-  tab_header("Chiefs yardage leaders", "2023 regular season") |>
-  gt_theme_sdv_team(team = "KC", sport = "nfl")
+  tab_header(
+    paste(nfl_teams$team_mascot[nfl_teams$team_abbr == winner], "yardage leaders"),
+    "2025 regular season"
+  ) |>
+  gt_theme_sdv_team(team = winner, sport = "nfl")
 ```
 
-| Chiefs yardage leaders |           |       |
-|------------------------|-----------|-------|
-| 2023 regular season    |           |       |
-| Player                 |           | Yards |
-| Patrick Mahomes        | Passing   | 4,183 |
-| Travis Kelce           | Receiving | 984   |
-| Isiah Pacheco          | Rushing   | 935   |
+| Broncos yardage leaders |           |       |
+|-------------------------|-----------|-------|
+| 2025 regular season     |           |       |
+| Player                  |           | Yards |
+| Bo Nix                  | Passing   | 3,931 |
+| Courtland Sutton        | Receiving | 1,017 |
+| J.K. Dobbins            | Rushing   | 772   |
 
 ### Colors that would not read
 
@@ -196,13 +218,13 @@ standings_table |> gt_theme_sdv(density = "compact")
 
 | AFC West standings |  |  |  |  |
 |----|----|----|----|----|
-| 2023 regular season |  |  |  |  |
+| 2025 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
-| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
-| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
-| Data: nflverse |  |  |  |  |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 14 | 3 | .824 |
+| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 11 | 6 | .647 |
+| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 6 | 11 | .353 |
+| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 3 | 14 | .176 |
+| Data: nflverse via nflreadr and nflseedR |  |  |  |  |
 
 ## Changing one thing
 
@@ -218,13 +240,13 @@ standings_table |> gt_theme_sdv(heading.align = "center")
 
 | AFC West standings |  |  |  |  |
 |----|----|----|----|----|
-| 2023 regular season |  |  |  |  |
+| 2025 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 11 | 6 | .647 |
-| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 8 | 9 | .471 |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 8 | 9 | .471 |
-| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 5 | 12 | .294 |
-| Data: nflverse |  |  |  |  |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 14 | 3 | .824 |
+| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 11 | 6 | .647 |
+| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 6 | 11 | .353 |
+| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 3 | 14 | .176 |
+| Data: nflverse via nflreadr and nflseedR |  |  |  |  |
 
 ## Saving an image
 

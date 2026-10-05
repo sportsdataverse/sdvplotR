@@ -7,98 +7,130 @@ you get an image twice as tall as it is wide, mostly empty, with half
 the values scrolled off the bottom of a feed. The fix is to fold that
 one tall table into two shorter ones and set them side by side.
 
-The [old
-trick](https://www.bucketsandbytes.com/p/lots-of-columns-use-this-gt-trick)
-for this was to pivot everything into a wide format first, hand `gt` a
-single frame, and rename every column with a suffix. It works, but it is
-fiddly, and per-cell coloring gets awkward once the data is reshaped.
-
-`v1.0` adds
-[`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md),
-which goes the other way. You build each block as a normal `gt` table,
-put the tables in a list, and
 [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md)
-arranges the list. Nothing gets reshaped, so every block is a real table
-you can style with the rest of the package. This vignette uses two other
-new `v1.0` functions along the way,
+does that the direct way: build each block as a normal `gt` table, put
+the tables in a list, and
+[`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md)
+arranges the list under one shared header and footer. Nothing gets
+reshaped, so every block is a real table you can style with the rest of
+the package. This article builds a top 25 of men’s college basketball
+for 2025-26 that way, and uses two more functions along the route:
+[`gt_color_ranks()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_ranks.md),
+which colors a column by its values, and
+[`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md),
+which lights a set of rows and dims the rest.
+
+The games are [`hoopR`](https://hoopR.sportsdataverse.org)’s ESPN box
+scores.
+[`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md),
 [`gt_color_ranks()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_ranks.md)
 and
-[`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md),
-and covers what each one does.
-
-## The data
-
-We start with the top 25 of the NCAA’s NET rankings, read from the
-NCAA’s own rankings page, with each team’s quadrant records and its NET
-rank the previous week. The NCAA writes school names its own way
-(`"Iowa St."`, `"St. John's (NY)"`), and sdvplotR resolves them as they
-are, so the names go into the table untouched and get their logos later.
+[`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md)
+come from Andrew Weatherman’s
+[gtUtils](https://github.com/andreweatherman/gtUtils), and this article
+follows his faceted-tables example.
 
 ``` r
 
-net_page <- read_html("https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings")
-
-# the page states how current the rankings are ("Through Games Apr. 06 2026")
-as_of <- str_extract(html_text2(net_page), "Through Games [A-Za-z]+\\.? \\d+ \\d{4}")
-
-data <- html_table(html_element(net_page, "table")) %>%
-  select(
-    net = Rank, team = School, conf = Conf,
-    quad1 = `Quad 1`, quad2 = `Quad 2`, quad3 = `Quad 3`, quad4 = `Quad 4`,
-    prev_rk = Prev
-  ) %>%
-  filter(net <= 25)
+library(sdvplotR)
+library(gt)
+library(dplyr)
 ```
 
-The tables below use a snapshot of this page taken on October 04, 2026
-(rvest 1.0.5), because ncaa.com is not scraped when this site is built.
+## 1. The data: a top 25 by efficiency margin
+
+We rank every Division I team by efficiency margin, points scored minus
+points allowed per 100 possessions, over its games against other
+Division I teams, tournaments included. The margin is raw, not adjusted
+for opponents. Each team also gets its national rank on offense and on
+defense.
+
+``` r
+
+d1 <- team_reference("mbb")
+
+box <- hoopR::load_mbb_team_box(seasons = 2026) |>
+  mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
+
+ratings <- box |>
+  # Division I against Division I only
+  filter(team_id %in% d1$espn_team_id, opponent_team_id %in% d1$espn_team_id) |>
+  inner_join(
+    select(box, game_id, opponent_team_id = team_id, opp_poss = poss),
+    by = c("game_id", "opponent_team_id")
+  ) |>
+  summarise(
+    off = 100 * sum(team_score) / sum(poss),
+    def = 100 * sum(opponent_team_score) / sum(opp_poss),
+    .by = team_id
+  ) |>
+  mutate(
+    net = off - def,
+    off_rank = min_rank(desc(off)),
+    def_rank = min_rank(def),
+    team = d1$team_location[match(team_id, d1$espn_team_id)],
+    conf = d1$conference[match(team_id, d1$espn_team_id)]
+  )
+
+data <- ratings |>
+  arrange(desc(net), team) |>
+  mutate(rk = row_number()) |>
+  filter(rk <= 25) |>
+  select(rk, team, conf, off_rank, def_rank, net)
+```
+
+The team names are ESPN’s school names (`"Michigan"`, `"Iowa State"`),
+and
+[`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
+resolves them as they are, so they go into the table untouched and get
+their logos later. Sorting on `team` after `net` breaks any tie the same
+way on every rebuild.
 
 Before splitting anything, two values are computed once, off the full
 table.
 
 ``` r
 
-prev_domain <- range(data$prev_rk, na.rm = TRUE)
+rank_domain <- c(1, nrow(ratings))
 
 sizes <- c(13, 12)
 chunks <- split(data, rep(seq_along(sizes), sizes))
 ```
 
-`prev_domain` is the range of the previous-week rank column across all
-25 teams, and it matters because of how coloring works. A color scale is
-built from whatever data it sees. If each block builds its own scale,
-block one maps its colors to teams 1 to 13 and block two maps to teams
-14 to 25, so the same rank lands on a different shade depending on which
-block a team happens to fall in. Computing the domain once and handing
-it to both blocks keeps one scale across the whole table.
+`rank_domain` is the full range of the national ranks, 1 to the number
+of Division I teams, and it matters because of how coloring works. A
+color scale is built from whatever data it sees. If each block builds
+its own scale, block one maps its colors to the ranks it happens to hold
+and block two to its own, so the same rank lands on a different shade
+depending on which block a team falls in. Fixing the domain once and
+handing it to both blocks keeps one scale across the whole table, and
+anchors it to the whole country rather than the top 25.
 
-`sizes` sets the split. We want 13 rows in the first block and 12 in the
-second. `rep(seq_along(sizes), sizes)` turns `c(13, 12)` into 13 `1`s
-followed by 12 `2`s, and [`split()`](https://rdrr.io/r/base/split.html)
-cuts the data on that. For three blocks, use `c(9, 8, 8)`. The layout
-follows from the sizes you pick.
+`sizes` sets the split: 13 rows in the first block and 12 in the second.
+`rep(seq_along(sizes), sizes)` turns `c(13, 12)` into 13 `1`s followed
+by 12 `2`s, and [`split()`](https://rdrr.io/r/base/split.html) cuts the
+data on that. For three blocks, use `c(9, 8, 8)`.
 
-## Coloring a column by rank
+## 2. Coloring a column by rank
 
-Inside the table we color the previous-week rank column with
-[`gt_color_ranks()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_ranks.md),
-another new `v1.0` function.
+Inside each block we color the two national-rank columns with
+[`gt_color_ranks()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_ranks.md).
 
 ``` r
 
-gt_color_ranks(prev_rk, domain = prev_domain)
+gt_color_ranks(c(off_rank, def_rank), domain = rank_domain)
 ```
 
 The arguments worth knowing:
 
 - `palette`: either a vector of hex colors or a `paletteer` palette
   named as `"package::palette"`. The default is a 5-color green-to-red
-  ramp, which reads as good-to-bad.
+  ramp, so a low value (a high rank) reads green.
 - `domain`: the value range mapped onto the palette. Left `NULL`, it is
-  taken from the column itself. We pass `prev_domain` so both blocks
+  taken from the column itself. We pass `rank_domain` so both blocks
   share a scale.
-- `reverse`: flip the palette, for when low numbers should be red
-  instead of green.
+- `reverse`: flip the palette, for when high numbers should be green
+  instead.
 - `pal_type`: `"discrete"` or `"continuous"`, which only matters when
   you hand it a `paletteer` palette.
 - `na_color`: fill for missing values, white by default.
@@ -111,56 +143,57 @@ something other than the default ramp:
 
 ``` r
 
-gt_color_ranks(prev_rk,
-  palette = "viridis::mako",
-  pal_type = "continuous", reverse = TRUE
+gt_color_ranks(c(off_rank, def_rank),
+  domain = rank_domain,
+  palette = "viridis::mako", pal_type = "continuous", reverse = TRUE
 )
 ```
 
-## One table, applied to each block
+## 3. One table, applied to each block
 
 Every block is a `gt` table, so we write the recipe once and
 [`lapply()`](https://rdrr.io/r/base/lapply.html) it over the chunks.
-None of this is grid-specific. It is the same table you would build for
+None of this is grid-specific; it is the same table you would build for
 a single frame.
 
 ``` r
 
-tbls <- lapply(chunks, function(x) {
-  gt(x) %>%
-    gt_theme_swiss() %>%
-    cols_hide(conf) %>%
-    cols_align(columns = -c(team), align = "center") %>%
-    cols_align(columns = team, "left") %>%
-    cols_label(team = "Team", net = "NET", prev_rk = "Prev.") %>%
-    cols_label_with(
-      columns = starts_with("quad"),
-      fn = function(x) paste0("Q", parse_number(x))
-    ) %>%
-    cols_width(team ~ px(165), starts_with("quad") ~ px(60)) %>%
-    tab_spanner(columns = starts_with("quad"), label = "Quad Records") %>%
-    gt_color_ranks(prev_rk, domain = prev_domain) %>%
-    gt_sdv_logos(team, sport = "mbb", height = 20, include_name = TRUE) %>%
-    gtExtras::gt_add_divider(team, color = "white", weight = px(10)) %>%
+block <- function(x) {
+  gt(x) |>
+    gt_theme_swiss() |>
+    cols_hide(conf) |>
+    cols_align(columns = -team, align = "center") |>
+    cols_align(columns = team, "left") |>
+    cols_label(
+      rk = "", team = "Team",
+      off_rank = "Off.", def_rank = "Def.", net = "Margin"
+    ) |>
+    cols_width(team ~ px(140), c(off_rank, def_rank) ~ px(46), net ~ px(62)) |>
+    tab_spanner(columns = c(off_rank, def_rank), label = "Nat'l rank") |>
+    fmt_number(net, decimals = 1, force_sign = TRUE) |>
+    gt_color_ranks(c(off_rank, def_rank), domain = rank_domain) |>
+    gt_sdv_logos(team, sport = "mbb", height = 20, include_name = TRUE) |>
+    gtExtras::gt_add_divider(team, color = "white", weight = px(10)) |>
     tab_options(
       data_row.padding = px(6),
       table_body.hlines.style = "solid",
       table_body.hlines.color = "black",
       table_body.hlines.width = px(1)
     )
-})
+}
+
+tbls <- lapply(chunks, block)
 ```
 
-`gt_color_ranks(..., domain = prev_domain)` is the shared scale from
+`gt_color_ranks(..., domain = rank_domain)` is the shared scale from
 earlier. `gt_sdv_logos(team, ..., include_name = TRUE)` puts each
-school’s logo in front of its name. `gt_add_divider()` (from `gtExtras`)
-adds a white gap after the team column so the records do not crowd the
-logos.
+school’s logo in front of its name.
+[`gt_add_divider()`](https://jthomasmock.github.io/gtExtras/reference/gt_add_divider.html)
+(from `gtExtras`) adds a white gap after the team column so the numbers
+do not crowd the logos. `cols_hide(conf)` keeps the conference in the
+data but out of the table; the last section uses it.
 
-`cols_hide(conf)` keeps the conference column in the data but hides it
-from the table (for the second example).
-
-## Laying it out with gt_grid
+## 4. Laying it out with gt_grid
 
 Now the list goes to
 [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md).
@@ -168,32 +201,33 @@ Now the list goes to
 ``` r
 
 gt_grid(tbls,
-  ncol = 2, gap = 30,
-  title = "Top 25 NET Rankings",
-  subtitle = as_of,
+  ncol = 2, gap = 24,
+  title = "The top 25 by efficiency margin",
+  subtitle = "Men's college basketball, 2025-26, games between Division I teams",
   title_style = list(
     font = "Oswald", size = 34, transform = "uppercase",
     margin_bottom = -4
   ),
-  subtitle_style = list(italic = TRUE, color = "#8A8A8A"),
-  caption = md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
+  subtitle_style = list(italic = TRUE, color = "#6A6A6A"),
+  caption = "Margin is points scored minus points allowed per 100 possessions, not adjusted for opponents.",
   caption_style = list(align = "left"),
-  source_note = "Example created by @andreweatherman using {gtUtils} v1.0",
+  source_note = "Data: ESPN box scores via hoopR",
   caption_rule = TRUE
 )
 ```
 
-Top 25 NET Rankings
+The top 25 by efficiency margin
 
-Through Games Apr. 06 2026
-
-[TABLE]
+Men's college basketball, 2025-26, games between Division I teams
 
 [TABLE]
 
-Install using ... pak::pak("sportsdataverse/sdvplotR")
+[TABLE]
 
-Example created by @andreweatherman using {gtUtils} v1.0
+Margin is points scored minus points allowed per 100 possessions, not
+adjusted for opponents.
+
+Data: ESPN box scores via hoopR
 
 `ncol` sets how many tables go across, and the number of rows follows
 from the list length. `gap` is the space between them in pixels. There
@@ -205,116 +239,104 @@ The header and footer are set on the grid, not on the individual tables,
 so one title covers both blocks instead of a title stranded on each.
 `title`, `subtitle`, `caption`, and `source_note` are the four text
 slots. Setting `caption`, `source_note`, and `caption_rule = TRUE`
-together gives the 538-style split caption. `caption` accepts
+together gives the 538-style split caption, and `caption` accepts
 [`md()`](https://gt.rstudio.com/reference/md.html), so links and bold
 text work.
 
 Each text slot has a matching `*_style` list, and the keys are the same
-across all of them:
-
-- `font` (a Google font name), `size`, `color`, `weight`, `italic`,
-  `spacing`, `transform` (like `"uppercase"`), and `align`.
-- `line_height`, `margin_top`, `margin_bottom`, `padding_top`,
-  `padding_bottom` for spacing. Numbers are read as pixels.
-
+across all of them (see [Styling Headers, Legends and
+Captions](https://sdvplotR.sportsdataverse.org/articles/styling.md)):
+`font`, `size`, `color`, `weight`, `italic`, `spacing`, `transform`,
+`align`, `line_height`, and the `margin_*` and `padding_*` keys.
 Anything you leave out keeps its default, so the `title_style` above
-only changes the font, size, transform, and margin, and the weight and
-centering stay put. `margin_bottom = -4` pulls the subtitle up closer to
-the title.
+changes only the font, size, transform and margin. `margin_bottom = -4`
+pulls the subtitle up closer to the title.
 
 Two more arguments are worth knowing. `labels` puts a short caption
-above each individual table (recycled across the list, styled by
-`label_style`), which is handy for small multiples like one table
-per-conference or per-season. `file` writes the grid straight to a PNG.
-`bg`, `whitespace`, and `zoom` control that export.
+above each individual table (styled by `label_style`), which is handy
+for small multiples like one table per conference or per season. `file`
+writes the grid straight to a PNG, with `bg`, `whitespace` and `zoom`
+controlling that export.
 
-## Spotlighting rows across blocks
+## 5. Spotlighting rows across blocks
 
-To make a point about the Big 12’s teams in the NET top 20, we use
-[`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md),
-the last new `v1.0` function in this example. It lights the rows you
-name and dims the rest. Because it reads a filter expression against
-each block’s own data, it drops right into the
-[`lapply()`](https://rdrr.io/r/base/lapply.html).
-
-The wrinkle is that the Big 12 teams fall across both blocks. A plain
+To make a point about one conference, we light its teams with
 [`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md)
-on a block with no matching rows would leave that block fully lit, so
-the second block would look untouched while the first dimmed. That is
-what `if_none = "dim"` handles: a block that matches nobody dims
-completely, so the highlight looks consistent across both.
+and dim the rest. The conference is whichever has the most teams in the
+top 25, worked out from the data, with alphabetical order breaking a
+tie.
 
 ``` r
 
-tbls <- lapply(chunks, function(x) {
-  gt(x) %>%
-    gt_theme_swiss() %>%
-    cols_hide(conf) %>%
-    cols_align(columns = -c(team), align = "center") %>%
-    cols_align(columns = team, "left") %>%
-    cols_label(team = "Team", net = "NET", prev_rk = "Prev.") %>%
-    cols_label_with(
-      columns = starts_with("quad"),
-      fn = function(x) paste0("Q", parse_number(x))
-    ) %>%
-    cols_width(team ~ px(165), starts_with("quad") ~ px(60)) %>%
-    tab_spanner(columns = starts_with("quad"), label = "Quad Records") %>%
-    gt_color_ranks(prev_rk, domain = prev_domain) %>%
-    gt_sdv_logos(team, sport = "mbb", height = 20, include_name = TRUE) %>%
-    gtExtras::gt_add_divider(team, color = "white", weight = px(10)) %>%
+top_conf <- data |>
+  count(conf) |>
+  arrange(desc(n), conf) |>
+  slice(1)
+top_conf
+#> # A tibble: 1 × 2
+#>   conf        n
+#>   <chr>   <int>
+#> 1 Big Ten     5
+```
+
+[`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md)
+reads a filter expression against each block’s own data, so it drops
+right into the block function. The wrinkle is that the conference’s
+teams fall across both blocks, and a block with no match at all would be
+left fully lit, so the highlight would look applied to one block and not
+the other. That is what `if_none = "dim"` handles: a block that matches
+nobody dims completely.
+
+``` r
+
+spot <- lapply(chunks, function(x) {
+  block(x) |>
     gt_spotlight(
-      rows = conf == "Big 12" & net <= 20, if_none = "dim",
+      rows = conf == top_conf$conf, if_none = "dim",
       accent_color = "darkred", dim_color = "lightgrey"
-    ) %>%
-    tab_options(
-      data_row.padding = px(6),
-      table_body.hlines.style = "solid",
-      table_body.hlines.color = "black",
-      table_body.hlines.width = px(1)
     )
 })
 
-gt_grid(tbls,
-  ncol = 2, gap = 30,
-  title = paste("The Big 12 has", sum(data$conf[data$net <= 20] == "Big 12"), "teams inside the NET T-20"),
-  subtitle = as_of,
+gt_grid(spot,
+  ncol = 2, gap = 24,
+  title = paste(top_conf$conf, "has", top_conf$n, "of the top 25"),
+  subtitle = "Men's college basketball, 2025-26, by efficiency margin",
   title_style = list(
     font = "Oswald", size = 34, transform = "uppercase",
     margin_bottom = -4
   ),
-  subtitle_style = list(italic = TRUE, color = "#8A8A8A"),
-  caption = md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
+  subtitle_style = list(italic = TRUE, color = "#6A6A6A"),
+  caption = "Margin is points scored minus points allowed per 100 possessions, not adjusted for opponents.",
   caption_style = list(align = "left"),
-  source_note = "Example created by @andreweatherman using {gtUtils} v1.0",
+  source_note = "Data: ESPN box scores via hoopR",
   caption_rule = TRUE
 )
 ```
 
-The Big 12 has 4 teams inside the NET T-20
+Big Ten has 5 of the top 25
 
-Through Games Apr. 06 2026
-
-[TABLE]
+Men's college basketball, 2025-26, by efficiency margin
 
 [TABLE]
 
-Install using ... pak::pak("sportsdataverse/sdvplotR")
+[TABLE]
 
-Example created by @andreweatherman using {gtUtils} v1.0
+Margin is points scored minus points allowed per 100 possessions, not
+adjusted for opponents.
 
-This is why `conf` stayed hidden.
+Data: ESPN box scores via hoopR
+
+This is why `conf` stayed hidden rather than dropped:
 [`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md)
-filters on it with `rows = conf == "Big 12" & net <= 20` even though the
-column is never drawn (because it still exists in the data we call in
-our lapply block). `rows` also accepts plain row numbers, like
-`rows = 1:5`, when you want to highlight by position.
+filters on it even though the column is never drawn. `rows` also accepts
+plain row numbers, like `rows = 1:5`, when you want to highlight by
+position.
 
 The rest of its arguments control the look:
 
 - `accent_color`: draws a bar on the left edge of each lit row.
   Supplying a color is what turns the bar on. `accent_width` sets its
-  thickness, and `accent_column` moves it to a different column when the
-  leftmost one is not where you want it.
+  thickness, and `accent_column` moves it to a different column.
 - `dim_color`: the text color for the muted rows. Setting it to `NULL`
   emphasizes the chosen rows without dimming the others.
 - `fill`, `text_color`, and `bold`: styling for the lit rows themselves.
@@ -332,6 +354,11 @@ The pattern is the same both times: build a normal table,
 [`lapply()`](https://rdrr.io/r/base/lapply.html) it over your chunks,
 and pass the list to
 [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md).
-The only two faceting-specific habits are computing your color domain
-once so the blocks agree, and using `if_none = "dim"` when a highlight
-lands in some blocks and not others.
+The only two faceting-specific habits are fixing your color domain once
+so the blocks agree, and using `if_none = "dim"` when a highlight lands
+in some blocks and not others. To keep a long table as one table
+instead,
+[`gt_snake()`](https://sdvplotR.sportsdataverse.org/reference/gt_snake.md)
+folds it into blocks; the [rolling-window
+article](https://sdvplotR.sportsdataverse.org/articles/window_wins.md)
+uses it.
