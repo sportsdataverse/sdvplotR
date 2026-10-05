@@ -49,7 +49,7 @@ jobs:
           # https://github.com/sportsdataverse/sdvplotR/commits/main and copy that commit's
           # examples/automation/sdvplotR_social.R. Bump the data packages the same way, one at a time.
           packages: |
-            github::sportsdataverse/sdvplotR@50685b6aa867629fba8f757e5e2194e8f442888f
+            github::sportsdataverse/sdvplotR@a198f9870ac6a26cc5cfd0e851c1fca1dd7edf97
             nflreadr@1.5.1
             hoopR@3.1.0
             wehoop@3.0.0
