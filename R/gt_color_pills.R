@@ -193,8 +193,11 @@ gt_color_pills <- function(gt_object, columns, rows = NULL,
 
     outline_style <- if (!is.null(outline_color)) glue::glue("border: {outline_width}px solid {outline_color};") else ""
 
+    # content-box: the width holds the text, padding on top, even on a page that
+    # sets border-box everywhere (Bootstrap, so pkgdown and Quarto)
     glue::glue(
-      "<span style='display: inline-block; width: {max_width}ch; padding-left: 3px; padding-right: 3px; ",
+      "<span style='display: inline-block; box-sizing: content-box; width: {max_width}ch; ",
+      "padding-left: 3px; padding-right: 3px; ",
       "height: {pill_height}px; line-height: {pill_height}px; background-color: {color}; color: {tc}; ",
       "border-radius: 10px; text-align: center; {outline_style}'>{formatted_value}</span>"
     )

@@ -27,7 +27,10 @@ Standardizes team abbreviations to the canonical abbreviations
 used by sdvplotR. Matching is case-insensitive and understands full team
 names (\code{"Kansas City Chiefs"}), common alternate abbreviations used by
 other data sources (\code{"WSH"} / \code{"WAS"}, \code{"GNB"} / \code{"GB"}), and historical
-abbreviations of relocated franchises (see \code{\link[=resolve_historical_abbr]{resolve_historical_abbr()}}).
+abbreviations of relocated franchises (see \code{\link[=resolve_historical_abbr]{resolve_historical_abbr()}}),
+which follow the franchise even where a provider uses the same code for
+another team: \code{"WIN"}, the original Winnipeg Jets, gives \code{"UTAH"}, while
+today's Jets are \code{"WPG"}.
 For the college sports it also takes the school names NCAA.com /
 stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
 (\code{"Iowa St."}, \code{"St. John's (NY)"}, \code{"Saint Mary's (CA)"},

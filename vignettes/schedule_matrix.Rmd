@@ -16,264 +16,278 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo = FALSE}
+A schedule matrix puts one team per row and one week per column, and draws each
+opponent's logo in the cell where they met. This article builds two:
+
+1. **A conference's season**: every SEC football team's 2025 schedule, each cell
+   shaded by whether the game was at home, away or on a neutral field, with the
+   byes marked.
+2. **One team's season**: the 2025-26 NBA team with the best record, laid out as
+   a calendar, each game shaded by whether it was won or lost.
+
+The catch in both is the coloring. A cell's fill is a decision made cell by cell,
+not column by column. `gt_highlight_cells()` fills individual cells by a
+condition and `gt_legend_discrete()` draws the matching key; `gt_sdv_logos()`
+turns the opponents into logos. The SEC schedule comes from
+[`cfbfastR`](https://cfbfastR.sportsdataverse.org) (CollegeFootballData.com,
+which needs a free API key) and the NBA games from
+[`hoopR`](https://hoopR.sportsdataverse.org)'s ESPN team box scores.
+
+`gt_highlight_cells()` and `gt_legend_discrete()` come from Andrew Weatherman's
+[gtUtils](https://github.com/andreweatherman/gtUtils), and the SEC matrix follows
+his schedule-matrix example.
+
+```{r setup}
 library(sdvplotR)
 library(gt)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 ```
 
-The catch with a schedule matrix is the coloring. You want a cell shaded by
-whether that game is home, away, or on a neutral field, and a
-different shade for a bye. That is a decision made cell by cell, not column by
-column, and it is where a schedule matrix gets awkward to build.
+## 1. A conference's season, one row per team
 
-The [old approach](https://www.bucketsandbytes.com/p/team-schedule-matrices) was
-to hand-write CSS: loop over row and column indices, build an `nth-child`
-selector for every cell that should be shaded, and inject the lot through
-`opt_css()`. It works, but it is a lot of machinery for what is really one
-condition applied to a grid of cells.
+`load_cfb_schedules()` holds one row per game. `nflreadr::clean_homeaway()`
+doubles it into one row per team per game, renaming the `home_*` / `away_*` pairs
+to `team_*` / `opponent_*` and adding a `location` of `"home"` or `"away"`. We
+fold the schedule's `neutral_site` flag into that column as a third value, then
+keep the SEC. Week 15 holds only the conference title games, so the matrix stops
+at week 14.
 
-`v1.0` adds `gt_highlight_cells()`, which fills individual cells by a condition,
-and `gt_legend_discrete()`, which draws the matching key. This vignette builds a
-full SEC schedule matrix with both, and picks up a few other `v1.0` habits along
-the way.
-
-## The data
-
-We pull the 2025 FBS schedule from
-[`cfbfastR-data`](https://github.com/sportsdataverse/cfbfastR-data),
-double it into one row per team with `nflreadr::clean_homeaway()`, and keep the
-SEC. `clean_homeaway()` renames the `home_*` / `away_*` pairs to `team_*` /
-`opponent_*` based on where each team played, so the same `team_id` we use for
-the opponent's logo also gives us each team's own logo.
-
-```{r}
-base <- "http://a.espncdn.com/i/teamlogos/ncaa/500/"
-
-data <- read_csv("https://github.com/sportsdataverse/cfbfastR-data/raw/refs/heads/main/schedules/csv/cfb_schedules_2025.csv") %>%
-  filter(season_type == "regular") %>%
-  select(
-    home_team, away_team, week, home_conference, away_conference,
-    home_id, away_id, neutral_site
-  ) %>%
-  nflreadr::clean_homeaway() %>%
-  filter(team_conference == "SEC") %>%
-  mutate(
-    opponent_logo = paste0(base, opponent_id, ".png"),
-    team_logo = paste0(base, team_id, ".png"),
-    location = ifelse(neutral_site == TRUE, "neutral", location)
-  ) %>%
-  select(team, team_logo, week, location, opponent_logo, opponent)
+```{r sec-data}
+sec <- cfbfastR::load_cfb_schedules(2025) |>
+  filter(season_type == "regular", week <= 14) |>
+  select(week, home_team, away_team, home_conference, away_conference, neutral_site) |>
+  nflreadr::clean_homeaway() |>
+  filter(team_conference == "SEC") |>
+  mutate(location = if_else(neutral_site %in% TRUE, "neutral", location)) |>
+  select(team, week, location, opponent) |>
+  arrange(team, week)
 ```
 
-`clean_homeaway()` sets `location` to `"home"` or `"away"`, so we fold the
-schedule's `neutral_site` flag into that same column as a third value.
+The cells will hold the opponents' school names, not image URLs.
+`gt_sdv_logos()` resolves a name like `"Texas A&M"` or `"Central Arkansas"` to
+the school's logo when the table renders, FBS and FCS alike.
 
-```{r}
-logos <- data %>%
-  arrange(team) %>%
-  pivot_wider(
-    id_cols = c(team, team_logo), names_from = week,
-    values_from = opponent_logo, names_sort = TRUE
-  )
-
-wk <- setdiff(names(logos), c("team", "team_logo"))
-
-# the same grid of opponent names, for each logo's alt text
-opp_names <- data %>%
-  arrange(team) %>%
+```{r sec-pivot}
+opponents <- sec |>
   pivot_wider(id_cols = team, names_from = week, values_from = opponent, names_sort = TRUE)
+
+wk <- setdiff(names(opponents), "team")
 ```
 
-`names_sort = TRUE` sorts the week columns. Because `week` is numeric, they come
-out `1` through `15` in order rather than `1, 10, 11, ...`. Carrying `team_logo`
-through `id_cols` keeps each team's logo alongside its row without a second
-join.
+`names_sort = TRUE` sorts the week columns. Because `week` is numeric they come
+out `1` through `14` in order rather than `1, 10, 11, ...`.
 
-## Carrying the location as a parallel mask
+## 2. Carrying the location as a parallel mask
 
-`pivot_wider()` on the opponent logo loses the location. But we can pivot
-it into its own frame of the same shape and turn each state into a logical mask.
+`pivot_wider()` on the opponent loses the location. Pivot it into its own frame of
+the same shape and turn each state into a logical mask.
 
-```{r}
-locs <- data %>% pivot_wider(id_cols = team, names_from = week, values_from = location)
-locs <- locs[match(logos$team, locs$team), ]
+```{r sec-masks}
+locations <- sec |>
+  pivot_wider(id_cols = team, names_from = week, values_from = location, names_sort = TRUE)
+locations <- locations[match(opponents$team, locations$team), wk]
 
-home_mask <- as.data.frame(locs[, wk] == "home")
-away_mask <- as.data.frame(locs[, wk] == "away")
-neutral_mask <- as.data.frame(locs[, wk] == "neutral")
+home_mask <- locations == "home"
+away_mask <- locations == "away"
+neutral_mask <- locations == "neutral"
 ```
 
-The `match()` line reorders `locs` to follow `logos`, so both frames share a row
-order after the `arrange()`. Each mask is then a `TRUE`/`FALSE` grid the same
-shape as the week columns, which is what `gt_highlight_cells()` takes.
+The `match()` line holds `locations` to the row order of `opponents`, so the two
+frames line up cell for cell. Each mask is a `TRUE`/`FALSE` grid the same shape as
+the week columns, which is what `gt_highlight_cells()` takes. A bye is a missing
+opponent, so it needs no mask: its cells are `NA` in every mask, which
+`gt_highlight_cells()` reads as no match.
 
-## Filling cells by condition
+## 3. Filling cells by condition
 
 `gt_highlight_cells()` fills the cells in a block of columns that meet a
-condition. The condition is either a formula tested against each column, like
-`~ is.na(.x)`, or a logical matrix the same shape as the columns, which is what
-our masks are. It is the per-cell counterpart to `gtExtras::gt_highlight_cols()`
-and `gt_highlight_rows()`, which fill whole columns or rows.
+condition: either a formula tested against each column, like `~ is.na(.x)`, or a
+logical matrix the same shape as the columns, which is what the masks are. It is
+the per-cell counterpart to `gtExtras::gt_highlight_cols()` and
+`gt_highlight_rows()`, which fill whole columns or rows. Anything in `...` goes to
+`gt::cell_text()` for the filled cells, which is how the byes get small grey type.
 
-```{r, eval = FALSE}
-gt_highlight_cells(all_of(wk), condition = home_mask, fill = "#FBE7C6") %>%
-  gt_highlight_cells(all_of(wk), condition = away_mask, fill = "#FFFFFF") %>%
-  gt_highlight_cells(all_of(wk), neutral_mask, fill = "#CFE0C3") %>%
-  gt_highlight_cells(all_of(wk), condition = ~ is.na(.x), fill = "#E4E4E4")
-```
-
-Home, away, and neutral come from the masks. The bye is any cell with no game, which is a missing opponent, so `~ is.na(.x)` catches it without a mask of its own. 
-
-`gt_highlight_cells()` has more arguments (`text_color`, `bold`, and `...` to `cell_text()`) for when you want to style the text as well as the fill.
-
-## Drawing the logos
-
-With the cells shaded, we render the opponent URLs as images with
-`gtExtras::gt_img_rows()`, one week column at a time.
-
-```{r, eval = FALSE}
-purrr::reduce(wk, .init = ., .f = ~ rlang::inject(
-  gtExtras::gt_img_rows(.x, columns = !!rlang::sym(.y), height = 35)
-))
-```
-
-`gt_img_rows()` takes a single column, and it reads a quoted number like `"1"`
-as a position rather than a name, so `all_of()` fails on our numeric week
-columns. `reduce()` threads the table through one call per week, and
-`!!rlang::sym(.y)` hands each column in as a bare name, which is the form
-`gt_img_rows()` wants. Keeping this inside the pipe means no stored intermediate.
-
-## Marking the byes
-
-After the images render, we drop a muted `BYE` into the empty cells.
-
-```{r byemark}
-byemark <- "<span style=\"color:#565C64;font-size:8px;font-weight:600;letter-spacing:0.12em\">BYE</span>"
-```
-
-```{r, eval = FALSE}
-reduce(wk, .init = ., .f = function(g, c) {
-  b <- which(is.na(logos[[c]]))
-  if (!length(b)) {
-    return(g)
-  }
-  text_transform(g, cells_body(columns = all_of(c), rows = b), fn = function(x) byemark)
-})
-```
-
-This has to run after `gt_img_rows()`, not through `sub_missing()`, because
-`gt_img_rows()` would otherwise wrap the placeholder text in a broken `<img>`
-tag. We find the missing rows per column and write the mark straight into them. `gt_img_rows()` writes no `alt`, so the full pipeline below adds `alt="Opponent logo"` to each logo with one more `text_transform()`, and the logo beside a team name gets an empty `alt` because the name is already there.
-
-## Logo and name in the team column
-
-We can render the team logo and name together in a flex container and pin the column width so a long name wraps instead of stretching the table.
-
-```{r team-cell}
-team_cell <- function(name, logo) {
-  sprintf(
-    '<div style="display:flex; align-items:center; gap:8px;">
-     <img src="%s" alt="" style="height:26px; width:26px; object-fit:contain; flex:none;">
-     <span style="font-family:\'Oswald\',sans-serif; font-size:14px; font-weight:500;
-                  line-height:1.05;">%s</span></div>',
-    logo, name
+```{r sec-fills, eval = FALSE}
+# ... |>
+gt_highlight_cells(all_of(wk), condition = home_mask, fill = "#FBE7C6") |>
+  gt_highlight_cells(all_of(wk), condition = away_mask, fill = "#FFFFFF") |>
+  gt_highlight_cells(all_of(wk), condition = neutral_mask, fill = "#CFE0C3") |>
+  gt_highlight_cells(
+    all_of(wk),
+    condition = ~ is.na(.x), fill = "#E4E4E4",
+    text_color = "#565C64", size = px(9), weight = 600
   )
-}
 ```
 
-```{r, eval = FALSE}
-text_transform(cells_body(columns = team),
-  fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))
+## 4. Logos for the opponents and the team
+
+`gt_sdv_logos()` takes a whole block of columns, so one call draws every opponent;
+each logo's `alt` text is the school's full name. On the team column,
+`include_name = TRUE` keeps the name beside its logo. The byes are filled in with
+`sub_missing()`; a cell that names no team passes through `gt_sdv_logos()` as
+text.
+
+```{r sec-logos, eval = FALSE}
+# ... |>
+sub_missing(columns = all_of(wk), missing_text = "BYE") |>
+  gt_sdv_logos(columns = all_of(wk), sport = "cfb", height = 24) |>
+  gt_sdv_logos(columns = team, sport = "cfb", height = 22, include_name = TRUE)
+```
+
+## 5. The legend
+
+`gt_legend_discrete()` draws the key. Pass it a named vector of `label = color`
+and it renders the swatches, using the same fills as the cells so the key matches
+the table. `label_placement = "inside"` prints each label on its swatch, with the
+text color chosen per swatch for contrast. The `heading_style` and `label_style`
+lists take the same keys as every other style list in the package (see
+[Styling Headers, Legends and Captions](styling.html)).
+
+## The SEC matrix
+
+```{r sec-table}
+location_key <- c(
+  "Home game" = "#FBE7C6", "Away game" = "#FFFFFF",
+  "Neutral site" = "#CFE0C3", "Bye week" = "#E4E4E4"
 )
-```
 
-`flex:none` holds the logo at 26px so the name takes the rest of a fixed column. We map from `logos$team` and `logos$team_logo` rather than the `x` the
-transform receives, because `gt` HTML-escapes the cell first, turning, e.g.,
-"Texas A&M" into "Texas A&amp;M".
-
-## The legend
-
-`gt_legend_discrete()` draws the key, the categorical partner to
-`gt_legend_continuous()`. Pass it a named vector of `label = color` and it
-renders the swatches, using the same fills as the cells so the key matches the
-table.
-
-```{r, eval = FALSE}
-gt_legend_discrete(
-  c(
-    "Home Game" = "#FBE7C6", "Away Game" = "#FFFFFF",
-    "Neutral Game" = "#CFE0C3", "Bye Week" = "#E4E4E4"
-  ),
-  location = "top", label_placement = "inside", shape = "square",
-  gap = 8, swatch_size = 20, border_width = 1.5, border_color = "black",
-  heading = "2025 SEC Football Schedule",
-  heading_style = list(
-    font = "Oswald", size = 36, weight = 600,
-    transform = "uppercase", margin_bottom = -5
-  ),
-  label_style = list(font = "Oswald", size = 14, margin_bottom = 6)
-)
-```
-
-`label_placement = "inside"` prints each label on its swatch, and the text color
-is chosen per-swatch for contrast. The `heading_style` and `label_style` lists follow the same convention as `gt_grid()` and `gt_title_header()`: `font`, `size`, `color`, `weight`, `italic`, `spacing`, `transform`, and `align`, plus `line_height` and the `margin_*` and
-`padding_*` keys. `margin_bottom = -5` pulls the key up tight under the title.
-
-## Putting it together
-
-The whole pipeline, from the wide frame to the finished image:
-
-```{r}
-gt(logos, id = "table") %>%
-  gt_theme_scoreboard() %>%
-  cols_hide(team_logo) %>%
-  gt_highlight_cells(all_of(wk), condition = home_mask, fill = "#FBE7C6") %>%
-  gt_highlight_cells(all_of(wk), condition = away_mask, fill = "#FFFFFF") %>%
-  gt_highlight_cells(all_of(wk), neutral_mask, fill = "#CFE0C3") %>%
-  gt_highlight_cells(all_of(wk), condition = ~ is.na(.x), fill = "#E4E4E4") %>%
-  purrr::reduce(wk, .init = ., .f = ~ rlang::inject(
-    gtExtras::gt_img_rows(.x, columns = !!rlang::sym(.y), height = 35)
-  )) %>%
-  reduce(wk, .init = ., .f = function(g, c) {
-    b <- which(is.na(logos[[c]]))
-    if (!length(b)) {
-      return(g)
-    }
-    text_transform(g, cells_body(columns = all_of(c), rows = b), fn = function(x) byemark)
-  }) %>%
-  text_transform(cells_body(columns = team),
-    fn = \(x) unname(mapply(team_cell, logos$team, logos$team_logo))
-  ) %>%
-  reduce(wk, .init = ., .f = function(g, c) {
-    text_transform(g, cells_body(columns = all_of(c)), fn = function(x) {
-      alt <- htmltools::htmlEscape(opp_names[[c]], attribute = TRUE)
-      unname(ifelse(is.na(alt), x, mapply(\(tag, a) sub("<img ", paste0("<img alt=\"", a, "\" "), tag, fixed = TRUE), x, alt)))
-    })
-  }) %>%
-  cols_align(columns = -team, "center") %>%
-  gt_border_grid(weight = 2) %>%
-  tab_options(table_body.hlines.width = px(2)) %>%
-  cols_width(-team ~ px(50), team ~ px(140)) %>%
-  cols_label(team = "") %>%
-  tab_style(locations = cells_column_labels(), cell_text(size = px(14))) %>%
+opponents |>
+  gt(id = "sec-schedule") |>
+  gt_theme_scoreboard() |>
+  gt_highlight_cells(all_of(wk), condition = home_mask, fill = "#FBE7C6") |>
+  gt_highlight_cells(all_of(wk), condition = away_mask, fill = "#FFFFFF") |>
+  gt_highlight_cells(all_of(wk), condition = neutral_mask, fill = "#CFE0C3") |>
+  gt_highlight_cells(
+    all_of(wk),
+    condition = ~ is.na(.x), fill = "#E4E4E4",
+    text_color = "#565C64", size = px(9), weight = 600
+  ) |>
+  sub_missing(columns = all_of(wk), missing_text = "BYE") |>
+  gt_sdv_logos(columns = all_of(wk), sport = "cfb", height = 24) |>
+  gt_sdv_logos(columns = team, sport = "cfb", height = 22, include_name = TRUE) |>
+  cols_align(columns = all_of(wk), "center") |>
+  cols_width(team ~ px(136), all_of(wk) ~ px(36)) |>
+  cols_label(team = "") |>
+  gt_border_grid(weight = 2) |>
+  tab_options(table_body.hlines.width = px(2), data_row.padding = px(3)) |>
+  tab_style(locations = cells_column_labels(), cell_text(size = px(13))) |>
+  tab_style(locations = cells_body(columns = team), cell_text(size = px(13), weight = 600)) |>
   gt_legend_discrete(
-    c(
-      "Home Game" = "#FBE7C6", "Away Game" = "#FFFFFF",
-      "Neutral Game" = "#CFE0C3", "Bye Week" = "#E4E4E4"
-    ),
+    location_key,
     location = "top", label_placement = "inside", shape = "square",
     gap = 8, swatch_size = 20, border_width = 1.5, border_color = "black",
-    heading = "2025 SEC Football Schedule",
+    heading = "2025 SEC football schedules",
     heading_style = list(
-      font = "Oswald", size = 36, weight = 600,
-      transform = "uppercase", margin_bottom = -5
+      font = "Oswald", size = 32, weight = 600,
+      transform = "uppercase", margin_bottom = -2
     ),
-    label_style = list(font = "Oswald", size = 14, margin_bottom = 6)
-  ) %>%
+    label_style = list(font = "Oswald", size = 13, margin_bottom = 6)
+  ) |>
   gt_538_caption(
-    md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
-    "Example created by @andreweatherman using {gtUtils} v1.0"
+    "Regular season, weeks 1-14. The SEC title game (week 15) is left out.",
+    "Data: CollegeFootballData.com via cfbfastR"
   )
 ```
 
+`gt_border_grid()` draws the black rules between every cell, which is what makes
+the fills read as a grid of games rather than a striped list.
+
+## 6. One team's season as a calendar
+
+The second matrix turns a single season into a calendar: one row per week, one
+column per weekday, the opponent's logo on each game day. We find the team with
+the most regular-season wins (alphabetical order breaks a tie, so a rebuild picks
+the same team), then keep its games.
+
+```{r nba-data}
+# the NBA Cup final is filed as a regular-season game but counts in no record
+cup_final <- hoopR::load_nba_schedule(2026) |>
+  filter(type_abbreviation == "CC") |>
+  pull(id)
+
+nba <- hoopR::load_nba_team_box(2026) |>
+  # regular season; the box scores also hold the All-Star games
+  filter(season_type == 2, team_abbreviation %in% valid_team_names("nba"), !game_id %in% cup_final)
+
+best <- nba |>
+  summarise(wins = sum(team_winner), losses = sum(!team_winner), .by = team_abbreviation) |>
+  arrange(desc(wins), team_abbreviation) |>
+  slice(1)
+
+days <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+
+games <- nba |>
+  filter(team_abbreviation == best$team_abbreviation) |>
+  mutate(
+    weekday = as.integer(format(game_date, "%u")),
+    day = days[weekday],
+    week_of = game_date - (weekday - 1)
+  ) |>
+  select(week_of, day, opponent = opponent_team_abbreviation, won = team_winner)
+```
+
+`format(game_date, "%u")` gives the weekday as a number, Monday `1` to Sunday `7`,
+whatever language the computer runs in, and subtracting it walks each game back
+to the Monday of its week. Two pivots from the same frame give the logos and the
+results, and `complete()` adds any week without a game (an All-Star break can
+leave one), so the weeks run down the calendar without a gap.
+
+```{r nba-calendar}
+all_weeks <- seq(min(games$week_of), max(games$week_of), by = 7)
+
+calendar <- games |>
+  pivot_wider(id_cols = week_of, names_from = day, values_from = opponent) |>
+  complete(week_of = all_weeks)
+results <- games |>
+  pivot_wider(id_cols = week_of, names_from = day, values_from = won) |>
+  complete(week_of = all_weeks)
+
+# every weekday as a column, in calendar order
+calendar <- calendar[c("week_of", days)]
+results <- results[days]
+
+calendar <- calendar |>
+  mutate(week = paste(month.abb[as.integer(format(week_of, "%m"))], as.integer(format(week_of, "%d")))) |>
+  select(week, all_of(days))
+
+win_mask <- results == TRUE
+loss_mask <- results == FALSE
+```
+
+`month.abb` names the week in English whatever the system locale is, so the
+labels match on every machine that builds this page.
+
+`gt_theme_sdv_team()` dresses the calendar in the team's own colors: the title
+block in its primary color and the line under the labels in its secondary. The
+fills sit under the logos, so a glance down the grid shows the streaks.
+
+```{r team-calendar}
+team_name <- team_reference("nba")$team_name[team_reference("nba")$team_abbr == best$team_abbreviation]
+
+calendar |>
+  gt(id = "team-calendar") |>
+  gt_highlight_cells(all_of(days), condition = win_mask, fill = "#CDEBD3") |>
+  gt_highlight_cells(all_of(days), condition = loss_mask, fill = "#F6CFCB") |>
+  sub_missing(columns = all_of(days), missing_text = "") |>
+  gt_sdv_logos(columns = all_of(days), sport = "nba", height = 26) |>
+  cols_label(week = "Week of") |>
+  cols_align(columns = all_of(days), "center") |>
+  cols_width(week ~ px(78), all_of(days) ~ px(52)) |>
+  tab_header(
+    title = paste0(team_name, ", ", best$wins, "-", best$losses),
+    subtitle = "The 2025-26 regular season, game by game"
+  ) |>
+  gt_theme_sdv_team(team = best$team_abbreviation, sport = "nba", density = "compact") |>
+  gt_border_grid(color = "#FFFFFF", weight = 2) |>
+  gt_legend_discrete(
+    c("Win" = "#CDEBD3", "Loss" = "#F6CFCB"),
+    location = "bottom", label_placement = "inside", shape = "rounded",
+    swatch_size = 18, gap = 6
+  ) |>
+  tab_source_note("Data: ESPN box scores via hoopR")
+```
+
+`gt_legend_discrete(location = "bottom")` sets the key under the table, where it
+does not compete with the team-colored title block. A white `gt_border_grid()`
+separates the fills without drawing a hard rule through the logos.

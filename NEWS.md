@@ -203,3 +203,34 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
 * `gt_grid()` and `gt_stack_tables()` request Google fonts by discrete
   weights. The `wght@100..900` range they asked for is rejected for most
   families, so the font silently never loaded.
+* `element_sdv_logo()`, `element_sdv_wordmark()` and `element_sdv_headshot()`
+  set on `axis.text.x` / `axis.text.y` draw after `theme_minimal()` on
+  'ggplot2' 4. That theme sets `axis.text.x.bottom` / `axis.text.y.left`
+  itself, and the plain child shadowed the image element, inheriting its
+  `colour = NA` and `size = 0.5`: the axis drew no labels at all. The elements
+  are now subclasses of `ggpath::element_path()`, which ggplot2 lets replace a
+  plain child (keeping the child's spacing). sdvplotR now imports 'S7' and
+  requires 'ggplot2' 4.0.0, which 'ggpath' 1.1.0 already did.
+* `resolve_historical_abbr()` returns the package's canonical keys, the ones
+  `clean_team_abbrs()` returns: `"STL"` gives the Rams' `"LA"` (was `"LAR"`),
+  `"NOH"` / `"NOK"` the Pelicans' `"NO"` (was `"NOP"`) and `"WSB"` the
+  Wizards' `"WSH"` (was `"WAS"`).
+* A relocation key follows the franchise in both `clean_team_abbrs()` and
+  `resolve_historical_abbr()`, even where a provider alias used the same code:
+  `"WIN"` is the original Winnipeg Jets (1979-96) and gives `"UTAH"`;
+  `clean_team_abbrs()` returned today's Jets (`"WPG"`).
+* `ggtitle_image()` with `theme_title_image()` centers the image on the title
+  text. 'gridtext' draws an inline image on the text baseline and ignores CSS
+  `vertical-align`, so a logo taller than the text rose above the title. Style
+  the title through `theme_title_image(...)` (`size`, `face`, `hjust`): a later
+  `theme(plot.title = ggtext::element_markdown(...))`, which the old example
+  used, replaces the centering element and the image drops to the baseline.
+* `sdv_team_tiers()` takes `theme = "light"`, a white background with dark
+  labels and lines, for dark logos (Toronto, Iowa, West Virginia) that nearly
+  vanish on the default dark theme. 'sdvplot' (Python) has the same option.
+* `gt_merge_stack_team_color()` keeps the team-colored text readable: a
+  primary color under 4.5:1 contrast against the cell background gives way to
+  the secondary color, or is darkened until it passes, so Missouri's gold no
+  longer vanishes on a white table and stays gold on `gt_theme_midnight()`.
+  The new `background` argument defaults to the table's own background color
+  (white when unset); a theme applied after this function isn't seen.

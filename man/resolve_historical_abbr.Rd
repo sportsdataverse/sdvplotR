@@ -26,6 +26,14 @@ for the Raiders, \code{"SEA"} for the SuperSonics) resolves to the correct
 current team (\code{"LV"}, \code{"OKC"}). \code{\link[=clean_team_abbrs]{clean_team_abbrs()}} applies these
 mappings automatically; this function exposes them directly.
 }
+\details{
+The result is the package's canonical key, the one
+\code{\link[=clean_team_abbrs]{clean_team_abbrs()}} returns: nflverse abbreviations for the NFL (the
+St. Louis Rams' \code{"STL"} gives \code{"LA"}), ESPN's elsewhere (\code{"NOH"} gives
+\code{"NO"}, \code{"WSB"} gives \code{"WSH"}). A relocation key follows the franchise,
+in both functions: \code{"WIN"} is the original Winnipeg Jets (1979-96), so it
+gives the Utah club they became, while today's Jets are \code{"WPG"}.
+}
 \examples{
 resolve_historical_abbr(c("OAK", "SD", "KC"), sport = "nfl")
 resolve_historical_abbr("MON", sport = "mlb")

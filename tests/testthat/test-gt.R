@@ -69,6 +69,37 @@ test_that("gt_merge_stack_team_color stacks and colours text", {
   expect_snapshot(gt_merge_stack_team_color(df, team, mascot, team, sport = "nfl"), error = TRUE)
 })
 
+test_that("gt_merge_stack_team_color keeps the team text readable on the cell", {
+  ink <- function(h) regmatches(h, regexpr("(?<=font-weight:bold;color:)#[0-9A-Fa-f]{6}", h, perl = TRUE))
+  df <- data.frame(team = "MIZ", mascot = "Tigers")
+  # Missouri's gold primary measures 1.8:1 on white; its black secondary passes
+  h <- html_of(gt(df) |> gt_merge_stack_team_color(team, mascot, team, sport = "cfb"))
+  expect_false(grepl("#F1B82D", h, ignore.case = TRUE))
+  expect_gte(.theme_contrast(ink(h), "#FFFFFF"), 4.5)
+  expect_identical(toupper(ink(h)), toupper(sdv_team_colors("cfb", "MIZ", "secondary")[[1]]))
+  # on a dark table the gold passes and stays
+  h_dark <- html_of(gt(df) |> gt_merge_stack_team_color(team, mascot, team, sport = "cfb", background = "#1e1e1e"))
+  expect_identical(toupper(ink(h_dark)), "#F1B82D")
+  # with neither color readable, the primary is darkened until it passes
+  expect_gte(.theme_contrast(sdv_readable_ink("#F1B82D", "#FFE08A", "#FFFFFF"), "#FFFFFF"), 4.5)
+})
+
+test_that("gt_merge_stack_team_color reads the background of a theme applied first", {
+  inks <- function(h) regmatches(h, gregexpr("(?<=font-weight:bold;color:)#[0-9A-Fa-f]{6}", h, perl = TRUE))[[1]]
+  df <- data.frame(team = c("MIZ", "WVU"), mascot = c("Tigers", "Mountaineers"))
+  for (theme in list(gt_theme_midnight, gt_theme_terminal)) {
+    tbl <- theme(gt(df))
+    opt <- tbl[["_options"]]
+    bg <- opt$value[opt$parameter == "table_background_color"][[1]]
+    h <- html_of(gt_merge_stack_team_color(tbl, team, mascot, team, sport = "cfb"))
+    ink <- inks(h)
+    expect_length(ink, 2)
+    # both golds read on the dark table and stay
+    expect_identical(toupper(ink), toupper(unname(sdv_team_colors("cfb", c("MIZ", "WVU")))))
+    for (i in ink) expect_gte(.theme_contrast(i, bg), 4.5)
+  }
+})
+
 test_that("gt headshot helpers pass id_type through", {
   df <- data.frame(id = c("2544", "abc"))
   h <- html_of(gt(df) |> gt_sdv_headshots(columns = "id", sport = "nba", id_type = "league"))
@@ -124,6 +155,12 @@ test_that("gt_tiers and the border bars give every image an alt", {
   expect_identical(alts_of(h), "")
   h <- html_of(gt(data.frame(x = 1)) |> gt_border_bars_bottom(colors = c("#E31837", "#FFB612"), img = "https://x/y.png"))
   expect_identical(alts_of(h), "")
+})
+
+test_that("top border bars stay above the table under page CSS", {
+  h <- html_of(gt(data.frame(x = 1), id = "bars") |> gt_border_bars_top(colors = "#E31837"))
+  # gt reflows the CSS, one declaration per line
+  expect_match(h, "#bars caption, #bars \\.gt_caption \\{\\s*caption-side: top !important;")
 })
 
 test_that("border bars request the Google font by its bare family name", {

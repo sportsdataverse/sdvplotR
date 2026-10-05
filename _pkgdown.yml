@@ -295,18 +295,15 @@ articles:
       - cookbook-interactive
       - cookbook-surfaces-shot-charts
       - reactable-integration
-  - title: "gt Tables"
+  - title: "Tables cookbook"
     desc: >
-      The SportsDataverse table themes, and the team layer and the gt table
-      toolkit working together on one table.
+      gt tables on SportsDataverse data: the house themes, standings with cut
+      lines, percentile bars, rank changes, schedule matrices, tier lists,
+      faceted and snaked layouts, and saving for social. The gt_* toolkit
+      comes from Andrew Weatherman's gtUtils.
     contents:
       - sdv-table-themes
       - gt-toolkit
-  - title: "gt Table Cookbooks"
-    desc: >
-      Themes, legends, cut lines, faceted grids and saving, ported with the
-      gtUtils functions from Andrew Weatherman's articles.
-    contents:
       - styling
       - saving_tables
       - border_bars
@@ -483,13 +480,11 @@ navbar:
       - text: "reactable Integration"
         href: articles/reactable-integration.html
       - text: --------------------------------
-      - text: "gt Tables"
+      - text: "Tables cookbook"
       - text: "SportsDataverse Table Themes"
         href: articles/sdv-table-themes.html
       - text: "Team Tables with the gt Toolkit"
         href: articles/gt-toolkit.html
-      - text: --------------------------------
-      - text: "gt Table Cookbooks"
       - text: "Styling Headers, Legends and Captions"
         href: articles/styling.html
       - text: "Saving and Posting Tables"

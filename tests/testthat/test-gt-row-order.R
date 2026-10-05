@@ -27,6 +27,8 @@ test_that("gt_color_pills colors each pill by its own value under row groups", {
   for (k in seq_along(cells)) {
     expect_match(cells[[k]], paste0(">", shown[[k]], "</span>"))
     expect_match(cells[[k]], paste0("background-color: ", ramp(shown[[k]])), fixed = TRUE)
+    # the width in ch holds the text even where the page sets border-box
+    expect_match(cells[[k]], "box-sizing: content-box; width: 2ch;", fixed = TRUE)
   }
 })
 
