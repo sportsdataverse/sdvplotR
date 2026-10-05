@@ -4,7 +4,7 @@ On this page
 
 ## Introduction
 
-This vignette demonstrates best practices for creating shareable sports
+This article demonstrates best practices for creating shareable sports
 graphics using sdvplotR. These patterns are optimized for social media
 platforms like Twitter/X, Instagram, and Facebook.
 
@@ -393,7 +393,7 @@ team's color.](social-posting_files/figure-html/color-palettes-1.png)
 
 6.  **Consistency**: Post at regular intervals with consistent styling
 
-## Related Vignettes
+## Related Articles
 
 - [Getting
   Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)

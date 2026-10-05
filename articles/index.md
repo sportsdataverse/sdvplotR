@@ -12,7 +12,7 @@
 - [Getting Started with
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/getting-started.md):
 
-### Per-Sport Vignettes
+### Per-Sport Articles
 
 Data ingest with the companion SportsDataverse package, then sdvplotR
 visualization, for each sport.

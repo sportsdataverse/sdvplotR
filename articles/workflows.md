@@ -4,7 +4,7 @@ On this page
 
 ## Introduction
 
-This vignette demonstrates end-to-end workflows for ingesting data from
+This article demonstrates end-to-end workflows for ingesting data from
 SportsDataverse packages, creating visualizations with sdvplotR, and
 exporting results. Each workflow loads real data, processes it, draws it
 and saves it. We’ll cover common patterns for data engineering,
@@ -547,7 +547,7 @@ Use cron or GitHub Actions for automated reporting:
 #           path: reports/
 ```
 
-## Related Vignettes
+## Related Articles
 
 - [Getting
   Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)

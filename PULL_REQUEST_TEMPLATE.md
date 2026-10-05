@@ -41,7 +41,7 @@ to not work as expected)
 
 Data update (team reference data, colors, URLs, historical mappings)
 
-Documentation only (vignettes, README, roxygen docs)
+Documentation only (articles, README, roxygen docs)
 
 CI / tooling (GitHub Actions, pkgdown, linting)
 

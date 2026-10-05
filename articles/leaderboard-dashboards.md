@@ -4,7 +4,7 @@ On this page
 
 ## Introduction
 
-This vignette demonstrates how to create interactive leaderboard
+This article demonstrates how to create interactive leaderboard
 dashboards using sdvplotR, gt tables, and Quarto. These patterns are
 perfect for tracking standings, player stats, and team performance in
 real-time.
@@ -496,7 +496,7 @@ standings_with_odds |>
 
 6.  **Add Context**: Include captions, footnotes, and data sources
 
-## Related Vignettes
+## Related Articles
 
 - [Getting
   Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)

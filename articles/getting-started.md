@@ -5,7 +5,7 @@ On this page
 ## Introduction
 
 `sdvplotR` provides a unified interface for visualizing sports data
-across multiple leagues in the SportsDataverse ecosystem. This vignette
+across multiple leagues in the SportsDataverse ecosystem. This article
 walks you through the core features of the package.
 
 ``` r
@@ -194,12 +194,12 @@ ggplot(cfb_df, aes(x = x, y = y)) +
 - Report issues on
   [GitHub](https://github.com/sportsdataverse/sdvplotR/issues)
 
-## Companion Vignettes
+## Companion Articles
 
-Each sport has its own dedicated vignette showing integration with the
+Each sport has its own dedicated article showing integration with the
 relevant SportsDataverse data package:
 
-| Sport | Vignette | Companion Package(s) |
+| Sport | Article | Companion Package(s) |
 |----|----|----|
 | **NFL** | [NFL Visualizations](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.html) | `nflfastR`, `nflreadr` |
 | **CFB** | [CFB Visualizations](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.html) | `cfbfastR`, `cfbseedR` |
@@ -210,9 +210,9 @@ relevant SportsDataverse data package:
 | **MBB** | [MBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.html) | `hoopR` |
 | **WBB** | [WBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html) | `wehoop` |
 
-Cross-sport cookbook vignettes:
+Cross-sport cookbook articles:
 
-| Topic | Vignette |
+| Topic | Article |
 |----|----|
 | Social media posting patterns | [Social Posting](https://sdvplotR.sportsdataverse.org/articles/social-posting.html) |
 | Leaderboard dashboards | [Leaderboard Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.html) |

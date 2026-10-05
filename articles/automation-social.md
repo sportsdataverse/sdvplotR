@@ -174,7 +174,7 @@ facets that make its hashtags links, as UTF-8 byte offsets:
 ``` r
 
 social <- new.env()
-sys.source("../examples/automation/sdvplotR_social.R", envir = social)
+sys.source("../../examples/automation/sdvplotR_social.R", envir = social)
 
 post <- list(
   caption = paste(
