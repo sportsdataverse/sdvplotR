@@ -89,7 +89,9 @@ Config/Needs/website:
     kcuilla/reactablefmtr,
     rvest,
     sportyR,
+    svglite,
     tidyverse,
+    viridis,
     wehoop
 Config/Needs/development:
     devtools,
