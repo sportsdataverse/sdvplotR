@@ -351,10 +351,10 @@ gt_sdv_image <- function(
 #'   black bold text, while the lower text is smaller and colored by the team name.
 #'
 #' @details The lower text takes the team's primary color when it clears a
-#'   4.5:1 contrast ratio (WCAG AA) against `background`, else the secondary
-#'   color, else the primary darkened (or lightened, on a dark `background`)
+#'   4.5:1 contrast ratio (WCAG AA) against the cell background, else the secondary
+#'   color, else the primary darkened (or lightened, on a dark background)
 #'   until it does, so a light primary such as Missouri's gold stays readable
-#'   on a white table.
+#'   on a white table and keeps its gold on a dark one.
 #'
 #' @param gt_object An existing gt table object of class `gt_tbl`.
 #' @param col1 The column to stack on top. Will be all caps, black bold text.
@@ -365,7 +365,10 @@ gt_sdv_image <- function(
 #' @param font_size_bottom Font size for the bottom text.
 #' @param color The color for the top text.
 #' @param background The cell background the lower text is checked against.
-#'   Defaults to white, `gt`'s own; set it for a dark table theme.
+#'   `NULL` (the default) reads the table's background color, so a table
+#'   theme such as [gt_theme_midnight()] applied **before** this function is
+#'   taken into account; a theme applied afterwards isn't seen, so set
+#'   `background` then. A table with no background color set counts as white.
 #'
 #' @return An object of class `gt_tbl`.
 #' @export
@@ -393,7 +396,7 @@ gt_merge_stack_team_color <- function(
     font_size_top = 14,
     font_size_bottom = 12,
     color = "black",
-    background = "#FFFFFF"
+    background = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
 
@@ -412,7 +415,8 @@ gt_merge_stack_team_color <- function(
   team_color <- sdv_team_colors(sport = sport, team = team_bare, type = "primary")
   team_color[is.na(team_color)] <- "grey"
   team_color <- sdv_readable_ink(
-    team_color, sdv_team_colors(sport = sport, team = team_bare, type = "secondary"), background
+    team_color, sdv_team_colors(sport = sport, team = team_bare, type = "secondary"),
+    background %||% .table_background(gt_object)
   )
 
   col1_bare <- rlang::enexpr(col1) |> rlang::as_string()

@@ -84,6 +84,22 @@ test_that("gt_merge_stack_team_color keeps the team text readable on the cell", 
   expect_gte(.theme_contrast(sdv_readable_ink("#F1B82D", "#FFE08A", "#FFFFFF"), "#FFFFFF"), 4.5)
 })
 
+test_that("gt_merge_stack_team_color reads the background of a theme applied first", {
+  inks <- function(h) regmatches(h, gregexpr("(?<=font-weight:bold;color:)#[0-9A-Fa-f]{6}", h, perl = TRUE))[[1]]
+  df <- data.frame(team = c("MIZ", "WVU"), mascot = c("Tigers", "Mountaineers"))
+  for (theme in list(gt_theme_midnight, gt_theme_terminal)) {
+    tbl <- theme(gt(df))
+    opt <- tbl[["_options"]]
+    bg <- opt$value[opt$parameter == "table_background_color"][[1]]
+    h <- html_of(gt_merge_stack_team_color(tbl, team, mascot, team, sport = "cfb"))
+    ink <- inks(h)
+    expect_length(ink, 2)
+    # both golds read on the dark table and stay
+    expect_identical(toupper(ink), toupper(unname(sdv_team_colors("cfb", c("MIZ", "WVU")))))
+    for (i in ink) expect_gte(.theme_contrast(i, bg), 4.5)
+  }
+})
+
 test_that("gt headshot helpers pass id_type through", {
   df <- data.frame(id = c("2544", "abc"))
   h <- html_of(gt(df) |> gt_sdv_headshots(columns = "id", sport = "nba", id_type = "league"))
