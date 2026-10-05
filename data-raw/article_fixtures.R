@@ -81,28 +81,6 @@ fx_nhl_viz <- function() {
   )
 }
 
-fx_grid_tables <- function() {
-  # grid_tables, chunk net-scrape
-  net_page <- rvest::read_html(
-    "https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings"
-  )
-  as_of <- stringr::str_extract(rvest::html_text2(net_page), "Through Games [A-Za-z]+\\.? \\d+ \\d{4}")
-  data <- rvest::html_table(rvest::html_element(net_page, "table")) |>
-    select(
-      net = Rank, team = School, conf = Conf,
-      quad1 = `Quad 1`, quad2 = `Quad 2`, quad3 = `Quad 3`, quad4 = `Quad 4`,
-      prev_rk = Prev
-    ) |>
-    filter(net <= 25)
-  stopifnot(nrow(data) == 25, !is.na(as_of))
-  list(
-    as_of = as_of,
-    data = data,
-    call = 'rvest::read_html("https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings")',
-    package = "rvest"
-  )
-}
-
 fx_reactable_fpi <- function() {
   # reactable-integration, chunk cfb-data
   cfb_season <- this_year() - before("12-15")
@@ -163,7 +141,6 @@ fx_workflows_nhl <- function() {
 fixtures <- list(
   "mlb-viz/mlb_stats_api" = fx_mlb_viz,
   "nhl-viz/nhl_stats_api" = fx_nhl_viz,
-  "grid_tables/ncaa_net" = fx_grid_tables,
   "reactable-integration/espn_fpi" = fx_reactable_fpi,
   "reactable-integration/nhl_skaters" = fx_reactable_nhl,
   "workflows/mlb_standings" = fx_workflows_mlb,

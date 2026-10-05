@@ -79,11 +79,10 @@ Config/Needs/website:
     ggsci,
     hoopR,
     nflfastR,
+    nflseedR,
     nflreadr,
-    nycflights13,
     oddsapiR,
     kcuilla/reactablefmtr,
-    rvest,
     sportyR,
     tidyverse,
     wehoop

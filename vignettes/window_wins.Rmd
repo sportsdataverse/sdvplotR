@@ -1,8 +1,8 @@
 ---
-title: "Winningest Programs in Rolling Windows"
+title: "Winningest Franchises in Rolling Windows"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Winningest Programs in Rolling Windows}
+  %\VignetteIndexEntry{Winningest Franchises in Rolling Windows}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,376 +12,304 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   message = FALSE,
-  warning = FALSE,
-  eval = FALSE
+  warning = FALSE
 )
 ```
 
-```{r setup, echo = FALSE}
+This article builds one table: the NFL's five winningest franchises in every
+ten-year window from 1999-2008 to 2016-2025, each franchise drawn as its logo
+and shaded by how many Super Bowls it won inside that window. The games are
+nflverse's schedule file, read with
+[`nflreadr`](https://nflreadr.nflverse.com), regular season only.
+
+Eighteen windows give a table six columns wide and eighteen rows tall, which
+exports as a narrow strip with empty space on either side. `gt_snake()` folds it
+into two side-by-side blocks that repeat the column labels. The shading is
+per-cell, and it is far easier to reason about on the plain eighteen-row grid
+than on the folded one, so we color first and fold second. Along the way the
+article uses `gt_highlight_cells()`, `gt_legend_discrete()` and
+`gt_538_caption()`.
+
+`gt_snake()` and the other `gt_*` table functions here come from Andrew
+Weatherman's [gtUtils](https://github.com/andreweatherman/gtUtils); this article
+follows his rolling-window example, rebuilt on nflverse data.
+
+```{r setup}
 library(sdvplotR)
 library(gt)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 ```
 
-Every ten-year window since 1980 gives you 38 rows, and each row holds a year
-range and five logos. That is a table six columns wide and 38 rows tall, which
-exports as a narrow strip with a lot of empty space on either side.
+## 1. One row per team per game
 
-There are two ways to fold something like that. `gt_grid()` builds each half as
-its own table and arranges them, which the
-[grid tables](grid_tables.html)
-vignette covers. `gt_snake()` goes the other way and keeps one table, cutting the
-rows into side-by-side blocks that repeat the column labels. Because it stays a
-single table, everything you have already applied to the cells comes with it.
+`load_schedules()` holds one row per game. `clean_homeaway()` doubles it into one
+row per team per game, renaming the `home_*` / `away_*` pairs to `team_*` /
+`opponent_*`.
 
-That last part is why this example works the way it does. The shading here is
-per-cell, driven by how many national titles a program won inside each window,
-and it is far easier to reason about on the plain 38-row grid than on the folded
-one. So we color first and fold second. Along the way this vignette uses
-`gt_highlight_cells()`, `gt_legend_discrete()`, and `gt_538_caption()`, and
-spends some time on the scraping, since that is where most of the actual work
-lives.
+```{r games}
+seasons <- 1999:2025
+schedules <- nflreadr::load_schedules(seasons)
 
-## Scraping the season records
+games <- schedules |>
+  filter(game_type == "REG", !is.na(home_score)) |>
+  select(season, home_team, away_team, home_score, away_score) |>
+  nflreadr::clean_homeaway() |>
+  mutate(franchise = clean_team_abbrs(team, sport = "nfl"))
+```
 
-Sports Reference publishes one ratings page per season, so we ask for 47 of them
-and stack the results.
+The schedules keep each season's abbreviation, so the Raiders are `OAK` before
+2020 and `LV` after. `clean_team_abbrs()` maps every relocated abbreviation to
+today's franchise key, which is what lets one franchise's ten seasons add up.
 
-```{r}
-library(rvest)
-library(janitor)
-library(glue)
+```{r relocations}
+clean_team_abbrs(c("OAK", "SD", "STL"), sport = "nfl")
+```
 
-season_results <- map_dfr(1980:2026, function(year) {
-  Sys.sleep(3) # sports reference rate limits
+Each franchise's record per season is then one summary:
 
-  suppressWarnings(
-    read_html(glue("https://www.sports-reference.com/cbb/seasons/men/{year}-ratings.html")) %>%
-      html_nodes("#ratings") %>%
-      html_table() %>%
-      pluck(1) %>%
-      row_to_names(1) %>%
-      clean_names() %>%
-      mutate(year = year, across(w:l, as.numeric)) %>%
-      filter(!is.na(w)) %>%
-      select(team = school, wins = w, losses = l, year)
+```{r records}
+records <- games |>
+  summarise(
+    wins = sum(team_score > opponent_score),
+    losses = sum(team_score < opponent_score),
+    ties = sum(team_score == opponent_score),
+    .by = c(season, franchise)
   )
-}, .progress = "Getting data")
 ```
 
-Three things in there are worth pulling out.
+## 2. Rolling windows
 
-The `Sys.sleep(3)` is not optional. Sports Reference starts returning a 501 if
-you hit it in a tight loop, and since that comes back as a response rather than a
-thrown error, a run can look like it worked while quietly dropping seasons. Three
-seconds is enough to stay under the limit for a job this size.
+A rolling window is a filter and a sum. This function keeps the ten seasons from
+a start year and totals each franchise's record.
 
-These tables carry a spanner row above the real header, so `html_table()` reads the 
-spanner as the column names and leaves the true header sitting in row one (`row_to_names(1)`).
-Promoting row one fixes it, and `clean_names()` then turns `W` and `L` into names you can use without backticks.
-
-The `filter(!is.na(w))` clears the repeated header rows that Sports Reference
-leaves every twenty teams or so. Those survive the parse as rows where the
-numeric columns hold text, so coercing with `as.numeric()` first turns them into
-`NA` and the filter takes them out.
-
-## Rolling windows
-
-A rolling window is a filter and a sum. This function takes a start year, keeps
-the ten seasons from there, and totals each team's record.
-
-```{r}
+```{r windows}
 calculate_windows <- function(start_year, data) {
-  data %>%
-    filter(between(year, start_year, start_year + 9)) %>%
-    summarize(
-      total_wins = sum(wins),
-      total_losses = sum(losses),
-      win_percentage = total_wins / (total_wins + total_losses),
-      seasons = n(),
-      .by = team
-    ) %>%
-    mutate(years = paste(start_year, start_year + 9, sep = "-"), begin = start_year)
+  data |>
+    filter(between(season, start_year, start_year + 9)) |>
+    summarise(across(c(wins, losses, ties), sum), .by = franchise) |>
+    mutate(
+      win_pct = (wins + ties / 2) / (wins + losses + ties),
+      years = paste(start_year, start_year + 9, sep = "-"),
+      begin = start_year
+    )
 }
 
-plot_data <- map_dfr(1980:2017, calculate_windows, season_results) %>%
-  arrange(begin, desc(total_wins), desc(win_percentage)) %>%
-  mutate(position = row_number(), .by = begin) %>%
-  slice_head(n = 5, by = years)
+starts <- min(seasons):(max(seasons) - 9)
+
+plot_data <- bind_rows(lapply(starts, calculate_windows, records)) |>
+  arrange(begin, desc(wins), desc(win_pct), franchise) |>
+  mutate(position = row_number(), .by = begin) |>
+  filter(position <= 5)
 ```
 
-Mapping it over the start years gives every window at once. Ranking
-happens inside each window with `row_number()` after the `arrange()`, and win
-percentage breaks ties on total wins.
+The start years stop nine short of the last season, since a window that starts
+in 2017 does not have ten seasons in it yet. Ranking happens inside each window
+with `row_number()` after the `arrange()`: wins first, win percentage (a tie
+counts as half a win) next, and the franchise key last, so a tie that survives
+both still sorts the same way every time the site is built.
 
-The start years stop at 2017 while the seasons run through 2026 (a window
-starting in 2018 does not have ten seasons in it yet).
+## 3. Counting titles
 
-## Counting titles
+The shading comes from Super Bowls won inside each window. The same schedule
+file holds the Super Bowls (`game_type == "SB"`), so the winners are one more
+filter, and the windowing logic is the same.
 
-The shading comes from national titles won inside each window, which means a
-second scrape and the same windowing logic.
+```{r titles}
+champions <- schedules |>
+  filter(game_type == "SB") |>
+  transmute(
+    season,
+    franchise = clean_team_abbrs(
+      if_else(home_score > away_score, home_team, away_team),
+      sport = "nfl"
+    )
+  )
 
-```{r}
-champs <- read_html("https://www.sports-reference.com/cbb/seasons/") %>%
-  html_nodes("#seasons_NCAAM") %>%
-  html_table() %>%
-  pluck(1) %>%
-  clean_names() %>%
-  mutate(year = parse_number(tournament)) %>%
-  select(year, team = ncaa_champion) %>%
-  filter(year >= 1954 & year != 2020)
-
-calculate_titles <- function(start_year, data) {
-  data %>%
-    filter(between(year, start_year, start_year + 9)) %>%
-    summarize(total_titles = n(), .by = team) %>%
+titles <- bind_rows(lapply(starts, function(start_year) {
+  champions |>
+    filter(between(season, start_year, start_year + 9)) |>
+    count(franchise, name = "titles") |>
     mutate(years = paste(start_year, start_year + 9, sep = "-"))
-}
+}))
 
-champs <- map_dfr(1980:2024, function(y) calculate_titles(y, champs)) %>%
-  mutate(total_titles = ifelse(total_titles == 1, "1", "2+")) %>%
-  select(team, total_titles, years)
-
-plot_data <- plot_data %>%
-  left_join(champs, by = c("team", "years")) %>%
-  mutate(total_titles = replace_na(total_titles, "0"))
+plot_data <- plot_data |>
+  left_join(titles, by = c("franchise", "years")) |>
+  mutate(titles = case_when(
+    is.na(titles) ~ "0",
+    titles == 1 ~ "1",
+    TRUE ~ "2+"
+  ))
 ```
 
-The `year != 2020` filter is there because the 2020 tournament was cancelled.
-That row still exists on the page with an empty champion, and left in, it counts
-a title for a team named `""`.
+The join only produces a count for a franchise that won something, so every other
+franchise-window comes back `NA`, which the `case_when()` turns into `"0"`.
+Bucketing into `"0"`, `"1"` and `"2+"` keeps the key short.
 
-Bucketing into `"0"`, `"1"`, and `"2+"` keeps the key short. The `replace_na()` at the end matters
-because the join only produces rows for teams that won something, which leaves
-every other team-window as `NA`.
+## 4. Two pivots from one ordered frame
 
-## The pivot, and keeping the mask aligned
+We want one row per window and five franchise columns in rank order. The cells
+hold the franchise keys themselves; `gt_sdv_logos()` turns them into logos at the
+end, so the data never carries an image URL.
 
-We want one row per window and five logo columns in rank order. `team_reference()`
-holds every school's logo, so a vector of them named by abbreviation lets us look
-one up, and `clean_team_abbrs()` turns Sports Reference's school names
-(`"Connecticut"`, `"Nevada-Las Vegas"`, `"Brigham Young"`) into those
-abbreviations; every Division I name on Sports Reference's current season pages
-resolves.
+`pivot_wider()` spreads one value column, so pivoting on the franchise drops the
+title count. The way around it is to pivot twice from the same ordered frame,
+once for what you draw and once for what you style by.
 
-```{r}
-ref <- team_reference("mbb")
-logos <- rlang::set_names(ref$logo_url, ref$team_abbr)
-```
+```{r pivots}
+ordered <- arrange(plot_data, begin, position)
 
-`pivot_wider()` spreads one value column,
-so pivoting on the logo gives you logos and nothing else. The title count lives
-in `total_titles`, and it would be gone by the time we draw the table.
+# years + five franchises
+wide <- ordered |>
+  pivot_wider(id_cols = years, names_from = position, values_from = franchise, names_sort = TRUE)
 
-The way around it is to pivot twice from the same ordered frame, once for what
-you draw (years and teams) and once for what you style by (titles).
-
-```{r}
-ordered <- plot_data %>%
-  mutate(logo = unname(logos[clean_team_abbrs(team, sport = "mbb")])) %>%
-  arrange(begin, position)
-
-# years + five teams
-wide <- ordered %>%
-  pivot_wider(id_cols = years, names_from = position, values_from = logo, names_sort = TRUE)
-
-# the shading key
-titles <- ordered %>%
-  pivot_wider(id_cols = years, names_from = position, values_from = total_titles, names_sort = TRUE) %>%
+# the shading key, the same shape as the five franchise columns
+title_grid <- ordered |>
+  pivot_wider(id_cols = years, names_from = position, values_from = titles, names_sort = TRUE) |>
   select(-years)
+
+mask_1 <- title_grid == "1"
+mask_2 <- title_grid == "2+"
 ```
 
-Sorting once, before either pivot, is what keeps the two frames in step. Both
-inherit the same row order and the same column order, so cell `[3, 2]` in
-`titles` describes cell `[3, 2]` in `wide` with no matching or joining afterward.
+Sorting once, before either pivot, keeps the two frames in step: both inherit the
+same row order and the same column order, so cell `[3, 2]` of `title_grid`
+describes cell `[3, 2]` of `wide` with no matching afterwards. Each mask is then
+a `TRUE`/`FALSE` grid the same shape as the franchise columns. `"0"` is the base
+state, so it needs no mask of its own.
 
-Each shading condition is then one comparison over the whole frame, which gives a
-`TRUE`/`FALSE` grid the same shape as the logo columns. `"0"` is the base state,
-so it needs no mask of its own.
-
-```{r}
-mask_1 <- titles == "1"
-mask_2 <- titles == "2+"
-
-pos <- setdiff(names(wide), "years")
+```{r peek}
+head(wide, 3)
 ```
 
-## Color first, then snake
+## 5. Color first, then snake
 
 `gt_highlight_cells()` fills individual cells from a logical grid of the same
-shape, which is what the masks are. We run it on the plain, un-snaked table.
+shape, which is what the masks are. We run it on the plain, un-snaked table, then
+fold it.
 
-```{r}
-wide %>%
-  gt(id = "table") %>%
-  gt_highlight_cells(-years, condition = mask_1, fill = "#F4D7A4") %>%
-  gt_highlight_cells(-years, condition = mask_2, fill = "#FFA970") %>%
-  gt_snake(n_cols = 2) %>%
+```{r snake}
+wide |>
+  gt(id = "windows-draft") |>
+  gt_highlight_cells(-years, condition = mask_1, fill = "#F4D7A4") |>
+  gt_highlight_cells(-years, condition = mask_2, fill = "#FFA970") |>
+  gt_snake(n_cols = 2) |>
   gt_theme_athletic()
 ```
 
 `gt_snake()` rebuilds the table with the rows cut into two blocks side by side,
 and it moves any body-cell styling to wherever that cell ended up. A fill on row
-20 of the long grid lands on row one of the second block, because it is the same
+10 of the long grid lands on row one of the second block, because it is the same
 cell.
 
-Ordering is the thing to remember here. Styles carry through the reshape but
-formatting and content transforms do not, so anything from the `fmt_*()` family,
-`text_transform()`, or `gt_img_rows()` has to come after the snake. Themes go
-after as well.
+Styles carry through the reshape, but formatting and content transforms do not:
+anything from the `fmt_*()` family, `text_transform()`, or the logo helpers has
+to come after the snake, and so does the theme. For a parallel frame you cannot
+apply before folding, `gt_snake_align()` reshapes it into the same blocks so it
+still lines up.
 
-For a parallel frame you cannot apply before folding, `gt_snake_align()` reshapes
-it into the same blocks so it still lines up.
+`gt_snake()` puts a real empty column between the blocks rather than padding the
+seam, because padding shifts the body cells without shifting the column labels.
+`clean_gaps = TRUE`, the default, strips that spacer's borders and background so
+the gap stays blank under any theme.
 
-`gt_snake()` puts a real empty column between the
-blocks rather than padding the seam, because padding shifts the body cells
-without shifting the column label and the two stop lining up. That spacer would
-otherwise pick up rules from a theme or from `gt_border_grid()`, so
-`clean_gaps = TRUE`, the default, strips its borders and background and keeps the
-gap blank.
+## 6. Logos after the fold
 
-## Drawing the logos
+After the fold each column carries its block number as a suffix, so the franchise
+columns run `1_1` through `5_2` and the years are `years_1` and `years_2`. One
+`gt_sdv_logos()` call with a `matches()` selector takes all ten franchise
+columns; each logo's `alt` text is the team's full name.
 
-With the cells shaded, we render the URLs as images. After the fold, each column
-carries its block number as a suffix, running `1_1` through `5_2`.
-
-```{r}
-logo_cols <- unlist(lapply(1:2, function(i) paste0(pos, "_", i)))
-
-# ... %>%
-reduce(logo_cols, .init = ., .f = ~ rlang::inject(
-  gtExtras::gt_img_rows(.x, columns = !!rlang::sym(.y), height = 35)
-))
+```{r logos, eval = FALSE}
+# ... |>
+gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), sport = "nfl", height = 34)
 ```
 
-`gt_img_rows()` takes one column at a time, and it reads a quoted string like
-`"1_1"` as a position rather than a name. `reduce()` threads the table through
-one call per column, and `!!rlang::sym(.y)` hands each one over as a bare name,
-which is the form it wants. Keeping this inside the pipe avoids a stored
-intermediate.
+The pattern picks the snaked columns out by name rather than listing ten of them,
+so the code survives a change to `n_cols`.
 
-## Spanners, widths, and rules
+## 7. Spanners, widths and rules
 
-The rest is ordinary `gt`. Each block gets a spanner, the year column gets a
-label and a fixed width, and a dotted rule separates the logos.
+The rest is ordinary `gt`: a spanner over each block, a label and a fixed width
+for the years, and a dotted rule between the logos.
 
-```{r}
-# ... %>%
-cols_align(columns = everything(), "center") %>%
-  tab_spanner(columns = matches("[0-9]_1"), label = "Most Wins In 10-Yr Window", id = 1) %>%
-  tab_spanner(columns = matches("[0-9]_2"), label = "Most Wins In 10-Yr Window", id = 2) %>%
-  cols_label(starts_with("years") ~ "Years") %>%
-  cols_width(
-    starts_with("years") ~ px(90),
-    -c(starts_with("years"), contains("gap")) ~ px(45)
-  ) %>%
-  tab_options(table_body.hlines.style = "solid", table_body.hlines.color = "black") %>%
+```{r rules, eval = FALSE}
+# ... |>
+cols_align(columns = everything(), "center") |>
+  tab_spanner(columns = matches("^[1-5]_1$"), label = "Most wins in the window", id = "block_1") |>
+  tab_spanner(columns = matches("^[1-5]_2$"), label = "Most wins in the window", id = "block_2") |>
+  cols_label(starts_with("years") ~ "Years", matches("^[1-5]_") ~ "") |>
+  cols_width(starts_with("years") ~ px(92), matches("^[1-5]_") ~ px(48)) |>
+  tab_options(table_body.hlines.style = "solid", table_body.hlines.color = "black") |>
   tab_style(
-    locations = cells_body(columns = 1:12),
+    locations = cells_body(columns = c(starts_with("years"), matches("^[1-5]_"))),
     style = cell_borders(color = "black", sides = "right", weight = px(1.5), style = "dotted")
   )
 ```
-
-`matches("[0-9]_1")` and `contains("gap")` pick the snaked columns out by their
-naming pattern instead of listing twelve names by hand, which also means the code
-survives a change to `n_cols`.
 
 The dotted rule is set to `px(1.5)` because `gt_theme_athletic()` already draws a
-thin solid separator on every column. Anything lighter won't be applied!
+thin solid separator on every column, and a lighter rule loses to it.
 
-## The legend and the caption
+## 8. The legend and the caption
 
-`gt_legend_discrete()` takes a named vector of `label = color` and draws the key.
+`gt_legend_discrete()` takes a named vector of `label = color` and draws the key
+in the header. `label_placement = "inside"` prints each label on its own swatch
+and picks the text color per swatch for contrast, which keeps the white swatch
+readable. `gt_538_caption()` takes a top line, which gets a rule under it, and a
+bottom line for the source. Apply it after the theme, since it reads the themed
+table to borrow a matching rule color.
 
-```{r}
-# ... %>%
-gt_legend_discrete(
-  c(
-    "No Titles In Window" = "#ffffff", "1 Title In Window" = "#F4D7A4",
-    "2+ Titles In Window" = "#FFA970"
-  ),
-  location = "top", label_placement = "inside", shape = "square",
-  gap = 8, swatch_size = 20, border_width = 1.5, border_color = "black",
-  heading = md("Winningest programs over 10-year windows"),
-  subtitle = md("Vacated wins are included. Ties are broken by win percentage."),
-  heading_style = list(
-    font = "Spline Sans Mono", size = 24, weight = 600,
-    transform = "uppercase", margin_bottom = 0, align = "center"
-  ),
-  subtitle_style = list(
-    font = "Spline Sans Mono", size = 12, margin_bottom = 5,
-    align = "center", color = "black"
-  ),
-  label_style = list(font = "Spline Sans Mono", size = 12, margin_bottom = 12)
-) %>%
-  gt_538_caption(
-    md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
-    "Example created by @andreweatherman using {gtUtils} v1.0"
-  )
-```
+## The finished table
 
-`label_placement = "inside"` prints each label on its own swatch and picks the
-text color per swatch for contrast, which is how the white swatch stays readable.
-The `heading_style`, `subtitle_style`, and `label_style` lists follow the same
-convention as `gt_grid()` and `gt_title_header()`.
+```{r window-table}
+title_key <- c(
+  "No Super Bowls in window" = "#FFFFFF",
+  "1 Super Bowl in window" = "#F4D7A4",
+  "2+ Super Bowls in window" = "#FFA970"
+)
 
-`gt_538_caption()` takes the top line, which gets the rule under it, and the
-bottom line, which becomes the source note. Apply it after the theme, since it
-reads the rendered table to borrow a rule color that matches.
-
-## Putting it together
-
-The whole pipeline, from the wide frame to the finished image:
-
-```{r}
-wide %>%
-  gt(id = "table") %>%
-  gt_highlight_cells(-years, condition = mask_1, fill = "#F4D7A4") %>%
-  gt_highlight_cells(-years, condition = mask_2, fill = "#FFA970") %>%
-  gt_snake(n_cols = 2) %>%
-  gt_theme_athletic() %>%
-  reduce(logo_cols, .init = ., .f = ~ rlang::inject(
-    gtExtras::gt_img_rows(.x, columns = !!rlang::sym(.y), height = 35)
-  )) %>%
-  cols_align(columns = everything(), "center") %>%
-  tab_spanner(columns = matches("[0-9]_1"), label = "Most Wins In 10-Yr Window", id = 1) %>%
-  tab_spanner(columns = matches("[0-9]_2"), label = "Most Wins In 10-Yr Window", id = 2) %>%
-  cols_label(starts_with("years") ~ "Years") %>%
-  cols_width(
-    starts_with("years") ~ px(90),
-    -c(starts_with("years"), contains("gap")) ~ px(45)
-  ) %>%
-  tab_options(table_body.hlines.style = "solid", table_body.hlines.color = "black") %>%
+wide |>
+  gt(id = "windows") |>
+  gt_highlight_cells(-years, condition = mask_1, fill = "#F4D7A4") |>
+  gt_highlight_cells(-years, condition = mask_2, fill = "#FFA970") |>
+  gt_snake(n_cols = 2) |>
+  gt_theme_athletic() |>
+  gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), sport = "nfl", height = 34) |>
+  cols_align(columns = everything(), "center") |>
+  tab_spanner(columns = matches("^[1-5]_1$"), label = "Most wins in the window", id = "block_1") |>
+  tab_spanner(columns = matches("^[1-5]_2$"), label = "Most wins in the window", id = "block_2") |>
+  cols_label(starts_with("years") ~ "Years", matches("^[1-5]_") ~ "") |>
+  cols_width(starts_with("years") ~ px(92), matches("^[1-5]_") ~ px(48)) |>
+  tab_options(table_body.hlines.style = "solid", table_body.hlines.color = "black") |>
   tab_style(
-    locations = cells_body(columns = 1:12),
+    locations = cells_body(columns = c(starts_with("years"), matches("^[1-5]_"))),
     style = cell_borders(color = "black", sides = "right", weight = px(1.5), style = "dotted")
-  ) %>%
+  ) |>
   gt_legend_discrete(
-    c(
-      "No Titles In Window" = "#ffffff", "1 Title In Window" = "#F4D7A4",
-      "2+ Titles In Window" = "#FFA970"
-    ),
+    title_key,
     location = "top", label_placement = "inside", shape = "square",
     gap = 8, swatch_size = 20, border_width = 1.5, border_color = "black",
-    heading = md("Winningest programs over 10-year windows"),
-    subtitle = md("Vacated wins are included. Ties are broken by win percentage."),
+    heading = "The NFL's winningest franchises",
+    subtitle = paste0(
+      "Regular-season wins in each 10-year window, ", min(seasons), "-", max(seasons),
+      ". Ties in the ranking go to win percentage."
+    ),
     heading_style = list(
-      font = "Spline Sans Mono", size = 24, weight = 600,
-      transform = "uppercase", margin_bottom = 0, align = "center"
+      font = "Spline Sans Mono", size = 22, weight = 600,
+      transform = "uppercase", margin_bottom = 2, align = "center"
     ),
     subtitle_style = list(
-      font = "Spline Sans Mono", size = 12, margin_bottom = 5,
+      font = "Spline Sans Mono", size = 12, margin_bottom = 6,
       align = "center", color = "black"
     ),
     label_style = list(font = "Spline Sans Mono", size = 12, margin_bottom = 12)
-  ) %>%
+  ) |>
   gt_538_caption(
-    md('Install using ... pak::pak("sportsdataverse/sdvplotR")'),
-    "Example created by @andreweatherman using {gtUtils} v1.0"
+    "Relocated franchises count as one: the Raiders, Chargers and Rams across their moves.",
+    "Data: nflverse schedules via nflreadr"
   )
 ```
 
-```{r, eval=TRUE, echo=FALSE, fig.alt = "Two-panel table of the winningest college basketball programs over 10-year windows from 1980-1989 to 2017-2026, each row listing the top five programs by logo, shaded by how many titles the program won in the window."}
-knitr::include_graphics("images/window_wins.png")
-```
+Three franchises hold the top spot between them: the Colts in the first two
+windows, the Patriots in every window from 2001-2010 to 2012-2021, and the
+Chiefs in every window since.
