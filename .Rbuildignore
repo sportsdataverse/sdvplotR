@@ -37,3 +37,5 @@
 ^vignettes/(sdv-table-themes|gt-toolkit)\.Rmd$
 ^vignettes/(neighbour-ranks|shot-grid|rolling-form|signature-ribbon)\.Rmd$
 ^vignettes/gallery\.Rmd$
+^vignettes/recipe-.*\.Rmd$
+^vignettes/cookbook-(ggplot-logos|colors-themes|interactive|surfaces-shot-charts)\.Rmd$
