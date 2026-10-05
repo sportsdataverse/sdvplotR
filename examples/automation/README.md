@@ -39,7 +39,7 @@ password); `BSKY_SERVICE` picks another PDS. The leaderboard tables render in he
 | `sdvplotR_social.R` | the script: `leaderboard`, `gameday` and `post` subcommands |
 | `workflows/sdvplotR-social.yml` | a GitHub Actions template to copy into your repository (weekly, posts on request) |
 
-`tests/testthat/test-automation-example.R` tests the script offline (argument handling, the
+`tests/test-sdvplotR_social.R` tests the script offline (argument handling, the
 manifest, the posted-ledger and the Bluesky requests, with a fake transport).
 `.github/workflows/automation-example.yaml` runs it weekly on live data in dry-run mode; it has no
 secrets, and the script refuses `--post` in sdvplotR's own GitHub Actions.

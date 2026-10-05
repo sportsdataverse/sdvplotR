@@ -1,10 +1,11 @@
-# The social automation example (examples/automation/sdvplotR_social.R) lives outside R/ and is
-# not in the built package, so these tests run from a clone only. Everything is offline: the
-# Bluesky calls go through a fake transport.
+# Offline tests of the social automation example (../sdvplotR_social.R). They live beside the
+# script, outside the package (examples/ is build-ignored), and run from a clone with
+#   Rscript -e 'testthat::test_file("examples/automation/tests/test-sdvplotR_social.R")'
+# The Bluesky calls go through a fake transport.
 
 load_script <- function() {
-  script <- test_path("..", "..", "examples", "automation", "sdvplotR_social.R")
-  skip_if_not(file.exists(script), "the automation example is only in a clone of the repository")
+  script <- test_path("..", "sdvplotR_social.R") # test_file() runs from this file's folder
+  skip_if_not(file.exists(script), "sdvplotR_social.R is not beside its tests")
   skip_if_not_installed("jsonlite")
   skip_if_not_installed("httr2")
   env <- new.env()

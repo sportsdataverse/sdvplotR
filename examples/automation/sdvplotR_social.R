@@ -24,7 +24,7 @@
 # app password, never the account password). See vignettes/automation-social.Rmd.
 #
 # The script only defines functions when it is source()d, so its pieces can be tested
-# (tests/testthat/test-automation-example.R); Rscript runs main().
+# (tests/test-sdvplotR_social.R beside it); Rscript runs main().
 
 `%||%` <- function(x, y) if (is.null(x) || length(x) == 0) y else x
 
