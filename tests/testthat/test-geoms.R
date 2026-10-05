@@ -132,6 +132,37 @@ test_that("sdv_team_tiers draws a light theme for dark logos", {
   expect_error(sdv_team_tiers(tiers, sport = "nfl", theme = "blue"), "theme")
 })
 
+test_that("sdv_team_tiers draws dark logos on the dark theme and primary ones on light", {
+  # Capitals, Maple Leafs, Lightning: ESPN's dark marks differ from the primary
+  tiers <- data.frame(tier_no = c(1, 1, 2), team = c("WSH", "TOR", "TB"))
+  drawn <- function(...) layer_data(sdv_team_tiers(tiers, sport = "nhl", ...), 2)$path
+  dark <- paste0("https://a.espncdn.com/i/teamlogos/nhl/500-dark/", c("wsh", "tor", "tb"), ".png")
+  primary <- paste0("https://a.espncdn.com/i/teamlogos/nhl/500/", c("wsh", "tor", "tb"), ".png")
+  expect_identical(drawn(), dark)
+  expect_identical(drawn(theme = "dark", variant = "auto"), dark)
+  expect_identical(drawn(theme = "light"), primary)
+})
+
+test_that("sdv_team_tiers falls back to the primary logo where there is no dark one", {
+  # every team row has a dark logo; conferences mostly don't
+  tiers <- data.frame(tier_no = c(1, 2), team = c("SEC", "PSU"))
+  ref <- get_team_ref("cfb")
+  expect_true(is.na(ref$logo_dark_url[ref$team_abbr == "SEC"]))
+  expect_no_warning(path <- layer_data(sdv_team_tiers(tiers, sport = "cfb"), 2)$path)
+  expect_identical(path, c(
+    "https://a.espncdn.com/i/teamlogos/ncaa_conf/500/sec.png",
+    "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/213.png"
+  ))
+})
+
+test_that("sdv_team_tiers passes an explicit variant through", {
+  tiers <- data.frame(tier_no = c(1, 2), team = c("WSH", "TOR"))
+  drawn <- function(...) layer_data(sdv_team_tiers(tiers, sport = "nhl", ...), 2)$path
+  expect_identical(drawn(variant = "primary"), logo_from_team(tiers$team, "nhl"))
+  expect_identical(drawn(theme = "light", variant = "dark"), resolve_logo_url(tiers$team, "nhl", "dark"))
+  expect_error(drawn(variant = "neon"), "variant")
+})
+
 test_that("headshot geom and scales pass id_type through", {
   df <- data.frame(x = 1:2, y = 1:2, id = c("2544", "201939"))
   p <- ggplot(df, aes(x, y)) + geom_sdv_headshots(aes(player_id = id), sport = "nba", id_type = "league")

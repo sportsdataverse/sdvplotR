@@ -31,9 +31,15 @@
 #'   be plotted instead of the logos. This is much faster and helps with plot
 #'   development.
 #' @param theme `"dark"` (the default: a near-black background with white
-#'   labels) or `"light"` (a white background with dark labels and lines), for
-#'   dark logos such as Toronto's, Iowa's or West Virginia's, which nearly
-#'   vanish on the dark one.
+#'   labels) or `"light"` (a white background with dark labels and lines).
+#' @param variant The logo variant to draw. `"auto"` (the default) draws each
+#'   team's dark-background logo (`"dark"`) on the dark theme and its primary
+#'   logo on the light theme, so dark marks such as the Capitals', the Giants'
+#'   or Penn State's don't fade into the dark background. A team with no dark
+#'   logo draws its primary one, with no warning. Any other value is one of
+#'   `"primary"`, `"dark"`, `"light"`, `"alt"`, `"classic"` or `"helmet"`, drawn
+#'   on either theme, with the same fallback. `"primary"` gives the old look,
+#'   which drew the primary logo on both themes.
 #'
 #' @return A ggplot object.
 #' @export
@@ -54,7 +60,7 @@
 #' # Plot team tiers
 #' sdv_team_tiers(df, sport = "nfl")
 #'
-#' # dark logos read better on the light theme
+#' # each team's primary logo on white
 #' sdv_team_tiers(df, sport = "nfl", theme = "light")
 #' }
 sdv_team_tiers <- function(
@@ -77,10 +83,13 @@ sdv_team_tiers <- function(
     width = 0.075,
     no_line_below_tier = NULL,
     devel = FALSE,
-    theme = c("dark", "light")
+    theme = c("dark", "light"),
+    variant = "auto"
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
   theme <- rlang::arg_match(theme)
+  variant <- rlang::arg_match0(variant, c("auto", logo_variants))
+  if (variant == "auto") variant <- if (theme == "dark") "dark" else "primary"
 
   required_vars <- c("tier_no", "team")
 
@@ -123,6 +132,8 @@ sdv_team_tiers <- function(
     sport = sport,
     keep_non_matches = FALSE
   )
+  # a team without the variant falls back to its primary logo
+  data$path <- resolve_logo_url(data$team, sport, variant)
 
   p <- ggplot2::ggplot(
     data,
@@ -132,9 +143,8 @@ sdv_team_tiers <- function(
 
   if (isFALSE(devel)) {
     p <- p +
-      geom_sdv_logos(
-        ggplot2::aes(team = .data$team),
-        sport = sport,
+      ggpath::geom_from_path(
+        ggplot2::aes(path = .data$path),
         width = width,
         alpha = alpha
       )
