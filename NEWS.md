@@ -76,6 +76,9 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   the previous season's wins, ESPN ids), built by
   `data-raw/sdv_examples.R` from the nflreadr / nflseedR and hoopR release
   loaders.
+* The package ships no vignettes. Every article, "Getting Started" included,
+  is on the pkgdown site only (<https://sdvplotR.sportsdataverse.org/articles/>),
+  at the same address as before; knitr and rmarkdown are no longer suggested.
 * NFL player headshots work again. GSIS ids (`"00-0033873"`) resolve through a
   headshot map read at run time, the way nflplotR reads its own: sdvplotR
   builds it from nflverse rosters back to 1999 and publishes it, with a player

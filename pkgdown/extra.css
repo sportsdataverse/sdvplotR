@@ -299,7 +299,7 @@ html { scroll-padding-top: 5.5rem; }
   color: #212529;
 }
 
-/* ---- gallery: one card per article (vignettes/gallery.Rmd) ----------------- */
+/* ---- gallery: one card per article (vignettes/articles/gallery.Rmd) -------- */
 .sdv-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));

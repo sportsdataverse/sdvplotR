@@ -162,10 +162,17 @@ devtools::build_readme()
 
 ## CRAN packaging notes
 
-- Only `vignettes/getting-started.Rmd` ships in the tarball (it evaluates
-  offline code only). The 12 per-sport / cookbook vignettes are build-ignored
-  in `.Rbuildignore` and published as pkgdown articles; they need the
-  companion packages listed under `Config/Needs/website`.
+- The package ships no vignettes. Every article is a pkgdown-only article in
+  `vignettes/articles/<slug>.Rmd` (named `articles/<slug>` in `_pkgdown.yml`,
+  published at `articles/<slug>.html`), with its fixtures and images beside it
+  in `vignettes/articles/fixtures/` and `vignettes/articles/images/`.
+  `.Rbuildignore` drops the whole `^vignettes$` directory, and DESCRIPTION has
+  no `VignetteBuilder` (and no knitr / rmarkdown). New articles take `title:`
+  and `description:` front matter only (`usethis::use_article()`), never a
+  `vignette:` block. They need the companion packages listed under
+  `Config/Needs/website`; build one with
+  `pkgdown::build_article("articles/<slug>")`. Paths inside an article are
+  relative to `vignettes/articles/` (the repo root is `../../`).
 - Examples that download images are wrapped in `\donttest{}`. Never use
   `\dontrun{}`: examples that save images through a headless Chrome go in an
   `@examplesIf interactive() && <webshot2 + Chrome available>` block wrapping
@@ -176,8 +183,8 @@ devtools::build_readme()
   fails with "connections left open".
 - `\figure{}` options use `style="width:100\%"`, not `width=100\%`; checkRd
   wants width/height attributes in pixels.
-- `Suggests` is deliberately small (chromote, ggtext, gridtext, knitr, reactable,
-  rmarkdown, rsvg, sportyR, testthat, webshot2, withr); companion data packages are website /
+- `Suggests` is deliberately small (chromote, ggtext, gridtext, reactable,
+  rsvg, sportyR, testthat, webshot2, withr); companion data packages are website /
   development needs, not package dependencies.
 - `sdv_surface()` calls 'sportyR' (GPL-3) through its exported functions only,
   after `rlang::check_installed()`. sdvplotR is MIT: never copy, vendor or

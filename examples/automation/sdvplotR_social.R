@@ -21,7 +21,7 @@
 #   Rscript examples/automation/sdvplotR_social.R post --manifest out/2026-10-05/manifest.json
 #
 # `post --post` publishes with the BSKY_HANDLE and BSKY_APP_PASSWORD environment variables (an
-# app password, never the account password). See vignettes/automation-social.Rmd.
+# app password, never the account password). See vignettes/articles/automation-social.Rmd.
 #
 # The script only defines functions when it is source()d, so its pieces can be tested
 # (tests/test-sdvplotR_social.R beside it); Rscript runs main().

@@ -1,0 +1,158 @@
+---
+title: "Signature Ribbon"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", fig.width = 8, fig.height = 4.5, dpi = 96
+)
+```
+
+Every shooter has a shape: how often he shoots from each distance, and how
+well. This recipe draws that shape as a ribbon. The x axis is shot distance in
+1 ft buckets, the ribbon's thickness is the share of his attempts from that
+distance, and its fill is his field goal percentage minus the league's from the
+same distance. **Buckets with fewer than 10 attempts are faded**, so a 3-for-4
+from 31 ft does not read like a real strength.
+
+```{r setup, message = FALSE}
+library(sdvplotR)
+library(ggplot2)
+library(dplyr, warn.conflicts = FALSE)
+```
+
+## The data
+
+The `nba_stats_metric_curves` release has one file per season and no R
+loader, so read it by URL with `nflreadr::load_from_url()`. Its assets are
+named by the season's ending year, so `2026` is 2025-26.
+
+```{r data}
+url <- paste0(
+  "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/",
+  "nba_stats_metric_curves/metric_curves_2026.rds"
+)
+curves <- as.data.frame(nflreadr::load_from_url(url))
+stopifnot(nrow(curves) > 0)
+dim(curves)
+count(curves, entity_type, metric)
+```
+
+Each row is one bucket of one curve: `attempts`, `successes` and `rate` between
+`x_lo` and `x_hi` feet, for the league, a team or a player. The league curve
+is the reference:
+
+```{r league}
+league <- curves |>
+  filter(entity_type == "league", metric == "fg_pct_by_shot_distance") |>
+  select(x_lo, x_hi, league_attempts = attempts, league_rate = rate)
+league
+```
+
+The buckets are 1 ft wide out to 35 ft, then 35 to 50 and 50 to 95. Those last
+two are mostly end-of-quarter heaves, so the ribbon stops at 35 ft.
+
+## One shooter
+
+Player rows carry a last name only (`"Brown"` names several players), so pick
+the shooter by `entity_id`, the stats.nba.com person id. Buckets he never shot
+from have no row; they join in from the league curve as zero attempts.
+
+```{r shooter}
+shooter_id <- "1629029"
+shooter <- "Luka Dončić"
+
+mine <- curves |>
+  filter(
+    entity_type == "player", entity_id == shooter_id,
+    metric == "fg_pct_by_shot_distance"
+  )
+unique(mine$entity_name)
+stopifnot(nrow(mine) > 0, !anyDuplicated(mine$x_lo))
+
+ribbon <- league |>
+  filter(x_hi <= 35) |>
+  left_join(select(mine, x_lo, attempts, rate), by = "x_lo") |>
+  mutate(
+    attempts = coalesce(attempts, 0L),
+    share = attempts / sum(attempts),
+    league_share = league_attempts / sum(league_attempts),
+    diff = rate - league_rate,
+    sample = if_else(attempts < 10, "Under 10 attempts", "10+ attempts")
+  )
+sum(ribbon$attempts)
+count(ribbon, sample)
+```
+
+The team colors come from the team rows, whose `entity_name` is the team's
+abbreviation. The file gives each player one `team_id`, so a player traded
+mid-season still maps to one team, but check that the lookup finds exactly
+one.
+
+```{r team}
+shooter_team <- curves |>
+  filter(entity_type == "team", entity_id %in% unique(mine$team_id)) |>
+  pull(entity_name) |>
+  unique()
+stopifnot(length(shooter_team) == 1)
+shooter_team
+above <- sdv_team_colors("nba", shooter_team, type = "primary")
+below <- sdv_team_colors("nba", shooter_team, type = "secondary")
+```
+
+## The ribbon
+
+Each bucket is a rectangle centred on zero, `share` thick. The dashed outline is
+the league's shape, for comparison. The fill runs from the team's secondary
+color (below the league) through grey to its primary color (above the
+league), capped at 20 points. If a team's secondary color is close to grey or
+white, the "below" end blurs into the midpoint: pass a darker color as `below`
+for that team.
+
+```{r plot, fig.alt = "Ribbon of Luka Dončić's 2025-26 field goal attempts by shot distance, 0 to 35 feet. Thickness is his share of attempts from each 1 ft bucket, fill is his field goal percentage minus the league's from that distance, and buckets with fewer than 10 attempts are faded. A dashed outline shows the league's share."}
+ggplot(ribbon) +
+  geom_rect(
+    aes(
+      xmin = x_lo, xmax = x_hi, ymin = -share / 2, ymax = share / 2,
+      fill = diff, alpha = sample
+    )
+  ) +
+  geom_step(
+    aes(x_lo, league_share / 2),
+    linetype = "dashed", colour = "grey30"
+  ) +
+  geom_step(
+    aes(x_lo, -league_share / 2),
+    linetype = "dashed", colour = "grey30"
+  ) +
+  annotate(
+    "text", x = 23.75, y = -max(ribbon$share) / 2, label = "3-pt arc",
+    hjust = 1.1, vjust = 0, size = 3, colour = "grey30"
+  ) +
+  geom_vline(xintercept = 23.75, colour = "grey60", linewidth = 0.3) +
+  scale_fill_gradient2(
+    low = below, mid = "grey85", high = above, midpoint = 0,
+    limits = c(-0.2, 0.2), oob = scales::squish, na.value = "grey95",
+    labels = function(v) sprintf("%+.0f", 100 * v),
+    name = "FG% vs league\n(points)"
+  ) +
+  scale_alpha_manual(
+    values = c("10+ attempts" = 1, "Under 10 attempts" = 0.3), name = NULL
+  ) +
+  scale_x_continuous(breaks = seq(0, 35, 5), name = "Shot distance (ft)") +
+  scale_y_continuous(
+    labels = function(v) scales::percent(2 * abs(v), accuracy = 1),
+    name = "Share of attempts\n(ribbon thickness)"
+  ) +
+  ggtitle_image(
+    title_image = shooter_team,
+    title = shooter,
+    subtitle = "2025-26, 1 ft buckets to 35 ft, buckets under 10 attempts faded",
+    image_height = 22,
+    sport = "nba"
+  ) +
+  labs(caption = "Data: sportsdataverse-data release nba_stats_metric_curves") +
+  theme_minimal() +
+  theme_title_image(size = 16) +
+  theme(legend.position = "bottom", panel.grid.minor = element_blank())
+```
