@@ -256,3 +256,9 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   blends the table's text toward its background until it sits just above
   4.5:1, so the spotlight still stands out and the other rows stay readable.
   Pass `dim_color = "#BBBBBB"` for the old look.
+* `reactable_sdv_logos()`, `reactable_sdv_wordmarks()` and
+  `reactable_sdv_cols_label()` fall back to the primary image in the browser
+  when a variant fails to load. ESPN can drop a variant file the team data
+  still lists (the "reactable Integration" article's dark Houston Texans logo
+  404'd), which left a broken image; the `<img>` now swaps to the primary
+  logo instead.

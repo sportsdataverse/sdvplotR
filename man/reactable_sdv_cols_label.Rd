@@ -22,7 +22,8 @@ reactable_sdv_cols_label(
 
 \item{variant}{Character. Logo variant: \code{"primary"}, \code{"dark"}, \code{"light"},
 \code{"alt"}, \code{"classic"}, or \code{"helmet"} (NFL only). Falls back to the primary
-image when the requested variant is not available for a team.}
+image when the requested variant is not available for a team, and, in the
+browser, when the variant's file fails to load.}
 
 \item{height}{Numeric. Image height in pixels.}
 }
