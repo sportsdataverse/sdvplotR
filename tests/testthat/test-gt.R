@@ -164,6 +164,38 @@ test_that("gt_tiers alt-names each entry by the team its image shows", {
   expect_snapshot(gt(d) |> gt_tiers(c(A = "#1B7837", B = "#B2182B"), alt = "Logo"), error = TRUE)
 })
 
+test_that("gt_tiers alt-names a local image by its path, not the data URI gt embeds", {
+  dir <- withr::local_tempdir()
+  osu <- file.path(dir, "Ohio State.png")
+  mich <- file.path(dir, "Michigan.png")
+  magick::image_write(magick::image_blank(4, 4, "red"), osu, format = "png")
+  magick::image_write(magick::image_blank(4, 4, "blue"), mich, format = "png")
+  # groups render the rows out of data order (y, y, x), and the NA cell stays empty
+  d <- data.frame(
+    grp = c("y", "x", "y"), tier = c("A", "B", "A"),
+    `1` = c(osu, mich, paste(mich, osu, sep = ", ")),
+    `2` = c(NA, "https://x/kc.png", osu),
+    check.names = FALSE
+  )
+  tbl <- gt(d, groupname_col = "grp")
+  h <- html_of(tbl |> gt_tiers(c(A = "#1B7837", B = "#B2182B"), image_columns = c("1", "2")))
+  expect_match(h, "src=\"data:image/png;base64,", fixed = TRUE)
+  expect_identical(
+    alts_of(h),
+    c("Ohio State", "Michigan", "Ohio State", "Ohio State", "Michigan", "kc")
+  )
+  seen <- NULL
+  h <- html_of(tbl |> gt_tiers(c(A = "#1B7837", B = "#B2182B"), image_columns = c("1", "2"), alt = function(x) {
+    seen <<- c(seen, x)
+    basename(x)
+  }))
+  expect_setequal(seen, c(osu, mich, "https://x/kc.png"))
+  expect_identical(
+    alts_of(h),
+    c("Ohio State.png", "Michigan.png", "Ohio State.png", "Ohio State.png", "Michigan.png", "kc.png")
+  )
+})
+
 test_that("the border bars give their image an empty alt", {
   h <- html_of(gt(data.frame(x = 1)) |> gt_border_bars_top(colors = c("#E31837", "#FFB612"), img = "https://x/y.png"))
   expect_identical(alts_of(h), "")

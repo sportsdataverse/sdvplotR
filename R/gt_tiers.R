@@ -128,13 +128,9 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
   gt_object <- gt_object |>
     gt_theme_tier(style = style) |>
     fmt_image(columns = tidyselect::all_of(img_cols), height = img_height) |>
-    # fmt_image() writes no alt, so each image takes one from its own URL
-    text_transform(
-      locations = cells_body(columns = tidyselect::all_of(img_cols)),
-      fn = function(x) .alt_images(x, alt)
-    ) |>
     sub_missing(missing_text = "") |>
-    cols_label(everything() ~ "")
+    cols_label(everything() ~ "") |>
+    .alt_images(data, img_cols, alt)
 
   # each level fills its own tier cells and takes its own contrast text color
   out <- Reduce(function(gt_object, level) {
@@ -158,22 +154,51 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
   .record_key(out, stats::setNames(colors, levels))
 }
 
-# alt text on each <img> fmt_image() wrote, from the URL it holds
-.alt_images <- function(x, alt) {
-  tags <- gregexpr('<img src="[^"]*"', x)
-  regmatches(x, tags) <- lapply(regmatches(x, tags), function(tag) {
-    if (!length(tag)) {
-      return(tag)
+# alt text on each <img> fmt_image() wrote, from the path or URL in its cell
+.alt_images <- function(gt_object, data, cols, alt) {
+  # the alt comes from the value the cell held: fmt_image() swaps a local file
+  # for a data URI, which names nothing
+  cells <- lapply(cols, function(col) as.character(data[[col]]))
+  vals <- unique(unlist(cells))
+  vals <- vals[!is.na(vals) & nzchar(vals)]
+  if (!length(vals)) {
+    return(gt_object)
+  }
+  # one image per piece, split the way fmt_image() splits a cell
+  pieces <- strsplit(vals, ",\\s*")
+  src <- unlist(pieces)
+  txt <- as.character(alt(src))
+  if (length(txt) != length(src)) {
+    cli::cli_abort("{.arg alt} returned {length(txt)} string{?s} for {length(src)} image{?s}.")
+  }
+  txt[is.na(txt)] <- ""
+  alts <- utils::relist(htmltools::htmlEscape(txt, attribute = TRUE), pieces)
+
+  # one transform per distinct value, so every cell it touches holds that value
+  # whatever order gt renders the rows in (row groups reorder them)
+  for (i in seq_along(cols)) {
+    for (j in which(vals %in% cells[[i]])) {
+      gt_object <- text_transform(gt_object,
+        locations = cells_body(
+          columns = tidyselect::all_of(cols[[i]]),
+          rows = which(cells[[i]] == vals[[j]])
+        ),
+        fn = .alt_tagger(alts[[j]])
+      )
     }
-    src <- substr(tag, 11, nchar(tag) - 1)
-    txt <- as.character(alt(src))
-    if (length(txt) != length(src)) {
-      cli::cli_abort("{.arg alt} returned {length(txt)} string{?s} for {length(src)} image{?s}.")
-    }
-    txt[is.na(txt)] <- ""
-    paste0('<img alt="', htmltools::htmlEscape(txt, attribute = TRUE), '" src="', src, '"')
-  })
-  x
+  }
+  gt_object
+}
+
+.alt_tagger <- function(alt) {
+  force(alt)
+  function(x) {
+    tags <- gregexpr("<img ", x, fixed = TRUE)
+    regmatches(x, tags) <- lapply(regmatches(x, tags), function(tag) {
+      if (length(tag) == length(alt)) paste0('<img alt="', alt, '" ') else tag
+    })
+    x
+  }
 }
 
 # a logo or wordmark the package draws is named by its team, anything else by
