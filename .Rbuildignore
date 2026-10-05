@@ -15,6 +15,7 @@
 ^doc$
 ^Meta$
 ^data-raw$
+^vignettes$
 ^dev$
 ^README\.Rmd$
 ^LICENSE\.md$
@@ -26,18 +27,7 @@
 ^CRAN-RELEASE$
 ^revdep$
 ^man/figures/README-
-^vignettes/(cfb|mbb|mlb|nba|nfl|nhl|wbb|wnba)-viz\.Rmd$
-^vignettes/(leaderboard-dashboards|reactable-integration|social-posting|workflows)\.Rmd$
 (^|/)Rplots\.pdf$
 ^\.ruff_cache$
-^vignettes/(border_bars|delay_tables|grid_tables|saving_tables|schedule_matrix|styling|tier_list|window_wins)\.Rmd$
-^vignettes/images$
-^vignettes/fixtures$
 ^\.git$
-^vignettes/(sdv-table-themes|gt-toolkit)\.Rmd$
-^vignettes/(neighbour-ranks|shot-grid|rolling-form|signature-ribbon)\.Rmd$
-^vignettes/gallery\.Rmd$
 ^examples$
-^vignettes/(leaderboard-(nfl-weekly|cfb-weekly|nba|wnba|mlb|nhl)|automation-social)\.Rmd$
-^vignettes/recipe-.*\.Rmd$
-^vignettes/cookbook-(ggplot-logos|colors-themes|interactive|surfaces-shot-charts)\.Rmd$

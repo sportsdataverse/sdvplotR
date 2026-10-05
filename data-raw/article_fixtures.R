@@ -2,8 +2,8 @@
 # runner cannot rely on (the MLB and NHL stats APIs, Baseball Savant, ESPN's) and web scrapes.
 # Each function runs the article's own code for that step, keeps the rows and columns the
 # article goes on to use, and returns them with the call it made. The runner saves each one as
-# vignettes/fixtures/<article>/<name>.rds, stamped with the date and the package version, and
-# rewrites vignettes/fixtures/README.md from what is on disk.
+# vignettes/articles/fixtures/<article>/<name>.rds, stamped with the date and the package version, and
+# rewrites vignettes/articles/fixtures/README.md from what is on disk.
 #
 # Run from the package root:
 #   Rscript data-raw/article_fixtures.R                        # every fixture
@@ -233,7 +233,7 @@ fixtures <- list(
   "recipe-mlb-run-differential/mlb_schedule" = fx_recipe_mlb
 )
 
-fixture_dir <- file.path("vignettes", "fixtures")
+fixture_dir <- file.path("vignettes", "articles", "fixtures")
 
 save_fixture <- function(x, name) {
   # plain data frames: no package classes for readRDS() to need when the article reads it

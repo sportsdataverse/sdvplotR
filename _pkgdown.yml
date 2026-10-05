@@ -271,34 +271,34 @@ reference:
 articles:
   - title: "Gallery"
     contents:
-      - gallery
+      - articles/gallery
   - title: "Getting Started"
     contents:
-      - getting-started
-  - title: "Per-Sport Vignettes"
+      - articles/getting-started
+  - title: "Per-Sport Articles"
     desc: >
       Data ingest with the companion SportsDataverse package, then sdvplotR
       visualization, for each sport.
     contents:
-      - nfl-viz
-      - cfb-viz
-      - nba-viz
-      - wnba-viz
-      - mlb-viz
-      - nhl-viz
-      - mbb-viz
-      - wbb-viz
+      - articles/nfl-viz
+      - articles/cfb-viz
+      - articles/nba-viz
+      - articles/wnba-viz
+      - articles/mlb-viz
+      - articles/nhl-viz
+      - articles/mbb-viz
+      - articles/wbb-viz
   - title: "Cookbooks"
     desc: >
       Task-oriented, cross-league recipes: logos and headshots in ggplot2,
       team colors and themes, interactive charts, playing surfaces and shot
       charts, and reactable tables.
     contents:
-      - cookbook-ggplot-logos
-      - cookbook-colors-themes
-      - cookbook-interactive
-      - cookbook-surfaces-shot-charts
-      - reactable-integration
+      - articles/cookbook-ggplot-logos
+      - articles/cookbook-colors-themes
+      - articles/cookbook-interactive
+      - articles/cookbook-surfaces-shot-charts
+      - articles/reactable-integration
   - title: "Tables cookbook"
     desc: >
       gt tables on SportsDataverse data: the house themes, standings with cut
@@ -306,16 +306,16 @@ articles:
       faceted and snaked layouts, and saving for social. The gt_* toolkit
       comes from Andrew Weatherman's gtUtils.
     contents:
-      - sdv-table-themes
-      - gt-toolkit
-      - styling
-      - saving_tables
-      - border_bars
-      - delay_tables
-      - grid_tables
-      - schedule_matrix
-      - tier_list
-      - window_wins
+      - articles/sdv-table-themes
+      - articles/gt-toolkit
+      - articles/styling
+      - articles/saving_tables
+      - articles/border_bars
+      - articles/delay_tables
+      - articles/grid_tables
+      - articles/schedule_matrix
+      - articles/tier_list
+      - articles/window_wins
   - title: "Recipes"
     desc: >
       Real-world tasks worked end to end: the brief, the data, a first draft,
@@ -323,40 +323,40 @@ articles:
       posted. Then static versions of SportsDataverse web visuals, and
       end-to-end workflows.
     contents:
-      - recipe-nfl-epa-scatter
-      - recipe-cfb-conference-table
-      - recipe-nba-net-rating-quadrant
-      - recipe-wnba-scoring-leaders-card
-      - recipe-mlb-run-differential
-      - recipe-nhl-shot-map
-      - recipe-college-hoops-tiers
-      - recipe-rank-bump-chart
-      - recipe-head-to-head-card
-      - recipe-wbb-conference-standings
-      - neighbour-ranks
-      - shot-grid
-      - rolling-form
-      - signature-ribbon
-      - workflows
+      - articles/recipe-nfl-epa-scatter
+      - articles/recipe-cfb-conference-table
+      - articles/recipe-nba-net-rating-quadrant
+      - articles/recipe-wnba-scoring-leaders-card
+      - articles/recipe-mlb-run-differential
+      - articles/recipe-nhl-shot-map
+      - articles/recipe-college-hoops-tiers
+      - articles/recipe-rank-bump-chart
+      - articles/recipe-head-to-head-card
+      - articles/recipe-wbb-conference-standings
+      - articles/neighbour-ranks
+      - articles/shot-grid
+      - articles/rolling-form
+      - articles/signature-ribbon
+      - articles/workflows
   - title: "Leaderboards"
     desc: >
       Each league's current season, rebuilt every week with this site: the
       season to date while games are played, the last full season in the
       offseason.
     contents:
-      - leaderboard-nfl-weekly
-      - leaderboard-cfb-weekly
-      - leaderboard-nba
-      - leaderboard-wnba
-      - leaderboard-mlb
-      - leaderboard-nhl
-      - leaderboard-dashboards
+      - articles/leaderboard-nfl-weekly
+      - articles/leaderboard-cfb-weekly
+      - articles/leaderboard-nba
+      - articles/leaderboard-wnba
+      - articles/leaderboard-mlb
+      - articles/leaderboard-nhl
+      - articles/leaderboard-dashboards
   - title: "Automation"
     desc: >
       Make and post social graphics on a schedule.
     contents:
-      - automation-social
-      - social-posting
+      - articles/automation-social
+      - articles/social-posting
 
 navbar:
   structure:

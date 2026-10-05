@@ -1,0 +1,293 @@
+---
+title: "Creating Faceted Tables"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+Nobody likes a long table. Put 25 rows next to a handful of columns and you get
+an image twice as tall as it is wide, mostly empty, with half the values
+scrolled off the bottom of a feed. The fix is to fold that one tall table into
+two shorter ones and set them side by side.
+
+`gt_grid()` does that the direct way: build each block as a normal `gt` table,
+put the tables in a list, and `gt_grid()` arranges the list under one shared
+header and footer. Nothing gets reshaped, so every block is a real table you can
+style with the rest of the package. This article builds a top 25 of men's college
+basketball for 2025-26 that way, and uses two more functions along the route:
+`gt_color_ranks()`, which colors a column by its values, and `gt_spotlight()`,
+which lights a set of rows and dims the rest.
+
+The games are [`hoopR`](https://hoopR.sportsdataverse.org)'s ESPN box scores.
+`gt_grid()`, `gt_color_ranks()` and `gt_spotlight()` come from Andrew
+Weatherman's [gtUtils](https://github.com/andreweatherman/gtUtils), and this
+article follows his faceted-tables example.
+
+```{r setup}
+library(sdvplotR)
+library(gt)
+library(dplyr)
+```
+
+## 1. The data: a top 25 by efficiency margin
+
+We rank every Division I team by efficiency margin, points scored minus points
+allowed per 100 possessions, over its games against other Division I teams,
+tournaments included. The margin is raw, not adjusted for opponents. Each team
+also gets its national rank on offense and on defense.
+
+```{r ratings}
+d1 <- team_reference("mbb")
+
+box <- hoopR::load_mbb_team_box(seasons = 2026) |>
+  mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
+
+ratings <- box |>
+  # Division I against Division I only
+  filter(team_id %in% d1$espn_team_id, opponent_team_id %in% d1$espn_team_id) |>
+  inner_join(
+    select(box, game_id, opponent_team_id = team_id, opp_poss = poss),
+    by = c("game_id", "opponent_team_id")
+  ) |>
+  summarise(
+    off = 100 * sum(team_score) / sum(poss),
+    def = 100 * sum(opponent_team_score) / sum(opp_poss),
+    .by = team_id
+  ) |>
+  mutate(
+    net = off - def,
+    off_rank = min_rank(desc(off)),
+    def_rank = min_rank(def),
+    team = d1$team_location[match(team_id, d1$espn_team_id)],
+    conf = d1$conference[match(team_id, d1$espn_team_id)]
+  )
+
+data <- ratings |>
+  arrange(desc(net), team) |>
+  mutate(rk = row_number()) |>
+  filter(rk <= 25) |>
+  select(rk, team, conf, off_rank, def_rank, net)
+```
+
+The team names are ESPN's school names (`"Michigan"`, `"Iowa State"`), and
+`gt_sdv_logos()` resolves them as they are, so they go into the table untouched
+and get their logos later. Sorting on `team` after `net` breaks any tie the same
+way on every rebuild.
+
+Before splitting anything, two values are computed once, off the full table.
+
+```{r split}
+rank_domain <- c(1, nrow(ratings))
+
+sizes <- c(13, 12)
+chunks <- split(data, rep(seq_along(sizes), sizes))
+```
+
+`rank_domain` is the full range of the national ranks, 1 to the number of
+Division I teams, and it matters because of how coloring works. A color scale is
+built from whatever data it sees. If each block builds its own scale, block one
+maps its colors to the ranks it happens to hold and block two to its own, so the
+same rank lands on a different shade depending on which block a team falls in.
+Fixing the domain once and handing it to both blocks keeps one scale across the
+whole table, and anchors it to the whole country rather than the top 25.
+
+`sizes` sets the split: 13 rows in the first block and 12 in the second.
+`rep(seq_along(sizes), sizes)` turns `c(13, 12)` into 13 `1`s followed by 12
+`2`s, and `split()` cuts the data on that. For three blocks, use `c(9, 8, 8)`.
+
+## 2. Coloring a column by rank
+
+Inside each block we color the two national-rank columns with `gt_color_ranks()`.
+
+```{r color-ranks, eval = FALSE}
+gt_color_ranks(c(off_rank, def_rank), domain = rank_domain)
+```
+
+The arguments worth knowing:
+
+- `palette`: either a vector of hex colors or a `paletteer` palette named as
+  `"package::palette"`. The default is a 5-color green-to-red ramp, so a low
+  value (a high rank) reads green.
+- `domain`: the value range mapped onto the palette. Left `NULL`, it is taken
+  from the column itself. We pass `rank_domain` so both blocks share a scale.
+- `reverse`: flip the palette, for when high numbers should be green instead.
+- `pal_type`: `"discrete"` or `"continuous"`, which only matters when you hand it
+  a `paletteer` palette.
+- `na_color`: fill for missing values, white by default.
+- `autocolor_text`: sets the text color for contrast against the fill, so dark
+  cells get light text automatically. On by default.
+
+It colors values as they are and does not rank for you, so it works on any
+numeric column. Reach for a `paletteer` palette when you want something other than
+the default ramp:
+
+```{r color-ranks-viridis, eval = FALSE}
+gt_color_ranks(c(off_rank, def_rank),
+  domain = rank_domain,
+  palette = "viridis::mako", pal_type = "continuous", reverse = TRUE
+)
+```
+
+## 3. One table, applied to each block
+
+Every block is a `gt` table, so we write the recipe once and `lapply()` it over
+the chunks. None of this is grid-specific; it is the same table you would build
+for a single frame.
+
+```{r blocks}
+block <- function(x) {
+  gt(x) |>
+    gt_theme_swiss() |>
+    cols_hide(conf) |>
+    cols_align(columns = -team, align = "center") |>
+    cols_align(columns = team, "left") |>
+    cols_label(
+      rk = "", team = "Team",
+      off_rank = "Off.", def_rank = "Def.", net = "Margin"
+    ) |>
+    cols_width(team ~ px(140), c(off_rank, def_rank) ~ px(46), net ~ px(62)) |>
+    tab_spanner(columns = c(off_rank, def_rank), label = "Nat'l rank") |>
+    fmt_number(net, decimals = 1, force_sign = TRUE) |>
+    gt_color_ranks(c(off_rank, def_rank), domain = rank_domain) |>
+    gt_sdv_logos(team, sport = "mbb", height = 20, include_name = TRUE) |>
+    gtExtras::gt_add_divider(team, color = "white", weight = px(10)) |>
+    tab_options(
+      data_row.padding = px(6),
+      table_body.hlines.style = "solid",
+      table_body.hlines.color = "black",
+      table_body.hlines.width = px(1)
+    )
+}
+
+tbls <- lapply(chunks, block)
+```
+
+`gt_color_ranks(..., domain = rank_domain)` is the shared scale from earlier.
+`gt_sdv_logos(team, ..., include_name = TRUE)` puts each school's logo in front
+of its name. `gt_add_divider()` (from `gtExtras`) adds a white gap after the team
+column so the numbers do not crowd the logos. `cols_hide(conf)` keeps the
+conference in the data but out of the table; the last section uses it.
+
+## 4. Laying it out with gt_grid
+
+Now the list goes to `gt_grid()`.
+
+```{r grid}
+gt_grid(tbls,
+  ncol = 2, gap = 24,
+  title = "The top 25 by efficiency margin",
+  subtitle = "Men's college basketball, 2025-26, games between Division I teams",
+  title_style = list(
+    font = "Oswald", size = 34, transform = "uppercase",
+    margin_bottom = -4
+  ),
+  subtitle_style = list(italic = TRUE, color = "#6A6A6A"),
+  caption = "Margin is points scored minus points allowed per 100 possessions, not adjusted for opponents.",
+  caption_style = list(align = "left"),
+  source_note = "Data: ESPN box scores via hoopR",
+  caption_rule = TRUE
+)
+```
+
+`ncol` sets how many tables go across, and the number of rows follows from the
+list length. `gap` is the space between them in pixels. There is also an `align`
+argument (`"top"`, `"center"`, `"bottom"`) for when the blocks are different
+heights, which is common with an uneven split like ours.
+
+The header and footer are set on the grid, not on the individual tables, so one
+title covers both blocks instead of a title stranded on each. `title`,
+`subtitle`, `caption`, and `source_note` are the four text slots. Setting
+`caption`, `source_note`, and `caption_rule = TRUE` together gives the
+538-style split caption, and `caption` accepts `md()`, so links and bold text
+work.
+
+Each text slot has a matching `*_style` list, and the keys are the same across
+all of them (see [Styling Headers, Legends and Captions](styling.html)): `font`,
+`size`, `color`, `weight`, `italic`, `spacing`, `transform`, `align`,
+`line_height`, and the `margin_*` and `padding_*` keys. Anything you leave out
+keeps its default, so the `title_style` above changes only the font, size,
+transform and margin. `margin_bottom = -4` pulls the subtitle up closer to the
+title.
+
+Two more arguments are worth knowing. `labels` puts a short caption above each
+individual table (styled by `label_style`), which is handy for small multiples
+like one table per conference or per season. `file` writes the grid straight to a
+PNG, with `bg`, `whitespace` and `zoom` controlling that export.
+
+## 5. Spotlighting rows across blocks
+
+To make a point about one conference, we light its teams with `gt_spotlight()`
+and dim the rest. The conference is whichever has the most teams in the top 25,
+worked out from the data, with alphabetical order breaking a tie.
+
+```{r top-conf}
+top_conf <- data |>
+  count(conf) |>
+  arrange(desc(n), conf) |>
+  slice(1)
+top_conf
+```
+
+`gt_spotlight()` reads a filter expression against each block's own data, so it
+drops right into the block function. The wrinkle is that the conference's teams
+fall across both blocks, and a block with no match at all would be left fully
+lit, so the highlight would look applied to one block and not the other. That is
+what `if_none = "dim"` handles: a block that matches nobody dims completely.
+
+```{r spotlight}
+spot <- lapply(chunks, function(x) {
+  block(x) |>
+    gt_spotlight(
+      rows = conf == top_conf$conf, if_none = "dim",
+      accent_color = "darkred", dim_color = "lightgrey"
+    )
+})
+
+gt_grid(spot,
+  ncol = 2, gap = 24,
+  title = paste(top_conf$conf, "has", top_conf$n, "of the top 25"),
+  subtitle = "Men's college basketball, 2025-26, by efficiency margin",
+  title_style = list(
+    font = "Oswald", size = 34, transform = "uppercase",
+    margin_bottom = -4
+  ),
+  subtitle_style = list(italic = TRUE, color = "#6A6A6A"),
+  caption = "Margin is points scored minus points allowed per 100 possessions, not adjusted for opponents.",
+  caption_style = list(align = "left"),
+  source_note = "Data: ESPN box scores via hoopR",
+  caption_rule = TRUE
+)
+```
+
+This is why `conf` stayed hidden rather than dropped: `gt_spotlight()` filters on
+it even though the column is never drawn. `rows` also accepts plain row numbers,
+like `rows = 1:5`, when you want to highlight by position.
+
+The rest of its arguments control the look:
+
+- `accent_color`: draws a bar on the left edge of each lit row. Supplying a color
+  is what turns the bar on. `accent_width` sets its thickness, and
+  `accent_column` moves it to a different column.
+- `dim_color`: the text color for the muted rows. Setting it to `NULL` emphasizes
+  the chosen rows without dimming the others.
+- `fill`, `text_color`, and `bold`: styling for the lit rows themselves.
+- `columns`: narrows the spotlight to some columns, dimming the rest of the row
+  too, so only those cells stay at full strength.
+
+Outside of grids, `gt_spotlight()` is useful on a single table any time you want
+one row or a small group highlighted.
+
+## Wrapping up
+
+The pattern is the same both times: build a normal table, `lapply()` it over your
+chunks, and pass the list to `gt_grid()`. The only two faceting-specific habits
+are fixing your color domain once so the blocks agree, and using
+`if_none = "dim"` when a highlight lands in some blocks and not others. To keep a
+long table as one table instead, `gt_snake()` folds it into blocks; the
+[rolling-window article](window_wins.html) uses it.

@@ -60,16 +60,12 @@ Suggests:
     chromote,
     ggtext (>= 0.1.1),
     gridtext (>= 0.1.4),
-    knitr,
     reactable,
-    rmarkdown,
     rsvg,
     sportyR,
     testthat (>= 3.0.0),
     webshot2,
     withr
-VignetteBuilder:
-    knitr
 Config/Needs/website:
     r-lib/pkgdown,
     arrow,

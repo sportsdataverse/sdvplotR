@@ -41,7 +41,8 @@ not occur on Linux, macOS, or R 4.6.0 and earlier.
   routine CRAN checks skip them (as 'nflplotR' and 'ggpath' do); they pass
   locally under `--as-cran`, which runs them, on a networked machine. The one
   test that renders images skips on CRAN.
-* The vignette evaluates only offline code (the reference data shipped in
-  the package).
+* The package ships no vignettes: its long-form documentation is articles on
+  the pkgdown site, which need the companion data packages and network
+  access.
 * There are no published references describing the methods in this package;
   it provides plotting utilities rather than a statistical method.
