@@ -166,12 +166,12 @@ head(top25)
 #> # A tibble: 6 × 9
 #>    rank logo         school    conf_logo conference record    off      dfn   net
 #>   <int> <chr>        <chr>     <chr>     <chr>      <chr>   <dbl>    <dbl> <dbl>
-#> 1     1 Alabama      Alabama   SEC       SEC        5-0    0.312  -0.108   0.420
-#> 2     2 Northwestern Northwes… Big Ten   Big Ten    3-1    0.369  -0.00266 0.372
-#> 3     3 LSU          LSU       SEC       SEC        4-1    0.0655 -0.287   0.352
-#> 4     4 Wisconsin    Wisconsin Big Ten   Big Ten    4-1    0.188  -0.159   0.346
-#> 5     5 Georgia      Georgia   SEC       SEC        5-0    0.251  -0.0818  0.333
-#> 6     6 Nebraska     Nebraska  Big Ten   Big Ten    5-0    0.193  -0.121   0.315
+#> 1     1 Alabama      Alabama   SEC       SEC        5-0    0.313  -0.107   0.420
+#> 2     2 LSU          LSU       SEC       SEC        4-1    0.0688 -0.286   0.355
+#> 3     3 Wisconsin    Wisconsin Big Ten   Big Ten    4-1    0.191  -0.161   0.351
+#> 4     4 Northwestern Northwes… Big Ten   Big Ten    3-1    0.352   0.00461 0.348
+#> 5     5 Georgia      Georgia   SEC       SEC        5-0    0.251  -0.0850  0.336
+#> 6     6 Nebraska     Nebraska  Big Ten   Big Ten    5-0    0.197  -0.122   0.319
 ```
 
 sdvplotR has a row for every FBS conference too, so

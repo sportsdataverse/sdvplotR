@@ -386,14 +386,14 @@ odds_table
 |----|----|----|----|----|
 | Season 2025 |  |  |  |  |
 |  | Team | Wins | Win % | Spread |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | DEN | 14 | 0.824 | -3.50 |
-| ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | NE | 14 | 0.824 | -3.50 |
-| ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | SEA | 14 | 0.824 | -3.00 |
-| ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | JAX | 13 | 0.765 | -4.50 |
-| ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 12 | 0.706 | 2.75 |
-| ![Houston Texans](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | HOU | 12 | 0.706 | -6.50 |
-| ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | LA | 12 | 0.706 | -2.75 |
-| ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 12 | 0.706 | 3.00 |
+| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | DEN | 14 | 0.824 | -3.5 |
+| ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | NE | 14 | 0.824 | -3.5 |
+| ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | SEA | 14 | 0.824 | -3.0 |
+| ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | JAX | 13 | 0.765 | -5.5 |
+| ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 12 | 0.706 | 3.0 |
+| ![Houston Texans](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | HOU | 12 | 0.706 | -7.0 |
+| ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | LA | 12 | 0.706 | -3.0 |
+| ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 12 | 0.706 | 3.0 |
 
 ## Workflow 7: Automated Reporting Pipeline
 
