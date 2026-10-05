@@ -115,10 +115,13 @@
     <li><a class="dropdown-item" href="../articles/wbb-viz.html">WBB</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Cookbooks</h6></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-ggplot-logos.html">Logos in ggplot2</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-colors-themes.html">Team Colors and Themes</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-interactive.html">Interactive Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-surfaces-shot-charts.html">Surfaces and Shot Charts</a></li>
     <li><a class="dropdown-item" href="../articles/social-posting.html">Social Posting</a></li>
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
-    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
@@ -134,11 +137,22 @@
     <li><a class="dropdown-item" href="../articles/schedule_matrix.html">Schedule Matrix</a></li>
     <li><a class="dropdown-item" href="../articles/window_wins.html">Rolling-Window Wins</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Visual recipes</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Recipes</h6></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nfl-epa-scatter.html">NFL EPA Scatter</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-cfb-conference-table.html">CFB Conference Table</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nba-net-rating-quadrant.html">NBA Net Rating Quadrant</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wnba-scoring-leaders-card.html">WNBA Scoring Leaders Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-mlb-run-differential.html">MLB Run Differential</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nhl-shot-map.html">NHL Shot Map</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-college-hoops-tiers.html">College Hoops Tiers</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-rank-bump-chart.html">Rank Bump Chart</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-head-to-head-card.html">Head-to-Head Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wbb-conference-standings.html">WBB Conference Standings</a></li>
     <li><a class="dropdown-item" href="../articles/neighbour-ranks.html">Neighbour Ranks</a></li>
     <li><a class="dropdown-item" href="../articles/shot-grid.html">Shot Grid</a></li>
     <li><a class="dropdown-item" href="../articles/rolling-form.html">Rolling Form</a></li>
     <li><a class="dropdown-item" href="../articles/signature-ribbon.html">Signature Ribbon</a></li>
+    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
@@ -241,7 +255,7 @@ recipe needs no court package. The colors are the team’s own, from
 <div class="section level2">
 <h2 id="the-data">The data<a class="anchor" aria-label="anchor" href="#the-data"></a>
 </h2>
-<p>hoopR’s <code><a href="https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html" class="external-link">load_nba_shots()</a></code> reads the SportsDataverse
+<p>hoopR’s <code>load_nba_shots()</code> reads the SportsDataverse
 release of ESPN shot locations, one row per shot, free throws included.
 Season <code>2026</code> is 2025-26.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -257,7 +271,7 @@ Season <code>2026</code> is 2025-26.</p>
 <span><span class="co">#&gt; [16] "athlete_name_1"      "athlete_name_2"      "team_name"          </span></span>
 <span><span class="co">#&gt; [19] "team_mascot"         "team_abbrev"</span></span></code></pre></div>
 <p>The file also holds the play-in and the playoffs.
-<code><a href="https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html" class="external-link">load_nba_schedule()</a></code> marks each game’s
+<code>load_nba_schedule()</code> marks each game’s
 <code>season_type</code> (<code>2</code> is the regular season), so keep
 those games, drop free throws, and drop heaves from past half court.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">

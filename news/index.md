@@ -308,3 +308,55 @@ NHL, college football, men’s and women’s college basketball), built on
   request Google fonts by discrete weights. The `wght@100..900` range
   they asked for is rejected for most families, so the font silently
   never loaded.
+- [`element_sdv_logo()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md),
+  [`element_sdv_wordmark()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
+  and
+  [`element_sdv_headshot()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
+  set on `axis.text.x` / `axis.text.y` draw after
+  [`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+  on ‘ggplot2’ 4. That theme sets `axis.text.x.bottom` /
+  `axis.text.y.left` itself, and the plain child shadowed the image
+  element, inheriting its `colour = NA` and `size = 0.5`: the axis drew
+  no labels at all. The elements are now subclasses of
+  [`ggpath::element_path()`](https://mrcaseb.github.io/ggpath/reference/element_path.html),
+  which ggplot2 lets replace a plain child (keeping the child’s
+  spacing). sdvplotR now imports ‘S7’ and requires ‘ggplot2’ 4.0.0,
+  which ‘ggpath’ 1.1.0 already did.
+- [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)
+  returns the package’s canonical keys, the ones
+  [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+  returns: `"STL"` gives the Rams’ `"LA"` (was `"LAR"`), `"NOH"` /
+  `"NOK"` the Pelicans’ `"NO"` (was `"NOP"`) and `"WSB"` the Wizards’
+  `"WSH"` (was `"WAS"`).
+- A relocation key follows the franchise in both
+  [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+  and
+  [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md),
+  even where a provider alias used the same code: `"WIN"` is the
+  original Winnipeg Jets (1979-96) and gives `"UTAH"`;
+  [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+  returned today’s Jets (`"WPG"`).
+- [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
+  with
+  [`theme_title_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
+  centers the image on the title text. ‘gridtext’ draws an inline image
+  on the text baseline and ignores CSS `vertical-align`, so a logo
+  taller than the text rose above the title. Style the title through
+  `theme_title_image(...)` (`size`, `face`, `hjust`): a later
+  `theme(plot.title = ggtext::element_markdown(...))`, which the old
+  example used, replaces the centering element and the image drops to
+  the baseline.
+- [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
+  takes `theme = "light"`, a white background with dark labels and
+  lines, for dark logos (Toronto, Iowa, West Virginia) that nearly
+  vanish on the default dark theme. ‘sdvplot’ (Python) has the same
+  option.
+- [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)
+  keeps the team-colored text readable: a primary color under 4.5:1
+  contrast against the cell background gives way to the secondary color,
+  or is darkened until it passes, so Missouri’s gold no longer vanishes
+  on a white table and stays gold on
+  [`gt_theme_midnight()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_midnight.md).
+  The new `background` argument defaults to the table’s own background
+  color (white when unset); a theme applied after this function isn’t
+  seen.

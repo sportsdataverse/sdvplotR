@@ -2,12 +2,14 @@
 
 On this page
 
-## Introduction
-
-This vignette demonstrates how to create rich WNBA visualizations by
-combining [wehoop](https://wehoop.sportsdataverse.org) for player and
-team data with [sdvplotR](https://sdvplotr.sportsdataverse.org) for team
-logos, headshots, colors, and gt tables.
+Ten charts and tables from the 2026 WNBA regular season, the league’s
+first with 15 teams: an offense-vs-defense quadrant, the expansion
+teams’ win races, net-rating bars with logos on the axis, tiers, a
+scoring leaderboard with headshots as axis labels, a binned shot chart,
+a standings table, running point differential by conference,
+game-by-game margins and a season-long bump chart. Every number comes
+from [wehoop](https://wehoop.sportsdataverse.org)’s ESPN release files
+on GitHub (`load_wnba_*()`), so nothing here calls stats.wnba.com.
 
 ## Setup
 
@@ -15,426 +17,560 @@ logos, headshots, colors, and gt tables.
 
 library(sdvplotR)
 library(ggplot2)
-library(wehoop)
 library(dplyr)
+library(tidyr)
 library(gt)
 
-# Get valid WNBA team abbreviations
-wnba_teams <- valid_team_names("wnba")
-head(wnba_teams)
-#> [1] "ATL" "CHI" "CON" "DAL" "GS"  "IND"
-```
+season <- 2026
+source_note <- "Data: wehoop (ESPN) | Viz: sdvplotR"
 
-## Loading WNBA Data
-
-Use `wehoop` to load this season’s ESPN team and player box scores:
-
-``` r
-
-# The last completed regular season (it ends in mid-September)
-season <- as.integer(format(Sys.Date(), "%Y")) -
-  (format(Sys.Date(), "%m-%d") < "09-20")
-
-# One row per team per game (ESPN box scores), regular season only. ESPN tags
-# the All-Star games as regular season too; keeping the league's own teams
-# drops them
-league_teams <- team_reference("wnba")$team_abbr
-team_stats <- wehoop::load_wnba_team_box(seasons = season) |>
-  filter(season_type == 2, team_abbreviation %in% league_teams)
-
-# One row per player per game, with ESPN athlete IDs; players who did not
-# play are dropped so games played counts real games
-player_stats <- wehoop::load_wnba_player_box(seasons = season) |>
-  filter(season_type == 2, !did_not_play, team_abbreviation %in% league_teams)
-```
-
-## WNBA Team Performance
-
-Visualize team performance with team logos:
-
-``` r
-
-# Calculate team metrics
-team_perf <- team_stats |>
-  filter(!is.na(team_abbreviation)) |>
-  group_by(team_abbreviation) |>
-  summarise(
-    avg_points = mean(team_score, na.rm = TRUE),
-    avg_rebounds = mean(total_rebounds, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
-  ) |>
-  filter(games >= 10)
-
-ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
-  geom_sdv_logos(
-    aes(team = team_abbreviation),
-    sport = "wnba",
-    width = 0.075
-  ) +
-  labs(
-    title = "WNBA Team Performance",
-    subtitle = paste("Season", season),
-    x = "Average Points per Game",
-    y = "Average Rebounds per Game",
-    caption = "Data: wehoop | Viz: sdvplotR"
-  ) +
-  theme_minimal()
-```
-
-![WNBA teams in the latest completed season, each drawn as its logo,
-placed by average points (horizontal) and average rebounds (vertical)
-per game.](wnba-viz_files/figure-html/team-performance-1.png)
-
-## WNBA Team Colors
-
-Use team colors to visualize win percentages:
-
-``` r
-
-# Calculate win percentage
-team_wins <- team_stats |>
-  filter(!is.na(team_abbreviation)) |>
-  group_by(team_abbreviation) |>
-  summarise(
-    wins = sum(team_winner, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
-  ) |>
-  filter(games >= 10) |>
-  mutate(win_pct = wins / games) |>
-  arrange(desc(win_pct))
-
-ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
-  geom_col(aes(fill = team_abbreviation), width = 0.7) +
-  scale_fill_sdv(sport = "wnba", alpha = 0.8) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(
-    title = "WNBA Teams by Win Percentage",
-    x = NULL,
-    y = "Win Percentage"
-  ) +
-  theme_minimal() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
-    legend.position = "none"
-  )
-```
-
-![Bar chart of WNBA teams by win percentage in the latest completed
-season, each bar filled in the team's
-color.](wnba-viz_files/figure-html/team-colors-1.png)
-
-## Player Headshots
-
-Visualize top performers with player headshots:
-
-``` r
-
-# Top scorers
-top_scorers <- player_stats |>
-  filter(!is.na(athlete_id)) |>
-  group_by(athlete_id, athlete_display_name) |>
-  summarise(
-    avg_points = mean(points, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
-  ) |>
-  filter(games >= 15) |>
-  arrange(desc(avg_points)) |>
-  head(8)
-
-ggplot(top_scorers, aes(x = games, y = avg_points)) +
-  geom_sdv_headshots(
-    aes(player_id = athlete_id),
-    sport = "wnba",
-    height = 0.1
-  ) +
-  # Labels sit a fixed share of the y range below their face; ggrepel moves
-  # the ones that would collide and draws a connector back to the player
-  ggrepel::geom_label_repel(
-    aes(label = athlete_display_name),
-    nudge_y = -0.22 * diff(range(top_scorers$avg_points)),
-    size = 3,
-    alpha = 0.7,
-    box.padding = 0.5,
-    point.size = 12,
-    min.segment.length = 0,
-    seed = 1
-  ) +
-  scale_x_continuous(expand = expansion(mult = 0.15)) +
-  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
-  labs(
-    title = "Top 8 WNBA Scorers",
-    subtitle = paste("Season", season),
-    x = "Games Played",
-    y = "Average Points per Game"
-  ) +
-  theme_minimal()
-```
-
-![WNBA points per game leaders of the latest completed season, each
-drawn as a headshot placed by games played (horizontal) and points per
-game (vertical), with a name label under
-each.](wnba-viz_files/figure-html/player-headshots-1.png)
-
-### WNBA Stats player IDs
-
-The headshots above use ESPN athlete IDs, the `athlete_id` in wehoop’s
-`load_wnba_*()` data. wehoop’s `wnba_*()` functions read stats.wnba.com,
-which numbers players differently (`PLAYER_ID`). Pass
-`id_type = "league"` to draw those from the WNBA’s own image CDN. Both
-are plain numbers, so without it a WNBA Stats ID is read as an ESPN ID
-and draws someone else or nothing.
-
-``` r
-
-leaders <- wehoop::wnba_leagueleaders(season = season)$LeagueLeaders |>
-  mutate(across(c(GP, PTS), as.numeric)) |>
-  head(8)
-
-ggplot(leaders, aes(x = GP, y = PTS)) +
-  geom_sdv_headshots(
-    aes(player_id = PLAYER_ID),
-    sport = "wnba",
-    id_type = "league",
-    height = 0.15
-  ) +
-  labs(title = "WNBA scoring leaders", x = "Games Played", y = "Points")
-```
-
-`id_type` works the same in
-[`gt_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_headshots.md),
-[`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md),
-the headshot axis scales and
-[`element_sdv_headshot()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md).
-The chunk above is not run when this site is built: stats.wnba.com and
-the WNBA’s image CDN both refuse requests from datacenter IPs, the build
-server’s included, so a plot rendered on CI or a server comes back
-without these headshots. Tables are unaffected, because the reader’s
-browser loads the images.
-
-## WNBA Team Tiers
-
-Create a tier plot ranking WNBA teams:
-
-``` r
-
-# Example tier assignments (replace with your own rankings)
-tier_data <- data.frame(
-  tier_no = c(1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5),
-  team = c("LV", "NY", "WAS", "DAL", "MIN",
-           "SEA", "CHI", "ATL",
-           "PHX", "LA", "CON",
-           "IND")
-)
-
-sdv_team_tiers(
-  tier_data,
-  sport = "wnba",
-  title = "WNBA Team Tiers",
-  subtitle = paste("Example tiers,", season, "season"),
-  tier_desc = c(
-    "1" = "Championship Favorites",
-    "2" = "Contenders",
-    "3" = "Playoff Teams",
-    "4" = "Bubble Teams",
-    "5" = "Developing"
-  )
+theme_set(
+  theme_minimal(base_size = 12) +
+    theme(
+      plot.title = element_text(face = "bold"),
+      plot.title.position = "plot",
+      plot.caption = element_text(color = "grey40", size = 8),
+      plot.caption.position = "plot",
+      panel.grid.minor = element_blank()
+    )
 )
 ```
 
-![WNBA team logos grouped into labeled tiers, from the top tier to the
-bottom. The tiers are
-examples.](wnba-viz_files/figure-html/team-tiers-1.png)
-
-## WNBA Conference Standings
-
-Visualize teams by conference:
+The team box score has one row per team per game; `season_type` 2 is the
+regular season. 2025 is loaded too, for Golden State’s first season.
+ESPN files each All-Star Game as a regular-season game between two teams
+that aren’t WNBA clubs, so an inner join on the ESPN team id to
+`team_reference("wnba")` drops them, and adds each team’s sdvplotR
+abbreviation and conference.
 
 ``` r
 
-# Every team's winning percentage, with the conference sdvplotR keeps for it
-conference_standings <- team_stats |>
-  group_by(team_abbreviation) |>
-  summarise(win_pct = mean(team_winner, na.rm = TRUE), .groups = "drop") |>
-  mutate(team_abbr = clean_team_abbrs(team_abbreviation, sport = "wnba")) |>
-  inner_join(select(team_reference("wnba"), team_abbr, conference), by = "team_abbr") |>
-  arrange(conference, desc(win_pct)) |>
-  group_by(conference) |>
-  mutate(team_rank = row_number()) |>
-  ungroup() |>
-  mutate(conference_num = as.numeric(factor(conference)))
+wnba_teams <- team_reference("wnba") |>
+  select(team_id = espn_team_id, team = team_abbr, conference)
 
-ggplot(conference_standings, aes(x = conference_num, y = team_rank)) +
-  geom_sdv_logos(
-    aes(team = team_abbr),
-    sport = "wnba",
-    width = 0.12
-  ) +
-  scale_x_continuous(
-    breaks = seq_along(levels(factor(conference_standings$conference))),
-    labels = levels(factor(conference_standings$conference)),
-    expand = expansion(add = 0.6)
-  ) +
-  scale_y_reverse() +
-  labs(
-    title = "WNBA Teams by Conference, Best Record on Top",
-    x = NULL,
-    y = NULL
-  ) +
-  theme_minimal() +
-  theme(
-    axis.text.y = element_blank(),
-    panel.grid = element_blank()
-  )
+box_all <- wehoop::load_wnba_team_box(seasons = c(season - 1, season)) |>
+  filter(season_type == 2) |>
+  inner_join(wnba_teams, by = "team_id")
+box <- filter(box_all, season == !!season)
+
+count(box, team, name = "games") |>
+  count(games, name = "teams")
+#> # A tibble: 2 × 2
+#>   games teams
+#>   <int> <int>
+#> 1    44    13
+#> 2    45     2
 ```
 
-![Grid of WNBA team logos, one column per conference, with the team with
-the best record at the top of each
-column.](wnba-viz_files/figure-html/conference-standings-1.png)
+The Commissioner’s Cup final is filed as a regular-season game as well,
+which is why two teams show 45 games. It stays in the box scores (it was
+played) but does not count in the standings in example 7.
 
-## WNBA Standings Table with Logos
+## 1. Offense vs defense, with logos
 
-Create a gt table with team logos:
+Points scored and allowed per 100 possessions, with possessions
+estimated from the box score (FGA - OREB + TOV + 0.44 x FTA) and
+averaged with the opponent’s estimate for the same game. Defensive
+rating is points allowed, so its axis is reversed to put good defenses
+on top.
 
 ``` r
 
-standings_table <- team_wins |>
+games <- box |>
   mutate(
-    logo = team_abbreviation,
-    rank = row_number()
-  ) |>
-  select(rank, logo, team_abbreviation, wins, games, win_pct)
-
-standings_table |>
-  gt() |>
-  gt_sdv_logos(columns = "logo", sport = "wnba", height = 35) |>
-  fmt_number(columns = "win_pct", decimals = 3) |>
-  cols_label(
-    rank = "#",
-    logo = "Team",
-    team_abbreviation = "Abbrev",
-    wins = "Wins",
-    games = "Games",
-    win_pct = "Win %"
-  ) |>
-  tab_header(
-    title = "WNBA Standings",
-    subtitle = paste("Season", season)
+    poss = field_goals_attempted - offensive_rebounds +
+      coalesce(total_turnovers, turnovers) + 0.44 * free_throws_attempted
   )
+games <- games |>
+  inner_join(
+    games |> select(game_id, opponent_team_id = team_id, opp_poss = poss),
+    by = c("game_id", "opponent_team_id")
+  ) |>
+  mutate(game_poss = (poss + opp_poss) / 2)
+
+ratings <- games |>
+  group_by(team, conference) |>
+  summarise(
+    games = n(),
+    ortg = 100 * sum(team_score) / sum(game_poss),
+    drtg = 100 * sum(opponent_team_score) / sum(game_poss),
+    .groups = "drop"
+  ) |>
+  mutate(net = ortg - drtg) |>
+  arrange(desc(net), team)
+stopifnot(nrow(ratings) == 15, !anyNA(ratings$net))
 ```
-
-| WNBA Standings |  |  |  |  |  |
-|----|----|----|----|----|----|
-| Season 2026 |  |  |  |  |  |
-| \# | Team | Abbrev | Wins | Games | Win % |
-| 1 | ![Minnesota Lynx](https://a.espncdn.com/i/teamlogos/wnba/500/min.png) | MIN | 33 | 44 | 0.750 |
-| 2 | ![Golden State Valkyries](https://a.espncdn.com/i/teamlogos/wnba/500/gs.png) | GS | 32 | 44 | 0.727 |
-| 3 | ![Las Vegas Aces](https://a.espncdn.com/i/teamlogos/wnba/500/lv.png) | LV | 31 | 45 | 0.689 |
-| 4 | ![Atlanta Dream](https://a.espncdn.com/i/teamlogos/wnba/500/atl.png) | ATL | 30 | 44 | 0.682 |
-| 5 | ![Indiana Fever](https://a.espncdn.com/i/teamlogos/wnba/500/ind.png) | IND | 28 | 44 | 0.636 |
-| 6 | ![Washington Mystics](https://a.espncdn.com/i/teamlogos/wnba/500/wsh.png) | WSH | 28 | 44 | 0.636 |
-| 7 | ![Dallas Wings](https://a.espncdn.com/i/teamlogos/wnba/500/dal.png) | DAL | 27 | 44 | 0.614 |
-| 8 | ![New York Liberty](https://a.espncdn.com/i/teamlogos/wnba/500/ny.png) | NY | 27 | 45 | 0.600 |
-| 9 | ![Portland Fire](https://a.espncdn.com/i/teamlogos/wnba/500/por.png) | POR | 17 | 44 | 0.386 |
-| 10 | ![Chicago Sky](https://a.espncdn.com/i/teamlogos/wnba/500/chi.png) | CHI | 16 | 44 | 0.364 |
-| 11 | ![Los Angeles Sparks](https://a.espncdn.com/i/teamlogos/wnba/500/la.png) | LA | 16 | 44 | 0.364 |
-| 12 | ![Phoenix Mercury](https://a.espncdn.com/i/teamlogos/wnba/500/phx.png) | PHX | 16 | 44 | 0.364 |
-| 13 | ![Connecticut Sun](https://a.espncdn.com/i/teamlogos/wnba/500/con.png) | CON | 11 | 44 | 0.250 |
-| 14 | ![Toronto Tempo](https://a.espncdn.com/i/teamlogos/wnba/500/tor.png) | TOR | 11 | 44 | 0.250 |
-| 15 | ![Seattle Storm](https://a.espncdn.com/i/teamlogos/wnba/500/sea.png) | SEA | 8 | 44 | 0.182 |
-
-## Player Performance Comparison
-
-Compare the scoring leaders with the assist leaders:
 
 ``` r
 
-per_game <- player_stats |>
-  group_by(athlete_id, athlete_display_name) |>
-  summarise(
-    points = mean(points, na.rm = TRUE),
-    assists = mean(assists, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
-  ) |>
-  filter(games >= 15)
+x_lim <- range(ratings$ortg) + c(-1.5, 1.5)
+y_lim <- range(ratings$drtg) + c(-2, 1.5)
 
-comparison <- bind_rows(
-  per_game |>
-    slice_max(points, n = 5, with_ties = FALSE) |>
-    transmute(athlete_id, category = "Points per Game", value = points),
-  per_game |>
-    slice_max(assists, n = 5, with_ties = FALSE) |>
-    transmute(athlete_id, category = "Assists per Game", value = assists)
-) |>
-  group_by(category) |>
-  mutate(rank = row_number()) |>
+ggplot(ratings, aes(ortg, drtg)) +
+  geom_mean_lines(
+    aes(x0 = ortg, y0 = drtg),
+    color = "grey60", linetype = "dashed", linewidth = 0.4
+  ) +
+  geom_sdv_logos(aes(team = team), sport = "wnba", width = 0.075) +
+  annotate(
+    "text",
+    x = x_lim[c(2, 1, 2, 1)], y = y_lim[c(1, 1, 2, 2)],
+    hjust = c(1, 0, 1, 0), vjust = c(1.3, 1.3, -0.4, -0.4),
+    label = c("Good offense, good defense", "Defense first", "Offense first", "Struggling"),
+    color = "grey45", fontface = "italic", size = 3.5
+  ) +
+  scale_x_continuous(expand = expansion(0)) +
+  scale_y_reverse(expand = expansion(0)) +
+  expand_limits(x = x_lim, y = y_lim) +
+  labs(
+    title = paste("WNBA offense vs defense,", season, "regular season"),
+    x = "Offensive rating (points per 100 possessions)",
+    y = "Defensive rating (points allowed per 100)",
+    caption = source_note
+  )
+```
+
+![WNBA teams of the 2026 regular season drawn as their logos, placed by
+offensive rating (horizontal) and defensive rating (vertical, reversed
+so better defenses are higher), with dashed league-average lines and a
+label in each
+corner.](wnba-viz_files/figure-html/team-performance-1.png)
+
+## 2. The expansion teams, game by game
+
+Golden State joined in 2025, Portland and Toronto in 2026. Cumulative
+wins by game number put all four seasons on one chart; the dashed line
+is a .500 pace. Portland’s primary color is a pale ice blue, so every
+line is drawn over a black one that outlines it on white.
+
+``` r
+
+runs <- box_all |>
+  filter(team == "GS" | (team %in% c("POR", "TOR") & season == 2026)) |>
+  arrange(season, team, game_date) |>
+  group_by(season, team) |>
+  mutate(game_no = row_number(), wins = cumsum(team_winner)) |>
+  ungroup() |>
+  mutate(run = paste(team, season))
+
+ends <- runs |>
+  group_by(run) |>
+  slice_max(game_no, n = 1) |>
   ungroup()
 
-ggplot(comparison, aes(x = rank, y = value)) +
-  geom_sdv_headshots(
-    aes(player_id = athlete_id),
-    sport = "wnba",
-    height = 0.2
+ggplot(runs, aes(game_no, wins, group = run)) +
+  annotate("segment", x = 0, y = 0, xend = 44, yend = 22, color = "grey55", linetype = "dashed") +
+  geom_line(color = "black", linewidth = 2.4) +
+  geom_line(aes(color = team), linewidth = 1.4) +
+  geom_sdv_logos(aes(x = game_no + 2, team = team), data = ends, sport = "wnba", width = 0.045) +
+  geom_text(
+    aes(x = game_no + 3.6, label = sprintf("%s: %d-%d", season, wins, game_no - wins)),
+    data = ends, hjust = 0, size = 3.6
   ) +
-  facet_wrap(~category, scales = "free_y") +
-  scale_x_continuous(breaks = 1:5) +
+  scale_color_sdv(sport = "wnba") +
+  scale_x_continuous(breaks = seq(0, 44, 11), expand = expansion(add = c(0.5, 10))) +
   labs(
-    title = "WNBA Top Performers",
-    subtitle = paste("Season", season),
-    x = "Rank",
-    y = NULL
-  ) +
-  theme_minimal()
-```
-
-![WNBA top performers of the latest completed season in two panels,
-points per game and assists per game; each leader is drawn as a headshot
-ranked within its
-panel.](wnba-viz_files/figure-html/player-comparison-1.png)
-
-## Axis Labels with Logos
-
-Replace axis labels with team logos:
-
-``` r
-
-top_8 <- team_wins |>
-  head(8) |>
-  mutate(team_abbreviation = factor(team_abbreviation, levels = team_abbreviation))
-
-ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
-  geom_col(aes(fill = team_abbreviation), width = 0.6) +
-  scale_fill_sdv(sport = "wnba", alpha = 0.7) +
-  scale_x_sdv(sport = "wnba") +
-  theme_minimal() +
-  theme_x_sdv() +
-  labs(
-    title = "Top 8 WNBA Teams by Win %",
-    x = NULL,
-    y = "Win Percentage"
+    title = "The WNBA's expansion teams, game by game",
+    subtitle = "Cumulative wins; the dashed line is a .500 pace",
+    x = "Game of the season",
+    y = "Wins",
+    caption = source_note
   ) +
   theme(legend.position = "none")
 ```
 
-![Bar chart of the top 8 WNBA teams by win percentage, with each team's
-logo in place of its name on the horizontal axis and bars in team
-colors.](wnba-viz_files/figure-html/axis-logos-1.png)
+![Cumulative wins by game number for the WNBA's expansion teams: Golden
+State in 2025 and 2026, Portland and Toronto in 2026, each line in the
+team's color with a black outline, a logo and the final record at its
+end, and a dashed .500 pace
+line.](wnba-viz_files/figure-html/expansion-1.png)
 
-## Next Steps
+## 3. Net rating, with logos on the axis
 
-- Explore [wehoop documentation](https://wehoop.sportsdataverse.org/)
-- Try combining with [oddsapiR](https://oddsapiR.sportsdataverse.org)
-  for betting lines
-- Build weekly dashboard with [Quarto](https://quarto.org/)
+[`scale_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+turns a discrete vertical axis of abbreviations into logos and
+[`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
+lets the axis draw them. The factor order sets the bar order: here the
+best net rating sits on top.
 
-## Related Vignettes
+``` r
+
+ratings |>
+  mutate(team = factor(team, levels = rev(team))) |>
+  ggplot(aes(net, team, fill = team)) +
+  geom_col(width = 0.72, color = "black", linewidth = 0.2) +
+  geom_vline(xintercept = 0, linewidth = 0.4) +
+  geom_text(
+    aes(label = sprintf("%+.1f", net), hjust = if_else(net > 0, -0.15, 1.15)),
+    size = 3.4
+  ) +
+  scale_fill_sdv(sport = "wnba") +
+  scale_y_sdv(sport = "wnba", size = 18) +
+  scale_x_continuous(expand = expansion(mult = 0.12)) +
+  labs(
+    title = paste("WNBA net rating,", season, "regular season"),
+    x = "Net rating (points per 100 possessions)",
+    y = NULL,
+    caption = source_note
+  ) +
+  theme_y_sdv() +
+  theme(legend.position = "none", panel.grid.major.y = element_blank())
+```
+
+![Horizontal bar chart of WNBA net rating per 100 possessions in 2026,
+best at the top, each bar in the team's color with a thin black outline
+and the team's logo on the vertical
+axis.](wnba-viz_files/figure-html/net-rating-1.png)
+
+## 4. Team tiers from net rating
+
+[`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
+draws a tier list from `tier_no` and `team`. The tiers here are cut from
+the net ratings above, so they are the season’s numbers. Its Tiermaker
+theme is dark, and Toronto’s dark plum mark all but disappears on it.
+The result is a ggplot, so a few
+[`theme()`](https://ggplot2.tidyverse.org/reference/theme.html) settings
+make it light, and `alpha = 1` draws the logos at full strength.
+
+``` r
+
+tiers <- ratings |>
+  mutate(tier_no = 5L - cut(net, c(-Inf, -5, 0, 5, Inf), labels = FALSE, right = FALSE)) |>
+  arrange(tier_no, desc(net)) |>
+  select(tier_no, team)
+
+sdv_team_tiers(
+  tiers,
+  sport = "wnba",
+  title = paste("WNBA tiers by net rating,", season),
+  subtitle = "Regular-season net rating per 100 possessions, cut at +5, 0 and -5",
+  caption = source_note,
+  tier_desc = c("1" = "Title contenders", "2" = "Playoff teams", "3" = "Fringe", "4" = "Rebuilding"),
+  alpha = 1
+) +
+  theme(
+    plot.background = element_rect(fill = "white", color = "white"),
+    panel.background = element_rect(fill = "white", color = "white"),
+    plot.title = element_text(color = "black", face = "bold"),
+    axis.text.y = element_text(color = "black", face = "bold", size = rel(1.1))
+  )
+```
+
+![WNBA team logos in four tiers cut from 2026 net rating per 100
+possessions: Title contenders, Playoff teams, Fringe and
+Rebuilding.](wnba-viz_files/figure-html/team-tiers-1.png)
+
+## 5. Scoring leaders, with headshots as the axis labels
+
+[`scale_y_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+draws a headshot for each ESPN athlete id on a discrete axis, the way
+[`scale_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+draws logos. A thin black edge keeps the pale team colors (Portland, New
+York) visible. Players need 30 games.
+
+``` r
+
+players <- wehoop::load_wnba_player_box(seasons = season) |>
+  semi_join(distinct(box, game_id), by = "game_id") |>
+  filter(!did_not_play)
+
+scorers <- players |>
+  arrange(game_date) |>
+  group_by(athlete_id, athlete_display_name) |>
+  summarise(games = n(), team = last(team_abbreviation), ppg = mean(points), .groups = "drop") |>
+  filter(games >= 30) |>
+  arrange(desc(ppg), athlete_id) |>
+  head(10)
+```
+
+``` r
+
+scorers |>
+  mutate(athlete_id = factor(athlete_id, levels = rev(athlete_id))) |>
+  ggplot(aes(ppg, athlete_id)) +
+  geom_col(aes(fill = team), width = 0.7, color = "black", linewidth = 0.2) +
+  geom_text(
+    aes(x = ppg + 0.4, label = sprintf("%s  %.1f", athlete_display_name, ppg)),
+    hjust = 0, size = 3.8
+  ) +
+  scale_fill_sdv(sport = "wnba") +
+  scale_y_sdv_headshots(sport = "wnba", size = 34) +
+  scale_x_continuous(limits = c(0, max(scorers$ppg) + 9), expand = expansion(0)) +
+  labs(
+    title = paste("WNBA scoring leaders,", season),
+    subtitle = "Points per game, 30 or more games",
+    x = "Points per game",
+    y = NULL,
+    caption = source_note
+  ) +
+  theme_y_sdv() +
+  theme(legend.position = "none", panel.grid.major.y = element_blank())
+```
+
+![Horizontal bar chart of the ten WNBA scoring leaders of 2026 (30 or
+more games), each bar in the player's team color, with her headshot as
+the axis label and her name and points per game at the end of the
+bar.](wnba-viz_files/figure-html/player-headshots-1.png)
+
+## 6. A binned shot chart on a team-colored court
+
+`load_wnba_shots()` holds ESPN’s shot locations, which wehoop already
+converts to feet on a center-court frame, the frame
+[`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)’s
+sportyR court uses. They need no conversion;
+[`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)
+is only for the stats.wnba.com legacy frame (`x_legacy`/`y_legacy`,
+tenths of a foot around the hoop). Fold the right-basket shots onto the
+left one, then bin them into 3-foot squares: the size of each point is
+the attempts from there, its color the field goal percentage.
+
+``` r
+
+star <- slice(scorers, 1)
+
+zones <- wehoop::load_wnba_shots(seasons = season) |>
+  semi_join(distinct(box, game_id), by = "game_id") |>
+  filter(athlete_id_1 == star$athlete_id, !grepl("Free Throw", type_text)) |>
+  mutate(
+    right = coordinate_x > 0,
+    x = if_else(right, -coordinate_x, coordinate_x),
+    y = if_else(right, -coordinate_y, coordinate_y)
+  ) |>
+  group_by(x = round(x / 3) * 3, y = round(y / 3) * 3) |>
+  summarise(attempts = n(), fg_pct = mean(scoring_play), .groups = "drop")
+
+sdv_surface("wnba", star$team, display_range = "defense") +
+  geom_point(
+    aes(x, y, size = attempts, fill = fg_pct),
+    data = zones, shape = 21, color = "grey15", stroke = 0.3
+  ) +
+  scale_size_area(max_size = 11, name = "Attempts") +
+  scale_fill_gradient2(
+    low = "#2C7BB6", mid = "white", high = "#D7191C", midpoint = 0.45,
+    limits = c(0, 1), breaks = c(0, 0.5, 1), labels = scales::percent, name = "FG%"
+  ) +
+  labs(
+    title = paste0(star$athlete_display_name, ": where she shot from, ", season),
+    subtitle = sprintf("%d field goal attempts in 3-foot squares", sum(zones$attempts)),
+    caption = source_note
+  ) +
+  theme(legend.position = "bottom", plot.title = element_text(face = "bold"))
+```
+
+![Half-court chart of the 2026 WNBA scoring leader's field goal attempts
+binned into 3-foot squares on a court painted in her team's colors:
+point size shows attempts and color shows field goal percentage, blue
+below 45 percent and red
+above.](wnba-viz_files/figure-html/shot-chart-1.png)
+
+## 7. A standings table with logos and a playoff line
+
+ESPN’s standings come long (one row per team and stat), so pivot them
+wide. The `clincher` column marks the eight teams that clinched a
+playoff spot with an `x`, and they are the eight best records, so one
+league-wide table with a cut line after eighth tells the story.
+
+``` r
+
+standings <- wehoop::load_wnba_standings(seasons = season) |>
+  select(group_name, team_abbreviation, team_short_display_name, stat_name, display_value) |>
+  pivot_wider(names_from = stat_name, values_from = display_value)
+
+standings |>
+  mutate(
+    conf = sub(" Conference", "", group_name),
+    logo = team_abbreviation,
+    pct = as.numeric(winPercent)
+  ) |>
+  arrange(desc(pct), desc(as.numeric(differential)), team_abbreviation) |>
+  mutate(rank = row_number()) |>
+  select(rank, logo, team_short_display_name, conf, wins, losses, winPercent, Home, Road, `Last Ten Games`, differential) |>
+  gt() |>
+  tab_header(
+    title = paste("WNBA standings,", season),
+    subtitle = "The eight best records made the playoffs"
+  ) |>
+  cols_label(
+    rank = "", logo = "", team_short_display_name = "Team", conf = "Conf", wins = "W",
+    losses = "L", winPercent = "Pct", `Last Ten Games` = "L10",
+    differential = "Diff"
+  ) |>
+  tab_source_note(source_note) |>
+  gt_sdv_logos(columns = logo, sport = "wnba", height = 26) |>
+  gt_theme_athletic() |>
+  cols_align("left", columns = team_short_display_name) |>
+  gt_cutline(after = 8, label = "Playoffs", label_position = "above")
+```
+
+| WNBA standings, 2026 |  |  |  |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|----|----|----|
+| The eight best records made the playoffs |  |  |  |  |  |  |  |  |  |  |
+|  |  | Team | Conf | W | L | Pct | Home | Road | L10 | Diff |
+| 1 | ![Minnesota Lynx](https://a.espncdn.com/i/teamlogos/wnba/500/min.png) | Lynx | Western | 33 | 11 | .750 | 15-7 | 18-4 | 6-4 | +7.1 |
+| 2 | ![Golden State Valkyries](https://a.espncdn.com/i/teamlogos/wnba/500/gs.png) | Valkyries | Western | 32 | 12 | .727 | 17-5 | 15-7 | 7-3 | +7.1 |
+| 3 | ![Las Vegas Aces](https://a.espncdn.com/i/teamlogos/wnba/500/lv.png) | Aces | Western | 31 | 13 | .705 | 15-7 | 16-6 | 8-2 | +5.7 |
+| 4 | ![Atlanta Dream](https://a.espncdn.com/i/teamlogos/wnba/500/atl.png) | Dream | Eastern | 30 | 14 | .682 | 15-7 | 15-7 | 9-1 | +6.8 |
+| 5 | ![Indiana Fever](https://a.espncdn.com/i/teamlogos/wnba/500/ind.png) | Fever | Eastern | 28 | 16 | .636 | 15-7 | 13-9 | 6-4 | +5.6 |
+| 6 | ![Washington Mystics](https://a.espncdn.com/i/teamlogos/wnba/500/wsh.png) | Mystics | Eastern | 28 | 16 | .636 | 15-7 | 13-9 | 8-2 | +1.3 |
+| 7 | ![Dallas Wings](https://a.espncdn.com/i/teamlogos/wnba/500/dal.png) | Wings | Western | 27 | 17 | .614 | 16-6 | 11-11 | 7-3 | +4.1 |
+| 8 | ![New York Liberty](https://a.espncdn.com/i/teamlogos/wnba/500/ny.png) | Liberty | Eastern | 26 | 18 | .591 | 14-8 | 12-10 | 6-4 | +3.2 |
+| 9 | ![Portland Fire](https://a.espncdn.com/i/teamlogos/wnba/500/por.png) | Fire | Western | 17 | 27 | .386 | 9-13 | 8-14 | 3-7 | -4.8 |
+| 10 | ![Phoenix Mercury](https://a.espncdn.com/i/teamlogos/wnba/500/phx.png) | Mercury | Western | 16 | 28 | .364 | 7-15 | 9-13 | 4-6 | -3.2 |
+| 11 | ![Chicago Sky](https://a.espncdn.com/i/teamlogos/wnba/500/chi.png) | Sky | Eastern | 16 | 28 | .364 | 11-11 | 5-17 | 4-6 | -3.9 |
+| 12 | ![Los Angeles Sparks](https://a.espncdn.com/i/teamlogos/wnba/500/la.png) | Sparks | Western | 16 | 28 | .364 | 8-14 | 8-14 | 4-6 | -4.3 |
+| 13 | ![Toronto Tempo](https://a.espncdn.com/i/teamlogos/wnba/500/tor.png) | Tempo | Eastern | 11 | 33 | .250 | 7-15 | 4-18 | 1-9 | -8.7 |
+| 14 | ![Connecticut Sun](https://a.espncdn.com/i/teamlogos/wnba/500/con.png) | Sun | Eastern | 11 | 33 | .250 | 8-14 | 3-19 | 2-8 | -9.2 |
+| 15 | ![Seattle Storm](https://a.espncdn.com/i/teamlogos/wnba/500/sea.png) | Storm | Western | 8 | 36 | .182 | 6-16 | 2-20 | 2-8 | -6.7 |
+| Data: wehoop (ESPN) \| Viz: sdvplotR |  |  |  |  |  |  |  |  |  |  |
+
+## 8. The season as a running point differential, by conference
+
+Running point differential through the season, one line per team in its
+color
+([`scale_color_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)),
+one panel per conference, with
+[`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
+marking where each team finished.
+
+``` r
+
+running <- box |>
+  arrange(team, game_date) |>
+  group_by(team) |>
+  mutate(game_no = row_number(), diff = cumsum(team_score - opponent_team_score)) |>
+  ungroup()
+finish <- running |>
+  group_by(team) |>
+  slice_max(game_no, n = 1) |>
+  ungroup()
+
+ggplot(running, aes(game_no, diff)) +
+  geom_hline(yintercept = 0, color = "grey50", linewidth = 0.4) +
+  geom_line(aes(group = team), color = "black", linewidth = 1.6) +
+  geom_line(aes(color = team), linewidth = 1) +
+  geom_sdv_logos(aes(x = game_no + 3, team = team), data = finish, sport = "wnba", width = 0.07) +
+  facet_wrap(~conference, labeller = labeller(conference = function(x) paste(x, "Conference"))) +
+  scale_color_sdv(sport = "wnba") +
+  scale_x_continuous(expand = expansion(add = c(1, 6))) +
+  labs(
+    title = paste("Running point differential,", season),
+    x = "Game of the season",
+    y = "Point differential",
+    caption = source_note
+  ) +
+  theme(legend.position = "none", strip.text = element_text(face = "bold", size = 11))
+```
+
+![Two panels, Eastern and Western Conference, with one line per WNBA
+team showing its running point differential by game number through the
+2026 regular season, each line in the team's color with its logo at the
+end.](wnba-viz_files/figure-html/running-differential-1.png)
+
+## 9. Every game’s margin, in team colors
+
+A box plot shows the spread of a season; the points on top are the
+games, in each team’s color, and
+[`scale_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+labels the axis with logos. Teams are ordered by their median margin.
+`position_jitter(seed = 1)` keeps the jitter the same from one build to
+the next.
+
+``` r
+
+margins <- box |>
+  mutate(margin = team_score - opponent_team_score)
+order <- margins |>
+  group_by(team) |>
+  summarise(med = median(margin), avg = mean(margin)) |>
+  arrange(desc(med), desc(avg), team) |>
+  pull(team)
+
+margins |>
+  mutate(team = factor(team, levels = order)) |>
+  ggplot(aes(team, margin)) +
+  geom_hline(yintercept = 0, color = "grey50", linewidth = 0.4) +
+  geom_boxplot(outlier.shape = NA, fill = NA, color = "grey40", width = 0.6) +
+  geom_point(
+    aes(fill = team),
+    shape = 21, color = "black", stroke = 0.2, size = 1.9, alpha = 0.85,
+    position = position_jitter(width = 0.18, height = 0, seed = 1)
+  ) +
+  scale_fill_sdv(sport = "wnba") +
+  scale_x_sdv(sport = "wnba", size = 20) +
+  labs(
+    title = paste("Every game's final margin,", season),
+    subtitle = "Teams ordered by median margin",
+    x = NULL,
+    y = "Final margin (points)",
+    caption = source_note
+  ) +
+  theme_x_sdv() +
+  theme(legend.position = "none", panel.grid.major.x = element_blank())
+```
+
+![Box plots of every 2026 WNBA game's final margin by team, ordered by
+median margin, with each game as a point in the team's color and team
+logos along the horizontal
+axis.](wnba-viz_files/figure-html/game-margins-1.png)
+
+## 10. The standings race, as a bump chart
+
+Rank all 15 teams by win percentage at the end of every week, then draw
+one line per team in its color with its logo at the finish. Ties are
+broken by point differential, then by abbreviation, so the same data
+always draw the same chart.
+
+``` r
+
+weekly <- box |>
+  mutate(
+    week = as.Date(cut(game_date, "week", start.on.monday = TRUE)),
+    margin = team_score - opponent_team_score
+  ) |>
+  group_by(team, week) |>
+  summarise(wins = sum(team_winner), games = n(), margin = sum(margin), .groups = "drop") |>
+  complete(team, week, fill = list(wins = 0, games = 0, margin = 0)) |>
+  arrange(team, week) |>
+  group_by(team) |>
+  mutate(across(c(wins, games, margin), cumsum)) |>
+  ungroup() |>
+  mutate(week_no = dense_rank(week)) |>
+  filter(week_no >= 3) |> # the first two weeks hold only a game or two
+  arrange(week_no, desc(wins / games), desc(margin), team) |>
+  group_by(week_no) |>
+  mutate(rank = row_number()) |>
+  ungroup()
+last_week <- filter(weekly, week_no == max(week_no))
+
+ggplot(weekly, aes(week_no, rank)) +
+  geom_line(aes(group = team), color = "black", linewidth = 1.7) +
+  geom_line(aes(color = team), linewidth = 1.1) +
+  geom_sdv_logos(aes(x = week_no + 0.9, team = team), data = last_week, sport = "wnba", width = 0.045) +
+  scale_color_sdv(sport = "wnba") +
+  scale_y_reverse(breaks = 1:15) +
+  scale_x_continuous(breaks = seq(3, 30, 3), expand = expansion(add = c(0.4, 1.4))) +
+  labs(
+    title = paste("The WNBA standings race,", season),
+    subtitle = "League rank by win percentage at the end of each week",
+    x = "Week of the season",
+    y = "League rank",
+    caption = source_note
+  ) +
+  theme(legend.position = "none", panel.grid.major.x = element_blank())
+```
+
+![Bump chart of the 15 WNBA teams' weekly league rank by win percentage
+through the 2026 regular season, one line per team in its color, with
+each team's logo at its final rank on the
+right.](wnba-viz_files/figure-html/bump-chart-1.png)
+
+## Related articles
 
 - [Getting
   Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)
+- [NBA
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/nba-viz.md)
+- [Women’s College Basketball
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.md)
 - [Social Posting
   Patterns](https://sdvplotR.sportsdataverse.org/articles/social-posting.md)
-- [Leaderboard
-  Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md)

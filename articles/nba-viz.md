@@ -2,12 +2,13 @@
 
 On this page
 
-## Introduction
-
-This vignette demonstrates how to create rich NBA visualizations by
-combining [hoopR](https://hoopR.sportsdataverse.org) for player and team
-data with [sdvplotR](https://sdvplotr.sportsdataverse.org) for team
-logos, headshots, colors, and gt tables.
+Ten charts and tables from the 2025-26 NBA regular season: an
+offense-vs-defense quadrant and net-rating bars with logos, a conference
+bump chart, a scoring leaderboard with headshots, a shot chart on a
+team-colored court, tiers, a standings table, faceted logos, a home/road
+dumbbell and a table of category leaders. Every number comes from
+[hoopR](https://hoopR.sportsdataverse.org)’s ESPN release files on
+GitHub (`load_nba_*()`), so nothing here calls stats.nba.com.
 
 ## Setup
 
@@ -15,420 +16,602 @@ logos, headshots, colors, and gt tables.
 
 library(sdvplotR)
 library(ggplot2)
-library(hoopR)
 library(dplyr)
+library(tidyr)
 library(gt)
 
-# Get valid NBA team abbreviations
-nba_teams <- valid_team_names("nba")
-head(nba_teams)
-#> [1] "ATL" "BKN" "BOS" "CHA" "CHI" "CLE"
+season <- 2026 # the 2025-26 season: hoopR names a season by the year it ends
+label <- "2025-26"
+source_note <- "Data: hoopR (ESPN) | Viz: sdvplotR"
+
+theme_set(
+  theme_minimal(base_size = 12) +
+    theme(
+      plot.title = element_text(face = "bold"),
+      plot.title.position = "plot",
+      plot.caption = element_text(color = "grey40", size = 8),
+      plot.caption.position = "plot",
+      panel.grid.minor = element_blank()
+    )
+)
 ```
 
-## Loading NBA Data
-
-Use `hoopR` to load this season’s ESPN team and player box scores:
+The team box score has one row per team per game. `season_type` 2 is the
+regular season (3 is the playoffs, 5 the play-in). ESPN files the
+All-Star games as regular-season games too, between teams that aren’t
+NBA clubs, so an inner join on the ESPN team id to
+`team_reference("nba")` drops them and adds each team’s sdvplotR
+abbreviation and conference in the same step.
 
 ``` r
 
-# The last completed regular season (hoopR names a season for the year it
-# ends; the regular season ends in mid-April)
-season <- as.integer(format(Sys.Date(), "%Y")) -
-  (format(Sys.Date(), "%m-%d") < "04-20")
+nba_teams <- team_reference("nba") |>
+  select(team_id = espn_team_id, team = team_abbr, conference)
 
-# One row per team per game (ESPN box scores), regular season only. ESPN tags
-# the All-Star games as regular season too; keeping the league's own teams
-# drops them
-league_teams <- team_reference("nba")$team_abbr
-team_stats <- hoopR::load_nba_team_box(seasons = season) |>
-  filter(season_type == 2, team_abbreviation %in% league_teams)
+box <- hoopR::load_nba_team_box(seasons = season) |>
+  filter(season_type == 2) |>
+  inner_join(nba_teams, by = "team_id")
 
-# One row per player per game, with ESPN athlete IDs; players who did not
-# play are dropped so games played counts real games
-player_stats <- hoopR::load_nba_player_box(seasons = season) |>
-  filter(season_type == 2, !did_not_play, team_abbreviation %in% league_teams)
+box |>
+  distinct(game_id) |>
+  nrow()
+#> [1] 1231
 ```
 
-## NBA Team Performance
+That is one more than the 1,230 games of the schedule: the NBA Cup final
+between New York and San Antonio is filed as a regular-season game too.
+It stays in the box scores (it was played) but not in the standings, so
+those two teams show 83 games here.
 
-Visualize team performance with team logos:
+## 1. Offense vs defense, with logos
+
+Points scored and allowed per 100 possessions put all 30 teams on one
+chart. Possessions are estimated from the box score (FGA - OREB + TOV +
+0.44 x FTA) and averaged with the opponent’s estimate for the same game.
+One Chicago game is missing its team turnovers, so `total_turnovers`
+falls back to the players’ `turnovers` there; without that, Chicago and
+its opponent that night, Orlando, would drop out of every chart below.
+The last line stops the build if a team ever goes missing.
 
 ``` r
 
-# Calculate team metrics
-team_perf <- team_stats |>
-  filter(!is.na(team_abbreviation)) |>
-  group_by(team_abbreviation) |>
+games <- box |>
+  mutate(
+    poss = field_goals_attempted - offensive_rebounds +
+      coalesce(total_turnovers, turnovers) + 0.44 * free_throws_attempted
+  )
+games <- games |>
+  inner_join(
+    games |> select(game_id, opponent_team_id = team_id, opp_poss = poss),
+    by = c("game_id", "opponent_team_id")
+  ) |>
+  mutate(game_poss = (poss + opp_poss) / 2)
+
+ratings <- games |>
+  group_by(team, conference) |>
   summarise(
-    avg_points = mean(team_score, na.rm = TRUE),
-    avg_rebounds = mean(total_rebounds, na.rm = TRUE),
     games = n(),
+    wins = sum(team_winner),
+    pace = mean(game_poss),
+    ortg = 100 * sum(team_score) / sum(game_poss),
+    drtg = 100 * sum(opponent_team_score) / sum(game_poss),
+    fg3a_rate = sum(three_point_field_goals_attempted) / sum(field_goals_attempted),
+    fg3_pct = sum(three_point_field_goals_made) / sum(three_point_field_goals_attempted),
     .groups = "drop"
   ) |>
-  filter(games >= 10)
+  mutate(net = ortg - drtg) |>
+  arrange(desc(net), team)
+stopifnot(nrow(ratings) == 30, !anyNA(ratings$net))
 
-ggplot(team_perf, aes(x = avg_points, y = avg_rebounds)) +
-  geom_sdv_logos(
-    aes(team = team_abbreviation),
-    sport = "nba",
-    width = 0.075
-  ) +
-  labs(
-    title = "NBA Team Performance",
-    subtitle = paste("Season", season),
-    x = "Average Points per Game",
-    y = "Average Rebounds per Game",
-    caption = "Data: hoopR | Viz: sdvplotR"
-  ) +
-  theme_minimal()
+ratings |>
+  select(team, conference, wins, ortg, drtg, net) |>
+  head(5)
+#> # A tibble: 5 × 6
+#>   team  conference  wins  ortg  drtg   net
+#>   <chr> <chr>      <int> <dbl> <dbl> <dbl>
+#> 1 OKC   Western       64  116.  105. 10.9 
+#> 2 DET   Eastern       60  114.  106.  7.93
+#> 3 SA    Western       62  117.  109.  7.86
+#> 4 BOS   Eastern       56  117.  109.  7.85
+#> 5 NY    Eastern       54  117.  110.  6.40
 ```
 
-![NBA teams in the latest completed season, each drawn as its logo,
-placed by average points (horizontal) and average rebounds (vertical)
-per game.](nba-viz_files/figure-html/team-performance-1.png)
-
-## NBA Team Colors
-
-Use team colors to visualize win percentages:
+Defensive rating is points allowed, so its axis is reversed: good
+defenses sit at the top and the best teams in the top-right corner.
 
 ``` r
 
-# Calculate win percentage
-team_wins <- team_stats |>
-  filter(!is.na(team_abbreviation)) |>
-  group_by(team_abbreviation) |>
-  summarise(
-    wins = sum(team_winner, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
-  ) |>
-  filter(games >= 10) |>
-  mutate(win_pct = wins / games) |>
-  arrange(desc(win_pct)) |>
-  head(16)
+x_lim <- range(ratings$ortg) + c(-1.5, 1.5)
+y_lim <- range(ratings$drtg) + c(-2, 1.5)
 
-ggplot(team_wins, aes(x = reorder(team_abbreviation, win_pct), y = win_pct)) +
-  geom_col(aes(fill = team_abbreviation), width = 0.7) +
-  scale_fill_sdv(sport = "nba", alpha = 0.8) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(
-    title = "Top 16 NBA Teams by Win Percentage",
-    x = NULL,
-    y = "Win Percentage"
+ggplot(ratings, aes(ortg, drtg)) +
+  geom_mean_lines(
+    aes(x0 = ortg, y0 = drtg),
+    color = "grey60", linetype = "dashed", linewidth = 0.4
   ) +
-  theme_minimal() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
-    legend.position = "none"
+  geom_sdv_logos(aes(team = team), sport = "nba", width = 0.065) +
+  annotate(
+    "text",
+    x = x_lim[c(2, 1, 2, 1)], y = y_lim[c(1, 1, 2, 2)],
+    hjust = c(1, 0, 1, 0), vjust = c(1.3, 1.3, -0.4, -0.4),
+    label = c("Good offense, good defense", "Defense first", "Offense first", "Struggling"),
+    color = "grey45", fontface = "italic", size = 3.5
+  ) +
+  scale_x_continuous(expand = expansion(0)) +
+  scale_y_reverse(expand = expansion(0)) +
+  expand_limits(x = x_lim, y = y_lim) +
+  labs(
+    title = paste("NBA offense vs defense,", label, "regular season"),
+    x = "Offensive rating (points per 100 possessions)",
+    y = "Defensive rating (points allowed per 100)",
+    caption = source_note
   )
 ```
 
-![Bar chart of the 16 NBA teams with the best win percentage in the
-latest completed season, each bar filled in the team's
-color.](nba-viz_files/figure-html/team-colors-1.png)
+![NBA teams of the 2025-26 regular season drawn as their logos, placed
+by offensive rating (horizontal) and defensive rating (vertical,
+reversed so better defenses are higher), with dashed league-average
+lines and a label in each
+corner.](nba-viz_files/figure-html/team-performance-1.png)
 
-## Player Headshots
+## 2. Net rating, ranked, with logos on the axis
 
-Visualize top performers with player headshots:
+[`scale_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+turns a discrete axis of team abbreviations into logos, and
+[`theme_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
+lets the axis draw them. Order the factor first: the bars keep that
+order and so do the logos.
 
 ``` r
 
-# Top scorers
-top_scorers <- player_stats |>
-  filter(!is.na(athlete_id)) |>
+ratings |>
+  mutate(team = factor(team, levels = team)) |>
+  ggplot(aes(team, net, fill = team)) +
+  geom_col(width = 0.75) +
+  geom_hline(yintercept = 0, linewidth = 0.4) +
+  scale_fill_sdv(sport = "nba") +
+  scale_x_sdv(sport = "nba", size = 16) +
+  labs(
+    title = paste("NBA net rating,", label, "regular season"),
+    x = NULL,
+    y = "Net rating (per 100 possessions)",
+    caption = source_note
+  ) +
+  theme_x_sdv() +
+  theme(legend.position = "none", panel.grid.major.x = element_blank())
+```
+
+![Bar chart of NBA net rating per 100 possessions in 2025-26, best to
+worst, each bar in the team's color with the team's logo under it on the
+horizontal axis.](nba-viz_files/figure-html/net-rating-1.png)
+
+## 3. The race in the West, as a bump chart
+
+Rank each team inside its conference by win percentage at the end of
+every week, then draw one line per team in its color with its logo at
+the finish. Ties are broken by point differential, then by abbreviation,
+not by the NBA’s tiebreakers, so the same data always draw the same
+chart.
+
+``` r
+
+weekly <- box |>
+  mutate(
+    week = as.Date(cut(game_date, "week", start.on.monday = TRUE)),
+    margin = team_score - opponent_team_score
+  ) |>
+  group_by(team, conference, week) |>
+  summarise(wins = sum(team_winner), games = n(), margin = sum(margin), .groups = "drop") |>
+  complete(nesting(team, conference), week, fill = list(wins = 0, games = 0, margin = 0)) |>
+  arrange(team, week) |>
+  group_by(team) |>
+  mutate(across(c(wins, games, margin), cumsum)) |>
+  ungroup() |>
+  mutate(week_no = dense_rank(week)) |>
+  filter(week_no >= 3) |> # the first two weeks hold only a game or two
+  arrange(conference, week_no, desc(wins / games), desc(margin), team) |>
+  group_by(conference, week_no) |>
+  mutate(rank = row_number()) |>
+  ungroup()
+
+west <- filter(weekly, conference == "Western")
+finish <- filter(west, week_no == max(week_no))
+
+ggplot(west, aes(week_no, rank)) +
+  geom_line(aes(color = team), linewidth = 1.1, alpha = 0.85) +
+  # the logos get no color aesthetic: a colour would tint the whole image
+  geom_sdv_logos(aes(x = week_no + 1, team = team), data = finish, sport = "nba", width = 0.04) +
+  scale_color_sdv(sport = "nba") +
+  scale_y_reverse(breaks = 1:15) +
+  scale_x_continuous(breaks = seq(5, 30, 5), expand = expansion(add = c(0.5, 1.5))) +
+  labs(
+    title = paste("The race in the West,", label),
+    subtitle = "Conference rank by win percentage at the end of each week",
+    x = "Week of the season",
+    y = "Western Conference rank",
+    caption = source_note
+  ) +
+  theme(legend.position = "none", panel.grid.major.x = element_blank())
+```
+
+![Bump chart of the 15 Western Conference teams' weekly conference rank
+through the 2025-26 regular season, one line per team in its color, with
+each team's logo at its final rank on the
+right.](nba-viz_files/figure-html/bump-chart-1.png)
+
+Swap `"Western"` for `"Eastern"` to draw the other conference from the
+same `weekly` frame.
+
+## 4. A scoring leaderboard with headshots
+
+The player box score carries ESPN athlete ids, which is what
+[`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md)
+takes for the NBA. Only games in `box` count, so the All-Star games stay
+out, and a player’s team is the one he played for last.
+
+``` r
+
+players <- hoopR::load_nba_player_box(seasons = season) |>
+  semi_join(distinct(box, game_id), by = "game_id") |>
+  filter(!did_not_play)
+
+per_game <- players |>
+  arrange(game_date) |>
   group_by(athlete_id, athlete_display_name) |>
   summarise(
-    avg_points = mean(points, na.rm = TRUE),
     games = n(),
+    team = last(team_abbreviation),
+    across(
+      c(points, rebounds, assists, steals, blocks, three_point_field_goals_made),
+      mean
+    ),
     .groups = "drop"
   ) |>
-  filter(games >= 20) |>
-  arrange(desc(avg_points)) |>
-  head(8)
+  filter(games >= 50)
 
-ggplot(top_scorers, aes(x = games, y = avg_points)) +
-  geom_sdv_headshots(
-    aes(player_id = athlete_id),
-    sport = "nba",
-    height = 0.1
-  ) +
-  # Labels sit a fixed share of the y range below their face; ggrepel moves
-  # the ones that would collide and draws a connector back to the player
-  ggrepel::geom_label_repel(
-    aes(label = athlete_display_name),
-    nudge_y = -0.22 * diff(range(top_scorers$avg_points)),
-    size = 3,
-    alpha = 0.7,
-    box.padding = 0.5,
-    point.size = 12,
-    min.segment.length = 0,
-    seed = 1
-  ) +
-  scale_x_continuous(expand = expansion(mult = 0.15)) +
-  scale_y_continuous(expand = expansion(mult = c(0.35, 0.2))) +
+scorers <- per_game |>
+  arrange(desc(points), athlete_id) |>
+  head(10) |>
+  mutate(athlete_display_name = factor(athlete_display_name, levels = rev(athlete_display_name)))
+```
+
+``` r
+
+ggplot(scorers, aes(points, athlete_display_name)) +
+  geom_col(aes(fill = team), width = 0.7) +
+  geom_sdv_logos(aes(x = points + 1.6, team = team), sport = "nba", height = 0.07) +
+  geom_sdv_headshots(aes(x = points + 4.6, player_id = athlete_id), sport = "nba", height = 0.09) +
+  geom_text(aes(x = points + 7.4, label = sprintf("%.1f", points)), fontface = "bold", hjust = 0) +
+  scale_fill_sdv(sport = "nba") +
+  scale_x_continuous(limits = c(0, max(scorers$points) + 10), expand = expansion(0)) +
   labs(
-    title = "Top 8 NBA Scorers",
-    subtitle = paste("Season", season),
-    x = "Games Played",
-    y = "Average Points per Game"
+    title = paste("NBA scoring leaders,", label),
+    subtitle = "Points per game, 50 or more games",
+    x = "Points per game",
+    y = NULL,
+    caption = source_note
   ) +
-  theme_minimal()
+  theme(legend.position = "none", panel.grid.major.y = element_blank())
 ```
 
-![NBA points per game leaders of the latest completed season, each drawn
-as a headshot placed by games played (horizontal) and points per game
-(vertical), with a name label under
-each.](nba-viz_files/figure-html/player-headshots-1.png)
+![Horizontal bar chart of the ten NBA scoring leaders of 2025-26 (50 or
+more games), each bar in the player's team color, followed by the team
+logo, the player's headshot and his points per
+game.](nba-viz_files/figure-html/player-headshots-1.png)
 
-### NBA Stats player IDs
-
-The headshots above use ESPN athlete IDs, the `athlete_id` in hoopR’s
-`load_nba_*()` data. hoopR’s `nba_*()` functions read stats.nba.com,
-which numbers players differently (`PLAYER_ID`). Pass
-`id_type = "league"` to draw those from the NBA’s own image CDN. Both
-are plain numbers, so without it an NBA Stats ID is read as an ESPN ID
-and draws someone else or nothing: Dirk Nowitzki’s NBA Stats ID, 1717,
-is ESPN’s Jared Jeffries.
+These are ESPN athlete ids. stats.nba.com numbers players differently
+(`PERSON_ID`), and the two can’t be told apart by shape: an NBA Stats id
+read as an ESPN id draws someone else or nothing. For data keyed by NBA
+Stats ids, pass `id_type = "league"` to draw from the NBA’s own image
+CDN:
 
 ``` r
 
-leaders <- hoopR::nba_leagueleaders(season = hoopR::year_to_season(season - 1), stat_category = "PTS")$LeagueLeaders |>
-  mutate(across(c(GP, PTS), as.numeric)) |>
-  head(8)
-
-ggplot(leaders, aes(x = GP, y = PTS)) +
-  geom_sdv_headshots(
-    aes(player_id = PLAYER_ID),
-    sport = "nba",
-    id_type = "league",
-    height = 0.15
-  ) +
-  labs(title = "NBA scoring leaders", x = "Games Played", y = "Points")
+geom_sdv_headshots(aes(player_id = person_id), sport = "nba", id_type = "league")
 ```
 
-`id_type` works the same in
+That CDN refuses requests from datacenter IPs, this site’s build server
+among them, so the articles here use ESPN ids. `id_type` works the same
+in
 [`gt_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_headshots.md),
-[`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md),
-the headshot axis scales and
-[`element_sdv_headshot()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md).
-The chunk above is not run when this site is built: stats.nba.com and
-the NBA’s image CDN both refuse requests from datacenter IPs, the build
-server’s included, so a plot rendered on CI or a server comes back
-without these headshots. Tables are unaffected, because the reader’s
-browser loads the images.
+[`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
+and the headshot axis scales.
 
-## NBA Team Tiers
+## 5. A shot chart on a team-colored court
 
-Create a tier plot ranking NBA teams:
+`load_nba_shots()` holds ESPN’s shot locations. hoopR already converts
+them to feet on a center-court frame (`coordinate_x` from -47 to 47
+along the court, `coordinate_y` from -25 to 25 across it), which is the
+frame
+[`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)’s
+sportyR court uses, so they plot as they are.
+[`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)
+is not needed here: it is for the stats.nba.com legacy frame
+(`x_legacy`/`y_legacy` from
+[`hoopR::load_nba_stats_shots()`](https://hoopR.sportsdataverse.org/reference/load_nba_stats_coaches.html),
+tenths of a foot around the hoop). Shots at the right basket are rotated
+onto the left one so a half court holds them all; free throws are left
+out.
 
 ``` r
 
-# Example tier assignments (replace with your own rankings)
-tier_data <- data.frame(
-  tier_no = c(1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5),
-  team = c("BOS", "DEN", "MIL", "PHX", "LAL", "GSW", "MIA",
-           "DAL", "PHI", "NYK", "CLE",
-           "SAC", "MIN", "MEM", "BKN",
-           "ATL")
-)
+star <- scorers |>
+  slice_max(points, n = 1, with_ties = FALSE)
+
+shots <- hoopR::load_nba_shots(seasons = season) |>
+  semi_join(distinct(box, game_id), by = "game_id") |>
+  filter(athlete_id_1 == star$athlete_id, !grepl("Free Throw", type_text)) |>
+  mutate(
+    right = coordinate_x > 0,
+    x = if_else(right, -coordinate_x, coordinate_x),
+    y = if_else(right, -coordinate_y, coordinate_y),
+    result = if_else(scoring_play, "Made", "Missed")
+  )
+
+made_color <- sdv_team_colors(star$team, sport = "nba", type = "secondary")
+
+sdv_surface("nba", star$team, display_range = "defense") +
+  geom_point(
+    aes(x, y),
+    data = filter(shots, result == "Missed"),
+    shape = 4, color = "grey25", size = 1.4, alpha = 0.6
+  ) +
+  geom_point(
+    aes(x, y),
+    data = filter(shots, result == "Made"),
+    shape = 21, fill = made_color, color = "black", stroke = 0.3, size = 1.8
+  ) +
+  labs(
+    title = paste0(star$athlete_display_name, ": every field goal attempt, ", label),
+    subtitle = sprintf(
+      "%d made (filled), %d missed (crosses): %.1f%% from the field",
+      sum(shots$scoring_play), sum(!shots$scoring_play), 100 * mean(shots$scoring_play)
+    ),
+    caption = source_note
+  ) +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+![Half-court shot chart of the 2025-26 NBA scoring leader's field goal
+attempts on a court painted in his team's colors: made shots as filled
+circles, missed shots as grey
+crosses.](nba-viz_files/figure-html/shot-chart-1.png)
+
+## 6. Team tiers from net rating
+
+[`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
+draws a tier list from a frame with `tier_no` and `team`. Here the tiers
+are cut from the net ratings above, best team first in each tier, so the
+list is the season’s numbers rather than an opinion.
+
+``` r
+
+tiers <- ratings |>
+  mutate(
+    # bins from worst to best, so the best bin (6 or better) becomes tier 1
+    tier_no = 6L - cut(net, c(-Inf, -6, -2, 2, 6, Inf), labels = FALSE, right = FALSE)
+  ) |>
+  arrange(tier_no, desc(net)) |>
+  select(tier_no, team)
 
 sdv_team_tiers(
-  tier_data,
+  tiers,
   sport = "nba",
-  title = "NBA Team Tiers",
-  subtitle = paste("Example tiers,", season, "season"),
+  title = paste("NBA tiers by net rating,", label),
+  subtitle = "Regular-season net rating per 100 possessions, cut at +6, +2, -2 and -6",
+  caption = source_note,
   tier_desc = c(
-    "1" = "Championship Contenders",
-    "2" = "Playoff Favorites",
-    "3" = "Solid Playoffs",
-    "4" = "Bubble Teams",
+    "1" = "Contenders",
+    "2" = "Playoff teams",
+    "3" = "The middle",
+    "4" = "Lottery",
     "5" = "Rebuilding"
   )
 )
 ```
 
-![NBA team logos grouped into labeled tiers, from the top tier to the
-bottom. The tiers are
-examples.](nba-viz_files/figure-html/team-tiers-1.png)
+![NBA team logos in five tiers cut from 2025-26 net rating, from
+Contenders (plus 6 or better) at the top to Rebuilding (minus 6 or
+worse) at the bottom.](nba-viz_files/figure-html/team-tiers-1.png)
 
-## NBA Conference Map
+## 7. A conference standings table with logos and cut lines
 
-Show each conference’s teams in a column, using the conferences sdvplotR
-keeps for every team:
-
-``` r
-
-conference_map <- team_reference("nba") |>
-  arrange(conference, team_name) |>
-  group_by(conference) |>
-  mutate(team_rank = row_number()) |>
-  ungroup() |>
-  mutate(conference_num = as.numeric(factor(conference)))
-
-ggplot(conference_map, aes(x = conference_num, y = team_rank)) +
-  geom_sdv_logos(
-    aes(team = team_abbr),
-    sport = "nba",
-    width = 0.08
-  ) +
-  scale_x_continuous(
-    breaks = seq_along(levels(factor(conference_map$conference))),
-    labels = levels(factor(conference_map$conference)),
-    expand = expansion(add = 0.6)
-  ) +
-  scale_y_reverse() +
-  labs(
-    title = "NBA Teams by Conference",
-    x = NULL,
-    y = NULL
-  ) +
-  theme_minimal() +
-  theme(
-    axis.text.y = element_blank(),
-    panel.grid = element_blank()
-  )
-```
-
-![Grid of NBA team logos, one column per conference, so each team sits
-under its conference.](nba-viz_files/figure-html/conference-map-1.png)
-
-## NBA Standings Table with Logos
-
-Create a gt table with team logos:
+ESPN’s standings come long, one row per team and stat, so pivot them
+wide.
+[`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
+turns the abbreviation column into logos and
+[`gt_cutline()`](https://sdvplotR.sportsdataverse.org/reference/gt_cutline.md)
+marks the playoff and play-in lines: seeds 1-6 make the playoffs, 7-10
+the play-in.
 
 ``` r
 
-standings_table <- team_wins |>
-  head(10) |>
-  mutate(
-    logo = team_abbreviation,
-    rank = row_number()
+standings <- hoopR::load_nba_standings(seasons = season) |>
+  select(group_name, team_abbreviation, team_short_display_name, stat_name, display_value) |>
+  pivot_wider(names_from = stat_name, values_from = display_value)
+
+standings |>
+  filter(group_name == "Eastern Conference") |>
+  mutate(seed = as.integer(playoffSeed), logo = team_abbreviation) |>
+  arrange(seed) |>
+  select(
+    seed, logo, team_short_display_name, wins, losses, winPercent, gamesBehind,
+    Home, Road, `Last Ten Games`, differential
   ) |>
-  select(rank, logo, team_abbreviation, wins, games, win_pct)
-
-standings_table |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nba", height = 35) |>
-  fmt_number(columns = "win_pct", decimals = 3) |>
-  cols_label(
-    rank = "#",
-    logo = "Team",
-    team_abbreviation = "Abbrev",
-    wins = "Wins",
-    games = "Games",
-    win_pct = "Win %"
-  ) |>
   tab_header(
-    title = "NBA Top 10",
-    subtitle = paste("Season", season)
-  )
-```
-
-| NBA Top 10 |  |  |  |  |  |
-|----|----|----|----|----|----|
-| Season 2026 |  |  |  |  |  |
-| \# | Team | Abbrev | Wins | Games | Win % |
-| 1 | ![Oklahoma City Thunder](https://a.espncdn.com/i/teamlogos/nba/500/okc.png) | OKC | 64 | 82 | 0.780 |
-| 2 | ![San Antonio Spurs](https://a.espncdn.com/i/teamlogos/nba/500/sa.png) | SA | 62 | 83 | 0.747 |
-| 3 | ![Detroit Pistons](https://a.espncdn.com/i/teamlogos/nba/500/det.png) | DET | 60 | 82 | 0.732 |
-| 4 | ![Boston Celtics](https://a.espncdn.com/i/teamlogos/nba/500/bos.png) | BOS | 56 | 82 | 0.683 |
-| 5 | ![Denver Nuggets](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | DEN | 54 | 82 | 0.659 |
-| 6 | ![New York Knicks](https://a.espncdn.com/i/teamlogos/nba/500/ny.png) | NY | 54 | 83 | 0.651 |
-| 7 | ![Los Angeles Lakers](https://a.espncdn.com/i/teamlogos/nba/500/lal.png) | LAL | 53 | 82 | 0.646 |
-| 8 | ![Cleveland Cavaliers](https://a.espncdn.com/i/teamlogos/nba/500/cle.png) | CLE | 52 | 82 | 0.634 |
-| 9 | ![Houston Rockets](https://a.espncdn.com/i/teamlogos/nba/500/hou.png) | HOU | 52 | 82 | 0.634 |
-| 10 | ![Minnesota Timberwolves](https://a.espncdn.com/i/teamlogos/nba/500/min.png) | MIN | 49 | 82 | 0.598 |
-
-## Player Performance Comparison
-
-Compare the scoring leaders with the rebounding leaders:
-
-``` r
-
-per_game <- player_stats |>
-  group_by(athlete_id, athlete_display_name) |>
-  summarise(
-    points = mean(points, na.rm = TRUE),
-    rebounds = mean(rebounds, na.rm = TRUE),
-    games = n(),
-    .groups = "drop"
+    title = paste("Eastern Conference standings,", label),
+    subtitle = "Seeds 1-6 make the playoffs; 7-10 the play-in"
   ) |>
-  filter(games >= 20)
-
-comparison <- bind_rows(
-  per_game |>
-    slice_max(points, n = 5, with_ties = FALSE) |>
-    transmute(athlete_id, category = "Points per Game", value = points),
-  per_game |>
-    slice_max(rebounds, n = 5, with_ties = FALSE) |>
-    transmute(athlete_id, category = "Rebounds per Game", value = rebounds)
-) |>
-  group_by(category) |>
-  mutate(rank = row_number()) |>
-  ungroup()
-
-ggplot(comparison, aes(x = rank, y = value)) +
-  geom_sdv_headshots(
-    aes(player_id = athlete_id),
-    sport = "nba",
-    height = 0.2
-  ) +
-  facet_wrap(~category, scales = "free_y") +
-  scale_x_continuous(breaks = 1:5) +
-  labs(
-    title = "NBA Top Performers",
-    subtitle = paste("Season", season),
-    x = "Rank",
-    y = NULL
-  ) +
-  theme_minimal()
+  cols_label(
+    seed = "", logo = "", team_short_display_name = "Team", wins = "W", losses = "L",
+    winPercent = "Pct", gamesBehind = "GB", `Last Ten Games` = "L10",
+    differential = "Diff"
+  ) |>
+  tab_source_note(source_note) |>
+  gt_sdv_logos(columns = logo, sport = "nba", height = 26) |>
+  gt_theme_athletic() |>
+  cols_align("left", columns = team_short_display_name) |>
+  gt_cutline(after = c(6, 10), label = c("Playoffs", "Play-in"), label_position = "above")
 ```
 
-![NBA top performers of the latest completed season in two panels,
-points per game and rebounds per game; each leader is drawn as a
-headshot ranked within its
-panel.](nba-viz_files/figure-html/player-comparison-1.png)
+| Eastern Conference standings, 2025-26 |  |  |  |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|----|----|----|
+| Seeds 1-6 make the playoffs; 7-10 the play-in |  |  |  |  |  |  |  |  |  |  |
+|  |  | Team | W | L | Pct | GB | Home | Road | L10 | Diff |
+| 1 | ![Detroit Pistons](https://a.espncdn.com/i/teamlogos/nba/500/det.png) | Pistons | 60 | 22 | .732 | \- | 31-9 | 28-13 | 8-2 | +8.2 |
+| 2 | ![Boston Celtics](https://a.espncdn.com/i/teamlogos/nba/500/bos.png) | Celtics | 56 | 26 | .683 | 4 | 30-11 | 26-15 | 8-2 | +7.7 |
+| 3 | ![New York Knicks](https://a.espncdn.com/i/teamlogos/nba/500/ny.png) | Knicks | 53 | 29 | .646 | 7 | 30-10 | 22-19 | 6-4 | +6.4 |
+| 4 | ![Cleveland Cavaliers](https://a.espncdn.com/i/teamlogos/nba/500/cle.png) | Cavaliers | 52 | 30 | .634 | 8 | 27-14 | 25-16 | 7-3 | +4.1 |
+| 5 | ![Toronto Raptors](https://a.espncdn.com/i/teamlogos/nba/500/tor.png) | Raptors | 46 | 36 | .561 | 14 | 24-17 | 22-19 | 6-4 | +2.8 |
+| 6 | ![Atlanta Hawks](https://a.espncdn.com/i/teamlogos/nba/500/atl.png) | Hawks | 46 | 36 | .561 | 14 | 24-17 | 22-19 | 6-4 | +2.5 |
+| 7 | ![Philadelphia 76ers](https://a.espncdn.com/i/teamlogos/nba/500/phi.png) | 76ers | 45 | 37 | .549 | 15 | 23-18 | 22-19 | 6-4 | -0.2 |
+| 8 | ![Orlando Magic](https://a.espncdn.com/i/teamlogos/nba/500/orl.png) | Magic | 45 | 37 | .549 | 15 | 25-15 | 19-20 | 7-3 | +0.6 |
+| 9 | ![Charlotte Hornets](https://a.espncdn.com/i/teamlogos/nba/500/cha.png) | Hornets | 44 | 38 | .537 | 16 | 21-20 | 23-18 | 6-4 | +4.8 |
+| 10 | ![Miami Heat](https://a.espncdn.com/i/teamlogos/nba/500/mia.png) | Heat | 43 | 39 | .524 | 17 | 26-15 | 17-24 | 5-5 | +2.4 |
+| 11 | ![Milwaukee Bucks](https://a.espncdn.com/i/teamlogos/nba/500/mil.png) | Bucks | 32 | 50 | .390 | 28 | 19-22 | 13-28 | 3-7 | -6.2 |
+| 12 | ![Chicago Bulls](https://a.espncdn.com/i/teamlogos/nba/500/chi.png) | Bulls | 31 | 51 | .378 | 29 | 18-23 | 13-28 | 2-8 | -5.2 |
+| 13 | ![Brooklyn Nets](https://a.espncdn.com/i/teamlogos/nba/500/bkn.png) | Nets | 20 | 62 | .244 | 40 | 12-29 | 8-33 | 3-7 | -10.0 |
+| 14 | ![Indiana Pacers](https://a.espncdn.com/i/teamlogos/nba/500/ind.png) | Pacers | 19 | 63 | .232 | 41 | 11-30 | 8-33 | 3-7 | -8.0 |
+| 15 | ![Washington Wizards](https://a.espncdn.com/i/teamlogos/nba/500/wsh.png) | Wizards | 17 | 65 | .207 | 43 | 11-30 | 6-35 | 0-10 | -12.0 |
+| Data: hoopR (ESPN) \| Viz: sdvplotR |  |  |  |  |  |  |  |  |  |  |
 
-## Axis Labels with Logos
+## 8. Logos faceted by conference
 
-Replace axis labels with team logos:
+[`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
+is a ggplot2 layer, so it facets like any other geom, and
+[`geom_mean_lines()`](https://mrcaseb.github.io/ggpath/reference/geom_lines.html)
+draws each panel’s own averages. How often teams shoot threes against
+how well they make them, East vs West:
 
 ``` r
 
-top_8 <- team_wins |>
-  head(8) |>
-  mutate(team_abbreviation = factor(team_abbreviation, levels = team_abbreviation))
-
-ggplot(top_8, aes(x = team_abbreviation, y = win_pct)) +
-  geom_col(aes(fill = team_abbreviation), width = 0.6) +
-  scale_fill_sdv(sport = "nba", alpha = 0.7) +
-  scale_x_sdv(sport = "nba") +
-  theme_minimal() +
-  theme_x_sdv() +
+ggplot(ratings, aes(fg3a_rate, fg3_pct)) +
+  geom_mean_lines(aes(x0 = fg3a_rate, y0 = fg3_pct), color = "grey60", linewidth = 0.4) +
+  geom_sdv_logos(aes(team = team), sport = "nba", width = 0.09) +
+  facet_wrap(~conference, labeller = labeller(conference = function(x) paste(x, "Conference"))) +
+  scale_x_continuous(labels = scales::percent, expand = expansion(mult = 0.12)) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 0.1), expand = expansion(mult = 0.12)) +
   labs(
-    title = "Top 8 NBA Teams by Win %",
-    x = NULL,
-    y = "Win Percentage"
+    title = paste("Three-point volume vs accuracy,", label),
+    x = "Share of field goal attempts from three",
+    y = "Three-point percentage",
+    caption = source_note
   ) +
-  theme(legend.position = "none")
+  theme(strip.text = element_text(face = "bold", size = 11))
 ```
 
-![Bar chart of the top 8 NBA teams by win percentage, with each team's
-logo in place of its name on the horizontal axis and bars in team
-colors.](nba-viz_files/figure-html/axis-logos-1.png)
+![Two panels, Eastern and Western Conference, placing each NBA team's
+logo by its share of field goal attempts from three (horizontal) and its
+three-point percentage (vertical) in 2025-26, with each panel's average
+lines.](nba-viz_files/figure-html/three-point-1.png)
 
-## Next Steps
+## 9. Home and road, as a dumbbell with logos on the axis
 
-- Explore [hoopR documentation](https://hoopR.sportsdataverse.org/)
-- Try combining with [oddsapiR](https://oddsapiR.sportsdataverse.org)
-  for betting lines
-- Build weekly dashboard with [Quarto](https://quarto.org/)
+Home and road records come from the same standings, as strings like
+`"29-12"`. One row per team, sorted by the gap between them;
+[`scale_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+and
+[`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
+put the logos on the vertical axis.
 
-## Related Vignettes
+``` r
+
+win_pct <- function(record) {
+  parts <- strsplit(record, "-", fixed = TRUE)
+  vapply(parts, function(p) as.numeric(p[1]) / sum(as.numeric(p)), numeric(1))
+}
+
+home_road <- standings |>
+  transmute(team = team_abbreviation, home = win_pct(Home), road = win_pct(Road)) |>
+  mutate(edge = home - road) |>
+  arrange(edge, team) |>
+  mutate(team = factor(team, levels = team))
+
+ggplot(home_road, aes(y = team)) +
+  geom_segment(aes(x = road, xend = home, yend = team), color = "grey70", linewidth = 1.2) +
+  geom_point(aes(x = road), color = "#E15759", size = 3) +
+  geom_point(aes(x = home), color = "#4E79A7", size = 3) +
+  scale_y_sdv(sport = "nba", size = 14) +
+  scale_x_continuous(labels = scales::percent, limits = c(0, 1)) +
+  labs(
+    title = paste("Home and road win percentage,", label),
+    subtitle = "<span style='color:#4E79A7'>**Home**</span> and <span style='color:#E15759'>**road**</span>, sorted by the home edge (largest at the top)",
+    x = "Win percentage",
+    y = NULL,
+    caption = source_note
+  ) +
+  theme_y_sdv() +
+  theme(plot.subtitle = ggtext::element_markdown(), panel.grid.major.y = element_blank())
+```
+
+![Dumbbell chart of the 30 NBA teams' 2025-26 home and road win
+percentages, one row per team with its logo on the vertical axis, sorted
+by the size of the home
+edge.](nba-viz_files/figure-html/home-road-1.png)
+
+## 10. Category leaders in a headshot table
+
+[`gt_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_headshots.md)
+turns a column of ESPN athlete ids into headshots and
+[`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
+a column of abbreviations into logos. One row per category: the per-game
+leader among players with 50 or more games.
+
+``` r
+
+categories <- c(
+  points = "Points", rebounds = "Rebounds", assists = "Assists",
+  steals = "Steals", blocks = "Blocks", three_point_field_goals_made = "3-pointers made"
+)
+
+per_game |>
+  pivot_longer(names(categories), names_to = "stat", values_to = "value") |>
+  arrange(desc(value), athlete_id) |>
+  group_by(stat) |>
+  slice(1) |>
+  ungroup() |>
+  arrange(match(stat, names(categories))) |>
+  transmute(
+    category = categories[stat],
+    headshot = athlete_id,
+    player = athlete_display_name,
+    logo = team,
+    value,
+    games
+  ) |>
+  gt() |>
+  tab_header(
+    title = paste("NBA per-game leaders,", label),
+    subtitle = "Regular season, 50 or more games"
+  ) |>
+  cols_label(category = "", headshot = "", player = "Player", logo = "Team", value = "Per game", games = "GP") |>
+  fmt_number(value, decimals = 1) |>
+  tab_source_note(source_note) |>
+  gt_sdv_headshots(columns = headshot, sport = "nba", height = 44) |>
+  gt_sdv_logos(columns = logo, sport = "nba", height = 28) |>
+  gt_theme_sdv()
+```
+
+| NBA per-game leaders, 2025-26 |  |  |  |  |  |
+|----|----|----|----|----|----|
+| Regular season, 50 or more games |  |  |  |  |  |
+|  |  | Player | Team | Per game | GP |
+| Points | ![Player 3945274 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3945274.png) | Luka Doncic | ![Los Angeles Lakers](https://a.espncdn.com/i/teamlogos/nba/500/lal.png) | 33.5 | 64 |
+| Rebounds | ![Player 3112335 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3112335.png) | Nikola Jokic | ![Denver Nuggets](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | 12.9 | 65 |
+| Assists | ![Player 3112335 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3112335.png) | Nikola Jokic | ![Denver Nuggets](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | 10.7 | 65 |
+| Steals | ![Player 4684742 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4684742.png) | Ausar Thompson | ![Detroit Pistons](https://a.espncdn.com/i/teamlogos/nba/500/det.png) | 2.0 | 73 |
+| Blocks | ![Player 5104157 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/5104157.png) | Victor Wembanyama | ![San Antonio Spurs](https://a.espncdn.com/i/teamlogos/nba/500/sa.png) | 3.1 | 65 |
+| 3-pointers made | ![Player 3945274 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3945274.png) | Luka Doncic | ![Los Angeles Lakers](https://a.espncdn.com/i/teamlogos/nba/500/lal.png) | 4.0 | 64 |
+| Data: hoopR (ESPN) \| Viz: sdvplotR |  |  |  |  |  |
+
+## Related articles
 
 - [Getting
   Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)
+- [WNBA
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/wnba-viz.md)
+- [Men’s College Basketball
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.md)
 - [Social Posting
   Patterns](https://sdvplotR.sportsdataverse.org/articles/social-posting.md)
-- [Leaderboard
-  Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md)

@@ -95,10 +95,13 @@ black bold text, while the lower text is smaller and colored by the team name.">
     <li><a class="dropdown-item" href="../articles/wbb-viz.html">WBB</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Cookbooks</h6></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-ggplot-logos.html">Logos in ggplot2</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-colors-themes.html">Team Colors and Themes</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-interactive.html">Interactive Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-surfaces-shot-charts.html">Surfaces and Shot Charts</a></li>
     <li><a class="dropdown-item" href="../articles/social-posting.html">Social Posting</a></li>
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
-    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
@@ -114,11 +117,22 @@ black bold text, while the lower text is smaller and colored by the team name.">
     <li><a class="dropdown-item" href="../articles/schedule_matrix.html">Schedule Matrix</a></li>
     <li><a class="dropdown-item" href="../articles/window_wins.html">Rolling-Window Wins</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Visual recipes</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Recipes</h6></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nfl-epa-scatter.html">NFL EPA Scatter</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-cfb-conference-table.html">CFB Conference Table</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nba-net-rating-quadrant.html">NBA Net Rating Quadrant</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wnba-scoring-leaders-card.html">WNBA Scoring Leaders Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-mlb-run-differential.html">MLB Run Differential</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nhl-shot-map.html">NHL Shot Map</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-college-hoops-tiers.html">College Hoops Tiers</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-rank-bump-chart.html">Rank Bump Chart</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-head-to-head-card.html">Head-to-Head Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wbb-conference-standings.html">WBB Conference Standings</a></li>
     <li><a class="dropdown-item" href="../articles/neighbour-ranks.html">Neighbour Ranks</a></li>
     <li><a class="dropdown-item" href="../articles/shot-grid.html">Shot Grid</a></li>
     <li><a class="dropdown-item" href="../articles/rolling-form.html">Rolling Form</a></li>
     <li><a class="dropdown-item" href="../articles/signature-ribbon.html">Signature Ribbon</a></li>
+    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
 <li class="nav-item dropdown">
@@ -201,7 +215,8 @@ black bold text, while the lower text is smaller and colored by the team name.</
 <span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="st">"nba"</span>, <span class="st">"wnba"</span>, <span class="st">"mlb"</span>, <span class="st">"nhl"</span>, <span class="st">"cfb"</span>, <span class="st">"mbb"</span>, <span class="st">"wbb"</span><span class="op">)</span>,</span>
 <span>  font_size_top <span class="op">=</span> <span class="fl">14</span>,</span>
 <span>  font_size_bottom <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>  color <span class="op">=</span> <span class="st">"black"</span></span>
+<span>  color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  background <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -240,10 +255,26 @@ black bold text, while the lower text is smaller and colored by the team name.</
 <dt id="arg-color">color<a class="anchor" aria-label="anchor" href="#arg-color"></a></dt>
 <dd><p>The color for the top text.</p></dd>
 
+
+<dt id="arg-background">background<a class="anchor" aria-label="anchor" href="#arg-background"></a></dt>
+<dd><p>The cell background the lower text is checked against.
+<code>NULL</code> (the default) reads the table's background color, so a table
+theme such as <code><a href="gt_theme_midnight.html">gt_theme_midnight()</a></code> applied <strong>before</strong> this function is
+taken into account; a theme applied afterwards isn't seen, so set
+<code>background</code> then. A table with no background color set counts as white.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>An object of class <code>gt_tbl</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The lower text takes the team's primary color when it clears a
+4.5:1 contrast ratio (WCAG AA) against the cell background, else the secondary
+color, else the primary darkened (or lightened, on a dark background)
+until it does, so a light primary such as Missouri's gold stays readable
+on a white table and keeps its gold on a dark one.</p>
     </div>
 
     <div class="section level2">

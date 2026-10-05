@@ -3,7 +3,10 @@
 used by sdvplotR. Matching is case-insensitive and understands full team
 names (&quot;Kansas City Chiefs&quot;), common alternate abbreviations used by
 other data sources (&quot;WSH&quot; / &quot;WAS&quot;, &quot;GNB&quot; / &quot;GB&quot;), and historical
-abbreviations of relocated franchises (see resolve_historical_abbr()).
+abbreviations of relocated franchises (see resolve_historical_abbr()),
+which follow the franchise even where a provider uses the same code for
+another team: &quot;WIN&quot;, the original Winnipeg Jets, gives &quot;UTAH&quot;, while
+today's Jets are &quot;WPG&quot;.
 For the college sports it also takes the school names NCAA.com /
 stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
 (&quot;Iowa St.&quot;, &quot;St. John's (NY)&quot;, &quot;Saint Mary's (CA)&quot;,
@@ -19,7 +22,10 @@ is American University)."><meta property="og:description" content="Standardizes 
 used by sdvplotR. Matching is case-insensitive and understands full team
 names (&quot;Kansas City Chiefs&quot;), common alternate abbreviations used by
 other data sources (&quot;WSH&quot; / &quot;WAS&quot;, &quot;GNB&quot; / &quot;GB&quot;), and historical
-abbreviations of relocated franchises (see resolve_historical_abbr()).
+abbreviations of relocated franchises (see resolve_historical_abbr()),
+which follow the franchise even where a provider uses the same code for
+another team: &quot;WIN&quot;, the original Winnipeg Jets, gives &quot;UTAH&quot;, while
+today's Jets are &quot;WPG&quot;.
 For the college sports it also takes the school names NCAA.com /
 stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
 (&quot;Iowa St.&quot;, &quot;St. John's (NY)&quot;, &quot;Saint Mary's (CA)&quot;,
@@ -123,10 +129,13 @@ is American University)."><meta property="og:image" content="https://raw.githubu
     <li><a class="dropdown-item" href="../articles/wbb-viz.html">WBB</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Cookbooks</h6></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-ggplot-logos.html">Logos in ggplot2</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-colors-themes.html">Team Colors and Themes</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-interactive.html">Interactive Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-surfaces-shot-charts.html">Surfaces and Shot Charts</a></li>
     <li><a class="dropdown-item" href="../articles/social-posting.html">Social Posting</a></li>
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
-    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
@@ -142,11 +151,22 @@ is American University)."><meta property="og:image" content="https://raw.githubu
     <li><a class="dropdown-item" href="../articles/schedule_matrix.html">Schedule Matrix</a></li>
     <li><a class="dropdown-item" href="../articles/window_wins.html">Rolling-Window Wins</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Visual recipes</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Recipes</h6></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nfl-epa-scatter.html">NFL EPA Scatter</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-cfb-conference-table.html">CFB Conference Table</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nba-net-rating-quadrant.html">NBA Net Rating Quadrant</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wnba-scoring-leaders-card.html">WNBA Scoring Leaders Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-mlb-run-differential.html">MLB Run Differential</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nhl-shot-map.html">NHL Shot Map</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-college-hoops-tiers.html">College Hoops Tiers</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-rank-bump-chart.html">Rank Bump Chart</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-head-to-head-card.html">Head-to-Head Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wbb-conference-standings.html">WBB Conference Standings</a></li>
     <li><a class="dropdown-item" href="../articles/neighbour-ranks.html">Neighbour Ranks</a></li>
     <li><a class="dropdown-item" href="../articles/shot-grid.html">Shot Grid</a></li>
     <li><a class="dropdown-item" href="../articles/rolling-form.html">Rolling Form</a></li>
     <li><a class="dropdown-item" href="../articles/signature-ribbon.html">Signature Ribbon</a></li>
+    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
 <li class="nav-item dropdown">
@@ -218,7 +238,10 @@ is American University)."><meta property="og:image" content="https://raw.githubu
 used by sdvplotR. Matching is case-insensitive and understands full team
 names (<code>"Kansas City Chiefs"</code>), common alternate abbreviations used by
 other data sources (<code>"WSH"</code> / <code>"WAS"</code>, <code>"GNB"</code> / <code>"GB"</code>), and historical
-abbreviations of relocated franchises (see <code><a href="resolve_historical_abbr.html">resolve_historical_abbr()</a></code>).
+abbreviations of relocated franchises (see <code><a href="resolve_historical_abbr.html">resolve_historical_abbr()</a></code>),
+which follow the franchise even where a provider uses the same code for
+another team: <code>"WIN"</code>, the original Winnipeg Jets, gives <code>"UTAH"</code>, while
+today's Jets are <code>"WPG"</code>.
 For the college sports it also takes the school names NCAA.com /
 stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
 (<code>"Iowa St."</code>, <code>"St. John's (NY)"</code>, <code>"Saint Mary's (CA)"</code>,

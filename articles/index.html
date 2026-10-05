@@ -91,10 +91,13 @@
     <li><a class="dropdown-item" href="../articles/wbb-viz.html">WBB</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Cookbooks</h6></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-ggplot-logos.html">Logos in ggplot2</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-colors-themes.html">Team Colors and Themes</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-interactive.html">Interactive Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-surfaces-shot-charts.html">Surfaces and Shot Charts</a></li>
     <li><a class="dropdown-item" href="../articles/social-posting.html">Social Posting</a></li>
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
-    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
@@ -110,11 +113,22 @@
     <li><a class="dropdown-item" href="../articles/schedule_matrix.html">Schedule Matrix</a></li>
     <li><a class="dropdown-item" href="../articles/window_wins.html">Rolling-Window Wins</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Visual recipes</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Recipes</h6></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nfl-epa-scatter.html">NFL EPA Scatter</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-cfb-conference-table.html">CFB Conference Table</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nba-net-rating-quadrant.html">NBA Net Rating Quadrant</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wnba-scoring-leaders-card.html">WNBA Scoring Leaders Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-mlb-run-differential.html">MLB Run Differential</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nhl-shot-map.html">NHL Shot Map</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-college-hoops-tiers.html">College Hoops Tiers</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-rank-bump-chart.html">Rank Bump Chart</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-head-to-head-card.html">Head-to-Head Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wbb-conference-standings.html">WBB Conference Standings</a></li>
     <li><a class="dropdown-item" href="../articles/neighbour-ranks.html">Neighbour Ranks</a></li>
     <li><a class="dropdown-item" href="../articles/shot-grid.html">Shot Grid</a></li>
     <li><a class="dropdown-item" href="../articles/rolling-form.html">Rolling Form</a></li>
     <li><a class="dropdown-item" href="../articles/signature-ribbon.html">Signature Ribbon</a></li>
+    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
 <li class="nav-item dropdown">
@@ -206,25 +220,31 @@
         </dd><dt><a href="wnba-viz.html">WNBA Visualizations with wehoop and sdvplotR</a></dt>
         <dd>
         </dd><dt><a href="mlb-viz.html">MLB Visualizations with baseballr and sdvplotR</a></dt>
-        <dd>
+        <dd><p>Ten worked examples on the 2026 MLB regular season: standings, run differential, Statcast, home run leaders, a spray chart, the division races, franchise moves and a tier list.</p>
         </dd><dt><a href="nhl-viz.html">NHL Visualizations with fastRhockey and sdvplotR</a></dt>
+        <dd><p>Ten worked examples on the 2025-26 NHL season: standings, goal differential, expected goals, a shot map on the rink, scoring and goaltending leaders, the Coyotes-to-Utah lineage, the points race and the playoff tiers.</p>
+        </dd><dt><a href="mbb-viz.html">Men's College Basketball Visualizations with hoopR and sdvplotR</a></dt>
         <dd>
-        </dd><dt><a href="mbb-viz.html">MBB Visualizations with hoopR and sdvplotR</a></dt>
-        <dd>
-        </dd><dt><a href="wbb-viz.html">WBB Visualizations with wehoop and sdvplotR</a></dt>
+        </dd><dt><a href="wbb-viz.html">Women's College Basketball Visualizations with wehoop and sdvplotR</a></dt>
         <dd>
       </dd></dl></div>
     <div class="section ">
       <h3>Cookbooks</h3>
-      <div class="section-desc"><p>Cross-sport patterns: social-media export, leaderboard dashboards, reactable tables and end-to-end workflows.</p></div>
+      <div class="section-desc"><p>Task-oriented, cross-league recipes: logos and headshots in ggplot2, team colors and themes, interactive charts, playing surfaces and shot charts, and reactable tables.</p></div>
 
-      <dl><dt><a href="social-posting.html">Social Posting Patterns with sdvplotR</a></dt>
+      <dl><dt><a href="cookbook-ggplot-logos.html">Logos, wordmarks and headshots in ggplot2</a></dt>
+        <dd><p>Twelve ggplot2 recipes: logos as points, at bar and line ends, on axes and beside titles, in tier lists, plus sizing, overlap, past seasons’ marks, any image, headshots and social-size exports.</p>
+        </dd><dt><a href="cookbook-colors-themes.html">Team colors and themes</a></dt>
+        <dd><p>Ten recipes for team colors: a league’s palette, colors per row, team fill and outline scales, clashing colors, readable text on team fills, named palettes, conference colors, dark backgrounds, and choosing a gt theme.</p>
+        </dd><dt><a href="cookbook-interactive.html">Interactive charts</a></dt>
+        <dd><p>Ten recipes for team logos on web charts: ggiraph tooltips, hover highlights and logo axes, plotly logos as layout images, a reactable table, self-contained HTML and static PNG exports for social posts.</p>
+        </dd><dt><a href="cookbook-surfaces-shot-charts.html">Surfaces and shot charts</a></dt>
+        <dd><p>Ten recipes for playing surfaces: every sport’s surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field and a football drive chart.</p>
+        </dd><dt><a href="social-posting.html">Social Posting Patterns with sdvplotR</a></dt>
         <dd>
         </dd><dt><a href="leaderboard-dashboards.html">Leaderboard Dashboards with sdvplotR, gt, and Quarto</a></dt>
         <dd>
         </dd><dt><a href="reactable-integration.html">reactable Integration</a></dt>
-        <dd>
-        </dd><dt><a href="workflows.html">End-to-End Workflows with sdvplotR and the SportsDataverse Ecosystem</a></dt>
         <dd>
       </dd></dl></div>
     <div class="section ">
@@ -258,16 +278,38 @@
         <dd>
       </dd></dl></div>
     <div class="section ">
-      <h3>Visual recipes</h3>
-      <div class="section-desc"><p>Static versions of SportsDataverse web visuals, built on real SportsDataverse data with sdvplotR’s tables and scales.</p></div>
+      <h3>Recipes</h3>
+      <div class="section-desc"><p>Real-world tasks worked end to end: the brief, the data, a first draft, the fixes that make it publishable, and the export at the size it will be posted. Then static versions of SportsDataverse web visuals, and end-to-end workflows.</p></div>
 
-      <dl><dt><a href="neighbour-ranks.html">Neighbour Ranks</a></dt>
+      <dl><dt><a href="recipe-nfl-epa-scatter.html">NFL EPA Scatter</a></dt>
+        <dd><p>Make the offense-vs-defense EPA chart for social after the Super Bowl, from a first draft to 1200 x 675 and 1080 x 1080 exports.</p>
+        </dd><dt><a href="recipe-cfb-conference-table.html">CFB Conference Table</a></dt>
+        <dd><p>Build the final Big Ten standings table for a newsletter, with logos, records and game-by-game margin bars, exported 1600 px wide and as a square for social.</p>
+        </dd><dt><a href="recipe-nba-net-rating-quadrant.html">NBA Net Rating Quadrant</a></dt>
+        <dd><p>Chart every NBA team’s offensive and defensive rating by conference, with logos, average lines and net-rating guides, for a blog post and a square social post.</p>
+        </dd><dt><a href="recipe-wnba-scoring-leaders-card.html">WNBA Scoring Leaders Card</a></dt>
+        <dd><p>Make a WNBA scoring-leaders card with headshots, team logos and team-color bars, exported at 1080 x 1080 for Instagram and as a top-five 1200 x 675 cut for X.</p>
+        </dd><dt><a href="recipe-mlb-run-differential.html">MLB Run Differential</a></dt>
+        <dd><p>Build a 1600 px blog graphic of MLB run differential: ranked bars in team colors with logos at the bar ends, beside the season’s running totals for the best and worst teams.</p>
+        </dd><dt><a href="recipe-nhl-shot-map.html">NHL Shot Map</a></dt>
+        <dd><p>Map every unblocked shot of the Stanley Cup clincher on a rink in team colors, sized by expected goals, with the goals, a scoreboard and exports at 1200 x 675 and 1600 x 900.</p>
+        </dd><dt><a href="recipe-college-hoops-tiers.html">College Hoops Tiers</a></dt>
+        <dd><p>Turn a power rating into a Big Ten men’s basketball tier list with sdv_team_tiers(), the tiers cut at the rating gaps, exported for social at 1200 x 675 and 1080 x 1080.</p>
+        </dd><dt><a href="recipe-rank-bump-chart.html">Rank Bump Chart</a></dt>
+        <dd><p>Draw the college football season’s AP Top 25 as a bump chart, with logos at the line ends and the biggest climbers called out, exported for a blog and for X.</p>
+        </dd><dt><a href="recipe-head-to-head-card.html">Head-to-Head Card</a></dt>
+        <dd><p>Make a Super Bowl tale-of-the-tape card: two teams’ seasons as mirrored league-rank bars in team colors with dark-background logos, exported at 1200 x 675 and 1080 x 1080.</p>
+        </dd><dt><a href="recipe-wbb-conference-standings.html">WBB Conference Standings</a></dt>
+        <dd><p>Build the final SEC women’s basketball standings table, with logos, every conference result as a win-loss strip and how each season ended, dressed in the champion’s colors and exported for a newsletter and a 4:5 Instagram post.</p>
+        </dd><dt><a href="neighbour-ranks.html">Neighbour Ranks</a></dt>
         <dd>
         </dd><dt><a href="shot-grid.html">Shot Grid</a></dt>
         <dd>
         </dd><dt><a href="rolling-form.html">Rolling Form</a></dt>
         <dd>
         </dd><dt><a href="signature-ribbon.html">Signature Ribbon</a></dt>
+        <dd>
+        </dd><dt><a href="workflows.html">End-to-End Workflows with sdvplotR and the SportsDataverse Ecosystem</a></dt>
         <dd>
       </dd></dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

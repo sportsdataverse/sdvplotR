@@ -82,7 +82,11 @@ colors.](getting-started_files/figure-html/colors-1.png)
 
 ## Theme Elements
 
-Replace axis labels with logos using theme elements:
+Replace axis labels with logos using theme elements. Add them after a
+complete theme such as
+[`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html);
+set on `axis.text.x` (or `axis.text.y`), they also replace the
+`axis.text.x.bottom` (`axis.text.y.left`) element that theme sets:
 
 ``` r
 
@@ -203,8 +207,8 @@ relevant SportsDataverse data package:
 | **WNBA** | [WNBA Visualizations](https://sdvplotR.sportsdataverse.org/articles/wnba-viz.html) | `wehoop` |
 | **MLB** | [MLB Visualizations](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.html) | `baseballr` |
 | **NHL** | [NHL Visualizations](https://sdvplotR.sportsdataverse.org/articles/nhl-viz.html) | `fastRhockey` |
-| **MBB** | [MBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.html) | `hoopR`, `cfbseedR` |
-| **WBB** | [WBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html) | `wehoop`, `cfbseedR` |
+| **MBB** | [MBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.html) | `hoopR` |
+| **WBB** | [WBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html) | `wehoop` |
 
 Cross-sport cookbook vignettes:
 

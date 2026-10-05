@@ -95,10 +95,13 @@ other metrics into labeled tiers."><meta property="og:image" content="https://ra
     <li><a class="dropdown-item" href="../articles/wbb-viz.html">WBB</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Cookbooks</h6></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-ggplot-logos.html">Logos in ggplot2</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-colors-themes.html">Team Colors and Themes</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-interactive.html">Interactive Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-surfaces-shot-charts.html">Surfaces and Shot Charts</a></li>
     <li><a class="dropdown-item" href="../articles/social-posting.html">Social Posting</a></li>
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
-    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
@@ -114,11 +117,22 @@ other metrics into labeled tiers."><meta property="og:image" content="https://ra
     <li><a class="dropdown-item" href="../articles/schedule_matrix.html">Schedule Matrix</a></li>
     <li><a class="dropdown-item" href="../articles/window_wins.html">Rolling-Window Wins</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Visual recipes</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Recipes</h6></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nfl-epa-scatter.html">NFL EPA Scatter</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-cfb-conference-table.html">CFB Conference Table</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nba-net-rating-quadrant.html">NBA Net Rating Quadrant</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wnba-scoring-leaders-card.html">WNBA Scoring Leaders Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-mlb-run-differential.html">MLB Run Differential</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nhl-shot-map.html">NHL Shot Map</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-college-hoops-tiers.html">College Hoops Tiers</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-rank-bump-chart.html">Rank Bump Chart</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-head-to-head-card.html">Head-to-Head Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wbb-conference-standings.html">WBB Conference Standings</a></li>
     <li><a class="dropdown-item" href="../articles/neighbour-ranks.html">Neighbour Ranks</a></li>
     <li><a class="dropdown-item" href="../articles/shot-grid.html">Shot Grid</a></li>
     <li><a class="dropdown-item" href="../articles/rolling-form.html">Rolling Form</a></li>
     <li><a class="dropdown-item" href="../articles/signature-ribbon.html">Signature Ribbon</a></li>
+    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
 <li class="nav-item dropdown">
@@ -205,7 +219,8 @@ other metrics into labeled tiers.</p>
 <span>  alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">0.075</span>,</span>
 <span>  no_line_below_tier <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  devel <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  devel <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dark"</span>, <span class="st">"light"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -268,6 +283,13 @@ logos will be rendered on each run. If <code>TRUE</code> the team abbreviations 
 be plotted instead of the logos. This is much faster and helps with plot
 development.</p></dd>
 
+
+<dt id="arg-theme">theme<a class="anchor" aria-label="anchor" href="#arg-theme"></a></dt>
+<dd><p><code>"dark"</code> (the default: a near-black background with white
+labels) or <code>"light"</code> (a white background with dark labels and lines), for
+dark logos such as Toronto's, Iowa's or West Virginia's, which nearly
+vanish on the dark one.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -292,6 +314,10 @@ development.</p></dd>
 <span class="r-in"><span><span class="co"># Plot team tiers</span></span></span>
 <span class="r-in"><span><span class="fu">sdv_team_tiers</span><span class="op">(</span><span class="va">df</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sdv_team_tiers-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># dark logos read better on the light theme</span></span></span>
+<span class="r-in"><span><span class="fu">sdv_team_tiers</span><span class="op">(</span><span class="va">df</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, theme <span class="op">=</span> <span class="st">"light"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="sdv_team_tiers-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

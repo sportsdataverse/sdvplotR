@@ -91,10 +91,13 @@
     <li><a class="dropdown-item" href="articles/wbb-viz.html">WBB</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Cookbooks</h6></li>
+    <li><a class="dropdown-item" href="articles/cookbook-ggplot-logos.html">Logos in ggplot2</a></li>
+    <li><a class="dropdown-item" href="articles/cookbook-colors-themes.html">Team Colors and Themes</a></li>
+    <li><a class="dropdown-item" href="articles/cookbook-interactive.html">Interactive Charts</a></li>
+    <li><a class="dropdown-item" href="articles/cookbook-surfaces-shot-charts.html">Surfaces and Shot Charts</a></li>
     <li><a class="dropdown-item" href="articles/social-posting.html">Social Posting</a></li>
     <li><a class="dropdown-item" href="articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="articles/reactable-integration.html">reactable Integration</a></li>
-    <li><a class="dropdown-item" href="articles/workflows.html">End-to-End Workflows</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
     <li><a class="dropdown-item" href="articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
@@ -110,11 +113,22 @@
     <li><a class="dropdown-item" href="articles/schedule_matrix.html">Schedule Matrix</a></li>
     <li><a class="dropdown-item" href="articles/window_wins.html">Rolling-Window Wins</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Visual recipes</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Recipes</h6></li>
+    <li><a class="dropdown-item" href="articles/recipe-nfl-epa-scatter.html">NFL EPA Scatter</a></li>
+    <li><a class="dropdown-item" href="articles/recipe-cfb-conference-table.html">CFB Conference Table</a></li>
+    <li><a class="dropdown-item" href="articles/recipe-nba-net-rating-quadrant.html">NBA Net Rating Quadrant</a></li>
+    <li><a class="dropdown-item" href="articles/recipe-wnba-scoring-leaders-card.html">WNBA Scoring Leaders Card</a></li>
+    <li><a class="dropdown-item" href="articles/recipe-mlb-run-differential.html">MLB Run Differential</a></li>
+    <li><a class="dropdown-item" href="articles/recipe-nhl-shot-map.html">NHL Shot Map</a></li>
+    <li><a class="dropdown-item" href="articles/recipe-college-hoops-tiers.html">College Hoops Tiers</a></li>
+    <li><a class="dropdown-item" href="articles/recipe-rank-bump-chart.html">Rank Bump Chart</a></li>
+    <li><a class="dropdown-item" href="articles/recipe-head-to-head-card.html">Head-to-Head Card</a></li>
+    <li><a class="dropdown-item" href="articles/recipe-wbb-conference-standings.html">WBB Conference Standings</a></li>
     <li><a class="dropdown-item" href="articles/neighbour-ranks.html">Neighbour Ranks</a></li>
     <li><a class="dropdown-item" href="articles/shot-grid.html">Shot Grid</a></li>
     <li><a class="dropdown-item" href="articles/rolling-form.html">Rolling Form</a></li>
     <li><a class="dropdown-item" href="articles/signature-ribbon.html">Signature Ribbon</a></li>
+    <li><a class="dropdown-item" href="articles/workflows.html">End-to-End Workflows</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
 <li class="nav-item dropdown">
@@ -188,7 +202,7 @@
 <ul><li>
 <strong>Version</strong>: 0.1.0 (<code>DESCRIPTION</code>); first CRAN submission in preparation</li>
 <li>
-<strong>R</strong>: &gt;= 4.1; <code>ggplot2 (&gt;= 3.5.0)</code>, <code>ggpath (&gt;= 1.1.0)</code>, <code>gt (&gt;= 0.10.0)</code>
+<strong>R</strong>: &gt;= 4.1; <code>ggplot2 (&gt;= 4.0.0)</code>, <code>ggpath (&gt;= 1.1.0)</code>, <code>gt (&gt;= 0.10.0)</code>
 </li>
 <li>
 <strong>License</strong>: MIT; <strong>Branch</strong>: <code>main</code>
@@ -223,7 +237,7 @@
 <ol style="list-style-type: decimal"><li>
 <strong>Delegate rendering to ggpath.</strong> Geoms set <code>data$path</code> then call <code>ggpath::GeomFromPath$draw_panel()</code>.</li>
 <li>
-<strong><code><a href="https://mrcaseb.github.io/ggpath/reference/element_path.html" class="external-link">ggpath::element_path</a></code> is S7.</strong> Theme elements are plain S3 lists; the <code>element_grob.element_sdv_*</code> methods build a real <code>ggpath::element_path(...)</code> via <code>sdv_element_to_path_grob()</code>. Never re-class a list as <code>element_path</code>.</li>
+<strong><code><a href="https://mrcaseb.github.io/ggpath/reference/element_path.html" class="external-link">ggpath::element_path</a></code> is S7.</strong> <code><a href="reference/element_sdv.html">element_sdv_logo()</a></code> / <code>_wordmark()</code> / <code>_headshot()</code> are S7 subclasses of it (<code>R/theme_elements.R</code>) that also carry ggplot2’s S3 classes <code>"element_text"</code> / <code>"element"</code>: ggplot2 4 lets a parent (<code>axis.text.x</code>) replace a plain child a complete theme sets (<code>theme_minimal()</code>’s <code>axis.text.x.bottom</code>) only for such a subclass. Their <code>element_grob()</code> methods map the labels to URLs and call <code><a href="https://rdrr.io/r/base/UseMethod.html" class="external-link">NextMethod()</a></code>. Never re-class a plain list as <code>element_path</code>.</li>
 <li>
 <strong>One resolver path.</strong> All lookups go through <code><a href="reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> so aliases and historical abbreviations apply everywhere (geoms, elements, gt, reactable). Don’t add per-function cleaning.</li>
 <li>Never hand-edit <code>NAMESPACE</code>, <code>man/</code>, <code>README.md</code> (edit <code>README.Rmd</code>) or <code>R/sysdata.rda</code>.</li>

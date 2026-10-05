@@ -91,10 +91,13 @@
     <li><a class="dropdown-item" href="../articles/wbb-viz.html">WBB</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Cookbooks</h6></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-ggplot-logos.html">Logos in ggplot2</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-colors-themes.html">Team Colors and Themes</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-interactive.html">Interactive Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/cookbook-surfaces-shot-charts.html">Surfaces and Shot Charts</a></li>
     <li><a class="dropdown-item" href="../articles/social-posting.html">Social Posting</a></li>
     <li><a class="dropdown-item" href="../articles/leaderboard-dashboards.html">Leaderboard Dashboards</a></li>
     <li><a class="dropdown-item" href="../articles/reactable-integration.html">reactable Integration</a></li>
-    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>gt Tables</h6></li>
     <li><a class="dropdown-item" href="../articles/sdv-table-themes.html">SportsDataverse Table Themes</a></li>
@@ -110,11 +113,22 @@
     <li><a class="dropdown-item" href="../articles/schedule_matrix.html">Schedule Matrix</a></li>
     <li><a class="dropdown-item" href="../articles/window_wins.html">Rolling-Window Wins</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Visual recipes</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Recipes</h6></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nfl-epa-scatter.html">NFL EPA Scatter</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-cfb-conference-table.html">CFB Conference Table</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nba-net-rating-quadrant.html">NBA Net Rating Quadrant</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wnba-scoring-leaders-card.html">WNBA Scoring Leaders Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-mlb-run-differential.html">MLB Run Differential</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-nhl-shot-map.html">NHL Shot Map</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-college-hoops-tiers.html">College Hoops Tiers</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-rank-bump-chart.html">Rank Bump Chart</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-head-to-head-card.html">Head-to-Head Card</a></li>
+    <li><a class="dropdown-item" href="../articles/recipe-wbb-conference-standings.html">WBB Conference Standings</a></li>
     <li><a class="dropdown-item" href="../articles/neighbour-ranks.html">Neighbour Ranks</a></li>
     <li><a class="dropdown-item" href="../articles/shot-grid.html">Shot Grid</a></li>
     <li><a class="dropdown-item" href="../articles/rolling-form.html">Rolling Form</a></li>
     <li><a class="dropdown-item" href="../articles/signature-ribbon.html">Signature Ribbon</a></li>
+    <li><a class="dropdown-item" href="../articles/workflows.html">End-to-End Workflows</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fas fa-newspaper"></span>  Changelog</a></li>
 <li class="nav-item dropdown">
@@ -241,6 +255,17 @@
 <li>Every <code>gt_theme_*()</code> keeps its own row colors on a Bootstrap page (pkgdown, Quarto) in either color mode. Before, the page’s table variables painted the cells, so a light theme was unreadable on a dark page and a dark theme on a light one.</li>
 <li>
 <code><a href="../reference/gt_grid.html">gt_grid()</a></code> and <code><a href="../reference/gt_stack_tables.html">gt_stack_tables()</a></code> request Google fonts by discrete weights. The <code>wght@100..900</code> range they asked for is rejected for most families, so the font silently never loaded.</li>
+<li>
+<code><a href="../reference/element_sdv.html">element_sdv_logo()</a></code>, <code><a href="../reference/element_sdv.html">element_sdv_wordmark()</a></code> and <code><a href="../reference/element_sdv.html">element_sdv_headshot()</a></code> set on <code>axis.text.x</code> / <code>axis.text.y</code> draw after <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal()</a></code> on ‘ggplot2’ 4. That theme sets <code>axis.text.x.bottom</code> / <code>axis.text.y.left</code> itself, and the plain child shadowed the image element, inheriting its <code>colour = NA</code> and <code>size = 0.5</code>: the axis drew no labels at all. The elements are now subclasses of <code><a href="https://mrcaseb.github.io/ggpath/reference/element_path.html" class="external-link">ggpath::element_path()</a></code>, which ggplot2 lets replace a plain child (keeping the child’s spacing). sdvplotR now imports ‘S7’ and requires ‘ggplot2’ 4.0.0, which ‘ggpath’ 1.1.0 already did.</li>
+<li>
+<code><a href="../reference/resolve_historical_abbr.html">resolve_historical_abbr()</a></code> returns the package’s canonical keys, the ones <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> returns: <code>"STL"</code> gives the Rams’ <code>"LA"</code> (was <code>"LAR"</code>), <code>"NOH"</code> / <code>"NOK"</code> the Pelicans’ <code>"NO"</code> (was <code>"NOP"</code>) and <code>"WSB"</code> the Wizards’ <code>"WSH"</code> (was <code>"WAS"</code>).</li>
+<li>A relocation key follows the franchise in both <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> and <code><a href="../reference/resolve_historical_abbr.html">resolve_historical_abbr()</a></code>, even where a provider alias used the same code: <code>"WIN"</code> is the original Winnipeg Jets (1979-96) and gives <code>"UTAH"</code>; <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> returned today’s Jets (<code>"WPG"</code>).</li>
+<li>
+<code><a href="../reference/ggtitle_image.html">ggtitle_image()</a></code> with <code><a href="../reference/ggtitle_image.html">theme_title_image()</a></code> centers the image on the title text. ‘gridtext’ draws an inline image on the text baseline and ignores CSS <code>vertical-align</code>, so a logo taller than the text rose above the title. Style the title through <code>theme_title_image(...)</code> (<code>size</code>, <code>face</code>, <code>hjust</code>): a later <code>theme(plot.title = ggtext::element_markdown(...))</code>, which the old example used, replaces the centering element and the image drops to the baseline.</li>
+<li>
+<code><a href="../reference/sdv_team_tiers.html">sdv_team_tiers()</a></code> takes <code>theme = "light"</code>, a white background with dark labels and lines, for dark logos (Toronto, Iowa, West Virginia) that nearly vanish on the default dark theme. ‘sdvplot’ (Python) has the same option.</li>
+<li>
+<code><a href="../reference/gt_merge_stack_team_color.html">gt_merge_stack_team_color()</a></code> keeps the team-colored text readable: a primary color under 4.5:1 contrast against the cell background gives way to the secondary color, or is darkened until it passes, so Missouri’s gold no longer vanishes on a white table and stays gold on <code><a href="../reference/gt_theme_midnight.html">gt_theme_midnight()</a></code>. The new <code>background</code> argument defaults to the table’s own background color (white when unset); a theme applied after this function isn’t seen.</li>
 </ul></div>
   </main></div>
 

@@ -27,10 +27,9 @@ library(dplyr, warn.conflicts = FALSE)
 
 ## The data
 
-hoopR’s
-[`load_nba_shots()`](https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html)
-reads the SportsDataverse release of ESPN shot locations, one row per
-shot, free throws included. Season `2026` is 2025-26.
+hoopR’s `load_nba_shots()` reads the SportsDataverse release of ESPN
+shot locations, one row per shot, free throws included. Season `2026` is
+2025-26.
 
 ``` r
 
@@ -47,8 +46,7 @@ names(shots)
 #> [19] "team_mascot"         "team_abbrev"
 ```
 
-The file also holds the play-in and the playoffs.
-[`load_nba_schedule()`](https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html)
+The file also holds the play-in and the playoffs. `load_nba_schedule()`
 marks each game’s `season_type` (`2` is the regular season), so keep
 those games, drop free throws, and drop heaves from past half court.
 

@@ -2,11 +2,8 @@
 
 These functions work together to place an image to the left or right of
 the title in a ggplot. `ggtitle_image()` is the main function but must
-be used with either `theme_title_image()` or by setting the `plot.title`
-argument in
-[`ggplot2::theme()`](https://ggplot2.tidyverse.org/reference/theme.html)
-to
-[`ggtext::element_markdown()`](https://wilkelab.org/ggtext/reference/element_markdown.html).
+be used with `theme_title_image()`, which renders the title as markdown
+and centers the image on the title text.
 
 ## Usage
 
@@ -54,12 +51,33 @@ theme_title_image(...)
 - ...:
 
   Other arguments passed on to
-  [`ggtext::element_markdown()`](https://wilkelab.org/ggtext/reference/element_markdown.html).
+  [`ggtext::element_markdown()`](https://wilkelab.org/ggtext/reference/element_markdown.html),
+  such as `size`, `face` and `hjust`.
 
 ## Value
 
 A ggplot2 labs object (for `ggtitle_image`) or theme object (for
 `theme_title_image`).
+
+## Details
+
+The title is markdown with an inline `<img>` tag. 'gridtext' draws
+inline images on the text baseline and ignores CSS `vertical-align`, so
+a logo taller than the text would rise above it (ESPN's marks, padded
+with transparent space, can sit wholly above the title).
+`theme_title_image()` lines the middle of each image up with the middle
+of the capital letters on its line. Setting `plot.title` to a plain
+[`ggtext::element_markdown()`](https://wilkelab.org/ggtext/reference/element_markdown.html)
+instead also renders the image, on the baseline.
+
+Style the title through `theme_title_image(...)` (`size`, `face`,
+`hjust`, ...), never with a later `theme(plot.title = ...)`: adding
+`theme(plot.title = ggtext::element_markdown(hjust = 0.5))` after it
+replaces the centering element with a plain markdown one, so the image
+drops back to the baseline, and `theme(plot.title = element_text(...))`
+is an error. Add `theme_title_image()` after any complete theme such as
+[`ggplot2::theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html),
+which replaces every element.
 
 ## See also
 
@@ -86,7 +104,7 @@ if (requireNamespace("ggtext", quietly = TRUE)) {
       image_side = "left",
       sport = "nfl"
     ) +
-    theme(plot.title = ggtext::element_markdown(size = 20, hjust = 0.5))
+    theme_title_image(size = 20, hjust = 0.5)
 }
 
 # }

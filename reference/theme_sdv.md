@@ -18,10 +18,16 @@ A ggplot2 theme object.
 
 ## Details
 
-These functions are a wrapper around the function calls
-`ggplot2::theme(axis.text.x = ggtext::element_markdown())` as well as
-`ggplot2::theme(axis.text.y = ggtext::element_markdown())`. They are
-made to be used in conjunction with
+These functions set
+[`ggtext::element_markdown()`](https://wilkelab.org/ggtext/reference/element_markdown.html)
+on `axis.text.x` and its position children `axis.text.x.bottom` /
+`axis.text.x.top` (`theme_x_sdv()`), or on `axis.text.y`,
+`axis.text.y.left` and `axis.text.y.right` (`theme_y_sdv()`). Complete
+themes in 'ggplot2' 4
+([`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html),
+...) set those children themselves, and a markdown parent alone would
+not replace them. Add these after any complete theme, which replaces
+every element. They are made to be used in conjunction with
 [`scale_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
 and
 [`scale_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)

@@ -4,6 +4,10 @@ pkgdown_sha: f69b62a7e74b58b42170284b6f3f56c674e7a3f8
 articles:
   border_bars: border_bars.html
   cfb-viz: cfb-viz.html
+  cookbook-colors-themes: cookbook-colors-themes.html
+  cookbook-ggplot-logos: cookbook-ggplot-logos.html
+  cookbook-interactive: cookbook-interactive.html
+  cookbook-surfaces-shot-charts: cookbook-surfaces-shot-charts.html
   delay_tables: delay_tables.html
   gallery: gallery.html
   getting-started: getting-started.html
@@ -17,6 +21,16 @@ articles:
   nfl-viz: nfl-viz.html
   nhl-viz: nhl-viz.html
   reactable-integration: reactable-integration.html
+  recipe-cfb-conference-table: recipe-cfb-conference-table.html
+  recipe-college-hoops-tiers: recipe-college-hoops-tiers.html
+  recipe-head-to-head-card: recipe-head-to-head-card.html
+  recipe-mlb-run-differential: recipe-mlb-run-differential.html
+  recipe-nba-net-rating-quadrant: recipe-nba-net-rating-quadrant.html
+  recipe-nfl-epa-scatter: recipe-nfl-epa-scatter.html
+  recipe-nhl-shot-map: recipe-nhl-shot-map.html
+  recipe-rank-bump-chart: recipe-rank-bump-chart.html
+  recipe-wbb-conference-standings: recipe-wbb-conference-standings.html
+  recipe-wnba-scoring-leaders-card: recipe-wnba-scoring-leaders-card.html
   rolling-form: rolling-form.html
   saving_tables: saving_tables.html
   schedule_matrix: schedule_matrix.html
@@ -30,7 +44,7 @@ articles:
   window_wins: window_wins.html
   wnba-viz: wnba-viz.html
   workflows: workflows.html
-last_built: 2026-10-05T08:19Z
+last_built: 2026-10-05T09:45Z
 urls:
   reference: https://sdvplotR.sportsdataverse.org/reference
   article: https://sdvplotR.sportsdataverse.org/articles

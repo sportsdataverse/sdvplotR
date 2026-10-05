@@ -487,7 +487,7 @@ data.frame(abbr = c("OAK", "SD", "STL")) |>
 #>   abbr current key
 #> 1  OAK      LV  LV
 #> 2   SD     LAC LAC
-#> 3  STL     LAR  LA
+#> 3  STL      LA  LA
 ```
 
 Grouping on that key keeps each franchise together across its move. The

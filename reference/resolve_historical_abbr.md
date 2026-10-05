@@ -33,6 +33,16 @@ resolve_historical_abbr(
 A character vector the same length as `abbr` holding the current-team
 abbreviation, or the input unchanged where no mapping exists.
 
+## Details
+
+The result is the package's canonical key, the one
+[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+returns: nflverse abbreviations for the NFL (the St. Louis Rams' `"STL"`
+gives `"LA"`), ESPN's elsewhere (`"NOH"` gives `"NO"`, `"WSB"` gives
+`"WSH"`). A relocation key follows the franchise, in both functions:
+`"WIN"` is the original Winnipeg Jets (1979-96), so it gives the Utah
+club they became, while today's Jets are `"WPG"`.
+
 ## Examples
 
 ``` r

@@ -116,7 +116,8 @@ element_sdv_raster(
 ## Value
 
 `element_sdv_logo()`, `element_sdv_wordmark()` and
-`element_sdv_headshot()` return an S3 object of class `element`;
+`element_sdv_headshot()` return a theme element extending
+[`ggpath::element_path()`](https://mrcaseb.github.io/ggpath/reference/element_path.html);
 `element_sdv_raster()` returns a
 [`ggpath::element_raster()`](https://mrcaseb.github.io/ggpath/reference/element_path.html).
 
@@ -124,7 +125,12 @@ element_sdv_raster(
 
 The elements translate team abbreviations or player IDs into logo images
 or player headshots for the specified sport. Rendering is delegated to
-[`ggpath::element_path()`](https://mrcaseb.github.io/ggpath/reference/element_path.html).
+[`ggpath::element_path()`](https://mrcaseb.github.io/ggpath/reference/element_path.html),
+which they extend. Set on a parent element such as `axis.text.x`, they
+also replace the position children (`axis.text.x.bottom`,
+`axis.text.y.left`, ...) that complete themes like
+[`ggplot2::theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+set, keeping the child's spacing.
 
 ## See also
 

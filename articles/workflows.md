@@ -224,7 +224,7 @@ standings <- baseballr::mlb_standings(season = mlb_season, league_id = "103,104"
 
 Steps 1 and 2 are not run when this site is built, because the MLB Stats
 API is not called there; the rest of this workflow uses a snapshot of
-`standings` taken on October 04, 2026 (baseballr 2.0.0).
+`standings` taken on October 05, 2026 (baseballr 2.0.0).
 
 ``` r
 
@@ -254,23 +254,23 @@ standings_table
 
 | MLB Top 15 |  |  |  |  |  |
 |----|----|----|----|----|----|
-| Season 2025 |  |  |  |  |  |
+| Season 2026 |  |  |  |  |  |
 | \# |  | Team | W | L | Pct |
-| 1 | ![Milwaukee Brewers](https://a.espncdn.com/i/teamlogos/mlb/500/mil.png) | Milwaukee Brewers | 97 | 65 | 0.599 |
-| 2 | ![Philadelphia Phillies](https://a.espncdn.com/i/teamlogos/mlb/500/phi.png) | Philadelphia Phillies | 96 | 66 | 0.593 |
-| 3 | ![Toronto Blue Jays](https://a.espncdn.com/i/teamlogos/mlb/500/tor.png) | Toronto Blue Jays | 94 | 68 | 0.580 |
-| 4 | ![New York Yankees](https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png) | New York Yankees | 94 | 68 | 0.580 |
-| 5 | ![Los Angeles Dodgers](https://a.espncdn.com/i/teamlogos/mlb/500/lad.png) | Los Angeles Dodgers | 93 | 69 | 0.574 |
-| 6 | ![Chicago Cubs](https://a.espncdn.com/i/teamlogos/mlb/500/chc.png) | Chicago Cubs | 92 | 70 | 0.568 |
-| 7 | ![Seattle Mariners](https://a.espncdn.com/i/teamlogos/mlb/500/sea.png) | Seattle Mariners | 90 | 72 | 0.556 |
-| 8 | ![San Diego Padres](https://a.espncdn.com/i/teamlogos/mlb/500/sd.png) | San Diego Padres | 90 | 72 | 0.556 |
-| 9 | ![Boston Red Sox](https://a.espncdn.com/i/teamlogos/mlb/500/bos.png) | Boston Red Sox | 89 | 73 | 0.549 |
-| 10 | ![Cleveland Guardians](https://a.espncdn.com/i/teamlogos/mlb/500/cle.png) | Cleveland Guardians | 88 | 74 | 0.543 |
-| 11 | ![Detroit Tigers](https://a.espncdn.com/i/teamlogos/mlb/500/det.png) | Detroit Tigers | 87 | 75 | 0.537 |
-| 12 | ![Houston Astros](https://a.espncdn.com/i/teamlogos/mlb/500/hou.png) | Houston Astros | 87 | 75 | 0.537 |
-| 13 | ![New York Mets](https://a.espncdn.com/i/teamlogos/mlb/500/nym.png) | New York Mets | 83 | 79 | 0.512 |
-| 14 | ![Cincinnati Reds](https://a.espncdn.com/i/teamlogos/mlb/500/cin.png) | Cincinnati Reds | 83 | 79 | 0.512 |
-| 15 | ![Kansas City Royals](https://a.espncdn.com/i/teamlogos/mlb/500/kc.png) | Kansas City Royals | 82 | 80 | 0.506 |
+| 1 | ![Milwaukee Brewers](https://a.espncdn.com/i/teamlogos/mlb/500/mil.png) | Milwaukee Brewers | 103 | 59 | 0.636 |
+| 2 | ![Los Angeles Dodgers](https://a.espncdn.com/i/teamlogos/mlb/500/lad.png) | Los Angeles Dodgers | 100 | 62 | 0.617 |
+| 3 | ![Tampa Bay Rays](https://a.espncdn.com/i/teamlogos/mlb/500/tb.png) | Tampa Bay Rays | 98 | 64 | 0.605 |
+| 4 | ![Atlanta Braves](https://a.espncdn.com/i/teamlogos/mlb/500/atl.png) | Atlanta Braves | 94 | 68 | 0.580 |
+| 5 | ![New York Yankees](https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png) | New York Yankees | 93 | 68 | 0.578 |
+| 6 | ![San Diego Padres](https://a.espncdn.com/i/teamlogos/mlb/500/sd.png) | San Diego Padres | 91 | 71 | 0.562 |
+| 7 | ![Chicago Cubs](https://a.espncdn.com/i/teamlogos/mlb/500/chc.png) | Chicago Cubs | 89 | 73 | 0.549 |
+| 8 | ![Philadelphia Phillies](https://a.espncdn.com/i/teamlogos/mlb/500/phi.png) | Philadelphia Phillies | 88 | 74 | 0.543 |
+| 9 | ![Boston Red Sox](https://a.espncdn.com/i/teamlogos/mlb/500/bos.png) | Boston Red Sox | 87 | 75 | 0.537 |
+| 10 | ![Arizona Diamondbacks](https://a.espncdn.com/i/teamlogos/mlb/500/ari.png) | Arizona Diamondbacks | 86 | 76 | 0.531 |
+| 11 | ![Cleveland Guardians](https://a.espncdn.com/i/teamlogos/mlb/500/cle.png) | Cleveland Guardians | 85 | 77 | 0.525 |
+| 12 | ![Chicago White Sox](https://a.espncdn.com/i/teamlogos/mlb/500/chw.png) | Chicago White Sox | 84 | 78 | 0.519 |
+| 13 | ![Pittsburgh Pirates](https://a.espncdn.com/i/teamlogos/mlb/500/pit.png) | Pittsburgh Pirates | 82 | 80 | 0.506 |
+| 14 | ![Houston Astros](https://a.espncdn.com/i/teamlogos/mlb/500/hou.png) | Houston Astros | 81 | 81 | 0.500 |
+| 15 | ![Texas Rangers](https://a.espncdn.com/i/teamlogos/mlb/500/tex.png) | Texas Rangers | 80 | 82 | 0.494 |
 
 ## Workflow 5: NHL Team Performance
 
@@ -494,7 +494,7 @@ comparison_table
 | Sport                                             | Top Team | Win % |
 | NFL                                               | DEN      | 0.824 |
 | NBA                                               | OKC      | 0.780 |
-| MLB                                               | MIL      | 0.599 |
+| MLB                                               | MIL      | 0.636 |
 | NHL (points %)                                    | COL      | 0.738 |
 | ¹ Data: SportsDataverse packages \| Viz: sdvplotR |          |       |
 

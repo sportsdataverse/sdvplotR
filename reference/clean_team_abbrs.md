@@ -5,10 +5,12 @@ sdvplotR. Matching is case-insensitive and understands full team names
 (`"Kansas City Chiefs"`), common alternate abbreviations used by other
 data sources (`"WSH"` / `"WAS"`, `"GNB"` / `"GB"`), and historical
 abbreviations of relocated franchises (see
-[`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)).
-For the college sports it also takes the school names NCAA.com /
-stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
-(`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`,
+[`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)),
+which follow the franchise even where a provider uses the same code for
+another team: `"WIN"`, the original Winnipeg Jets, gives `"UTAH"`, while
+today's Jets are `"WPG"`. For the college sports it also takes the
+school names NCAA.com / stats.ncaa.org, KenPom, Bart Torvik and Sports
+Reference use (`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`,
 `"Southern California"`, `"Brigham Young"`). Conference names resolve to
 the conference: ESPN's (`"SEC"`, `"Southeastern Conference"`), the
 NCAA's, KenPom's and Torvik's (`"B10"`, `"MWC"`), and the names a

@@ -8,6 +8,10 @@
 <url><loc>https://sdvplotR.sportsdataverse.org/PULL_REQUEST_TEMPLATE.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/border_bars.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/cfb-viz.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/cookbook-colors-themes.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/cookbook-ggplot-logos.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/delay_tables.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/gallery.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/getting-started.html</loc></url>
@@ -22,6 +26,16 @@
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/nfl-viz.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/nhl-viz.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/reactable-integration.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-cfb-conference-table.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-college-hoops-tiers.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-head-to-head-card.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-mlb-run-differential.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-nba-net-rating-quadrant.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-nfl-epa-scatter.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-nhl-shot-map.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-rank-bump-chart.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-wbb-conference-standings.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/articles/recipe-wnba-scoring-leaders-card.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/rolling-form.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/saving_tables.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/schedule_matrix.html</loc></url>
