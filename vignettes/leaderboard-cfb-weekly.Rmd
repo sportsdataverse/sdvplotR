@@ -48,14 +48,29 @@ if (is.null(pbp)) {
 }
 stopifnot(!is.null(pbp))
 
-# CollegeFootballData.com's schedule: set CFBD_API_KEY (a free key) before this call
-schedule <- cfbfastR::load_cfb_schedules(season)
-played <- schedule |>
-  filter(completed) |>
-  arrange(start_date, game_id)
-week <- max(played$week[played$season_type == "regular"])
-left <- filter(schedule, !completed)
-if (any(left$season_type == "regular")) {
+# A live API call, or NULL when the API does not answer: one bad week then shows
+# a note instead of failing the whole site build
+live <- function(expr) tryCatch(expr, error = function(e) NULL)
+
+# CollegeFootballData.com's schedule (a live API: set CFBD_API_KEY, a free key)
+schedule <- live(cfbfastR::load_cfb_schedules(season))
+schedule_ok <- NROW(schedule) > 0
+if (schedule_ok) {
+  played <- schedule |>
+    filter(completed) |>
+    arrange(start_date, game_id)
+  week <- max(played$week[played$season_type == "regular"])
+  left <- filter(schedule, !completed)
+} else {
+  week <- max(pbp$week)
+}
+if (!schedule_ok) {
+  status <- sprintf(
+    "the %d season through week %d. CollegeFootballData.com's schedule was unavailable when this page was built, so records are missing this week; they return next week.",
+    season, week
+  )
+  through <- paste("through week", week)
+} else if (any(left$season_type == "regular")) {
   status <- sprintf("the %d season through week %d.", season, week)
   through <- paste("through week", week)
 } else if (nrow(left) > 0) {
@@ -82,29 +97,40 @@ Week 0 is in late August, so before then the calendar points at last season.
 `cfbfastR::load_cfb_pbp()` errors for a season past its most recent one and
 warns, returning no rows, for a season whose file is not up yet; either way the
 page steps back one season. The schedule says whether regular-season games are
-left, which is what the status line reports.
+left, which is what the status line reports. It is a live API call, so it goes
+through `live()`: if CollegeFootballData.com does not answer, the page still
+rates every team from the play-by-play and leaves the records blank for that
+week instead of failing the site build.
 
 ```{r season-code, ref.label = "season", eval = FALSE}
 ```
 
-Each team's conference and record come from its played games, against FBS and
-FCS opponents alike.
+The play-by-play carries each game's teams with their division and conference,
+which picks out the FBS teams. Records come from the schedule's played games,
+against FBS and FCS opponents alike.
 
 ```{r records}
-fbs <- bind_rows(
-  transmute(played,
-    school = home_team, conference = home_conference,
-    division = home_division, win = home_points > away_points
-  ),
-  transmute(played,
-    school = away_team, conference = away_conference,
-    division = away_division, win = away_points > home_points
-  )
-) |>
-  filter(division == "fbs") |>
+sides <- bind_rows(
+  distinct(pbp, game_id, week, school = home, conference = home_team_conference, division = home_team_division),
+  distinct(pbp, game_id, week, school = away, conference = away_team_conference, division = away_team_division)
+)
+fbs <- sides |>
+  filter(division %in% "fbs") |>
+  arrange(week, game_id) |>
   group_by(school) |>
-  summarise(conference = last(conference), w = sum(win), l = sum(!win), .groups = "drop") |>
-  mutate(record = paste(w, l, sep = "-"))
+  summarise(conference = last(conference), .groups = "drop")
+
+if (schedule_ok) {
+  records <- bind_rows(
+    transmute(played, school = home_team, win = home_points > away_points),
+    transmute(played, school = away_team, win = away_points > home_points)
+  ) |>
+    group_by(school) |>
+    summarise(record = paste(sum(win), sum(!win), sep = "-"), .groups = "drop")
+  fbs <- left_join(fbs, records, by = "school")
+} else {
+  fbs$record <- NA_character_ # shown as a dash
+}
 nrow(fbs)
 ```
 
@@ -157,7 +183,7 @@ head(top25)
 ```
 
 sdvplotR has a row for every FBS conference too, so `gt_sdv_logos()` draws the
-conference marks from the schedule's conference names, next to the school
+conference marks from the play-by-play's conference names, next to the school
 logos.
 
 ```{r top25-table}
@@ -168,6 +194,7 @@ top25 |>
     subtitle = paste("Opponent-adjusted EPA per play,", through)
   ) |>
   fmt_number(c(off, dfn, net), decimals = 3, force_sign = TRUE) |>
+  sub_missing(record, missing_text = "—") |>
   data_color(net, palette = c("#f7f7f7", "#2e8b57"), domain = c(0, max(top25$net))) |>
   tab_spanner("Adjusted EPA per play", c(off, dfn, net)) |>
   cols_label(

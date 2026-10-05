@@ -56,15 +56,24 @@ box <- mutate(box, game_date = as.Date(game_date), type = game_type(game_id))
 last_regular <- max(box$game_date[box$type == 2])
 playoffs <- filter(box, type == 3)
 in_season <- season == current && nrow(playoffs) == 0
+# games per team from the release file (they differ early on)
+games_in <- paste(unique(range(table(box$team_abbrev[box$type == 2]))), collapse = "-")
+
+# A live API call, or NULL when the API does not answer: one bad week then shows
+# a note in place of a table instead of failing the whole site build
+live <- function(expr) tryCatch(expr, error = function(e) NULL)
+unavailable <- function(what, ok) {
+  if (ok) "" else sprintf("*%s were unavailable when this page was built on %s; they return next week.*", what, today)
+}
 # api-web.nhle.com standings: as of today in season, as of the last regular-season day after it
-standings <- fastRhockey::nhl_standings(date = if (in_season) NULL else format(last_regular))
-games_in <- paste(unique(range(standings$games_played)), collapse = "-") # games per team differ early on
+standings <- live(fastRhockey::nhl_standings(date = if (in_season) NULL else format(last_regular)))
+standings_ok <- NROW(standings) > 0
 if (in_season) {
   status <- sprintf(
     "the %s season, %s games in per team. Early-season tables move a lot from week to week.",
     label(season), games_in
   )
-  through <- sprintf("through %s (%s games in)", day_label(today), games_in)
+  through <- sprintf("through %s (%s games in)", day_label(last_regular), games_in)
 } else if (season < current) {
   status <- sprintf(
     "the offseason, so this is the final %s regular season; the %s season has no regular-season games yet.",
@@ -99,7 +108,9 @@ so the helper treats "no regular-season games" as "not published" and the page
 steps back one season. A game id's fifth and sixth digits are its type: 02 is
 the regular season, 03 the playoffs. During the season the standings come from
 api-web.nhle.com as of today; once the regular season is over, as of its last
-day.
+day. That call goes through `live()`: if the API does not answer, the page shows
+a note in place of the standings and the goal-differential chart for that week
+instead of failing the site build.
 
 ```{r season-code, ref.label = "season", eval = FALSE}
 ```
@@ -110,7 +121,7 @@ Grouped by division in the NHL's own order. `gt_sdv_logos()` reads the NHL's
 three-letter team codes (`LAK`, `NJD`, `TBL`) through sdvplotR's aliases, so
 nothing is mapped by hand.
 
-```{r standings-table}
+```{r standings-table, eval = standings_ok}
 standings |>
   arrange(division_name, division_sequence) |>
   transmute(
@@ -139,12 +150,14 @@ standings |>
   gt_theme_swiss()
 ```
 
+`r unavailable("NHL standings", standings_ok)`
+
 ## 2. Goal differential
 
 Goals for minus goals against, all 32 teams, in team colors; `scale_x_sdv()`
 and `theme_x_sdv()` swap the team codes on the x axis for logos.
 
-```{r goal-differential, fig.height = 5.5, fig.alt = "Bar chart of every NHL team's goal differential, best to worst, each bar in the team's primary color with the team's logo under it on the horizontal axis."}
+```{r goal-differential, eval = standings_ok, fig.height = 5.5, fig.alt = "Bar chart of every NHL team's goal differential, best to worst, each bar in the team's primary color with the team's logo under it on the horizontal axis."}
 gd <- standings |>
   mutate(team = clean_team_abbrs(team_abbr, sport = "nhl")) |>
   arrange(desc(goal_differential), team) # the team breaks a tie, so an unchanged week renders the same
@@ -168,6 +181,8 @@ ggplot(gd, aes(x = factor(team, levels = team), y = goal_differential, fill = te
   ) +
   theme_x_sdv()
 ```
+
+`r unavailable("NHL standings", standings_ok)`
 
 ## 3. Points leaders with headshots
 

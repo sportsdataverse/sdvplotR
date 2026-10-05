@@ -30,14 +30,18 @@ library(gt)
 today <- Sys.Date()
 current <- as.integer(format(today, "%Y")) # the season runs inside one calendar year
 
+# A live API call, or NULL when the API does not answer: one bad week then shows
+# a note in place of a table instead of failing the whole site build
+live <- function(expr) tryCatch(expr, error = function(e) NULL)
+unavailable <- function(what, ok) {
+  if (ok) "" else sprintf("*%s were unavailable when this page was built on %s; they return next week.*", what, today)
+}
+
 # A season's standings from the MLB Stats API, or NULL before opening day: the
 # API answers with no rows for a season it has no standings for, or with every
 # team on zero games
 standings_for <- function(season) {
-  table <- tryCatch(
-    baseballr::mlb_standings(season = season, league_id = "103,104"),
-    error = function(e) NULL
-  )
+  table <- live(baseballr::mlb_standings(season = season, league_id = "103,104"))
   if (NROW(table) == 0 || max(table$team_records_games_played) == 0) NULL else table
 }
 
@@ -47,15 +51,20 @@ if (is.null(raw_standings)) {
   season <- current - 1
   raw_standings <- standings_for(season)
 }
-stopifnot(!is.null(raw_standings))
+# last season always has standings, so none for either season means the API did not answer
+available <- !is.null(raw_standings)
+leaders_ok <- FALSE
 
 # The Stats API's calendar for the current season: when its regular season and
 # postseason end
-calendar <- baseballr::mlb_seasons(sport_id = 1)
-regular_end <- as.Date(calendar$regular_season_end_date[calendar$season_id == current])
-post_end <- as.Date(calendar$post_season_end_date[calendar$season_id == current])
-games_per_team <- round(median(raw_standings$team_records_games_played))
-if (season < current) {
+calendar <- live(baseballr::mlb_seasons(sport_id = 1))
+regular_end <- as.Date(as.character(calendar$regular_season_end_date[calendar$season_id == current]))
+post_end <- as.Date(as.character(calendar$post_season_end_date[calendar$season_id == current]))
+games_per_team <- if (available) round(median(raw_standings$team_records_games_played)) else NA
+if (!available) {
+  status <- "the MLB Stats API did not answer when this page was built, so this week's tables and chart are missing; they return next week."
+  through <- ""
+} else if (season < current) {
   status <- sprintf(
     "the offseason, so this is the final %d regular season; the %d season has no games yet.",
     season, current
@@ -87,6 +96,9 @@ no key needed.
 The season runs inside one calendar year, but before opening day the Stats API
 standings for the new season come back empty, or with every team on zero games.
 The helper turns both into "not published" and the page steps back one season.
+Every Stats API call goes through `live()`: if the API does not answer, the page
+shows a note in place of each table and chart for that week instead of failing
+the site build.
 The Stats API's season calendar (`mlb_seasons()`) says whether the regular
 season is still being played, so the status line can say what the numbers
 cover.
@@ -97,9 +109,13 @@ cover.
 The standings name each club by its nickname; `mlb_teams()` adds its
 abbreviation, full name and division, joined on the Stats API team id.
 
-```{r standings-data}
-clubs <- baseballr::mlb_teams(season = season, sport_ids = 1) |>
-  select(team_id, abbreviation = team_abbreviation, team_name = team_full_name, division = division_name)
+```{r clubs, eval = available}
+clubs <- live(baseballr::mlb_teams(season = season, sport_ids = 1))
+available <- NROW(clubs) > 0 # mlb_teams(), like mlb_standings(), answers with no rows when the API is down
+```
+
+```{r standings-data, eval = available}
+clubs <- select(clubs, team_id, abbreviation = team_abbreviation, team_name = team_full_name, division = division_name)
 standings <- raw_standings |>
   transmute(
     team_id = team_records_team_id,
@@ -126,7 +142,7 @@ abbreviations into logos (sdvplotR maps its `AZ` and `CWS` to ESPN's `ARI` and
 `CHW`), and `gt_color_pills()` draws the run differential on a scale centred at
 zero.
 
-```{r standings-table}
+```{r standings-table, eval = available}
 reach <- max(abs(standings$diff))
 standings |>
   mutate(logo = abbreviation) |>
@@ -151,12 +167,14 @@ standings |>
   gt_theme_broadsheet()
 ```
 
+`r unavailable("MLB standings", available)`
+
 ## 2. Run differential
 
 Every club's run differential as a bar in its primary color, best at the top,
 with its logo at the end of the bar.
 
-```{r run-differential, fig.height = 8, fig.alt = "Horizontal bar chart of every MLB club's run differential, best at the top, each bar in the club's primary color with its logo at the end of the bar."}
+```{r run-differential, eval = available, fig.height = 8, fig.alt = "Horizontal bar chart of every MLB club's run differential, best at the top, each bar in the club's primary color with its logo at the end of the bar."}
 rd <- standings |>
   arrange(diff, desc(team_name)) |> # the name breaks a tie, so an unchanged week renders the same
   mutate(
@@ -185,6 +203,8 @@ ggplot(rd, aes(y = label)) +
   )
 ```
 
+`r unavailable("MLB standings", available)`
+
 ## 3. League leaders with headshots
 
 The Stats API's leaderboards, one category at a time (`mlb_stats_leaders()`;
@@ -192,7 +212,7 @@ the rate stats list qualified players only). Its player ids are MLBAM ids, which
 `gt_sdv_headshots(id_type = "league")` turns into MLB's own headshots. Ties
 share a rank, so a category can show more than three players.
 
-```{r leaders-data}
+```{r leaders-data, eval = available}
 categories <- tibble::tribble(
   ~category, ~stat, ~group, ~digits,
   "Home runs", "homeRuns", "hitting", 0,
@@ -202,26 +222,35 @@ categories <- tibble::tribble(
   "ERA", "earnedRunAverage", "pitching", 2,
   "Strikeouts", "strikeouts", "pitching", 0
 )
-leaders <- bind_rows(lapply(seq_len(nrow(categories)), function(i) {
-  baseballr::mlb_stats_leaders(
+top3 <- function(i) {
+  x <- live(baseballr::mlb_stats_leaders(
     leader_categories = categories$stat[i], season = season, sport_id = 1,
     leader_game_types = "R", limit = 3
-  ) |>
+  ))
+  if (NROW(x) == 0) {
+    return(NULL) # the API did not answer for this category
+  }
+  x |>
     filter(stat_group == categories$group[i], rank <= 3) |>
     transmute(
       category = categories$category[i], rank, person_id, player = person_full_name, team_id,
       value = formatC(as.numeric(value), format = "f", digits = categories$digits[i])
     )
-})) |>
-  left_join(select(clubs, team_id, abbreviation), by = "team_id") |>
-  mutate(
-    value = sub("^0\\.", ".", value), # .312, not 0.312, as baseball writes it
-    headshot = person_id
-  )
+}
+leaders <- bind_rows(lapply(seq_len(nrow(categories)), top3))
+leaders_ok <- nrow(leaders) > 0
+if (leaders_ok) {
+  leaders <- leaders |>
+    left_join(select(clubs, team_id, abbreviation), by = "team_id") |>
+    mutate(
+      value = sub("^0\\.", ".", value), # .312, not 0.312, as baseball writes it
+      headshot = person_id
+    )
+}
 head(leaders)
 ```
 
-```{r leaders-table}
+```{r leaders-table, eval = leaders_ok}
 leaders |>
   select(category, rank, headshot, player, abbreviation, value) |>
   gt(groupname_col = "category", id = "mlb-leaders") |>
@@ -236,6 +265,8 @@ leaders |>
   gt_sdv_logos(columns = abbreviation, sport = "mlb", height = 22) |>
   gt_theme_savant()
 ```
+
+`r unavailable("MLB leaders", leaders_ok)`
 
 ## Related
 
