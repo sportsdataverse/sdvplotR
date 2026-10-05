@@ -470,17 +470,17 @@ ggplot(ends, aes(gsax, name)) +
 
 The original Winnipeg Jets moved to Phoenix in 1996, became the Arizona Coyotes
 in 2014, and their hockey operations moved to Salt Lake City in 2024 as the
-Utah Hockey Club, the Utah Mammoth since 2025. sdvplotR maps the Coyotes'
-codes to today's club, so a Coyotes-era dataset still gets a logo and a color,
-but `WIN` matches today's Winnipeg Jets, the former Atlanta Thrashers. An old
-code is not a reliable franchise key:
+Utah Hockey Club, the Utah Mammoth since 2025. sdvplotR maps every one of the
+franchise's codes, the original Jets' `WIN` included, to today's club, so a
+dataset from any era gets a logo and a color and groups as one franchise.
+Today's Winnipeg Jets, the former Atlanta Thrashers, are `WPG`:
 
 ```{r old-codes}
-clean_team_abbrs(c("WIN", "PHX", "ARI", "UTA"), sport = "nhl")
+clean_team_abbrs(c("WIN", "PHX", "ARI", "UTA", "WPG"), sport = "nhl")
 ```
 
-Given a `season`, `geom_sdv_logos()` draws the mark a club wore that season
-instead. Historical NHL marks are keyed by the NHL's code for that identity
+That key draws today's mark. Given a `season`, `geom_sdv_logos()` draws the
+mark a club wore that season instead. Historical NHL marks are keyed by the NHL's code for that identity
 (`WIN`, `PHX`, `ARI`), and seasons are named for the year they end. One mark
 per logo era, with the club's name that season from the NHL's records:
 
@@ -639,8 +639,8 @@ ggplot(race, aes(game, above, colour = team)) +
 
 How far every team went, from the playoff game IDs (the seventh digit is the
 round), with regular-season points deciding the order within a tier.
-`sdv_team_tiers()` returns a ggplot, so a light background goes on top of its
-dark one, where the black logos would disappear.
+`sdv_team_tiers()` with `theme = "light"` draws the list on white; on its
+default dark background the black logos would disappear.
 
 ```{r playoff-tiers, fig.width = 10, fig.height = 7, fig.alt = "Tier list of the 32 NHL teams in 2025-26, drawn as logos in six rows: the Stanley Cup champion, the other finalist, the conference finalists, the second-round teams, the first-round teams and the teams that missed the playoffs."}
 reached <- team_box |>
@@ -672,16 +672,9 @@ sdv_team_tiers(
     "5" = "First round",
     "6" = "Missed the playoffs"
   ),
-  width = 0.05
-) +
-  theme(
-    plot.background = element_rect(fill = "white", colour = "white"),
-    panel.background = element_rect(fill = "white", colour = "white"),
-    plot.title = element_text(colour = "grey10", face = "bold"),
-    plot.subtitle = element_text(colour = "grey35"),
-    plot.caption = element_text(colour = "grey35"),
-    axis.text.y = element_text(colour = "grey10", face = "bold")
-  )
+  width = 0.05,
+  theme = "light"
+)
 ```
 
 ## Related articles
