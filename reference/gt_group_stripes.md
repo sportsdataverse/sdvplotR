@@ -53,15 +53,15 @@ all of them at once.
 ``` r
 library(gt)
 
-cars <- mtcars[c("mpg", "hp", "wt")]
-cars$cyl <- paste(mtcars$cyl, "cylinders")
+afc <- subset(sdv_example_standings, conference == "AFC",
+  c(team_name, division, wins, losses, points_for))
 
-gt(head(cars, 15), groupname_col = "cyl") %>%
+gt(afc, groupname_col = "division") %>%
   gt_theme_broadsheet() %>%
   gt_group_stripes()
 
 
   
 
-mpg
+team_name
 ```

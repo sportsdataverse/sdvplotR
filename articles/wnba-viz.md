@@ -226,11 +226,10 @@ axis.](wnba-viz_files/figure-html/net-rating-1.png)
 
 [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
 draws a tier list from `tier_no` and `team`. The tiers here are cut from
-the net ratings above, so they are the season’s numbers. Its Tiermaker
-theme is dark, and Toronto’s dark plum mark all but disappears on it.
-The result is a ggplot, so a few
-[`theme()`](https://ggplot2.tidyverse.org/reference/theme.html) settings
-make it light, and `alpha = 1` draws the logos at full strength.
+the net ratings above, so they are the season’s numbers. Its default
+background is dark, and Toronto’s dark plum mark all but disappears on
+it, so `theme = "light"` draws the list on white and `alpha = 1` draws
+the logos at full strength.
 
 ``` r
 
@@ -246,14 +245,9 @@ sdv_team_tiers(
   subtitle = "Regular-season net rating per 100 possessions, cut at +5, 0 and -5",
   caption = source_note,
   tier_desc = c("1" = "Title contenders", "2" = "Playoff teams", "3" = "Fringe", "4" = "Rebuilding"),
-  alpha = 1
-) +
-  theme(
-    plot.background = element_rect(fill = "white", color = "white"),
-    panel.background = element_rect(fill = "white", color = "white"),
-    plot.title = element_text(color = "black", face = "bold"),
-    axis.text.y = element_text(color = "black", face = "bold", size = rel(1.1))
-  )
+  alpha = 1,
+  theme = "light"
+)
 ```
 
 ![WNBA team logos in four tiers cut from 2026 net rating per 100

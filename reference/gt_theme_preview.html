@@ -281,36 +281,38 @@ shown at their defaults.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">gt_theme_preview</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">mtcars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"hp"</span><span class="op">)</span><span class="op">]</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nfl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sdv_example_standings</span>, <span class="va">league</span> <span class="op">==</span> <span class="st">"nfl"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">gt_theme_preview</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">nfl</span>,</span></span>
 <span class="r-in"><span>  themes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gt_theme_sdv"</span>, <span class="st">"gt_theme_kenpom"</span>, <span class="st">"gt_theme_athletic"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <div style="display: grid; grid-template-columns: repeat(3, max-content); gap: 24px; align-items: start; justify-content: center;">
   <div>
     <div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#555555;font-weight:600;text-align:left;margin-bottom:6px;">sdv</div>
     <div>
-      <div id="ygiofoxrwb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+      <div id="bwwkzjbqed" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
         <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#ygiofoxrwb table {
+#bwwkzjbqed table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ygiofoxrwb thead, #ygiofoxrwb tbody, #ygiofoxrwb tfoot, #ygiofoxrwb tr, #ygiofoxrwb td, #ygiofoxrwb th {
+#bwwkzjbqed thead, #bwwkzjbqed tbody, #bwwkzjbqed tfoot, #bwwkzjbqed tr, #bwwkzjbqed td, #bwwkzjbqed th {
   border-style: none;
 }
 
-#ygiofoxrwb p {
+#bwwkzjbqed p {
   margin: 0;
   padding: 0;
 }
 
-#ygiofoxrwb .gt_table {
+#bwwkzjbqed .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -336,12 +338,12 @@ shown at their defaults.</p>
   border-left-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_caption {
+#bwwkzjbqed .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ygiofoxrwb .gt_title {
+#bwwkzjbqed .gt_title {
   color: #0B1A33;
   font-size: 125%;
   font-weight: initial;
@@ -353,7 +355,7 @@ shown at their defaults.</p>
   border-bottom-width: 0;
 }
 
-#ygiofoxrwb .gt_subtitle {
+#bwwkzjbqed .gt_subtitle {
   color: #0B1A33;
   font-size: 85%;
   font-weight: initial;
@@ -365,7 +367,7 @@ shown at their defaults.</p>
   border-top-width: 0;
 }
 
-#ygiofoxrwb .gt_heading {
+#bwwkzjbqed .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -377,13 +379,13 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_bottom_border {
+#bwwkzjbqed .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_col_headings {
+#bwwkzjbqed .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -398,7 +400,7 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_col_heading {
+#bwwkzjbqed .gt_col_heading {
   color: #0B1A33;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -418,7 +420,7 @@ shown at their defaults.</p>
   overflow-x: hidden;
 }
 
-#ygiofoxrwb .gt_column_spanner_outer {
+#bwwkzjbqed .gt_column_spanner_outer {
   color: #0B1A33;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -430,15 +432,15 @@ shown at their defaults.</p>
   padding-right: 4px;
 }
 
-#ygiofoxrwb .gt_column_spanner_outer:first-child {
+#bwwkzjbqed .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ygiofoxrwb .gt_column_spanner_outer:last-child {
+#bwwkzjbqed .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ygiofoxrwb .gt_column_spanner {
+#bwwkzjbqed .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -450,11 +452,11 @@ shown at their defaults.</p>
   width: 100%;
 }
 
-#ygiofoxrwb .gt_spanner_row {
+#bwwkzjbqed .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ygiofoxrwb .gt_group_heading {
+#bwwkzjbqed .gt_group_heading {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -480,7 +482,7 @@ shown at their defaults.</p>
   text-align: left;
 }
 
-#ygiofoxrwb .gt_empty_group_heading {
+#bwwkzjbqed .gt_empty_group_heading {
   padding: 0.5px;
   color: #0B1A33;
   background-color: #FFFFFF;
@@ -495,15 +497,15 @@ shown at their defaults.</p>
   vertical-align: middle;
 }
 
-#ygiofoxrwb .gt_from_md > :first-child {
+#bwwkzjbqed .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ygiofoxrwb .gt_from_md > :last-child {
+#bwwkzjbqed .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ygiofoxrwb .gt_row {
+#bwwkzjbqed .gt_row {
   padding-top: 3.5px;
   padding-bottom: 3.5px;
   padding-left: 5px;
@@ -522,7 +524,7 @@ shown at their defaults.</p>
   overflow-x: hidden;
 }
 
-#ygiofoxrwb .gt_stub {
+#bwwkzjbqed .gt_stub {
   color: #0B1A33;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -535,7 +537,7 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#ygiofoxrwb .gt_stub_row_group {
+#bwwkzjbqed .gt_stub_row_group {
   color: #0B1A33;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -549,15 +551,15 @@ shown at their defaults.</p>
   vertical-align: top;
 }
 
-#ygiofoxrwb .gt_row_group_first td {
+#bwwkzjbqed .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ygiofoxrwb .gt_row_group_first th {
+#bwwkzjbqed .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ygiofoxrwb .gt_summary_row {
+#bwwkzjbqed .gt_summary_row {
   color: #0B1A33;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -567,16 +569,16 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#ygiofoxrwb .gt_first_summary_row {
+#bwwkzjbqed .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_first_summary_row.thick {
+#bwwkzjbqed .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ygiofoxrwb .gt_last_summary_row {
+#bwwkzjbqed .gt_last_summary_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -586,7 +588,7 @@ shown at their defaults.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_grand_summary_row {
+#bwwkzjbqed .gt_grand_summary_row {
   color: #0B1A33;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -596,7 +598,7 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#ygiofoxrwb .gt_first_grand_summary_row {
+#bwwkzjbqed .gt_first_grand_summary_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -606,7 +608,7 @@ shown at their defaults.</p>
   border-top-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_last_grand_summary_row_top {
+#bwwkzjbqed .gt_last_grand_summary_row_top {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -616,11 +618,11 @@ shown at their defaults.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_striped {
+#bwwkzjbqed .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ygiofoxrwb .gt_table_body {
+#bwwkzjbqed .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -629,7 +631,7 @@ shown at their defaults.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_footnotes {
+#bwwkzjbqed .gt_footnotes {
   color: #0B1A33;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -643,7 +645,7 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_footnote {
+#bwwkzjbqed .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 2px;
@@ -652,7 +654,7 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#ygiofoxrwb .gt_sourcenotes {
+#bwwkzjbqed .gt_sourcenotes {
   color: #0B1A33;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -666,7 +668,7 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#ygiofoxrwb .gt_sourcenote {
+#bwwkzjbqed .gt_sourcenote {
   font-size: 90%;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -674,80 +676,80 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#ygiofoxrwb .gt_left {
+#bwwkzjbqed .gt_left {
   text-align: left;
 }
 
-#ygiofoxrwb .gt_center {
+#bwwkzjbqed .gt_center {
   text-align: center;
 }
 
-#ygiofoxrwb .gt_right {
+#bwwkzjbqed .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ygiofoxrwb .gt_font_normal {
+#bwwkzjbqed .gt_font_normal {
   font-weight: normal;
 }
 
-#ygiofoxrwb .gt_font_bold {
+#bwwkzjbqed .gt_font_bold {
   font-weight: bold;
 }
 
-#ygiofoxrwb .gt_font_italic {
+#bwwkzjbqed .gt_font_italic {
   font-style: italic;
 }
 
-#ygiofoxrwb .gt_super {
+#bwwkzjbqed .gt_super {
   font-size: 65%;
 }
 
-#ygiofoxrwb .gt_footnote_marks {
+#bwwkzjbqed .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ygiofoxrwb .gt_asterisk {
+#bwwkzjbqed .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ygiofoxrwb .gt_indent_1 {
+#bwwkzjbqed .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ygiofoxrwb .gt_indent_2 {
+#bwwkzjbqed .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ygiofoxrwb .gt_indent_3 {
+#bwwkzjbqed .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ygiofoxrwb .gt_indent_4 {
+#bwwkzjbqed .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ygiofoxrwb .gt_indent_5 {
+#bwwkzjbqed .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ygiofoxrwb .katex-display {
+#bwwkzjbqed .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ygiofoxrwb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bwwkzjbqed div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
-#ygiofoxrwb thead {
+#bwwkzjbqed thead {
   position: relative;
 }
 
-#ygiofoxrwb thead::after {
+#bwwkzjbqed thead::after {
   content: "";
   position: absolute;
   left: 0;
@@ -757,58 +759,64 @@ shown at their defaults.</p>
   background: linear-gradient(90deg, #3346F0, #7FE6DC);
 }
 
-#ygiofoxrwb .gt_col_headings th {
+#bwwkzjbqed .gt_col_headings th {
   padding-bottom: 10px;
 }
 
-#ygiofoxrwb .gt_heading, #ygiofoxrwb .gt_sourcenote, #ygiofoxrwb .gt_footnote, #ygiofoxrwb .gt_col_headings th:first-child, #ygiofoxrwb tbody td:first-child {
+#bwwkzjbqed .gt_heading, #bwwkzjbqed .gt_sourcenote, #bwwkzjbqed .gt_footnote, #bwwkzjbqed .gt_col_headings th:first-child, #bwwkzjbqed tbody td:first-child {
   padding-left: 14px !important;
 }
 
-#ygiofoxrwb .gt_heading, #ygiofoxrwb .gt_sourcenote, #ygiofoxrwb .gt_footnote, #ygiofoxrwb .gt_col_headings th:last-child, #ygiofoxrwb tbody td:last-child {
+#bwwkzjbqed .gt_heading, #bwwkzjbqed .gt_sourcenote, #bwwkzjbqed .gt_footnote, #bwwkzjbqed .gt_col_headings th:last-child, #bwwkzjbqed tbody td:last-child {
   padding-right: 14px !important;
 }
 
-#ygiofoxrwb .gt_title {
+#bwwkzjbqed .gt_title {
   padding-top: 12px !important;
 }
 
-#ygiofoxrwb .gt_subtitle {
+#bwwkzjbqed .gt_subtitle {
   padding-bottom: 12px !important;
 }
 
-#ygiofoxrwb tbody tr:last-child {
+#bwwkzjbqed tbody tr:last-child {
   border-bottom: 2px solid #FFFFFF;
 }
 
-#ygiofoxrwb td {
+#bwwkzjbqed td {
   font-variant-numeric: tabular-nums;
 }
 
-#ygiofoxrwb .gt_table {
+#bwwkzjbqed .gt_table {
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 11.7px; font-weight: 500;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 11.7px; font-weight: 500;" scope="col" id="cyl">cyl</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 11.7px; font-weight: 500;" scope="col" id="hp">hp</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right">21.0</td>
-<td headers="cyl" class="gt_row gt_right">6</td>
-<td headers="hp" class="gt_row gt_right">110</td></tr><tr><td headers="mpg" class="gt_row gt_right">21.0</td>
-<td headers="cyl" class="gt_row gt_right">6</td>
-<td headers="hp" class="gt_row gt_right">110</td></tr><tr><td headers="mpg" class="gt_row gt_right">22.8</td>
-<td headers="cyl" class="gt_row gt_right">4</td>
-<td headers="hp" class="gt_row gt_right">93</td></tr><tr><td headers="mpg" class="gt_row gt_right">21.4</td>
-<td headers="cyl" class="gt_row gt_right">6</td>
-<td headers="hp" class="gt_row gt_right">110</td></tr><tr><td headers="mpg" class="gt_row gt_right">18.7</td>
-<td headers="cyl" class="gt_row gt_right">8</td>
-<td headers="hp" class="gt_row gt_right">175</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 11.7px; font-weight: 500;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 11.7px; font-weight: 500;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 11.7px; font-weight: 500;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #16305C; font-family: Chivo; font-size: 11.7px; font-weight: 500;" scope="col" id="win_pct">win_pct</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left">New England Patriots</td>
+<td headers="wins" class="gt_row gt_right">14</td>
+<td headers="losses" class="gt_row gt_right">3</td>
+<td headers="win_pct" class="gt_row gt_right">0.824</td></tr><tr><td headers="team_name" class="gt_row gt_left">Buffalo Bills</td>
+<td headers="wins" class="gt_row gt_right">12</td>
+<td headers="losses" class="gt_row gt_right">5</td>
+<td headers="win_pct" class="gt_row gt_right">0.706</td></tr><tr><td headers="team_name" class="gt_row gt_left">Miami Dolphins</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">10</td>
+<td headers="win_pct" class="gt_row gt_right">0.412</td></tr><tr><td headers="team_name" class="gt_row gt_left">New York Jets</td>
+<td headers="wins" class="gt_row gt_right">3</td>
+<td headers="losses" class="gt_row gt_right">14</td>
+<td headers="win_pct" class="gt_row gt_right">0.176</td></tr><tr><td headers="team_name" class="gt_row gt_left">Pittsburgh Steelers</td>
+<td headers="wins" class="gt_row gt_right">10</td>
+<td headers="losses" class="gt_row gt_right">7</td>
+<td headers="win_pct" class="gt_row gt_right">0.588</td></tr></tbody></table></div>
     </div>
   </div>
   <div>
     <div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#555555;font-weight:600;text-align:left;margin-bottom:6px;">kenpom</div>
     <div>
-      <div id="sjqzexbwwk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+      <div id="zfwjfqjoka" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
         <style>@import url("https://fonts.googleapis.com/css2?family=Helvetica+Neue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Helvetica+Neue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Helvetica+Neue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -818,22 +826,22 @@ shown at their defaults.</p>
 @import url("https://fonts.googleapis.com/css2?family=Helvetica+Neue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Helvetica+Neue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Helvetica+Neue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#sjqzexbwwk table {
+#zfwjfqjoka table {
   font-family: 'Helvetica Neue', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sjqzexbwwk thead, #sjqzexbwwk tbody, #sjqzexbwwk tfoot, #sjqzexbwwk tr, #sjqzexbwwk td, #sjqzexbwwk th {
+#zfwjfqjoka thead, #zfwjfqjoka tbody, #zfwjfqjoka tfoot, #zfwjfqjoka tr, #zfwjfqjoka td, #zfwjfqjoka th {
   border-style: none;
 }
 
-#sjqzexbwwk p {
+#zfwjfqjoka p {
   margin: 0;
   padding: 0;
 }
 
-#sjqzexbwwk .gt_table {
+#zfwjfqjoka .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -859,12 +867,12 @@ shown at their defaults.</p>
   border-left-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_caption {
+#zfwjfqjoka .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sjqzexbwwk .gt_title {
+#zfwjfqjoka .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -876,7 +884,7 @@ shown at their defaults.</p>
   border-bottom-width: 0;
 }
 
-#sjqzexbwwk .gt_subtitle {
+#zfwjfqjoka .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -888,7 +896,7 @@ shown at their defaults.</p>
   border-top-width: 0;
 }
 
-#sjqzexbwwk .gt_heading {
+#zfwjfqjoka .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -900,13 +908,13 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_bottom_border {
+#zfwjfqjoka .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_col_headings {
+#zfwjfqjoka .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -921,7 +929,7 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_col_heading {
+#zfwjfqjoka .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -941,7 +949,7 @@ shown at their defaults.</p>
   overflow-x: hidden;
 }
 
-#sjqzexbwwk .gt_column_spanner_outer {
+#zfwjfqjoka .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -953,15 +961,15 @@ shown at their defaults.</p>
   padding-right: 4px;
 }
 
-#sjqzexbwwk .gt_column_spanner_outer:first-child {
+#zfwjfqjoka .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sjqzexbwwk .gt_column_spanner_outer:last-child {
+#zfwjfqjoka .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sjqzexbwwk .gt_column_spanner {
+#zfwjfqjoka .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -973,11 +981,11 @@ shown at their defaults.</p>
   width: 100%;
 }
 
-#sjqzexbwwk .gt_spanner_row {
+#zfwjfqjoka .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sjqzexbwwk .gt_group_heading {
+#zfwjfqjoka .gt_group_heading {
   padding-top: 0.8px;
   padding-bottom: 0.8px;
   padding-left: 5px;
@@ -1003,7 +1011,7 @@ shown at their defaults.</p>
   text-align: left;
 }
 
-#sjqzexbwwk .gt_empty_group_heading {
+#zfwjfqjoka .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1018,15 +1026,15 @@ shown at their defaults.</p>
   vertical-align: middle;
 }
 
-#sjqzexbwwk .gt_from_md > :first-child {
+#zfwjfqjoka .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sjqzexbwwk .gt_from_md > :last-child {
+#zfwjfqjoka .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sjqzexbwwk .gt_row {
+#zfwjfqjoka .gt_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1045,7 +1053,7 @@ shown at their defaults.</p>
   overflow-x: hidden;
 }
 
-#sjqzexbwwk .gt_stub {
+#zfwjfqjoka .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1058,7 +1066,7 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#sjqzexbwwk .gt_stub_row_group {
+#zfwjfqjoka .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1072,15 +1080,15 @@ shown at their defaults.</p>
   vertical-align: top;
 }
 
-#sjqzexbwwk .gt_row_group_first td {
+#zfwjfqjoka .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sjqzexbwwk .gt_row_group_first th {
+#zfwjfqjoka .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sjqzexbwwk .gt_summary_row {
+#zfwjfqjoka .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1090,16 +1098,16 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#sjqzexbwwk .gt_first_summary_row {
+#zfwjfqjoka .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_first_summary_row.thick {
+#zfwjfqjoka .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sjqzexbwwk .gt_last_summary_row {
+#zfwjfqjoka .gt_last_summary_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1109,7 +1117,7 @@ shown at their defaults.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_grand_summary_row {
+#zfwjfqjoka .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1119,7 +1127,7 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#sjqzexbwwk .gt_first_grand_summary_row {
+#zfwjfqjoka .gt_first_grand_summary_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1129,7 +1137,7 @@ shown at their defaults.</p>
   border-top-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_last_grand_summary_row_top {
+#zfwjfqjoka .gt_last_grand_summary_row_top {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1139,11 +1147,11 @@ shown at their defaults.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_striped {
+#zfwjfqjoka .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sjqzexbwwk .gt_table_body {
+#zfwjfqjoka .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1152,7 +1160,7 @@ shown at their defaults.</p>
   border-bottom-color: #FFFFFF;
 }
 
-#sjqzexbwwk .gt_footnotes {
+#zfwjfqjoka .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1166,7 +1174,7 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_footnote {
+#zfwjfqjoka .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 2px;
@@ -1175,7 +1183,7 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#sjqzexbwwk .gt_sourcenotes {
+#zfwjfqjoka .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1189,7 +1197,7 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#sjqzexbwwk .gt_sourcenote {
+#zfwjfqjoka .gt_sourcenote {
   font-size: 90%;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -1197,149 +1205,155 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#sjqzexbwwk .gt_left {
+#zfwjfqjoka .gt_left {
   text-align: left;
 }
 
-#sjqzexbwwk .gt_center {
+#zfwjfqjoka .gt_center {
   text-align: center;
 }
 
-#sjqzexbwwk .gt_right {
+#zfwjfqjoka .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sjqzexbwwk .gt_font_normal {
+#zfwjfqjoka .gt_font_normal {
   font-weight: normal;
 }
 
-#sjqzexbwwk .gt_font_bold {
+#zfwjfqjoka .gt_font_bold {
   font-weight: bold;
 }
 
-#sjqzexbwwk .gt_font_italic {
+#zfwjfqjoka .gt_font_italic {
   font-style: italic;
 }
 
-#sjqzexbwwk .gt_super {
+#zfwjfqjoka .gt_super {
   font-size: 65%;
 }
 
-#sjqzexbwwk .gt_footnote_marks {
+#zfwjfqjoka .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sjqzexbwwk .gt_asterisk {
+#zfwjfqjoka .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sjqzexbwwk .gt_indent_1 {
+#zfwjfqjoka .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sjqzexbwwk .gt_indent_2 {
+#zfwjfqjoka .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sjqzexbwwk .gt_indent_3 {
+#zfwjfqjoka .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sjqzexbwwk .gt_indent_4 {
+#zfwjfqjoka .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sjqzexbwwk .gt_indent_5 {
+#zfwjfqjoka .gt_indent_5 {
   text-indent: 25px;
 }
 
-#sjqzexbwwk .katex-display {
+#zfwjfqjoka .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#sjqzexbwwk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zfwjfqjoka div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
-#sjqzexbwwk tbody tr:last-child {
+#zfwjfqjoka tbody tr:last-child {
   border-bottom: 2px solid #FFFFFF;
 }
 
-#sjqzexbwwk .gt_col_heading {
+#zfwjfqjoka .gt_col_heading {
   padding-bottom: 2px;
   padding-top: 2px;
 }
 
-#sjqzexbwwk .gt_subtitle {
+#zfwjfqjoka .gt_subtitle {
   padding-top: 0px !important;
   padding-bottom: 4px !important;
 }
 
-#sjqzexbwwk .gt_heading {
+#zfwjfqjoka .gt_heading {
   padding-bottom: 0px;
   padding-top: 6px;
 }
 
-#sjqzexbwwk .gt_column_spanner {
+#zfwjfqjoka .gt_column_spanner {
   text-decoration: underline;
 }
 
-#sjqzexbwwk #toss_out_spanner_dev {
+#zfwjfqjoka #toss_out_spanner_dev {
   display: none;
 }
 
-#sjqzexbwwk .gt_table {
+#zfwjfqjoka .gt_table {
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings gt_spanner_row"><th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3" scope="colgroup" id="toss_out_spanner_dev">
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings gt_spanner_row"><th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" scope="colgroup" id="toss_out_spanner_dev">
         <div class="gt_column_spanner">toss_out_spanner_dev</div>
       </th>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #0022BB; font-family: 'Helvetica Neue'; font-size: 12.6px; font-weight: 650; background-color: #C3D9FF;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #0022BB; font-family: 'Helvetica Neue'; font-size: 12.6px; font-weight: 650; background-color: #C3D9FF;" scope="col" id="cyl">cyl</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #0022BB; font-family: 'Helvetica Neue'; font-size: 12.6px; font-weight: 650; background-color: #C3D9FF;" scope="col" id="hp">hp</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">21.0</td>
-<td headers="cyl" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">6</td>
-<td headers="hp" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">110</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">21.0</td>
-<td headers="cyl" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">6</td>
-<td headers="hp" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">110</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">22.8</td>
-<td headers="cyl" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">4</td>
-<td headers="hp" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">93</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">21.4</td>
-<td headers="cyl" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">6</td>
-<td headers="hp" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">110</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="background-color: #F2FAFD;">18.7</td>
-<td headers="cyl" class="gt_row gt_right" style="background-color: #F2FAFD;">8</td>
-<td headers="hp" class="gt_row gt_right" style="background-color: #F2FAFD;">175</td></tr></tbody></table></div>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #0022BB; font-family: 'Helvetica Neue'; font-size: 12.6px; font-weight: 650; background-color: #C3D9FF;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #0022BB; font-family: 'Helvetica Neue'; font-size: 12.6px; font-weight: 650; background-color: #C3D9FF;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #0022BB; font-family: 'Helvetica Neue'; font-size: 12.6px; font-weight: 650; background-color: #C3D9FF;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #0022BB; font-family: 'Helvetica Neue'; font-size: 12.6px; font-weight: 650; background-color: #C3D9FF;" scope="col" id="win_pct">win_pct</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">New England Patriots</td>
+<td headers="wins" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">14</td>
+<td headers="losses" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">3</td>
+<td headers="win_pct" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">0.824</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">Buffalo Bills</td>
+<td headers="wins" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">12</td>
+<td headers="losses" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">5</td>
+<td headers="win_pct" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">0.706</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">Miami Dolphins</td>
+<td headers="wins" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">7</td>
+<td headers="losses" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">10</td>
+<td headers="win_pct" class="gt_row gt_right" style="background-color: #F2FAFD; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">0.412</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">New York Jets</td>
+<td headers="wins" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">3</td>
+<td headers="losses" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">14</td>
+<td headers="win_pct" class="gt_row gt_right" style="background-color: #E5ECF9; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">0.176</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="background-color: #F2FAFD;">Pittsburgh Steelers</td>
+<td headers="wins" class="gt_row gt_right" style="background-color: #F2FAFD;">10</td>
+<td headers="losses" class="gt_row gt_right" style="background-color: #F2FAFD;">7</td>
+<td headers="win_pct" class="gt_row gt_right" style="background-color: #F2FAFD;">0.588</td></tr></tbody></table></div>
     </div>
   </div>
   <div>
     <div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#555555;font-weight:600;text-align:left;margin-bottom:6px;">athletic</div>
     <div>
-      <div id="zjbqedzfwj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+      <div id="uqlrolfawe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
         <style>@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#zjbqedzfwj table {
+#uqlrolfawe table {
   font-family: 'Spline Sans Mono', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zjbqedzfwj thead, #zjbqedzfwj tbody, #zjbqedzfwj tfoot, #zjbqedzfwj tr, #zjbqedzfwj td, #zjbqedzfwj th {
+#uqlrolfawe thead, #uqlrolfawe tbody, #uqlrolfawe tfoot, #uqlrolfawe tr, #uqlrolfawe td, #uqlrolfawe th {
   border-style: none;
 }
 
-#zjbqedzfwj p {
+#uqlrolfawe p {
   margin: 0;
   padding: 0;
 }
 
-#zjbqedzfwj .gt_table {
+#uqlrolfawe .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1365,12 +1379,12 @@ shown at their defaults.</p>
   border-left-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_caption {
+#uqlrolfawe .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zjbqedzfwj .gt_title {
+#uqlrolfawe .gt_title {
   color: #333333;
   font-size: 22px;
   font-weight: initial;
@@ -1382,7 +1396,7 @@ shown at their defaults.</p>
   border-bottom-width: 0;
 }
 
-#zjbqedzfwj .gt_subtitle {
+#uqlrolfawe .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1394,7 +1408,7 @@ shown at their defaults.</p>
   border-top-width: 0;
 }
 
-#zjbqedzfwj .gt_heading {
+#uqlrolfawe .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -1406,13 +1420,13 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_bottom_border {
+#uqlrolfawe .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_col_headings {
+#uqlrolfawe .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1427,7 +1441,7 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_col_heading {
+#uqlrolfawe .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1447,7 +1461,7 @@ shown at their defaults.</p>
   overflow-x: hidden;
 }
 
-#zjbqedzfwj .gt_column_spanner_outer {
+#uqlrolfawe .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1459,15 +1473,15 @@ shown at their defaults.</p>
   padding-right: 4px;
 }
 
-#zjbqedzfwj .gt_column_spanner_outer:first-child {
+#uqlrolfawe .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zjbqedzfwj .gt_column_spanner_outer:last-child {
+#uqlrolfawe .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zjbqedzfwj .gt_column_spanner {
+#uqlrolfawe .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: #000000;
@@ -1479,11 +1493,11 @@ shown at their defaults.</p>
   width: 100%;
 }
 
-#zjbqedzfwj .gt_spanner_row {
+#uqlrolfawe .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zjbqedzfwj .gt_group_heading {
+#uqlrolfawe .gt_group_heading {
   padding-top: 0.8px;
   padding-bottom: 0.8px;
   padding-left: 5px;
@@ -1509,7 +1523,7 @@ shown at their defaults.</p>
   text-align: left;
 }
 
-#zjbqedzfwj .gt_empty_group_heading {
+#uqlrolfawe .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1524,15 +1538,15 @@ shown at their defaults.</p>
   vertical-align: middle;
 }
 
-#zjbqedzfwj .gt_from_md > :first-child {
+#uqlrolfawe .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zjbqedzfwj .gt_from_md > :last-child {
+#uqlrolfawe .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zjbqedzfwj .gt_row {
+#uqlrolfawe .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1551,7 +1565,7 @@ shown at their defaults.</p>
   overflow-x: hidden;
 }
 
-#zjbqedzfwj .gt_stub {
+#uqlrolfawe .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1564,7 +1578,7 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#zjbqedzfwj .gt_stub_row_group {
+#uqlrolfawe .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1578,15 +1592,15 @@ shown at their defaults.</p>
   vertical-align: top;
 }
 
-#zjbqedzfwj .gt_row_group_first td {
+#uqlrolfawe .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zjbqedzfwj .gt_row_group_first th {
+#uqlrolfawe .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zjbqedzfwj .gt_summary_row {
+#uqlrolfawe .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1596,16 +1610,16 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#zjbqedzfwj .gt_first_summary_row {
+#uqlrolfawe .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_first_summary_row.thick {
+#uqlrolfawe .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zjbqedzfwj .gt_last_summary_row {
+#uqlrolfawe .gt_last_summary_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1615,7 +1629,7 @@ shown at their defaults.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_grand_summary_row {
+#uqlrolfawe .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1625,7 +1639,7 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#zjbqedzfwj .gt_first_grand_summary_row {
+#uqlrolfawe .gt_first_grand_summary_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1635,7 +1649,7 @@ shown at their defaults.</p>
   border-top-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_last_grand_summary_row_top {
+#uqlrolfawe .gt_last_grand_summary_row_top {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1645,11 +1659,11 @@ shown at their defaults.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_striped {
+#uqlrolfawe .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zjbqedzfwj .gt_table_body {
+#uqlrolfawe .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1658,7 +1672,7 @@ shown at their defaults.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_footnotes {
+#uqlrolfawe .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1672,7 +1686,7 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_footnote {
+#uqlrolfawe .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 2px;
@@ -1681,7 +1695,7 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#zjbqedzfwj .gt_sourcenotes {
+#uqlrolfawe .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1695,7 +1709,7 @@ shown at their defaults.</p>
   border-right-color: #D3D3D3;
 }
 
-#zjbqedzfwj .gt_sourcenote {
+#uqlrolfawe .gt_sourcenote {
   font-size: 9.1px;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -1703,119 +1717,127 @@ shown at their defaults.</p>
   padding-right: 5px;
 }
 
-#zjbqedzfwj .gt_left {
+#uqlrolfawe .gt_left {
   text-align: left;
 }
 
-#zjbqedzfwj .gt_center {
+#uqlrolfawe .gt_center {
   text-align: center;
 }
 
-#zjbqedzfwj .gt_right {
+#uqlrolfawe .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zjbqedzfwj .gt_font_normal {
+#uqlrolfawe .gt_font_normal {
   font-weight: normal;
 }
 
-#zjbqedzfwj .gt_font_bold {
+#uqlrolfawe .gt_font_bold {
   font-weight: bold;
 }
 
-#zjbqedzfwj .gt_font_italic {
+#uqlrolfawe .gt_font_italic {
   font-style: italic;
 }
 
-#zjbqedzfwj .gt_super {
+#uqlrolfawe .gt_super {
   font-size: 65%;
 }
 
-#zjbqedzfwj .gt_footnote_marks {
+#uqlrolfawe .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zjbqedzfwj .gt_asterisk {
+#uqlrolfawe .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zjbqedzfwj .gt_indent_1 {
+#uqlrolfawe .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zjbqedzfwj .gt_indent_2 {
+#uqlrolfawe .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zjbqedzfwj .gt_indent_3 {
+#uqlrolfawe .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zjbqedzfwj .gt_indent_4 {
+#uqlrolfawe .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zjbqedzfwj .gt_indent_5 {
+#uqlrolfawe .gt_indent_5 {
   text-indent: 25px;
 }
 
-#zjbqedzfwj .katex-display {
+#uqlrolfawe .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#zjbqedzfwj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uqlrolfawe div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
-#zjbqedzfwj tbody tr:last-child {
+#uqlrolfawe tbody tr:last-child {
   border-bottom: 2px solid #FFFFFF;
 }
 
-#zjbqedzfwj .gt_subtitle {
+#uqlrolfawe .gt_subtitle {
   padding-top: 0px !important;
   padding-bottom: 4px !important;
 }
 
-#zjbqedzfwj .gt_sourcenote {
+#uqlrolfawe .gt_sourcenote {
   border-bottom-color: #FFFDF5 !important;
 }
 
-#zjbqedzfwj .gt_heading {
+#uqlrolfawe .gt_heading {
   padding-bottom: 0px;
   padding-top: 6px;
 }
 
-#zjbqedzfwj .gt_table {
+#uqlrolfawe .gt_table {
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Work Sans'; font-size: 10.8px; font-weight: 650; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Work Sans'; font-size: 10.8px; font-weight: 650; text-transform: uppercase;" scope="col" id="cyl">cyl</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Work Sans'; font-size: 10.8px; font-weight: 650; text-transform: uppercase;" scope="col" id="hp">hp</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">21.0</td>
-<td headers="cyl" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">6</td>
-<td headers="hp" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">110</td></tr><tr><td headers="mpg" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">21.0</td>
-<td headers="cyl" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">6</td>
-<td headers="hp" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">110</td></tr><tr><td headers="mpg" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">22.8</td>
-<td headers="cyl" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">4</td>
-<td headers="hp" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">93</td></tr><tr><td headers="mpg" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">21.4</td>
-<td headers="cyl" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">6</td>
-<td headers="hp" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">110</td></tr><tr><td headers="mpg" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">18.7</td>
-<td headers="cyl" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">8</td>
-<td headers="hp" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">175</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Work Sans'; font-size: 10.8px; font-weight: 650; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Work Sans'; font-size: 10.8px; font-weight: 650; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Work Sans'; font-size: 10.8px; font-weight: 650; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-family: 'Work Sans'; font-size: 10.8px; font-weight: 650; text-transform: uppercase;" scope="col" id="win_pct">win_pct</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">New England Patriots</td>
+<td headers="wins" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">14</td>
+<td headers="losses" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">3</td>
+<td headers="win_pct" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">0.824</td></tr><tr><td headers="team_name" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">Buffalo Bills</td>
+<td headers="wins" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">12</td>
+<td headers="losses" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">5</td>
+<td headers="win_pct" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">0.706</td></tr><tr><td headers="team_name" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">Miami Dolphins</td>
+<td headers="wins" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">7</td>
+<td headers="losses" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">10</td>
+<td headers="win_pct" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">0.412</td></tr><tr><td headers="team_name" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">New York Jets</td>
+<td headers="wins" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">3</td>
+<td headers="losses" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">14</td>
+<td headers="win_pct" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">0.176</td></tr><tr><td headers="team_name" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">Pittsburgh Steelers</td>
+<td headers="wins" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">10</td>
+<td headers="losses" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">7</td>
+<td headers="win_pct" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">0.588</td></tr></tbody></table></div>
     </div>
   </div>
 </div><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive() &amp;&amp; rlang::is_installed("webshot2") &amp;&amp; isTRUE(file.exists(chromote::find_chrome()))</span></span></span>
 <span class="r-in"><span><span class="co"># a subset, saved as one wide image; saving needs a headless Chrome (webshot2)</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="va">nba</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sdv_example_standings</span>, <span class="va">league</span> <span class="op">==</span> <span class="st">"nba"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">gt_theme_preview</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">iris</span>,</span></span>
+<span class="r-in"><span>  <span class="va">nba</span>,</span></span>
 <span class="r-in"><span>  themes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gt_theme_broadsheet"</span>, <span class="st">"gt_theme_swiss"</span>, <span class="st">"gt_theme_midnight"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">3</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

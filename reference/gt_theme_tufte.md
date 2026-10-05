@@ -72,10 +72,12 @@ for a firmer, academic relative.
 ``` r
 library(gt)
 
-gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>% gt_theme_tufte()
+nfc_north <- subset(sdv_example_standings, division == "NFC North",
+  c(team_name, wins:points_against))
+gt(nfc_north) %>% gt_theme_tufte()
 
 
   
 
-mpg
+team_name
 ```

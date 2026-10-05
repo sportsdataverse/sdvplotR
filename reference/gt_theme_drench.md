@@ -80,10 +80,12 @@ for a restrained dark background instead.
 
 ``` r
 library(gt)
-gt(head(mtcars)) %>% gt_theme_drench()
+southwest <- subset(sdv_example_standings, division == "Southwest",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(southwest) %>% gt_theme_drench()
 
 
   
 
-mpg
+team_name
 ```

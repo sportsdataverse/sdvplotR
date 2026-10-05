@@ -326,10 +326,9 @@ and the defense axis is reversed so the best teams sit top right.</p>
 </h2>
 <p>Offensive success rate against the league average, sorted, with each
 bar in its team’s primary color from <code><a href="../reference/scale_sdv.html">scale_fill_sdv()</a></code>. The
-x axis keeps the abbreviations as its labels and
-<code><a href="../reference/element_sdv.html">element_sdv_logo()</a></code> draws them as logos. Complete themes
-such as <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal()</a></code> set the bottom axis’s own element,
-<code>axis.text.x.bottom</code>, so the logo element goes there.</p>
+x axis keeps the abbreviations as its labels, and
+<code><a href="../reference/element_sdv.html">element_sdv_logo()</a></code> set on <code>axis.text.x</code> draws
+them as logos.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">league_sr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">plays</span><span class="op">$</span><span class="va">success</span><span class="op">)</span></span>
 <span></span>
@@ -353,7 +352,7 @@ such as <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" cla
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
 <span>    legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>    panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    axis.text.x.bottom <span class="op">=</span> <span class="fu"><a href="../reference/element_sdv.html">element_sdv_logo</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="../reference/element_sdv.html">element_sdv_logo</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="nfl-viz_files/figure-html/axis-logos-1.png" class="r-plt" alt="Bar chart of each NFL team's offensive success rate in the 2025 regular season minus the league average, sorted from highest to lowest, with bars in team colors and each team's logo in place of its name on the horizontal axis." width="768"></p>
 <p><code><a href="../reference/element_sdv.html">element_sdv_logo()</a></code> draws the axis labels with ggpath.
@@ -1332,10 +1331,10 @@ logo lands in its own panel.</p>
 <p>nflfastR’s <code>home_wp</code> traced through the Super Bowl.
 <code><a href="../reference/ggtitle_image.html">ggtitle_image()</a></code> puts the winner’s logo beside the title
 (with <code><a href="../reference/ggtitle_image.html">theme_title_image()</a></code>, which renders the title as
-markdown). The fills are the teams’ colors from
-<code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</a></code>; Seattle and New England share the same
-navy, so when the two primaries match the away team switches to its
-secondary color.</p>
+markdown and centres the logo on the words). The fills are the teams’
+colors from <code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</a></code>; Seattle and New England
+share the same navy, so when the two primaries match the away team
+switches to its secondary color.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sb</span> <span class="op">&lt;-</span> <span class="va">schedule</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="st">"SB"</span><span class="op">)</span></span>
 <span><span class="va">away</span> <span class="op">&lt;-</span> <span class="va">sb</span><span class="op">$</span><span class="va">away_team</span></span>
@@ -2082,20 +2081,22 @@ for the team. This one is styled with
 <p>Schedules use the abbreviation a team had that season:
 <code>OAK</code> until 2019, <code>SD</code> until 2016,
 <code>STL</code> until 2015. <code><a href="../reference/resolve_historical_abbr.html">resolve_historical_abbr()</a></code> maps
-each to today’s franchise, and <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> applies
-that mapping and returns the key sdvplotR’s data uses: nflverse’s
-<code>LA</code> for the Rams, where the common abbreviation is
-<code>LAR</code>.</p>
+each to today’s franchise and passes anything else through, so it reads
+only the old codes. <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> applies the same
+mapping and every other spelling too, so other sources’ <code>LAR</code>
+and a full name become nflverse’s <code>LA</code> as well:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>abbr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OAK"</span>, <span class="st">"SD"</span>, <span class="st">"STL"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>abbr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OAK"</span>, <span class="st">"SD"</span>, <span class="st">"STL"</span>, <span class="st">"LAR"</span>, <span class="st">"Los Angeles Rams"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    current <span class="op">=</span> <span class="fu"><a href="../reference/resolve_historical_abbr.html">resolve_historical_abbr</a></span><span class="op">(</span><span class="va">abbr</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span>,</span>
 <span>    key <span class="op">=</span> <span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="va">abbr</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">#&gt;   abbr current key</span></span>
-<span><span class="co">#&gt; 1  OAK      LV  LV</span></span>
-<span><span class="co">#&gt; 2   SD     LAC LAC</span></span>
-<span><span class="co">#&gt; 3  STL      LA  LA</span></span></code></pre></div>
+<span><span class="co">#&gt;               abbr          current key</span></span>
+<span><span class="co">#&gt; 1              OAK               LV  LV</span></span>
+<span><span class="co">#&gt; 2               SD              LAC LAC</span></span>
+<span><span class="co">#&gt; 3              STL               LA  LA</span></span>
+<span><span class="co">#&gt; 4              LAR              LAR  LA</span></span>
+<span><span class="co">#&gt; 5 Los Angeles Rams Los Angeles Rams  LA</span></span></code></pre></div>
 <p>Grouping on that key keeps each franchise together across its move.
 The logos take the season’s own abbreviation plus a <code>season</code>
 aesthetic. sdvplotR keeps the marks of relocated NFL identities, so the

@@ -101,12 +101,9 @@ averages.](nfl-viz_files/figure-html/epa-plot-1.png)
 Offensive success rate against the league average, sorted, with each bar
 in its team’s primary color from
 [`scale_fill_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md).
-The x axis keeps the abbreviations as its labels and
+The x axis keeps the abbreviations as its labels, and
 [`element_sdv_logo()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
-draws them as logos. Complete themes such as
-[`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
-set the bottom axis’s own element, `axis.text.x.bottom`, so the logo
-element goes there.
+set on `axis.text.x` draws them as logos.
 
 ``` r
 
@@ -132,7 +129,7 @@ ggplot(ranked, aes(x = team, y = sr_diff)) +
   theme(
     legend.position = "none",
     panel.grid.major.x = element_blank(),
-    axis.text.x.bottom = element_sdv_logo(sport = "nfl", size = 0.5)
+    axis.text.x = element_sdv_logo(sport = "nfl", size = 0.5)
   )
 ```
 
@@ -308,8 +305,8 @@ nflfastR’s `home_wp` traced through the Super Bowl.
 [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
 puts the winner’s logo beside the title (with
 [`theme_title_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md),
-which renders the title as markdown). The fills are the teams’ colors
-from
+which renders the title as markdown and centres the logo on the words).
+The fills are the teams’ colors from
 [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md);
 Seattle and New England share the same navy, so when the two primaries
 match the away team switches to its secondary color.
@@ -472,22 +469,25 @@ top_qbs |>
 Schedules use the abbreviation a team had that season: `OAK` until 2019,
 `SD` until 2016, `STL` until 2015.
 [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)
-maps each to today’s franchise, and
+maps each to today’s franchise and passes anything else through, so it
+reads only the old codes.
 [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-applies that mapping and returns the key sdvplotR’s data uses:
-nflverse’s `LA` for the Rams, where the common abbreviation is `LAR`.
+applies the same mapping and every other spelling too, so other sources’
+`LAR` and a full name become nflverse’s `LA` as well:
 
 ``` r
 
-data.frame(abbr = c("OAK", "SD", "STL")) |>
+data.frame(abbr = c("OAK", "SD", "STL", "LAR", "Los Angeles Rams")) |>
   mutate(
     current = resolve_historical_abbr(abbr, sport = "nfl"),
     key = clean_team_abbrs(abbr, sport = "nfl")
   )
-#>   abbr current key
-#> 1  OAK      LV  LV
-#> 2   SD     LAC LAC
-#> 3  STL      LA  LA
+#>               abbr          current key
+#> 1              OAK               LV  LV
+#> 2               SD              LAC LAC
+#> 3              STL               LA  LA
+#> 4              LAR              LAR  LA
+#> 5 Los Angeles Rams Los Angeles Rams  LA
 ```
 
 Grouping on that key keeps each franchise together across its move. The

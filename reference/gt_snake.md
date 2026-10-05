@@ -97,27 +97,28 @@ cannot all keep the same name: each is suffixed with its block number. A
 four-column table split into two blocks becomes eight columns.
 
     before                     after gt_snake(n_cols = 2)
-    ----------------------     ---------------------------------------
-    mpg cyl hp model           mpg_1 cyl_1 hp_1 model_1    <- rows 1-10
-                               mpg_2 cyl_2 hp_2 model_2    <- rows 11-20
+    -----------------------    -----------------------------------------
+    team wins losses win_pct   team_1 wins_1 losses_1 win_pct_1   <- rows 1-15
+                               team_2 wins_2 losses_2 win_pct_2   <- rows 16-30
 
-The *labels* are untouched, so the table still reads `mpg cyl hp model`
-twice over. Only the names you address in code change.
+The *labels* are untouched, so the table still reads
+`team wins losses win_pct` twice over. Only the names you address in
+code change.
 
 That gives three ways to target columns afterwards:
 
     # every block of one column, via a tidyselect helper
-    fmt_number(starts_with("mpg"), decimals = 1)
+    fmt_number(starts_with("win_pct"), decimals = 3)
 
     # one block only, by its full name
-    tab_style(cell_text(weight = "bold"), cells_body(columns = mpg_2))
+    tab_style(cell_text(weight = "bold"), cells_body(columns = team_2))
 
     # the whole table, exactly as usual
     cols_align(columns = everything(), align = "center")
 
 Reach for
 [`starts_with()`](https://tidyselect.r-lib.org/reference/starts_with.html)
-rather than listing `mpg_1, mpg_2` by hand: it keeps working if you
+rather than listing `team_1, team_2` by hand: it keeps working if you
 change `n_cols` later. Watch out for prefixes that overlap, though. With
 columns named `pts` and `pts_pg`, `starts_with("pts")` catches both
 blocks of both; `matches("^pts_[0-9]+$")` catches only `pts`.
@@ -152,12 +153,13 @@ for stacking separate tables vertically.
 ``` r
 library(gt)
 
-cars <- head(mtcars[c("mpg", "cyl", "hp")], 20)
-cars$model <- rownames(cars)
+nba <- subset(sdv_example_standings, league == "nba",
+  c(team, wins, losses, win_pct))
+nba <- nba[order(-nba$win_pct), ]
 
-# two blocks of ten
-gt(cars) %>%
-  gt_snake(n_cols = 2) %>%
+# three blocks of ten
+gt(nba) %>%
+  gt_snake(n_cols = 3) %>%
   gt_theme_broadsheet()
 
 
@@ -174,5 +176,10 @@ gt(cars) %>%
 
 
 
-mpg
+
+
+
+
+
+team
 ```

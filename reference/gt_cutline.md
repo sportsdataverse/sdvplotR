@@ -125,16 +125,17 @@ for drawing attention to a row.
 ``` r
 library(gt)
 
-efficient <- head(mtcars[order(-mtcars$mpg), c("mpg", "hp", "wt")], 12)
-efficient$car <- rownames(efficient)
+east <- subset(sdv_example_standings, league == "nba" & conference == "Eastern",
+  c(conference_rank, team_name, wins, losses, win_pct))
+east <- east[order(east$conference_rank), ]
 
-# mark where the top six ends
-gt(efficient) %>%
+# mark where the six teams that skip the play-in end
+gt(east) %>%
   gt_theme_broadsheet() %>%
-  gt_cutline(after = 6, label = "Top six")
+  gt_cutline(after = 6, label = "Playoffs")
 
 
   
 
-mpg
+conference_rank
 ```

@@ -72,10 +72,12 @@ for ordinals.
 
 ``` r
 library(gt)
-gt(head(mtcars)) %>% gt_theme_scoreboard()
+northwest <- subset(sdv_example_standings, division == "Northwest",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(northwest) %>% gt_theme_scoreboard()
 
 
   
 
-mpg
+team_name
 ```

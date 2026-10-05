@@ -463,9 +463,8 @@ The NCAA tournament seeds four teams to a line, so seed lines make
 natural tiers: the top four by net rating on the 1 line, the next four
 on the 2 line, and so on. This is a seed list from one rating, not the
 committee’s bracket. West Virginia’s navy mark is hard to see on the
-dark Tiermaker theme, and the result is a ggplot, so a few
-[`theme()`](https://ggplot2.tidyverse.org/reference/theme.html) settings
-make it light.
+Tiermaker’s default dark background, so `theme = "light"` draws the list
+on white.
 
 ``` r
 
@@ -481,14 +480,9 @@ sdv_team_tiers(
   caption = source_note,
   tier_desc = c("1" = "1 seeds", "2" = "2 seeds", "3" = "3 seeds", "4" = "4 seeds"),
   alpha = 1,
-  width = 0.1
-) +
-  theme(
-    plot.background = element_rect(fill = "white", color = "white"),
-    panel.background = element_rect(fill = "white", color = "white"),
-    plot.title = element_text(color = "black", face = "bold"),
-    axis.text.y = element_text(color = "black", face = "bold", size = rel(1.1))
-  )
+  width = 0.1,
+  theme = "light"
+)
 ```
 
 ![The 16 best Division I women's basketball teams of 2025-26 by net

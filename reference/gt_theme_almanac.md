@@ -70,10 +70,12 @@ export at.
 
 ``` r
 library(gt)
-gt(head(mtcars, 12)) %>% gt_theme_almanac()
+nfc <- subset(sdv_example_standings, conference == "NFC",
+  c(team_name, wins:points_against))
+gt(head(nfc, 12)) %>% gt_theme_almanac()
 
 
   
 
-mpg
+team_name
 ```

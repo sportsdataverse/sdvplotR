@@ -75,10 +75,12 @@ relying on it being installed locally.
 ``` r
 library(gt)
 
-gt(head(mtcars)) %>% gt_set_font("Oswald")
+nfc_south <- subset(sdv_example_standings, division == "NFC South",
+  c(team_name, wins:points_against))
+gt(nfc_south) %>% gt_set_font("Oswald")
 
 
   
 
-mpg
+team_name
 ```

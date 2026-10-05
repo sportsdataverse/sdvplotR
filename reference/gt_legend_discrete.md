@@ -179,14 +179,17 @@ for a continuous ramp.
 ``` r
 library(gt)
 
+afc_west <- subset(sdv_example_standings, division == "AFC West",
+  c(team_name, wins, losses, playoff_wins))
+
 # a named vector is the quickest way in
-gt(head(mtcars[c("mpg", "cyl", "hp")], 6)) %>%
-  gt_legend_discrete(c("Efficient" = "#CCE7F5", "Thirsty" = "#F5CCCC"))
+gt(afc_west) %>%
+  gt_legend_discrete(c("Playoffs" = "#CCE7F5", "Missed" = "#F5CCCC"))
 
 
   
 
 
 
-EfficientThirsty
+PlayoffsMissed
 ```

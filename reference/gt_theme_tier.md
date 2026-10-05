@@ -68,10 +68,12 @@ export at.
 
 ``` r
 library(gt)
-gt(head(mtcars)) %>% gt_theme_tier()
+afc <- subset(sdv_example_standings, conference == "AFC" & conference_rank <= 7,
+  c(team_name, wins:points_against))
+gt(afc) %>% gt_theme_tier()
 
 
   
 
-mpg
+team_name
 ```

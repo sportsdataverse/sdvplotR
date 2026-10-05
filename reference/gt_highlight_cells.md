@@ -97,7 +97,10 @@ for whole-column and whole-row fills.
 library(gt)
 
 # a correlation matrix: flag strong pairs, but not the diagonal of ones
-m <- round(cor(mtcars[, c("mpg", "disp", "hp", "wt", "qsec")]), 2)
+nba <- subset(sdv_example_standings, league == "nba")
+nba$point_diff <- nba$points_for - nba$points_against
+vars <- c("wins", "point_diff", "points_for", "points_against", "conference_rank")
+m <- round(cor(nba[vars]), 2)
 cordf <- data.frame(var = rownames(m), m, row.names = NULL, check.names = FALSE)
 cordf %>%
   gt(rowname_col = "var") %>%

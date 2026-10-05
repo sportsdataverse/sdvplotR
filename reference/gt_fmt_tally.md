@@ -113,17 +113,14 @@ for ordinal formatting.
 ``` r
 library(gt)
 
-suites <- data.frame(
-  Suite = c("Parser", "Renderer", "Exporter"),
-  Passed = c(142, 98, 211),
-  Failed = c(8, 2, 17)
-)
+atlantic <- subset(sdv_example_standings, division == "Atlantic",
+  c(team_name, wins, losses))
 
-# renders as "142-8"
-gt(suites) %>% gt_fmt_tally(c(Passed, Failed), label = "Result")
+# renders as "56-26"
+gt(atlantic) %>% gt_fmt_tally(c(wins, losses), label = "Record")
 
 
   
 
-Suite
+team_name
 ```

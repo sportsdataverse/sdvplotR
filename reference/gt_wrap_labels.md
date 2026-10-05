@@ -55,18 +55,18 @@ The wrap is on whitespace only, so a single long word is never split.
 ``` r
 library(gt)
 
-scores <- data.frame(
-  name = c("Item A", "Item B"),
-  sos = c(0.62, 0.48),
-  adj = c(112.4, 98.1)
-)
+afc_east <- subset(sdv_example_standings, division == "AFC East",
+  c(team_name, win_pct, conference_rank))
 
-gt(scores) %>%
-  cols_label(sos = "Strength of Schedule", adj = "Adjusted Efficiency") %>%
-  gt_wrap_labels(c(sos, adj), width = 10)
+gt(afc_east) %>%
+  cols_label(
+    win_pct = "Winning Percentage",
+    conference_rank = "Final Conference Rank"
+  ) %>%
+  gt_wrap_labels(c(win_pct, conference_rank), width = 10)
 
 
   
 
-name
+team_name
 ```

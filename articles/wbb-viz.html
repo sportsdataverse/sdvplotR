@@ -1924,8 +1924,8 @@ the factor order sets the bar order.</p>
 natural tiers: the top four by net rating on the 1 line, the next four
 on the 2 line, and so on. This is a seed list from one rating, not the
 committee’s bracket. West Virginia’s navy mark is hard to see on the
-dark Tiermaker theme, and the result is a ggplot, so a few
-<code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code> settings make it light.</p>
+Tiermaker’s default dark background, so <code>theme = "light"</code>
+draws the list on white.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tiers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ratings</span>, <span class="fl">16</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tier_no <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span> <span class="fl">4</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1939,14 +1939,9 @@ dark Tiermaker theme, and the result is a ggplot, so a few
 <span>  caption <span class="op">=</span> <span class="va">source_note</span>,</span>
 <span>  tier_desc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"1 seeds"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"2 seeds"</span>, <span class="st">"3"</span> <span class="op">=</span> <span class="st">"3 seeds"</span>, <span class="st">"4"</span> <span class="op">=</span> <span class="st">"4 seeds"</span><span class="op">)</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  width <span class="op">=</span> <span class="fl">0.1</span></span>
-<span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
-<span>    plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>    panel.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
-<span>    axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span>, face <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  width <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  theme <span class="op">=</span> <span class="st">"light"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="wbb-viz_files/figure-html/team-tiers-1.png" class="r-plt" alt="The 16 best Division I women's basketball teams of 2025-26 by net rating as logos in four tiers of four, labeled as the 1 to 4 seed lines." width="768"></p>
 </div>
 <div class="section level2">

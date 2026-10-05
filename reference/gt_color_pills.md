@@ -46,7 +46,7 @@ gt_color_pills(
 - rows:
 
   The rows to fill. Either an expression evaluated against the table's
-  data, such as `mpg > 20`, or a numeric vector of row indices. Rows
+  data, such as `wins > 10`, or a numeric vector of row indices. Rows
   left out keep their raw value. If `NULL`, every row is filled.
   Defaults to `NULL`.
 
@@ -174,10 +174,14 @@ for a legend explaining the scale.
 ``` r
 library(gt)
 
-gt(head(mtcars)) %>% gt_color_pills(mpg, domain = c(10, 35))
+# the AFC's seven playoff teams
+afc <- subset(sdv_example_standings, conference == "AFC" & conference_rank <= 7,
+  c(team_name, wins, losses, points_for, points_against))
+
+gt(afc) %>% gt_color_pills(wins, domain = c(0, 17))
 
 
   
 
-mpg
+team_name
 ```

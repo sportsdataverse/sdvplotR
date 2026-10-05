@@ -92,12 +92,12 @@ so call this after any other label changes or they will be overwritten.
 ``` r
 library(gt)
 
-mtcars %>%
-  head() %>%
+sdv_example_standings %>%
+  subset(division == "AFC West", c(team_name, wins, points_for)) %>%
   gt() %>%
   gt_column_subheaders(
-    mpg = list(heading = "Top", subtitle = "Bottom"),
-    hp = list(heading = "Horsepower", subtitle = "HP"),
+    wins = list(heading = "Wins", subtitle = "W"),
+    points_for = list(heading = "Points", subtitle = "PF"),
     heading_color = "blue", subtitle_color = "gray"
   )
 
@@ -106,10 +106,10 @@ mtcars %>%
 
 
   
-    Top
+    team_name
   
   
 
-    Bottom
+     
   
 ```

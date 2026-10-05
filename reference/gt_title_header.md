@@ -109,11 +109,14 @@ for the footer equivalent.
 ``` r
 library(gt)
 
-gt(head(mtcars[c("mpg", "hp", "wt")], 6)) %>%
+nfc_west <- subset(sdv_example_standings, division == "NFC West",
+  c(team_name, wins:points_against))
+
+gt(nfc_west) %>%
   gt_title_header(
-    title = "Fuel economy and power",
-    subtitle = "A sample of the 1974 Motor Trend road tests",
-    kicker = "Motor Trend",
+    title = "The NFC West",
+    subtitle = "Final standings of the 2025 regular season",
+    kicker = "NFL",
     date = as.Date("2026-07-21"),
     kicker_style = list(
       color = "#0054AD", size = "0.8em",
@@ -129,6 +132,6 @@ gt(head(mtcars[c("mpg", "hp", "wt")], 6)) %>%
 
 
 
-Motor Trend
-Fuel economy and power
+NFL
+The NFC West
 ```

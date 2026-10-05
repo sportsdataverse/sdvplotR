@@ -74,10 +74,12 @@ for significance notation.
 ``` r
 library(gt)
 
-gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>% gt_theme_booktabs()
+afc_west <- subset(sdv_example_standings, division == "AFC West",
+  c(team_name, wins:points_against))
+gt(afc_west) %>% gt_theme_booktabs()
 
 
   
 
-mpg
+team_name
 ```

@@ -63,10 +63,12 @@ export at.
 
 ``` r
 library(gt)
-gt(head(mtcars)) %>% gt_theme_brutalist()
+afc_south <- subset(sdv_example_standings, division == "AFC South",
+  c(team_name, wins:points_against))
+gt(afc_south) %>% gt_theme_brutalist()
 
 
   
 
-mpg
+team_name
 ```

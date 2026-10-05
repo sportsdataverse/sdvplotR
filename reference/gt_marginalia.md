@@ -100,20 +100,22 @@ for a labeled break between rows.
 ``` r
 library(gt)
 
-quarterly <- data.frame(
-  Line = c("Revenue", "Cost of sales", "Operating expenses"),
-  Actual = c(4820, 2110, 1360),
-  Budget = c(4500, 2000, 1400),
-  Comment = c(
-    "Enterprise renewals landed a quarter early.",
-    "Freight costs above plan; contract renegotiated in Q3.",
-    "Headcount hiring paused from February."
-  )
-)
+nfc_west <- subset(sdv_example_standings, division == "NFC West",
+  c(team_name, wins, losses, conference_rank, playoff_wins))
 
-gt(quarterly) %>%
+# a note on each team's postseason, written from its own row
+nfc_west$note <- with(nfc_west, ifelse(
+  is.na(playoff_wins),
+  "Missed the playoffs.",
+  paste0(
+    "The No. ", conference_rank, " seed; ", playoff_wins, " playoff win",
+    ifelse(playoff_wins == 1, "", "s"), "."
+  )
+))
+
+gt(nfc_west) %>%
   gt_theme_broadsheet() %>%
-  gt_marginalia(Comment)
+  gt_marginalia(note)
 
 
   
@@ -124,5 +126,7 @@ gt(quarterly) %>%
 
 
 
-Line
+
+
+team_name
 ```

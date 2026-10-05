@@ -359,13 +359,14 @@ folding a single long table into blocks.</p></div>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">by_cyl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">afc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sdv_example_standings</span>, <span class="va">conference</span> <span class="op">==</span> <span class="st">"AFC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">by_division</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">afc</span>, <span class="va">afc</span><span class="op">$</span><span class="va">division</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"team_name"</span>, <span class="st">"wins"</span>, <span class="st">"losses"</span>, <span class="st">"points_for"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="gt_theme_broadsheet.html">gt_theme_broadsheet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">cyl</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="st">"cylinders"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">d</span><span class="op">$</span><span class="va">division</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_cyl</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_division</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <div style="display: grid; grid-template-columns: repeat(2, max-content); gap: 24px; align-items: start; justify-content: center;">
   <div>
     <div id="kbjkhrvvqe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -861,21 +862,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">4 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">93</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.320</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">24.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">62</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.190</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">95</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.150</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">32.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">66</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.200</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">30.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">52</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">1.615</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC East</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New England Patriots</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">490</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Buffalo Bills</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">481</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Miami Dolphins</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">347</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New York Jets</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">300</td></tr></tbody></table></div>
   </div>
   <div>
     <div id="oelfyoqait" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1371,21 +1375,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">6 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.620</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.875</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.215</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.1</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">105</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.460</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">19.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">123</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.440</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC North</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Pittsburgh Steelers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">397</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Baltimore Ravens</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">424</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cincinnati Bengals</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">414</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cleveland Browns</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">279</td></tr></tbody></table></div>
   </div>
   <div>
     <div id="rxpwwkzgfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1881,35 +1888,551 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">8 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.7</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">175</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.44</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">245</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.57</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">16.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4.07</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">17.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.73</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">15.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.78</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC South</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Jacksonville Jaguars</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">13</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">474</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Houston Texans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">404</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Indianapolis Colts</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">466</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Tennessee Titans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">284</td></tr></tbody></table></div>
+  </div>
+  <div>
+    <div id="jivnxcljjb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+      <style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#jivnxcljjb table {
+  font-family: 'Source Serif 4', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jivnxcljjb thead, #jivnxcljjb tbody, #jivnxcljjb tfoot, #jivnxcljjb tr, #jivnxcljjb td, #jivnxcljjb th {
+  border-style: none;
+}
+
+#jivnxcljjb p {
+  margin: 0;
+  padding: 0;
+}
+
+#jivnxcljjb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FBFAF7;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A6081A;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jivnxcljjb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FBFAF7;
+  border-bottom-width: 0;
+}
+
+#jivnxcljjb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FBFAF7;
+  border-top-width: 0;
+}
+
+#jivnxcljjb .gt_heading {
+  background-color: #FBFAF7;
+  text-align: left;
+  border-bottom-color: #FBFAF7;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_heading {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jivnxcljjb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jivnxcljjb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jivnxcljjb .gt_group_heading {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jivnxcljjb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jivnxcljjb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jivnxcljjb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jivnxcljjb .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #DEDAD2;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_stub {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_row_group_first th {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jivnxcljjb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jivnxcljjb .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #16130F;
+}
+
+#jivnxcljjb .gt_footnotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_left {
+  text-align: left;
+}
+
+#jivnxcljjb .gt_center {
+  text-align: center;
+}
+
+#jivnxcljjb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb .gt_font_normal {
+  font-weight: normal;
+}
+
+#jivnxcljjb .gt_font_bold {
+  font-weight: bold;
+}
+
+#jivnxcljjb .gt_font_italic {
+  font-style: italic;
+}
+
+#jivnxcljjb .gt_super {
+  font-size: 65%;
+}
+
+#jivnxcljjb .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jivnxcljjb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jivnxcljjb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jivnxcljjb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jivnxcljjb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jivnxcljjb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jivnxcljjb .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jivnxcljjb .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jivnxcljjb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#jivnxcljjb td {
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb tbody tr:last-child {
+  border-bottom: 2px solid #FBFAF7;
+}
+
+#jivnxcljjb .gt_col_heading, #jivnxcljjb .gt_column_spanner {
+  letter-spacing: 0.09em;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  padding-top: 4px;
+}
+
+#jivnxcljjb .gt_group_heading {
+  letter-spacing: 0.08em;
+}
+
+#jivnxcljjb .gt_subtitle {
+  padding-bottom: 14px !important;
+}
+
+#jivnxcljjb .gt_title {
+  padding-bottom: 3px !important;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  padding-top: 10px;
+}
+
+#jivnxcljjb .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC West</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Denver Broncos</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">401</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Los Angeles Chargers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">368</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Kansas City Chiefs</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">362</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Las Vegas Raiders</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">241</td></tr></tbody></table></div>
   </div>
 </div><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># one heading over the whole sheet</span></span></span>
-<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_cyl</span>,</span></span>
-<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">3</span>, title <span class="op">=</span> <span class="st">"Fuel economy by cylinder count"</span>,</span></span>
-<span class="r-in"><span>  subtitle <span class="op">=</span> <span class="st">"1974 Motor Trend road tests"</span>, caption <span class="op">=</span> <span class="st">"Data: mtcars"</span></span></span>
+<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_division</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">2</span>, title <span class="op">=</span> <span class="st">"The AFC by division"</span>,</span></span>
+<span class="r-in"><span>  subtitle <span class="op">=</span> <span class="st">"2025 NFL regular season"</span>, caption <span class="op">=</span> <span class="st">"Data: nflreadr"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <div style="display: flex; justify-content: center; justify-content: safe center; overflow-x: auto;">
   <div style="display: inline-block;">
     <div>
-      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:28px;color:#111111;font-weight:700;text-align:center;margin-bottom:4px;">Fuel economy by cylinder count</div>
-      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:16px;color:#666666;font-weight:400;text-align:center;margin-bottom:12px;">1974 Motor Trend road tests</div>
+      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:28px;color:#111111;font-weight:700;text-align:center;margin-bottom:4px;">The AFC by division</div>
+      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:16px;color:#666666;font-weight:400;text-align:center;margin-bottom:12px;">2025 NFL regular season</div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(3, max-content); gap: 24px; align-items: start; justify-content: center;">
+    <div style="display: grid; grid-template-columns: repeat(2, max-content); gap: 24px; align-items: start; justify-content: center;">
       <div>
         <div id="kbjkhrvvqe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
           <style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -2404,21 +2927,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">4 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">93</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.320</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">24.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">62</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.190</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">95</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.150</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">32.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">66</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.200</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">30.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">52</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">1.615</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC East</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New England Patriots</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">490</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Buffalo Bills</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">481</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Miami Dolphins</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">347</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New York Jets</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">300</td></tr></tbody></table></div>
       </div>
       <div>
         <div id="oelfyoqait" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -2914,21 +3440,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">6 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.620</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.875</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.215</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.1</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">105</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.460</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">19.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">123</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.440</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC North</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Pittsburgh Steelers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">397</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Baltimore Ravens</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">424</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cincinnati Bengals</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">414</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cleveland Browns</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">279</td></tr></tbody></table></div>
       </div>
       <div>
         <div id="rxpwwkzgfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -3424,42 +3953,558 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">8 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.7</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">175</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.44</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">245</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.57</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">16.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4.07</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">17.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.73</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">15.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.78</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC South</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Jacksonville Jaguars</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">13</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">474</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Houston Texans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">404</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Indianapolis Colts</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">466</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Tennessee Titans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">284</td></tr></tbody></table></div>
+      </div>
+      <div>
+        <div id="jivnxcljjb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+          <style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#jivnxcljjb table {
+  font-family: 'Source Serif 4', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jivnxcljjb thead, #jivnxcljjb tbody, #jivnxcljjb tfoot, #jivnxcljjb tr, #jivnxcljjb td, #jivnxcljjb th {
+  border-style: none;
+}
+
+#jivnxcljjb p {
+  margin: 0;
+  padding: 0;
+}
+
+#jivnxcljjb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FBFAF7;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A6081A;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jivnxcljjb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FBFAF7;
+  border-bottom-width: 0;
+}
+
+#jivnxcljjb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FBFAF7;
+  border-top-width: 0;
+}
+
+#jivnxcljjb .gt_heading {
+  background-color: #FBFAF7;
+  text-align: left;
+  border-bottom-color: #FBFAF7;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_heading {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jivnxcljjb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jivnxcljjb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jivnxcljjb .gt_group_heading {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jivnxcljjb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jivnxcljjb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jivnxcljjb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jivnxcljjb .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #DEDAD2;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_stub {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_row_group_first th {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jivnxcljjb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jivnxcljjb .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #16130F;
+}
+
+#jivnxcljjb .gt_footnotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_left {
+  text-align: left;
+}
+
+#jivnxcljjb .gt_center {
+  text-align: center;
+}
+
+#jivnxcljjb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb .gt_font_normal {
+  font-weight: normal;
+}
+
+#jivnxcljjb .gt_font_bold {
+  font-weight: bold;
+}
+
+#jivnxcljjb .gt_font_italic {
+  font-style: italic;
+}
+
+#jivnxcljjb .gt_super {
+  font-size: 65%;
+}
+
+#jivnxcljjb .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jivnxcljjb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jivnxcljjb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jivnxcljjb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jivnxcljjb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jivnxcljjb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jivnxcljjb .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jivnxcljjb .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jivnxcljjb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#jivnxcljjb td {
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb tbody tr:last-child {
+  border-bottom: 2px solid #FBFAF7;
+}
+
+#jivnxcljjb .gt_col_heading, #jivnxcljjb .gt_column_spanner {
+  letter-spacing: 0.09em;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  padding-top: 4px;
+}
+
+#jivnxcljjb .gt_group_heading {
+  letter-spacing: 0.08em;
+}
+
+#jivnxcljjb .gt_subtitle {
+  padding-bottom: 14px !important;
+}
+
+#jivnxcljjb .gt_title {
+  padding-bottom: 3px !important;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  padding-top: 10px;
+}
+
+#jivnxcljjb .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC West</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Denver Broncos</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">401</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Los Angeles Chargers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">368</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Kansas City Chiefs</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">362</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Las Vegas Raiders</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">241</td></tr></tbody></table></div>
       </div>
     </div>
     <div>
-      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:center;margin-top:10px;">Data: mtcars</div>
+      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:center;margin-top:10px;">Data: nflreadr</div>
     </div>
   </div>
 </div><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># a 538-style split caption under the whole sheet</span></span></span>
-<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_cyl</span>,</span></span>
-<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">3</span>,</span></span>
-<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Fuel economy by cylinder count"</span>,</span></span>
-<span class="r-in"><span>  caption <span class="op">=</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"Cars are grouped by **cylinder count**."</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  source_note <span class="op">=</span> <span class="st">"Data: mtcars | Andrew Weatherman"</span>,</span></span>
+<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_division</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"The AFC by division"</span>,</span></span>
+<span class="r-in"><span>  caption <span class="op">=</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"Teams are grouped by **division**."</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  source_note <span class="op">=</span> <span class="st">"Data: nflreadr | Andrew Weatherman"</span>,</span></span>
 <span class="r-in"><span>  caption_rule <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <div style="display: flex; justify-content: center; justify-content: safe center; overflow-x: auto;">
   <div style="display: inline-block;">
     <div>
-      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:28px;color:#111111;font-weight:700;text-align:center;margin-bottom:12px;">Fuel economy by cylinder count</div>
+      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:28px;color:#111111;font-weight:700;text-align:center;margin-bottom:12px;">The AFC by division</div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(3, max-content); gap: 24px; align-items: start; justify-content: center;">
+    <div style="display: grid; grid-template-columns: repeat(2, max-content); gap: 24px; align-items: start; justify-content: center;">
       <div>
         <div id="kbjkhrvvqe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
           <style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -3954,21 +4999,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">4 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">93</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.320</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">24.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">62</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.190</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">95</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.150</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">32.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">66</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.200</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">30.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">52</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">1.615</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC East</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New England Patriots</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">490</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Buffalo Bills</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">481</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Miami Dolphins</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">347</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New York Jets</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">300</td></tr></tbody></table></div>
       </div>
       <div>
         <div id="oelfyoqait" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -4464,21 +5512,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">6 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.620</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.875</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.215</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.1</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">105</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.460</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">19.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">123</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.440</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC North</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Pittsburgh Steelers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">397</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Baltimore Ravens</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">424</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cincinnati Bengals</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">414</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cleveland Browns</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">279</td></tr></tbody></table></div>
       </div>
       <div>
         <div id="rxpwwkzgfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -4974,42 +6025,558 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">8 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.7</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">175</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.44</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">245</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.57</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">16.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4.07</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">17.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.73</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">15.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.78</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC South</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Jacksonville Jaguars</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">13</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">474</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Houston Texans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">404</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Indianapolis Colts</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">466</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Tennessee Titans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">284</td></tr></tbody></table></div>
+      </div>
+      <div>
+        <div id="jivnxcljjb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+          <style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#jivnxcljjb table {
+  font-family: 'Source Serif 4', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jivnxcljjb thead, #jivnxcljjb tbody, #jivnxcljjb tfoot, #jivnxcljjb tr, #jivnxcljjb td, #jivnxcljjb th {
+  border-style: none;
+}
+
+#jivnxcljjb p {
+  margin: 0;
+  padding: 0;
+}
+
+#jivnxcljjb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FBFAF7;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A6081A;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jivnxcljjb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FBFAF7;
+  border-bottom-width: 0;
+}
+
+#jivnxcljjb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FBFAF7;
+  border-top-width: 0;
+}
+
+#jivnxcljjb .gt_heading {
+  background-color: #FBFAF7;
+  text-align: left;
+  border-bottom-color: #FBFAF7;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_heading {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jivnxcljjb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jivnxcljjb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jivnxcljjb .gt_group_heading {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jivnxcljjb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jivnxcljjb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jivnxcljjb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jivnxcljjb .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #DEDAD2;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_stub {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_row_group_first th {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jivnxcljjb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jivnxcljjb .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #16130F;
+}
+
+#jivnxcljjb .gt_footnotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_left {
+  text-align: left;
+}
+
+#jivnxcljjb .gt_center {
+  text-align: center;
+}
+
+#jivnxcljjb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb .gt_font_normal {
+  font-weight: normal;
+}
+
+#jivnxcljjb .gt_font_bold {
+  font-weight: bold;
+}
+
+#jivnxcljjb .gt_font_italic {
+  font-style: italic;
+}
+
+#jivnxcljjb .gt_super {
+  font-size: 65%;
+}
+
+#jivnxcljjb .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jivnxcljjb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jivnxcljjb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jivnxcljjb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jivnxcljjb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jivnxcljjb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jivnxcljjb .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jivnxcljjb .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jivnxcljjb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#jivnxcljjb td {
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb tbody tr:last-child {
+  border-bottom: 2px solid #FBFAF7;
+}
+
+#jivnxcljjb .gt_col_heading, #jivnxcljjb .gt_column_spanner {
+  letter-spacing: 0.09em;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  padding-top: 4px;
+}
+
+#jivnxcljjb .gt_group_heading {
+  letter-spacing: 0.08em;
+}
+
+#jivnxcljjb .gt_subtitle {
+  padding-bottom: 14px !important;
+}
+
+#jivnxcljjb .gt_title {
+  padding-bottom: 3px !important;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  padding-top: 10px;
+}
+
+#jivnxcljjb .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC West</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Denver Broncos</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">401</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Los Angeles Chargers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">368</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Kansas City Chiefs</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">362</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Las Vegas Raiders</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">241</td></tr></tbody></table></div>
       </div>
     </div>
     <div>
-      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:center;margin-top:10px;padding-bottom:6px;border-bottom:1px solid #8A8A8A;">Cars are grouped by <strong>cylinder count</strong>.</div>
-      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:right;margin-top:6px;">Data: mtcars | Andrew Weatherman</div>
+      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:center;margin-top:10px;padding-bottom:6px;border-bottom:1px solid #8A8A8A;">Teams are grouped by <strong>division</strong>.</div>
+      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:12px;color:#8A8A8A;font-weight:400;text-align:right;margin-top:6px;">Data: nflreadr | Andrew Weatherman</div>
     </div>
   </div>
 </div><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># tighten the subtitle up under the title, and open the gap to the grid</span></span></span>
-<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_cyl</span>,</span></span>
-<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">3</span>, title <span class="op">=</span> <span class="st">"Fuel economy"</span>, subtitle <span class="op">=</span> <span class="st">"Motor Trend, 1974"</span>,</span></span>
+<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_division</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">2</span>, title <span class="op">=</span> <span class="st">"The AFC"</span>, subtitle <span class="op">=</span> <span class="st">"2025 regular season"</span>,</span></span>
 <span class="r-in"><span>  title_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>margin_bottom <span class="op">=</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  subtitle_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>margin_bottom <span class="op">=</span> <span class="fl">24</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <div style="display: flex; justify-content: center; justify-content: safe center; overflow-x: auto;">
   <div style="display: inline-block;">
     <div>
-      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:28px;color:#111111;font-weight:700;text-align:center;margin-bottom:-2px;">Fuel economy</div>
-      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:16px;color:#666666;font-weight:400;text-align:center;margin-bottom:24px;">Motor Trend, 1974</div>
+      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:28px;color:#111111;font-weight:700;text-align:center;margin-bottom:-2px;">The AFC</div>
+      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:16px;color:#666666;font-weight:400;text-align:center;margin-bottom:24px;">2025 regular season</div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(3, max-content); gap: 24px; align-items: start; justify-content: center;">
+    <div style="display: grid; grid-template-columns: repeat(2, max-content); gap: 24px; align-items: start; justify-content: center;">
       <div>
         <div id="kbjkhrvvqe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
           <style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -5504,21 +7071,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">4 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">93</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.320</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">24.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">62</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.190</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">95</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.150</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">32.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">66</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.200</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">30.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">52</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">1.615</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC East</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New England Patriots</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">490</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Buffalo Bills</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">481</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Miami Dolphins</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">347</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New York Jets</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">300</td></tr></tbody></table></div>
       </div>
       <div>
         <div id="oelfyoqait" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -6014,21 +7584,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">6 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.620</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.875</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.215</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.1</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">105</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.460</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">19.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">123</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.440</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC North</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Pittsburgh Steelers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">397</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Baltimore Ravens</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">424</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cincinnati Bengals</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">414</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cleveland Browns</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">279</td></tr></tbody></table></div>
       </div>
       <div>
         <div id="rxpwwkzgfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -6524,40 +8097,556 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">8 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.7</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">175</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.44</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">245</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.57</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">16.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4.07</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">17.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.73</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">15.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.78</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC South</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Jacksonville Jaguars</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">13</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">474</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Houston Texans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">404</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Indianapolis Colts</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">466</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Tennessee Titans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">284</td></tr></tbody></table></div>
+      </div>
+      <div>
+        <div id="jivnxcljjb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+          <style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#jivnxcljjb table {
+  font-family: 'Source Serif 4', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jivnxcljjb thead, #jivnxcljjb tbody, #jivnxcljjb tfoot, #jivnxcljjb tr, #jivnxcljjb td, #jivnxcljjb th {
+  border-style: none;
+}
+
+#jivnxcljjb p {
+  margin: 0;
+  padding: 0;
+}
+
+#jivnxcljjb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FBFAF7;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A6081A;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jivnxcljjb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FBFAF7;
+  border-bottom-width: 0;
+}
+
+#jivnxcljjb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FBFAF7;
+  border-top-width: 0;
+}
+
+#jivnxcljjb .gt_heading {
+  background-color: #FBFAF7;
+  text-align: left;
+  border-bottom-color: #FBFAF7;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_heading {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jivnxcljjb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jivnxcljjb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jivnxcljjb .gt_group_heading {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jivnxcljjb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jivnxcljjb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jivnxcljjb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jivnxcljjb .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #DEDAD2;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_stub {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_row_group_first th {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jivnxcljjb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jivnxcljjb .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #16130F;
+}
+
+#jivnxcljjb .gt_footnotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_left {
+  text-align: left;
+}
+
+#jivnxcljjb .gt_center {
+  text-align: center;
+}
+
+#jivnxcljjb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb .gt_font_normal {
+  font-weight: normal;
+}
+
+#jivnxcljjb .gt_font_bold {
+  font-weight: bold;
+}
+
+#jivnxcljjb .gt_font_italic {
+  font-style: italic;
+}
+
+#jivnxcljjb .gt_super {
+  font-size: 65%;
+}
+
+#jivnxcljjb .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jivnxcljjb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jivnxcljjb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jivnxcljjb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jivnxcljjb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jivnxcljjb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jivnxcljjb .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jivnxcljjb .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jivnxcljjb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#jivnxcljjb td {
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb tbody tr:last-child {
+  border-bottom: 2px solid #FBFAF7;
+}
+
+#jivnxcljjb .gt_col_heading, #jivnxcljjb .gt_column_spanner {
+  letter-spacing: 0.09em;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  padding-top: 4px;
+}
+
+#jivnxcljjb .gt_group_heading {
+  letter-spacing: 0.08em;
+}
+
+#jivnxcljjb .gt_subtitle {
+  padding-bottom: 14px !important;
+}
+
+#jivnxcljjb .gt_title {
+  padding-bottom: 3px !important;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  padding-top: 10px;
+}
+
+#jivnxcljjb .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC West</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Denver Broncos</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">401</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Los Angeles Chargers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">368</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Kansas City Chiefs</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">362</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Las Vegas Raiders</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">241</td></tr></tbody></table></div>
       </div>
     </div>
   </div>
 </div><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># styled without writing any css</span></span></span>
-<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_cyl</span>,</span></span>
-<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">3</span>,</span></span>
-<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Fuel economy by cylinder count"</span>,</span></span>
-<span class="r-in"><span>  subtitle <span class="op">=</span> <span class="st">"1974 Motor Trend road tests"</span>,</span></span>
+<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_division</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"The AFC by division"</span>,</span></span>
+<span class="r-in"><span>  subtitle <span class="op">=</span> <span class="st">"2025 NFL regular season"</span>,</span></span>
 <span class="r-in"><span>  title_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>font <span class="op">=</span> <span class="st">"Oswald"</span>, size <span class="op">=</span> <span class="fl">34</span>, transform <span class="op">=</span> <span class="st">"uppercase"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  subtitle_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>italic <span class="op">=</span> <span class="cn">TRUE</span>, color <span class="op">=</span> <span class="st">"#8A8A8A"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <div style="display: flex; justify-content: center; justify-content: safe center; overflow-x: auto;">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"><div style="display: inline-block;">
     <div>
-      <div style="font-family:'Oswald', system-ui, -apple-system, sans-serif;font-size:34px;color:#111111;font-weight:700;text-transform:uppercase;text-align:center;margin-bottom:4px;">Fuel economy by cylinder count</div>
-      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:16px;color:#8A8A8A;font-weight:400;font-style:italic;text-align:center;margin-bottom:12px;">1974 Motor Trend road tests</div>
+      <div style="font-family:'Oswald', system-ui, -apple-system, sans-serif;font-size:34px;color:#111111;font-weight:700;text-transform:uppercase;text-align:center;margin-bottom:4px;">The AFC by division</div>
+      <div style="font-family:system-ui, -apple-system, sans-serif;font-size:16px;color:#8A8A8A;font-weight:400;font-style:italic;text-align:center;margin-bottom:12px;">2025 NFL regular season</div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(3, max-content); gap: 24px; align-items: start; justify-content: center;">
+    <div style="display: grid; grid-template-columns: repeat(2, max-content); gap: 24px; align-items: start; justify-content: center;">
       <div>
         <div id="kbjkhrvvqe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
           <style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -7052,21 +9141,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">4 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">93</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.320</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">24.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">62</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.190</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">22.8</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">95</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.150</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">32.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">66</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.200</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">30.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">52</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">1.615</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC East</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New England Patriots</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">490</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Buffalo Bills</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">481</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Miami Dolphins</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">347</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">New York Jets</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">300</td></tr></tbody></table></div>
       </div>
       <div>
         <div id="oelfyoqait" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -7562,21 +9654,24 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">6 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.620</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.0</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">2.875</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">21.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">110</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.215</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.1</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">105</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.460</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">19.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">123</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.440</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC North</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Pittsburgh Steelers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">10</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">7</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">397</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Baltimore Ravens</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">424</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cincinnati Bengals</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">414</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Cleveland Browns</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">279</td></tr></tbody></table></div>
       </div>
       <div>
         <div id="rxpwwkzgfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -8072,21 +10167,537 @@ folding a single long table into blocks.</p></div>
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">8 cylinders</td>
-    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="hp">hp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wt">wt</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">18.7</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">175</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.44</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">245</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.57</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">16.4</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4.07</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">17.3</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.73</td></tr><tr><td headers="mpg" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">15.2</td>
-<td headers="hp" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">180</td>
-<td headers="wt" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3.78</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC South</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Jacksonville Jaguars</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">13</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">4</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">474</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Houston Texans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">12</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">5</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">404</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Indianapolis Colts</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">8</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">9</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">466</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Tennessee Titans</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">284</td></tr></tbody></table></div>
+      </div>
+      <div>
+        <div id="jivnxcljjb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+          <style>@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#jivnxcljjb table {
+  font-family: 'Source Serif 4', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jivnxcljjb thead, #jivnxcljjb tbody, #jivnxcljjb tfoot, #jivnxcljjb tr, #jivnxcljjb td, #jivnxcljjb th {
+  border-style: none;
+}
+
+#jivnxcljjb p {
+  margin: 0;
+  padding: 0;
+}
+
+#jivnxcljjb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FBFAF7;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A6081A;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jivnxcljjb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FBFAF7;
+  border-bottom-width: 0;
+}
+
+#jivnxcljjb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FBFAF7;
+  border-top-width: 0;
+}
+
+#jivnxcljjb .gt_heading {
+  background-color: #FBFAF7;
+  text-align: left;
+  border-bottom-color: #FBFAF7;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_col_heading {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jivnxcljjb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jivnxcljjb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1.5px;
+  border-bottom-color: #16130F;
+  vertical-align: bottom;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jivnxcljjb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jivnxcljjb .gt_group_heading {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jivnxcljjb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #16130F;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jivnxcljjb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jivnxcljjb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jivnxcljjb .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #DEDAD2;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jivnxcljjb .gt_stub {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FBFAF7;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_row_group_first th {
+  border-top-width: 1px;
+}
+
+#jivnxcljjb .gt_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jivnxcljjb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FBFAF7;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jivnxcljjb .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #16130F;
+}
+
+#jivnxcljjb .gt_footnotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FBFAF7;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jivnxcljjb .gt_left {
+  text-align: left;
+}
+
+#jivnxcljjb .gt_center {
+  text-align: center;
+}
+
+#jivnxcljjb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb .gt_font_normal {
+  font-weight: normal;
+}
+
+#jivnxcljjb .gt_font_bold {
+  font-weight: bold;
+}
+
+#jivnxcljjb .gt_font_italic {
+  font-style: italic;
+}
+
+#jivnxcljjb .gt_super {
+  font-size: 65%;
+}
+
+#jivnxcljjb .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jivnxcljjb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jivnxcljjb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jivnxcljjb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jivnxcljjb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jivnxcljjb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jivnxcljjb .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jivnxcljjb .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jivnxcljjb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#jivnxcljjb td {
+  font-variant-numeric: tabular-nums;
+}
+
+#jivnxcljjb tbody tr:last-child {
+  border-bottom: 2px solid #FBFAF7;
+}
+
+#jivnxcljjb .gt_col_heading, #jivnxcljjb .gt_column_spanner {
+  letter-spacing: 0.09em;
+}
+
+#jivnxcljjb .gt_row_group_first td {
+  padding-top: 4px;
+}
+
+#jivnxcljjb .gt_group_heading {
+  letter-spacing: 0.08em;
+}
+
+#jivnxcljjb .gt_subtitle {
+  padding-bottom: 14px !important;
+}
+
+#jivnxcljjb .gt_title {
+  padding-bottom: 3px !important;
+}
+
+#jivnxcljjb .gt_sourcenote {
+  padding-top: 10px;
+}
+
+#jivnxcljjb .gt_table {
+  --bs-table-bg: transparent;
+  --bs-table-color: currentcolor;
+}
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_heading"><td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="color: #16130F; font-family: Newsreader; font-size: 26px; font-weight: 600;">AFC West</td>
+    </tr><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="losses">losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="color: #5C574F; font-family: 'Public Sans'; font-size: 10px; font-weight: 600; text-transform: uppercase;" scope="col" id="points_for">points_for</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Denver Broncos</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">401</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Los Angeles Chargers</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">368</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Kansas City Chiefs</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">6</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">11</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">362</td></tr><tr><td headers="team_name" class="gt_row gt_left" style="color: #16130F; font-size: 14px;">Las Vegas Raiders</td>
+<td headers="wins" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">3</td>
+<td headers="losses" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">14</td>
+<td headers="points_for" class="gt_row gt_right" style="color: #16130F; font-size: 14px;">241</td></tr></tbody></table></div>
       </div>
     </div>
   </div>
@@ -8094,7 +10705,7 @@ folding a single long table into blocks.</p></div>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive() &amp;&amp; rlang::is_installed("webshot2") &amp;&amp; isTRUE(file.exists(chromote::find_chrome()))</span></span></span>
 <span class="r-in"><span><span class="co"># straight to an image; saving needs a headless Chrome (webshot2)</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_cyl</span>, ncol <span class="op">=</span> <span class="fl">3</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span>, bg <span class="op">=</span> <span class="st">"#FBFAF7"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">gt_grid</span><span class="op">(</span><span class="va">by_division</span>, ncol <span class="op">=</span> <span class="fl">2</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span>, bg <span class="op">=</span> <span class="st">"#FBFAF7"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>

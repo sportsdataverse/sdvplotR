@@ -73,15 +73,17 @@ which reshapes the table itself and carries body styling through.
 ``` r
 library(gt)
 
-wide <- head(mtcars[c("mpg", "hp", "wt", "qsec")], 8)
+nfc <- subset(sdv_example_standings, conference == "NFC",
+  c(team, wins, losses))
 
-# a logical grid the same shape as the data, built before the snake
-mask <- wide > 20
+# a logical grid the same shape as the data, built before the snake:
+# double-digit wins or losses
+mask <- data.frame(team = FALSE, nfc[c("wins", "losses")] >= 10)
 
 # after the snake, each column carries its block number as a suffix
-snaked <- unlist(lapply(1:2, function(i) paste0(names(wide), "_", i)))
+snaked <- unlist(lapply(1:2, function(i) paste0(names(nfc), "_", i)))
 
-wide %>%
+nfc %>%
   gt() %>%
   gt_snake(n_cols = 2) %>%
   gt_highlight_cells(tidyselect::all_of(snaked),
@@ -101,7 +103,5 @@ wide %>%
 
 
 
-
-
-mpg
+team
 ```

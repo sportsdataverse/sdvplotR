@@ -91,10 +91,14 @@ for flagging values that are present but suspect.
 ``` r
 library(gt)
 
-gt(head(airquality, 10)) %>% gt_highlight_na(c(Ozone, Solar.R))
+# playoff_wins is NA for the teams that missed the playoffs
+afc <- subset(sdv_example_standings, conference == "AFC",
+  c(team_name, wins, losses, conference_rank, playoff_wins))
+
+gt(afc) %>% gt_highlight_na(playoff_wins)
 
 
   
 
-Ozone
+team_name
 ```

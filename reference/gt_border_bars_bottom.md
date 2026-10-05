@@ -124,11 +124,13 @@ renders in an exported table.
 ``` r
 library(gt)
 
-gt(head(mtcars)) %>%
+afc_north <- subset(sdv_example_standings, division == "AFC North",
+  c(team_name, wins:points_against))
+gt(afc_north) %>%
   gt_border_bars_bottom(c("#1B7837", "#FFFFFF", "#B2182B"))
 
 
   
 
-mpg
+team_name
 ```

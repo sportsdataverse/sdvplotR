@@ -146,7 +146,7 @@ tiers <- league |>
   ungroup() |>
   select(team = team_abbr, tier_no, tier_rank)
 
-tier_list <- function(width = 0.075, alpha = 0.8) {
+tier_list <- function(width = 0.075, alpha = 0.8, theme = "dark") {
   sdv_team_tiers(
     tiers,
     sport = "mbb",
@@ -162,7 +162,8 @@ tier_list <- function(width = 0.075, alpha = 0.8) {
     ),
     tier_desc = tier_desc,
     width = width,
-    alpha = alpha
+    alpha = alpha,
+    theme = theme
   )
 }
 
@@ -178,28 +179,14 @@ background.](recipe-college-hoops-tiers_files/figure-html/labels-1.png)
 On the Tiermaker’s dark background, the dark logos almost vanish: Iowa’s
 black hawk, Penn State’s navy lion, Michigan State’s dark green Spartan.
 Most college logos are drawn for a white page, so the fix is a light
-background.
-[`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
-returns an ordinary ggplot, so restyling it is one
-[`theme()`](https://ggplot2.tidyverse.org/reference/theme.html): the
-backgrounds, and the white text turned dark. The logos go to full
-opacity too (`alpha = 1`); the default 0.8 softens them against the dark
-background but washes them out on white.
+background: `theme = "light"` draws the list on white, with the text and
+tier lines turned dark. The logos go to full opacity too (`alpha = 1`);
+the default 0.8 softens them against the dark background but washes them
+out on white.
 
 ``` r
 
-ink <- "#1d1d1d"
-muted <- "#6b6b6b"
-light <- theme(
-  plot.background = element_rect(fill = "white", color = "white"),
-  panel.background = element_rect(fill = "white", color = "white"),
-  plot.title = element_text(color = ink, face = "bold"),
-  plot.subtitle = element_text(color = muted),
-  plot.caption = element_text(color = muted),
-  axis.text.y = element_text(color = ink, face = "bold")
-)
-
-tier_list(alpha = 1) + light
+tier_list(alpha = 1, theme = "light")
 ```
 
 ![The finished tier list on a white background, logos at full strength,
@@ -219,8 +206,8 @@ the wide 1200 x 675 cut is the better post here.
 
 wide <- file.path(out_dir, "big_ten_tiers_1200x675.png")
 square <- file.path(out_dir, "big_ten_tiers_1080x1080.png")
-ggsave(wide, tier_list(alpha = 1) + light, width = 8, height = 4.5, dpi = 150)
-ggsave(square, tier_list(width = 0.085, alpha = 1) + light, width = 7.2, height = 7.2, dpi = 150)
+ggsave(wide, tier_list(alpha = 1, theme = "light"), width = 8, height = 4.5, dpi = 150)
+ggsave(square, tier_list(width = 0.085, alpha = 1, theme = "light"), width = 7.2, height = 7.2, dpi = 150)
 magick::image_info(magick::image_read(c(wide, square)))[c("width", "height")]
 #> # A tibble: 2 × 2
 #>   width height

@@ -707,6 +707,13 @@ Add a logo or image next to a ggplot2 title.
   [`theme_title_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
   : Functions for Adding an Image to the Title of a ggplot
 
+## Example Data
+
+Real final standings that the reference examples run on.
+
+- [`sdv_example_standings`](https://sdvplotR.sportsdataverse.org/reference/sdv_example_standings.md)
+  : Final regular-season standings for the examples
+
 ## Re-exported from ggpath
 
 Generic image geoms and theme elements provided by the ggpath backend.

@@ -661,8 +661,8 @@ axis.](mlb-viz_files/figure-html/franchise-eras-1.png)
 draws a tier list from a tier and a team column. The tiers here come
 from the standings’ clinch codes (`y` and `z` won a division, `w` a wild
 card) and the games behind the last wild card; within a tier the teams
-go by wins. The result is a ggplot, so a light background goes on top of
-its dark one, where the navy and brown logos would disappear.
+go by wins. `theme = "light"` draws the list on white; on the default
+dark background the navy and brown logos would disappear.
 
 ``` r
 
@@ -692,16 +692,9 @@ sdv_team_tiers(
     "3" = "Missed by 5 games or fewer",
     "4" = "Missed by more"
   ),
-  width = 0.06
-) +
-  theme(
-    plot.background = element_rect(fill = "white", colour = "white"),
-    panel.background = element_rect(fill = "white", colour = "white"),
-    plot.title = element_text(colour = "grey10", face = "bold"),
-    plot.subtitle = element_text(colour = "grey35"),
-    plot.caption = element_text(colour = "grey35"),
-    axis.text.y = element_text(colour = "grey10", face = "bold")
-  )
+  width = 0.06,
+  theme = "light"
+)
 ```
 
 ![Tier list of the 30 MLB teams in 2026, drawn as logos in four rows:

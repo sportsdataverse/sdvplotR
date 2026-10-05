@@ -344,29 +344,31 @@ long table into blocks.</p></div>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"hp"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Species"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sdv_example_standings</span>, <span class="va">division</span> <span class="op">==</span> <span class="st">"AFC East"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sdv_example_standings</span>, <span class="va">division</span> <span class="op">==</span> <span class="st">"Atlantic"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">gt_stack_tables</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span><span class="op">)</span><span class="op">)</span></span></span>
 <div style="display: flex; flex-direction: column; gap: 16px; align-items: center;">
   <div>
-    <div id="quwchloslm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-      <style>#quwchloslm table {
+    <div id="edxolsgghl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+      <style>#edxolsgghl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#quwchloslm thead, #quwchloslm tbody, #quwchloslm tfoot, #quwchloslm tr, #quwchloslm td, #quwchloslm th {
+#edxolsgghl thead, #edxolsgghl tbody, #edxolsgghl tfoot, #edxolsgghl tr, #edxolsgghl td, #edxolsgghl th {
   border-style: none;
 }
 
-#quwchloslm p {
+#edxolsgghl p {
   margin: 0;
   padding: 0;
 }
 
-#quwchloslm .gt_table {
+#edxolsgghl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -392,12 +394,12 @@ long table into blocks.</p></div>
   border-left-color: #D3D3D3;
 }
 
-#quwchloslm .gt_caption {
+#edxolsgghl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#quwchloslm .gt_title {
+#edxolsgghl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -409,7 +411,7 @@ long table into blocks.</p></div>
   border-bottom-width: 0;
 }
 
-#quwchloslm .gt_subtitle {
+#edxolsgghl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -421,7 +423,7 @@ long table into blocks.</p></div>
   border-top-width: 0;
 }
 
-#quwchloslm .gt_heading {
+#edxolsgghl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -433,13 +435,13 @@ long table into blocks.</p></div>
   border-right-color: #D3D3D3;
 }
 
-#quwchloslm .gt_bottom_border {
+#edxolsgghl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#quwchloslm .gt_col_headings {
+#edxolsgghl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -454,7 +456,7 @@ long table into blocks.</p></div>
   border-right-color: #D3D3D3;
 }
 
-#quwchloslm .gt_col_heading {
+#edxolsgghl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -474,7 +476,7 @@ long table into blocks.</p></div>
   overflow-x: hidden;
 }
 
-#quwchloslm .gt_column_spanner_outer {
+#edxolsgghl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -486,15 +488,15 @@ long table into blocks.</p></div>
   padding-right: 4px;
 }
 
-#quwchloslm .gt_column_spanner_outer:first-child {
+#edxolsgghl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#quwchloslm .gt_column_spanner_outer:last-child {
+#edxolsgghl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#quwchloslm .gt_column_spanner {
+#edxolsgghl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -506,11 +508,11 @@ long table into blocks.</p></div>
   width: 100%;
 }
 
-#quwchloslm .gt_spanner_row {
+#edxolsgghl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#quwchloslm .gt_group_heading {
+#edxolsgghl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -536,7 +538,7 @@ long table into blocks.</p></div>
   text-align: left;
 }
 
-#quwchloslm .gt_empty_group_heading {
+#edxolsgghl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -551,15 +553,15 @@ long table into blocks.</p></div>
   vertical-align: middle;
 }
 
-#quwchloslm .gt_from_md > :first-child {
+#edxolsgghl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#quwchloslm .gt_from_md > :last-child {
+#edxolsgghl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#quwchloslm .gt_row {
+#edxolsgghl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -578,7 +580,7 @@ long table into blocks.</p></div>
   overflow-x: hidden;
 }
 
-#quwchloslm .gt_stub {
+#edxolsgghl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -591,7 +593,7 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#quwchloslm .gt_stub_row_group {
+#edxolsgghl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -605,15 +607,15 @@ long table into blocks.</p></div>
   vertical-align: top;
 }
 
-#quwchloslm .gt_row_group_first td {
+#edxolsgghl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#quwchloslm .gt_row_group_first th {
+#edxolsgghl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#quwchloslm .gt_summary_row {
+#edxolsgghl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -623,16 +625,16 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#quwchloslm .gt_first_summary_row {
+#edxolsgghl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#quwchloslm .gt_first_summary_row.thick {
+#edxolsgghl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#quwchloslm .gt_last_summary_row {
+#edxolsgghl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -642,7 +644,7 @@ long table into blocks.</p></div>
   border-bottom-color: #D3D3D3;
 }
 
-#quwchloslm .gt_grand_summary_row {
+#edxolsgghl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -652,7 +654,7 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#quwchloslm .gt_first_grand_summary_row {
+#edxolsgghl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -662,7 +664,7 @@ long table into blocks.</p></div>
   border-top-color: #D3D3D3;
 }
 
-#quwchloslm .gt_last_grand_summary_row_top {
+#edxolsgghl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -672,11 +674,11 @@ long table into blocks.</p></div>
   border-bottom-color: #D3D3D3;
 }
 
-#quwchloslm .gt_striped {
+#edxolsgghl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#quwchloslm .gt_table_body {
+#edxolsgghl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -685,7 +687,7 @@ long table into blocks.</p></div>
   border-bottom-color: #D3D3D3;
 }
 
-#quwchloslm .gt_footnotes {
+#edxolsgghl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -699,7 +701,7 @@ long table into blocks.</p></div>
   border-right-color: #D3D3D3;
 }
 
-#quwchloslm .gt_footnote {
+#edxolsgghl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -708,7 +710,7 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#quwchloslm .gt_sourcenotes {
+#edxolsgghl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -722,7 +724,7 @@ long table into blocks.</p></div>
   border-right-color: #D3D3D3;
 }
 
-#quwchloslm .gt_sourcenote {
+#edxolsgghl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -730,102 +732,105 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#quwchloslm .gt_left {
+#edxolsgghl .gt_left {
   text-align: left;
 }
 
-#quwchloslm .gt_center {
+#edxolsgghl .gt_center {
   text-align: center;
 }
 
-#quwchloslm .gt_right {
+#edxolsgghl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#quwchloslm .gt_font_normal {
+#edxolsgghl .gt_font_normal {
   font-weight: normal;
 }
 
-#quwchloslm .gt_font_bold {
+#edxolsgghl .gt_font_bold {
   font-weight: bold;
 }
 
-#quwchloslm .gt_font_italic {
+#edxolsgghl .gt_font_italic {
   font-style: italic;
 }
 
-#quwchloslm .gt_super {
+#edxolsgghl .gt_super {
   font-size: 65%;
 }
 
-#quwchloslm .gt_footnote_marks {
+#edxolsgghl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#quwchloslm .gt_asterisk {
+#edxolsgghl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#quwchloslm .gt_indent_1 {
+#edxolsgghl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#quwchloslm .gt_indent_2 {
+#edxolsgghl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#quwchloslm .gt_indent_3 {
+#edxolsgghl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#quwchloslm .gt_indent_4 {
+#edxolsgghl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#quwchloslm .gt_indent_5 {
+#edxolsgghl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#quwchloslm .katex-display {
+#edxolsgghl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#quwchloslm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#edxolsgghl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="mpg">mpg</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="hp">hp</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="mpg" class="gt_row gt_right">21.0</td>
-<td headers="hp" class="gt_row gt_right">110</td></tr><tr><td headers="mpg" class="gt_row gt_right">21.0</td>
-<td headers="hp" class="gt_row gt_right">110</td></tr><tr><td headers="mpg" class="gt_row gt_right">22.8</td>
-<td headers="hp" class="gt_row gt_right">93</td></tr><tr><td headers="mpg" class="gt_row gt_right">21.4</td>
-<td headers="hp" class="gt_row gt_right">110</td></tr><tr><td headers="mpg" class="gt_row gt_right">18.7</td>
-<td headers="hp" class="gt_row gt_right">175</td></tr><tr><td headers="mpg" class="gt_row gt_right">18.1</td>
-<td headers="hp" class="gt_row gt_right">105</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">losses</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left">New England Patriots</td>
+<td headers="wins" class="gt_row gt_right">14</td>
+<td headers="losses" class="gt_row gt_right">3</td></tr><tr><td headers="team_name" class="gt_row gt_left">Buffalo Bills</td>
+<td headers="wins" class="gt_row gt_right">12</td>
+<td headers="losses" class="gt_row gt_right">5</td></tr><tr><td headers="team_name" class="gt_row gt_left">Miami Dolphins</td>
+<td headers="wins" class="gt_row gt_right">7</td>
+<td headers="losses" class="gt_row gt_right">10</td></tr><tr><td headers="team_name" class="gt_row gt_left">New York Jets</td>
+<td headers="wins" class="gt_row gt_right">3</td>
+<td headers="losses" class="gt_row gt_right">14</td></tr></tbody></table></div>
   </div>
   <div>
-    <div id="lvfhnsedxo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-      <style>#lvfhnsedxo table {
+    <div id="lhdyfrfzkx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+      <style>#lhdyfrfzkx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lvfhnsedxo thead, #lvfhnsedxo tbody, #lvfhnsedxo tfoot, #lvfhnsedxo tr, #lvfhnsedxo td, #lvfhnsedxo th {
+#lhdyfrfzkx thead, #lhdyfrfzkx tbody, #lhdyfrfzkx tfoot, #lhdyfrfzkx tr, #lhdyfrfzkx td, #lhdyfrfzkx th {
   border-style: none;
 }
 
-#lvfhnsedxo p {
+#lhdyfrfzkx p {
   margin: 0;
   padding: 0;
 }
 
-#lvfhnsedxo .gt_table {
+#lhdyfrfzkx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -851,12 +856,12 @@ long table into blocks.</p></div>
   border-left-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_caption {
+#lhdyfrfzkx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lvfhnsedxo .gt_title {
+#lhdyfrfzkx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -868,7 +873,7 @@ long table into blocks.</p></div>
   border-bottom-width: 0;
 }
 
-#lvfhnsedxo .gt_subtitle {
+#lhdyfrfzkx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -880,7 +885,7 @@ long table into blocks.</p></div>
   border-top-width: 0;
 }
 
-#lvfhnsedxo .gt_heading {
+#lhdyfrfzkx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -892,13 +897,13 @@ long table into blocks.</p></div>
   border-right-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_bottom_border {
+#lhdyfrfzkx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_col_headings {
+#lhdyfrfzkx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -913,7 +918,7 @@ long table into blocks.</p></div>
   border-right-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_col_heading {
+#lhdyfrfzkx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -933,7 +938,7 @@ long table into blocks.</p></div>
   overflow-x: hidden;
 }
 
-#lvfhnsedxo .gt_column_spanner_outer {
+#lhdyfrfzkx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -945,15 +950,15 @@ long table into blocks.</p></div>
   padding-right: 4px;
 }
 
-#lvfhnsedxo .gt_column_spanner_outer:first-child {
+#lhdyfrfzkx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lvfhnsedxo .gt_column_spanner_outer:last-child {
+#lhdyfrfzkx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lvfhnsedxo .gt_column_spanner {
+#lhdyfrfzkx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -965,11 +970,11 @@ long table into blocks.</p></div>
   width: 100%;
 }
 
-#lvfhnsedxo .gt_spanner_row {
+#lhdyfrfzkx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lvfhnsedxo .gt_group_heading {
+#lhdyfrfzkx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -995,7 +1000,7 @@ long table into blocks.</p></div>
   text-align: left;
 }
 
-#lvfhnsedxo .gt_empty_group_heading {
+#lhdyfrfzkx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1010,15 +1015,15 @@ long table into blocks.</p></div>
   vertical-align: middle;
 }
 
-#lvfhnsedxo .gt_from_md > :first-child {
+#lhdyfrfzkx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lvfhnsedxo .gt_from_md > :last-child {
+#lhdyfrfzkx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lvfhnsedxo .gt_row {
+#lhdyfrfzkx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1037,7 +1042,7 @@ long table into blocks.</p></div>
   overflow-x: hidden;
 }
 
-#lvfhnsedxo .gt_stub {
+#lhdyfrfzkx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1050,7 +1055,7 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#lvfhnsedxo .gt_stub_row_group {
+#lhdyfrfzkx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1064,15 +1069,15 @@ long table into blocks.</p></div>
   vertical-align: top;
 }
 
-#lvfhnsedxo .gt_row_group_first td {
+#lhdyfrfzkx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lvfhnsedxo .gt_row_group_first th {
+#lhdyfrfzkx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lvfhnsedxo .gt_summary_row {
+#lhdyfrfzkx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1082,16 +1087,16 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#lvfhnsedxo .gt_first_summary_row {
+#lhdyfrfzkx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_first_summary_row.thick {
+#lhdyfrfzkx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lvfhnsedxo .gt_last_summary_row {
+#lhdyfrfzkx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1101,7 +1106,7 @@ long table into blocks.</p></div>
   border-bottom-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_grand_summary_row {
+#lhdyfrfzkx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1111,7 +1116,7 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#lvfhnsedxo .gt_first_grand_summary_row {
+#lhdyfrfzkx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1121,7 +1126,7 @@ long table into blocks.</p></div>
   border-top-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_last_grand_summary_row_top {
+#lhdyfrfzkx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1131,11 +1136,11 @@ long table into blocks.</p></div>
   border-bottom-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_striped {
+#lhdyfrfzkx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lvfhnsedxo .gt_table_body {
+#lhdyfrfzkx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1144,7 +1149,7 @@ long table into blocks.</p></div>
   border-bottom-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_footnotes {
+#lhdyfrfzkx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1158,7 +1163,7 @@ long table into blocks.</p></div>
   border-right-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_footnote {
+#lhdyfrfzkx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1167,7 +1172,7 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#lvfhnsedxo .gt_sourcenotes {
+#lhdyfrfzkx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1181,7 +1186,7 @@ long table into blocks.</p></div>
   border-right-color: #D3D3D3;
 }
 
-#lvfhnsedxo .gt_sourcenote {
+#lhdyfrfzkx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1189,83 +1194,88 @@ long table into blocks.</p></div>
   padding-right: 5px;
 }
 
-#lvfhnsedxo .gt_left {
+#lhdyfrfzkx .gt_left {
   text-align: left;
 }
 
-#lvfhnsedxo .gt_center {
+#lhdyfrfzkx .gt_center {
   text-align: center;
 }
 
-#lvfhnsedxo .gt_right {
+#lhdyfrfzkx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lvfhnsedxo .gt_font_normal {
+#lhdyfrfzkx .gt_font_normal {
   font-weight: normal;
 }
 
-#lvfhnsedxo .gt_font_bold {
+#lhdyfrfzkx .gt_font_bold {
   font-weight: bold;
 }
 
-#lvfhnsedxo .gt_font_italic {
+#lhdyfrfzkx .gt_font_italic {
   font-style: italic;
 }
 
-#lvfhnsedxo .gt_super {
+#lhdyfrfzkx .gt_super {
   font-size: 65%;
 }
 
-#lvfhnsedxo .gt_footnote_marks {
+#lhdyfrfzkx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lvfhnsedxo .gt_asterisk {
+#lhdyfrfzkx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lvfhnsedxo .gt_indent_1 {
+#lhdyfrfzkx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lvfhnsedxo .gt_indent_2 {
+#lhdyfrfzkx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lvfhnsedxo .gt_indent_3 {
+#lhdyfrfzkx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lvfhnsedxo .gt_indent_4 {
+#lhdyfrfzkx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lvfhnsedxo .gt_indent_5 {
+#lhdyfrfzkx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lvfhnsedxo .katex-display {
+#lhdyfrfzkx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lvfhnsedxo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#lhdyfrfzkx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
-</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Sepal.Length">Sepal.Length</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Species">Species</th>
-    </tr></thead><tbody class="gt_table_body"><tr><td headers="Sepal.Length" class="gt_row gt_right">5.1</td>
-<td headers="Species" class="gt_row gt_center">setosa</td></tr><tr><td headers="Sepal.Length" class="gt_row gt_right">4.9</td>
-<td headers="Species" class="gt_row gt_center">setosa</td></tr><tr><td headers="Sepal.Length" class="gt_row gt_right">4.7</td>
-<td headers="Species" class="gt_row gt_center">setosa</td></tr><tr><td headers="Sepal.Length" class="gt_row gt_right">4.6</td>
-<td headers="Species" class="gt_row gt_center">setosa</td></tr><tr><td headers="Sepal.Length" class="gt_row gt_right">5.0</td>
-<td headers="Species" class="gt_row gt_center">setosa</td></tr><tr><td headers="Sepal.Length" class="gt_row gt_right">5.4</td>
-<td headers="Species" class="gt_row gt_center">setosa</td></tr></tbody></table></div>
+</style><table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><thead><tr class="gt_col_headings"><th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team_name">team_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="losses">losses</th>
+    </tr></thead><tbody class="gt_table_body"><tr><td headers="team_name" class="gt_row gt_left">Boston Celtics</td>
+<td headers="wins" class="gt_row gt_right">56</td>
+<td headers="losses" class="gt_row gt_right">26</td></tr><tr><td headers="team_name" class="gt_row gt_left">New York Knicks</td>
+<td headers="wins" class="gt_row gt_right">53</td>
+<td headers="losses" class="gt_row gt_right">29</td></tr><tr><td headers="team_name" class="gt_row gt_left">Toronto Raptors</td>
+<td headers="wins" class="gt_row gt_right">46</td>
+<td headers="losses" class="gt_row gt_right">36</td></tr><tr><td headers="team_name" class="gt_row gt_left">Philadelphia 76ers</td>
+<td headers="wins" class="gt_row gt_right">45</td>
+<td headers="losses" class="gt_row gt_right">37</td></tr><tr><td headers="team_name" class="gt_row gt_left">Brooklyn Nets</td>
+<td headers="wins" class="gt_row gt_right">20</td>
+<td headers="losses" class="gt_row gt_right">62</td></tr></tbody></table></div>
   </div>
 </div><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive() &amp;&amp; rlang::is_installed("webshot2") &amp;&amp; isTRUE(file.exists(chromote::find_chrome()))</span></span></span>
@@ -1274,7 +1284,7 @@ long table into blocks.</p></div>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">gt_stack_tables</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Two tables"</span>,</span></span>
+<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Two leagues"</span>,</span></span>
 <span class="r-in"><span>  subtitle <span class="op">=</span> <span class="st">"Stacked into one block"</span>,</span></span>
 <span class="r-in"><span>  title_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>font <span class="op">=</span> <span class="st">"Oswald"</span>, size <span class="op">=</span> <span class="fl">30</span>, transform <span class="op">=</span> <span class="st">"uppercase"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span></span></span>

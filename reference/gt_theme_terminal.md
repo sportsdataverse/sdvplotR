@@ -70,10 +70,12 @@ for a color scale that survives a dark ground.
 
 ``` r
 library(gt)
-gt(head(mtcars, 12)) %>% gt_theme_terminal()
+afc <- subset(sdv_example_standings, conference == "AFC",
+  c(team_name, wins:points_against))
+gt(head(afc, 12)) %>% gt_theme_terminal()
 
 
   
 
-mpg
+team_name
 ```

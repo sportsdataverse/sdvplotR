@@ -109,14 +109,14 @@ for marking a threshold rather than a row.
 ``` r
 library(gt)
 
-cars <- head(mtcars[c("mpg", "cyl", "hp")], 8)
-cars$model <- rownames(cars)
+nfc <- subset(sdv_example_standings, division %in% c("NFC North", "NFC West"),
+  c(team_name, wins, losses, conference_rank))
 
-# by expression
-gt(cars) %>% gt_spotlight(rows = cyl == 8)
+# by expression: the playoff seeds
+gt(nfc) %>% gt_spotlight(rows = conference_rank <= 7)
 
 
   
 
-mpg
+team_name
 ```

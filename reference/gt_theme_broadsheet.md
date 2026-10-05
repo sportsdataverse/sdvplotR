@@ -80,10 +80,12 @@ for explaining a colored column.
 ``` r
 library(gt)
 
-gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>% gt_theme_broadsheet()
+nfc_east <- subset(sdv_example_standings, division == "NFC East",
+  c(team_name, wins:points_against))
+gt(nfc_east) %>% gt_theme_broadsheet()
 
 
   
 
-mpg
+team_name
 ```

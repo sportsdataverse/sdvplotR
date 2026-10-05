@@ -46,10 +46,12 @@ first, since that CSS is keyed on `#<table_id>`.
 ``` r
 library(gt)
 
-gt(head(mtcars)) %>% gt_border_grid()
+afc_south <- subset(sdv_example_standings, division == "AFC South",
+  c(team_name, wins:points_against))
+gt(afc_south) %>% gt_border_grid()
 
 
   
 
-mpg
+team_name
 ```

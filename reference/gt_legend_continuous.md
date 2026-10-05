@@ -247,12 +247,14 @@ for a discrete key.
 library(gt)
 
 # the legend matches whatever gt_color_ranks() drew
-gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>%
-  gt_color_ranks(columns = mpg) %>%
-  gt_legend_continuous(columns = mpg, title = "Miles per gallon")
+nfc_east <- subset(sdv_example_standings, division == "NFC East",
+  c(team_name, wins, losses, points_for))
+gt(nfc_east) %>%
+  gt_color_ranks(columns = points_for) %>%
+  gt_legend_continuous(columns = points_for, title = "Points scored")
 
 
   
 
-mpg
+team_name
 ```

@@ -66,10 +66,12 @@ export at.
 
 ``` r
 library(gt)
-gt(head(mtcars)) %>% gt_theme_gtutils()
+nfc_south <- subset(sdv_example_standings, division == "NFC South",
+  c(team_name, wins:points_against))
+gt(nfc_south) %>% gt_theme_gtutils()
 
 
   
 
-mpg
+team_name
 ```

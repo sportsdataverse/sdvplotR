@@ -26,7 +26,7 @@ gt_bold_rows(
 - rows:
 
   The rows to bold. Either an expression evaluated against the table's
-  data, such as `mpg > 20`, or a numeric vector of row indices. If
+  data, such as `wins > 10`, or a numeric vector of row indices. If
   `NULL`, every row is bolded. Defaults to `NULL`.
 
 - text_color:
@@ -54,7 +54,7 @@ Returns a modified `gt` table with the chosen rows bolded.
 ## Details
 
 `rows` is evaluated against the table's underlying data, so
-`rows = mpg > 20` bolds the rows where that is `TRUE`; a numeric vector
+`rows = wins > 10` bolds the rows where that is `TRUE`; a numeric vector
 picks rows by index. The deprecated `row` is passed on to `rows`, and
 the deprecated `filter_statement` string, when given, takes precedence
 over `rows`. The styling is applied with a single
@@ -68,11 +68,14 @@ so it covers every column of the chosen rows.
 ``` r
 library(gt)
 
+nfc_west <- subset(sdv_example_standings, division == "NFC West",
+  c(team_name, wins:points_against))
+
 # bold every row
-gt(head(mtcars)) %>% gt_bold_rows()
+gt(nfc_west) %>% gt_bold_rows()
 
 
   
 
-mpg
+team_name
 ```

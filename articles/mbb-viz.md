@@ -356,16 +356,9 @@ sdv_team_tiers(
     "1" = "Champion", "2" = "Runner-up", "3" = "Final Four",
     "4" = "Elite Eight", "5" = "Sweet 16"
   ),
-  alpha = 1
-) +
-  # Iowa's black hawkeye vanishes on the dark Tiermaker theme; the result is
-  # a ggplot, so restyle it light
-  theme(
-    plot.background = element_rect(fill = "white", color = "white"),
-    panel.background = element_rect(fill = "white", color = "white"),
-    plot.title = element_text(color = "black", face = "bold"),
-    axis.text.y = element_text(color = "black", face = "bold", size = rel(1.1))
-  )
+  alpha = 1,
+  theme = "light" # Iowa's black hawkeye vanishes on the default dark background
+)
 ```
 
 ![The 16 teams of the 2026 men's NCAA tournament Sweet 16 as logos in

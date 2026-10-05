@@ -1693,19 +1693,19 @@ for) with the headshot at the end.</p>
 <p>The original Winnipeg Jets moved to Phoenix in 1996, became the
 Arizona Coyotes in 2014, and their hockey operations moved to Salt Lake
 City in 2024 as the Utah Hockey Club, the Utah Mammoth since 2025.
-sdvplotR maps the Coyotes’ codes to today’s club, so a Coyotes-era
-dataset still gets a logo and a color, but <code>WIN</code> matches
-today’s Winnipeg Jets, the former Atlanta Thrashers. An old code is not
-a reliable franchise key:</p>
+sdvplotR maps every one of the franchise’s codes, the original Jets’
+<code>WIN</code> included, to today’s club, so a dataset from any era
+gets a logo and a color and groups as one franchise. Today’s Winnipeg
+Jets, the former Atlanta Thrashers, are <code>WPG</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WIN"</span>, <span class="st">"PHX"</span>, <span class="st">"ARI"</span>, <span class="st">"UTA"</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"nhl"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "UTAH" "UTAH" "UTAH" "UTAH"</span></span></code></pre></div>
-<p>Given a <code>season</code>, <code><a href="../reference/geom_sdv_logos.html">geom_sdv_logos()</a></code> draws the
-mark a club wore that season instead. Historical NHL marks are keyed by
-the NHL’s code for that identity (<code>WIN</code>, <code>PHX</code>,
-<code>ARI</code>), and seasons are named for the year they end. One mark
-per logo era, with the club’s name that season from the NHL’s
-records:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WIN"</span>, <span class="st">"PHX"</span>, <span class="st">"ARI"</span>, <span class="st">"UTA"</span>, <span class="st">"WPG"</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"nhl"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "UTAH" "UTAH" "UTAH" "UTAH" "WPG"</span></span></code></pre></div>
+<p>That key draws today’s mark. Given a <code>season</code>,
+<code><a href="../reference/geom_sdv_logos.html">geom_sdv_logos()</a></code> draws the mark a club wore that season
+instead. Historical NHL marks are keyed by the NHL’s code for that
+identity (<code>WIN</code>, <code>PHX</code>, <code>ARI</code>), and
+seasons are named for the year they end. One mark per logo era, with the
+club’s name that season from the NHL’s records:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">marks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WIN"</span>, <span class="st">"WIN"</span>, <span class="st">"PHX"</span>, <span class="st">"PHX"</span>, <span class="st">"ARI"</span>, <span class="st">"ARI"</span>, <span class="st">"UTA"</span>, <span class="st">"UTA"</span><span class="op">)</span>,</span>
@@ -1860,9 +1860,9 @@ close to one already used in its division, and then its secondary.</p>
 </h2>
 <p>How far every team went, from the playoff game IDs (the seventh digit
 is the round), with regular-season points deciding the order within a
-tier. <code><a href="../reference/sdv_team_tiers.html">sdv_team_tiers()</a></code> returns a ggplot, so a light
-background goes on top of its dark one, where the black logos would
-disappear.</p>
+tier. <code><a href="../reference/sdv_team_tiers.html">sdv_team_tiers()</a></code> with <code>theme = "light"</code>
+draws the list on white; on its default dark background the black logos
+would disappear.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reached</span> <span class="op">&lt;-</span> <span class="va">team_box</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1893,16 +1893,9 @@ disappear.</p>
 <span>    <span class="st">"5"</span> <span class="op">=</span> <span class="st">"First round"</span>,</span>
 <span>    <span class="st">"6"</span> <span class="op">=</span> <span class="st">"Missed the playoffs"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  width <span class="op">=</span> <span class="fl">0.05</span></span>
-<span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
-<span>    plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>    panel.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey10"</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
-<span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey35"</span><span class="op">)</span>,</span>
-<span>    plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey35"</span><span class="op">)</span>,</span>
-<span>    axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey10"</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  width <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  theme <span class="op">=</span> <span class="st">"light"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="nhl-viz_files/figure-html/playoff-tiers-1.png" class="r-plt" alt="Tier list of the 32 NHL teams in 2025-26, drawn as logos in six rows: the Stanley Cup champion, the other finalist, the conference finalists, the second-round teams, the first-round teams and the teams that missed the playoffs." width="960"></p>
 </div>
 <div class="section level2">

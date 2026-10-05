@@ -66,7 +66,9 @@ export at.
 
 ``` r
 library(gt)
-gt(head(mtcars)) %>% gt_theme_kenpom()
+central <- subset(sdv_example_standings, division == "Central",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(central) %>% gt_theme_kenpom()
 
 
   

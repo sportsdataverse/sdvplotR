@@ -65,10 +65,12 @@ export at.
 
 ``` r
 library(gt)
-gt(head(mtcars)) %>% gt_theme_swiss()
+afc_west <- subset(sdv_example_standings, division == "AFC West",
+  c(team_name, wins:points_against))
+gt(afc_west) %>% gt_theme_swiss()
 
 
   
 
-mpg
+team_name
 ```

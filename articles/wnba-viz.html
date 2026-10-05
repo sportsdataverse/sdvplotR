@@ -442,10 +442,10 @@ sits on top.</p>
 </h2>
 <p><code><a href="../reference/sdv_team_tiers.html">sdv_team_tiers()</a></code> draws a tier list from
 <code>tier_no</code> and <code>team</code>. The tiers here are cut from
-the net ratings above, so they are the season’s numbers. Its Tiermaker
-theme is dark, and Toronto’s dark plum mark all but disappears on it.
-The result is a ggplot, so a few <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code> settings make it
-light, and <code>alpha = 1</code> draws the logos at full strength.</p>
+the net ratings above, so they are the season’s numbers. Its default
+background is dark, and Toronto’s dark plum mark all but disappears on
+it, so <code>theme = "light"</code> draws the list on white and
+<code>alpha = 1</code> draws the logos at full strength.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tiers</span> <span class="op">&lt;-</span> <span class="va">ratings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tier_no <span class="op">=</span> <span class="fl">5L</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">net</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="cn">Inf</span><span class="op">)</span>, labels <span class="op">=</span> <span class="cn">FALSE</span>, right <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -459,14 +459,9 @@ light, and <code>alpha = 1</code> draws the logos at full strength.</p>
 <span>  subtitle <span class="op">=</span> <span class="st">"Regular-season net rating per 100 possessions, cut at +5, 0 and -5"</span>,</span>
 <span>  caption <span class="op">=</span> <span class="va">source_note</span>,</span>
 <span>  tier_desc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Title contenders"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Playoff teams"</span>, <span class="st">"3"</span> <span class="op">=</span> <span class="st">"Fringe"</span>, <span class="st">"4"</span> <span class="op">=</span> <span class="st">"Rebuilding"</span><span class="op">)</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">1</span></span>
-<span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
-<span>    plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>    panel.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
-<span>    axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span>, face <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  theme <span class="op">=</span> <span class="st">"light"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="wnba-viz_files/figure-html/team-tiers-1.png" class="r-plt" alt="WNBA team logos in four tiers cut from 2026 net rating per 100 possessions: Title contenders, Playoff teams, Fringe and Rebuilding." width="864"></p>
 </div>
 <div class="section level2">

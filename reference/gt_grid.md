@@ -159,13 +159,14 @@ for folding a single long table into blocks.
 ``` r
 library(gt)
 
-by_cyl <- lapply(split(mtcars, mtcars$cyl), function(d) {
-  gt(head(d[c("mpg", "hp", "wt")], 5)) %>%
+afc <- subset(sdv_example_standings, conference == "AFC")
+by_division <- lapply(split(afc, afc$division), function(d) {
+  gt(d[c("team_name", "wins", "losses", "points_for")]) %>%
     gt_theme_broadsheet() %>%
-    tab_header(title = paste(d$cyl[[1]], "cylinders"))
+    tab_header(title = d$division[[1]])
 })
 
-gt_grid(by_cyl, ncol = 2)
+gt_grid(by_division, ncol = 2)
 
   
     
@@ -665,5 +666,5 @@ gt_grid(by_cyl, ncol = 2)
 
 
 
-4 cylinders
+AFC East
 ```
