@@ -18,11 +18,14 @@ that activates markdown in x-axis and y-axis labels using
 \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}}.
 }
 \details{
-These functions are a wrapper around the function calls
-\code{ggplot2::theme(axis.text.x = ggtext::element_markdown())} as well as
-\code{ggplot2::theme(axis.text.y = ggtext::element_markdown())}.
-They are made to be used in conjunction with \code{\link[=scale_x_sdv]{scale_x_sdv()}} and
-\code{\link[=scale_y_sdv]{scale_y_sdv()}} respectively.
+These functions set \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}} on \code{axis.text.x}
+and its position children \code{axis.text.x.bottom} / \code{axis.text.x.top}
+(\code{theme_x_sdv()}), or on \code{axis.text.y}, \code{axis.text.y.left} and
+\code{axis.text.y.right} (\code{theme_y_sdv()}). Complete themes in 'ggplot2' 4
+(\code{theme_minimal()}, ...) set those children themselves, and a markdown
+parent alone would not replace them. Add these after any complete theme,
+which replaces every element. They are made to be used in conjunction
+with \code{\link[=scale_x_sdv]{scale_x_sdv()}} and \code{\link[=scale_y_sdv]{scale_y_sdv()}} respectively.
 }
 \examples{
 \donttest{

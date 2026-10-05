@@ -100,7 +100,10 @@ team_rows <- function(ref, include_conferences = FALSE) {
 #'   used by sdvplotR. Matching is case-insensitive and understands full team
 #'   names (`"Kansas City Chiefs"`), common alternate abbreviations used by
 #'   other data sources (`"WSH"` / `"WAS"`, `"GNB"` / `"GB"`), and historical
-#'   abbreviations of relocated franchises (see [resolve_historical_abbr()]).
+#'   abbreviations of relocated franchises (see [resolve_historical_abbr()]),
+#'   which follow the franchise even where a provider uses the same code for
+#'   another team: `"WIN"`, the original Winnipeg Jets, gives `"UTAH"`, while
+#'   today's Jets are `"WPG"`.
 #'   For the college sports it also takes the school names NCAA.com /
 #'   stats.ncaa.org, KenPom, Bart Torvik and Sports Reference use
 #'   (`"Iowa St."`, `"St. John's (NY)"`, `"Saint Mary's (CA)"`,
@@ -147,15 +150,13 @@ clean_team_abbrs <- function(
 # the Avalanche.
 match_team_abbrs <- function(abbr, sport, historical = TRUE) {
   m <- abbr_mapping[[sport]]
-  a <- unname(m[toupper(abbr)])
+  # relocated franchises first, so a relocation key wins over a provider alias
+  # of the same name ("WIN" is the original Jets, not today's "WPG"), and
+  # clean_team_abbrs() agrees with resolve_historical_abbr()
+  key <- if (historical) resolve_historical_abbr(abbr, sport) else abbr
+  a <- unname(m[toupper(key)])
 
-  # second pass: historical franchise abbreviations
-  miss <- is.na(a) & !is.na(abbr)
-  if (historical && any(miss)) {
-    a[miss] <- unname(m[toupper(resolve_historical_abbr(abbr[miss], sport))])
-  }
-
-  # third pass: accents and typographic punctuation, which providers write
+  # second pass: accents and typographic punctuation, which providers write
   # inconsistently (the NHL API's "Montr\u00e9al Canadiens", ESPN's "San Jos\u00e9
   # State", Sports Reference's "Nevada\u2013Las Vegas"), folded on both sides
   miss <- is.na(a) & !is.na(abbr)

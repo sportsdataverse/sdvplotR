@@ -9,6 +9,13 @@
 #'   current team (`"LV"`, `"OKC"`). [clean_team_abbrs()] applies these
 #'   mappings automatically; this function exposes them directly.
 #'
+#' @details The result is the package's canonical key, the one
+#'   [clean_team_abbrs()] returns: nflverse abbreviations for the NFL (the
+#'   St. Louis Rams' `"STL"` gives `"LA"`), ESPN's elsewhere (`"NOH"` gives
+#'   `"NO"`, `"WSB"` gives `"WSH"`). A relocation key follows the franchise,
+#'   in both functions: `"WIN"` is the original Winnipeg Jets (1979-96), so it
+#'   gives the Utah club they became, while today's Jets are `"WPG"`.
+#'
 #' @param abbr Character vector of team abbreviations (possibly historical).
 #' @param sport Character string identifying the sport. One of
 #'   [supported_sports()].
@@ -29,14 +36,16 @@ resolve_historical_abbr <- function(abbr, sport = c("nfl", "nba", "wnba", "mlb",
   abbr
 }
 
-# Keys = historical abbreviation (upper case), values = current abbreviation.
-# Only franchises that still exist today are mapped; defunct franchises with no
-# successor are intentionally absent so they resolve to NA downstream.
+# Keys = historical abbreviation (upper case), values = the current franchise's
+# canonical key (team_abbr in logo_ref, which tests assert). Only franchises
+# that still exist today are mapped; defunct franchises with no successor are
+# intentionally absent so they resolve to NA downstream. A key here wins over an
+# alias of the same name in abbr_mapping (see match_team_abbrs()).
 historical_team_mappings <- list(
   nfl = c(
     OAK = "LV",   # Raiders: Oakland -> Las Vegas (2020)
     SD  = "LAC",  # Chargers: San Diego -> Los Angeles (2017)
-    STL = "LAR",  # Rams: St. Louis -> Los Angeles (2016)
+    STL = "LA",   # Rams: St. Louis -> Los Angeles (2016)
     BLT = "BAL",  # Baltimore Ravens (PFR-style code)
     HST = "HOU",  # Houston Texans (PFR-style code)
     CLV = "CLE",  # Cleveland Browns (PFR-style code)
@@ -46,12 +55,12 @@ historical_team_mappings <- list(
     SEA = "OKC",  # SuperSonics -> Thunder (2008)
     NJN = "BKN",  # Nets: New Jersey -> Brooklyn (2012)
     NJ  = "BKN",
-    NOH = "NOP",  # New Orleans Hornets -> Pelicans (2013)
-    NOK = "NOP",  # New Orleans / Oklahoma City Hornets (2005-2007)
+    NOH = "NO",   # New Orleans Hornets -> Pelicans (2013)
+    NOK = "NO",   # New Orleans / Oklahoma City Hornets (2005-2007)
     VAN = "MEM",  # Grizzlies: Vancouver -> Memphis (2001)
     SDC = "LAC",  # Clippers: San Diego -> Los Angeles (1984)
     KCK = "SAC",  # Kings: Kansas City -> Sacramento (1985)
-    WSB = "WAS"   # Washington Bullets -> Wizards (1997)
+    WSB = "WSH"   # Washington Bullets -> Wizards (1997)
   ),
   wnba = c(
     DET = "DAL",  # Shock: Detroit -> Tulsa -> Dallas Wings (2016)

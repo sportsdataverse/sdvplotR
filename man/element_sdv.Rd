@@ -79,8 +79,9 @@ GSIS IDs for the NFL, ESPN athlete IDs otherwise), \code{"espn"} or \code{"leagu
 }
 \value{
 \code{element_sdv_logo()}, \code{element_sdv_wordmark()} and
-\code{element_sdv_headshot()} return an S3 object of class \code{element};
-\code{element_sdv_raster()} returns a \code{\link[ggpath:element_raster]{ggpath::element_raster()}}.
+\code{element_sdv_headshot()} return a theme element extending
+\code{\link[ggpath:element_path]{ggpath::element_path()}}; \code{element_sdv_raster()} returns a
+\code{\link[ggpath:element_raster]{ggpath::element_raster()}}.
 }
 \description{
 In conjunction with the \link[ggplot2:theme]{ggplot2::theme} system, the following \code{element_}
@@ -97,7 +98,10 @@ element such as \code{plot.background}. A thin wrapper around
 \details{
 The elements translate team abbreviations or player IDs into
 logo images or player headshots for the specified sport. Rendering is
-delegated to \code{\link[ggpath:element_path]{ggpath::element_path()}}.
+delegated to \code{\link[ggpath:element_path]{ggpath::element_path()}}, which they extend. Set on a parent
+element such as \code{axis.text.x}, they also replace the position children
+(\code{axis.text.x.bottom}, \code{axis.text.y.left}, ...) that complete themes like
+\code{\link[ggplot2:theme_minimal]{ggplot2::theme_minimal()}} set, keeping the child's spacing.
 }
 \examples{
 \donttest{

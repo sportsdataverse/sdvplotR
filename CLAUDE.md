@@ -9,7 +9,7 @@ reactable. It is the multi-league successor to `nflplotR` / `cfbplotR` /
 function instead of one package per league.
 
 - **Version**: 0.1.0 (`DESCRIPTION`); first CRAN submission in preparation
-- **R**: >= 4.1; `ggplot2 (>= 3.5.0)`, `ggpath (>= 1.1.0)`, `gt (>= 0.10.0)`
+- **R**: >= 4.1; `ggplot2 (>= 4.0.0)`, `ggpath (>= 1.1.0)`, `gt (>= 0.10.0)`
 - **License**: MIT; **Branch**: `main`
 - **Docs**: <https://sdvplotR.sportsdataverse.org> (pkgdown, deployed to
   `gh-pages` by `.github/workflows/pkgdown.yaml`)
@@ -131,9 +131,13 @@ team abbr / player id
 
 1. **Delegate rendering to ggpath.** Geoms set `data$path` then call
    `ggpath::GeomFromPath$draw_panel()`.
-2. **`ggpath::element_path` is S7.** Theme elements are plain S3 lists; the
-   `element_grob.element_sdv_*` methods build a real `ggpath::element_path(...)`
-   via `sdv_element_to_path_grob()`. Never re-class a list as `element_path`.
+2. **`ggpath::element_path` is S7.** `element_sdv_logo()` / `_wordmark()` /
+   `_headshot()` are S7 subclasses of it (`R/theme_elements.R`) that also carry
+   ggplot2's S3 classes `"element_text"` / `"element"`: ggplot2 4 lets a parent
+   (`axis.text.x`) replace a plain child a complete theme sets
+   (`theme_minimal()`'s `axis.text.x.bottom`) only for such a subclass. Their
+   `element_grob()` methods map the labels to URLs and call `NextMethod()`.
+   Never re-class a plain list as `element_path`.
 3. **One resolver path.** All lookups go through `clean_team_abbrs()` so
    aliases and historical abbreviations apply everywhere (geoms, elements, gt,
    reactable). Don't add per-function cleaning.

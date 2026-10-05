@@ -183,6 +183,23 @@
   )
 }
 
+# the table's background color as set so far (a theme applied later isn't seen),
+# white when unset. an unthemed table carries "" here, not NA
+.table_background <- function(gt_object) {
+  opt <- gt_object[["_options"]]
+  bg <- opt$value[opt$parameter == "table_background_color"]
+  bg <- if (length(bg)) as.character(bg[[1]]) else NA_character_
+  valid <- !is.na(bg) && nzchar(bg) &&
+    isTRUE(tryCatch(
+      {
+        grDevices::col2rgb(bg)
+        TRUE
+      },
+      error = function(e) FALSE
+    ))
+  if (valid) bg else "#FFFFFF"
+}
+
 # wcag relative luminance and contrast ratio
 .theme_luminance <- function(hex) {
   v <- grDevices::col2rgb(.hex6(hex))[, 1] / 255
