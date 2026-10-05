@@ -186,3 +186,25 @@ test_that("border bars request the Google font by its bare family name", {
     expect_no_match(h, "family='", fixed = TRUE)
   }
 })
+
+test_that("gt_spotlight dims the other rows to a tone that still passes WCAG AA", {
+  d <- data.frame(team = c("A", "B", "C"), wins = 1:3)
+  # one style attribute per body cell, row by row
+  td_styles <- function(h) regmatches(h, gregexpr("<td[^>]*>", h))[[1]]
+  td_color <- function(s) regmatches(s, regexpr("#[0-9A-Fa-f]{6}", s))
+  for (tbl in list(gt(d), gt_theme_midnight(gt(d)))) {
+    bg <- .table_background(tbl)
+    s <- td_styles(html_of(gt_spotlight(tbl, rows = 2)))
+    # the lit row keeps the theme's own text color and is bolded
+    expect_true(all(grepl("font-weight: bold", s[3:4], fixed = TRUE)))
+    expect_false(any(grepl("font-weight: bold", s[-(3:4)], fixed = TRUE)))
+    dim <- unique(vapply(s[-(3:4)], td_color, ""))
+    expect_length(dim, 1)
+    expect_gte(.theme_contrast(dim, bg), 4.5)
+    # still muted next to full-strength text, so the spotlight reads
+    expect_lt(.theme_contrast(dim, bg), .theme_contrast(.theme_on_color(bg), bg) / 2)
+  }
+  # a color you pass is used as is
+  s <- td_styles(html_of(gt_spotlight(gt(d), rows = 2, dim_color = "#BBBBBB")))
+  expect_match(s[1], "color: #BBBBBB;", fixed = TRUE)
+})

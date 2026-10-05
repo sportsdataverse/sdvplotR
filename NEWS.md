@@ -249,3 +249,10 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   `team_reference()`, or a season logo, takes the team's name; any other image
   its file name. The new `alt` argument takes a function of the image URLs for
   your own text.
+* `gt_spotlight()` dims the other rows to a readable tone. The fixed
+  `"#BBBBBB"` it took from gtUtils measured 1.9:1 against a white table, under
+  the 4.5:1 WCAG AA asks of text, so the rows read as disabled; on a dark theme
+  it was barely dimmer than the text. The new default, `dim_color = "auto"`,
+  blends the table's text toward its background until it sits just above
+  4.5:1, so the spotlight still stands out and the other rows stay readable.
+  Pass `dim_color = "#BBBBBB"` for the old look.

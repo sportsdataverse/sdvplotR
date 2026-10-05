@@ -14,7 +14,7 @@ gt_spotlight(
   accent_color = NULL,
   accent_width = 4,
   accent_column = NULL,
-  dim_color = "#BBBBBB",
+  dim_color = "auto",
   if_none = c("warn", "dim", "ignore")
 )
 }
@@ -50,9 +50,13 @@ of the row. Name a column when the row you are lighting sits elsewhere, as
 with the second block of a \code{\link[=gt_snake]{gt_snake()}} table. More than one may be given,
 which draws a bar against each. Defaults to \code{NULL}.}
 
-\item{dim_color}{Character. The text color applied to every other row. Pass
-\code{NULL} to leave the other rows alone, emphasizing without dimming. Defaults
-to \code{"#BBBBBB"}.}
+\item{dim_color}{Character. The text color applied to every other row.
+\code{"auto"}, the default, blends the table's text toward its background until
+it sits just above 4.5:1 contrast against it (WCAG AA for text), so the
+rows read as muted rather than disabled, on a light or a dark theme. Apply
+the theme first: the background is read from the table as set so far.
+Pass a color to choose it yourself, or \code{NULL} to leave the other rows
+alone, emphasizing without dimming.}
 
 \item{if_none}{Character. What to do when \code{rows} matches nothing. \code{"warn"}
 leaves the table alone and says so. \code{"dim"} dims the whole table, which is
