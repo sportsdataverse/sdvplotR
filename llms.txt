@@ -817,12 +817,6 @@ charts, and reactable tables.
   rotated half court, a college shot chart, a hockey goal map, a
   baseball field and a football drive chart.
 
-- [Social Posting Patterns with
-  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/social-posting.md):
-
-- [Leaderboard Dashboards with sdvplotR, gt, and
-  Quarto](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md):
-
 - [reactable
   Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.md):
 
@@ -945,3 +939,68 @@ end-to-end workflows.
 
 - [End-to-End Workflows with sdvplotR and the SportsDataverse
   Ecosystem](https://sdvplotR.sportsdataverse.org/articles/workflows.md):
+
+### Leaderboards
+
+Each league’s current season, rebuilt every week with this site: the
+season to date while games are played, the last full season in the
+offseason.
+
+- [NFL Weekly
+  Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nfl-weekly.md):
+
+  The NFL season to date, rebuilt every week: a power table by EPA per
+  play, offense against defense, and a quarterback leaderboard with
+  headshots.
+
+- [College Football Weekly
+  Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-cfb-weekly.md):
+
+  The college football season to date, rebuilt every week: a top 25 by
+  opponent-adjusted EPA per play, every FBS team by conference, and the
+  top 25’s offense against its defense.
+
+- [NBA
+  Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nba.md):
+
+  The latest NBA season, rebuilt every week: standings with net rating,
+  a net rating chart with logos on the axis, and the scoring leaders
+  with headshots.
+
+- [WNBA
+  Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-wnba.md):
+
+  The latest WNBA season, rebuilt every week: standings with net rating,
+  offense against defense with logos, and the scoring leaders with
+  headshots.
+
+- [MLB
+  Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-mlb.md):
+
+  The latest MLB season, rebuilt every week: division standings, run
+  differential with logos, and the league leaders with headshots.
+
+- [NHL
+  Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nhl.md):
+
+  The latest NHL season, rebuilt every week: standings, goal
+  differential with logos on the axis, and the points leaders with
+  headshots.
+
+- [Leaderboard Dashboards with sdvplotR, gt, and
+  Quarto](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md):
+
+### Automation
+
+Make and post social graphics on a schedule.
+
+- [Social Graphics,
+  Automated](https://sdvplotR.sportsdataverse.org/articles/automation-social.md):
+
+  One Rscript makes season leaderboards, final-score cards and a
+  player-of-the-game card from SportsDataverse data, writes their alt
+  text and captions, and posts them to Bluesky on a GitHub Actions
+  schedule.
+
+- [Social Posting Patterns with
+  sdvplotR](https://sdvplotR.sportsdataverse.org/articles/social-posting.md):

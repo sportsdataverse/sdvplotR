@@ -109,3 +109,19 @@ Card](https://sdvplotR.sportsdataverse.org/articles/recipe-head-to-head-card.md)
 [![Figure](../articles/recipe-wbb-conference-standings_files/figure-html/export-1.png)Recipe:
 WBB Conference
 Standings](https://sdvplotR.sportsdataverse.org/articles/recipe-wbb-conference-standings.md)
+[![Figure](../articles/leaderboard-nfl-weekly_files/figure-html/off-def-1.png)NFL
+Weekly
+Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nfl-weekly.md)
+[![Figure](../articles/leaderboard-cfb-weekly_files/figure-html/by-conference-1.png)College
+Football Weekly
+Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-cfb-weekly.md)
+[![Figure](../articles/leaderboard-nba_files/figure-html/net-rating-1.png)NBA
+Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nba.md)
+[![Figure](../articles/leaderboard-wnba_files/figure-html/off-def-1.png)WNBA
+Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-wnba.md)
+[![Figure](../articles/leaderboard-mlb_files/figure-html/run-differential-1.png)MLB
+Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-mlb.md)
+[![Figure](../articles/leaderboard-nhl_files/figure-html/points-leaders-1.png)NHL
+Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nhl.md)
+[![Figure](../articles/images/automation-score-card.png)Social Graphics,
+Automated](https://sdvplotR.sportsdataverse.org/articles/automation-social.md)

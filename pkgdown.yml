@@ -2,6 +2,7 @@ pandoc: 3.8.3
 pkgdown: 2.2.1.9000
 pkgdown_sha: f69b62a7e74b58b42170284b6f3f56c674e7a3f8
 articles:
+  automation-social: automation-social.html
   border_bars: border_bars.html
   cfb-viz: cfb-viz.html
   cookbook-colors-themes: cookbook-colors-themes.html
@@ -13,7 +14,13 @@ articles:
   getting-started: getting-started.html
   grid_tables: grid_tables.html
   gt-toolkit: gt-toolkit.html
+  leaderboard-cfb-weekly: leaderboard-cfb-weekly.html
   leaderboard-dashboards: leaderboard-dashboards.html
+  leaderboard-mlb: leaderboard-mlb.html
+  leaderboard-nba: leaderboard-nba.html
+  leaderboard-nfl-weekly: leaderboard-nfl-weekly.html
+  leaderboard-nhl: leaderboard-nhl.html
+  leaderboard-wnba: leaderboard-wnba.html
   mbb-viz: mbb-viz.html
   mlb-viz: mlb-viz.html
   nba-viz: nba-viz.html
@@ -44,7 +51,7 @@ articles:
   window_wins: window_wins.html
   wnba-viz: wnba-viz.html
   workflows: workflows.html
-last_built: 2026-10-05T10:04Z
+last_built: 2026-10-05T10:37Z
 urls:
   reference: https://sdvplotR.sportsdataverse.org/reference
   article: https://sdvplotR.sportsdataverse.org/articles
