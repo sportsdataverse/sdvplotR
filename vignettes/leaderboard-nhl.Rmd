@@ -1,0 +1,238 @@
+---
+title: "NHL Leaderboard"
+description: >
+  The latest NHL season, rebuilt every week: standings, goal differential with
+  logos on the axis, and the points leaders with headshots.
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{NHL Leaderboard}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  fig.width = 8,
+  fig.height = 6,
+  dpi = 96
+)
+```
+
+```{r season, include = FALSE}
+library(sdvplotR)
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2)
+library(gt)
+
+today <- Sys.Date()
+day_label <- function(day, month = "%b") sub(" 0", " ", format(as.Date(day), paste(month, "%d"))) # "Oct 5"
+# fastRhockey names a season by the year it ends (2025-26 is 2026); it starts in
+# the fall, so until September the calendar points at the season that ended in June
+current <- as.integer(format(today, "%Y")) + (format(today, "%m") >= "09")
+label <- function(season) sprintf("%d-%02d", season - 1, season %% 100)
+# an NHL game id's fifth and sixth digits are its type: 01 preseason, 02 regular season, 03 playoffs
+game_type <- function(game_id) (as.numeric(game_id) %/% 10000) %% 100
+
+# A season's team box scores, or NULL when it has no regular-season games yet:
+# load_nhl_team_box() warns and returns no rows for a season it has no file for,
+# and a new season's file holds only preseason games at first
+team_games <- function(season) {
+  box <- tryCatch(suppressWarnings(fastRhockey::load_nhl_team_box(seasons = season)), error = function(e) NULL)
+  if (NROW(box) == 0 || !any(game_type(box$game_id) == 2)) NULL else box
+}
+
+season <- current
+box <- team_games(season)
+if (is.null(box)) {
+  season <- current - 1
+  box <- team_games(season)
+}
+stopifnot(!is.null(box))
+
+box <- mutate(box, game_date = as.Date(game_date), type = game_type(game_id))
+last_regular <- max(box$game_date[box$type == 2])
+playoffs <- filter(box, type == 3)
+in_season <- season == current && nrow(playoffs) == 0
+# api-web.nhle.com standings: as of today in season, as of the last regular-season day after it
+standings <- fastRhockey::nhl_standings(date = if (in_season) NULL else format(last_regular))
+games_in <- paste(unique(range(standings$games_played)), collapse = "-") # games per team differ early on
+if (in_season) {
+  status <- sprintf(
+    "the %s season, %s games in per team. Early-season tables move a lot from week to week.",
+    label(season), games_in
+  )
+  through <- sprintf("through %s (%s games in)", day_label(today), games_in)
+} else if (season < current) {
+  status <- sprintf(
+    "the offseason, so this is the final %s regular season; the %s season has no regular-season games yet.",
+    label(season), label(current)
+  )
+  through <- "final regular season"
+} else if (as.numeric(today - max(playoffs$game_date)) <= 10) {
+  status <- sprintf("the final %s regular season; the playoffs are under way.", label(season))
+  through <- "final regular season"
+} else {
+  status <- sprintf("the offseason, so this is the final %s regular season.", label(season))
+  through <- "final regular season"
+}
+```
+
+**Updated `r format(today)`:** `r status`
+
+This page is rebuilt every week with the site. It builds the standings, charts
+goal differential with logos and ranks the points leaders with their headshots,
+for the latest NHL season with games: the season to date from October to April,
+the final regular season once it is over. Data:
+[fastRhockey](https://fastRhockey.sportsdataverse.org)'s box-score releases and
+the NHL's api-web.nhle.com standings.
+
+## Picking the season
+
+NHL seasons are named by the year they end (2025-26 is `2026`) and start in the
+fall, so until September the calendar points at the season that ended in June.
+For a season with no file yet `fastRhockey::load_nhl_team_box()` warns and
+returns no rows, and a new season's file holds only preseason games at first,
+so the helper treats "no regular-season games" as "not published" and the page
+steps back one season. A game id's fifth and sixth digits are its type: 02 is
+the regular season, 03 the playoffs. During the season the standings come from
+api-web.nhle.com as of today; once the regular season is over, as of its last
+day.
+
+```{r season-code, ref.label = "season", eval = FALSE}
+```
+
+## 1. Standings
+
+Grouped by division in the NHL's own order. `gt_sdv_logos()` reads the NHL's
+three-letter team codes (`LAK`, `NJD`, `TBL`) through sdvplotR's aliases, so
+nothing is mapped by hand.
+
+```{r standings-table}
+standings |>
+  arrange(division_name, division_sequence) |>
+  transmute(
+    division = division_name,
+    logo = team_abbr,
+    team = team_common_name,
+    gp = games_played, w = wins, l = losses, otl = ot_losses,
+    pts = points, pts_pct = point_pctg,
+    gf = goals_for, ga = goals_against, diff = goal_differential,
+    l10 = paste(l10_wins, l10_losses, l10_ot_losses, sep = "-"),
+    streak = paste0(streak_code, streak_count)
+  ) |>
+  gt(groupname_col = "division", id = "nhl-standings") |>
+  tab_header(
+    title = paste("NHL standings,", label(season)),
+    subtitle = paste0(toupper(substr(through, 1, 1)), substring(through, 2))
+  ) |>
+  fmt_number(pts_pct, decimals = 3) |>
+  fmt_number(diff, decimals = 0, force_sign = TRUE) |>
+  cols_label(
+    logo = "", team = "Team", gp = "GP", w = "W", l = "L", otl = "OTL", pts = "PTS",
+    pts_pct = "PTS%", gf = "GF", ga = "GA", diff = "DIFF", l10 = "Last 10", streak = "Streak"
+  ) |>
+  tab_source_note("Data: api-web.nhle.com via fastRhockey | Viz: sdvplotR") |>
+  gt_sdv_logos(columns = logo, sport = "nhl", height = 24) |>
+  gt_theme_swiss()
+```
+
+## 2. Goal differential
+
+Goals for minus goals against, all 32 teams, in team colors; `scale_x_sdv()`
+and `theme_x_sdv()` swap the team codes on the x axis for logos.
+
+```{r goal-differential, fig.height = 5.5, fig.alt = "Bar chart of every NHL team's goal differential, best to worst, each bar in the team's primary color with the team's logo under it on the horizontal axis."}
+gd <- standings |>
+  mutate(team = clean_team_abbrs(team_abbr, sport = "nhl")) |>
+  arrange(desc(goal_differential), team) # the team breaks a tie, so an unchanged week renders the same
+
+ggplot(gd, aes(x = factor(team, levels = team), y = goal_differential, fill = team)) +
+  geom_col(width = 0.75) +
+  geom_hline(yintercept = 0, colour = "grey20", linewidth = 0.4) +
+  scale_fill_sdv(sport = "nhl", guide = "none") +
+  scale_x_sdv(sport = "nhl", size = 20) +
+  labs(
+    title = paste("NHL goal differential,", label(season), through),
+    subtitle = "Goals for minus goals against",
+    x = NULL, y = "Goal differential",
+    caption = "Data: api-web.nhle.com via fastRhockey | Viz: sdvplotR"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  theme_x_sdv()
+```
+
+## 3. Points leaders with headshots
+
+Goals and assists from the regular-season skater box scores, stacked into
+points. The box scores carry NHL API player ids, which
+`geom_sdv_headshots(id_type = "league")` turns into the NHL's own headshots; the
+game rosters give the full names.
+
+```{r points-leaders, fig.height = 6.5, fig.alt = "Stacked horizontal bar chart of the ten NHL points leaders, goals in dark blue and assists in light blue, with each player's headshot at the left of the bar, the team logo at its end and the points total beside it."}
+skaters <- fastRhockey::load_nhl_player_box(seasons = season) |>
+  filter(game_type(game_id) == 2)
+full_names <- fastRhockey::load_nhl_game_rosters(seasons = season) |>
+  distinct(player_id, full_name) |>
+  filter(!duplicated(player_id))
+stopifnot(identical(class(skaters$player_id), class(full_names$player_id)))
+
+leaders <- skaters |>
+  arrange(game_date, game_id) |>
+  group_by(player_id) |>
+  summarise(
+    team = last(team_abbrev), gp = n(),
+    goals = sum(goals), assists = sum(assists), points = sum(points),
+    .groups = "drop"
+  ) |>
+  arrange(desc(points), desc(goals), player_id) |>
+  slice_head(n = 10) |>
+  left_join(full_names, by = "player_id") |>
+  mutate(full_name = factor(full_name, levels = rev(full_name)))
+top <- max(leaders$points)
+
+bars <- tidyr::pivot_longer(leaders, c(goals, assists), names_to = "part", values_to = "n") |>
+  mutate(part = factor(part, levels = c("assists", "goals"), labels = c("Assists", "Goals")))
+
+ggplot(leaders, aes(y = full_name)) +
+  geom_col(data = bars, aes(x = n, fill = part), width = 0.7) +
+  geom_sdv_headshots(
+    aes(x = -0.07 * top, player_id = player_id),
+    sport = "nhl", id_type = "league", height = 0.085
+  ) +
+  geom_sdv_logos(aes(x = points + 0.06 * top, team = team), sport = "nhl", height = 0.06) +
+  geom_text(aes(x = points + 0.12 * top, label = points), hjust = 0, fontface = "bold", size = 3.8) +
+  scale_fill_manual(values = c(Goals = "#1f3b73", Assists = "#9fb4d8"), breaks = c("Goals", "Assists")) +
+  scale_x_continuous(limits = c(-0.14 * top, 1.22 * top), expand = c(0, 0)) +
+  labs(
+    title = paste("NHL points leaders,", label(season)),
+    # the box-score release can trail the live standings by a day or two
+    subtitle = paste0(
+      "Goals and assists, regular season",
+      if (in_season) paste(", games through", day_label(max(skaters$game_date))) else ""
+    ),
+    x = "Points", y = NULL, fill = NULL,
+    caption = "Data: fastRhockey box scores | Viz: sdvplotR"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    legend.position = "top", legend.justification = "left"
+  )
+```
+
+## Related
+
+- [NHL](nhl-viz.html) walks through fastRhockey and sdvplotR more broadly.
+- [MLB](leaderboard-mlb.html) builds the same three views for baseball.
+- [Social graphics, automated](automation-social.html) posts leaderboards like
+  these on a schedule.

@@ -286,11 +286,8 @@ articles:
       - wbb-viz
   - title: "Cookbooks"
     desc: >
-      Cross-sport patterns: social-media export, leaderboard dashboards,
-      reactable tables and end-to-end workflows.
+      Cross-sport patterns: reactable tables and end-to-end workflows.
     contents:
-      - social-posting
-      - leaderboard-dashboards
       - reactable-integration
       - workflows
   - title: "gt Tables"
@@ -322,6 +319,25 @@ articles:
       - shot-grid
       - rolling-form
       - signature-ribbon
+  - title: "Leaderboards"
+    desc: >
+      Each league's current season, rebuilt every week with this site: the
+      season to date while games are played, the last full season in the
+      offseason.
+    contents:
+      - leaderboard-nfl-weekly
+      - leaderboard-cfb-weekly
+      - leaderboard-nba
+      - leaderboard-wnba
+      - leaderboard-mlb
+      - leaderboard-nhl
+      - leaderboard-dashboards
+  - title: "Automation"
+    desc: >
+      Make and post social graphics on a schedule.
+    contents:
+      - automation-social
+      - social-posting
 
 navbar:
   structure:
@@ -476,6 +492,24 @@ navbar:
         href: articles/rolling-form.html
       - text: "Signature Ribbon"
         href: articles/signature-ribbon.html
+      - text: --------------------------------
+      - text: "Leaderboards"
+      - text: "NFL Weekly"
+        href: articles/leaderboard-nfl-weekly.html
+      - text: "College Football Weekly"
+        href: articles/leaderboard-cfb-weekly.html
+      - text: "NBA"
+        href: articles/leaderboard-nba.html
+      - text: "WNBA"
+        href: articles/leaderboard-wnba.html
+      - text: "MLB"
+        href: articles/leaderboard-mlb.html
+      - text: "NHL"
+        href: articles/leaderboard-nhl.html
+      - text: --------------------------------
+      - text: "Automation"
+      - text: "Social Graphics, Automated"
+        href: articles/automation-social.html
     news:
       icon: "fas fa-newspaper"
       text: " Changelog"

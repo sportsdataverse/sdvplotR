@@ -37,3 +37,5 @@
 ^vignettes/(sdv-table-themes|gt-toolkit)\.Rmd$
 ^vignettes/(neighbour-ranks|shot-grid|rolling-form|signature-ribbon)\.Rmd$
 ^vignettes/gallery\.Rmd$
+^examples$
+^vignettes/(leaderboard-(nfl-weekly|cfb-weekly|nba|wnba|mlb|nhl)|automation-social)\.Rmd$

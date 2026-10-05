@@ -1,0 +1,271 @@
+---
+title: "College Football Weekly Leaderboard"
+description: >
+  The college football season to date, rebuilt every week: a top 25 by
+  opponent-adjusted EPA per play, every FBS team by conference, and the top 25's
+  offense against its defense.
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{College Football Weekly Leaderboard}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  fig.width = 8,
+  fig.height = 6,
+  dpi = 96
+)
+```
+
+```{r season, include = FALSE}
+library(sdvplotR)
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2)
+library(gt)
+
+today <- Sys.Date()
+# Week 0 is in late August, so before then the calendar points at last season
+current <- as.integer(format(today, "%Y")) - (format(today, "%m") < "08")
+
+# A season's play-by-play, or NULL when it is not published: load_cfb_pbp() errors
+# for a season past cfbfastR's most recent one, and warns and returns no rows for
+# one whose file is not up yet
+play_by_play <- function(season) {
+  pbp <- tryCatch(suppressWarnings(cfbfastR::load_cfb_pbp(season)), error = function(e) NULL)
+  if (NROW(pbp) == 0) NULL else pbp
+}
+
+season <- current
+pbp <- play_by_play(season)
+if (is.null(pbp)) {
+  season <- current - 1
+  pbp <- play_by_play(season)
+}
+stopifnot(!is.null(pbp))
+
+# CollegeFootballData.com's schedule: set CFBD_API_KEY (a free key) before this call
+schedule <- cfbfastR::load_cfb_schedules(season)
+played <- schedule |>
+  filter(completed) |>
+  arrange(start_date, game_id)
+week <- max(played$week[played$season_type == "regular"])
+left <- filter(schedule, !completed)
+if (any(left$season_type == "regular")) {
+  status <- sprintf("the %d season through week %d.", season, week)
+  through <- paste("through week", week)
+} else if (nrow(left) > 0) {
+  status <- sprintf("the %d regular season is final; bowls and the playoff are under way.", season)
+  through <- "regular season and finished bowls"
+} else {
+  status <- sprintf("the offseason, so this is the final %d season, bowls and playoff included.", season)
+  through <- "final"
+}
+```
+
+**Updated `r format(today)`:** `r status`
+
+This page is rebuilt every week with the site. It rates every FBS team by
+opponent-adjusted EPA per play, a simple cousin of SP+ built from the
+play-by-play, for the latest season with data: the season to date during the
+fall, the final season in the offseason. Data:
+[cfbfastR](https://cfbfastR.sportsdataverse.org) play-by-play and
+CollegeFootballData.com schedules.
+
+## Picking the season
+
+Week 0 is in late August, so before then the calendar points at last season.
+`cfbfastR::load_cfb_pbp()` errors for a season past its most recent one and
+warns, returning no rows, for a season whose file is not up yet; either way the
+page steps back one season. The schedule says whether regular-season games are
+left, which is what the status line reports.
+
+```{r season-code, ref.label = "season", eval = FALSE}
+```
+
+Each team's conference and record come from its played games, against FBS and
+FCS opponents alike.
+
+```{r records}
+fbs <- bind_rows(
+  transmute(played,
+    school = home_team, conference = home_conference,
+    division = home_division, win = home_points > away_points
+  ),
+  transmute(played,
+    school = away_team, conference = away_conference,
+    division = away_division, win = away_points > home_points
+  )
+) |>
+  filter(division == "fbs") |>
+  group_by(school) |>
+  summarise(conference = last(conference), w = sum(win), l = sum(!win), .groups = "drop") |>
+  mutate(record = paste(w, l, sep = "-"))
+nrow(fbs)
+```
+
+## 1. Top 25 by adjusted EPA per play
+
+The ratings use FBS-against-FBS pass and run plays, minus garbage time (a lead of
+more than 43 points in the first quarter, 37 in the second, 27 in the third or
+21 in the fourth). One pass of opponent adjustment credits each offensive play
+for the defense it faced (that defense's EPA allowed per play against the FBS
+average), and each defensive play for the offense it faced. Net is adjusted
+offense minus adjusted defense.
+
+```{r ratings}
+plays <- pbp |>
+  filter(
+    pass == 1 | rush == 1, !is.na(EPA),
+    pos_team %in% fbs$school, def_pos_team %in% fbs$school
+  ) |>
+  mutate(margin = c(43, 37, 27, 21)[period]) |> # NA in overtime, which is never garbage time
+  filter(!coalesce(abs(pos_score_diff_start) > margin, FALSE)) |>
+  arrange(game_id, id_play) # a fixed order, so every mean sums the same way each week
+
+avg <- mean(plays$EPA)
+defense_allows <- plays |>
+  group_by(def_pos_team) |>
+  summarise(allowed = mean(EPA), .groups = "drop")
+offense_gains <- plays |>
+  group_by(pos_team) |>
+  summarise(gained = mean(EPA), .groups = "drop")
+adjusted <- plays |>
+  left_join(defense_allows, by = "def_pos_team") |>
+  left_join(offense_gains, by = "pos_team") |>
+  mutate(adj_off = EPA - (allowed - avg), adj_def = EPA - (gained - avg))
+
+ratings <- inner_join(
+  adjusted |> group_by(school = pos_team) |> summarise(off = mean(adj_off), .groups = "drop"),
+  adjusted |> group_by(school = def_pos_team) |> summarise(dfn = mean(adj_def), .groups = "drop"),
+  by = "school"
+) |>
+  mutate(net = off - dfn) |>
+  inner_join(fbs, by = "school") |>
+  arrange(desc(net), school) |> # the school breaks a tie, so an unchanged week renders the same
+  mutate(rank = row_number())
+
+top25 <- ratings |>
+  slice_head(n = 25) |>
+  mutate(logo = school, conf_logo = conference) |>
+  select(rank, logo, school, conf_logo, conference, record, off, dfn, net)
+head(top25)
+```
+
+sdvplotR has a row for every FBS conference too, so `gt_sdv_logos()` draws the
+conference marks from the schedule's conference names, next to the school
+logos.
+
+```{r top25-table}
+top25 |>
+  gt(id = "cfb-top25") |>
+  tab_header(
+    title = paste("College football top 25,", season),
+    subtitle = paste("Opponent-adjusted EPA per play,", through)
+  ) |>
+  fmt_number(c(off, dfn, net), decimals = 3, force_sign = TRUE) |>
+  data_color(net, palette = c("#f7f7f7", "#2e8b57"), domain = c(0, max(top25$net))) |>
+  tab_spanner("Adjusted EPA per play", c(off, dfn, net)) |>
+  cols_label(
+    rank = "", logo = "", school = "Team", conf_logo = "", conference = "Conference",
+    record = "Record", off = "Offense", dfn = "Defense", net = "Net"
+  ) |>
+  tab_source_note(paste(
+    "Data: cfbfastR play-by-play and CollegeFootballData.com schedules.",
+    "FBS vs FBS pass and run plays, garbage time removed; defense is EPA allowed",
+    "(lower is better). Viz: sdvplotR"
+  )) |>
+  gt_sdv_logos(columns = logo, sport = "cfb", height = 26) |>
+  gt_sdv_logos(columns = conf_logo, sport = "cfb", height = 20) |>
+  gt_theme_ncaa()
+```
+
+## 2. Every FBS team, by conference
+
+One row per conference, ordered by its average rating, each team's logo at its
+net rating (nudged up and down in turn so neighbors overlap less). The bar in
+the conference's color spans it from its lowest team to its highest, and the
+tick marks its average. `scale_colour_sdv()` and `scale_y_sdv()` take the
+conference names like any team key, so the colors and the conference marks on
+the axis come from sdvplotR (`theme_y_sdv()` lets the axis draw images).
+
+```{r by-conference, fig.height = 7.5, fig.alt = "Every FBS team's logo placed by its net opponent-adjusted EPA per play, one row per conference ordered by average rating, with each conference's logo on the vertical axis and a bar in its color spanning its teams."}
+conf_order <- ratings |>
+  group_by(conference) |>
+  summarise(mean_net = mean(net), lo = min(net), hi = max(net), .groups = "drop") |>
+  arrange(mean_net, conference) |>
+  mutate(row = row_number(), conference = factor(conference, levels = conference))
+teams <- ratings |>
+  inner_join(select(conf_order, conference, row) |> mutate(conference = as.character(conference)), by = "conference") |>
+  arrange(row, net, school) |>
+  group_by(conference) |>
+  mutate(y = row + if_else(row_number() %% 2 == 0, 0.17, -0.17)) |>
+  ungroup()
+
+ggplot() +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "grey60") +
+  geom_segment(
+    data = conf_order,
+    aes(x = lo, xend = hi, y = conference, yend = conference, colour = conference),
+    linewidth = 7, alpha = 0.35, lineend = "round"
+  ) +
+  geom_point(
+    data = conf_order, aes(x = mean_net, y = conference, colour = conference),
+    shape = "|", size = 9
+  ) +
+  # a discrete axis still takes numbers: row 3 is the third conference, so 3.17 sits just above it
+  geom_sdv_logos(data = teams, aes(x = net, y = y, team = school), sport = "cfb", height = 0.04) +
+  scale_colour_sdv(sport = "cfb", guide = "none") +
+  scale_y_sdv(sport = "cfb", size = 30, expand = expansion(add = 0.6)) +
+  scale_x_continuous(expand = expansion(mult = 0.04)) +
+  labs(
+    title = paste("FBS teams by conference,", season, through),
+    subtitle = "Net opponent-adjusted EPA per play; the tick marks the conference average",
+    x = "Net adjusted EPA per play", y = NULL,
+    caption = "Data: cfbfastR | Viz: sdvplotR"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.y = element_blank()
+  ) +
+  theme_y_sdv()
+```
+
+## 3. Offense and defense of the top 25
+
+The two halves of the rating for the top 25, one logo each. The defense axis is
+reversed so the better defenses sit higher, and the dashed lines are the top
+25's averages.
+
+```{r off-def, fig.alt = "The top 25 college football teams' logos placed by adjusted offensive EPA per play (horizontal) and adjusted defensive EPA allowed per play (vertical, reversed so better defenses sit higher), with dashed lines at the group's averages."}
+ggplot(top25, aes(x = off, y = dfn)) +
+  geom_hline(yintercept = mean(top25$dfn), linetype = "dashed", colour = "grey55") +
+  geom_vline(xintercept = mean(top25$off), linetype = "dashed", colour = "grey55") +
+  geom_sdv_logos(aes(team = school), sport = "cfb", height = 0.075) +
+  scale_x_continuous(expand = expansion(mult = 0.08)) +
+  scale_y_reverse(expand = expansion(mult = 0.08)) +
+  labs(
+    title = paste("How the top 25 get there,", season),
+    subtitle = paste("Opponent-adjusted EPA per play,", through),
+    x = "Adjusted offense: EPA per play",
+    y = "Adjusted defense: EPA allowed per play (reversed)",
+    caption = "Data: cfbfastR | Viz: sdvplotR"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold"), panel.grid.minor = element_blank())
+```
+
+## Related
+
+- [NFL weekly](leaderboard-nfl-weekly.html) runs the same EPA tables on nflverse
+  data.
+- [College Football](cfb-viz.html) walks through cfbfastR and sdvplotR more
+  broadly.
+- [Social graphics, automated](automation-social.html) posts tables like these on
+  a schedule.
