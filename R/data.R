@@ -47,7 +47,7 @@
 #' every logo, color and headshot helper as it is.
 #'
 #' @format A tibble with 62 rows (32 NFL teams, then 30 NBA teams), ordered by
-#'   league, conference, division and division finish, and 15 columns:
+#'   league, conference, division and division finish, and 16 columns:
 #' \describe{
 #'   \item{league}{`"nfl"` or `"nba"`, the `sport` value the helpers take.}
 #'   \item{season}{`2025` for the NFL; `2026` for the NBA, whose 2025-26
@@ -68,6 +68,8 @@
 #'     playoff places 1 to 6 and its play-in places 7 to 10.}
 #'   \item{playoff_wins}{Postseason wins, not counting the NBA's play-in;
 #'     `NA` for a team that missed the playoffs.}
+#'   \item{last_season_wins}{Regular-season wins the season before: the NFL's
+#'     2024 and the NBA's 2024-25.}
 #' }
 #'
 #' @source Built by `data-raw/sdv_examples.R`. NFL: the nflverse schedules
@@ -77,7 +79,8 @@
 #'   counting standings games only (not the NBA Cup final or the All-Star
 #'   games), with divisions and conference ranks from ESPN's standings (the
 #'   endpoint `hoopR::espn_nba_standings()` reads), whose records the script
-#'   checks against the box scores. Team names and ESPN ids come from
+#'   checks against the box scores. `last_season_wins` comes from the same
+#'   loaders one season back. Team names and ESPN ids come from
 #'   [team_reference()].
 #'
 #' @examples

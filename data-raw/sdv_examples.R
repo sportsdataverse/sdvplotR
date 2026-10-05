@@ -9,6 +9,8 @@
 #     final, no All-Star games). Divisions and the conference ranks come from
 #     ESPN's standings, the endpoint hoopR::espn_nba_standings() reads, which
 #     must agree with the team box on every record.
+#   * last_season_wins: the same loaders one season back (NFL 2024, NBA
+#     2024-25), for year-over-year examples.
 #
 # Team keys, ESPN ids and names come from this package's own team_reference(),
 # so every `team` resolves through clean_team_abbrs() as itself.
@@ -57,24 +59,43 @@ nfl <- tibble::tibble(
   )
 )
 
+prev <- nflreadr::load_schedules(nfl_season - 1)
+prev <- prev[prev$game_type == "REG", ]
+stopifnot(nrow(prev) == 272, !anyNA(prev$result))
+nfl_prev <- tibble::tibble(
+  league = "nfl",
+  team = c(prev$home_team, prev$away_team),
+  won = c(prev$result > 0, prev$result < 0)
+) |>
+  group_by(league, team) |>
+  summarise(last_season_wins = sum(won), .groups = "drop")
+stopifnot(nrow(nfl_prev) == 32)
+
 # NBA -------------------------------------------------------------------------
 
-sched <- hoopR::load_nba_schedule(nba_season)
-std_ids <- sched$game_id[sched$season_type == 2 & sched$type_abbreviation == "STD"]
-box <- hoopR::load_nba_team_box(nba_season)
+# a season's standings games only: no NBA Cup final, no All-Star games
+nba_regular <- function(season, box = hoopR::load_nba_team_box(season)) {
+  sched <- hoopR::load_nba_schedule(season)
+  std_ids <- sched$game_id[sched$season_type == 2 & sched$type_abbreviation == "STD"]
+  out <- box |>
+    filter(season_type == 2, game_id %in% std_ids) |>
+    group_by(team = team_abbreviation) |>
+    summarise(
+      games = n(),
+      wins = sum(team_winner),
+      losses = sum(!team_winner),
+      points_for = sum(team_score),
+      points_against = sum(opponent_team_score),
+      .groups = "drop"
+    )
+  stopifnot(nrow(out) == 30, all(out$games == 82))
+  out
+}
 
-nba_reg <- box |>
-  filter(season_type == 2, game_id %in% std_ids) |>
-  group_by(team = team_abbreviation) |>
-  summarise(
-    games = n(),
-    wins = sum(team_winner),
-    losses = sum(!team_winner),
-    points_for = sum(team_score),
-    points_against = sum(opponent_team_score),
-    .groups = "drop"
-  )
-stopifnot(nrow(nba_reg) == 30, all(nba_reg$games == 82))
+box <- hoopR::load_nba_team_box(nba_season)
+nba_reg <- nba_regular(nba_season, box)
+nba_prev <- nba_regular(nba_season - 1) |>
+  transmute(league = "nba", team, last_season_wins = wins)
 
 nba_post <- box |>
   filter(season_type == 3) |>
@@ -149,12 +170,14 @@ ref <- bind_rows(team_reference("nfl"), team_reference("nba")) |>
 
 sdv_example_standings <- bind_rows(nfl, nba) |>
   left_join(ref, by = c("league", "team")) |>
+  left_join(bind_rows(nfl_prev, nba_prev), by = c("league", "team")) |>
   mutate(
     conference = coalesce(conference, ref_conf),
     win_pct = round((wins + ties / 2) / (wins + losses + ties), 3)
   )
 stopifnot(
   !anyNA(sdv_example_standings$espn_team_id),
+  !anyNA(sdv_example_standings$last_season_wins),
   identical(
     sdv_example_standings$conference[sdv_example_standings$league == "nfl"],
     sdv_example_standings$ref_conf[sdv_example_standings$league == "nfl"]
@@ -167,7 +190,7 @@ sdv_example_standings <- sdv_example_standings |>
   select(
     league, season, team, espn_team_id, team_name, conference, division,
     wins, losses, ties, win_pct, points_for, points_against,
-    conference_rank, playoff_wins
+    conference_rank, playoff_wins, last_season_wins
   )
 
 # every key is canonical, so it resolves to itself in each helper

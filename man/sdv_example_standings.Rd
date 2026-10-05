@@ -6,7 +6,7 @@
 \title{Final regular-season standings for the examples}
 \format{
 A tibble with 62 rows (32 NFL teams, then 30 NBA teams), ordered by
-league, conference, division and division finish, and 15 columns:
+league, conference, division and division finish, and 16 columns:
 \describe{
 \item{league}{\code{"nfl"} or \code{"nba"}, the \code{sport} value the helpers take.}
 \item{season}{\code{2025} for the NFL; \code{2026} for the NBA, whose 2025-26
@@ -27,6 +27,8 @@ tiebreakers applied: the NFL's playoff seeds are 1 to 7, the NBA's
 playoff places 1 to 6 and its play-in places 7 to 10.}
 \item{playoff_wins}{Postseason wins, not counting the NBA's play-in;
 \code{NA} for a team that missed the playoffs.}
+\item{last_season_wins}{Regular-season wins the season before: the NFL's
+2024 and the NBA's 2024-25.}
 }
 }
 \source{
@@ -37,7 +39,8 @@ sportsdataverse-data team box release, \code{hoopR::load_nba_team_box(2026)},
 counting standings games only (not the NBA Cup final or the All-Star
 games), with divisions and conference ranks from ESPN's standings (the
 endpoint \code{hoopR::espn_nba_standings()} reads), whose records the script
-checks against the box scores. Team names and ESPN ids come from
+checks against the box scores. \code{last_season_wins} comes from the same
+loaders one season back. Team names and ESPN ids come from
 \code{\link[=team_reference]{team_reference()}}.
 }
 \usage{

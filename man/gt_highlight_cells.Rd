@@ -73,6 +73,16 @@ cordf \%>\%
   gt_highlight_cells(-var, ~ .x > 0.7 & .x < 1, fill = "#FFD1A9") \%>\%
   gt_highlight_cells(-var, ~ .x < -0.7, fill = "#A9D0FF")
 
+# a grid of team keys, one column per division in finishing order: playoff
+# teams one color, the conference's top seed another
+afc <- subset(sdv_example_standings, conference == "AFC")
+grid <- data.frame(split(afc$team, afc$division), check.names = FALSE)
+playoffs <- afc$team[afc$conference_rank <= 7]
+top_seed <- afc$team[afc$conference_rank == 1]
+gt(grid) \%>\%
+  gt_highlight_cells(everything(), ~ .x \%in\% playoffs, fill = "#CCE7F5") \%>\%
+  gt_highlight_cells(everything(), ~ .x == top_seed, fill = "#FCCF10")
+
 }
 \seealso{
 \code{gtExtras::gt_highlight_cols()} and \code{gtExtras::gt_highlight_rows()}
