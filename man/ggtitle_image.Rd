@@ -51,6 +51,14 @@ transparent space, can sit wholly above the title). \code{\link[=theme_title_ima
 lines the middle of each image up with the middle of the capital letters
 on its line. Setting \code{plot.title} to a plain \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}}
 instead also renders the image, on the baseline.
+
+Style the title through \code{theme_title_image(...)} (\code{size}, \code{face},
+\code{hjust}, ...), never with a later \code{theme(plot.title = ...)}: adding
+\code{theme(plot.title = ggtext::element_markdown(hjust = 0.5))} after it
+replaces the centering element with a plain markdown one, so the image
+drops back to the baseline, and \code{theme(plot.title = element_text(...))}
+is an error. Add \code{\link[=theme_title_image]{theme_title_image()}} after any complete theme such as
+\code{\link[ggplot2:theme_minimal]{ggplot2::theme_minimal()}}, which replaces every element.
 }
 \examples{
 \donttest{

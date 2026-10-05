@@ -16,6 +16,14 @@
 #'   on its line. Setting `plot.title` to a plain [ggtext::element_markdown()]
 #'   instead also renders the image, on the baseline.
 #'
+#'   Style the title through `theme_title_image(...)` (`size`, `face`,
+#'   `hjust`, ...), never with a later `theme(plot.title = ...)`: adding
+#'   `theme(plot.title = ggtext::element_markdown(hjust = 0.5))` after it
+#'   replaces the centering element with a plain markdown one, so the image
+#'   drops back to the baseline, and `theme(plot.title = element_text(...))`
+#'   is an error. Add [theme_title_image()] after any complete theme such as
+#'   [ggplot2::theme_minimal()], which replaces every element.
+#'
 #' @param title_image The URL of the image to add to the title. If a valid
 #'   team abbreviation for the specified sport, the team logo will be used.
 #' @param title The text for the title.

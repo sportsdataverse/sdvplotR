@@ -221,11 +221,16 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   `clean_team_abbrs()` returned today's Jets (`"WPG"`).
 * `ggtitle_image()` with `theme_title_image()` centers the image on the title
   text. 'gridtext' draws an inline image on the text baseline and ignores CSS
-  `vertical-align`, so a logo taller than the text rose above the title.
+  `vertical-align`, so a logo taller than the text rose above the title. Style
+  the title through `theme_title_image(...)` (`size`, `face`, `hjust`): a later
+  `theme(plot.title = ggtext::element_markdown(...))`, which the old example
+  used, replaces the centering element and the image drops to the baseline.
 * `sdv_team_tiers()` takes `theme = "light"`, a white background with dark
   labels and lines, for dark logos (Toronto, Iowa, West Virginia) that nearly
   vanish on the default dark theme. 'sdvplot' (Python) has the same option.
 * `gt_merge_stack_team_color()` keeps the team-colored text readable: a
-  primary color under 4.5:1 contrast against the new `background` argument
-  (white by default) gives way to the secondary color, or is darkened until it
-  passes, so Missouri's gold no longer vanishes on a white table.
+  primary color under 4.5:1 contrast against the cell background gives way to
+  the secondary color, or is darkened until it passes, so Missouri's gold no
+  longer vanishes on a white table and stays gold on `gt_theme_midnight()`.
+  The new `background` argument defaults to the table's own background color
+  (white when unset); a theme applied after this function isn't seen.

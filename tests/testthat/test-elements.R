@@ -54,7 +54,7 @@ test_that("image axis text set on axis.text.x / .y survives theme_minimal()'s po
   expect_identical(calc_element("axis.text.y.left", th)@id_type, "league")
 
   img <- withr::local_tempfile(fileext = ".png")
-  grDevices::png(img, width = 10, height = 10)
+  grDevices::png(img, width = 20, height = 20)
   grid::grid.rect(gp = grid::gpar(fill = "red"))
   grDevices::dev.off()
   local_mocked_bindings(logo_from_team = function(team, sport, ...) rep(img, length(team)), .package = "sdvplotR")
