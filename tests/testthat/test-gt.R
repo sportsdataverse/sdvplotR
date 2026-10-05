@@ -69,6 +69,21 @@ test_that("gt_merge_stack_team_color stacks and colours text", {
   expect_snapshot(gt_merge_stack_team_color(df, team, mascot, team, sport = "nfl"), error = TRUE)
 })
 
+test_that("gt_merge_stack_team_color keeps the team text readable on the cell", {
+  ink <- function(h) regmatches(h, regexpr("(?<=font-weight:bold;color:)#[0-9A-Fa-f]{6}", h, perl = TRUE))
+  df <- data.frame(team = "MIZ", mascot = "Tigers")
+  # Missouri's gold primary measures 1.8:1 on white; its black secondary passes
+  h <- html_of(gt(df) |> gt_merge_stack_team_color(team, mascot, team, sport = "cfb"))
+  expect_false(grepl("#F1B82D", h, ignore.case = TRUE))
+  expect_gte(.theme_contrast(ink(h), "#FFFFFF"), 4.5)
+  expect_identical(toupper(ink(h)), toupper(sdv_team_colors("cfb", "MIZ", "secondary")[[1]]))
+  # on a dark table the gold passes and stays
+  h_dark <- html_of(gt(df) |> gt_merge_stack_team_color(team, mascot, team, sport = "cfb", background = "#1e1e1e"))
+  expect_identical(toupper(ink(h_dark)), "#F1B82D")
+  # with neither color readable, the primary is darkened until it passes
+  expect_gte(.theme_contrast(sdv_readable_ink("#F1B82D", "#FFE08A", "#FFFFFF"), "#FFFFFF"), 4.5)
+})
+
 test_that("gt headshot helpers pass id_type through", {
   df <- data.frame(id = c("2544", "abc"))
   h <- html_of(gt(df) |> gt_sdv_headshots(columns = "id", sport = "nba", id_type = "league"))
