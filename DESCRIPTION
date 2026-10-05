@@ -72,6 +72,7 @@ VignetteBuilder:
     knitr
 Config/Needs/website:
     r-lib/pkgdown,
+    arrow,
     baseballr,
     cfbfastR,
     cfbseedR,
@@ -81,15 +82,16 @@ Config/Needs/website:
     ggsci,
     hoopR,
     nflfastR,
+    nflseedR,
     nflreadr,
-    nycflights13,
     oddsapiR,
     patchwork,
     plotly,
     kcuilla/reactablefmtr,
-    rvest,
     sportyR,
+    svglite,
     tidyverse,
+    viridis,
     wehoop
 Config/Needs/development:
     devtools,

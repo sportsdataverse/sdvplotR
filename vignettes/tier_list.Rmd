@@ -12,129 +12,184 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   message = FALSE,
-  out.width = "75%",
-  fig.align = "center"
+  warning = FALSE
 )
 ```
 
-```{r setup, message=FALSE}
+A tier list ranks teams into colored bands, best band on top, each band a row of
+logos. `gt_tiers()` draws one from a `gt` table, but it needs the data in a
+particular shape: one row per tier, a `tier` column naming it, and one column per
+slot holding an image URL. This article builds two:
+
+1. **The 2025 NFL season** in four tiers by EPA per play margin, from
+   [`nflfastR`](https://www.nflfastr.com)'s play-by-play, on a light ground.
+2. **The ACC's 2025-26 men's basketball season** in three tiers by efficiency
+   margin, from [`hoopR`](https://hoopR.sportsdataverse.org)'s ESPN box scores, on
+   the default dark ground.
+
+`gt_tiers()` and `gt_theme_tier()` come from Andrew Weatherman's
+[gtUtils](https://github.com/andreweatherman/gtUtils), and this article follows
+his tier-list example.
+
+```{r setup}
 library(sdvplotR)
 library(gt)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 ```
 
-`sdvplotR` ships with a function that makes creating tier lists convenient and quick. However, you need to pass your data to `gt` in a specific format. This vignette walks through how to create a simple tier list.
+## 1. NFL teams by EPA per play margin
 
-```{r, echo = FALSE, out.width="75%", eval=TRUE, fig.alt = "Example tier list on a dark background: ACC team logos ranked into Elite, Average and Poor rows by efficiency margin."}
-knitr::include_graphics("images/tier_list_example.png")
+A team's EPA per play margin is the expected points it added per offensive snap
+minus the expected points it allowed per defensive snap, over pass and run plays.
+One season of play-by-play holds both ends.
+
+```{r nfl-data}
+pbp <- nflreadr::load_pbp(2025) |>
+  filter(season_type == "REG", !is.na(epa), pass == 1 | rush == 1)
+
+nfl <- inner_join(
+  summarise(pbp, off_epa = mean(epa), .by = posteam),
+  summarise(pbp, def_epa = mean(epa), .by = defteam),
+  by = c(posteam = "defteam")
+) |>
+  rename(team = posteam) |>
+  mutate(margin = off_epa - def_epa)
 ```
 
-## Basic Tier List
+### Binning into tiers
 
-For this example, we rank the ACC's men's basketball teams by efficiency margin:
-points scored minus points allowed per 100 possessions, over the last completed
-season, computed from [`hoopR`](https://hoopR.sportsdataverse.org)'s ESPN box
-scores.
+Four tiers: the top eight, the next eight, and so on. `row_number()` ranks the
+teams with the abbreviation as a tiebreaker, so a rebuild bins them the same way,
+and integer division by eight turns the rank into a tier. `tier_order` is each
+team's place within its tier, which becomes its column.
 
-### Processing
+```{r nfl-tiers}
+nfl_tiers <- c(Contenders = "#1B7837", Solid = "#7FBF7B", Shaky = "#F1B6A8", Rebuilding = "#B2182B")
 
-`team_reference()` lists the ACC's members, with their ESPN ids and logos. The
-box scores hold one row per team per game; joining each row to its opponent's
-row gives the possessions and points on both sides.
-
-```{r, message=FALSE}
-# the last completed season, tournament included (hoopR names it for the
-# year it ends; the Final Four is in early April)
-season <- as.integer(format(Sys.Date(), "%Y")) -
-  (format(Sys.Date(), "%m-%d") < "04-10")
-
-acc <- team_reference("mbb") %>%
-  filter(conference == "ACC")
-
-# possessions estimated from the box score
-box <- hoopR::load_mbb_team_box(seasons = season) %>%
-  mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
-
-data <- box %>%
-  filter(team_id %in% acc$espn_team_id) %>%
-  inner_join(
-    select(box, game_id, opponent_team_id = team_id, opp_poss = poss),
-    by = c("game_id", "opponent_team_id")
-  ) %>%
-  summarise(
-    eff_margin = 100 * sum(team_score - opponent_team_score) / sum((poss + opp_poss) / 2),
-    .by = team_id
-  ) %>%
-  mutate(team = acc$team_abbr[match(team_id, acc$espn_team_id)])
-```
-
-We need to establish tiers and colors. For this example, we are going to use three distinct categories and use traditional tier list background colors.
-
-```{r}
-levels <- c("Elite", "Average", "Poor")
-colors <- c("#FF7F7F", "#FFDF7F", "#BFFF7F")
-```
-
-Next, we need to bin our data into these tiers. `subset_rank` uses the `dense_rank` function to assign ordinal ranks based on our column of interest -- efficiency margin. Next, we use the cut function to divide these ranks into distinct tiers based on quantiles, specifying the breaks at the 25th and 75th percentiles. This means the data is split into three groups, with the lower 25% in one tier, the middle 50% in another, and the upper 25% in the final tier. The levels argument provides custom labels for each tier -- referencing the `levels` vector above -- while `include.lowest = TRUE` ensures the lowest rank is included in the first tier.
-
-Finally, tier_order is calculated as the rank within each tier using `dense_rank` again, but this time grouped by the tier to ensure the ordering is relative to each group.
-
-```{r}
-data <- data %>%
+nfl <- nfl |>
+  arrange(desc(margin), team) |>
   mutate(
-    subset_rank = dense_rank(-eff_margin),
-    tier = cut(subset_rank,
-      breaks = quantile(subset_rank, probs = c(0, 0.25, 0.75, 1)),
-      labels = levels,
-      include.lowest = TRUE
-    )
-  ) %>%
-  mutate(tier_order = dense_rank(subset_rank), .by = tier)
+    rank = row_number(),
+    tier = factor(names(nfl_tiers)[(rank - 1) %/% 8 + 1], levels = names(nfl_tiers)),
+    tier_order = (rank - 1) %% 8 + 1
+  )
 ```
 
-`team_reference()` also carries each team's logos. We are going to use a dark
-table theme, so we take the dark-mode logo, falling back to the primary one where
-ESPN has no dark version.
+`nfl_tiers` is a named vector of `tier = color`. `gt_tiers()` takes that shape
+directly, and so does `gt_legend_discrete()`, so one object can drive both.
 
-```{r}
-data <- data %>%
-  left_join(select(acc, team = team_abbr, logo_dark_url, logo_url), by = "team") %>%
-  mutate(logo = coalesce(logo_dark_url, logo_url))
-```
+### The image columns
 
-Finally, we need to pivot our data to a *wide* format. This ensures that we will be plotting logos horizontally.
+The images come from sdvplotR's own team table: `team_reference()` holds every
+team's logo URLs, keyed by the same nflverse abbreviations the play-by-play uses.
 
-```{r}
-data <- data %>%
-  pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo) %>%
-  select(tier, sort(names(.))) %>%
+```{r nfl-wide}
+logos <- team_reference("nfl") |>
+  select(team = team_abbr, logo = logo_url)
+
+nfl_wide <- nfl |>
+  left_join(logos, by = "team") |>
+  pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo, names_sort = TRUE) |>
   arrange(tier)
 ```
 
-Great -- if your data looks similar to this, you're ready to make a tier list!
+`arrange(tier)` sorts by the factor levels, so the best tier is on top rather
+than whichever comes first alphabetically. Each row now holds a tier name and
+eight logo URLs:
 
-```{r, echo = FALSE}
-print(data)
+```{r nfl-peek}
+nfl_wide[, 1:3]
 ```
 
 ### Plotting
 
-`gt_tiers` does a few things under the hood:
--   It renders images from links
--   It applies the `gt_theme_tier` function using "dark" mode as a default
--   It forces all column labels to be blank
+`gt_tiers()` applies `gt_theme_tier()` (dark unless `style = "light"`), renders
+every column other than `tier` as an image, clears the column labels, and fills
+each tier cell with its color, with black or white text by whichever contrasts
+more.
 
-Let's apply it!
-
-```{r tier-table}
-data %>%
-  gt() %>%
-  gt_tiers(levels, colors) %>%
+```{r nfl-tier-table}
+nfl_wide |>
+  gt() |>
+  gt_tiers(nfl_tiers, style = "light", img_height = "46px") |>
   tab_header(
-    title = "Example Tier List using gtUtils",
-    subtitle = paste("Ranking ACC teams by efficiency margin,", season)
-  )
+    title = "The 2025 NFL season in four tiers",
+    subtitle = "Ranked by EPA per play margin: offense minus defense, pass and run plays, regular season"
+  ) |>
+  tab_source_note("Data: nflverse play-by-play via nflfastR")
 ```
 
-All done! You've created a tier list in `gt` using `sdvplotR`. The tier list function is somewhat limited: a) it only supports image cells and b) it will not "wrap" your logos to condense the width (you can play around with image_height to do this).
+## 2. The ACC by efficiency margin
 
+For the second list we rank the ACC's men's basketball teams by efficiency
+margin: points scored minus points allowed per 100 possessions over the 2025-26
+season, tournaments included. `team_reference()` lists the conference's members,
+with their ESPN ids and logos. The box scores hold one row per team per game;
+joining each row to its opponent's row gives the possessions on both sides.
+
+```{r acc-data}
+acc <- team_reference("mbb") |>
+  filter(conference == "ACC")
+
+# possessions estimated from the box score
+box <- hoopR::load_mbb_team_box(seasons = 2026) |>
+  mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
+
+acc_margin <- box |>
+  filter(team_id %in% acc$espn_team_id) |>
+  inner_join(
+    select(box, game_id, opponent_team_id = team_id, opp_poss = poss),
+    by = c("game_id", "opponent_team_id")
+  ) |>
+  summarise(
+    eff_margin = 100 * sum(team_score - opponent_team_score) / sum((poss + opp_poss) / 2),
+    .by = team_id
+  ) |>
+  mutate(team = acc$team_abbr[match(team_id, acc$espn_team_id)])
+```
+
+This time the tiers are uneven: the top quarter, the middle half and the bottom
+quarter. `cut()` divides the ranks at their 25th and 75th percentiles.
+
+```{r acc-tiers}
+acc_tiers <- c(Elite = "#FF7F7F", Average = "#FFDF7F", Poor = "#BFFF7F")
+
+acc_margin <- acc_margin |>
+  arrange(desc(eff_margin), team) |>
+  mutate(
+    rank = row_number(),
+    tier = cut(rank,
+      breaks = quantile(rank, probs = c(0, 0.25, 0.75, 1)),
+      labels = names(acc_tiers),
+      include.lowest = TRUE
+    )
+  ) |>
+  mutate(tier_order = row_number(), .by = tier)
+```
+
+A dark table wants dark-mode logos. `team_reference()` carries both, so we take
+the dark one and fall back to the primary where ESPN has no dark version.
+
+```{r acc-wide}
+acc_wide <- acc_margin |>
+  left_join(select(acc, team = team_abbr, logo_dark_url, logo_url), by = "team") |>
+  mutate(logo = coalesce(logo_dark_url, logo_url)) |>
+  pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo, names_sort = TRUE) |>
+  arrange(tier)
+```
+
+```{r acc-tier-table}
+acc_wide |>
+  gt() |>
+  gt_tiers(acc_tiers, img_height = "48px") |>
+  tab_header(
+    title = "The ACC in three tiers",
+    subtitle = "Efficiency margin per 100 possessions, 2025-26 men's basketball"
+  ) |>
+  tab_source_note("Data: ESPN box scores via hoopR")
+```
+
+The middle tier holds half the conference, so it runs the widest. `gt_tiers()`
+does not wrap a long row; shrink `img_height` or split the tier when a row gets
+too wide for where the table is going.
