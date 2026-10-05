@@ -107,6 +107,31 @@ test_that("sdv_team_tiers builds a plot and validates input", {
   expect_true(all(c("Elite", "Rebuild") %in% labs))
 })
 
+test_that("sdv_team_tiers draws a light theme for dark logos", {
+  tiers <- data.frame(tier_no = c(1, 2), team = c("KC", "SF"))
+  look <- function(p) {
+    th <- ggplot2:::plot_theme(p)
+    list(
+      bg = calc_element("plot.background", th)$fill,
+      title = calc_element("plot.title", th)$colour,
+      label = calc_element("axis.text.y.left", th)$colour,
+      sub = calc_element("plot.subtitle", th)$colour,
+      line = p$layers[[1]]$aes_params$colour,
+      text = p$layers[[2]]$aes_params$colour
+    )
+  }
+  dark <- look(sdv_team_tiers(tiers, sport = "nfl", devel = TRUE))
+  expect_identical(dark$bg, "#1e1e1e")
+  expect_identical(dark$label, "white")
+  light <- look(sdv_team_tiers(tiers, sport = "nfl", devel = TRUE, theme = "light"))
+  expect_identical(light$bg, "#ffffff")
+  # every label and line is dark on the white background
+  for (col in light[c("title", "label", "sub", "line", "text")]) {
+    expect_lt(sum(grDevices::col2rgb(col)), 3 * 128)
+  }
+  expect_error(sdv_team_tiers(tiers, sport = "nfl", theme = "blue"), "theme")
+})
+
 test_that("headshot geom and scales pass id_type through", {
   df <- data.frame(x = 1:2, y = 1:2, id = c("2544", "201939"))
   p <- ggplot(df, aes(x, y)) + geom_sdv_headshots(aes(player_id = id), sport = "nba", id_type = "league")

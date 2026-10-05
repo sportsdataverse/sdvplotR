@@ -16,7 +16,8 @@ sdv_team_tiers(
   alpha = 0.8,
   width = 0.075,
   no_line_below_tier = NULL,
-  devel = FALSE
+  devel = FALSE,
+  theme = c("dark", "light")
 )
 }
 \arguments{
@@ -53,6 +54,11 @@ tier separation lines below these tiers.}
 logos will be rendered on each run. If \code{TRUE} the team abbreviations will
 be plotted instead of the logos. This is much faster and helps with plot
 development.}
+
+\item{theme}{\code{"dark"} (the default: a near-black background with white
+labels) or \code{"light"} (a white background with dark labels and lines), for
+dark logos such as Toronto's, Iowa's or West Virginia's, which nearly
+vanish on the dark one.}
 }
 \value{
 A ggplot object.
@@ -78,5 +84,8 @@ df <- data.frame(
 
 # Plot team tiers
 sdv_team_tiers(df, sport = "nfl")
+
+# dark logos read better on the light theme
+sdv_team_tiers(df, sport = "nfl", theme = "light")
 }
 }
