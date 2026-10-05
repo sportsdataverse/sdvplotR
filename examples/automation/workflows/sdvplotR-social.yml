@@ -1,0 +1,114 @@
+# A template: copy it to .github/workflows/sdvplotR-social.yml in YOUR repository, and
+# sdvplotR_social.R to scripts/sdvplotR_social.R. It is not a workflow of the sdvplotR repository
+# (whose own CI never posts).
+#
+# Every Monday, and whenever you run it by hand, it makes the graphics, prints the would-be posts
+# and uploads the images as an artifact. It posts to Bluesky only when you ask it to (the `post`
+# input of a manual run, or the repository variable SDVPLOTR_POST=true for the schedule) and the
+# BSKY_HANDLE and BSKY_APP_PASSWORD secrets are set. Use a Bluesky app password (Settings >
+# Privacy and security > App passwords), never the account password. Only fresh posts go out
+# (yesterday's games, a season in progress); `--include-stale` on the post line overrides.
+name: sdvplotR-social
+
+on:
+  schedule:
+    - cron: "0 14 * * 1" # Mondays 14:00 UTC: the weekend's games are final and in the release files
+  workflow_dispatch:
+    inputs:
+      post:
+        description: "Post to Bluesky (otherwise a dry-run)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sdvplotR-social
+  cancel-in-progress: false # never cut a posting run short
+
+jobs:
+  social:
+    runs-on: ubuntu-latest # ships Chrome, which the leaderboard tables render in
+    timeout-minutes: 30
+    env:
+      SCRIPT: scripts/sdvplotR_social.R
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          # Pinned, so a scheduled run never picks up a change you have not tried. sdvplotR is pinned
+          # to a commit (it is not on CRAN yet): to upgrade, replace the SHA with a newer commit of
+          # https://github.com/sportsdataverse/sdvplotR/commits/main and copy that commit's
+          # examples/automation/sdvplotR_social.R. Bump the data packages the same way, one at a time.
+          packages: |
+            github::sportsdataverse/sdvplotR@50685b6aa867629fba8f757e5e2194e8f442888f
+            nflreadr@1.5.1
+            hoopR@3.1.0
+            wehoop@3.0.0
+            fastRhockey@1.0.0
+            baseballr@2.0.0
+            httr2@1.3.0
+            jsonlite@2.0.0
+            webshot2@0.1.2
+            ragg@1.5.2
+
+      - name: Make the graphics
+        # Each line adds its posts to out/<today>/manifest.json. Pick your leagues, stats and sizes.
+        run: |
+          set -euo pipefail
+          Rscript "$SCRIPT" leaderboard --league nfl
+          Rscript "$SCRIPT" leaderboard --league nfl --stat rushing_yards --size landscape
+          Rscript "$SCRIPT" gameday --league nfl
+
+      - name: Restore the posted-ledger
+        # out/posted.json records what was posted, so a re-run never posts it twice. Each run, and each
+        # re-run attempt, saves a new cache entry (entries cannot be overwritten) and restores the
+        # newest, so attempt 2 sees what attempt 1 posted. GitHub drops caches
+        # unused for 7 days; losing the ledger is harmless across weeks, since a fresh post is dated
+        # and each week's are new.
+        uses: actions/cache/restore@v4
+        with:
+          path: out/posted.json
+          key: sdvplotR-social-posted-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: sdvplotR-social-posted-
+
+      - name: Show the posts (dry-run)
+        run: |
+          for manifest in out/*/manifest.json; do Rscript "$SCRIPT" post --manifest "$manifest"; done
+
+      - name: Upload the images and manifest
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdvplotR-social
+          path: out/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Post to Bluesky
+        if: ${{ inputs.post || (github.event_name == 'schedule' && vars.SDVPLOTR_POST == 'true') }}
+        env:
+          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+          BSKY_SERVICE: ${{ vars.BSKY_SERVICE }} # optional: another PDS; empty means https://bsky.social
+        run: |
+          if [ -z "$BSKY_HANDLE" ] || [ -z "$BSKY_APP_PASSWORD" ]; then
+            echo "::warning::The BSKY_HANDLE and BSKY_APP_PASSWORD secrets are not set, so nothing was posted."
+            exit 0
+          fi
+          for manifest in out/*/manifest.json; do Rscript "$SCRIPT" post --manifest "$manifest" --post; done
+
+      - name: Save the posted-ledger
+        if: ${{ always() && hashFiles('out/posted.json') != '' }}
+        uses: actions/cache/save@v4
+        with:
+          path: out/posted.json
+          key: sdvplotR-social-posted-${{ github.run_id }}-${{ github.run_attempt }}

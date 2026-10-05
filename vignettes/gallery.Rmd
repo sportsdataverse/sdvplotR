@@ -42,7 +42,9 @@ cards <- data.frame(
     "recipe-nfl-epa-scatter", "recipe-cfb-conference-table", "recipe-nba-net-rating-quadrant",
     "recipe-wnba-scoring-leaders-card", "recipe-mlb-run-differential", "recipe-nhl-shot-map",
     "recipe-college-hoops-tiers", "recipe-rank-bump-chart", "recipe-head-to-head-card",
-    "recipe-wbb-conference-standings"
+    "recipe-wbb-conference-standings",
+    "leaderboard-nfl-weekly", "leaderboard-cfb-weekly", "leaderboard-nba", "leaderboard-wnba",
+    "leaderboard-mlb", "leaderboard-nhl", "automation-social"
   ),
   title = c(
     "Getting Started",
@@ -59,7 +61,9 @@ cards <- data.frame(
     "Recipe: NFL EPA Scatter", "Recipe: CFB Conference Table", "Recipe: NBA Net Rating Quadrant",
     "Recipe: WNBA Scoring Leaders Card", "Recipe: MLB Run Differential", "Recipe: NHL Shot Map",
     "Recipe: College Hoops Tiers", "Recipe: Rank Bump Chart", "Recipe: Head-to-Head Card",
-    "Recipe: WBB Conference Standings"
+    "Recipe: WBB Conference Standings",
+    "NFL Weekly Leaderboard", "College Football Weekly Leaderboard", "NBA Leaderboard",
+    "WNBA Leaderboard", "MLB Leaderboard", "NHL Leaderboard", "Social Graphics, Automated"
   ),
   image = c(
     fig("getting-started", "colors"),
@@ -82,13 +86,18 @@ cards <- data.frame(
     fig("recipe-nba-net-rating-quadrant", "export"), fig("recipe-wnba-scoring-leaders-card", "export"),
     fig("recipe-mlb-run-differential", "export"), fig("recipe-nhl-shot-map", "export"),
     fig("recipe-college-hoops-tiers", "export"), fig("recipe-rank-bump-chart", "export"),
-    fig("recipe-head-to-head-card", "export"), fig("recipe-wbb-conference-standings", "export")
+    fig("recipe-head-to-head-card", "export"), fig("recipe-wbb-conference-standings", "export"),
+    fig("leaderboard-nfl-weekly", "off-def"), fig("leaderboard-cfb-weekly", "by-conference"),
+    fig("leaderboard-nba", "net-rating"), fig("leaderboard-wnba", "off-def"),
+    fig("leaderboard-mlb", "run-differential"), fig("leaderboard-nhl", "points-leaders"),
+    # automation-social shows committed sample output; pkgdown copies vignettes/images to articles/images
+    "../articles/images/automation-score-card.png"
   )
 )
 # Every card has its own picture (checked below). Each picture sits inside a link whose text is the article title, so its alt text names only
 # the kind of picture: a screen reader reads "Figure, NFL", not the title twice.
 stopifnot(!anyDuplicated(cards$image)) # a repeated picture fails the build
-cards$alt <- ifelse(grepl("figure-html", cards$image), "Figure", "Table theme preview")
+cards$alt <- ifelse(grepl("figure-html|articles/images", cards$image), "Figure", "Table theme preview")
 
 htmltools::div(
   class = "sdv-gallery",
