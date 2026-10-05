@@ -223,6 +223,27 @@ fx_workflows_nhl <- function() {
   list(nhl_season = nhl_season, nhl_teams = nhl_teams, call = "fastRhockey::nhl_stats_teams()", package = "fastRhockey")
 }
 
+fx_recipe_mlb <- function() {
+  # recipe-mlb-run-differential, chunk data (a finished season, so the season is pinned)
+  season <- 2026
+  schedule <- baseballr::mlb_schedule(season = season, level_ids = "1") |>
+    filter(game_type == "R") |>
+    select(
+      game_pk, official_date, status_coded_game_state,
+      teams_home_team_id, teams_away_team_id, teams_home_score, teams_away_score
+    )
+  teams <- baseballr::mlb_teams(season = season, sport_ids = 1) |>
+    select(team_id, team_abbreviation)
+  official <- baseballr::mlb_standings(season = season, league_id = "103,104") |>
+    transmute(team_id = team_records_team_id, run_differential = team_records_run_differential)
+  stopifnot(nrow(teams) == 30, nrow(official) == 30, nrow(schedule) >= 2430)
+  list(
+    season = season, schedule = schedule, teams = teams, official = official,
+    call = 'baseballr::mlb_schedule(level_ids = "1"), mlb_teams(), mlb_standings(league_id = "103,104")',
+    package = "baseballr"
+  )
+}
+
 fixtures <- list(
   "mlb-viz/mlb_stats_api" = fx_mlb_viz,
   "mlb-viz/savant" = fx_mlb_viz_savant,
@@ -231,7 +252,8 @@ fixtures <- list(
   "reactable-integration/espn_fpi" = fx_reactable_fpi,
   "reactable-integration/nhl_skaters" = fx_reactable_nhl,
   "workflows/mlb_standings" = fx_workflows_mlb,
-  "workflows/nhl_teams" = fx_workflows_nhl
+  "workflows/nhl_teams" = fx_workflows_nhl,
+  "recipe-mlb-run-differential/mlb_schedule" = fx_recipe_mlb
 )
 
 fixture_dir <- file.path("vignettes", "fixtures")
