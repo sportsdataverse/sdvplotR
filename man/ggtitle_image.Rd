@@ -31,7 +31,8 @@ side of the title text.}
 
 \item{sport}{Character string identifying the sport (for team logo resolution).}
 
-\item{...}{Other arguments passed on to \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}}.}
+\item{...}{Other arguments passed on to \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}}, such
+as \code{size}, \code{face} and \code{hjust}.}
 }
 \value{
 A ggplot2 labs object (for \code{ggtitle_image}) or theme object (for \code{theme_title_image}).
@@ -39,8 +40,17 @@ A ggplot2 labs object (for \code{ggtitle_image}) or theme object (for \code{them
 \description{
 These functions work together to place an image to the left or
 right of the title in a ggplot. \code{\link[=ggtitle_image]{ggtitle_image()}} is the main function but
-must be used with either \code{\link[=theme_title_image]{theme_title_image()}} or by setting the
-\code{plot.title} argument in \code{\link[ggplot2:theme]{ggplot2::theme()}} to \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}}.
+must be used with \code{\link[=theme_title_image]{theme_title_image()}}, which renders the title as
+markdown and centers the image on the title text.
+}
+\details{
+The title is markdown with an inline \verb{<img>} tag. 'gridtext' draws
+inline images on the text baseline and ignores CSS \code{vertical-align}, so a
+logo taller than the text would rise above it (ESPN's marks, padded with
+transparent space, can sit wholly above the title). \code{\link[=theme_title_image]{theme_title_image()}}
+lines the middle of each image up with the middle of the capital letters
+on its line. Setting \code{plot.title} to a plain \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}}
+instead also renders the image, on the baseline.
 }
 \examples{
 \donttest{
@@ -61,7 +71,7 @@ if (requireNamespace("ggtext", quietly = TRUE)) {
       image_side = "left",
       sport = "nfl"
     ) +
-    theme(plot.title = ggtext::element_markdown(size = 20, hjust = 0.5))
+    theme_title_image(size = 20, hjust = 0.5)
 }
 }
 }
