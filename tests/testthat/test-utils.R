@@ -184,6 +184,25 @@ test_that("resolve_historical_abbr is vectorised and leaves unknowns alone", {
   expect_identical(resolve_historical_abbr(character(), "nba"), character())
 })
 
+test_that("resolve_historical_abbr returns the package's canonical keys and agrees with clean_team_abbrs", {
+  # the Rams are "LA" (nflverse), the Pelicans "NO" and the Wizards "WSH" (ESPN)
+  expect_identical(resolve_historical_abbr("STL", "nfl"), "LA")
+  expect_identical(resolve_historical_abbr(c("NOH", "NOK", "WSB"), "nba"), c("NO", "NO", "WSH"))
+  # "WIN" is the original Jets (1979-96, now Utah), not today's Jets ("WPG")
+  expect_identical(resolve_historical_abbr("WIN", "nhl"), "UTAH")
+  expect_identical(clean_team_abbrs("WIN", "nhl"), "UTAH")
+  expect_identical(clean_team_abbrs("WPG", "nhl"), "WPG")
+  for (s in names(historical_team_mappings)) {
+    m <- historical_team_mappings[[s]]
+    canonical <- get_team_ref(s)$team_abbr
+    expect_in(unname(m), canonical)
+    # a relocation key is never a current team's abbreviation
+    expect_false(any(names(m) %in% canonical), label = s)
+    expect_identical(resolve_historical_abbr(names(m), s), unname(m), label = s)
+    expect_identical(clean_team_abbrs(names(m), s), unname(m), label = s)
+  }
+})
+
 test_that("sdv_team_colors returns hex codes keyed by input", {
   cols <- sdv_team_colors("nfl", c("KC", "BUF", "zzz"))
   expect_named(cols, c("KC", "BUF", "zzz"))
