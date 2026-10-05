@@ -80,7 +80,10 @@ ggplot(df, aes(x = team, y = value)) +
 
 ## Theme Elements
 
-Replace axis labels with logos using theme elements:
+Replace axis labels with logos using theme elements. Add them after a complete
+theme such as `theme_minimal()`; set on `axis.text.x` (or `axis.text.y`), they
+also replace the `axis.text.x.bottom` (`axis.text.y.left`) element that theme
+sets:
 
 ```{r theme-elements, eval=FALSE}
 df <- data.frame(
