@@ -39,3 +39,5 @@
 ^vignettes/gallery\.Rmd$
 ^examples$
 ^vignettes/(leaderboard-(nfl-weekly|cfb-weekly|nba|wnba|mlb|nhl)|automation-social)\.Rmd$
+^vignettes/recipe-.*\.Rmd$
+^vignettes/cookbook-(ggplot-logos|colors-themes|interactive|surfaces-shot-charts)\.Rmd$

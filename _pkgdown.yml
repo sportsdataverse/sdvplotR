@@ -286,10 +286,15 @@ articles:
       - wbb-viz
   - title: "Cookbooks"
     desc: >
-      Cross-sport patterns: reactable tables and end-to-end workflows.
+      Task-oriented, cross-league recipes: logos and headshots in ggplot2,
+      team colors and themes, interactive charts, playing surfaces and shot
+      charts, and reactable tables.
     contents:
+      - cookbook-ggplot-logos
+      - cookbook-colors-themes
+      - cookbook-interactive
+      - cookbook-surfaces-shot-charts
       - reactable-integration
-      - workflows
   - title: "gt Tables"
     desc: >
       The SportsDataverse table themes, and the team layer and the gt table
@@ -310,15 +315,28 @@ articles:
       - schedule_matrix
       - tier_list
       - window_wins
-  - title: "Visual recipes"
+  - title: "Recipes"
     desc: >
-      Static versions of SportsDataverse web visuals, built on real
-      SportsDataverse data with sdvplotR's tables and scales.
+      Real-world tasks worked end to end: the brief, the data, a first draft,
+      the fixes that make it publishable, and the export at the size it will be
+      posted. Then static versions of SportsDataverse web visuals, and
+      end-to-end workflows.
     contents:
+      - recipe-nfl-epa-scatter
+      - recipe-cfb-conference-table
+      - recipe-nba-net-rating-quadrant
+      - recipe-wnba-scoring-leaders-card
+      - recipe-mlb-run-differential
+      - recipe-nhl-shot-map
+      - recipe-college-hoops-tiers
+      - recipe-rank-bump-chart
+      - recipe-head-to-head-card
+      - recipe-wbb-conference-standings
       - neighbour-ranks
       - shot-grid
       - rolling-form
       - signature-ribbon
+      - workflows
   - title: "Leaderboards"
     desc: >
       Each league's current season, rebuilt every week with this site: the
@@ -450,14 +468,20 @@ navbar:
         href: articles/wbb-viz.html
       - text: --------------------------------
       - text: "Cookbooks"
+      - text: "Logos in ggplot2"
+        href: articles/cookbook-ggplot-logos.html
+      - text: "Team Colors and Themes"
+        href: articles/cookbook-colors-themes.html
+      - text: "Interactive Charts"
+        href: articles/cookbook-interactive.html
+      - text: "Surfaces and Shot Charts"
+        href: articles/cookbook-surfaces-shot-charts.html
       - text: "Social Posting"
         href: articles/social-posting.html
       - text: "Leaderboard Dashboards"
         href: articles/leaderboard-dashboards.html
       - text: "reactable Integration"
         href: articles/reactable-integration.html
-      - text: "End-to-End Workflows"
-        href: articles/workflows.html
       - text: --------------------------------
       - text: "gt Tables"
       - text: "SportsDataverse Table Themes"
@@ -483,7 +507,27 @@ navbar:
       - text: "Rolling-Window Wins"
         href: articles/window_wins.html
       - text: --------------------------------
-      - text: "Visual recipes"
+      - text: "Recipes"
+      - text: "NFL EPA Scatter"
+        href: articles/recipe-nfl-epa-scatter.html
+      - text: "CFB Conference Table"
+        href: articles/recipe-cfb-conference-table.html
+      - text: "NBA Net Rating Quadrant"
+        href: articles/recipe-nba-net-rating-quadrant.html
+      - text: "WNBA Scoring Leaders Card"
+        href: articles/recipe-wnba-scoring-leaders-card.html
+      - text: "MLB Run Differential"
+        href: articles/recipe-mlb-run-differential.html
+      - text: "NHL Shot Map"
+        href: articles/recipe-nhl-shot-map.html
+      - text: "College Hoops Tiers"
+        href: articles/recipe-college-hoops-tiers.html
+      - text: "Rank Bump Chart"
+        href: articles/recipe-rank-bump-chart.html
+      - text: "Head-to-Head Card"
+        href: articles/recipe-head-to-head-card.html
+      - text: "WBB Conference Standings"
+        href: articles/recipe-wbb-conference-standings.html
       - text: "Neighbour Ranks"
         href: articles/neighbour-ranks.html
       - text: "Shot Grid"
@@ -492,6 +536,8 @@ navbar:
         href: articles/rolling-form.html
       - text: "Signature Ribbon"
         href: articles/signature-ribbon.html
+      - text: "End-to-End Workflows"
+        href: articles/workflows.html
       - text: --------------------------------
       - text: "Leaderboards"
       - text: "NFL Weekly"
