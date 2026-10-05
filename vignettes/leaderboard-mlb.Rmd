@@ -174,36 +174,43 @@ standings |>
 Every club's run differential as a bar in its primary color, best at the top,
 with its logo at the end of the bar.
 
-```{r run-differential, eval = available, fig.height = 8, fig.alt = "Horizontal bar chart of every MLB club's run differential, best at the top, each bar in the club's primary color with its logo at the end of the bar."}
-rd <- standings |>
-  arrange(diff, desc(team_name)) |> # the name breaks a tie, so an unchanged week renders the same
-  mutate(
-    label = sprintf("%s (%+d)", team_name, diff),
-    label = factor(label, levels = label),
-    end = diff + sign(diff) * 0.06 * reach
-  )
+```{r run-differential, fig.height = 8, fig.alt = if (available) "Horizontal bar chart of every MLB club's run differential, best at the top, each bar in the club's primary color with its logo at the end of the bar." else "A note that the MLB standings were unavailable when this page was built."}
+if (available) {
+  rd <- standings |>
+    arrange(diff, desc(team_name)) |> # the name breaks a tie, so an unchanged week renders the same
+    mutate(
+      label = sprintf("%s (%+d)", team_name, diff),
+      label = factor(label, levels = label),
+      end = diff + sign(diff) * 0.06 * reach
+    )
 
-ggplot(rd, aes(y = label)) +
-  geom_col(aes(x = diff, fill = abbreviation), width = 0.72) +
-  geom_vline(xintercept = 0, colour = "grey20", linewidth = 0.4) +
-  geom_sdv_logos(aes(x = end, team = abbreviation), sport = "mlb", height = 0.028) +
-  scale_fill_sdv(sport = "mlb", guide = "none") +
-  scale_x_continuous(limits = c(-1.15, 1.15) * reach) +
-  labs(
-    title = paste("MLB run differential,", season, through),
-    subtitle = "Runs scored minus runs allowed",
-    x = "Run differential", y = NULL,
-    caption = "Data: MLB Stats API via baseballr | Viz: sdvplotR"
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    plot.title = element_text(face = "bold"),
-    panel.grid.major.y = element_blank(),
-    panel.grid.minor = element_blank()
-  )
+  ggplot(rd, aes(y = label)) +
+    geom_col(aes(x = diff, fill = abbreviation), width = 0.72) +
+    geom_vline(xintercept = 0, colour = "grey20", linewidth = 0.4) +
+    geom_sdv_logos(aes(x = end, team = abbreviation), sport = "mlb", height = 0.028) +
+    scale_fill_sdv(sport = "mlb", guide = "none") +
+    scale_x_continuous(limits = c(-1.15, 1.15) * reach) +
+    labs(
+      title = paste("MLB run differential,", season, through),
+      subtitle = "Runs scored minus runs allowed",
+      x = "Run differential", y = NULL,
+      caption = "Data: MLB Stats API via baseballr | Viz: sdvplotR"
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(
+      plot.title = element_text(face = "bold"),
+      panel.grid.major.y = element_blank(),
+      panel.grid.minor = element_blank()
+    )
+} else {
+  # the Stats API did not answer: a stand-in keeps this figure, which the gallery shows
+  ggplot() +
+    annotate("text", x = 0, y = 0, size = 5, label = paste0(
+      "MLB standings were unavailable when this page was built on ", today, ".\nThey return next week."
+    )) +
+    theme_void()
+}
 ```
-
-`r unavailable("MLB standings", available)`
 
 ## 3. League leaders with headshots
 
