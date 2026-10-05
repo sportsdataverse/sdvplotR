@@ -11,6 +11,7 @@ on:
   pull_request:
     paths:
       - examples/automation/**
+      - tests/testthat/test-automation-example.R
       - .github/workflows/automation-example.yaml
 
 permissions:
@@ -47,6 +48,13 @@ jobs:
             any::jsonlite
             any::webshot2
             any::ragg
+            any::testthat
+            any::withr
+
+      - name: Test the script offline
+        # R CMD check and covr run from the built package, which leaves examples/ out, so the
+        # script's tests run here
+        run: Rscript -e 'testthat::test_file("tests/testthat/test-automation-example.R", stop_on_failure = TRUE)'
 
       - name: Make the graphics (live data)
         # The NFL is in season in the fall and the NBA in the winter; the other runs exercise the

@@ -134,8 +134,10 @@ later post carries four more cards and replies to the first.
 
 Each post has a `key` (league, kind, and the game date or the season) and a
 `fresh` flag. A game-day post is fresh when its games are from the requested
-date, not an offseason stand-in. A leaderboard is fresh while its season is under
-way, so its data runs through today; a finished season's table is stale.
+date, not an offseason stand-in. A leaderboard is fresh while its schedule has
+regular-season games left to play, and its table says "through" the last one
+played; a finished regular season's table is stale, even while the playoffs go
+on.
 
 | Option | Command | Meaning |
 |---|---|---|
@@ -145,7 +147,7 @@ way, so its data runs through today; a finished season's table is stale.
 | `--top` | `leaderboard` | rows: default 10 square, 5 landscape |
 | `--size` | `leaderboard` | `square` (1080 x 1080) or `landscape` (1200 x 675) |
 | `--date` | `gameday` | `YYYY-MM-DD`; default yesterday |
-| `--max-games` | `gameday` | score cards to draw; default 8 |
+| `--max-games` | `gameday` | the most score cards to draw; default every game. A capped slate's caption says how many it shows ("8 of 14 games") |
 | `--out` | all | the output root; default `out` |
 | `--manifest` | `post` | the manifest to post; default the newest under `--out` |
 | `--post` | `post` | really post (otherwise a dry-run) |
@@ -184,7 +186,8 @@ Two rules keep a schedule from repeating itself:
 - **Only fresh posts go out.** Stale ones (an offseason stand-in date, a finished
   season's leaders) are skipped unless you pass `--include-stale`. From
   February to August, a weekly NFL run makes the Super Bowl card but does not
-  post it again each week.
+  post it again each week. A manifest made before yesterday is stale as a
+  whole, so an old folder of fresh posts never goes out late.
 - **Nothing is posted twice.** `post` keeps a ledger, `out/posted.json`, beside
   the dated folders. Each post's key is recorded as soon as the post is made, so
   a re-run skips it. A thread that failed partway resumes where it stopped,
@@ -212,7 +215,8 @@ The script makes three AT Protocol calls with httr2:
 
 If Bluesky answers 429 (rate limited), the script waits until the reset time it
 gives, at most a minute, and tries again, up to four attempts in all. Logging in
-and uploading also retry a 5xx answer or a dropped connection. Creating the post
+and uploading also retry a 5xx answer or a dropped connection, after 1, 2 and 4
+seconds. Creating the post
 is never retried after such a failure, because the post may exist: its ledger
 entry stays `pending`, and later runs skip it until you check the account and
 delete the entry. Errors name the call and Bluesky's error, never the
@@ -232,7 +236,10 @@ repository:
 Every Monday, and whenever you run it by hand, the workflow installs R,
 sdvplotR and the data packages (`r-lib/actions/setup-r` and
 `setup-r-dependencies`), makes the graphics, prints the would-be posts and
-uploads `out/` as an artifact. It has read-only repository permissions and posts
+uploads `out/` as an artifact. Everything it installs is pinned (sdvplotR to a
+commit, the data packages to versions), so a scheduled run never picks up a
+change you have not tried; to upgrade, change the SHA and copy that commit's
+script. It has read-only repository permissions and posts
 only when both of these hold:
 
 - you start a run by hand with **post** checked, or set the repository variable

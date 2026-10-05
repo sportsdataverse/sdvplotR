@@ -129,22 +129,51 @@ leader_rows <- function(league, season, stat) {
   )
 }
 
-# Is the season still under way, so a table of it runs "through today"?
-in_progress <- function(league, season, rows, today) {
-  if (season != season_of(league, today)) {
-    return(FALSE)
-  }
+# A league's schedule as one row per game: its date, whether it is a regular-season game, whether
+# it has been played, and (MLB) whether it was postponed or cancelled, so never played on that date
+standard_schedule <- function(league, raw) {
   switch(league,
-    nfl = any(is.na(quietly(nflreadr::load_schedules(season))$result)),
+    nfl = data.frame(
+      date = as.Date(raw$gameday), regular = raw$game_type == "REG", completed = !is.na(raw$result)
+    ),
     nba = ,
-    wnba = ,
-    nhl = as.numeric(today - max(as.Date(rows$game_date))) <= 10,
-    mlb = {
-      cal <- quietly(baseballr::mlb_seasons(sport_id = 1))
-      end <- as.Date(cal$regular_season_end_date[cal$season_id == season])
-      length(end) == 1 && today <= end
-    }
+    wnba = data.frame(
+      date = as.Date(raw$game_date), regular = raw$season_type == 2, completed = raw$status_type_completed %in% TRUE,
+      # a postponed game keeps its row beside the replay's
+      dropped = (raw$status_type_name %||% NA) %in% c("STATUS_POSTPONED", "STATUS_CANCELED")
+    ),
+    nhl = data.frame(
+      date = as.Date(raw$game_date), regular = nhl_type(raw$game_id) == 2,
+      completed = raw$game_state %in% c("OFF", "FINAL"), dropped = raw$game_state %in% c("PPD", "CNCL")
+    ),
+    mlb = data.frame(
+      date = as.Date(raw$official_date), regular = raw$game_type == "R",
+      completed = raw$status_abstract_game_state %in% "Final",
+      dropped = raw$status_detailed_state %in% c("Postponed", "Cancelled")
+    )
   )
+}
+
+#' Is the regular season still under way (any regular-season game left to play), and the date of
+#' its last game played: what a table of it runs "through"
+schedule_state <- function(sched) {
+  done <- sched$regular & sched$completed
+  left <- sched$regular & !sched$completed & !(sched$dropped %||% FALSE)
+  list(in_progress = any(left), through = if (any(done)) max(sched$date[done]) else as.Date(NA))
+}
+
+season_state <- function(league, season) {
+  raw <- switch(league,
+    nfl = quietly(nflreadr::load_schedules(season)),
+    nba = quietly(hoopR::load_nba_schedule(seasons = season)),
+    wnba = quietly(wehoop::load_wnba_schedule(seasons = season)),
+    nhl = quietly(fastRhockey::load_nhl_schedule(seasons = season)),
+    mlb = quietly(baseballr::mlb_schedule(season = season, level_ids = "1"))
+  )
+  if (NROW(raw) == 0) {
+    return(list(in_progress = FALSE, through = as.Date(NA)))
+  }
+  schedule_state(standard_schedule(league, raw))
 }
 
 #' The top players in one stat: rank, id, name, position, team (an sdvplotR key), display value
@@ -225,9 +254,10 @@ fetch_leaders <- function(league, stat = NULL, season = NULL, top = 10, today = 
   }
   label <- stat_label(sub("^(hitting|pitching)\\.", "", stat))
   if (league %in% c("nba", "wnba")) label <- paste(label, "per game")
+  state <- season_state(league, year)
   list(
     frame = out, season = year, stat = stat, label = label,
-    to_date = in_progress(league, year, rows, today), note = note
+    to_date = state$in_progress, through = state$through, note = note
   )
 }
 
@@ -543,7 +573,7 @@ leaderboard_image <- function(leaders, league, size, today, path) {
     sub = trimws(paste(ifelse(nzchar(f$position), paste(f$position, "·"), ""), f$team)),
     team = f$team, logo = f$team, display = f$display
   )
-  when <- if (leaders$to_date) paste("through", sub(", \\d{4}$", "", short_date(today))) else "final"
+  when <- if (leaders$to_date) paste("through", sub(", \\d{4}$", "", short_date(leaders$through))) else "final"
   gt <- gt::gt(table, id = "leaders") |>
     gt::tab_header(
       title = paste(tag, tolower(leaders$label), "leaders"),
@@ -596,7 +626,7 @@ run_leaderboard <- function(args, today = Sys.Date()) {
     "Table of the %s %s leaders, %s regular season: %s.", tag, tolower(leaders$label), label,
     paste(sprintf("%d. %s %s", f$rank, f$name, f$display), collapse = "; ")
   )
-  when <- if (leaders$to_date) paste("through", sub(", \\d{4}$", "", short_date(today))) else "final"
+  when <- if (leaders$to_date) paste("through", sub(", \\d{4}$", "", short_date(leaders$through))) else "final"
   caption <- sprintf(
     "%s %s leaders, %s regular season (%s): %s leads with %s.%s", tag, tolower(leaders$label), label, when,
     f$name[1], f$display[1], if (is.null(leaders$note)) "" else paste0(" ", leaders$note)
@@ -604,13 +634,21 @@ run_leaderboard <- function(args, today = Sys.Date()) {
   # fresh while the season is under way (a new date each run); a final season is the same table every week
   key <- sprintf(
     "%s-leaderboard-%s-%s-%d%s", league, slug(leaders$stat), args$size, leaders$season,
-    if (leaders$to_date) paste0("-", today) else ""
+    if (leaders$to_date) paste0("-", leaders$through) else ""
   )
   post <- list(
     key = key, fresh = leaders$to_date, thread = name, league = league, kind = "leaderboard",
     caption = caption, hashtags = list(tag, "sdvplotR"), images = list(image)
   )
   write_manifest(out, list(post))
+}
+
+#' The first post's caption; a slate cut by --max-games says how many of its games it shows
+gameday_caption <- function(tag, phase, day, drawn, total) {
+  sprintf(
+    "%s %sfinal scores, %s%s.", tag, if (nzchar(phase)) paste0(phase, " ") else "", long_date(day),
+    if (drawn < total) sprintf(" (%d of %d games)", drawn, total) else ""
+  )
 }
 
 winners <- function(game) {
@@ -626,7 +664,8 @@ run_gameday <- function(args, today = Sys.Date()) {
   out <- file.path(args$out, format(today))
   dir.create(out, recursive = TRUE, showWarnings = FALSE)
   stem <- sprintf("%s-%s", league, format(day, "%Y%m%d"))
-  cards <- lapply(seq_len(min(nrow(games), args$max_games)), function(i) {
+  drawn <- min(nrow(games), args$max_games %||% nrow(games)) # every game unless --max-games caps it
+  cards <- lapply(seq_len(drawn), function(i) {
     g <- games[i, ]
     file <- sprintf("%s-%s-at-%s-%s.png", stem, slug(g$away), slug(g$home), slug(g$game_id)) # the id: doubleheaders
     image <- score_card(g, league, day, file.path(out, file))
@@ -649,7 +688,7 @@ run_gameday <- function(args, today = Sys.Date()) {
     }
   }
   phase <- games$phase[1]
-  caption <- sprintf("%s %sfinal scores, %s.", tag, if (nzchar(phase)) paste0(phase, " ") else "", long_date(day))
+  caption <- gameday_caption(tag, phase, day, drawn, nrow(games))
   images <- cards
   if (!is.null(best)) {
     pl <- best$player
@@ -753,32 +792,36 @@ image_bytes <- function(path) {
   stop(sprintf("%s is over 1 MB even as a JPEG", basename(path)), call. = FALSE)
 }
 
+TRIES <- 4 # attempts per Bluesky call
+
+# How long to wait after a 429: until Bluesky's ratelimit-reset (else its retry-after, else 5 s),
+# at least a second and at most a minute
+rate_limit_wait <- function(resp) {
+  reset <- httr2::resp_header(resp, "ratelimit-reset")
+  wait <- if (is.null(reset)) {
+    as.numeric(httr2::resp_header(resp, "retry-after") %||% 5)
+  } else {
+    as.numeric(reset) - as.numeric(Sys.time())
+  }
+  min(max(wait, 1), 60)
+}
+
 #' A Bluesky (AT Protocol) client: the three calls a post needs, over httr2. `perform` sends a
-#' request; tests pass a fake one.
-bluesky <- function(service = "https://bsky.social", perform = httr2::req_perform) {
+#' request and `sleep` waits between tries; tests pass fakes of both.
+bluesky <- function(service = "https://bsky.social", perform = httr2::req_perform, sleep = Sys.sleep) {
   env <- new.env()
   env$service <- sub("/+$", "", service)
   env$jwt <- NULL
   env$did <- NULL
 
-  # A 429 means the request was refused, so a retry is always safe; it waits out Bluesky's
-  # ratelimit-reset (at most a minute). With `retry`, 5xx answers and network failures are
-  # retried too; without it (createRecord) they end the call as ambiguous, since the post may exist.
+  # A 429 means the request was refused, so a retry is always safe: it waits out the rate limit.
+  # With `retry`, 5xx answers and dropped or timed-out connections are retried too, after 1, 2 and
+  # 4 s; without it (createRecord) they end the call as ambiguous, since the post may exist.
   env$call <- function(method, json = NULL, raw = NULL, type = NULL, retry = TRUE) {
     req <- httr2::request(paste0(env$service, "/xrpc/", method)) |>
       httr2::req_method("POST") |>
       httr2::req_timeout(60) |>
-      httr2::req_error(is_error = function(resp) FALSE) |>
-      httr2::req_retry(
-        max_tries = 4, retry_on_failure = retry,
-        is_transient = function(resp) {
-          httr2::resp_status(resp) == 429 || (retry && httr2::resp_status(resp) >= 500)
-        },
-        after = function(resp) {
-          reset <- httr2::resp_header(resp, "ratelimit-reset")
-          if (is.null(reset)) NA else min(max(as.numeric(reset) - as.numeric(Sys.time()), 1), 60)
-        }
-      )
+      httr2::req_error(is_error = function(resp) FALSE)
     if (!is.null(env$jwt)) req <- httr2::req_auth_bearer_token(req, env$jwt)
     req <- if (is.null(raw)) {
       httr2::req_body_json(req, json, auto_unbox = TRUE)
@@ -786,11 +829,33 @@ bluesky <- function(service = "https://bsky.social", perform = httr2::req_perfor
       httr2::req_body_raw(req, raw, type = type)
     }
     maybe <- "; it may have been posted: check the account before posting it again"
-    resp <- tryCatch(perform(req), error = function(e) {
-      # the message would name hosts; the call is enough, and never the credentials
-      stop(post_error(paste0(method, ": network error", if (retry) " after retries" else maybe), ambiguous = !retry))
-    })
-    status <- httr2::resp_status(resp)
+    for (attempt in seq_len(TRIES)) {
+      last <- attempt == TRIES
+      # a failed request's message can name hosts or carry the body, so it is never shown
+      resp <- tryCatch(perform(req), error = function(e) NULL)
+      if (is.null(resp)) {
+        if (retry && !last) {
+          sleep(2^(attempt - 1))
+          next
+        }
+        stop(post_error(
+          paste0(method, ": network error", if (retry) sprintf(" after %d tries", TRIES) else maybe),
+          ambiguous = !retry
+        ))
+      }
+      status <- httr2::resp_status(resp)
+      if (status == 429 && !last) {
+        wait <- rate_limit_wait(resp)
+        message(sprintf("rate limited by Bluesky; waiting %.0f s", wait))
+        sleep(wait)
+        next
+      }
+      if (status >= 500 && retry && !last) {
+        sleep(2^(attempt - 1))
+        next
+      }
+      break
+    }
     if (status >= 400) {
       body <- tryCatch(httr2::resp_body_json(resp), error = function(e) list())
       ambiguous <- status >= 500 && !retry
@@ -837,7 +902,8 @@ newest_manifest <- function(out) {
 }
 
 #' Why each post is skipped, or NA to post it. A thread with a post left out stops there.
-skip_reasons <- function(posts, ledger, include_stale = FALSE) {
+#' `expired`: the manifest is old, so even its fresh posts are stale now.
+skip_reasons <- function(posts, ledger, include_stale = FALSE, expired = FALSE) {
   broken <- character()
   vapply(posts, function(post) {
     entry <- ledger[[post$key]]
@@ -851,8 +917,8 @@ skip_reasons <- function(posts, ledger, include_stale = FALSE) {
       ), post$key)
     } else if (post$thread %in% broken) {
       reason <- "an earlier post of its thread was not posted"
-    } else if (!isTRUE(post$fresh) && !include_stale) {
-      reason <- "stale (pass --include-stale to post it)"
+    } else if ((expired || !isTRUE(post$fresh)) && !include_stale) {
+      reason <- paste0("stale", if (expired) " (an old manifest)" else "", "; pass --include-stale to post it")
     }
     if (!is.na(reason) && !identical(entry$status, "posted")) broken <<- c(broken, post$thread)
     reason
@@ -865,14 +931,18 @@ write_ledger <- function(path, ledger) {
   jsonlite::write_json(ledger, path, auto_unbox = TRUE, pretty = TRUE)
 }
 
-run_post <- function(args, perform = NULL) {
+run_post <- function(args, perform = NULL, sleep = Sys.sleep, today = Sys.Date()) {
   manifest_path <- args$manifest %||% newest_manifest(args$out)
   base <- dirname(manifest_path)
   ledger_path <- args$ledger %||% file.path(dirname(base), "posted.json")
   ledger <- if (file.exists(ledger_path)) jsonlite::read_json(ledger_path) else list()
-  posts <- jsonlite::read_json(manifest_path)$posts
+  manifest <- jsonlite::read_json(manifest_path)
+  posts <- manifest$posts
   for (post in posts) check_post(post, base)
-  reasons <- skip_reasons(posts, ledger, args$include_stale)
+  # a manifest made before yesterday is old news, however fresh its posts were then
+  made <- as.Date(manifest$date %||% NA_character_, optional = TRUE)
+  expired <- is.na(made) || made < today - 1
+  reasons <- skip_reasons(posts, ledger, args$include_stale, expired)
   if (!args$post) {
     cat(sprintf("[dry-run] %d post(s) from %s; nothing sent (add --post to publish)\n", length(posts), manifest_path))
     for (i in seq_along(posts)) {
@@ -906,7 +976,7 @@ run_post <- function(args, perform = NULL) {
     stop(post_error("set BSKY_HANDLE and BSKY_APP_PASSWORD (a Bluesky app password) to post"))
   }
   service <- Sys.getenv("BSKY_SERVICE")
-  client <- bluesky(if (nzchar(service)) service else "https://bsky.social", perform %||% httr2::req_perform)
+  client <- bluesky(if (nzchar(service)) service else "https://bsky.social", perform %||% httr2::req_perform, sleep)
   client$login(handle, password)
   threads <- list() # thread -> list(root, latest) refs
   for (i in seq_along(posts)) {
@@ -999,7 +1069,7 @@ parse_args <- function(argv, today = Sys.Date()) {
   args <- list(
     command = command, out = opts$out %||% "out", league = opts$league, stat = opts$stat,
     season = count("season"), top = count("top"), size = opts$size %||% "square",
-    max_games = count("max-games", 8), manifest = opts$manifest, ledger = opts$ledger,
+    max_games = count("max-games"), manifest = opts$manifest, ledger = opts$ledger,
     post = isTRUE(opts$post), include_stale = isTRUE(opts[["include-stale"]])
   )
   if (command != "post" && !isTRUE(args$league %in% names(LEAGUES))) {
