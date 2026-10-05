@@ -44,24 +44,23 @@
 #' @examples
 #' library(gt)
 #'
-#' assays <- data.frame(
-#'   Sample = paste0("S", 1:6),
-#'   Run1 = c(10.2, 10.4, 10.1, 19.8, 10.3, 10.0),
-#'   Run2 = c(9.9, 10.1, 10.3, 10.2, 2.1, 10.4)
-#' )
+#' nba <- subset(sdv_example_standings, league == "nba",
+#'   c(team_name, points_for, points_against))
 #'
-#' # the default fence catches both the high and the low reading
-#' gt(assays) %>% gt_outliers(c(Run1, Run2), note = TRUE)
+#' # the default fence (1.5 times the IQR) catches the league's lowest scorer
+#' gt(nba) %>% gt_outliers(c(points_for, points_against), note = TRUE)
 #'
 #' # an explicit acceptance range, flagging only the high side
-#' gt(assays) %>%
-#'   gt_outliers(c(Run1, Run2),
-#'     method = "bounds", bounds = c(9, 11),
+#' gt(nba) %>%
+#'   gt_outliers(c(points_for, points_against),
+#'     method = "bounds", bounds = c(NA, 9800),
 #'     side = "high", fill = "#FDECEA", symbol = "†"
 #'   )
 #'
 #' # works on wider data too
-#' gt(head(airquality, 12)) %>% gt_outliers(c(Ozone, Wind, Temp))
+#' nfl <- subset(sdv_example_standings, league == "nfl",
+#'   c(team_name, wins, points_for, points_against))
+#' gt(nfl) %>% gt_outliers(c(wins, points_for, points_against))
 #'
 #' @seealso [gt_highlight_na()] for missing values, and [gt_spotlight()] for
 #'   drawing attention to whole rows.

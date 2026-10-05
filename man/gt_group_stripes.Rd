@@ -40,15 +40,15 @@ sets those, and it sets all of them at once.
 \examples{
 library(gt)
 
-cars <- mtcars[c("mpg", "hp", "wt")]
-cars$cyl <- paste(mtcars$cyl, "cylinders")
+afc <- subset(sdv_example_standings, conference == "AFC",
+  c(team_name, division, wins, losses, points_for))
 
-gt(head(cars, 15), groupname_col = "cyl") \%>\%
+gt(afc, groupname_col = "division") \%>\%
   gt_theme_broadsheet() \%>\%
   gt_group_stripes()
 
 # shade from the first group instead, in a warmer tone
-gt(head(cars, 15), groupname_col = "cyl") \%>\%
+gt(afc, groupname_col = "division") \%>\%
   gt_group_stripes(color = "#FBF3E4", start = 1)
 
 }

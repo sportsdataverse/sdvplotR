@@ -96,8 +96,10 @@ or a CSS string. Any key left out keeps its default.
 \examples{
 library(gt)
 
-t1 <- gt(head(mtcars[c("mpg", "hp")]))
-t2 <- gt(head(iris[c("Sepal.Length", "Species")]))
+t1 <- gt(subset(sdv_example_standings, division == "AFC East",
+  c(team_name, wins, losses)))
+t2 <- gt(subset(sdv_example_standings, division == "Atlantic",
+  c(team_name, wins, losses)))
 
 gt_stack_tables(list(t1, t2))
 
@@ -107,7 +109,7 @@ gt_stack_tables(list(t1, t2))
 \donttest{
 gt_stack_tables(
   list(t1, t2),
-  title = "Two tables",
+  title = "Two leagues",
   subtitle = "Stacked into one block",
   title_style = list(font = "Oswald", size = 30, transform = "uppercase"),
   file = tempfile(fileext = ".png")

@@ -52,10 +52,14 @@ rules, no rules between rows, and no fills. A faint hairline closes the body.
 \examples{
 library(gt)
 
-gt(head(mtcars[c("mpg", "hp", "wt")], 8)) \%>\% gt_theme_tufte()
+nfc_north <- subset(sdv_example_standings, division == "NFC North",
+  c(team_name, wins:points_against))
+gt(nfc_north) \%>\% gt_theme_tufte()
 
 # a muted rust accent on the hairline
-gt(head(airquality, 8)) \%>\% gt_theme_tufte(accent = "#7B3F2B")
+atlantic <- subset(sdv_example_standings, division == "Atlantic",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(atlantic) \%>\% gt_theme_tufte(accent = "#7B3F2B")
 
 }
 \seealso{

@@ -51,7 +51,12 @@ centered.
 
 \examples{
 library(gt)
-gt(head(mtcars)) \%>\% gt_theme_swiss()
-gt(head(iris)) \%>\% gt_theme_swiss(accent = "#D33A2C")
+afc_west <- subset(sdv_example_standings, division == "AFC West",
+  c(team_name, wins:points_against))
+gt(afc_west) \%>\% gt_theme_swiss()
+
+pacific <- subset(sdv_example_standings, division == "Pacific",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(pacific) \%>\% gt_theme_swiss(accent = "#D33A2C")
 
 }

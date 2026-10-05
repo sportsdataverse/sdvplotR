@@ -255,6 +255,10 @@ reference:
     desc: Add a logo or image next to a ggplot2 title.
     contents:
       - ggtitle_image
+  - title: "Example Data"
+    desc: Real final standings that the reference examples run on.
+    contents:
+      - sdv_example_standings
   - title: "Re-exported from ggpath"
     desc: Generic image geoms and theme elements provided by the ggpath backend.
     contents:

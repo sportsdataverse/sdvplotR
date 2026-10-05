@@ -53,7 +53,9 @@ leaves every size as the theme sets it, \code{"compact"} scales both down, and
 
 \examples{
 library(gt)
-gt(head(mtcars)) \%>\% gt_theme_kenpom()
-gt(head(mtcars)) \%>\% gt_theme_kenpom(density = "compact")
+central <- subset(sdv_example_standings, division == "Central",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(central) \%>\% gt_theme_kenpom()
+gt(central) \%>\% gt_theme_kenpom(density = "compact")
 
 }

@@ -107,41 +107,42 @@ Saving needs the \code{webshot2} package.
 \examples{
 library(gt)
 
-by_cyl <- lapply(split(mtcars, mtcars$cyl), function(d) {
-  gt(head(d[c("mpg", "hp", "wt")], 5)) \%>\%
+afc <- subset(sdv_example_standings, conference == "AFC")
+by_division <- lapply(split(afc, afc$division), function(d) {
+  gt(d[c("team_name", "wins", "losses", "points_for")]) \%>\%
     gt_theme_broadsheet() \%>\%
-    tab_header(title = paste(d$cyl[[1]], "cylinders"))
+    tab_header(title = d$division[[1]])
 })
 
-gt_grid(by_cyl, ncol = 2)
+gt_grid(by_division, ncol = 2)
 
 # one heading over the whole sheet
-gt_grid(by_cyl,
-  ncol = 3, title = "Fuel economy by cylinder count",
-  subtitle = "1974 Motor Trend road tests", caption = "Data: mtcars"
+gt_grid(by_division,
+  ncol = 2, title = "The AFC by division",
+  subtitle = "2025 NFL regular season", caption = "Data: nflreadr"
 )
 
 # a 538-style split caption under the whole sheet
-gt_grid(by_cyl,
-  ncol = 3,
-  title = "Fuel economy by cylinder count",
-  caption = gt::md("Cars are grouped by **cylinder count**."),
-  source_note = "Data: mtcars | Andrew Weatherman",
+gt_grid(by_division,
+  ncol = 2,
+  title = "The AFC by division",
+  caption = gt::md("Teams are grouped by **division**."),
+  source_note = "Data: nflreadr | Andrew Weatherman",
   caption_rule = TRUE
 )
 
 # tighten the subtitle up under the title, and open the gap to the grid
-gt_grid(by_cyl,
-  ncol = 3, title = "Fuel economy", subtitle = "Motor Trend, 1974",
+gt_grid(by_division,
+  ncol = 2, title = "The AFC", subtitle = "2025 regular season",
   title_style = list(margin_bottom = -2),
   subtitle_style = list(margin_bottom = 24)
 )
 
 # styled without writing any css
-gt_grid(by_cyl,
-  ncol = 3,
-  title = "Fuel economy by cylinder count",
-  subtitle = "1974 Motor Trend road tests",
+gt_grid(by_division,
+  ncol = 2,
+  title = "The AFC by division",
+  subtitle = "2025 NFL regular season",
   title_style = list(font = "Oswald", size = 34, transform = "uppercase"),
   subtitle_style = list(italic = TRUE, color = "#8A8A8A")
 )
@@ -149,7 +150,7 @@ gt_grid(by_cyl,
 \dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 # straight to an image; saving needs a headless Chrome (webshot2)
 \donttest{
-gt_grid(by_cyl, ncol = 3, file = tempfile(fileext = ".png"), bg = "#FBFAF7")
+gt_grid(by_division, ncol = 2, file = tempfile(fileext = ".png"), bg = "#FBFAF7")
 }
 \dontshow{\}) # examplesIf}
 }

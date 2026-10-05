@@ -73,12 +73,13 @@ padded to the width of the widest before its border is added.
 library(gt)
 
 build <- function(df, group) {
-  gt(df[c("mpg", "hp", "wt")]) \%>\%
+  gt(df[c("team_name", "wins", "losses", "points_for")]) \%>\%
     gt_theme_broadsheet() \%>\%
-    tab_header(title = paste(group, "cylinders"))
+    tab_header(title = group)
 }
 
-gt_save_batch(mtcars, cyl, build, "cars-{group}.png", dir = tempdir())
+nfl <- subset(sdv_example_standings, league == "nfl")
+gt_save_batch(nfl, conference, build, "nfl-{group}.png", dir = tempdir())
 }
 \dontshow{\}) # examplesIf}
 }

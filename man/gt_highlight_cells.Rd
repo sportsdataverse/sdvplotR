@@ -63,22 +63,15 @@ not matched. For more than one color, layer the calls, one per color.
 library(gt)
 
 # a correlation matrix: flag strong pairs, but not the diagonal of ones
-m <- round(cor(mtcars[, c("mpg", "disp", "hp", "wt", "qsec")]), 2)
+nba <- subset(sdv_example_standings, league == "nba")
+nba$point_diff <- nba$points_for - nba$points_against
+vars <- c("wins", "point_diff", "points_for", "points_against", "conference_rank")
+m <- round(cor(nba[vars]), 2)
 cordf <- data.frame(var = rownames(m), m, row.names = NULL, check.names = FALSE)
 cordf \%>\%
   gt(rowname_col = "var") \%>\%
   gt_highlight_cells(-var, ~ .x > 0.7 & .x < 1, fill = "#FFD1A9") \%>\%
   gt_highlight_cells(-var, ~ .x < -0.7, fill = "#A9D0FF")
-
-# a schedule matrix: home games one color, byes another
-sched <- data.frame(
-  team = c("Alpha", "Bravo", "Charlie"),
-  wk1 = c("vs X", "@ Y", "BYE"),
-  wk2 = c("@ W", "vs V", "@ U")
-)
-gt(sched) \%>\%
-  gt_highlight_cells(c(wk1, wk2), ~ grepl("^vs", .x), fill = "#CCE7F5") \%>\%
-  gt_highlight_cells(c(wk1, wk2), ~ .x == "BYE", fill = "#D9D9D9")
 
 }
 \seealso{

@@ -51,16 +51,20 @@ Themes that take extra arguments, such as \code{style} on \code{\link[=gt_theme_
 shown at their defaults.
 }
 \examples{
+nfl <- subset(sdv_example_standings, league == "nfl",
+  c(team_name, wins, losses, win_pct))
 gt_theme_preview(
-  mtcars[c("mpg", "cyl", "hp")],
+  nfl,
   themes = c("gt_theme_sdv", "gt_theme_kenpom", "gt_theme_athletic")
 )
 
 \dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 # a subset, saved as one wide image; saving needs a headless Chrome (webshot2)
 \donttest{
+nba <- subset(sdv_example_standings, league == "nba",
+  c(team_name, wins, losses, win_pct))
 gt_theme_preview(
-  iris,
+  nba,
   themes = c("gt_theme_broadsheet", "gt_theme_swiss", "gt_theme_midnight"),
   ncol = 3, file = tempfile(fileext = ".png")
 )

@@ -59,12 +59,16 @@ with \code{\link[=gt_color_ranks]{gt_color_ranks()}} instead.
 
 \examples{
 library(gt)
-gt(head(mtcars)) \%>\% gt_theme_midnight()
+nfc_west <- subset(sdv_example_standings, division == "NFC West",
+  c(team_name, wins:points_against))
+gt(nfc_west) \%>\% gt_theme_midnight()
 
 # color scales need lifting on a dark ground; see pal_midnight
-gt(head(airquality, 10)) \%>\%
+west <- subset(sdv_example_standings, league == "nba" & conference == "Western",
+  c(team_name, wins, losses, win_pct))
+gt(west) \%>\%
   gt_theme_midnight() \%>\%
-  gt_color_ranks(Temp, palette = pal_midnight)
+  gt_color_ranks(win_pct, palette = pal_midnight)
 
 }
 \seealso{

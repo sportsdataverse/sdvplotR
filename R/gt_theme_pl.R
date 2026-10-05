@@ -30,7 +30,9 @@
 #'
 #' @examples
 #' library(gt)
-#' gt(head(mtcars)) %>% gt_theme_pl()
+#' southeast <- subset(sdv_example_standings, division == "Southeast",
+#'   c(team_name, wins, losses, win_pct:points_against))
+#' gt(southeast) %>% gt_theme_pl()
 #'
 #' @import gt
 #' @importFrom magrittr %>%

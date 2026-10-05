@@ -29,10 +29,12 @@
 #'
 #' @examples
 #' library(gt)
-#' gt(head(mtcars)) %>% gt_theme_scoreboard()
+#' northwest <- subset(sdv_example_standings, division == "Northwest",
+#'   c(team_name, wins, losses, win_pct:points_against))
+#' gt(northwest) %>% gt_theme_scoreboard()
 #'
 #' # a brand color carries the whole table
-#' gt(head(mtcars)) %>% gt_theme_scoreboard(accent = "#0F766E")
+#' gt(northwest) %>% gt_theme_scoreboard(accent = "#0F766E")
 #'
 #' @seealso [gt_spotlight()] for picking out a row, and [gt_fmt_rank()] for ordinals.
 #' @import gt

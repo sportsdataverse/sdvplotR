@@ -32,7 +32,7 @@ gt_color_pills(
 \item{columns}{The columns to fill with pills, using tidyselect.}
 
 \item{rows}{The rows to fill. Either an expression evaluated against the
-table's data, such as \code{mpg > 20}, or a numeric vector of row indices. Rows
+table's data, such as \code{wins > 10}, or a numeric vector of row indices. Rows
 left out keep their raw value. If \code{NULL}, every row is filled. Defaults to
 \code{NULL}.}
 
@@ -114,22 +114,26 @@ range and warns, since the color mapping then depends on the data present.
 \examples{
 library(gt)
 
-gt(head(mtcars)) \%>\% gt_color_pills(mpg, domain = c(10, 35))
+# the AFC's seven playoff teams
+afc <- subset(sdv_example_standings, conference == "AFC" & conference_rank <= 7,
+  c(team_name, wins, losses, points_for, points_against))
+
+gt(afc) \%>\% gt_color_pills(wins, domain = c(0, 17))
 
 # several columns on one shared domain
-gt(head(mtcars)) \%>\% gt_color_pills(c(disp, hp), domain = c(50, 500))
+gt(afc) \%>\% gt_color_pills(c(points_for, points_against), domain = c(250, 550))
 
 # tidyselect works too
-gt(head(mtcars)) \%>\% gt_color_pills(where(is.numeric), domain = c(0, 500))
+gt(afc) \%>\% gt_color_pills(starts_with("points"), domain = c(250, 550))
 
 # only the rows that clear a threshold; the rest keep their raw value
-gt(head(mtcars)) \%>\% gt_color_pills(mpg, rows = mpg > 20, domain = c(10, 35))
+gt(afc) \%>\% gt_color_pills(wins, rows = wins >= 13, domain = c(0, 17))
 
 # color by rank rather than value, with a paletteer palette
-gt(head(mtcars)) \%>\%
-  gt_color_pills(hp,
+gt(afc) \%>\%
+  gt_color_pills(points_for,
     fill_type = "rank", palette = "viridis::mako",
-    domain = c(1, 6), digits = 0
+    domain = c(1, 7), digits = 0
   )
 
 }

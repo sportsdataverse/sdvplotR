@@ -52,17 +52,20 @@ and no fills. The type is a Times-compatible serif.
 \examples{
 library(gt)
 
-gt(head(mtcars[c("mpg", "hp", "wt")], 8)) \%>\% gt_theme_booktabs()
+afc_west <- subset(sdv_example_standings, division == "AFC West",
+  c(team_name, wins:points_against))
+gt(afc_west) \%>\% gt_theme_booktabs()
 
 # a regression table, with significance stars and a colored rule
-fit <- lm(mpg ~ wt + hp, data = mtcars)
+nfl <- subset(sdv_example_standings, league == "nfl")
+fit <- lm(win_pct ~ points_for + points_against, data = nfl)
 data.frame(
   Term = names(coef(fit)),
   Estimate = coef(fit),
   p = summary(fit)$coefficients[, 4]
 ) \%>\%
   gt() \%>\%
-  fmt_number(Estimate, decimals = 3) \%>\%
+  fmt_number(Estimate, decimals = 4) \%>\%
   gt_significance(Estimate, p) \%>\%
   gt_theme_booktabs(accent = "#1A3E6F")
 

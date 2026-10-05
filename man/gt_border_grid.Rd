@@ -33,10 +33,14 @@ border. A table id is resolved or generated first, since that CSS is keyed on
 \examples{
 library(gt)
 
-gt(head(mtcars)) \%>\% gt_border_grid()
+afc_south <- subset(sdv_example_standings, division == "AFC South",
+  c(team_name, wins:points_against))
+gt(afc_south) \%>\% gt_border_grid()
 
 # heavier gray lines, including around the labels
-gt(head(iris)) \%>\%
+pacific <- subset(sdv_example_standings, division == "Pacific",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(pacific) \%>\%
   gt_border_grid(color = "#BBBBBB", weight = 2, include_labels = TRUE)
 
 }

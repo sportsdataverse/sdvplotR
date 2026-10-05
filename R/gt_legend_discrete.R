@@ -79,12 +79,15 @@
 #' @examples
 #' library(gt)
 #'
+#' afc_west <- subset(sdv_example_standings, division == "AFC West",
+#'   c(team_name, wins, losses, playoff_wins))
+#'
 #' # a named vector is the quickest way in
-#' gt(head(mtcars[c("mpg", "cyl", "hp")], 6)) %>%
-#'   gt_legend_discrete(c("Efficient" = "#CCE7F5", "Thirsty" = "#F5CCCC"))
+#' gt(afc_west) %>%
+#'   gt_legend_discrete(c("Playoffs" = "#CCE7F5", "Missed" = "#F5CCCC"))
 #'
 #' # rounded swatches below the table, labels on the swatches
-#' gt(head(mtcars[c("mpg", "cyl", "hp")], 6)) %>%
+#' gt(afc_west) %>%
 #'   gt_legend_discrete(
 #'     c("Yes" = "#FCCF10", "No" = "#EEEEEE"),
 #'     heading = "Qualified",
@@ -94,7 +97,7 @@
 #'   )
 #'
 #' # style the heading and labels through lists, the same way gt_grid() does
-#' gt(head(mtcars[c("mpg", "cyl", "hp")], 6)) %>%
+#' gt(afc_west) %>%
 #'   gt_legend_discrete(
 #'     c("Home" = "#CCE7F5", "Away" = "#FFFFFF", "Bye" = "#EEEEEE"),
 #'     heading = "2025 Schedule",

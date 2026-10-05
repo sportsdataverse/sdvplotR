@@ -59,17 +59,21 @@ placeholders such as \code{"-"} or \code{"N/A"}.
 \examples{
 library(gt)
 
-gt(head(airquality, 10)) \%>\% gt_highlight_na(c(Ozone, Solar.R))
+# playoff_wins is NA for the teams that missed the playoffs
+afc <- subset(sdv_example_standings, conference == "AFC",
+  c(team_name, wins, losses, conference_rank, playoff_wins))
+
+gt(afc) \%>\% gt_highlight_na(playoff_wins)
 
 # relabel as well as highlight
-gt(head(airquality, 10)) \%>\%
-  gt_highlight_na(c(Ozone, Solar.R),
-    missing_text = "not recorded",
+gt(afc) \%>\%
+  gt_highlight_na(playoff_wins,
+    missing_text = "missed playoffs",
     italic = TRUE, fill = "#FFF8E1"
   )
 
 # also catch placeholder strings left behind by a CSV import
-gt(head(airquality, 10)) \%>\%
+gt(afc) \%>\%
   gt_highlight_na(everything(), na_strings = c("NA", "N/A", "-"))
 
 }

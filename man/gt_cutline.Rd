@@ -86,17 +86,18 @@ table's options, so a line labeled first loses the stripe under its own row.
 \examples{
 library(gt)
 
-efficient <- head(mtcars[order(-mtcars$mpg), c("mpg", "hp", "wt")], 12)
-efficient$car <- rownames(efficient)
+east <- subset(sdv_example_standings, league == "nba" & conference == "Eastern",
+  c(conference_rank, team_name, wins, losses, win_pct))
+east <- east[order(east$conference_rank), ]
 
-# mark where the top six ends
-gt(efficient) \%>\%
+# mark where the six teams that skip the play-in end
+gt(east) \%>\%
   gt_theme_broadsheet() \%>\%
-  gt_cutline(after = 6, label = "Top six")
+  gt_cutline(after = 6, label = "Playoffs")
 
-# two lines, one of them unlabeled
-gt(efficient) \%>\%
-  gt_cutline(after = c(3, 6), label = c("Shortlist", NA), color = "#0054AD")
+# the play-in line as well, unlabeled
+gt(east) \%>\%
+  gt_cutline(after = c(6, 10), label = c("Playoffs", NA), color = "#0054AD")
 
 }
 \seealso{

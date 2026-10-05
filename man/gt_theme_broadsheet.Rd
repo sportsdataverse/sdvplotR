@@ -56,10 +56,14 @@ rather than a colored band.
 \examples{
 library(gt)
 
-gt(head(mtcars[c("mpg", "hp", "wt")], 8)) \%>\% gt_theme_broadsheet()
+nfc_east <- subset(sdv_example_standings, division == "NFC East",
+  c(team_name, wins:points_against))
+gt(nfc_east) \%>\% gt_theme_broadsheet()
 
 # financial-press pink, sized for an image export
-gt(head(airquality, 8)) \%>\%
+pacific <- subset(sdv_example_standings, division == "Pacific",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(pacific) \%>\%
   gt_theme_broadsheet(paper = "salmon", accent = "#0F5257", density = "social")
 
 }
