@@ -293,7 +293,7 @@ spot <- lapply(chunks, function(x) {
   block(x) |>
     gt_spotlight(
       rows = conf == top_conf$conf, if_none = "dim",
-      accent_color = "darkred", dim_color = "lightgrey"
+      accent_color = "darkred"
     )
 })
 
@@ -337,8 +337,11 @@ The rest of its arguments control the look:
 - `accent_color`: draws a bar on the left edge of each lit row.
   Supplying a color is what turns the bar on. `accent_width` sets its
   thickness, and `accent_column` moves it to a different column.
-- `dim_color`: the text color for the muted rows. Setting it to `NULL`
-  emphasizes the chosen rows without dimming the others.
+- `dim_color`: the text color for the muted rows. By default it is
+  worked out from the table’s background, as faint as it can be while
+  still passing WCAG AA contrast (4.5:1), so the dimmed teams stay
+  readable on a light or a dark theme. Setting it to `NULL` emphasizes
+  the chosen rows without dimming the others.
 - `fill`, `text_color`, and `bold`: styling for the lit rows themselves.
 - `columns`: narrows the spotlight to some columns, dimming the rest of
   the row too, so only those cells stay at full strength.

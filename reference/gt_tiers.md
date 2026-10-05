@@ -15,7 +15,8 @@ gt_tiers(
   style = "dark",
   img_height = "55px",
   tier_column = "tier",
-  image_columns = NULL
+  image_columns = NULL,
+  alt = NULL
 )
 ```
 
@@ -61,6 +62,16 @@ gt_tiers(
   Optional. The columns to render as images. When `NULL`, every column
   other than `tier_column` is rendered as images. Defaults to `NULL`.
 
+- alt:
+
+  Optional. A function that takes the image paths or URLs and returns
+  their alt text, one string per image, such as
+  `function(url) names_by_url[url]`. Defaults to `NULL`, which names a
+  team logo or wordmark the package knows (any URL in
+  [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md),
+  and the season logos `season` draws) by the team, and any other image
+  by its file name without the extension.
+
 ## Value
 
 Returns a modified `gt` table with the tier column colored and bolded.
@@ -72,9 +83,9 @@ The theme is applied once with
 the image columns are passed through
 [`gt::fmt_image()`](https://gt.rstudio.com/reference/fmt_image.html) at
 `img_height`, and all column labels are cleared, so the input for those
-columns must be image paths or URLs. A path or URL names nothing, so
-each image gets the `alt` text `"Tier list entry"`. The function then
-reduces over `levels`, and for each level fills the matching
+columns must be image paths or URLs. Each image gets its own `alt` text
+from `alt`, so a screen reader can tell the entries apart. The function
+then reduces over `levels`, and for each level fills the matching
 `tier_column` cells with the paired color and sets their text to black
 or white, whichever measures higher contrast against that fill, so each
 band keeps a legible label. Naming `image_columns` leaves the rest

@@ -17,7 +17,7 @@ gt_spotlight(
   accent_color = NULL,
   accent_width = 4,
   accent_column = NULL,
-  dim_color = "#BBBBBB",
+  dim_color = "auto",
   if_none = c("warn", "dim", "ignore")
 )
 ```
@@ -77,9 +77,13 @@ gt_spotlight(
 
 - dim_color:
 
-  Character. The text color applied to every other row. Pass `NULL` to
-  leave the other rows alone, emphasizing without dimming. Defaults to
-  `"#BBBBBB"`.
+  Character. The text color applied to every other row. `"auto"`, the
+  default, blends the table's text toward its background until it sits
+  just above 4.5:1 contrast against it (WCAG AA for text), so the rows
+  read as muted rather than disabled, on a light or a dark theme. Apply
+  the theme first: the background is read from the table as set so far.
+  Pass a color to choose it yourself, or `NULL` to leave the other rows
+  alone, emphasizing without dimming.
 
 - if_none:
 

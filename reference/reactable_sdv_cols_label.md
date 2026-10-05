@@ -38,7 +38,8 @@ reactable_sdv_cols_label(
 
   Character. Logo variant: `"primary"`, `"dark"`, `"light"`, `"alt"`,
   `"classic"`, or `"helmet"` (NFL only). Falls back to the primary image
-  when the requested variant is not available for a team.
+  when the requested variant is not available for a team, and, in the
+  browser, when the variant's file fails to load.
 
 - height:
 

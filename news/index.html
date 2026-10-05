@@ -277,6 +277,12 @@
 <code><a href="../reference/sdv_team_tiers.html">sdv_team_tiers()</a></code> takes <code>theme = "light"</code>, a white background with dark labels and lines, for dark logos (Toronto, Iowa, West Virginia) that nearly vanish on the default dark theme. ‘sdvplot’ (Python) has the same option.</li>
 <li>
 <code><a href="../reference/gt_merge_stack_team_color.html">gt_merge_stack_team_color()</a></code> keeps the team-colored text readable: a primary color under 4.5:1 contrast against the cell background gives way to the secondary color, or is darkened until it passes, so Missouri’s gold no longer vanishes on a white table and stays gold on <code><a href="../reference/gt_theme_midnight.html">gt_theme_midnight()</a></code>. The new <code>background</code> argument defaults to the table’s own background color (white when unset); a theme applied after this function isn’t seen.</li>
+<li>
+<code><a href="../reference/gt_tiers.html">gt_tiers()</a></code> gives each image its own alt text, so a screen reader can tell the entries apart (they all read “Tier list entry”). A logo or wordmark from <code><a href="../reference/team_reference.html">team_reference()</a></code>, or a season logo, takes the team’s name; any other image its file name. The new <code>alt</code> argument takes a function of the image URLs for your own text.</li>
+<li>
+<code><a href="../reference/gt_spotlight.html">gt_spotlight()</a></code> dims the other rows to a readable tone. The fixed <code>"#BBBBBB"</code> it took from gtUtils measured 1.9:1 against a white table, under the 4.5:1 WCAG AA asks of text, so the rows read as disabled; on a dark theme it was barely dimmer than the text. The new default, <code>dim_color = "auto"</code>, blends the table’s text toward its background until it sits just above 4.5:1, so the spotlight still stands out and the other rows stay readable. Pass <code>dim_color = "#BBBBBB"</code> for the old look.</li>
+<li>
+<code><a href="../reference/reactable_sdv_images.html">reactable_sdv_logos()</a></code>, <code><a href="../reference/reactable_sdv_images.html">reactable_sdv_wordmarks()</a></code> and <code><a href="../reference/reactable_sdv_cols_label.html">reactable_sdv_cols_label()</a></code> fall back to the primary image in the browser when a variant fails to load. ESPN can drop a variant file the team data still lists (the “reactable Integration” article’s dark Houston Texans logo 404’d), which left a broken image; the <code>&lt;img&gt;</code> now swaps to the primary logo instead.</li>
 </ul></div>
   </main></div>
 
