@@ -35,12 +35,16 @@
 #'
 #' @examples
 #' library(gt)
-#' gt(head(mtcars)) %>% gt_theme_midnight()
+#' nfc_west <- subset(sdv_example_standings, division == "NFC West",
+#'   c(team_name, wins:points_against))
+#' gt(nfc_west) %>% gt_theme_midnight()
 #'
 #' # color scales need lifting on a dark ground; see pal_midnight
-#' gt(head(airquality, 10)) %>%
+#' west <- subset(sdv_example_standings, league == "nba" & conference == "Western",
+#'   c(team_name, wins, losses, win_pct))
+#' gt(west) %>%
 #'   gt_theme_midnight() %>%
-#'   gt_color_ranks(Temp, palette = pal_midnight)
+#'   gt_color_ranks(win_pct, palette = pal_midnight)
 #'
 #' @seealso [pal_midnight] for a color scale that survives a dark ground, and
 #'   [gt_theme_terminal()] for a denser dark look.
@@ -160,9 +164,11 @@ gt_theme_midnight <- function(gt_object, accent = "#5B8DEF",
 #' @format A character vector of five hex colors, running best to worst.
 #'
 #' @examples
-#' gt::gt(head(airquality, 10)) %>%
+#' west <- subset(sdv_example_standings, league == "nba" & conference == "Western",
+#'   c(team_name, wins, losses, win_pct))
+#' gt::gt(west) %>%
 #'   gt_theme_midnight() %>%
-#'   gt_color_ranks(Temp, palette = pal_midnight)
+#'   gt_color_ranks(win_pct, palette = pal_midnight)
 #'
 #' @seealso [gt_theme_midnight()].
 #' @export

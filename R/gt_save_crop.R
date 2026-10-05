@@ -33,12 +33,16 @@
 #' \donttest{
 #' library(gt)
 #'
-#' gt(head(mtcars)) %>%
+#' afc_east <- subset(sdv_example_standings, division == "AFC East",
+#'   c(team_name, wins:points_against))
+#' gt(afc_east) %>%
 #'   gt_theme_broadsheet() %>%
 #'   gt_save_crop(tempfile(fileext = ".png"))
 #'
 #' # pin a shared width across a series
-#' gt(head(iris)) %>%
+#' atlantic <- subset(sdv_example_standings, division == "Atlantic",
+#'   c(team_name, wins, losses, win_pct:points_against))
+#' gt(atlantic) %>%
 #'   gt_save_crop(tempfile(fileext = ".png"), width = 900, bg = "#FBFAF7")
 #' }
 #'

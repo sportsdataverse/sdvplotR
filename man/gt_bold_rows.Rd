@@ -17,7 +17,7 @@ gt_bold_rows(
 \item{gt_object}{A \code{gt} table object to modify.}
 
 \item{rows}{The rows to bold. Either an expression evaluated against the
-table's data, such as \code{mpg > 20}, or a numeric vector of row indices. If
+table's data, such as \code{wins > 10}, or a numeric vector of row indices. If
 \code{NULL}, every row is bolded. Defaults to \code{NULL}.}
 
 \item{text_color}{Character. The text color for the bolded rows. Defaults to
@@ -40,7 +40,7 @@ fill their background. Rows are chosen by index or by a filter expression; with
 neither, every row is bolded.
 }
 \details{
-\code{rows} is evaluated against the table's underlying data, so \code{rows = mpg > 20}
+\code{rows} is evaluated against the table's underlying data, so \code{rows = wins > 10}
 bolds the rows where that is \code{TRUE}; a numeric vector picks rows by index. The
 deprecated \code{row} is passed on to \code{rows}, and the deprecated \code{filter_statement}
 string, when given, takes precedence over \code{rows}. The styling is applied with a single
@@ -50,11 +50,14 @@ chosen rows.
 \examples{
 library(gt)
 
-# bold every row
-gt(head(mtcars)) \%>\% gt_bold_rows()
+nfc_west <- subset(sdv_example_standings, division == "NFC West",
+  c(team_name, wins:points_against))
 
-# bold and fill the rows above 20 mpg
-gt(head(mtcars)) \%>\%
-  gt_bold_rows(rows = mpg > 20, highlight_color = "#FFF3B0")
+# bold every row
+gt(nfc_west) \%>\% gt_bold_rows()
+
+# bold and fill the teams with a winning record
+gt(nfc_west) \%>\%
+  gt_bold_rows(rows = win_pct > 0.5, highlight_color = "#FFF3B0")
 
 }

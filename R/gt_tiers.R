@@ -40,17 +40,18 @@
 #' @examples
 #' library(gt)
 #'
-#' standings <- data.frame(
-#'   tier = c("A", "A", "B"),
-#'   logo = c(
-#'     "https://example.com/1.png",
-#'     "https://example.com/2.png",
-#'     "https://example.com/3.png"
-#'   )
+#' # the AFC's seven playoff seeds: the top seed's bye, then the wild-card round
+#' afc <- subset(sdv_example_standings, conference == "AFC" & conference_rank <= 7)
+#' afc <- afc[order(afc$conference_rank), ]
+#' nfl_ref <- team_reference("nfl")
+#' seeds <- data.frame(
+#'   tier = ifelse(afc$conference_rank == 1, "Bye", "Wild card"),
+#'   logo = nfl_ref$logo_url[match(afc$team, nfl_ref$team_abbr)]
 #' )
 #'
-#' gt(standings) %>%
-#'   gt_tiers(levels = c("A", "B"), colors = c("#1B7837", "#B2182B"))
+#' # the logos are URLs, which the browser fetches when the table is shown
+#' gt(seeds) %>%
+#'   gt_tiers(levels = c("Bye", "Wild card"), colors = c("#1B7837", "#B2182B"))
 #'
 #' @import gt
 #' @export

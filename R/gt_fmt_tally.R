@@ -46,32 +46,27 @@
 #' @examples
 #' library(gt)
 #'
-#' suites <- data.frame(
-#'   Suite = c("Parser", "Renderer", "Exporter"),
-#'   Passed = c(142, 98, 211),
-#'   Failed = c(8, 2, 17)
-#' )
+#' atlantic <- subset(sdv_example_standings, division == "Atlantic",
+#'   c(team_name, wins, losses))
 #'
-#' # renders as "142-8"
-#' gt(suites) %>% gt_fmt_tally(c(Passed, Failed), label = "Result")
+#' # renders as "56-26"
+#' gt(atlantic) %>% gt_fmt_tally(c(wins, losses), label = "Record")
 #'
-#' # renders as "142-8 (94.7%)"
-#' gt(suites) %>% gt_fmt_tally(c(Passed, Failed), share = TRUE)
+#' # renders as "56-26 (68.3%)"
+#' gt(atlantic) %>% gt_fmt_tally(c(wins, losses), share = TRUE)
 #'
-#' # the failure rate instead, in its own column
-#' gt(suites) %>%
-#'   gt_fmt_tally(c(Passed, Failed),
-#'     share = TRUE, share_of = "Failed",
-#'     share_location = "column", share_label = "Fail rate"
+#' # the losing share instead, in its own column
+#' gt(atlantic) %>%
+#'   gt_fmt_tally(c(wins, losses),
+#'     share = TRUE, share_of = "losses",
+#'     share_location = "column", share_label = "Loss rate"
 #'   )
 #'
-#' # three counts, as in a league table
-#' league <- data.frame(
-#'   Club = c("Arsenal", "Chelsea"),
-#'   W = c(26, 18), D = c(6, 10), L = c(6, 10)
-#' )
+#' # three counts, as in an NFL standings table
+#' nfc_east <- subset(sdv_example_standings, division == "NFC East",
+#'   c(team_name, wins, losses, ties))
 #'
-#' gt(league) %>% gt_fmt_tally(c(W, D, L), label = "W-D-L")
+#' gt(nfc_east) %>% gt_fmt_tally(c(wins, losses, ties), label = "W-L-T")
 #'
 #' @seealso [gt_fmt_rank()] for ordinal formatting.
 #' @import gt

@@ -367,3 +367,15 @@ test_that("the accent pass never errors on unmarked or latin1 input", {
     expect_identical(clean_team_abbrs(c("TOR", latin1), "nhl", keep_non_matches = FALSE), c("TOR", "MTL"))
   })
 })
+
+test_that("sdv_example_standings keys resolve to themselves in every league", {
+  d <- sdv_example_standings
+  expect_identical(as.vector(table(d$league)[c("nfl", "nba")]), c(32L, 30L))
+  for (lg in unique(d$league)) {
+    k <- d$team[d$league == lg]
+    expect_identical(clean_team_abbrs(k, lg, keep_non_matches = FALSE), k)
+  }
+  # NA only where a team missed the playoffs (14 NFL and 16 NBA teams made them)
+  expect_identical(sum(!is.na(d$playoff_wins)), 30L)
+  expect_false(anyNA(d[setdiff(names(d), "playoff_wins")]))
+})

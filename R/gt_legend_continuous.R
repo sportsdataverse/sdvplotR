@@ -106,16 +106,20 @@
 #' library(gt)
 #'
 #' # the legend matches whatever gt_color_ranks() drew
-#' gt(head(mtcars[c("mpg", "hp", "wt")], 8)) %>%
-#'   gt_color_ranks(columns = mpg) %>%
-#'   gt_legend_continuous(columns = mpg, title = "Miles per gallon")
+#' nfc_east <- subset(sdv_example_standings, division == "NFC East",
+#'   c(team_name, wins, losses, points_for))
+#' gt(nfc_east) %>%
+#'   gt_color_ranks(columns = points_for) %>%
+#'   gt_legend_continuous(columns = points_for, title = "Points scored")
 #'
 #' # discrete blocks, labeled at every bin edge, title to the left
-#' gt(head(airquality, 10)) %>%
-#'   gt_color_ranks(columns = Temp) %>%
+#' west <- subset(sdv_example_standings, league == "nba" & conference == "Western",
+#'   c(team_name, wins, losses))
+#' gt(west) %>%
+#'   gt_color_ranks(columns = wins) %>%
 #'   gt_legend_continuous(
-#'     columns = Temp, type = "blocks", n_bins = 5, labels = "edges",
-#'     title = "Temp (F)", title_position = "left",
+#'     columns = wins, type = "blocks", n_bins = 5, labels = "edges",
+#'     title = "Wins", title_position = "left",
 #'     title_style = list(
 #'       weight = 600, transform = "uppercase",
 #'       spacing = "0.08em", size = "10px"

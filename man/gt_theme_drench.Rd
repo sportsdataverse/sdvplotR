@@ -61,13 +61,15 @@ the background, so it stays readable whatever \code{color} you pass.
 
 \examples{
 library(gt)
-gt(head(mtcars)) \%>\% gt_theme_drench()
+southwest <- subset(sdv_example_standings, division == "Southwest",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(southwest) \%>\% gt_theme_drench()
 
 \dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 # a brand color, with a matching export canvas; saving needs a headless
 # Chrome (webshot2)
 \donttest{
-gt(head(mtcars)) \%>\%
+gt(southwest) \%>\%
   gt_theme_drench(color = "#4B1E78", density = "social") \%>\%
   gt_social_crop(tempfile(fileext = ".png"), bg = "#4B1E78")
 }

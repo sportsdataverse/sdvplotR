@@ -54,7 +54,9 @@ leaves every size as the theme sets it, \code{"compact"} scales both down, and
 
 \examples{
 library(gt)
-gt(head(mtcars)) \%>\% gt_theme_sofa()
-gt(head(mtcars)) \%>\% gt_theme_sofa(style = "dark")
+nfc_north <- subset(sdv_example_standings, division == "NFC North",
+  c(team_name, wins:points_against))
+gt(nfc_north) \%>\% gt_theme_sofa()
+gt(nfc_north) \%>\% gt_theme_sofa(style = "dark")
 
 }

@@ -51,8 +51,13 @@ without any extra formatting.
 
 \examples{
 library(gt)
-gt(head(mtcars, 12)) \%>\% gt_theme_terminal()
-gt(head(airquality, 15)) \%>\% gt_theme_terminal(accent = "#7EE787")
+afc <- subset(sdv_example_standings, conference == "AFC",
+  c(team_name, wins:points_against))
+gt(head(afc, 12)) \%>\% gt_theme_terminal()
+
+east <- subset(sdv_example_standings, league == "nba" & conference == "Eastern",
+  c(team_name, wins, losses, win_pct:points_against))
+gt(east) \%>\% gt_theme_terminal(accent = "#7EE787")
 
 }
 \seealso{

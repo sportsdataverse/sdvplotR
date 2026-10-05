@@ -65,7 +65,9 @@ of the thresholds are left alone, as are \code{NA} p-values.
 \examples{
 library(gt)
 
-fit <- lm(mpg ~ wt + hp + factor(cyl), data = mtcars)
+# what a season's points scored and allowed say about its win percentage
+nfl <- subset(sdv_example_standings, league == "nfl")
+fit <- lm(win_pct ~ points_for + points_against + conference, data = nfl)
 results <- data.frame(
   Term = rownames(summary(fit)$coefficients),
   Estimate = summary(fit)$coefficients[, 1],
@@ -74,7 +76,7 @@ results <- data.frame(
 )
 
 gt(results) \%>\%
-  fmt_number(c(Estimate, SE), decimals = 3) \%>\%
+  fmt_number(c(Estimate, SE), decimals = 4) \%>\%
   gt_significance(Estimate, p)
 
 # daggers instead of stars, at a single threshold

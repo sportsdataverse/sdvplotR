@@ -6,7 +6,7 @@
 #'
 #' @param gt_object A `gt` table object to modify.
 #' @param rows The rows to bold. Either an expression evaluated against the
-#'   table's data, such as `mpg > 20`, or a numeric vector of row indices. If
+#'   table's data, such as `wins > 10`, or a numeric vector of row indices. If
 #'   `NULL`, every row is bolded. Defaults to `NULL`.
 #' @param row Deprecated. Use `rows`.
 #' @param text_color Character. The text color for the bolded rows. Defaults to
@@ -17,7 +17,7 @@
 #'   directly rather than as a string.
 #'
 #' @details
-#' `rows` is evaluated against the table's underlying data, so `rows = mpg > 20`
+#' `rows` is evaluated against the table's underlying data, so `rows = wins > 10`
 #' bolds the rows where that is `TRUE`; a numeric vector picks rows by index. The
 #' deprecated `row` is passed on to `rows`, and the deprecated `filter_statement`
 #' string, when given, takes precedence over `rows`. The styling is applied with a single
@@ -29,12 +29,15 @@
 #' @examples
 #' library(gt)
 #'
-#' # bold every row
-#' gt(head(mtcars)) %>% gt_bold_rows()
+#' nfc_west <- subset(sdv_example_standings, division == "NFC West",
+#'   c(team_name, wins:points_against))
 #'
-#' # bold and fill the rows above 20 mpg
-#' gt(head(mtcars)) %>%
-#'   gt_bold_rows(rows = mpg > 20, highlight_color = "#FFF3B0")
+#' # bold every row
+#' gt(nfc_west) %>% gt_bold_rows()
+#'
+#' # bold and fill the teams with a winning record
+#' gt(nfc_west) %>%
+#'   gt_bold_rows(rows = win_pct > 0.5, highlight_color = "#FFF3B0")
 #'
 #' @export
 gt_bold_rows <- function(gt_object,
@@ -96,7 +99,7 @@ lifecycle_warn <- function(old, new) {
   cli::cli_warn(
     c(
       "{.arg {old}} is deprecated.",
-      "i" = "Use {.arg {new}}, which takes an expression such as {.code mpg > 20} \\
+      "i" = "Use {.arg {new}}, which takes an expression such as {.code wins > 10} \\
              or a vector of row indices."
     ),
     .frequency = "once",

@@ -32,14 +32,13 @@ Teens are handled correctly, so 11, 12 and 13 take "th" and not "st", "nd" and
 \examples{
 library(gt)
 
-ranked <- data.frame(
-  model = rownames(head(mtcars, 5)),
-  place = 1:5
-)
+nfc <- subset(sdv_example_standings, conference == "NFC" & conference_rank <= 5,
+  c(team_name, conference_rank))
+nfc <- nfc[order(nfc$conference_rank), ]
 
-gt(ranked) \%>\% gt_fmt_rank(place)
+gt(nfc) \%>\% gt_fmt_rank(conference_rank)
 
 # flat, without the superscript
-gt(ranked) \%>\% gt_fmt_rank(place, superscript = FALSE)
+gt(nfc) \%>\% gt_fmt_rank(conference_rank, superscript = FALSE)
 
 }

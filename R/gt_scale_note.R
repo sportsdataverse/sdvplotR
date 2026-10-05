@@ -29,17 +29,19 @@
 #' @examples
 #' library(gt)
 #'
-#' revenue <- data.frame(
-#'   Segment = c("Cloud", "Devices", "Services"),
-#'   FY24 = c(4820000, 2110000, 1360000),
-#'   FY23 = c(4100000, 2260000, 1180000)
-#' )
+#' # an NBA season's points, scored and allowed
+#' atlantic <- subset(sdv_example_standings, division == "Atlantic",
+#'   c(team_name, points_for, points_against))
 #'
-#' # values render as 4.8, 2.1, 1.4 with "Figures in millions." beneath
-#' gt(revenue) %>% gt_scale_note(c(FY24, FY23), divisor = 1e6, decimals = 1)
+#' # Boston's 9,418 points render as 9.4, with "Figures in thousands." beneath
+#' gt(atlantic) %>%
+#'   gt_scale_note(c(points_for, points_against), divisor = 1e3, decimals = 1)
 #'
 #' # disclose in the column labels instead
-#' gt(revenue) %>% gt_scale_note(c(FY24, FY23), divisor = 1e3, where = "label")
+#' gt(atlantic) %>%
+#'   gt_scale_note(c(points_for, points_against),
+#'     divisor = 1e3, decimals = 2, where = "label"
+#'   )
 #'
 #' @import gt
 #' @importFrom magrittr %>%

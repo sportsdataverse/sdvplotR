@@ -11,7 +11,7 @@
 #' @param gt_object A `gt` table object to modify.
 #' @param columns The column or columns to color.
 #' @param rows The rows to color. Either an expression evaluated against the
-#'   table's data, such as `mpg > 20`, or a numeric vector of row indices. Rows
+#'   table's data, such as `wins > 10`, or a numeric vector of row indices. Rows
 #'   left out keep their default background. If `NULL`, every row is colored.
 #'   Defaults to `NULL`.
 #' @param palette A color palette to use. If you want a palette from `paletteer`,
@@ -33,17 +33,18 @@
 #' @examples
 #' library(gt)
 #'
+#' west <- subset(sdv_example_standings, league == "nba" & conference == "Western")
 #' ranked <- data.frame(
-#'   model = rownames(head(mtcars, 6)),
-#'   mpg_rank = rank(-head(mtcars, 6)$mpg),
-#'   hp_rank = rank(head(mtcars, 6)$hp)
+#'   team = west$team_name,
+#'   offense_rank = rank(-west$points_for, ties.method = "min"),
+#'   defense_rank = rank(west$points_against, ties.method = "min")
 #' )
 #'
-#' gt(ranked) %>% gt_color_ranks(c(mpg_rank, hp_rank))
+#' gt(ranked) %>% gt_color_ranks(c(offense_rank, defense_rank))
 #'
 #' # a paletteer palette, reversed
 #' gt(ranked) %>%
-#'   gt_color_ranks(mpg_rank,
+#'   gt_color_ranks(offense_rank,
 #'     palette = "viridis::mako", pal_type = "continuous",
 #'     reverse = TRUE
 #'   )

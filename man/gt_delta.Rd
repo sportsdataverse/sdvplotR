@@ -81,17 +81,14 @@ triangle in front of a positive number.
 \examples{
 library(gt)
 
-revenue <- data.frame(
-  Segment = c("Hardware", "Software", "Services"),
-  Q1 = c(482, 331, 198),
-  Q2 = c(515, 302, 246)
-)
+nfc_north <- subset(sdv_example_standings, division == "NFC North",
+  c(team_name, last_season_wins, wins))
 
-# absolute change, colored by sign
-gt(revenue) \%>\% gt_delta(Q1, Q2)
+# the change in wins from 2024, colored by sign
+gt(nfc_north) \%>\% gt_delta(last_season_wins, wins)
 
-# as a percent of Q1, with arrows
-gt(revenue) \%>\% gt_delta(Q1, Q2, percent = TRUE, arrows = TRUE)
+# as a percent of last season's wins, with arrows
+gt(nfc_north) \%>\% gt_delta(last_season_wins, wins, percent = TRUE, arrows = TRUE)
 
 }
 \seealso{

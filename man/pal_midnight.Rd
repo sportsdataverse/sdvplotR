@@ -16,9 +16,11 @@ built for white paper, and its mid-tones collapse into a dark ground. Pass this
 instead when using \code{\link[=gt_theme_midnight]{gt_theme_midnight()}} or \code{\link[=gt_theme_terminal]{gt_theme_terminal()}}.
 }
 \examples{
-gt::gt(head(airquality, 10)) \%>\%
+west <- subset(sdv_example_standings, league == "nba" & conference == "Western",
+  c(team_name, wins, losses, win_pct))
+gt::gt(west) \%>\%
   gt_theme_midnight() \%>\%
-  gt_color_ranks(Temp, palette = pal_midnight)
+  gt_color_ranks(win_pct, palette = pal_midnight)
 
 }
 \seealso{

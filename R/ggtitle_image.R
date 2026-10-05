@@ -45,16 +45,17 @@
 #' library(sdvplotR)
 #' library(ggplot2)
 #'
-#' p <- ggplot(mtcars, aes(x = hp, y = mpg)) +
+#' nfl <- subset(sdv_example_standings, league == "nfl")
+#' p <- ggplot(nfl, aes(x = points_for, y = points_against)) +
 #'   geom_point() +
 #'   labs(title = "This Title will be overwritten",
-#'        subtitle = "This is the Subtitle")
+#'        subtitle = "Points scored and allowed, 2025 regular season")
 #'
 #' if (requireNamespace("ggtext", quietly = TRUE)) {
 #'   p +
 #'     ggtitle_image(
-#'       title_image = "KC",
-#'       title = "Kansas City Chiefs Analysis",
+#'       title_image = "SEA",
+#'       title = "Seattle Seahawks Analysis",
 #'       image_height = 20,
 #'       image_side = "left",
 #'       sport = "nfl"

@@ -69,6 +69,13 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   blocks that run in an interactive session with `webshot2` and Chrome
   available (checks skip them). `gt_save_batch()`
   now needs an explicit `dir` rather than writing to the working directory.
+* The reference examples run on real SportsDataverse data instead of the
+  gtUtils demo tables (`mtcars`, `iris`, `airquality`) and made-up frames:
+  `sdv_example_standings` holds the final 2025 NFL and 2025-26 NBA
+  regular-season standings (records, points, conference ranks, playoff wins,
+  the previous season's wins, ESPN ids), built by
+  `data-raw/sdv_examples.R` from the nflreadr / nflseedR and hoopR release
+  loaders.
 * NFL player headshots work again. GSIS ids (`"00-0033873"`) resolve through a
   headshot map read at run time, the way nflplotR reads its own: sdvplotR
   builds it from nflverse rosters back to 1999 and publishes it, with a player
