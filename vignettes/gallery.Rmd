@@ -36,7 +36,11 @@ cards <- data.frame(
     "sdv-table-themes", "gt-toolkit",
     "styling", "saving_tables", "border_bars", "delay_tables", "grid_tables",
     "schedule_matrix", "tier_list", "window_wins",
-    "neighbour-ranks", "shot-grid", "rolling-form", "signature-ribbon"
+    "neighbour-ranks", "shot-grid", "rolling-form", "signature-ribbon",
+    "recipe-nfl-epa-scatter", "recipe-cfb-conference-table", "recipe-nba-net-rating-quadrant",
+    "recipe-wnba-scoring-leaders-card", "recipe-mlb-run-differential", "recipe-nhl-shot-map",
+    "recipe-college-hoops-tiers", "recipe-rank-bump-chart", "recipe-head-to-head-card",
+    "recipe-wbb-conference-standings"
   ),
   title = c(
     "Getting Started",
@@ -47,7 +51,11 @@ cards <- data.frame(
     "Styling Headers, Legends and Captions", "Saving and Posting Tables", "Border Bars",
     "Percentile Bars and Cut Lines", "Faceted Tables", "Schedule Matrix", "Tier Lists",
     "Rolling-Window Wins",
-    "Neighbour Ranks", "Shot Grid", "Rolling Form", "Signature Ribbon"
+    "Neighbour Ranks", "Shot Grid", "Rolling Form", "Signature Ribbon",
+    "Recipe: NFL EPA Scatter", "Recipe: CFB Conference Table", "Recipe: NBA Net Rating Quadrant",
+    "Recipe: WNBA Scoring Leaders Card", "Recipe: MLB Run Differential", "Recipe: NHL Shot Map",
+    "Recipe: College Hoops Tiers", "Recipe: Rank Bump Chart", "Recipe: Head-to-Head Card",
+    "Recipe: WBB Conference Standings"
   ),
   image = c(
     fig("getting-started", "colors"),
@@ -62,7 +70,13 @@ cards <- data.frame(
     preview("gt_theme_almanac"), preview("gt_theme_swiss"), preview("gt_theme_scoreboard"),
     preview("tier_list_example"), preview("gt_theme_athletic"),
     preview("gt_theme_tufte"), fig("shot-grid", "plot"),
-    preview("gt_theme_kenpom"), fig("signature-ribbon", "plot")
+    preview("gt_theme_kenpom"), fig("signature-ribbon", "plot"),
+    # each recipe's card is its final export (the chunk that shows the saved file)
+    fig("recipe-nfl-epa-scatter", "export"), fig("recipe-cfb-conference-table", "export"),
+    fig("recipe-nba-net-rating-quadrant", "export"), fig("recipe-wnba-scoring-leaders-card", "export"),
+    fig("recipe-mlb-run-differential", "export"), fig("recipe-nhl-shot-map", "export"),
+    fig("recipe-college-hoops-tiers", "export"), fig("recipe-rank-bump-chart", "export"),
+    fig("recipe-head-to-head-card", "export"), fig("recipe-wbb-conference-standings", "export")
   )
 )
 # Every card has its own picture (checked below). Each picture sits inside a link whose text is the article title, so its alt text names only
