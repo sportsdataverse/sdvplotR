@@ -17,9 +17,9 @@
 Data ingest with the companion SportsDataverse package, then sdvplotR
 visualization, for each sport.
 
-- [NFL Visualizations with nflfastR and
+- [NFL Visualizations with nflverse and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.md):
-- [CFB Visualizations with cfbfastR, cfbseedR, and
+- [College Football Visualizations with cfbfastR and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.md):
 - [NBA Visualizations with hoopR and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/nba-viz.md):

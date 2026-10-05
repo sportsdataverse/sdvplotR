@@ -23,10 +23,9 @@ library(gt)
 
 ## The data
 
-cfbfastR’s
-[`load_espn_cfb_team_summaries()`](https://cfbfastR.sportsdataverse.org/reference/load_espn_cfb_team_summaries.html)
-reads the SportsDataverse season summary release: one row per FBS team,
-with each metric next to a `_rank` column.
+cfbfastR’s `load_espn_cfb_team_summaries()` reads the SportsDataverse
+season summary release: one row per FBS team, with each metric next to a
+`_rank` column.
 
 ``` r
 
