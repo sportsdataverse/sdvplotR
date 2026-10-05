@@ -294,8 +294,6 @@ articles:
       - cookbook-colors-themes
       - cookbook-interactive
       - cookbook-surfaces-shot-charts
-      - social-posting
-      - leaderboard-dashboards
       - reactable-integration
   - title: "Tables cookbook"
     desc: >
@@ -336,6 +334,25 @@ articles:
       - rolling-form
       - signature-ribbon
       - workflows
+  - title: "Leaderboards"
+    desc: >
+      Each league's current season, rebuilt every week with this site: the
+      season to date while games are played, the last full season in the
+      offseason.
+    contents:
+      - leaderboard-nfl-weekly
+      - leaderboard-cfb-weekly
+      - leaderboard-nba
+      - leaderboard-wnba
+      - leaderboard-mlb
+      - leaderboard-nhl
+      - leaderboard-dashboards
+  - title: "Automation"
+    desc: >
+      Make and post social graphics on a schedule.
+    contents:
+      - automation-social
+      - social-posting
 
 navbar:
   structure:
@@ -516,6 +533,24 @@ navbar:
         href: articles/signature-ribbon.html
       - text: "End-to-End Workflows"
         href: articles/workflows.html
+      - text: --------------------------------
+      - text: "Leaderboards"
+      - text: "NFL Weekly"
+        href: articles/leaderboard-nfl-weekly.html
+      - text: "College Football Weekly"
+        href: articles/leaderboard-cfb-weekly.html
+      - text: "NBA"
+        href: articles/leaderboard-nba.html
+      - text: "WNBA"
+        href: articles/leaderboard-wnba.html
+      - text: "MLB"
+        href: articles/leaderboard-mlb.html
+      - text: "NHL"
+        href: articles/leaderboard-nhl.html
+      - text: --------------------------------
+      - text: "Automation"
+      - text: "Social Graphics, Automated"
+        href: articles/automation-social.html
     news:
       icon: "fas fa-newspaper"
       text: " Changelog"
