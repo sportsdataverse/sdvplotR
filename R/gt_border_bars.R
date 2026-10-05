@@ -145,10 +145,15 @@ gt_border_bars_top <- function(gt_object,
     )
   }
 
+  # gt writes a bare <caption>, and page CSS such as Bootstrap's reboot (pkgdown,
+  # Quarto) sets caption-side: bottom, which would move the bars under the table
   gt_object |>
     gt::tab_caption(html(bars)) |>
     gt::opt_css(
-      paste0("#", table_id, " .gt_caption {padding-top: 0px !important; padding-bottom: 0px !important;}"),
+      paste0(
+        "#", table_id, " caption, #", table_id, " .gt_caption ",
+        "{caption-side: top !important; padding-top: 0px !important; padding-bottom: 0px !important;}"
+      ),
       add = TRUE
     )
 }
