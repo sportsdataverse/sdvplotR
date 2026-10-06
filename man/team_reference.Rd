@@ -37,11 +37,21 @@ columns:\tabular{lll}{
    logo_scoreboard_url \tab character \tab Scoreboard logo URL \cr
    wordmark_url \tab character \tab Wordmark URL (\code{NA} when none) \cr
    color1 \tab character \tab Primary team color (hex) \cr
-   color2 \tab character \tab Secondary team color (hex) \cr
+   color2 \tab character \tab Secondary team color (hex; \code{NA} when the source has none) \cr
+   color_source \tab character \tab \code{"nflverse"}, \code{"espn"}, \code{"logo"} or \code{"cbbplotR"}; \code{NA} for the AFC, NFC and NFL \cr
    conference \tab character \tab Conference (\code{NA} for leagues without) \cr
    division \tab character \tab Division (\code{NA} for leagues without) \cr
    type \tab character \tab \code{"team"}, \code{"conference"} or \code{"league"} \cr
 }
+
+
+Colors are nflverse's for the NFL and ESPN's teams-list colors elsewhere.
+ESPN gives some newer or smaller college programs a stand-in instead of
+colors (black alone, black with its stock red, or black on black); those
+teams, and the ones ESPN gives no color, take the colors sdvplot's team
+index holds for the same ESPN team id: ESPN's own per-team entry where it
+has one (\code{"espn"}), otherwise colors derived from the team's logo
+(\code{"logo"}). Every team therefore has a primary color.
 }
 \description{
 Returns the team reference data frame for a given sport,

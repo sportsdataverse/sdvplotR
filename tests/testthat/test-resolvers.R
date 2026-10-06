@@ -8,11 +8,55 @@ test_that("logo_from_team resolves every sport and NA for unknowns", {
   expect_identical(logo_from_team(c("KC", "nope"), "nfl")[2], NA_character_)
 })
 
-test_that("variant lookups fall back to the primary logo", {
+test_that("a team without the requested variant falls back to its primary logo", {
   expect_match(resolve_logo_url("KC", "nfl", "dark"), "500-dark/kc\\.png$")
-  expect_identical(resolve_logo_url("KC", "nfl", "helmet"), logo_from_team("KC", "nfl"))
-  expect_identical(resolve_wordmark_url("KC", "nfl", "classic"), wordmark_from_team("KC", "nfl"))
+  # ESPN's scoreboard mark: the Jets' differs from their primary, college teams have none
+  expect_match(resolve_logo_url("NYJ", "nfl", "scoreboard"), "500/scoreboard/nyj\\.png$")
+  expect_identical(resolve_logo_url("PSU", "cfb", "scoreboard"), logo_from_team("PSU", "cfb"))
   expect_identical(resolve_logo_url("nope", "nfl", "dark"), NA_character_)
+  expect_error(resolve_logo_url("KC", "nfl", "neon"), "variant")
+  expect_error(resolve_wordmark_url("KC", "nfl", "neon"), "variant")
+})
+
+test_that("a variant no image backs is an error, never silently the primary", {
+  msg <- "`variant` must be one of"
+  for (v in c("light", "alt", "classic", "helmet")) {
+    expect_error(resolve_logo_url("KC", "nfl", v), msg)
+  }
+  for (v in c("dark", "light", "alt", "classic")) {
+    expect_error(resolve_wordmark_url("KC", "nfl", v), msg)
+  }
+  expect_error(reactable_sdv_logos("nfl", variant = "helmet"), msg)
+  expect_error(reactable_sdv_wordmarks("nfl", variant = "dark"), msg)
+  expect_error(reactable_sdv_cols_label(data.frame(KC = 1), sport = "nfl", variant = "light"), msg)
+  tiers <- data.frame(tier_no = 1, team = "KC")
+  expect_error(sdv_team_tiers(tiers, sport = "nfl", variant = "helmet"), msg)
+  expect_error(sdv_logo_url("KC", "nfl", variant = "classic"), msg)
+  # the default vector picks the primary
+  expect_identical(reactable_sdv_logos("nfl")("KC", 1), reactable_sdv_logos("nfl", variant = "primary")("KC", 1))
+})
+
+test_that("sdv_logo_url and sdv_headshot_url are the exported resolvers", {
+  local_headshot_map()
+  expect_identical(
+    sdv_logo_url(c("KC", "Buffalo Bills", "nope"), sport = "nfl"),
+    c(logo_from_team(c("KC", "BUF"), "nfl"), NA_character_)
+  )
+  expect_identical(sdv_logo_url("TOR", "nhl", variant = "dark"), resolve_logo_url("TOR", "nhl", "dark"))
+  expect_identical(sdv_logo_url("QUE", "nhl", season = 1990), logo_from_team("QUE", "nhl", season = 1990))
+  expect_identical(sdv_logo_url("SEC", "cfb"), logo_from_team("SEC", "cfb"))
+  expect_error(sdv_logo_url("KC", "nfl", variant = "neon"), "variant")
+  expect_error(sdv_logo_url("KC", "xfl"), "sport")
+  expect_identical(sdv_headshot_url(3917315, "mbb"), headshot_from_id(3917315, "mbb"))
+  expect_identical(sdv_headshot_url("00-0033873", "nfl"), headshot_from_id("00-0033873", "nfl"))
+  expect_identical(sdv_headshot_url("2544", "nba", id_type = "league"), headshot_from_id("2544", "nba", id_type = "league"))
+  expect_identical(sdv_headshot_url(c(NA, "abc"), "nba"), rep(NA_character_, 2))
+  # a non-whole number is a malformed id, not the id it rounds to
+  expect_identical(sdv_headshot_url(2544.7, "nba"), NA_character_)
+  expect_identical(sdv_headshot_url(c(2544, 2544.7, NA), "nba", id_type = "league")[2:3], rep(NA_character_, 2))
+  expect_identical(sdv_headshot_url(2544, "nba"), sdv_headshot_url("2544", "nba"))
+  expect_match(sdv_headshot_url(2544, "nba"), "/2544\\.png$")
+  expect_error(sdv_headshot_url("1", "cfb", id_type = "league"), "league player ID")
 })
 
 test_that("NFL wordmarks come from nflverse, other leagues have none", {
@@ -78,7 +122,7 @@ test_that("season lookups are vectorised and fall back element by element", {
   dark <- resolve_logo_url("QUE", "nhl", "dark", season = 1990)
   expect_match(dark, "digitaloceanspaces")
   expect_false(identical(dark, logo_from_team("QUE", "nhl", season = 1990)))
-  expect_identical(resolve_logo_url("QUE", "nhl", "helmet", season = 1990), logo_from_team("QUE", "nhl", season = 1990))
+  expect_identical(resolve_logo_url("QUE", "nhl", "scoreboard", season = 1990), logo_from_team("QUE", "nhl", season = 1990))
 })
 
 test_that("without a season every sport resolves as before", {

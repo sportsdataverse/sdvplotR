@@ -234,6 +234,7 @@ reference:
       - sdv_team_colors
       - sdv_color_palette
       - sdv_team_factor
+      - sdv_logo_url
       - sdvplotR_clear_cache
   - title: "Court Coordinates"
     desc: >

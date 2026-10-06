@@ -41,6 +41,30 @@ test_that("team_reference carries the documented columns", {
   expect_setequal(names(sdv_team_colors("cfb")), team_reference("cfb")$team_abbr[!is.na(team_reference("cfb")$color1)])
 })
 
+test_that("every team has real colors, with their source recorded", {
+  teams <- logo_ref[logo_ref$type == "team", ]
+  expect_false(anyNA(teams$color1))
+  expect_match(teams$color1, "^#[0-9A-F]{6}$")
+  # ESPN's stand-in (black alone, with its stock red, or on black) is not a team's color
+  stand_in <- teams$color1 == "#000000" & (is.na(teams$color2) | teams$color2 %in% c("#000000", "#C60000"))
+  expect_identical(teams$team_abbr[stand_in], character())
+  expect_setequal(unique(teams$color_source), c("nflverse", "espn", "logo"))
+  expect_true(all(teams$color_source[teams$sport == "nfl"] == "nflverse"))
+  expect_true(all(teams$color_source[teams$sport %in% c("nba", "wnba", "mlb", "nhl")] == "espn"))
+  # two of the 38 teams 0.1.0 drew black or NA: Chicago State from ESPN's basketball
+  # entry, Campbell from its logo (both through sdvplot's index)
+  expect_identical(sdv_team_colors("cfb", "CHST"), c(CHST = "#006700"))
+  expect_identical(teams$color_source[teams$sport == "cfb" & teams$team_abbr == "CHST"], "espn")
+  expect_identical(sdv_team_colors("mbb", "CAM", type = "all"), c(CAM = "#FF4713, #2E1811"))
+  expect_identical(teams$color_source[teams$sport == "mbb" & teams$team_abbr == "CAM"], "logo")
+  # conferences keep cbbplotR's colors; the AFC, NFC and NFL have none
+  expect_in("color_source", names(team_reference("nfl")))
+  confs <- team_reference("mbb", include_conferences = TRUE)
+  expect_identical(unique(confs$color_source[confs$type == "conference" & !is.na(confs$color1)]), "cbbplotR")
+  nfl <- team_reference("nfl", include_conferences = TRUE)
+  expect_true(all(is.na(nfl$color_source[nfl$type != "team"])))
+})
+
 test_that("conferences resolve like teams, and a team keeps a shared name", {
   mbb <- team_reference("mbb", include_conferences = TRUE)
   confs <- mbb$team_abbr[mbb$type == "conference"]

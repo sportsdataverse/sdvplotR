@@ -9,14 +9,14 @@
 \usage{
 reactable_sdv_logos(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-  variant = c("primary", "dark", "light", "alt", "classic", "helmet"),
+  variant = c("primary", "dark", "scoreboard"),
   height = 30,
   default_img = NULL
 )
 
 reactable_sdv_wordmarks(
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-  variant = c("primary", "dark", "light", "alt", "classic"),
+  variant = "primary",
   height = 30,
   default_img = NULL
 )
@@ -32,10 +32,11 @@ reactable_sdv_headshots(
 \item{sport}{Character string identifying the sport. One of
 \code{\link[=supported_sports]{supported_sports()}}.}
 
-\item{variant}{Character. Logo variant: \code{"primary"}, \code{"dark"}, \code{"light"},
-\code{"alt"}, \code{"classic"}, or \code{"helmet"} (NFL only). Falls back to the primary
-image when the requested variant is not available for a team, and, in the
-browser, when the variant's file fails to load.}
+\item{variant}{Character. Logo variant: \code{"primary"}, \code{"dark"} or
+\code{"scoreboard"} (see \code{\link[=sdv_logo_url]{sdv_logo_url()}}); wordmarks come in \code{"primary"} only.
+Falls back to the primary image when the requested variant is not
+available for a team, and, in the browser, when the variant's file fails
+to load.}
 
 \item{height}{Numeric. Image height in pixels.}
 

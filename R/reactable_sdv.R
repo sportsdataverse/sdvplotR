@@ -11,10 +11,11 @@
 #'
 #' @param sport Character string identifying the sport. One of
 #'   [supported_sports()].
-#' @param variant Character. Logo variant: `"primary"`, `"dark"`, `"light"`,
-#'   `"alt"`, `"classic"`, or `"helmet"` (NFL only). Falls back to the primary
-#'   image when the requested variant is not available for a team, and, in the
-#'   browser, when the variant's file fails to load.
+#' @param variant Character. Logo variant: `"primary"`, `"dark"` or
+#'   `"scoreboard"` (see [sdv_logo_url()]); wordmarks come in `"primary"` only.
+#'   Falls back to the primary image when the requested variant is not
+#'   available for a team, and, in the browser, when the variant's file fails
+#'   to load.
 #' @param height Numeric. Image height in pixels.
 #' @param default_img Character. Fallback image URL used when the value cannot
 #'   be resolved. If `NULL` (the default) the raw value is shown instead.
@@ -41,12 +42,12 @@ NULL
 #' @export
 reactable_sdv_logos <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-    variant = c("primary", "dark", "light", "alt", "classic", "helmet"),
+    variant = c("primary", "dark", "scoreboard"),
     height = 30,
     default_img = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
-  variant <- rlang::arg_match0(variant, logo_variants)
+  variant <- check_variant(variant, "logo")
   function(value, index) {
     img_tag(resolve_logo_url(value, sport, variant), team_alt(value, sport), height, default_img,
       fallback = logo_from_team(value, sport)
@@ -58,12 +59,12 @@ reactable_sdv_logos <- function(
 #' @export
 reactable_sdv_wordmarks <- function(
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-    variant = c("primary", "dark", "light", "alt", "classic"),
+    variant = "primary",
     height = 30,
     default_img = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
-  variant <- rlang::arg_match0(variant, wordmark_variants)
+  variant <- check_variant(variant, "wordmark")
   function(value, index) {
     img_tag(resolve_wordmark_url(value, sport, variant), team_alt(value, sport), height, default_img,
       fallback = wordmark_from_team(value, sport)
@@ -139,12 +140,12 @@ reactable_sdv_cols_label <- function(
     .data,
     ...,
     sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-    variant = c("primary", "dark", "light", "alt", "classic", "helmet"),
+    variant = c("primary", "dark", "scoreboard"),
     height = 30
 ) {
   rlang::check_installed("reactable", "to build reactable column definitions.")
   sport <- rlang::arg_match0(sport, supported_sports())
-  variant <- rlang::arg_match0(variant, logo_variants)
+  variant <- check_variant(variant, "logo")
   out <- list()
   for (nm in names(.data)) {
     url <- resolve_logo_url(nm, sport, variant)

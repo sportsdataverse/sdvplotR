@@ -1,9 +1,19 @@
 # Utility functions for sdvplotR
 # ============================================================================
 
-logo_variants <- c("primary", "dark", "light", "alt", "classic", "helmet")
-wordmark_variants <- c("primary", "dark", "light", "alt", "classic")
+# The variants an image backs: ESPN's default, dark-background and scoreboard
+# logos (the scoreboard mark differs from the default for a few pro teams, the
+# Jets' "NY" for one, and college teams have none), nflverse's one wordmark.
+logo_variants <- c("primary", "dark", "scoreboard")
+wordmark_variants <- "primary"
 headshot_placeholder <- "https://a.espncdn.com/i/headshots/nophoto.png"
+
+# `variant` validated for a logo or wordmark helper; any other value errors.
+# A function's default vector (every variant) picks the first.
+check_variant <- function(variant, type = "logo") {
+  valid <- if (type == "logo") logo_variants else wordmark_variants
+  if (identical(variant, valid)) valid[[1]] else rlang::arg_match0(variant, valid, arg_nm = "variant")
+}
 
 `%||%` <- function(x, y) if (is.null(x)) y else x
 
@@ -74,10 +84,19 @@ valid_team_names <- function(
 #'   | logo_scoreboard_url | character | Scoreboard logo URL |
 #'   | wordmark_url | character | Wordmark URL (`NA` when none) |
 #'   | color1 | character | Primary team color (hex) |
-#'   | color2 | character | Secondary team color (hex) |
+#'   | color2 | character | Secondary team color (hex; `NA` when the source has none) |
+#'   | color_source | character | `"nflverse"`, `"espn"`, `"logo"` or `"cbbplotR"`; `NA` for the AFC, NFC and NFL |
 #'   | conference | character | Conference (`NA` for leagues without) |
 #'   | division | character | Division (`NA` for leagues without) |
 #'   | type | character | `"team"`, `"conference"` or `"league"` |
+#'
+#'   Colors are nflverse's for the NFL and ESPN's teams-list colors elsewhere.
+#'   ESPN gives some newer or smaller college programs a stand-in instead of
+#'   colors (black alone, black with its stock red, or black on black); those
+#'   teams, and the ones ESPN gives no color, take the colors sdvplot's team
+#'   index holds for the same ESPN team id: ESPN's own per-team entry where it
+#'   has one (`"espn"`), otherwise colors derived from the team's logo
+#'   (`"logo"`). Every team therefore has a primary color.
 #' @export
 #' @examples
 #' team_reference("nfl")
@@ -216,18 +235,16 @@ wordmark_from_team <- function(team, sport = "nfl") {
   lookup_team_column(team, sport, "wordmark_url")
 }
 
-# Variant-aware lookups with fallback to the primary image.
+# Variant-aware lookups: a team the data has no such image for (a conference's
+# dark logo, a college team's scoreboard logo) gets its primary image.
 resolve_logo_url <- function(team, sport, variant = "primary", season = NULL) {
-  variant <- rlang::arg_match0(variant, logo_variants)
+  variant <- check_variant(variant, "logo")
   col <- switch(variant,
     primary = "logo_url",
-    dark    = "logo_dark_url",
-    light   = "logo_light_url",
-    alt     = "logo_alt_url",
-    classic = "logo_classic_url",
-    helmet  = "helmet_url"
+    dark = "logo_dark_url",
+    scoreboard = "logo_scoreboard_url"
   )
-  url <- if (col %in% names(logo_ref)) lookup_team_column(team, sport, col) else NA_character_
+  url <- lookup_team_column(team, sport, col)
   url <- ifelse(is.na(url), logo_from_team(team, sport), url)
   season_logo(url, team, sport, season, variant)
 }
@@ -274,16 +291,8 @@ historical_logo_url <- function(team, sport, season, variant = "primary") {
 }
 
 resolve_wordmark_url <- function(team, sport, variant = "primary") {
-  variant <- rlang::arg_match0(variant, wordmark_variants)
-  col <- switch(variant,
-    primary = "wordmark_url",
-    dark    = "wordmark_dark_url",
-    light   = "wordmark_light_url",
-    alt     = "wordmark_alt_url",
-    classic = "wordmark_classic_url"
-  )
-  url <- if (col %in% names(logo_ref)) lookup_team_column(team, sport, col) else NA_character_
-  ifelse(is.na(url), wordmark_from_team(team, sport), url)
+  check_variant(variant, "wordmark")
+  wordmark_from_team(team, sport)
 }
 
 # NFL headshot map: sdvplotR publishes it from nflverse rosters (1999 onward) to
@@ -379,9 +388,11 @@ headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
   id_type <- id_type %||% if (sport == "nfl") "league" else "espn"
   # as.character() writes round numbers like 4000000 as "4e+06", and scipen
   # only changes the notation: it keeps 15 significant digits. sprintf() is
-  # exact for every integer a double holds.
+  # exact for every integer a double holds. A fraction (2544.7) is a malformed
+  # id, NA like any other, not the id it would round to.
   player_id <- if (is.numeric(player_id)) {
-    ifelse(is.na(player_id), NA_character_, sprintf("%.0f", player_id))
+    whole <- !is.na(player_id) & player_id == floor(player_id)
+    ifelse(whole, sprintf("%.0f", player_id), NA_character_)
   } else {
     as.character(player_id)
   }
@@ -408,6 +419,74 @@ headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
   }
   url[is.na(player_id) | player_id == ""] <- NA_character_
   unname(url)
+}
+
+#' Team Logo and Player Headshot URLs
+#'
+#' @description The image URLs behind every sdvplotR geom, theme element and
+#'   table helper, for your own `<img>` tags, markdown, 'ggpath' layers or
+#'   image tooling. `sdv_logo_url()` resolves team keys the way
+#'   [clean_team_abbrs()] does (aliases, full names, historical abbreviations,
+#'   conference names); `sdv_headshot_url()` builds a headshot URL from a
+#'   player id. These are the R counterparts of sdvplot's `logo_url()` and
+#'   `headshot_url()`.
+#'
+#' @param team A character vector of team abbreviations or names.
+#' @inheritParams valid_team_names
+#' @param variant The logo variant: `"primary"` (ESPN's default mark),
+#'   `"dark"` (the dark-background mark) or `"scoreboard"` (ESPN's scoreboard
+#'   mark, which differs from the primary for a few pro teams: the Jets' `NY`).
+#'   A team without the requested variant gives its primary logo; any other
+#'   value is an error.
+#' @param season A season year (the ending year for the NHL: 2005 for
+#'   2004-05) or a vector of them, recycled against `team`. Where sdvplotR has
+#'   the mark the team wore that season (NHL, and the NFL's and WNBA's
+#'   relocated identities), that mark is returned; otherwise today's. `NULL`
+#'   (the default) gives today's logo.
+#' @param player_id A vector of player ids: nflverse GSIS ids for the NFL
+#'   (`"00-0033873"`), ESPN athlete ids elsewhere, unless `id_type` says
+#'   otherwise.
+#' @param id_type `NULL` (the default) takes each sport's default id;
+#'   `"espn"` ESPN athlete ids for any sport; `"league"` the league's own ids
+#'   (GSIS; NBA / WNBA Stats `PERSON_ID`; MLBAM; NHL API), which the league CDN
+#'   serves without a lookup (a silhouette for an unknown id). College sports
+#'   have no league ids.
+#' @return A character vector the length of `team` / `player_id`: the image
+#'   URL, or `NA` for a team that does not resolve, a player id that is
+#'   missing, malformed or (NFL GSIS) not in the headshot map, or a league
+#'   without wordmarks.
+#' @seealso [team_reference()] for every team's URLs at once,
+#'   [geom_sdv_logos()] and [gt_sdv_logos()] which draw them.
+#' @export
+#' @examples
+#' sdv_logo_url(c("KC", "Buffalo Bills", "WAS"), sport = "nfl")
+#' sdv_logo_url("NYJ", sport = "nfl", variant = "scoreboard")
+#' sdv_logo_url("QUE", sport = "nhl", season = 1990)
+#' sdv_logo_url("SEC", sport = "cfb")
+#'
+#' sdv_headshot_url(3917315, sport = "mbb")
+#' sdv_headshot_url("2544", sport = "nba", id_type = "league")
+#' \donttest{
+#' # NFL GSIS ids read the published headshot map
+#' sdv_headshot_url("00-0033873", sport = "nfl")
+#' }
+sdv_logo_url <- function(
+    team,
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    variant = c("primary", "dark", "scoreboard"),
+    season = NULL) {
+  sport <- rlang::arg_match0(sport, supported_sports())
+  resolve_logo_url(team, sport, variant, season)
+}
+
+#' @rdname sdv_logo_url
+#' @export
+sdv_headshot_url <- function(
+    player_id,
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    id_type = NULL) {
+  sport <- rlang::arg_match0(sport, supported_sports())
+  headshot_from_id(player_id, sport, check_id_type(id_type, sport))
 }
 
 # HTML helpers for axis labels rendered through ggtext::element_markdown()
