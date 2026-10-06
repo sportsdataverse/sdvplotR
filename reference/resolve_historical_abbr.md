@@ -13,7 +13,7 @@ directly.
 ``` r
 resolve_historical_abbr(
   abbr,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")
 )
 ```
 

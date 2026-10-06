@@ -33,7 +33,8 @@ head(nfl_team_names)
 
 # Check supported sports
 supported_sports()
-#> [1] "nfl"  "nba"  "wnba" "mlb"  "nhl"  "cfb"  "mbb"  "wbb"
+#> [1] "nfl"    "nba"    "wnba"   "mlb"    "nhl"    "cfb"    "mbb"    "wbb"   
+#> [9] "soccer"
 ```
 
 ## Plotting Team Logos

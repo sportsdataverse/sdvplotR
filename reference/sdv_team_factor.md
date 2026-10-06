@@ -10,7 +10,7 @@ so that downstream ggplot2 scales drop invalid entries gracefully.
 ``` r
 sdv_team_factor(
   teams,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")
 )
 ```
 

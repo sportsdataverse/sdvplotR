@@ -9,7 +9,7 @@ metrics into labeled tiers.
 ``` r
 sdv_team_tiers(
   data,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   title = glue::glue("{toupper(sport)} Team Tiers"),
   subtitle = glue::glue("created with the #sdvplotR Tiermaker"),
   caption = NULL,

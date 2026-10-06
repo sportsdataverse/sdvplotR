@@ -7,7 +7,7 @@ Returns a color palette for a given sport, suitable for use with ggplot2
 
 ``` r
 sdv_color_palette(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   teams = NULL,
   type = c("primary", "secondary")
 )

@@ -12,7 +12,7 @@ background fill.
 reactable_sdv_team_color_bar(
   data,
   team_col,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   type = c("primary", "secondary"),
   max_value = NULL,
   na_color = "grey70"
@@ -21,7 +21,7 @@ reactable_sdv_team_color_bar(
 reactable_sdv_team_color_bg(
   data,
   team_col,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   type = c("primary", "secondary"),
   alpha = 0.15,
   na_color = "grey70"

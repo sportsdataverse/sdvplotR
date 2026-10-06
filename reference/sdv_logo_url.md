@@ -13,14 +13,14 @@ the R counterparts of sdvplot's `logo_url()` and `headshot_url()`.
 ``` r
 sdv_logo_url(
   team,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   variant = c("primary", "dark", "scoreboard"),
   season = NULL
 )
 
 sdv_headshot_url(
   player_id,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   id_type = NULL
 )
 ```

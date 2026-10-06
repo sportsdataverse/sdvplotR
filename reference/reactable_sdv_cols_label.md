@@ -12,7 +12,7 @@ the list so `reactable` falls back to the plain column name.
 reactable_sdv_cols_label(
   .data,
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   variant = c("primary", "dark", "scoreboard"),
   height = 30
 )

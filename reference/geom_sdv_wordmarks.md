@@ -14,7 +14,7 @@ geom_sdv_wordmarks(
   stat = "identity",
   position = "identity",
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -131,8 +131,10 @@ GeomSDVwordmark
 
 - sport:
 
-  Character string identifying the sport. One of: `"nfl"`, `"nba"`,
-  `"wnba"`, `"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`.
+  Character string identifying the sport. One of
+  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md).
+  Soccer is accepted, but soccer team wordmark lookups return `NA`
+  because the club references carry no wordmark URLs.
 
 - na.rm:
 

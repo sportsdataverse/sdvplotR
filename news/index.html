@@ -206,7 +206,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="sdvplotr-development-version">sdvplotR (development version)<a class="anchor" aria-label="anchor" href="#sdvplotr-development-version"></a></h2>
 <ul><li>
-<code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> draws <code>"soccer"</code> (a regulation 105 x 68 m pitch, the frame <code><a href="../reference/sdv_pitch_coords.html">sdv_pitch_coords()</a></code> returns) and <code>"fiba"</code> courts. Neither takes a <code>team</code> yet.</li>
+<code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> draws <code>"soccer"</code> (a regulation 105 x 68 m pitch, the frame <code><a href="../reference/sdv_pitch_coords.html">sdv_pitch_coords()</a></code> returns) and <code>"fiba"</code> courts. FIBA takes no <code>team</code> yet.</li>
+<li>Soccer joins the team data: 2,631 ESPN clubs with logos and colors (from sdvplot’s index). Clubs resolve by ESPN id, or by name when no other club shares it; a shared name (often a men’s and a women’s side) warns with the ids to pass instead. <code>sdv_surface("soccer", team)</code> draws the club’s logo at the center spot.</li>
 <li>New <code><a href="../reference/sdv_pitch_coords.html">sdv_pitch_coords()</a></code> converts soccer event coordinates from Opta / Stats Perform, Wyscout, StatsBomb, UEFA, Impect, ESPN and the tracking providers (Tracab, SkillCorner, Second Spectrum, Metrica) to one regulation 105 x 68 m frame, piecewise-linearly between pitch landmarks.</li>
 </ul></div>
     <div class="section level2">

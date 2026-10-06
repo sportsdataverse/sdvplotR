@@ -26,7 +26,7 @@ University).
 ``` r
 clean_team_abbrs(
   abbr,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   keep_non_matches = TRUE
 )
 ```

@@ -14,7 +14,7 @@ ggtitle_image(
   image_height = 15,
   image_side = c("left", "right"),
   subtitle = ggplot2::waiver(),
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")
 )
 
 theme_title_image(...)

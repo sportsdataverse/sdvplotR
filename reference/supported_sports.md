@@ -13,11 +13,13 @@ supported_sports()
 
 A character vector: `"nfl"`, `"nba"`, `"wnba"`, `"mlb"`, `"nhl"`,
 `"cfb"` (college football), `"mbb"` (men's college basketball) and
-`"wbb"` (women's college basketball).
+`"wbb"` (women's college basketball), and `"soccer"` (ESPN clubs, by
+ESPN team id).
 
 ## Examples
 
 ``` r
 supported_sports()
-#> [1] "nfl"  "nba"  "wnba" "mlb"  "nhl"  "cfb"  "mbb"  "wbb" 
+#> [1] "nfl"    "nba"    "wnba"   "mlb"    "nhl"    "cfb"    "mbb"    "wbb"   
+#> [9] "soccer"
 ```

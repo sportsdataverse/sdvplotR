@@ -6,7 +6,7 @@ Returns the primary and secondary colors (hex codes) for a given team.
 
 ``` r
 sdv_team_colors(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   team = NULL,
   type = c("primary", "secondary", "all"),
   include_conferences = FALSE

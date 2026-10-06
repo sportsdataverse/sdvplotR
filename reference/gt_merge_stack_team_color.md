@@ -12,7 +12,7 @@ gt_merge_stack_team_color(
   col1,
   col2,
   team_col,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   font_size_top = 14,
   font_size_bottom = 12,
   color = "black",

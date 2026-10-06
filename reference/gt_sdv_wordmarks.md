@@ -9,7 +9,7 @@ html tables with the 'gt' package.
 gt_sdv_wordmarks(
   gt_object,
   columns,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   height = 30,
   locations = NULL
 )
