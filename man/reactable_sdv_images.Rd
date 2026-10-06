@@ -8,21 +8,21 @@
 \title{Render Team Logos, Wordmarks and Headshots in 'reactable' Tables}
 \usage{
 reactable_sdv_logos(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   variant = c("primary", "dark", "scoreboard"),
   height = 30,
   default_img = NULL
 )
 
 reactable_sdv_wordmarks(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   variant = "primary",
   height = 30,
   default_img = NULL
 )
 
 reactable_sdv_headshots(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   height = 40,
   default_img = NULL,
   id_type = NULL

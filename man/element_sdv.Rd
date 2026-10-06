@@ -8,7 +8,7 @@
 \title{Theme Elements for Image Grobs}
 \usage{
 element_sdv_logo(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   alpha = NULL,
   colour = NA,
   color = NULL,
@@ -18,7 +18,7 @@ element_sdv_logo(
 )
 
 element_sdv_wordmark(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   alpha = NULL,
   colour = NA,
   color = NULL,
@@ -28,7 +28,7 @@ element_sdv_wordmark(
 )
 
 element_sdv_headshot(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   alpha = NULL,
   colour = NA,
   color = NULL,

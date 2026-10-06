@@ -1,7 +1,12 @@
 # sdvplotR (development version)
 
 * `sdv_surface()` draws `"soccer"` (a regulation 105 x 68 m pitch, the frame
-  `sdv_pitch_coords()` returns) and `"fiba"` courts. Neither takes a `team` yet.
+  `sdv_pitch_coords()` returns) and `"fiba"` courts. FIBA takes no `team` yet.
+* Soccer joins the team data: 2,631 ESPN clubs with logos and colors (from
+  sdvplot's index). Clubs resolve by ESPN id, or by name when no other club
+  shares it; a shared name (often a men's and a women's side) warns with the
+  ids to pass instead. `sdv_surface("soccer", team)` draws the club's logo at
+  the center spot.
 * New `sdv_pitch_coords()` converts soccer event coordinates from Opta /
   Stats Perform, Wyscout, StatsBomb, UEFA, Impect, ESPN and the tracking
   providers (Tracab, SkillCorner, Second Spectrum, Metrica) to one

@@ -4,7 +4,7 @@
       valid_team_names("xfl")
     Condition
       Error in `valid_team_names()`:
-      ! `sport` must be one of "nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", or "wbb", not "xfl".
+      ! `sport` must be one of "nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", or "soccer", not "xfl".
       i Did you mean "nfl"?
 
 # clean_team_abbrs warns about non-matches when verbose

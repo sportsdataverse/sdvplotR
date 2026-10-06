@@ -6,7 +6,7 @@
 \usage{
 sdv_team_factor(
   teams,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")
 )
 }
 \arguments{

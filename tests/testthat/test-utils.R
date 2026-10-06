@@ -1,7 +1,7 @@
-test_that("supported_sports lists the eight leagues", {
+test_that("supported_sports lists the eight leagues and soccer", {
   expect_identical(
     supported_sports(),
-    c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")
+    c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")
   )
 })
 

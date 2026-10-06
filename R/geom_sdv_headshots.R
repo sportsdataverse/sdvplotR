@@ -69,7 +69,7 @@ geom_sdv_headshots <- function(
     stat = "identity",
     position = "identity",
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     id_type = NULL,
     na.rm = FALSE,
     show.legend = FALSE,

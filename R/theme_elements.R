@@ -63,7 +63,7 @@
 #'   theme(axis.text.x = element_sdv_logo(sport = "nfl"))
 #' }
 element_sdv_logo <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     alpha = NULL,
     colour = NA,
     color = NULL,
@@ -77,7 +77,7 @@ element_sdv_logo <- function(
 #' @rdname element_sdv
 #' @export
 element_sdv_wordmark <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     alpha = NULL,
     colour = NA,
     color = NULL,
@@ -94,7 +94,7 @@ element_sdv_wordmark <- function(
 #' @rdname element_sdv
 #' @export
 element_sdv_headshot <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     alpha = NULL,
     colour = NA,
     color = NULL,

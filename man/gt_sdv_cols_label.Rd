@@ -7,7 +7,7 @@
 gt_sdv_cols_label(
   gt_object,
   columns = gt::everything(),
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   height = 30,
   type = c("logo", "wordmark", "headshot"),
   id_type = NULL

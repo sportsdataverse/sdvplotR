@@ -9,7 +9,7 @@
 \usage{
 scale_x_sdv(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "bottom",
@@ -18,7 +18,7 @@ scale_x_sdv(
 
 scale_y_sdv(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "left",
@@ -27,7 +27,7 @@ scale_y_sdv(
 
 scale_x_sdv_headshots(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "bottom",
@@ -37,7 +37,7 @@ scale_x_sdv_headshots(
 
 scale_y_sdv_headshots(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "left",

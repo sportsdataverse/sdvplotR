@@ -90,7 +90,7 @@ geom_sdv_logos <- function(
     stat = "identity",
     position = "identity",
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     na.rm = FALSE,
     show.legend = FALSE,
     inherit.aes = TRUE

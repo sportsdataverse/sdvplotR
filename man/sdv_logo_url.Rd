@@ -7,14 +7,14 @@
 \usage{
 sdv_logo_url(
   team,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   variant = c("primary", "dark", "scoreboard"),
   season = NULL
 )
 
 sdv_headshot_url(
   player_id,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   id_type = NULL
 )
 }
