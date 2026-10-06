@@ -2,6 +2,9 @@
 
 ## sdvplotR (development version)
 
+- Soccer club names are trimmed and accent-folded before deciding which
+  are unique, so a name shared by two clubs (ESPN writes a few with a
+  trailing space) no longer resolves to one of them.
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   draws `"soccer"` (a regulation 105 x 68 m pitch, the frame
   [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
