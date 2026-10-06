@@ -49,12 +49,14 @@
 #'
 #'   Soccer and FIBA surfaces are drawn in meters. "soccer" defaults to a
 #'   regulation 105 x 68 m pitch, the frame [sdv_pitch_coords()] converts to;
-#'   'sportyR''s own "fifa" default is FIFA's 120 x 90 m maximum. Neither takes
-#'   a `team` yet.
+#'   'sportyR''s own "fifa" default is FIFA's 120 x 90 m maximum. Soccer takes a
+#'   `team` for its center logo (18.3 m, the center circle); the pitch keeps its
+#'   regulation colors. FIBA takes no `team` yet.
 #'
 #'   Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
-#'   (yards for football). The center logo is sized in those units (12 feet
-#'   on a court, 10 yards on a field, 24 feet on a rink) and follows
+#'   (yards for football, meters for soccer and FIBA). The center logo is sized
+#'   in those units (12 feet on a court, 10 yards on a field, 24 feet on a
+#'   rink, 18.3 m on a pitch) and follows
 #'   `x_trans`, `y_trans`, `rotation` and the unit arguments.
 #'
 #' @return A ggplot object ([ggplot2::ggplot()]) with `coord_fixed()`; add
@@ -150,7 +152,8 @@ sdv_surface <- function(
 surface_base <- c(
   geom_basketball = "#d2ab6f",
   geom_football = "#196f0c",
-  geom_hockey = "#ffffff"
+  geom_hockey = "#ffffff",
+  geom_soccer = "#196f0c"
 )
 
 # color_updates for a team. Fills keep the primary, the team's identity;
@@ -184,16 +187,21 @@ surface_color_updates <- function(geom, primary, secondary) {
     },
     # sportyR's baseball background is the outfield grass; the infield's dirt,
     # grass, bases and chalk have no team color to take
-    geom_baseball = list()
+    geom_baseball = list(),
+    # the pitch keeps its regulation colors; the club is the center logo
+    geom_soccer = list()
   )
 }
 
 # The team logo at the surface's center, `size` surface units across. ESPN's
 # dark-background variant goes on dark grass.
 surface_logo_layer <- function(geom, team, sport, args) {
-  size <- c(geom_basketball = 12, geom_football = 10, geom_hockey = 24)[[geom]]
-  from <- if (geom == "geom_football") "yd" else "ft"
-  unit_arg <- c(geom_basketball = "court_units", geom_football = "field_units", geom_hockey = "rink_units")[[geom]]
+  size <- c(geom_basketball = 12, geom_football = 10, geom_hockey = 24, geom_soccer = 18.3)[[geom]]
+  from <- c(geom_basketball = "ft", geom_football = "yd", geom_hockey = "ft", geom_soccer = "m")[[geom]]
+  unit_arg <- c(
+    geom_basketball = "court_units", geom_football = "field_units", geom_hockey = "rink_units",
+    geom_soccer = "pitch_units"
+  )[[geom]]
   if (!is.null(args[[unit_arg]])) size <- sportyR::convert_units(size, from, args[[unit_arg]])
 
   # sportyR translates, then rotates about the origin

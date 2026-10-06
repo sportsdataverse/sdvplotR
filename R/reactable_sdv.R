@@ -41,7 +41,7 @@ NULL
 #' @rdname reactable_sdv_images
 #' @export
 reactable_sdv_logos <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     variant = c("primary", "dark", "scoreboard"),
     height = 30,
     default_img = NULL
@@ -58,7 +58,7 @@ reactable_sdv_logos <- function(
 #' @rdname reactable_sdv_images
 #' @export
 reactable_sdv_wordmarks <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     variant = "primary",
     height = 30,
     default_img = NULL
@@ -78,7 +78,7 @@ reactable_sdv_wordmarks <- function(
 #' @rdname reactable_sdv_images
 #' @export
 reactable_sdv_headshots <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     height = 40,
     default_img = NULL,
     id_type = NULL
@@ -139,7 +139,7 @@ img_onerror <- function(url, fallback) {
 reactable_sdv_cols_label <- function(
     .data,
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     variant = c("primary", "dark", "scoreboard"),
     height = 30
 ) {
@@ -204,7 +204,7 @@ NULL
 reactable_sdv_team_color_bar <- function(
     data,
     team_col,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     type = c("primary", "secondary"),
     max_value = NULL,
     na_color = "grey70"
@@ -227,7 +227,7 @@ reactable_sdv_team_color_bar <- function(
 reactable_sdv_team_color_bg <- function(
     data,
     team_col,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     type = c("primary", "secondary"),
     alpha = 0.15,
     na_color = "grey70"

@@ -5,7 +5,7 @@
 \title{Output Valid Team Names}
 \usage{
 valid_team_names(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   type = c("abbreviation", "name"),
   include_conferences = FALSE
 )

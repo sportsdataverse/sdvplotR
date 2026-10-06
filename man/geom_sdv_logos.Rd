@@ -11,7 +11,7 @@ geom_sdv_logos(
   stat = "identity",
   position = "identity",
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -94,8 +94,8 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{sport}{Character string identifying the sport. One of:
-\code{"nfl"}, \code{"nba"}, \code{"wnba"}, \code{"mlb"}, \code{"nhl"}, \code{"cfb"}, \code{"mbb"}, \code{"wbb"}.}
+\item{sport}{Character string identifying the sport. One of
+\code{\link[=supported_sports]{supported_sports()}}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

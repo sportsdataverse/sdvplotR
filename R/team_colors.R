@@ -36,7 +36,7 @@
 #' # Get all NFL team primary colors
 #' sdv_team_colors("nfl", type = "primary")
 sdv_team_colors <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     team = NULL,
     type = c("primary", "secondary", "all"),
     include_conferences = FALSE
@@ -114,7 +114,7 @@ sdv_team_colors <- function(
 #' @examples
 #' sdv_color_palette("nfl", c("KC", "BUF", "SF"))
 sdv_color_palette <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     teams = NULL,
     type = c("primary", "secondary")
 ) {

@@ -65,7 +65,7 @@
 #' }
 sdv_team_tiers <- function(
     data,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     title = glue::glue("{toupper(sport)} Team Tiers"),
     subtitle = glue::glue("created with the #sdvplotR Tiermaker"),
     caption = NULL,
@@ -207,7 +207,7 @@ sdv_team_tiers <- function(
 #' @export
 #' @examples
 #' sdv_team_factor(c("KC", "BUF", "invalid"), sport = "nfl")
-sdv_team_factor <- function(teams, sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")) {
+sdv_team_factor <- function(teams, sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")) {
   sport <- rlang::arg_match0(sport, supported_sports())
 
   teams <- clean_team_abbrs(as.character(teams), sport = sport)

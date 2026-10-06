@@ -411,6 +411,16 @@ agree <- is_team & !is.na(j) & logo_ref$color_source != "logo"
 message(sum(!is.na(j[is_team])), " of ", sum(is_team), " teams are in sdvplot's index; ",
   sum(agree & toupper(sdvplot$color_primary[j]) != logo_ref$color1), " primary color(s) differ from it")
 
+# Soccer clubs come straight from sdvplot's index (ESPN ids, logos, colors)
+source("data-raw/soccer_teams.R")
+soccer <- soccer_from_sdvplot(sdvplot)
+stopifnot(
+  identical(names(soccer$rows), names(logo_ref)),
+  identical(vapply(soccer$rows, function(x) class(x)[1], ""), vapply(logo_ref, function(x) class(x)[1], ""))
+)
+logo_ref <- rbind(logo_ref, soccer$rows)
+rownames(logo_ref) <- NULL
+
 # ---------------------------------------------------------------------------
 # Abbreviation mapping: every key (upper case) -> canonical team_abbr.
 # Keys: canonical abbr, full name, short name, location, and hand-curated
@@ -617,6 +627,10 @@ abbr_mapping <- lapply(split(logo_ref, logo_ref$sport), function(ref) {
   m
 })
 
+# names shared by several clubs stay unresolved; clean_team_abbrs() warns with the ids
+abbr_mapping$soccer <- soccer$aliases
+soccer_ambiguous <- soccer$ambiguous
+
 # logo_history is built by data-raw/generate_logo_history.R (rerun it after
 # this script: its canonical keys come from abbr_mapping); keep it
 logo_history <- local({
@@ -624,7 +638,7 @@ logo_history <- local({
   load("R/sysdata.rda", envir = e)
   e$logo_history
 })
-usethis::use_data(logo_ref, abbr_mapping, logo_history, internal = TRUE, overwrite = TRUE)
+usethis::use_data(logo_ref, abbr_mapping, logo_history, soccer_ambiguous, internal = TRUE, overwrite = TRUE)
 
 cat("logo_ref:", nrow(logo_ref), "teams\n")
 print(table(logo_ref$sport, logo_ref$division, useNA = "ifany"))

@@ -7,7 +7,7 @@
 gt_theme_sdv_team(
   gt_object,
   team = NULL,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   density = c("comfortable", "compact", "social"),
   ...
 )

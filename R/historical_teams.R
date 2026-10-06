@@ -26,7 +26,7 @@
 #' resolve_historical_abbr(c("OAK", "SD", "KC"), sport = "nfl")
 #' resolve_historical_abbr("MON", sport = "mlb")
 #' resolve_historical_abbr("SEA", sport = "nba")
-resolve_historical_abbr <- function(abbr, sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")) {
+resolve_historical_abbr <- function(abbr, sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")) {
   sport <- rlang::arg_match0(sport, supported_sports())
   abbr <- as.character(abbr)
   m <- historical_team_mappings[[sport]]
