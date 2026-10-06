@@ -139,12 +139,12 @@ standings |>
 | Through Oct 4 (1-4 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
 |  | Team | GP | W | L | OTL | PTS | PTS% | GF | GA | DIFF | Last 10 | Streak |
 | Atlantic |  |  |  |  |  |  |  |  |  |  |  |  |
+| ![Tampa Bay Lightning](https://a.espncdn.com/i/teamlogos/nhl/500/tb.png) | Lightning | 3 | 2 | 1 | 0 | 4 | 0.667 | 8 | 7 | +1 | 2-1-0 | W2 |
 | ![Boston Bruins](https://a.espncdn.com/i/teamlogos/nhl/500/bos.png) | Bruins | 3 | 2 | 1 | 0 | 4 | 0.667 | 8 | 7 | +1 | 2-1-0 | L1 |
 | ![Florida Panthers](https://a.espncdn.com/i/teamlogos/nhl/500/fla.png) | Panthers | 3 | 1 | 0 | 2 | 4 | 0.667 | 6 | 7 | −1 | 1-0-2 | OT2 |
 | ![Montreal Canadiens](https://a.espncdn.com/i/teamlogos/nhl/500/mtl.png) | Canadiens | 2 | 1 | 0 | 1 | 3 | 0.750 | 8 | 8 | 0 | 1-0-1 | OT1 |
 | ![Ottawa Senators](https://a.espncdn.com/i/teamlogos/nhl/500/ott.png) | Senators | 1 | 1 | 0 | 0 | 2 | 1.000 | 3 | 2 | +1 | 1-0-0 | W1 |
 | ![Buffalo Sabres](https://a.espncdn.com/i/teamlogos/nhl/500/buf.png) | Sabres | 2 | 1 | 1 | 0 | 2 | 0.500 | 7 | 9 | −2 | 1-1-0 | W1 |
-| ![Tampa Bay Lightning](https://a.espncdn.com/i/teamlogos/nhl/500/tb.png) | Lightning | 2 | 1 | 1 | 0 | 2 | 0.500 | 4 | 6 | −2 | 1-1-0 | W1 |
 | ![Toronto Maple Leafs](https://a.espncdn.com/i/teamlogos/nhl/500/tor.png) | Maple Leafs | 3 | 1 | 2 | 0 | 2 | 0.333 | 6 | 7 | −1 | 1-2-0 | L1 |
 | ![Detroit Red Wings](https://a.espncdn.com/i/teamlogos/nhl/500/det.png) | Red Wings | 2 | 0 | 2 | 0 | 0 | 0.000 | 2 | 5 | −3 | 0-2-0 | L2 |
 | Central |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -164,7 +164,7 @@ standings |>
 | ![Washington Capitals](https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png) | Capitals | 2 | 1 | 1 | 0 | 2 | 0.500 | 6 | 5 | +1 | 1-1-0 | L1 |
 | ![Columbus Blue Jackets](https://a.espncdn.com/i/teamlogos/nhl/500/cbj.png) | Blue Jackets | 2 | 1 | 1 | 0 | 2 | 0.500 | 7 | 7 | 0 | 1-1-0 | L1 |
 | ![New Jersey Devils](https://a.espncdn.com/i/teamlogos/nhl/500/nj.png) | Devils | 2 | 1 | 1 | 0 | 2 | 0.500 | 3 | 8 | −5 | 1-1-0 | L1 |
-| ![Philadelphia Flyers](https://a.espncdn.com/i/teamlogos/nhl/500/phi.png) | Flyers | 3 | 0 | 1 | 2 | 2 | 0.333 | 4 | 13 | −9 | 0-1-2 | OT2 |
+| ![Philadelphia Flyers](https://a.espncdn.com/i/teamlogos/nhl/500/phi.png) | Flyers | 4 | 0 | 2 | 2 | 2 | 0.250 | 5 | 17 | −12 | 0-2-2 | L1 |
 | Pacific |  |  |  |  |  |  |  |  |  |  |  |  |
 | ![Edmonton Oilers](https://a.espncdn.com/i/teamlogos/nhl/500/edm.png) | Oilers | 3 | 2 | 0 | 1 | 5 | 0.833 | 17 | 14 | +3 | 2-0-1 | W2 |
 | ![Anaheim Ducks](https://a.espncdn.com/i/teamlogos/nhl/500/ana.png) | Ducks | 2 | 2 | 0 | 0 | 4 | 1.000 | 7 | 5 | +2 | 2-0-0 | W2 |

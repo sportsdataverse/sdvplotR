@@ -1,5 +1,14 @@
 # Changelog
 
+## sdvplotR (development version)
+
+- New
+  [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
+  converts soccer event coordinates from Opta / Stats Perform, Wyscout,
+  StatsBomb, UEFA, Impect, ESPN and the tracking providers (Tracab,
+  SkillCorner, Second Spectrum, Metrica) to one regulation 105 x 68 m
+  frame, piecewise-linearly between pitch landmarks.
+
 ## sdvplotR 0.1.0
 
 Initial release: one plotting package for team logos, wordmarks, player

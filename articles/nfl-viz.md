@@ -633,11 +633,6 @@ sdv_team_tiers(
     "5" = "Rebuilding"
   )
 )
-#> Warning: ggpath failed to read an image from
-#> https://a.espncdn.com/i/teamlogos/nfl/500-dark/cle.png. It will insert an empty
-#> graphic object instead. Here is the error message: Error in
-#> curl::curl_download(url, tmp, handle = h) : HTTP response code said error
-#> [a.espncdn.com]: The requested URL returned error: 404
 ```
 
 ![NFL team logos in five labeled tiers, from Contenders to Rebuilding,
