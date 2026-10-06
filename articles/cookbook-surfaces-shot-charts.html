@@ -17,8 +17,8 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <script src="../extra.js"></script><meta property="og:title" content="Surfaces and shot charts">
-<meta name="description" content="Ten recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field and a football drive chart.">
-<meta property="og:description" content="Ten recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field and a football drive chart.">
+<meta name="description" content="Eleven recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field and a football drive chart and Euroleague shots on the FIBA court.">
+<meta property="og:description" content="Eleven recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field and a football drive chart and Euroleague shots on the FIBA court.">
 <meta property="og:image" content="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png">
 <meta property="og:image:alt" content="sdvplotR hex logo">
 <meta name="twitter:card" content="summary">
@@ -254,14 +254,14 @@
     </div>
 
     <!-- sdvplotR: phones get "On this page" here, collapsed; pkgdown/extra.js copies the list in -->
-    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p>Ten recipes for playing surfaces and the charts drawn on them:
+    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p>Eleven recipes for playing surfaces and the charts drawn on them:
 <code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> for every sport it supports, team colors and
 a center logo, NBA and WNBA shot charts from the stats-API shot files
 (moved onto the court with <code><a href="../reference/sdv_court_coords.html">sdv_court_coords()</a></code>), a vertical
 half court, a college shot chart from ESPN’s locations, a hockey goal
-map, a baseball field and a football drive chart. The surfaces are drawn
-by <a href="https://sportyR.sportsdataverse.org" class="external-link">sportyR</a>. The data
-is one season each from the NFL (nflreadr), the NBA, WNBA and college
+map, a baseball field, a football drive chart and Euroleague shots on
+the FIBA court. The surfaces are drawn by <a href="https://sportyR.sportsdataverse.org" class="external-link">sportyR</a>. The data is one
+season each from the NFL (nflreadr), the NBA, WNBA and college
 basketball (hoopR and wehoop), the NHL (fastRhockey) and MLB
 (baseballr). The NBA and WNBA shots are the stats-API shot files the
 SportsDataverse publishes as GitHub releases, so nothing here calls
@@ -764,6 +764,34 @@ goal line) to 50 (the other) in yards. Super Bowl LX:</p>
 <p><img src="cookbook-surfaces-shot-charts_files/figure-html/drive-chart-1.png" class="r-plt" alt="An NFL field with one arrow per drive of Super Bowl LX: the Seattle Seahawks' drives in the top half running left to right in navy and the New England Patriots' in the bottom half running right to left in red, each labelled with how it ended." width="672"></p>
 <p><code>sdv_surface("nfl", team)</code> paints both end zones in one
 team’s color, so a two-team chart reads better on the plain field.</p>
+</div>
+<div class="section level2">
+<h2 id="euroleague-shots-on-the-fiba-court">11. Euroleague shots on the FIBA court<a class="anchor" aria-label="anchor" href="#euroleague-shots-on-the-fiba-court"></a>
+</h2>
+<p>hoopR’s <code>euroleague_game_points()</code> reports each shot in
+centimeters from the hoop, both teams on one basket and free throws as
+<code>-1,-1</code>.
+<code>sdv_court_coords(provider = "euroleague")</code> moves them onto
+the FIBA court <code>sdv_surface("fiba")</code> draws, in meters, and
+turns the free throws into <code>NA</code>. A few hand-written shots
+stand in for a game here: the rim, the free-throw line, the top of the
+arc, a corner three and a free throw.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">euro</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>coord_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">650</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, coord_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">422.5</span>, <span class="fl">675</span>, <span class="fl">50</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">euro</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_court_coords.html">sdv_court_coords</a></span><span class="op">(</span><span class="va">euro</span>, <span class="st">"coord_x"</span>, <span class="st">"coord_y"</span>, provider <span class="op">=</span> <span class="st">"euroleague"</span><span class="op">)</span></span>
+<span><span class="va">euro</span></span>
+<span><span class="co">#&gt;   coord_x coord_y court_x court_y</span></span>
+<span><span class="co">#&gt; 1       0     0.0 -12.425     0.0</span></span>
+<span><span class="co">#&gt; 2       0   422.5  -8.200     0.0</span></span>
+<span><span class="co">#&gt; 3       0   675.0  -5.675     0.0</span></span>
+<span><span class="co">#&gt; 4    -650    50.0 -11.925    -6.5</span></span>
+<span><span class="co">#&gt; 5      -1    -1.0      NA      NA</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sdv_surface.html">sdv_surface</a></span><span class="op">(</span><span class="st">"fiba"</span>, display_range <span class="op">=</span> <span class="st">"defense"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">court_x</span>, <span class="va">court_y</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">euro</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">3</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Euroleague shot locations on the FIBA court"</span>, caption <span class="op">=</span> <span class="st">"hoopR::euroleague_game_points() columns"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">titled</span></span></code></pre></div>
+<p><img src="cookbook-surfaces-shot-charts_files/figure-html/euroleague-fiba-1.png" class="r-plt" alt="The left half of a FIBA court with four red dots: at the rim, on the free-throw line, at the top of the three-point arc and in a corner." width="576"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

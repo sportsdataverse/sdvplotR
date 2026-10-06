@@ -1,4 +1,4 @@
-# Convert stats.nba.com/stats.wnba.com Shot Locations to a sportyR Court Frame
+# Convert Shot Locations to a sportyR Court Frame
 
 stats.nba.com / stats.wnba.com shot-chart data reports shot locations in
 the NBA's legacy frame: tenths of a foot, origin at the hoop, relative
@@ -11,10 +11,19 @@ columns stats.nba.com returns (upper snake case). This converts them
 draws: origin at center court, baseline at `x = -47`, basket on the
 **left** at `x = -41.75`.
 
+`provider = "euroleague"` converts the Euroleague shot frame of hoopR's
+`euroleague_game_points()` (`coord_x`/`coord_y`) instead, onto the FIBA
+court `sdv_surface("fiba")` draws, in meters.
+
 ## Usage
 
 ``` r
-sdv_court_coords(data, x_column = "x_legacy", y_column = "y_legacy")
+sdv_court_coords(
+  data,
+  x_column = "x_legacy",
+  y_column = "y_legacy",
+  provider = "nba"
+)
 ```
 
 ## Arguments
@@ -34,12 +43,22 @@ sdv_court_coords(data, x_column = "x_legacy", y_column = "y_legacy")
 - x_column:
 
   String naming the column holding the stats-API `LOC_X` / `x_legacy`
-  value (tenths of a foot). Default `"x_legacy"`.
+  value (tenths of a foot), or Euroleague `coord_x` (centimeters).
+  Default `"x_legacy"`.
 
 - y_column:
 
   String naming the column holding the stats-API `LOC_Y` / `y_legacy`
-  value (tenths of a foot). Default `"y_legacy"`.
+  value (tenths of a foot), or Euroleague `coord_y` (centimeters).
+  Default `"y_legacy"`.
+
+- provider:
+
+  The frame of `data`, which sets the output's units: `"nba"` (the
+  default; stats.nba.com / stats.wnba.com, tenths of a foot in, **feet**
+  out on the NBA/WNBA/NCAA court) or `"euroleague"` (hoopR's
+  `euroleague_game_points()` `coord_x`/`coord_y`, centimeters in,
+  **meters** out on the FIBA court). Case is ignored.
 
 ## Value
 
@@ -49,8 +68,8 @@ names are replaced); every other input column is kept as-is:
 |  |  |  |
 |----|----|----|
 | col_name | type | description |
-| court_x | numeric | Feet along the court's length: baseline at -47, basket at -41.75, half-court line at 0 |
-| court_y | numeric | Feet across the court's width: -25 to 25; negative = shooter's left (TV-bottom sideline) |
+| court_x | numeric | Along the court: the basket at -41.75 ft (nba) or -12.425 m (euroleague), half court at 0 |
+| court_y | numeric | Across the court: -25 to 25 ft (nba; negative = shooter's left) or -7.5 to 7.5 m (euroleague) |
 
 ## Details
 
@@ -75,6 +94,17 @@ foot, hoop at the origin: `x_legacy`/`y_legacy` or `LOC_X`/`LOC_Y`).
 Don't pass ESPN `coordinate_x`/`coordinate_y` from hoopR/wehoop
 play-by-play: they are already in feet on a center-court frame.
 
+The Euroleague frame (`provider = "euroleague"`; measured on real games,
+2026-10-06) is integer centimeters with the hoop at the origin, both
+teams mapped onto one basket, `coord_y` growing away from the baseline
+toward the court, and free throws encoded as `coord_x = coord_y = -1` (a
+sentinel, not a location), which become `NA`. The FIBA court is 28 x 15
+m with its basket 1.575 m from the baseline, so
+`court_x = -12.425 + coord_y / 100` and `court_y = coord_x / 100`. Which
+sideline is positive `coord_x` is unverified, so a chart may be
+left-right mirrored; the court is symmetric, so distances and zones are
+unaffected.
+
 Coordinate columns must be numeric, or character holding numbers, which
 is coerced (`nba_shotchartdetail()` returns every column as character).
 Factors, `TRUE`/`FALSE` and strings that aren't numbers (such as `""` or
@@ -89,4 +119,22 @@ sdv_court_coords(shots)
 #>   x_legacy y_legacy court_x court_y
 #> 1     -224       39  -37.85   -22.4
 #> 2      240       29  -38.85    24.0
+
+# Euroleague shots (hoopR::euroleague_game_points() columns) onto the FIBA court
+euro <- data.frame(coord_x = c(0, 12, 650, -1), coord_y = c(0, 422, 50, -1))
+sdv_court_coords(euro, "coord_x", "coord_y", provider = "euroleague")
+#>   coord_x coord_y court_x court_y
+#> 1       0       0 -12.425    0.00
+#> 2      12     422  -8.205    0.12
+#> 3     650      50 -11.925    6.50
+#> 4      -1      -1      NA      NA
+# \donttest{
+if (requireNamespace("sportyR", quietly = TRUE)) {
+  library(ggplot2)
+  euro <- sdv_court_coords(euro, "coord_x", "coord_y", provider = "euroleague")
+  sdv_surface("fiba", display_range = "defense") +
+    geom_point(aes(court_x, court_y), data = euro, colour = "red", size = 3, na.rm = TRUE)
+}
+
+# }
 ```

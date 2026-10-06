@@ -2,19 +2,20 @@
 
 On this page
 
-Ten recipes for playing surfaces and the charts drawn on them:
+Eleven recipes for playing surfaces and the charts drawn on them:
 [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
 for every sport it supports, team colors and a center logo, NBA and WNBA
 shot charts from the stats-API shot files (moved onto the court with
 [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)),
 a vertical half court, a college shot chart from ESPN’s locations, a
-hockey goal map, a baseball field and a football drive chart. The
-surfaces are drawn by [sportyR](https://sportyR.sportsdataverse.org).
-The data is one season each from the NFL (nflreadr), the NBA, WNBA and
-college basketball (hoopR and wehoop), the NHL (fastRhockey) and MLB
-(baseballr). The NBA and WNBA shots are the stats-API shot files the
-SportsDataverse publishes as GitHub releases, so nothing here calls
-stats.nba.com or stats.wnba.com.
+hockey goal map, a baseball field, a football drive chart and Euroleague
+shots on the FIBA court. The surfaces are drawn by
+[sportyR](https://sportyR.sportsdataverse.org). The data is one season
+each from the NFL (nflreadr), the NBA, WNBA and college basketball
+(hoopR and wehoop), the NHL (fastRhockey) and MLB (baseballr). The NBA
+and WNBA shots are the stats-API shot files the SportsDataverse
+publishes as GitHub releases, so nothing here calls stats.nba.com or
+stats.wnba.com.
 
 ``` r
 
@@ -617,3 +618,35 @@ ended.](cookbook-surfaces-shot-charts_files/figure-html/drive-chart-1.png)
 
 `sdv_surface("nfl", team)` paints both end zones in one team’s color, so
 a two-team chart reads better on the plain field.
+
+## 11. Euroleague shots on the FIBA court
+
+hoopR’s `euroleague_game_points()` reports each shot in centimeters from
+the hoop, both teams on one basket and free throws as `-1,-1`.
+`sdv_court_coords(provider = "euroleague")` moves them onto the FIBA
+court `sdv_surface("fiba")` draws, in meters, and turns the free throws
+into `NA`. A few hand-written shots stand in for a game here: the rim,
+the free-throw line, the top of the arc, a corner three and a free
+throw.
+
+``` r
+
+euro <- data.frame(coord_x = c(0, 0, 0, -650, -1), coord_y = c(0, 422.5, 675, 50, -1))
+euro <- sdv_court_coords(euro, "coord_x", "coord_y", provider = "euroleague")
+euro
+#>   coord_x coord_y court_x court_y
+#> 1       0     0.0 -12.425     0.0
+#> 2       0   422.5  -8.200     0.0
+#> 3       0   675.0  -5.675     0.0
+#> 4    -650    50.0 -11.925    -6.5
+#> 5      -1    -1.0      NA      NA
+
+sdv_surface("fiba", display_range = "defense") +
+  geom_point(aes(court_x, court_y), data = euro, colour = "red", size = 3, na.rm = TRUE) +
+  labs(title = "Euroleague shot locations on the FIBA court", caption = "hoopR::euroleague_game_points() columns") +
+  titled
+```
+
+![The left half of a FIBA court with four red dots: at the rim, on the
+free-throw line, at the top of the three-point arc and in a
+corner.](cookbook-surfaces-shot-charts_files/figure-html/euroleague-fiba-1.png)

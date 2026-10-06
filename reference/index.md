@@ -434,8 +434,7 @@ Convert stats.nba.com shot locations and any soccer provider’s event
 coordinates into the frames the playing surfaces draw.
 
 - [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)
-  : Convert stats.nba.com/stats.wnba.com Shot Locations to a sportyR
-  Court Frame
+  : Convert Shot Locations to a sportyR Court Frame
 - [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
   : Convert Soccer Event Coordinates to the sdvplotR Pitch Frame
 
