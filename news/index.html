@@ -206,7 +206,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="sdvplotr-development-version">sdvplotR (development version)<a class="anchor" aria-label="anchor" href="#sdvplotr-development-version"></a></h2>
-<ul><li>Soccer club names are trimmed and accent-folded before deciding which are unique, so a name shared by two clubs (ESPN writes a few with a trailing space) no longer resolves to one of them.</li>
+<ul><li>Team names and abbreviations are trimmed before matching, so a value with a stray space (ESPN writes a few soccer club names with one) still resolves.</li>
+<li>Soccer club names are trimmed and accent-folded before deciding which are unique, so a name shared by two clubs (ESPN writes a few with a trailing space) no longer resolves to one of them.</li>
 <li>
 <code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> draws <code>"soccer"</code> (a regulation 105 x 68 m pitch, the frame <code><a href="../reference/sdv_pitch_coords.html">sdv_pitch_coords()</a></code> returns) and <code>"fiba"</code> courts. FIBA takes no <code>team</code> yet.</li>
 <li>Soccer joins the team data: 2,631 ESPN clubs with logos and colors (from sdvplot’s index). Clubs resolve by ESPN id, or by name when no other club shares it; a shared name (often a men’s and a women’s side) warns with the ids to pass instead. <code>sdv_surface("soccer", team)</code> draws the club’s logo at the center spot.</li>
