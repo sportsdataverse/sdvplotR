@@ -156,7 +156,7 @@ clean_team_abbrs <- function(
 
   unmatched <- unique(abbr[is.na(a) & !is.na(abbr)])
   if (length(unmatched) && getOption("sdvplotR.verbose", default = interactive())) {
-    shared <- if (sport == "soccer") soccer_ambiguous[toupper(trimws(fold_accents(unmatched)))] else list()
+    shared <- if (sport == "soccer") soccer_ambiguous[norm_team_name(unmatched)] else list()
     shared <- shared[lengths(shared) > 0]
     if (length(shared)) {
       cli::cli_warn(c(
@@ -164,7 +164,7 @@ clean_team_abbrs <- function(
         "i" = "Pass the ESPN team id instead: {paste(names(shared), vapply(shared, paste, '', collapse = ' or '), sep = ' = ', collapse = '; ')}."
       ))
     }
-    rest <- setdiff(unmatched, unmatched[toupper(trimws(fold_accents(unmatched))) %in% names(shared)])
+    rest <- setdiff(unmatched, unmatched[norm_team_name(unmatched) %in% names(shared)])
     if (length(rest)) cli::cli_warn("Abbreviations not found in {.val {sport}} mapping: {.val {rest}}")
   }
 
@@ -177,6 +177,7 @@ clean_team_abbrs <- function(
 # skips the relocated-franchise pass, so a season-aware lookup keeps "QUE" off
 # the Avalanche.
 match_team_abbrs <- function(abbr, sport, historical = TRUE) {
+  abbr <- trimws(abbr)
   m <- abbr_mapping[[sport]]
   # relocated franchises first, so a relocation key wins over a provider alias
   # of the same name ("WIN" is the original Jets, not today's "WPG"), and
@@ -195,6 +196,11 @@ match_team_abbrs <- function(abbr, sport, historical = TRUE) {
 
   a
 }
+
+# One normalization for every team-name key: the builder (data-raw/soccer_teams.R
+# sys.sources this file) and the lookups must agree or a key stored one way is
+# missed the other way.
+norm_team_name <- function(x) toupper(trimws(fold_accents(x)))
 
 # chartr() rather than iconv(to = "ASCII//TRANSLIT"), whose output differs by
 # platform. enc2utf8() first: in a C locale chartr() stops on an unmarked
