@@ -5,14 +5,14 @@
 \title{Team-Styled Playing Surfaces}
 \usage{
 sdv_surface(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer", "fiba"),
   team = NULL,
   center_logo = FALSE,
   ...
 )
 }
 \arguments{
-\item{sport}{One of \code{\link[=supported_sports]{supported_sports()}}. Each maps to a 'sportyR' surface:\tabular{ll}{
+\item{sport}{One of \code{\link[=supported_sports]{supported_sports()}}, or \code{"soccer"} or \code{"fiba"}. Each maps to a 'sportyR' surface:\tabular{ll}{
    sport \tab surface \cr
    \code{"nfl"} \tab \code{sportyR::geom_football("nfl")} \cr
    \code{"cfb"} \tab \code{sportyR::geom_football("ncaa")} \cr
@@ -20,6 +20,8 @@ sdv_surface(
    \code{"mbb"}, \code{"wbb"} \tab \code{sportyR::geom_basketball("ncaa")} \cr
    \code{"nhl"} \tab \code{sportyR::geom_hockey("nhl")} \cr
    \code{"mlb"} \tab \code{sportyR::geom_baseball("mlb")} \cr
+   \code{"soccer"} \tab \code{sportyR::geom_soccer("fifa")}, 105 x 68 m (\code{pitch_updates} overrides) \cr
+   \code{"fiba"} \tab \code{sportyR::geom_basketball("fiba")} (28 x 15 m) \cr
 }}
 
 \item{team}{\code{NULL} (the default) for the plain regulation surface, or one
@@ -65,6 +67,11 @@ to read on white ice (under 3:1 contrast); the boards take the primary.
 (the green background is the outfield grass), so the team is checked
 and the surface stays 'sportyR''s.
 }
+
+Soccer and FIBA surfaces are drawn in meters. "soccer" defaults to a
+regulation 105 x 68 m pitch, the frame \code{\link[=sdv_pitch_coords]{sdv_pitch_coords()}} converts to;
+'sportyR''s own "fifa" default is FIFA's 120 x 90 m maximum. Neither takes
+a \code{team} yet.
 
 Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
 (yards for football). The center logo is sized in those units (12 feet

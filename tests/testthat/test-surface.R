@@ -171,3 +171,23 @@ test_that("the center logo is sized in surface units when drawn", {
   expect_equal(as.numeric(grob$vp$width), 24 / diff(ranges$x.range))
   expect_equal(as.numeric(grob$vp$height), 24 / diff(ranges$y.range))
 })
+
+test_that("soccer draws a 105 x 68 pitch by default, and pitch_updates win key by key", {
+  skip_if_not_installed("sportyR")
+  expect_true(inherits(sdv_surface("soccer"), "ggplot"))
+  regulation <- sportyR::geom_soccer("fifa", pitch_updates = list(pitch_length = 105, pitch_width = 68))
+  expect_identical(surface_data(sdv_surface("soccer")), surface_data(regulation))
+  longer <- sportyR::geom_soccer("fifa", pitch_updates = list(pitch_length = 110, pitch_width = 68))
+  expect_identical(surface_data(sdv_surface("soccer", pitch_updates = list(pitch_length = 110))), surface_data(longer))
+})
+
+test_that("fiba draws sportyR's FIBA court", {
+  skip_if_not_installed("sportyR")
+  expect_identical(surface_data(sdv_surface("fiba")), surface_data(sportyR::geom_basketball("fiba")))
+})
+
+test_that("surfaces without team identities refuse a team", {
+  skip_if_not_installed("sportyR")
+  expect_error(sdv_surface("fiba", "ESP"), "No team identities")
+  expect_error(sdv_surface("soccer", "359"), "No team identities") # until soccer identities land (Task 11)
+})

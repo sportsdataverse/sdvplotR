@@ -9,7 +9,7 @@
 #'   (paint colors, center logos, end zone art, special-event floors) exists
 #'   yet.
 #'
-#' @param sport One of [supported_sports()]. Each maps to a 'sportyR' surface:
+#' @param sport One of [supported_sports()], or `"soccer"` or `"fiba"`. Each maps to a 'sportyR' surface:
 #'
 #'   | sport | surface |
 #'   |---|---|
@@ -19,6 +19,8 @@
 #'   | `"mbb"`, `"wbb"` | `sportyR::geom_basketball("ncaa")` |
 #'   | `"nhl"` | `sportyR::geom_hockey("nhl")` |
 #'   | `"mlb"` | `sportyR::geom_baseball("mlb")` |
+#'   | `"soccer"` | `sportyR::geom_soccer("fifa")`, 105 x 68 m (`pitch_updates` overrides) |
+#'   | `"fiba"` | `sportyR::geom_basketball("fiba")` (28 x 15 m) |
 #' @param team `NULL` (the default) for the plain regulation surface, or one
 #'   team name or abbreviation, cleaned by [clean_team_abbrs()].
 #' @param center_logo If `TRUE`, draw the team's logo at center court, center
@@ -44,6 +46,11 @@
 #'   * Baseball: nothing. No part of a regulation infield is team-colored
 #'     (the green background is the outfield grass), so the team is checked
 #'     and the surface stays 'sportyR''s.
+#'
+#'   Soccer and FIBA surfaces are drawn in meters. "soccer" defaults to a
+#'   regulation 105 x 68 m pitch, the frame [sdv_pitch_coords()] converts to;
+#'   'sportyR''s own "fifa" default is FIFA's 120 x 90 m maximum. Neither takes
+#'   a `team` yet.
 #'
 #'   Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
 #'   (yards for football). The center logo is sized in those units (12 feet
@@ -71,12 +78,12 @@
 #' }
 #' }
 sdv_surface <- function(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer", "fiba"),
   team = NULL,
   center_logo = FALSE,
   ...
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
+  sport <- rlang::arg_match0(sport, surface_sports())
   rlang::check_installed("sportyR", reason = "to draw playing surfaces.")
 
   geom <- switch(sport,
@@ -85,17 +92,27 @@ sdv_surface <- function(
     nba = ,
     wnba = ,
     mbb = ,
-    wbb = "geom_basketball",
+    wbb = ,
+    fiba = "geom_basketball",
     nhl = "geom_hockey",
-    mlb = "geom_baseball"
+    mlb = "geom_baseball",
+    soccer = "geom_soccer"
   )
   league <- switch(sport,
     cfb = ,
     mbb = ,
     wbb = "ncaa",
+    soccer = "fifa",
     sport
   )
   args <- list(...)
+  if (sport == "soccer") {
+    # sportyR's "fifa" pitch is FIFA's 120 x 90 m maximum; real pitches (and sdv_pitch_coords()) are 105 x 68
+    args$pitch_updates <- utils::modifyList(list(pitch_length = 105, pitch_width = 68), as.list(args$pitch_updates))
+  }
+  if (!is.null(team) && !sport %in% supported_sports()) {
+    cli::cli_abort("No team identities for {.val {sport}} yet: draw the plain surface with {.code team = NULL}.")
+  }
 
   if (!is.null(team)) {
     if (!is.character(team) || length(team) != 1L || is.na(team)) {
@@ -209,3 +226,7 @@ GeomSDVsurfaceLogo <- ggplot2::ggproto(
     ggpath::GeomFromPath$draw_panel(data, panel_params, coord, na.rm = na.rm)
   }
 )
+
+# Surface keys: every sport with team identities, plus surfaces drawn without
+# them. unique() keeps the order stable once "soccer" gains identities.
+surface_sports <- function() unique(c(supported_sports(), "soccer", "fiba"))
