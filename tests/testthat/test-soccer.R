@@ -2,6 +2,8 @@ test_that("soccer clubs resolve by ESPN id, and by name when no other club share
   expect_true("soccer" %in% supported_sports())
   expect_identical(clean_team_abbrs("359", "soccer"), "359")
   expect_identical(clean_team_abbrs("Atlanta United FC", "soccer"), "18418")
+  expect_identical(clean_team_abbrs("Canberra United ", "soccer"), "20288")
+  expect_identical(clean_team_abbrs(" Atlanta United FC", "soccer"), "18418")
   expect_identical(toupper(unname(sdv_team_colors("soccer", "359", type = "primary"))), "#E20520")
 })
 

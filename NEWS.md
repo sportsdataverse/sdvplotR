@@ -1,5 +1,7 @@
 # sdvplotR (development version)
 
+* Team names and abbreviations are trimmed before matching, so a value with a
+  stray space (ESPN writes a few soccer club names with one) still resolves.
 * Soccer club names are trimmed and accent-folded before deciding which are
   unique, so a name shared by two clubs (ESPN writes a few with a trailing
   space) no longer resolves to one of them.

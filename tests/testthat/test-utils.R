@@ -403,3 +403,8 @@ test_that("sdv_example_standings keys resolve to themselves in every league", {
   expect_identical(sum(!is.na(d$playoff_wins)), 30L)
   expect_false(anyNA(d[setdiff(names(d), "playoff_wins")]))
 })
+
+test_that("a stray space around a team value does not stop it matching", {
+  expect_identical(clean_team_abbrs("KC ", "nfl"), "KC")
+  expect_identical(clean_team_abbrs(" kansas city chiefs", "nfl"), "KC")
+})

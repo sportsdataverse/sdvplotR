@@ -3,7 +3,7 @@
 # colors, else colors measured from the logo). Sourced by the sysdata builder.
 soccer_from_sdvplot <- function(sdvplot) {
   # the package's own fold, so the builder and clean_team_abbrs() agree
-  fold_accents <- local({ e <- new.env(); sys.source("R/utils.R", e); e$fold_accents })
+  norm_team_name <- local({ e <- new.env(); sys.source("R/utils.R", e); e$norm_team_name })
   t <- sdvplot[sdvplot$league == "soccer", ]
   id <- as.character(t$team_id)
   rows <- data.frame(
@@ -21,7 +21,7 @@ soccer_from_sdvplot <- function(sdvplot) {
   # (416 of 2,215 names are shared, mostly a men's and a women's side)
   # (ESPN writes a few with a trailing space, "Sydney FC " vs "Sydney FC", or
   # without an accent, "Guarani" vs "Guaraní", so trim and fold first)
-  name <- toupper(trimws(fold_accents(t$name)))
+  name <- norm_team_name(t$name)
   shared <- name %in% name[duplicated(name)]
   aliases <- stats::setNames(c(id, id[!shared]), c(id, name[!shared]))
   ambiguous <- split(id[shared], name[shared])
