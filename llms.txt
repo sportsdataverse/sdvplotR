@@ -793,6 +793,9 @@ visualization, for each sport.
 - [Women's College Basketball Visualizations with wehoop and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.md):
 
+- [Soccer: any provider's shots on one
+  pitch](https://sdvplotR.sportsdataverse.org/articles/soccer-viz.md):
+
 ### Cookbooks
 
 Task-oriented, cross-league recipes: logos and headshots in ggplot2,
