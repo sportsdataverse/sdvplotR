@@ -36,9 +36,9 @@
 #'   team's dark-background logo (`"dark"`) on the dark theme and its primary
 #'   logo on the light theme, so dark marks such as the Capitals', the Giants'
 #'   or Penn State's don't fade into the dark background. A team with no dark
-#'   logo draws its primary one, with no warning. Any other value is one of
-#'   `"primary"`, `"dark"` or `"scoreboard"` (see [sdv_logo_url()]), drawn on
-#'   either theme, with the same fallback. `"primary"` gives the old look,
+#'   logo draws its primary one, with no warning. Any other value is
+#'   `"primary"`, `"dark"`, `"scoreboard"` or a named mark of the sport (see
+#'   [sdv_logo_url()]), drawn on either theme, with the same fallback. `"primary"` gives the old look,
 #'   which drew the primary logo on both themes.
 #'
 #' @return A ggplot object.
@@ -91,7 +91,7 @@ sdv_team_tiers <- function(
   variant <- if (identical(variant, "auto")) {
     if (theme == "dark") "dark" else "primary"
   } else {
-    check_variant(variant, "logo")
+    check_variant(variant, "logo", sport)
   }
 
   required_vars <- c("tier_no", "team")

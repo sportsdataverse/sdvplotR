@@ -7,22 +7,27 @@ test_that("gt_sdv_logos and wordmarks render img tags and keep unknown text", {
   t1 <- gt(df) |> gt_sdv_logos(columns = "team", sport = "nfl", height = 25)
   expect_s3_class(t1, "gt_tbl")
   h <- html_of(t1)
-  expect_match(h, "<img src=\"https://a\\.espncdn\\.com/i/teamlogos/nfl/500/kc\\.png\" style=\"height:25px;\"")
+  expect_match(h, paste0("<img src=\"", logo_from_team("KC", "nfl"), "\" style=\"height:25px;\""), fixed = TRUE)
+  expect_match(h, "sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/assets/public/sha256/")
   expect_match(h, "nope")
   t2 <- gt(df) |> gt_sdv_wordmarks(columns = "team", sport = "nfl")
-  expect_match(html_of(t2), "wordmarks/KC\\.png")
+  expect_match(html_of(t2), wordmark_from_team("KC", "nfl"), fixed = TRUE)
 })
 
 test_that("gt_sdv_logos resolves escaped names and can keep the name", {
   df <- data.frame(team = c("Texas A&M", "St. John's (NY)", "nope"), n = 1:3)
   # gt hands text_transform() "Texas A&amp;M"; it still resolves
   h <- html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "mbb", height = 20))
-  expect_match(h, "ncaa/500/245\\.png")
-  expect_match(h, "ncaa/500/2599\\.png")
+  expect_match(h, logo_from_team("Texas A&M", "mbb"), fixed = TRUE)
+  expect_match(h, logo_from_team("St. John's (NY)", "mbb"), fixed = TRUE)
   expect_no_match(h, "Texas A&amp;M</td>")
   # include_name keeps the (escaped) text after the logo
   h <- html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE))
-  expect_match(h, "245\\.png\" style=\"height:20px;vertical-align:middle;margin-right:0.35em;\" alt=\"\">Texas A&amp;M")
+  expect_match(
+    h,
+    paste0(logo_from_team("Texas A&M", "mbb"), "\" style=\"height:20px;vertical-align:middle;margin-right:0.35em;\" alt=\"\">Texas A&amp;M"),
+    fixed = TRUE
+  )
   expect_match(h, ">St. John's \\(NY\\)</td>")
   expect_match(h, ">nope</td>")
 })
@@ -32,9 +37,10 @@ test_that("gt_sdv_logos draws a season's marks", {
   h <- html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "nhl", season = 1990))
   # the Nordiques' 1979-80 to 1994-95 mark; no 1990 Avalanche era, so today's logo
   expect_match(h, "digitaloceanspaces\\.com/assets/public/sha256/3c/3c28d243dd")
-  expect_match(h, "teamlogos/nhl/500/col\\.png")
+  expect_match(h, logo_from_team("COL", "nhl"), fixed = TRUE)
   expect_match(h, ">nope</td>")
-  expect_no_match(html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "nhl")), "digitaloceanspaces")
+  # without a season, today's marks only: no Nordiques
+  expect_no_match(html_of(gt(df) |> gt_sdv_logos(columns = "team", sport = "nhl")), "3c28d243dd")
   expect_error(gt_sdv_logos(gt(df), columns = "team", sport = "nhl", season = 1990:1991), "single season")
 })
 
@@ -51,8 +57,8 @@ test_that("gt_sdv_cols_label swaps column labels for images", {
   local_headshot_map()
   df <- data.frame(KC = 1, BUF = 2, other = 3)
   h <- html_of(gt(df) |> gt_sdv_cols_label(columns = everything(), sport = "nfl"))
-  expect_match(h, "kc\\.png")
-  expect_match(h, "buf\\.png")
+  expect_match(h, logo_from_team("KC", "nfl"), fixed = TRUE)
+  expect_match(h, logo_from_team("BUF", "nfl"), fixed = TRUE)
   expect_match(h, "other")
   h2 <- html_of(gt(data.frame(`00-0033873` = 1, check.names = FALSE)) |>
     gt_sdv_cols_label(sport = "nfl", type = "headshot"))

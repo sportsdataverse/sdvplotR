@@ -11,11 +11,12 @@
 #'
 #' @param sport Character string identifying the sport. One of
 #'   [supported_sports()].
-#' @param variant Character. Logo variant: `"primary"`, `"dark"` or
-#'   `"scoreboard"` (see [sdv_logo_url()]); wordmarks come in `"primary"` only.
-#'   Falls back to the primary image when the requested variant is not
-#'   available for a team, and, in the browser, when the variant's file fails
-#'   to load.
+#' @param variant Character. Logo variant: `"primary"`, `"dark"`,
+#'   `"scoreboard"` or a named mark of the sport (see [sdv_logo_url()]);
+#'   wordmarks come in `"primary"` for the NFL and MLB, plus `"on_light"` /
+#'   `"on_dark"` for MLB. Falls back to the primary image when the requested
+#'   variant is not available for a team, and, in the browser, when the
+#'   variant's file fails to load.
 #' @param height Numeric. Image height in pixels.
 #' @param default_img Character. Fallback image URL used when the value cannot
 #'   be resolved. If `NULL` (the default) the raw value is shown instead.
@@ -47,7 +48,7 @@ reactable_sdv_logos <- function(
     default_img = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
-  variant <- check_variant(variant, "logo")
+  variant <- check_variant(variant, "logo", sport)
   function(value, index) {
     img_tag(resolve_logo_url(value, sport, variant), team_alt(value, sport), height, default_img,
       fallback = logo_from_team(value, sport)
@@ -64,7 +65,7 @@ reactable_sdv_wordmarks <- function(
     default_img = NULL
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
-  variant <- check_variant(variant, "wordmark")
+  variant <- check_variant(variant, "wordmark", sport)
   function(value, index) {
     img_tag(resolve_wordmark_url(value, sport, variant), team_alt(value, sport), height, default_img,
       fallback = wordmark_from_team(value, sport)
@@ -109,8 +110,10 @@ img_tag <- function(url, alt, height, default_img, value = alt, fallback = NA) {
   )
 }
 
-# ESPN can drop a variant file the team data still lists (a dark logo has
-# 404'd), so a variant image falls back to the primary rather than breaking.
+# A variant image falls back to the primary in the browser rather than
+# breaking. Marks come from the SportsDataverse logo archive (immutable copies),
+# so this guards only the live-source fallback: ESPN has dropped a variant file
+# the team data still listed (a dark logo 404'd, #61).
 img_onerror <- function(url, fallback) {
   if (is.na(fallback) || identical(url, fallback)) return("")
   js <- paste0("this.onerror=null;this.src='", gsub("'", "\\\\'", fallback), "'")
@@ -145,7 +148,7 @@ reactable_sdv_cols_label <- function(
 ) {
   rlang::check_installed("reactable", "to build reactable column definitions.")
   sport <- rlang::arg_match0(sport, supported_sports())
-  variant <- check_variant(variant, "logo")
+  variant <- check_variant(variant, "logo", sport)
   out <- list()
   for (nm in names(.data)) {
     url <- resolve_logo_url(nm, sport, variant)

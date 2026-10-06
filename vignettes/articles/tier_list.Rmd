@@ -76,15 +76,13 @@ directly, and so does `gt_legend_discrete()`, so one object can drive both.
 
 ### The image columns
 
-The images come from sdvplotR's own team table: `team_reference()` holds every
-team's logo URLs, keyed by the same nflverse abbreviations the play-by-play uses.
+The images come from sdvplotR's own team table: `sdv_logo_url()` resolves the
+same nflverse abbreviations the play-by-play uses to each team's logo, the
+SportsDataverse logo archive's copy of it.
 
 ```{r nfl-wide}
-logos <- team_reference("nfl") |>
-  select(team = team_abbr, logo = logo_url)
-
 nfl_wide <- nfl |>
-  left_join(logos, by = "team") |>
+  mutate(logo = sdv_logo_url(team, sport = "nfl")) |>
   pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo, names_sort = TRUE) |>
   arrange(tier)
 ```
@@ -163,13 +161,12 @@ acc_margin <- acc_margin |>
   mutate(tier_order = row_number(), .by = tier)
 ```
 
-A dark table wants dark-mode logos. `team_reference()` carries both, so we take
-the dark one and fall back to the primary where ESPN has no dark version.
+A dark table wants dark-mode logos: `variant = "dark"`, which gives the primary
+for a team with no dark mark (every team has one; most conferences don't).
 
 ```{r acc-wide}
 acc_wide <- acc_margin |>
-  left_join(select(acc, team = team_abbr, logo_dark_url, logo_url), by = "team") |>
-  mutate(logo = coalesce(logo_dark_url, logo_url)) |>
+  mutate(logo = sdv_logo_url(team, sport = "mbb", variant = "dark")) |>
   pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo, names_sort = TRUE) |>
   arrange(tier)
 ```

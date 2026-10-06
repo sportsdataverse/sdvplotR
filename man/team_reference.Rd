@@ -32,10 +32,10 @@ columns:\tabular{lll}{
    team_short_name \tab character \tab Short display name \cr
    team_location \tab character \tab City / school \cr
    team_mascot \tab character \tab Mascot / nickname \cr
-   logo_url \tab character \tab Primary logo URL \cr
-   logo_dark_url \tab character \tab Dark-background logo URL \cr
-   logo_scoreboard_url \tab character \tab Scoreboard logo URL \cr
-   wordmark_url \tab character \tab Wordmark URL (\code{NA} when none) \cr
+   logo_url \tab character \tab Primary logo URL at the source (ESPN's CDN) \cr
+   logo_dark_url \tab character \tab Dark-background logo URL at the source \cr
+   logo_scoreboard_url \tab character \tab Scoreboard logo URL at the source (\code{NA} when none) \cr
+   wordmark_url \tab character \tab Wordmark URL at the source (nflverse; \code{NA} when none) \cr
    color1 \tab character \tab Primary team color (hex) \cr
    color2 \tab character \tab Secondary team color (hex; \code{NA} when the source has none) \cr
    color_source \tab character \tab \code{"nflverse"}, \code{"espn"}, \code{"logo"} or \code{"cbbplotR"}; \code{NA} for the AFC, NFC and NFL \cr
@@ -44,6 +44,10 @@ columns:\tabular{lll}{
    type \tab character \tab \code{"team"}, \code{"conference"} or \code{"league"} \cr
 }
 
+
+The URL columns are the sources' live files, which ESPN drops and
+replaces; the helpers draw the SportsDataverse logo archive's copies
+instead, which \code{\link[=sdv_logo_url]{sdv_logo_url()}} returns.
 
 Colors are nflverse's for the NFL and ESPN's teams-list colors elsewhere.
 ESPN gives some newer or smaller college programs a stand-in instead of
