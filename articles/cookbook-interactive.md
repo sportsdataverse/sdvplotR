@@ -482,6 +482,7 @@ p_plotly <- plot_ly(
   ) |>
   config(staticPlot = TRUE)
 htmlwidgets::saveWidget(p_plotly, file.path(out, "nhl.html"), selfcontained = TRUE)
+options(chromote.timeout = 60) # a loaded machine can take over chromote's 10-second default to start Chrome
 webshot2::webshot(file.path(out, "nhl.html"), file.path(out, "nhl.png"),
   vwidth = 1200, vheight = 675, delay = 2
 )

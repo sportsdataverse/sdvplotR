@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-06:** the 2026-27 season, 1-4 games in per team.
+**Updated 2026-10-06:** the 2026-27 season, 2-4 games in per team.
 Early-season tables move a lot from week to week.
 
 This page is rebuilt every week with the site. It builds the standings,
@@ -136,7 +136,7 @@ standings |>
 
 | NHL standings, 2026-27 |  |  |  |  |  |  |  |  |  |  |  |  |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|
-| Through Oct 4 (1-4 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
+| Through Oct 5 (2-4 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
 |  | Team | GP | W | L | OTL | PTS | PTS% | GF | GA | DIFF | Last 10 | Streak |
 | Atlantic |  |  |  |  |  |  |  |  |  |  |  |  |
 | ![Ottawa Senators](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/05/05bddfd77b0f30e13cd4a81708e41cc72cfad5b9d136a11f35eb01016b27c849.png) | Senators | 2 | 2 | 0 | 0 | 4 | 1.000 | 7 | 3 | +4 | 2-0-0 | W2 |

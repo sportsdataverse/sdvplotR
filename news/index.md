@@ -8,6 +8,16 @@ college football, men’s and women’s college basketball, and soccer),
 built on ‘ggpath’ and following the conventions of ‘nflplotR’,
 ‘cfbplotR’, ‘nbaplotR’ and ‘mlbplotR’.
 
+- Saving a table to an image
+  ([`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md),
+  [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md),
+  [`gt_save_batch()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_batch.md),
+  [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md),
+  [`gt_stack_tables()`](https://sdvplotR.sportsdataverse.org/reference/gt_stack_tables.md))
+  gives headless Chrome 60 seconds to start instead of chromote’s 10: a
+  loaded machine, such as a CI runner, no longer fails with “Chrome
+  debugging port not open after 10 seconds”. A longer
+  `options(chromote.timeout = )` of your own is kept.
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   draws `"soccer"` (a regulation 105 x 68 m pitch, the frame
   [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
