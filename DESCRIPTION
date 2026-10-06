@@ -58,6 +58,7 @@ Imports:
     utils
 Suggests:
     chromote,
+    ggsoccer,
     ggtext (>= 0.1.1),
     gridtext (>= 0.1.4),
     reactable,
