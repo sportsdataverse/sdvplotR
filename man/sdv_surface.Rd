@@ -75,8 +75,9 @@ regulation 105 x 68 m pitch, the frame \code{\link[=sdv_pitch_coords]{sdv_pitch_
 regulation colors. FIBA takes no \code{team} yet.
 
 Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
-(yards for football). The center logo is sized in those units (12 feet
-on a court, 10 yards on a field, 24 feet on a rink) and follows
+(yards for football, meters for soccer and FIBA). The center logo is sized
+in those units (12 feet on a court, 10 yards on a field, 24 feet on a
+rink, 18.3 m on a pitch) and follows
 \code{x_trans}, \code{y_trans}, \code{rotation} and the unit arguments.
 }
 \examples{

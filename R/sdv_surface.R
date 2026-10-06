@@ -54,8 +54,9 @@
 #'   regulation colors. FIBA takes no `team` yet.
 #'
 #'   Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
-#'   (yards for football). The center logo is sized in those units (12 feet
-#'   on a court, 10 yards on a field, 24 feet on a rink) and follows
+#'   (yards for football, meters for soccer and FIBA). The center logo is sized
+#'   in those units (12 feet on a court, 10 yards on a field, 24 feet on a
+#'   rink, 18.3 m on a pitch) and follows
 #'   `x_trans`, `y_trans`, `rotation` and the unit arguments.
 #'
 #' @return A ggplot object ([ggplot2::ggplot()]) with `coord_fixed()`; add
