@@ -311,7 +311,8 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   can be checked against its name. All 1,136 teams, the conferences and the
   NFL shield have archived primary and dark marks; the same images as before
   (every sampled source file hashes to its archive copy). ESPN's live URL is
-  the fallback for a mark the archive has no copy of. The archive's named
+  the fallback for a mark the archive has no copy of (today: 1,124 of the
+  2,631 soccer clubs' primary logos). The archive's named
   variants join `"primary"` / `"dark"` / `"scoreboard"` where most of a
   sport's teams have them: ESPN's `"scoreboard_dark"` and
   `"primary_logo_on_black_color"` family (every sport), `"grayscale"` and

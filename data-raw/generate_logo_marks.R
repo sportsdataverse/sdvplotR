@@ -41,8 +41,6 @@
 
 pkgload::load_all(".", quiet = TRUE)
 logo_ref <- sdvplotR:::logo_ref
-abbr_mapping <- sdvplotR:::abbr_mapping
-logo_history <- sdvplotR:::logo_history
 
 manifest_url <- "https://raw.githubusercontent.com/sportsdataverse/sdv-assets/main/manifest/marks.csv"
 marks <- utils::read.csv(manifest_url, colClasses = "character", na.strings = "")
@@ -72,9 +70,14 @@ canonical <- do.call(rbind, lapply(names(listed), function(col) {
     source_url = logo_ref[[col]][i]
   )
 }))
-if (anyNA(canonical$url)) {
-  stop("not in the archive: ", paste(canonical$source_url[is.na(canonical$url)], collapse = ", "))
-}
+# a file the archive has no copy of stays on the source's live URL (the
+# resolver's fallback); print them, and stop if one of the eight SDV sports
+# loses a copy it had
+missing <- canonical[is.na(canonical$url), ]
+message(nrow(missing), " listed files without an archive copy (fall back to the source):")
+print(table(missing$sport, paste(missing$type, missing$variant)))
+stopifnot(!missing$sport %in% c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"))
+canonical <- canonical[!is.na(canonical$url), ]
 
 # ---------------------------------------------------------------------------
 # Named variants
@@ -124,10 +127,7 @@ stopifnot(
   !anyNA(logo_marks),
   startsWith(logo_marks$url, cdn),
   !anyDuplicated(logo_marks[c("sport", "key", "type", "variant")]),
-  paste(logo_marks$sport, logo_marks$key) %in% paste(logo_ref$sport, logo_ref$team_abbr),
-  # every row of the team reference has its primary logo
-  paste(logo_ref$sport, logo_ref$team_abbr) %in%
-    with(logo_marks, paste(sport, key)[type == "logo" & variant == "primary"])
+  paste(logo_marks$sport, logo_marks$key) %in% paste(logo_ref$sport, logo_ref$team_abbr)
 )
 
 # coverage: teams with each variant, per sport
@@ -167,7 +167,8 @@ if (getRversion() >= "4.5.0") {
   }
 }
 
-usethis::use_data(
-  logo_ref, abbr_mapping, logo_history, logo_marks,
-  internal = TRUE, overwrite = TRUE, compress = "xz"
-)
+# re-save every object R/sysdata.rda holds (the other scripts'), this one replaced
+sysdata <- new.env()
+load("R/sysdata.rda", envir = sysdata)
+sysdata$logo_marks <- logo_marks
+save(list = sort(ls(sysdata)), envir = sysdata, file = "R/sysdata.rda", compress = "xz", version = 3)

@@ -75,7 +75,8 @@ team abbr / player id
   the archive's copies of today's logos and wordmarks, read FIRST by
   `resolve_logo_url()` / `resolve_wordmark_url()` (every geom, element and
   table helper goes through them); `logo_ref`'s ESPN / nflverse URLs are the
-  fallback for a mark the archive lacks (none today). Built by
+  fallback for a mark the archive lacks (none in the eight SDV sports; ~1,100
+  of the 2,631 soccer clubs). Built by
   `data-raw/generate_logo_marks.R` from the same manifest: the files
   `logo_ref` lists joined on the manifest's `url` (so the image drawn is the
   same file; the copy seen last wins where ESPN replaced one), plus every

@@ -35,8 +35,8 @@ test_that("gt_sdv_logos keep their size inside a table theme", {
     gt_sdv_logos(columns = "team", sport = "nfl", height = 30) |>
     gt_theme_kenpom() |>
     html_of()
-  expect_match(h, "kc\\.png\" style=\"height:30px;\"")
-  expect_match(h, "buf\\.png\" style=\"height:30px;\"")
+  expect_match(h, paste0(logo_from_team("KC", "nfl"), "\" style=\"height:30px;\""), fixed = TRUE)
+  expect_match(h, paste0(logo_from_team("BUF", "nfl"), "\" style=\"height:30px;\""), fixed = TRUE)
 })
 
 test_that("gt_save_crop returns the path, or the image bytes when file is NULL", {

@@ -2,8 +2,9 @@
 # (data-raw/generate_logo_marks.R), read first by every logo / wordmark helper.
 
 cdn <- "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/"
+sdv_sports <- c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")
 # <cdn>/<ab>/<sha256>.<ext>, the directory being the hash's first two digits
-sha_re <- paste0("^", cdn, "([0-9a-f]{2})/\\1[0-9a-f]{62}\\.(png|svg)$")
+sha_re <- paste0("^", cdn, "([0-9a-f]{2})/\\1[0-9a-f]{62}\\.(png|svg|gif|jpg)$")
 
 test_that("logo_marks holds one archive copy per sport, key, type and variant", {
   expect_named(logo_marks, c("sport", "key", "type", "variant", "url"))
@@ -11,20 +12,31 @@ test_that("logo_marks holds one archive copy per sport, key, type and variant", 
   expect_true(all(grepl(sha_re, logo_marks$url, perl = TRUE)))
   expect_identical(anyDuplicated(logo_marks[c("sport", "key", "type", "variant")]), 0L)
   expect_true(all(paste(logo_marks$sport, logo_marks$key) %in% paste(logo_ref$sport, logo_ref$team_abbr)))
-  # every row of the team reference (conferences and the NFL shield included)
-  # has an archived primary logo, and every team a dark one
+  # every row of the eight SDV sports (conferences and the NFL shield included)
+  # has an archived primary logo, and every team a dark one; soccer clubs are
+  # archived as far as the archive has them (the rest fall back to ESPN)
+  ref <- logo_ref[logo_ref$sport %in% sdv_sports, ]
   prim <- logo_marks[logo_marks$type == "logo" & logo_marks$variant == "primary", ]
-  expect_true(all(paste(logo_ref$sport, logo_ref$team_abbr) %in% paste(prim$sport, prim$key)))
-  teams <- logo_ref[logo_ref$type == "team", ]
+  expect_true(all(paste(ref$sport, ref$team_abbr) %in% paste(prim$sport, prim$key)))
+  teams <- ref[ref$type == "team", ]
+  expect_identical(nrow(teams), 1136L)
   dark <- logo_marks[logo_marks$type == "logo" & logo_marks$variant == "dark", ]
   expect_true(all(paste(teams$sport, teams$team_abbr) %in% paste(dark$sport, dark$key)))
+  expect_gt(sum(prim$sport == "soccer"), 1000)
 })
 
 test_that("current logos and wordmarks come from the archive, not a live CDN", {
-  for (s in supported_sports()) {
+  for (s in sdv_sports) {
     expect_match(logo_from_team(valid_team_names(s)[1:3], s), paste0("^", cdn))
     expect_match(resolve_logo_url(valid_team_names(s)[1], s, "dark"), paste0("^", cdn))
   }
+  # a soccer club the archive has no copy of falls back to ESPN's live file
+  soccer <- logo_ref[logo_ref$sport == "soccer", ]
+  archived <- logo_marks$key[logo_marks$sport == "soccer" & logo_marks$type == "logo" & logo_marks$variant == "primary"]
+  club <- soccer[!soccer$team_abbr %in% archived, ][1, ]
+  expect_identical(logo_from_team(club$team_abbr, "soccer"), club$logo_url)
+  expect_match(logo_from_team(club$team_abbr, "soccer"), "^https://a\\.espncdn\\.com/")
+  expect_match(logo_from_team(soccer$team_abbr[soccer$team_abbr %in% archived][1], "soccer"), paste0("^", cdn))
   expect_match(logo_from_team("SEC", "cfb"), paste0("^", cdn))
   expect_match(logo_from_team("AFC", "nfl"), paste0("^", cdn))
   expect_match(wordmark_from_team("KC", "nfl"), paste0("^", cdn))
