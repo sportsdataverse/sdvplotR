@@ -51,7 +51,12 @@ jobs:
           needs: website
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        # The gt_save_crop() articles launch Chrome through chromote, whose default wait for the
+        # debugging port is 10 seconds; a loaded runner misses it ("Chrome debugging port not open
+        # after 10 seconds") and the whole site build fails. 60 seconds covers a slow start.
+        run: |
+          options(chromote.timeout = 60)
+          pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
         env:
           # cfb-viz.Rmd calls cfbfastR::load_cfb_schedules(), which needs a CollegeFootballData.com key
