@@ -145,3 +145,52 @@ test_that("fixed providers agree with ggsoccer::rescale_coordinates()", {
   expect_equal(same$pitch_x, centered$x)
   expect_equal(same$pitch_y, centered$y)
 })
+
+espn_events <- function() {
+  utils::read.csv(test_path("fixtures", "espn_soccer_events.csv"),
+    colClasses = c(event_id = "character", play_id = "character"), na.strings = ""
+  )
+}
+
+test_that("ESPN: every penalty lands on the spot (real events)", {
+  out <- sdv_pitch_coords(espn_events(), "espn")
+  pens <- out[startsWith(out$type, "Penalty"), ]
+  expect_gte(nrow(pens), 10)
+  expect_true(all(abs(pens$pitch_x - 41.5) < 0.5))
+  expect_true(all(abs(pens$pitch_y) < 1))
+})
+
+test_that("ESPN: the commentary's side of the box matches the sign of pitch_y (real events)", {
+  out <- sdv_pitch_coords(espn_events(), "espn")
+  sided <- out[!is.na(out$side), ]
+  expect_gte(nrow(sided), 20)
+  expect_true(all((sided$side == "left") == (sided$pitch_y > 0)))
+})
+
+test_that("ESPN: (0, 0) is no location, but one zero axis is a real location", {
+  d <- data.frame(field_position_x = c(0, 0, 0.23), field_position_y = c(0, 0.4, 0.5))
+  out <- sdv_pitch_coords(d, "espn")
+  expect_identical(c(out$pitch_x[1], out$pitch_y[1]), c(NA_real_, NA_real_))
+  expect_equal(out$pitch_x[2], 52.5) # on the attacked goal line
+  expect_gt(out$pitch_y[2], 0) # y = 0.4 is the shooter's left
+  expect_equal(c(out$pitch_x[3], out$pitch_y[3]), c(41.5, 0))
+  expect_true(all(is.na(sdv_pitch_coords(espn_events(), "espn")$pitch_x[
+    espn_events()$field_position_x == 0 & espn_events()$field_position_y == 0
+  ])))
+})
+
+test_that("tracking providers convert from the venue's real size", {
+  d <- data.frame(x = c(4150, 0, -5250, 5400), y = c(0, 3400, -2016, 0))
+  out <- sdv_pitch_coords(d, "tracab", pitch_length = 105, pitch_width = 68)
+  expect_equal(out$pitch_x, c(41.5, 0, -52.5, 54)) # 5400 cm: past the goal line, extrapolated
+  expect_equal(out$pitch_y, c(0, 34, -20.16, 0))
+  m <- sdv_pitch_coords(data.frame(x = 0.5, y = 0), "metrica", pitch_length = 105, pitch_width = 68)
+  expect_equal(c(m$pitch_x, m$pitch_y), c(0, 34)) # Metrica's y = 0 is the top: the attacker's left
+  v <- sdv_pitch_coords(data.frame(x = 39, y = 0), "skillcorner", pitch_length = 100, pitch_width = 64)
+  expect_equal(v$pitch_x, 41.5) # 11 m from a 100 m pitch's goal line is still the penalty spot
+  metres <- transform(d, x = x / 100, y = y / 100) # Second Spectrum and SkillCorner share one frame
+  expect_identical(
+    sdv_pitch_coords(metres, "secondspectrum", pitch_length = 105, pitch_width = 68)[c("pitch_x", "pitch_y")],
+    sdv_pitch_coords(metres, "skillcorner", pitch_length = 105, pitch_width = 68)[c("pitch_x", "pitch_y")]
+  )
+})
