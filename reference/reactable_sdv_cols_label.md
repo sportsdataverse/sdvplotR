@@ -13,7 +13,7 @@ reactable_sdv_cols_label(
   .data,
   ...,
   sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
-  variant = c("primary", "dark", "light", "alt", "classic", "helmet"),
+  variant = c("primary", "dark", "scoreboard"),
   height = 30
 )
 ```
@@ -36,8 +36,9 @@ reactable_sdv_cols_label(
 
 - variant:
 
-  Character. Logo variant: `"primary"`, `"dark"`, `"light"`, `"alt"`,
-  `"classic"`, or `"helmet"` (NFL only). Falls back to the primary image
+  Character. Logo variant: `"primary"`, `"dark"` or `"scoreboard"` (see
+  [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md));
+  wordmarks come in `"primary"` only. Falls back to the primary image
   when the requested variant is not available for a team, and, in the
   browser, when the variant's file fails to load.
 

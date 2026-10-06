@@ -96,9 +96,10 @@ sdv_team_tiers(
   on the light theme, so dark marks such as the Capitals', the Giants'
   or Penn State's don't fade into the dark background. A team with no
   dark logo draws its primary one, with no warning. Any other value is
-  one of `"primary"`, `"dark"`, `"light"`, `"alt"`, `"classic"` or
-  `"helmet"`, drawn on either theme, with the same fallback. `"primary"`
-  gives the old look, which drew the primary logo on both themes.
+  one of `"primary"`, `"dark"` or `"scoreboard"` (see
+  [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)),
+  drawn on either theme, with the same fallback. `"primary"` gives the
+  old look, which drew the primary logo on both themes.
 
 ## Value
 

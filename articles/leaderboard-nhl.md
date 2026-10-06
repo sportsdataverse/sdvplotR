@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-05:** the 2026-27 season, 1-4 games in per team.
+**Updated 2026-10-06:** the 2026-27 season, 1-4 games in per team.
 Early-season tables move a lot from week to week.
 
 This page is rebuilt every week with the site. It builds the standings,

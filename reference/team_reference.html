@@ -244,7 +244,14 @@ NFC and NFL).</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A data frame with one row per team (plus, with
 <code>include_conferences = TRUE</code>, one per conference and the NFL itself) and
-columns:</p><table class="table table"><tr><td>col_name</td><td>type</td><td>description</td></tr><tr><td>sport</td><td>character</td><td>Sport key (<code>"nfl"</code>, <code>"nba"</code>, ...)</td></tr><tr><td>espn_team_id</td><td>integer</td><td>ESPN team id (<code>NA</code> for conferences)</td></tr><tr><td>team_abbr</td><td>character</td><td>Canonical team abbreviation</td></tr><tr><td>team_name</td><td>character</td><td>Full team name</td></tr><tr><td>team_short_name</td><td>character</td><td>Short display name</td></tr><tr><td>team_location</td><td>character</td><td>City / school</td></tr><tr><td>team_mascot</td><td>character</td><td>Mascot / nickname</td></tr><tr><td>logo_url</td><td>character</td><td>Primary logo URL</td></tr><tr><td>logo_dark_url</td><td>character</td><td>Dark-background logo URL</td></tr><tr><td>logo_scoreboard_url</td><td>character</td><td>Scoreboard logo URL</td></tr><tr><td>wordmark_url</td><td>character</td><td>Wordmark URL (<code>NA</code> when none)</td></tr><tr><td>color1</td><td>character</td><td>Primary team color (hex)</td></tr><tr><td>color2</td><td>character</td><td>Secondary team color (hex)</td></tr><tr><td>conference</td><td>character</td><td>Conference (<code>NA</code> for leagues without)</td></tr><tr><td>division</td><td>character</td><td>Division (<code>NA</code> for leagues without)</td></tr><tr><td>type</td><td>character</td><td><code>"team"</code>, <code>"conference"</code> or <code>"league"</code></td></tr></table></div>
+columns:</p><table class="table table"><tr><td>col_name</td><td>type</td><td>description</td></tr><tr><td>sport</td><td>character</td><td>Sport key (<code>"nfl"</code>, <code>"nba"</code>, ...)</td></tr><tr><td>espn_team_id</td><td>integer</td><td>ESPN team id (<code>NA</code> for conferences)</td></tr><tr><td>team_abbr</td><td>character</td><td>Canonical team abbreviation</td></tr><tr><td>team_name</td><td>character</td><td>Full team name</td></tr><tr><td>team_short_name</td><td>character</td><td>Short display name</td></tr><tr><td>team_location</td><td>character</td><td>City / school</td></tr><tr><td>team_mascot</td><td>character</td><td>Mascot / nickname</td></tr><tr><td>logo_url</td><td>character</td><td>Primary logo URL</td></tr><tr><td>logo_dark_url</td><td>character</td><td>Dark-background logo URL</td></tr><tr><td>logo_scoreboard_url</td><td>character</td><td>Scoreboard logo URL</td></tr><tr><td>wordmark_url</td><td>character</td><td>Wordmark URL (<code>NA</code> when none)</td></tr><tr><td>color1</td><td>character</td><td>Primary team color (hex)</td></tr><tr><td>color2</td><td>character</td><td>Secondary team color (hex; <code>NA</code> when the source has none)</td></tr><tr><td>color_source</td><td>character</td><td><code>"nflverse"</code>, <code>"espn"</code>, <code>"logo"</code> or <code>"cbbplotR"</code>; <code>NA</code> for the AFC, NFC and NFL</td></tr><tr><td>conference</td><td>character</td><td>Conference (<code>NA</code> for leagues without)</td></tr><tr><td>division</td><td>character</td><td>Division (<code>NA</code> for leagues without)</td></tr><tr><td>type</td><td>character</td><td><code>"team"</code>, <code>"conference"</code> or <code>"league"</code></td></tr></table><p>Colors are nflverse's for the NFL and ESPN's teams-list colors elsewhere.
+ESPN gives some newer or smaller college programs a stand-in instead of
+colors (black alone, black with its stock red, or black on black); those
+teams, and the ones ESPN gives no color, take the colors sdvplot's team
+index holds for the same ESPN team id: ESPN's own per-team entry where it
+has one (<code>"espn"</code>), otherwise colors derived from the team's logo
+(<code>"logo"</code>). Every team therefore has a primary color.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -414,39 +421,39 @@ columns:</p><table class="table table"><tr><td>col_name</td><td>type</td><td>des
 <span class="r-out co"><span class="r-pr">#&gt;</span> 90  https://github.com/nflverse/nflverse-pbp/raw/master/wordmarks/TB.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 91 https://github.com/nflverse/nflverse-pbp/raw/master/wordmarks/TEN.png</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 92 https://github.com/nflverse/nflverse-pbp/raw/master/wordmarks/WAS.png</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     color1  color2 conference  division type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61 #97233F #000000        NFC  NFC West team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62 #A71930 #000000        NFC NFC South team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63 #241773 #9E7C0C        AFC AFC North team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64 #00338D #C60C30        AFC  AFC East team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65 #0085CA #000000        NFC NFC South team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66 #0B162A #E64100        NFC NFC North team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67 #FB4F14 #000000        AFC AFC North team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68 #FF3C00 #311D00        AFC AFC North team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69 #002244 #B0B7BC        NFC  NFC East team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70 #002244 #FB4F14        AFC  AFC West team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71 #0076B6 #B0B7BC        NFC NFC North team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72 #203731 #FFB612        NFC NFC North team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73 #03202F #A71930        AFC AFC South team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74 #002C5F #a5acaf        AFC AFC South team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75 #006778 #000000        AFC AFC South team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76 #E31837 #FFB612        AFC  AFC West team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77 #003594 #FFD100        NFC  NFC West team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78 #007BC7 #ffc20e        AFC  AFC West team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79 #000000 #A5ACAF        AFC  AFC West team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80 #008E97 #F58220        AFC  AFC East team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81 #4F2683 #FFC62F        NFC NFC North team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82 #002244 #C60C30        AFC  AFC East team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83 #D3BC8D #000000        NFC NFC South team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84 #0B2265 #A71930        NFC  NFC East team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85 #003F2D #000000        AFC  AFC East team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86 #004C54 #A5ACAF        NFC  NFC East team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87 #000000 #FFB612        AFC AFC North team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88 #002244 #69be28        NFC  NFC West team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89 #AA0000 #B3995D        NFC  NFC West team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90 #A71930 #322F2B        NFC NFC South team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91 #4495D2 #D50A0A        AFC AFC South team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92 #5A1414 #FFB612        NFC  NFC East team</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     color1  color2 conference  division type color_source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61 #97233F #000000        NFC  NFC West team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62 #A71930 #000000        NFC NFC South team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63 #241773 #9E7C0C        AFC AFC North team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 #00338D #C60C30        AFC  AFC East team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65 #0085CA #000000        NFC NFC South team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66 #0B162A #E64100        NFC NFC North team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67 #FB4F14 #000000        AFC AFC North team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 #FF3C00 #311D00        AFC AFC North team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 #002244 #B0B7BC        NFC  NFC East team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 #002244 #FB4F14        AFC  AFC West team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71 #0076B6 #B0B7BC        NFC NFC North team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72 #203731 #FFB612        NFC NFC North team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73 #03202F #A71930        AFC AFC South team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74 #002C5F #a5acaf        AFC AFC South team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75 #006778 #000000        AFC AFC South team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76 #E31837 #FFB612        AFC  AFC West team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77 #003594 #FFD100        NFC  NFC West team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78 #007BC7 #ffc20e        AFC  AFC West team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79 #000000 #A5ACAF        AFC  AFC West team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80 #008E97 #F58220        AFC  AFC East team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81 #4F2683 #FFC62F        NFC NFC North team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82 #002244 #C60C30        AFC  AFC East team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83 #D3BC8D #000000        NFC NFC South team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84 #0B2265 #A71930        NFC  NFC East team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85 #003F2D #000000        AFC  AFC East team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86 #004C54 #A5ACAF        NFC  NFC East team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87 #000000 #FFB612        AFC AFC North team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88 #002244 #69be28        NFC  NFC West team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89 #AA0000 #B3995D        NFC  NFC West team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90 #A71930 #322F2B        NFC NFC South team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91 #4495D2 #D50A0A        AFC AFC South team     nflverse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92 #5A1414 #FFB612        NFC  NFC East team     nflverse</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">team_reference</span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    sport espn_team_id team_abbr           team_name team_short_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31   nba            1       ATL       Atlanta Hawks           Hawks</span>
@@ -476,13 +483,13 @@ columns:</p><table class="table table"><tr><td>col_name</td><td>type</td><td>des
 <span class="r-out co"><span class="r-pr">#&gt;</span> 34 https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png         &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 35 https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png         &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36 https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cle.png         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     color1  color2 conference division type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 #C8102E #FDB927    Eastern     &lt;NA&gt; team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 #000000 #FFFFFF    Eastern     &lt;NA&gt; team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 #008348 #FFFFFF    Eastern     &lt;NA&gt; team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34 #008CA8 #1D1060    Eastern     &lt;NA&gt; team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 #CE1141 #000000    Eastern     &lt;NA&gt; team</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 #860038 #BC945C    Eastern     &lt;NA&gt; team</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     color1  color2 conference division type color_source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 #C8102E #FDB927    Eastern     &lt;NA&gt; team         espn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 #000000 #FFFFFF    Eastern     &lt;NA&gt; team         espn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 #008348 #FFFFFF    Eastern     &lt;NA&gt; team         espn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 #008CA8 #1D1060    Eastern     &lt;NA&gt; team         espn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 #CE1141 #000000    Eastern     &lt;NA&gt; team         espn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 #860038 #BC945C    Eastern     &lt;NA&gt; team         espn</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

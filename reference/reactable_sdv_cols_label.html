@@ -223,7 +223,7 @@ abbreviations. Columns that cannot be resolved are left out of the list so
 <span>  <span class="va">.data</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="st">"nba"</span>, <span class="st">"wnba"</span>, <span class="st">"mlb"</span>, <span class="st">"nhl"</span>, <span class="st">"cfb"</span>, <span class="st">"mbb"</span>, <span class="st">"wbb"</span><span class="op">)</span>,</span>
-<span>  variant <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"dark"</span>, <span class="st">"light"</span>, <span class="st">"alt"</span>, <span class="st">"classic"</span>, <span class="st">"helmet"</span><span class="op">)</span>,</span>
+<span>  variant <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"dark"</span>, <span class="st">"scoreboard"</span><span class="op">)</span>,</span>
 <span>  height <span class="op">=</span> <span class="fl">30</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -246,10 +246,11 @@ abbreviations. Columns that cannot be resolved are left out of the list so
 
 
 <dt id="arg-variant">variant<a class="anchor" aria-label="anchor" href="#arg-variant"></a></dt>
-<dd><p>Character. Logo variant: <code>"primary"</code>, <code>"dark"</code>, <code>"light"</code>,
-<code>"alt"</code>, <code>"classic"</code>, or <code>"helmet"</code> (NFL only). Falls back to the primary
-image when the requested variant is not available for a team, and, in the
-browser, when the variant's file fails to load.</p></dd>
+<dd><p>Character. Logo variant: <code>"primary"</code>, <code>"dark"</code> or
+<code>"scoreboard"</code> (see <code><a href="sdv_logo_url.html">sdv_logo_url()</a></code>); wordmarks come in <code>"primary"</code> only.
+Falls back to the primary image when the requested variant is not
+available for a team, and, in the browser, when the variant's file fails
+to load.</p></dd>
 
 
 <dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>

@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-05:** the final 2026 regular season; the postseason is
+**Updated 2026-10-06:** the final 2026 regular season; the postseason is
 under way.
 
 This page is rebuilt every week with the site. It builds the division

@@ -17,7 +17,7 @@ their `ggplot2` and `gt` counterparts:
 | Argument | Purpose |
 |----|----|
 | `sport` | One of [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md) |
-| `variant` | `"primary"`, `"dark"`, `"light"`, `"alt"`, `"classic"`, `"helmet"` (NFL) |
+| `variant` | `"primary"`, `"dark"` or `"scoreboard"` for logos; wordmarks come in `"primary"` only |
 | `height` | Image height in pixels |
 | `team_col`, `value_col` | Column names for color / bar resolution |
 

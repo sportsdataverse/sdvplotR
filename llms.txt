@@ -672,6 +672,9 @@ reference data and colors; control the image cache.
   : Get Team Color Palette
 - [`sdv_team_factor()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_factor.md)
   : Order Team Names as a Factor
+- [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+  [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+  : Team Logo and Player Headshot URLs
 - [`sdvplotR_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR_clear_cache.md)
   : Clear the sdvplotR Caches
 

@@ -407,3 +407,27 @@ NHL, college football, men’s and women’s college basketball), built on
   warning. Pass `variant = "primary"` for the old look, or any other
   logo variant. This matches ‘sdvplot’ (Python), whose `team_tiers()`
   made the same change.
+- Every team now has a real primary color. ESPN gives 38 college
+  programs a stand-in instead of colors (black alone, black with its
+  stock red, or black on black; 32 teams drew black) or no color at all
+  (6 drew `NA`: Chicago State, Long Island, UT Rio Grande Valley, West
+  Florida, Le Moyne, Southern Indiana). `data-raw/generate_logo_ref.R`
+  now drops the stand-in and fills those teams from sdvplot’s team index
+  for the same ESPN team id (ESPN’s own per-team entry, else colors
+  derived from the logo), as sdvplot does. The new `color_source` column
+  of
+  [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+  records where each team’s colors come from (`"nflverse"`, `"espn"`,
+  `"logo"`, `"cbbplotR"`).
+- Logo variants are the ones an image backs: `"primary"`, `"dark"` and
+  `"scoreboard"` (ESPN’s scoreboard mark, the Jets’ `NY`; a team without
+  one draws its primary). The names `"light"`, `"alt"`, `"classic"` and
+  `"helmet"`, and the wordmark variants `"dark"`, `"light"`, `"alt"` and
+  `"classic"`, which earlier development builds accepted and silently
+  drew as the primary, are removed: any other value is an error.
+- [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+  and
+  [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+  export the image URLs the package draws (the counterparts of sdvplot’s
+  `logo_url()` and `headshot_url()`), with every team key, variant,
+  season and `id_type` the plotting helpers take.

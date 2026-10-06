@@ -36,25 +36,35 @@ A data frame with one row per team (plus, with
 `include_conferences = TRUE`, one per conference and the NFL itself) and
 columns:
 
-|                     |           |                                        |
-|---------------------|-----------|----------------------------------------|
-| col_name            | type      | description                            |
-| sport               | character | Sport key (`"nfl"`, `"nba"`, ...)      |
-| espn_team_id        | integer   | ESPN team id (`NA` for conferences)    |
-| team_abbr           | character | Canonical team abbreviation            |
-| team_name           | character | Full team name                         |
-| team_short_name     | character | Short display name                     |
-| team_location       | character | City / school                          |
-| team_mascot         | character | Mascot / nickname                      |
-| logo_url            | character | Primary logo URL                       |
-| logo_dark_url       | character | Dark-background logo URL               |
-| logo_scoreboard_url | character | Scoreboard logo URL                    |
-| wordmark_url        | character | Wordmark URL (`NA` when none)          |
-| color1              | character | Primary team color (hex)               |
-| color2              | character | Secondary team color (hex)             |
-| conference          | character | Conference (`NA` for leagues without)  |
-| division            | character | Division (`NA` for leagues without)    |
-| type                | character | `"team"`, `"conference"` or `"league"` |
+|  |  |  |
+|----|----|----|
+| col_name | type | description |
+| sport | character | Sport key (`"nfl"`, `"nba"`, ...) |
+| espn_team_id | integer | ESPN team id (`NA` for conferences) |
+| team_abbr | character | Canonical team abbreviation |
+| team_name | character | Full team name |
+| team_short_name | character | Short display name |
+| team_location | character | City / school |
+| team_mascot | character | Mascot / nickname |
+| logo_url | character | Primary logo URL |
+| logo_dark_url | character | Dark-background logo URL |
+| logo_scoreboard_url | character | Scoreboard logo URL |
+| wordmark_url | character | Wordmark URL (`NA` when none) |
+| color1 | character | Primary team color (hex) |
+| color2 | character | Secondary team color (hex; `NA` when the source has none) |
+| color_source | character | `"nflverse"`, `"espn"`, `"logo"` or `"cbbplotR"`; `NA` for the AFC, NFC and NFL |
+| conference | character | Conference (`NA` for leagues without) |
+| division | character | Division (`NA` for leagues without) |
+| type | character | `"team"`, `"conference"` or `"league"` |
+
+Colors are nflverse's for the NFL and ESPN's teams-list colors
+elsewhere. ESPN gives some newer or smaller college programs a stand-in
+instead of colors (black alone, black with its stock red, or black on
+black); those teams, and the ones ESPN gives no color, take the colors
+sdvplot's team index holds for the same ESPN team id: ESPN's own
+per-team entry where it has one (`"espn"`), otherwise colors derived
+from the team's logo (`"logo"`). Every team therefore has a primary
+color.
 
 ## Examples
 
@@ -225,39 +235,39 @@ team_reference("nfl")
 #> 90  https://github.com/nflverse/nflverse-pbp/raw/master/wordmarks/TB.png
 #> 91 https://github.com/nflverse/nflverse-pbp/raw/master/wordmarks/TEN.png
 #> 92 https://github.com/nflverse/nflverse-pbp/raw/master/wordmarks/WAS.png
-#>     color1  color2 conference  division type
-#> 61 #97233F #000000        NFC  NFC West team
-#> 62 #A71930 #000000        NFC NFC South team
-#> 63 #241773 #9E7C0C        AFC AFC North team
-#> 64 #00338D #C60C30        AFC  AFC East team
-#> 65 #0085CA #000000        NFC NFC South team
-#> 66 #0B162A #E64100        NFC NFC North team
-#> 67 #FB4F14 #000000        AFC AFC North team
-#> 68 #FF3C00 #311D00        AFC AFC North team
-#> 69 #002244 #B0B7BC        NFC  NFC East team
-#> 70 #002244 #FB4F14        AFC  AFC West team
-#> 71 #0076B6 #B0B7BC        NFC NFC North team
-#> 72 #203731 #FFB612        NFC NFC North team
-#> 73 #03202F #A71930        AFC AFC South team
-#> 74 #002C5F #a5acaf        AFC AFC South team
-#> 75 #006778 #000000        AFC AFC South team
-#> 76 #E31837 #FFB612        AFC  AFC West team
-#> 77 #003594 #FFD100        NFC  NFC West team
-#> 78 #007BC7 #ffc20e        AFC  AFC West team
-#> 79 #000000 #A5ACAF        AFC  AFC West team
-#> 80 #008E97 #F58220        AFC  AFC East team
-#> 81 #4F2683 #FFC62F        NFC NFC North team
-#> 82 #002244 #C60C30        AFC  AFC East team
-#> 83 #D3BC8D #000000        NFC NFC South team
-#> 84 #0B2265 #A71930        NFC  NFC East team
-#> 85 #003F2D #000000        AFC  AFC East team
-#> 86 #004C54 #A5ACAF        NFC  NFC East team
-#> 87 #000000 #FFB612        AFC AFC North team
-#> 88 #002244 #69be28        NFC  NFC West team
-#> 89 #AA0000 #B3995D        NFC  NFC West team
-#> 90 #A71930 #322F2B        NFC NFC South team
-#> 91 #4495D2 #D50A0A        AFC AFC South team
-#> 92 #5A1414 #FFB612        NFC  NFC East team
+#>     color1  color2 conference  division type color_source
+#> 61 #97233F #000000        NFC  NFC West team     nflverse
+#> 62 #A71930 #000000        NFC NFC South team     nflverse
+#> 63 #241773 #9E7C0C        AFC AFC North team     nflverse
+#> 64 #00338D #C60C30        AFC  AFC East team     nflverse
+#> 65 #0085CA #000000        NFC NFC South team     nflverse
+#> 66 #0B162A #E64100        NFC NFC North team     nflverse
+#> 67 #FB4F14 #000000        AFC AFC North team     nflverse
+#> 68 #FF3C00 #311D00        AFC AFC North team     nflverse
+#> 69 #002244 #B0B7BC        NFC  NFC East team     nflverse
+#> 70 #002244 #FB4F14        AFC  AFC West team     nflverse
+#> 71 #0076B6 #B0B7BC        NFC NFC North team     nflverse
+#> 72 #203731 #FFB612        NFC NFC North team     nflverse
+#> 73 #03202F #A71930        AFC AFC South team     nflverse
+#> 74 #002C5F #a5acaf        AFC AFC South team     nflverse
+#> 75 #006778 #000000        AFC AFC South team     nflverse
+#> 76 #E31837 #FFB612        AFC  AFC West team     nflverse
+#> 77 #003594 #FFD100        NFC  NFC West team     nflverse
+#> 78 #007BC7 #ffc20e        AFC  AFC West team     nflverse
+#> 79 #000000 #A5ACAF        AFC  AFC West team     nflverse
+#> 80 #008E97 #F58220        AFC  AFC East team     nflverse
+#> 81 #4F2683 #FFC62F        NFC NFC North team     nflverse
+#> 82 #002244 #C60C30        AFC  AFC East team     nflverse
+#> 83 #D3BC8D #000000        NFC NFC South team     nflverse
+#> 84 #0B2265 #A71930        NFC  NFC East team     nflverse
+#> 85 #003F2D #000000        AFC  AFC East team     nflverse
+#> 86 #004C54 #A5ACAF        NFC  NFC East team     nflverse
+#> 87 #000000 #FFB612        AFC AFC North team     nflverse
+#> 88 #002244 #69be28        NFC  NFC West team     nflverse
+#> 89 #AA0000 #B3995D        NFC  NFC West team     nflverse
+#> 90 #A71930 #322F2B        NFC NFC South team     nflverse
+#> 91 #4495D2 #D50A0A        AFC AFC South team     nflverse
+#> 92 #5A1414 #FFB612        NFC  NFC East team     nflverse
 head(team_reference("nba"))
 #>    sport espn_team_id team_abbr           team_name team_short_name
 #> 31   nba            1       ATL       Atlanta Hawks           Hawks
@@ -287,11 +297,11 @@ head(team_reference("nba"))
 #> 34 https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png         <NA>
 #> 35 https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png         <NA>
 #> 36 https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cle.png         <NA>
-#>     color1  color2 conference division type
-#> 31 #C8102E #FDB927    Eastern     <NA> team
-#> 32 #000000 #FFFFFF    Eastern     <NA> team
-#> 33 #008348 #FFFFFF    Eastern     <NA> team
-#> 34 #008CA8 #1D1060    Eastern     <NA> team
-#> 35 #CE1141 #000000    Eastern     <NA> team
-#> 36 #860038 #BC945C    Eastern     <NA> team
+#>     color1  color2 conference division type color_source
+#> 31 #C8102E #FDB927    Eastern     <NA> team         espn
+#> 32 #000000 #FFFFFF    Eastern     <NA> team         espn
+#> 33 #008348 #FFFFFF    Eastern     <NA> team         espn
+#> 34 #008CA8 #1D1060    Eastern     <NA> team         espn
+#> 35 #CE1141 #000000    Eastern     <NA> team         espn
+#> 36 #860038 #BC945C    Eastern     <NA> team         espn
 ```
