@@ -88,6 +88,25 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   other’s objects; rerun this one after `generate_logo_ref.R`. NHL marks
   are SVG, which ggpath reads with `rsvg`.
 
+- `R/sysdata.rda` also holds `logo_marks` (sport, key, type, variant,
+  url): the archive’s copies of today’s logos and wordmarks, read FIRST
+  by `resolve_logo_url()` / `resolve_wordmark_url()` (every geom,
+  element and table helper goes through them); `logo_ref`’s ESPN /
+  nflverse URLs are the fallback for a mark the archive lacks (none in
+  the eight SDV sports; ~1,100 of the 2,631 soccer clubs). Built by
+  `data-raw/generate_logo_marks.R` from the same manifest: the files
+  `logo_ref` lists joined on the manifest’s `url` (so the image drawn is
+  the same file; the copy seen last wins where ESPN replaced one), plus
+  every named variant at least half of a sport’s teams have (ESPN’s
+  `primary_logo_on_*` family, `scoreboard_dark`, `grayscale`, nflverse’s
+  `squared`, MLB’s mlbstatic caps / wordmarks, SVG). A variant is valid
+  for a sport iff `logo_variants` / `wordmark_variants` or
+  `archive_variants(sport)` has it. Run order: `generate_logo_ref.R` -\>
+  `generate_logo_history.R` -\> `generate_logo_marks.R`; all three save
+  the four objects with `xz`.
+  [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+  keeps the source URLs on purpose (public columns).
+
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
   `headshot_gsis_map.rds` from this repo’s `sdvplotr_infrastructure`
   pre-release (never “Latest”, so `@*release` installs are unaffected)

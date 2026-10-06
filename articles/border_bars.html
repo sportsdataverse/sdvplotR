@@ -385,13 +385,14 @@ sections.</p>
 <span>    stat <span class="op">=</span> <span class="va">labels</span><span class="op">[</span><span class="va">stat</span><span class="op">]</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">stat</span>, <span class="va">home</span>, <span class="va">away</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/team_reference.html">team_reference()</a></code> holds the champion’s name, its
-dark-mode logo (made for a colored ground) and, through
-<code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</a></code>, its primary color for the bar.</p>
+<p><code><a href="../reference/team_reference.html">team_reference()</a></code> holds the champion’s name;
+<code><a href="../reference/sdv_logo_url.html">sdv_logo_url()</a></code> its dark-mode logo (made for a colored
+ground) and <code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</a></code> its primary color for the
+bar.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">team</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span>, <span class="va">espn_team_id</span> <span class="op">==</span> <span class="va">champion</span><span class="op">)</span></span>
 <span><span class="va">team_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"mbb"</span>, <span class="va">team</span><span class="op">$</span><span class="va">team_abbr</span>, <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">team_logo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">team</span><span class="op">$</span><span class="va">logo_dark_url</span>, <span class="va">team</span><span class="op">$</span><span class="va">logo_url</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">team_logo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_logo_url.html">sdv_logo_url</a></span><span class="op">(</span><span class="va">team</span><span class="op">$</span><span class="va">team_abbr</span>, sport <span class="op">=</span> <span class="st">"mbb"</span>, variant <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span></span></code></pre></div>
 <p>Now the table. <code><a href="../reference/gt_theme_savant.html">gt_theme_savant()</a></code> gives a clean base,
 <code><a href="../reference/gt_color_pills.html">gt_color_pills()</a></code> fills the two percentile columns over a
 fixed <code>[0, 1]</code> domain, and <code><a href="../reference/gt_border_bars_top.html">gt_border_bars_top()</a></code>
@@ -943,7 +944,7 @@ around.</p>
 <caption>
 <style>@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');</style>
 <div style="display: flex; justify-content: space-between; align-items: center; height: 62px; background-color: #00274C; width: 100%; margin-left: auto; margin-right: auto;">
-<span style="font-weight:bold; color:#FFFFFF; font-size:20px; padding-left: 10px; font-family: 'Roboto Condensed';">2025-26 recap: Michigan</span><img src="https://a.espncdn.com/i/teamlogos/ncaa/500-dark/130.png" width="44px" height="44px" style="padding-right:10px;" alt="">
+<span style="font-weight:bold; color:#FFFFFF; font-size:20px; padding-left: 10px; font-family: 'Roboto Condensed';">2025-26 recap: Michigan</span><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f6/f6f492cd2b0f6855912d909852ee6fe5e71094a94518c1b38273e680a27d4236.png" width="44px" height="44px" style="padding-right:10px;" alt="">
 </div>
 </caption>
   <colgroup>
@@ -1650,7 +1651,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">1</td>
 <td headers="photo" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/3149391.png" style="height:36px;" alt="Player 3149391 headshot"></td>
 <td headers="player" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">A'ja Wilson</td>
-<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/lv.png" style="height:26px;" alt="Las Vegas Aces"></td>
+<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d3057fc57ddcd581b22821cab1d5fcc21a6e7b9e9bc7a0dcc57c3ef4e8284523.png" style="height:26px;" alt="Las Vegas Aces"></td>
 <td headers="gp" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">42</td>
 <td headers="ppg" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">25.8</td>
 <td headers="fg_pct" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">52.6%</td>
@@ -1659,7 +1660,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">2</td>
 <td headers="photo" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/3142191.png" style="height:36px;" alt="Player 3142191 headshot"></td>
 <td headers="player" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Kelsey Mitchell</td>
-<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/ind.png" style="height:26px;" alt="Indiana Fever"></td>
+<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54229f470dabb4795f3e09f979805041d0bc60e859ba94f8bc3d3c2939e8a1bd.png" style="height:26px;" alt="Indiana Fever"></td>
 <td headers="gp" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">45</td>
 <td headers="ppg" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">24.8</td>
 <td headers="fg_pct" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">51.1%</td>
@@ -1668,7 +1669,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">3</td>
 <td headers="photo" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/4433403.png" style="height:36px;" alt="Player 4433403 headshot"></td>
 <td headers="player" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Caitlin Clark</td>
-<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/ind.png" style="height:26px;" alt="Indiana Fever"></td>
+<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54229f470dabb4795f3e09f979805041d0bc60e859ba94f8bc3d3c2939e8a1bd.png" style="height:26px;" alt="Indiana Fever"></td>
 <td headers="gp" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">41</td>
 <td headers="ppg" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">22.1</td>
 <td headers="fg_pct" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">44.3%</td>
@@ -1677,7 +1678,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">4</td>
 <td headers="photo" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/2998938.png" style="height:36px;" alt="Player 2998938 headshot"></td>
 <td headers="player" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Kahleah Copper</td>
-<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/phx.png" style="height:26px;" alt="Phoenix Mercury"></td>
+<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ca/cabf18c9af751e07c8df012fde18e326da8047d789bc10298be48bfe6f0f3ab7.png" style="height:26px;" alt="Phoenix Mercury"></td>
 <td headers="gp" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">41</td>
 <td headers="ppg" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">21.0</td>
 <td headers="fg_pct" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">44.8%</td>
@@ -1686,7 +1687,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">5</td>
 <td headers="photo" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/3904576.png" style="height:36px;" alt="Player 3904576 headshot"></td>
 <td headers="player" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Marina Mabrey</td>
-<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/tor.png" style="height:26px;" alt="Toronto Tempo"></td>
+<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/22/2268104ab5df4d3276b4469b89559f488d61464091755f2df8ce84d42ccca5e8.png" style="height:26px;" alt="Toronto Tempo"></td>
 <td headers="gp" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">33</td>
 <td headers="ppg" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">20.9</td>
 <td headers="fg_pct" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">44.1%</td>
@@ -1695,7 +1696,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">6</td>
 <td headers="photo" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/4433730.png" style="height:36px;" alt="Player 4433730 headshot"></td>
 <td headers="player" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Paige Bueckers</td>
-<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/dal.png" style="height:26px;" alt="Dallas Wings"></td>
+<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a5/a5137a5545b847a96f798bb8ec059f4a908acf898d4cda371fb17b00e2333b65.png" style="height:26px;" alt="Dallas Wings"></td>
 <td headers="gp" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">43</td>
 <td headers="ppg" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">20.7</td>
 <td headers="fg_pct" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">51.1%</td>
@@ -1704,7 +1705,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">7</td>
 <td headers="photo" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/2998928.png" style="height:36px;" alt="Player 2998928 headshot"></td>
 <td headers="player" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Breanna Stewart</td>
-<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/ny.png" style="height:26px;" alt="New York Liberty"></td>
+<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/88/88aaa89584094c04a6b37ce67693565feae3fb04728da508830daba1b61d343c.png" style="height:26px;" alt="New York Liberty"></td>
 <td headers="gp" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">44</td>
 <td headers="ppg" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">20.6</td>
 <td headers="fg_pct" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">47.6%</td>
@@ -1713,7 +1714,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">8</td>
 <td headers="photo" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/4433791.png" style="height:36px;" alt="Player 4433791 headshot"></td>
 <td headers="player" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Olivia Miles</td>
-<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/min.png" style="height:26px;" alt="Minnesota Lynx"></td>
+<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/74/7400d6af343a3f6c725c70d1967050a0c63686f51abb40cd4161f7b84f629c76.png" style="height:26px;" alt="Minnesota Lynx"></td>
 <td headers="gp" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">41</td>
 <td headers="ppg" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">19.5</td>
 <td headers="fg_pct" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">49.7%</td>
@@ -1722,7 +1723,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">9</td>
 <td headers="photo" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/3058901.png" style="height:36px;" alt="Player 3058901 headshot"></td>
 <td headers="player" class="gt_row gt_left" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Allisha Gray</td>
-<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/atl.png" style="height:26px;" alt="Atlanta Dream"></td>
+<td headers="team" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e1/e102207a9739a4c4f036a7448ec130a10329adc71730d954ec23c9f7f68a83f0.png" style="height:26px;" alt="Atlanta Dream"></td>
 <td headers="gp" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">45</td>
 <td headers="ppg" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">19.0</td>
 <td headers="fg_pct" class="gt_row gt_center" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">46.3%</td>
@@ -1731,7 +1732,7 @@ frames the table.</p>
 <td headers="rank" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">10</td>
 <td headers="photo" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/4065870.png" style="height:36px;" alt="Player 4065870 headshot"></td>
 <td headers="player" class="gt_row gt_left gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">Jackie Young</td>
-<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/lv.png" style="height:26px;" alt="Las Vegas Aces"></td>
+<td headers="team" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d3057fc57ddcd581b22821cab1d5fcc21a6e7b9e9bc7a0dcc57c3ef4e8284523.png" style="height:26px;" alt="Las Vegas Aces"></td>
 <td headers="gp" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">45</td>
 <td headers="ppg" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">18.8</td>
 <td headers="fg_pct" class="gt_row gt_center gt_striped" style="font-family: 'Sofia Sans Condensed'; font-size: 14px;">48.8%</td>
@@ -2325,140 +2326,140 @@ one comma-separated string, which splits into the stripe colors;
 <tr>
 <td headers="week" class="gt_row gt_center">1</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:24px;" alt="San Francisco 49ers"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png" style="height:24px;" alt="San Francisco 49ers"></td>
 <td headers="result" class="gt_row gt_center">L</td>
 <td headers="score" class="gt_row gt_center">13-17</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">2</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/806bcb72e75ed184a99bea34df458e6cd87145fc9a863945f3356b01122aeb6f.png" style="height:24px;" alt="Pittsburgh Steelers"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">31-17</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">3</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:24px;" alt="New Orleans Saints"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png" style="height:24px;" alt="New Orleans Saints"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">44-13</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">4</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:24px;" alt="Arizona Cardinals"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f870b58b43585a5b7717d578dd433b0b1e0c462d64ef4bea2aeb8c03f4ae7854.png" style="height:24px;" alt="Arizona Cardinals"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">23-20</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">5</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:24px;" alt="Tampa Bay Buccaneers"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bc/bcc5d267024650938c9f35558077fe00a31913b89c61768d4ebb63d1ea31fbfd.png" style="height:24px;" alt="Tampa Bay Buccaneers"></td>
 <td headers="result" class="gt_row gt_center">L</td>
 <td headers="score" class="gt_row gt_center">35-38</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">6</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png" style="height:24px;" alt="Jacksonville Jaguars"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">20-12</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">7</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:24px;" alt="Houston Texans"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png" style="height:24px;" alt="Houston Texans"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">27-19</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">9</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:24px;" alt="Washington Commanders"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png" style="height:24px;" alt="Washington Commanders"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">38-14</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">10</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:24px;" alt="Arizona Cardinals"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f870b58b43585a5b7717d578dd433b0b1e0c462d64ef4bea2aeb8c03f4ae7854.png" style="height:24px;" alt="Arizona Cardinals"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">44-22</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">11</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:24px;" alt="Los Angeles Rams"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png" style="height:24px;" alt="Los Angeles Rams"></td>
 <td headers="result" class="gt_row gt_center">L</td>
 <td headers="score" class="gt_row gt_center">19-21</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">12</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:24px;" alt="Tennessee Titans"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/27/27cf283fca5b2e9e1c5e995a465a54223424c157d2013b603a6491f99333cf45.png" style="height:24px;" alt="Tennessee Titans"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">30-24</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">13</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:24px;" alt="Minnesota Vikings"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png" style="height:24px;" alt="Minnesota Vikings"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">26-0</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">14</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:24px;" alt="Atlanta Falcons"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png" style="height:24px;" alt="Atlanta Falcons"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">37-9</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">15</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:24px;" alt="Indianapolis Colts"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f1/f1f5222a876f810956aa8d4e75d4e6b47bcb3a6d11f876642b674010233c8a97.png" style="height:24px;" alt="Indianapolis Colts"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">18-16</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">16</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:24px;" alt="Los Angeles Rams"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png" style="height:24px;" alt="Los Angeles Rams"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">38-37</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">17</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/car.png" style="height:24px;" alt="Carolina Panthers"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png" style="height:24px;" alt="Carolina Panthers"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">27-10</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">18</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:24px;" alt="San Francisco 49ers"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png" style="height:24px;" alt="San Francisco 49ers"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">13-3</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">DIV</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:24px;" alt="San Francisco 49ers"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png" style="height:24px;" alt="San Francisco 49ers"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">41-6</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">CON</td>
 <td headers="where" class="gt_row gt_center">vs</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:24px;" alt="Los Angeles Rams"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png" style="height:24px;" alt="Los Angeles Rams"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">31-27</td>
 </tr>
 <tr>
 <td headers="week" class="gt_row gt_center">SB</td>
 <td headers="where" class="gt_row gt_center">@</td>
-<td headers="opponent" class="gt_row gt_center"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:24px;" alt="New England Patriots"></td>
+<td headers="opponent" class="gt_row gt_center"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png" style="height:24px;" alt="New England Patriots"></td>
 <td headers="result" class="gt_row gt_center" style="background-color: #E3F1E7; font-weight: bold;">W</td>
 <td headers="score" class="gt_row gt_center">29-13</td>
 </tr>

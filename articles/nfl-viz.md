@@ -209,45 +209,45 @@ standings |>
 | Regular season, by division |  |  |  |  |  |  |  |
 |  | Team | W | L | T | PF | PA | Diff |
 | AFC East |  |  |  |  |  |  |  |
-| ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | Patriots | 14 | 3 | 0 | 490 | 320 | 170 |
-| ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | Bills | 12 | 5 | 0 | 481 | 365 | 116 |
-| ![Miami Dolphins](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | Dolphins | 7 | 10 | 0 | 347 | 424 | -77 |
-| ![New York Jets](https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png) | Jets | 3 | 14 | 0 | 300 | 503 | -203 |
+| ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | Patriots | 14 | 3 | 0 | 490 | 320 | 170 |
+| ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | Bills | 12 | 5 | 0 | 481 | 365 | 116 |
+| ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | Dolphins | 7 | 10 | 0 | 347 | 424 | -77 |
+| ![New York Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png) | Jets | 3 | 14 | 0 | 300 | 503 | -203 |
 | AFC North |  |  |  |  |  |  |  |
-| ![Pittsburgh Steelers](https://a.espncdn.com/i/teamlogos/nfl/500/pit.png) | Steelers | 10 | 7 | 0 | 397 | 387 | 10 |
-| ![Baltimore Ravens](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | Ravens | 8 | 9 | 0 | 424 | 398 | 26 |
-| ![Cincinnati Bengals](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | Bengals | 6 | 11 | 0 | 414 | 492 | -78 |
-| ![Cleveland Browns](https://a.espncdn.com/i/teamlogos/nfl/500/cle.png) | Browns | 5 | 12 | 0 | 279 | 379 | -100 |
+| ![Pittsburgh Steelers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/806bcb72e75ed184a99bea34df458e6cd87145fc9a863945f3356b01122aeb6f.png) | Steelers | 10 | 7 | 0 | 397 | 387 | 10 |
+| ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | Ravens | 8 | 9 | 0 | 424 | 398 | 26 |
+| ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | Bengals | 6 | 11 | 0 | 414 | 492 | -78 |
+| ![Cleveland Browns](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png) | Browns | 5 | 12 | 0 | 279 | 379 | -100 |
 | AFC South |  |  |  |  |  |  |  |
-| ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | Jaguars | 13 | 4 | 0 | 474 | 336 | 138 |
-| ![Houston Texans](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | Texans | 12 | 5 | 0 | 404 | 295 | 109 |
-| ![Indianapolis Colts](https://a.espncdn.com/i/teamlogos/nfl/500/ind.png) | Colts | 8 | 9 | 0 | 466 | 412 | 54 |
-| ![Tennessee Titans](https://a.espncdn.com/i/teamlogos/nfl/500/ten.png) | Titans | 3 | 14 | 0 | 284 | 478 | -194 |
+| ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | Jaguars | 13 | 4 | 0 | 474 | 336 | 138 |
+| ![Houston Texans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png) | Texans | 12 | 5 | 0 | 404 | 295 | 109 |
+| ![Indianapolis Colts](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f1/f1f5222a876f810956aa8d4e75d4e6b47bcb3a6d11f876642b674010233c8a97.png) | Colts | 8 | 9 | 0 | 466 | 412 | 54 |
+| ![Tennessee Titans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/27/27cf283fca5b2e9e1c5e995a465a54223424c157d2013b603a6491f99333cf45.png) | Titans | 3 | 14 | 0 | 284 | 478 | -194 |
 | AFC West |  |  |  |  |  |  |  |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Broncos | 14 | 3 | 0 | 401 | 311 | 90 |
-| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Chargers | 11 | 6 | 0 | 368 | 340 | 28 |
-| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Chiefs | 6 | 11 | 0 | 362 | 328 | 34 |
-| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Raiders | 3 | 14 | 0 | 241 | 432 | -191 |
+| ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | Broncos | 14 | 3 | 0 | 401 | 311 | 90 |
+| ![Los Angeles Chargers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png) | Chargers | 11 | 6 | 0 | 368 | 340 | 28 |
+| ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | Chiefs | 6 | 11 | 0 | 362 | 328 | 34 |
+| ![Las Vegas Raiders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png) | Raiders | 3 | 14 | 0 | 241 | 432 | -191 |
 | NFC East |  |  |  |  |  |  |  |
-| ![Philadelphia Eagles](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | Eagles | 11 | 6 | 0 | 379 | 325 | 54 |
-| ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | Cowboys | 7 | 9 | 1 | 471 | 511 | -40 |
-| ![Washington Commanders](https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png) | Commanders | 5 | 12 | 0 | 356 | 451 | -95 |
-| ![New York Giants](https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png) | Giants | 4 | 13 | 0 | 381 | 439 | -58 |
+| ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | Eagles | 11 | 6 | 0 | 379 | 325 | 54 |
+| ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | Cowboys | 7 | 9 | 1 | 471 | 511 | -40 |
+| ![Washington Commanders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png) | Commanders | 5 | 12 | 0 | 356 | 451 | -95 |
+| ![New York Giants](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62e361850e7ba3a50dfd09cbb38429e994d1c23b0f999c74421f10e37c7067e7.png) | Giants | 4 | 13 | 0 | 381 | 439 | -58 |
 | NFC North |  |  |  |  |  |  |  |
-| ![Chicago Bears](https://a.espncdn.com/i/teamlogos/nfl/500/chi.png) | Bears | 11 | 6 | 0 | 441 | 415 | 26 |
-| ![Green Bay Packers](https://a.espncdn.com/i/teamlogos/nfl/500/gb.png) | Packers | 9 | 7 | 1 | 391 | 360 | 31 |
-| ![Detroit Lions](https://a.espncdn.com/i/teamlogos/nfl/500/det.png) | Lions | 9 | 8 | 0 | 481 | 413 | 68 |
-| ![Minnesota Vikings](https://a.espncdn.com/i/teamlogos/nfl/500/min.png) | Vikings | 9 | 8 | 0 | 344 | 333 | 11 |
+| ![Chicago Bears](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png) | Bears | 11 | 6 | 0 | 441 | 415 | 26 |
+| ![Green Bay Packers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png) | Packers | 9 | 7 | 1 | 391 | 360 | 31 |
+| ![Detroit Lions](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png) | Lions | 9 | 8 | 0 | 481 | 413 | 68 |
+| ![Minnesota Vikings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png) | Vikings | 9 | 8 | 0 | 344 | 333 | 11 |
 | NFC South |  |  |  |  |  |  |  |
-| ![Tampa Bay Buccaneers](https://a.espncdn.com/i/teamlogos/nfl/500/tb.png) | Buccaneers | 8 | 9 | 0 | 380 | 411 | -31 |
-| ![Atlanta Falcons](https://a.espncdn.com/i/teamlogos/nfl/500/atl.png) | Falcons | 8 | 9 | 0 | 353 | 401 | -48 |
-| ![Carolina Panthers](https://a.espncdn.com/i/teamlogos/nfl/500/car.png) | Panthers | 8 | 9 | 0 | 311 | 380 | -69 |
-| ![New Orleans Saints](https://a.espncdn.com/i/teamlogos/nfl/500/no.png) | Saints | 6 | 11 | 0 | 306 | 383 | -77 |
+| ![Tampa Bay Buccaneers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bc/bcc5d267024650938c9f35558077fe00a31913b89c61768d4ebb63d1ea31fbfd.png) | Buccaneers | 8 | 9 | 0 | 380 | 411 | -31 |
+| ![Atlanta Falcons](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png) | Falcons | 8 | 9 | 0 | 353 | 401 | -48 |
+| ![Carolina Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png) | Panthers | 8 | 9 | 0 | 311 | 380 | -69 |
+| ![New Orleans Saints](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png) | Saints | 6 | 11 | 0 | 306 | 383 | -77 |
 | NFC West |  |  |  |  |  |  |  |
-| ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | Seahawks | 14 | 3 | 0 | 483 | 292 | 191 |
-| ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | Rams | 12 | 5 | 0 | 518 | 346 | 172 |
-| ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 49ers | 12 | 5 | 0 | 437 | 371 | 66 |
-| ![Arizona Cardinals](https://a.espncdn.com/i/teamlogos/nfl/500/ari.png) | Cardinals | 3 | 14 | 0 | 355 | 488 | -133 |
+| ![Seattle Seahawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/2546b1d4fe5cf6c2d75cda53d3fb56bbc4dd43c6b00200586dab5a85df8fa492.png) | Seahawks | 14 | 3 | 0 | 483 | 292 | 191 |
+| ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | Rams | 12 | 5 | 0 | 518 | 346 | 172 |
+| ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 49ers | 12 | 5 | 0 | 437 | 371 | 66 |
+| ![Arizona Cardinals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f870b58b43585a5b7717d578dd433b0b1e0c462d64ef4bea2aeb8c03f4ae7854.png) | Cardinals | 3 | 14 | 0 | 355 | 488 | -133 |
 | Data: nflverse via nflreadr \| 2025 regular season |  |  |  |  |  |  |  |
 
 ## 4. Small multiples by division
@@ -450,18 +450,18 @@ top_qbs |>
 |----|----|----|----|----|----|----|----|
 | EPA per dropback, regular season, 300+ dropbacks |  |  |  |  |  |  |  |
 | \# |  | Quarterback | Team | Dropbacks | EPA/db | Success | CPOE |
-| 1 | ![Player 00-0039851 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/s1nmoon2xnrc3bnyulv4.png) | Drake Maye | ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | 602 | 0.318 | 55.3% | +10.8 |
-| 2 | ![Player 00-0036264 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png) | Jordan Love | ![Green Bay Packers](https://a.espncdn.com/i/teamlogos/nfl/500/gb.png) | 485 | 0.262 | 50.5% | +5.5 |
-| 3 | ![Player 00-0026498 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | Matthew Stafford | ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | 624 | 0.223 | 52.7% | +1.5 |
-| 4 | ![Player 00-0037834 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/xs2fyj1sqdgwvt9ihbri.png) | Brock Purdy | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 316 | 0.202 | 53.2% | +7.2 |
-| 5 | ![Player 00-0033106 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png) | Jared Goff | ![Detroit Lions](https://a.espncdn.com/i/teamlogos/nfl/500/det.png) | 619 | 0.177 | 48.6% | +1.8 |
-| 6 | ![Player 00-0033077 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png) | Dak Prescott | ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | 657 | 0.173 | 48.7% | +2.2 |
-| 7 | ![Player 00-0033873 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png) | Patrick Mahomes | ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | 589 | 0.168 | 49.9% | +0.3 |
-| 8 | ![Player 00-0034857 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mjwbioajzldkq1vzoz2d.png) | Josh Allen | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | 554 | 0.161 | 48.4% | +3.5 |
-| 9 | ![Player 00-0035710 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ohvvctuykzwrpqer7xgl.png) | Daniel Jones | ![Indianapolis Colts](https://a.espncdn.com/i/teamlogos/nfl/500/ind.png) | 431 | 0.151 | 50.3% | +2.3 |
-| 10 | ![Player 00-0034869 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/fyay8vruj0cqmhopufzk.png) | Sam Darnold | ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | 516 | 0.134 | 52.5% | +5.2 |
-| 11 | ![Player 00-0036972 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mbdwfwiuhl0ib5ajtmzq.png) | Mac Jones | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 312 | 0.130 | 52.2% | +3.7 |
-| 12 | ![Player 00-0039732 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/zvo9xatffmqn9lnukpgk.png) | Bo Nix | ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | 674 | 0.118 | 45.1% | −1.2 |
+| 1 | ![Player 00-0039851 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/s1nmoon2xnrc3bnyulv4.png) | Drake Maye | ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | 602 | 0.318 | 55.3% | +10.8 |
+| 2 | ![Player 00-0036264 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png) | Jordan Love | ![Green Bay Packers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png) | 485 | 0.262 | 50.5% | +5.5 |
+| 3 | ![Player 00-0026498 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | Matthew Stafford | ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | 624 | 0.223 | 52.7% | +1.5 |
+| 4 | ![Player 00-0037834 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/xs2fyj1sqdgwvt9ihbri.png) | Brock Purdy | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 316 | 0.202 | 53.2% | +7.2 |
+| 5 | ![Player 00-0033106 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png) | Jared Goff | ![Detroit Lions](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png) | 619 | 0.177 | 48.6% | +1.8 |
+| 6 | ![Player 00-0033077 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png) | Dak Prescott | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | 657 | 0.173 | 48.7% | +2.2 |
+| 7 | ![Player 00-0033873 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png) | Patrick Mahomes | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | 589 | 0.168 | 49.9% | +0.3 |
+| 8 | ![Player 00-0034857 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mjwbioajzldkq1vzoz2d.png) | Josh Allen | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 554 | 0.161 | 48.4% | +3.5 |
+| 9 | ![Player 00-0035710 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ohvvctuykzwrpqer7xgl.png) | Daniel Jones | ![Indianapolis Colts](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f1/f1f5222a876f810956aa8d4e75d4e6b47bcb3a6d11f876642b674010233c8a97.png) | 431 | 0.151 | 50.3% | +2.3 |
+| 10 | ![Player 00-0034869 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/fyay8vruj0cqmhopufzk.png) | Sam Darnold | ![Seattle Seahawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/2546b1d4fe5cf6c2d75cda53d3fb56bbc4dd43c6b00200586dab5a85df8fa492.png) | 516 | 0.134 | 52.5% | +5.2 |
+| 11 | ![Player 00-0036972 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mbdwfwiuhl0ib5ajtmzq.png) | Mac Jones | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 312 | 0.130 | 52.2% | +3.7 |
+| 12 | ![Player 00-0039732 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/zvo9xatffmqn9lnukpgk.png) | Bo Nix | ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | 674 | 0.118 | 45.1% | −1.2 |
 | Data: nflverse via nflreadr \| 2025 regular season |  |  |  |  |  |  |  |
 
 ## 8. Relocated franchises and their eras
@@ -633,11 +633,6 @@ sdv_team_tiers(
     "5" = "Rebuilding"
   )
 )
-#> Warning: ggpath failed to read an image from
-#> https://a.espncdn.com/i/teamlogos/nfl/500-dark/det.png. It will insert an empty
-#> graphic object instead. Here is the error message: Error in
-#> curl::curl_download(url, tmp, handle = h) : HTTP response code said error
-#> [a.espncdn.com]: The requested URL returned error: 404
 ```
 
 ![NFL team logos in five labeled tiers, from Contenders to Rebuilding,

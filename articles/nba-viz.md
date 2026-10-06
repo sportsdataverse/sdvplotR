@@ -459,21 +459,21 @@ standings |>
 |----|----|----|----|----|----|----|----|----|----|----|
 | Seeds 1-6 make the playoffs; 7-10 the play-in |  |  |  |  |  |  |  |  |  |  |
 |  |  | Team | W | L | Pct | GB | Home | Road | L10 | Diff |
-| 1 | ![Detroit Pistons](https://a.espncdn.com/i/teamlogos/nba/500/det.png) | Pistons | 60 | 22 | .732 | \- | 31-9 | 28-13 | 8-2 | +8.2 |
-| 2 | ![Boston Celtics](https://a.espncdn.com/i/teamlogos/nba/500/bos.png) | Celtics | 56 | 26 | .683 | 4 | 30-11 | 26-15 | 8-2 | +7.7 |
-| 3 | ![New York Knicks](https://a.espncdn.com/i/teamlogos/nba/500/ny.png) | Knicks | 53 | 29 | .646 | 7 | 30-10 | 22-19 | 6-4 | +6.4 |
-| 4 | ![Cleveland Cavaliers](https://a.espncdn.com/i/teamlogos/nba/500/cle.png) | Cavaliers | 52 | 30 | .634 | 8 | 27-14 | 25-16 | 7-3 | +4.1 |
-| 5 | ![Toronto Raptors](https://a.espncdn.com/i/teamlogos/nba/500/tor.png) | Raptors | 46 | 36 | .561 | 14 | 24-17 | 22-19 | 6-4 | +2.8 |
-| 6 | ![Atlanta Hawks](https://a.espncdn.com/i/teamlogos/nba/500/atl.png) | Hawks | 46 | 36 | .561 | 14 | 24-17 | 22-19 | 6-4 | +2.5 |
-| 7 | ![Philadelphia 76ers](https://a.espncdn.com/i/teamlogos/nba/500/phi.png) | 76ers | 45 | 37 | .549 | 15 | 23-18 | 22-19 | 6-4 | -0.2 |
-| 8 | ![Orlando Magic](https://a.espncdn.com/i/teamlogos/nba/500/orl.png) | Magic | 45 | 37 | .549 | 15 | 25-15 | 19-20 | 7-3 | +0.6 |
-| 9 | ![Charlotte Hornets](https://a.espncdn.com/i/teamlogos/nba/500/cha.png) | Hornets | 44 | 38 | .537 | 16 | 21-20 | 23-18 | 6-4 | +4.8 |
-| 10 | ![Miami Heat](https://a.espncdn.com/i/teamlogos/nba/500/mia.png) | Heat | 43 | 39 | .524 | 17 | 26-15 | 17-24 | 5-5 | +2.4 |
-| 11 | ![Milwaukee Bucks](https://a.espncdn.com/i/teamlogos/nba/500/mil.png) | Bucks | 32 | 50 | .390 | 28 | 19-22 | 13-28 | 3-7 | -6.2 |
-| 12 | ![Chicago Bulls](https://a.espncdn.com/i/teamlogos/nba/500/chi.png) | Bulls | 31 | 51 | .378 | 29 | 18-23 | 13-28 | 2-8 | -5.2 |
-| 13 | ![Brooklyn Nets](https://a.espncdn.com/i/teamlogos/nba/500/bkn.png) | Nets | 20 | 62 | .244 | 40 | 12-29 | 8-33 | 3-7 | -10.0 |
-| 14 | ![Indiana Pacers](https://a.espncdn.com/i/teamlogos/nba/500/ind.png) | Pacers | 19 | 63 | .232 | 41 | 11-30 | 8-33 | 3-7 | -8.0 |
-| 15 | ![Washington Wizards](https://a.espncdn.com/i/teamlogos/nba/500/wsh.png) | Wizards | 17 | 65 | .207 | 43 | 11-30 | 6-35 | 0-10 | -12.0 |
+| 1 | ![Detroit Pistons](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e5/e5bcfd905add9ef97e06a9cc6bfdde49864fe91731625501c14bf861e84b8853.png) | Pistons | 60 | 22 | .732 | \- | 31-9 | 28-13 | 8-2 | +8.2 |
+| 2 | ![Boston Celtics](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0d/0d0d6b85971b1d18428ba1161772b8c2f7e3ee103846ec4b4763bf0cc849ece0.png) | Celtics | 56 | 26 | .683 | 4 | 30-11 | 26-15 | 8-2 | +7.7 |
+| 3 | ![New York Knicks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/35/35d2cc3780d172d427ed9bec8300bdcb91dd1065a3e1b6b015d46bb065ea35f5.png) | Knicks | 53 | 29 | .646 | 7 | 30-10 | 22-19 | 6-4 | +6.4 |
+| 4 | ![Cleveland Cavaliers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f6/f6eeede7fb286c450b80436ad8c21e430ff1eec73adb187d285cb2b8f681e063.png) | Cavaliers | 52 | 30 | .634 | 8 | 27-14 | 25-16 | 7-3 | +4.1 |
+| 5 | ![Toronto Raptors](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b466dfc1c47b22d6692569ea7f6cb1075a5bb3a35296b5053d6562842850b13.png) | Raptors | 46 | 36 | .561 | 14 | 24-17 | 22-19 | 6-4 | +2.8 |
+| 6 | ![Atlanta Hawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/aa/aacfe9bb2e3f69321bcd0b415a72d860fc97609c6c1f25985c6e70b78bd7f3cc.png) | Hawks | 46 | 36 | .561 | 14 | 24-17 | 22-19 | 6-4 | +2.5 |
+| 7 | ![Philadelphia 76ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3b/3b96bf98838e3ea9e5d4fcccda3a98b69636346d2e50aabf1a5a4ba5aad7585e.png) | 76ers | 45 | 37 | .549 | 15 | 23-18 | 22-19 | 6-4 | -0.2 |
+| 8 | ![Orlando Magic](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/cc/ccb08b4b69603f4d41e6494b4a35dba8fd2e6a2a75012559d6844c2fc93e0963.png) | Magic | 45 | 37 | .549 | 15 | 25-15 | 19-20 | 7-3 | +0.6 |
+| 9 | ![Charlotte Hornets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95b3fe42c24e262fb5ce4f52c50f634ba9b7daeae88d090555f1ef301aa0a451.png) | Hornets | 44 | 38 | .537 | 16 | 21-20 | 23-18 | 6-4 | +4.8 |
+| 10 | ![Miami Heat](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3b/3ba9ff33e65ea12cef33cbf445163a8ec4063b4cbd42c6d2c63109b6d438575f.png) | Heat | 43 | 39 | .524 | 17 | 26-15 | 17-24 | 5-5 | +2.4 |
+| 11 | ![Milwaukee Bucks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/84/84fbddec67f59fa143f4fde9c2745ca15f3ad03594da4e677a4a1034aefa6f33.png) | Bucks | 32 | 50 | .390 | 28 | 19-22 | 13-28 | 3-7 | -6.2 |
+| 12 | ![Chicago Bulls](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d70e58419859b30a8f2599f930ca502b175f9110c7cc1b2ab496787b8d445c2.png) | Bulls | 31 | 51 | .378 | 29 | 18-23 | 13-28 | 2-8 | -5.2 |
+| 13 | ![Brooklyn Nets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a4/a407016d7c6a93b8b7b580b0de3f76caf80801bfd4fa66dc5badecc031164779.png) | Nets | 20 | 62 | .244 | 40 | 12-29 | 8-33 | 3-7 | -10.0 |
+| 14 | ![Indiana Pacers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8d/8dc8165d842c4b0d3b6f607ac9494a68189b2b06f48a3d820cd5b3997ae7c9da.png) | Pacers | 19 | 63 | .232 | 41 | 11-30 | 8-33 | 3-7 | -8.0 |
+| 15 | ![Washington Wizards](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/33977129ba2139eaee1611f55570c347c9ce4223fbeef413294cbdf66497bc55.png) | Wizards | 17 | 65 | .207 | 43 | 11-30 | 6-35 | 0-10 | -12.0 |
 | Data: hoopR (ESPN) \| Viz: sdvplotR |  |  |  |  |  |  |  |  |  |  |
 
 ## 8. Logos faceted by conference
@@ -597,12 +597,12 @@ per_game |>
 |----|----|----|----|----|----|
 | Regular season, 50 or more games |  |  |  |  |  |
 |  |  | Player | Team | Per game | GP |
-| Points | ![Player 3945274 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3945274.png) | Luka Doncic | ![Los Angeles Lakers](https://a.espncdn.com/i/teamlogos/nba/500/lal.png) | 33.5 | 64 |
-| Rebounds | ![Player 3112335 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3112335.png) | Nikola Jokic | ![Denver Nuggets](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | 12.9 | 65 |
-| Assists | ![Player 3112335 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3112335.png) | Nikola Jokic | ![Denver Nuggets](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | 10.7 | 65 |
-| Steals | ![Player 4684742 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4684742.png) | Ausar Thompson | ![Detroit Pistons](https://a.espncdn.com/i/teamlogos/nba/500/det.png) | 2.0 | 73 |
-| Blocks | ![Player 5104157 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/5104157.png) | Victor Wembanyama | ![San Antonio Spurs](https://a.espncdn.com/i/teamlogos/nba/500/sa.png) | 3.1 | 65 |
-| 3-pointers made | ![Player 3945274 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3945274.png) | Luka Doncic | ![Los Angeles Lakers](https://a.espncdn.com/i/teamlogos/nba/500/lal.png) | 4.0 | 64 |
+| Points | ![Player 3945274 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3945274.png) | Luka Doncic | ![Los Angeles Lakers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82fda3df51058c5aad8a52123868f43959017be0c39c886e9aefbb77e6c69c89.png) | 33.5 | 64 |
+| Rebounds | ![Player 3112335 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3112335.png) | Nikola Jokic | ![Denver Nuggets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/33f295fabf1bc3ddb60dfcbefb35ab9a3a91c865752e4539778495aab27f535d.png) | 12.9 | 65 |
+| Assists | ![Player 3112335 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3112335.png) | Nikola Jokic | ![Denver Nuggets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/33f295fabf1bc3ddb60dfcbefb35ab9a3a91c865752e4539778495aab27f535d.png) | 10.7 | 65 |
+| Steals | ![Player 4684742 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4684742.png) | Ausar Thompson | ![Detroit Pistons](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e5/e5bcfd905add9ef97e06a9cc6bfdde49864fe91731625501c14bf861e84b8853.png) | 2.0 | 73 |
+| Blocks | ![Player 5104157 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/5104157.png) | Victor Wembanyama | ![San Antonio Spurs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/cc/cc3d33fa8faf34874258b10a8e0377d70b80c7900b4d90698f35edba9952fa1c.png) | 3.1 | 65 |
+| 3-pointers made | ![Player 3945274 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3945274.png) | Luka Doncic | ![Los Angeles Lakers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82fda3df51058c5aad8a52123868f43959017be0c39c886e9aefbb77e6c69c89.png) | 4.0 | 64 |
 | Data: hoopR (ESPN) \| Viz: sdvplotR |  |  |  |  |  |
 
 ## Related articles

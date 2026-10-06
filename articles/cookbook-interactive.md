@@ -238,14 +238,13 @@ approach is the light one.
 most layers, but not sdvplotR’s image geoms: it warns and leaves them
 out. Draw the logos as plotly layout images instead, one per team,
 positioned in data units. A small helper builds them from
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)’s
-logo URLs. The NFL’s 2025 offenses and defenses:
+[`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md).
+The NFL’s 2025 offenses and defenses:
 
 ``` r
 
 logo_images <- function(teams, x, y, sport, sizex, sizey = sizex, xref = "x", yref = "y") {
-  ref <- team_reference(sport)
-  urls <- ref$logo_url[match(clean_team_abbrs(teams, sport = sport), ref$team_abbr)]
+  urls <- sdv_logo_url(teams, sport = sport)
   lapply(seq_along(urls), function(i) {
     list(
       source = urls[i], xref = xref, yref = yref, x = x[i], y = y[i],

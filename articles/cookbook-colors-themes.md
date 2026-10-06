@@ -485,11 +485,11 @@ dark |>
 | The WNBA's best margins, 2026 |  |  |  |
 |----|----|----|----|
 |  | Scored | Allowed | Margin |
-| ![Minnesota Lynx](https://a.espncdn.com/i/teamlogos/wnba/500/min.png) | 90.8 | 83.7 | 7.2 |
-| ![Golden State Valkyries](https://a.espncdn.com/i/teamlogos/wnba/500/gs.png) | 82.2 | 75.1 | 7.0 |
-| ![Atlanta Dream](https://a.espncdn.com/i/teamlogos/wnba/500/atl.png) | 91.3 | 84.5 | 6.9 |
-| ![Las Vegas Aces](https://a.espncdn.com/i/teamlogos/wnba/500/lv.png) | 91.5 | 85.8 | 5.7 |
-| ![Indiana Fever](https://a.espncdn.com/i/teamlogos/wnba/500/ind.png) | 96.0 | 90.4 | 5.5 |
+| ![Minnesota Lynx](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/74/7400d6af343a3f6c725c70d1967050a0c63686f51abb40cd4161f7b84f629c76.png) | 90.8 | 83.7 | 7.2 |
+| ![Golden State Valkyries](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/18/183ed0768b02cba0e09a3a63f9f708f0b0e42c1195d5ca450bb2495e046f9da8.png) | 82.2 | 75.1 | 7.0 |
+| ![Atlanta Dream](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e1/e102207a9739a4c4f036a7448ec130a10329adc71730d954ec23c9f7f68a83f0.png) | 91.3 | 84.5 | 6.9 |
+| ![Las Vegas Aces](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d3057fc57ddcd581b22821cab1d5fcc21a6e7b9e9bc7a0dcc57c3ef4e8284523.png) | 91.5 | 85.8 | 5.7 |
+| ![Indiana Fever](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54229f470dabb4795f3e09f979805041d0bc60e859ba94f8bc3d3c2939e8a1bd.png) | 96.0 | 90.4 | 5.5 |
 
 [`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
 draws the regular logos; in a reactable table,

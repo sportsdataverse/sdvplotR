@@ -399,21 +399,21 @@ standings |>
 |----|----|----|----|----|----|----|----|----|----|----|
 | The eight best records made the playoffs |  |  |  |  |  |  |  |  |  |  |
 |  |  | Team | Conf | W | L | Pct | Home | Road | L10 | Diff |
-| 1 | ![Minnesota Lynx](https://a.espncdn.com/i/teamlogos/wnba/500/min.png) | Lynx | Western | 33 | 11 | .750 | 15-7 | 18-4 | 6-4 | +7.1 |
-| 2 | ![Golden State Valkyries](https://a.espncdn.com/i/teamlogos/wnba/500/gs.png) | Valkyries | Western | 32 | 12 | .727 | 17-5 | 15-7 | 7-3 | +7.1 |
-| 3 | ![Las Vegas Aces](https://a.espncdn.com/i/teamlogos/wnba/500/lv.png) | Aces | Western | 31 | 13 | .705 | 15-7 | 16-6 | 8-2 | +5.7 |
-| 4 | ![Atlanta Dream](https://a.espncdn.com/i/teamlogos/wnba/500/atl.png) | Dream | Eastern | 30 | 14 | .682 | 15-7 | 15-7 | 9-1 | +6.8 |
-| 5 | ![Indiana Fever](https://a.espncdn.com/i/teamlogos/wnba/500/ind.png) | Fever | Eastern | 28 | 16 | .636 | 15-7 | 13-9 | 6-4 | +5.6 |
-| 6 | ![Washington Mystics](https://a.espncdn.com/i/teamlogos/wnba/500/wsh.png) | Mystics | Eastern | 28 | 16 | .636 | 15-7 | 13-9 | 8-2 | +1.3 |
-| 7 | ![Dallas Wings](https://a.espncdn.com/i/teamlogos/wnba/500/dal.png) | Wings | Western | 27 | 17 | .614 | 16-6 | 11-11 | 7-3 | +4.1 |
-| 8 | ![New York Liberty](https://a.espncdn.com/i/teamlogos/wnba/500/ny.png) | Liberty | Eastern | 26 | 18 | .591 | 14-8 | 12-10 | 6-4 | +3.2 |
-| 9 | ![Portland Fire](https://a.espncdn.com/i/teamlogos/wnba/500/por.png) | Fire | Western | 17 | 27 | .386 | 9-13 | 8-14 | 3-7 | -4.8 |
-| 10 | ![Phoenix Mercury](https://a.espncdn.com/i/teamlogos/wnba/500/phx.png) | Mercury | Western | 16 | 28 | .364 | 7-15 | 9-13 | 4-6 | -3.2 |
-| 11 | ![Chicago Sky](https://a.espncdn.com/i/teamlogos/wnba/500/chi.png) | Sky | Eastern | 16 | 28 | .364 | 11-11 | 5-17 | 4-6 | -3.9 |
-| 12 | ![Los Angeles Sparks](https://a.espncdn.com/i/teamlogos/wnba/500/la.png) | Sparks | Western | 16 | 28 | .364 | 8-14 | 8-14 | 4-6 | -4.3 |
-| 13 | ![Toronto Tempo](https://a.espncdn.com/i/teamlogos/wnba/500/tor.png) | Tempo | Eastern | 11 | 33 | .250 | 7-15 | 4-18 | 1-9 | -8.7 |
-| 14 | ![Connecticut Sun](https://a.espncdn.com/i/teamlogos/wnba/500/con.png) | Sun | Eastern | 11 | 33 | .250 | 8-14 | 3-19 | 2-8 | -9.2 |
-| 15 | ![Seattle Storm](https://a.espncdn.com/i/teamlogos/wnba/500/sea.png) | Storm | Western | 8 | 36 | .182 | 6-16 | 2-20 | 2-8 | -6.7 |
+| 1 | ![Minnesota Lynx](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/74/7400d6af343a3f6c725c70d1967050a0c63686f51abb40cd4161f7b84f629c76.png) | Lynx | Western | 33 | 11 | .750 | 15-7 | 18-4 | 6-4 | +7.1 |
+| 2 | ![Golden State Valkyries](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/18/183ed0768b02cba0e09a3a63f9f708f0b0e42c1195d5ca450bb2495e046f9da8.png) | Valkyries | Western | 32 | 12 | .727 | 17-5 | 15-7 | 7-3 | +7.1 |
+| 3 | ![Las Vegas Aces](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d3057fc57ddcd581b22821cab1d5fcc21a6e7b9e9bc7a0dcc57c3ef4e8284523.png) | Aces | Western | 31 | 13 | .705 | 15-7 | 16-6 | 8-2 | +5.7 |
+| 4 | ![Atlanta Dream](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e1/e102207a9739a4c4f036a7448ec130a10329adc71730d954ec23c9f7f68a83f0.png) | Dream | Eastern | 30 | 14 | .682 | 15-7 | 15-7 | 9-1 | +6.8 |
+| 5 | ![Indiana Fever](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54229f470dabb4795f3e09f979805041d0bc60e859ba94f8bc3d3c2939e8a1bd.png) | Fever | Eastern | 28 | 16 | .636 | 15-7 | 13-9 | 6-4 | +5.6 |
+| 6 | ![Washington Mystics](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/22/22ab495b2a94a36382998d38c65ca0bde263ef8f7dd2a8cb89feef892f066b4c.png) | Mystics | Eastern | 28 | 16 | .636 | 15-7 | 13-9 | 8-2 | +1.3 |
+| 7 | ![Dallas Wings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a5/a5137a5545b847a96f798bb8ec059f4a908acf898d4cda371fb17b00e2333b65.png) | Wings | Western | 27 | 17 | .614 | 16-6 | 11-11 | 7-3 | +4.1 |
+| 8 | ![New York Liberty](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/88/88aaa89584094c04a6b37ce67693565feae3fb04728da508830daba1b61d343c.png) | Liberty | Eastern | 26 | 18 | .591 | 14-8 | 12-10 | 6-4 | +3.2 |
+| 9 | ![Portland Fire](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/85/850ecf7746cad220e4f47479426ca28427f9b4e60c7a01cbed548ad3e1dba51f.png) | Fire | Western | 17 | 27 | .386 | 9-13 | 8-14 | 3-7 | -4.8 |
+| 10 | ![Phoenix Mercury](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ca/cabf18c9af751e07c8df012fde18e326da8047d789bc10298be48bfe6f0f3ab7.png) | Mercury | Western | 16 | 28 | .364 | 7-15 | 9-13 | 4-6 | -3.2 |
+| 11 | ![Chicago Sky](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ca/ca0e10ea4d2071669cdbee6d409bbd699047b5ffe18eff3d0388a00fbfd33945.png) | Sky | Eastern | 16 | 28 | .364 | 11-11 | 5-17 | 4-6 | -3.9 |
+| 12 | ![Los Angeles Sparks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1d/1d67f7b64178dad348e387eda0fbce1e8049a3c9d18cf2e109398d2a560606db.png) | Sparks | Western | 16 | 28 | .364 | 8-14 | 8-14 | 4-6 | -4.3 |
+| 13 | ![Toronto Tempo](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/22/2268104ab5df4d3276b4469b89559f488d61464091755f2df8ce84d42ccca5e8.png) | Tempo | Eastern | 11 | 33 | .250 | 7-15 | 4-18 | 1-9 | -8.7 |
+| 14 | ![Connecticut Sun](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/aa/aabb0e6063c6beede9cfe20e17596e4181ba087f864adf762ae3e3c8ca60e572.png) | Sun | Eastern | 11 | 33 | .250 | 8-14 | 3-19 | 2-8 | -9.2 |
+| 15 | ![Seattle Storm](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/63/634fdedf3b5159700d7af3bc22275a6098c1675ee8150de8534a9a8ac86ad7e3.png) | Storm | Western | 8 | 36 | .182 | 6-16 | 2-20 | 2-8 | -6.7 |
 | Data: wehoop (ESPN) \| Viz: sdvplotR |  |  |  |  |  |  |  |  |  |  |
 
 ## 8. The season as a running point differential, by conference

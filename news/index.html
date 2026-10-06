@@ -205,18 +205,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="sdvplotr-development-version">sdvplotR (development version)<a class="anchor" aria-label="anchor" href="#sdvplotr-development-version"></a></h2>
-<ul><li>Team names and abbreviations are trimmed before matching, so a value with a stray space (ESPN writes a few soccer club names with one) still resolves.</li>
-<li>Soccer club names are trimmed and accent-folded before deciding which are unique, so a name shared by two clubs (ESPN writes a few with a trailing space) no longer resolves to one of them.</li>
-<li>
+<h2 class="pkg-version" data-toc-text="0.1.0" id="sdvplotr-010">sdvplotR 0.1.0<a class="anchor" aria-label="anchor" href="#sdvplotr-010"></a></h2>
+<p>Initial release: one plotting package for team logos, wordmarks, player headshots and team colors across nine leagues (NFL, NBA, WNBA, MLB, NHL, college football, men’s and women’s college basketball, and soccer), built on ‘ggpath’ and following the conventions of ‘nflplotR’, ‘cfbplotR’, ‘nbaplotR’ and ‘mlbplotR’.</p>
+<ul><li>
 <code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> draws <code>"soccer"</code> (a regulation 105 x 68 m pitch, the frame <code><a href="../reference/sdv_pitch_coords.html">sdv_pitch_coords()</a></code> returns) and <code>"fiba"</code> courts. FIBA takes no <code>team</code> yet.</li>
 <li>Soccer joins the team data: 2,631 ESPN clubs with logos and colors (from sdvplot’s index). Clubs resolve by ESPN id, or by name when no other club shares it; a shared name (often a men’s and a women’s side) warns with the ids to pass instead. <code>sdv_surface("soccer", team)</code> draws the club’s logo at the center spot.</li>
 <li>New <code><a href="../reference/sdv_pitch_coords.html">sdv_pitch_coords()</a></code> converts soccer event coordinates from Opta / Stats Perform, Wyscout, StatsBomb, UEFA, Impect, ESPN and the tracking providers (Tracab, SkillCorner, Second Spectrum, Metrica) to one regulation 105 x 68 m frame, piecewise-linearly between pitch landmarks.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.0" id="sdvplotr-010">sdvplotR 0.1.0<a class="anchor" aria-label="anchor" href="#sdvplotr-010"></a></h2>
-<p>Initial release: one plotting package for team logos, wordmarks, player headshots and team colors across eight leagues (NFL, NBA, WNBA, MLB, NHL, college football, men’s and women’s college basketball), built on ‘ggpath’ and following the conventions of ‘nflplotR’, ‘cfbplotR’, ‘nbaplotR’ and ‘mlbplotR’.</p>
-<ul><li>Team reference data covers every current franchise in the five pro leagues plus all FBS and FCS football programs and all Division I basketball programs, with ESPN ids, primary / dark logo variants, official colors and conference / division. NFL rows carry nflverse wordmarks.</li>
+<li>Team reference data covers every current franchise in the five pro leagues plus all FBS and FCS football programs and all Division I basketball programs, with ESPN ids, primary / dark logo variants, official colors and conference / division. NFL rows carry nflverse wordmarks.</li>
 <li>
 <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> maps full team names, alternate provider abbreviations (<code>"WSH"</code> / <code>"WAS"</code>, <code>"GSW"</code> / <code>"GS"</code>, …) and historical abbreviations of relocated franchises to one canonical key per sport; <code><a href="../reference/resolve_historical_abbr.html">resolve_historical_abbr()</a></code> exposes the relocation table.</li>
 <li>
@@ -299,9 +294,9 @@
 <li>Logo variants are the ones an image backs: <code>"primary"</code>, <code>"dark"</code> and <code>"scoreboard"</code> (ESPN’s scoreboard mark, the Jets’ <code>NY</code>; a team without one draws its primary). The names <code>"light"</code>, <code>"alt"</code>, <code>"classic"</code> and <code>"helmet"</code>, and the wordmark variants <code>"dark"</code>, <code>"light"</code>, <code>"alt"</code> and <code>"classic"</code>, which earlier development builds accepted and silently drew as the primary, are removed: any other value is an error.</li>
 <li>
 <code><a href="../reference/sdv_logo_url.html">sdv_logo_url()</a></code> and <code><a href="../reference/sdv_logo_url.html">sdv_headshot_url()</a></code> export the image URLs the package draws (the counterparts of sdvplot’s <code>logo_url()</code> and <code>headshot_url()</code>), with every team key, variant, season and <code>id_type</code> the plotting helpers take.</li>
+<li>Current logos and wordmarks are drawn from the SportsDataverse logo archive (the sdv-assets manifest sdvplot reads, the host <code>logo_history</code> already used), not from ESPN’s live CDN: every mark’s URL is the archive’s immutable, content-addressed copy (<code>.../sha256/&lt;ab&gt;/&lt;sha256&gt;.png</code>), so a file ESPN drops or replaces no longer breaks a plot or a table, and a downloaded file can be checked against its name. All 1,136 teams, the conferences and the NFL shield have archived primary and dark marks; the same images as before (every sampled source file hashes to its archive copy). ESPN’s live URL is the fallback for a mark the archive has no copy of (today: 1,124 of the 2,631 soccer clubs’ primary logos). The archive’s named variants join <code>"primary"</code> / <code>"dark"</code> / <code>"scoreboard"</code> where most of a sport’s teams have them: ESPN’s <code>"scoreboard_dark"</code> and <code>"primary_logo_on_black_color"</code> family (every sport), <code>"grayscale"</code> and nflverse’s <code>"squared"</code> (NFL), MLB’s own <code>"cap_on_light"</code> / <code>"cap_on_dark"</code> / <code>"primary_on_light"</code> / <code>"primary_on_dark"</code> logos and <code>"on_light"</code> / <code>"on_dark"</code> wordmarks (SVG), so MLB teams now have wordmarks. A variant no mark of the sport has is still an error, which lists the sport’s variants. <code><a href="../reference/team_reference.html">team_reference()</a></code> keeps listing the sources’ URLs. The table is <code>logo_marks</code> in <code>R/sysdata.rda</code>, built by <code>data-raw/generate_logo_marks.R</code>.</li>
 </ul></div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
-    </nav></aside></div>
+  </main></div>
 
 
     <footer><div class="pkgdown-footer-left">

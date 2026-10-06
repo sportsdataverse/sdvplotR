@@ -1,13 +1,13 @@
 # Changelog
 
-## sdvplotR (development version)
+## sdvplotR 0.1.0
 
-- Team names and abbreviations are trimmed before matching, so a value
-  with a stray space (ESPN writes a few soccer club names with one)
-  still resolves.
-- Soccer club names are trimmed and accent-folded before deciding which
-  are unique, so a name shared by two clubs (ESPN writes a few with a
-  trailing space) no longer resolves to one of them.
+Initial release: one plotting package for team logos, wordmarks, player
+headshots and team colors across nine leagues (NFL, NBA, WNBA, MLB, NHL,
+college football, men’s and women’s college basketball, and soccer),
+built on ‘ggpath’ and following the conventions of ‘nflplotR’,
+‘cfbplotR’, ‘nbaplotR’ and ‘mlbplotR’.
+
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   draws `"soccer"` (a regulation 105 x 68 m pitch, the frame
   [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
@@ -23,15 +23,6 @@
   StatsBomb, UEFA, Impect, ESPN and the tracking providers (Tracab,
   SkillCorner, Second Spectrum, Metrica) to one regulation 105 x 68 m
   frame, piecewise-linearly between pitch landmarks.
-
-## sdvplotR 0.1.0
-
-Initial release: one plotting package for team logos, wordmarks, player
-headshots and team colors across eight leagues (NFL, NBA, WNBA, MLB,
-NHL, college football, men’s and women’s college basketball), built on
-‘ggpath’ and following the conventions of ‘nflplotR’, ‘cfbplotR’,
-‘nbaplotR’ and ‘mlbplotR’.
-
 - Team reference data covers every current franchise in the five pro
   leagues plus all FBS and FCS football programs and all Division I
   basketball programs, with ESPN ids, primary / dark logo variants,
@@ -455,3 +446,25 @@ NHL, college football, men’s and women’s college basketball), built on
   export the image URLs the package draws (the counterparts of sdvplot’s
   `logo_url()` and `headshot_url()`), with every team key, variant,
   season and `id_type` the plotting helpers take.
+- Current logos and wordmarks are drawn from the SportsDataverse logo
+  archive (the sdv-assets manifest sdvplot reads, the host
+  `logo_history` already used), not from ESPN’s live CDN: every mark’s
+  URL is the archive’s immutable, content-addressed copy
+  (`.../sha256/<ab>/<sha256>.png`), so a file ESPN drops or replaces no
+  longer breaks a plot or a table, and a downloaded file can be checked
+  against its name. All 1,136 teams, the conferences and the NFL shield
+  have archived primary and dark marks; the same images as before (every
+  sampled source file hashes to its archive copy). ESPN’s live URL is
+  the fallback for a mark the archive has no copy of (today: 1,124 of
+  the 2,631 soccer clubs’ primary logos). The archive’s named variants
+  join `"primary"` / `"dark"` / `"scoreboard"` where most of a sport’s
+  teams have them: ESPN’s `"scoreboard_dark"` and
+  `"primary_logo_on_black_color"` family (every sport), `"grayscale"`
+  and nflverse’s `"squared"` (NFL), MLB’s own `"cap_on_light"` /
+  `"cap_on_dark"` / `"primary_on_light"` / `"primary_on_dark"` logos and
+  `"on_light"` / `"on_dark"` wordmarks (SVG), so MLB teams now have
+  wordmarks. A variant no mark of the sport has is still an error, which
+  lists the sport’s variants.
+  [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+  keeps listing the sources’ URLs. The table is `logo_marks` in
+  `R/sysdata.rda`, built by `data-raw/generate_logo_marks.R`.

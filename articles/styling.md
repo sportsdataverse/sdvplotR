@@ -307,21 +307,21 @@ East
 
 |  | Team | W | L | Net |
 |----|----|----|----|----|
-| ![Detroit Pistons](https://a.espncdn.com/i/teamlogos/nba/500/det.png) | Detroit Pistons | 60 | 22 | +7.6 |
-| ![Boston Celtics](https://a.espncdn.com/i/teamlogos/nba/500/bos.png) | Boston Celtics | 56 | 26 | +7.1 |
-| ![New York Knicks](https://a.espncdn.com/i/teamlogos/nba/500/ny.png) | New York Knicks | 53 | 29 | +6.6 |
-| ![Cleveland Cavaliers](https://a.espncdn.com/i/teamlogos/nba/500/cle.png) | Cleveland Cavaliers | 52 | 30 | +4.4 |
-| ![Toronto Raptors](https://a.espncdn.com/i/teamlogos/nba/500/tor.png) | Toronto Raptors | 46 | 36 | +2.9 |
+| ![Detroit Pistons](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e5/e5bcfd905add9ef97e06a9cc6bfdde49864fe91731625501c14bf861e84b8853.png) | Detroit Pistons | 60 | 22 | +7.6 |
+| ![Boston Celtics](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0d/0d0d6b85971b1d18428ba1161772b8c2f7e3ee103846ec4b4763bf0cc849ece0.png) | Boston Celtics | 56 | 26 | +7.1 |
+| ![New York Knicks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/35/35d2cc3780d172d427ed9bec8300bdcb91dd1065a3e1b6b015d46bb065ea35f5.png) | New York Knicks | 53 | 29 | +6.6 |
+| ![Cleveland Cavaliers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f6/f6eeede7fb286c450b80436ad8c21e430ff1eec73adb187d285cb2b8f681e063.png) | Cleveland Cavaliers | 52 | 30 | +4.4 |
+| ![Toronto Raptors](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b466dfc1c47b22d6692569ea7f6cb1075a5bb3a35296b5053d6562842850b13.png) | Toronto Raptors | 46 | 36 | +2.9 |
 
 West
 
 |  | Team | W | L | Net |
 |----|----|----|----|----|
-| ![Oklahoma City Thunder](https://a.espncdn.com/i/teamlogos/nba/500/okc.png) | Oklahoma City Thunder | 64 | 18 | +11.5 |
-| ![San Antonio Spurs](https://a.espncdn.com/i/teamlogos/nba/500/sa.png) | San Antonio Spurs | 62 | 20 | +8.1 |
-| ![Denver Nuggets](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | Denver Nuggets | 54 | 28 | +4.7 |
-| ![Houston Rockets](https://a.espncdn.com/i/teamlogos/nba/500/hou.png) | Houston Rockets | 52 | 30 | +4.6 |
-| ![Minnesota Timberwolves](https://a.espncdn.com/i/teamlogos/nba/500/min.png) | Minnesota Timberwolves | 49 | 33 | +4.0 |
+| ![Oklahoma City Thunder](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/6b/6b4801ae99c7dac7240d3b6ab3fbd4249a371473fc06517384e891834164a76e.png) | Oklahoma City Thunder | 64 | 18 | +11.5 |
+| ![San Antonio Spurs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/cc/cc3d33fa8faf34874258b10a8e0377d70b80c7900b4d90698f35edba9952fa1c.png) | San Antonio Spurs | 62 | 20 | +8.1 |
+| ![Denver Nuggets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/33f295fabf1bc3ddb60dfcbefb35ab9a3a91c865752e4539778495aab27f535d.png) | Denver Nuggets | 54 | 28 | +4.7 |
+| ![Houston Rockets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/720e35c0d3b39af8d57ae66f00ae1058bd0f32b41fba1137f779af5bc439e011.png) | Houston Rockets | 52 | 30 | +4.6 |
+| ![Minnesota Timberwolves](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ff/ff53859dd29fb795e2f9c0a7fbaf808548731526d3fbcbb2fdfb842224c36979.png) | Minnesota Timberwolves | 49 | 33 | +4.0 |
 
 Net rating is points scored minus points allowed per 100 possessions.
 

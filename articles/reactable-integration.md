@@ -17,7 +17,7 @@ their `ggplot2` and `gt` counterparts:
 | Argument | Purpose |
 |----|----|
 | `sport` | One of [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md) |
-| `variant` | `"primary"`, `"dark"` or `"scoreboard"` for logos; wordmarks come in `"primary"` only |
+| `variant` | `"primary"`, `"dark"`, `"scoreboard"` or a named mark of the sport for logos ([`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md) lists them in its error); wordmarks come in `"primary"`, plus `"on_light"` / `"on_dark"` for MLB |
 | `height` | Image height in pixels |
 | `team_col`, `value_col` | Column names for color / bar resolution |
 
@@ -299,7 +299,7 @@ draws a column that already holds image URLs:
 library(reactablefmtr)
 
 standings |>
-  left_join(select(team_reference("nfl"), team_abbr, logo = logo_url), by = "team_abbr") |>
+  mutate(logo = sdv_logo_url(team_abbr, sport = "nfl")) |>
   select(logo, team_abbr, wins, losses, pct) |>
   reactable(
     columns = list(
@@ -318,10 +318,17 @@ standings |>
   )
 ```
 
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-holds every team’s logo URLs. For sdvplotR’s variant resolution
-(dark/light/alt/classic) and its aliases and historical team mappings
-inside the table itself, prefer the `reactable_sdv_*` helpers.
+[`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+gives the URL the sdvplotR helpers draw: the SportsDataverse logo
+archive’s copy of the mark, an immutable content-addressed file
+(`.../sha256/<ab>/<sha256>.png`), so a table built today still renders
+when ESPN drops or replaces a file
+([`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+lists ESPN’s live URLs, which is where this article’s dark Houston
+Texans logo once 404’d). For the variant resolution, the aliases and the
+historical team mappings inside the table itself, prefer the
+`reactable_sdv_*` helpers; their `<img>` tags also swap to the primary
+logo in the browser if a variant’s file ever fails to load.
 
 ------------------------------------------------------------------------
 

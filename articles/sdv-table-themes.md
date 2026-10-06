@@ -69,10 +69,10 @@ standings_table |> gt_theme_sdv()
 |----|----|----|----|----|
 | 2025 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 14 | 3 | .824 |
-| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 11 | 6 | .647 |
-| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 6 | 11 | .353 |
-| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 3 | 14 | .176 |
+| ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | Denver Broncos | 14 | 3 | .824 |
+| ![Los Angeles Chargers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png) | Los Angeles Chargers | 11 | 6 | .647 |
+| ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | Kansas City Chiefs | 6 | 11 | .353 |
+| ![Las Vegas Raiders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png) | Las Vegas Raiders | 3 | 14 | .176 |
 | Data: nflverse via nflreadr and nflseedR |  |  |  |  |
 
 The line under the column labels is the SportsDataverse gradient, the
@@ -94,10 +94,10 @@ standings_table |> gt_theme_sdv(style = "dark")
 |----|----|----|----|----|
 | 2025 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 14 | 3 | .824 |
-| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 11 | 6 | .647 |
-| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 6 | 11 | .353 |
-| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 3 | 14 | .176 |
+| ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | Denver Broncos | 14 | 3 | .824 |
+| ![Los Angeles Chargers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png) | Los Angeles Chargers | 11 | 6 | .647 |
+| ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | Kansas City Chiefs | 6 | 11 | .353 |
+| ![Las Vegas Raiders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png) | Las Vegas Raiders | 3 | 14 | .176 |
 | Data: nflverse via nflreadr and nflseedR |  |  |  |  |
 
 ## A team’s colors
@@ -220,10 +220,10 @@ standings_table |> gt_theme_sdv(density = "compact")
 |----|----|----|----|----|
 | 2025 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 14 | 3 | .824 |
-| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 11 | 6 | .647 |
-| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 6 | 11 | .353 |
-| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 3 | 14 | .176 |
+| ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | Denver Broncos | 14 | 3 | .824 |
+| ![Los Angeles Chargers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png) | Los Angeles Chargers | 11 | 6 | .647 |
+| ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | Kansas City Chiefs | 6 | 11 | .353 |
+| ![Las Vegas Raiders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png) | Las Vegas Raiders | 3 | 14 | .176 |
 | Data: nflverse via nflreadr and nflseedR |  |  |  |  |
 
 ## Changing one thing
@@ -242,10 +242,10 @@ standings_table |> gt_theme_sdv(heading.align = "center")
 |----|----|----|----|----|
 | 2025 regular season |  |  |  |  |
 |  | Team | W | L | Win pct |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | Denver Broncos | 14 | 3 | .824 |
-| ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | Los Angeles Chargers | 11 | 6 | .647 |
-| ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | Kansas City Chiefs | 6 | 11 | .353 |
-| ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | Las Vegas Raiders | 3 | 14 | .176 |
+| ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | Denver Broncos | 14 | 3 | .824 |
+| ![Los Angeles Chargers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png) | Los Angeles Chargers | 11 | 6 | .647 |
+| ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | Kansas City Chiefs | 6 | 11 | .353 |
+| ![Las Vegas Raiders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png) | Las Vegas Raiders | 3 | 14 | .176 |
 | Data: nflverse via nflreadr and nflseedR |  |  |  |  |
 
 ## Saving an image

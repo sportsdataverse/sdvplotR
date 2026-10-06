@@ -160,16 +160,17 @@ report <- splits |>
 ```
 
 [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-holds the champion’s name, its dark-mode logo (made for a colored
-ground) and, through
-[`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md),
+holds the champion’s name;
+[`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+its dark-mode logo (made for a colored ground) and
+[`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md)
 its primary color for the bar.
 
 ``` r
 
 team <- filter(team_reference("mbb"), espn_team_id == champion)
 team_color <- unname(sdv_team_colors("mbb", team$team_abbr, "primary"))
-team_logo <- coalesce(team$logo_dark_url, team$logo_url)
+team_logo <- sdv_logo_url(team$team_abbr, sport = "mbb", variant = "dark")
 ```
 
 Now the table.
@@ -245,7 +246,7 @@ report |>
 | Data: ESPN box scores via hoopR |  |  |
 
 2025-26 recap:
-Michigan![](https://a.espncdn.com/i/teamlogos/ncaa/500-dark/130.png)
+Michigan![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f6/f6f492cd2b0f6855912d909852ee6fe5e71094a94518c1b38273e680a27d4236.png)
 {.table .gt_table style="table-layout:fixed;"
 quarto-disable-processing="false" quarto-bootstrap="false"}
 

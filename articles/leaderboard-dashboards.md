@@ -71,14 +71,14 @@ standings |>
 |----|----|----|----|----|----|----|
 | Example data |  |  |  |  |  |  |
 | \# | Team | Abbrev | W | L | T | Win % |
-| 1 | ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.818 |
-| 2 | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.727 |
-| 3 | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.727 |
-| 4 | ![Philadelphia Eagles](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.636 |
-| 5 | ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | DAL | 7 | 4 | 0 | 0.636 |
-| 6 | ![Miami Dolphins](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | MIA | 6 | 5 | 0 | 0.545 |
-| 7 | ![Cincinnati Bengals](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | CIN | 6 | 5 | 0 | 0.545 |
-| 8 | ![Baltimore Ravens](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | BAL | 6 | 5 | 0 | 0.545 |
+| 1 | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | KC | 9 | 2 | 0 | 0.818 |
+| 2 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | BUF | 8 | 3 | 0 | 0.727 |
+| 3 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | SF | 8 | 3 | 0 | 0.727 |
+| 4 | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | PHI | 7 | 4 | 0 | 0.636 |
+| 5 | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | DAL | 7 | 4 | 0 | 0.636 |
+| 6 | ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | MIA | 6 | 5 | 0 | 0.545 |
+| 7 | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | CIN | 6 | 5 | 0 | 0.545 |
+| 8 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | BAL | 6 | 5 | 0 | 0.545 |
 | ¹ Example data \| Viz: sdvplotR |  |  |  |  |  |  |
 
 ## Advanced Leaderboard with Team Colors
@@ -124,14 +124,14 @@ standings_colored |>
 |----|----|----|----|----|----|----|----|----|
 | Example data |  |  |  |  |  |  |  |  |
 | \# | Team | Abbrev | W | L | T | Win % | primary_color | secondary_color |
-| 1 | ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.818 | \#E31837 | \#FFB612 |
-| 2 | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.727 | \#00338D | \#C60C30 |
-| 3 | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.727 | \#AA0000 | \#B3995D |
-| 4 | ![Philadelphia Eagles](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.636 | \#004C54 | \#A5ACAF |
-| 5 | ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | DAL | 7 | 4 | 0 | 0.636 | \#002244 | \#B0B7BC |
-| 6 | ![Miami Dolphins](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | MIA | 6 | 5 | 0 | 0.545 | \#008E97 | \#F58220 |
-| 7 | ![Cincinnati Bengals](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | CIN | 6 | 5 | 0 | 0.545 | \#FB4F14 | \#000000 |
-| 8 | ![Baltimore Ravens](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | BAL | 6 | 5 | 0 | 0.545 | \#241773 | \#9E7C0C |
+| 1 | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | KC | 9 | 2 | 0 | 0.818 | \#E31837 | \#FFB612 |
+| 2 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | BUF | 8 | 3 | 0 | 0.727 | \#00338D | \#C60C30 |
+| 3 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | SF | 8 | 3 | 0 | 0.727 | \#AA0000 | \#B3995D |
+| 4 | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | PHI | 7 | 4 | 0 | 0.636 | \#004C54 | \#A5ACAF |
+| 5 | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | DAL | 7 | 4 | 0 | 0.636 | \#002244 | \#B0B7BC |
+| 6 | ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | MIA | 6 | 5 | 0 | 0.545 | \#008E97 | \#F58220 |
+| 7 | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | CIN | 6 | 5 | 0 | 0.545 | \#FB4F14 | \#000000 |
+| 8 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | BAL | 6 | 5 | 0 | 0.545 | \#241773 | \#9E7C0C |
 
 ## Multi-Sport Leaderboard
 
@@ -176,18 +176,18 @@ multi_sport_standings |>
 |----|----|----|----|----|----|
 | Top Teams Across Sports |  |  |  |  |  |
 | Sport | \# | Team | W | L | Win % |
-| NFL | 1 | ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | 9 | 2 | 0.818 |
-| NFL | 2 | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | 8 | 3 | 0.727 |
-| NFL | 3 | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 8 | 3 | 0.727 |
-| NFL | 4 | ![Philadelphia Eagles](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | 7 | 4 | 0.636 |
+| NFL | 1 | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | 9 | 2 | 0.818 |
+| NFL | 2 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 8 | 3 | 0.727 |
+| NFL | 3 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 8 | 3 | 0.727 |
+| NFL | 4 | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | 7 | 4 | 0.636 |
 | NBA | 5 | BOS | 25 | 8 | 0.758 |
-| NBA | 6 | ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | 23 | 10 | 0.697 |
+| NBA | 6 | ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | 23 | 10 | 0.697 |
 | NBA | 7 | MIL | 22 | 11 | 0.667 |
 | NBA | 8 | PHX | 20 | 13 | 0.606 |
 | MLB | 9 | LAD | 95 | 67 | 0.586 |
-| MLB | 10 | ![Atlanta Falcons](https://a.espncdn.com/i/teamlogos/nfl/500/atl.png) | 90 | 72 | 0.556 |
-| MLB | 11 | ![Houston Texans](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | 88 | 74 | 0.543 |
-| MLB | 12 | ![Baltimore Ravens](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | 85 | 77 | 0.525 |
+| MLB | 10 | ![Atlanta Falcons](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png) | 90 | 72 | 0.556 |
+| MLB | 11 | ![Houston Texans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png) | 88 | 74 | 0.543 |
+| MLB | 12 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | 85 | 77 | 0.525 |
 
 ## Player Leaderboard with Headshots
 
@@ -287,15 +287,15 @@ standings_quartile |>
 | Example data |  |  |  |  |  |  |  |
 | \# | Team | Abbrev | W | L | T | Win % | Quartile |
 | Playoff Teams |  |  |  |  |  |  |  |
-| 2 | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.727 | Q2 (Good) |
-| 3 | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.727 | Q2 (Good) |
-| 4 | ![Philadelphia Eagles](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.636 | Q2 (Good) |
-| 5 | ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | DAL | 7 | 4 | 0 | 0.636 | Q2 (Good) |
-| 6 | ![Miami Dolphins](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | MIA | 6 | 5 | 0 | 0.545 | Q2 (Good) |
-| 7 | ![Cincinnati Bengals](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | CIN | 6 | 5 | 0 | 0.545 | Q2 (Good) |
-| 8 | ![Baltimore Ravens](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | BAL | 6 | 5 | 0 | 0.545 | Q2 (Good) |
+| 2 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | BUF | 8 | 3 | 0 | 0.727 | Q2 (Good) |
+| 3 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | SF | 8 | 3 | 0 | 0.727 | Q2 (Good) |
+| 4 | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | PHI | 7 | 4 | 0 | 0.636 | Q2 (Good) |
+| 5 | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | DAL | 7 | 4 | 0 | 0.636 | Q2 (Good) |
+| 6 | ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | MIA | 6 | 5 | 0 | 0.545 | Q2 (Good) |
+| 7 | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | CIN | 6 | 5 | 0 | 0.545 | Q2 (Good) |
+| 8 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | BAL | 6 | 5 | 0 | 0.545 | Q2 (Good) |
 | Elite Teams |  |  |  |  |  |  |  |
-| 1 | ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.818 | Q1 (Elite) |
+| 1 | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | KC | 9 | 2 | 0 | 0.818 | Q1 (Elite) |
 
 ## Quarto Dashboard Integration
 
@@ -367,16 +367,16 @@ update_standings("nfl")
 
 | team | wins | losses | pct | logo | rank |
 |----|----|----|----|----|----|
-| CLE | 16 | 0 | 1.000 | ![Cleveland Browns](https://a.espncdn.com/i/teamlogos/nfl/500/cle.png) | 4 |
-| BAL | 7 | 2 | 0.778 | ![Baltimore Ravens](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | 6 |
-| JAX | 15 | 6 | 0.714 | ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | 7 |
-| SF | 8 | 5 | 0.615 | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | 1 |
-| NO | 11 | 9 | 0.550 | ![New Orleans Saints](https://a.espncdn.com/i/teamlogos/nfl/500/no.png) | 9 |
-| NYJ | 14 | 13 | 0.519 | ![New York Jets](https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png) | 8 |
-| BUF | 5 | 7 | 0.417 | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | 2 |
-| MIA | 2 | 3 | 0.400 | ![Miami Dolphins](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | 10 |
-| LA | 3 | 16 | 0.158 | ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | 3 |
-| DAL | 0 | 11 | 0.000 | ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | 5 |
+| CLE | 16 | 0 | 1.000 | ![Cleveland Browns](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png) | 4 |
+| BAL | 7 | 2 | 0.778 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | 6 |
+| JAX | 15 | 6 | 0.714 | ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | 7 |
+| SF | 8 | 5 | 0.615 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 1 |
+| NO | 11 | 9 | 0.550 | ![New Orleans Saints](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png) | 9 |
+| NYJ | 14 | 13 | 0.519 | ![New York Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png) | 8 |
+| BUF | 5 | 7 | 0.417 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 2 |
+| MIA | 2 | 3 | 0.400 | ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | 10 |
+| LA | 3 | 16 | 0.158 | ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | 3 |
+| DAL | 0 | 11 | 0.000 | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | 5 |
 
 ## Conditional Formatting
 
@@ -419,14 +419,14 @@ standings_conditional |>
 |----|----|----|----|----|----|----|----|
 | Example data |  |  |  |  |  |  |  |
 | \# | Team | Abbrev | W | L | T | Win % | Status |
-| 1 | ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.818 | 🔥 Hot |
-| 2 | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.727 | ✅ Good |
-| 3 | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.727 | ✅ Good |
-| 4 | ![Philadelphia Eagles](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.636 | ✅ Good |
-| 5 | ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | DAL | 7 | 4 | 0 | 0.636 | ✅ Good |
-| 6 | ![Miami Dolphins](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | MIA | 6 | 5 | 0 | 0.545 | ✅ Good |
-| 7 | ![Cincinnati Bengals](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | CIN | 6 | 5 | 0 | 0.545 | ✅ Good |
-| 8 | ![Baltimore Ravens](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) | BAL | 6 | 5 | 0 | 0.545 | ✅ Good |
+| 1 | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | KC | 9 | 2 | 0 | 0.818 | 🔥 Hot |
+| 2 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | BUF | 8 | 3 | 0 | 0.727 | ✅ Good |
+| 3 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | SF | 8 | 3 | 0 | 0.727 | ✅ Good |
+| 4 | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | PHI | 7 | 4 | 0 | 0.636 | ✅ Good |
+| 5 | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | DAL | 7 | 4 | 0 | 0.636 | ✅ Good |
+| 6 | ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | MIA | 6 | 5 | 0 | 0.545 | ✅ Good |
+| 7 | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | CIN | 6 | 5 | 0 | 0.545 | ✅ Good |
+| 8 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | BAL | 6 | 5 | 0 | 0.545 | ✅ Good |
 
 ## Integrating with oddsapiR
 
@@ -474,10 +474,10 @@ standings_with_odds |>
 |----|----|----|----|----|----|----|----|----|----|
 | Combining Performance and Odds |  |  |  |  |  |  |  |  |  |
 | \# | Team | Abbrev | W | L | ties | Win % | Spread | ML | O/U |
-| 1 | ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | KC | 9 | 2 | 0 | 0.8 | −7.5 | −350 | 48.5 |
-| 2 | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 8 | 3 | 0 | 0.7 | −3.5 | −180 | 51.5 |
-| 3 | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 8 | 3 | 0 | 0.7 | −6.5 | −280 | 47.5 |
-| 4 | ![Philadelphia Eagles](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) | PHI | 7 | 4 | 0 | 0.6 | −10.5 | −550 | 45.5 |
+| 1 | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | KC | 9 | 2 | 0 | 0.8 | −7.5 | −350 | 48.5 |
+| 2 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | BUF | 8 | 3 | 0 | 0.7 | −3.5 | −180 | 51.5 |
+| 3 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | SF | 8 | 3 | 0 | 0.7 | −6.5 | −280 | 47.5 |
+| 4 | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | PHI | 7 | 4 | 0 | 0.6 | −10.5 | −550 | 45.5 |
 
 ## Best Practices for Dashboards
 

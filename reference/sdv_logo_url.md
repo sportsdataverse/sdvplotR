@@ -38,11 +38,16 @@ sdv_headshot_url(
 
 - variant:
 
-  The logo variant: `"primary"` (ESPN's default mark), `"dark"` (the
+  The logo variant: `"primary"` (the default mark), `"dark"` (the
   dark-background mark) or `"scoreboard"` (ESPN's scoreboard mark, which
-  differs from the primary for a few pro teams: the Jets' `NY`). A team
-  without the requested variant gives its primary logo; any other value
-  is an error.
+  differs from the primary for a few pro teams: the Jets' `NY`), or a
+  named mark the SportsDataverse logo archive carries for most of the
+  sport's teams: ESPN's `"scoreboard_dark"`, `"grayscale"` (NFL),
+  `"primary_logo_on_black_color"` and its siblings, nflverse's
+  `"squared"` (NFL), MLB's `"cap_on_light"` / `"cap_on_dark"` /
+  `"primary_on_light"` / `"primary_on_dark"` (SVG). A team without the
+  requested variant gives its primary logo; a variant no mark of the
+  sport has is an error that lists the sport's variants.
 
 - season:
 
@@ -71,7 +76,20 @@ sdv_headshot_url(
 A character vector the length of `team` / `player_id`: the image URL, or
 `NA` for a team that does not resolve, a player id that is missing,
 malformed or (NFL GSIS) not in the headshot map, or a league without
-wordmarks.
+wordmarks (the NFL and MLB have them).
+
+## Where the images come from
+
+Logos and wordmarks are the SportsDataverse logo archive's copies of the
+sources' files (ESPN's CDN, nflverse, MLB): immutable, content-addressed
+URLs (`.../sha256/<ab>/<sha256>.png`, so a downloaded file can be
+checked against its name) that stay up when a source drops or replaces a
+file. A mark the archive has no copy of (none today) falls back to the
+source's live URL.
+[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+keeps listing the sources' URLs. Headshots are not archived. sdvplot
+(Python) reads the same archive manifest at run time; sdvplotR ships the
+current marks in the package (`data-raw/generate_logo_marks.R`).
 
 ## See also
 
@@ -86,15 +104,17 @@ which draw them.
 
 ``` r
 sdv_logo_url(c("KC", "Buffalo Bills", "WAS"), sport = "nfl")
-#> [1] "https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" 
-#> [2] "https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"
-#> [3] "https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"
+#> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png"
+#> [2] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png"
+#> [3] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png"
 sdv_logo_url("NYJ", sport = "nfl", variant = "scoreboard")
-#> [1] "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png"
+#> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ec/ecd80a4d905129313f6d400d1ae753aa0196beb2931e09d1fa8a80f6738f0636.png"
+sdv_logo_url("KC", sport = "nfl", variant = "grayscale")
+#> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/7972affd32768d0fc112fb2f59b3db8d681085ce218e8c82a79545cef77a6c22.png"
 sdv_logo_url("QUE", sport = "nhl", season = 1990)
 #> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3c/3c28d243ddb84f6556dd6f5a6d9f02f658657f557a157df998fad9c6d7abc7c8.svg"
 sdv_logo_url("SEC", sport = "cfb")
-#> [1] "https://a.espncdn.com/i/teamlogos/ncaa_conf/500/sec.png"
+#> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png"
 
 sdv_headshot_url(3917315, sport = "mbb")
 #> [1] "https://a.espncdn.com/combiner/i?img=/i/headshots/mens-college-basketball/players/full/3917315.png"

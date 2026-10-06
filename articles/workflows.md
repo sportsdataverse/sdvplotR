@@ -256,21 +256,21 @@ standings_table
 |----|----|----|----|----|----|
 | Season 2026 |  |  |  |  |  |
 | \# |  | Team | W | L | Pct |
-| 1 | ![Milwaukee Brewers](https://a.espncdn.com/i/teamlogos/mlb/500/mil.png) | Milwaukee Brewers | 103 | 59 | 0.636 |
-| 2 | ![Los Angeles Dodgers](https://a.espncdn.com/i/teamlogos/mlb/500/lad.png) | Los Angeles Dodgers | 100 | 62 | 0.617 |
-| 3 | ![Tampa Bay Rays](https://a.espncdn.com/i/teamlogos/mlb/500/tb.png) | Tampa Bay Rays | 98 | 64 | 0.605 |
-| 4 | ![Atlanta Braves](https://a.espncdn.com/i/teamlogos/mlb/500/atl.png) | Atlanta Braves | 94 | 68 | 0.580 |
-| 5 | ![New York Yankees](https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png) | New York Yankees | 93 | 68 | 0.578 |
-| 6 | ![San Diego Padres](https://a.espncdn.com/i/teamlogos/mlb/500/sd.png) | San Diego Padres | 91 | 71 | 0.562 |
-| 7 | ![Chicago Cubs](https://a.espncdn.com/i/teamlogos/mlb/500/chc.png) | Chicago Cubs | 89 | 73 | 0.549 |
-| 8 | ![Philadelphia Phillies](https://a.espncdn.com/i/teamlogos/mlb/500/phi.png) | Philadelphia Phillies | 88 | 74 | 0.543 |
-| 9 | ![Boston Red Sox](https://a.espncdn.com/i/teamlogos/mlb/500/bos.png) | Boston Red Sox | 87 | 75 | 0.537 |
-| 10 | ![Arizona Diamondbacks](https://a.espncdn.com/i/teamlogos/mlb/500/ari.png) | Arizona Diamondbacks | 86 | 76 | 0.531 |
-| 11 | ![Cleveland Guardians](https://a.espncdn.com/i/teamlogos/mlb/500/cle.png) | Cleveland Guardians | 85 | 77 | 0.525 |
-| 12 | ![Chicago White Sox](https://a.espncdn.com/i/teamlogos/mlb/500/chw.png) | Chicago White Sox | 84 | 78 | 0.519 |
-| 13 | ![Pittsburgh Pirates](https://a.espncdn.com/i/teamlogos/mlb/500/pit.png) | Pittsburgh Pirates | 82 | 80 | 0.506 |
-| 14 | ![Houston Astros](https://a.espncdn.com/i/teamlogos/mlb/500/hou.png) | Houston Astros | 81 | 81 | 0.500 |
-| 15 | ![Texas Rangers](https://a.espncdn.com/i/teamlogos/mlb/500/tex.png) | Texas Rangers | 80 | 82 | 0.494 |
+| 1 | ![Milwaukee Brewers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d4/d4f8fe1b5be4b266a7cb1520a46a863973467361a1d3fd528502e223cbe35490.png) | Milwaukee Brewers | 103 | 59 | 0.636 |
+| 2 | ![Los Angeles Dodgers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/aa/aab854c59098d4f465c1c6f31b580f2a38d2ed4f5c0c03df2da76f62f5378dc4.png) | Los Angeles Dodgers | 100 | 62 | 0.617 |
+| 3 | ![Tampa Bay Rays](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3f/3f16f721cfdbb929fac08c9e1d8f9e1ab410be8b409eed5dac9b5f5c9a7af5ae.png) | Tampa Bay Rays | 98 | 64 | 0.605 |
+| 4 | ![Atlanta Braves](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1c/1c36c62410bbed29624672b006173af58bcdfbb066ae9d6f7c4cb99205e861d2.png) | Atlanta Braves | 94 | 68 | 0.580 |
+| 5 | ![New York Yankees](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d9/d98856c36bc8d3b0fb0bab5fabd79d2ae057619164365845cbc817b04ae74a26.png) | New York Yankees | 93 | 68 | 0.578 |
+| 6 | ![San Diego Padres](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8bb012967768a5f476ff427f433e89960149217777c6371d80eafb8725c2f175.png) | San Diego Padres | 91 | 71 | 0.562 |
+| 7 | ![Chicago Cubs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/39/39a2b071f52778bbaa9f7d58432db3dcf638bb9a25eb17a901d3551d5d859086.png) | Chicago Cubs | 89 | 73 | 0.549 |
+| 8 | ![Philadelphia Phillies](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95997c9aaac40ec5d718b667c374561b782e5cb88665d69daf3178a16401d683.png) | Philadelphia Phillies | 88 | 74 | 0.543 |
+| 9 | ![Boston Red Sox](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/47/471966c3b3f4ab7b567b9cd29e7eefc138963182e98b31c01c922335ad265597.png) | Boston Red Sox | 87 | 75 | 0.537 |
+| 10 | ![Arizona Diamondbacks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b0/b060f0fcc21d64b978be260f0c24880c50094f0ec8e640d14896dc5045bf0b21.png) | Arizona Diamondbacks | 86 | 76 | 0.531 |
+| 11 | ![Cleveland Guardians](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/88/8883a4e8b7c6bb75f308f1fb27a39eb7cf81ce431ba781edbc4afe082164410f.png) | Cleveland Guardians | 85 | 77 | 0.525 |
+| 12 | ![Chicago White Sox](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f9/f92f9c32cea65d9e697a254d09a8ae16326889796f380649b2fee64396cc4640.png) | Chicago White Sox | 84 | 78 | 0.519 |
+| 13 | ![Pittsburgh Pirates](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0a/0af791c91bc01b4c654a65c90c983c3f907bf2605c67cfaaed731985efff34a1.png) | Pittsburgh Pirates | 82 | 80 | 0.506 |
+| 14 | ![Houston Astros](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b7/b7e6858d9d11fe9fade351624bfbab74ec12451749feef37bd1f083d59eb4f7b.png) | Houston Astros | 81 | 81 | 0.500 |
+| 15 | ![Texas Rangers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b1/b19ee28a151164ed231d98cafbcebe471faaa876a202e9c558b925be3ac3dac9.png) | Texas Rangers | 80 | 82 | 0.494 |
 
 ## Workflow 5: NHL Team Performance
 
@@ -386,14 +386,14 @@ odds_table
 |----|----|----|----|----|
 | Season 2025 |  |  |  |  |
 |  | Team | Wins | Win % | Spread |
-| ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | DEN | 14 | 0.824 | -3.5 |
-| ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | NE | 14 | 0.824 | -3.5 |
-| ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | SEA | 14 | 0.824 | -3.0 |
-| ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | JAX | 13 | 0.765 | -7.0 |
-| ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | BUF | 12 | 0.706 | 3.0 |
-| ![Houston Texans](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | HOU | 12 | 0.706 | -7.0 |
-| ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | LA | 12 | 0.706 | -3.0 |
-| ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | SF | 12 | 0.706 | 3.0 |
+| ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | DEN | 14 | 0.824 | -3.5 |
+| ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | NE | 14 | 0.824 | -3.5 |
+| ![Seattle Seahawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/2546b1d4fe5cf6c2d75cda53d3fb56bbc4dd43c6b00200586dab5a85df8fa492.png) | SEA | 14 | 0.824 | -3.0 |
+| ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | JAX | 13 | 0.765 | -7.0 |
+| ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | BUF | 12 | 0.706 | 3.0 |
+| ![Houston Texans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png) | HOU | 12 | 0.706 | -7.0 |
+| ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | LA | 12 | 0.706 | -3.0 |
+| ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | SF | 12 | 0.706 | 3.0 |
 
 ## Workflow 7: Automated Reporting Pipeline
 

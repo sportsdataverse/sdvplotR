@@ -46,16 +46,22 @@ columns:
 | team_short_name | character | Short display name |
 | team_location | character | City / school |
 | team_mascot | character | Mascot / nickname |
-| logo_url | character | Primary logo URL |
-| logo_dark_url | character | Dark-background logo URL |
-| logo_scoreboard_url | character | Scoreboard logo URL |
-| wordmark_url | character | Wordmark URL (`NA` when none) |
+| logo_url | character | Primary logo URL at the source (ESPN's CDN) |
+| logo_dark_url | character | Dark-background logo URL at the source |
+| logo_scoreboard_url | character | Scoreboard logo URL at the source (`NA` when none) |
+| wordmark_url | character | Wordmark URL at the source (nflverse; `NA` when none) |
 | color1 | character | Primary team color (hex) |
 | color2 | character | Secondary team color (hex; `NA` when the source has none) |
 | color_source | character | `"nflverse"`, `"espn"`, `"logo"` or `"cbbplotR"`; `NA` for the AFC, NFC and NFL |
 | conference | character | Conference (`NA` for leagues without) |
 | division | character | Division (`NA` for leagues without) |
 | type | character | `"team"`, `"conference"` or `"league"` |
+
+The URL columns are the sources' live files, which ESPN drops and
+replaces; the helpers draw the SportsDataverse logo archive's copies
+instead, which
+[`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+returns.
 
 Colors are nflverse's for the NFL and ESPN's teams-list colors
 elsewhere. ESPN gives some newer or smaller college programs a stand-in

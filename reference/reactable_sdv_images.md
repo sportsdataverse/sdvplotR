@@ -41,11 +41,13 @@ reactable_sdv_headshots(
 
 - variant:
 
-  Character. Logo variant: `"primary"`, `"dark"` or `"scoreboard"` (see
+  Character. Logo variant: `"primary"`, `"dark"`, `"scoreboard"` or a
+  named mark of the sport (see
   [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md));
-  wordmarks come in `"primary"` only. Falls back to the primary image
-  when the requested variant is not available for a team, and, in the
-  browser, when the variant's file fails to load.
+  wordmarks come in `"primary"` for the NFL and MLB, plus `"on_light"` /
+  `"on_dark"` for MLB. Falls back to the primary image when the
+  requested variant is not available for a team, and, in the browser,
+  when the variant's file fails to load.
 
 - height:
 
@@ -90,5 +92,5 @@ reactable(
   )
 )
 
-{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team":["KC","BUF","SF"],"wins":[13,12,11]},"columns":[{"id":"team","name":"team","type":"character","cell":["<img src=\"https://a.espncdn.com/i/teamlogos/nfl/500/kc.png\" style=\"height:30px;vertical-align:middle;\" alt=\"Kansas City Chiefs\" />","<img src=\"https://a.espncdn.com/i/teamlogos/nfl/500/buf.png\" style=\"height:30px;vertical-align:middle;\" alt=\"Buffalo Bills\" />","<img src=\"https://a.espncdn.com/i/teamlogos/nfl/500/sf.png\" style=\"height:30px;vertical-align:middle;\" alt=\"San Francisco 49ers\" />"],"html":true},{"id":"wins","name":"wins","type":"numeric"}],"dataKey":"47037ccad90e2a1630e62ac4f7c95edb"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}
+{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team":["KC","BUF","SF"],"wins":[13,12,11]},"columns":[{"id":"team","name":"team","type":"character","cell":["<img src=\"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png\" style=\"height:30px;vertical-align:middle;\" alt=\"Kansas City Chiefs\" />","<img src=\"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png\" style=\"height:30px;vertical-align:middle;\" alt=\"Buffalo Bills\" />","<img src=\"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png\" style=\"height:30px;vertical-align:middle;\" alt=\"San Francisco 49ers\" />"],"html":true},{"id":"wins","name":"wins","type":"numeric"}],"dataKey":"5f05ae58d80e801de80b4a291128f42a"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}
 ```

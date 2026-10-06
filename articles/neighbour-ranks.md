@@ -118,17 +118,17 @@ neighbour_table(summaries, focal, "net_adj_epa", metrics[["net_adj_epa"]])
 | Net adj. EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 30 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/97.png)Louisville | 0.149 |
-| 31 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png)South Florida | 0.146 |
-| 32 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png)Virginia | 0.140 |
-| 33 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.134 |
-| 34 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.133 |
-| 35 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.128 |
-| 36 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/151.png)East Carolina | 0.128 |
-| 37 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
-| 38 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.115 |
-| 39 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.112 |
-| 40 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.112 |
+| 30 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7c/7c5e06bfb990c80176ef56e171bfb2de264355db54c592462d5f8a02404412e8.png)Louisville | 0.149 |
+| 31 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a7/a74207f69d800eba006138acef12a1436166c868ba14c94e1578190358dd0d14.png)South Florida | 0.146 |
+| 32 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d35c8362ad7a6f03b32e30bc0745cb481da320da96010c7327f3c78359ac9fe5.png)Virginia | 0.140 |
+| 33 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/86/864561cb4ebf372171438c038fcf52eac3342a2c1d751e605901e144c70afda0.png)TCU | 0.134 |
+| 34 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8b490fe0621ea18538cf38e2b9c462beff54b26ee4707c54d024547e82e7cd63.png)Iowa State | 0.133 |
+| 35 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.128 |
+| 36 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0a/0ae06f5e6518c5065c93cde42d17853ddc6c6abe56502ef2bbcbf3bd52f9adb5.png)East Carolina | 0.128 |
+| 37 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1e/1ef03aa847164f52dee3c8bfea023e3b75915231c01250889a549ae08b2ec9b8.png)Tennessee | 0.121 |
+| 38 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/64/64a7bd6719c228709bd83551956fa1d28b0e4728dadc9dd14ed4c0fab3a0b0bb.png)Toledo | 0.115 |
+| 39 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c2/c283722b1c9f4b47b7361d7d959422225de4ad4682b0eadcd66f707c015506f3.png)Pittsburgh | 0.112 |
+| 40 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d7/d7715a34978cfdb27bdb863a6c0de3d7a4c122e80de0c72397b8a23aa3d10fa7.png)Old Dominion | 0.112 |
 
 ## Three metrics side by side
 
@@ -157,47 +157,47 @@ Illinois and its neighbours
 | Net adj. EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 30 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/97.png)Louisville | 0.149 |
-| 31 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/58.png)South Florida | 0.146 |
-| 32 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png)Virginia | 0.140 |
-| 33 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | 0.134 |
-| 34 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/66.png)Iowa State | 0.133 |
-| 35 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.128 |
-| 36 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/151.png)East Carolina | 0.128 |
-| 37 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
-| 38 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png)Toledo | 0.115 |
-| 39 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/221.png)Pittsburgh | 0.112 |
-| 40 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/295.png)Old Dominion | 0.112 |
+| 30 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7c/7c5e06bfb990c80176ef56e171bfb2de264355db54c592462d5f8a02404412e8.png)Louisville | 0.149 |
+| 31 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a7/a74207f69d800eba006138acef12a1436166c868ba14c94e1578190358dd0d14.png)South Florida | 0.146 |
+| 32 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d35c8362ad7a6f03b32e30bc0745cb481da320da96010c7327f3c78359ac9fe5.png)Virginia | 0.140 |
+| 33 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/86/864561cb4ebf372171438c038fcf52eac3342a2c1d751e605901e144c70afda0.png)TCU | 0.134 |
+| 34 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8b490fe0621ea18538cf38e2b9c462beff54b26ee4707c54d024547e82e7cd63.png)Iowa State | 0.133 |
+| 35 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.128 |
+| 36 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0a/0ae06f5e6518c5065c93cde42d17853ddc6c6abe56502ef2bbcbf3bd52f9adb5.png)East Carolina | 0.128 |
+| 37 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1e/1ef03aa847164f52dee3c8bfea023e3b75915231c01250889a549ae08b2ec9b8.png)Tennessee | 0.121 |
+| 38 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/64/64a7bd6719c228709bd83551956fa1d28b0e4728dadc9dd14ed4c0fab3a0b0bb.png)Toledo | 0.115 |
+| 39 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c2/c283722b1c9f4b47b7361d7d959422225de4ad4682b0eadcd66f707c015506f3.png)Pittsburgh | 0.112 |
+| 40 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d7/d7715a34978cfdb27bdb863a6c0de3d7a4c122e80de0c72397b8a23aa3d10fa7.png)Old Dominion | 0.112 |
 
 | Offense EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 29 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2199.png)Eastern Michigan | 0.120 |
-| 30 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png)SMU | 0.119 |
-| 31 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/5.png)UAB | 0.116 |
-| 32 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/349.png)Army | 0.113 |
-| 33 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/195.png)Ohio | 0.111 |
-| 34 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.111 |
-| 35 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/213.png)Penn State | 0.109 |
-| 36 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/218.png)Temple | 0.106 |
-| 37 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/251.png)Texas | 0.104 |
-| 38 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.100 |
-| 39 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/328.png)Utah State | 0.093 |
+| 29 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f844b98efad3ea95ba434826c6e9f1707487000a0c65c51412e3dc067971433c.png)Eastern Michigan | 0.120 |
+| 30 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1d/1dbe095805cd1636fc5aac2918eedf81b4dad43329a8c1e665616ee1d79840a7.png)SMU | 0.119 |
+| 31 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/90/905b2e96ff5a391a789276d4b211134ca295a91bc352d1ba5668c79fbfcc0bbb.png)UAB | 0.116 |
+| 32 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bb/bbe36252ce70f54489fbd0a0c0ec27bfdbd4f84d2789fc9906bda5ccd93c7aab.png)Army | 0.113 |
+| 33 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2fbdfa08adebb0be79d920a92b46e7e153e6dff49a4335b93b86a527525f836b.png)Ohio | 0.111 |
+| 34 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.111 |
+| 35 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0e/0efa003a56ec95d664b71d799fabe5e927d2ddd23cea90d5bab42df971abd080.png)Penn State | 0.109 |
+| 36 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2a/2a7cb32da0408fbd277fa184f3eee42ce983ebab70c8e819abb2865ac440717c.png)Temple | 0.106 |
+| 37 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12d69bb78c3443bdbcc5a7659f288840a7a3862d70043eda3d8868a229eb7696.png)Texas | 0.104 |
+| 38 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ee/ee51da26e5cdf389cc787c58478f10bb03503832e35f862b4f208d273819d8ec.png)NC State | 0.100 |
+| 39 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d2/d2cb5546e8f39a2cffebd99ddbb06be2bb4b4b634414a6e628573ad4bd04f1f2.png)Utah State | 0.093 |
 
 | Defense EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 94 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/276.png)Marshall | 0.108 |
-| 95 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/249.png)North Texas | 0.110 |
-| 96 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/309.png)Louisiana | 0.111 |
-| 97 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/344.png)Mississippi State | 0.112 |
-| 98 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/152.png)NC State | 0.114 |
-| 99 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/356.png)Illinois | 0.117 |
-| 100 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/23.png)San José State | 0.118 |
-| 101 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png)Kent State | 0.118 |
-| 102 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2026.png)App State | 0.119 |
-| 103 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/326.png)Texas State | 0.119 |
-| 104 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png)Tennessee | 0.121 |
+| 94 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1d/1da7fba7069492d881b01a375a5ffde5632273d31118d4466d1b92db447daefb.png)Marshall | 0.108 |
+| 95 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/59/5953d0a7dd1e44d82402467043f2cd63003d74a0dc3bff754cb467ab93104436.png)North Texas | 0.110 |
+| 96 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/50/504a8c3ff5469e6c367e3925e573324e8efd0c0e42a034658e1609a62f1b1ed3.png)Louisiana | 0.111 |
+| 97 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/18/1854b6d52609c4db7daacc59ce122017c3eabd2e70b9c66deeec297183d4d46b.png)Mississippi State | 0.112 |
+| 98 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ee/ee51da26e5cdf389cc787c58478f10bb03503832e35f862b4f208d273819d8ec.png)NC State | 0.114 |
+| 99 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.117 |
+| 100 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b7/b786de17b998fa272d6e02d193d2a84db93b4339975301d825af770d3b2ede5a.png)San José State | 0.118 |
+| 101 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e9/e99c6598ff920716bf12c731a4b52039c2350d373d2a86d98df4dd592c491d4d.png)Kent State | 0.118 |
+| 102 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/48/487c6f3fbe9c41cf532b6de285f1d35585ee7ca9510e5aa45000d97a1f597e5d.png)App State | 0.119 |
+| 103 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0e/0e81afbb4d334e48237c83fd2cea6239871e2f8167def9ce9a836b1e2a325366.png)Texas State | 0.119 |
+| 104 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1e/1ef03aa847164f52dee3c8bfea023e3b75915231c01250889a549ae08b2ec9b8.png)Tennessee | 0.121 |
 
 Data: cfbfastR::load_espn_cfb_team_summaries()
 

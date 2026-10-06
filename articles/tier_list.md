@@ -83,17 +83,14 @@ so one object can drive both.
 ### The image columns
 
 The images come from sdvplotR’s own team table:
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-holds every team’s logo URLs, keyed by the same nflverse abbreviations
-the play-by-play uses.
+[`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+resolves the same nflverse abbreviations the play-by-play uses to each
+team’s logo, the SportsDataverse logo archive’s copy of it.
 
 ``` r
 
-logos <- team_reference("nfl") |>
-  select(team = team_abbr, logo = logo_url)
-
 nfl_wide <- nfl |>
-  left_join(logos, by = "team") |>
+  mutate(logo = sdv_logo_url(team, sport = "nfl")) |>
   pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo, names_sort = TRUE) |>
   arrange(tier)
 ```
@@ -106,12 +103,12 @@ tier name and eight logo URLs:
 
 nfl_wide[, 1:3]
 #> # A tibble: 4 × 3
-#>   tier       `1`                                               `2`              
-#>   <fct>      <chr>                                             <chr>            
-#> 1 Contenders https://a.espncdn.com/i/teamlogos/nfl/500/lar.png https://a.espncd…
-#> 2 Solid      https://a.espncdn.com/i/teamlogos/nfl/500/gb.png  https://a.espncd…
-#> 3 Shaky      https://a.espncdn.com/i/teamlogos/nfl/500/pit.png https://a.espncd…
-#> 4 Rebuilding https://a.espncdn.com/i/teamlogos/nfl/500/cle.png https://a.espncd…
+#>   tier       `1`                                                           `2`  
+#>   <fct>      <chr>                                                         <chr>
+#> 1 Contenders https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sh… http…
+#> 2 Solid      https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sh… http…
+#> 3 Shaky      https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sh… http…
+#> 4 Rebuilding https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sh… http…
 ```
 
 ### Plotting
@@ -139,10 +136,10 @@ nfl_wide |>
 |----|----|----|----|----|----|----|----|----|
 | Ranked by EPA per play margin: offense minus defense, pass and run plays, regular season |  |  |  |  |  |  |  |  |
 |  |  |  |  |  |  |  |  |  |
-| Contenders | ![Los Angeles Rams](https://a.espncdn.com/i/teamlogos/nfl/500/lar.png) | ![New England Patriots](https://a.espncdn.com/i/teamlogos/nfl/500/ne.png) | ![Seattle Seahawks](https://a.espncdn.com/i/teamlogos/nfl/500/sea.png) | ![Buffalo Bills](https://a.espncdn.com/i/teamlogos/nfl/500/buf.png) | ![Jacksonville Jaguars](https://a.espncdn.com/i/teamlogos/nfl/500/jax.png) | ![Denver Broncos](https://a.espncdn.com/i/teamlogos/nfl/500/den.png) | ![Houston Texans](https://a.espncdn.com/i/teamlogos/nfl/500/hou.png) | ![Philadelphia Eagles](https://a.espncdn.com/i/teamlogos/nfl/500/phi.png) |
-| Solid | ![Green Bay Packers](https://a.espncdn.com/i/teamlogos/nfl/500/gb.png) | ![Indianapolis Colts](https://a.espncdn.com/i/teamlogos/nfl/500/ind.png) | ![Detroit Lions](https://a.espncdn.com/i/teamlogos/nfl/500/det.png) | ![Los Angeles Chargers](https://a.espncdn.com/i/teamlogos/nfl/500/lac.png) | ![Kansas City Chiefs](https://a.espncdn.com/i/teamlogos/nfl/500/kc.png) | ![Chicago Bears](https://a.espncdn.com/i/teamlogos/nfl/500/chi.png) | ![San Francisco 49ers](https://a.espncdn.com/i/teamlogos/nfl/500/sf.png) | ![Baltimore Ravens](https://a.espncdn.com/i/teamlogos/nfl/500/bal.png) |
-| Shaky | ![Pittsburgh Steelers](https://a.espncdn.com/i/teamlogos/nfl/500/pit.png) | ![Minnesota Vikings](https://a.espncdn.com/i/teamlogos/nfl/500/min.png) | ![Tampa Bay Buccaneers](https://a.espncdn.com/i/teamlogos/nfl/500/tb.png) | ![Atlanta Falcons](https://a.espncdn.com/i/teamlogos/nfl/500/atl.png) | ![New Orleans Saints](https://a.espncdn.com/i/teamlogos/nfl/500/no.png) | ![Dallas Cowboys](https://a.espncdn.com/i/teamlogos/nfl/500/dal.png) | ![New York Giants](https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png) | ![Carolina Panthers](https://a.espncdn.com/i/teamlogos/nfl/500/car.png) |
-| Rebuilding | ![Cleveland Browns](https://a.espncdn.com/i/teamlogos/nfl/500/cle.png) | ![Arizona Cardinals](https://a.espncdn.com/i/teamlogos/nfl/500/ari.png) | ![Miami Dolphins](https://a.espncdn.com/i/teamlogos/nfl/500/mia.png) | ![Cincinnati Bengals](https://a.espncdn.com/i/teamlogos/nfl/500/cin.png) | ![Washington Commanders](https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png) | ![Las Vegas Raiders](https://a.espncdn.com/i/teamlogos/nfl/500/lv.png) | ![Tennessee Titans](https://a.espncdn.com/i/teamlogos/nfl/500/ten.png) | ![New York Jets](https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png) |
+| Contenders | ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | ![Seattle Seahawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/2546b1d4fe5cf6c2d75cda53d3fb56bbc4dd43c6b00200586dab5a85df8fa492.png) | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | ![Houston Texans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png) | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) |
+| Solid | ![Green Bay Packers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png) | ![Indianapolis Colts](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f1/f1f5222a876f810956aa8d4e75d4e6b47bcb3a6d11f876642b674010233c8a97.png) | ![Detroit Lions](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png) | ![Los Angeles Chargers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png) | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | ![Chicago Bears](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png) | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) |
+| Shaky | ![Pittsburgh Steelers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/806bcb72e75ed184a99bea34df458e6cd87145fc9a863945f3356b01122aeb6f.png) | ![Minnesota Vikings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png) | ![Tampa Bay Buccaneers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bc/bcc5d267024650938c9f35558077fe00a31913b89c61768d4ebb63d1ea31fbfd.png) | ![Atlanta Falcons](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png) | ![New Orleans Saints](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png) | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | ![New York Giants](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62e361850e7ba3a50dfd09cbb38429e994d1c23b0f999c74421f10e37c7067e7.png) | ![Carolina Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png) |
+| Rebuilding | ![Cleveland Browns](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png) | ![Arizona Cardinals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f870b58b43585a5b7717d578dd433b0b1e0c462d64ef4bea2aeb8c03f4ae7854.png) | ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | ![Washington Commanders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png) | ![Las Vegas Raiders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png) | ![Tennessee Titans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/27/27cf283fca5b2e9e1c5e995a465a54223424c157d2013b603a6491f99333cf45.png) | ![New York Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png) |
 | Data: nflverse play-by-play via nflfastR |  |  |  |  |  |  |  |  |
 
 ## 2. The ACC by efficiency margin
@@ -198,16 +195,14 @@ acc_margin <- acc_margin |>
   mutate(tier_order = row_number(), .by = tier)
 ```
 
-A dark table wants dark-mode logos.
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-carries both, so we take the dark one and fall back to the primary where
-ESPN has no dark version.
+A dark table wants dark-mode logos: `variant = "dark"`, which gives the
+primary for a team with no dark mark (every team has one; most
+conferences don’t).
 
 ``` r
 
 acc_wide <- acc_margin |>
-  left_join(select(acc, team = team_abbr, logo_dark_url, logo_url), by = "team") |>
-  mutate(logo = coalesce(logo_dark_url, logo_url)) |>
+  mutate(logo = sdv_logo_url(team, sport = "mbb", variant = "dark")) |>
   pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo, names_sort = TRUE) |>
   arrange(tier)
 ```

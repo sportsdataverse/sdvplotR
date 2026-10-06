@@ -193,21 +193,21 @@ west |>
 |----|----|----|----|----|----|----|
 | Regular-season records; final seeds, after the play-in. Diff is the average scoring margin. |  |  |  |  |  |  |
 | Seed¹ | ¹ | W¹ | L¹ | Pct¹ | Diff¹ | Last 10¹ |
-| 1 | ![Oklahoma City Thunder](https://a.espncdn.com/i/teamlogos/nba/500/okc.png) | 64 | 18 | .780 | +11.1 | 7-3 |
-| 2 | ![San Antonio Spurs](https://a.espncdn.com/i/teamlogos/nba/500/sa.png) | 62 | 20 | .756 | +8.3 | 8-2 |
-| 3 | ![Denver Nuggets](https://a.espncdn.com/i/teamlogos/nba/500/den.png) | 54 | 28 | .659 | +5.2 | 10-0 |
-| 4 | ![Los Angeles Lakers](https://a.espncdn.com/i/teamlogos/nba/500/lal.png) | 53 | 29 | .646 | +1.7 | 7-3 |
-| 5 | ![Houston Rockets](https://a.espncdn.com/i/teamlogos/nba/500/hou.png) | 52 | 30 | .634 | +5.2 | 9-1 |
-| 6 | ![Minnesota Timberwolves](https://a.espncdn.com/i/teamlogos/nba/500/min.png) | 49 | 33 | .598 | +3.4 | 5-5 |
-| 7 | ![Portland Trail Blazers](https://a.espncdn.com/i/teamlogos/nba/500/por.png) | 42 | 40 | .512 | −0.3 | 7-3 |
-| 8 | ![Phoenix Suns](https://a.espncdn.com/i/teamlogos/nba/500/phx.png) | 45 | 37 | .549 | +1.5 | 5-5 |
-| 9 | ![LA Clippers](https://a.espncdn.com/i/teamlogos/nba/500/lac.png) | 42 | 40 | .512 | +1.2 | 6-4 |
-| 10 | ![Golden State Warriors](https://a.espncdn.com/i/teamlogos/nba/500/gs.png) | 37 | 45 | .451 | −0.6 | 3-7 |
-| 11 | ![New Orleans Pelicans](https://a.espncdn.com/i/teamlogos/nba/500/no.png) | 26 | 56 | .317 | −4.5 | 1-9 |
-| 12 | ![Dallas Mavericks](https://a.espncdn.com/i/teamlogos/nba/500/dal.png) | 26 | 56 | .317 | −5.5 | 3-7 |
-| 13 | ![Memphis Grizzlies](https://a.espncdn.com/i/teamlogos/nba/500/mem.png) | 25 | 57 | .305 | −6.0 | 1-9 |
-| 14 | ![Sacramento Kings](https://a.espncdn.com/i/teamlogos/nba/500/sac.png) | 22 | 60 | .268 | −10.0 | 3-7 |
-| 15 | ![Utah Jazz](https://a.espncdn.com/i/teamlogos/nba/500/utah.png) | 22 | 60 | .268 | −8.4 | 1-9 |
+| 1 | ![Oklahoma City Thunder](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/6b/6b4801ae99c7dac7240d3b6ab3fbd4249a371473fc06517384e891834164a76e.png) | 64 | 18 | .780 | +11.1 | 7-3 |
+| 2 | ![San Antonio Spurs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/cc/cc3d33fa8faf34874258b10a8e0377d70b80c7900b4d90698f35edba9952fa1c.png) | 62 | 20 | .756 | +8.3 | 8-2 |
+| 3 | ![Denver Nuggets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/33f295fabf1bc3ddb60dfcbefb35ab9a3a91c865752e4539778495aab27f535d.png) | 54 | 28 | .659 | +5.2 | 10-0 |
+| 4 | ![Los Angeles Lakers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82fda3df51058c5aad8a52123868f43959017be0c39c886e9aefbb77e6c69c89.png) | 53 | 29 | .646 | +1.7 | 7-3 |
+| 5 | ![Houston Rockets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/720e35c0d3b39af8d57ae66f00ae1058bd0f32b41fba1137f779af5bc439e011.png) | 52 | 30 | .634 | +5.2 | 9-1 |
+| 6 | ![Minnesota Timberwolves](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ff/ff53859dd29fb795e2f9c0a7fbaf808548731526d3fbcbb2fdfb842224c36979.png) | 49 | 33 | .598 | +3.4 | 5-5 |
+| 7 | ![Portland Trail Blazers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/63/635515bc924cef7432e9b362da558c41032daf6f4c41be2e1dc80a34360b6f18.png) | 42 | 40 | .512 | −0.3 | 7-3 |
+| 8 | ![Phoenix Suns](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5f/5f8932efdb7595069610b11ec2f417d78a9213691c2ba21e2bd491c172397ead.png) | 45 | 37 | .549 | +1.5 | 5-5 |
+| 9 | ![LA Clippers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d4/d43253c0630f0d3d3a4c3c50ce92c9dbe8d5bf21e3bfd5326920c9487b26dbec.png) | 42 | 40 | .512 | +1.2 | 6-4 |
+| 10 | ![Golden State Warriors](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b6/b623681ece167224ad4f51aef1ffa5a6f9e072af1cf1d6a6c158fd796e8d33ab.png) | 37 | 45 | .451 | −0.6 | 3-7 |
+| 11 | ![New Orleans Pelicans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2c2bf09a59358e024c442d80f16707cd8b705863df9b6aa0ee478346561dc18a.png) | 26 | 56 | .317 | −4.5 | 1-9 |
+| 12 | ![Dallas Mavericks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d0/d0d526f5400b7266883476071df0d24cdea0655a1641f0e5a2ea212e6c1b2b09.png) | 26 | 56 | .317 | −5.5 | 3-7 |
+| 13 | ![Memphis Grizzlies](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/eb/eb3f14246f67bccd4d8dd44be2f431992115beac8837c4b1be51d098b0a388bd.png) | 25 | 57 | .305 | −6.0 | 1-9 |
+| 14 | ![Sacramento Kings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/38/38728eaaf98d73d00363ee570601d64a4caa7fe2590fb0df5afb1b9129d6e20b.png) | 22 | 60 | .268 | −10.0 | 3-7 |
+| 15 | ![Utah Jazz](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/eb/eb20ed36a17b49f65fa30627a2ab2aae5c6e3ee31ab9f03983c15c05270016e1.png) | 22 | 60 | .268 | −8.4 | 1-9 |
 | ¹ Seeds 1-6 reach the playoffs; seeds 7-10 meet in the play-in for the last two places. |  |  |  |  |  |  |
 | Data: ESPN standings via hoopR |  |  |  |  |  |  |
 
@@ -294,31 +294,31 @@ moves |>
 |----|----|----|----|----|
 | Final poll after the national championship, against the preseason poll |  |  |  |  |
 | Final | Team | Conference | Preseason | Places climbed |
-| 1 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/84.png)Indiana | Big Ten | 20 | ▲ 19 |
-| 2 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png)Miami | ACC | 10 | ▲ 8 |
-| 3 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/145.png)Ole Miss | SEC | 21 | ▲ 18 |
-| 4 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2483.png)Oregon | Big Ten | 7 | ▲ 3 |
-| 5 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/194.png)Ohio State | Big Ten | 3 | ▼ 2 |
-| 6 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/61.png)Georgia | SEC | 5 | ▼ 1 |
-| 7 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png)Texas Tech | Big 12 | 23 | ▲ 16 |
-| 8 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/245.png)Texas A&M | SEC | 19 | ▲ 11 |
-| 9 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/333.png)Alabama | SEC | 8 | ▼ 1 |
-| 10 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/87.png)Notre Dame | FBS Independents | 6 | ▼ 4 |
-| 11 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/252.png)BYU | Big 12 | NR |  |
-| 12 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/251.png)Texas | SEC | 1 | ▼ 11 |
-| 13 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/201.png)Oklahoma | SEC | 18 | ▲ 5 |
-| 14 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/254.png)Utah | Big 12 | NR |  |
-| 15 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/238.png)Vanderbilt | SEC | NR |  |
-| 16 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/258.png)Virginia | ACC | NR |  |
-| 17 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png)Iowa | Big Ten | NR |  |
-| 18 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2655.png)Tulane | American Athletic | NR |  |
-| 19 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/256.png)James Madison | Sun Belt | NR |  |
-| 20 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/30.png)USC | Big Ten | NR |  |
-| 21 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/130.png)Michigan | Big Ten | 14 | ▼ 7 |
-| 22 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/248.png)Houston | Big 12 | NR |  |
-| 23 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2426.png)Navy | American Athletic | NR |  |
-| 24 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/249.png)North Texas | American Athletic | NR |  |
-| 25 | ![](https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png)TCU | Big 12 | NR |  |
+| 1 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0d/0dfc3e06f6e158d96df2b9729de6b1cd6a5a5756ec365cd0b998aa6ecb45aa66.png)Indiana | Big Ten | 20 | ▲ 19 |
+| 2 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/55/55800e4867c87bf38281043628d2c0dfadd0bf44632b27a9ab20af27a9a728fb.png)Miami | ACC | 10 | ▲ 8 |
+| 3 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/61/61988dd6fb46c4c5dad612e7ef14eeee56b63ada3a0758b30ccf418213ecd826.png)Ole Miss | SEC | 21 | ▲ 18 |
+| 4 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/57/57dca8a00b01bebcfb1e0c7ceafe0b046e175c47ec7225713b3930e7fcb7cd05.png)Oregon | Big Ten | 7 | ▲ 3 |
+| 5 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/6d/6dbe512c1b9b4e8c0ebcfcb4b3620b6229a05619e8bf70b3051a8e6c4964240d.png)Ohio State | Big Ten | 3 | ▼ 2 |
+| 6 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fa/fa5c7fb14d5ffa38eaddfeb80161835e60a3d496b57db5e0ebda5e6475226d8a.png)Georgia | SEC | 5 | ▼ 1 |
+| 7 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/be16f2f868f97ef01961fe3332252aa767be3a860438b9f0da054bf7205b66e4.png)Texas Tech | Big 12 | 23 | ▲ 16 |
+| 8 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0d/0da7ac07d04adcd38707b88a4198e988b830ed49a0ab6c9378cfb4cfb980aa08.png)Texas A&M | SEC | 19 | ▲ 11 |
+| 9 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bb/bb55649cd4257a7d13b58db3f6cc85af8672b43f6eb215b6e729c7916ba5e4b8.png)Alabama | SEC | 8 | ▼ 1 |
+| 10 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5c/5c0412f57d3fdf05789d255595ce014bbed36c6468f8ec3d8471450efe5f9f10.png)Notre Dame | FBS Independents | 6 | ▼ 4 |
+| 11 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c49b759151574b979556fb10f1e245ec8cb03b4b3b80d4d352b5f909293976d.png)BYU | Big 12 | NR |  |
+| 12 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12d69bb78c3443bdbcc5a7659f288840a7a3862d70043eda3d8868a229eb7696.png)Texas | SEC | 1 | ▼ 11 |
+| 13 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/19/19f8f9a3254b9c85ffacf42de7b4d00e1186fbb0b55effdabe9c6d0a3f487ddf.png)Oklahoma | SEC | 18 | ▲ 5 |
+| 14 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54d1837e37240cb37dcbea2b2dfd518bdf8531344e5f5397ff02a1d2111b5b43.png)Utah | Big 12 | NR |  |
+| 15 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/cd/cdb3df344d224cae8b03a9f23f6e15424267095644cc211e0e0278c6e53986c4.png)Vanderbilt | SEC | NR |  |
+| 16 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d35c8362ad7a6f03b32e30bc0745cb481da320da96010c7327f3c78359ac9fe5.png)Virginia | ACC | NR |  |
+| 17 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/86/865b23c1e68385b0c0f2bbdd69a662382db1e9aa66310d3af5110b246b2ec472.png)Iowa | Big Ten | NR |  |
+| 18 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/35/35db0df8ce98e8180a3d6cffa1c2924f863874b3a4226d6b76192216fbfb4808.png)Tulane | American Athletic | NR |  |
+| 19 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/58/585459126d87e56750ae902d78b198f63e44b8a6cac5c25b1a6c9483366229f5.png)James Madison | Sun Belt | NR |  |
+| 20 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ab/abd4a69d1efca7bd1c944acf8a5a77b5bce41602da970e9779f0bf6079489c1a.png)USC | Big Ten | NR |  |
+| 21 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/91/910dbf467c9b442f1b493280bbc027ba5a1f91e2ce314fae099d637aade7d42b.png)Michigan | Big Ten | 14 | ▼ 7 |
+| 22 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d8/d8984a3cc57ea50d3002bb08515942af2be523c4fa404a670515da041261980d.png)Houston | Big 12 | NR |  |
+| 23 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82eb45dc0f8186430a637f42fc3746ae07fff74ca04fe6ea2099da720864f51d.png)Navy | American Athletic | NR |  |
+| 24 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/59/5953d0a7dd1e44d82402467043f2cd63003d74a0dc3bff754cb467ab93104436.png)North Texas | American Athletic | NR |  |
+| 25 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/86/864561cb4ebf372171438c038fcf52eac3342a2c1d751e605901e144c70afda0.png)TCU | Big 12 | NR |  |
 | Data: CollegeFootballData.com via cfbfastR |  |  |  |  |
 
 `arrows = TRUE` leads each value with a triangle in place of a sign, so

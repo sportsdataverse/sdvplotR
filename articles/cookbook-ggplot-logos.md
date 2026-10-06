@@ -527,19 +527,22 @@ first); `presort = TRUE` sorts them alphabetically instead.
 [`geom_from_path()`](https://mrcaseb.github.io/ggpath/reference/geom_from_path.html)
 (from ggpath, re-exported by sdvplotR) draws any picture from a URL or
 local file, with the same `width`, `height` and `alpha`. Conferences are
-rows in `team_reference(include_conferences = TRUE)`, so their ESPN logo
-URLs are a join away. The ten conferences whose average team is
+rows in `team_reference(include_conferences = TRUE)`, and
+[`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+resolves their names to their logos (the SportsDataverse logo archive’s
+copies of ESPN’s marks). The ten conferences whose average team is
 strongest, by adjusted efficiency margin:
 
 ``` r
 
-conf_logos <- team_reference("mbb", include_conferences = TRUE) |>
+conf_names <- team_reference("mbb", include_conferences = TRUE) |>
   filter(type == "conference") |>
-  select(conference = team_name, logo_url)
+  pull(team_name)
 
 conf <- mbb |>
   summarise(adj_em = mean(adj_em), teams = n(), .by = conference) |>
-  inner_join(conf_logos, by = "conference") |>
+  filter(conference %in% conf_names) |>
+  mutate(logo_url = sdv_logo_url(conference, sport = "mbb")) |>
   arrange(desc(adj_em), conference) |>
   slice_head(n = 10) |>
   mutate(label = sub(" Conference$", "", conference)) |>
@@ -552,7 +555,7 @@ ggplot(conf, aes(x = adj_em, y = label)) +
   labs(
     title = "How strong is the average team? Ten conferences, 2025-26",
     x = "Average adjusted efficiency margin (points per 100 possessions)", y = NULL,
-    caption = "Data: hoopR::load_mbb_ratings(), hoopR::load_mbb_standings(); logos: ESPN"
+    caption = "Data: hoopR::load_mbb_ratings(), hoopR::load_mbb_standings(); logos: ESPN via the SportsDataverse archive"
   ) +
   theme_minimal() +
   theme(panel.grid.major.y = element_blank(), plot.title.position = "plot")

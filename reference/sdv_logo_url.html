@@ -257,11 +257,16 @@ player id. These are the R counterparts of sdvplot's <code>logo_url()</code> and
 
 
 <dt id="arg-variant">variant<a class="anchor" aria-label="anchor" href="#arg-variant"></a></dt>
-<dd><p>The logo variant: <code>"primary"</code> (ESPN's default mark),
-<code>"dark"</code> (the dark-background mark) or <code>"scoreboard"</code> (ESPN's scoreboard
-mark, which differs from the primary for a few pro teams: the Jets' <code>NY</code>).
-A team without the requested variant gives its primary logo; any other
-value is an error.</p></dd>
+<dd><p>The logo variant: <code>"primary"</code> (the default mark), <code>"dark"</code>
+(the dark-background mark) or <code>"scoreboard"</code> (ESPN's scoreboard mark,
+which differs from the primary for a few pro teams: the Jets' <code>NY</code>), or a
+named mark the SportsDataverse logo archive carries for most of the
+sport's teams: ESPN's <code>"scoreboard_dark"</code>, <code>"grayscale"</code> (NFL),
+<code>"primary_logo_on_black_color"</code> and its siblings, nflverse's <code>"squared"</code>
+(NFL), MLB's <code>"cap_on_light"</code> / <code>"cap_on_dark"</code> / <code>"primary_on_light"</code> /
+<code>"primary_on_dark"</code> (SVG). A team without the requested variant gives its
+primary logo; a variant no mark of the sport has is an error that lists
+the sport's variants.</p></dd>
 
 
 <dt id="arg-season">season<a class="anchor" aria-label="anchor" href="#arg-season"></a></dt>
@@ -291,7 +296,21 @@ have no league ids.</p></dd>
     <p>A character vector the length of <code>team</code> / <code>player_id</code>: the image
 URL, or <code>NA</code> for a team that does not resolve, a player id that is
 missing, malformed or (NFL GSIS) not in the headshot map, or a league
-without wordmarks.</p>
+without wordmarks (the NFL and MLB have them).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="where-the-images-come-from">Where the images come from<a class="anchor" aria-label="anchor" href="#where-the-images-come-from"></a></h2>
+
+
+<p>Logos and wordmarks are the SportsDataverse logo archive's copies of the
+sources' files (ESPN's CDN, nflverse, MLB): immutable, content-addressed
+URLs (<code>.../sha256/&lt;ab&gt;/&lt;sha256&gt;.png</code>, so a downloaded file can be checked
+against its name) that stay up when a source drops or replaces a file. A
+mark the archive has no copy of (none today) falls back to the source's
+live URL. <code><a href="team_reference.html">team_reference()</a></code> keeps listing the sources' URLs. Headshots are
+not archived. sdvplot (Python) reads the same archive manifest at run
+time; sdvplotR ships the current marks in the package
+(<code>data-raw/generate_logo_marks.R</code>).</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -302,15 +321,17 @@ without wordmarks.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sdv_logo_url</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"Buffalo Bills"</span>, <span class="st">"WAS"</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png"</span>
 <span class="r-in"><span><span class="fu">sdv_logo_url</span><span class="op">(</span><span class="st">"NYJ"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, variant <span class="op">=</span> <span class="st">"scoreboard"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ec/ecd80a4d905129313f6d400d1ae753aa0196beb2931e09d1fa8a80f6738f0636.png"</span>
+<span class="r-in"><span><span class="fu">sdv_logo_url</span><span class="op">(</span><span class="st">"KC"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, variant <span class="op">=</span> <span class="st">"grayscale"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/7972affd32768d0fc112fb2f59b3db8d681085ce218e8c82a79545cef77a6c22.png"</span>
 <span class="r-in"><span><span class="fu">sdv_logo_url</span><span class="op">(</span><span class="st">"QUE"</span>, sport <span class="op">=</span> <span class="st">"nhl"</span>, season <span class="op">=</span> <span class="fl">1990</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3c/3c28d243ddb84f6556dd6f5a6d9f02f658657f557a157df998fad9c6d7abc7c8.svg"</span>
 <span class="r-in"><span><span class="fu">sdv_logo_url</span><span class="op">(</span><span class="st">"SEC"</span>, sport <span class="op">=</span> <span class="st">"cfb"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://a.espncdn.com/i/teamlogos/ncaa_conf/500/sec.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sdv_headshot_url</span><span class="op">(</span><span class="fl">3917315</span>, sport <span class="op">=</span> <span class="st">"mbb"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://a.espncdn.com/combiner/i?img=/i/headshots/mens-college-basketball/players/full/3917315.png"</span>
