@@ -2,10 +2,12 @@
 # same 2,631 ESPN clubs and the colors sdvplot sourced in #68: ESPN team
 # colors, else colors measured from the logo). Sourced by the sysdata builder.
 soccer_from_sdvplot <- function(sdvplot) {
+  # the package's own fold, so the builder and clean_team_abbrs() agree
+  fold_accents <- local({ e <- new.env(); sys.source("R/utils.R", e); e$fold_accents })
   t <- sdvplot[sdvplot$league == "soccer", ]
   id <- as.character(t$team_id)
   rows <- data.frame(
-    sport = "soccer", espn_team_id = as.integer(id), team_abbr = id, team_name = t$name,
+    sport = "soccer", espn_team_id = as.integer(id), team_abbr = id, team_name = trimws(t$name),
     team_short_name = t$short_name, team_location = t$location, team_mascot = NA_character_,
     logo_url = sprintf("https://a.espncdn.com/i/teamlogos/soccer/500/%s.png", id),
     logo_dark_url = sprintf("https://a.espncdn.com/i/teamlogos/soccer/500-dark/%s.png", id),
@@ -17,7 +19,9 @@ soccer_from_sdvplot <- function(sdvplot) {
   )
   # ids always resolve; a club name resolves only when no other club shares it
   # (416 of 2,215 names are shared, mostly a men's and a women's side)
-  name <- toupper(t$name)
+  # (ESPN writes a few with a trailing space, "Sydney FC " vs "Sydney FC", or
+  # without an accent, "Guarani" vs "Guaraní", so trim and fold first)
+  name <- toupper(trimws(fold_accents(t$name)))
   shared <- name %in% name[duplicated(name)]
   aliases <- stats::setNames(c(id, id[!shared]), c(id, name[!shared]))
   ambiguous <- split(id[shared], name[shared])
