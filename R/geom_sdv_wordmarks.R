@@ -5,8 +5,9 @@
 #'   team abbreviation. The latter can be checked with [`valid_team_names()`].
 #'
 #' @inheritParams ggplot2::geom_point
-#' @param sport Character string identifying the sport. One of:
-#'   `"nfl"`, `"nba"`, `"wnba"`, `"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`.
+#' @param sport Character string identifying the sport. One of
+#'   [supported_sports()]. Soccer is accepted, but soccer team wordmark
+#'   lookups return `NA` because the club references carry no wordmark URLs.
 #'
 #' @section Aesthetics:
 #' `geom_sdv_wordmarks()` understands the following aesthetics (required aesthetics are in bold):

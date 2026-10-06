@@ -5,8 +5,8 @@
 #'   team abbreviation. The latter can be checked with [`valid_team_names()`].
 #'
 #' @inheritParams ggplot2::geom_point
-#' @param sport Character string identifying the sport. One of:
-#'   `"nfl"`, `"nba"`, `"wnba"`, `"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`.
+#' @param sport Character string identifying the sport. One of
+#'   [supported_sports()].
 #'
 #' @section Aesthetics:
 #' `geom_sdv_logos()` understands the following aesthetics (required aesthetics are in bold):
