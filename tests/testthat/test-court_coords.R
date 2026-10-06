@@ -113,3 +113,44 @@ test_that("sdv_court_coords pins the sign convention to real stats.nba.com rows"
   expect_equal(out_right$court_y, 24.0)
   expect_equal(out_right$court_x, -38.85)
 })
+
+test_that("sdv_court_coords provider = 'euroleague' lands shots on the FIBA court in meters", {
+  # hoop, free-throw line (FIBA: 5.8 m from the baseline = 4.225 m from the basket), top of the arc (6.75 m),
+  # a shot to the x < 0 side, and a free throw's -1,-1 sentinel
+  euro <- data.frame(coord_x = c(0, 0, 0, -650, -1), coord_y = c(0, 422.5, 675, 50, -1))
+  out <- sdv_court_coords(euro, "coord_x", "coord_y", provider = "euroleague")
+
+  expect_equal(out$court_x, c(-12.425, -8.2, -5.675, -11.925, NA))
+  expect_equal(out$court_y, c(0, 0, 0, -6.5, NA))
+  expect_equal(out$court_x[1], -14 + 1.575) # sportyR's FIBA basket
+  expect_equal(out$court_x[2], -14 + 5.8) # sportyR's FIBA free-throw line (lane_length)
+  expect_equal(out$court_x[3], -12.425 + 6.75) # the FIBA three-point arc
+  expect_named(out, c("coord_x", "coord_y", "court_x", "court_y"))
+  expect_equal(out$coord_x[5], -1) # the input columns are not touched
+})
+
+test_that("sdv_court_coords only treats the full -1,-1 pair as the Euroleague sentinel", {
+  euro <- data.frame(coord_x = c(-1, 5, NA), coord_y = c(5, -1, -1))
+  out <- sdv_court_coords(euro, "coord_x", "coord_y", "euroleague")
+  expect_equal(out$court_y, c(-0.01, 0.05, NA))
+  expect_equal(out$court_x, c(-12.375, -12.435, -12.435))
+
+  # the nba frame has no sentinel: (-1, -1) is a real location
+  nba <- sdv_court_coords(data.frame(x_legacy = -1, y_legacy = -1))
+  expect_equal(nba$court_y, -0.1)
+})
+
+test_that("sdv_court_coords provider is case-insensitive and rejects unknown frames", {
+  df <- data.frame(coord_x = 0, coord_y = 0)
+  expect_equal(sdv_court_coords(df, "coord_x", "coord_y", "EuroLeague")$court_x, -12.425)
+  expect_equal(sdv_court_coords(df, "coord_x", "coord_y", "NBA")$court_x, -41.75)
+  expect_error(sdv_court_coords(df, "coord_x", "coord_y", "fiba"), "must be one of.*nba.*euroleague")
+  expect_error(sdv_court_coords(df, "coord_x", "coord_y", NULL), "must be one of")
+  expect_error(sdv_court_coords(df, "coord_x", "coord_y", c("nba", "euroleague")), "must be one of")
+})
+
+test_that("sdv_court_coords's default provider is the nba frame, unchanged", {
+  df <- data.frame(x_legacy = c(-224, 240, NA), y_legacy = c(39, 29, NA))
+  expect_identical(sdv_court_coords(df), sdv_court_coords(df, provider = "nba"))
+  expect_identical(sdv_court_coords(df)$court_x, c(-37.85, -38.85, NA))
+})

@@ -1,4 +1,4 @@
-#' Convert stats.nba.com/stats.wnba.com Shot Locations to a sportyR Court Frame
+#' Convert Shot Locations to a sportyR Court Frame
 #'
 #' @description stats.nba.com / stats.wnba.com shot-chart data reports shot
 #'   locations in the NBA's legacy frame: tenths of a foot, origin at the
@@ -10,6 +10,10 @@
 #'   converts them (feet, not tenths) into the frame
 #'   `sportyR::geom_basketball("nba")` draws: origin at center court, baseline
 #'   at `x = -47`, basket on the **left** at `x = -41.75`.
+#'
+#'   `provider = "euroleague"` converts the Euroleague shot frame of hoopR's
+#'   `euroleague_game_points()` (`coord_x`/`coord_y`) instead, onto the FIBA
+#'   court `sdv_surface("fiba")` draws, in meters.
 #'
 #' @details The NBA legacy shot-location frame (`LOC_X`/`LOC_Y`, or
 #'   `x_legacy`/`y_legacy`; tenths of a foot, hoop at the origin, relative to
@@ -32,6 +36,17 @@
 #'   Don't pass ESPN `coordinate_x`/`coordinate_y` from hoopR/wehoop
 #'   play-by-play: they are already in feet on a center-court frame.
 #'
+#'   The Euroleague frame (`provider = "euroleague"`; measured on real games,
+#'   2026-10-06) is integer centimeters with the hoop at the origin, both
+#'   teams mapped onto one basket, `coord_y` growing away from the baseline
+#'   toward the court, and free throws encoded as `coord_x = coord_y = -1`
+#'   (a sentinel, not a location), which become `NA`. The FIBA court is
+#'   28 x 15 m with its basket 1.575 m from the baseline, so
+#'   `court_x = -12.425 + coord_y / 100` and `court_y = coord_x / 100`. Which
+#'   sideline is positive `coord_x` is unverified, so a chart may be
+#'   left-right mirrored; the court is symmetric, so distances and zones are
+#'   unaffected.
+#'
 #'   Coordinate columns must be numeric, or character holding numbers, which
 #'   is coerced (`nba_shotchartdetail()` returns every column as character).
 #'   Factors, `TRUE`/`FALSE` and strings that aren't numbers (such as `""` or
@@ -44,24 +59,43 @@
 #'   list: pass its `Shot_Chart_Detail` data frame and name the `LOC_X`/`LOC_Y`
 #'   columns, e.g. `sdv_court_coords(res$Shot_Chart_Detail, "LOC_X", "LOC_Y")`.
 #' @param x_column String naming the column holding the stats-API `LOC_X` /
-#'   `x_legacy` value (tenths of a foot). Default `"x_legacy"`.
+#'   `x_legacy` value (tenths of a foot), or Euroleague `coord_x` (centimeters).
+#'   Default `"x_legacy"`.
 #' @param y_column String naming the column holding the stats-API `LOC_Y` /
-#'   `y_legacy` value (tenths of a foot). Default `"y_legacy"`.
+#'   `y_legacy` value (tenths of a foot), or Euroleague `coord_y` (centimeters).
+#'   Default `"y_legacy"`.
+#' @param provider The frame of `data`, which sets the output's units:
+#'   `"nba"` (the default; stats.nba.com / stats.wnba.com, tenths of a foot in,
+#'   **feet** out on the NBA/WNBA/NCAA court) or `"euroleague"` (hoopR's
+#'   `euroleague_game_points()` `coord_x`/`coord_y`, centimeters in,
+#'   **meters** out on the FIBA court). Case is ignored.
 #'
 #' @return `data` with `court_x` and `court_y` added (existing columns of
 #'   those names are replaced); every other input column is kept as-is:
 #'
 #'   | col_name | type | description |
 #'   |---|---|---|
-#'   | court_x | numeric | Feet along the court's length: baseline at -47, basket at -41.75, half-court line at 0 |
-#'   | court_y | numeric | Feet across the court's width: -25 to 25; negative = shooter's left (TV-bottom sideline) |
+#'   | court_x | numeric | Along the court: the basket at -41.75 ft (nba) or -12.425 m (euroleague), half court at 0 |
+#'   | court_y | numeric | Across the court: -25 to 25 ft (nba; negative = shooter's left) or -7.5 to 7.5 m (euroleague) |
 #'
 #' @examples
 #' shots <- data.frame(x_legacy = c(-224, 240), y_legacy = c(39, 29))
 #' sdv_court_coords(shots)
 #'
+#' # Euroleague shots (hoopR::euroleague_game_points() columns) onto the FIBA court
+#' euro <- data.frame(coord_x = c(0, 12, 650, -1), coord_y = c(0, 422, 50, -1))
+#' sdv_court_coords(euro, "coord_x", "coord_y", provider = "euroleague")
+#' \donttest{
+#' if (requireNamespace("sportyR", quietly = TRUE)) {
+#'   library(ggplot2)
+#'   euro <- sdv_court_coords(euro, "coord_x", "coord_y", provider = "euroleague")
+#'   sdv_surface("fiba", display_range = "defense") +
+#'     geom_point(aes(court_x, court_y), data = euro, colour = "red", size = 3, na.rm = TRUE)
+#' }
+#' }
+#'
 #' @export
-sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy") {
+sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy", provider = "nba") {
   # A named list passes the column checks below and would come back as a
   # list, not a data frame.
   if (!is.data.frame(data)) {
@@ -72,6 +106,7 @@ sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy")
   }
   check_column_arg(x_column, "x_column")
   check_column_arg(y_column, "y_column")
+  frame <- court_provider(provider)
   # `==`, not identical(): identical() also compares names, so c(x = "LOC_X")
   # and c(y = "LOC_X") would slip through.
   if (x_column == y_column) {
@@ -88,10 +123,35 @@ sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy")
 
   x_vals <- coerce_shot_coord(data[[x_column]], x_column)
   y_vals <- coerce_shot_coord(data[[y_column]], y_column)
+  if (!is.null(frame$sentinel)) {
+    none <- !is.na(x_vals) & !is.na(y_vals) & x_vals == frame$sentinel[[1]] & y_vals == frame$sentinel[[2]]
+    x_vals[none] <- NA_real_
+    y_vals[none] <- NA_real_
+  }
 
-  data$court_x <- -47 + 5.25 + y_vals / 10
-  data$court_y <- x_vals / 10
+  # Divide, don't multiply by 0.1: -224 / 10 is -22.4, -224 * 0.1 is not.
+  data$court_x <- frame$basket_x + y_vals / frame$per_unit
+  data$court_y <- x_vals / frame$per_unit
   data
+}
+
+# One row per shot frame: `per_unit` input units per output unit, `basket_x`
+# the basket's position on the sportyR court the output lands on (center-court
+# origin), `sentinel` the provider's "no location" pair, if any.
+court_providers <- list(
+  nba = list(per_unit = 10, basket_x = -47 + 5.25, sentinel = NULL),
+  euroleague = list(per_unit = 100, basket_x = -12.425, sentinel = c(-1, -1)) # 28 m court, basket 1.575 m in
+)
+
+court_provider <- function(provider, call = rlang::caller_env()) {
+  valid <- names(court_providers)
+  if (!is.character(provider) || length(provider) != 1L || is.na(provider) || !tolower(provider) %in% valid) {
+    cli::cli_abort(c(
+      "{.arg provider} must be one of {.val {valid}}.",
+      "x" = "Got {.val {provider}}."
+    ), call = call)
+  }
+  court_providers[[tolower(provider)]]
 }
 
 # ---------------------------------------------------------------------------
