@@ -1,26 +1,3 @@
-# sdvplotR (development version)
-
-* Every team now has a real primary color. ESPN gives 38 college programs a
-  stand-in instead of colors (black alone, black with its stock red, or black
-  on black; 32 teams drew black) or no color at all (6 drew `NA`: Chicago
-  State, Long Island, UT Rio Grande Valley, West Florida, Le Moyne, Southern
-  Indiana). `data-raw/generate_logo_ref.R` now drops the stand-in and fills
-  those teams from sdvplot's team index for the same ESPN team id (ESPN's own
-  per-team entry, else colors derived from the logo), as sdvplot does. The
-  new `color_source` column of `team_reference()` records where each team's
-  colors come from (`"nflverse"`, `"espn"`, `"logo"`, `"cbbplotR"`).
-* Logo variants are the ones an image backs: `"primary"`, `"dark"` and the
-  new `"scoreboard"` (ESPN's scoreboard mark, the Jets' `NY`; a team without
-  one draws its primary). The 0.1.0 names `"light"`, `"alt"`, `"classic"` and
-  `"helmet"`, and the wordmark variants `"dark"`, `"light"`, `"alt"` and
-  `"classic"`, never had an image and silently drew the primary; they are
-  deprecated, warn once a session, and will be removed. Any other value is an
-  error.
-* New `sdv_logo_url()` and `sdv_headshot_url()` export the image URLs the
-  package draws (the counterparts of sdvplot's `logo_url()` and
-  `headshot_url()`), with every team key, variant, season and `id_type` the
-  plotting helpers take.
-
 # sdvplotR 0.1.0
 
 Initial release: one plotting package for team logos, wordmarks, player
@@ -293,3 +270,22 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   conferences) draws its primary logo, with no warning. Pass
   `variant = "primary"` for the old look, or any other logo variant. This
   matches 'sdvplot' (Python), whose `team_tiers()` made the same change.
+* Every team now has a real primary color. ESPN gives 38 college programs a
+  stand-in instead of colors (black alone, black with its stock red, or black
+  on black; 32 teams drew black) or no color at all (6 drew `NA`: Chicago
+  State, Long Island, UT Rio Grande Valley, West Florida, Le Moyne, Southern
+  Indiana). `data-raw/generate_logo_ref.R` now drops the stand-in and fills
+  those teams from sdvplot's team index for the same ESPN team id (ESPN's own
+  per-team entry, else colors derived from the logo), as sdvplot does. The
+  new `color_source` column of `team_reference()` records where each team's
+  colors come from (`"nflverse"`, `"espn"`, `"logo"`, `"cbbplotR"`).
+* Logo variants are the ones an image backs: `"primary"`, `"dark"` and
+  `"scoreboard"` (ESPN's scoreboard mark, the Jets' `NY`; a team without one
+  draws its primary). The names `"light"`, `"alt"`, `"classic"` and
+  `"helmet"`, and the wordmark variants `"dark"`, `"light"`, `"alt"` and
+  `"classic"`, which earlier development builds accepted and silently drew
+  as the primary, are removed: any other value is an error.
+* `sdv_logo_url()` and `sdv_headshot_url()` export the image URLs the
+  package draws (the counterparts of sdvplot's `logo_url()` and
+  `headshot_url()`), with every team key, variant, season and `id_type` the
+  plotting helpers take.

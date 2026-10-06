@@ -36,9 +36,7 @@ reactable_sdv_headshots(
 \code{"scoreboard"} (see \code{\link[=sdv_logo_url]{sdv_logo_url()}}); wordmarks come in \code{"primary"} only.
 Falls back to the primary image when the requested variant is not
 available for a team, and, in the browser, when the variant's file fails
-to load. The 0.1.0 names \code{"light"}, \code{"alt"}, \code{"classic"} and \code{"helmet"}
-(and \code{"dark"} for wordmarks) are deprecated: no image ever backed them, so
-they warn and draw the primary.}
+to load.}
 
 \item{height}{Numeric. Image height in pixels.}
 

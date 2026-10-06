@@ -15,9 +15,7 @@
 #'   `"scoreboard"` (see [sdv_logo_url()]); wordmarks come in `"primary"` only.
 #'   Falls back to the primary image when the requested variant is not
 #'   available for a team, and, in the browser, when the variant's file fails
-#'   to load. The 0.1.0 names `"light"`, `"alt"`, `"classic"` and `"helmet"`
-#'   (and `"dark"` for wordmarks) are deprecated: no image ever backed them, so
-#'   they warn and draw the primary.
+#'   to load.
 #' @param height Numeric. Image height in pixels.
 #' @param default_img Character. Fallback image URL used when the value cannot
 #'   be resolved. If `NULL` (the default) the raw value is shown instead.

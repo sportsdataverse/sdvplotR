@@ -18,21 +18,22 @@ test_that("a team without the requested variant falls back to its primary logo",
   expect_error(resolve_wordmark_url("KC", "nfl", "neon"), "variant")
 })
 
-test_that("the 0.1.0 variants no image backed are deprecated and draw the primary", {
-  rlang::local_options(rlib_warning_verbosity = "verbose")
+test_that("a variant no image backs is an error, never silently the primary", {
+  msg <- "`variant` must be one of"
   for (v in c("light", "alt", "classic", "helmet")) {
-    expect_warning(url <- resolve_logo_url("KC", "nfl", v), "deprecated")
-    expect_identical(url, logo_from_team("KC", "nfl"))
+    expect_error(resolve_logo_url("KC", "nfl", v), msg)
   }
   for (v in c("dark", "light", "alt", "classic")) {
-    expect_warning(url <- resolve_wordmark_url("KC", "nfl", v), "deprecated")
-    expect_identical(url, wordmark_from_team("KC", "nfl"))
+    expect_error(resolve_wordmark_url("KC", "nfl", v), msg)
   }
-  expect_warning(reactable_sdv_logos("nfl", variant = "helmet"), "deprecated")
-  expect_warning(reactable_sdv_wordmarks("nfl", variant = "dark"), "deprecated")
+  expect_error(reactable_sdv_logos("nfl", variant = "helmet"), msg)
+  expect_error(reactable_sdv_wordmarks("nfl", variant = "dark"), msg)
+  expect_error(reactable_sdv_cols_label(data.frame(KC = 1), sport = "nfl", variant = "light"), msg)
   tiers <- data.frame(tier_no = 1, team = "KC")
-  expect_warning(p <- sdv_team_tiers(tiers, sport = "nfl", variant = "helmet"), "deprecated")
-  expect_identical(ggplot2::layer_data(p, 2)$path, logo_from_team("KC", "nfl"))
+  expect_error(sdv_team_tiers(tiers, sport = "nfl", variant = "helmet"), msg)
+  expect_error(sdv_logo_url("KC", "nfl", variant = "classic"), msg)
+  # the default vector picks the primary
+  expect_identical(reactable_sdv_logos("nfl")("KC", 1), reactable_sdv_logos("nfl", variant = "primary")("KC", 1))
 })
 
 test_that("sdv_logo_url and sdv_headshot_url are the exported resolvers", {
@@ -50,6 +51,11 @@ test_that("sdv_logo_url and sdv_headshot_url are the exported resolvers", {
   expect_identical(sdv_headshot_url("00-0033873", "nfl"), headshot_from_id("00-0033873", "nfl"))
   expect_identical(sdv_headshot_url("2544", "nba", id_type = "league"), headshot_from_id("2544", "nba", id_type = "league"))
   expect_identical(sdv_headshot_url(c(NA, "abc"), "nba"), rep(NA_character_, 2))
+  # a non-whole number is a malformed id, not the id it rounds to
+  expect_identical(sdv_headshot_url(2544.7, "nba"), NA_character_)
+  expect_identical(sdv_headshot_url(c(2544, 2544.7, NA), "nba", id_type = "league")[2:3], rep(NA_character_, 2))
+  expect_identical(sdv_headshot_url(2544, "nba"), sdv_headshot_url("2544", "nba"))
+  expect_match(sdv_headshot_url(2544, "nba"), "/2544\\.png$")
   expect_error(sdv_headshot_url("1", "cfb", id_type = "league"), "league player ID")
 })
 

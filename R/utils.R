@@ -6,36 +6,13 @@
 # Jets' "NY" for one, and college teams have none), nflverse's one wordmark.
 logo_variants <- c("primary", "dark", "scoreboard")
 wordmark_variants <- "primary"
-# Variants 0.1.0 accepted that no image backed, so they drew the primary
-# without saying so: still accepted, with a deprecation warning, and drawn as
-# the primary. Remove in the release after next.
-retired_variants <- list(
-  logo = c("light", "alt", "classic", "helmet"),
-  wordmark = c("dark", "light", "alt", "classic")
-)
 headshot_placeholder <- "https://a.espncdn.com/i/headshots/nophoto.png"
 
-# `variant` validated for a logo or wordmark helper: one of the backed
-# variants, or a retired one, which warns once a session and becomes "primary".
-# A function's default vector (the backed variants) picks the first.
+# `variant` validated for a logo or wordmark helper; any other value errors.
+# A function's default vector (every variant) picks the first.
 check_variant <- function(variant, type = "logo") {
   valid <- if (type == "logo") logo_variants else wordmark_variants
-  if (identical(variant, valid)) {
-    return(valid[[1]])
-  }
-  variant <- rlang::arg_match0(variant, c(valid, retired_variants[[type]]), arg_nm = "variant")
-  if (variant %in% retired_variants[[type]]) {
-    cli::cli_warn(
-      c(
-        "The {.val {variant}} {type} variant is deprecated: no image backs it, so the primary {type} is drawn.",
-        "i" = "Use one of {.val {valid}}."
-      ),
-      .frequency = "once",
-      .frequency_id = paste0("sdvplotR_variant_", type, "_", variant)
-    )
-    variant <- "primary"
-  }
-  variant
+  if (identical(variant, valid)) valid[[1]] else rlang::arg_match0(variant, valid, arg_nm = "variant")
 }
 
 `%||%` <- function(x, y) if (is.null(x)) y else x
@@ -411,9 +388,11 @@ headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
   id_type <- id_type %||% if (sport == "nfl") "league" else "espn"
   # as.character() writes round numbers like 4000000 as "4e+06", and scipen
   # only changes the notation: it keeps 15 significant digits. sprintf() is
-  # exact for every integer a double holds.
+  # exact for every integer a double holds. A fraction (2544.7) is a malformed
+  # id, NA like any other, not the id it would round to.
   player_id <- if (is.numeric(player_id)) {
-    ifelse(is.na(player_id), NA_character_, sprintf("%.0f", player_id))
+    whole <- !is.na(player_id) & player_id == floor(player_id)
+    ifelse(whole, sprintf("%.0f", player_id), NA_character_)
   } else {
     as.character(player_id)
   }
@@ -457,9 +436,8 @@ headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
 #' @param variant The logo variant: `"primary"` (ESPN's default mark),
 #'   `"dark"` (the dark-background mark) or `"scoreboard"` (ESPN's scoreboard
 #'   mark, which differs from the primary for a few pro teams: the Jets' `NY`).
-#'   A team without the requested variant gives its primary logo. The 0.1.0
-#'   names `"light"`, `"alt"`, `"classic"` and `"helmet"` are deprecated: no
-#'   image ever backed them, so they warn and give the primary logo.
+#'   A team without the requested variant gives its primary logo; any other
+#'   value is an error.
 #' @param season A season year (the ending year for the NHL: 2005 for
 #'   2004-05) or a vector of them, recycled against `team`. Where sdvplotR has
 #'   the mark the team wore that season (NHL, and the NFL's and WNBA's

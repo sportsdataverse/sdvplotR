@@ -27,9 +27,8 @@ sdv_headshot_url(
 \item{variant}{The logo variant: \code{"primary"} (ESPN's default mark),
 \code{"dark"} (the dark-background mark) or \code{"scoreboard"} (ESPN's scoreboard
 mark, which differs from the primary for a few pro teams: the Jets' \code{NY}).
-A team without the requested variant gives its primary logo. The 0.1.0
-names \code{"light"}, \code{"alt"}, \code{"classic"} and \code{"helmet"} are deprecated: no
-image ever backed them, so they warn and give the primary logo.}
+A team without the requested variant gives its primary logo; any other
+value is an error.}
 
 \item{season}{A season year (the ending year for the NHL: 2005 for
 2004-05) or a vector of them, recycled against \code{team}. Where sdvplotR has
