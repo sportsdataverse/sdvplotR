@@ -90,12 +90,15 @@ test_that("gt_theme_sdv_team dresses the table in the team's colors", {
   no <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "NO", sport = "nfl")
   expect_identical(label_color(no), "#0B1A33")
 
-  # a real team with no colors on file wears the SDV colors, with a warning
+  # every team has colors now (Chicago State's come from ESPN's basketball
+  # entry); a key with none on file, the AFC, wears the SDV colors, with a warning
+  chst <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "CHST", sport = "cfb")
+  expect_identical(opt(chst, "heading_background_color"), "#006700")
   expect_warning(
-    chst <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "CHST", sport = "cfb"),
+    afc <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "AFC", sport = "nfl"),
     "No colors on file"
   )
-  expect_identical(opt(chst, "heading_background_color"), "#0B1A33")
+  expect_identical(opt(afc, "heading_background_color"), "#0B1A33")
 
   expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "nope"), "No NFL team matches")
   expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = c("KC", "LV")), "single team")

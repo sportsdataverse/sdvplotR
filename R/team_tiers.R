@@ -37,8 +37,8 @@
 #'   logo on the light theme, so dark marks such as the Capitals', the Giants'
 #'   or Penn State's don't fade into the dark background. A team with no dark
 #'   logo draws its primary one, with no warning. Any other value is one of
-#'   `"primary"`, `"dark"`, `"light"`, `"alt"`, `"classic"` or `"helmet"`, drawn
-#'   on either theme, with the same fallback. `"primary"` gives the old look,
+#'   `"primary"`, `"dark"` or `"scoreboard"` (see [sdv_logo_url()]), drawn on
+#'   either theme, with the same fallback. `"primary"` gives the old look,
 #'   which drew the primary logo on both themes.
 #'
 #' @return A ggplot object.
@@ -88,8 +88,11 @@ sdv_team_tiers <- function(
 ) {
   sport <- rlang::arg_match0(sport, supported_sports())
   theme <- rlang::arg_match(theme)
-  variant <- rlang::arg_match0(variant, c("auto", logo_variants))
-  if (variant == "auto") variant <- if (theme == "dark") "dark" else "primary"
+  variant <- if (identical(variant, "auto")) {
+    if (theme == "dark") "dark" else "primary"
+  } else {
+    check_variant(variant, "logo")
+  }
 
   required_vars <- c("tier_no", "team")
 

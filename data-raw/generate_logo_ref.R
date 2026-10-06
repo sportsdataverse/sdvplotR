@@ -19,9 +19,13 @@
 #   * sportsdataverse-data's `{cfb,mbb,wbb}_groups` releases -- every name a
 #     source has used for a conference lineage ("Pac-10", "Mid-Continent"),
 #     joined to the conference rows on ESPN group id.
+#   * sdvplot's team index (src/sdvplot/data/teams.parquet on its main branch)
+#     -- colors for the teams ESPN gives a stand-in or no color (ESPN's own
+#     per-team entry, else colors derived from the logo), joined on ESPN team
+#     id; `color_source` records which.
 #
 # Run from the package root:  Rscript data-raw/generate_logo_ref.R
-# Requires: httr, jsonlite, nflreadr, hoopR, usethis (dev-only, not package deps).
+# Requires: httr, jsonlite, nflreadr, hoopR, arrow, usethis (dev-only, not package deps).
 
 
 `%||%` <- function(x, y) if (is.null(x)) y else x
@@ -363,7 +367,49 @@ conf_ids <- list(cfb = attr(cfb, "conf_ids"), mbb = attr(mbb, "conf_ids"), wbb =
 logo_ref <- rbind(pro, cfb, mbb, wbb)
 rownames(logo_ref) <- NULL
 stopifnot(!anyNA(logo_ref$team_abbr), !anyNA(logo_ref$logo_url))
-message(sum(is.na(logo_ref$color1)), " team(s) without a primary color on ESPN (kept as NA)")
+
+# ---------------------------------------------------------------------------
+# Colors: where they come from, and the teams ESPN gives none
+# ---------------------------------------------------------------------------
+
+# ESPN hands newer or smaller college programs a stand-in instead of colors:
+# black alone, black with its stock red, or black on black (sdvplot's
+# tools/build_index.py drops the same three). That is not the team's color.
+is_team <- logo_ref$type == "team"
+stand_in <- is_team & !is.na(logo_ref$color1) & logo_ref$color1 == "#000000" &
+  (is.na(logo_ref$color2) | logo_ref$color2 %in% c("#000000", "#C60000"))
+message(sum(stand_in), " team(s) with ESPN's stand-in colors, ", sum(is_team & is.na(logo_ref$color1)), " with none")
+logo_ref$color1[stand_in] <- NA_character_
+logo_ref$color2[stand_in] <- NA_character_
+logo_ref$color_source <- ifelse(logo_ref$sport == "nfl", "nflverse", "espn")
+logo_ref$color_source[!is_team] <- "cbbplotR"
+logo_ref$color_source[is.na(logo_ref$color1)] <- NA_character_
+
+# Those teams take sdvplot's colors for the same ESPN team id: ESPN's own
+# per-team entry where it has one, else colors derived from the logo
+# (sdvplot's data-raw/logo_colors.csv). Both colors come from the one source.
+sdvplot_url <- "https://raw.githubusercontent.com/sportsdataverse/sdvplot/main/src/sdvplot/data/teams.parquet"
+sdvplot_file <- tempfile(fileext = ".parquet")
+utils::download.file(sdvplot_url, sdvplot_file, mode = "wb", quiet = TRUE)
+sdvplot <- as.data.frame(arrow::read_parquet(sdvplot_file))
+stopifnot(is.character(sdvplot$team_id), is.character(sdvplot$league))
+need <- which(is_team & is.na(logo_ref$color1))
+i <- match(paste(logo_ref$sport[need], logo_ref$espn_team_id[need]), paste(sdvplot$league, sdvplot$team_id))
+if (anyNA(i)) {
+  print(logo_ref[need[is.na(i)], c("sport", "team_abbr", "team_name", "espn_team_id")])
+  stop("the teams above are not in sdvplot's index: rebuild it (sdvplot/tools/build_index.py) first")
+}
+stopifnot(all(sdvplot$color_source[i] %in% c("espn", "logo")))
+message(length(need), " team(s) take sdvplot's colors: ", paste(names(table(sdvplot$color_source[i])), table(sdvplot$color_source[i]), collapse = ", "))
+logo_ref$color1[need] <- toupper(sdvplot$color_primary[i])
+logo_ref$color2[need] <- toupper(sdvplot$color_secondary[i])
+logo_ref$color_source[need] <- sdvplot$color_source[i]
+stopifnot(!anyNA(logo_ref$color1[is_team]), !anyNA(logo_ref$color_source[is_team]))
+# every other team's primary agrees with sdvplot's (both read ESPN's list)
+j <- match(paste(logo_ref$sport, logo_ref$espn_team_id), paste(sdvplot$league, sdvplot$team_id))
+agree <- is_team & !is.na(j) & logo_ref$color_source != "logo"
+message(sum(!is.na(j[is_team])), " of ", sum(is_team), " teams are in sdvplot's index; ",
+  sum(agree & toupper(sdvplot$color_primary[j]) != logo_ref$color1), " primary color(s) differ from it")
 
 # ---------------------------------------------------------------------------
 # Abbreviation mapping: every key (upper case) -> canonical team_abbr.
