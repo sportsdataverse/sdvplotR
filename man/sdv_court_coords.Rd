@@ -2,9 +2,14 @@
 % Please edit documentation in R/court_coords.R
 \name{sdv_court_coords}
 \alias{sdv_court_coords}
-\title{Convert stats.nba.com/stats.wnba.com Shot Locations to a sportyR Court Frame}
+\title{Convert Shot Locations to a sportyR Court Frame}
 \usage{
-sdv_court_coords(data, x_column = "x_legacy", y_column = "y_legacy")
+sdv_court_coords(
+  data,
+  x_column = "x_legacy",
+  y_column = "y_legacy",
+  provider = "nba"
+)
 }
 \arguments{
 \item{data}{A data frame with shot-location columns, e.g. from
@@ -14,17 +19,25 @@ list: pass its \code{Shot_Chart_Detail} data frame and name the \code{LOC_X}/\co
 columns, e.g. \code{sdv_court_coords(res$Shot_Chart_Detail, "LOC_X", "LOC_Y")}.}
 
 \item{x_column}{String naming the column holding the stats-API \code{LOC_X} /
-\code{x_legacy} value (tenths of a foot). Default \code{"x_legacy"}.}
+\code{x_legacy} value (tenths of a foot), or Euroleague \code{coord_x} (centimeters).
+Default \code{"x_legacy"}.}
 
 \item{y_column}{String naming the column holding the stats-API \code{LOC_Y} /
-\code{y_legacy} value (tenths of a foot). Default \code{"y_legacy"}.}
+\code{y_legacy} value (tenths of a foot), or Euroleague \code{coord_y} (centimeters).
+Default \code{"y_legacy"}.}
+
+\item{provider}{The frame of \code{data}, which sets the output's units:
+\code{"nba"} (the default; stats.nba.com / stats.wnba.com, tenths of a foot in,
+\strong{feet} out on the NBA/WNBA/NCAA court) or \code{"euroleague"} (hoopR's
+\code{euroleague_game_points()} \code{coord_x}/\code{coord_y}, centimeters in,
+\strong{meters} out on the FIBA court). Case is ignored.}
 }
 \value{
 \code{data} with \code{court_x} and \code{court_y} added (existing columns of
 those names are replaced); every other input column is kept as-is:\tabular{lll}{
    col_name \tab type \tab description \cr
-   court_x \tab numeric \tab Feet along the court's length: baseline at -47, basket at -41.75, half-court line at 0 \cr
-   court_y \tab numeric \tab Feet across the court's width: -25 to 25; negative = shooter's left (TV-bottom sideline) \cr
+   court_x \tab numeric \tab Along the court: the basket at -41.75 ft (nba) or -12.425 m (euroleague), half court at 0 \cr
+   court_y \tab numeric \tab Across the court: -25 to 25 ft (nba; negative = shooter's left) or -7.5 to 7.5 m (euroleague) \cr
 }
 }
 \description{
@@ -38,6 +51,10 @@ hoopR's \code{nba_shotchartdetail()} uses the same frame, in the
 converts them (feet, not tenths) into the frame
 \code{sportyR::geom_basketball("nba")} draws: origin at center court, baseline
 at \code{x = -47}, basket on the \strong{left} at \code{x = -41.75}.
+
+\code{provider = "euroleague"} converts the Euroleague shot frame of hoopR's
+\code{euroleague_game_points()} (\code{coord_x}/\code{coord_y}) instead, onto the FIBA
+court \code{sdv_surface("fiba")} draws, in meters.
 }
 \details{
 The NBA legacy shot-location frame (\code{LOC_X}/\code{LOC_Y}, or
@@ -61,6 +78,17 @@ foot, hoop at the origin: \code{x_legacy}/\code{y_legacy} or \code{LOC_X}/\code{
 Don't pass ESPN \code{coordinate_x}/\code{coordinate_y} from hoopR/wehoop
 play-by-play: they are already in feet on a center-court frame.
 
+The Euroleague frame (\code{provider = "euroleague"}; measured on real games,
+2026-10-06) is integer centimeters with the hoop at the origin, both
+teams mapped onto one basket, \code{coord_y} growing away from the baseline
+toward the court, and free throws encoded as \code{coord_x = coord_y = -1}
+(a sentinel, not a location), which become \code{NA}. The FIBA court is
+28 x 15 m with its basket 1.575 m from the baseline, so
+\code{court_x = -12.425 + coord_y / 100} and \code{court_y = coord_x / 100}. Which
+sideline is positive \code{coord_x} is unverified, so a chart may be
+left-right mirrored; the court is symmetric, so distances and zones are
+unaffected.
+
 Coordinate columns must be numeric, or character holding numbers, which
 is coerced (\code{nba_shotchartdetail()} returns every column as character).
 Factors, \code{TRUE}/\code{FALSE} and strings that aren't numbers (such as \code{""} or
@@ -70,5 +98,17 @@ Factors, \code{TRUE}/\code{FALSE} and strings that aren't numbers (such as \code
 \examples{
 shots <- data.frame(x_legacy = c(-224, 240), y_legacy = c(39, 29))
 sdv_court_coords(shots)
+
+# Euroleague shots (hoopR::euroleague_game_points() columns) onto the FIBA court
+euro <- data.frame(coord_x = c(0, 12, 650, -1), coord_y = c(0, 422, 50, -1))
+sdv_court_coords(euro, "coord_x", "coord_y", provider = "euroleague")
+\donttest{
+if (requireNamespace("sportyR", quietly = TRUE)) {
+  library(ggplot2)
+  euro <- sdv_court_coords(euro, "coord_x", "coord_y", provider = "euroleague")
+  sdv_surface("fiba", display_range = "defense") +
+    geom_point(aes(court_x, court_y), data = euro, colour = "red", size = 3, na.rm = TRUE)
+}
+}
 
 }

@@ -13,6 +13,11 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   seconds". A longer `options(chromote.timeout = )` of your own is kept.
 * `sdv_surface()` draws `"soccer"` (a regulation 105 x 68 m pitch, the frame
   `sdv_pitch_coords()` returns) and `"fiba"` courts. FIBA takes no `team` yet.
+* `sdv_court_coords(provider = "euroleague")` converts the Euroleague shot
+  frame of hoopR's `euroleague_game_points()` (`coord_x`/`coord_y`: integer
+  centimeters, hoop at the origin, both teams on one basket, free throws as
+  `-1,-1`) onto the FIBA court `sdv_surface("fiba")` draws, in meters, with
+  the `-1,-1` free throws as `NA`. The default `"nba"` is unchanged.
 * Soccer joins the team data: 2,631 ESPN clubs with logos and colors (from
   sdvplot's index). Clubs resolve by ESPN id, or by name when no other club
   shares it; a shared name (often a men's and a women's side) warns with the
