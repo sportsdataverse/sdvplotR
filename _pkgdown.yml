@@ -236,12 +236,13 @@ reference:
       - sdv_team_factor
       - sdv_logo_url
       - sdvplotR_clear_cache
-  - title: "Court Coordinates"
+  - title: "Court and Pitch Coordinates"
     desc: >
-      Convert stats.nba.com / stats.wnba.com shot-location columns into the
-      sportyR basketball-court frame.
+      Convert stats.nba.com shot locations and any soccer provider's event
+      coordinates into the frames the playing surfaces draw.
     contents:
       - sdv_court_coords
+      - sdv_pitch_coords
   - title: "Premade Plots"
     desc: High-level functions that build complete branded plots.
     contents:
