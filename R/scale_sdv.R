@@ -51,7 +51,7 @@ NULL
 #' @rdname scale_sdv
 #' @export
 scale_color_sdv <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     type = c("primary", "secondary"),
     values = NULL,
     ...,
@@ -87,7 +87,7 @@ scale_colour_sdv <- scale_color_sdv
 #' @rdname scale_sdv
 #' @export
 scale_fill_sdv <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     type = c("primary", "secondary"),
     values = NULL,
     ...,
@@ -177,7 +177,7 @@ NULL
 #' @export
 scale_x_sdv <- function(
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "bottom",
@@ -201,7 +201,7 @@ scale_x_sdv <- function(
 #' @export
 scale_y_sdv <- function(
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "left",
@@ -228,7 +228,7 @@ scale_y_sdv <- function(
 #' @export
 scale_x_sdv_headshots <- function(
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "bottom",
@@ -254,7 +254,7 @@ scale_x_sdv_headshots <- function(
 #' @export
 scale_y_sdv_headshots <- function(
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "left",

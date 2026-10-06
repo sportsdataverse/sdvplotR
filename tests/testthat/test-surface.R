@@ -1,12 +1,3 @@
-# sportyR draws every feature as polygons with a constant fill and outline
-# (aes_params); those constants are the colors the built plot carries.
-surface_colors <- function(p) {
-  vapply(p$layers, function(l) {
-    paste(l$aes_params$fill %||% "-", l$aes_params$colour %||% "-")
-  }, character(1))
-}
-surface_data <- function(p) lapply(p$layers, function(l) l$data)
-
 check_teams <- c(
   nba = "BOS", wnba = "LV", mbb = "DUKE", wbb = "UCONN",
   nfl = "KC", cfb = "TEX", nhl = "COL", mlb = "NYY"
@@ -189,5 +180,4 @@ test_that("fiba draws sportyR's FIBA court", {
 test_that("surfaces without team identities refuse a team", {
   skip_if_not_installed("sportyR")
   expect_error(sdv_surface("fiba", "ESP"), "No team identities")
-  expect_error(sdv_surface("soccer", "359"), "No team identities") # until soccer identities land (Task 11)
 })

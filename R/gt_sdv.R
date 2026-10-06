@@ -57,7 +57,7 @@
 gt_sdv_logos <- function(
     gt_object,
     columns,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     height = 30,
     locations = NULL,
     include_name = FALSE,
@@ -100,7 +100,7 @@ gt_sdv_logos <- function(
 gt_sdv_wordmarks <- function(
     gt_object,
     columns,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     height = 30,
     locations = NULL
 ) {
@@ -147,7 +147,7 @@ gt_sdv_wordmarks <- function(
 gt_sdv_headshots <- function(
     gt_object,
     columns,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     height = 30,
     locations = NULL,
     id_type = NULL
@@ -214,7 +214,7 @@ gt_sdv_headshots <- function(
 gt_sdv_cols_label <- function(
     gt_object,
     columns = gt::everything(),
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     height = 30,
     type = c("logo", "wordmark", "headshot"),
     id_type = NULL
@@ -392,7 +392,7 @@ gt_merge_stack_team_color <- function(
     col1,
     col2,
     team_col,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     font_size_top = 14,
     font_size_bottom = 12,
     color = "black",

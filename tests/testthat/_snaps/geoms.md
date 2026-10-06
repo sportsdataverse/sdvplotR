@@ -4,7 +4,7 @@
       geom_sdv_logos(sport = "xfl")
     Condition
       Error in `geom_sdv_logos()`:
-      ! `sport` must be one of "nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", or "wbb", not "xfl".
+      ! `sport` must be one of "nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", or "soccer", not "xfl".
       i Did you mean "nfl"?
 
 # sdv_team_tiers builds a plot and validates input

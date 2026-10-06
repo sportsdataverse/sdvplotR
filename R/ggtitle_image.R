@@ -69,7 +69,7 @@ ggtitle_image <- function(
     image_height = 15,
     image_side = c("left", "right"),
     subtitle = ggplot2::waiver(),
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb")
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")
 ) {
   image_side <- match.arg(image_side)
   sport <- rlang::arg_match0(sport, supported_sports())

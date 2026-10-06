@@ -7,7 +7,7 @@
 \title{Scales for Sports Team Colors}
 \usage{
 scale_color_sdv(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   type = c("primary", "secondary"),
   values = NULL,
   ...,
@@ -19,7 +19,7 @@ scale_color_sdv(
 )
 
 scale_colour_sdv(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   type = c("primary", "secondary"),
   values = NULL,
   ...,
@@ -31,7 +31,7 @@ scale_colour_sdv(
 )
 
 scale_fill_sdv(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   type = c("primary", "secondary"),
   values = NULL,
   ...,

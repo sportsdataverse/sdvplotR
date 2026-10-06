@@ -5,7 +5,7 @@
 \title{Get Team Color Palette}
 \usage{
 sdv_color_palette(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   teams = NULL,
   type = c("primary", "secondary")
 )

@@ -48,7 +48,7 @@ get_team_ref <- function(sport) {
 #' valid_team_names("nfl")
 #' valid_team_names("nba", type = "name")
 valid_team_names <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     type = c("abbreviation", "name"),
     include_conferences = FALSE) {
   sport <- rlang::arg_match0(sport, supported_sports())
@@ -102,7 +102,7 @@ valid_team_names <- function(
 #' team_reference("nfl")
 #' head(team_reference("nba"))
 team_reference <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     include_conferences = FALSE) {
   sport <- rlang::arg_match0(sport, supported_sports())
   team_rows(get_team_ref(sport), include_conferences)
@@ -148,7 +148,7 @@ team_rows <- function(ref, include_conferences = FALSE) {
 #' clean_team_abbrs(c("Iowa St.", "St. John's (NY)", "Miami (OH)"), sport = "mbb")
 clean_team_abbrs <- function(
     abbr,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     keep_non_matches = TRUE) {
   sport <- rlang::arg_match0(sport, supported_sports())
   abbr <- as.character(abbr)
@@ -156,7 +156,16 @@ clean_team_abbrs <- function(
 
   unmatched <- unique(abbr[is.na(a) & !is.na(abbr)])
   if (length(unmatched) && getOption("sdvplotR.verbose", default = interactive())) {
-    cli::cli_warn("Abbreviations not found in {.val {sport}} mapping: {.val {unmatched}}")
+    shared <- if (sport == "soccer") soccer_ambiguous[toupper(unmatched)] else list()
+    shared <- shared[lengths(shared) > 0]
+    if (length(shared)) {
+      cli::cli_warn(c(
+        "Soccer names shared by more than one club: {.val {names(shared)}}.",
+        "i" = "Pass the ESPN team id instead: {paste(names(shared), vapply(shared, paste, '', collapse = ' or '), sep = ' = ', collapse = '; ')}."
+      ))
+    }
+    rest <- setdiff(unmatched, unmatched[toupper(unmatched) %in% names(shared)])
+    if (length(rest)) cli::cli_warn("Abbreviations not found in {.val {sport}} mapping: {.val {rest}}")
   }
 
   if (isTRUE(keep_non_matches)) a <- ifelse(!is.na(a), a, abbr)
@@ -472,7 +481,7 @@ headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
 #' }
 sdv_logo_url <- function(
     team,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     variant = c("primary", "dark", "scoreboard"),
     season = NULL) {
   sport <- rlang::arg_match0(sport, supported_sports())
@@ -483,7 +492,7 @@ sdv_logo_url <- function(
 #' @export
 sdv_headshot_url <- function(
     player_id,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
     id_type = NULL) {
   sport <- rlang::arg_match0(sport, supported_sports())
   headshot_from_id(player_id, sport, check_id_type(id_type, sport))

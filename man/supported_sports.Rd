@@ -9,7 +9,8 @@ supported_sports()
 \value{
 A character vector: \code{"nfl"}, \code{"nba"}, \code{"wnba"}, \code{"mlb"}, \code{"nhl"},
 \code{"cfb"} (college football), \code{"mbb"} (men's college basketball) and
-\code{"wbb"} (women's college basketball).
+\code{"wbb"} (women's college basketball), and \code{"soccer"} (ESPN clubs, by
+ESPN team id).
 }
 \description{
 Returns the sport identifiers accepted by the \code{sport} argument

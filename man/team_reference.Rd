@@ -5,7 +5,7 @@
 \title{Get Team Reference Data}
 \usage{
 team_reference(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
   include_conferences = FALSE
 )
 }
