@@ -155,13 +155,14 @@ report <- splits |>
   select(group, stat, home, away)
 ```
 
-`team_reference()` holds the champion's name, its dark-mode logo (made for a
-colored ground) and, through `sdv_team_colors()`, its primary color for the bar.
+`team_reference()` holds the champion's name; `sdv_logo_url()` its dark-mode
+logo (made for a colored ground) and `sdv_team_colors()` its primary color for
+the bar.
 
 ```{r team-identity}
 team <- filter(team_reference("mbb"), espn_team_id == champion)
 team_color <- unname(sdv_team_colors("mbb", team$team_abbr, "primary"))
-team_logo <- coalesce(team$logo_dark_url, team$logo_url)
+team_logo <- sdv_logo_url(team$team_abbr, sport = "mbb", variant = "dark")
 ```
 
 Now the table. `gt_theme_savant()` gives a clean base, `gt_color_pills()` fills

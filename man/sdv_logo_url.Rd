@@ -24,11 +24,16 @@ sdv_headshot_url(
 \item{sport}{Character string identifying the sport. One of
 \code{\link[=supported_sports]{supported_sports()}}.}
 
-\item{variant}{The logo variant: \code{"primary"} (ESPN's default mark),
-\code{"dark"} (the dark-background mark) or \code{"scoreboard"} (ESPN's scoreboard
-mark, which differs from the primary for a few pro teams: the Jets' \code{NY}).
-A team without the requested variant gives its primary logo; any other
-value is an error.}
+\item{variant}{The logo variant: \code{"primary"} (the default mark), \code{"dark"}
+(the dark-background mark) or \code{"scoreboard"} (ESPN's scoreboard mark,
+which differs from the primary for a few pro teams: the Jets' \code{NY}), or a
+named mark the SportsDataverse logo archive carries for most of the
+sport's teams: ESPN's \code{"scoreboard_dark"}, \code{"grayscale"} (NFL),
+\code{"primary_logo_on_black_color"} and its siblings, nflverse's \code{"squared"}
+(NFL), MLB's \code{"cap_on_light"} / \code{"cap_on_dark"} / \code{"primary_on_light"} /
+\code{"primary_on_dark"} (SVG). A team without the requested variant gives its
+primary logo; a variant no mark of the sport has is an error that lists
+the sport's variants.}
 
 \item{season}{A season year (the ending year for the NHL: 2005 for
 2004-05) or a vector of them, recycled against \code{team}. Where sdvplotR has
@@ -50,7 +55,7 @@ have no league ids.}
 A character vector the length of \code{team} / \code{player_id}: the image
 URL, or \code{NA} for a team that does not resolve, a player id that is
 missing, malformed or (NFL GSIS) not in the headshot map, or a league
-without wordmarks.
+without wordmarks (the NFL and MLB have them).
 }
 \description{
 The image URLs behind every sdvplotR geom, theme element and
@@ -61,9 +66,23 @@ conference names); \code{sdv_headshot_url()} builds a headshot URL from a
 player id. These are the R counterparts of sdvplot's \code{logo_url()} and
 \code{headshot_url()}.
 }
+\section{Where the images come from}{
+
+Logos and wordmarks are the SportsDataverse logo archive's copies of the
+sources' files (ESPN's CDN, nflverse, MLB): immutable, content-addressed
+URLs (\verb{.../sha256/<ab>/<sha256>.png}, so a downloaded file can be checked
+against its name) that stay up when a source drops or replaces a file. A
+mark the archive has no copy of (none today) falls back to the source's
+live URL. \code{team_reference()} keeps listing the sources' URLs. Headshots are
+not archived. sdvplot (Python) reads the same archive manifest at run
+time; sdvplotR ships the current marks in the package
+(\code{data-raw/generate_logo_marks.R}).
+}
+
 \examples{
 sdv_logo_url(c("KC", "Buffalo Bills", "WAS"), sport = "nfl")
 sdv_logo_url("NYJ", sport = "nfl", variant = "scoreboard")
+sdv_logo_url("KC", sport = "nfl", variant = "grayscale")
 sdv_logo_url("QUE", sport = "nhl", season = 1990)
 sdv_logo_url("SEC", sport = "cfb")
 

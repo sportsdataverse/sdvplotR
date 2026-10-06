@@ -9,9 +9,12 @@ test_that("logo_from_team resolves every sport and NA for unknowns", {
 })
 
 test_that("a team without the requested variant falls back to its primary logo", {
-  expect_match(resolve_logo_url("KC", "nfl", "dark"), "500-dark/kc\\.png$")
+  archive <- "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/assets/public/sha256/"
+  expect_match(resolve_logo_url("WSH", "nhl", "dark"), archive)
+  expect_false(identical(resolve_logo_url("WSH", "nhl", "dark"), logo_from_team("WSH", "nhl")))
   # ESPN's scoreboard mark: the Jets' differs from their primary, college teams have none
-  expect_match(resolve_logo_url("NYJ", "nfl", "scoreboard"), "500/scoreboard/nyj\\.png$")
+  expect_match(resolve_logo_url("NYJ", "nfl", "scoreboard"), archive)
+  expect_false(identical(resolve_logo_url("NYJ", "nfl", "scoreboard"), logo_from_team("NYJ", "nfl")))
   expect_identical(resolve_logo_url("PSU", "cfb", "scoreboard"), logo_from_team("PSU", "cfb"))
   expect_identical(resolve_logo_url("nope", "nfl", "dark"), NA_character_)
   expect_error(resolve_logo_url("KC", "nfl", "neon"), "variant")
@@ -59,8 +62,9 @@ test_that("sdv_logo_url and sdv_headshot_url are the exported resolvers", {
   expect_error(sdv_headshot_url("1", "cfb", id_type = "league"), "league player ID")
 })
 
-test_that("NFL wordmarks come from nflverse, other leagues have none", {
-  expect_match(wordmark_from_team("KC", "nfl"), "nflverse.*/KC\\.png$")
+test_that("NFL and MLB wordmarks come from the archive, other leagues have none", {
+  expect_match(wordmark_from_team("KC", "nfl"), "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/.*\\.png$")
+  expect_match(wordmark_from_team("NYY", "mlb"), "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/.*\\.svg$")
   expect_identical(wordmark_from_team("LAL", "nba"), NA_character_)
 })
 
@@ -128,11 +132,13 @@ test_that("season lookups are vectorised and fall back element by element", {
 test_that("without a season every sport resolves as before", {
   for (s in supported_sports()) {
     teams <- c(valid_team_names(s)[1:5], "QUE", "STL", "HOU", "nope", NA)
-    today <- lookup_team_column(teams, s, "logo_url")
+    today <- resolve_logo_url(teams, s)
     expect_identical(logo_from_team(teams, s), today)
     expect_identical(logo_from_team(teams, s, season = NA), today)
     expect_identical(resolve_logo_url(teams, s, "dark", season = NULL), resolve_logo_url(teams, s, "dark"))
-    expect_false(any(grepl("digitaloceanspaces", today)))
+    # today's archived marks, never a past era's
+    expect_match(today[!is.na(today)], "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
+    expect_false(any(today %in% logo_history$url))
   }
   expect_identical(logo_from_team("QUE", "nhl"), logo_from_team("COL", "nhl"))
 })

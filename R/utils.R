@@ -1,18 +1,34 @@
 # Utility functions for sdvplotR
 # ============================================================================
 
-# The variants an image backs: ESPN's default, dark-background and scoreboard
+# The variants every sport has: ESPN's default, dark-background and scoreboard
 # logos (the scoreboard mark differs from the default for a few pro teams, the
-# Jets' "NY" for one, and college teams have none), nflverse's one wordmark.
+# Jets' "NY" for one, and college teams have none) and the primary wordmark
+# (nflverse's for the NFL, MLB's own light-background one). The named marks the
+# SportsDataverse logo archive carries for most of a sport's teams
+# ("grayscale", "scoreboard_dark", MLB's "cap_on_light", ...) are the sport's
+# other variants; see archive_variants().
 logo_variants <- c("primary", "dark", "scoreboard")
 wordmark_variants <- "primary"
 headshot_placeholder <- "https://a.espncdn.com/i/headshots/nophoto.png"
 
-# `variant` validated for a logo or wordmark helper; any other value errors.
-# A function's default vector (every variant) picks the first.
-check_variant <- function(variant, type = "logo") {
-  valid <- if (type == "logo") logo_variants else wordmark_variants
-  if (identical(variant, valid)) valid[[1]] else rlang::arg_match0(variant, valid, arg_nm = "variant")
+# `variant` validated for a logo or wordmark helper of `sport` (every sport's
+# variants when NULL); any other value errors, listing the valid ones. A
+# function's default vector (the common variants) picks the first.
+check_variant <- function(variant, type = "logo", sport = NULL) {
+  common <- if (type == "logo") logo_variants else wordmark_variants
+  if (identical(variant, common)) {
+    return(common[[1]])
+  }
+  rlang::arg_match0(variant, c(common, archive_variants(sport, type)), arg_nm = "variant")
+}
+
+# The named variants the archive holds for a sport (logo_marks, built by
+# data-raw/generate_logo_marks.R), beyond the common ones.
+archive_variants <- function(sport = NULL, type = "logo") {
+  rows <- logo_marks$type == type
+  if (!is.null(sport)) rows <- rows & logo_marks$sport == sport
+  sort(setdiff(unique(logo_marks$variant[rows]), c(logo_variants, wordmark_variants)))
 }
 
 `%||%` <- function(x, y) if (is.null(x)) y else x
@@ -79,16 +95,20 @@ valid_team_names <- function(
 #'   | team_short_name | character | Short display name |
 #'   | team_location | character | City / school |
 #'   | team_mascot | character | Mascot / nickname |
-#'   | logo_url | character | Primary logo URL |
-#'   | logo_dark_url | character | Dark-background logo URL |
-#'   | logo_scoreboard_url | character | Scoreboard logo URL |
-#'   | wordmark_url | character | Wordmark URL (`NA` when none) |
+#'   | logo_url | character | Primary logo URL at the source (ESPN's CDN) |
+#'   | logo_dark_url | character | Dark-background logo URL at the source |
+#'   | logo_scoreboard_url | character | Scoreboard logo URL at the source (`NA` when none) |
+#'   | wordmark_url | character | Wordmark URL at the source (nflverse; `NA` when none) |
 #'   | color1 | character | Primary team color (hex) |
 #'   | color2 | character | Secondary team color (hex; `NA` when the source has none) |
 #'   | color_source | character | `"nflverse"`, `"espn"`, `"logo"` or `"cbbplotR"`; `NA` for the AFC, NFC and NFL |
 #'   | conference | character | Conference (`NA` for leagues without) |
 #'   | division | character | Division (`NA` for leagues without) |
 #'   | type | character | `"team"`, `"conference"` or `"league"` |
+#'
+#'   The URL columns are the sources' live files, which ESPN drops and
+#'   replaces; the helpers draw the SportsDataverse logo archive's copies
+#'   instead, which [sdv_logo_url()] returns.
 #'
 #'   Colors are nflverse's for the NFL and ESPN's teams-list colors elsewhere.
 #'   ESPN gives some newer or smaller college programs a stand-in instead of
@@ -233,7 +253,7 @@ lookup_team_column <- function(team, sport, column) {
 }
 
 logo_from_team <- function(team, sport = "nfl", season = NULL) {
-  season_logo(lookup_team_column(team, sport, "logo_url"), team, sport, season)
+  resolve_logo_url(team, sport, "primary", season)
 }
 
 # Alt text for an image: the team's full name (`team` as the cell holds it;
@@ -247,20 +267,31 @@ team_alt <- function(team, sport) {
 headshot_alt <- function(id) paste0("Player ", id, " headshot")
 
 wordmark_from_team <- function(team, sport = "nfl") {
-  lookup_team_column(team, sport, "wordmark_url")
+  resolve_wordmark_url(team, sport, "primary")
 }
 
-# Variant-aware lookups: a team the data has no such image for (a conference's
-# dark logo, a college team's scoreboard logo) gets its primary image.
+# The SportsDataverse logo archive's copy of a mark (logo_marks: immutable,
+# content-addressed files), NA where it has none. `key` is canonical.
+archive_mark_url <- function(key, sport, type, variant) {
+  m <- logo_marks[logo_marks$sport == sport & logo_marks$type == type & logo_marks$variant == variant, , drop = FALSE]
+  unname(m$url[match(key, m$key)])
+}
+
+# Variant-aware lookups, the archive first: its copy of the mark, else the
+# source's live file (ESPN's CDN, nflverse) for the common variants, else the
+# team's primary image (a conference's dark logo, a college team's scoreboard
+# logo, a named mark one team lacks).
 resolve_logo_url <- function(team, sport, variant = "primary", season = NULL) {
-  variant <- check_variant(variant, "logo")
+  variant <- check_variant(variant, "logo", sport)
+  key <- clean_team_abbrs(as.character(team), sport = sport, keep_non_matches = FALSE)
+  url <- archive_mark_url(key, sport, "logo", variant)
   col <- switch(variant,
     primary = "logo_url",
     dark = "logo_dark_url",
     scoreboard = "logo_scoreboard_url"
   )
-  url <- lookup_team_column(team, sport, col)
-  url <- ifelse(is.na(url), logo_from_team(team, sport), url)
+  if (!is.null(col)) url <- ifelse(is.na(url), lookup_team_column(key, sport, col), url)
+  if (variant != "primary") url <- ifelse(is.na(url), resolve_logo_url(key, sport, "primary"), url)
   season_logo(url, team, sport, season, variant)
 }
 
@@ -306,8 +337,18 @@ historical_logo_url <- function(team, sport, season, variant = "primary") {
 }
 
 resolve_wordmark_url <- function(team, sport, variant = "primary") {
-  check_variant(variant, "wordmark")
-  wordmark_from_team(team, sport)
+  variant <- check_variant(variant, "wordmark", sport)
+  key <- clean_team_abbrs(as.character(team), sport = sport, keep_non_matches = FALSE)
+  url <- archive_mark_url(key, sport, "wordmark", variant)
+  if (variant == "primary") {
+    # the archive's light-background wordmark (MLB's) is the primary; nflverse's
+    # live file where the archive has no copy
+    url <- ifelse(is.na(url), archive_mark_url(key, sport, "wordmark", "on_light"), url)
+    url <- ifelse(is.na(url), lookup_team_column(key, sport, "wordmark_url"), url)
+  } else {
+    url <- ifelse(is.na(url), resolve_wordmark_url(key, sport, "primary"), url)
+  }
+  url
 }
 
 # NFL headshot map: sdvplotR publishes it from nflverse rosters (1999 onward) to
@@ -448,11 +489,26 @@ headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
 #'
 #' @param team A character vector of team abbreviations or names.
 #' @inheritParams valid_team_names
-#' @param variant The logo variant: `"primary"` (ESPN's default mark),
-#'   `"dark"` (the dark-background mark) or `"scoreboard"` (ESPN's scoreboard
-#'   mark, which differs from the primary for a few pro teams: the Jets' `NY`).
-#'   A team without the requested variant gives its primary logo; any other
-#'   value is an error.
+#' @param variant The logo variant: `"primary"` (the default mark), `"dark"`
+#'   (the dark-background mark) or `"scoreboard"` (ESPN's scoreboard mark,
+#'   which differs from the primary for a few pro teams: the Jets' `NY`), or a
+#'   named mark the SportsDataverse logo archive carries for most of the
+#'   sport's teams: ESPN's `"scoreboard_dark"`, `"grayscale"` (NFL),
+#'   `"primary_logo_on_black_color"` and its siblings, nflverse's `"squared"`
+#'   (NFL), MLB's `"cap_on_light"` / `"cap_on_dark"` / `"primary_on_light"` /
+#'   `"primary_on_dark"` (SVG). A team without the requested variant gives its
+#'   primary logo; a variant no mark of the sport has is an error that lists
+#'   the sport's variants.
+#' @section Where the images come from:
+#'   Logos and wordmarks are the SportsDataverse logo archive's copies of the
+#'   sources' files (ESPN's CDN, nflverse, MLB): immutable, content-addressed
+#'   URLs (`.../sha256/<ab>/<sha256>.png`, so a downloaded file can be checked
+#'   against its name) that stay up when a source drops or replaces a file. A
+#'   mark the archive has no copy of (none today) falls back to the source's
+#'   live URL. `team_reference()` keeps listing the sources' URLs. Headshots are
+#'   not archived. sdvplot (Python) reads the same archive manifest at run
+#'   time; sdvplotR ships the current marks in the package
+#'   (`data-raw/generate_logo_marks.R`).
 #' @param season A season year (the ending year for the NHL: 2005 for
 #'   2004-05) or a vector of them, recycled against `team`. Where sdvplotR has
 #'   the mark the team wore that season (NHL, and the NFL's and WNBA's
@@ -469,13 +525,14 @@ headshot_from_id <- function(player_id, sport = "nfl", id_type = NULL) {
 #' @return A character vector the length of `team` / `player_id`: the image
 #'   URL, or `NA` for a team that does not resolve, a player id that is
 #'   missing, malformed or (NFL GSIS) not in the headshot map, or a league
-#'   without wordmarks.
+#'   without wordmarks (the NFL and MLB have them).
 #' @seealso [team_reference()] for every team's URLs at once,
 #'   [geom_sdv_logos()] and [gt_sdv_logos()] which draw them.
 #' @export
 #' @examples
 #' sdv_logo_url(c("KC", "Buffalo Bills", "WAS"), sport = "nfl")
 #' sdv_logo_url("NYJ", sport = "nfl", variant = "scoreboard")
+#' sdv_logo_url("KC", sport = "nfl", variant = "grayscale")
 #' sdv_logo_url("QUE", sport = "nhl", season = 1990)
 #' sdv_logo_url("SEC", sport = "cfb")
 #'

@@ -51,7 +51,7 @@ test_that("theme helpers require ggtext and return theme objects", {
 
 test_that("ggtitle_image resolves team logos and places the image", {
   l <- ggtitle_image("KC", "Chiefs", sport = "nfl")
-  expect_match(l$title, "^<img src='https://.*kc\\.png' height='15'.*> Chiefs$")
+  expect_match(l$title, "^<img src='https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/.*\\.png' height='15'.*> Chiefs$")
   r <- ggtitle_image("https://example.com/x.png", "T", image_side = "right", sport = "nba")
   expect_match(r$title, "^T <img src='https://example.com/x.png'")
   expect_error(ggtitle_image(sport = "nfl"), "title_image")
@@ -133,11 +133,13 @@ test_that("sdv_team_tiers draws a light theme for dark logos", {
 })
 
 test_that("sdv_team_tiers draws dark logos on the dark theme and primary ones on light", {
-  # Capitals, Maple Leafs, Lightning: ESPN's dark marks differ from the primary
+  # Capitals, Maple Leafs, Lightning: the dark marks differ from the primary
   tiers <- data.frame(tier_no = c(1, 1, 2), team = c("WSH", "TOR", "TB"))
   drawn <- function(...) layer_data(sdv_team_tiers(tiers, sport = "nhl", ...), 2)$path
-  dark <- paste0("https://a.espncdn.com/i/teamlogos/nhl/500-dark/", c("wsh", "tor", "tb"), ".png")
-  primary <- paste0("https://a.espncdn.com/i/teamlogos/nhl/500/", c("wsh", "tor", "tb"), ".png")
+  dark <- resolve_logo_url(tiers$team, "nhl", "dark")
+  primary <- logo_from_team(tiers$team, "nhl")
+  expect_match(c(dark, primary), "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
+  expect_false(any(dark == primary))
   expect_identical(drawn(), dark)
   expect_identical(drawn(theme = "dark", variant = "auto"), dark)
   expect_identical(drawn(theme = "light"), primary)
@@ -149,10 +151,9 @@ test_that("sdv_team_tiers falls back to the primary logo where there is no dark 
   ref <- get_team_ref("cfb")
   expect_true(is.na(ref$logo_dark_url[ref$team_abbr == "SEC"]))
   expect_no_warning(path <- layer_data(sdv_team_tiers(tiers, sport = "cfb"), 2)$path)
-  expect_identical(path, c(
-    "https://a.espncdn.com/i/teamlogos/ncaa_conf/500/sec.png",
-    "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/213.png"
-  ))
+  expect_identical(path, c(logo_from_team("SEC", "cfb"), resolve_logo_url("PSU", "cfb", "dark")))
+  expect_match(path, "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
+  expect_false(path[[2]] == logo_from_team("PSU", "cfb"))
 })
 
 test_that("sdv_team_tiers passes an explicit variant through", {

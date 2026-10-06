@@ -32,11 +32,12 @@ reactable_sdv_headshots(
 \item{sport}{Character string identifying the sport. One of
 \code{\link[=supported_sports]{supported_sports()}}.}
 
-\item{variant}{Character. Logo variant: \code{"primary"}, \code{"dark"} or
-\code{"scoreboard"} (see \code{\link[=sdv_logo_url]{sdv_logo_url()}}); wordmarks come in \code{"primary"} only.
-Falls back to the primary image when the requested variant is not
-available for a team, and, in the browser, when the variant's file fails
-to load.}
+\item{variant}{Character. Logo variant: \code{"primary"}, \code{"dark"},
+\code{"scoreboard"} or a named mark of the sport (see \code{\link[=sdv_logo_url]{sdv_logo_url()}});
+wordmarks come in \code{"primary"} for the NFL and MLB, plus \code{"on_light"} /
+\code{"on_dark"} for MLB. Falls back to the primary image when the requested
+variant is not available for a team, and, in the browser, when the
+variant's file fails to load.}
 
 \item{height}{Numeric. Image height in pixels.}
 

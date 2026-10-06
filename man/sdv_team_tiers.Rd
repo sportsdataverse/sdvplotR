@@ -63,9 +63,9 @@ labels) or \code{"light"} (a white background with dark labels and lines).}
 team's dark-background logo (\code{"dark"}) on the dark theme and its primary
 logo on the light theme, so dark marks such as the Capitals', the Giants'
 or Penn State's don't fade into the dark background. A team with no dark
-logo draws its primary one, with no warning. Any other value is one of
-\code{"primary"}, \code{"dark"} or \code{"scoreboard"} (see \code{\link[=sdv_logo_url]{sdv_logo_url()}}), drawn on
-either theme, with the same fallback. \code{"primary"} gives the old look,
+logo draws its primary one, with no warning. Any other value is
+\code{"primary"}, \code{"dark"}, \code{"scoreboard"} or a named mark of the sport (see
+\code{\link[=sdv_logo_url]{sdv_logo_url()}}), drawn on either theme, with the same fallback. \code{"primary"} gives the old look,
 which drew the primary logo on both themes.}
 }
 \value{

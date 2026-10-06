@@ -158,6 +158,10 @@ stopifnot(all(logo_history$season_from > prev_to))
 # every key with a dark era has a primary one (the resolver falls back to it)
 stopifnot(all(with(logo_history, paste(sport, key)[variant == "dark"] %in% paste(sport, key)[variant == "primary"])))
 
-usethis::use_data(logo_ref, abbr_mapping, logo_history, internal = TRUE, overwrite = TRUE)
+# re-save every object R/sysdata.rda holds (the other scripts'), this one replaced
+sysdata <- new.env()
+load("R/sysdata.rda", envir = sysdata)
+sysdata$logo_history <- logo_history
+save(list = sort(ls(sysdata)), envir = sysdata, file = "R/sysdata.rda", compress = "xz", version = 3)
 
 print(table(logo_history$sport, logo_history$variant))

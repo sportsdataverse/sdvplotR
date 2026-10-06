@@ -81,8 +81,9 @@ test_that("conferences resolve like teams, and a team keeps a shared name", {
   # names a team already uses stay the team's
   expect_identical(clean_team_abbrs(c("American", "SC"), "mbb"), c("AMER", "SC"))
   expect_identical(clean_team_abbrs("Southern", "cfb"), "SOU")
-  expect_match(logo_from_team("SEC", "cfb"), "ncaa_conf/500/sec.png$")
-  expect_match(logo_from_team("AFC", "nfl"), "nfl/500/afc.png$")
+  expect_match(logo_from_team("SEC", "cfb"), "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
+  expect_match(logo_from_team("AFC", "nfl"), "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
+  expect_false(identical(logo_from_team("SEC", "cfb"), logo_from_team("AFC", "nfl")))
 })
 
 test_that("historical conference names draw the conference's lineage", {
@@ -128,7 +129,9 @@ test_that("the WAC draws ESPN's archived mark, and the UAC it became does not", 
       clean_team_abbrs(c("WAC", "wac", "Western Athletic Conference"), s, keep_non_matches = FALSE),
       rep("WAC", 3)
     )
-    expect_match(logo_from_team("WAC", s), "ncaa_conf/500/wac.png$")
+    # ESPN's archived wac.png, served from the SportsDataverse archive
+    expect_match(logo_from_team("WAC", s), "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
+    expect_identical(logo_from_team("WAC", s), logo_from_team("WAC", "cfb"))
     expect_identical(
       clean_team_abbrs(c("UAC", "United Athletic Conference"), s, keep_non_matches = FALSE),
       c(NA_character_, NA_character_)

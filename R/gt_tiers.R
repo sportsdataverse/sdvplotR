@@ -205,8 +205,11 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
 # its file name
 .tier_alt <- function(url) {
   cols <- c("logo_url", "logo_dark_url", "logo_scoreboard_url", "wordmark_url")
-  known <- c(unlist(logo_ref[cols], use.names = FALSE), logo_history$url)
-  team <- c(rep(logo_ref$team_name, length(cols)), logo_history$identity_name)
+  marks_team <- logo_ref$team_name[
+    match(paste(logo_marks$sport, logo_marks$key), paste(logo_ref$sport, logo_ref$team_abbr))
+  ]
+  known <- c(logo_marks$url, unlist(logo_ref[cols], use.names = FALSE), logo_history$url)
+  team <- c(marks_team, rep(logo_ref$team_name, length(cols)), logo_history$identity_name)
   out <- team[match(url, known)]
   ifelse(is.na(out), sub("\\.[^./]*$", "", basename(url)), out)
 }
