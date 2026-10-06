@@ -24,8 +24,8 @@ Case is ignored.}
 
 \item{x_column, y_column}{Strings naming the coordinate columns. \code{NULL} (the
 default) uses the provider's usual names: \code{"field_position_x"} and
-\code{"field_position_y"} for ESPN (sportsdataverse-py's
-\code{espn_soccer_game_plays()}), \code{"x"} and \code{"y"} otherwise.}
+\code{"field_position_y"} for ESPN (the output of
+Python \code{espn_soccer_game_plays()}), \code{"x"} and \code{"y"} otherwise.}
 
 \item{flip}{\code{NULL} (no row flipped), \code{TRUE}/\code{FALSE} for every row, or a
 string naming a logical column with no missing values; \code{TRUE} rows are
@@ -64,7 +64,7 @@ The landmark values come from 'mplsoccer' and ship in
 
 Tracking providers (\code{"tracab"}, \code{"skillcorner"}, \code{"secondspectrum"},
 \code{"metrica"}) are measured on the venue's real pitch, so they need
-\code{pitch_length} and \code{pitch_width}. ESPN's frame is derived from Opta's:
+\code{pitch_length} and \code{pitch_width}. ESPN frames are derived from the Opta frame:
 \code{opta_x = 100 - 50 * x} and \code{opta_y = 100 * (1 - y)}. ESPN marks an event
 with no location as \verb{(0, 0)}, which becomes \code{NA}.
 

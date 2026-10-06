@@ -20,7 +20,7 @@
 #'
 #'   Tracking providers (`"tracab"`, `"skillcorner"`, `"secondspectrum"`,
 #'   `"metrica"`) are measured on the venue's real pitch, so they need
-#'   `pitch_length` and `pitch_width`. ESPN's frame is derived from Opta's:
+#'   `pitch_length` and `pitch_width`. ESPN frames are derived from the Opta frame:
 #'   `opta_x = 100 - 50 * x` and `opta_y = 100 * (1 - y)`. ESPN marks an event
 #'   with no location as `(0, 0)`, which becomes `NA`.
 #'
@@ -36,8 +36,8 @@
 #'   Case is ignored.
 #' @param x_column,y_column Strings naming the coordinate columns. `NULL` (the
 #'   default) uses the provider's usual names: `"field_position_x"` and
-#'   `"field_position_y"` for ESPN (sportsdataverse-py's
-#'   `espn_soccer_game_plays()`), `"x"` and `"y"` otherwise.
+#'   `"field_position_y"` for ESPN (the output of
+#'   Python `espn_soccer_game_plays()`), `"x"` and `"y"` otherwise.
 #' @param flip `NULL` (no row flipped), `TRUE`/`FALSE` for every row, or a
 #'   string naming a logical column with no missing values; `TRUE` rows are
 #'   turned half a turn.
