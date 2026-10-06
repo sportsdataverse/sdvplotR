@@ -1,10 +1,11 @@
-# sdvplotR (development version)
+# sdvplotR 0.1.0
 
-* Team names and abbreviations are trimmed before matching, so a value with a
-  stray space (ESPN writes a few soccer club names with one) still resolves.
-* Soccer club names are trimmed and accent-folded before deciding which are
-  unique, so a name shared by two clubs (ESPN writes a few with a trailing
-  space) no longer resolves to one of them.
+Initial release: one plotting package for team logos, wordmarks, player
+headshots and team colors across nine leagues (NFL, NBA, WNBA, MLB, NHL,
+college football, men's and women's college basketball, and soccer), built on 'ggpath'
+and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
+'mlbplotR'.
+
 * `sdv_surface()` draws `"soccer"` (a regulation 105 x 68 m pitch, the frame
   `sdv_pitch_coords()` returns) and `"fiba"` courts. FIBA takes no `team` yet.
 * Soccer joins the team data: 2,631 ESPN clubs with logos and colors (from
@@ -16,15 +17,6 @@
   Stats Perform, Wyscout, StatsBomb, UEFA, Impect, ESPN and the tracking
   providers (Tracab, SkillCorner, Second Spectrum, Metrica) to one
   regulation 105 x 68 m frame, piecewise-linearly between pitch landmarks.
-
-# sdvplotR 0.1.0
-
-Initial release: one plotting package for team logos, wordmarks, player
-headshots and team colors across eight leagues (NFL, NBA, WNBA, MLB, NHL,
-college football, men's and women's college basketball), built on 'ggpath'
-and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
-'mlbplotR'.
-
 * Team reference data covers every current franchise in the five pro
   leagues plus all FBS and FCS football programs and all Division I
   basketball programs, with ESPN ids, primary / dark logo variants, official
