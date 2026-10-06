@@ -58,7 +58,7 @@ gt_save_crop <- function(data, file = NULL, bg = "white", whitespace = 50, zoom 
 
   tmp <- tempfile(fileext = ".png")
   on.exit(unlink(tmp), add = TRUE)
-  gtExtras::gtsave_extra(data, tmp, zoom = zoom, expand = expand)
+  with_chrome_timeout(gtExtras::gtsave_extra(data, tmp, zoom = zoom, expand = expand))
 
   img <- magick::image_read(tmp) |>
     magick::image_trim() |>

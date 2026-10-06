@@ -212,9 +212,9 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
   tmp_png <- tempfile(fileext = ".png")
   htmltools::save_html(htmltools::browsable(page), tmp_html)
 
-  webshot2::webshot(paste0("file://", normalizePath(tmp_html)), tmp_png,
+  with_chrome_timeout(webshot2::webshot(paste0("file://", normalizePath(tmp_html)), tmp_png,
     zoom = zoom, selector = "body", quiet = TRUE
-  )
+  ))
 
   magick::image_read(tmp_png) |>
     magick::image_trim() |>

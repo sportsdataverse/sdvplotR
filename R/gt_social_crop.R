@@ -66,7 +66,7 @@ gt_social_crop <- function(data, file = NULL, aspect_ratio = "1:1", bg = "white"
   }
 
   tmp <- tempfile(fileext = ".png")
-  gtExtras::gtsave_extra(data, tmp, zoom = zoom, expand = expand)
+  with_chrome_timeout(gtExtras::gtsave_extra(data, tmp, zoom = zoom, expand = expand))
 
   img <- magick::image_read(tmp) |>
     magick::image_trim() |>

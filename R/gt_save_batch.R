@@ -91,7 +91,7 @@ gt_save_batch <- function(data, group, fn, file, dir, match_width = TRUE,
           cli::cli_abort("{.arg fn} returned {.obj_type_friendly {tbl}}, not a {.cls gt_tbl}.")
         }
         png <- tempfile(fileext = ".png")
-        gtExtras::gtsave_extra(tbl, png, zoom = zoom)
+        with_chrome_timeout(gtExtras::gtsave_extra(tbl, png, zoom = zoom))
         png
       },
       error = function(e) {

@@ -598,3 +598,17 @@ sdvplotR_clear_cache <- function() {
   cli::cli_alert_success("sdvplotR cache cleared.")
   invisible(NULL)
 }
+
+
+# Runs a save that launches headless Chrome (gtExtras::gtsave_extra(),
+# webshot2::webshot()) with chromote given at least `seconds` to open Chrome's
+# debugging port. chromote's default is 10 seconds, which a loaded machine (a CI
+# runner building the articles) misses: "Chrome debugging port not open after
+# 10 seconds". A longer setting the user already made is kept; the option is
+# restored afterwards. chromote reads it when it launches Chrome, so it matters
+# for the first save of a session.
+with_chrome_timeout <- function(expr, seconds = 60) {
+  old <- options(chromote.timeout = max(seconds, getOption("chromote.timeout", 10)))
+  on.exit(options(old), add = TRUE)
+  force(expr)
+}

@@ -6,6 +6,11 @@ college football, men's and women's college basketball, and soccer), built on 'g
 and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
 'mlbplotR'.
 
+* Saving a table to an image (`gt_save_crop()`, `gt_social_crop()`,
+  `gt_save_batch()`, `gt_grid()`, `gt_stack_tables()`) gives headless Chrome
+  60 seconds to start instead of chromote's 10: a loaded machine, such as a
+  CI runner, no longer fails with "Chrome debugging port not open after 10
+  seconds". A longer `options(chromote.timeout = )` of your own is kept.
 * `sdv_surface()` draws `"soccer"` (a regulation 105 x 68 m pitch, the frame
   `sdv_pitch_coords()` returns) and `"fiba"` courts. FIBA takes no `team` yet.
 * Soccer joins the team data: 2,631 ESPN clubs with logos and colors (from

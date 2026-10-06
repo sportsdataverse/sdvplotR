@@ -411,3 +411,17 @@ test_that("a stray space around a team value does not stop it matching", {
   expect_identical(clean_team_abbrs("KC ", "nfl"), "KC")
   expect_identical(clean_team_abbrs(" kansas city chiefs", "nfl"), "KC")
 })
+
+
+test_that("with_chrome_timeout() gives Chrome at least 60 seconds, keeps a longer setting, and restores", {
+  withr::local_options(chromote.timeout = NULL)
+  seen <- with_chrome_timeout(getOption("chromote.timeout"))
+  expect_equal(seen, 60)
+  expect_null(getOption("chromote.timeout"))
+  withr::local_options(chromote.timeout = 5)
+  expect_equal(with_chrome_timeout(getOption("chromote.timeout")), 60)
+  expect_equal(getOption("chromote.timeout"), 5)
+  withr::local_options(chromote.timeout = 120)
+  expect_equal(with_chrome_timeout(getOption("chromote.timeout")), 120)
+  expect_equal(getOption("chromote.timeout"), 120)
+})
