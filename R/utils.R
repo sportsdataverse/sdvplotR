@@ -156,7 +156,7 @@ clean_team_abbrs <- function(
 
   unmatched <- unique(abbr[is.na(a) & !is.na(abbr)])
   if (length(unmatched) && getOption("sdvplotR.verbose", default = interactive())) {
-    shared <- if (sport == "soccer") soccer_ambiguous[toupper(unmatched)] else list()
+    shared <- if (sport == "soccer") soccer_ambiguous[toupper(trimws(fold_accents(unmatched)))] else list()
     shared <- shared[lengths(shared) > 0]
     if (length(shared)) {
       cli::cli_warn(c(
@@ -164,7 +164,7 @@ clean_team_abbrs <- function(
         "i" = "Pass the ESPN team id instead: {paste(names(shared), vapply(shared, paste, '', collapse = ' or '), sep = ' = ', collapse = '; ')}."
       ))
     }
-    rest <- setdiff(unmatched, unmatched[toupper(unmatched) %in% names(shared)])
+    rest <- setdiff(unmatched, unmatched[toupper(trimws(fold_accents(unmatched))) %in% names(shared)])
     if (length(rest)) cli::cli_warn("Abbreviations not found in {.val {sport}} mapping: {.val {rest}}")
   }
 

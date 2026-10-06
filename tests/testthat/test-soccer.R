@@ -23,3 +23,23 @@ test_that("a soccer surface takes a team: logo at the center spot, the pitch sta
   expect_length(with_logo$layers, length(plain$layers) + 1L)
   expect_equal(with_logo$layers[[length(with_logo$layers)]]$geom_params$logo_size, 18.3)
 })
+
+test_that("no soccer alias key has leading or trailing whitespace", {
+  k <- names(abbr_mapping$soccer)
+  expect_identical(k, trimws(k))
+})
+
+test_that("names shared after trimming or accent-folding warn with both ids", {
+  withr::local_options(sdvplotR.verbose = TRUE)
+  expect_warning(
+    out <- clean_team_abbrs("Sydney FC", "soccer", keep_non_matches = FALSE),
+    "20285.*5327|5327.*20285"
+  )
+  expect_identical(out, NA_character_)
+  expect_warning(
+    out <- clean_team_abbrs("Guaraní", "soccer", keep_non_matches = FALSE),
+    "3448.*7385|7385.*3448"
+  )
+  expect_identical(out, NA_character_)
+  expect_identical(clean_team_abbrs("Atlanta United FC", "soccer", keep_non_matches = FALSE), "18418")
+})
