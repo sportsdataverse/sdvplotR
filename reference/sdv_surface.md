@@ -14,7 +14,7 @@ exists yet.
 
 ``` r
 sdv_surface(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb"),
+  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer", "fiba"),
   team = NULL,
   center_logo = FALSE,
   ...
@@ -26,18 +26,20 @@ sdv_surface(
 - sport:
 
   One of
-  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md).
-  Each maps to a 'sportyR' surface:
+  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md),
+  or `"soccer"` or `"fiba"`. Each maps to a 'sportyR' surface:
 
-  |                   |                                                |
-  |-------------------|------------------------------------------------|
-  | sport             | surface                                        |
-  | `"nfl"`           | `sportyR::geom_football("nfl")`                |
-  | `"cfb"`           | `sportyR::geom_football("ncaa")`               |
+  |  |  |
+  |----|----|
+  | sport | surface |
+  | `"nfl"` | `sportyR::geom_football("nfl")` |
+  | `"cfb"` | `sportyR::geom_football("ncaa")` |
   | `"nba"`, `"wnba"` | `sportyR::geom_basketball("nba")` / `("wnba")` |
-  | `"mbb"`, `"wbb"`  | `sportyR::geom_basketball("ncaa")`             |
-  | `"nhl"`           | `sportyR::geom_hockey("nhl")`                  |
-  | `"mlb"`           | `sportyR::geom_baseball("mlb")`                |
+  | `"mbb"`, `"wbb"` | `sportyR::geom_basketball("ncaa")` |
+  | `"nhl"` | `sportyR::geom_hockey("nhl")` |
+  | `"mlb"` | `sportyR::geom_baseball("mlb")` |
+  | `"soccer"` | `sportyR::geom_soccer("fifa")`, 105 x 68 m (`pitch_updates` overrides) |
+  | `"fiba"` | `sportyR::geom_basketball("fiba")` (28 x 15 m) |
 
 - team:
 
@@ -88,6 +90,12 @@ white:
 - Baseball: nothing. No part of a regulation infield is team-colored
   (the green background is the outfield grass), so the team is checked
   and the surface stays 'sportyR”s.
+
+Soccer and FIBA surfaces are drawn in meters. "soccer" defaults to a
+regulation 105 x 68 m pitch, the frame
+[`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
+converts to; 'sportyR”s own "fifa" default is FIFA's 120 x 90 m maximum.
+Neither takes a `team` yet.
 
 Surfaces use 'sportyR”s coordinates: the origin at the center, in feet
 (yards for football). The center logo is sized in those units (12 feet

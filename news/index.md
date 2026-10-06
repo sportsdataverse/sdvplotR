@@ -2,6 +2,10 @@
 
 ## sdvplotR (development version)
 
+- [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+  draws `"soccer"` (a regulation 105 x 68 m pitch, the frame
+  [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
+  returns) and `"fiba"` courts. Neither takes a `team` yet.
 - New
   [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
   converts soccer event coordinates from Opta / Stats Perform, Wyscout,

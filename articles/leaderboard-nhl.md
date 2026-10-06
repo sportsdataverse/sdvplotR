@@ -139,26 +139,26 @@ standings |>
 | Through Oct 4 (1-4 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
 |  | Team | GP | W | L | OTL | PTS | PTS% | GF | GA | DIFF | Last 10 | Streak |
 | Atlantic |  |  |  |  |  |  |  |  |  |  |  |  |
+| ![Ottawa Senators](https://a.espncdn.com/i/teamlogos/nhl/500/ott.png) | Senators | 2 | 2 | 0 | 0 | 4 | 1.000 | 7 | 3 | +4 | 2-0-0 | W2 |
 | ![Tampa Bay Lightning](https://a.espncdn.com/i/teamlogos/nhl/500/tb.png) | Lightning | 3 | 2 | 1 | 0 | 4 | 0.667 | 8 | 7 | +1 | 2-1-0 | W2 |
-| ![Boston Bruins](https://a.espncdn.com/i/teamlogos/nhl/500/bos.png) | Bruins | 3 | 2 | 1 | 0 | 4 | 0.667 | 8 | 7 | +1 | 2-1-0 | L1 |
 | ![Florida Panthers](https://a.espncdn.com/i/teamlogos/nhl/500/fla.png) | Panthers | 3 | 1 | 0 | 2 | 4 | 0.667 | 6 | 7 | −1 | 1-0-2 | OT2 |
+| ![Boston Bruins](https://a.espncdn.com/i/teamlogos/nhl/500/bos.png) | Bruins | 4 | 2 | 2 | 0 | 4 | 0.500 | 9 | 11 | −2 | 2-2-0 | L2 |
 | ![Montreal Canadiens](https://a.espncdn.com/i/teamlogos/nhl/500/mtl.png) | Canadiens | 2 | 1 | 0 | 1 | 3 | 0.750 | 8 | 8 | 0 | 1-0-1 | OT1 |
-| ![Ottawa Senators](https://a.espncdn.com/i/teamlogos/nhl/500/ott.png) | Senators | 1 | 1 | 0 | 0 | 2 | 1.000 | 3 | 2 | +1 | 1-0-0 | W1 |
 | ![Buffalo Sabres](https://a.espncdn.com/i/teamlogos/nhl/500/buf.png) | Sabres | 2 | 1 | 1 | 0 | 2 | 0.500 | 7 | 9 | −2 | 1-1-0 | W1 |
 | ![Toronto Maple Leafs](https://a.espncdn.com/i/teamlogos/nhl/500/tor.png) | Maple Leafs | 3 | 1 | 2 | 0 | 2 | 0.333 | 6 | 7 | −1 | 1-2-0 | L1 |
 | ![Detroit Red Wings](https://a.espncdn.com/i/teamlogos/nhl/500/det.png) | Red Wings | 2 | 0 | 2 | 0 | 0 | 0.000 | 2 | 5 | −3 | 0-2-0 | L2 |
 | Central |  |  |  |  |  |  |  |  |  |  |  |  |
+| ![Winnipeg Jets](https://a.espncdn.com/i/teamlogos/nhl/500/wpg.png) | Jets | 3 | 2 | 0 | 1 | 5 | 0.833 | 9 | 8 | +1 | 2-0-1 | W2 |
 | ![Colorado Avalanche](https://a.espncdn.com/i/teamlogos/nhl/500/col.png) | Avalanche | 2 | 2 | 0 | 0 | 4 | 1.000 | 14 | 5 | +9 | 2-0-0 | W2 |
 | ![Minnesota Wild](https://a.espncdn.com/i/teamlogos/nhl/500/min.png) | Wild | 2 | 2 | 0 | 0 | 4 | 1.000 | 7 | 2 | +5 | 2-0-0 | W2 |
 | ![Utah Mammoth](https://a.espncdn.com/i/teamlogos/nhl/500/utah.png) | Mammoth | 3 | 2 | 1 | 0 | 4 | 0.667 | 12 | 5 | +7 | 2-1-0 | L1 |
-| ![Winnipeg Jets](https://a.espncdn.com/i/teamlogos/nhl/500/wpg.png) | Jets | 2 | 1 | 0 | 1 | 3 | 0.750 | 6 | 6 | 0 | 1-0-1 | W1 |
 | ![St. Louis Blues](https://a.espncdn.com/i/teamlogos/nhl/500/stl.png) | Blues | 2 | 1 | 1 | 0 | 2 | 0.500 | 5 | 6 | −1 | 1-1-0 | L1 |
 | ![Nashville Predators](https://a.espncdn.com/i/teamlogos/nhl/500/nsh.png) | Predators | 2 | 1 | 1 | 0 | 2 | 0.500 | 3 | 4 | −1 | 1-1-0 | W1 |
-| ![Dallas Stars](https://a.espncdn.com/i/teamlogos/nhl/500/dal.png) | Stars | 2 | 0 | 2 | 0 | 0 | 0.000 | 1 | 6 | −5 | 0-2-0 | L2 |
+| ![Dallas Stars](https://a.espncdn.com/i/teamlogos/nhl/500/dal.png) | Stars | 3 | 1 | 2 | 0 | 2 | 0.333 | 6 | 6 | 0 | 1-2-0 | W1 |
 | ![Chicago Blackhawks](https://a.espncdn.com/i/teamlogos/nhl/500/chi.png) | Blackhawks | 3 | 0 | 3 | 0 | 0 | 0.000 | 5 | 15 | −10 | 0-3-0 | L3 |
 | Metropolitan |  |  |  |  |  |  |  |  |  |  |  |  |
 | ![New York Rangers](https://a.espncdn.com/i/teamlogos/nhl/500/nyr.png) | Rangers | 4 | 3 | 1 | 0 | 6 | 0.750 | 11 | 6 | +5 | 3-1-0 | W3 |
-| ![Pittsburgh Penguins](https://a.espncdn.com/i/teamlogos/nhl/500/pit.png) | Penguins | 2 | 2 | 0 | 0 | 4 | 1.000 | 13 | 5 | +8 | 2-0-0 | W2 |
+| ![Pittsburgh Penguins](https://a.espncdn.com/i/teamlogos/nhl/500/pit.png) | Penguins | 3 | 2 | 1 | 0 | 4 | 0.667 | 15 | 8 | +7 | 2-1-0 | L1 |
 | ![Carolina Hurricanes](https://a.espncdn.com/i/teamlogos/nhl/500/car.png) | Hurricanes | 3 | 1 | 1 | 1 | 3 | 0.500 | 5 | 8 | −3 | 1-1-1 | W1 |
 | ![New York Islanders](https://a.espncdn.com/i/teamlogos/nhl/500/nyi.png) | Islanders | 2 | 1 | 1 | 0 | 2 | 0.500 | 7 | 2 | +5 | 1-1-0 | W1 |
 | ![Washington Capitals](https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png) | Capitals | 2 | 1 | 1 | 0 | 2 | 0.500 | 6 | 5 | +1 | 1-1-0 | L1 |
@@ -168,9 +168,9 @@ standings |>
 | Pacific |  |  |  |  |  |  |  |  |  |  |  |  |
 | ![Edmonton Oilers](https://a.espncdn.com/i/teamlogos/nhl/500/edm.png) | Oilers | 3 | 2 | 0 | 1 | 5 | 0.833 | 17 | 14 | +3 | 2-0-1 | W2 |
 | ![Anaheim Ducks](https://a.espncdn.com/i/teamlogos/nhl/500/ana.png) | Ducks | 2 | 2 | 0 | 0 | 4 | 1.000 | 7 | 5 | +2 | 2-0-0 | W2 |
-| ![San Jose Sharks](https://a.espncdn.com/i/teamlogos/nhl/500/sj.png) | Sharks | 2 | 2 | 0 | 0 | 4 | 1.000 | 9 | 7 | +2 | 2-0-0 | W2 |
 | ![Seattle Kraken](https://a.espncdn.com/i/teamlogos/nhl/500/sea.png) | Kraken | 3 | 2 | 1 | 0 | 4 | 0.667 | 13 | 5 | +8 | 2-1-0 | W1 |
 | ![Vegas Golden Knights](https://a.espncdn.com/i/teamlogos/nhl/500/vgk.png) | Golden Knights | 3 | 2 | 1 | 0 | 4 | 0.667 | 11 | 8 | +3 | 2-1-0 | W1 |
+| ![San Jose Sharks](https://a.espncdn.com/i/teamlogos/nhl/500/sj.png) | Sharks | 3 | 2 | 1 | 0 | 4 | 0.667 | 9 | 12 | −3 | 2-1-0 | L1 |
 | ![Vancouver Canucks](https://a.espncdn.com/i/teamlogos/nhl/500/van.png) | Canucks | 4 | 2 | 2 | 0 | 4 | 0.500 | 19 | 18 | +1 | 2-2-0 | L1 |
 | ![Los Angeles Kings](https://a.espncdn.com/i/teamlogos/nhl/500/la.png) | Kings | 2 | 0 | 1 | 1 | 1 | 0.250 | 8 | 13 | −5 | 0-1-1 | OT1 |
 | ![Calgary Flames](https://a.espncdn.com/i/teamlogos/nhl/500/cgy.png) | Flames | 3 | 0 | 3 | 0 | 0 | 0.000 | 3 | 16 | −13 | 0-3-0 | L3 |
