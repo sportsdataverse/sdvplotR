@@ -1,7 +1,7 @@
 ## Release summary
 
 This is the first CRAN submission of sdvplotR, a plotting package for sports
-team logos, wordmarks, player headshots and team colors across eight leagues
+team logos, wordmarks, player headshots and team colors across nine leagues
 in 'ggplot2', 'gt' and 'reactable'. It is built on 'ggpath' (CRAN) and follows
 the conventions of 'nflplotR' (CRAN).
 
