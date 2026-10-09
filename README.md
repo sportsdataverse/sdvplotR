@@ -82,7 +82,7 @@ is the counterpart to the `gt` table helpers. Docs:
 [sportsdataverse/sdvplot-js](https://github.com/sportsdataverse/sdvplot-js).
 
 ``` sh
-npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables
+npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse/sporty
 ```
 
 ## **Usage**

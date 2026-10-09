@@ -68,7 +68,7 @@ install.packages("sdvplotR", repos = c("https://sportsdataverse.r-universe.dev",
 The same team colors, logos, wordmarks and headshots are on npm as [**`@sportsdataverse/sdvplot`**](https://www.npmjs.com/package/@sportsdataverse/sdvplot), with Observable Plot, D3, React and chart-library integrations plus shot charts. [**`@sportsdataverse/sdvtables`**](https://www.npmjs.com/package/@sportsdataverse/sdvtables) is the counterpart to the `gt` table helpers. Docs: [plot.sportsdataverse.org](https://plot.sportsdataverse.org). Source: [sportsdataverse/sdvplot-js](https://github.com/sportsdataverse/sdvplot-js).
 
 ``` sh
-npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables
+npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse/sporty
 ```
 
 ## **Usage**
