@@ -149,10 +149,10 @@ standings |>
 | ![Detroit Red Wings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a6/a634a4fcd294b2a439ccb16ab4e554227ec57aac2dfc198014f9f112a612c12d.png) | Red Wings | 3 | 1 | 2 | 0 | 2 | 0.333 | 7 | 8 | −1 | 1-2-0 | W1 |
 | Central |  |  |  |  |  |  |  |  |  |  |  |  |
 | ![Winnipeg Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/45/45d1d6176f1753f419671c1a45bf832042e339a8e47163abfff06337933ded8f.png) | Jets | 4 | 3 | 0 | 1 | 7 | 0.875 | 12 | 10 | +2 | 3-0-1 | W3 |
+| ![Colorado Avalanche](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/01/01dcc259d7d40935c487a1db0b464d933ebc120db6808bf3d845a2e902d55059.png) | Avalanche | 4 | 3 | 1 | 0 | 6 | 0.750 | 23 | 11 | +12 | 3-1-0 | W1 |
 | ![Utah Mammoth](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/26/260a50b0164256131df4675b558f03a748525f8c0b138c23f54f37f63c0958d8.png) | Mammoth | 5 | 3 | 2 | 0 | 6 | 0.600 | 18 | 14 | +4 | 3-2-0 | L1 |
 | ![Minnesota Wild](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b1/b1d7a8e3e887381d590649665080184cacfc50050f767c0723fcc6524ef95188.png) | Wild | 4 | 2 | 1 | 1 | 5 | 0.625 | 11 | 8 | +3 | 2-1-1 | L1 |
 | ![Nashville Predators](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4d/4d2e7def5af8332185bcfeb59fc9633f4fb30417262aa05e68095d93e4e12c2d.png) | Predators | 4 | 2 | 1 | 1 | 5 | 0.625 | 12 | 11 | +1 | 2-1-1 | W1 |
-| ![Colorado Avalanche](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/01/01dcc259d7d40935c487a1db0b464d933ebc120db6808bf3d845a2e902d55059.png) | Avalanche | 3 | 2 | 1 | 0 | 4 | 0.667 | 16 | 8 | +8 | 2-1-0 | L1 |
 | ![Dallas Stars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/58/58fcc157a3b553bd10c7231118623b1e8ef5303e6b93e490e357ab7f5ca6690d.png) | Stars | 4 | 2 | 2 | 0 | 4 | 0.500 | 10 | 6 | +4 | 2-2-0 | W2 |
 | ![St. Louis Blues](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/af/af4f35bdd196d566c9caa33e42dc0cd5284053631cb4a8ef190fb107f9e071b8.png) | Blues | 4 | 1 | 2 | 1 | 3 | 0.375 | 9 | 13 | −4 | 1-2-1 | OT1 |
 | ![Chicago Blackhawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4e/4e3260f13d674c1ec71e6ac7c08f9c6d4680fe4052a087814b66466ddaca15d9.png) | Blackhawks | 5 | 1 | 4 | 0 | 2 | 0.200 | 10 | 21 | −11 | 1-4-0 | L1 |
@@ -173,7 +173,7 @@ standings |>
 | ![Seattle Kraken](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/35/35208c3044f129338b22b3b4de0ca0bf384a2919468fe4077183ef5bcca87fcf.png) | Kraken | 4 | 2 | 2 | 0 | 4 | 0.500 | 15 | 11 | +4 | 2-2-0 | L1 |
 | ![Vancouver Canucks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/30/306e860f33a92794782c0a365006627d12a73b750e1350afb24592a60b36506c.png) | Canucks | 5 | 2 | 3 | 0 | 4 | 0.400 | 21 | 25 | −4 | 2-3-0 | L2 |
 | ![Los Angeles Kings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/92/92c3b54fa5e296730885fb0ed63a5a8c062d50c827ae3ab1733c9529974733ff.png) | Kings | 3 | 0 | 2 | 1 | 1 | 0.167 | 9 | 15 | −6 | 0-2-1 | L1 |
-| ![Calgary Flames](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e1638154eaae178588702673410e00938831f0a9b05512a0c8727c6e45e76a6.png) | Flames | 3 | 0 | 3 | 0 | 0 | 0.000 | 3 | 16 | −13 | 0-3-0 | L3 |
+| ![Calgary Flames](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e1638154eaae178588702673410e00938831f0a9b05512a0c8727c6e45e76a6.png) | Flames | 4 | 0 | 4 | 0 | 0 | 0.000 | 6 | 23 | −17 | 0-4-0 | L4 |
 | Data: api-web.nhle.com via fastRhockey \| Viz: sdvplotR |  |  |  |  |  |  |  |  |  |  |  |  |
 
 ## 2. Goal differential
