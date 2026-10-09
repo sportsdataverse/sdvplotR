@@ -259,7 +259,7 @@ contributing to this project, you agree to abide by its terms.
 To cite the [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) R
 package in publications, use:
 
-BibTex Citation
+BibTeX Citation
 
 ``` bibtex
 @misc{gilani_carl_lee_kay_weatherman_sdvplotR,
