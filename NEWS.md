@@ -6,6 +6,9 @@ college football, men's and women's college basketball, and soccer), built on 'g
 and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
 'mlbplotR'.
 
+* The README links the JavaScript / TypeScript siblings on npm,
+  `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`
+  (<https://plot.sportsdataverse.org>).
 * Saving a table to an image (`gt_save_crop()`, `gt_social_crop()`,
   `gt_save_batch()`, `gt_grid()`, `gt_stack_tables()`) gives headless Chrome
   60 seconds to start instead of chromote's 10: a loaded machine, such as a

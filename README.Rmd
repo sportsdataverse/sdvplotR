@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
 [![Codecov](https://img.shields.io/codecov/c/github/sportsdataverse/sdvplotR?logo=codecov&style=for-the-badge)](https://app.codecov.io/gh/sportsdataverse/sdvplotR)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=for-the-badge&logo=github)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-universe](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=success&label=r-universe&prefix=v&query=%24.Version&url=https%3A%2F%2Fsportsdataverse.r-universe.dev%2Fapi%2Fpackages%2FsdvplotR)](https://sportsdataverse.r-universe.dev/sdvplotR)
+[![npm sdvplot](https://img.shields.io/npm/v/@sportsdataverse/sdvplot?label=npm%20sdvplot&logo=npm&style=for-the-badge&color=success)](https://www.npmjs.com/package/@sportsdataverse/sdvplot)
 [![Contributors](https://img.shields.io/github/contributors/sportsdataverse/sdvplotR?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/graphs/contributors)
 [![X Follow](https://img.shields.io/twitter/follow/SportsDataverse?color=blue&label=%40SportsDataverse&logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
 <!-- badges: end -->
@@ -60,6 +61,14 @@ pak::pak("sportsdataverse/sdvplotR")
 ``` r
 # or from R-universe (binary builds):
 install.packages("sdvplotR", repos = c("https://sportsdataverse.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+### **JavaScript / TypeScript**
+
+The same team colors, logos, wordmarks and headshots are on npm as [**`@sportsdataverse/sdvplot`**](https://www.npmjs.com/package/@sportsdataverse/sdvplot), with Observable Plot, D3, React and chart-library integrations plus shot charts. [**`@sportsdataverse/sdvtables`**](https://www.npmjs.com/package/@sportsdataverse/sdvtables) is the counterpart to the `gt` table helpers. Docs: [plot.sportsdataverse.org](https://plot.sportsdataverse.org). Source: [sportsdataverse/sdvplot-js](https://github.com/sportsdataverse/sdvplot-js).
+
+``` sh
+npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse/sporty
 ```
 
 ## **Usage**
@@ -169,6 +178,7 @@ A printable `sdvplotR` cheat sheet will join [the set covering every SportsDatav
 | [**cfbseedR**](https://cfbseedR.sportsdataverse.org/) | CFB seeding and playoff simulation |
 | [**sportyR**](https://sportyR.sportsdataverse.org/) | Playing-surface plots |
 | [**sportsdataverse-R**](https://r.sportsdataverse.org/) | Umbrella R metapackage |
+| [**@sportsdataverse/sdvplot**](https://plot.sportsdataverse.org) · [**@sportsdataverse/sdvtables**](https://plot.sportsdataverse.org/guides/tables) | JavaScript / TypeScript plots and tables |
 | [**sportsdataverse-py**](https://py.sportsdataverse.org/) · [**sportsdataverse.js**](https://js.sportsdataverse.org/) | Python and Node.js |
 
 See the full ecosystem at [sportsdataverse.org](https://sportsdataverse.org/).
