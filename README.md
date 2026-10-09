@@ -24,9 +24,9 @@ Follow](https://img.shields.io/twitter/follow/SportsDataverse?color=blue&label=%
 <!-- badges: end -->
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
-team logos, wordmarks, player headshots and team colors across **eight
-leagues** — NFL, NBA, WNBA, MLB, NHL, college football, and men’s and
-women’s college basketball — in
+team logos, wordmarks, player headshots and team colors across **nine
+leagues** — NFL, NBA, WNBA, MLB, NHL, college football, men’s and
+women’s college basketball, and soccer — in
 [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
 [**`gt`**](https://gt.rstudio.com/) tables and
 [**`reactable`**](https://glin.github.io/reactable/) tables. It is built
@@ -199,20 +199,20 @@ SportsDataverse package](https://sportsdataverse.org/cheatsheets).
 
 `sdvplotR` draws the pictures; the companion packages fetch the data.
 
-| Package | Sport / Scope |
-|----|----|
-| [**cfbfastR**](https://cfbfastR.sportsdataverse.org/) | College football |
-| [**hoopR**](https://hoopR.sportsdataverse.org/) | Men’s basketball (NBA and NCAA) |
-| [**wehoop**](https://wehoop.sportsdataverse.org/) | Women’s basketball (WNBA and NCAA) |
-| [**fastRhockey**](https://fastRhockey.sportsdataverse.org/) | Hockey (NHL and PWHL) |
-| [**baseballr**](https://billpetti.github.io/baseballr/) | Baseball (MLB, MiLB, NCAA) |
-| [**nflfastR**](https://nflfastr.com/) · [**nflreadr**](https://nflreadr.nflverse.com/) | NFL play-by-play and data loaders |
-| [**oddsapiR**](https://oddsapiR.sportsdataverse.org/) | Sports betting odds |
-| [**cfbseedR**](https://cfbseedR.sportsdataverse.org/) | CFB seeding and playoff simulation |
-| [**sportyR**](https://sportyR.sportsdataverse.org/) | Playing-surface plots |
-| [**sportsdataverse-R**](https://r.sportsdataverse.org/) | Umbrella R metapackage |
+| Package                                                                                                                                             | Sport / Scope                            |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| [**cfbfastR**](https://cfbfastR.sportsdataverse.org/)                                                                                               | College football                         |
+| [**hoopR**](https://hoopR.sportsdataverse.org/)                                                                                                     | Men’s basketball (NBA and NCAA)          |
+| [**wehoop**](https://wehoop.sportsdataverse.org/)                                                                                                   | Women’s basketball (WNBA and NCAA)       |
+| [**fastRhockey**](https://fastRhockey.sportsdataverse.org/)                                                                                         | Hockey (NHL and PWHL)                    |
+| [**baseballr**](https://billpetti.github.io/baseballr/)                                                                                             | Baseball (MLB, MiLB, NCAA)               |
+| [**nflfastR**](https://nflfastr.com/) · [**nflreadr**](https://nflreadr.nflverse.com/)                                                              | NFL play-by-play and data loaders        |
+| [**oddsapiR**](https://oddsapiR.sportsdataverse.org/)                                                                                               | Sports betting odds                      |
+| [**cfbseedR**](https://cfbseedR.sportsdataverse.org/)                                                                                               | CFB seeding and playoff simulation       |
+| [**sportyR**](https://sportyR.sportsdataverse.org/)                                                                                                 | Playing-surface plots                    |
+| [**sportsdataverse-R**](https://r.sportsdataverse.org/)                                                                                             | Umbrella R metapackage                   |
 | [**@sportsdataverse/sdvplot**](https://plot.sportsdataverse.org) · [**@sportsdataverse/sdvtables**](https://plot.sportsdataverse.org/guides/tables) | JavaScript / TypeScript plots and tables |
-| [**sportsdataverse-py**](https://py.sportsdataverse.org/) · [**sportsdataverse.js**](https://js.sportsdataverse.org/) | Python and Node.js |
+| [**sportsdataverse-py**](https://py.sportsdataverse.org/) · [**sportsdataverse.js**](https://js.sportsdataverse.org/)                               | Python and Node.js                       |
 
 See the full ecosystem at
 [sportsdataverse.org](https://sportsdataverse.org/).
@@ -227,25 +227,25 @@ stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=ee
 
 ## **Our Authors**
 
-- [Saiem Gilani](https://x.com/saiemgilani)
-  <a href="https://orcid.org/0000-0002-7194-9067" target="orcid.widget" aria-label="ORCID"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID logo"></a></br>
-  <a href="https://x.com/saiemgilani" target="blank"><img src="https://img.shields.io/twitter/follow/saiemgilani?color=blue&label=%40saiemgilani&logo=x&style=for-the-badge" alt="@saiemgilani" /></a>
-  <a href="https://github.com/saiemgilani" target="blank"><img src="https://img.shields.io/github/followers/saiemgilani?color=eee&logo=Github&style=for-the-badge" alt="@saiemgilani" /></a>
+  - [Saiem Gilani](https://x.com/saiemgilani)
+    <a href="https://orcid.org/0000-0002-7194-9067" target="orcid.widget" aria-label="ORCID"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID logo"></a></br>
+    <a href="https://x.com/saiemgilani" target="blank"><img src="https://img.shields.io/twitter/follow/saiemgilani?color=blue&label=%40saiemgilani&logo=x&style=for-the-badge" alt="@saiemgilani" /></a>
+    <a href="https://github.com/saiemgilani" target="blank"><img src="https://img.shields.io/github/followers/saiemgilani?color=eee&logo=Github&style=for-the-badge" alt="@saiemgilani" /></a>
 
-- [Sebastian Carl](https://x.com/mrcaseb) </br>
-  <a href="https://x.com/mrcaseb" target="blank"><img src="https://img.shields.io/twitter/follow/mrcaseb?color=blue&label=%40mrcaseb&logo=x&style=for-the-badge" alt="@mrcaseb" /></a>
-  <a href="https://github.com/mrcaseb" target="blank"><img src="https://img.shields.io/github/followers/mrcaseb?color=eee&logo=Github&style=for-the-badge" alt="@mrcaseb" /></a>
+  - [Sebastian Carl](https://x.com/mrcaseb) </br>
+    <a href="https://x.com/mrcaseb" target="blank"><img src="https://img.shields.io/twitter/follow/mrcaseb?color=blue&label=%40mrcaseb&logo=x&style=for-the-badge" alt="@mrcaseb" /></a>
+    <a href="https://github.com/mrcaseb" target="blank"><img src="https://img.shields.io/github/followers/mrcaseb?color=eee&logo=Github&style=for-the-badge" alt="@mrcaseb" /></a>
 
-- [Jared Lee](https://github.com/Kazink36) </br>
-  <a href="https://github.com/Kazink36" target="blank"><img src="https://img.shields.io/github/followers/Kazink36?color=eee&logo=Github&style=for-the-badge" alt="@Kazink36" /></a>
+  - [Jared Lee](https://github.com/Kazink36) </br>
+    <a href="https://github.com/Kazink36" target="blank"><img src="https://img.shields.io/github/followers/Kazink36?color=eee&logo=Github&style=for-the-badge" alt="@Kazink36" /></a>
 
-- [Camden Kay](https://x.com/camdenkay) </br>
-  <a href="https://x.com/camdenkay" target="blank"><img src="https://img.shields.io/twitter/follow/camdenkay?color=blue&label=%40camdenkay&logo=x&style=for-the-badge" alt="@camdenkay" /></a>
-  <a href="https://github.com/camdenk" target="blank"><img src="https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge" alt="@camdenk" /></a>
+  - [Camden Kay](https://x.com/camdenkay) </br>
+    <a href="https://x.com/camdenkay" target="blank"><img src="https://img.shields.io/twitter/follow/camdenkay?color=blue&label=%40camdenkay&logo=x&style=for-the-badge" alt="@camdenkay" /></a>
+    <a href="https://github.com/camdenk" target="blank"><img src="https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge" alt="@camdenk" /></a>
 
-- [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)
-  </br>
-  <a href="https://github.com/andreweatherman" target="blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge" alt="@andreweatherman" /></a>
+  - [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)
+    </br>
+    <a href="https://github.com/andreweatherman" target="blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge" alt="@andreweatherman" /></a>
 
 ## **Code of Conduct**
 
