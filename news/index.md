@@ -8,6 +8,9 @@ college football, men’s and women’s college basketball, and soccer),
 built on ‘ggpath’ and following the conventions of ‘nflplotR’,
 ‘cfbplotR’, ‘nbaplotR’ and ‘mlbplotR’.
 
+- The README links the JavaScript / TypeScript siblings on npm,
+  `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`
+  (<https://plot.sportsdataverse.org>).
 - Saving a table to an image
   ([`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md),
   [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md),

@@ -51,6 +51,21 @@ pak::pak("sportsdataverse/sdvplotR")
 install.packages("sdvplotR", repos = c("https://sportsdataverse.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
+### **JavaScript / TypeScript**
+
+The same team colors, logos, wordmarks and headshots are on npm as
+[**`@sportsdataverse/sdvplot`**](https://www.npmjs.com/package/@sportsdataverse/sdvplot),
+with Observable Plot, D3, React and chart-library integrations plus shot
+charts.
+[**`@sportsdataverse/sdvtables`**](https://www.npmjs.com/package/@sportsdataverse/sdvtables)
+is the counterpart to the `gt` table helpers. Docs:
+[plot.sportsdataverse.org](https://plot.sportsdataverse.org). Source:
+[sportsdataverse/sdvplot-js](https://github.com/sportsdataverse/sdvplot-js).
+
+``` sh
+npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse/sporty
+```
+
 ## **Usage**
 
 Every function takes a `sport` argument (`"nfl"`, `"nba"`, `"wnba"`,
@@ -191,6 +206,7 @@ SportsDataverse package](https://sportsdataverse.org/cheatsheets).
 | [**cfbseedR**](https://cfbseedR.sportsdataverse.org/) | CFB seeding and playoff simulation |
 | [**sportyR**](https://sportyR.sportsdataverse.org/) | Playing-surface plots |
 | [**sportsdataverse-R**](https://r.sportsdataverse.org/) | Umbrella R metapackage |
+| [**@sportsdataverse/sdvplot**](https://plot.sportsdataverse.org) · [**@sportsdataverse/sdvtables**](https://plot.sportsdataverse.org/guides/tables) | JavaScript / TypeScript plots and tables |
 | [**sportsdataverse-py**](https://py.sportsdataverse.org/) · [**sportsdataverse.js**](https://js.sportsdataverse.org/) | Python and Node.js |
 
 See the full ecosystem at

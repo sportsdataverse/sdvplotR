@@ -273,13 +273,20 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># or from R-universe (binary builds):</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"sdvplotR"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://sportsdataverse.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="javascript--typescript">
+<strong>JavaScript / TypeScript</strong><a class="anchor" aria-label="anchor" href="#javascript--typescript"></a>
+</h3>
+<p>The same team colors, logos, wordmarks and headshots are on npm as <a href="https://www.npmjs.com/package/@sportsdataverse/sdvplot" class="external-link"><strong><code>@sportsdataverse/sdvplot</code></strong></a>, with Observable Plot, D3, React and chart-library integrations plus shot charts. <a href="https://www.npmjs.com/package/@sportsdataverse/sdvtables" class="external-link"><strong><code>@sportsdataverse/sdvtables</code></strong></a> is the counterpart to the <code>gt</code> table helpers. Docs: <a href="https://plot.sportsdataverse.org" class="external-link">plot.sportsdataverse.org</a>. Source: <a href="https://github.com/sportsdataverse/sdvplot-js" class="external-link">sportsdataverse/sdvplot-js</a>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">npm</span> install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse/sporty</span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="usage">
 <strong>Usage</strong><a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>Every function takes a <code>sport</code> argument (<code>"nfl"</code>, <code>"nba"</code>, <code>"wnba"</code>, <code>"mlb"</code>, <code>"nhl"</code>, <code>"cfb"</code>, <code>"mbb"</code>, <code>"wbb"</code>). Team keys are cleaned automatically: full names, alternate abbreviations used by other data providers and historical abbreviations of relocated franchises (<code>"OAK"</code> → <code>"LV"</code>, <code>"SEA"</code> → <code>"OKC"</code>) all resolve to the same team.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sdvplotR.sportsdataverse.org/">sdvplotR</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
@@ -293,7 +300,7 @@
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">a</span>, y <span class="op">=</span> <span class="va">b</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">teams</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, width <span class="op">=</span> <span class="fl">0.075</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Logos as axis labels + team colours as fill</span></span>
 <span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  team  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span>, <span class="st">"DAL"</span><span class="op">)</span>,</span>
@@ -305,7 +312,7 @@
 <span>  <span class="fu"><a href="reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="reference/element_sdv.html">element_sdv_logo</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Logos inside a gt table, in the SportsDataverse table theme</span></span>
@@ -318,7 +325,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>player <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Patrick Mahomes"</span>, <span class="st">"Travis Kelce"</span><span class="op">)</span>, yards <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4183</span>, <span class="fl">984</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"KC"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Logos inside a reactable table with team-coloured bars</span></span>
@@ -402,6 +409,12 @@
 </tr>
 <tr>
 <td>
+<a href="https://plot.sportsdataverse.org" class="external-link"><strong>@sportsdataverse/sdvplot</strong></a> · <a href="https://plot.sportsdataverse.org/guides/tables" class="external-link"><strong>@sportsdataverse/sdvtables</strong></a>
+</td>
+<td>JavaScript / TypeScript plots and tables</td>
+</tr>
+<tr>
+<td>
 <a href="https://py.sportsdataverse.org/" class="external-link"><strong>sportsdataverse-py</strong></a> · <a href="https://js.sportsdataverse.org/" class="external-link"><strong>sportsdataverse.js</strong></a>
 </td>
 <td>Python and Node.js</td>
@@ -440,12 +453,12 @@
 </h2>
 <p>To cite the <a href="https://sdvplotR.sportsdataverse.org/"><strong><code>sdvplotR</code></strong></a> R package in publications, use:</p>
 <p>BibTex Citation</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -507,6 +520,7 @@
 <li><a href="https://app.codecov.io/gh/sportsdataverse/sdvplotR" class="external-link"><img src="https://img.shields.io/codecov/c/github/sportsdataverse/sdvplotR?logo=codecov&amp;style=for-the-badge" alt="Codecov"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=for-the-badge&amp;logo=github" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://sportsdataverse.r-universe.dev/sdvplotR" class="external-link"><img src="https://img.shields.io/badge/dynamic/json?style=for-the-badge&amp;color=success&amp;label=r-universe&amp;prefix=v&amp;query=%24.Version&amp;url=https%3A%2F%2Fsportsdataverse.r-universe.dev%2Fapi%2Fpackages%2FsdvplotR" alt="R-universe"></a></li>
+<li><a href="https://www.npmjs.com/package/@sportsdataverse/sdvplot" class="external-link"><img src="https://img.shields.io/npm/v/@sportsdataverse/sdvplot?label=npm%20sdvplot&amp;logo=npm&amp;style=for-the-badge&amp;color=success" alt="npm sdvplot"></a></li>
 <li><a href="https://github.com/sportsdataverse/sdvplotR/graphs/contributors" class="external-link"><img src="https://img.shields.io/github/contributors/sportsdataverse/sdvplotR?style=for-the-badge" alt="Contributors"></a></li>
 <li><a href="https://x.com/SportsDataverse" class="external-link"><img src="https://img.shields.io/twitter/follow/SportsDataverse?color=blue&amp;label=%40SportsDataverse&amp;logo=x&amp;style=for-the-badge" alt="X Follow"></a></li>
 </ul>
