@@ -88,10 +88,10 @@ npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse
 ## **Usage**
 
 Every function takes a `sport` argument (`"nfl"`, `"nba"`, `"wnba"`,
-`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`). Team keys are cleaned
-automatically: full names, alternate abbreviations used by other data
-providers and historical abbreviations of relocated franchises (`"OAK"`
-→ `"LV"`, `"SEA"` → `"OKC"`) all resolve to the same team.
+`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"`). Team keys are
+cleaned automatically: full names, alternate abbreviations used by other
+data providers and historical abbreviations of relocated franchises
+(`"OAK"` → `"LV"`, `"SEA"` → `"OKC"`) all resolve to the same team.
 
 ``` r
 library(sdvplotR)
