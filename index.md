@@ -1,9 +1,9 @@
 # **sdvplotR**
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
-team logos, wordmarks, player headshots and team colors across **eight
-leagues** — NFL, NBA, WNBA, MLB, NHL, college football, and men’s and
-women’s college basketball — in
+team logos, wordmarks, player headshots and team colors across **nine
+leagues** — NFL, NBA, WNBA, MLB, NHL, college football, men’s and
+women’s college basketball, and soccer — in
 [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
 [**`gt`**](https://gt.rstudio.com/) tables and
 [**`reactable`**](https://glin.github.io/reactable/) tables. It is built
@@ -69,10 +69,10 @@ npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse
 ## **Usage**
 
 Every function takes a `sport` argument (`"nfl"`, `"nba"`, `"wnba"`,
-`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`). Team keys are cleaned
-automatically: full names, alternate abbreviations used by other data
-providers and historical abbreviations of relocated franchises (`"OAK"`
-→ `"LV"`, `"SEA"` → `"OKC"`) all resolve to the same team.
+`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"`). Team keys are
+cleaned automatically: full names, alternate abbreviations used by other
+data providers and historical abbreviations of relocated franchises
+(`"OAK"` → `"LV"`, `"SEA"` → `"OKC"`) all resolve to the same team.
 
 ``` r
 
