@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 [![R-universe](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=success&label=r-universe&prefix=v&query=%24.Version&url=https%3A%2F%2Fsportsdataverse.r-universe.dev%2Fapi%2Fpackages%2FsdvplotR)](https://sportsdataverse.r-universe.dev/sdvplotR)
 [![npm sdvplot](https://img.shields.io/npm/v/@sportsdataverse/sdvplot?label=npm%20sdvplot&logo=npm&style=for-the-badge&color=success)](https://www.npmjs.com/package/@sportsdataverse/sdvplot)
 [![Contributors](https://img.shields.io/github/contributors/sportsdataverse/sdvplotR?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/graphs/contributors)
-[![X Follow](https://img.shields.io/twitter/follow/SportsDataverse?color=blue&label=%40SportsDataverse&logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
+[![X Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
 <!-- badges: end -->
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports team logos, wordmarks, player headshots and team colors across **nine leagues** — NFL, NBA, WNBA, MLB, NHL, college football, men's and women's college basketball, and soccer — in [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots, [**`gt`**](https://gt.rstudio.com/) tables and [**`reactable`**](https://glin.github.io/reactable/) tables. It is built on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the approach established by [nflplotR](https://nflplotr.nflverse.com/), [cfbplotR](https://cfbplotR.sportsdataverse.org/), [nbaplotR](https://mrcaseb.github.io/nbaplotR/) and [mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `sport` argument.
@@ -185,29 +185,29 @@ See the full ecosystem at [sportsdataverse.org](https://sportsdataverse.org/).
 
 ## Follow the [SportsDataverse](https://x.com/SportsDataverse) on X and star this repo
 
-[![X Follow](https://img.shields.io/twitter/follow/SportsDataverse?color=blue&label=%40SportsDataverse&logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
+[![X Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
 
 [![GitHub stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=eee&logo=github&style=for-the-badge&label=Star%20sdvplotR&maxAge=2592000)](https://github.com/sportsdataverse/sdvplotR)
 
 ## **Our Authors**
 
--   [Saiem Gilani](https://x.com/saiemgilani) <a href="https://orcid.org/0000-0002-7194-9067" target="orcid.widget" aria-label="ORCID"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID logo"></a></br>
-<a href="https://x.com/saiemgilani" target="blank"><img src="https://img.shields.io/twitter/follow/saiemgilani?color=blue&label=%40saiemgilani&logo=x&style=for-the-badge" alt="@saiemgilani" /></a>
-<a href="https://github.com/saiemgilani" target="blank"><img src="https://img.shields.io/github/followers/saiemgilani?color=eee&logo=Github&style=for-the-badge" alt="@saiemgilani" /></a>
+-   [Saiem Gilani](https://x.com/saiemgilani) <a href="https://orcid.org/0000-0002-7194-9067" target="orcid.widget" aria-label="ORCID"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID logo"></a><br>
+<a href="https://x.com/saiemgilani" target="_blank"><img src="https://img.shields.io/badge/%40saiemgilani-blue?logo=x&style=for-the-badge" alt="@saiemgilani" /></a>
+<a href="https://github.com/saiemgilani" target="_blank"><img src="https://img.shields.io/github/followers/saiemgilani?color=eee&logo=Github&style=for-the-badge" alt="@saiemgilani" /></a>
 
--   [Sebastian Carl](https://x.com/mrcaseb) </br>
-<a href="https://x.com/mrcaseb" target="blank"><img src="https://img.shields.io/twitter/follow/mrcaseb?color=blue&label=%40mrcaseb&logo=x&style=for-the-badge" alt="@mrcaseb" /></a>
-<a href="https://github.com/mrcaseb" target="blank"><img src="https://img.shields.io/github/followers/mrcaseb?color=eee&logo=Github&style=for-the-badge" alt="@mrcaseb" /></a>
+-   [Sebastian Carl](https://x.com/mrcaseb) <br>
+<a href="https://x.com/mrcaseb" target="_blank"><img src="https://img.shields.io/badge/%40mrcaseb-blue?logo=x&style=for-the-badge" alt="@mrcaseb" /></a>
+<a href="https://github.com/mrcaseb" target="_blank"><img src="https://img.shields.io/github/followers/mrcaseb?color=eee&logo=Github&style=for-the-badge" alt="@mrcaseb" /></a>
 
--   [Jared Lee](https://github.com/Kazink36) </br>
-<a href="https://github.com/Kazink36" target="blank"><img src="https://img.shields.io/github/followers/Kazink36?color=eee&logo=Github&style=for-the-badge" alt="@Kazink36" /></a>
+-   [Jared Lee](https://github.com/Kazink36) <br>
+<a href="https://github.com/Kazink36" target="_blank"><img src="https://img.shields.io/github/followers/Kazink36?color=eee&logo=Github&style=for-the-badge" alt="@Kazink36" /></a>
 
--   [Camden Kay](https://x.com/camdenkay) </br>
-<a href="https://x.com/camdenkay" target="blank"><img src="https://img.shields.io/twitter/follow/camdenkay?color=blue&label=%40camdenkay&logo=x&style=for-the-badge" alt="@camdenkay" /></a>
-<a href="https://github.com/camdenk" target="blank"><img src="https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge" alt="@camdenk" /></a>
+-   [Camden Kay](https://x.com/camdenkay) <br>
+<a href="https://x.com/camdenkay" target="_blank"><img src="https://img.shields.io/badge/%40camdenkay-blue?logo=x&style=for-the-badge" alt="@camdenkay" /></a>
+<a href="https://github.com/camdenk" target="_blank"><img src="https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge" alt="@camdenk" /></a>
 
--   [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils) </br>
-<a href="https://github.com/andreweatherman" target="blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge" alt="@andreweatherman" /></a>
+-   [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils) <br>
+<a href="https://github.com/andreweatherman" target="_blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge" alt="@andreweatherman" /></a>
 
 ## **Code of Conduct**
 
