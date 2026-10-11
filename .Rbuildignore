@@ -4,6 +4,7 @@
 ^\.gitattributes$
 ^\.editorconfig$
 ^\.lintr$
+^\.coderabbit\.yaml$
 ^\.stylerignore$
 ^\.omc$
 ^\.claude$
