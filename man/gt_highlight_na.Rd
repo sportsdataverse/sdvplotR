@@ -63,17 +63,17 @@ library(gt)
 afc <- subset(sdv_example_standings, conference == "AFC",
   c(team_name, wins, losses, conference_rank, playoff_wins))
 
-gt(afc) \%>\% gt_highlight_na(playoff_wins)
+gt(afc) |> gt_highlight_na(playoff_wins)
 
 # relabel as well as highlight
-gt(afc) \%>\%
+gt(afc) |>
   gt_highlight_na(playoff_wins,
     missing_text = "missed playoffs",
     italic = TRUE, fill = "#FFF8E1"
   )
 
 # also catch placeholder strings left behind by a CSV import
-gt(afc) \%>\%
+gt(afc) |>
   gt_highlight_na(everything(), na_strings = c("NA", "N/A", "-"))
 
 }

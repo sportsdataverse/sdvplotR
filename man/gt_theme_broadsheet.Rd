@@ -58,12 +58,12 @@ library(gt)
 
 nfc_east <- subset(sdv_example_standings, division == "NFC East",
   c(team_name, wins:points_against))
-gt(nfc_east) \%>\% gt_theme_broadsheet()
+gt(nfc_east) |> gt_theme_broadsheet()
 
 # financial-press pink, sized for an image export
 pacific <- subset(sdv_example_standings, division == "Pacific",
   c(team_name, wins, losses, win_pct:points_against))
-gt(pacific) \%>\%
+gt(pacific) |>
   gt_theme_broadsheet(paper = "salmon", accent = "#0F5257", density = "social")
 
 }

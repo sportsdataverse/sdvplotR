@@ -36,7 +36,7 @@
 #' afc_south <- subset(sdv_example_standings, division == "AFC South",
 #'   c(team_name, wins:points_against))
 #'
-#' gt(afc_south) %>% gt_watermark(text = "DRAFT", angle = -30, opacity = 0.08)
+#' gt(afc_south) |> gt_watermark(text = "DRAFT", angle = -30, opacity = 0.08)
 #'
 #' # any local png, jpeg, gif or svg; a small svg written on the spot here
 #' logo <- tempfile(fileext = ".svg")
@@ -44,12 +44,11 @@
 #'   '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40">',
 #'   '<circle cx="20" cy="20" r="18"/></svg>'
 #' ), logo)
-#' gt(afc_south) %>%
+#' gt(afc_south) |>
 #'   gt_watermark(image = logo, size = "40%", position = "right bottom")
 #'
 #' @seealso [gt_social_tag()] for visible attribution in the source note.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_watermark <- function(gt_object, text = NULL, image = NULL, opacity = 0.06,
                          size = "60%", position = "center", color = "#000000",

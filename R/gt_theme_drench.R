@@ -39,20 +39,19 @@
 #' library(gt)
 #' southwest <- subset(sdv_example_standings, division == "Southwest",
 #'   c(team_name, wins, losses, win_pct:points_against))
-#' gt(southwest) %>% gt_theme_drench()
+#' gt(southwest) |> gt_theme_drench()
 #'
 #' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 #' # a brand color, with a matching export canvas; saving needs a headless
 #' # Chrome (webshot2)
 #' \donttest{
-#' gt(southwest) %>%
-#'   gt_theme_drench(color = "#4B1E78", density = "social") %>%
+#' gt(southwest) |>
+#'   gt_theme_drench(color = "#4B1E78", density = "social") |>
 #'   gt_social_crop(tempfile(fileext = ".png"), bg = "#4B1E78")
 #' }
 #'
 #' @seealso [gt_theme_midnight()] for a restrained dark background instead.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_theme_drench <- function(gt_object, color = "#123F5E",
                             density = c("comfortable", "compact", "social"),

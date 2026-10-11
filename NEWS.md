@@ -6,6 +6,13 @@ college football, men's and women's college basketball, and soccer), built on 'g
 and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
 'mlbplotR'.
 
+* sdvplotR no longer re-exports the magrittr pipe `%>%`. Examples use R's
+  native pipe `|>`; load magrittr or dplyr to keep writing `%>%`.
+* Fewer dependencies: gtExtras, magrittr, memoise and nflreadr are no longer
+  imported, and paletteer moved to Suggests (it is needed only to expand a
+  `"package::palette"` name, and is asked for when one is passed). The NFL
+  headshot map is read with base `readRDS()` and cached for the session.
+
 * The README links the JavaScript / TypeScript siblings on npm,
   `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`
   (<https://plot.sportsdataverse.org>).

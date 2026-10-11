@@ -48,10 +48,10 @@
 #'   c(team_name, points_for, points_against))
 #'
 #' # the default fence (1.5 times the IQR) catches the league's lowest scorer
-#' gt(nba) %>% gt_outliers(c(points_for, points_against), note = TRUE)
+#' gt(nba) |> gt_outliers(c(points_for, points_against), note = TRUE)
 #'
 #' # an explicit acceptance range, flagging only the high side
-#' gt(nba) %>%
+#' gt(nba) |>
 #'   gt_outliers(c(points_for, points_against),
 #'     method = "bounds", bounds = c(NA, 9800),
 #'     side = "high", fill = "#FDECEA", symbol = "†"
@@ -60,12 +60,11 @@
 #' # works on wider data too
 #' nfl <- subset(sdv_example_standings, league == "nfl",
 #'   c(team_name, wins, points_for, points_against))
-#' gt(nfl) %>% gt_outliers(c(wins, points_for, points_against))
+#' gt(nfl) |> gt_outliers(c(wins, points_for, points_against))
 #'
 #' @seealso [gt_highlight_na()] for missing values, and [gt_spotlight()] for
 #'   drawing attention to whole rows.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_outliers <- function(gt_object, columns, method = c("iqr", "sd", "bounds"),
                         threshold = NULL, bounds = NULL,

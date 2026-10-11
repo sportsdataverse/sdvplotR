@@ -70,14 +70,16 @@ ranked <- data.frame(
   defense_rank = rank(west$points_against, ties.method = "min")
 )
 
-gt(ranked) \%>\% gt_color_ranks(c(offense_rank, defense_rank))
+gt(ranked) |> gt_color_ranks(c(offense_rank, defense_rank))
 
 # a paletteer palette, reversed
-gt(ranked) \%>\%
-  gt_color_ranks(offense_rank,
-    palette = "viridis::mako", pal_type = "continuous",
-    reverse = TRUE
-  )
+if (requireNamespace("paletteer", quietly = TRUE)) {
+  gt(ranked) |>
+    gt_color_ranks(offense_rank,
+      palette = "viridis::mako", pal_type = "continuous",
+      reverse = TRUE
+    )
+}
 
 }
 \seealso{

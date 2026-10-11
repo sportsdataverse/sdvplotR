@@ -34,17 +34,16 @@
 #'   c(team_name, points_for, points_against))
 #'
 #' # Boston's 9,418 points render as 9.4, with "Figures in thousands." beneath
-#' gt(atlantic) %>%
+#' gt(atlantic) |>
 #'   gt_scale_note(c(points_for, points_against), divisor = 1e3, decimals = 1)
 #'
 #' # disclose in the column labels instead
-#' gt(atlantic) %>%
+#' gt(atlantic) |>
 #'   gt_scale_note(c(points_for, points_against),
 #'     divisor = 1e3, decimals = 2, where = "label"
 #'   )
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_scale_note <- function(gt_object, columns, divisor = 1000, note = NULL,
                           where = c("source_note", "label", "both"),

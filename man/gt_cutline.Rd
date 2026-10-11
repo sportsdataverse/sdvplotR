@@ -91,12 +91,12 @@ east <- subset(sdv_example_standings, league == "nba" & conference == "Eastern",
 east <- east[order(east$conference_rank), ]
 
 # mark where the six teams that skip the play-in end
-gt(east) \%>\%
-  gt_theme_broadsheet() \%>\%
+gt(east) |>
+  gt_theme_broadsheet() |>
   gt_cutline(after = 6, label = "Playoffs")
 
 # the play-in line as well, unlabeled
-gt(east) \%>\%
+gt(east) |>
   gt_cutline(after = c(6, 10), label = c("Playoffs", NA), color = "#0054AD")
 
 }

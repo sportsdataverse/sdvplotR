@@ -42,9 +42,9 @@
 #' # after the snake, each column carries its block number as a suffix
 #' snaked <- unlist(lapply(1:2, function(i) paste0(names(nfc), "_", i)))
 #'
-#' nfc %>%
-#'   gt() %>%
-#'   gt_snake(n_cols = 2) %>%
+#' nfc |>
+#'   gt() |>
+#'   gt_snake(n_cols = 2) |>
 #'   gt_highlight_cells(tidyselect::all_of(snaked),
 #'     condition = gt_snake_align(mask, n_cols = 2),
 #'     fill = "#EDBD68"

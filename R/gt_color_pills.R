@@ -64,7 +64,6 @@
 #'
 #' @import gt
 #' @import glue
-#' @importFrom magrittr %>%
 #'
 #' @returns Returns a modified `gt` table with color pills in the selected columns.
 #'
@@ -78,23 +77,25 @@
 #' afc <- subset(sdv_example_standings, conference == "AFC" & conference_rank <= 7,
 #'   c(team_name, wins, losses, points_for, points_against))
 #'
-#' gt(afc) %>% gt_color_pills(wins, domain = c(0, 17))
+#' gt(afc) |> gt_color_pills(wins, domain = c(0, 17))
 #'
 #' # several columns on one shared domain
-#' gt(afc) %>% gt_color_pills(c(points_for, points_against), domain = c(250, 550))
+#' gt(afc) |> gt_color_pills(c(points_for, points_against), domain = c(250, 550))
 #'
 #' # tidyselect works too
-#' gt(afc) %>% gt_color_pills(starts_with("points"), domain = c(250, 550))
+#' gt(afc) |> gt_color_pills(starts_with("points"), domain = c(250, 550))
 #'
 #' # only the rows that clear a threshold; the rest keep their raw value
-#' gt(afc) %>% gt_color_pills(wins, rows = wins >= 13, domain = c(0, 17))
+#' gt(afc) |> gt_color_pills(wins, rows = wins >= 13, domain = c(0, 17))
 #'
 #' # color by rank rather than value, with a paletteer palette
-#' gt(afc) %>%
-#'   gt_color_pills(points_for,
-#'     fill_type = "rank", palette = "viridis::mako",
-#'     domain = c(1, 7), digits = 0
-#'   )
+#' if (requireNamespace("paletteer", quietly = TRUE)) {
+#'   gt(afc) |>
+#'     gt_color_pills(points_for,
+#'       fill_type = "rank", palette = "viridis::mako",
+#'       domain = c(1, 7), digits = 0
+#'     )
+#' }
 #'
 #' @export
 gt_color_pills <- function(gt_object, columns, rows = NULL,

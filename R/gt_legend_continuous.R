@@ -78,8 +78,8 @@
 #' can be added with no arguments and cannot disagree with the cells it explains:
 #'
 #' ```r
-#' gt(df) %>%
-#'   gt_color_ranks(net, palette = "viridis::mako", domain = c(-10, 12)) %>%
+#' gt(df) |>
+#'   gt_color_ranks(net, palette = "viridis::mako", domain = c(-10, 12)) |>
 #'   gt_legend_continuous()
 #' ```
 #'
@@ -108,15 +108,15 @@
 #' # the legend matches whatever gt_color_ranks() drew
 #' nfc_east <- subset(sdv_example_standings, division == "NFC East",
 #'   c(team_name, wins, losses, points_for))
-#' gt(nfc_east) %>%
-#'   gt_color_ranks(columns = points_for) %>%
+#' gt(nfc_east) |>
+#'   gt_color_ranks(columns = points_for) |>
 #'   gt_legend_continuous(columns = points_for, title = "Points scored")
 #'
 #' # discrete blocks, labeled at every bin edge, title to the left
 #' west <- subset(sdv_example_standings, league == "nba" & conference == "Western",
 #'   c(team_name, wins, losses))
-#' gt(west) %>%
-#'   gt_color_ranks(columns = wins) %>%
+#' gt(west) |>
+#'   gt_color_ranks(columns = wins) |>
 #'   gt_legend_continuous(
 #'     columns = wins, type = "blocks", n_bins = 5, labels = "edges",
 #'     title = "Wins", title_position = "left",
@@ -129,7 +129,6 @@
 #'
 #' @seealso [gt_color_ranks()], and [gt_legend_discrete()] for a discrete key.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_legend_continuous <- function(gt_object, columns = NULL,
                                  palette = c("#3D8B6E", "#9DC5A7", "#EDE0CC", "#DB9070", "#BE4D3A"),

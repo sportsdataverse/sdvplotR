@@ -53,10 +53,10 @@ centered.
 library(gt)
 afc_west <- subset(sdv_example_standings, division == "AFC West",
   c(team_name, wins:points_against))
-gt(afc_west) \%>\% gt_theme_swiss()
+gt(afc_west) |> gt_theme_swiss()
 
 pacific <- subset(sdv_example_standings, division == "Pacific",
   c(team_name, wins, losses, win_pct:points_against))
-gt(pacific) \%>\% gt_theme_swiss(accent = "#D33A2C")
+gt(pacific) |> gt_theme_swiss(accent = "#D33A2C")
 
 }

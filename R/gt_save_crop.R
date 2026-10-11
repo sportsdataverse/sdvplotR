@@ -1,8 +1,8 @@
 #' Save a `gt` table to an image and trim its whitespace
 #'
-#' Renders a table to a PNG, JPG, or JPEG, trims the whitespace `gtExtras` leaves
+#' Renders a table to a PNG, JPG, or JPEG, trims the whitespace the screenshot leaves
 #' around it, and pads a uniform border back on. Saving runs through
-#' `gtExtras::gtsave_extra()` and the trimming and padding through `magick`.
+#' headless Chrome (`webshot2`) and the trimming and padding through `magick`.
 #'
 #' @param data A `gt` table object to save.
 #' @param file Character. A path ending in `.png`, `.jpg`, or `.jpeg` to write
@@ -35,21 +35,19 @@
 #'
 #' afc_east <- subset(sdv_example_standings, division == "AFC East",
 #'   c(team_name, wins:points_against))
-#' gt(afc_east) %>%
-#'   gt_theme_broadsheet() %>%
+#' gt(afc_east) |>
+#'   gt_theme_broadsheet() |>
 #'   gt_save_crop(tempfile(fileext = ".png"))
 #'
 #' # pin a shared width across a series
 #' atlantic <- subset(sdv_example_standings, division == "Atlantic",
 #'   c(team_name, wins, losses, win_pct:points_against))
-#' gt(atlantic) %>%
+#' gt(atlantic) |>
 #'   gt_save_crop(tempfile(fileext = ".png"), width = 900, bg = "#FBFAF7")
 #' }
 #'
 #' @seealso [gt_social_crop()] for padding onto a fixed-ratio canvas.
-#' @importFrom gtExtras gtsave_extra
 #' @importFrom glue glue
-#' @importFrom magrittr %>%
 #'
 #' @export
 gt_save_crop <- function(data, file = NULL, bg = "white", whitespace = 50, zoom = 2, expand = 5,
@@ -58,7 +56,7 @@ gt_save_crop <- function(data, file = NULL, bg = "white", whitespace = 50, zoom 
 
   tmp <- tempfile(fileext = ".png")
   on.exit(unlink(tmp), add = TRUE)
-  with_chrome_timeout(gtExtras::gtsave_extra(data, tmp, zoom = zoom, expand = expand))
+  with_chrome_timeout(gt_webshot(data, tmp, zoom = zoom, expand = expand))
 
   img <- magick::image_read(tmp) |>
     magick::image_trim() |>

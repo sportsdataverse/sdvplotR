@@ -43,8 +43,8 @@
 #' library(gt)
 #'
 #' build <- function(df, group) {
-#'   gt(df[c("team_name", "wins", "losses", "points_for")]) %>%
-#'     gt_theme_broadsheet() %>%
+#'   gt(df[c("team_name", "wins", "losses", "points_for")]) |>
+#'     gt_theme_broadsheet() |>
 #'     tab_header(title = group)
 #' }
 #'
@@ -54,7 +54,6 @@
 #'
 #' @seealso [gt_grid()] for the same split composed into one image instead.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_save_batch <- function(data, group, fn, file, dir, match_width = TRUE,
                           bg = "white", whitespace = 50, zoom = 2, quiet = FALSE) {
@@ -91,7 +90,7 @@ gt_save_batch <- function(data, group, fn, file, dir, match_width = TRUE,
           cli::cli_abort("{.arg fn} returned {.obj_type_friendly {tbl}}, not a {.cls gt_tbl}.")
         }
         png <- tempfile(fileext = ".png")
-        with_chrome_timeout(gtExtras::gtsave_extra(tbl, png, zoom = zoom))
+        with_chrome_timeout(gt_webshot(tbl, png, zoom = zoom))
         png
       },
       error = function(e) {

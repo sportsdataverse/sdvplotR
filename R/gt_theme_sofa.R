@@ -35,11 +35,10 @@
 #' library(gt)
 #' nfc_north <- subset(sdv_example_standings, division == "NFC North",
 #'   c(team_name, wins:points_against))
-#' gt(nfc_north) %>% gt_theme_sofa()
-#' gt(nfc_north) %>% gt_theme_sofa(style = "dark")
+#' gt(nfc_north) |> gt_theme_sofa()
+#' gt(nfc_north) |> gt_theme_sofa(style = "dark")
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_theme_sofa <- function(gt_object, style = "light",
                           density = c("comfortable", "compact", "social"),

@@ -75,12 +75,12 @@ results <- data.frame(
   p = summary(fit)$coefficients[, 4]
 )
 
-gt(results) \%>\%
-  fmt_number(c(Estimate, SE), decimals = 4) \%>\%
+gt(results) |>
+  fmt_number(c(Estimate, SE), decimals = 4) |>
   gt_significance(Estimate, p)
 
 # daggers instead of stars, at a single threshold
-gt(results) \%>\%
+gt(results) |>
   gt_significance(Estimate, p,
     levels = 0.05, symbols = "†",
     legend_text = "† p < .05"

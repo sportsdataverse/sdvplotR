@@ -50,13 +50,13 @@
 #'   c(team_name, wins, losses))
 #'
 #' # renders as "56-26"
-#' gt(atlantic) %>% gt_fmt_tally(c(wins, losses), label = "Record")
+#' gt(atlantic) |> gt_fmt_tally(c(wins, losses), label = "Record")
 #'
 #' # renders as "56-26 (68.3%)"
-#' gt(atlantic) %>% gt_fmt_tally(c(wins, losses), share = TRUE)
+#' gt(atlantic) |> gt_fmt_tally(c(wins, losses), share = TRUE)
 #'
 #' # the losing share instead, in its own column
-#' gt(atlantic) %>%
+#' gt(atlantic) |>
 #'   gt_fmt_tally(c(wins, losses),
 #'     share = TRUE, share_of = "losses",
 #'     share_location = "column", share_label = "Loss rate"
@@ -66,11 +66,10 @@
 #' nfc_east <- subset(sdv_example_standings, division == "NFC East",
 #'   c(team_name, wins, losses, ties))
 #'
-#' gt(nfc_east) %>% gt_fmt_tally(c(wins, losses, ties), label = "W-L-T")
+#' gt(nfc_east) |> gt_fmt_tally(c(wins, losses, ties), label = "W-L-T")
 #'
 #' @seealso [gt_fmt_rank()] for ordinal formatting.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_fmt_tally <- function(gt_object, columns, separator = "-", label = NULL,
                          share = FALSE, share_of = 1,

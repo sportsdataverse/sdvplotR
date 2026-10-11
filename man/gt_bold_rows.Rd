@@ -54,10 +54,10 @@ nfc_west <- subset(sdv_example_standings, division == "NFC West",
   c(team_name, wins:points_against))
 
 # bold every row
-gt(nfc_west) \%>\% gt_bold_rows()
+gt(nfc_west) |> gt_bold_rows()
 
 # bold and fill the teams with a winning record
-gt(nfc_west) \%>\%
+gt(nfc_west) |>
   gt_bold_rows(rows = win_pct > 0.5, highlight_color = "#FFF3B0")
 
 }

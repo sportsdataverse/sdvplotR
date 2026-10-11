@@ -129,6 +129,7 @@
   if (!length(palette) || !grepl("::", palette[1])) {
     return(palette)
   }
+  rlang::check_installed("paletteer", reason = "to expand a `package::palette` name.", call = call)
 
   from_c <- function() as.character(paletteer::paletteer_c(palette[1], n = 256))
   from_d <- function() as.character(paletteer::paletteer_d(palette[1]))

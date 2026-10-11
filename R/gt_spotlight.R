@@ -51,29 +51,28 @@
 #'   c(team_name, wins, losses, conference_rank))
 #'
 #' # by expression: the playoff seeds
-#' gt(nfc) %>% gt_spotlight(rows = conference_rank <= 7)
+#' gt(nfc) |> gt_spotlight(rows = conference_rank <= 7)
 #'
 #' # by position, with an accent bar
-#' gt(nfc) %>%
+#' gt(nfc) |>
 #'   gt_spotlight(rows = 2, accent_color = "#0054AD", fill = "#EEF3FA")
 #'
 #' # narrowing the spotlight to some columns dims the rest of the row too
-#' gt(nfc) %>% gt_spotlight(wins:losses, rows = 3, accent_color = "darkblue")
+#' gt(nfc) |> gt_spotlight(wins:losses, rows = 3, accent_color = "darkblue")
 #'
 #' # put the bar somewhere other than the first column
-#' gt(nfc) %>%
+#' gt(nfc) |>
 #'   gt_spotlight(losses, rows = 3, accent_color = "darkblue", accent_column = losses)
 #'
 #' # across several tables: blocks without a 12-win team dim rather than stay lit
 #' chunks <- split(nfc, ceiling(seq_len(nrow(nfc)) / 4))
 #' tbls <- lapply(chunks, function(x) {
-#'   gt(x) %>% gt_spotlight(rows = wins >= 12, if_none = "dim")
+#'   gt(x) |> gt_spotlight(rows = wins >= 12, if_none = "dim")
 #' })
 #' gt_grid(tbls, ncol = 2)
 #'
 #' @seealso [gt_cutline()] for marking a threshold rather than a row.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_spotlight <- function(gt_object, rows, columns = gt::everything(),
                          fill = NULL, text_color = NULL, bold = TRUE,

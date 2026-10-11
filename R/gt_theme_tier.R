@@ -33,11 +33,10 @@
 #' library(gt)
 #' afc <- subset(sdv_example_standings, conference == "AFC" & conference_rank <= 7,
 #'   c(team_name, wins:points_against))
-#' gt(afc) %>% gt_theme_tier()
-#' gt(afc) %>% gt_theme_tier(style = "light")
+#' gt(afc) |> gt_theme_tier()
+#' gt(afc) |> gt_theme_tier(style = "light")
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_theme_tier <- function(gt_object, style = "dark",
                           density = c("comfortable", "compact", "social"),

@@ -82,12 +82,12 @@ nfc_west$note <- with(nfc_west, ifelse(
   )
 ))
 
-gt(nfc_west) \%>\%
-  gt_theme_broadsheet() \%>\%
+gt(nfc_west) |>
+  gt_theme_broadsheet() |>
   gt_marginalia(note)
 
 # keep a heading, widen it, and drop the italics
-gt(nfc_west) \%>\%
+gt(nfc_west) |>
   gt_marginalia(note, label = "Postseason", width = 280, italic = FALSE)
 
 }

@@ -53,10 +53,10 @@ if the accent is pale.
 library(gt)
 northwest <- subset(sdv_example_standings, division == "Northwest",
   c(team_name, wins, losses, win_pct:points_against))
-gt(northwest) \%>\% gt_theme_scoreboard()
+gt(northwest) |> gt_theme_scoreboard()
 
 # a brand color carries the whole table
-gt(northwest) \%>\% gt_theme_scoreboard(accent = "#0F766E")
+gt(northwest) |> gt_theme_scoreboard(accent = "#0F766E")
 
 }
 \seealso{

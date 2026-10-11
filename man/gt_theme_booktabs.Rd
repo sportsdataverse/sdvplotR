@@ -54,7 +54,7 @@ library(gt)
 
 afc_west <- subset(sdv_example_standings, division == "AFC West",
   c(team_name, wins:points_against))
-gt(afc_west) \%>\% gt_theme_booktabs()
+gt(afc_west) |> gt_theme_booktabs()
 
 # a regression table, with significance stars and a colored rule
 nfl <- subset(sdv_example_standings, league == "nfl")
@@ -63,10 +63,10 @@ data.frame(
   Term = names(coef(fit)),
   Estimate = coef(fit),
   p = summary(fit)$coefficients[, 4]
-) \%>\%
-  gt() \%>\%
-  fmt_number(Estimate, decimals = 4) \%>\%
-  gt_significance(Estimate, p) \%>\%
+) |>
+  gt() |>
+  fmt_number(Estimate, decimals = 4) |>
+  gt_significance(Estimate, p) |>
   gt_theme_booktabs(accent = "#1A3E6F")
 
 }

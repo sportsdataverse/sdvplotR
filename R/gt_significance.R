@@ -46,12 +46,12 @@
 #'   p = summary(fit)$coefficients[, 4]
 #' )
 #'
-#' gt(results) %>%
-#'   fmt_number(c(Estimate, SE), decimals = 4) %>%
+#' gt(results) |>
+#'   fmt_number(c(Estimate, SE), decimals = 4) |>
 #'   gt_significance(Estimate, p)
 #'
 #' # daggers instead of stars, at a single threshold
-#' gt(results) %>%
+#' gt(results) |>
 #'   gt_significance(Estimate, p,
 #'     levels = 0.05, symbols = "†",
 #'     legend_text = "† p < .05"
@@ -60,7 +60,6 @@
 #' @seealso [gt_fmt_rank()], which uses the same superscript approach for
 #'   ordinal suffixes.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_significance <- function(gt_object, columns, p_columns,
                             levels = c(0.01, 0.05, 0.1),

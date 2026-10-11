@@ -149,6 +149,7 @@ commit's
 cron
 data's
 datacenter
+dplyr
 dropback
 dropbacks
 espn
@@ -198,8 +199,8 @@ leaderboards
 letterspaced
 luminance
 magrittr
+memoise
 memoised
-memoises
 metapackage
 mlbplotR
 monospace
@@ -225,6 +226,7 @@ nhle
 npm
 oddsapiR
 offseason
+paletteer
 pandoc
 pkgdown
 plotly

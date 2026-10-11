@@ -48,19 +48,13 @@
 #' library(sdvplotR)
 #' library(ggplot2)
 #'
-#' team_abbr <- valid_team_names("nfl")
-#' team_abbr <- sample(team_abbr)
-#'
 #' # Build the team tiers data
 #' df <- data.frame(
-#'   tier_no = sample(1:5, length(team_abbr), replace = TRUE),
-#'   team = team_abbr
+#'   tier_no = c(1, 1, 2, 2, 3, 3),
+#'   team = c("KC", "DET", "BAL", "PHI", "BUF", "GB")
 #' )
 #'
-#' # Plot team tiers
-#' sdv_team_tiers(df, sport = "nfl")
-#'
-#' # each team's primary logo on white
+#' # Plot team tiers, each team's primary logo on white
 #' sdv_team_tiers(df, sport = "nfl", theme = "light")
 #' }
 sdv_team_tiers <- function(

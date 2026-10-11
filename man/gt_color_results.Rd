@@ -71,11 +71,11 @@ results <- data.frame(
   result = c("W", "L", "W", "L")
 )
 
-gt(results) \%>\% gt_color_results()
+gt(results) |> gt_color_results()
 
 # binary encoding, with custom colors
 results$result <- c(1, 0, 1, 0)
-gt(results) \%>\%
+gt(results) |>
   gt_color_results(
     result_type = "binary", win_color = "#1B7837",
     loss_color = "#762A83"

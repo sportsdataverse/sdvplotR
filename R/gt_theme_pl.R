@@ -32,10 +32,9 @@
 #' library(gt)
 #' southeast <- subset(sdv_example_standings, division == "Southeast",
 #'   c(team_name, wins, losses, win_pct:points_against))
-#' gt(southeast) %>% gt_theme_pl()
+#' gt(southeast) |> gt_theme_pl()
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_theme_pl <- function(gt_object,
                         density = c("comfortable", "compact", "social"),

@@ -40,19 +40,20 @@
 #'   defense_rank = rank(west$points_against, ties.method = "min")
 #' )
 #'
-#' gt(ranked) %>% gt_color_ranks(c(offense_rank, defense_rank))
+#' gt(ranked) |> gt_color_ranks(c(offense_rank, defense_rank))
 #'
 #' # a paletteer palette, reversed
-#' gt(ranked) %>%
-#'   gt_color_ranks(offense_rank,
-#'     palette = "viridis::mako", pal_type = "continuous",
-#'     reverse = TRUE
-#'   )
+#' if (requireNamespace("paletteer", quietly = TRUE)) {
+#'   gt(ranked) |>
+#'     gt_color_ranks(offense_rank,
+#'       palette = "viridis::mako", pal_type = "continuous",
+#'       reverse = TRUE
+#'     )
+#' }
 #'
 #' @seealso [gt_legend_continuous()] for explaining the scale, and [gt_color_pills()]
 #'   for a pill treatment instead of a full-cell fill.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_color_ranks <- function(gt_object, columns, rows = NULL,
                            palette = c("#3D8B6E", "#9DC5A7", "#EDE0CC", "#DB9070", "#BE4D3A"),

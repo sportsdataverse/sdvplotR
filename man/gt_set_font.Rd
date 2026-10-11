@@ -55,9 +55,9 @@ library(gt)
 
 nfc_south <- subset(sdv_example_standings, division == "NFC South",
   c(team_name, wins:points_against))
-gt(nfc_south) \%>\% gt_set_font("Oswald")
+gt(nfc_south) |> gt_set_font("Oswald")
 
 # use a font already installed locally
-gt(nfc_south) \%>\% gt_set_font("Helvetica", from_google_font = FALSE)
+gt(nfc_south) |> gt_set_font("Helvetica", from_google_font = FALSE)
 
 }
