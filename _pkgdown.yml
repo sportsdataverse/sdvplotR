@@ -607,7 +607,7 @@ navbar:
       - text: baseballr
         href: https://BillPetti.github.io/baseballr/
       - text: nflfastR
-        href: https://nflfastr.com/
+        href: https://github.com/nflverse/nflfastR
       - text: nflreadr
         href: https://nflreadr.nflverse.com/
       - text: oddsapiR

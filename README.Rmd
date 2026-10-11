@@ -173,7 +173,7 @@ A printable `sdvplotR` cheat sheet will join [the set covering every SportsDatav
 | [**wehoop**](https://wehoop.sportsdataverse.org/) | Women's basketball (WNBA and NCAA) |
 | [**fastRhockey**](https://fastRhockey.sportsdataverse.org/) | Hockey (NHL and PWHL) |
 | [**baseballr**](https://billpetti.github.io/baseballr/) | Baseball (MLB, MiLB, NCAA) |
-| [**nflfastR**](https://nflfastr.com/) · [**nflreadr**](https://nflreadr.nflverse.com/) | NFL play-by-play and data loaders |
+| [**nflfastR**](https://github.com/nflverse/nflfastR) · [**nflreadr**](https://nflreadr.nflverse.com/) | NFL play-by-play and data loaders |
 | [**oddsapiR**](https://oddsapiR.sportsdataverse.org/) | Sports betting odds |
 | [**cfbseedR**](https://cfbseedR.sportsdataverse.org/) | CFB seeding and playoff simulation |
 | [**sportyR**](https://sportyR.sportsdataverse.org/) | Playing-surface plots |
