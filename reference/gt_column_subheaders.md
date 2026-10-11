@@ -92,9 +92,9 @@ so call this after any other label changes or they will be overwritten.
 ``` r
 library(gt)
 
-sdv_example_standings %>%
-  subset(division == "AFC West", c(team_name, wins, points_for)) %>%
-  gt() %>%
+sdv_example_standings |>
+  subset(division == "AFC West", c(team_name, wins, points_for)) |>
+  gt() |>
   gt_column_subheaders(
     wins = list(heading = "Wins", subtitle = "W"),
     points_for = list(heading = "Points", subtitle = "PF"),

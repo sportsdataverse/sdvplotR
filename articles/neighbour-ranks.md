@@ -31,7 +31,7 @@ season summary release: one row per FBS team, with each metric next to a
 
 summaries <- as.data.frame(cfbfastR::load_espn_cfb_team_summaries(2025))
 dim(summaries)
-#> [1] 136 781
+#> [1] 136 788
 head(grep("_rank$", names(summaries), value = TRUE))
 #> [1] "playsgame_off_rank"      "TEPA_off_rank"          
 #> [3] "EPAgame_off_rank"        "EPAplay_off_rank"       

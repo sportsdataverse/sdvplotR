@@ -74,7 +74,7 @@ library(gt)
 
 nfc_north <- subset(sdv_example_standings, division == "NFC North",
   c(team_name, wins:points_against))
-gt(nfc_north) %>% gt_theme_tufte()
+gt(nfc_north) |> gt_theme_tufte()
 
 
   

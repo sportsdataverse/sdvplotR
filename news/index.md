@@ -8,9 +8,20 @@ college football, men’s and women’s college basketball, and soccer),
 built on ‘ggpath’ and following the conventions of ‘nflplotR’,
 ‘cfbplotR’, ‘nbaplotR’ and ‘mlbplotR’.
 
+- sdvplotR no longer re-exports the magrittr pipe `%>%`. Examples use
+  R’s native pipe `|>`; load magrittr or dplyr to keep writing `%>%`.
+
+- Fewer dependencies: gtExtras, magrittr, memoise and nflreadr are no
+  longer imported, and paletteer moved to Suggests (it is needed only to
+  expand a `"package::palette"` name, and is asked for when one is
+  passed). The NFL headshot map is read with base
+  [`readRDS()`](https://rdrr.io/r/base/readRDS.html) and cached for the
+  session.
+
 - The README links the JavaScript / TypeScript siblings on npm,
   `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`
   (<https://plot.sportsdataverse.org>).
+
 - Saving a table to an image
   ([`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md),
   [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md),
@@ -21,43 +32,51 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   loaded machine, such as a CI runner, no longer fails with “Chrome
   debugging port not open after 10 seconds”. A longer
   `options(chromote.timeout = )` of your own is kept.
+
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   draws `"soccer"` (a regulation 105 x 68 m pitch, the frame
   [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
   returns) and `"fiba"` courts. FIBA takes no `team` yet.
+
 - `sdv_court_coords(provider = "euroleague")` converts the Euroleague
   shot frame of hoopR’s `euroleague_game_points()` (`coord_x`/`coord_y`:
   integer centimeters, hoop at the origin, both teams on one basket,
   free throws as `-1,-1`) onto the FIBA court `sdv_surface("fiba")`
   draws, in meters, with the `-1,-1` free throws as `NA`. The default
   `"nba"` is unchanged.
+
 - Soccer joins the team data: 2,631 ESPN clubs with logos and colors
   (from sdvplot’s index). Clubs resolve by ESPN id, or by name when no
   other club shares it; a shared name (often a men’s and a women’s side)
   warns with the ids to pass instead. `sdv_surface("soccer", team)`
   draws the club’s logo at the center spot.
+
 - New
   [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
   converts soccer event coordinates from Opta / Stats Perform, Wyscout,
   StatsBomb, UEFA, Impect, ESPN and the tracking providers (Tracab,
   SkillCorner, Second Spectrum, Metrica) to one regulation 105 x 68 m
   frame, piecewise-linearly between pitch landmarks.
+
 - Team reference data covers every current franchise in the five pro
   leagues plus all FBS and FCS football programs and all Division I
   basketball programs, with ESPN ids, primary / dark logo variants,
   official colors and conference / division. NFL rows carry nflverse
   wordmarks.
+
 - [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   maps full team names, alternate provider abbreviations (`"WSH"` /
   `"WAS"`, `"GSW"` / `"GS"`, …) and historical abbreviations of
   relocated franchises to one canonical key per sport;
   [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)
   exposes the relocation table.
+
 - [`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md),
   [`geom_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_wordmarks.md)
   and
   [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md)
   draw images at x / y positions.
+
 - [`element_sdv_logo()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md),
   [`element_sdv_wordmark()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
   and
@@ -71,6 +90,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   [`theme_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
   /
   [`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md).
+
 - [`scale_color_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
   and
   [`scale_fill_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
@@ -80,6 +100,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   and
   [`sdv_team_factor()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_factor.md)
   expose the same data outside ggplot2.
+
 - [`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md),
   [`gt_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_wordmarks.md),
   [`gt_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_headshots.md),
@@ -87,6 +108,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   and
   [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)
   render images and team-colored text inside ‘gt’ tables.
+
 - [`reactable_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md),
   [`reactable_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md),
   [`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md),
@@ -95,6 +117,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   and
   [`reactable_sdv_team_color_bg()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_team_color.md)
   do the same for ‘reactable’ tables.
+
 - [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)
   converts stats.nba.com / stats.wnba.com legacy shot locations
   (`x_legacy`/`y_legacy`, or `LOC_X`/`LOC_Y` from the
@@ -102,6 +125,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   [`hoopR::nba_shotchartdetail()`](https://hoopR.sportsdataverse.org/reference/nba_shotchartdetail.html))
   into the `sportyR::geom_basketball("nba")` court frame; the converted
   points also fit sportyR’s `"wnba"` and `"ncaa"` courts.
+
 - The ‘gtUtils’ table toolkit by Andrew Weatherman ships in sdvplotR: 18
   `gt_theme_*()` table themes plus
   [`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md),
@@ -121,6 +145,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md),
   and the `theme_bg` background lookup. The eight gtUtils articles are
   on the website as “gt Table Cookbooks”.
+
 - [`gt_color_pills()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_pills.md),
   [`gt_percentile_bar()`](https://sdvplotR.sportsdataverse.org/reference/gt_percentile_bar.md),
   [`gt_fmt_tally()`](https://sdvplotR.sportsdataverse.org/reference/gt_fmt_tally.md),
@@ -141,6 +166,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   per distinct mark).
   [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)
   also escapes the lower line’s text.
+
 - [`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md)
   is the SportsDataverse house table theme, in light and
   `style = "dark"`, and
@@ -148,16 +174,19 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   dresses a table in one team’s colors from
   [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md),
   picking title text and line colors by contrast.
+
 - [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md)
   and
   [`gt_stack_tables()`](https://sdvplotR.sportsdataverse.org/reference/gt_stack_tables.md)
   scroll inside their own box instead of overflowing the page when they
   are wider than the screen.
+
 - Two articles walk through what the gt side adds and why:
   “SportsDataverse Table Themes” (the house theme, dark style, team
   colors and their contrast rules, density, overrides, saving) and “Team
   Tables with the gt Toolkit” (a 2023 playoff-picture table built from
   logos, a cut line, rank colors, captions and a two-conference grid).
+
 - Every example runs: examples that only build tables run as plain
   examples, and those that save images through a headless Chrome are
   `\donttest{}` blocks that run in an interactive session with
@@ -165,6 +194,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   [`gt_save_batch()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_batch.md)
   now needs an explicit `dir` rather than writing to the working
   directory.
+
 - The reference examples run on real SportsDataverse data instead of the
   gtUtils demo tables (`mtcars`, `iris`, `airquality`) and made-up
   frames: `sdv_example_standings` holds the final 2025 NFL and 2025-26
@@ -172,10 +202,12 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   playoff wins, the previous season’s wins, ESPN ids), built by
   `data-raw/sdv_examples.R` from the nflreadr / nflseedR and hoopR
   release loaders.
+
 - The package ships no vignettes. Every article, “Getting Started”
   included, is on the pkgdown site only
   (<https://sdvplotR.sportsdataverse.org/articles/>), at the same
   address as before; knitr and rmarkdown are no longer suggested.
+
 - NFL player headshots work again. GSIS ids (`"00-0033873"`) resolve
   through a headshot map read at run time, the way nflplotR reads its
   own: sdvplotR builds it from nflverse rosters back to 1999 and
@@ -187,6 +219,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   the gt and reactable helpers, and the headshot axis scales.
   [`sdvplotR_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR_clear_cache.md)
   now also clears the memoised map.
+
 - Every headshot helper takes `id_type`, so player IDs from sources
   other than ESPN draw the right player. `"league"` reads the league’s
   own ID from its image CDN: NBA Stats and WNBA Stats `PERSON_ID`
@@ -196,16 +229,19 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   including the NFL. By default, IDs are read as before: GSIS for the
   NFL, ESPN elsewhere. The ID systems overlap: without `id_type`, Dirk
   Nowitzki’s NBA Stats ID drew ESPN’s Jared Jeffries.
+
 - [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   resolves the MLB Stats API’s `"AZ"` (baseballr, Baseball Savant) and
   FanGraphs’ `"WSN"`, so Arizona’s and Washington’s logos draw from that
   data.
+
 - [`scale_color_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
   and
   [`scale_fill_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
   color every key the rest of the package accepts (provider aliases such
   as `"AZ"` or `"GSW"`, full names, historical abbreviations), not only
   canonical abbreviations, which drew grey.
+
 - [`theme_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
   and
   [`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
@@ -213,10 +249,12 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   [`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
   on ‘ggplot2’ 4, which sets the position-specific axis text elements
   itself; axis logos drew as raw HTML there.
+
 - [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   matches team names regardless of accents, which providers write
   inconsistently: the NHL API’s “Montréal Canadiens” now resolves, as
   does an unaccented “San Jose State” against ESPN’s “San José State”.
+
 - Conference logos, which cbbplotR drew and sdvplotR lacked: every
   college conference ESPN has a logo for resolves like a team, so the
   geoms, theme elements, gt, reactable and color scales draw `"SEC"`,
@@ -237,6 +275,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   read `"MAAC"`; the AAC reads `"AAC"` instead of `"American"` (American
   University’s name), and football’s SoCon reads `"SoCon"` instead of
   `"Southern"` (Southern University’s).
+
 - A conference’s former names resolve to its logo: `"Pac-10"`, `"Pac-8"`
   and `"AAWU"` draw the Pac-12, `"Mid-Continent Conference"` the Summit
   League, `"Midwestern Collegiate Conference"` the Horizon League,
@@ -247,6 +286,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   `"Western"`), or one a team already goes by (South Alabama’s `"USA"`),
   is left out, and conferences sdvplotR has no logo for (football’s Big
   West and Big East) resolve to nothing, as before.
+
 - The WAC, which ESPN no longer draws (football’s WAC ended after 2022,
   and ESPN labels the basketball WAC with the name it took for 2026-27,
   the United Athletic Conference), is a conference row in all three
@@ -254,6 +294,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   `"Western Athletic Conference"` and football’s `"Western Athletic"`
   draw it. `"UAC"` and `"United Athletic Conference"` stay unmatched:
   the WAC mark stands for the seasons through 2025-26 only.
+
 - [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   and every helper built on it take the school names NCAA.com /
   stats.ncaa.org, KenPom and Bart Torvik use for college teams
@@ -261,16 +302,19 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   `"Miami (OH)"`), from sportsdataverse-py’s NCAA / ESPN crosswalks and
   hoopR’s team crosswalk, so their tables plot without a lookup table.
   ESPN’s own names still win wherever they overlap.
+
 - Sports Reference’s college names resolve too: its whole 2025-26
   Division I list, men’s and women’s (`"Brigham Young"`,
   `"Virginia Commonwealth"`, `"Loyola (IL)"`), and the same schools’
   football teams. The headshot docs name the hoopR, wehoop and cfbfastR
   roster functions that return ESPN athlete ids (what cbbplotR’s
   `get_espn_players()` fetched).
+
 - [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   folds typographic dashes and curly apostrophes, so Sports Reference’s
   UNLV (`"Nevada-Las Vegas"` with an en dash) and a curly
   `"Saint Mary's"` resolve.
+
 - `gt_sdv_logos(include_name = TRUE)` keeps the cell’s text after the
   logo, the logo-and-name cell cbbplotR’s `gt_cbb_teams()` built, for
   any sport.
@@ -279,10 +323,12 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   [`gt_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_wordmarks.md)
   also resolve names with an ampersand (“Texas A&M”, “William & Mary”):
   gt passes them HTML-escaped, so they used to fall back to text.
+
 - The college basketball articles (tier list, border bars, grid tables,
   window wins) no longer use cbbdata or cbbplotR: their data comes from
   hoopR, the NCAA’s NET page and Sports Reference, and their logos from
   sdvplotR.
+
 - College team data covers every Division I program. ESPN’s teams list
   leaves some out (Lindenwood, Queens, Southern Indiana, Mercyhurst,
   Saint Francis, UT Rio Grande Valley football), so they drew no logo;
@@ -290,10 +336,12 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   stay available for the season they played. ESPN box scores’ `"BUT"`
   (Butler) and `"UNO"` (New Orleans) and ESPN FPI’s `"BUFF"` (Buffalo)
   and `"AFA"` (Air Force) resolve.
+
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, and
   [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
   places a logo next to a plot title.
+
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   draws a court, field or rink for any of the eight leagues through
   ‘sportyR’ (now in Suggests), as a ggplot to plot data on. Given a
@@ -303,11 +351,13 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   logo at center court, center ice or midfield. These are stylized
   surfaces built from team colors, not the teams’ real floor, field or
   rink designs.
+
 - [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md),
   [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
   and
   [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md)
   expose the reference data.
+
 - [`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
   takes a `season` aesthetic and
   [`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
@@ -323,6 +373,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   copies in the SportsDataverse asset archive, so they don’t change when
   ESPN reuses a file name; the NHL’s are SVG files, read with the ‘rsvg’
   package (now in Suggests).
+
 - A “Visual recipes” article group rebuilds SportsDataverse web visuals
   as static tables and plots on real data. “Neighbour Ranks” shows one
   college football team with the five teams ranked above and below it on
@@ -343,16 +394,19 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   as a ribbon whose thickness is his share of attempts and whose fill is
   his field goal percentage minus the league’s, from the
   `nba_stats_metric_curves` release.
+
 - Every `gt_theme_*()` keeps its own row colors on a Bootstrap page
   (pkgdown, Quarto) in either color mode. Before, the page’s table
   variables painted the cells, so a light theme was unreadable on a dark
   page and a dark theme on a light one.
+
 - [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md)
   and
   [`gt_stack_tables()`](https://sdvplotR.sportsdataverse.org/reference/gt_stack_tables.md)
   request Google fonts by discrete weights. The `wght@100..900` range
   they asked for is rejected for most families, so the font silently
   never loaded.
+
 - [`element_sdv_logo()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md),
   [`element_sdv_wordmark()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
   and
@@ -367,12 +421,14 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   which ggplot2 lets replace a plain child (keeping the child’s
   spacing). sdvplotR now imports ‘S7’ and requires ‘ggplot2’ 4.0.0,
   which ‘ggpath’ 1.1.0 already did.
+
 - [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)
   returns the package’s canonical keys, the ones
   [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   returns: `"STL"` gives the Rams’ `"LA"` (was `"LAR"`), `"NOH"` /
   `"NOK"` the Pelicans’ `"NO"` (was `"NOP"`) and `"WSB"` the Wizards’
   `"WSH"` (was `"WAS"`).
+
 - A relocation key follows the franchise in both
   [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   and
@@ -381,6 +437,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   original Winnipeg Jets (1979-96) and gives `"UTAH"`;
   [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
   returned today’s Jets (`"WPG"`).
+
 - [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
   with
   [`theme_title_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
@@ -391,11 +448,13 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   `theme(plot.title = ggtext::element_markdown(...))`, which the old
   example used, replaces the centering element and the image drops to
   the baseline.
+
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   takes `theme = "light"`, a white background with dark labels and
   lines, for dark logos (Toronto, Iowa, West Virginia) that nearly
   vanish on the default dark theme. ‘sdvplot’ (Python) has the same
   option.
+
 - [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)
   keeps the team-colored text readable: a primary color under 4.5:1
   contrast against the cell background gives way to the secondary color,
@@ -405,6 +464,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   The new `background` argument defaults to the table’s own background
   color (white when unset); a theme applied after this function isn’t
   seen.
+
 - [`gt_tiers()`](https://sdvplotR.sportsdataverse.org/reference/gt_tiers.md)
   gives each image its own alt text, so a screen reader can tell the
   entries apart (they all read “Tier list entry”). A logo or wordmark
@@ -413,6 +473,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   or a season logo, takes the team’s name; any other image its file
   name. The new `alt` argument takes a function of the image URLs for
   your own text.
+
 - [`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md)
   dims the other rows to a readable tone. The fixed `"#BBBBBB"` it took
   from gtUtils measured 1.9:1 against a white table, under the 4.5:1
@@ -422,6 +483,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   until it sits just above 4.5:1, so the spotlight still stands out and
   the other rows stay readable. Pass `dim_color = "#BBBBBB"` for the old
   look.
+
 - [`reactable_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md),
   [`reactable_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
   and
@@ -431,6 +493,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   “reactable Integration” article’s dark Houston Texans logo 404’d),
   which left a broken image; the `<img>` now swaps to the primary logo
   instead.
+
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   takes `variant`, default `"auto"`: the dark theme now draws each
   team’s dark-background logo (the `"dark"` variant), so dark marks such
@@ -441,6 +504,7 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   warning. Pass `variant = "primary"` for the old look, or any other
   logo variant. This matches ‘sdvplot’ (Python), whose `team_tiers()`
   made the same change.
+
 - Every team now has a real primary color. ESPN gives 38 college
   programs a stand-in instead of colors (black alone, black with its
   stock red, or black on black; 32 teams drew black) or no color at all
@@ -453,18 +517,21 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
   records where each team’s colors come from (`"nflverse"`, `"espn"`,
   `"logo"`, `"cbbplotR"`).
+
 - Logo variants are the ones an image backs: `"primary"`, `"dark"` and
   `"scoreboard"` (ESPN’s scoreboard mark, the Jets’ `NY`; a team without
   one draws its primary). The names `"light"`, `"alt"`, `"classic"` and
   `"helmet"`, and the wordmark variants `"dark"`, `"light"`, `"alt"` and
   `"classic"`, which earlier development builds accepted and silently
   drew as the primary, are removed: any other value is an error.
+
 - [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
   and
   [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
   export the image URLs the package draws (the counterparts of sdvplot’s
   `logo_url()` and `headshot_url()`), with every team key, variant,
   season and `id_type` the plotting helpers take.
+
 - Current logos and wordmarks are drawn from the SportsDataverse logo
   archive (the sdv-assets manifest sdvplot reads, the host
   `logo_history` already used), not from ESPN’s live CDN: every mark’s

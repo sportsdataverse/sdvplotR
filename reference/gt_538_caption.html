@@ -170,7 +170,7 @@ source note below it. Both accept markdown."><meta property="og:image" content="
     <li><a class="external-link dropdown-item" href="https://wehoop.sportsdataverse.org/">wehoop</a></li>
     <li><a class="external-link dropdown-item" href="https://fastRhockey.sportsdataverse.org/">fastRhockey</a></li>
     <li><a class="external-link dropdown-item" href="https://BillPetti.github.io/baseballr/">baseballr</a></li>
-    <li><a class="external-link dropdown-item" href="https://nflfastr.com/">nflfastR</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/nflverse/nflfastR">nflfastR</a></li>
     <li><a class="external-link dropdown-item" href="https://nflreadr.nflverse.com/">nflreadr</a></li>
     <li><a class="external-link dropdown-item" href="https://oddsapiR.sportsdataverse.org/">oddsapiR</a></li>
     <li><a class="external-link dropdown-item" href="https://cfbseedR.sportsdataverse.org/">cfbseedR</a></li>
@@ -316,7 +316,7 @@ question entirely.</p>
 <span class="r-in"><span><span class="va">nfc_north</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sdv_example_standings</span>, <span class="va">division</span> <span class="op">==</span> <span class="st">"NFC North"</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_name</span>, <span class="va">wins</span><span class="op">:</span><span class="va">points_against</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">nfc_north</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">nfc_north</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">gt_538_caption</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    top_caption <span class="op">=</span> <span class="st">"The NFC North in 2025"</span>,</span></span>
 <span class="r-in"><span>    bottom_caption <span class="op">=</span> <span class="st">"Source: *nflreadr* schedules, ranked by *nflseedR*"</span></span></span>

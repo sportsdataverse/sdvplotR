@@ -99,8 +99,8 @@ if (FALSE) { # interactive() && rlang::is_installed("webshot2") && isTRUE(file.e
 library(gt)
 
 build <- function(df, group) {
-  gt(df[c("team_name", "wins", "losses", "points_for")]) %>%
-    gt_theme_broadsheet() %>%
+  gt(df[c("team_name", "wins", "losses", "points_for")]) |>
+    gt_theme_broadsheet() |>
     tab_header(title = group)
 }
 

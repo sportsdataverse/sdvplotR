@@ -113,8 +113,8 @@ nfc_west$note <- with(nfc_west, ifelse(
   )
 ))
 
-gt(nfc_west) %>%
-  gt_theme_broadsheet() %>%
+gt(nfc_west) |>
+  gt_theme_broadsheet() |>
   gt_marginalia(note)
 
 

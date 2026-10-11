@@ -68,7 +68,7 @@ export at.
 library(gt)
 nfc_south <- subset(sdv_example_standings, division == "NFC South",
   c(team_name, wins:points_against))
-gt(nfc_south) %>% gt_theme_gtutils()
+gt(nfc_south) |> gt_theme_gtutils()
 
 
   

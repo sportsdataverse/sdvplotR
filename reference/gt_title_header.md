@@ -112,7 +112,7 @@ library(gt)
 nfc_west <- subset(sdv_example_standings, division == "NFC West",
   c(team_name, wins:points_against))
 
-gt(nfc_west) %>%
+gt(nfc_west) |>
   gt_title_header(
     title = "The NFC West",
     subtitle = "Final standings of the 2025 regular season",

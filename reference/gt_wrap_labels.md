@@ -58,11 +58,11 @@ library(gt)
 afc_east <- subset(sdv_example_standings, division == "AFC East",
   c(team_name, win_pct, conference_rank))
 
-gt(afc_east) %>%
+gt(afc_east) |>
   cols_label(
     win_pct = "Winning Percentage",
     conference_rank = "Final Conference Rank"
-  ) %>%
+  ) |>
   gt_wrap_labels(c(win_pct, conference_rank), width = 10)
 
 

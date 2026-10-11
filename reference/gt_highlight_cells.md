@@ -102,9 +102,9 @@ nba$point_diff <- nba$points_for - nba$points_against
 vars <- c("wins", "point_diff", "points_for", "points_against", "conference_rank")
 m <- round(cor(nba[vars]), 2)
 cordf <- data.frame(var = rownames(m), m, row.names = NULL, check.names = FALSE)
-cordf %>%
-  gt(rowname_col = "var") %>%
-  gt_highlight_cells(-var, ~ .x > 0.7 & .x < 1, fill = "#FFD1A9") %>%
+cordf |>
+  gt(rowname_col = "var") |>
+  gt_highlight_cells(-var, ~ .x > 0.7 & .x < 1, fill = "#FFD1A9") |>
   gt_highlight_cells(-var, ~ .x < -0.7, fill = "#A9D0FF")
 
 

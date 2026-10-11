@@ -197,7 +197,7 @@
     <li><a class="external-link dropdown-item" href="https://wehoop.sportsdataverse.org/">wehoop</a></li>
     <li><a class="external-link dropdown-item" href="https://fastRhockey.sportsdataverse.org/">fastRhockey</a></li>
     <li><a class="external-link dropdown-item" href="https://BillPetti.github.io/baseballr/">baseballr</a></li>
-    <li><a class="external-link dropdown-item" href="https://nflfastr.com/">nflfastR</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/nflverse/nflfastR">nflfastR</a></li>
     <li><a class="external-link dropdown-item" href="https://nflreadr.nflverse.com/">nflreadr</a></li>
     <li><a class="external-link dropdown-item" href="https://oddsapiR.sportsdataverse.org/">oddsapiR</a></li>
     <li><a class="external-link dropdown-item" href="https://cfbseedR.sportsdataverse.org/">cfbseedR</a></li>
@@ -266,7 +266,7 @@
     </div>
 
     <!-- sdvplotR: phones get "On this page" here, collapsed; pkgdown/extra.js copies the list in -->
-    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p><strong>Updated 2026-10-09:</strong> the 2026 season through week
+    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p><strong>Updated 2026-10-11:</strong> the 2026 season through week
 6.</p>
 <p>This page is rebuilt every week with the site. It rates every FBS
 team by opponent-adjusted EPA per play, a simple cousin of SP+ built
@@ -419,14 +419,14 @@ adjusted defense.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">school</span>, <span class="va">conf_logo</span>, <span class="va">conference</span>, <span class="va">record</span>, <span class="va">off</span>, <span class="va">dfn</span>, <span class="va">net</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">top25</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
-<span><span class="co">#&gt;    rank logo         school    conf_logo conference record    off      dfn   net</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 Alabama      Alabama   SEC       SEC        5-0    0.313  -<span style="color: #BB0000;">0.107</span>   0.420</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 LSU          LSU       SEC       SEC        4-1    0.068<span style="text-decoration: underline;">8</span> -<span style="color: #BB0000;">0.286</span>   0.355</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 Wisconsin    Wisconsin Big Ten   Big Ten    4-1    0.191  -<span style="color: #BB0000;">0.161</span>   0.351</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 Northwestern Northwes… Big Ten   Big Ten    3-1    0.352   0.004<span style="text-decoration: underline;">61</span> 0.348</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 Georgia      Georgia   SEC       SEC        5-0    0.251  -<span style="color: #BB0000;">0.085</span><span style="color: #BB0000; text-decoration: underline;">0</span>  0.336</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 Nebraska     Nebraska  Big Ten   Big Ten    5-0    0.197  -<span style="color: #BB0000;">0.122</span>   0.319</span></span></code></pre></div>
+<span><span class="co">#&gt;    rank logo       school     conf_logo    conference record   off     dfn   net</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 Alabama    Alabama    SEC          SEC        5-1    0.307 -<span style="color: #BB0000;">0.076</span><span style="color: #BB0000; text-decoration: underline;">4</span> 0.383</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 Georgia    Georgia    SEC          SEC        6-0    0.276 -<span style="color: #BB0000;">0.108</span>  0.383</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 Notre Dame Notre Dame FBS Indepen… FBS Indep… 6-0    0.257 -<span style="color: #BB0000;">0.125</span>  0.382</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 Wisconsin  Wisconsin  Big Ten      Big Ten    4-1    0.170 -<span style="color: #BB0000;">0.188</span>  0.357</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 Indiana    Indiana    Big Ten      Big Ten    6-0    0.240 -<span style="color: #BB0000;">0.110</span>  0.350</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 Nebraska   Nebraska   Big Ten      Big Ten    5-1    0.205 -<span style="color: #BB0000;">0.123</span>  0.327</span></span></code></pre></div>
 <p>sdvplotR has a row for every FBS conference too, so
 <code><a href="../reference/gt_sdv_logos.html">gt_sdv_logos()</a></code> draws the conference marks from the
 play-by-play’s conference names, next to the school logos.</p>
@@ -985,54 +985,54 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Alabama</td>
 <td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.313</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.107</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #2E8B57; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.420</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.307</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.076</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #2E8B57; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.383</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">2</td>
-<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d0/d02e29a9f8824740d848b4a83c574b1c1942ba1cdee61b3ee08611634cc86b46.png" style="height:26px;" alt="LSU Tigers"></td>
-<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">LSU</td>
+<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fa/fa5c7fb14d5ffa38eaddfeb80161835e60a3d496b57db5e0ebda5e6475226d8a.png" style="height:26px;" alt="Georgia Bulldogs"></td>
+<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Georgia</td>
 <td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.069</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.286</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #539C6E; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.355</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">6-0</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.276</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.108</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #2E8B57; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.383</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">3</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/36/36a5c3e0fae73171c91f10ceb170ea820f4f46c4899ee8a66e900a60b597ee98.png" style="height:26px;" alt="Wisconsin Badgers"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Wisconsin</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.191</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.161</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #549D70; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.351</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5c/5c0412f57d3fdf05789d255595ce014bbed36c6468f8ec3d8471450efe5f9f10.png" style="height:26px;" alt="Notre Dame Fighting Irish"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Notre Dame</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a5/a5165124ec8fe15b77bd82b0ea72e779930f3a69c6999bb15fc6dca4f0bab8b6.png" style="height:20px;" alt="FBS Independents"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">FBS Independents</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">6-0</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.257</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.125</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #2F8B58; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.382</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4</td>
-<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d4/d447850b4a4d514fb7692fec4cda3e4fe7268c9d664b53e93f0f8fd476b1e6d3.png" style="height:26px;" alt="Northwestern Wildcats"></td>
-<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Northwestern</td>
+<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/36/36a5c3e0fae73171c91f10ceb170ea820f4f46c4899ee8a66e900a60b597ee98.png" style="height:26px;" alt="Wisconsin Badgers"></td>
+<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Wisconsin</td>
 <td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">3-1</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.352</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.005</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #569E71; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.348</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.170</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.188</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #3F9261; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.357</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fa/fa5c7fb14d5ffa38eaddfeb80161835e60a3d496b57db5e0ebda5e6475226d8a.png" style="height:26px;" alt="Georgia Bulldogs"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Georgia</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.251</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.085</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #5CA175; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.336</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0d/0dfc3e06f6e158d96df2b9729de6b1cd6a5a5756ec365cd0b998aa6ecb45aa66.png" style="height:26px;" alt="Indiana Hoosiers"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Indiana</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">6-0</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.240</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.110</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #449564; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.350</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">6</td>
@@ -1040,219 +1040,219 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Nebraska</td>
 <td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.197</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.122</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #64A57B; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.319</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.205</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.123</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #519B6D; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.327</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">7</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5c/5c0412f57d3fdf05789d255595ce014bbed36c6468f8ec3d8471450efe5f9f10.png" style="height:26px;" alt="Notre Dame Fighting Irish"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Notre Dame</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a5/a5165124ec8fe15b77bd82b0ea72e779930f3a69c6999bb15fc6dca4f0bab8b6.png" style="height:20px;" alt="FBS Independents"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">FBS Independents</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.220</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.097</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #65A57C; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.317</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d0/d02e29a9f8824740d848b4a83c574b1c1942ba1cdee61b3ee08611634cc86b46.png" style="height:26px;" alt="LSU Tigers"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">LSU</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">4-2</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.088</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.211</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #60A378; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.299</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">8</td>
-<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12d69bb78c3443bdbcc5a7659f288840a7a3862d70043eda3d8868a229eb7696.png" style="height:26px;" alt="Texas Longhorns"></td>
-<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Texas</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
-<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-0</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.104</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.199</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #6CA981; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.302</td>
+<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/55/55800e4867c87bf38281043628d2c0dfadd0bf44632b27a9ab20af27a9a728fb.png" style="height:26px;" alt="Miami Hurricanes"></td>
+<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Miami</td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/332c19edc32709fd9f1d45fb8556970a99741bddf17ac49843d515edb4b123b0.png" style="height:20px;" alt="Atlantic Coast Conference"></td>
+<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">ACC</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.274</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.004</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #6BA981; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.278</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">9</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/55/55800e4867c87bf38281043628d2c0dfadd0bf44632b27a9ab20af27a9a728fb.png" style="height:26px;" alt="Miami Hurricanes"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Miami</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/332c19edc32709fd9f1d45fb8556970a99741bddf17ac49843d515edb4b123b0.png" style="height:20px;" alt="Atlantic Coast Conference"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">ACC</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.285</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.009</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #70AB84; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.295</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">10</td>
-<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c49b759151574b979556fb10f1e245ec8cb03b4b3b80d4d352b5f909293976d.png" style="height:26px;" alt="BYU Cougars"></td>
-<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">BYU</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
-<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-0</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.158</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.121</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #77AF8A; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.279</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">11</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/6d/6dbe512c1b9b4e8c0ebcfcb4b3620b6229a05619e8bf70b3051a8e6c4964240d.png" style="height:26px;" alt="Ohio State Buckeyes"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Ohio State</td>
 <td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.257</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.018</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #79B08B; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.275</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.213</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.049</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #73AD87; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.262</td>
 </tr>
 <tr>
-<td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">12</td>
-<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54d1837e37240cb37dcbea2b2dfd518bdf8531344e5f5397ff02a1d2111b5b43.png" style="height:26px;" alt="Utah Utes"></td>
-<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Utah</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
-<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-0</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.238</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.034</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #7AB18D; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.272</td>
+<td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">10</td>
+<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12d69bb78c3443bdbcc5a7659f288840a7a3862d70043eda3d8868a229eb7696.png" style="height:26px;" alt="Texas Longhorns"></td>
+<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Texas</td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
+<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.104</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.157</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #74AD87; color: #FFFFFF; font-family: 'Open Sans'; font-size: 14px;">+0.261</td>
 </tr>
 <tr>
-<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">13</td>
+<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">11</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bb/bb4a26eac90ad2ca3557f18180dc0f1cbdf88ba013c15c3293071701a3f43b53.png" style="height:26px;" alt="Missouri Tigers"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Missouri</td>
 <td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.185</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.084</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #7BB28E; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.269</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.115</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.138</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #78B08B; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.253</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">12</td>
+<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/18/1854b6d52609c4db7daacc59ce122017c3eabd2e70b9c66deeec297183d4d46b.png" style="height:26px;" alt="Mississippi State Bulldogs"></td>
+<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Mississippi State</td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
+<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.242</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.001</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #7DB38F; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.242</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">13</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54d1837e37240cb37dcbea2b2dfd518bdf8531344e5f5397ff02a1d2111b5b43.png" style="height:26px;" alt="Utah Utes"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Utah</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.254</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.012</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #7DB38F; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.242</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">14</td>
-<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0d/0dfc3e06f6e158d96df2b9729de6b1cd6a5a5756ec365cd0b998aa6ecb45aa66.png" style="height:26px;" alt="Indiana Hoosiers"></td>
-<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Indiana</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
-<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
+<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c49b759151574b979556fb10f1e245ec8cb03b4b3b80d4d352b5f909293976d.png" style="height:26px;" alt="BYU Cougars"></td>
+<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">BYU</td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
+<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
 <td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.191</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.067</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #81B592; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.258</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.136</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.101</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #80B491; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.237</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">15</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/18/1854b6d52609c4db7daacc59ce122017c3eabd2e70b9c66deeec297183d4d46b.png" style="height:26px;" alt="Mississippi State Bulldogs"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Mississippi State</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d4/d447850b4a4d514fb7692fec4cda3e4fe7268c9d664b53e93f0f8fd476b1e6d3.png" style="height:26px;" alt="Northwestern Wildcats"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Northwestern</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.240</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.011</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #84B694; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.251</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.280</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.051</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #83B694; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.230</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">16</td>
-<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/57/57dca8a00b01bebcfb1e0c7ceafe0b046e175c47ec7225713b3930e7fcb7cd05.png" style="height:26px;" alt="Oregon Ducks"></td>
-<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Oregon</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
-<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">3-1</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.178</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.052</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #8DBC9C; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.230</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">17</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/19/19f8f9a3254b9c85ffacf42de7b4d00e1186fbb0b55effdabe9c6d0a3f487ddf.png" style="height:26px;" alt="Oklahoma Sooners"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Oklahoma</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">2-2</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.095</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.118</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #95C0A3; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.213</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">18</td>
 <td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e3/e307401dc8adf24492175e57a95f242b8943fe0fb3121ca84757095e6825d17a.png" style="height:26px;" alt="Wake Forest Demon Deacons"></td>
 <td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Wake Forest</td>
 <td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/332c19edc32709fd9f1d45fb8556970a99741bddf17ac49843d515edb4b123b0.png" style="height:20px;" alt="Atlantic Coast Conference"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">ACC</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.137</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.047</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #A3C8AE; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.183</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.159</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.061</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #88B998; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.220</td>
 </tr>
 <tr>
-<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">19</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0e/0efa003a56ec95d664b71d799fabe5e927d2ddd23cea90d5bab42df971abd080.png" style="height:26px;" alt="Penn State Nittany Lions"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Penn State</td>
+<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">17</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/57/57dca8a00b01bebcfb1e0c7ceafe0b046e175c47ec7225713b3930e7fcb7cd05.png" style="height:26px;" alt="Oregon Ducks"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Oregon</td>
 <td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">3-2</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.027</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.132</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #AECEB8; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.159</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.071</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.125</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #94BFA2; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.197</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">18</td>
+<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e1/e1daa000b25e45917bfaa93464b8725980c8e3c1a859f1fb51174e9d37aee08b.png" style="height:26px;" alt="Kansas Jayhawks"></td>
+<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Kansas</td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
+<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">2-3</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.165</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">−0.028</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #96C1A3; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.193</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">19</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/19/19f8f9a3254b9c85ffacf42de7b4d00e1186fbb0b55effdabe9c6d0a3f487ddf.png" style="height:26px;" alt="Oklahoma Sooners"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Oklahoma</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">3-2</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.079</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.111</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #98C1A5; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.190</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">20</td>
+<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7c/7c5e06bfb990c80176ef56e171bfb2de264355db54c592462d5f8a02404412e8.png" style="height:26px;" alt="Louisville Cardinals"></td>
+<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Louisville</td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/332c19edc32709fd9f1d45fb8556970a99741bddf17ac49843d515edb4b123b0.png" style="height:20px;" alt="Atlantic Coast Conference"></td>
+<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">ACC</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">3-3</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.191</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.027</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #A4C8AF; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.165</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">21</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/51/5145c6eb67719f52cdf51c92ef6b30486c9a585ca129624d6c7837e369321a23.png" style="height:26px;" alt="UCLA Bruins"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">UCLA</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.115</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.043</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #A8CAB2; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.158</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">22</td>
 <td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/23/2309e841473bc8b4297e83a1bbab7581d296189a20f904aa578c67f2327c2184.png" style="height:26px;" alt="Liberty Flames"></td>
 <td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Liberty</td>
 <td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/42/42baaf1bfc559aca9deaf57d60d4d3d0fd6ec71b1d53dbc825ecd8fa8ae138ea.png" style="height:20px;" alt="Conference USA"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Conference USA</td>
 <td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.154</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.001</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #B1D0BA; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.153</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">21</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7c/7c5e06bfb990c80176ef56e171bfb2de264355db54c592462d5f8a02404412e8.png" style="height:26px;" alt="Louisville Cardinals"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Louisville</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/332c19edc32709fd9f1d45fb8556970a99741bddf17ac49843d515edb4b123b0.png" style="height:20px;" alt="Atlantic Coast Conference"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">ACC</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">2-3</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.172</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.028</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #B5D2BD; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.144</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">22</td>
-<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ab/abd4a69d1efca7bd1c944acf8a5a77b5bce41602da970e9779f0bf6079489c1a.png" style="height:26px;" alt="USC Trojans"></td>
-<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">USC</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
-<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.319</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.176</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #B5D2BE; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.143</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.158</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.012</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #AECEB8; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.145</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">23</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e1/e1daa000b25e45917bfaa93464b8725980c8e3c1a859f1fb51174e9d37aee08b.png" style="height:26px;" alt="Kansas Jayhawks"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Kansas</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">2-2</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.102</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.030</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #BAD5C2; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.132</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/91/910dbf467c9b442f1b493280bbc027ba5a1f91e2ce314fae099d637aade7d42b.png" style="height:26px;" alt="Michigan Wolverines"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Michigan</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">3-2</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.110</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.034</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #AECEB8; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.145</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">24</td>
-<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/51/5145c6eb67719f52cdf51c92ef6b30486c9a585ca129624d6c7837e369321a23.png" style="height:26px;" alt="UCLA Bruins"></td>
-<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">UCLA</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
-<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
-<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-0</td>
-<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.165</td>
-<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.037</td>
-<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #BCD6C4; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.128</td>
+<td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f0/f01db22fd85d00eaf8f9b5952bc8e7c0b458beae33753c312cb54c5515f7c967.png" style="height:26px;" alt="Arizona Wildcats"></td>
+<td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Arizona</td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
+<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
+<td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
+<td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.192</td>
+<td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.060</td>
+<td headers="net" class="gt_row gt_left gt_striped" style="background-color: #B4D2BD; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.132</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">25</td>
-<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1e/1ef03aa847164f52dee3c8bfea023e3b75915231c01250889a549ae08b2ec9b8.png" style="height:26px;" alt="Tennessee Volunteers"></td>
-<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Tennessee</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/95/95fa7566bb2095986633050e61be22f524333ffdf757f35a1f80d1c1b05f4b76.png" style="height:20px;" alt="Southeastern Conference"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">SEC</td>
-<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
-<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.047</td>
-<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.074</td>
-<td headers="net" class="gt_row gt_left" style="background-color: #BFD8C6; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.122</td>
+<td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ab/abd4a69d1efca7bd1c944acf8a5a77b5bce41602da970e9779f0bf6079489c1a.png" style="height:26px;" alt="USC Trojans"></td>
+<td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">USC</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
+<td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">6-1</td>
+<td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.309</td>
+<td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.178</td>
+<td headers="net" class="gt_row gt_left" style="background-color: #B5D2BE; color: #000000; font-family: 'Open Sans'; font-size: 14px;">+0.130</td>
 </tr>
 </tbody>
 <tfoot><tr class="gt_sourcenotes">

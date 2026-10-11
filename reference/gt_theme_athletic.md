@@ -69,7 +69,7 @@ export at.
 library(gt)
 afc_north <- subset(sdv_example_standings, division == "AFC North",
   c(team_name, wins:points_against))
-gt(afc_north) %>% gt_theme_athletic()
+gt(afc_north) |> gt_theme_athletic()
 
 
   

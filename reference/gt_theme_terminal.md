@@ -72,7 +72,7 @@ for a color scale that survives a dark ground.
 library(gt)
 afc <- subset(sdv_example_standings, conference == "AFC",
   c(team_name, wins:points_against))
-gt(head(afc, 12)) %>% gt_theme_terminal()
+gt(head(afc, 12)) |> gt_theme_terminal()
 
 
   

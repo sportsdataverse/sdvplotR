@@ -164,7 +164,7 @@ metrics <- data.frame(
   pct = c(94, 41, 72, 18)
 )
 
-gt(metrics) %>% gt_percentile_bar(pct)
+gt(metrics) |> gt_percentile_bar(pct)
 
 
   

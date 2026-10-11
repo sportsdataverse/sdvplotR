@@ -35,11 +35,10 @@ Returns a modified `gt` table with the grid borders applied.
 
 ## Details
 
-Column borders are drawn with
-[`gtExtras::gt_add_divider()`](https://jthomasmock.github.io/gtExtras/reference/gt_add_divider.html)
-on every column but the last, and the row borders are added as scoped
-CSS on the `.gt_row` top border. A table id is resolved or generated
-first, since that CSS is keyed on `#<table_id>`.
+Column borders are drawn as right cell borders on every column but the
+last, and the row borders are added as scoped CSS on the `.gt_row` top
+border. A table id is resolved or generated first, since that CSS is
+keyed on `#<table_id>`.
 
 ## Examples
 
@@ -48,7 +47,7 @@ library(gt)
 
 afc_south <- subset(sdv_example_standings, division == "AFC South",
   c(team_name, wins:points_against))
-gt(afc_south) %>% gt_border_grid()
+gt(afc_south) |> gt_border_grid()
 
 
   

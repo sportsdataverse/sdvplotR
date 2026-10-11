@@ -156,7 +156,7 @@ roster <- data.frame(
   captain = c(1, 0, 0)
 )
 
-gt(roster) %>% gt_indicator_boxes(key_columns = "player")
+gt(roster) |> gt_indicator_boxes(key_columns = "player")
 
 
   

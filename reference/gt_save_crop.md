@@ -1,9 +1,9 @@
 # Save a `gt` table to an image and trim its whitespace
 
-Renders a table to a PNG, JPG, or JPEG, trims the whitespace `gtExtras`
-leaves around it, and pads a uniform border back on. Saving runs through
-[`gtExtras::gtsave_extra()`](https://jthomasmock.github.io/gtExtras/reference/gtsave_extra.html)
-and the trimming and padding through `magick`.
+Renders a table to a PNG, JPG, or JPEG, trims the whitespace the
+screenshot leaves around it, and pads a uniform border back on. Saving
+runs through headless Chrome (`webshot2`) and the trimming and padding
+through `magick`.
 
 ## Usage
 
@@ -85,14 +85,14 @@ library(gt)
 
 afc_east <- subset(sdv_example_standings, division == "AFC East",
   c(team_name, wins:points_against))
-gt(afc_east) %>%
-  gt_theme_broadsheet() %>%
+gt(afc_east) |>
+  gt_theme_broadsheet() |>
   gt_save_crop(tempfile(fileext = ".png"))
 
 # pin a shared width across a series
 atlantic <- subset(sdv_example_standings, division == "Atlantic",
   c(team_name, wins, losses, win_pct:points_against))
-gt(atlantic) %>%
+gt(atlantic) |>
   gt_save_crop(tempfile(fileext = ".png"), width = 900, bg = "#FBFAF7")
 # }
 }

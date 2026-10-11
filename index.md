@@ -201,7 +201,7 @@ SportsDataverse package](https://sportsdataverse.org/cheatsheets).
 | [**wehoop**](https://wehoop.sportsdataverse.org/) | Women’s basketball (WNBA and NCAA) |
 | [**fastRhockey**](https://fastRhockey.sportsdataverse.org/) | Hockey (NHL and PWHL) |
 | [**baseballr**](https://billpetti.github.io/baseballr/) | Baseball (MLB, MiLB, NCAA) |
-| [**nflfastR**](https://nflfastr.com/) · [**nflreadr**](https://nflreadr.nflverse.com/) | NFL play-by-play and data loaders |
+| [**nflfastR**](https://github.com/nflverse/nflfastR) · [**nflreadr**](https://nflreadr.nflverse.com/) | NFL play-by-play and data loaders |
 | [**oddsapiR**](https://oddsapiR.sportsdataverse.org/) | Sports betting odds |
 | [**cfbseedR**](https://cfbseedR.sportsdataverse.org/) | CFB seeding and playoff simulation |
 | [**sportyR**](https://sportyR.sportsdataverse.org/) | Playing-surface plots |
@@ -215,7 +215,7 @@ See the full ecosystem at
 ## Follow the [SportsDataverse](https://x.com/SportsDataverse) on X and star this repo
 
 [![X
-Follow](https://img.shields.io/twitter/follow/SportsDataverse?color=blue&label=%40SportsDataverse&logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
+Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
 
 [![GitHub
 stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=eee&logo=github&style=for-the-badge&label=Star%20sdvplotR&maxAge=2592000)](https://github.com/sportsdataverse/sdvplotR)
@@ -223,22 +223,22 @@ stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=ee
 ## **Our Authors**
 
 - [Saiem Gilani](https://x.com/saiemgilani) [![ORCID
-  logo](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-7194-9067)
-  [![@saiemgilani](https://img.shields.io/twitter/follow/saiemgilani?color=blue&label=%40saiemgilani&logo=x&style=for-the-badge)](https://x.com/saiemgilani)
+  logo](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-7194-9067)  
+  [![@saiemgilani](https://img.shields.io/badge/%40saiemgilani-blue?logo=x&style=for-the-badge)](https://x.com/saiemgilani)
   [![@saiemgilani](https://img.shields.io/github/followers/saiemgilani?color=eee&logo=Github&style=for-the-badge)](https://github.com/saiemgilani)
 
-- [Sebastian Carl](https://x.com/mrcaseb)
-  [![@mrcaseb](https://img.shields.io/twitter/follow/mrcaseb?color=blue&label=%40mrcaseb&logo=x&style=for-the-badge)](https://x.com/mrcaseb)
+- [Sebastian Carl](https://x.com/mrcaseb)  
+  [![@mrcaseb](https://img.shields.io/badge/%40mrcaseb-blue?logo=x&style=for-the-badge)](https://x.com/mrcaseb)
   [![@mrcaseb](https://img.shields.io/github/followers/mrcaseb?color=eee&logo=Github&style=for-the-badge)](https://github.com/mrcaseb)
 
-- [Jared Lee](https://github.com/Kazink36)
+- [Jared Lee](https://github.com/Kazink36)  
   [![@Kazink36](https://img.shields.io/github/followers/Kazink36?color=eee&logo=Github&style=for-the-badge)](https://github.com/Kazink36)
 
-- [Camden Kay](https://x.com/camdenkay)
-  [![@camdenkay](https://img.shields.io/twitter/follow/camdenkay?color=blue&label=%40camdenkay&logo=x&style=for-the-badge)](https://x.com/camdenkay)
+- [Camden Kay](https://x.com/camdenkay)  
+  [![@camdenkay](https://img.shields.io/badge/%40camdenkay-blue?logo=x&style=for-the-badge)](https://x.com/camdenkay)
   [![@camdenk](https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge)](https://github.com/camdenk)
 
-- [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)
+- [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)  
   [![@andreweatherman](https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge)](https://github.com/andreweatherman)
 
 ## **Code of Conduct**

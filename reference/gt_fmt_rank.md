@@ -48,7 +48,7 @@ nfc <- subset(sdv_example_standings, conference == "NFC" & conference_rank <= 5,
   c(team_name, conference_rank))
 nfc <- nfc[order(nfc$conference_rank), ]
 
-gt(nfc) %>% gt_fmt_rank(conference_rank)
+gt(nfc) |> gt_fmt_rank(conference_rank)
 
 
   

@@ -99,7 +99,7 @@ teams <- data.frame(
 )
 
 # keyed to a grouping column
-gt(teams) %>%
+gt(teams) |>
   gt_row_accent(conf, palette = c(
     ACC = "#003366", B12 = "#C8102E",
     SEC = "#B8232F"

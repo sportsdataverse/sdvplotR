@@ -222,8 +222,8 @@ used on the table. This function reads any of those the caller did not
 supply, so a legend can be added with no arguments and cannot disagree
 with the cells it explains:
 
-    gt(df) %>%
-      gt_color_ranks(net, palette = "viridis::mako", domain = c(-10, 12)) %>%
+    gt(df) |>
+      gt_color_ranks(net, palette = "viridis::mako", domain = c(-10, 12)) |>
       gt_legend_continuous()
 
 Anything passed explicitly wins over the recorded value. With several
@@ -249,8 +249,8 @@ library(gt)
 # the legend matches whatever gt_color_ranks() drew
 nfc_east <- subset(sdv_example_standings, division == "NFC East",
   c(team_name, wins, losses, points_for))
-gt(nfc_east) %>%
-  gt_color_ranks(columns = points_for) %>%
+gt(nfc_east) |>
+  gt_color_ranks(columns = points_for) |>
   gt_legend_continuous(columns = points_for, title = "Points scored")
 
 

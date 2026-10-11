@@ -52,8 +52,10 @@ gt_snake(
 
   Logical. Should the spacer columns be scrubbed of borders, fill, and
   rules so the gap reads as clean whitespace (see Details)? Set `FALSE`
-  when you style the gap yourself, e.g. with a coloured
-  [`gtExtras::gt_add_divider()`](https://jthomasmock.github.io/gtExtras/reference/gt_add_divider.html).
+  when you style the gap yourself, e.g. with a coloured border from
+  [`gt::tab_style()`](https://gt.rstudio.com/reference/tab_style.html)
+  and
+  [`gt::cell_borders()`](https://gt.rstudio.com/reference/cell_borders.html).
   Defaults to `TRUE`.
 
 ## Value
@@ -158,8 +160,8 @@ nba <- subset(sdv_example_standings, league == "nba",
 nba <- nba[order(-nba$win_pct), ]
 
 # three blocks of ten
-gt(nba) %>%
-  gt_snake(n_cols = 3) %>%
+gt(nba) |>
+  gt_snake(n_cols = 3) |>
   gt_theme_broadsheet()
 
 

@@ -172,7 +172,7 @@ of per-cell colors or text, anything the same shape as the snaked body."><meta p
     <li><a class="external-link dropdown-item" href="https://wehoop.sportsdataverse.org/">wehoop</a></li>
     <li><a class="external-link dropdown-item" href="https://fastRhockey.sportsdataverse.org/">fastRhockey</a></li>
     <li><a class="external-link dropdown-item" href="https://BillPetti.github.io/baseballr/">baseballr</a></li>
-    <li><a class="external-link dropdown-item" href="https://nflfastr.com/">nflfastR</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/nflverse/nflfastR">nflfastR</a></li>
     <li><a class="external-link dropdown-item" href="https://nflreadr.nflverse.com/">nflreadr</a></li>
     <li><a class="external-link dropdown-item" href="https://oddsapiR.sportsdataverse.org/">oddsapiR</a></li>
     <li><a class="external-link dropdown-item" href="https://cfbseedR.sportsdataverse.org/">cfbseedR</a></li>
@@ -298,9 +298,9 @@ styling through.</p></div>
 <span class="r-in"><span><span class="co"># after the snake, each column carries its block number as a suffix</span></span></span>
 <span class="r-in"><span><span class="va">snaked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">nfc</span><span class="op">)</span>, <span class="st">"_"</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">nfc</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="gt_snake.html">gt_snake</a></span><span class="op">(</span>n_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">nfc</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="gt_snake.html">gt_snake</a></span><span class="op">(</span>n_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="gt_highlight_cells.html">gt_highlight_cells</a></span><span class="op">(</span><span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">snaked</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    condition <span class="op">=</span> <span class="fu">gt_snake_align</span><span class="op">(</span><span class="va">mask</span>, n_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    fill <span class="op">=</span> <span class="st">"#EDBD68"</span></span></span>

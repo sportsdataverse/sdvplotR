@@ -28,8 +28,8 @@ A character vector of five hex colors, running best to worst.
 ``` r
 west <- subset(sdv_example_standings, league == "nba" & conference == "Western",
   c(team_name, wins, losses, win_pct))
-gt::gt(west) %>%
-  gt_theme_midnight() %>%
+gt::gt(west) |>
+  gt_theme_midnight() |>
   gt_color_ranks(win_pct, palette = pal_midnight)
 
 

@@ -112,7 +112,7 @@ library(gt)
 afc_east <- subset(sdv_example_standings, division == "AFC East",
   c(team_name, wins:points_against))
 
-gt(afc_east) %>%
+gt(afc_east) |>
   gt_social_tag(c(x = "@yourhandle", gh = "yourname"))
 
 

@@ -170,7 +170,7 @@ the table."><meta property="og:image" content="https://raw.githubusercontent.com
     <li><a class="external-link dropdown-item" href="https://wehoop.sportsdataverse.org/">wehoop</a></li>
     <li><a class="external-link dropdown-item" href="https://fastRhockey.sportsdataverse.org/">fastRhockey</a></li>
     <li><a class="external-link dropdown-item" href="https://BillPetti.github.io/baseballr/">baseballr</a></li>
-    <li><a class="external-link dropdown-item" href="https://nflfastr.com/">nflfastR</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/nflverse/nflfastR">nflfastR</a></li>
     <li><a class="external-link dropdown-item" href="https://nflreadr.nflverse.com/">nflreadr</a></li>
     <li><a class="external-link dropdown-item" href="https://oddsapiR.sportsdataverse.org/">oddsapiR</a></li>
     <li><a class="external-link dropdown-item" href="https://cfbseedR.sportsdataverse.org/">cfbseedR</a></li>
@@ -335,8 +335,8 @@ and <code>rule_color</code> to fix them regardless of order.</p>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">nfc_west</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="gt_theme_broadsheet.html">gt_theme_broadsheet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">nfc_west</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="gt_theme_broadsheet.html">gt_theme_broadsheet</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">gt_marginalia</span><span class="op">(</span><span class="va">note</span><span class="op">)</span></span></span>
 <div class="gt-table"><div id="hjzpqdimab" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
@@ -368,7 +368,7 @@ and <code>rule_color</code> to fix them regardless of order.</p>
 <td headers="playoff_wins" class="gt_row gt_right" style="border-style: none; padding-top: 6px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #DEDAD2; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums; color: #16130F; font-size: 14px;" valign="middle" align="right">NA</td>
 <td headers="note" class="gt_row gt_left" style="border-style: none; font-variant-numeric: tabular-nums; padding-top: 6px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #DEDAD2; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; color: #71706F; font-size: 0.92em; font-style: italic; border-left-width: 1px; border-left-style: solid; border-left-color: #CECDCB;" valign="middle" align="left">Missed the playoffs.</td></tr></tbody></table></div></div><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># keep a heading, widen it, and drop the italics</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">nfc_west</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">nfc_west</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">gt_marginalia</span><span class="op">(</span><span class="va">note</span>, label <span class="op">=</span> <span class="st">"Postseason"</span>, width <span class="op">=</span> <span class="fl">280</span>, italic <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <div class="gt-table"><div id="crqximnwer" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 

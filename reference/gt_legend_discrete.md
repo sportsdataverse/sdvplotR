@@ -183,7 +183,7 @@ afc_west <- subset(sdv_example_standings, division == "AFC West",
   c(team_name, wins, losses, playoff_wins))
 
 # a named vector is the quickest way in
-gt(afc_west) %>%
+gt(afc_west) |>
   gt_legend_discrete(c("Playoffs" = "#CCE7F5", "Missed" = "#F5CCCC"))
 
 

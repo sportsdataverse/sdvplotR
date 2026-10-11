@@ -106,8 +106,8 @@ results <- data.frame(
   p = summary(fit)$coefficients[, 4]
 )
 
-gt(results) %>%
-  fmt_number(c(Estimate, SE), decimals = 4) %>%
+gt(results) |>
+  fmt_number(c(Estimate, SE), decimals = 4) |>
   gt_significance(Estimate, p)
 
 

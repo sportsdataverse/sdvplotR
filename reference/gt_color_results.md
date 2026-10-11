@@ -93,7 +93,7 @@ results <- data.frame(
   result = c("W", "L", "W", "L")
 )
 
-gt(results) %>% gt_color_results()
+gt(results) |> gt_color_results()
 
 
   

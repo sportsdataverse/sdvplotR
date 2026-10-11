@@ -115,7 +115,7 @@ nba <- subset(sdv_example_standings, league == "nba",
   c(team_name, points_for, points_against))
 
 # the default fence (1.5 times the IQR) catches the league's lowest scorer
-gt(nba) %>% gt_outliers(c(points_for, points_against), note = TRUE)
+gt(nba) |> gt_outliers(c(points_for, points_against), note = TRUE)
 
 
   

@@ -190,7 +190,7 @@
     <li><a class="external-link dropdown-item" href="https://wehoop.sportsdataverse.org/">wehoop</a></li>
     <li><a class="external-link dropdown-item" href="https://fastRhockey.sportsdataverse.org/">fastRhockey</a></li>
     <li><a class="external-link dropdown-item" href="https://BillPetti.github.io/baseballr/">baseballr</a></li>
-    <li><a class="external-link dropdown-item" href="https://nflfastr.com/">nflfastR</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/nflverse/nflfastR">nflfastR</a></li>
     <li><a class="external-link dropdown-item" href="https://nflreadr.nflverse.com/">nflreadr</a></li>
     <li><a class="external-link dropdown-item" href="https://oddsapiR.sportsdataverse.org/">oddsapiR</a></li>
     <li><a class="external-link dropdown-item" href="https://cfbseedR.sportsdataverse.org/">cfbseedR</a></li>
@@ -278,7 +278,7 @@ metric next to a <code>_rank</code> column.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summaries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/load_espn_cfb_team_summaries.html" class="external-link">load_espn_cfb_team_summaries</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">summaries</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 136 781</span></span>
+<span><span class="co">#&gt; [1] 136 788</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"_rank$"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">summaries</span><span class="op">)</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "playsgame_off_rank"      "TEPA_off_rank"          </span></span>
 <span><span class="co">#&gt; [3] "EPAgame_off_rank"        "EPAplay_off_rank"       </span></span>

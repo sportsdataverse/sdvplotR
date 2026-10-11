@@ -176,7 +176,7 @@ yet."><meta property="og:image" content="https://raw.githubusercontent.com/sport
     <li><a class="external-link dropdown-item" href="https://wehoop.sportsdataverse.org/">wehoop</a></li>
     <li><a class="external-link dropdown-item" href="https://fastRhockey.sportsdataverse.org/">fastRhockey</a></li>
     <li><a class="external-link dropdown-item" href="https://BillPetti.github.io/baseballr/">baseballr</a></li>
-    <li><a class="external-link dropdown-item" href="https://nflfastr.com/">nflfastR</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/nflverse/nflfastR">nflfastR</a></li>
     <li><a class="external-link dropdown-item" href="https://nflreadr.nflverse.com/">nflreadr</a></li>
     <li><a class="external-link dropdown-item" href="https://oddsapiR.sportsdataverse.org/">oddsapiR</a></li>
     <li><a class="external-link dropdown-item" href="https://cfbseedR.sportsdataverse.org/">cfbseedR</a></li>
@@ -313,16 +313,10 @@ rink, 18.3 m on a pitch) and follows
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"sportyR"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># the regulation surface</span></span></span>
-<span class="r-in"><span>  <span class="fu">sdv_surface</span><span class="op">(</span><span class="st">"nhl"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># in a team's colors, with its logo at center court, and shots on top</span></span></span>
 <span class="r-in"><span>  <span class="va">shots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">40</span>, <span class="op">-</span><span class="fl">35</span>, <span class="fl">30</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">12</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu">sdv_surface</span><span class="op">(</span><span class="st">"nba"</span>, <span class="st">"BOS"</span>, center_logo <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">shots</span>, color <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># sportyR arguments pass through</span></span></span>
-<span class="r-in"><span>  <span class="fu">sdv_surface</span><span class="op">(</span><span class="st">"cfb"</span>, <span class="st">"TEX"</span>, rotation <span class="op">=</span> <span class="fl">90</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="sdv_surface-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>

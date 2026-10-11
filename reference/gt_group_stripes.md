@@ -56,8 +56,8 @@ library(gt)
 afc <- subset(sdv_example_standings, conference == "AFC",
   c(team_name, division, wins, losses, points_for))
 
-gt(afc, groupname_col = "division") %>%
-  gt_theme_broadsheet() %>%
+gt(afc, groupname_col = "division") |>
+  gt_theme_broadsheet() |>
   gt_group_stripes()
 
 

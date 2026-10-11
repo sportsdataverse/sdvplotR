@@ -86,13 +86,13 @@ library(gt)
 nfc_west <- subset(sdv_example_standings, division == "NFC West",
   c(team_name, wins:points_against))
 
-gt(nfc_west) %>%
-  gt_theme_broadsheet(density = "social") %>%
+gt(nfc_west) |>
+  gt_theme_broadsheet(density = "social") |>
   gt_social_crop(tempfile(fileext = ".png"), aspect_ratio = "4:5")
 
 # match the canvas to a dark theme
-gt(nfc_west) %>%
-  gt_theme_midnight() %>%
+gt(nfc_west) |>
+  gt_theme_midnight() |>
   gt_social_crop(tempfile(fileext = ".png"), bg = "#0C0D10")
 # }
 }

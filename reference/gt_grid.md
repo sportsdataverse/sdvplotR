@@ -161,8 +161,8 @@ library(gt)
 
 afc <- subset(sdv_example_standings, conference == "AFC")
 by_division <- lapply(split(afc, afc$division), function(d) {
-  gt(d[c("team_name", "wins", "losses", "points_for")]) %>%
-    gt_theme_broadsheet() %>%
+  gt(d[c("team_name", "wins", "losses", "points_for")]) |>
+    gt_theme_broadsheet() |>
     tab_header(title = d$division[[1]])
 })
 

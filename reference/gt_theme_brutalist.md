@@ -65,7 +65,7 @@ export at.
 library(gt)
 afc_south <- subset(sdv_example_standings, division == "AFC South",
   c(team_name, wins:points_against))
-gt(afc_south) %>% gt_theme_brutalist()
+gt(afc_south) |> gt_theme_brutalist()
 
 
   

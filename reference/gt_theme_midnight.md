@@ -84,7 +84,7 @@ for a denser dark look.
 library(gt)
 nfc_west <- subset(sdv_example_standings, division == "NFC West",
   c(team_name, wins:points_against))
-gt(nfc_west) %>% gt_theme_midnight()
+gt(nfc_west) |> gt_theme_midnight()
 
 
   

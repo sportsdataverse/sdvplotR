@@ -106,7 +106,7 @@ ranked <- data.frame(
   defense_rank = rank(west$points_against, ties.method = "min")
 )
 
-gt(ranked) %>% gt_color_ranks(c(offense_rank, defense_rank))
+gt(ranked) |> gt_color_ranks(c(offense_rank, defense_rank))
 
 
   
