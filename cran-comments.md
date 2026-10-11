@@ -7,9 +7,11 @@ the conventions of 'nflplotR' (CRAN).
 
 ## Test environments
 
-* local: Windows 10, R 4.6.1
+* local: Windows 10, R 4.6.1 (`R CMD check --as-cran --run-donttest`)
 * GitHub Actions: ubuntu-latest (R devel, release, oldrel-1),
   windows-latest (R release), macos-latest (R release)
+* R-hub: linux, windows, macos and macos-arm64 (R devel), ubuntu-next,
+  ubuntu-release, atlas, nosuggests, donttest
 
 ## R CMD check results
 
@@ -37,10 +39,13 @@ not occur on Linux, macOS, or R 4.6.0 and earlier.
 
 * All images are fetched at plot time from public league CDNs (ESPN,
   nflverse) through 'ggpath' and cached for the session; no image files are
-  bundled. Examples that download images are wrapped in `\donttest{}` so the
-  routine CRAN checks skip them (as 'nflplotR' and 'ggpath' do); they pass
-  locally under `--as-cran`, which runs them, on a networked machine. The one
-  test that renders images skips on CRAN.
+  bundled. Examples that download images are wrapped in `\donttest{}` (as
+  'nflplotR' and 'ggpath' do); they pass under `--as-cran`, which runs them,
+  each in under 5 seconds. Without network, the read of the NFL headshot
+  map warns and returns no rows instead of erroring. The one test that
+  renders images skips on CRAN.
+* The slowest example, `sdv_surface()` (about 4 seconds), spends that time
+  in 'sportyR' building the court geometry.
 * The package ships no vignettes: its long-form documentation is articles on
   the pkgdown site, which need the companion data packages and network
   access.

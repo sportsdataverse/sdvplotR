@@ -297,6 +297,14 @@ test_that("read_rds_url warns and returns NULL when the read fails", {
   expect_null(out)
 })
 
+test_that("read_rds_url warns and returns NULL when the url can't be opened", {
+  # the offline / 404 case: the failure is in opening the connection, not reading it
+  missing <- file.path(withr::local_tempdir(), "absent.rds")
+  url <- paste0("file:///", gsub("\\", "/", missing, fixed = TRUE))
+  expect_warning(out <- read_rds_url(url), "Failed to read")
+  expect_null(out)
+})
+
 test_that("load_headshot_map returns an empty map when the release can't be read", {
   local_fresh_headshot_map()
   local_mocked_bindings(read_rds_url = function(...) NULL)

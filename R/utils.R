@@ -381,16 +381,23 @@ forget_headshot_map <- function() {
   invisible(NULL)
 }
 
-# readRDS() of a remote .rds; a failed read warns and returns NULL rather than
-# erroring. gzcon() explicitly: readRDS() only gunzips a connection whose class
-# is "url", and url() on a file:// address returns a "file" connection
+# readRDS() of a remote .rds. Any failure, opening the connection (offline, a
+# 404) or reading it, warns and returns NULL rather than erroring: CRAN checks
+# may run without network. gzcon() explicitly: readRDS() only gunzips a
+# connection whose class is "url", and url() on a file:// address returns a
+# "file" connection. gzcon() handles gzip (saveRDS()'s default, which
+# data-raw/update_headshot_gsis_map.R uses) and plain streams, not xz or bzip2.
 read_rds_url <- function(url) {
-  con <- gzcon(url(url, "rb"))
-  on.exit(close(con), add = TRUE)
-  tryCatch(readRDS(con), error = function(e) {
+  fail <- function(e) {
     cli::cli_warn("Failed to read {.url {url}}: {conditionMessage(e)}")
     NULL
-  })
+  }
+  con <- tryCatch(suppressWarnings(gzcon(url(url, "rb"))), error = fail)
+  if (is.null(con)) {
+    return(NULL)
+  }
+  on.exit(close(con), add = TRUE)
+  tryCatch(readRDS(con), error = fail)
 }
 
 # NFL.com image at the sized headshot transform rather than the full-size
@@ -591,8 +598,8 @@ headshot_html <- function(player_id, sport, type = c("height", "width"), size = 
 
 #' Clear the sdvplotR Caches
 #'
-#' @description sdvplotR reads the NFL headshot map through 'nflreadr', which
-#'   memoises it for a day, and renders images through 'ggpath', which caches
+#' @description sdvplotR reads the NFL headshot map once per session and keeps
+#'   it in memory, and renders images through 'ggpath', which caches
 #'   downloaded images for the session. This function clears both (the
 #'   'ggpath' cache when 'ggpath' exposes a cache-clearing function), so the
 #'   next NFL headshot reads the current published map.
@@ -601,7 +608,7 @@ headshot_html <- function(player_id, sport, type = c("height", "width"), size = 
 #' @examples
 #' sdvplotR_clear_cache()
 sdvplotR_clear_cache <- function() {
-  # the NFL headshot map is memoised by nflreadr's reader
+  # the NFL headshot map is cached for the session (load_headshot_map())
   forget_headshot_map()
   if ("clear_cache" %in% getNamespaceExports("ggpath")) {
     getExportedValue("ggpath", "clear_cache")()
