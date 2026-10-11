@@ -33,22 +33,21 @@
 #' afc <- subset(sdv_example_standings, conference == "AFC",
 #'   c(team_name, wins, losses, conference_rank, playoff_wins))
 #'
-#' gt(afc) %>% gt_highlight_na(playoff_wins)
+#' gt(afc) |> gt_highlight_na(playoff_wins)
 #'
 #' # relabel as well as highlight
-#' gt(afc) %>%
+#' gt(afc) |>
 #'   gt_highlight_na(playoff_wins,
 #'     missing_text = "missed playoffs",
 #'     italic = TRUE, fill = "#FFF8E1"
 #'   )
 #'
 #' # also catch placeholder strings left behind by a CSV import
-#' gt(afc) %>%
+#' gt(afc) |>
 #'   gt_highlight_na(everything(), na_strings = c("NA", "N/A", "-"))
 #'
 #' @seealso [gt_outliers()] for flagging values that are present but suspect.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_highlight_na <- function(gt_object, columns = gt::everything(),
                             fill = "#F0F0F0", text_color = NULL,

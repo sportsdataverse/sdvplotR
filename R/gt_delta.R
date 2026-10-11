@@ -50,14 +50,13 @@
 #'   c(team_name, last_season_wins, wins))
 #'
 #' # the change in wins from 2024, colored by sign
-#' gt(nfc_north) %>% gt_delta(last_season_wins, wins)
+#' gt(nfc_north) |> gt_delta(last_season_wins, wins)
 #'
 #' # as a percent of last season's wins, with arrows
-#' gt(nfc_north) %>% gt_delta(last_season_wins, wins, percent = TRUE, arrows = TRUE)
+#' gt(nfc_north) |> gt_delta(last_season_wins, wins, percent = TRUE, arrows = TRUE)
 #'
 #' @seealso [gt_scale_note()] for disclosing a divided scale.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_delta <- function(gt_object, from, to, column_label = "Change",
                      percent = FALSE, decimals = 1, arrows = FALSE,

@@ -28,11 +28,10 @@
 #' library(gt)
 #' afc_south <- subset(sdv_example_standings, division == "AFC South",
 #'   c(team_name, wins:points_against))
-#' gt(afc_south) %>% gt_theme_brutalist()
-#' gt(afc_south) %>% gt_theme_brutalist(accent = "#0033FF", density = "social")
+#' gt(afc_south) |> gt_theme_brutalist()
+#' gt(afc_south) |> gt_theme_brutalist(accent = "#0033FF", density = "social")
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_theme_brutalist <- function(gt_object, accent = "#FF3B00",
                                density = c("comfortable", "compact", "social"),

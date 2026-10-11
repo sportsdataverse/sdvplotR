@@ -36,11 +36,10 @@
 #' library(gt)
 #' central <- subset(sdv_example_standings, division == "Central",
 #'   c(team_name, wins, losses, win_pct:points_against))
-#' gt(central) %>% gt_theme_kenpom()
-#' gt(central) %>% gt_theme_kenpom(density = "compact")
+#' gt(central) |> gt_theme_kenpom()
+#' gt(central) |> gt_theme_kenpom(density = "compact")
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_theme_kenpom <- function(gt_object,
                             density = c("comfortable", "compact", "social"),

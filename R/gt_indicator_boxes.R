@@ -72,10 +72,10 @@
 #'   captain = c(1, 0, 0)
 #' )
 #'
-#' gt(roster) %>% gt_indicator_boxes(key_columns = "player")
+#' gt(roster) |> gt_indicator_boxes(key_columns = "player")
 #'
 #' # print the underlying values and draw a border
-#' gt(roster) %>%
+#' gt(roster) |>
 #'   gt_indicator_boxes(
 #'     key_columns = "player", show_text = TRUE,
 #'     border_color = "#333333"

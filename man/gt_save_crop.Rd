@@ -41,9 +41,9 @@ Invisibly, \code{file} after writing the cropped image to it, or the
 encoded image as a raw vector when \code{file} is \code{NULL}.
 }
 \description{
-Renders a table to a PNG, JPG, or JPEG, trims the whitespace \code{gtExtras} leaves
+Renders a table to a PNG, JPG, or JPEG, trims the whitespace the screenshot leaves
 around it, and pads a uniform border back on. Saving runs through
-\code{gtExtras::gtsave_extra()} and the trimming and padding through \code{magick}.
+headless Chrome (\code{webshot2}) and the trimming and padding through \code{magick}.
 }
 \details{
 The table is first written to a temporary file at \code{zoom} and \code{expand}, then
@@ -59,14 +59,14 @@ library(gt)
 
 afc_east <- subset(sdv_example_standings, division == "AFC East",
   c(team_name, wins:points_against))
-gt(afc_east) \%>\%
-  gt_theme_broadsheet() \%>\%
+gt(afc_east) |>
+  gt_theme_broadsheet() |>
   gt_save_crop(tempfile(fileext = ".png"))
 
 # pin a shared width across a series
 atlantic <- subset(sdv_example_standings, division == "Atlantic",
   c(team_name, wins, losses, win_pct:points_against))
-gt(atlantic) \%>\%
+gt(atlantic) |>
   gt_save_crop(tempfile(fileext = ".png"), width = 900, bg = "#FBFAF7")
 }
 \dontshow{\}) # examplesIf}

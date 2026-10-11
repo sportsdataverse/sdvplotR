@@ -53,17 +53,16 @@
 #'   )
 #' ))
 #'
-#' gt(nfc_west) %>%
-#'   gt_theme_broadsheet() %>%
+#' gt(nfc_west) |>
+#'   gt_theme_broadsheet() |>
 #'   gt_marginalia(note)
 #'
 #' # keep a heading, widen it, and drop the italics
-#' gt(nfc_west) %>%
+#' gt(nfc_west) |>
 #'   gt_marginalia(note, label = "Postseason", width = 280, italic = FALSE)
 #'
 #' @seealso [gt_cutline()] for a labeled break between rows.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_marginalia <- function(gt_object, columns, width = 220, label = "",
                           italic = TRUE, color = NULL, size = "0.92em",

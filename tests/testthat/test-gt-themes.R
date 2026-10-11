@@ -42,12 +42,11 @@ test_that("gt_sdv_logos keep their size inside a table theme", {
 test_that("gt_save_crop returns the path, or the image bytes when file is NULL", {
   # stand in for the headless-Chrome render: a white canvas with a black block
   local_mocked_bindings(
-    gtsave_extra = function(data, filename, ...) {
+    gt_webshot = function(data, filename, ...) {
       canvas <- magick::image_blank(60, 40, "white")
       block <- magick::image_blank(20, 10, "black")
       magick::image_write(magick::image_composite(canvas, block, offset = "+20+15"), filename)
-    },
-    .package = "gtExtras"
+    }
   )
   tbl <- gt::gt(head(mtcars))
 

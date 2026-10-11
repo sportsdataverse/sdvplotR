@@ -33,8 +33,8 @@ divide evenly. Defaults to \code{""}, an empty cell.}
 
 \item{clean_gaps}{Logical. Should the spacer columns be scrubbed of borders,
 fill, and rules so the gap reads as clean whitespace (see Details)? Set
-\code{FALSE} when you style the gap yourself, e.g. with a coloured
-\code{gtExtras::gt_add_divider()}. Defaults to \code{TRUE}.}
+\code{FALSE} when you style the gap yourself, e.g. with a coloured border from
+\code{gt::tab_style()} and \code{gt::cell_borders()}. Defaults to \code{TRUE}.}
 }
 \value{
 Returns a \code{gt} table laid out in blocks.
@@ -122,26 +122,26 @@ nba <- subset(sdv_example_standings, league == "nba",
 nba <- nba[order(-nba$win_pct), ]
 
 # three blocks of ten
-gt(nba) \%>\%
-  gt_snake(n_cols = 3) \%>\%
+gt(nba) |>
+  gt_snake(n_cols = 3) |>
   gt_theme_broadsheet()
 
 # or set the block length and let the count follow
-gt(nba) \%>\%
-  gt_snake(rows_per_col = 8, gap = 30) \%>\%
+gt(nba) |>
+  gt_snake(rows_per_col = 8, gap = 30) |>
   gt_theme_swiss()
 
 # formatting after the reshape: note the suffixed names
-gt(nba) \%>\%
-  gt_snake(n_cols = 3) \%>\%
-  gt_theme_swiss() \%>\%
-  fmt_number(starts_with("win_pct"), decimals = 3) \%>\%
+gt(nba) |>
+  gt_snake(n_cols = 3) |>
+  gt_theme_swiss() |>
+  fmt_number(starts_with("win_pct"), decimals = 3) |>
   cols_align(columns = everything(), align = "center")
 
 # and picking out a single block
-gt(nba) \%>\%
-  gt_snake(n_cols = 3) \%>\%
-  gt_theme_swiss() \%>\%
+gt(nba) |>
+  gt_snake(n_cols = 3) |>
+  gt_theme_swiss() |>
   tab_style(
     gt::cell_text(weight = "bold"),
     gt::cells_body(columns = team_1)

@@ -68,18 +68,17 @@
 #'   pct = c(94, 41, 72, 18)
 #' )
 #'
-#' gt(metrics) %>% gt_percentile_bar(pct)
+#' gt(metrics) |> gt_percentile_bar(pct)
 #'
 #' # the same values stored 0-1 render identically under the default scale = "auto"
 #' metrics$pct <- metrics$pct / 100
-#' gt(metrics) %>% gt_percentile_bar(pct)
+#' gt(metrics) |> gt_percentile_bar(pct)
 #'
 #' # a row that did not qualify
 #' metrics$pct[2] <- NA
-#' gt(metrics) %>% gt_percentile_bar(pct, na_label = "Not qualified")
+#' gt(metrics) |> gt_percentile_bar(pct, na_label = "Not qualified")
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_percentile_bar <- function(gt_object, columns, rows = NULL,
                               domain = c(0, 100), scale = "auto",

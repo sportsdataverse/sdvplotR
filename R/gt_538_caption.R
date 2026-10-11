@@ -46,14 +46,13 @@
 #' nfc_north <- subset(sdv_example_standings, division == "NFC North",
 #'   c(team_name, wins:points_against))
 #'
-#' gt(nfc_north) %>%
+#' gt(nfc_north) |>
 #'   gt_538_caption(
 #'     top_caption = "The NFC North in 2025",
 #'     bottom_caption = "Source: *nflreadr* schedules, ranked by *nflseedR*"
 #'   )
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #'
 #' @export
 gt_538_caption <- function(gt_object, top_caption = NULL, bottom_caption = NULL,

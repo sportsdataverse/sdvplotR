@@ -31,16 +31,15 @@
 #' afc <- subset(sdv_example_standings, conference == "AFC",
 #'   c(team_name, division, wins, losses, points_for))
 #'
-#' gt(afc, groupname_col = "division") %>%
-#'   gt_theme_broadsheet() %>%
+#' gt(afc, groupname_col = "division") |>
+#'   gt_theme_broadsheet() |>
 #'   gt_group_stripes()
 #'
 #' # shade from the first group instead, in a warmer tone
-#' gt(afc, groupname_col = "division") %>%
+#' gt(afc, groupname_col = "division") |>
 #'   gt_group_stripes(color = "#FBF3E4", start = 1)
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_group_stripes <- function(gt_object, color = "#F5F5F5", start = 2,
                              include_stub = TRUE) {

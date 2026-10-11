@@ -30,8 +30,8 @@
 #' \donttest{
 #' nfc_west <- subset(sdv_example_standings, division == "NFC West",
 #'   c(team_name, wins:points_against))
-#' gt::gt(nfc_west) %>%
-#'   gt_theme_gtutils() %>%
+#' gt::gt(nfc_west) |>
+#'   gt_theme_gtutils() |>
 #'   gt_save_crop(tempfile(fileext = ".png"), bg = bg)
 #' }
 #'

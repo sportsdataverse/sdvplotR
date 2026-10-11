@@ -82,7 +82,7 @@ seeds <- data.frame(
 )
 
 # the logos are URLs, which the browser fetches when the table is shown
-gt(seeds) \%>\%
+gt(seeds) |>
   gt_tiers(levels = c("Bye", "Wild card"), colors = c("#1B7837", "#B2182B"))
 
 }

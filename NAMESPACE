@@ -4,7 +4,6 @@ S3method(element_grob,element_sdv_headshot)
 S3method(element_grob,element_sdv_logo)
 S3method(element_grob,element_sdv_title_image)
 S3method(element_grob,element_sdv_wordmark)
-export("%>%")
 export(GeomFromPath)
 export(GeomRefLines)
 export(GeomSDVheadshot)
@@ -142,10 +141,6 @@ importFrom(gt,
   opt_css,
   text_transform
 )
-importFrom(gtExtras,
-  gt_add_divider,
-  gtsave_extra
-)
 importFrom(htmltools,
   HTML,
   browsable,
@@ -153,7 +148,6 @@ importFrom(htmltools,
   save_html,
   tags
 )
-importFrom(magrittr,"%>%")
 importFrom(rlang,
   "%||%",
   .data,

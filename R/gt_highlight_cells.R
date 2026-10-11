@@ -45,9 +45,9 @@
 #' vars <- c("wins", "point_diff", "points_for", "points_against", "conference_rank")
 #' m <- round(cor(nba[vars]), 2)
 #' cordf <- data.frame(var = rownames(m), m, row.names = NULL, check.names = FALSE)
-#' cordf %>%
-#'   gt(rowname_col = "var") %>%
-#'   gt_highlight_cells(-var, ~ .x > 0.7 & .x < 1, fill = "#FFD1A9") %>%
+#' cordf |>
+#'   gt(rowname_col = "var") |>
+#'   gt_highlight_cells(-var, ~ .x > 0.7 & .x < 1, fill = "#FFD1A9") |>
 #'   gt_highlight_cells(-var, ~ .x < -0.7, fill = "#A9D0FF")
 #'
 #' # a grid of team keys, one column per division in finishing order: playoff
@@ -56,14 +56,13 @@
 #' grid <- data.frame(split(afc$team, afc$division), check.names = FALSE)
 #' playoffs <- afc$team[afc$conference_rank <= 7]
 #' top_seed <- afc$team[afc$conference_rank == 1]
-#' gt(grid) %>%
-#'   gt_highlight_cells(everything(), ~ .x %in% playoffs, fill = "#CCE7F5") %>%
+#' gt(grid) |>
+#'   gt_highlight_cells(everything(), ~ .x %in% playoffs, fill = "#CCE7F5") |>
 #'   gt_highlight_cells(everything(), ~ .x == top_seed, fill = "#FCCF10")
 #'
 #' @seealso `gtExtras::gt_highlight_cols()` and `gtExtras::gt_highlight_rows()`
 #'   for whole-column and whole-row fills.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_highlight_cells <- function(gt_object, columns, condition, fill = "#FFF3B0",
                                text_color = NULL, bold = FALSE, ...) {

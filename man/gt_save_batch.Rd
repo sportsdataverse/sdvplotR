@@ -73,8 +73,8 @@ padded to the width of the widest before its border is added.
 library(gt)
 
 build <- function(df, group) {
-  gt(df[c("team_name", "wins", "losses", "points_for")]) \%>\%
-    gt_theme_broadsheet() \%>\%
+  gt(df[c("team_name", "wins", "losses", "points_for")]) |>
+    gt_theme_broadsheet() |>
     tab_header(title = group)
 }
 

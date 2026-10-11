@@ -71,7 +71,7 @@ teams <- data.frame(
 )
 
 # keyed to a grouping column
-gt(teams) \%>\%
+gt(teams) |>
   gt_row_accent(conf, palette = c(
     ACC = "#003366", B12 = "#C8102E",
     SEC = "#B8232F"
@@ -79,12 +79,12 @@ gt(teams) \%>\%
 
 # or straight from a column of colors
 teams$color <- c("#003366", "#C8102E", "#B8232F", "#C8102E")
-gt(teams) \%>\% gt_row_accent(color)
+gt(teams) |> gt_row_accent(color)
 
 # only some rows: by expression, by indices, or by one row number
-gt(teams) \%>\% gt_row_accent(color, rows = net <= 10)
-gt(teams) \%>\% gt_row_accent(color, rows = c(1, 3))
-gt(teams) \%>\% gt_row_accent(color, rows = 2)
+gt(teams) |> gt_row_accent(color, rows = net <= 10)
+gt(teams) |> gt_row_accent(color, rows = c(1, 3))
+gt(teams) |> gt_row_accent(color, rows = 2)
 
 }
 \seealso{

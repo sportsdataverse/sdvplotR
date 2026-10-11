@@ -37,11 +37,10 @@
 #' library(gt)
 #' afc_north <- subset(sdv_example_standings, division == "AFC North",
 #'   c(team_name, wins:points_against))
-#' gt(afc_north) %>% gt_theme_athletic()
-#' gt(afc_north) %>% gt_theme_athletic(density = "compact")
+#' gt(afc_north) |> gt_theme_athletic()
+#' gt(afc_north) |> gt_theme_athletic(density = "compact")
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_theme_athletic <- function(gt_object,
                               density = c("comfortable", "compact", "social"),

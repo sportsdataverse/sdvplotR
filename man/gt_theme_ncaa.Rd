@@ -49,6 +49,6 @@ leaves every size as the theme sets it, \code{"compact"} scales both down, and
 library(gt)
 atlantic <- subset(sdv_example_standings, division == "Atlantic",
   c(team_name, wins, losses, win_pct:points_against))
-gt(atlantic) \%>\% gt_theme_ncaa()
+gt(atlantic) |> gt_theme_ncaa()
 
 }

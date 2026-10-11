@@ -54,12 +54,12 @@ library(gt)
 
 nfc_north <- subset(sdv_example_standings, division == "NFC North",
   c(team_name, wins:points_against))
-gt(nfc_north) \%>\% gt_theme_tufte()
+gt(nfc_north) |> gt_theme_tufte()
 
 # a muted rust accent on the hairline
 atlantic <- subset(sdv_example_standings, division == "Atlantic",
   c(team_name, wins, losses, win_pct:points_against))
-gt(atlantic) \%>\% gt_theme_tufte(accent = "#7B3F2B")
+gt(atlantic) |> gt_theme_tufte(accent = "#7B3F2B")
 
 }
 \seealso{

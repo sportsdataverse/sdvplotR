@@ -67,16 +67,10 @@
 #' if (requireNamespace("sportyR", quietly = TRUE)) {
 #'   library(ggplot2)
 #'
-#'   # the regulation surface
-#'   sdv_surface("nhl")
-#'
 #'   # in a team's colors, with its logo at center court, and shots on top
 #'   shots <- data.frame(x = c(-40, -35, 30), y = c(5, -12, 0))
 #'   sdv_surface("nba", "BOS", center_logo = TRUE) +
 #'     geom_point(aes(x, y), data = shots, color = "red", size = 3)
-#'
-#'   # sportyR arguments pass through
-#'   sdv_surface("cfb", "TEX", rotation = 90)
 #' }
 #' }
 sdv_surface <- function(

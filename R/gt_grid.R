@@ -65,8 +65,8 @@
 #'
 #' afc <- subset(sdv_example_standings, conference == "AFC")
 #' by_division <- lapply(split(afc, afc$division), function(d) {
-#'   gt(d[c("team_name", "wins", "losses", "points_for")]) %>%
-#'     gt_theme_broadsheet() %>%
+#'   gt(d[c("team_name", "wins", "losses", "points_for")]) |>
+#'     gt_theme_broadsheet() |>
 #'     tab_header(title = d$division[[1]])
 #' })
 #'
@@ -112,7 +112,6 @@
 #' @seealso [gt_stack_tables()] for a vertical stack, and [gt_snake()] for
 #'   folding a single long table into blocks.
 #' @importFrom htmltools div browsable
-#' @importFrom magrittr %>%
 #' @export
 gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list(),
                     title = NULL, subtitle = NULL, caption = NULL,

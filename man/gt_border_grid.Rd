@@ -25,7 +25,7 @@ full grid, with an option to extend the borders around the column and row
 labels.
 }
 \details{
-Column borders are drawn with \code{gtExtras::gt_add_divider()} on every column but
+Column borders are drawn as right cell borders on every column but
 the last, and the row borders are added as scoped CSS on the \code{.gt_row} top
 border. A table id is resolved or generated first, since that CSS is keyed on
 \verb{#<table_id>}.
@@ -35,12 +35,12 @@ library(gt)
 
 afc_south <- subset(sdv_example_standings, division == "AFC South",
   c(team_name, wins:points_against))
-gt(afc_south) \%>\% gt_border_grid()
+gt(afc_south) |> gt_border_grid()
 
 # heavier gray lines, including around the labels
 pacific <- subset(sdv_example_standings, division == "Pacific",
   c(team_name, wins, losses, win_pct:points_against))
-gt(pacific) \%>\%
+gt(pacific) |>
   gt_border_grid(color = "#BBBBBB", weight = 2, include_labels = TRUE)
 
 }

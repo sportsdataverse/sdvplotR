@@ -56,7 +56,7 @@ leaves every size as the theme sets it, \code{"compact"} scales both down, and
 library(gt)
 afc_north <- subset(sdv_example_standings, division == "AFC North",
   c(team_name, wins:points_against))
-gt(afc_north) \%>\% gt_theme_athletic()
-gt(afc_north) \%>\% gt_theme_athletic(density = "compact")
+gt(afc_north) |> gt_theme_athletic()
+gt(afc_north) |> gt_theme_athletic(density = "compact")
 
 }

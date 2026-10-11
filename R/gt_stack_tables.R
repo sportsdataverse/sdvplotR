@@ -79,7 +79,6 @@
 #' @seealso [gt_grid()] for a side-by-side grid and [gt_snake()] for folding one
 #'   long table into blocks.
 #' @importFrom htmltools div browsable tags save_html HTML
-#' @importFrom magrittr %>%
 #' @export
 gt_stack_tables <- function(tables = NULL, gap = 16,
                             align = c("center", "left", "right"),

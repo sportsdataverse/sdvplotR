@@ -11,7 +11,7 @@
 #'   column labels? Defaults to `FALSE`.
 #'
 #' @details
-#' Column borders are drawn with `gtExtras::gt_add_divider()` on every column but
+#' Column borders are drawn as right cell borders on every column but
 #' the last, and the row borders are added as scoped CSS on the `.gt_row` top
 #' border. A table id is resolved or generated first, since that CSS is keyed on
 #' `#<table_id>`.
@@ -23,16 +23,15 @@
 #'
 #' afc_south <- subset(sdv_example_standings, division == "AFC South",
 #'   c(team_name, wins:points_against))
-#' gt(afc_south) %>% gt_border_grid()
+#' gt(afc_south) |> gt_border_grid()
 #'
 #' # heavier gray lines, including around the labels
 #' pacific <- subset(sdv_example_standings, division == "Pacific",
 #'   c(team_name, wins, losses, win_pct:points_against))
-#' gt(pacific) %>%
+#' gt(pacific) |>
 #'   gt_border_grid(color = "#BBBBBB", weight = 2, include_labels = TRUE)
 #'
 #' @importFrom gt opt_css
-#' @importFrom gtExtras gt_add_divider
 #' @export
 gt_border_grid <- function(gt_object,
                            color = "black",
@@ -44,12 +43,15 @@ gt_border_grid <- function(gt_object,
   gt_object <- res$object
   table_id <- res$id
 
+  locations <- list(gt::cells_body(columns = -dplyr::last_col()))
+  if (isTRUE(include_labels)) {
+    locations <- c(locations, list(gt::cells_column_labels(columns = -dplyr::last_col())))
+  }
+
   gt_object |>
-    gtExtras::gt_add_divider(
-      columns = -dplyr::last_col(),
-      color = color,
-      weight = px(weight),
-      include_labels = include_labels
+    gt::tab_style(
+      style = gt::cell_borders(sides = "right", color = color, weight = px(weight)),
+      locations = locations
     ) |>
     gt::opt_css(
       paste0("#", table_id, " .gt_row { border-top-color: ", color, ";}"),

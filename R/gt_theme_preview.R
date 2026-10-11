@@ -49,7 +49,6 @@
 #'
 #' @seealso [gt_grid()], which does the layout.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_theme_preview <- function(data, themes = NULL, n = 5, ncol = 3,
                              density = "compact", file = NULL, ...) {

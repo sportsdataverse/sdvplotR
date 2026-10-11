@@ -31,14 +31,13 @@
 #' library(gt)
 #' northwest <- subset(sdv_example_standings, division == "Northwest",
 #'   c(team_name, wins, losses, win_pct:points_against))
-#' gt(northwest) %>% gt_theme_scoreboard()
+#' gt(northwest) |> gt_theme_scoreboard()
 #'
 #' # a brand color carries the whole table
-#' gt(northwest) %>% gt_theme_scoreboard(accent = "#0F766E")
+#' gt(northwest) |> gt_theme_scoreboard(accent = "#0F766E")
 #'
 #' @seealso [gt_spotlight()] for picking out a row, and [gt_fmt_rank()] for ordinals.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_theme_scoreboard <- function(gt_object, accent = "#0E1621",
                                 density = c("compact", "comfortable", "social"),

@@ -277,32 +277,55 @@ test_that("with no map (offline) every NFL id resolves to NA", {
   expect_identical(headshot_from_id(c("00-0033873", NA), "nfl"), c(NA_character_, NA_character_))
 })
 
+local_fresh_headshot_map <- function(env = parent.frame()) {
+  forget_headshot_map()
+  withr::defer(forget_headshot_map(), envir = env)
+}
+
+test_that("read_rds_url reads a compressed .rds through a url connection", {
+  path <- withr::local_tempfile(fileext = ".rds")
+  saveRDS(headshot_map_fixture, path) # gzip, as the release asset is
+  url <- paste0("file:///", gsub("\\", "/", normalizePath(path), fixed = TRUE))
+  expect_identical(read_rds_url(url), headshot_map_fixture)
+})
+
+test_that("read_rds_url warns and returns NULL when the read fails", {
+  path <- withr::local_tempfile(fileext = ".rds")
+  writeLines("not an rds", path)
+  url <- paste0("file:///", gsub("\\", "/", normalizePath(path), fixed = TRUE))
+  expect_warning(out <- read_rds_url(url), "Failed to read")
+  expect_null(out)
+})
+
 test_that("load_headshot_map returns an empty map when the release can't be read", {
-  local_mocked_bindings(rds_from_url = function(...) data.frame(), .package = "nflreadr")
+  local_fresh_headshot_map()
+  local_mocked_bindings(read_rds_url = function(...) NULL)
   m <- load_headshot_map()
   expect_identical(nrow(m), 0L)
   expect_true(all(c("gsis_id", "headshot_nfl", "espn_id") %in% names(m)))
 })
 
 test_that("a failed map read is not cached, so the next call retries", {
+  local_fresh_headshot_map()
   calls <- 0
-  reader <- memoise::memoise(function(url) {
+  reader <- function(url) {
     calls <<- calls + 1
     data.frame()
-  })
-  local_mocked_bindings(rds_from_url = reader, .package = "nflreadr")
+  }
+  local_mocked_bindings(read_rds_url = reader)
   load_headshot_map()
   load_headshot_map()
   expect_identical(calls, 2)
 })
 
 test_that("sdvplotR_clear_cache forgets the headshot map", {
+  local_fresh_headshot_map()
   calls <- 0
-  reader <- memoise::memoise(function(url) {
+  reader <- function(url) {
     calls <<- calls + 1
     headshot_map_fixture
-  })
-  local_mocked_bindings(rds_from_url = reader, .package = "nflreadr")
+  }
+  local_mocked_bindings(read_rds_url = reader)
   load_headshot_map()
   load_headshot_map()
   expect_identical(calls, 1) # a good read stays cached
@@ -424,4 +447,16 @@ test_that("with_chrome_timeout() gives Chrome at least 60 seconds, keeps a longe
   withr::local_options(chromote.timeout = 120)
   expect_equal(with_chrome_timeout(getOption("chromote.timeout")), 120)
   expect_equal(getOption("chromote.timeout"), 120)
+})
+
+test_that(".resolve_palette passes hex vectors through without paletteer", {
+  pal <- c("#3D8B6E", "#BE4D3A")
+  expect_identical(.resolve_palette(pal), pal)
+})
+
+test_that(".resolve_palette expands a paletteer name from either registry", {
+  skip_if_not_installed("paletteer")
+  d <- .resolve_palette("viridis::mako", pal_type = "continuous")
+  expect_length(d, 256)
+  expect_match(d, "^#[0-9A-Fa-f]{6}")
 })

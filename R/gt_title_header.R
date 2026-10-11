@@ -46,7 +46,7 @@
 #' nfc_west <- subset(sdv_example_standings, division == "NFC West",
 #'   c(team_name, wins:points_against))
 #'
-#' gt(nfc_west) %>%
+#' gt(nfc_west) |>
 #'   gt_title_header(
 #'     title = "The NFC West",
 #'     subtitle = "Final standings of the 2025 regular season",
@@ -63,7 +63,6 @@
 #'
 #' @seealso [gt_538_caption()] for the footer equivalent.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_title_header <- function(gt_object, title, subtitle = NULL, kicker = NULL, date = NULL,
                             kicker_style = list(), title_style = list(),

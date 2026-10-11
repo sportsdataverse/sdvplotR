@@ -353,33 +353,44 @@ resolve_wordmark_url <- function(team, sport, variant = "primary") {
 
 # NFL headshot map: sdvplotR publishes it from nflverse rosters (1999 onward) to
 # its sdvplotr_infrastructure release (data-raw/update_headshot_gsis_map.R) and
-# reads it the way nflplotR reads its own map, through nflreadr::rds_from_url(),
-# which nflreadr memoises for a day (option nflreadr.cache). Offline, the read
-# warns and returns no rows, so every NFL id resolves to NA and the helpers fall
-# back as they do for any unknown id.
+# reads it once per session. Only a good read is cached, so a failed one retries
+# on the next call. Offline, the read warns and returns no rows, so every NFL id
+# resolves to NA and the helpers fall back as they do for any unknown id.
 headshot_map_url <- paste0(
   "https://github.com/sportsdataverse/sdvplotR/releases/download/",
   "sdvplotr_infrastructure/headshot_gsis_map.rds"
 )
 
+headshot_map_cache <- new.env(parent = emptyenv())
+
 load_headshot_map <- function() {
-  map <- nflreadr::rds_from_url(headshot_map_url)
-  if (!nrow(map) || !all(c("gsis_id", "headshot_nfl", "espn_id") %in% names(map))) {
-    # nflreadr memoises a failed read too (an empty table, for a day); forget it
-    # so the next call retries rather than leaving NFL headshots blank
-    forget_headshot_map()
-    map <- data.frame(gsis_id = character(), headshot_nfl = character(), espn_id = character())
+  if (!is.null(headshot_map_cache$map)) {
+    return(headshot_map_cache$map)
   }
+  map <- read_rds_url(headshot_map_url)
+  if (!is.data.frame(map) || !nrow(map) ||
+      !all(c("gsis_id", "headshot_nfl", "espn_id") %in% names(map))) {
+    return(data.frame(gsis_id = character(), headshot_nfl = character(), espn_id = character()))
+  }
+  headshot_map_cache$map <- map
   map
 }
 
-# drop only sdvplotR's entry from nflreadr's memoised reader, not the rest of
-# the user's nflreadr cache (nflplotR's cache clearing is scoped the same way)
 forget_headshot_map <- function() {
-  if (memoise::is.memoised(nflreadr::rds_from_url)) {
-    memoise::drop_cache(nflreadr::rds_from_url)(headshot_map_url)
-  }
+  headshot_map_cache$map <- NULL
   invisible(NULL)
+}
+
+# readRDS() of a remote .rds; a failed read warns and returns NULL rather than
+# erroring. gzcon() explicitly: readRDS() only gunzips a connection whose class
+# is "url", and url() on a file:// address returns a "file" connection
+read_rds_url <- function(url) {
+  con <- gzcon(url(url, "rb"))
+  on.exit(close(con), add = TRUE)
+  tryCatch(readRDS(con), error = function(e) {
+    cli::cli_warn("Failed to read {.url {url}}: {conditionMessage(e)}")
+    NULL
+  })
 }
 
 # NFL.com image at the sized headshot transform rather than the full-size
@@ -600,7 +611,27 @@ sdvplotR_clear_cache <- function() {
 }
 
 
-# Runs a save that launches headless Chrome (gtExtras::gtsave_extra(),
+# Screenshots a gt table to `filename` through headless Chrome, as
+# gtExtras::gtsave_extra() did (without taking gtExtras and its paletteer
+# subtree as a dependency): the table is saved as a standalone HTML page and
+# webshot2 captures it, padded by `expand` pixels. webshot2's progress chatter
+# goes to stderr, so it is captured rather than printed.
+gt_webshot <- function(data, filename, zoom = 2, expand = 5) {
+  rlang::check_installed("webshot2", reason = "to save a `gt` table as an image.")
+  html <- tempfile(fileext = ".html")
+  on.exit(unlink(html), add = TRUE)
+  htmltools::save_html(htmltools::as.tags(data), html)
+  utils::capture.output(
+    webshot2::webshot(
+      paste0("file:///", gsub("\\", "/", html, fixed = TRUE)),
+      file = filename, zoom = zoom, expand = expand
+    ),
+    type = "message"
+  )
+  invisible(filename)
+}
+
+# Runs a save that launches headless Chrome (gt_webshot(),
 # webshot2::webshot()) with chromote given at least `seconds` to open Chrome's
 # debugging port. chromote's default is 10 seconds, which a loaded machine (a CI
 # runner building the articles) misses: "Chrome debugging port not open after

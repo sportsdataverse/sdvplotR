@@ -23,13 +23,12 @@
 #'   c(team_name, conference_rank))
 #' nfc <- nfc[order(nfc$conference_rank), ]
 #'
-#' gt(nfc) %>% gt_fmt_rank(conference_rank)
+#' gt(nfc) |> gt_fmt_rank(conference_rank)
 #'
 #' # flat, without the superscript
-#' gt(nfc) %>% gt_fmt_rank(conference_rank, superscript = FALSE)
+#' gt(nfc) |> gt_fmt_rank(conference_rank, superscript = FALSE)
 #'
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_fmt_rank <- function(gt_object, columns, superscript = TRUE, suffix_size = "0.7em") {
   .check_gt(gt_object)

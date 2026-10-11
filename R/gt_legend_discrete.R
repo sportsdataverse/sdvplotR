@@ -83,11 +83,11 @@
 #'   c(team_name, wins, losses, playoff_wins))
 #'
 #' # a named vector is the quickest way in
-#' gt(afc_west) %>%
+#' gt(afc_west) |>
 #'   gt_legend_discrete(c("Playoffs" = "#CCE7F5", "Missed" = "#F5CCCC"))
 #'
 #' # rounded swatches below the table, labels on the swatches
-#' gt(afc_west) %>%
+#' gt(afc_west) |>
 #'   gt_legend_discrete(
 #'     c("Yes" = "#FCCF10", "No" = "#EEEEEE"),
 #'     heading = "Qualified",
@@ -97,7 +97,7 @@
 #'   )
 #'
 #' # style the heading and labels through lists, the same way gt_grid() does
-#' gt(afc_west) %>%
+#' gt(afc_west) |>
 #'   gt_legend_discrete(
 #'     c("Home" = "#CCE7F5", "Away" = "#FFFFFF", "Bye" = "#EEEEEE"),
 #'     heading = "2025 Schedule",
@@ -107,7 +107,6 @@
 #'
 #' @seealso [gt_legend_continuous()] for a continuous ramp.
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_legend_discrete <- function(gt_object, key_info = NULL, heading = NULL, subtitle = NULL,
                                label_placement = c("outside", "inside"),

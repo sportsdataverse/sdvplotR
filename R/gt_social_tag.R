@@ -47,11 +47,11 @@
 #' afc_east <- subset(sdv_example_standings, division == "AFC East",
 #'   c(team_name, wins:points_against))
 #'
-#' gt(afc_east) %>%
+#' gt(afc_east) |>
 #'   gt_social_tag(c(x = "@yourhandle", gh = "yourname"))
 #'
 #' # with a caption line above, stacked and left-aligned
-#' gt(afc_east) %>%
+#' gt(afc_east) |>
 #'   gt_social_tag(
 #'     c(x = "@yourhandle", web = "example.com"),
 #'     caption = "Data: nflreadr and nflseedR",
@@ -60,7 +60,6 @@
 #'
 #' @seealso [gt_538_caption()].
 #' @import gt
-#' @importFrom magrittr %>%
 #' @export
 gt_social_tag <- function(gt_object, accounts, caption = NULL, stack = FALSE,
                           separator = " | ", align = "right",
