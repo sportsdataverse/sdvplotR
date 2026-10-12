@@ -201,7 +201,6 @@ gt_sdv_headshots <- function(
 #' @param height The absolute height (px) of the image.
 #' @param mark_type One of `"logo"`, `"wordmark"` or `"headshot"`: whether the
 #'   column names are teams (logo / wordmark) or player IDs (headshot).
-#' @inheritParams gt_sdv_logos
 #' @param id_system How the column names are read. `"auto"` (the default) is
 #'   [sdv_logo_url()]'s automatic reading for logo and wordmark labels, and
 #'   means `"espn"` when `mark_type = "headshot"`; otherwise as in
