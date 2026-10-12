@@ -232,6 +232,26 @@ test_that("geom_sdv_logos passes the season aesthetic to the resolver", {
   expect_identical(seen[[2]], c(NA, NA))
 })
 
+test_that("a constant season set outside aes() reaches the logo and wordmark resolvers", {
+  df <- data.frame(x = 1:2, y = 1:2, team = c("QUE", "COL"))
+  seen <- list()
+  local_mocked_bindings(
+    logo_from_team = function(team, league, season = NULL, ...) {
+      seen$logo <<- season
+      rep(NA_character_, length(team))
+    },
+    wordmark_from_team = function(team, league, season = NULL, ...) {
+      seen$wordmark <<- season
+      rep(NA_character_, length(team))
+    },
+    .package = "sdvplotR"
+  )
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team), league = "nhl", season = 1990)))
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_wordmarks(aes(team = team), league = "nfl", season = 2005)))
+  expect_identical(seen$logo, c(1990, 1990))
+  expect_identical(seen$wordmark, c(2005, 2005))
+})
+
 test_that("geom_sdv_logos draws period marks with and without a season", {
   skip_on_cran()
   skip_if_offline()

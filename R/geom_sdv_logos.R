@@ -118,7 +118,7 @@ GeomSDVlogo <- ggplot2::ggproto(
   # value that does not resolve warns once
   setup_data = function(data, params) {
     data$path <- logo_from_team(data$team, params$league %||% "nfl",
-      season = data$season %||% rep(NA, nrow(data)),
+      season = rep_len(data$season %||% params$season %||% NA, nrow(data)),
       id_system = params$id_system %||% "auto", strict = isTRUE(params$strict)
     )
     data
