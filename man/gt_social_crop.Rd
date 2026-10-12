@@ -42,7 +42,8 @@ scaled to it, keeping the aspect ratio, so a series of posts can share one
 width. Defaults to \code{NULL}.}
 }
 \value{
-Returns the cropped and padded image file.
+Invisibly, \code{file} after writing the cropped and padded image to it,
+or the encoded image as a raw vector when \code{file} is \code{NULL}.
 }
 \description{
 A variant of \code{\link[=gt_save_crop]{gt_save_crop()}} that centers the trimmed table on a canvas of a

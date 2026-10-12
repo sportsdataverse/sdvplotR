@@ -61,7 +61,9 @@ pixels. Defaults to \code{50}.}
 \code{2}.}
 }
 \value{
-Displays the stacked tables in the viewer, or writes them to \code{file}.
+An \code{htmltools::browsable()} tag list of the stacked tables, which
+prints in the viewer; with \code{file}, invisibly \code{file} after writing the PNG
+to it.
 }
 \description{
 Places a list of tables one above another in a single block, with an optional

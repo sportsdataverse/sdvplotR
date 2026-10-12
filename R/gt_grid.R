@@ -58,7 +58,8 @@
 #'
 #' Saving needs the `webshot2` package.
 #'
-#' @returns Displays the grid in the viewer, or writes it to `file`.
+#' @returns An `htmltools::browsable()` tag list of the grid, which prints in
+#'   the viewer; with `file`, invisibly `file` after writing the PNG to it.
 #'
 #' @examples
 #' library(gt)
@@ -288,6 +289,7 @@ gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list()
   )
   tmp_html <- tempfile(fileext = ".html")
   tmp_png <- tempfile(fileext = ".png")
+  on.exit(unlink(c(tmp_html, tmp_png)), add = TRUE)
   htmltools::save_html(htmltools::browsable(page), tmp_html)
 
   with_chrome_timeout(webshot2::webshot(paste0("file://", normalizePath(tmp_html)), tmp_png,
@@ -299,6 +301,5 @@ gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list()
     magick::image_border(bg, glue::glue("{whitespace}x{whitespace}")) |>
     magick::image_write(file)
 
-  unlink(c(tmp_html, tmp_png))
   invisible(file)
 }

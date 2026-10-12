@@ -16,7 +16,7 @@
 #' }
 #'
 #' @source Read back from each theme's `table.background.color` by
-#'   `data-raw/theme_bg.R`. [gt_theme_drench()] takes its background from its
+#'   [`data-raw/theme_bg.R`](https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/theme_bg.R). [gt_theme_drench()] takes its background from its
 #'   `color` argument and [gt_theme_broadsheet()] from its `paper` argument;
 #'   their rows hold the default.
 #'
@@ -72,7 +72,8 @@
 #'     2024 and the NBA's 2024-25.}
 #' }
 #'
-#' @source Built by `data-raw/sdv_examples.R`. NFL: the nflverse schedules
+#' @source Built by
+#'   [`data-raw/sdv_examples.R`](https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/sdv_examples.R). NFL: the nflverse schedules
 #'   release, `nflreadr::load_schedules(2025)`, with the standings and
 #'   conference ranks from `nflseedR::nfl_standings()`. NBA: the
 #'   sportsdataverse-data team box release, `hoopR::load_nba_team_box(2026)`,

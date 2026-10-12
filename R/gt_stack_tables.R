@@ -51,7 +51,9 @@
 #' style list are loaded through a stylesheet link, since the composed HTML does
 #' not run through `gt`'s own font machinery.
 #'
-#' @returns Displays the stacked tables in the viewer, or writes them to `file`.
+#' @returns An `htmltools::browsable()` tag list of the stacked tables, which
+#'   prints in the viewer; with `file`, invisibly `file` after writing the PNG
+#'   to it.
 #'
 #' @examples
 #' library(gt)
@@ -209,6 +211,7 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
   )
   tmp_html <- tempfile(fileext = ".html")
   tmp_png <- tempfile(fileext = ".png")
+  on.exit(unlink(c(tmp_html, tmp_png)), add = TRUE)
   htmltools::save_html(htmltools::browsable(page), tmp_html)
 
   with_chrome_timeout(webshot2::webshot(paste0("file://", normalizePath(tmp_html)), tmp_png,
@@ -220,6 +223,5 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
     magick::image_border(bg, glue::glue("{whitespace}x{whitespace}")) |>
     magick::image_write(file)
 
-  unlink(c(tmp_html, tmp_png))
   invisible(file)
 }

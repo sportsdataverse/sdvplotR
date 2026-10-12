@@ -13,7 +13,7 @@
 #' @param data The data formulas read; defaults to the map's.
 #' @param ... Passed to [leaflet::addMarkers()] (`label`, `popup`, `layerId`,
 #'   `group`, ...); a vector one per row is split with the rows.
-#' @return The map.
+#' @return The leaflet map (an htmlwidget) with the markers added.
 #' @export
 #' @examples
 #' \donttest{

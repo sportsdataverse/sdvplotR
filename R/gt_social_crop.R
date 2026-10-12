@@ -20,7 +20,8 @@
 #'   scaled to it, keeping the aspect ratio, so a series of posts can share one
 #'   width. Defaults to `NULL`.
 #'
-#' @returns Returns the cropped and padded image file.
+#' @returns Invisibly, `file` after writing the cropped and padded image to it,
+#'   or the encoded image as a raw vector when `file` is `NULL`.
 #'
 #' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 #' \donttest{
@@ -65,6 +66,7 @@ gt_social_crop <- function(data, file = NULL, aspect_ratio = "1:1", bg = "white"
   }
 
   tmp <- tempfile(fileext = ".png")
+  on.exit(unlink(tmp), add = TRUE)
   with_chrome_timeout(gt_webshot(data, tmp, zoom = zoom, expand = expand))
 
   img <- magick::image_read(tmp) |>
@@ -97,6 +99,5 @@ gt_social_crop <- function(data, file = NULL, aspect_ratio = "1:1", bg = "white"
   }
 
   out <- magick::image_write(img, file)
-  unlink(tmp)
   invisible(out)
 }

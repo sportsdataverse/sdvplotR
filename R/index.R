@@ -129,6 +129,9 @@ read_live_index <- function() {
   if (!is.null(stale)) {
     warn_once("index", c("Could not refresh the sdvplotR team index ({stale}).", i = "Using the cached index {.val {ver}}."))
   }
+  # the cache keeps one index version: drop the folders of older ones, which are never read again
+  old <- setdiff(list.dirs(cache_path("index"), full.names = FALSE, recursive = FALSE), ver)
+  if (length(old)) unlink(cache_path("index", old), recursive = TRUE)
   idx
 }
 

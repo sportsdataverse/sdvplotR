@@ -226,10 +226,15 @@ load_headshot_map <- function() {
   if (!is.null(headshot_map_cache$map)) {
     return(headshot_map_cache$map)
   }
+  empty <- data.frame(gsis_id = character(), headshot_nfl = character(), espn_id = character())
+  # offline (sdvplotR.offline, or a CRAN check) the map is never fetched
+  if (use_snapshot()) {
+    return(empty)
+  }
   map <- read_rds_url(headshot_map_url)
   if (!is.data.frame(map) || !nrow(map) ||
       !all(c("gsis_id", "headshot_nfl", "espn_id") %in% names(map))) {
-    return(data.frame(gsis_id = character(), headshot_nfl = character(), espn_id = character()))
+    return(empty)
   }
   headshot_map_cache$map <- map
   map

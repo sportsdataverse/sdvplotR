@@ -26,7 +26,7 @@ Description: A unified set of functions to visualize sports data across
     SportsDataverse logo archive <https://github.com/sportsdataverse/sdv-assets>,
     read at run time with a copy bundled in the package. Built on 'ggpath'
     following the conventions of 'nflplotR' and designed to work with the
-    companion 'SportsDataverse' data packages. Also includes the
+    companion SportsDataverse data packages. Also includes the
     'gtUtils' table themes, color legends, cut lines, significance
     notation, outlier flags and cropping and saving helpers for 'gt'
     tables.
@@ -72,9 +72,9 @@ Suggests:
     testthat (>= 3.0.0),
     webshot2,
     withr
-Config/Needs/development:devtools, httr, jsonlite, lintr, nflreadr,
+Config/Needs/development: devtools, httr, jsonlite, lintr, nflreadr,
     roxygen2, styler, usethis
-Config/Needs/website:r-lib/pkgdown, arrow, baseballr, cfbfastR, cfbseedR,
+Config/Needs/website: r-lib/pkgdown, arrow, baseballr, cfbfastR, cfbseedR,
     fastRhockey, ggsoccer, ggiraph, ggrepel, ggsci, gtExtras, jsonlite, hoopR, leaflet, maps,
     nflfastR, nflseedR, nflreadr, oddsapiR, patchwork, plotly,
     kcuilla/reactablefmtr, sportyR, svglite, tidyverse, viridis, wehoop

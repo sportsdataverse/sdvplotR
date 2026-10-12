@@ -160,10 +160,24 @@ test_that("with no map (offline) every NFL id resolves to NA", {
   expect_identical(headshot_from_id(c("00-0033873", NA), "nfl", "gsis"), c(NA_character_, NA_character_))
 })
 
+# online, as a user's session is: setup.R turns sdvplotR.offline on for the suite
 local_fresh_headshot_map <- function(env = parent.frame()) {
+  withr::local_options(sdvplotR.offline = FALSE, .local_envir = env)
   forget_headshot_map()
   withr::defer(forget_headshot_map(), envir = env)
 }
+
+test_that("offline, the headshot map is never fetched", {
+  local_fresh_headshot_map()
+  withr::local_options(sdvplotR.offline = TRUE)
+  calls <- 0
+  local_mocked_bindings(read_rds_url = function(...) {
+    calls <<- calls + 1
+    headshot_map_fixture
+  })
+  expect_identical(nrow(load_headshot_map()), 0L)
+  expect_identical(calls, 0)
+})
 
 test_that("read_rds_url reads a compressed .rds through a url connection", {
   path <- withr::local_tempfile(fileext = ".rds")
@@ -241,6 +255,7 @@ test_that("round numeric player ids are not written in scientific notation", {
 test_that("the published headshot map loads and serves Mahomes' image", {
   skip_on_cran()
   skip_if_offline()
+  local_fresh_headshot_map() # online: the suite runs offline
   m <- load_headshot_map()
   expect_gt(nrow(m), 15000)
   expect_false(anyDuplicated(m$gsis_id) > 0)

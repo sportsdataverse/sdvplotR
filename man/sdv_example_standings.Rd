@@ -32,7 +32,8 @@ playoff places 1 to 6 and its play-in places 7 to 10.}
 }
 }
 \source{
-Built by \code{data-raw/sdv_examples.R}. NFL: the nflverse schedules
+Built by
+\href{https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/sdv_examples.R}{\code{data-raw/sdv_examples.R}}. NFL: the nflverse schedules
 release, \code{nflreadr::load_schedules(2025)}, with the standings and
 conference ranks from \code{nflseedR::nfl_standings()}. NBA: the
 sportsdataverse-data team box release, \code{hoopR::load_nba_team_box(2026)},

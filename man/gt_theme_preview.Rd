@@ -36,7 +36,9 @@ returned for the viewer. Defaults to \code{NULL}.}
 \item{...}{Further arguments passed to \code{\link[=gt_grid]{gt_grid()}}, such as \code{gap} or \code{bg}.}
 }
 \value{
-Displays the grid in the viewer, or writes it to \code{file}.
+What \code{\link[=gt_grid]{gt_grid()}} returns: an \code{htmltools::browsable()} tag list of
+the previews, which prints in the viewer; with \code{file}, invisibly \code{file}
+after writing the PNG to it.
 }
 \description{
 Renders the same few rows through each \verb{gt_theme_*} function in the package

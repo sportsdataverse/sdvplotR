@@ -15,6 +15,7 @@ local_fixture_index <- function(env = parent.frame(), ttl = 86400) {
     "_R_CHECK_EXAMPLE_TIMING_CPU_TO_ELAPSED_THRESHOLD_" = "",
     "_R_CHECK_THINGS_IN_OTHER_DIRS_" = "",
     "_R_CHECK_THINGS_IN_OTHER_DIRS_XTRA_" = "",
+    "_R_CHECK_PACKAGE_NAME_" = "",
     .local_envir = env
   )
   forget_index()

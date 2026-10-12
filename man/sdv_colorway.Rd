@@ -29,7 +29,7 @@ mark the team wore that season where the archive dates its marks.}
 \item{id_system}{For headshots, as in \code{\link[=sdv_headshot_url]{sdv_headshot_url()}}.}
 }
 \value{
-The plotly object.
+The plotly object (an htmlwidget).
 }
 \description{
 Sets the chart's trace colours to the teams' colours, in order.

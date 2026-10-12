@@ -97,7 +97,7 @@ add_layout_images <- function(p, x, y, urls, size, xref, yref) {
 #'   Details), so `0.08` is 8% of the axis.
 #'   The width follows the image's aspect ratio.
 #' @param xref,yref The axes the positions refer to (`"x2"` for a subplot's).
-#' @return The plotly object with the images added.
+#' @return The plotly object (an htmlwidget) with the images added.
 #' @export
 #' @examples
 #' \donttest{
@@ -143,7 +143,7 @@ add_sdv_headshots <- function(p, x, y, player_id, league, size = 0.08, id_system
 #'   chart plots on that axis).
 #' @param axis `"x"` or `"y"`.
 #' @param size Image size as a fraction of the plot area on the other axis.
-#' @return The plotly object.
+#' @return The plotly object (an htmlwidget).
 #' @export
 #' @examples
 #' \donttest{
@@ -183,7 +183,7 @@ sdv_axis_logos <- function(p, teams, league, axis = c("x", "y"), size = 0.08, se
 #' @description Sets the chart's trace colours to the teams' colours, in order.
 #' @inheritParams add_sdv_logos
 #' @inheritParams sdv_color_palette
-#' @return The plotly object.
+#' @return The plotly object (an htmlwidget).
 #' @export
 #' @examples
 #' \donttest{

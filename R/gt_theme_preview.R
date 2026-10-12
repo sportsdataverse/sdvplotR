@@ -25,7 +25,9 @@
 #' Themes that take extra arguments, such as `style` on [gt_theme_sofa()], are
 #' shown at their defaults.
 #'
-#' @returns Displays the grid in the viewer, or writes it to `file`.
+#' @returns What [gt_grid()] returns: an `htmltools::browsable()` tag list of
+#'   the previews, which prints in the viewer; with `file`, invisibly `file`
+#'   after writing the PNG to it.
 #'
 #' @examples
 #' nfl <- subset(sdv_example_standings, league == "nfl",

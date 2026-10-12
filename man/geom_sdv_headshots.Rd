@@ -166,12 +166,12 @@ library(ggplot2)
 df <- data.frame(
   a = 1:3,
   b = 3:1,
-  player_id = c("00-0033873", "00-0026498", "00-0035228"),
+  player_id = c("3139477", "12483", "3917315"),
   player_name = c("P.Mahomes", "M.Stafford", "K.Murray")
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_sdv_headshots(aes(player_id = player_id), league = "nfl", id_system = "gsis", height = 0.2) +
+  geom_sdv_headshots(aes(player_id = player_id), league = "nfl", height = 0.2) +
   geom_label(aes(label = player_name), nudge_y = -0.35, alpha = 0.5) +
   coord_cartesian(xlim = c(0.5, 3.5), ylim = c(0.5, 3.5)) +
   theme_void()

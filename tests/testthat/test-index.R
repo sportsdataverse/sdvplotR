@@ -10,6 +10,18 @@ test_that("the live index reads the CDN layout and caches it on disk", {
   expect_type(index_aliases()$valid_from, "integer")
 })
 
+test_that("the disk cache keeps only the current index version", {
+  local_fixture_index()
+  old <- file.path(tools::R_user_dir("sdvplotR", "cache"), "index", "0123456789ab")
+  dir.create(old, recursive = TRUE)
+  writeLines("x", file.path(old, "teams.csv.gz"))
+  index_teams()
+  expect_false(dir.exists(old))
+  ver <- file.path(tools::R_user_dir("sdvplotR", "cache"), "index", snapshot_meta$index_version)
+  expect_true(file.exists(file.path(ver, "aliases.csv.gz")))
+  expect_true(file.exists(file.path(dirname(ver), "latest.txt")))
+})
+
 test_that("a fresh disk cache is used without the network", {
   local_fixture_index()
   index_teams()

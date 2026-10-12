@@ -80,7 +80,7 @@ otherwise it becomes \code{NA} with one warning per call.}
 \item{player_id}{Player ids, one per position.}
 }
 \value{
-The plotly object with the images added.
+The plotly object (an htmlwidget) with the images added.
 }
 \description{
 Places team marks on a \code{\link[plotly:plot_ly]{plotly::plot_ly()}} chart at data

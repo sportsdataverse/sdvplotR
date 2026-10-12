@@ -83,7 +83,8 @@ pixels. Defaults to \code{50}.}
 \code{2}.}
 }
 \value{
-Displays the grid in the viewer, or writes it to \code{file}.
+An \code{htmltools::browsable()} tag list of the grid, which prints in
+the viewer; with \code{file}, invisibly \code{file} after writing the PNG to it.
 }
 \description{
 Lays a list of tables out in rows and columns as small multiples, one table

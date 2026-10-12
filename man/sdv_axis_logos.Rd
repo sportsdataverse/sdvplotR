@@ -43,7 +43,7 @@ in the archive has is an error listing the league's variants.}
 otherwise it becomes \code{NA} with one warning per call.}
 }
 \value{
-The plotly object.
+The plotly object (an htmlwidget).
 }
 \description{
 Replaces a categorical axis's tick labels with team logos.

@@ -24,7 +24,8 @@ text-only team logos.
 ## Notes for the CRAN team
 
 * The package reads the SportsDataverse CDN at runtime for its team index
-  and logo manifest, and caches them for a day. Under `R CMD check`, on CRAN
+  and logo manifest, and caches them under `tools::R_user_dir()` for a day,
+  keeping only the current version. Under `R CMD check`, on CRAN
   and with `options(sdvplotR.offline = TRUE)`, it uses the copy bundled in
   the package instead and writes nothing outside `tempdir()`.
 * All images are fetched at plot time from public league CDNs (ESPN,

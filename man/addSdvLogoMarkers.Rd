@@ -55,7 +55,7 @@ otherwise it becomes \code{NA} with one warning per call.}
 \code{group}, ...); a vector one per row is split with the rows.}
 }
 \value{
-The map.
+The leaflet map (an htmlwidget) with the markers added.
 }
 \description{
 Adds a marker per row with the team's logo as its icon. A row

@@ -17,7 +17,7 @@ without one.}
 }
 \source{
 Read back from each theme's \code{table.background.color} by
-\code{data-raw/theme_bg.R}. \code{\link[=gt_theme_drench]{gt_theme_drench()}} takes its background from its
+\href{https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/theme_bg.R}{\code{data-raw/theme_bg.R}}. \code{\link[=gt_theme_drench]{gt_theme_drench()}} takes its background from its
 \code{color} argument and \code{\link[=gt_theme_broadsheet]{gt_theme_broadsheet()}} from its \code{paper} argument;
 their rows hold the default.
 }
