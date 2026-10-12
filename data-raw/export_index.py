@@ -17,7 +17,7 @@ from pathlib import Path
 
 import polars as pl
 import sdvplot
-from sdvplot import _index
+from sdvplot import _index, _resolve
 
 MANIFEST = (
     "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/manifest/marks.csv"
@@ -67,17 +67,17 @@ def golden(aliases: pl.DataFrame, ver: str) -> list[dict]:
                 ValueError
             ):  # a season outside the league's bounds: not a resolve() answer
                 return
-        amb = [
-            r
-            for r in a.filter(
-                (pl.col("league") == league) & (pl.col("value") == value)
-            ).iter_rows(named=True)
-        ]
-        reason = (
-            "ok"
-            if got is not None
-            else ("ambiguous" if len({r["team_id"] for r in amb}) > 1 else "unknown")
+        # Python's own classification, called the way _resolve._resolve() does: ok, none (the value normalizes
+        # to nothing, so it is neither resolved nor reported), else the unresolved reason's prefix
+        ids, unresolved = _resolve._resolve_ids(
+            [v], league, _resolve._seasons(season, 1, league), id_system
         )
+        if ids[0] is not None:
+            reason = "ok"
+        elif not unresolved:
+            reason = "none"
+        else:
+            reason = next(iter(unresolved.values())).split(":")[0]
         rows.append(
             dict(
                 kind="resolve",
@@ -108,7 +108,8 @@ def golden(aliases: pl.DataFrame, ver: str) -> list[dict]:
             "auto",
         )
     amb = (
-        a.group_by("league", "id_system", "value")
+        # maintain_order: group_by's row order is otherwise arbitrary, so sample(seed=) picked different rows per run
+        a.group_by("league", "id_system", "value", maintain_order=True)
         .agg(pl.col("team_id").n_unique().alias("n"))
         .filter(pl.col("n") > 1)
     )

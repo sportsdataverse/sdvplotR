@@ -22,6 +22,14 @@ test_that("sdv_resolve() gives Python's answer for every golden key", {
   got[is.na(got)] <- ""
   bad <- g[got != g$expected, ]
   expect_identical(nrow(bad), 0L, info = paste(utils::capture.output(print(utils::head(cbind(bad, got = got[got != g$expected]), 20))), collapse = "\n"))
+  # ok / none (normalizes to nothing, never reported) / unknown / ambiguous, as Python's _resolve_ids classifies it
+  why <- vapply(seq_len(nrow(g)), function(i) {
+    v <- if (g$value_type[i] == "integer") as.integer(g$value[i]) else g$value[i]
+    s <- if (nzchar(g$season[i])) as.integer(g$season[i]) else NULL
+    r <- resolve_ids(v, g$league[i], season = s, id_system = g$id_system[i])
+    if (!is.na(r$ids)) "ok" else if (is.na(r$why)) "none" else sub(":.*", "", r$why)
+  }, character(1))
+  expect_identical(why, g$reason, info = paste(which(why != g$reason), collapse = ", "))
 })
 
 test_that("sdv_suggest() puts Python's top candidate first", {

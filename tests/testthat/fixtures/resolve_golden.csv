@@ -199,7 +199,7 @@ resolve,mlb,CAL,character,1966,auto,3,ok,980a3f4cdec6
 resolve,nhl,WIN,character,1997,auto,28,ok,980a3f4cdec6
 resolve,nfl,oti,character,1960,auto,10,ok,980a3f4cdec6
 resolve,mlb,KCR,character,1969,auto,7,ok,980a3f4cdec6
-resolve,nhl,33,character,1997,auto,,ambiguous,980a3f4cdec6
+resolve,nhl,33,character,1997,auto,,unknown,980a3f4cdec6
 resolve,nba,ORL,character,1990,auto,19,ok,980a3f4cdec6
 resolve,ufl,Houston Gamblers,character,2026,auto,126075,ok,980a3f4cdec6
 resolve,mlb,NYG,character,1883,auto,26,ok,980a3f4cdec6
@@ -243,7 +243,7 @@ resolve,cfb,2545,integer,,auto,2545,ok,980a3f4cdec6
 resolve,soccer,471,integer,,auto,471,ok,980a3f4cdec6
 resolve,cricket,2971,integer,,auto,2971,ok,980a3f4cdec6
 resolve,nfl,zzz not a team,character,,auto,,unknown,980a3f4cdec6
-resolve,cfb,,character,,auto,,unknown,980a3f4cdec6
+resolve,cfb,,character,,auto,,none,980a3f4cdec6
 resolve,soccer,Atlético Madrid,character,,auto,,ambiguous,980a3f4cdec6
 resolve,mlb,Montréal Expos,character,,auto,,unknown,980a3f4cdec6
 suggest,soccer,NovaIguaçu,character,,,6087,,980a3f4cdec6
