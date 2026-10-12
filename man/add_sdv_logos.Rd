@@ -58,7 +58,9 @@ add_sdv_headshots(
 \item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. Required: one abbreviation
 means different teams in different leagues.}
 
-\item{size}{Image height as a fraction of the y-axis span.}
+\item{size}{Each image is fitted by height to \code{size} times the y-axis span (the
+number of categories on a categorical axis), so \code{0.08} is 8\% of the axis.
+The width follows the image's aspect ratio.}
 
 \item{season}{\code{NULL} for today's mark, or a season (or one per team): the
 mark the team wore that season where the archive dates its marks.}
@@ -85,7 +87,14 @@ Places team marks on a \code{\link[plotly:plot_ly]{plotly::plot_ly()}} chart at 
 coordinates, as layout images. The R counterpart of sdvplot's plotly
 adapter. Works on native plotly charts; \code{\link[plotly:ggplotly]{plotly::ggplotly()}} drops layout
 images, so draw a ggplot with \code{\link[=geom_sdv_logos]{geom_sdv_logos()}} or
-\code{\link[=geom_sdv_logos_interactive]{geom_sdv_logos_interactive()}} instead.
+\code{geom_sdv_logos_interactive()} instead.
+}
+\details{
+Images are placed in data units and fitted by height: each is sized to
+\code{size} times the y-axis span (the number of categories on a categorical axis),
+so a chart with a wide y range gets proportionally taller marks. Images already
+on the chart, including ones set with \code{\link[plotly:layout]{plotly::layout()}}, are kept. Date axes
+are not supported yet.
 }
 \examples{
 \donttest{

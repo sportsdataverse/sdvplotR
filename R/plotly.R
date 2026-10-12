@@ -1,11 +1,25 @@
 # plotly: team marks as layout images placed in data units, as sdvplot's
 # plotly adapter does. Native plot_ly() charts only: ggplotly() drops layout images.
 
-# Append to the images already on the chart. Set directly: plotly::layout() would stack a
-# second layoutAttrs entry for the same key, which plotly_build() does not merge by element.
+# Add images to the chart, keeping every image already on it: ones set by plotly::layout()
+# (kept in layoutAttrs, one entry per call) and ones in layout$images. layout() entries sharing
+# a key are not merged by element at build time, so gather them all, clear them, and set one
+# combined list through layout().
 append_images <- function(p, imgs) {
-  p$x$layout$images <- c(p$x$layout$images, imgs)
-  p
+  attrs <- p$x$layoutAttrs
+  old <- c(p$x$layout$images, unlist(lapply(attrs, function(a) a$images), recursive = FALSE))
+  p$x$layout$images <- NULL
+  p$x$layoutAttrs <- lapply(attrs, function(a) {
+    a$images <- NULL
+    a
+  })
+  plotly::layout(p, images = unname(c(old, imgs)))
+}
+
+check_not_date <- function(x, y, call = rlang::caller_env()) {
+  if (inherits(x, c("Date", "POSIXt")) || inherits(y, c("Date", "POSIXt"))) {
+    cli::cli_abort("Date axes are not supported yet: pass numbers or category names.", call = call)
+  }
 }
 
 axis_span <- function(v) {
@@ -16,8 +30,9 @@ axis_span <- function(v) {
   if (!is.finite(r) || r == 0) 1 else r
 }
 
-# ponytail: numeric and categorical axes; date axes are not sized (add when asked).
+# ponytail: numeric and categorical axes; date axes abort (add when asked).
 add_layout_images <- function(p, x, y, urls, size, xref, yref) {
+  check_not_date(x, y)
   n <- max(length(x), length(y), length(urls))
   x <- rep_len(if (is.factor(x)) as.character(x) else x, n)
   y <- rep_len(if (is.factor(y)) as.character(y) else y, n)
@@ -41,13 +56,20 @@ add_layout_images <- function(p, x, y, urls, size, xref, yref) {
 #'   coordinates, as layout images. The R counterpart of sdvplot's plotly
 #'   adapter. Works on native plotly charts; [plotly::ggplotly()] drops layout
 #'   images, so draw a ggplot with [geom_sdv_logos()] or
-#'   [geom_sdv_logos_interactive()] instead.
+#'   `geom_sdv_logos_interactive()` instead.
+#' @details Images are placed in data units and fitted by height: each is sized to
+#'   `size` times the y-axis span (the number of categories on a categorical axis),
+#'   so a chart with a wide y range gets proportionally taller marks. Images already
+#'   on the chart, including ones set with [plotly::layout()], are kept. Date axes
+#'   are not supported yet.
 #' @param p A plotly object.
 #' @param x,y Positions: numbers, or category names on a categorical axis.
 #' @param team Team identifiers, one per position.
 #' @param player_id Player ids, one per position.
 #' @inheritParams sdv_logo_url
-#' @param size Image height as a fraction of the y-axis span.
+#' @param size Each image is fitted by height to `size` times the y-axis span (the
+#'   number of categories on a categorical axis), so `0.08` is 8% of the axis.
+#'   The width follows the image's aspect ratio.
 #' @param xref,yref The axes the positions refer to (`"x2"` for a subplot's).
 #' @return The plotly object with the images added.
 #' @export

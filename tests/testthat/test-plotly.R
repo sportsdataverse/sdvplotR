@@ -40,3 +40,31 @@ test_that("headshots and colorway", {
   cw <- plotly::plotly_build(sdv_colorway(base_plot(), "nfl", c("KC", "BUF")))$x$layout$colorway
   expect_identical(unlist(cw), unname(sdv_color_palette("nfl", c("KC", "BUF"))))
 })
+
+user_image <- list(source = "https://example.com/u.png", xref = "paper", yref = "paper", x = 0, y = 0)
+
+test_that("images the user set with layout() are kept, before or after, and chained calls accumulate", {
+  p <- plotly::layout(base_plot(), images = list(user_image))
+  p <- add_sdv_logos(p, 1, 3, "KC", "nfl")
+  p <- add_sdv_logos(p, 2, 5, "BUF", "nfl")
+  img <- built_images(p)
+  expect_length(img, 3L)
+  expect_identical(img[[1]]$source, user_image$source)
+  expect_identical(
+    vapply(img[-1], `[[`, "", "source"), sdv_logo_url(c("KC", "BUF"), "nfl")
+  )
+
+  q <- sdv_axis_logos(plotly::layout(plotly::plot_ly(x = c("KC", "BUF"), y = 1:2, type = "bar"),
+    images = list(user_image)), c("KC", "BUF"), "nfl")
+  expect_length(built_images(q), 3L)
+})
+
+test_that("two chained add_sdv_logos() calls give both sets", {
+  p <- add_sdv_logos(add_sdv_logos(base_plot(), 1, 3, "KC", "nfl"), 2, 5, "BUF", "nfl")
+  expect_length(built_images(p), 2L)
+})
+
+test_that("date axes abort", {
+  expect_error(add_sdv_logos(base_plot(), as.Date("2026-01-01"), 3, "KC", "nfl"), "Date axes")
+  expect_error(add_sdv_logos(base_plot(), 1, Sys.time(), "KC", "nfl"), "Date axes")
+})
