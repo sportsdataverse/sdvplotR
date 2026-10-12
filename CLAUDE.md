@@ -130,7 +130,7 @@ team abbr / player id
   lines, save/crop helpers; `R/gt_*.R` other than `gt_sdv.R`, `R/utils-*.R`,
   `R/data.R`, `R/deprecated.R`, `data/theme_bg.rda`) is copied from
   Andrew Weatherman's [gtUtils](https://github.com/andreweatherman/gtUtils)
-  v1.0.0 (MIT, credited in `Authors@R` and `LICENSE.md`). These functions
+  v1.0.0 (MIT, credited in `Authors@R`). These functions
   work on any table, so they take no `sport` argument and skip
   `clean_team_abbrs()`. The port has been restyled (styler, `|>`, lintr), so
   sync upstream changes by diffing gtUtils against commit `619c64a` (the v1.0.0 the port was taken from; upstream has no tags) and applying

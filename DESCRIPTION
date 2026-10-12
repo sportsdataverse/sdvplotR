@@ -2,14 +2,12 @@ Package: sdvplotR
 Title: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'
 Version: 0.1.0
 Authors@R: c(
-    person("Saiem", "Gilani", , "saiem.gilani@gmail.com", role = c("aut", "cre"),
+    person("Saiem", "Gilani", , "saiem.gilani@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-7194-9067")),
     person("Sebastian", "Carl", , "mrcaseb@gmail.com", role = "aut"),
     person("Jared", "Lee", , "13jaredlee@gmail.com", role = "aut"),
     person("Camden", "Kay", , "camdenk@gmail.com", role = "aut"),
-    person("Andrew", "Weatherman", , "andrew@aweatherman.com", role = c("aut", "cph"),
-           comment = "Author of the 'gtUtils' table functions"),
-    person("sdvplotR authors", role = "cph")
+    person("Andrew", "Weatherman", , "andrew@aweatherman.com", role = "aut")
   )
 Description: A unified set of functions to visualize sports data across
     the 28 leagues of the SportsDataverse team index, including the

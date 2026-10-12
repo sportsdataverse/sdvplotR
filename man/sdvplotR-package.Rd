@@ -20,20 +20,15 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Saiem Gilani \email{saiem.gilani@gmail.com} (\href{https://orcid.org/0000-0002-7194-9067}{ORCID})
+\strong{Maintainer}: Saiem Gilani \email{saiem.gilani@gmail.com} (\href{https://orcid.org/0000-0002-7194-9067}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Saiem Gilani \email{saiem.gilani@gmail.com} (\href{https://orcid.org/0000-0002-7194-9067}{ORCID})
+  \item Saiem Gilani \email{saiem.gilani@gmail.com} (\href{https://orcid.org/0000-0002-7194-9067}{ORCID}) [copyright holder]
   \item Sebastian Carl \email{mrcaseb@gmail.com}
   \item Jared Lee \email{13jaredlee@gmail.com}
   \item Camden Kay \email{camdenk@gmail.com}
-  \item Andrew Weatherman \email{andrew@aweatherman.com} (Author of the 'gtUtils' table functions) [copyright holder]
-}
-
-Other contributors:
-\itemize{
-  \item sdvplotR authors [copyright holder]
+  \item Andrew Weatherman \email{andrew@aweatherman.com}
 }
 
 }

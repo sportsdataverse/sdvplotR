@@ -1,7 +1,6 @@
 # MIT License
 
-Copyright (c) 2026 SportsDataverse
-Copyright (c) 2026 gtUtils authors (the `gt` table functions ported from gtUtils)
+Copyright (c) 2026 sdvplotR authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

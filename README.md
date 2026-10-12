@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# **sdvplotR** <a href='https://sdvplotR.sportsdataverse.org/'><img src='https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png' align="right" width="25%" min-width="120px" /></a>
+# **sdvplotR** <a href='https://sdvplotR.sportsdataverse.org/'><img src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png" align="right" width="25%" min-width="120px"/></a>
 
 <!-- badges: start -->
 
@@ -23,6 +23,7 @@ sdvplot](https://img.shields.io/npm/v/@sportsdataverse/sdvplot?label=npm%20sdvpl
 [![Contributors](https://img.shields.io/github/contributors/sportsdataverse/sdvplotR?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/graphs/contributors)
 [![X
 Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
+
 <!-- badges: end -->
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
@@ -192,8 +193,8 @@ The [**`sdvplotR`** documentation
 website](https://sdvplotR.sportsdataverse.org/) has the full function
 reference and these articles:
 
-🖼️ **[Browse the
-gallery](https://sdvplotR.sportsdataverse.org/articles/gallery.html)**:
+🖼️ [**Browse the
+gallery**](https://sdvplotR.sportsdataverse.org/articles/gallery.html):
 every article by its picture, each linking to the article that draws it.
 
 **Per-sport** (each with companion SportsDataverse package examples):
@@ -244,11 +245,11 @@ scales in ggplot2, team identity, the plotly, ggiraph and leaflet
 integrations, surfaces, and the gt and reactable toolkits, in four color
 themes, light and dark.
 
-📄 **[Download the sdvplotR cheat sheet
-(PDF)](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)**
+📄 [**Download the sdvplotR cheat sheet
+(PDF)**](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)
 
 Browse the other SportsDataverse cheat sheets at
-**[sportsdataverse.org/cheatsheets](https://sportsdataverse.org/cheatsheets)**.
+[**sportsdataverse.org/cheatsheets**](https://sportsdataverse.org/cheatsheets).
 
 ## **The SportsDataverse**
 
@@ -284,24 +285,24 @@ stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=ee
 ## **Our Authors**
 
   - [Saiem Gilani](https://x.com/saiemgilani)
-    <a href="https://orcid.org/0000-0002-7194-9067" target="orcid.widget" aria-label="ORCID"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID logo"></a><br>
-    <a href="https://x.com/saiemgilani" target="_blank"><img src="https://img.shields.io/badge/%40saiemgilani-blue?logo=x&style=for-the-badge" alt="@saiemgilani" /></a>
-    <a href="https://github.com/saiemgilani" target="_blank"><img src="https://img.shields.io/github/followers/saiemgilani?color=eee&logo=Github&style=for-the-badge" alt="@saiemgilani" /></a>
+    <a href="https://orcid.org/0000-0002-7194-9067" target="orcid.widget" aria-label="ORCID"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID logo" style="width:1em;margin-right:.5em;"/></a><br>
+    <a href="https://x.com/saiemgilani" target="_blank"><img src="https://img.shields.io/badge/%40saiemgilani-blue?logo=x&amp;style=for-the-badge" alt="@saiemgilani"/></a>
+    <a href="https://github.com/saiemgilani" target="_blank"><img src="https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@saiemgilani"/></a>
 
   - [Sebastian Carl](https://x.com/mrcaseb) <br>
-    <a href="https://x.com/mrcaseb" target="_blank"><img src="https://img.shields.io/badge/%40mrcaseb-blue?logo=x&style=for-the-badge" alt="@mrcaseb" /></a>
-    <a href="https://github.com/mrcaseb" target="_blank"><img src="https://img.shields.io/github/followers/mrcaseb?color=eee&logo=Github&style=for-the-badge" alt="@mrcaseb" /></a>
+    <a href="https://x.com/mrcaseb" target="_blank"><img src="https://img.shields.io/badge/%40mrcaseb-blue?logo=x&amp;style=for-the-badge" alt="@mrcaseb"/></a>
+    <a href="https://github.com/mrcaseb" target="_blank"><img src="https://img.shields.io/github/followers/mrcaseb?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@mrcaseb"/></a>
 
   - [Jared Lee](https://github.com/Kazink36) <br>
-    <a href="https://github.com/Kazink36" target="_blank"><img src="https://img.shields.io/github/followers/Kazink36?color=eee&logo=Github&style=for-the-badge" alt="@Kazink36" /></a>
+    <a href="https://github.com/Kazink36" target="_blank"><img src="https://img.shields.io/github/followers/Kazink36?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@Kazink36"/></a>
 
   - [Camden Kay](https://x.com/camdenkay) <br>
-    <a href="https://x.com/camdenkay" target="_blank"><img src="https://img.shields.io/badge/%40camdenkay-blue?logo=x&style=for-the-badge" alt="@camdenkay" /></a>
-    <a href="https://github.com/camdenk" target="_blank"><img src="https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge" alt="@camdenk" /></a>
+    <a href="https://x.com/camdenkay" target="_blank"><img src="https://img.shields.io/badge/%40camdenkay-blue?logo=x&amp;style=for-the-badge" alt="@camdenkay"/></a>
+    <a href="https://github.com/camdenk" target="_blank"><img src="https://img.shields.io/github/followers/camdenk?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@camdenk"/></a>
 
   - [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)
     <br>
-    <a href="https://github.com/andreweatherman" target="_blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge" alt="@andreweatherman" /></a>
+    <a href="https://github.com/andreweatherman" target="_blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@andreweatherman"/></a>
 
 ## **Code of Conduct**
 

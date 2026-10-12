@@ -1,5 +1,8 @@
 ---
 output: github_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -13,33 +16,56 @@ knitr::opts_chunk$set(
 )
 ```
 
-# **sdvplotR** <a href='https://sdvplotR.sportsdataverse.org/'><img src='https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png' align="right" width="25%" min-width="120px" /></a>
+# **sdvplotR** <a href='https://sdvplotR.sportsdataverse.org/'><img src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png" align="right" width="25%" min-width="120px"/></a>
 
 <!-- badges: start -->
+
 <!-- [![CRAN version](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=success&label=CRAN%20version&prefix=v&query=%24.Version&url=https%3A%2F%2Fcrandb.r-pkg.org%2FsdvplotR)](https://CRAN.R-project.org/package=sdvplotR) -->
+
 <!-- [![CRAN downloads](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=success&label=Downloads&query=%24%5B0%5D.downloads&url=https%3A%2F%2Fcranlogs.r-pkg.org%2Fdownloads%2Ftotal%2F2026-01-01%3Alast-day%2FsdvplotR)](https://CRAN.R-project.org/package=sdvplotR) -->
+
 [![Version-Number](https://img.shields.io/github/r-package/v/sportsdataverse/sdvplotR?label=sdvplotR&logo=R&style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/)
 [![R-CMD-check](https://img.shields.io/github/actions/workflow/status/sportsdataverse/sdvplotR/R-CMD-check.yaml?branch=main&label=R-CMD-Check&logo=R&logoColor=white&style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/actions/workflows/R-CMD-check.yaml)
 [![pkgdown](https://img.shields.io/github/actions/workflow/status/sportsdataverse/sdvplotR/pkgdown.yaml?branch=main&label=pkgdown&logo=github&style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/actions/workflows/pkgdown.yaml)
 [![Codecov](https://img.shields.io/codecov/c/github/sportsdataverse/sdvplotR?logo=codecov&style=for-the-badge)](https://app.codecov.io/gh/sportsdataverse/sdvplotR)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=for-the-badge&logo=github)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=for-the-badge&logo=github)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-universe](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=success&label=r-universe&prefix=v&query=%24.Version&url=https%3A%2F%2Fsportsdataverse.r-universe.dev%2Fapi%2Fpackages%2FsdvplotR)](https://sportsdataverse.r-universe.dev/sdvplotR)
-[![PyPI sdvplot](https://img.shields.io/pypi/v/sdvplot?label=PyPI%20sdvplot&logo=pypi&logoColor=white&style=for-the-badge&color=success)](https://pypi.org/project/sdvplot/)
-[![npm sdvplot](https://img.shields.io/npm/v/@sportsdataverse/sdvplot?label=npm%20sdvplot&logo=npm&style=for-the-badge&color=success)](https://www.npmjs.com/package/@sportsdataverse/sdvplot)
+[![PyPI
+sdvplot](https://img.shields.io/pypi/v/sdvplot?label=PyPI%20sdvplot&logo=pypi&logoColor=white&style=for-the-badge&color=success)](https://pypi.org/project/sdvplot/)
+[![npm
+sdvplot](https://img.shields.io/npm/v/@sportsdataverse/sdvplot?label=npm%20sdvplot&logo=npm&style=for-the-badge&color=success)](https://www.npmjs.com/package/@sportsdataverse/sdvplot)
 [![Contributors](https://img.shields.io/github/contributors/sportsdataverse/sdvplotR?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/graphs/contributors)
-[![X Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
+[![X
+Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
+
 <!-- badges: end -->
 
-[**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports team logos, wordmarks, player headshots and team colors across the **28 leagues** of the SportsDataverse team index (`sdv_leagues()`) — NFL, NBA, WNBA, MLB, NHL, college football, men's and women's college basketball, soccer and more — in [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots, [**`gt`**](https://gt.rstudio.com/) tables and [**`reactable`**](https://glin.github.io/reactable/) tables. It is built on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the approach established by [nflplotR](https://nflplotr.nflverse.com/), [cfbplotR](https://cfbplotR.sportsdataverse.org/), [nbaplotR](https://mrcaseb.github.io/nbaplotR/) and [mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `league` argument.
+[**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
+team logos, wordmarks, player headshots and team colors across the **28
+leagues** of the SportsDataverse team index (`sdv_leagues()`) — NFL,
+NBA, WNBA, MLB, NHL, college football, men's and women's college
+basketball, soccer and more — in
+[**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
+[**`gt`**](https://gt.rstudio.com/) tables and
+[**`reactable`**](https://glin.github.io/reactable/) tables. It is built
+on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
+approach established by [nflplotR](https://nflplotr.nflverse.com/),
+[cfbplotR](https://cfbplotR.sportsdataverse.org/),
+[nbaplotR](https://mrcaseb.github.io/nbaplotR/) and
+[mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `league`
+argument.
 
 ```{r home-figure, echo = FALSE, fig.alt = "Every NFL team's 2023 regular season drawn as its logo, placed by points scored and allowed per game."}
 # drawn once by data-raw/home_figure.R, so the home page never waits on a live fetch
 knitr::include_graphics("man/figures/README-home.png")
 ```
 
-Part of the [SportsDataverse](https://sportsdataverse.org/) family of R packages for sports analytics.
+Part of the [SportsDataverse](https://sportsdataverse.org/) family of R
+packages for sports analytics.
 
-Data freshness and pipeline status for every SportsDataverse dataset: [sportsdataverse.org/status](https://sportsdataverse.org/status).
+Data freshness and pipeline status for every SportsDataverse dataset:
+[sportsdataverse.org/status](https://sportsdataverse.org/status).
 
 ## **Installation**
 
@@ -49,7 +75,9 @@ Once on CRAN, install the released version with:
 install.packages("sdvplotR")
 ```
 
-Install the development version of [**`sdvplotR`**](https://github.com/sportsdataverse/sdvplotR) from GitHub with:
+Install the development version of
+[**`sdvplotR`**](https://github.com/sportsdataverse/sdvplotR) from
+GitHub with:
 
 ``` r
 # using the pak package (recommended):
@@ -66,7 +94,14 @@ install.packages("sdvplotR", repos = c("https://sportsdataverse.r-universe.dev",
 
 ### **Python**
 
-The same team colors, logos, wordmarks and headshots are on PyPI as [**`sdvplot`**](https://pypi.org/project/sdvplot/) (Python 3.10+), with adapters for matplotlib and seaborn, plotnine, Plotly, Altair, Bokeh, HoloViews, great_tables and folium. `sdvplot.great_tables` ports this package's table themes, cell styling, legends and image export. Docs: [sdvplot.sportsdataverse.org](https://sdvplot.sportsdataverse.org/). Source: [sportsdataverse/sdvplot](https://github.com/sportsdataverse/sdvplot).
+The same team colors, logos, wordmarks and headshots are on PyPI as
+[**`sdvplot`**](https://pypi.org/project/sdvplot/) (Python 3.10+), with
+adapters for matplotlib and seaborn, plotnine, Plotly, Altair, Bokeh,
+HoloViews, great_tables and folium. `sdvplot.great_tables` ports this
+package's table themes, cell styling, legends and image export. Docs:
+[sdvplot.sportsdataverse.org](https://sdvplot.sportsdataverse.org/).
+Source:
+[sportsdataverse/sdvplot](https://github.com/sportsdataverse/sdvplot).
 
 ``` sh
 pip install sdvplot
@@ -74,7 +109,14 @@ pip install sdvplot
 
 ### **JavaScript / TypeScript**
 
-They are also on npm as [**`@sportsdataverse/sdvplot`**](https://www.npmjs.com/package/@sportsdataverse/sdvplot), with Observable Plot, D3, React and chart-library integrations plus shot charts. [**`@sportsdataverse/sdvtables`**](https://www.npmjs.com/package/@sportsdataverse/sdvtables) is the counterpart to the `gt` table helpers. Docs: [plot.sportsdataverse.org](https://plot.sportsdataverse.org). Source: [sportsdataverse/sdvplot-js](https://github.com/sportsdataverse/sdvplot-js).
+They are also on npm as
+[**`@sportsdataverse/sdvplot`**](https://www.npmjs.com/package/@sportsdataverse/sdvplot),
+with Observable Plot, D3, React and chart-library integrations plus shot
+charts.
+[**`@sportsdataverse/sdvtables`**](https://www.npmjs.com/package/@sportsdataverse/sdvtables)
+is the counterpart to the `gt` table helpers. Docs:
+[plot.sportsdataverse.org](https://plot.sportsdataverse.org). Source:
+[sportsdataverse/sdvplot-js](https://github.com/sportsdataverse/sdvplot-js).
 
 ``` sh
 npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse/sporty
@@ -82,7 +124,14 @@ npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse
 
 ## **Usage**
 
-Every function takes a `league` argument (`"nfl"`, `"nba"`, `"wnba"`, `"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"` and the rest of `sdv_leagues()`). Team identifiers are resolved automatically: full names, abbreviations from other data providers (ESPN, nflverse, MLB Stats, nba_api, NHL, CFBD, NCAA and more) and the codes of relocated franchises all resolve to the same team. `sdv_resolve()` shows the id a value resolves to, `sdv_suggest()` proposes candidates for a typo, and `season` selects the era for codes that were reused.
+Every function takes a `league` argument (`"nfl"`, `"nba"`, `"wnba"`,
+`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"` and the rest of
+`sdv_leagues()`). Team identifiers are resolved automatically: full
+names, abbreviations from other data providers (ESPN, nflverse, MLB
+Stats, nba_api, NHL, CFBD, NCAA and more) and the codes of relocated
+franchises all resolve to the same team. `sdv_resolve()` shows the id a
+value resolves to, `sdv_suggest()` proposes candidates for a typo, and
+`season` selects the era for codes that were reused.
 
 ```{r logos-grid, eval = FALSE}
 library(sdvplotR)
@@ -144,15 +193,27 @@ reactable(
 )
 ```
 
-`gt_theme_sdv()` (light or `style = "dark"`) and `gt_theme_sdv_team()` are the SportsDataverse table themes. The `gt` side also carries the [gtUtils](https://github.com/andreweatherman/gtUtils) toolkit by Andrew Weatherman: 18 table themes (`gt_theme_kenpom()`, `gt_theme_savant()`, `gt_theme_athletic()`, ...), color legends, cut lines, significance notation, outlier flags, faceted grids and `gt_save_crop()` / `gt_social_crop()` for publishing.
+`gt_theme_sdv()` (light or `style = "dark"`) and `gt_theme_sdv_team()`
+are the SportsDataverse table themes. The `gt` side also carries the
+[gtUtils](https://github.com/andreweatherman/gtUtils) toolkit by Andrew
+Weatherman: 18 table themes (`gt_theme_kenpom()`, `gt_theme_savant()`,
+`gt_theme_athletic()`, ...), color legends, cut lines, significance
+notation, outlier flags, faceted grids and `gt_save_crop()` /
+`gt_social_crop()` for publishing.
 
-Dark-mode logo variants are available through `variant = "dark"` in the table helpers, and `sdv_teams()` exposes the full reference data (ESPN ids, colors, conference) for every team.
+Dark-mode logo variants are available through `variant = "dark"` in the
+table helpers, and `sdv_teams()` exposes the full reference data (ESPN
+ids, colors, conference) for every team.
 
 ## **Documentation**
 
-The [**`sdvplotR`** documentation website](https://sdvplotR.sportsdataverse.org/) has the full function reference and these articles:
+The [**`sdvplotR`** documentation
+website](https://sdvplotR.sportsdataverse.org/) has the full function
+reference and these articles:
 
-🖼️ **[Browse the gallery](https://sdvplotR.sportsdataverse.org/articles/gallery.html)**: every article by its picture, each linking to the article that draws it.
+🖼️ [**Browse the
+gallery**](https://sdvplotR.sportsdataverse.org/articles/gallery.html):
+every article by its picture, each linking to the article that draws it.
 
 **Per-sport** (each with companion SportsDataverse package examples):
 [NFL](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.html) ·
@@ -164,41 +225,56 @@ The [**`sdvplotR`** documentation website](https://sdvplotR.sportsdataverse.org/
 [MBB](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.html) ·
 [WBB](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html)
 
-**Cookbooks:**
-[Getting Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.html) ·
-[Social Posting](https://sdvplotR.sportsdataverse.org/articles/social-posting.html) ·
-[Leaderboard Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.html) ·
-[reactable Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.html) ·
-[Workflows](https://sdvplotR.sportsdataverse.org/articles/workflows.html) ·
-[Logos in ggplot2](https://sdvplotR.sportsdataverse.org/articles/cookbook-ggplot-logos.html) ·
-[Colors and Themes](https://sdvplotR.sportsdataverse.org/articles/cookbook-colors-themes.html) ·
-[Interactive: plotly, ggiraph, leaflet](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.html) ·
-[Surfaces and Shot Charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.html)
+**Cookbooks:** [Getting
+Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.html)
+· [Social
+Posting](https://sdvplotR.sportsdataverse.org/articles/social-posting.html)
+· [Leaderboard
+Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.html)
+· [reactable
+Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.html)
+·
+[Workflows](https://sdvplotR.sportsdataverse.org/articles/workflows.html)
+· [Logos in
+ggplot2](https://sdvplotR.sportsdataverse.org/articles/cookbook-ggplot-logos.html)
+· [Colors and
+Themes](https://sdvplotR.sportsdataverse.org/articles/cookbook-colors-themes.html)
+· [Interactive: plotly, ggiraph,
+leaflet](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.html)
+· [Surfaces and Shot
+Charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.html)
 
-**Interactive** (ggiraph, plotly and leaflet; every per-sport and leaderboard article also ends with an interactive version):
-[NFL EPA Scatter](https://sdvplotR.sportsdataverse.org/articles/recipe-nfl-epa-interactive.html) ·
-[NBA Net Rating](https://sdvplotR.sportsdataverse.org/articles/recipe-nba-net-rating-interactive.html) ·
-[NHL Shot Map](https://sdvplotR.sportsdataverse.org/articles/recipe-nhl-shot-map-interactive.html) ·
-[MLB Run Differential](https://sdvplotR.sportsdataverse.org/articles/recipe-mlb-run-differential-interactive.html) ·
-[CFB Stadium Map](https://sdvplotR.sportsdataverse.org/articles/recipe-cfb-stadium-map.html)
+**Interactive** (ggiraph, plotly and leaflet; every per-sport and
+leaderboard article also ends with an interactive version): [NFL EPA
+Scatter](https://sdvplotR.sportsdataverse.org/articles/recipe-nfl-epa-interactive.html)
+· [NBA Net
+Rating](https://sdvplotR.sportsdataverse.org/articles/recipe-nba-net-rating-interactive.html)
+· [NHL Shot
+Map](https://sdvplotR.sportsdataverse.org/articles/recipe-nhl-shot-map-interactive.html)
+· [MLB Run
+Differential](https://sdvplotR.sportsdataverse.org/articles/recipe-mlb-run-differential-interactive.html)
+· [CFB Stadium
+Map](https://sdvplotR.sportsdataverse.org/articles/recipe-cfb-stadium-map.html)
 
 ## **Cheat sheet**
 
-A printable four-page reference for **sdvplotR**: team logos, colors and scales in ggplot2, team identity, the
-plotly, ggiraph and leaflet integrations, surfaces, and the gt and reactable toolkits, in four color themes, light
-and dark.
+A printable four-page reference for **sdvplotR**: team logos, colors and
+scales in ggplot2, team identity, the plotly, ggiraph and leaflet
+integrations, surfaces, and the gt and reactable toolkits, in four color
+themes, light and dark.
 
-📄 **[Download the sdvplotR cheat sheet (PDF)](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)**
+📄 [**Download the sdvplotR cheat sheet
+(PDF)**](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)
 
 Browse the other SportsDataverse cheat sheets at
-**[sportsdataverse.org/cheatsheets](https://sportsdataverse.org/cheatsheets)**.
+[**sportsdataverse.org/cheatsheets**](https://sportsdataverse.org/cheatsheets).
 
 ## **The SportsDataverse**
 
 `sdvplotR` draws the pictures; the companion packages fetch the data.
 
 | Package | Sport / Scope |
-|---|---|
+|------------------------------------|------------------------------------|
 | [**cfbfastR**](https://cfbfastR.sportsdataverse.org/) | College football |
 | [**hoopR**](https://hoopR.sportsdataverse.org/) | Men's basketball (NBA and NCAA) |
 | [**wehoop**](https://wehoop.sportsdataverse.org/) | Women's basketball (WNBA and NCAA) |
@@ -210,44 +286,52 @@ Browse the other SportsDataverse cheat sheets at
 | [**sportyR**](https://sportyR.sportsdataverse.org/) | Playing-surface plots |
 | [**sportsdataverse-R**](https://r.sportsdataverse.org/) | Umbrella R metapackage |
 | [**sdvplot**](https://sdvplot.sportsdataverse.org/) | Python plots and tables |
-| [**@sportsdataverse/sdvplot**](https://plot.sportsdataverse.org) · [**@sportsdataverse/sdvtables**](https://plot.sportsdataverse.org/guides/tables) | JavaScript / TypeScript plots and tables |
+| [**\@sportsdataverse/sdvplot**](https://plot.sportsdataverse.org) · [**\@sportsdataverse/sdvtables**](https://plot.sportsdataverse.org/guides/tables) | JavaScript / TypeScript plots and tables |
 | [**sportsdataverse-py**](https://py.sportsdataverse.org/) · [**sportsdataverse.js**](https://js.sportsdataverse.org/) | Python and Node.js |
 
-See the full ecosystem at [sportsdataverse.org](https://sportsdataverse.org/).
+See the full ecosystem at
+[sportsdataverse.org](https://sportsdataverse.org/).
 
 ## Follow the [SportsDataverse](https://x.com/SportsDataverse) on X and star this repo
 
-[![X Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
+[![X
+Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
 
-[![GitHub stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=eee&logo=github&style=for-the-badge&label=Star%20sdvplotR&maxAge=2592000)](https://github.com/sportsdataverse/sdvplotR)
+[![GitHub
+stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=eee&logo=github&style=for-the-badge&label=Star%20sdvplotR&maxAge=2592000)](https://github.com/sportsdataverse/sdvplotR)
 
 ## **Our Authors**
 
--   [Saiem Gilani](https://x.com/saiemgilani) <a href="https://orcid.org/0000-0002-7194-9067" target="orcid.widget" aria-label="ORCID"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID logo"></a><br>
-<a href="https://x.com/saiemgilani" target="_blank"><img src="https://img.shields.io/badge/%40saiemgilani-blue?logo=x&style=for-the-badge" alt="@saiemgilani" /></a>
-<a href="https://github.com/saiemgilani" target="_blank"><img src="https://img.shields.io/github/followers/saiemgilani?color=eee&logo=Github&style=for-the-badge" alt="@saiemgilani" /></a>
+- [Saiem Gilani](https://x.com/saiemgilani)
+  <a href="https://orcid.org/0000-0002-7194-9067" target="orcid.widget" aria-label="ORCID"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID logo" style="width:1em;margin-right:.5em;"/></a><br>
+  <a href="https://x.com/saiemgilani" target="_blank"><img src="https://img.shields.io/badge/%40saiemgilani-blue?logo=x&amp;style=for-the-badge" alt="@saiemgilani"/></a>
+  <a href="https://github.com/saiemgilani" target="_blank"><img src="https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@saiemgilani"/></a>
 
--   [Sebastian Carl](https://x.com/mrcaseb) <br>
-<a href="https://x.com/mrcaseb" target="_blank"><img src="https://img.shields.io/badge/%40mrcaseb-blue?logo=x&style=for-the-badge" alt="@mrcaseb" /></a>
-<a href="https://github.com/mrcaseb" target="_blank"><img src="https://img.shields.io/github/followers/mrcaseb?color=eee&logo=Github&style=for-the-badge" alt="@mrcaseb" /></a>
+- [Sebastian Carl](https://x.com/mrcaseb) <br>
+  <a href="https://x.com/mrcaseb" target="_blank"><img src="https://img.shields.io/badge/%40mrcaseb-blue?logo=x&amp;style=for-the-badge" alt="@mrcaseb"/></a>
+  <a href="https://github.com/mrcaseb" target="_blank"><img src="https://img.shields.io/github/followers/mrcaseb?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@mrcaseb"/></a>
 
--   [Jared Lee](https://github.com/Kazink36) <br>
-<a href="https://github.com/Kazink36" target="_blank"><img src="https://img.shields.io/github/followers/Kazink36?color=eee&logo=Github&style=for-the-badge" alt="@Kazink36" /></a>
+- [Jared Lee](https://github.com/Kazink36) <br>
+  <a href="https://github.com/Kazink36" target="_blank"><img src="https://img.shields.io/github/followers/Kazink36?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@Kazink36"/></a>
 
--   [Camden Kay](https://x.com/camdenkay) <br>
-<a href="https://x.com/camdenkay" target="_blank"><img src="https://img.shields.io/badge/%40camdenkay-blue?logo=x&style=for-the-badge" alt="@camdenkay" /></a>
-<a href="https://github.com/camdenk" target="_blank"><img src="https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge" alt="@camdenk" /></a>
+- [Camden Kay](https://x.com/camdenkay) <br>
+  <a href="https://x.com/camdenkay" target="_blank"><img src="https://img.shields.io/badge/%40camdenkay-blue?logo=x&amp;style=for-the-badge" alt="@camdenkay"/></a>
+  <a href="https://github.com/camdenk" target="_blank"><img src="https://img.shields.io/github/followers/camdenk?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@camdenk"/></a>
 
--   [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils) <br>
-<a href="https://github.com/andreweatherman" target="_blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge" alt="@andreweatherman" /></a>
+- [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils) <br>
+  <a href="https://github.com/andreweatherman" target="_blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@andreweatherman"/></a>
 
 ## **Code of Conduct**
 
-Please note that the sdvplotR project is released with a [Contributor Code of Conduct](https://sdvplotR.sportsdataverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the sdvplotR project is released with a [Contributor
+Code of
+Conduct](https://sdvplotR.sportsdataverse.org/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.
 
 ## **Citations**
 
-To cite the [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) R package in publications, use:
+To cite the [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) R
+package in publications, use:
 
 BibTeX Citation
 
