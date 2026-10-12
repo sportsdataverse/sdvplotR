@@ -7,6 +7,7 @@ Almarai
 Athletic's
 Bluesky
 Bluesky's
+Bokeh
 Bolds
 CDN
 CDNs
@@ -39,6 +40,7 @@ Grande
 Headshot
 Headshots
 Hollinger's
+HoloViews
 IPs
 Impect
 JPG
@@ -83,7 +85,9 @@ PFR
 PHA
 PWHL
 Pac
+Plotly
 Pre
+PyPI
 README
 RStudio
 Roboto
@@ -160,6 +164,7 @@ fallers
 fastRhockey
 fastRhockey's
 fifa
+folium
 geom's
 geoms
 ggiraph
@@ -199,6 +204,7 @@ leaderboards
 letterspaced
 luminance
 magrittr
+matplotlib
 memoise
 memoised
 metapackage
@@ -231,6 +237,7 @@ pandoc
 pkgdown
 plotly
 plotly's
+plotnine
 positionally
 px
 py
@@ -245,6 +252,7 @@ sdv
 sdvplot
 sdvplot's
 sdvplotR's
+seaborn
 seafoam
 sortable
 sportsdataverse

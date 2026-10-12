@@ -13,8 +13,9 @@ and following the conventions of 'nflplotR', 'cfbplotR', 'nbaplotR' and
   `"package::palette"` name, and is asked for when one is passed). The NFL
   headshot map is read with base `readRDS()` and cached for the session.
 
-* The README links the JavaScript / TypeScript siblings on npm,
-  `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`
+* The README links the Python sibling on PyPI, `sdvplot`
+  (<https://sdvplot.sportsdataverse.org>), and the JavaScript / TypeScript
+  siblings on npm, `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`
   (<https://plot.sportsdataverse.org>).
 * Saving a table to an image (`gt_save_crop()`, `gt_social_crop()`,
   `gt_save_batch()`, `gt_grid()`, `gt_stack_tables()`) gives headless Chrome

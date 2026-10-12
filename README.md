@@ -16,6 +16,8 @@
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=for-the-badge&logo=github)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-universe](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=success&label=r-universe&prefix=v&query=%24.Version&url=https%3A%2F%2Fsportsdataverse.r-universe.dev%2Fapi%2Fpackages%2FsdvplotR)](https://sportsdataverse.r-universe.dev/sdvplotR)
+[![PyPI
+sdvplot](https://img.shields.io/pypi/v/sdvplot?label=PyPI%20sdvplot&logo=pypi&logoColor=white&style=for-the-badge&color=success)](https://pypi.org/project/sdvplot/)
 [![npm
 sdvplot](https://img.shields.io/npm/v/@sportsdataverse/sdvplot?label=npm%20sdvplot&logo=npm&style=for-the-badge&color=success)](https://www.npmjs.com/package/@sportsdataverse/sdvplot)
 [![Contributors](https://img.shields.io/github/contributors/sportsdataverse/sdvplotR?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/graphs/contributors)
@@ -70,9 +72,24 @@ pak::pak("sportsdataverse/sdvplotR")
 install.packages("sdvplotR", repos = c("https://sportsdataverse.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
+### **Python**
+
+The same team colors, logos, wordmarks and headshots are on PyPI as
+[**`sdvplot`**](https://pypi.org/project/sdvplot/) (Python 3.10+), with
+adapters for matplotlib and seaborn, plotnine, Plotly, Altair, Bokeh,
+HoloViews, great\_tables and folium. `sdvplot.great_tables` ports this
+package’s table themes, cell styling, legends and image export. Docs:
+[sdvplot.sportsdataverse.org](https://sdvplot.sportsdataverse.org/).
+Source:
+[sportsdataverse/sdvplot](https://github.com/sportsdataverse/sdvplot).
+
+``` sh
+pip install sdvplot
+```
+
 ### **JavaScript / TypeScript**
 
-The same team colors, logos, wordmarks and headshots are on npm as
+They are also on npm as
 [**`@sportsdataverse/sdvplot`**](https://www.npmjs.com/package/@sportsdataverse/sdvplot),
 with Observable Plot, D3, React and chart-library integrations plus shot
 charts.
@@ -206,11 +223,12 @@ SportsDataverse package](https://sportsdataverse.org/cheatsheets).
 | [**wehoop**](https://wehoop.sportsdataverse.org/)                                                                                                   | Women’s basketball (WNBA and NCAA)       |
 | [**fastRhockey**](https://fastRhockey.sportsdataverse.org/)                                                                                         | Hockey (NHL and PWHL)                    |
 | [**baseballr**](https://billpetti.github.io/baseballr/)                                                                                             | Baseball (MLB, MiLB, NCAA)               |
-| [**nflfastR**](https://github.com/nflverse/nflfastR) · [**nflreadr**](https://nflreadr.nflverse.com/)                                                              | NFL play-by-play and data loaders        |
+| [**nflfastR**](https://github.com/nflverse/nflfastR) · [**nflreadr**](https://nflreadr.nflverse.com/)                                               | NFL play-by-play and data loaders        |
 | [**oddsapiR**](https://oddsapiR.sportsdataverse.org/)                                                                                               | Sports betting odds                      |
 | [**cfbseedR**](https://cfbseedR.sportsdataverse.org/)                                                                                               | CFB seeding and playoff simulation       |
 | [**sportyR**](https://sportyR.sportsdataverse.org/)                                                                                                 | Playing-surface plots                    |
 | [**sportsdataverse-R**](https://r.sportsdataverse.org/)                                                                                             | Umbrella R metapackage                   |
+| [**sdvplot**](https://sdvplot.sportsdataverse.org/)                                                                                                 | Python plots and tables                  |
 | [**@sportsdataverse/sdvplot**](https://plot.sportsdataverse.org) · [**@sportsdataverse/sdvtables**](https://plot.sportsdataverse.org/guides/tables) | JavaScript / TypeScript plots and tables |
 | [**sportsdataverse-py**](https://py.sportsdataverse.org/) · [**sportsdataverse.js**](https://js.sportsdataverse.org/)                               | Python and Node.js                       |
 
