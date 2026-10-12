@@ -31,8 +31,8 @@ means different teams in different leagues.}
 
 \item{size}{Icon width and height, in pixels.}
 
-\item{season}{\code{NULL} for today's mark, or a season (or one per team): the
-mark the team wore that season where the archive dates its marks.}
+\item{season}{\code{NULL} for today's logo, or a season (or one per row): a
+vector, or a formula read from \code{data}.}
 
 \item{variant}{\code{"default"}, \code{"dark"}, or a named variant from
 \code{\link[=sdv_marks]{sdv_marks()}} (\code{"scoreboard"}, \code{"grayscale"}, \code{"cap_on_light"}, ...). A

@@ -203,7 +203,7 @@ sdv_team_tiers <- function(
 #' @examples
 #' suppressWarnings(sdv_team_factor(c("KC", "BUF", "invalid"), league = "nfl"))
 sdv_team_factor <- function(teams, league, season = NULL, id_system = "auto") {
-  teams <- as.character(teams)
+  teams <- id_chr(teams)
   ids <- sdv_resolve(teams, league, season = season, id_system = id_system)
   t <- sdv_teams(league)
   abbr <- t$abbr[match(ids, t$team_id)]

@@ -14,3 +14,8 @@ test_that("sdv_team_tiers draws minor-league teams and dated marks", {
   paths <- unlist(lapply(ggplot2::ggplot_build(p)$data, function(l) l$path))
   expect_true(sdv_logo_url("QUE", "nhl", season = 1990) %in% paths)
 })
+
+test_that("numeric team ids are never written in scientific notation", {
+  expect_named(suppressWarnings(sdv_team_colors("nfl", 1e5)), "100000")
+  expect_identical(levels(sdv_team_factor(12, "nfl")), "12")
+})

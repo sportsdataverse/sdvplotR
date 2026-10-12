@@ -41,3 +41,10 @@ test_that("list options pass whole to both calls, even when their length equals 
     expect_length(got, 9L)
   }
 })
+
+test_that("season is read from the data like team", {
+  d <- data.frame(lon = -105, lat = 39.7, team = "COL", s = 1997)
+  m <- addSdvLogoMarkers(leaflet::leaflet(d), ~lon, ~lat, ~team, league = "nhl", season = ~s)
+  icon <- calls(m)[[1]]$args[[3]]
+  expect_identical(icon$iconUrl$data[icon$iconUrl$index + 1], sdv_logo_url("COL", "nhl", season = 1997))
+})

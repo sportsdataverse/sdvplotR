@@ -430,12 +430,12 @@ gt_merge_stack_team_color <- function(
     cli::cli_abort("Must include a column of team names, `team_col` is NULL")
   }
 
-  team_color <- sdv_team_colors(league, team_bare, which = "primary", season = season, id_system = id_system)
+  # resolved once for both colours, so an unresolved team warns once
+  t <- sdv_teams(league)
+  i <- match(sdv_resolve(team_bare, league, season = season, id_system = id_system), t$team_id)
+  team_color <- t$color_primary[i]
   team_color[is.na(team_color)] <- "grey"
-  team_color <- sdv_readable_ink(
-    team_color, sdv_team_colors(league, team_bare, which = "secondary", season = season, id_system = id_system),
-    background %||% .table_background(gt_object)
-  )
+  team_color <- sdv_readable_ink(team_color, t$color_secondary[i], background %||% .table_background(gt_object))
 
   col1_bare <- rlang::enexpr(col1) |> rlang::as_string()
   col2_bare <- rlang::enexpr(col2) |> rlang::as_string()

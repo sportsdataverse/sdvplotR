@@ -52,7 +52,7 @@ sdv_team_colors <- function(league, team = NULL, which = c("primary", "secondary
     secondary = t$color_secondary[i],
     all = ifelse(is.na(i), NA_character_, paste(t$color_primary[i], t$color_secondary[i], sep = ", "))
   )
-  stats::setNames(out, as.character(team))
+  stats::setNames(out, id_chr(team))
 }
 
 #' Team colour palette

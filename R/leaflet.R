@@ -7,6 +7,8 @@
 #' @param lng,lat Longitudes and latitudes: vectors, or formulas read from `data`.
 #' @param team Team identifiers: a vector, or a formula read from `data`.
 #' @inheritParams sdv_logo_url
+#' @param season `NULL` for today's logo, or a season (or one per row): a
+#'   vector, or a formula read from `data`.
 #' @param size Icon width and height, in pixels.
 #' @param data The data formulas read; defaults to the map's.
 #' @param ... Passed to [leaflet::addMarkers()] (`label`, `popup`, `layerId`,
@@ -28,6 +30,7 @@ addSdvLogoMarkers <- function(map, lng, lat, team, league, size = 32, season = N
   lng <- leaflet::evalFormula(lng, data)
   lat <- leaflet::evalFormula(lat, data)
   team <- leaflet::evalFormula(team, data)
+  season <- leaflet::evalFormula(season, data)
   n <- length(team)
   dots <- lapply(list(...), leaflet::evalFormula, data = data)
   # ponytail: only atomic vectors one per row (label, popup, layerId, ...) are split with the rows; lists

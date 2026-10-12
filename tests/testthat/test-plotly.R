@@ -68,3 +68,9 @@ test_that("date axes abort", {
   expect_error(add_sdv_logos(base_plot(), as.Date("2026-01-01"), 3, "KC", "nfl"), "Date axes")
   expect_error(add_sdv_logos(base_plot(), 1, Sys.time(), "KC", "nfl"), "Date axes")
 })
+
+test_that("sdv_axis_logos keeps numeric axis values numeric", {
+  p <- plotly::plot_ly(x = c(12, 2), y = 1:2, type = "bar")
+  img <- plotly::plotly_build(sdv_axis_logos(p, c(12, 2), "nfl"))$x$layout$images
+  expect_identical(img[[1]]$x, 12)
+})

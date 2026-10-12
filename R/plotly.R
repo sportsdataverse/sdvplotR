@@ -129,7 +129,7 @@ sdv_axis_logos <- function(p, teams, league, axis = c("x", "y"), size = 0.08, se
                            variant = "default", id_system = "auto", strict = FALSE) {
   rlang::check_installed("plotly", reason = "to draw logos on plotly axes.")
   axis <- rlang::arg_match(axis)
-  teams <- as.character(teams)
+  if (is.factor(teams)) teams <- as.character(teams)
   urls <- logo_from_team(teams, league, season = season, variant = variant, id_system = id_system, strict = strict)
   ok <- which(!is.na(urls))
   imgs <- lapply(ok, function(i) {

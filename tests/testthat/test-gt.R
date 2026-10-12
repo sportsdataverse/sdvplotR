@@ -279,3 +279,16 @@ test_that("tier alt text names the team from the manifest", {
   expect_identical(.tier_alt(sdv_logo_url("KC", "nfl")), "Kansas City Chiefs")
   expect_identical(.tier_alt("https://example.com/x/foo.png"), "foo")
 })
+
+test_that("gt_merge_stack_team_color resolves the teams once, so an unknown team warns once", {
+  df <- data.frame(team = c("KC", "nope"), mascot = c("Chiefs", "?"))
+  n <- 0L
+  withCallingHandlers(
+    gt(df) |> gt_merge_stack_team_color(team, mascot, team, league = "nfl"),
+    sdvplotR_unresolved_warning = function(w) {
+      n <<- n + 1L
+      invokeRestart("muffleWarning")
+    }
+  )
+  expect_identical(n, 1L)
+})
