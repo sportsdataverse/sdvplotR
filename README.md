@@ -192,6 +192,10 @@ The [**`sdvplotR`** documentation
 website](https://sdvplotR.sportsdataverse.org/) has the full function
 reference and these articles:
 
+🖼️ **[Browse the
+gallery](https://sdvplotR.sportsdataverse.org/articles/gallery.html)**:
+every article by its picture, each linking to the article that draws it.
+
 **Per-sport** (each with companion SportsDataverse package examples):
 [NFL](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.html) ·
 [CFB](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.html) ·
@@ -212,9 +216,27 @@ Dashboards](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards
 Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.html)
 ·
 [Workflows](https://sdvplotR.sportsdataverse.org/articles/workflows.html)
+· [Logos in
+ggplot2](https://sdvplotR.sportsdataverse.org/articles/cookbook-ggplot-logos.html)
+· [Colors and
+Themes](https://sdvplotR.sportsdataverse.org/articles/cookbook-colors-themes.html)
+· [Interactive: plotly, ggiraph,
+leaflet](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.html)
+· [Surfaces and Shot
+Charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.html)
 
-A printable `sdvplotR` cheat sheet will join [the set covering every
-SportsDataverse package](https://sportsdataverse.org/cheatsheets).
+## **Cheat sheet**
+
+A printable four-page reference for **sdvplotR**: team logos, colors and
+scales in ggplot2, team identity, the plotly, ggiraph and leaflet
+integrations, surfaces, and the gt and reactable toolkits, in four color
+themes, light and dark.
+
+📄 **[Download the sdvplotR cheat sheet
+(PDF)](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)**
+
+Browse the other SportsDataverse cheat sheets at
+**[sportsdataverse.org/cheatsheets](https://sportsdataverse.org/cheatsheets)**.
 
 ## **The SportsDataverse**
 

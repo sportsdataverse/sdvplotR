@@ -89,7 +89,11 @@ home:
   links:
   - text: Browse the SportsDataverse
     href: https://sportsdataverse.org/
-  - text: Cheat sheets (PDF)
+  - text: Gallery
+    href: articles/gallery.html
+  - text: sdvplotR cheat sheet (PDF)
+    href: https://sportsdataverse.org/cheatsheets/sdvplotR.pdf
+  - text: All SportsDataverse cheat sheets
     href: https://sportsdataverse.org/cheatsheets
 
 reference:
@@ -621,7 +625,9 @@ navbar:
       menu:
       - text: SportsDataverse
         href: https://sportsdataverse.org/
-      - text: "Cheat Sheets (PDF)"
+      - text: "sdvplotR Cheat Sheet (PDF)"
+        href: https://sportsdataverse.org/cheatsheets/sdvplotR.pdf
+      - text: "All Cheat Sheets"
         href: https://sportsdataverse.org/cheatsheets
       - text: --------------------------------
       - text: "Plotting Packages"
