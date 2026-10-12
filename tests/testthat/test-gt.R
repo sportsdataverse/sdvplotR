@@ -269,3 +269,9 @@ test_that("gt_sdv_logos reads the season's mark and other id systems", {
   html2 <- gt::as_raw_html(gt_sdv_logos(gt::gt(data.frame(team = "17")), "team", league = "nhl", id_system = "espn"))
   expect_match(html2, sdv_logo_url("17", "nhl", id_system = "espn"), fixed = TRUE)
 })
+
+test_that("gt_sdv_cols_label headshots take auto as espn", {
+  h <- html_of(gt(data.frame(`2544` = 1, check.names = FALSE)) |>
+    gt_sdv_cols_label(league = "nba", mark_type = "headshot"))
+  expect_match(h, sdv_headshot_url("2544", "nba"), fixed = TRUE)
+})

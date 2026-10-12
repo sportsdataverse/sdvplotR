@@ -202,9 +202,15 @@ gt_sdv_headshots <- function(
 #' @param mark_type One of `"logo"`, `"wordmark"` or `"headshot"`: whether the
 #'   column names are teams (logo / wordmark) or player IDs (headshot).
 #' @inheritParams gt_sdv_logos
-#' @param id_system How the column names are read: for teams, as in
-#'   [sdv_logo_url()] (`"auto"` by default); for `mark_type = "headshot"`,
-#'   as in [sdv_headshot_url()], where `"auto"` means `"espn"`.
+#' @param id_system How the column names are read. `"auto"` (the default) is
+#'   [sdv_logo_url()]'s automatic reading for logo and wordmark labels, and
+#'   means `"espn"` when `mark_type = "headshot"`; otherwise as in
+#'   [sdv_headshot_url()].
+#' @param season,strict For logo and wordmark labels only (headshots take
+#'   neither): the season whose mark to show, and whether an unresolved label
+#'   is an error. With `strict = TRUE` every label that is not a team errors,
+#'   including the non-team columns the default `columns = gt::everything()`
+#'   takes.
 #'
 #' @return An object of class `gt_tbl`.
 #' @seealso [gt_sdv_logos()], [gt_sdv_wordmarks()], [gt_sdv_headshots()]

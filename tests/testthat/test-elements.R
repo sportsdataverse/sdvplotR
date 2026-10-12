@@ -89,3 +89,28 @@ test_that("element_sdv_headshot records and uses id_system", {
   expect_identical(seen, "league")
   expect_error(element_sdv_headshot("wbb", id_system = "league"), "league player id")
 })
+
+test_that("element season survives the theme merge and reaches the resolver", {
+  th <- theme_minimal() + theme(axis.text.x = element_sdv_logo("nhl", season = 1990))
+  expect_identical(calc_element("axis.text.x.bottom", th)@season, 1990)
+  th0 <- theme_minimal() + theme(axis.text.x = element_sdv_logo("nhl"))
+  expect_true(is.na(calc_element("axis.text.x.bottom", th0)@season))
+
+  seen <- list()
+  local_mocked_bindings(
+    logo_from_team = function(team, league, season = NULL, ...) {
+      seen[[length(seen) + 1]] <<- list(season)
+      rep(NA_character_, length(team))
+    },
+    .package = "sdvplotR"
+  )
+  suppressWarnings(element_grob(element_sdv_logo("nhl"), label = "QUE"))
+  suppressWarnings(element_grob(element_sdv_logo("nhl", season = 1990), label = "QUE"))
+  expect_null(seen[[1]][[1]])
+  expect_identical(seen[[2]][[1]], 1990)
+})
+
+test_that("scale_x_sdv labels carry the season's mark", {
+  lab <- scale_x_sdv(league = "nhl", season = 1990)$labels("QUE")
+  expect_match(lab, sdv_logo_url("QUE", "nhl", season = 1990), fixed = TRUE)
+})

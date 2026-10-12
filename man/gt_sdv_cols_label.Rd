@@ -27,13 +27,16 @@ gt_sdv_cols_label(
 \item{mark_type}{One of \code{"logo"}, \code{"wordmark"} or \code{"headshot"}: whether the
 column names are teams (logo / wordmark) or player IDs (headshot).}
 
-\item{id_system}{How the column names are read: for teams, as in
-\code{\link[=sdv_logo_url]{sdv_logo_url()}} (\code{"auto"} by default); for \code{mark_type = "headshot"},
-as in \code{\link[=sdv_headshot_url]{sdv_headshot_url()}}, where \code{"auto"} means \code{"espn"}.}
+\item{id_system}{How the column names are read. \code{"auto"} (the default) is
+\code{\link[=sdv_logo_url]{sdv_logo_url()}}'s automatic reading for logo and wordmark labels, and
+means \code{"espn"} when \code{mark_type = "headshot"}; otherwise as in
+\code{\link[=sdv_headshot_url]{sdv_headshot_url()}}.}
 
-\item{season}{\code{NULL} (the default) for today's marks, or one season whose
-marks every cell shows (the ending year for the NHL). See the Historical
-logos section.}
+\item{season, strict}{For logo and wordmark labels only (headshots take
+neither): the season whose mark to show, and whether an unresolved label
+is an error. With \code{strict = TRUE} every label that is not a team errors,
+including the non-team columns the default \code{columns = gt::everything()}
+takes.}
 }
 \value{
 An object of class \code{gt_tbl}.

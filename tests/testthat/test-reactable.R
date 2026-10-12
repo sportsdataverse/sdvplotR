@@ -74,8 +74,12 @@ test_that("a logo variant falls back to the default logo when it fails to load",
 })
 
 test_that("reactable colour backgrounds use the season's team", {
-  d <- data.frame(team = "OAK", v = 1)
-  bg <- reactable_sdv_team_color_bg(d, "team", league = "nfl", season = 2010)
-  col <- unname(sdv_team_colors("nfl", "OAK", season = 2010))
-  expect_match(bg(1, 1), sub("^#", "", col), ignore.case = TRUE)
+  # nhl WIN resolves to a different team (and colour) in 1995 than today
+  d <- data.frame(team = "WIN", v = 1)
+  now <- unname(sdv_team_colors("nhl", "WIN"))
+  then <- unname(sdv_team_colors("nhl", "WIN", season = 1995))
+  expect_false(identical(now, then))
+  bg <- reactable_sdv_team_color_bg(d, "team", league = "nhl", season = 1995, alpha = 1)
+  expect_match(bg(1, 1), sub("^#", "", then), ignore.case = TRUE)
+  expect_no_match(bg(1, 1), sub("^#", "", now), ignore.case = TRUE)
 })
