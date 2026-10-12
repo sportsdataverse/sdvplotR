@@ -72,7 +72,7 @@ Suggests:
 Config/Needs/development:devtools, httr, jsonlite, lintr, nflreadr,
     roxygen2, styler, usethis
 Config/Needs/website:r-lib/pkgdown, arrow, baseballr, cfbfastR, cfbseedR,
-    fastRhockey, ggsoccer, ggiraph, ggrepel, ggsci, gtExtras, jsonlite, hoopR, leaflet,
+    fastRhockey, ggsoccer, ggiraph, ggrepel, ggsci, gtExtras, jsonlite, hoopR, leaflet, maps,
     nflfastR, nflseedR, nflreadr, oddsapiR, patchwork, plotly,
     kcuilla/reactablefmtr, sportyR, svglite, tidyverse, viridis, wehoop
 Config/roxygen2/version: 8.1.0
