@@ -13,6 +13,7 @@ CDN
 CDNs
 CFB
 CFBD
+CFBD's
 CFP
 CMD
 CPOE
@@ -37,6 +38,7 @@ GSAx
 GSIS
 Goaltending
 Grande
+Hawai'i
 Headshot
 Headshots
 HockeyTech
@@ -63,6 +65,7 @@ MLB
 MLB's
 MLBAM
 MVFC
+Macalester
 McDavid
 Mercyhurst
 Metrica
@@ -125,6 +128,7 @@ Winningest
 Wordmark
 Wordmarks
 Wyscout
+addSdvLogoMarkers
 ahl
 al
 analytics
@@ -132,6 +136,7 @@ api
 autorange
 baseballr
 baseballr's
+basemap
 behaviour
 bolded
 bolds
@@ -145,10 +150,12 @@ centre
 centred
 centres
 cfb
+cfb's
 cfbfastR
 cfbfastR's
 cfbplotR
 cfbseedR
+cheatsheets
 chromote's
 colour
 coloured
@@ -161,9 +168,11 @@ dplyr
 dropback
 dropbacks
 echl
+ers
 espn
 et
 euroleague
+explorable
 faceoff
 fallers
 fastRhockey
@@ -197,6 +206,7 @@ headshot
 headshots
 hoopR
 hoopR's
+hoverable
 httr
 inlined
 inliner
@@ -278,6 +288,7 @@ th
 tibble
 tidyselect
 tiebreaking
+toolkits
 triCode
 tricodes
 un

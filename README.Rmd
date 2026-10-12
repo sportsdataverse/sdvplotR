@@ -48,7 +48,12 @@ NBA, WNBA, MLB, NHL, college football, men's and women's college
 basketball, soccer and more — in
 [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
 [**`gt`**](https://gt.rstudio.com/) tables and
-[**`reactable`**](https://glin.github.io/reactable/) tables. It is built
+[**`reactable`**](https://glin.github.io/reactable/) tables, and in
+interactive [**`plotly`**](https://plotly-r.com/),
+[**`ggiraph`**](https://davidgohel.github.io/ggiraph/) and
+[**`leaflet`**](https://rstudio.github.io/leaflet/) charts and maps,
+with team-colored playing surfaces from
+[**`sportyR`**](https://sportyR.sportsdataverse.org/). It is built
 on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
 approach established by [nflplotR](https://nflplotr.nflverse.com/),
 [cfbplotR](https://cfbplotR.sportsdataverse.org/),
@@ -192,6 +197,29 @@ reactable(
   )
 )
 ```
+
+```{r interactive, eval = FALSE}
+# Interactive: the logo grid again, each logo with a tooltip (ggiraph) ...
+p <- ggplot(df, aes(x = a, y = b)) +
+  geom_sdv_logos_interactive(aes(team = teams, tooltip = teams, data_id = teams),
+    league = "nfl", width = 0.075
+  ) +
+  theme_void()
+ggiraph::girafe(ggobj = p)
+
+# ... or logos on a native plotly chart (addSdvLogoMarkers() does maps)
+plotly::plot_ly(df, x = ~a, y = ~b, type = "scatter", mode = "markers", text = ~teams) |>
+  add_sdv_logos(df$a, df$b, df$teams, league = "nfl")
+
+# A playing surface painted in a team's colors, ready for shot or play data
+sdv_surface("nba", team = "BOS")
+```
+
+The [Interactive Charts
+cookbook](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.html)
+covers `geom_sdv_logos_interactive()` and its wordmark and headshot
+siblings, `add_sdv_logos()`, `sdv_axis_logos()` and `sdv_colorway()` for
+plotly, and `addSdvLogoMarkers()` for leaflet.
 
 `gt_theme_sdv()` (light or `style = "dark"`) and `gt_theme_sdv_team()`
 are the SportsDataverse table themes. The `gt` side also carries the

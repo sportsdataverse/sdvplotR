@@ -1,6 +1,6 @@
 url: https://sdvplotR.sportsdataverse.org/
 title: sdvplotR
-description: "Sports team logo plots in ggplot2, gt and reactable across the SportsDataverse"
+description: "Sports team logo plots in ggplot2, gt and reactable, and interactive plotly, ggiraph and leaflet charts, across the SportsDataverse"
 
 # pkgdown renders every top-level and .github/*.md file as a page; keep the
 # contributor/agent notes out of the search index so results stay on-topic.
@@ -392,8 +392,9 @@ navbar:
     home:
       title: sdvplotR • Sports Team Logo Plots
       description: >
-        Team logos, wordmarks, headshots and colors for eight leagues in
-        ggplot2, gt and reactable.
+        Team logos, wordmarks, headshots and colors for 28 leagues in
+        ggplot2, gt and reactable, and interactive plotly, ggiraph and
+        leaflet charts.
       icon: fa-home
       href: index.html
       aria-label: Home
