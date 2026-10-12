@@ -80,6 +80,10 @@ test_that("gt_merge_stack_team_color stacks each row's own pair under row groups
 })
 
 test_that("the row helpers keep a table small", {
+  # installed keeping source (as on CI), the package's closures can reach its
+  # whole source once something reads it: read it, so the guard sees that case
+  src <- attr(attr(.constant, "srcref"), "srcfile")
+  if (is.environment(src$original)) invisible(mget(ls(src$original), envir = src$original))
   set.seed(1)
   d <- data.frame(g = rep(c("A", "B"), 100), a = runif(200), b = runif(200), p = runif(200) / 5)
   tbl <- gt::gt(d, groupname_col = "g") |>

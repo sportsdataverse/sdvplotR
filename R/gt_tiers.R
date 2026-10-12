@@ -178,10 +178,7 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
   for (i in seq_along(cols)) {
     for (j in which(vals %in% cells[[i]])) {
       gt_object <- text_transform(gt_object,
-        locations = cells_body(
-          columns = tidyselect::all_of(cols[[i]]),
-          rows = which(cells[[i]] == vals[[j]])
-        ),
+        locations = .body_cell(cols[[i]], which(cells[[i]] == vals[[j]])),
         fn = .alt_tagger(alts[[j]])
       )
     }
@@ -191,13 +188,13 @@ gt_tiers <- function(gt_object, levels, colors = NULL, style = "dark",
 
 .alt_tagger <- function(alt) {
   force(alt)
-  function(x) {
+  .bare(function(x) {
     tags <- gregexpr("<img ", x, fixed = TRUE)
     regmatches(x, tags) <- lapply(regmatches(x, tags), function(tag) {
       if (length(tag) == length(alt)) paste0('<img alt="', alt, '" ') else tag
     })
     x
-  }
+  })
 }
 
 # a mark the archive holds is named by its team (the manifest's entity_name),

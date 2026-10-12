@@ -287,16 +287,33 @@
   gt_object
 }
 
+# gt keeps these closures in the table. With the package installed keeping
+# source (R_KEEP_PKG_SOURCE=yes, as on CI), two things in a closure reach a
+# srcref to the whole package source: its byte-compiled body, and its frame's
+# arguments, which stay (forced) promises holding the caller's compiled code.
+# Once anything has read that source, a saved table grew by ~27 MB. .bare()
+# rebuilds the closure from its expression, uncompiled and without srcrefs, in
+# a copy of its frame that holds plain values. For the small factory frames
+# below only: as.list() forces every binding.
+.bare <- function(fn) {
+  frame <- environment(fn)
+  env <- list2env(as.list(frame, all.names = TRUE), parent = parent.env(frame))
+  utils::removeSource(as.function(c(formals(fn), list(body(fn))), envir = env))
+}
+
 .constant <- function(value) {
   force(value)
-  function(x) value
+  .bare(function(x) value)
 }
 
 .appender <- function(suffix) {
   force(suffix)
-  function(x) paste0(x, suffix)
+  .bare(function(x) paste0(x, suffix))
 }
 
+# the quosures cells_body() makes capture the frame that calls it: here, one
+# that holds plain values (see .bare()), never one that holds the table
 .body_cell <- function(column, rows) {
-  gt::cells_body(columns = tidyselect::all_of(column), rows = rows)
+  env <- list2env(list(column = column, rows = rows), parent = parent.env(environment()))
+  eval(quote(gt::cells_body(columns = tidyselect::all_of(column), rows = rows)), env)
 }

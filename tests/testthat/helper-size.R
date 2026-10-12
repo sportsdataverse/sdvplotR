@@ -15,9 +15,12 @@ size_report <- function(x, top = 3) {
              !identical(e, globalenv()) && !identical(e, baseenv())) {
         key <- format(e)
         if (is.null(envs[[key]])) {
+          # size the environment first: get() forces its promises, and an
+          # unforced promise is exactly what can make it large
+          env_size <- sz(e)
           vars <- ls(e, all.names = TRUE)
           vs <- vapply(vars, function(v) sz(get(v, envir = e)), numeric(1))
-          envs[[key]] <<- list(size = sz(e), name = environmentName(e),
+          envs[[key]] <<- list(size = env_size, name = environmentName(e),
                                vars = utils::head(sort(vs, decreasing = TRUE), 3))
         }
         e <- parent.env(e)
