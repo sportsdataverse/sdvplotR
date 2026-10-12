@@ -86,3 +86,30 @@ test_that("sdv_versions() reports the source and version", {
   expect_identical(v$index_version, snapshot_meta$index_version)
   expect_identical(v$package, as.character(utils::packageVersion("sdvplotR")))
 })
+
+test_that("a cached file cut off mid-row falls back to the snapshot, not a shortened table", {
+  fx <- local_fixture_index()
+  index_teams()
+  ver <- snapshot_meta$index_version
+  cached <- file.path(tools::R_user_dir("sdvplotR", "cache"), "index", ver, "aliases.csv.gz")
+  txt <- readLines(file.path(fx, "index", ver, "aliases.csv.gz"), warn = FALSE)
+  cut <- substr(paste(txt, collapse = "\n"), 1, 2000) # ends mid-row
+  con <- gzfile(cached, "wb")
+  writeChar(cut, con, eos = NULL)
+  close(con)
+  forget_index()
+  expect_warning(index_teams(), class = "sdvplotR_fallback")
+  expect_identical(index_cache$source, "snapshot")
+  expect_identical(nrow(index_aliases()), nrow(snapshot_aliases))
+})
+
+test_that("a failed manifest refresh with a stale cache warns and reports the cache", {
+  local_fixture_index(ttl = 0)
+  index_marks()
+  expect_identical(index_cache$marks_source, "live")
+  forget_index()
+  withr::local_options(sdvplotR.manifest_url = "file:///nonexistent/marks.csv")
+  expect_warning(index_marks(), class = "sdvplotR_fallback")
+  expect_identical(index_cache$marks_source, "cache")
+  expect_true("archive_url" %in% names(index_marks()))
+})

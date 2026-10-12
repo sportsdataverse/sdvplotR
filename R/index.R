@@ -36,7 +36,7 @@ fetch_to_cache <- function(url, path, ttl = getOption("sdvplotR.index_ttl", 8640
   on.exit(unlink(tmp), add = TRUE)
   err <- tryCatch(
     {
-      suppressWarnings(utils::download.file(url, tmp, mode = "wb", quiet = TRUE))
+      warnings_fail(utils::download.file(url, tmp, mode = "wb", quiet = TRUE))
       if (!file.exists(tmp) || file.size(tmp) == 0) "empty response" else NULL
     },
     error = function(e) conditionMessage(e)
@@ -51,9 +51,28 @@ fetch_to_cache <- function(url, path, ttl = getOption("sdvplotR.index_ttl", 8640
   stop("could not download ", url, ": ", err, call. = FALSE)
 }
 
+# Any warning is a failure (a short download, a truncated or corrupt file), so
+# the caller's fallback runs instead of a shortened table loading as valid;
+# only warnings matching `allow` (benign ones) are muffled.
+warnings_fail <- function(expr, allow = character()) {
+  withCallingHandlers(expr, warning = function(w) {
+    if (any(vapply(allow, grepl, NA, conditionMessage(w), fixed = TRUE))) {
+      invokeRestart("muffleWarning")
+    }
+    stop(conditionMessage(w), call. = FALSE)
+  })
+}
+
 read_index_csv <- function(path, cols) {
-  con <- if (grepl("\\.gz$", path)) gzfile(path) else file(path)
-  df <- suppressWarnings(utils::read.csv(con, colClasses = "character", na.strings = "", encoding = "UTF-8", check.names = FALSE))
+  # read whole, and require a final newline: a file cut off mid-row (even one
+  # re-gzipped as valid) would otherwise load as a shortened table
+  con <- if (grepl("\\.gz$", path)) gzfile(path, "rb") else file(path, "rb")
+  on.exit(close(con))
+  raw <- warnings_fail(readBin(con, "raw", n = file.size(path) * 50 + 1e6))
+  if (!length(raw) || raw[length(raw)] != as.raw(10L)) stop(basename(path), " is truncated (no final newline)", call. = FALSE)
+  df <- warnings_fail(utils::read.csv(
+    text = rawToChar(raw), colClasses = "character", na.strings = "", encoding = "UTF-8", check.names = FALSE
+  ))
   miss <- setdiff(cols, names(df))
   if (length(miss)) stop(basename(path), " lacks columns ", paste(miss, collapse = ", "), call. = FALSE)
   df <- df[cols]
@@ -79,13 +98,15 @@ read_live_index <- function() {
     read_index_csv(fetch_to_cache(paste(index_url(), ver, file, sep = "/"), cache_path("index", ver, file), ttl = Inf), cols)
   }
   stale <- attr(ptr, "stale")
-  if (!is.null(stale)) {
-    warn_once("index", c("Could not refresh the sdvplotR team index ({stale}).", i = "Using the cached index {.val {ver}}."))
-  }
-  list(
+  idx <- list(
     teams = get("teams.csv.gz", team_cols), aliases = get("aliases.csv.gz", alias_cols),
     version = ver, source = if (is.null(stale)) "live" else "cache"
   )
+  # only once both reads have succeeded: a corrupt file falls back to the snapshot instead
+  if (!is.null(stale)) {
+    warn_once("index", c("Could not refresh the sdvplotR team index ({stale}).", i = "Using the cached index {.val {ver}}."))
+  }
+  idx
 }
 
 load_index <- function() {
@@ -117,7 +138,18 @@ snapshot_marks_table <- function() {
 
 load_marks <- function() {
   m <- if (!use_snapshot()) {
-    tryCatch(read_index_csv(fetch_to_cache(manifest_url(), cache_path("manifest", "marks.csv")), mark_cols),
+    tryCatch(
+      {
+        path <- fetch_to_cache(manifest_url(), cache_path("manifest", "marks.csv"))
+        df <- read_index_csv(path, mark_cols)
+        stale <- attr(path, "stale")
+        if (!is.null(stale)) {
+          warn_once("marks", c("Could not refresh the logo manifest ({stale}).", i = "Using the cached copy."))
+          source <- "cache"
+        }
+        attr(df, "source") <- if (is.null(stale)) "live" else "cache"
+        df
+      },
       error = function(e) {
         warn_once("marks", c(
           "Could not read the logo manifest: {conditionMessage(e)}",
@@ -131,7 +163,8 @@ load_marks <- function() {
     index_cache$marks_source <- "snapshot"
     m <- snapshot_marks_table()
   } else {
-    index_cache$marks_source <- "live"
+    index_cache$marks_source <- attr(m, "source")
+    attr(m, "source") <- NULL
     # the URL reaches HTML (gt, reactable, plotly, leaflet): only a plain https URL passes
     ok <- grepl("^https://[^[:space:]\"'<>]+$", m$archive_url)
     if (!all(ok)) {
