@@ -88,7 +88,9 @@ norm_value <- function(x) {
     out[is.na(x)] <- NA_character_
     return(out)
   }
-  s <- trimws(enc2utf8(as.character(x)))
+  # Python's strip() and NFKD treat these Unicode spaces as " " (NBSP, en/em/thin spaces, ideographic)
+  s <- gsub("[\u00a0\u2000-\u200a\u202f\u205f\u3000]", " ", enc2utf8(as.character(x)))
+  s <- trimws(s)
   wide <- !is.na(s) & grepl("[^ -~]", s)
   if (any(wide)) {
     w <- chartr(paste0(fold_from, "\u2018\u2019"), paste0(fold_to, "''"), s[wide])
@@ -128,7 +130,8 @@ norm_seasons <- function(season, n, league, call = rlang::caller_env()) {
   }
   if (is.factor(season)) season <- as.character(season)
   num <- suppressWarnings(as.numeric(season))
-  bad <- !is.na(season) & (is.na(num) | num != trunc(num) | is.logical(season))
+  bad <- !is.na(season) & (is.na(num) | !is.finite(num) | abs(num) > .Machine$integer.max |
+    num != trunc(num) | is.logical(season))
   if (is.character(season)) bad <- bad | (!is.na(season) & !grepl("^\\s*[0-9]+\\s*$", season))
   if (any(bad)) {
     v <- season[bad][[1]]
@@ -301,9 +304,14 @@ sdv_suggest <- function(x, league, n = 5) {
   }
   lk <- league_lookup(league)
   keys <- unique(lk$a$key)
+  # ponytail: only the top candidate is held to Python (golden suggest rows); later
+  # candidates order by edit distance, not difflib's ratio, so their order may differ.
   sim <- 1 - drop(utils::adist(key, keys)) / pmax(nchar(key), nchar(keys))
   ord <- order(-sim, keys, method = "radix")
   ord <- ord[sim[ord] >= 0.6]
+  if (!length(ord)) {
+    return(out)
+  }
   ids <- unique(unlist(lapply(keys[ord], function(k) lk$a$team_id[lk$a$key == k]), use.names = FALSE))
   ids <- utils::head(ids, n)
   t <- sdv_teams(league, include_conferences = TRUE)

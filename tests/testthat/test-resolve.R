@@ -45,6 +45,21 @@ test_that("factors, numbers and padded strings resolve like the plain string", {
   expect_identical(out, c(NA, NA, kc))
 })
 
+test_that("Unicode spaces fold like Python's strip() and NFKD", {
+  local_snapshot_index()
+  kc <- sdv_resolve("Kansas City Chiefs", "nfl")
+  expect_false(is.na(kc))
+  expect_identical(sdv_resolve("Kansas\u00a0City Chiefs", "nfl"), kc)
+  expect_identical(sdv_resolve("Kansas City Chiefs\u00a0", "nfl"), kc)
+})
+
+test_that("sdv_suggest() keeps its columns when nothing is close", {
+  local_snapshot_index()
+  s <- sdv_suggest("zzzzzzzz", "nfl")
+  expect_named(s, c("team_id", "name"))
+  expect_identical(nrow(s), 0L)
+})
+
 test_that("unknown values warn once and strict errors", {
   local_snapshot_index()
   expect_warning(out <- sdv_resolve(c("nope", "nope", "KC"), "nfl"), class = "sdvplotR_unresolved_warning")
@@ -64,6 +79,9 @@ test_that("bad seasons and lengths say what to pass", {
   expect_error(sdv_resolve("KC", "nfl", season = "2020-21"), "2021")
   expect_error(sdv_resolve(c("KC", "BUF", "SF"), "nfl", season = c(2020, 2021)), "3 teams")
   expect_error(sdv_resolve("KC", "nfl", season = 20042005), "outside")
+  # too big for an integer, or not finite: an error, never a silently dropped season
+  expect_no_warning(expect_error(sdv_resolve("KC", "nfl", season = 1e10), "must be a year"))
+  expect_no_warning(expect_error(sdv_resolve("KC", "nfl", season = Inf), "must be a year"))
 })
 
 test_that("league and id_system are checked", {
