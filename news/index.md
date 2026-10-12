@@ -18,9 +18,10 @@ built on ‘ggpath’ and following the conventions of ‘nflplotR’,
   [`readRDS()`](https://rdrr.io/r/base/readRDS.html) and cached for the
   session.
 
-- The README links the JavaScript / TypeScript siblings on npm,
-  `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`
-  (<https://plot.sportsdataverse.org>).
+- The README links the Python sibling on PyPI, `sdvplot`
+  (<https://sdvplot.sportsdataverse.org>), and the JavaScript /
+  TypeScript siblings on npm, `@sportsdataverse/sdvplot` and
+  `@sportsdataverse/sdvtables` (<https://plot.sportsdataverse.org>).
 
 - Saving a table to an image
   ([`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md),
