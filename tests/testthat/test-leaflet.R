@@ -24,3 +24,20 @@ test_that("formulas read from the map's data", {
   m <- addSdvLogoMarkers(leaflet::leaflet(d), ~lon, ~lat, ~team, league = "nfl")
   expect_length(calls(m), 1L)
 })
+
+test_that("list options pass whole to both calls, even when their length equals the row count", {
+  opts <- leaflet::markerOptions(zIndexOffset = 5)
+  expect_length(opts, 9L) # the length that used to be mistaken for a per-row vector
+  teams <- c(rep("KC", 5), rep("nope", 4))
+  expect_warning(
+    m <- addSdvLogoMarkers(leaflet::leaflet(), lng = 1:9, lat = 1:9, team = teams, league = "nfl", options = opts),
+    class = "sdvplotR_unresolved_warning"
+  )
+  cl <- calls(m)
+  expect_length(cl, 2L)
+  for (k in 1:2) {
+    got <- cl[[k]]$args[[6]] # leaflet stores args positionally: lat, lng, icon, layerId, group, options
+    expect_identical(got$zIndexOffset, 5)
+    expect_length(got, 9L)
+  }
+})
