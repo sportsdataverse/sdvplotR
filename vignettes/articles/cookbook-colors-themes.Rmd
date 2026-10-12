@@ -38,10 +38,10 @@ season <- 2026 # NBA, NHL and college basketball: the 2025-26 season; MLB and WN
 ## 1. See a league's palette
 
 `sdv_teams()` holds every team's two colors (`color_primary`, `color_secondary`), with
-its conference. Laid out by conference, with each team's logo above
+its conference. Laid out in one row per conference (16 teams each), with each team's logo above
 its two swatches, it is a quick check of what a chart will look like:
 
-```{r palette, fig.width = 8, fig.height = 6.5, fig.alt = "The 32 NHL teams in four rows, one per conference. Each team's logo sits above two squares filled with its primary and secondary colors, with the hex codes underneath."}
+```{r palette, fig.width = 14, fig.height = 4.2, fig.alt = "The 32 NHL teams in two rows of 16, one per conference, Eastern above Western. Each team's logo sits above two squares filled with its primary and secondary colors, with the hex codes underneath."}
 nhl_ref <- sdv_teams("nhl") |>
   arrange(conference, abbr) |>
   mutate(slot = row_number(), .by = conference)
