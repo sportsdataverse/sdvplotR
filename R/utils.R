@@ -61,8 +61,7 @@ draw_image_panel <- function(data, panel_params, coord, na.rm, max_px = NULL) {
     return(ggplot2::zeroGrob())
   }
   if (!is.null(max_px)) {
-    u <- unique(data$path)
-    data$path <- vapply(u, small_image, character(1), px = max_px, USE.NAMES = FALSE)[match(data$path, u)]
+    data$path <- small_images(data$path, max_px)
   }
   ggpath::GeomFromPath$draw_panel(data = data, panel_params = panel_params, coord = coord, na.rm = na.rm)
 }
@@ -82,6 +81,14 @@ small_image <- function(path, px) {
   dir.create(dirname(out), showWarnings = FALSE, recursive = TRUE)
   magick::image_write(magick::image_scale(img, sprintf("%dx%d>", px, px)), out, format = "png")
   out
+}
+
+# small_image() for each path, once per distinct one; NA stays NA
+small_images <- function(paths, px) {
+  ok <- !is.na(paths)
+  u <- unique(paths[ok])
+  paths[ok] <- vapply(u, small_image, character(1), px = px, USE.NAMES = FALSE)[match(paths[ok], u)]
+  paths
 }
 
 # ---------------------------------------------------------------------------
@@ -186,15 +193,21 @@ sdv_headshot_url <- function(player_id, league, id_system = "espn") {
 
 # HTML helpers for axis labels rendered through ggtext::element_markdown()
 logo_html <- function(team, league, type = c("height", "width"), size = 15, season = NULL, id_system = "auto") {
-  type <- rlang::arg_match(type)
-  urls <- logo_from_team(team, league, season = season, id_system = id_system)
-  ifelse(is.na(urls), team, sprintf("<img src='%s' %s = '%s'>", urls, type, size))
+  img_html(logo_from_team(team, league, season = season, id_system = id_system), team, rlang::arg_match(type), size)
 }
 
 headshot_html <- function(player_id, league, type = c("height", "width"), size = 25, id_system = "espn") {
-  type <- rlang::arg_match(type)
-  urls <- headshot_from_id(player_id, league, id_system)
-  ifelse(is.na(urls), player_id, sprintf("<img src='%s' %s = '%s'>", urls, type, size))
+  img_html(headshot_from_id(player_id, league, id_system), player_id, rlang::arg_match(type), size)
+}
+
+# An axis label's <img>, `size` px on one side, from a copy at most 4 x size
+# px a side: the label never draws it larger (sharp up to ~380 dpi), and an SVG
+# device (ggiraph, svglite) writes the image into the file, where a source logo
+# is 20-60 KB. Forward slashes: markdown reads a backslash in a path as an escape.
+img_html <- function(urls, label, type, size) {
+  ok <- !is.na(urls)
+  urls <- chartr("\\", "/", small_images(urls, ceiling(4 * as.numeric(size))))
+  ifelse(ok, sprintf("<img src='%s' %s = '%s'>", urls, type, size), label)
 }
 
 # NFL headshot map: sdvplotR publishes it from nflverse rosters (1999 onward) to

@@ -34,3 +34,15 @@ test_that("interactive geoms embed small copies of the images", {
   expect_identical(small_image(src, 160), small) # made once per image and size
   expect_identical(small_image(file.path(tempdir(), "no-such-image.png"), 160), file.path(tempdir(), "no-such-image.png"))
 })
+
+test_that("axis-label images are copies at most 4 x the label size, with forward slashes", {
+  # an SVG device (ggiraph, svglite) writes each label image into the file
+  src <- tempfile(fileext = ".png")
+  magick::image_write(magick::image_blank(500, 500, "blue"), src, format = "png")
+  html <- img_html(c(src, NA), c("A", "B"), "width", 12)
+  expect_identical(html[[2]], "B")
+  path <- sub("^<img src='([^']+)'.*", "\\1", html[[1]])
+  expect_false(grepl("\\", path, fixed = TRUE))
+  expect_match(html[[1]], "width = '12'", fixed = TRUE)
+  expect_identical(magick::image_info(magick::image_read(path))$width, 48L)
+})

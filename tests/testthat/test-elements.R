@@ -112,11 +112,19 @@ test_that("element season survives the theme merge and reaches the resolver", {
 
 test_that("scale_x_sdv labels carry the season's mark", {
   lab <- scale_x_sdv(league = "nhl", season = 1990)$labels("QUE")
-  expect_match(lab, sdv_logo_url("QUE", "nhl", season = 1990), fixed = TRUE)
-})
+  expect_match(lab, label_src(sdv_logo_url("QUE", "nhl", season = 1990), 12), fixed = TRUE)})
 
 test_that("an element takes one season, and says so when given several", {
   expect_error(element_sdv_logo(league = "nfl", season = c(2000, 2010)), "one season")
   expect_error(element_sdv_wordmark(league = "nfl", season = c(2000, 2010)), "one season")
   expect_identical(element_sdv_logo(league = "nfl", season = 2000)@season, 2000)
+})
+
+test_that("elements draw copies at most four times their drawn size", {
+  # an SVG device (ggiraph, svglite) writes each axis image into the file
+  src <- tempfile(fileext = ".png")
+  magick::image_write(magick::image_blank(500, 500, "green"), src, format = "png")
+  out <- element_images(c(src, NA), element_sdv_logo(league = "nfl")) # size 0.5 cm: 76 px
+  expect_true(is.na(out[[2]]))
+  expect_identical(magick::image_info(magick::image_read(out[[1]]))$width, 76L)
 })

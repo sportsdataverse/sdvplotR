@@ -58,7 +58,9 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
 * `element_sdv_logo()`, `element_sdv_wordmark()` and
   `element_sdv_headshot()` replace axis text with images; `scale_x_sdv()`,
   `scale_y_sdv()` and the headshot variants do the same through
-  `ggtext::element_markdown()` with `theme_x_sdv()` / `theme_y_sdv()`. All of
+  `ggtext::element_markdown()` with `theme_x_sdv()` / `theme_y_sdv()`. Both
+  draw a copy of each image at most four times its drawn size (sharp in a
+  300 dpi export, and a few KB a logo in an SVG or ggiraph widget). All of
   them work after a complete theme such as `theme_minimal()` on 'ggplot2' 4,
   which sdvplotR requires.
 * `scale_color_sdv()` and `scale_fill_sdv()` map teams to their primary or

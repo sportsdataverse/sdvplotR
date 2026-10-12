@@ -244,9 +244,10 @@ ggplot(leaders, aes(y = name)) +
 The net rating bars from section 2 with ggiraph: hover a bar for the team's
 logo, record and offensive and defensive ratings, and the other bars fade. The
 chart is the same ggplot with `geom_col_interactive()` in place of `geom_col()`.
-ggiraph embeds axis logos in its SVG, about 2 MB for 30 NBA logos, so here the
-axis keeps the abbreviations and the logo goes in the tooltip as a link
-(`sdv_logo_url()`), which the browser loads on hover.
+Here the axis keeps the abbreviations and the logo goes in the tooltip as a
+link (`sdv_logo_url()`), which the browser loads on hover; for logos on the axis
+too, add `scale_x_sdv()` and `theme_x_sdv()` as in section 2 (ggiraph embeds
+them, about 100 KB for 30).
 
 ```{r net-rating-interactive}
 p_net <- ggplot(ratings, aes(x = reorder(team, -net), y = net, fill = team)) +

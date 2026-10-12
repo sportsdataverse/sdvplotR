@@ -133,8 +133,8 @@ girafe(ggobj = bar_chart(totals, logos = FALSE), width_svg = 6, height_svg = 6.5
 ## 3. Logos on the axis, highlight on hover and click
 
 `scale_y_sdv()` and `theme_y_sdv()` swap the abbreviations for logos; the SVG
-embeds them, so they show in the widget too. Each logo is embedded at full size,
-so the thirty of them make up most of the widget's weight, about 1.4 MB.
+embeds them, so they show in the widget too. Each is a small copy sized for its
+label, so the thirty of them add about 100 KB.
 
 By default ggiraph only tints the hovered bar. `opts_hover_inv()` fades every
 other bar, so the hovered team stands out from the other 29, and

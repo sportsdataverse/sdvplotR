@@ -39,7 +39,10 @@ test_that("axis scales produce image labels", {
   local_headshot_map()
   sx <- scale_x_sdv(league = "nfl", size = 20)
   expect_s3_class(sx, "ScaleDiscretePosition")
-  expect_match(sx$labels(c("KC", "BUF")), "^<img src='https://.*height = '20'>$")
+  expect_identical(
+    sx$labels(c("KC", "BUF")),
+    sprintf("<img src='%s' height = '20'>", label_src(sdv_logo_url(c("KC", "BUF"), "nfl"), 20))
+  )
   sy <- scale_y_sdv_headshots(league = "nfl", id_system = "gsis")
   expect_match(sy$labels("00-0033873"), "width = '30'")
 })
@@ -184,7 +187,11 @@ test_that("headshot geom and scales pass id_system through", {
 
 test_that("headshot axis scales pass id_system through", {
   sx <- scale_x_sdv_headshots(league = "mlb", id_system = "league")
-  expect_match(sx$labels("660271"), "img\\.mlbstatic\\.com/.*/people/660271/.*height = '20'")
+  expect_match(sdv_headshot_url("660271", "mlb", id_system = "league"), "img\\.mlbstatic\\.com/.*/people/660271/")
+  expect_identical(
+    sx$labels("660271"),
+    sprintf("<img src='%s' height = '20'>", label_src(sdv_headshot_url("660271", "mlb", id_system = "league"), 20))
+  )
 })
 
 test_that("color scales accept every key the resolver accepts", {
