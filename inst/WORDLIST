@@ -39,6 +39,7 @@ Goaltending
 Grande
 Headshot
 Headshots
+HockeyTech
 Hollinger's
 HoloViews
 IPs
@@ -117,12 +118,14 @@ UNLV
 Unmapped
 WBB
 WCAG
+WHL
 WNBA
 WNBA's
 Winningest
 Wordmark
 Wordmarks
 Wyscout
+ahl
 al
 analytics
 api
@@ -141,6 +144,7 @@ centimetres
 centre
 centred
 centres
+cfb
 cfbfastR
 cfbfastR's
 cfbplotR
@@ -156,6 +160,7 @@ datacenter
 dplyr
 dropback
 dropbacks
+echl
 espn
 et
 euroleague
@@ -183,6 +188,7 @@ goaltending
 graphemes
 grey
 gridtext
+gsis
 gt's
 gtExtras
 gtUtils
@@ -205,9 +211,12 @@ letterspaced
 luminance
 magrittr
 matplotlib
+mbb
 memoise
 memoised
 metapackage
+milb
+mlb
 mlbplotR
 monospace
 mplsoccer
@@ -218,6 +227,7 @@ nbaplotR
 ncaa
 nd
 neighbours
+nfl
 nflfastR
 nflfastR's
 nflplotR
@@ -239,12 +249,15 @@ plotly
 plotly's
 plotnine
 positionally
+pwhl
 px
 py
 py's
+qmjhl
 reactable
 reactablefmtr
 renderers
+resolver's
 rmarkdown
 rsvg
 scannable
@@ -275,7 +288,9 @@ unrotated
 unshaded
 unthemed
 up's
+ushl
 wOBA
+wbb
 webfonts
 webshot
 wehoop

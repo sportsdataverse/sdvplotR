@@ -96,7 +96,7 @@ reference:
   - title: "Logos, Wordmarks & Headshots"
     desc: >
       ggplot2 geoms and ggproto objects for rendering team logos, wordmarks
-      and player headshots on plots. Every geom takes a `sport` argument.
+      and player headshots on plots. Every geom takes a `league` argument.
     contents:
       - geom_sdv_logos
       - geom_sdv_wordmarks
@@ -221,21 +221,24 @@ reference:
       - reactable_sdv_images
       - reactable_sdv_cols_label
       - reactable_sdv_team_color
-  - title: "Team Utilities"
+  - title: "Teams and Identifiers"
     desc: >
-      Validate, clean and factor-order team abbreviations; look up team
-      reference data and colors; control the image cache.
+      The shared team index: list leagues and teams, resolve identifiers from
+      any source, colours, logo and headshot URLs, and the data versions and
+      cache.
     contents:
-      - supported_sports
-      - valid_team_names
-      - team_reference
-      - clean_team_abbrs
-      - resolve_historical_abbr
+      - sdv_leagues
+      - sdv_teams
+      - sdv_resolve
+      - sdv_suggest
       - sdv_team_colors
       - sdv_color_palette
       - sdv_team_factor
       - sdv_logo_url
-      - sdvplotR_clear_cache
+      - sdv_marks
+      - sdv_headshot_url
+      - sdv_versions
+      - sdv_clear_cache
   - title: "Court and Pitch Coordinates"
     desc: >
       Convert stats.nba.com shot locations and any soccer provider's event
@@ -428,14 +431,58 @@ navbar:
         href: reference/gt_save_crop.html
       - text: --------------------------------
       - text: "Utilities"
-      - text: "Valid Names"
-        href: reference/valid_team_names.html
-      - text: "Clean Abbreviations"
-        href: reference/clean_team_abbrs.html
-      - text: "Historical Abbreviations"
-        href: reference/resolve_historical_abbr.html
-      - text: "Team Reference"
-        href: reference/team_reference.html
+      - text: "Teams"
+        href: reference/sdv_teams.html
+      - text: "Resolve Identifiers"
+        href: reference/sdv_resolve.html
+      - text: "Team Colors"
+        href: reference/scale_sdv.html
+      - text: "Axis Logos"
+        href: reference/scale_axes_sdv.html
+      - text: "Axis Image Elements"
+        href: reference/element_sdv.html
+      - text: "Title Image"
+        href: reference/ggtitle_image.html
+      - text: "ggpath Re-exports"
+        href: reference/reexports.html
+      - text: --------------------------------
+      - text: "Premade Plots"
+      - text: "Team Tiers"
+        href: reference/sdv_team_tiers.html
+      - text: "Playing Surfaces"
+        href: reference/sdv_surface.html
+      - text: --------------------------------
+      - text: "Tables"
+      - text: "gt: Logos / Wordmarks"
+        href: reference/gt_sdv_logos.html
+      - text: "gt: Headshots"
+        href: reference/gt_sdv_headshots.html
+      - text: "gt: Team-Colored Stack"
+        href: reference/gt_merge_stack_team_color.html
+      - text: "reactable: Images"
+        href: reference/reactable_sdv_images.html
+      - text: "reactable: Team Colors"
+        href: reference/reactable_sdv_team_color.html
+      - text: "gt: SportsDataverse Themes"
+        href: reference/gt_theme_sdv.html
+      - text: "gt: Table Themes"
+        href: reference/index.html#gt-table-themes
+      - text: "gt: Annotations"
+        href: reference/index.html#gt-table-annotations
+      - text: "gt: Coloring"
+        href: reference/index.html#gt-table-coloring
+      - text: "gt: Formatting"
+        href: reference/index.html#gt-table-formatting
+      - text: "gt: Layout"
+        href: reference/index.html#gt-table-layout
+      - text: "gt: Save & Crop"
+        href: reference/gt_save_crop.html
+      - text: --------------------------------
+      - text: "Utilities"
+      - text: "Teams"
+        href: reference/sdv_teams.html
+      - text: "Resolve Identifiers"
+        href: reference/sdv_resolve.html
       - text: "Team Colors"
         href: reference/sdv_team_colors.html
     articles:
