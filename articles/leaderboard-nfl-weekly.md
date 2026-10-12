@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-11:** the 2026 season through week 5 (74 games).
+**Updated 2026-10-12:** the 2026 season through week 5 (77 games).
 
 This page is rebuilt every week with the site. It finds the latest NFL
 season with play-by-play, ranks every team by EPA (expected points
@@ -138,14 +138,14 @@ power <- per_play(per_game) |>
   select(rank, team, name, record, diff, off_epa, def_epa, net, last3)
 head(power)
 #> # A tibble: 6 × 9
-#>    rank team  name     record  diff off_epa  def_epa   net  last3
-#>   <int> <chr> <chr>    <chr>  <int>   <dbl>    <dbl> <dbl>  <dbl>
-#> 1     1 SF    49ers    4-0       58  0.274   0.00682 0.267 0.234 
-#> 2     2 KC    Chiefs   4-0       41  0.157  -0.0314  0.188 0.122 
-#> 3     3 JAX   Jaguars  4-1       53  0.105  -0.0732  0.178 0.194 
-#> 4     4 BAL   Ravens   3-1       20  0.160   0.00827 0.152 0.0737
-#> 5     5 MIN   Vikings  5-0       45 -0.0999 -0.235   0.135 0.145 
-#> 6     6 SEA   Seahawks 3-1       32  0.0192 -0.103   0.122 0.124
+#>    rank team  name    record  diff  off_epa  def_epa   net  last3
+#>   <int> <chr> <chr>   <chr>  <int>    <dbl>    <dbl> <dbl>  <dbl>
+#> 1     1 SF    49ers   5-0       61  0.187   -0.0723  0.260 0.176 
+#> 2     2 KC    Chiefs  4-0       41  0.157   -0.0314  0.188 0.122 
+#> 3     3 JAX   Jaguars 4-1       53  0.105   -0.0732  0.178 0.194 
+#> 4     4 BAL   Ravens  3-1       20  0.160    0.00827 0.152 0.0737
+#> 5     5 MIN   Vikings 5-0       45 -0.0999  -0.235   0.135 0.145 
+#> 6     6 LA    Rams    2-2        2  0.00599 -0.0977  0.104 0.266
 ```
 
 ``` r
@@ -291,10 +291,10 @@ qbs |>
 |----|----|----|----|----|----|----|----|----|----|
 | Minimum 75 dropbacks, through week 5 |  |  |  |  |  |  |  |  |  |
 |  |  | Quarterback |  | Dropbacks | EPA/db | CPOE | Success | TD | INT |
-| 1 | ![Player 00-0037834 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/xs2fyj1sqdgwvt9ihbri.png) | Brock Purdy | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 122 | 0.566 | +4.5 | 62.3% | 11 | 1 |
+| 1 | ![Player 00-0037834 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/xs2fyj1sqdgwvt9ihbri.png) | Brock Purdy | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 157 | 0.417 | +4.7 | 57.3% | 13 | 2 |
 | 2 | ![Player 00-0034796 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/eno6s5qzl9grbfbfwhoa.png) | Lamar Jackson | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | 111 | 0.375 | +8.1 | 57.7% | 6 | 1 |
 | 3 | ![Player 00-0034857 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mjwbioajzldkq1vzoz2d.png) | Josh Allen | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 138 | 0.318 | +6.0 | 44.2% | 6 | 3 |
-| 4 | ![Player 00-0033106 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png) | Jared Goff | ![Detroit Lions](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png) | 174 | 0.272 | +1.5 | 51.1% | 9 | 0 |
+| 4 | ![Player 00-0033106 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png) | Jared Goff | ![Detroit Lions](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png) | 207 | 0.308 | +1.3 | 50.2% | 12 | 0 |
 | 5 | ![Player 00-0036971 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/k9uzdernqkx7oquy7dkg.png) | Trevor Lawrence | ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | 158 | 0.269 | +5.9 | 49.4% | 10 | 3 |
 | 6 | ![Player 00-0039150 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/vcvhmxvxw2a3armle0af.png) | Bryce Young | ![Carolina Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png) | 175 | 0.254 | +5.7 | 46.3% | 9 | 2 |
 | 7 | ![Player 00-0033077 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png) | Dak Prescott | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | 211 | 0.217 | +1.9 | 50.2% | 9 | 3 |

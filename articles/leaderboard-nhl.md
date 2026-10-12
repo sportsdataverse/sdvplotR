@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-11:** the 2026-27 season, 4-6 games in per team.
+**Updated 2026-10-12:** the 2026-27 season, 4-6 games in per team.
 Early-season tables move a lot from week to week.
 
 This page is rebuilt every week with the site. It builds the standings,
@@ -160,7 +160,7 @@ standings |>
 | ![Carolina Hurricanes](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8b28b34fbd7b4953c550fc9fde1656f68f1f402088f3d86922e3c6ba514330a0.png) | Hurricanes | 6 | 4 | 1 | 1 | 9 | 0.750 | 23 | 16 | +7 | 4-1-1 | W4 |
 | ![New York Rangers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7a/7a43515a4551cc0708140f89d2f54d57259dde1498001c29ec28cc5b1d96fa7f.png) | Rangers | 6 | 4 | 2 | 0 | 8 | 0.667 | 17 | 11 | +6 | 4-2-0 | L1 |
 | ![Pittsburgh Penguins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1b/1b4dc90de4cb2eef301c0d2f9ffefd5cef2e0de1a8ad7d863e96ef686986e00f.png) | Penguins | 6 | 3 | 2 | 1 | 7 | 0.583 | 22 | 17 | +5 | 3-2-1 | W1 |
-| ![Washington Capitals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/59/5987a4f5511e6bd443042757522b040d1b7a258a4bc488693a250b658cf43a6d.png) | Capitals | 4 | 3 | 1 | 0 | 6 | 0.750 | 14 | 9 | +5 | 3-1-0 | W2 |
+| ![Washington Capitals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/59/5987a4f5511e6bd443042757522b040d1b7a258a4bc488693a250b658cf43a6d.png) | Capitals | 5 | 3 | 2 | 0 | 6 | 0.600 | 17 | 14 | +3 | 3-2-0 | L1 |
 | ![New Jersey Devils](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9a/9a10cdba30197130eb999bd19e9f40fb34be153599f09e98e6c7f472e41ef242.png) | Devils | 4 | 2 | 2 | 0 | 4 | 0.500 | 10 | 14 | −4 | 2-2-0 | W1 |
 | ![Columbus Blue Jackets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a1/a140e93fa031bae0464306c52fa24aef3821fa9d17e92cf66939efb6b0d2a957.png) | Blue Jackets | 4 | 2 | 2 | 0 | 4 | 0.500 | 13 | 14 | −1 | 2-2-0 | L1 |
 | ![New York Islanders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e6/e6bfc0d1b6d437d6fa09028ac465691ac64154cf396584f1d174bbe32be17921.png) | Islanders | 5 | 2 | 3 | 0 | 4 | 0.400 | 16 | 13 | +3 | 2-3-0 | L1 |
@@ -169,7 +169,7 @@ standings |>
 | ![Vegas Golden Knights](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/91/913da521af36370b9b9a3df6ca6b869c915b54732cc166d369865fbc24197e44.png) | Golden Knights | 6 | 5 | 1 | 0 | 10 | 0.833 | 23 | 14 | +9 | 5-1-0 | W4 |
 | ![Edmonton Oilers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f8e95d487f02c85aeb65a200f226b795e7a8de95604df49664962ad473d57666.png) | Oilers | 5 | 4 | 0 | 1 | 9 | 0.900 | 25 | 17 | +8 | 4-0-1 | W4 |
 | ![Anaheim Ducks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3b/3b94f09309431a7fbaee2947bf07b99df9c0aac8d61eaba3634e2078a13c5cdc.png) | Ducks | 5 | 4 | 1 | 0 | 8 | 0.800 | 18 | 13 | +5 | 4-1-0 | W2 |
-| ![Seattle Kraken](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/35/35208c3044f129338b22b3b4de0ca0bf384a2919468fe4077183ef5bcca87fcf.png) | Kraken | 5 | 3 | 2 | 0 | 6 | 0.600 | 21 | 14 | +7 | 3-2-0 | W1 |
+| ![Seattle Kraken](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/35/35208c3044f129338b22b3b4de0ca0bf384a2919468fe4077183ef5bcca87fcf.png) | Kraken | 6 | 4 | 2 | 0 | 8 | 0.667 | 26 | 17 | +9 | 4-2-0 | W2 |
 | ![San Jose Sharks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/23/23c8bb973fc6e9e57c9f63b74fbf7b1a4e325515371e952579d0e0df13d33a5b.png) | Sharks | 5 | 3 | 2 | 0 | 6 | 0.600 | 13 | 17 | −4 | 3-2-0 | L1 |
 | ![Vancouver Canucks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/30/306e860f33a92794782c0a365006627d12a73b750e1350afb24592a60b36506c.png) | Canucks | 6 | 2 | 4 | 0 | 4 | 0.333 | 22 | 29 | −7 | 2-4-0 | L3 |
 | ![Los Angeles Kings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/92/92c3b54fa5e296730885fb0ed63a5a8c062d50c827ae3ab1733c9529974733ff.png) | Kings | 4 | 0 | 2 | 2 | 2 | 0.250 | 10 | 17 | −7 | 0-2-2 | OT1 |
