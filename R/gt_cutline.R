@@ -57,8 +57,10 @@
 #' @examples
 #' library(gt)
 #'
-#' east <- subset(sdv_example_standings, league == "nba" & conference == "Eastern",
-#'   c(conference_rank, team_name, wins, losses, win_pct))
+#' east <- subset(
+#'   sdv_example_standings, league == "nba" & conference == "Eastern",
+#'   c(conference_rank, team_name, wins, losses, win_pct)
+#' )
 #' east <- east[order(east$conference_rank), ]
 #'
 #' # mark where the six teams that skip the play-in end

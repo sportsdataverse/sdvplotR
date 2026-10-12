@@ -21,7 +21,10 @@ check_mark_variant <- function(variant, league, call = rlang::caller_env()) {
     return(invisible(variant))
   }
   if (!rlang::is_string(variant) || !variant %in% index_marks()$variant) {
-    known <- sort(unique(c("default", "dark", stats::na.omit(ranked_marks(league)$variant))), method = "radix")
+    known <- sort( # nolint: object_usage_linter. used in the cli message below
+      unique(c("default", "dark", stats::na.omit(ranked_marks(league)$variant))),
+      method = "radix"
+    )
     cli::cli_abort(c(
       "Unknown variant {.val {variant}}: no mark in the archive has it.",
       i = "{.val {league}} marks come in {.val {known}}."
@@ -94,10 +97,16 @@ select_mark <- function(team_id, league, season, variant, mark_type) {
     if (!is.na(season)) {
       cov <- f[(is.na(r$valid_from[f]) | season >= r$valid_from[f]) & (is.na(r$valid_to[f]) | season <= r$valid_to[f])]
       dated <- cov[!is.na(r$valid_from[cov]) | !is.na(r$valid_to[cov])]
-      if (length(dated)) return(r[dated[1], , drop = FALSE])
-      if (length(cov)) return(r[cov[1], , drop = FALSE])
+      if (length(dated)) {
+        return(r[dated[1], , drop = FALSE])
+      }
+      if (length(cov)) {
+        return(r[cov[1], , drop = FALSE])
+      }
     }
-    if (length(f)) return(r[f[1], , drop = FALSE])
+    if (length(f)) {
+      return(r[f[1], , drop = FALSE])
+    }
   }
   NULL
 }

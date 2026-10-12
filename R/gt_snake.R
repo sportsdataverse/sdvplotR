@@ -96,8 +96,10 @@
 #' @examples
 #' library(gt)
 #'
-#' nba <- subset(sdv_example_standings, league == "nba",
-#'   c(team, wins, losses, win_pct))
+#' nba <- subset(
+#'   sdv_example_standings, league == "nba",
+#'   c(team, wins, losses, win_pct)
+#' )
 #' nba <- nba[order(-nba$win_pct), ]
 #'
 #' # three blocks of ten

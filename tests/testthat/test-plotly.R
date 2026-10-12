@@ -68,7 +68,8 @@ test_that("images the user set with layout() are kept, before or after, and chai
   )
 
   q <- sdv_axis_logos(plotly::layout(plotly::plot_ly(x = c("KC", "BUF"), y = 1:2, type = "bar"),
-    images = list(user_image)), c("KC", "BUF"), "nfl")
+    images = list(user_image)
+  ), c("KC", "BUF"), "nfl")
   expect_length(built_images(q), 3L)
 })
 

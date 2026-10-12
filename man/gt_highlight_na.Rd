@@ -60,8 +60,10 @@ placeholders such as \code{"-"} or \code{"N/A"}.
 library(gt)
 
 # playoff_wins is NA for the teams that missed the playoffs
-afc <- subset(sdv_example_standings, conference == "AFC",
-  c(team_name, wins, losses, conference_rank, playoff_wins))
+afc <- subset(
+  sdv_example_standings, conference == "AFC",
+  c(team_name, wins, losses, conference_rank, playoff_wins)
+)
 
 gt(afc) |> gt_highlight_na(playoff_wins)
 

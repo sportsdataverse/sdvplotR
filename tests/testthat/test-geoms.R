@@ -8,15 +8,18 @@ df <- data.frame(
 )
 
 test_that("geoms build ggplot layers that resolve paths at draw time", {
-  p <- ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team), league = "nfl")
+  p <- ggplot(df, aes(x, y)) +
+    geom_sdv_logos(aes(team = team), league = "nfl")
   expect_s3_class(p, "ggplot")
   expect_s3_class(p$layers[[1]]$geom, "GeomSDVlogo")
   b <- ggplot_build(p)
   expect_in(c("team", "x", "y"), names(b$data[[1]]))
 
-  p2 <- ggplot(df, aes(x, y)) + geom_sdv_wordmarks(aes(team = team), league = "nfl")
+  p2 <- ggplot(df, aes(x, y)) +
+    geom_sdv_wordmarks(aes(team = team), league = "nfl")
   expect_s3_class(p2$layers[[1]]$geom, "GeomSDVwordmark")
-  p3 <- ggplot(df, aes(x, y)) + geom_sdv_headshots(aes(player_id = id), league = "nfl", id_system = "gsis")
+  p3 <- ggplot(df, aes(x, y)) +
+    geom_sdv_headshots(aes(player_id = id), league = "nfl", id_system = "gsis")
   expect_s3_class(p3$layers[[1]]$geom, "GeomSDVheadshot")
 })
 
@@ -171,7 +174,8 @@ test_that("sdv_team_tiers passes an explicit variant through", {
 
 test_that("headshot geom and scales pass id_system through", {
   df <- data.frame(x = 1:2, y = 1:2, id = c("2544", "201939"))
-  p <- ggplot(df, aes(x, y)) + geom_sdv_headshots(aes(player_id = id), league = "nba", id_system = "league")
+  p <- ggplot(df, aes(x, y)) +
+    geom_sdv_headshots(aes(player_id = id), league = "nba", id_system = "league")
   seen <- NULL
   local_mocked_bindings(
     headshot_from_id = function(player_id, league, id_system = "espn") {
@@ -205,7 +209,9 @@ test_that("color scales accept every key the resolver accepts", {
   expect_identical(unname(pal[t$abbr]), t$color_primary)
   expect_identical(unname(pal[t$team_id]), t$color_primary)
   df <- data.frame(team = c("AZ", "CWS"), v = 1:2)
-  built <- ggplot_build(ggplot(df, aes(team, v, fill = team)) + geom_col() + scale_fill_sdv(league = "mlb"))
+  built <- ggplot_build(ggplot(df, aes(team, v, fill = team)) +
+    geom_col() +
+    scale_fill_sdv(league = "mlb"))
   expect_false(any(built$data[[1]]$fill == "grey50"))
 })
 
@@ -217,9 +223,15 @@ test_that("axis logo themes survive a complete theme added before them", {
     ax <- g$grobs[[which(g$layout$name == side)]]
     unlist(lapply(ax$children, function(ch) if (inherits(ch, "gtable")) lapply(ch$grobs, function(x) class(x)[1])))
   }
-  px <- ggplot(df, aes(t, v)) + geom_col() + theme_minimal() + theme_x_sdv()
+  px <- ggplot(df, aes(t, v)) +
+    geom_col() +
+    theme_minimal() +
+    theme_x_sdv()
   expect_true("richtext_grob" %in% axis_grob_classes(px, "axis-b"))
-  py <- ggplot(df, aes(v, t)) + geom_col() + theme_minimal() + theme_y_sdv()
+  py <- ggplot(df, aes(v, t)) +
+    geom_col() +
+    theme_minimal() +
+    theme_y_sdv()
   expect_true("richtext_grob" %in% axis_grob_classes(py, "axis-l"))
 })
 
@@ -233,8 +245,10 @@ test_that("geom_sdv_logos passes the season aesthetic to the resolver", {
     },
     .package = "sdvplotR"
   )
-  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team, season = season), league = "nhl")))
-  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team), league = "nhl")))
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) +
+    geom_sdv_logos(aes(team = team, season = season), league = "nhl")))
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) +
+    geom_sdv_logos(aes(team = team), league = "nhl")))
   expect_identical(seen[[1]], c(1990, NA))
   expect_identical(seen[[2]], c(NA, NA))
 })
@@ -253,8 +267,10 @@ test_that("a constant season set outside aes() reaches the logo and wordmark res
     },
     .package = "sdvplotR"
   )
-  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team), league = "nhl", season = 1990)))
-  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_wordmarks(aes(team = team), league = "nfl", season = 2005)))
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) +
+    geom_sdv_logos(aes(team = team), league = "nhl", season = 1990)))
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) +
+    geom_sdv_wordmarks(aes(team = team), league = "nfl", season = 2005)))
   expect_identical(seen$logo, c(1990, 1990))
   expect_identical(seen$wordmark, c(2005, 2005))
 })
@@ -265,7 +281,8 @@ test_that("geom_sdv_logos draws period marks with and without a season", {
   skip_if_not_installed("rsvg")
   df <- data.frame(x = 1:2, y = 1, team = c("QUE", "HFD"), season = c(1990, 1995))
   for (m in list(aes(team = team, season = season), aes(team = team))) {
-    expect_no_warning(g <- layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(m, league = "nhl"))[[1]])
+    expect_no_warning(g <- layer_grob(ggplot(df, aes(x, y)) +
+      geom_sdv_logos(m, league = "nhl"))[[1]])
     expect_true(all(vapply(g$children, inherits, logical(1), "rastergrob")))
   }
 })

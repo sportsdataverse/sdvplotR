@@ -1,3 +1,4 @@
+# nolint start: line_length_linter. table rows and Rd figure macros cannot wrap
 #' SportsDataverse theme for `gt` tables
 #'
 #' The SportsDataverse house table: Chivo titles and column labels, a Lato body
@@ -56,6 +57,7 @@
 #' gt(standings) |> gt_theme_sdv(style = "dark", density = "social")
 #'
 #' @export
+# nolint end
 gt_theme_sdv <- function(gt_object, style = c("light", "dark"),
                          density = c("comfortable", "compact", "social"),
                          ...) {
@@ -73,6 +75,7 @@ gt_theme_sdv <- function(gt_object, style = c("light", "dark"),
   .sdv_theme_build(gt_object, pal, density, ...)
 }
 
+# nolint start: line_length_linter. table rows and Rd figure macros cannot wrap
 #' Team-colored SportsDataverse theme for `gt` tables
 #'
 #' [gt_theme_sdv()] dressed in one team's colors: the title block is filled
@@ -117,6 +120,7 @@ gt_theme_sdv <- function(gt_object, style = c("light", "dark"),
 #'   gt_theme_sdv_team(team = "KC", league = "nfl")
 #'
 #' @export
+# nolint end
 gt_theme_sdv_team <- function(gt_object, team = NULL,
                               league,
                               density = c("comfortable", "compact", "social"),

@@ -79,8 +79,10 @@ never shown. The share is also left blank where the counts sum to zero.
 \examples{
 library(gt)
 
-atlantic <- subset(sdv_example_standings, division == "Atlantic",
-  c(team_name, wins, losses))
+atlantic <- subset(
+  sdv_example_standings, division == "Atlantic",
+  c(team_name, wins, losses)
+)
 
 # renders as "56-26"
 gt(atlantic) |> gt_fmt_tally(c(wins, losses), label = "Record")
@@ -96,8 +98,10 @@ gt(atlantic) |>
   )
 
 # three counts, as in an NFL standings table
-nfc_east <- subset(sdv_example_standings, division == "NFC East",
-  c(team_name, wins, losses, ties))
+nfc_east <- subset(
+  sdv_example_standings, division == "NFC East",
+  c(team_name, wins, losses, ties)
+)
 
 gt(nfc_east) |> gt_fmt_tally(c(wins, losses, ties), label = "W-L-T")
 

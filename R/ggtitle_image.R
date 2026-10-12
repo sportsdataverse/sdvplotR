@@ -48,8 +48,10 @@
 #' nfl <- subset(sdv_example_standings, league == "nfl")
 #' p <- ggplot(nfl, aes(x = points_for, y = points_against)) +
 #'   geom_point() +
-#'   labs(title = "This Title will be overwritten",
-#'        subtitle = "Points scored and allowed, 2025 regular season")
+#'   labs(
+#'     title = "This Title will be overwritten",
+#'     subtitle = "Points scored and allowed, 2025 regular season"
+#'   )
 #'
 #' if (requireNamespace("ggtext", quietly = TRUE)) {
 #'   p +
@@ -122,7 +124,9 @@ element_grob.element_sdv_title_image <- function(element, ...) {
 # the text (a tall image) or the image (a short one): either way the content
 # stays inside the line box gridtext measured, so the title keeps its size.
 center_inline_images <- function(grob) {
-  if (!inherits(grob, "richtext_grob")) return(grob)
+  if (!inherits(grob, "richtext_grob")) {
+    return(grob)
+  }
   pt <- function(u) grid::convertUnit(u, "pt", valueOnly = TRUE)
   cap <- pt(grid::grobHeight(grid::textGrob("H", gp = grob$gp)))
   boxes <- lapply(grob$children, function(box) {

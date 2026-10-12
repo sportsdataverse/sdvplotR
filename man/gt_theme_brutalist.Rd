@@ -48,8 +48,10 @@ The accent color is used in exactly one place, on the row-group labels.
 
 \examples{
 library(gt)
-afc_south <- subset(sdv_example_standings, division == "AFC South",
-  c(team_name, wins:points_against))
+afc_south <- subset(
+  sdv_example_standings, division == "AFC South",
+  c(team_name, wins:points_against)
+)
 gt(afc_south) |> gt_theme_brutalist()
 gt(afc_south) |> gt_theme_brutalist(accent = "#0033FF", density = "social")
 

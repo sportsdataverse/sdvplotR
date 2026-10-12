@@ -42,8 +42,10 @@ wrap is on whitespace only, so a single long word is never split.
 \examples{
 library(gt)
 
-afc_east <- subset(sdv_example_standings, division == "AFC East",
-  c(team_name, win_pct, conference_rank))
+afc_east <- subset(
+  sdv_example_standings, division == "AFC East",
+  c(team_name, win_pct, conference_rank)
+)
 
 gt(afc_east) |>
   cols_label(

@@ -16,9 +16,10 @@
 #' }
 #'
 #' @source Read back from each theme's `table.background.color` by
-#'   [`data-raw/theme_bg.R`](https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/theme_bg.R). [gt_theme_drench()] takes its background from its
-#'   `color` argument and [gt_theme_broadsheet()] from its `paper` argument;
-#'   their rows hold the default.
+#'   [`data-raw/theme_bg.R`](https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/theme_bg.R).
+#'   [gt_theme_drench()] takes its background from its `color` argument and
+#'   [gt_theme_broadsheet()] from its `paper` argument; their rows hold the
+#'   default.
 #'
 #' @examples
 #' # look up the background a theme uses, then match the canvas to it
@@ -28,8 +29,10 @@
 #' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 #' # saving needs a headless Chrome (webshot2)
 #' \donttest{
-#' nfc_west <- subset(sdv_example_standings, division == "NFC West",
-#'   c(team_name, wins:points_against))
+#' nfc_west <- subset(
+#'   sdv_example_standings, division == "NFC West",
+#'   c(team_name, wins:points_against)
+#' )
 #' gt::gt(nfc_west) |>
 #'   gt_theme_gtutils() |>
 #'   gt_save_crop(tempfile(fileext = ".png"), bg = bg)
@@ -73,8 +76,8 @@
 #' }
 #'
 #' @source Built by
-#'   [`data-raw/sdv_examples.R`](https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/sdv_examples.R). NFL: the nflverse schedules
-#'   release, `nflreadr::load_schedules(2025)`, with the standings and
+#'   [`data-raw/sdv_examples.R`](https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/sdv_examples.R).
+#'   NFL: the nflverse schedules release, `nflreadr::load_schedules(2025)`, with the standings and
 #'   conference ranks from `nflseedR::nfl_standings()`. NBA: the
 #'   sportsdataverse-data team box release, `hoopR::load_nba_team_box(2026)`,
 #'   counting standings games only (not the NBA Cup final or the All-Star

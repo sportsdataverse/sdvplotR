@@ -52,8 +52,10 @@ and no fills. The type is a Times-compatible serif.
 \examples{
 library(gt)
 
-afc_west <- subset(sdv_example_standings, division == "AFC West",
-  c(team_name, wins:points_against))
+afc_west <- subset(
+  sdv_example_standings, division == "AFC West",
+  c(team_name, wins:points_against)
+)
 gt(afc_west) |> gt_theme_booktabs()
 
 # a regression table, with significance stars and a colored rule

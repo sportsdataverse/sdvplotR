@@ -1,3 +1,4 @@
+# nolint start: line_length_linter. table rows and Rd figure macros cannot wrap
 #' Convert Soccer Event Coordinates to the sdvplotR Pitch Frame
 #'
 #' @description Every soccer data provider uses its own coordinate frame. Opta
@@ -66,6 +67,7 @@
 #' tracking <- data.frame(x = c(-4150, 3600), y = c(0, -2016))
 #' sdv_pitch_coords(tracking, "tracab", pitch_length = 105, pitch_width = 68)
 #' @export
+# nolint end
 sdv_pitch_coords <- function(data, provider, x_column = NULL, y_column = NULL, flip = NULL,
                              pitch_length = NULL, pitch_width = NULL) {
   if (!is.data.frame(data)) {
@@ -138,7 +140,10 @@ pitch_dims <- function(provider, pitch_length, pitch_width, call = rlang::caller
   if (!provider %in% pitch_physical_providers) {
     if (!is.null(pitch_length) || !is.null(pitch_width)) {
       cli::cli_abort(c(
-        "{.arg pitch_length} and {.arg pitch_width} only apply to tracking providers ({.val {pitch_physical_providers}}).",
+        paste(
+          "{.arg pitch_length} and {.arg pitch_width} only apply to tracking providers",
+          "({.val {pitch_physical_providers}})."
+        ),
         "i" = "{.val {provider}} has a fixed frame."
       ), call = call)
     }

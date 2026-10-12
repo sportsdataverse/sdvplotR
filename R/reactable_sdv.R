@@ -98,7 +98,7 @@ reactable_sdv_headshots <- function(
 # (and warn about each unresolved one) once per row. `season` is one value, or
 # one per row (`index` is the row reactable passes).
 cell_marks <- function(lookup, league, season, variant, id_system, strict) {
-  memo <- new.env(parent = emptyenv())
+  memo <- new.env(parent = emptyenv()) # nolint: object_usage_linter. read and written in the closure below
   function(value, index) {
     s <- if (length(season) > 1L) season[index] else season
     key <- paste(value, is.na(value), s %||% "", sep = "\r")
@@ -124,7 +124,9 @@ img_tag <- function(url, alt, height, default_img, value = alt, fallback = NA) {
     alt <- value
     fallback <- NA
   }
-  if (is.null(url)) return(as.character(value))
+  if (is.null(url)) {
+    return(as.character(value))
+  }
   sprintf(
     '<img src="%s" style="height:%spx;vertical-align:middle;" alt="%s"%s />',
     url, height, htmltools::htmlEscape(as.character(alt), attribute = TRUE),
@@ -137,7 +139,9 @@ img_tag <- function(url, alt, height, default_img, value = alt, fallback = NA) {
 # so this guards only the live-source fallback: ESPN has dropped a variant file
 # the team data still listed (a dark logo 404'd, #61).
 img_onerror <- function(url, fallback) {
-  if (is.na(fallback) || identical(url, fallback)) return("")
+  if (is.na(fallback) || identical(url, fallback)) {
+    return("")
+  }
   js <- paste0("this.onerror=null;this.src='", gsub("'", "\\\\'", fallback), "'")
   paste0(' onerror="', htmltools::htmlEscape(js, attribute = TRUE), '"')
 }
@@ -280,12 +284,23 @@ reactable_sdv_team_color_bg <- function(
   }
 }
 
-row_team_colors <- function(data, team_col, league, which, na_color, season = NULL, id_system = "auto", strict = FALSE) {
+row_team_colors <- function(
+    data,
+    team_col,
+    league,
+    which,
+    na_color,
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
+) {
   if (!team_col %in% names(data)) {
     cli::cli_abort("Column {.val {team_col}} not found in {.arg data}.")
   }
-  colors <- sdv_team_colors(league, data[[team_col]], which = which,
-    season = season, id_system = id_system, strict = strict)
+  colors <- sdv_team_colors(league, data[[team_col]],
+    which = which,
+    season = season, id_system = id_system, strict = strict
+  )
   colors[is.na(colors)] <- na_color
   unname(colors)
 }

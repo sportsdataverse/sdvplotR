@@ -32,8 +32,10 @@ Teens are handled correctly, so 11, 12 and 13 take "th" and not "st", "nd" and
 \examples{
 library(gt)
 
-nfc <- subset(sdv_example_standings, conference == "NFC" & conference_rank <= 5,
-  c(team_name, conference_rank))
+nfc <- subset(
+  sdv_example_standings, conference == "NFC" & conference_rank <= 5,
+  c(team_name, conference_rank)
+)
 nfc <- nfc[order(nfc$conference_rank), ]
 
 gt(nfc) |> gt_fmt_rank(conference_rank)

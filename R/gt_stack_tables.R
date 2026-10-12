@@ -58,10 +58,14 @@
 #' @examples
 #' library(gt)
 #'
-#' t1 <- gt(subset(sdv_example_standings, division == "AFC East",
-#'   c(team_name, wins, losses)))
-#' t2 <- gt(subset(sdv_example_standings, division == "Atlantic",
-#'   c(team_name, wins, losses)))
+#' t1 <- gt(subset(
+#'   sdv_example_standings, division == "AFC East",
+#'   c(team_name, wins, losses)
+#' ))
+#' t2 <- gt(subset(
+#'   sdv_example_standings, division == "Atlantic",
+#'   c(team_name, wins, losses)
+#' ))
 #'
 #' gt_stack_tables(list(t1, t2))
 #'

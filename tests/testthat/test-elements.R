@@ -67,9 +67,15 @@ test_that("image axis text set on axis.text.x / .y survives theme_minimal()'s po
   }
   withr::local_pdf(withr::local_tempfile(fileext = ".pdf"))
   df <- data.frame(team = c("KC", "BUF"), v = 1:2)
-  px <- ggplot(df, aes(team, v)) + geom_col() + theme_minimal() + theme(axis.text.x = element_sdv_logo("nfl"))
+  px <- ggplot(df, aes(team, v)) +
+    geom_col() +
+    theme_minimal() +
+    theme(axis.text.x = element_sdv_logo("nfl"))
   expect_true("ggpath_element" %in% axis_grob_classes(px, "axis-b"))
-  py <- ggplot(df, aes(v, team)) + geom_col() + theme_minimal() + theme(axis.text.y = element_sdv_logo("nfl"))
+  py <- ggplot(df, aes(v, team)) +
+    geom_col() +
+    theme_minimal() +
+    theme(axis.text.y = element_sdv_logo("nfl"))
   expect_true("ggpath_element" %in% axis_grob_classes(py, "axis-l"))
 })
 
@@ -112,7 +118,8 @@ test_that("element season survives the theme merge and reaches the resolver", {
 
 test_that("scale_x_sdv labels carry the season's mark", {
   lab <- scale_x_sdv(league = "nhl", season = 1990)$labels("QUE")
-  expect_match(lab, label_src(sdv_logo_url("QUE", "nhl", season = 1990), 12), fixed = TRUE)})
+  expect_match(lab, label_src(sdv_logo_url("QUE", "nhl", season = 1990), 12), fixed = TRUE)
+})
 
 test_that("an element takes one season, and says so when given several", {
   expect_error(element_sdv_logo(league = "nfl", season = c(2000, 2010)), "one season")

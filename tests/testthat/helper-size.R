@@ -8,7 +8,9 @@ size_report <- function(x, top = 3) {
   big <- utils::head(sort(parts, decreasing = TRUE), top)
   envs <- list()
   walk <- function(o, depth = 0) {
-    if (depth > 6) return()
+    if (depth > 6) {
+      return()
+    }
     if (is.function(o)) {
       e <- environment(o)
       while (!is.null(e) && !identical(e, emptyenv()) && !isNamespace(e) &&
@@ -20,8 +22,10 @@ size_report <- function(x, top = 3) {
           env_size <- sz(e)
           vars <- ls(e, all.names = TRUE)
           vs <- vapply(vars, function(v) sz(get(v, envir = e)), numeric(1))
-          envs[[key]] <<- list(size = env_size, name = environmentName(e),
-                               vars = utils::head(sort(vs, decreasing = TRUE), 3))
+          envs[[key]] <<- list(
+            size = env_size, name = environmentName(e),
+            vars = utils::head(sort(vs, decreasing = TRUE), 3)
+          )
         }
         e <- parent.env(e)
       }
@@ -31,8 +35,10 @@ size_report <- function(x, top = 3) {
   }
   walk(x)
   env_txt <- vapply(envs, function(v) {
-    paste0(v$name, "=", round(v$size / 1e6, 2), "MB[",
-           paste0(names(v$vars), ":", round(v$vars / 1e6, 2), collapse = ","), "]")
+    paste0(
+      v$name, "=", round(v$size / 1e6, 2), "MB[",
+      paste0(names(v$vars), ":", round(v$vars / 1e6, 2), collapse = ","), "]"
+    )
   }, character(1))
   env_txt <- utils::head(env_txt[order(-vapply(envs, `[[`, numeric(1), "size"))], top)
   paste0(

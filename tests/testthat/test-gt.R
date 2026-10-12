@@ -231,7 +231,9 @@ test_that("top border bars stay above the table under page CSS", {
 })
 
 test_that("border bars request the Google font by its bare family name", {
-  d <- gt(data.frame(x = 1)) |> gt_theme_scoreboard() |> tab_header("t")
+  d <- gt(data.frame(x = 1)) |>
+    gt_theme_scoreboard() |>
+    tab_header("t")
   for (f in list(gt_border_bars_top, gt_border_bars_bottom)) {
     h <- html_of(f(d, colors = c("#E31837", "#FFB612"), text = "x"))
     expect_match(h, "family=Barlow+Condensed:", fixed = TRUE)

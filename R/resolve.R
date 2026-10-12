@@ -30,7 +30,10 @@ sdv_leagues <- function() sort(unique(index_teams()$league), method = "radix")
 
 check_league <- function(league, call = rlang::caller_env()) {
   if (!rlang::is_string(league)) {
-    cli::cli_abort("{.arg league} must be one league key such as {.val nfl}, not {.obj_type_friendly {league}}.", call = call)
+    cli::cli_abort(
+      "{.arg league} must be one league key such as {.val nfl}, not {.obj_type_friendly {league}}.",
+      call = call
+    )
   }
   if (!league %in% sdv_leagues()) {
     cli::cli_abort(c("Unknown league {.val {league}}.", i = "Known leagues: {.val {sdv_leagues()}}."), call = call)
@@ -130,7 +133,10 @@ norm_seasons <- function(season, n, league, call = rlang::caller_env()) {
     return(rep(NA_integer_, n))
   }
   if (length(season) != 1L && length(season) != n) {
-    cli::cli_abort("{.arg season} has {length(season)} values but there are {n} teams; pass one season or one per team.", call = call)
+    cli::cli_abort(
+      "{.arg season} has {length(season)} values but there are {n} teams; pass one season or one per team.",
+      call = call
+    )
   }
   if (is.factor(season)) season <- as.character(season)
   num <- suppressWarnings(as.numeric(season))
@@ -140,14 +146,21 @@ norm_seasons <- function(season, n, league, call = rlang::caller_env()) {
   if (any(bad)) {
     v <- season[bad][[1]]
     split <- regmatches(v, regexec("^\\s*(\\d{4})\\s*[-/]\\s*(\\d{2}|\\d{4})\\s*$", v))[[1]]
-    hint <- if (length(split)) paste0(" For a split season pass its ending year: ", as.integer(split[2]) + 1L, ".") else ""
+    hint <- if (length(split)) {
+      paste0(" For a split season pass its ending year: ", as.integer(split[2]) + 1L, ".")
+    } else {
+      ""
+    }
     cli::cli_abort(paste0("{.arg season} must be a year such as 2020, not {.val {v}}.", hint), call = call)
   }
   yr <- as.integer(num)
   b <- season_bounds(league)
   out <- !is.na(yr) & (yr < b[1] | yr > b[2])
   if (any(out)) {
-    cli::cli_abort("Season {yr[out][1]} is outside the seasons sdvplotR knows for {.val {league}} ({b[1]} to {b[2]}).", call = call)
+    cli::cli_abort(
+      "Season {yr[out][1]} is outside the seasons sdvplotR knows for {.val {league}} ({b[1]} to {b[2]}).",
+      call = call
+    )
   }
   rep_len(yr, n)
 }
@@ -249,7 +262,7 @@ report_unresolved <- function(x, why, league, strict = FALSE, call = rlang::call
   v <- as.character(x)[bad]
   w <- why[bad]
   keep <- !duplicated(v)
-  shown <- paste0("'", v[keep], "' (", w[keep], ")")
+  shown <- paste0("'", v[keep], "' (", w[keep], ")") # nolint: object_usage_linter. used in msg's cli glue
   msg <- "{sum(keep)} value{?s} did not resolve to a {.val {league}} team: {shown}."
   hint <- if (any(startsWith(w, "ambiguous"))) {
     c(i = "Pass {.arg season} for a code reused across eras, or {.arg id_system} for the id system of the values.")

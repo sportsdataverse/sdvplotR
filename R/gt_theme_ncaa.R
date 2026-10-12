@@ -32,8 +32,10 @@
 #'
 #' @examples
 #' library(gt)
-#' atlantic <- subset(sdv_example_standings, division == "Atlantic",
-#'   c(team_name, wins, losses, win_pct:points_against))
+#' atlantic <- subset(
+#'   sdv_example_standings, division == "Atlantic",
+#'   c(team_name, wins, losses, win_pct:points_against)
+#' )
 #' gt(atlantic) |> gt_theme_ncaa()
 #'
 #' @import gt

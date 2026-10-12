@@ -224,8 +224,13 @@ Actions) gives no such NOTE.
 - Run `styler` only on files a change adds. styler 1.11 rewrites this repo's
   double-indent function signatures (`f <- function(\n    arg,\n    arg) {`)
   in existing files, which turns a small fix into a diff across every
-  signature; lintr's indentation_linter also disagrees with that style (the
-  known lints on `main`).
+  signature; lintr's indentation_linter also disagrees with that style. To
+  apply styler's other fixes across the package (as on 2026-10-12), style a
+  copy of `R/` and `tests/` and keep every hunk except the whitespace-only
+  ones, which are the signature re-indents.
+- `lintr::lint_package()` is at 0. Roxygen lines that cannot wrap (markdown
+  table rows, `\figure{}` macros) sit inside `# nolint start:
+  line_length_linter.` / `# nolint end` placed outside the `#'` block.
 
 ## Commit convention
 

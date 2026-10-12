@@ -44,8 +44,10 @@ shape \code{\link[=gt_highlight_cells]{gt_highlight_cells()}} expects for the bl
 \examples{
 library(gt)
 
-nfc <- subset(sdv_example_standings, conference == "NFC",
-  c(team, wins, losses))
+nfc <- subset(
+  sdv_example_standings, conference == "NFC",
+  c(team, wins, losses)
+)
 
 # a logical grid the same shape as the data, built before the snake:
 # double-digit wins or losses

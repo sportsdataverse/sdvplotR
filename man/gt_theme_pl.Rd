@@ -45,8 +45,10 @@ leaves every size as the theme sets it, \code{"compact"} scales both down, and
 
 \examples{
 library(gt)
-southeast <- subset(sdv_example_standings, division == "Southeast",
-  c(team_name, wins, losses, win_pct:points_against))
+southeast <- subset(
+  sdv_example_standings, division == "Southeast",
+  c(team_name, wins, losses, win_pct:points_against)
+)
 gt(southeast) |> gt_theme_pl()
 
 }

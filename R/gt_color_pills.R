@@ -74,8 +74,10 @@
 #' library(gt)
 #'
 #' # the AFC's seven playoff teams
-#' afc <- subset(sdv_example_standings, conference == "AFC" & conference_rank <= 7,
-#'   c(team_name, wins, losses, points_for, points_against))
+#' afc <- subset(
+#'   sdv_example_standings, conference == "AFC" & conference_rank <= 7,
+#'   c(team_name, wins, losses, points_for, points_against)
+#' )
 #'
 #' gt(afc) |> gt_color_pills(wins, domain = c(0, 17))
 #'

@@ -55,8 +55,10 @@ cropped; the short side of the canvas is expanded until the ratio is met.
 \donttest{
 library(gt)
 
-nfc_west <- subset(sdv_example_standings, division == "NFC West",
-  c(team_name, wins:points_against))
+nfc_west <- subset(
+  sdv_example_standings, division == "NFC West",
+  c(team_name, wins:points_against)
+)
 
 gt(nfc_west) |>
   gt_theme_broadsheet(density = "social") |>

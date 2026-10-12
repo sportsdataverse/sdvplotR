@@ -463,11 +463,15 @@ sdv_readable_ink <- function(primary, secondary, bg, target = 4.5) {
   toward <- .theme_on_color(bg)
   vapply(seq_along(primary), function(i) {
     for (cand in c(primary[i], secondary[i])) {
-      if (!is.na(cand) && .theme_contrast(cand, bg) >= target) return(cand)
+      if (!is.na(cand) && .theme_contrast(cand, bg) >= target) {
+        return(cand)
+      }
     }
     for (w in seq(0.95, 0, by = -0.05)) {
       cand <- .theme_mix(primary[i], toward, w)
-      if (.theme_contrast(cand, bg) >= target) return(cand)
+      if (.theme_contrast(cand, bg) >= target) {
+        return(cand)
+      }
     }
     toward
   }, character(1), USE.NAMES = FALSE)

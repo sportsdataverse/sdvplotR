@@ -79,8 +79,10 @@ data, or as plain row numbers.
 \examples{
 library(gt)
 
-nfc <- subset(sdv_example_standings, division \%in\% c("NFC North", "NFC West"),
-  c(team_name, wins, losses, conference_rank))
+nfc <- subset(
+  sdv_example_standings, division \%in\% c("NFC North", "NFC West"),
+  c(team_name, wins, losses, conference_rank)
+)
 
 # by expression: the playoff seeds
 gt(nfc) |> gt_spotlight(rows = conference_rank <= 7)

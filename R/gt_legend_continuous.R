@@ -106,15 +106,19 @@
 #' library(gt)
 #'
 #' # the legend matches whatever gt_color_ranks() drew
-#' nfc_east <- subset(sdv_example_standings, division == "NFC East",
-#'   c(team_name, wins, losses, points_for))
+#' nfc_east <- subset(
+#'   sdv_example_standings, division == "NFC East",
+#'   c(team_name, wins, losses, points_for)
+#' )
 #' gt(nfc_east) |>
 #'   gt_color_ranks(columns = points_for) |>
 #'   gt_legend_continuous(columns = points_for, title = "Points scored")
 #'
 #' # discrete blocks, labeled at every bin edge, title to the left
-#' west <- subset(sdv_example_standings, league == "nba" & conference == "Western",
-#'   c(team_name, wins, losses))
+#' west <- subset(
+#'   sdv_example_standings, league == "nba" & conference == "Western",
+#'   c(team_name, wins, losses)
+#' )
 #' gt(west) |>
 #'   gt_color_ranks(columns = wins) |>
 #'   gt_legend_continuous(

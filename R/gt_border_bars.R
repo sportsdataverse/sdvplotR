@@ -49,14 +49,18 @@
 #' @examples
 #' library(gt)
 #'
-#' afc_north <- subset(sdv_example_standings, division == "AFC North",
-#'   c(team_name, wins:points_against))
+#' afc_north <- subset(
+#'   sdv_example_standings, division == "AFC North",
+#'   c(team_name, wins:points_against)
+#' )
 #' gt(afc_north) |>
 #'   gt_border_bars_top(c("#1B7837", "#FFFFFF", "#B2182B"))
 #'
 #' # a single bar carrying a title
-#' atlantic <- subset(sdv_example_standings, division == "Atlantic",
-#'   c(team_name, wins, losses, win_pct:points_against))
+#' atlantic <- subset(
+#'   sdv_example_standings, division == "Atlantic",
+#'   c(team_name, wins, losses, win_pct:points_against)
+#' )
 #' gt(atlantic) |>
 #'   gt_border_bars_top("#22223B", text = "Atlantic Division, 2025-26", bar_height = 34)
 #'
@@ -213,14 +217,18 @@ gt_border_bars_top <- function(gt_object,
 #' @examples
 #' library(gt)
 #'
-#' afc_north <- subset(sdv_example_standings, division == "AFC North",
-#'   c(team_name, wins:points_against))
+#' afc_north <- subset(
+#'   sdv_example_standings, division == "AFC North",
+#'   c(team_name, wins:points_against)
+#' )
 #' gt(afc_north) |>
 #'   gt_border_bars_bottom(c("#1B7837", "#FFFFFF", "#B2182B"))
 #'
 #' # a single bar carrying a credit line
-#' atlantic <- subset(sdv_example_standings, division == "Atlantic",
-#'   c(team_name, wins, losses, win_pct:points_against))
+#' atlantic <- subset(
+#'   sdv_example_standings, division == "Atlantic",
+#'   c(team_name, wins, losses, win_pct:points_against)
+#' )
 #' gt(atlantic) |>
 #'   gt_border_bars_bottom("#22223B", text = "Source: hoopR", bar_height = 28)
 #'

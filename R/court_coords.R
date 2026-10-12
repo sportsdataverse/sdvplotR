@@ -1,3 +1,4 @@
+# nolint start: line_length_linter. table rows and Rd figure macros cannot wrap
 #' Convert Shot Locations to a sportyR Court Frame
 #'
 #' @description stats.nba.com / stats.wnba.com shot-chart data reports shot
@@ -95,6 +96,7 @@
 #' }
 #'
 #' @export
+# nolint end
 sdv_court_coords <- function(data, x_column = "x_legacy", y_column = "y_legacy", provider = "nba") {
   # A named list passes the column checks below and would come back as a
   # list, not a data frame.

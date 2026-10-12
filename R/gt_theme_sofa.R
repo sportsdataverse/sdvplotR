@@ -1,3 +1,4 @@
+# nolint start: line_length_linter. table rows and Rd figure macros cannot wrap
 #' SofaScore theme for `gt` tables
 #'
 #' Sofia Sans Condensed throughout on a warm cream (`"light"`) or dark navy
@@ -33,13 +34,16 @@
 #'
 #' @examples
 #' library(gt)
-#' nfc_north <- subset(sdv_example_standings, division == "NFC North",
-#'   c(team_name, wins:points_against))
+#' nfc_north <- subset(
+#'   sdv_example_standings, division == "NFC North",
+#'   c(team_name, wins:points_against)
+#' )
 #' gt(nfc_north) |> gt_theme_sofa()
 #' gt(nfc_north) |> gt_theme_sofa(style = "dark")
 #'
 #' @import gt
 #' @export
+# nolint end
 gt_theme_sofa <- function(gt_object, style = "light",
                           density = c("comfortable", "compact", "social"),
                           ...) {

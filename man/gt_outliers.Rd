@@ -75,8 +75,10 @@ masking is worst in small samples. Use \code{method = "sd"} if you want it anywa
 \examples{
 library(gt)
 
-nba <- subset(sdv_example_standings, league == "nba",
-  c(team_name, points_for, points_against))
+nba <- subset(
+  sdv_example_standings, league == "nba",
+  c(team_name, points_for, points_against)
+)
 
 # the default fence (1.5 times the IQR) catches the league's lowest scorer
 gt(nba) |> gt_outliers(c(points_for, points_against), note = TRUE)
@@ -89,8 +91,10 @@ gt(nba) |>
   )
 
 # works on wider data too
-nfl <- subset(sdv_example_standings, league == "nfl",
-  c(team_name, wins, points_for, points_against))
+nfl <- subset(
+  sdv_example_standings, league == "nfl",
+  c(team_name, wins, points_for, points_against)
+)
 gt(nfl) |> gt_outliers(c(wins, points_for, points_against))
 
 }

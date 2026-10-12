@@ -17,9 +17,10 @@ without one.}
 }
 \source{
 Read back from each theme's \code{table.background.color} by
-\href{https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/theme_bg.R}{\code{data-raw/theme_bg.R}}. \code{\link[=gt_theme_drench]{gt_theme_drench()}} takes its background from its
-\code{color} argument and \code{\link[=gt_theme_broadsheet]{gt_theme_broadsheet()}} from its \code{paper} argument;
-their rows hold the default.
+\href{https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/theme_bg.R}{\code{data-raw/theme_bg.R}}.
+\code{\link[=gt_theme_drench]{gt_theme_drench()}} takes its background from its \code{color} argument and
+\code{\link[=gt_theme_broadsheet]{gt_theme_broadsheet()}} from its \code{paper} argument; their rows hold the
+default.
 }
 \usage{
 theme_bg
@@ -38,8 +39,10 @@ bg
 \dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 # saving needs a headless Chrome (webshot2)
 \donttest{
-nfc_west <- subset(sdv_example_standings, division == "NFC West",
-  c(team_name, wins:points_against))
+nfc_west <- subset(
+  sdv_example_standings, division == "NFC West",
+  c(team_name, wins:points_against)
+)
 gt::gt(nfc_west) |>
   gt_theme_gtutils() |>
   gt_save_crop(tempfile(fileext = ".png"), bg = bg)

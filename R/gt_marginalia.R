@@ -40,8 +40,10 @@
 #' @examples
 #' library(gt)
 #'
-#' nfc_west <- subset(sdv_example_standings, division == "NFC West",
-#'   c(team_name, wins, losses, conference_rank, playoff_wins))
+#' nfc_west <- subset(
+#'   sdv_example_standings, division == "NFC West",
+#'   c(team_name, wins, losses, conference_rank, playoff_wins)
+#' )
 #'
 #' # a note on each team's postseason, written from its own row
 #' nfc_west$note <- with(nfc_west, ifelse(

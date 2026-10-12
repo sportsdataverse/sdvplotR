@@ -1,3 +1,4 @@
+# nolint start: line_length_linter. table rows and Rd figure macros cannot wrap
 #' Team-Styled Playing Surfaces
 #'
 #' @description Draws a regulation court, field or rink with 'sportyR' and,
@@ -86,6 +87,7 @@
 #'     geom_point(aes(x, y), data = shots, color = "red", size = 3)
 #' }
 #' }
+# nolint end
 sdv_surface <- function(
   league,
   team = NULL,

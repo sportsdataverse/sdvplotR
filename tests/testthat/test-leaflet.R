@@ -5,8 +5,10 @@ calls <- function(m) Filter(function(cl) cl$method == "addMarkers", m$x$calls)
 
 test_that("logo markers carry each team's logo; a team without one keeps the default marker", {
   expect_warning(
-    m <- addSdvLogoMarkers(leaflet::leaflet(), lng = c(-94.5, -78.8, 0), lat = c(39.0, 42.8, 0),
-                           team = c("KC", "BUF", "nope"), league = "nfl", label = c("a", "b", "c")),
+    m <- addSdvLogoMarkers(leaflet::leaflet(),
+      lng = c(-94.5, -78.8, 0), lat = c(39.0, 42.8, 0),
+      team = c("KC", "BUF", "nope"), league = "nfl", label = c("a", "b", "c")
+    ),
     class = "sdvplotR_unresolved_warning"
   )
   cl <- calls(m)

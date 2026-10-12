@@ -37,8 +37,10 @@
 #'
 #' @examples
 #' library(gt)
-#' southwest <- subset(sdv_example_standings, division == "Southwest",
-#'   c(team_name, wins, losses, win_pct:points_against))
+#' southwest <- subset(
+#'   sdv_example_standings, division == "Southwest",
+#'   c(team_name, wins, losses, win_pct:points_against)
+#' )
 #' gt(southwest) |> gt_theme_drench()
 #'
 #' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))

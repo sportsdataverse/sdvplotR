@@ -24,6 +24,8 @@
 #'     addSdvLogoMarkers(~lon, ~lat, ~team, league = "nfl", label = ~team)
 #' }
 #' }
+# camelCase on purpose: leaflet's own layer functions are addMarkers(), addTiles(), ...
+# nolint next: object_name_linter.
 addSdvLogoMarkers <- function(map, lng, lat, team, league, size = 32, season = NULL, variant = "default",
                               id_system = "auto", strict = FALSE, data = leaflet::getMapData(map), ...) {
   rlang::check_installed("leaflet", reason = "to put team logos on a map.")

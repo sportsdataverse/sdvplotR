@@ -209,13 +209,17 @@ new_sdv_element <- function(cls, league, alpha, colour, color, hjust, vjust, siz
 # dpi, and small where an SVG device (ggiraph, svglite) writes it into the file.
 element_images <- function(paths, element) {
   size <- element@size
-  if (!is.numeric(size) || length(size) != 1L || is.na(size)) return(paths)
+  if (!is.numeric(size) || length(size) != 1L || is.na(size)) {
+    return(paths)
+  }
   small_images(paths, ceiling(4 * size * 96 / 2.54))
 }
 
 #' @export
 element_grob.element_sdv_logo <- function(element, label = "", ...) {
-  if (is.null(label)) return(ggplot2::zeroGrob())
+  if (is.null(label)) {
+    return(ggplot2::zeroGrob())
+  }
   label <- logo_from_team(label, element@league, season = element_season(element), id_system = element@id_system)
   label <- element_images(label, element)
   NextMethod()
@@ -223,7 +227,9 @@ element_grob.element_sdv_logo <- function(element, label = "", ...) {
 
 #' @export
 element_grob.element_sdv_wordmark <- function(element, label = "", ...) {
-  if (is.null(label)) return(ggplot2::zeroGrob())
+  if (is.null(label)) {
+    return(ggplot2::zeroGrob())
+  }
   label <- wordmark_from_team(label, element@league, season = element_season(element), id_system = element@id_system)
   label <- element_images(label, element)
   NextMethod()
@@ -231,7 +237,9 @@ element_grob.element_sdv_wordmark <- function(element, label = "", ...) {
 
 #' @export
 element_grob.element_sdv_headshot <- function(element, label = "", ...) {
-  if (is.null(label)) return(ggplot2::zeroGrob())
+  if (is.null(label)) {
+    return(ggplot2::zeroGrob())
+  }
   label <- headshot_from_id(label, element@league, element@id_system)
   label[is.na(label)] <- headshot_placeholder
   label <- element_images(label, element)

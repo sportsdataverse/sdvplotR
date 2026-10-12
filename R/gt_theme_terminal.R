@@ -29,12 +29,16 @@
 #'
 #' @examples
 #' library(gt)
-#' afc <- subset(sdv_example_standings, conference == "AFC",
-#'   c(team_name, wins:points_against))
+#' afc <- subset(
+#'   sdv_example_standings, conference == "AFC",
+#'   c(team_name, wins:points_against)
+#' )
 #' gt(head(afc, 12)) |> gt_theme_terminal()
 #'
-#' east <- subset(sdv_example_standings, league == "nba" & conference == "Eastern",
-#'   c(team_name, wins, losses, win_pct:points_against))
+#' east <- subset(
+#'   sdv_example_standings, league == "nba" & conference == "Eastern",
+#'   c(team_name, wins, losses, win_pct:points_against)
+#' )
 #' gt(east) |> gt_theme_terminal(accent = "#7EE787")
 #'
 #' @seealso [pal_midnight] for a color scale that survives a dark ground.

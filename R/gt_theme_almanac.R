@@ -29,13 +29,17 @@
 #'
 #' @examples
 #' library(gt)
-#' nfc <- subset(sdv_example_standings, conference == "NFC",
-#'   c(team_name, wins:points_against))
+#' nfc <- subset(
+#'   sdv_example_standings, conference == "NFC",
+#'   c(team_name, wins:points_against)
+#' )
 #' gt(head(nfc, 12)) |> gt_theme_almanac()
 #'
 #' # banding off, cooler accent
-#' east <- subset(sdv_example_standings, league == "nba" & conference == "Eastern",
-#'   c(team_name, wins, losses, win_pct:points_against))
+#' east <- subset(
+#'   sdv_example_standings, league == "nba" & conference == "Eastern",
+#'   c(team_name, wins, losses, win_pct:points_against)
+#' )
 #' gt(east) |> gt_theme_almanac(stripe = NA, accent = "#1F3A5F")
 #'
 #' @import gt

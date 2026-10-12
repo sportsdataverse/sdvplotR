@@ -70,7 +70,9 @@ read_index_csv <- function(path, cols) {
   # read whole, and require a final newline: a file cut off mid-row (even one
   # re-gzipped as valid) would otherwise load as a shortened table
   raw <- warnings_fail(read_raw(path))
-  if (!length(raw) || raw[length(raw)] != as.raw(10L)) stop(basename(path), " is truncated (no final newline)", call. = FALSE)
+  if (!length(raw) || raw[length(raw)] != as.raw(10L)) {
+    stop(basename(path), " is truncated (no final newline)", call. = FALSE)
+  }
   df <- warnings_fail(utils::read.csv(
     text = rawToChar(raw), colClasses = "character", na.strings = "", encoding = "UTF-8", check.names = FALSE
   ))
@@ -127,7 +129,10 @@ read_live_index <- function() {
   )
   # only once both reads have succeeded: a corrupt file falls back to the snapshot instead
   if (!is.null(stale)) {
-    warn_once("index", c("Could not refresh the sdvplotR team index ({stale}).", i = "Using the cached index {.val {ver}}."))
+    warn_once("index", c(
+      "Could not refresh the sdvplotR team index ({stale}).",
+      i = "Using the cached index {.val {ver}}."
+    ))
   }
   # the cache keeps one index version: drop the folders of older ones, which are never read again
   old <- setdiff(list.dirs(cache_path("index"), full.names = FALSE, recursive = FALSE), ver)
