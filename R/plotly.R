@@ -56,7 +56,7 @@ add_layout_images <- function(p, x, y, urls, size, xref, yref) {
 #'   coordinates, as layout images. The R counterpart of sdvplot's plotly
 #'   adapter. Works on native plotly charts; [plotly::ggplotly()] drops layout
 #'   images, so draw a ggplot with [geom_sdv_logos()] or
-#'   `geom_sdv_logos_interactive()` instead.
+#'   [geom_sdv_logos_interactive()] instead.
 #' @details Images are placed in data units and fitted by height: each is sized to
 #'   `size` times the y-axis span (the number of categories on a categorical axis),
 #'   so a chart with a wide y range gets proportionally taller marks. Images already

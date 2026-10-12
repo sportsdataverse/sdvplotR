@@ -87,7 +87,7 @@ Places team marks on a \code{\link[plotly:plot_ly]{plotly::plot_ly()}} chart at 
 coordinates, as layout images. The R counterpart of sdvplot's plotly
 adapter. Works on native plotly charts; \code{\link[plotly:ggplotly]{plotly::ggplotly()}} drops layout
 images, so draw a ggplot with \code{\link[=geom_sdv_logos]{geom_sdv_logos()}} or
-\code{geom_sdv_logos_interactive()} instead.
+\code{\link[=geom_sdv_logos_interactive]{geom_sdv_logos_interactive()}} instead.
 }
 \details{
 Images are placed in data units and fitted by height: each is sized to

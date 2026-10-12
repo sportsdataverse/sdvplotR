@@ -56,9 +56,11 @@ Imports:
     utils
 Suggests:
     chromote,
+    ggiraph,
     ggsoccer,
     ggtext (>= 0.1.1),
     gridtext (>= 0.1.4),
+    leaflet,
     paletteer,
     plotly,
     reactable,
@@ -70,7 +72,7 @@ Suggests:
 Config/Needs/development:devtools, httr, jsonlite, lintr, nflreadr,
     roxygen2, styler, usethis
 Config/Needs/website:r-lib/pkgdown, arrow, baseballr, cfbfastR, cfbseedR,
-    fastRhockey, ggsoccer, ggiraph, ggrepel, ggsci, gtExtras, jsonlite, hoopR,
+    fastRhockey, ggsoccer, ggiraph, ggrepel, ggsci, gtExtras, jsonlite, hoopR, leaflet,
     nflfastR, nflseedR, nflreadr, oddsapiR, patchwork, plotly,
     kcuilla/reactablefmtr, sportyR, svglite, tidyverse, viridis, wehoop
 Config/roxygen2/version: 8.1.0

@@ -263,6 +263,8 @@ reference:
       - add_sdv_logos
       - sdv_axis_logos
       - sdv_colorway
+      - geom_sdv_logos_interactive
+      - addSdvLogoMarkers
   - title: "Plot Titles"
     desc: Add a logo or image next to a ggplot2 title.
     contents:
