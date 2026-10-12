@@ -11,8 +11,8 @@ geom_sdv_headshots(
   stat = "identity",
   position = "identity",
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  id_type = NULL,
+  league,
+  id_system = "espn",
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -95,22 +95,14 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. Required: one abbreviation
+means different teams in different leagues.}
 
-\item{id_type}{Which ID system \code{player_id} holds. \code{NULL} (the default) takes
-GSIS IDs for the NFL and ESPN athlete IDs for every other sport. \code{"espn"}
-takes ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
-hoopR's and wehoop's \verb{espn_*()} functions. \code{"league"} takes the league's
-own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats \code{PERSON_ID}
-(hoopR's \verb{nba_*()}, wehoop's \verb{wnba_*()}), the MLBAM ID (baseballr's
-\verb{mlb_*()}, Baseball Savant) for MLB, or the NHL API player ID
-(fastRhockey's \verb{nhl_*()} and \verb{load_nhl_*()}) for the NHL, drawn from
-that league's image CDN; college sports have no league option. ESPN and
-league IDs other than GSIS are plain digits, so a mismatch draws the
-wrong player or no image rather than an error. League CDNs draw
-a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
-from datacenter IPs, so a plot drawn on CI or a server can come back
-without those headshots.}
+\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
+league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
+\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
+published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
+\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -134,14 +126,20 @@ A ggplot2 layer.
 \description{
 This geom is used to plot player headshots instead
 of points in a ggplot. It requires x, y aesthetics as well as a valid
-player identifier: a GSIS ID for the NFL (\code{"00-0033873"}, resolved through
-the headshot map sdvplotR publishes from nflverse rosters to the player's
-NFL.com headshot) and an ESPN athlete ID for every other sport. Set
-\code{id_type} to plot IDs from another source. A team's ESPN athlete IDs come
+player identifier: an ESPN athlete ID by default, in every league. Set
+\code{id_system} to plot IDs from another source (nflverse's gsis IDs, or the
+league's own player IDs). A team's ESPN athlete IDs come
 with its roster: \code{hoopR::espn_mbb_team_roster()} and
 \code{espn_nba_team_roster()}, \code{wehoop::espn_wbb_team_roster()} and
 \code{espn_wnba_team_roster()}, and \code{cfbfastR::espn_cfb_team_roster()} each
 return an \code{athlete_id} column.
+}
+\details{
+ESPN and league IDs are plain digits, so a mismatch draws the
+wrong player or no image rather than an error. League CDNs draw a
+silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
+from datacenter IPs, so a plot drawn on CI or a server can come back
+without those headshots.
 }
 \section{Aesthetics}{
 
@@ -149,7 +147,7 @@ return an \code{athlete_id} column.
 \describe{
 \item{\strong{x}}{ - The x-coordinate.}
 \item{\strong{y}}{ - The y-coordinate.}
-\item{\strong{player_id}}{ - The player's ID: GSIS ID for the NFL, ESPN athlete ID otherwise, or as \code{id_type} says.}
+\item{\strong{player_id}}{ - The player's ID: ESPN athlete ID, or as \code{id_system} says.}
 \item{\code{alpha = NULL}}{ - The alpha channel.}
 \item{\code{colour = NULL}}{ - The image will be colorized with this colour. Use \code{"b/w"} for black and white.}
 \item{\code{angle = 0}}{ - The angle of the image.}
@@ -173,7 +171,7 @@ df <- data.frame(
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_sdv_headshots(aes(player_id = player_id), sport = "nfl", height = 0.2) +
+  geom_sdv_headshots(aes(player_id = player_id), league = "nfl", id_system = "gsis", height = 0.2) +
   geom_label(aes(label = player_name), nudge_y = -0.35, alpha = 0.5) +
   coord_cartesian(xlim = c(0.5, 3.5), ylim = c(0.5, 3.5)) +
   theme_void()

@@ -44,7 +44,7 @@ every column other than \code{tier_column} is rendered as images. Defaults to
 \item{alt}{Optional. A function that takes the image paths or URLs and
 returns their alt text, one string per image, such as
 \code{function(url) names_by_url[url]}. Defaults to \code{NULL}, which names a team
-logo or wordmark the package knows (any URL in \code{\link[=team_reference]{team_reference()}}, and the
+logo or wordmark the package knows (any mark in the logo archive, and the
 season logos \code{season} draws) by the team, and any other image by its file
 name without the extension.}
 }
@@ -75,10 +75,9 @@ library(gt)
 # the AFC's seven playoff seeds: the top seed's bye, then the wild-card round
 afc <- subset(sdv_example_standings, conference == "AFC" & conference_rank <= 7)
 afc <- afc[order(afc$conference_rank), ]
-nfl_ref <- team_reference("nfl")
 seeds <- data.frame(
   tier = ifelse(afc$conference_rank == 1, "Bye", "Wild card"),
-  logo = nfl_ref$logo_url[match(afc$team, nfl_ref$team_abbr)]
+  logo = sdv_logo_url(afc$team, "nfl")
 )
 
 # the logos are URLs, which the browser fetches when the table is shown

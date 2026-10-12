@@ -7,7 +7,7 @@
 gt_sdv_logos(
   gt_object,
   columns,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   height = 30,
   locations = NULL,
   include_name = FALSE,
@@ -20,7 +20,7 @@ gt_sdv_logos(
 \item{columns}{The columns for which the image translation should be applied.
 Argument has no effect if \code{locations} is not \code{NULL}.}
 
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
 \item{height}{The absolute height (px) of the image in the table cell.}
 
@@ -49,26 +49,12 @@ in html tables with the 'gt' package.
 \section{Historical logos}{
 
 Given a \code{season}, a team is drawn with the mark it wore that season where
-sdvplotR has one, and with today's logo otherwise. Coverage:
-\itemize{
-\item NHL: every club identity since 1917-18, primary and dark marks from the
-NHL's own logo catalog; a club's current era draws today's logo. Teams
-are keyed by the NHL triCode of that
-identity (\code{"QUE"}, \code{"HFD"}, \code{"ATL"}, \code{"MNS"}, \code{"TBL"}); current clubs also
-answer to sdvplotR's abbreviation and full name (\code{"TB"},
-\code{"Tampa Bay Lightning"}).
-\item NFL and WNBA: relocated and defunct identities only, one mark each: NFL
-\code{"STL"} (1995-2015) and \code{"SD"} (1961-2016); WNBA \code{"HOU"}, \code{"SAC"},
-\code{"CHA"}, \code{"DET"}, \code{"TUL"}, \code{"SAS"} and \code{"SA"}.
-\item No other league has per-season logos yet.
-}
-
-A key only finds its own identity's marks: \code{"COL"} in 1990 draws today's
-Avalanche logo (the Nordiques are \code{"QUE"}), and \code{"STL"} in 2020 today's
-Rams. The images are copies kept in the SportsDataverse asset archive, so
-they don't change when a league reuses a file name. The NHL marks are SVG
-files, which 'ggpath' reads with the 'rsvg' package. \code{season} takes single
-years: the ending year for the NHL (\code{2005} for 2004-05).
+the SportsDataverse logo archive dates its marks, and with its current
+mark otherwise. The season also picks the team a reused code meant then
+(see \code{\link[=sdv_resolve]{sdv_resolve()}}). The images are copies kept in the archive, so they
+don't change when a league reuses a file name. SVG marks are read with the
+'rsvg' package. \code{season} takes single years: the ending year for split
+seasons (\code{2005} for 2004-05).
 }
 
 \examples{
@@ -76,7 +62,7 @@ years: the ending year for the NHL (\code{2005} for 2004-05).
 library(gt)
 library(sdvplotR)
 
-teams <- valid_team_names("nfl")[1:8]
+teams <- sdv_teams("nfl")$abbr[1:8]
 df <- data.frame(
   team = teams,
   logo = teams,
@@ -85,17 +71,17 @@ df <- data.frame(
 
 df |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl")
+  gt_sdv_logos(columns = "logo", league = "nfl")
 
 # logo and name in one cell; NCAA.com school names resolve too
 data.frame(team = c("Iowa St.", "St. John's (NY)"), net = c(8, 12)) |>
   gt() |>
-  gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE)
+  gt_sdv_logos(columns = "team", league = "mbb", height = 20, include_name = TRUE)
 
 # the marks of the 1994-95 season
 data.frame(team = c("QUE", "HFD", "WIN"), pts = c(65, 43, 39)) |>
   gt() |>
-  gt_sdv_logos(columns = "team", sport = "nhl", season = 1995)
+  gt_sdv_logos(columns = "team", league = "nhl", season = 1995)
 }
 }
 \seealso{

@@ -9,7 +9,7 @@ gt_merge_stack_team_color(
   col1,
   col2,
   team_col,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   font_size_top = 14,
   font_size_bottom = 12,
   color = "black",
@@ -25,7 +25,7 @@ gt_merge_stack_team_color(
 
 \item{team_col}{The column of team names for the color of the bottom text.}
 
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
 \item{font_size_top}{Font size for the top text.}
 
@@ -67,6 +67,6 @@ df <- data.frame(
 
 df |>
   gt() |>
-  gt_merge_stack_team_color(team, mascot, team, sport = "nfl")
+  gt_merge_stack_team_color(team, mascot, team, league = "nfl")
 }
 }

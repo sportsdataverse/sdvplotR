@@ -9,14 +9,11 @@
 #'   wordmarks get the team's full name as `alt` text, headshots
 #'   `"Player <id> headshot"`.
 #'
-#' @param sport Character string identifying the sport. One of
-#'   [supported_sports()].
-#' @param variant Character. Logo variant: `"primary"`, `"dark"`,
-#'   `"scoreboard"` or a named mark of the sport (see [sdv_logo_url()]);
-#'   wordmarks come in `"primary"` for the NFL and MLB, plus `"on_light"` /
-#'   `"on_dark"` for MLB. Falls back to the primary image when the requested
-#'   variant is not available for a team, and, in the browser, when the
-#'   variant's file fails to load.
+#' @param league A league key from [sdv_leagues()].
+#' @param variant Character. `"default"`, `"dark"`, or a named variant from
+#'   [sdv_marks()] (`"scoreboard"`, `"grayscale"`, ...); see [sdv_logo_url()].
+#'   A team without it gets its closest mark, and in the browser the image
+#'   falls back to the default mark when the variant's file fails to load.
 #' @param height Numeric. Image height in pixels.
 #' @param default_img Character. Fallback image URL used when the value cannot
 #'   be resolved. If `NULL` (the default) the raw value is shown instead.
@@ -34,7 +31,7 @@
 #' reactable(
 #'   df,
 #'   columns = list(
-#'     team = colDef(cell = reactable_sdv_logos(sport = "nfl"), html = TRUE)
+#'     team = colDef(cell = reactable_sdv_logos(league = "nfl"), html = TRUE)
 #'   )
 #' )
 NULL
@@ -42,16 +39,16 @@ NULL
 #' @rdname reactable_sdv_images
 #' @export
 reactable_sdv_logos <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-    variant = c("primary", "dark", "scoreboard"),
+    league,
+    variant = "default",
     height = 30,
     default_img = NULL
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  variant <- check_variant(variant, "logo", sport)
+  league <- check_league(league)
+  check_mark_variant(variant, league)
   function(value, index) {
-    img_tag(resolve_logo_url(value, sport, variant), team_alt(value, sport), height, default_img,
-      fallback = logo_from_team(value, sport)
+    img_tag(logo_from_team(value, league, variant = variant), team_alt(value, league), height, default_img,
+      fallback = variant_fallback(value, league, variant, logo_from_team)
     )
   }
 }
@@ -59,41 +56,39 @@ reactable_sdv_logos <- function(
 #' @rdname reactable_sdv_images
 #' @export
 reactable_sdv_wordmarks <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-    variant = "primary",
+    league,
+    variant = "default",
     height = 30,
     default_img = NULL
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  variant <- check_variant(variant, "wordmark", sport)
+  league <- check_league(league)
+  check_mark_variant(variant, league)
   function(value, index) {
-    img_tag(resolve_wordmark_url(value, sport, variant), team_alt(value, sport), height, default_img,
-      fallback = wordmark_from_team(value, sport)
+    img_tag(wordmark_from_team(value, league, variant = variant), team_alt(value, league), height, default_img,
+      fallback = variant_fallback(value, league, variant, wordmark_from_team)
     )
   }
 }
 
-#' @param id_type Which ID system the player IDs hold: `NULL` (the default;
-#'   GSIS IDs for the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"`
-#'   (NBA / WNBA Stats `PERSON_ID`, MLBAM, NHL API, GSIS). See [geom_sdv_headshots()].
+#' @inheritParams sdv_headshot_url
 #' @rdname reactable_sdv_images
 #' @export
 reactable_sdv_headshots <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     height = 40,
     default_img = NULL,
-    id_type = NULL
+    id_system = "espn"
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  id_type <- check_id_type(id_type, sport)
+  league <- check_league(league)
+  id_system <- check_id_system(id_system, league)
   function(value, index) {
-    img_tag(headshot_from_id(value, sport = sport, id_type = id_type), headshot_alt(value), height, default_img, value)
+    img_tag(headshot_from_id(value, league, id_system), headshot_alt(value), height, default_img, value)
   }
 }
 
 # `alt` is the image's alt text; `value` (the cell's raw value) is shown as
 # text when there is no image, and is the alt of the `default_img` stand-in.
-# `fallback` is the primary image a variant (dark, light, ...) swaps to in the
+# `fallback` is the default image a variant (dark, light, ...) swaps to in the
 # browser when the variant fails to load.
 img_tag <- function(url, alt, height, default_img, value = alt, fallback = NA) {
   force(value)
@@ -110,7 +105,7 @@ img_tag <- function(url, alt, height, default_img, value = alt, fallback = NA) {
   )
 }
 
-# A variant image falls back to the primary in the browser rather than
+# A variant image falls back to the default mark in the browser rather than
 # breaking. Marks come from the SportsDataverse logo archive (immutable copies),
 # so this guards only the live-source fallback: ESPN has dropped a variant file
 # the team data still listed (a dark logo 404'd, #61).
@@ -118,6 +113,12 @@ img_onerror <- function(url, fallback) {
   if (is.na(fallback) || identical(url, fallback)) return("")
   js <- paste0("this.onerror=null;this.src='", gsub("'", "\\\\'", fallback), "'")
   paste0(' onerror="', htmltools::htmlEscape(js, attribute = TRUE), '"')
+}
+
+# The default mark a variant falls back to in the browser; none for the default
+# itself (resolution has already warned about a value it could not resolve).
+variant_fallback <- function(value, league, variant, lookup) {
+  if (identical(variant, "default")) NA_character_ else suppressWarnings(lookup(value, league))
 }
 
 #' Replace 'reactable' Column Headers with Team Logos
@@ -138,28 +139,28 @@ img_onerror <- function(url, fallback) {
 #' library(sdvplotR)
 #'
 #' df <- data.frame(KC = 1:3, BUF = 4:6, SF = 7:9)
-#' reactable(df, columns = reactable_sdv_cols_label(df, sport = "nfl"))
+#' reactable(df, columns = reactable_sdv_cols_label(df, league = "nfl"))
 reactable_sdv_cols_label <- function(
     .data,
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-    variant = c("primary", "dark", "scoreboard"),
+    league,
+    variant = "default",
     height = 30
 ) {
   rlang::check_installed("reactable", "to build reactable column definitions.")
-  sport <- rlang::arg_match0(sport, supported_sports())
-  variant <- check_variant(variant, "logo", sport)
+  league <- check_league(league)
+  check_mark_variant(variant, league)
   out <- list()
   for (nm in names(.data)) {
-    url <- resolve_logo_url(nm, sport, variant)
+    url <- suppressWarnings(logo_from_team(nm, league, variant = variant))
     if (is.na(url)) next
     out[[nm]] <- reactable::colDef(
       name = "",
       html = TRUE,
       header = sprintf(
         '<img src="%s" style="height:%spx;" alt="%s"%s />',
-        url, height, htmltools::htmlEscape(team_alt(nm, sport), attribute = TRUE),
-        img_onerror(url, logo_from_team(nm, sport))
+        url, height, htmltools::htmlEscape(team_alt(nm, league), attribute = TRUE),
+        img_onerror(url, variant_fallback(nm, league, variant, logo_from_team))
       ),
       ...
     )
@@ -177,9 +178,8 @@ reactable_sdv_cols_label <- function(
 #'   look up the team of each row.
 #' @param team_col Character. Name of the column in `data` holding team
 #'   abbreviations.
-#' @param sport Character string identifying the sport. One of
-#'   [supported_sports()].
-#' @param type Character. `"primary"` or `"secondary"` team color.
+#' @param league A league key from [sdv_leagues()].
+#' @param which Character. `"primary"` or `"secondary"` team color.
 #' @param max_value Numeric. Reference value that fills the whole cell. If
 #'   `NULL` (the default), the maximum of the styled column is used.
 #' @param alpha Numeric. Opacity of the background fill in `[0, 1]`.
@@ -196,8 +196,8 @@ reactable_sdv_cols_label <- function(
 #' reactable(
 #'   df,
 #'   columns = list(
-#'     team = colDef(style = reactable_sdv_team_color_bg(df, "team", sport = "nfl")),
-#'     wins = colDef(style = reactable_sdv_team_color_bar(df, "team", sport = "nfl"))
+#'     team = colDef(style = reactable_sdv_team_color_bg(df, "team", league = "nfl")),
+#'     wins = colDef(style = reactable_sdv_team_color_bar(df, "team", league = "nfl"))
 #'   )
 #' )
 NULL
@@ -207,14 +207,14 @@ NULL
 reactable_sdv_team_color_bar <- function(
     data,
     team_col,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-    type = c("primary", "secondary"),
+    league,
+    which = c("primary", "secondary"),
     max_value = NULL,
     na_color = "grey70"
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  type <- rlang::arg_match0(type, c("primary", "secondary"))
-  colors <- row_team_colors(data, team_col, sport, type, na_color)
+  league <- check_league(league)
+  which <- rlang::arg_match0(which, c("primary", "secondary"))
+  colors <- row_team_colors(data, team_col, league, which, na_color)
   function(value, index, name) {
     top <- max_value %||% max(data[[name]], na.rm = TRUE)
     pct <- if (is.na(value) || !is.finite(top) || top == 0) 0 else round(100 * value / top, 1)
@@ -230,24 +230,24 @@ reactable_sdv_team_color_bar <- function(
 reactable_sdv_team_color_bg <- function(
     data,
     team_col,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-    type = c("primary", "secondary"),
+    league,
+    which = c("primary", "secondary"),
     alpha = 0.15,
     na_color = "grey70"
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  type <- rlang::arg_match0(type, c("primary", "secondary"))
-  colors <- scales::alpha(row_team_colors(data, team_col, sport, type, na_color), alpha)
+  league <- check_league(league)
+  which <- rlang::arg_match0(which, c("primary", "secondary"))
+  colors <- scales::alpha(row_team_colors(data, team_col, league, which, na_color), alpha)
   function(value, index, name) {
     sprintf("background-color:%s;", colors[index])
   }
 }
 
-row_team_colors <- function(data, team_col, sport, type, na_color) {
+row_team_colors <- function(data, team_col, league, which, na_color) {
   if (!team_col %in% names(data)) {
     cli::cli_abort("Column {.val {team_col}} not found in {.arg data}.")
   }
-  colors <- sdv_team_colors(sport, as.character(data[[team_col]]), type = type)
+  colors <- sdv_team_colors(league, as.character(data[[team_col]]), which = which)
   colors[is.na(colors)] <- na_color
   unname(colors)
 }

@@ -4,28 +4,19 @@
 \alias{reactable_sdv_cols_label}
 \title{Replace 'reactable' Column Headers with Team Logos}
 \usage{
-reactable_sdv_cols_label(
-  .data,
-  ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  variant = c("primary", "dark", "scoreboard"),
-  height = 30
-)
+reactable_sdv_cols_label(.data, ..., league, variant = "default", height = 30)
 }
 \arguments{
 \item{.data}{A data frame whose column names are team abbreviations.}
 
 \item{...}{Additional arguments passed to every \code{\link[reactable:colDef]{reactable::colDef()}}.}
 
-\item{sport}{Character string identifying the sport. One of
-\code{\link[=supported_sports]{supported_sports()}}.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
-\item{variant}{Character. Logo variant: \code{"primary"}, \code{"dark"},
-\code{"scoreboard"} or a named mark of the sport (see \code{\link[=sdv_logo_url]{sdv_logo_url()}});
-wordmarks come in \code{"primary"} for the NFL and MLB, plus \code{"on_light"} /
-\code{"on_dark"} for MLB. Falls back to the primary image when the requested
-variant is not available for a team, and, in the browser, when the
-variant's file fails to load.}
+\item{variant}{Character. \code{"default"}, \code{"dark"}, or a named variant from
+\code{\link[=sdv_marks]{sdv_marks()}} (\code{"scoreboard"}, \code{"grayscale"}, ...); see \code{\link[=sdv_logo_url]{sdv_logo_url()}}.
+A team without it gets its closest mark, and in the browser the image
+falls back to the default mark when the variant's file fails to load.}
 
 \item{height}{Numeric. Image height in pixels.}
 }
@@ -45,6 +36,6 @@ library(reactable)
 library(sdvplotR)
 
 df <- data.frame(KC = 1:3, BUF = 4:6, SF = 7:9)
-reactable(df, columns = reactable_sdv_cols_label(df, sport = "nfl"))
+reactable(df, columns = reactable_sdv_cols_label(df, league = "nfl"))
 \dontshow{\}) # examplesIf}
 }

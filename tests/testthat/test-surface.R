@@ -5,7 +5,7 @@ check_teams <- c(
   nfl = "KC", cfb = "TEX", nhl = "COL", mlb = "NYY"
 )
 
-test_that("every sport returns a ggplot", {
+test_that("every league returns a ggplot", {
   skip_if_not_installed("sportyR")
   for (s in names(check_teams)) {
     expect_true(inherits(sdv_surface(s), "ggplot"), info = s)
@@ -83,7 +83,7 @@ test_that("hockey team colors land in the built plot; baseball keeps its colors"
   expect_identical(sum(grepl("^#ffffff ", got)), sum(grepl("^#ffffff ", default)))
 
   # Nashville's gold primary is too pale on white ice: its lines take the navy
-  nsh <- sdv_team_colors("nhl", "NSH", type = "all")
+  nsh <- sdv_team_colors("nhl", "NSH", which = "all")
   nsh <- strsplit(nsh, ", ")[[1]]
   expect_identical(
     surface_colors(sdv_surface("nhl", "NSH")),
@@ -132,13 +132,13 @@ test_that("center_logo places the team logo at the surface's center", {
 
   l <- logo_layer(sdv_surface("nba", "BOS", center_logo = TRUE))
   expect_s3_class(l$geom, "GeomSDVsurfaceLogo")
-  expect_identical(l$data$path, resolve_logo_url("BOS", "nba"))
+  expect_identical(l$data$path, logo_from_team("BOS", "nba"))
   expect_equal(c(l$data$x, l$data$y), c(0, 0))
   expect_identical(l$geom_params$logo_size, 12)
 
   # dark grass takes ESPN's dark-background logo
   l <- logo_layer(sdv_surface("cfb", "TEX", center_logo = TRUE))
-  expect_identical(l$data$path, resolve_logo_url("TEX", "cfb", variant = "dark"))
+  expect_identical(l$data$path, logo_from_team("TEX", "cfb", variant = "dark"))
   expect_identical(l$geom_params$logo_size, 10)
 
   # follows sportyR's translate-then-rotate and unit conversion

@@ -9,7 +9,7 @@
 \usage{
 scale_x_sdv(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "bottom",
@@ -18,7 +18,7 @@ scale_x_sdv(
 
 scale_y_sdv(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "left",
@@ -27,29 +27,29 @@ scale_y_sdv(
 
 scale_x_sdv_headshots(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "bottom",
   size = 20,
-  id_type = NULL
+  id_system = "espn"
 )
 
 scale_y_sdv_headshots(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "left",
   size = 30,
-  id_type = NULL
+  id_system = "espn"
 )
 }
 \arguments{
 \item{...}{Other arguments passed to \code{\link[ggplot2:scale_x_discrete]{ggplot2::scale_x_discrete()}} or
 \code{\link[ggplot2:scale_y_discrete]{ggplot2::scale_y_discrete()}}.}
 
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
 \item{expand}{Expansion limits for the axis.}
 
@@ -60,9 +60,11 @@ scale_y_sdv_headshots(
 \item{size}{The logo size in pixels. It is applied as height for an x-scale
 and as width for a y-scale.}
 
-\item{id_type}{Which ID system the player IDs hold: \code{NULL} (the default;
-GSIS IDs for the NFL, ESPN athlete IDs otherwise), \code{"espn"} or \code{"league"}
-(NBA / WNBA Stats \code{PERSON_ID}, MLBAM, NHL API, GSIS). See \code{\link[=geom_sdv_headshots]{geom_sdv_headshots()}}.}
+\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
+league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
+\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
+published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
+\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
 }
 \value{
 A ggplot2 scale object.
@@ -87,7 +89,7 @@ complete themes in 'ggplot2' 4 set those children themselves.
 library(sdvplotR)
 library(ggplot2)
 
-team_abbr <- valid_team_names("nfl")[1:8]
+team_abbr <- sdv_teams("nfl")$abbr[1:8]
 
 df <- data.frame(
   random_value = runif(length(team_abbr), 0, 1),
@@ -97,8 +99,8 @@ df <- data.frame(
 if (requireNamespace("ggtext", quietly = TRUE)) {
   ggplot(df, aes(x = teams, y = random_value)) +
     geom_col(aes(fill = teams), width = 0.5) +
-    scale_fill_sdv(sport = "nfl", alpha = 0.4) +
-    scale_x_sdv(sport = "nfl") +
+    scale_fill_sdv(league = "nfl", alpha = 0.4) +
+    scale_x_sdv(league = "nfl") +
     theme_minimal() +
     theme_x_sdv()
 }

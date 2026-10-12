@@ -11,7 +11,7 @@ geom_sdv_logos(
   stat = "identity",
   position = "identity",
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -94,8 +94,8 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{sport}{Character string identifying the sport. One of
-\code{\link[=supported_sports]{supported_sports()}}.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. Required: one abbreviation
+means different teams in different leagues.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -120,7 +120,8 @@ created with \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.
 \description{
 This geom is used to plot sports team logos instead
 of points in a ggplot. It requires x, y aesthetics as well as a valid
-team abbreviation. The latter can be checked with \code{\link[=valid_team_names]{valid_team_names()}}.
+team identifier: anything \code{\link[=sdv_resolve]{sdv_resolve()}} accepts, or a conference or
+league key. A league's teams are listed by \code{\link[=sdv_teams]{sdv_teams()}}.
 }
 \section{Aesthetics}{
 
@@ -128,8 +129,7 @@ team abbreviation. The latter can be checked with \code{\link[=valid_team_names]
 \describe{
 \item{\strong{x}}{ - The x-coordinate.}
 \item{\strong{y}}{ - The y-coordinate.}
-\item{\strong{team}}{ - The team abbreviation. Should be one of \code{\link[=valid_team_names]{valid_team_names()}}. The
-function tries to clean team names internally.}
+\item{\strong{team}}{ - The team: an abbreviation, name or id, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}.}
 \item{\code{alpha = NULL}}{ - The alpha channel, i.e. transparency level, as a numerical value between 0 and 1.}
 \item{\code{colour = NULL}}{ - The image will be colorized with this colour. Use the special
 character \code{"b/w"} to set it to black and white.}
@@ -140,7 +140,7 @@ character \code{"b/w"} to set it to black and white.}
 Coordinates). A typical size is \code{width = 0.075}.}
 \item{\code{height = 1.0}}{ - The desired height of the image in \code{npc}. A typical size is \code{height = 0.1}.}
 \item{\code{season = NA}}{ - The season whose logo to draw: the ending year for
-the NHL (\code{1990} for 1989-90), the year elsewhere. Unmapped or \code{NA}, the
+the NHL (\code{1990} for 1989-90), the year elsewhere. \code{NA} draws the
 team's logo today. See the Historical logos section.}
 }
 }
@@ -148,26 +148,12 @@ team's logo today. See the Historical logos section.}
 \section{Historical logos}{
 
 Given a \code{season}, a team is drawn with the mark it wore that season where
-sdvplotR has one, and with today's logo otherwise. Coverage:
-\itemize{
-\item NHL: every club identity since 1917-18, primary and dark marks from the
-NHL's own logo catalog; a club's current era draws today's logo. Teams
-are keyed by the NHL triCode of that
-identity (\code{"QUE"}, \code{"HFD"}, \code{"ATL"}, \code{"MNS"}, \code{"TBL"}); current clubs also
-answer to sdvplotR's abbreviation and full name (\code{"TB"},
-\code{"Tampa Bay Lightning"}).
-\item NFL and WNBA: relocated and defunct identities only, one mark each: NFL
-\code{"STL"} (1995-2015) and \code{"SD"} (1961-2016); WNBA \code{"HOU"}, \code{"SAC"},
-\code{"CHA"}, \code{"DET"}, \code{"TUL"}, \code{"SAS"} and \code{"SA"}.
-\item No other league has per-season logos yet.
-}
-
-A key only finds its own identity's marks: \code{"COL"} in 1990 draws today's
-Avalanche logo (the Nordiques are \code{"QUE"}), and \code{"STL"} in 2020 today's
-Rams. The images are copies kept in the SportsDataverse asset archive, so
-they don't change when a league reuses a file name. The NHL marks are SVG
-files, which 'ggpath' reads with the 'rsvg' package. \code{season} takes single
-years: the ending year for the NHL (\code{2005} for 2004-05).
+the SportsDataverse logo archive dates its marks, and with its current
+mark otherwise. The season also picks the team a reused code meant then
+(see \code{\link[=sdv_resolve]{sdv_resolve()}}). The images are copies kept in the archive, so they
+don't change when a league reuses a file name. SVG marks are read with the
+'rsvg' package. \code{season} takes single years: the ending year for split
+seasons (\code{2005} for 2004-05).
 }
 
 \examples{
@@ -175,7 +161,7 @@ years: the ending year for the NHL (\code{2005} for 2004-05).
 library(sdvplotR)
 library(ggplot2)
 
-team_abbr <- valid_team_names("nfl")[1:16]
+team_abbr <- sdv_teams("nfl")$abbr[1:16]
 
 df <- data.frame(
   a = rep(1:4, 4),
@@ -184,7 +170,7 @@ df <- data.frame(
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_sdv_logos(aes(team = teams), sport = "nfl", width = 0.075) +
+  geom_sdv_logos(aes(team = teams), league = "nfl", width = 0.075) +
   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
   theme_void()
 
@@ -197,7 +183,7 @@ if (requireNamespace("rsvg", quietly = TRUE)) {
     season = c(1990, 1995, 2005, 2015)
   )
   ggplot(old, aes(x = x, y = y)) +
-    geom_sdv_logos(aes(team = team, season = season), sport = "nhl", width = 0.2) +
+    geom_sdv_logos(aes(team = team, season = season), league = "nhl", width = 0.2) +
     theme_void()
 }
 }

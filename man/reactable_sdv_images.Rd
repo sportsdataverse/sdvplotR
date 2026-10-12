@@ -8,45 +8,44 @@
 \title{Render Team Logos, Wordmarks and Headshots in 'reactable' Tables}
 \usage{
 reactable_sdv_logos(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  variant = c("primary", "dark", "scoreboard"),
+  league,
+  variant = "default",
   height = 30,
   default_img = NULL
 )
 
 reactable_sdv_wordmarks(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  variant = "primary",
+  league,
+  variant = "default",
   height = 30,
   default_img = NULL
 )
 
 reactable_sdv_headshots(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   height = 40,
   default_img = NULL,
-  id_type = NULL
+  id_system = "espn"
 )
 }
 \arguments{
-\item{sport}{Character string identifying the sport. One of
-\code{\link[=supported_sports]{supported_sports()}}.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
-\item{variant}{Character. Logo variant: \code{"primary"}, \code{"dark"},
-\code{"scoreboard"} or a named mark of the sport (see \code{\link[=sdv_logo_url]{sdv_logo_url()}});
-wordmarks come in \code{"primary"} for the NFL and MLB, plus \code{"on_light"} /
-\code{"on_dark"} for MLB. Falls back to the primary image when the requested
-variant is not available for a team, and, in the browser, when the
-variant's file fails to load.}
+\item{variant}{Character. \code{"default"}, \code{"dark"}, or a named variant from
+\code{\link[=sdv_marks]{sdv_marks()}} (\code{"scoreboard"}, \code{"grayscale"}, ...); see \code{\link[=sdv_logo_url]{sdv_logo_url()}}.
+A team without it gets its closest mark, and in the browser the image
+falls back to the default mark when the variant's file fails to load.}
 
 \item{height}{Numeric. Image height in pixels.}
 
 \item{default_img}{Character. Fallback image URL used when the value cannot
 be resolved. If \code{NULL} (the default) the raw value is shown instead.}
 
-\item{id_type}{Which ID system the player IDs hold: \code{NULL} (the default;
-GSIS IDs for the NFL, ESPN athlete IDs otherwise), \code{"espn"} or \code{"league"}
-(NBA / WNBA Stats \code{PERSON_ID}, MLBAM, NHL API, GSIS). See \code{\link[=geom_sdv_headshots]{geom_sdv_headshots()}}.}
+\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
+league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
+\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
+published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
+\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
 }
 \value{
 A function with signature \verb{function(value, index)} suitable for the
@@ -69,7 +68,7 @@ df <- data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11))
 reactable(
   df,
   columns = list(
-    team = colDef(cell = reactable_sdv_logos(sport = "nfl"), html = TRUE)
+    team = colDef(cell = reactable_sdv_logos(league = "nfl"), html = TRUE)
   )
 )
 \dontshow{\}) # examplesIf}

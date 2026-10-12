@@ -69,12 +69,12 @@ test_that("gt_merge_stack_team_color stacks each row's own pair under row groups
     list(top = sub(".*>(.*)<$", "\\1", tops), bottom = sub(".*>(.*)<$", "\\1", bottoms), html = h)
   }
   # shown in group order: rows 1, 3, 2
-  body <- stacked(gt_merge_stack_team_color(gt::gt(d, groupname_col = "g"), top, bottom, team, sport = "nfl"))
+  body <- stacked(gt_merge_stack_team_color(gt::gt(d, groupname_col = "g"), top, bottom, team, league = "nfl"))
   expect_identical(body$top, c("r1", "r3", "r2"))
   expect_identical(body$bottom, c("b1", "b3", "b2 &amp; co"))
   expect_match(body$html, paste0("color:", sdv_team_colors("nfl", "SF"), ";font-size:12px'>b3"))
   # the same when the top column is the stub
-  stub <- stacked(gt_merge_stack_team_color(gt::gt(d, rowname_col = "top", groupname_col = "g"), top, bottom, team, sport = "nfl"))
+  stub <- stacked(gt_merge_stack_team_color(gt::gt(d, rowname_col = "top", groupname_col = "g"), top, bottom, team, league = "nfl"))
   expect_identical(stub$top, c("r1", "r3", "r2"))
   expect_identical(stub$bottom, c("b1", "b3", "b2 &amp; co"))
 })

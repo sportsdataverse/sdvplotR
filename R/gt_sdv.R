@@ -9,7 +9,7 @@
 #' @param gt_object A table object created using [gt::gt()].
 #' @param columns The columns for which the image translation should be applied.
 #'   Argument has no effect if `locations` is not `NULL`.
-#' @param sport Character string identifying the sport.
+#' @param league A league key from [sdv_leagues()].
 #' @param height The absolute height (px) of the image in the table cell.
 #' @param locations If `NULL` (the default), the function will render logos in
 #'   argument `columns`. Otherwise, the cell or set of cells to be associated
@@ -33,7 +33,7 @@
 #' library(gt)
 #' library(sdvplotR)
 #'
-#' teams <- valid_team_names("nfl")[1:8]
+#' teams <- sdv_teams("nfl")$abbr[1:8]
 #' df <- data.frame(
 #'   team = teams,
 #'   logo = teams,
@@ -42,28 +42,28 @@
 #'
 #' df |>
 #'   gt() |>
-#'   gt_sdv_logos(columns = "logo", sport = "nfl")
+#'   gt_sdv_logos(columns = "logo", league = "nfl")
 #'
 #' # logo and name in one cell; NCAA.com school names resolve too
 #' data.frame(team = c("Iowa St.", "St. John's (NY)"), net = c(8, 12)) |>
 #'   gt() |>
-#'   gt_sdv_logos(columns = "team", sport = "mbb", height = 20, include_name = TRUE)
+#'   gt_sdv_logos(columns = "team", league = "mbb", height = 20, include_name = TRUE)
 #'
 #' # the marks of the 1994-95 season
 #' data.frame(team = c("QUE", "HFD", "WIN"), pts = c(65, 43, 39)) |>
 #'   gt() |>
-#'   gt_sdv_logos(columns = "team", sport = "nhl", season = 1995)
+#'   gt_sdv_logos(columns = "team", league = "nhl", season = 1995)
 #' }
 gt_sdv_logos <- function(
     gt_object,
     columns,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     height = 30,
     locations = NULL,
     include_name = FALSE,
     season = NULL
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
+  league <- check_league(league)
   if (!is.null(season) && length(season) != 1) {
     cli::cli_abort("{.arg season} must be {.code NULL} or a single season.")
   }
@@ -73,7 +73,7 @@ gt_sdv_logos <- function(
     columns = {{ columns }},
     height = height,
     locations = locations,
-    sport = sport,
+    league = league,
     type = "logo",
     include_name = include_name,
     season = season
@@ -95,23 +95,23 @@ gt_sdv_logos <- function(
 #' df <- data.frame(team = c("KC", "BUF", "SF"), wins = c(14, 13, 12))
 #' df |>
 #'   gt() |>
-#'   gt_sdv_wordmarks(columns = "team", sport = "nfl")
+#'   gt_sdv_wordmarks(columns = "team", league = "nfl")
 #' }
 gt_sdv_wordmarks <- function(
     gt_object,
     columns,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     height = 30,
     locations = NULL
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
+  league <- check_league(league)
 
   gt_sdv_image(
     gt_object = gt_object,
     columns = {{ columns }},
     height = height,
     locations = locations,
-    sport = sport,
+    league = league,
     type = "wordmark"
   )
 }
@@ -119,10 +119,8 @@ gt_sdv_wordmarks <- function(
 #' Render Player Headshots in 'gt' Tables
 #'
 #' @description Translate player IDs to player headshots and render these
-#'   images in html tables with the 'gt' package. IDs are GSIS IDs for the NFL
-#'   (`"00-0033873"`, resolved through the headshot map sdvplotR publishes from
-#'   nflverse rosters to the player's NFL.com headshot) and ESPN athlete IDs for
-#'   every other sport, or as `id_type` says. IDs that resolve to no headshot
+#'   images in html tables with the 'gt' package. IDs are ESPN athlete IDs in
+#'   every league, or as `id_system` says. IDs that resolve to no headshot
 #'   are left as text.
 #'
 #' @inheritParams gt_sdv_logos
@@ -142,18 +140,18 @@ gt_sdv_wordmarks <- function(
 #'
 #' df |>
 #'   gt() |>
-#'   gt_sdv_headshots(columns = "player_id", sport = "nfl")
+#'   gt_sdv_headshots(columns = "player_id", league = "nfl", id_system = "gsis")
 #' }
 gt_sdv_headshots <- function(
     gt_object,
     columns,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     height = 30,
     locations = NULL,
-    id_type = NULL
+    id_system = "espn"
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  id_type <- check_id_type(id_type, sport)
+  league <- check_league(league)
+  id_system <- check_id_system(id_system, league)
 
   if (is.null(locations)) {
     locations <- gt::cells_body({{ columns }})
@@ -167,7 +165,7 @@ gt_sdv_headshots <- function(
     data = gt_object,
     locations = locations,
     fn = function(x) {
-      image_urls <- headshot_from_id(x, sport = sport, id_type = id_type)
+      image_urls <- headshot_from_id(x, league, id_system)
       missing <- is.na(image_urls)
 
       # web_image() needs a URL for every cell; IDs with none stay as text
@@ -187,10 +185,10 @@ gt_sdv_headshots <- function(
 #'
 #' @param gt_object A table object created using [gt::gt()].
 #' @param columns The columns whose labels should be replaced with logos.
-#' @param sport Character string identifying the sport.
+#' @param league A league key from [sdv_leagues()].
 #' @param height The absolute height (px) of the image.
-#' @param type One of `"logo"`, `"wordmark"` or `"headshot"`: whether the column
-#'   names are team abbreviations (logo / wordmark) or player IDs (headshot).
+#' @param mark_type One of `"logo"`, `"wordmark"` or `"headshot"`: whether the
+#'   column names are teams (logo / wordmark) or player IDs (headshot).
 #' @inheritParams geom_sdv_headshots
 #'
 #' @return An object of class `gt_tbl`.
@@ -209,19 +207,19 @@ gt_sdv_headshots <- function(
 #'
 #' df |>
 #'   gt() |>
-#'   gt_sdv_cols_label(columns = c("KC", "BUF", "SF"), sport = "nfl")
+#'   gt_sdv_cols_label(columns = c("KC", "BUF", "SF"), league = "nfl")
 #' }
 gt_sdv_cols_label <- function(
     gt_object,
     columns = gt::everything(),
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     height = 30,
-    type = c("logo", "wordmark", "headshot"),
-    id_type = NULL
+    mark_type = c("logo", "wordmark", "headshot"),
+    id_system = "espn"
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  type <- rlang::arg_match0(type, c("logo", "wordmark", "headshot"))
-  id_type <- check_id_type(id_type, sport)
+  league <- check_league(league)
+  mark_type <- rlang::arg_match0(mark_type, c("logo", "wordmark", "headshot"))
+  if (mark_type == "headshot") id_system <- check_id_system(id_system, league)
 
   if (is.numeric(height)) {
     height <- paste0(height, "px")
@@ -231,21 +229,15 @@ gt_sdv_cols_label <- function(
     data = gt_object,
     columns = {{ columns }},
     fn = function(x) {
-      if (type == "headshot") {
-        image_url <- headshot_from_id(x, sport = sport, id_type = id_type)
+      if (mark_type == "headshot") {
+        image_url <- headshot_from_id(x, league, id_system)
         out <- headshot_img(image_url, x, height)
         out[is.na(image_url)] <- x[is.na(image_url)]
       } else {
-        team_abbr <- clean_team_abbrs(
-          as.character(x),
-          sport = sport,
-          keep_non_matches = FALSE
-        )
-
-        if (type == "logo") {
-          img_url <- logo_from_team(team_abbr, sport = sport)
+        if (mark_type == "logo") {
+          img_url <- logo_from_team(x, league)
         } else {
-          img_url <- wordmark_from_team(team_abbr, sport = sport)
+          img_url <- wordmark_from_team(x, league)
         }
 
         # Generate the HTML img tag
@@ -255,7 +247,7 @@ gt_sdv_cols_label <- function(
           "\" style=\"height:",
           height,
           ";\" alt=\"",
-          htmltools::htmlEscape(team_alt(team_abbr, sport), attribute = TRUE),
+          htmltools::htmlEscape(team_alt(x, league), attribute = TRUE),
           "\">"
         )
 
@@ -285,7 +277,7 @@ gt_sdv_image <- function(
     columns,
     height = 30,
     locations = NULL,
-    sport = "nfl",
+    league = "nfl",
     type = c("logo", "wordmark"),
     include_name = FALSE,
     season = NULL
@@ -306,13 +298,10 @@ gt_sdv_image <- function(
     fn = function(x) {
       # gt passes the cell text HTML-escaped ("Texas A&amp;M")
       text <- html_unescape(as.character(x))
-      team_abbr <- clean_team_abbrs(text, sport = sport, keep_non_matches = FALSE)
-
       if (type == "logo") {
-        # a season's mark is looked up by the cell text: "QUE" is cleaned to "COL"
-        img_url <- season_logo(logo_from_team(team_abbr, sport = sport), text, sport, season)
+        img_url <- logo_from_team(text, league, season = season)
       } else {
-        img_url <- wordmark_from_team(team_abbr, sport = sport)
+        img_url <- wordmark_from_team(text, league)
       }
 
       # Generate the HTML img tag
@@ -324,7 +313,7 @@ gt_sdv_image <- function(
         if (isTRUE(include_name)) ";vertical-align:middle;margin-right:0.35em",
         # with include_name the cell's own text already names the team
         ";\" alt=\"",
-        if (!isTRUE(include_name)) htmltools::htmlEscape(team_alt(team_abbr, sport), attribute = TRUE),
+        if (!isTRUE(include_name)) htmltools::htmlEscape(team_alt(text, league), attribute = TRUE),
         "\">",
         if (isTRUE(include_name)) x
       )
@@ -360,7 +349,7 @@ gt_sdv_image <- function(
 #' @param col1 The column to stack on top. Will be all caps, black bold text.
 #' @param col2 The column to merge and place below. Will be smaller and colored.
 #' @param team_col The column of team names for the color of the bottom text.
-#' @param sport Character string identifying the sport.
+#' @param league A league key from [sdv_leagues()].
 #' @param font_size_top Font size for the top text.
 #' @param font_size_bottom Font size for the bottom text.
 #' @param color The color for the top text.
@@ -385,20 +374,20 @@ gt_sdv_image <- function(
 #'
 #' df |>
 #'   gt() |>
-#'   gt_merge_stack_team_color(team, mascot, team, sport = "nfl")
+#'   gt_merge_stack_team_color(team, mascot, team, league = "nfl")
 #' }
 gt_merge_stack_team_color <- function(
     gt_object,
     col1,
     col2,
     team_col,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     font_size_top = 14,
     font_size_bottom = 12,
     color = "black",
     background = NULL
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
+  league <- check_league(league)
 
   stopifnot(
     "'gt_object' must be a 'gt_tbl', have you accidentally passed raw data?" =
@@ -412,10 +401,10 @@ gt_merge_stack_team_color <- function(
     cli::cli_abort("Must include a column of team names, `team_col` is NULL")
   }
 
-  team_color <- sdv_team_colors(sport = sport, team = team_bare, type = "primary")
+  team_color <- sdv_team_colors(league, team_bare, which = "primary")
   team_color[is.na(team_color)] <- "grey"
   team_color <- sdv_readable_ink(
-    team_color, sdv_team_colors(sport = sport, team = team_bare, type = "secondary"),
+    team_color, sdv_team_colors(league, team_bare, which = "secondary"),
     background %||% .table_background(gt_object)
   )
 

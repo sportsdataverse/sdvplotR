@@ -11,7 +11,7 @@ geom_sdv_wordmarks(
   stat = "identity",
   position = "identity",
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -94,9 +94,8 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{sport}{Character string identifying the sport. One of
-\code{\link[=supported_sports]{supported_sports()}}. Soccer is accepted, but soccer team wordmark
-lookups return \code{NA} because the club references carry no wordmark URLs.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. A team the logo archive
+has no wordmark for draws its logo instead.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -121,7 +120,8 @@ created with \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.
 \description{
 This geom is used to plot sports team wordmarks instead
 of points in a ggplot. It requires x, y aesthetics as well as a valid
-team abbreviation. The latter can be checked with \code{\link[=valid_team_names]{valid_team_names()}}.
+team identifier: anything \code{\link[=sdv_resolve]{sdv_resolve()}} accepts. A league's teams are
+listed by \code{\link[=sdv_teams]{sdv_teams()}}.
 }
 \section{Aesthetics}{
 
@@ -129,7 +129,7 @@ team abbreviation. The latter can be checked with \code{\link[=valid_team_names]
 \describe{
 \item{\strong{x}}{ - The x-coordinate.}
 \item{\strong{y}}{ - The y-coordinate.}
-\item{\strong{team}}{ - The team abbreviation. Should be one of \code{\link[=valid_team_names]{valid_team_names()}}.}
+\item{\strong{team}}{ - The team: an abbreviation, name or id, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}.}
 \item{\code{alpha = NULL}}{ - The alpha channel, i.e. transparency level, as a numerical value between 0 and 1.}
 \item{\code{colour = NULL}}{ - The image will be colorized with this colour. Use \code{"b/w"} for black and white.}
 \item{\code{angle = 0}}{ - The angle of the image as a numerical value between 0 and 360 degrees.}
@@ -145,7 +145,7 @@ team abbreviation. The latter can be checked with \code{\link[=valid_team_names]
 library(sdvplotR)
 library(ggplot2)
 
-team_abbr <- valid_team_names("nfl")[1:8]
+team_abbr <- sdv_teams("nfl")$abbr[1:8]
 
 df <- data.frame(
   a = rep(1:4, 2),
@@ -154,7 +154,7 @@ df <- data.frame(
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_sdv_wordmarks(aes(team = teams), sport = "nfl", width = 0.12) +
+  geom_sdv_wordmarks(aes(team = teams), league = "nfl", width = 0.12) +
   geom_label(aes(label = teams), nudge_y = -0.20, alpha = 0.5) +
   scale_x_continuous(expand = expansion(add = 0.5)) +
   theme_void()

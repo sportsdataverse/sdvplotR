@@ -7,7 +7,7 @@
 gt_theme_sdv_team(
   gt_object,
   team = NULL,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   density = c("comfortable", "compact", "social"),
   ...
 )
@@ -16,10 +16,10 @@ gt_theme_sdv_team(
 \item{gt_object}{A \code{gt} table object to modify.}
 
 \item{team}{Character. One team, as an abbreviation, alias or name for
-\code{sport}. Defaults to \code{NULL}, which uses the SportsDataverse colors.}
+\code{league}. Defaults to \code{NULL}, which uses the SportsDataverse colors.}
 
-\item{sport}{Character. The league \code{team} belongs to; see
-\code{\link[=supported_sports]{supported_sports()}}. Defaults to \code{"nfl"}.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}: the league \code{team} belongs to.
+Needed with a \code{team}.}
 
 \item{density}{Character. The type and padding scale. One of \code{"comfortable"},
 \code{"compact"}, or \code{"social"}. See Density. Defaults to \code{"comfortable"}.}
@@ -35,7 +35,7 @@ Returns a modified \code{gt} table with the theme applied.
 with the team's primary color, the horizon line under the column labels takes
 the secondary color, and the column labels are set in the primary color. The
 colors come from \code{\link[=sdv_team_colors]{sdv_team_colors()}}, so any abbreviation, alias or name
-\code{\link[=clean_team_abbrs]{clean_team_abbrs()}} resolves works here.
+\code{\link[=sdv_resolve]{sdv_resolve()}} resolves works here.
 }
 \details{
 Text on the filled title block is black or white, whichever contrasts more
@@ -68,7 +68,7 @@ leaders <- data.frame(
 )
 gt(leaders) |>
   tab_header("Chiefs yardage leaders", "2023 regular season") |>
-  gt_theme_sdv_team(team = "KC", sport = "nfl")
+  gt_theme_sdv_team(team = "KC", league = "nfl")
 
 }
 \seealso{

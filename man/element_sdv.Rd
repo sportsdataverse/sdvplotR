@@ -8,7 +8,7 @@
 \title{Theme Elements for Image Grobs}
 \usage{
 element_sdv_logo(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   alpha = NULL,
   colour = NA,
   color = NULL,
@@ -18,7 +18,7 @@ element_sdv_logo(
 )
 
 element_sdv_wordmark(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   alpha = NULL,
   colour = NA,
   color = NULL,
@@ -28,14 +28,14 @@ element_sdv_wordmark(
 )
 
 element_sdv_headshot(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   alpha = NULL,
   colour = NA,
   color = NULL,
   hjust = NULL,
   vjust = NULL,
   size = 0.5,
-  id_type = NULL
+  id_system = "espn"
 )
 
 element_sdv_raster(
@@ -52,8 +52,7 @@ element_sdv_raster(
 )
 }
 \arguments{
-\item{sport}{Character string identifying the sport. One of
-\code{\link[=supported_sports]{supported_sports()}}.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
 \item{alpha}{The alpha channel (transparency) between 0 and 1.}
 
@@ -66,9 +65,11 @@ for black and white.}
 
 \item{size}{The output grob size in \code{cm}.}
 
-\item{id_type}{Which ID system the player IDs hold: \code{NULL} (the default;
-GSIS IDs for the NFL, ESPN athlete IDs otherwise), \code{"espn"} or \code{"league"}
-(NBA / WNBA Stats \code{PERSON_ID}, MLBAM, NHL API, GSIS). See \code{\link[=geom_sdv_headshots]{geom_sdv_headshots()}}.}
+\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
+league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
+\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
+published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
+\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
 
 \item{image_path}{A file path or url to an image.}
 
@@ -97,7 +98,7 @@ element such as \code{plot.background}. A thin wrapper around
 }
 \details{
 The elements translate team abbreviations or player IDs into
-logo images or player headshots for the specified sport. Rendering is
+logo images or player headshots for the specified league. Rendering is
 delegated to \code{\link[ggpath:element_path]{ggpath::element_path()}}, which they extend. Set on a parent
 element such as \code{axis.text.x}, they also replace the position children
 (\code{axis.text.x.bottom}, \code{axis.text.y.left}, ...) that complete themes like
@@ -108,7 +109,7 @@ element such as \code{axis.text.x}, they also replace the position children
 library(sdvplotR)
 library(ggplot2)
 
-team_abbr <- valid_team_names("nfl")[1:16]
+team_abbr <- sdv_teams("nfl")$abbr[1:16]
 
 df <- data.frame(
   random_value = runif(length(team_abbr), 0, 1),
@@ -118,10 +119,10 @@ df <- data.frame(
 # use logos for x-axis
 ggplot(df, aes(x = teams, y = random_value)) +
   geom_col(aes(color = teams, fill = teams), width = 0.5) +
-  scale_color_sdv(sport = "nfl", type = "secondary") +
-  scale_fill_sdv(sport = "nfl", alpha = 0.4) +
+  scale_color_sdv(league = "nfl", type = "secondary") +
+  scale_fill_sdv(league = "nfl", alpha = 0.4) +
   theme_minimal() +
-  theme(axis.text.x = element_sdv_logo(sport = "nfl"))
+  theme(axis.text.x = element_sdv_logo(league = "nfl"))
 }
 }
 \seealso{

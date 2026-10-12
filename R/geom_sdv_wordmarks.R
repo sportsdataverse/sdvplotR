@@ -2,19 +2,19 @@
 #'
 #' @description This geom is used to plot sports team wordmarks instead
 #'   of points in a ggplot. It requires x, y aesthetics as well as a valid
-#'   team abbreviation. The latter can be checked with [`valid_team_names()`].
+#'   team identifier: anything [sdv_resolve()] accepts. A league's teams are
+#'   listed by [sdv_teams()].
 #'
 #' @inheritParams ggplot2::geom_point
-#' @param sport Character string identifying the sport. One of
-#'   [supported_sports()]. Soccer is accepted, but soccer team wordmark
-#'   lookups return `NA` because the club references carry no wordmark URLs.
+#' @param league A league key from [sdv_leagues()]. A team the logo archive
+#'   has no wordmark for draws its logo instead.
 #'
 #' @section Aesthetics:
 #' `geom_sdv_wordmarks()` understands the following aesthetics (required aesthetics are in bold):
 #' \describe{
 #'   \item{**x**}{ - The x-coordinate.}
 #'   \item{**y**}{ - The y-coordinate.}
-#'   \item{**team**}{ - The team abbreviation. Should be one of [valid_team_names()].}
+#'   \item{**team**}{ - The team: an abbreviation, name or id, resolved by [sdv_resolve()].}
 #'   \item{`alpha = NULL`}{ - The alpha channel, i.e. transparency level, as a numerical value between 0 and 1.}
 #'   \item{`colour = NULL`}{ - The image will be colorized with this colour. Use `"b/w"` for black and white.}
 #'   \item{`angle = 0`}{ - The angle of the image as a numerical value between 0 and 360 degrees.}
@@ -32,7 +32,7 @@
 #' library(sdvplotR)
 #' library(ggplot2)
 #'
-#' team_abbr <- valid_team_names("nfl")[1:8]
+#' team_abbr <- sdv_teams("nfl")$abbr[1:8]
 #'
 #' df <- data.frame(
 #'   a = rep(1:4, 2),
@@ -41,7 +41,7 @@
 #' )
 #'
 #' ggplot(df, aes(x = a, y = b)) +
-#'   geom_sdv_wordmarks(aes(team = teams), sport = "nfl", width = 0.12) +
+#'   geom_sdv_wordmarks(aes(team = teams), league = "nfl", width = 0.12) +
 #'   geom_label(aes(label = teams), nudge_y = -0.20, alpha = 0.5) +
 #'   scale_x_continuous(expand = expansion(add = 0.5)) +
 #'   theme_void()
@@ -52,12 +52,12 @@ geom_sdv_wordmarks <- function(
     stat = "identity",
     position = "identity",
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     na.rm = FALSE,
     show.legend = FALSE,
     inherit.aes = TRUE
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
+  league <- check_league(league)
 
   ggplot2::layer(
     data = data,
@@ -69,7 +69,7 @@ geom_sdv_wordmarks <- function(
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
-      sport = sport,
+      league = league,
       ...
     )
   )
@@ -84,9 +84,9 @@ GeomSDVwordmark <- ggplot2::ggproto(
     alpha = NULL, colour = NULL, angle = 0, hjust = 0.5,
     vjust = 0.5, width = 1.0, height = 1.0
   ),
-  draw_panel = function(data, panel_params, coord, na.rm = FALSE, sport = "nfl") {
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE, league = "nfl") {
     # Resolve team abbreviations to wordmark URLs
-    data$path <- wordmark_from_team(data$team, sport = sport)
+    data$path <- wordmark_from_team(data$team, league)
 
     # Delegate to ggpath for actual rendering
     ggpath::GeomFromPath$draw_panel(

@@ -34,7 +34,7 @@ test_that("theme_bg matches the background every theme applies", {
 test_that("gt_sdv_logos keep their size inside a table theme", {
   df <- data.frame(team = c("KC", "BUF"), wins = c(15, 13))
   h <- gt::gt(df) |>
-    gt_sdv_logos(columns = "team", sport = "nfl", height = 30) |>
+    gt_sdv_logos(columns = "team", league = "nfl", height = 30) |>
     gt_theme_kenpom() |>
     html_of()
   expect_match(h, paste0(logo_from_team("KC", "nfl"), "\" style=\"height:30px;\""), fixed = TRUE)
@@ -78,31 +78,27 @@ test_that("gt_theme_sdv_team dresses the table in the team's colors", {
     st <- tbl[["_styles"]]
     st[st$locname == "columns_columns", ]$styles[[1]]$cell_text$color
   }
-  kc_tbl <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "KC", sport = "nfl")
-  expect_identical(opt(kc_tbl, "heading_background_color"), "#E31837")
-  expect_identical(label_color(kc_tbl), "#E31837")
-  expect_match(horizon(html_of(kc_tbl)), "#FFB612$")
+  kc_tbl <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "KC", league = "nfl")
+  expect_identical(toupper(opt(kc_tbl, "heading_background_color")), "#E31837")
+  expect_identical(toupper(label_color(kc_tbl)), "#E31837")
+  expect_match(toupper(horizon(html_of(kc_tbl))), "#FFB612$")
 
   # a white secondary would vanish on the white table: the line takes the primary
-  duke <- html_of(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "DUKE", sport = "mbb"))
-  expect_match(horizon(duke), "#00539B$")
+  duke <- html_of(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "DUKE", league = "mbb"))
+  expect_match(toupper(horizon(duke)), "#00539B$")
 
   # a pale primary is unreadable as label text on white: labels go navy
-  no <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "NO", sport = "nfl")
+  no <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "NO", league = "nfl")
   expect_identical(label_color(no), "#0B1A33")
 
   # every team has colors now (Chicago State's come from ESPN's basketball
-  # entry); a key with none on file, the AFC, wears the SDV colors, with a warning
-  chst <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "CHST", sport = "cfb")
-  expect_identical(opt(chst, "heading_background_color"), "#006700")
-  expect_warning(
-    afc <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "AFC", sport = "nfl"),
-    "No colors on file"
-  )
-  expect_identical(opt(afc, "heading_background_color"), "#0B1A33")
+  # entry); a conference key such as the AFC is not a team, so it has none
+  chst <- gt_theme_sdv_team(gt::gt(head(mtcars)), team = "CHST", league = "cfb")
+  expect_identical(toupper(opt(chst, "heading_background_color")), "#006700")
+  expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "AFC", league = "nfl"), "No NFL team matches")
 
-  expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "nope"), "No NFL team matches")
-  expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = c("KC", "LV")), "single team")
+  expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "nope", league = "nfl"), "No NFL team matches")
+  expect_error(gt_theme_sdv_team(gt::gt(head(mtcars)), team = c("KC", "LV"), league = "nfl"), "single team")
 })
 
 test_that("gt_theme_sdv sets the navy background in dark style", {
@@ -174,7 +170,7 @@ test_that("every theme hands the Bootstrap table variables back to the table", {
     html <- html_of(do.call(row$theme, c(list(gt::gt(head(mtcars))), args)))
     expect_match(html, guard, info = paste(row$theme, row$has_style))
   }
-  team <- html_of(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "KC", sport = "nfl"))
+  team <- html_of(gt_theme_sdv_team(gt::gt(head(mtcars)), team = "KC", league = "nfl"))
   expect_match(team, guard)
 })
 

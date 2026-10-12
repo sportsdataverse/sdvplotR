@@ -4,16 +4,12 @@
 \alias{sdv_surface}
 \title{Team-Styled Playing Surfaces}
 \usage{
-sdv_surface(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer", "fiba"),
-  team = NULL,
-  center_logo = FALSE,
-  ...
-)
+sdv_surface(league, team = NULL, center_logo = FALSE, ...)
 }
 \arguments{
-\item{sport}{One of \code{\link[=supported_sports]{supported_sports()}}, or \code{"soccer"} or \code{"fiba"}. Each maps to a 'sportyR' surface:\tabular{ll}{
-   sport \tab surface \cr
+\item{league}{One of \code{"nfl"}, \code{"nba"}, \code{"wnba"}, \code{"mlb"}, \code{"nhl"}, \code{"cfb"}, \code{"mbb"},
+\code{"wbb"}, \code{"soccer"} or \code{"fiba"}. Each maps to a 'sportyR' surface:\tabular{ll}{
+   league \tab surface \cr
    \code{"nfl"} \tab \code{sportyR::geom_football("nfl")} \cr
    \code{"cfb"} \tab \code{sportyR::geom_football("ncaa")} \cr
    \code{"nba"}, \code{"wnba"} \tab \code{sportyR::geom_basketball("nba")} / \code{("wnba")} \cr
@@ -25,7 +21,7 @@ sdv_surface(
 }}
 
 \item{team}{\code{NULL} (the default) for the plain regulation surface, or one
-team name or abbreviation, cleaned by \code{\link[=clean_team_abbrs]{clean_team_abbrs()}}.}
+team identifier, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}.}
 
 \item{center_logo}{If \code{TRUE}, draw the team's logo at center court, center
 ice or midfield. Needs a \code{team}; ignored with a warning for \code{"mlb"},

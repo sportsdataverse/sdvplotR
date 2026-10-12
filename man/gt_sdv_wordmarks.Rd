@@ -4,13 +4,7 @@
 \alias{gt_sdv_wordmarks}
 \title{Render Wordmarks in 'gt' Tables}
 \usage{
-gt_sdv_wordmarks(
-  gt_object,
-  columns,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  height = 30,
-  locations = NULL
-)
+gt_sdv_wordmarks(gt_object, columns, league, height = 30, locations = NULL)
 }
 \arguments{
 \item{gt_object}{A table object created using \code{\link[gt:gt]{gt::gt()}}.}
@@ -18,7 +12,7 @@ gt_sdv_wordmarks(
 \item{columns}{The columns for which the image translation should be applied.
 Argument has no effect if \code{locations} is not \code{NULL}.}
 
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
 \item{height}{The absolute height (px) of the image in the table cell.}
 
@@ -41,7 +35,7 @@ library(gt)
 df <- data.frame(team = c("KC", "BUF", "SF"), wins = c(14, 13, 12))
 df |>
   gt() |>
-  gt_sdv_wordmarks(columns = "team", sport = "nfl")
+  gt_sdv_wordmarks(columns = "team", league = "nfl")
 }
 }
 \seealso{

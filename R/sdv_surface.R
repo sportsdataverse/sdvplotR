@@ -9,9 +9,10 @@
 #'   (paint colors, center logos, end zone art, special-event floors) exists
 #'   yet.
 #'
-#' @param sport One of [supported_sports()], or `"soccer"` or `"fiba"`. Each maps to a 'sportyR' surface:
+#' @param league One of `"nfl"`, `"nba"`, `"wnba"`, `"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`,
+#'   `"wbb"`, `"soccer"` or `"fiba"`. Each maps to a 'sportyR' surface:
 #'
-#'   | sport | surface |
+#'   | league | surface |
 #'   |---|---|
 #'   | `"nfl"` | `sportyR::geom_football("nfl")` |
 #'   | `"cfb"` | `sportyR::geom_football("ncaa")` |
@@ -22,7 +23,7 @@
 #'   | `"soccer"` | `sportyR::geom_soccer("fifa")`, 105 x 68 m (`pitch_updates` overrides) |
 #'   | `"fiba"` | `sportyR::geom_basketball("fiba")` (28 x 15 m) |
 #' @param team `NULL` (the default) for the plain regulation surface, or one
-#'   team name or abbreviation, cleaned by [clean_team_abbrs()].
+#'   team identifier, resolved by [sdv_resolve()].
 #' @param center_logo If `TRUE`, draw the team's logo at center court, center
 #'   ice or midfield. Needs a `team`; ignored with a warning for `"mlb"`,
 #'   whose surface is an infield with no center.
@@ -74,15 +75,15 @@
 #' }
 #' }
 sdv_surface <- function(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer", "fiba"),
+  league,
   team = NULL,
   center_logo = FALSE,
   ...
 ) {
-  sport <- rlang::arg_match0(sport, surface_sports())
+  league <- rlang::arg_match0(league, surface_sports())
   rlang::check_installed("sportyR", reason = "to draw playing surfaces.")
 
-  geom <- switch(sport,
+  geom <- switch(league,
     nfl = ,
     cfb = "geom_football",
     nba = ,
@@ -94,48 +95,48 @@ sdv_surface <- function(
     mlb = "geom_baseball",
     soccer = "geom_soccer"
   )
-  league <- switch(sport,
+  sporty_league <- switch(league,
     cfb = ,
     mbb = ,
     wbb = "ncaa",
     soccer = "fifa",
-    sport
+    league
   )
   args <- list(...)
-  if (sport == "soccer") {
+  if (league == "soccer") {
     # sportyR's "fifa" pitch is FIFA's 120 x 90 m maximum; real pitches (and sdv_pitch_coords()) are 105 x 68
     args$pitch_updates <- utils::modifyList(list(pitch_length = 105, pitch_width = 68), as.list(args$pitch_updates))
   }
-  if (!is.null(team) && !sport %in% supported_sports()) {
-    cli::cli_abort("No team identities for {.val {sport}} yet: draw the plain surface with {.code team = NULL}.")
+  if (!is.null(team) && league == "fiba") {
+    cli::cli_abort("No team identities for {.val {league}} yet: draw the plain surface with {.code team = NULL}.")
   }
 
   if (!is.null(team)) {
     if (!is.character(team) || length(team) != 1L || is.na(team)) {
       cli::cli_abort("{.arg team} must be one team name or abbreviation.")
     }
-    primary <- unname(sdv_team_colors(sport, team, type = "primary"))
+    primary <- unname(suppressWarnings(sdv_team_colors(league, team, which = "primary")))
     if (is.na(primary)) {
       cli::cli_abort(c(
-        "{.val {team}} is not a {.val {sport}} team.",
-        i = "See {.code valid_team_names(\"{sport}\")}."
+        "{.val {team}} is not a {.val {league}} team.",
+        i = "See {.code sdv_teams(\"{league}\")}."
       ))
     }
-    secondary <- unname(sdv_team_colors(sport, team, type = "secondary"))
+    secondary <- unname(sdv_team_colors(league, team, which = "secondary"))
     args$color_updates <- utils::modifyList(
       surface_color_updates(geom, primary, secondary),
       as.list(args$color_updates)
     )
   }
 
-  p <- do.call(getExportedValue("sportyR", geom), c(list(league), args))
+  p <- do.call(getExportedValue("sportyR", geom), c(list(sporty_league), args))
 
   if (isTRUE(center_logo)) {
     if (is.null(team)) cli::cli_abort("{.arg center_logo} needs a {.arg team}.")
     if (geom == "geom_baseball") {
       cli::cli_warn("{.arg center_logo} is ignored for {.val mlb}: the infield has no center.")
     } else {
-      p <- p + surface_logo_layer(geom, team, sport, args)
+      p <- p + surface_logo_layer(geom, team, league, args)
     }
   }
   p
@@ -189,7 +190,7 @@ surface_color_updates <- function(geom, primary, secondary) {
 
 # The team logo at the surface's center, `size` surface units across. ESPN's
 # dark-background variant goes on dark grass.
-surface_logo_layer <- function(geom, team, sport, args) {
+surface_logo_layer <- function(geom, team, league, args) {
   size <- c(geom_basketball = 12, geom_football = 10, geom_hockey = 24, geom_soccer = 18.3)[[geom]]
   from <- c(geom_basketball = "ft", geom_football = "yd", geom_hockey = "ft", geom_soccer = "m")[[geom]]
   unit_arg <- c(
@@ -203,8 +204,8 @@ surface_logo_layer <- function(geom, team, sport, args) {
     data.frame(x = args$x_trans %||% 0, y = args$y_trans %||% 0),
     angle = args$rotation %||% 0
   )
-  variant <- if (.theme_on_color(surface_base[[geom]]) == "#FFFFFF") "dark" else "primary"
-  center$path <- resolve_logo_url(team, sport, variant = variant)
+  variant <- if (.theme_on_color(surface_base[[geom]]) == "#FFFFFF") "dark" else "default"
+  center$path <- logo_from_team(team, league, variant = variant)
 
   ggplot2::layer(
     data = center,
@@ -229,6 +230,6 @@ GeomSDVsurfaceLogo <- ggplot2::ggproto(
   }
 )
 
-# Surface keys: every sport with team identities, plus surfaces drawn without
-# them. unique() keeps the order stable once "soccer" gains identities.
-surface_sports <- function() unique(c(supported_sports(), "soccer", "fiba"))
+# Surface keys: the leagues with a sportyR surface. "fiba" has no team
+# identities yet, so it draws without a team.
+surface_sports <- function() c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer", "fiba")

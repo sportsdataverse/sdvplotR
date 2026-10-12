@@ -4,17 +4,17 @@
 #' Create Team Tier Plots
 #'
 #' @description This function sets up a ggplot to visualize team tiers across
-#'   any sport supported by sdvplotR. Teams are organized by performance or
+#'   any league supported by sdvplotR. Teams are organized by performance or
 #'   other metrics into labeled tiers.
 #'
 #' @param data A data frame that must include the variables `tier_no` (the
 #'   number of the tier starting from the top tier no. 1) and `team` (the
-#'   team abbreviation). `team` should be one of [valid_team_names()].
+#'   team: anything [sdv_resolve()] accepts).
 #'   If data includes the variable `tier_rank`, these ranks will be used within
 #'   each tier. Otherwise, if `presort = FALSE`, the function will assume that
 #'   data is already sorted and if `presort = TRUE`, teams will be sorted
 #'   alphabetically within tiers.
-#' @param sport Character string identifying the sport.
+#' @param league A league key from [sdv_leagues()].
 #' @param title The title of the plot. If `NULL`, it will be omitted.
 #' @param subtitle The subtitle of the plot. If `NULL`, it will be omitted.
 #' @param caption The caption of the plot. If `NULL`, it will be omitted.
@@ -32,14 +32,11 @@
 #'   development.
 #' @param theme `"dark"` (the default: a near-black background with white
 #'   labels) or `"light"` (a white background with dark labels and lines).
-#' @param variant The logo variant to draw. `"auto"` (the default) draws each
-#'   team's dark-background logo (`"dark"`) on the dark theme and its primary
-#'   logo on the light theme, so dark marks such as the Capitals', the Giants'
-#'   or Penn State's don't fade into the dark background. A team with no dark
-#'   logo draws its primary one, with no warning. Any other value is
-#'   `"primary"`, `"dark"`, `"scoreboard"` or a named mark of the sport (see
-#'   [sdv_logo_url()]), drawn on either theme, with the same fallback. `"primary"` gives the old look,
-#'   which drew the primary logo on both themes.
+#' @param variant The logo variant to draw: `"default"`, `"dark"` (the
+#'   dark-background marks, which keep dark logos such as the Capitals' or Penn
+#'   State's from fading into the dark theme), or a named variant from
+#'   [sdv_marks()]; see [sdv_logo_url()]. A team without it draws its closest
+#'   mark, with no warning.
 #'
 #' @return A ggplot object.
 #' @export
@@ -55,12 +52,12 @@
 #' )
 #'
 #' # Plot team tiers, each team's primary logo on white
-#' sdv_team_tiers(df, sport = "nfl", theme = "light")
+#' sdv_team_tiers(df, league = "nfl", theme = "light")
 #' }
 sdv_team_tiers <- function(
     data,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-    title = glue::glue("{toupper(sport)} Team Tiers"),
+    league,
+    title = glue::glue("{toupper(league)} Team Tiers"),
     subtitle = glue::glue("created with the #sdvplotR Tiermaker"),
     caption = NULL,
     tier_desc = c(
@@ -78,15 +75,11 @@ sdv_team_tiers <- function(
     no_line_below_tier = NULL,
     devel = FALSE,
     theme = c("dark", "light"),
-    variant = "auto"
+    variant = "default"
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
+  league <- check_league(league)
   theme <- rlang::arg_match(theme)
-  variant <- if (identical(variant, "auto")) {
-    if (theme == "dark") "dark" else "primary"
-  } else {
-    check_variant(variant, "logo", sport)
-  }
+  check_mark_variant(variant, league)
 
   required_vars <- c("tier_no", "team")
 
@@ -124,13 +117,8 @@ sdv_team_tiers <- function(
       dplyr::ungroup()
   }
 
-  data$team <- clean_team_abbrs(
-    as.character(data$team),
-    sport = sport,
-    keep_non_matches = FALSE
-  )
-  # a team without the variant falls back to its primary logo
-  data$path <- resolve_logo_url(data$team, sport, variant)
+  # a team without the variant falls back to its closest mark
+  data$path <- logo_from_team(data$team, league, variant = variant)
 
   p <- ggplot2::ggplot(
     data,
@@ -191,21 +179,19 @@ sdv_team_tiers <- function(
 
 #' Order Team Names as a Factor
 #'
-#' @description Creates a factor of cleaned, valid team names. Levels are
-#'   restricted to teams present in [valid_team_names()] so that downstream
+#' @description Creates a factor of team names whose levels are the values
+#'   that resolve to a team of `league` (see [sdv_resolve()]), so downstream
 #'   ggplot2 scales drop invalid entries gracefully.
 #'
 #' @param teams Character vector of team names.
-#' @param sport Character string identifying the sport.
-#' @return An ordered `factor` of the cleaned, valid team names.
+#' @param league A league key from [sdv_leagues()].
+#' @return A `factor` of `teams`, levels limited to the values that resolve.
 #' @export
 #' @examples
-#' sdv_team_factor(c("KC", "BUF", "invalid"), sport = "nfl")
-sdv_team_factor <- function(teams, sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")) {
-  sport <- rlang::arg_match0(sport, supported_sports())
+#' sdv_team_factor(c("KC", "BUF", "invalid"), league = "nfl")
+sdv_team_factor <- function(teams, league) {
+  league <- check_league(league)
 
-  teams <- clean_team_abbrs(as.character(teams), sport = sport)
-  valid <- valid_team_names(sport)
-
-  factor(teams, levels = sort(unique(teams[teams %in% valid])))
+  ids <- resolve_ids(teams, league)$ids
+  factor(teams, levels = sort(unique(as.character(teams)[!is.na(ids)])))
 }

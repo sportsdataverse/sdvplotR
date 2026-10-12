@@ -68,7 +68,7 @@ standings <- data.frame(
   w = c(15, 11, 10, 4), l = c(2, 6, 7, 13)
 )
 gt(standings) |>
-  gt_sdv_logos(columns = "team", sport = "nfl") |>
+  gt_sdv_logos(columns = "team", league = "nfl") |>
   tab_header("AFC West standings", "Through week 18") |>
   gt_theme_sdv()
 

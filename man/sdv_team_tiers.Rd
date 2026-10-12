@@ -6,8 +6,8 @@
 \usage{
 sdv_team_tiers(
   data,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  title = glue::glue("{toupper(sport)} Team Tiers"),
+  league,
+  title = glue::glue("{toupper(league)} Team Tiers"),
   subtitle = glue::glue("created with the #sdvplotR Tiermaker"),
   caption = NULL,
   tier_desc = c(`1` = "Elite", `2` = "Very Good", `3` = "Medium", `4` = "Bad", `5` =
@@ -18,19 +18,19 @@ sdv_team_tiers(
   no_line_below_tier = NULL,
   devel = FALSE,
   theme = c("dark", "light"),
-  variant = "auto"
+  variant = "default"
 )
 }
 \arguments{
 \item{data}{A data frame that must include the variables \code{tier_no} (the
 number of the tier starting from the top tier no. 1) and \code{team} (the
-team abbreviation). \code{team} should be one of \code{\link[=valid_team_names]{valid_team_names()}}.
+team: anything \code{\link[=sdv_resolve]{sdv_resolve()}} accepts).
 If data includes the variable \code{tier_rank}, these ranks will be used within
 each tier. Otherwise, if \code{presort = FALSE}, the function will assume that
 data is already sorted and if \code{presort = TRUE}, teams will be sorted
 alphabetically within tiers.}
 
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
 \item{title}{The title of the plot. If \code{NULL}, it will be omitted.}
 
@@ -59,21 +59,18 @@ development.}
 \item{theme}{\code{"dark"} (the default: a near-black background with white
 labels) or \code{"light"} (a white background with dark labels and lines).}
 
-\item{variant}{The logo variant to draw. \code{"auto"} (the default) draws each
-team's dark-background logo (\code{"dark"}) on the dark theme and its primary
-logo on the light theme, so dark marks such as the Capitals', the Giants'
-or Penn State's don't fade into the dark background. A team with no dark
-logo draws its primary one, with no warning. Any other value is
-\code{"primary"}, \code{"dark"}, \code{"scoreboard"} or a named mark of the sport (see
-\code{\link[=sdv_logo_url]{sdv_logo_url()}}), drawn on either theme, with the same fallback. \code{"primary"} gives the old look,
-which drew the primary logo on both themes.}
+\item{variant}{The logo variant to draw: \code{"default"}, \code{"dark"} (the
+dark-background marks, which keep dark logos such as the Capitals' or Penn
+State's from fading into the dark theme), or a named variant from
+\code{\link[=sdv_marks]{sdv_marks()}}; see \code{\link[=sdv_logo_url]{sdv_logo_url()}}. A team without it draws its closest
+mark, with no warning.}
 }
 \value{
 A ggplot object.
 }
 \description{
 This function sets up a ggplot to visualize team tiers across
-any sport supported by sdvplotR. Teams are organized by performance or
+any league supported by sdvplotR. Teams are organized by performance or
 other metrics into labeled tiers.
 }
 \examples{
@@ -88,6 +85,6 @@ df <- data.frame(
 )
 
 # Plot team tiers, each team's primary logo on white
-sdv_team_tiers(df, sport = "nfl", theme = "light")
+sdv_team_tiers(df, league = "nfl", theme = "light")
 }
 }

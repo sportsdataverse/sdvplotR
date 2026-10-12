@@ -8,7 +8,7 @@
 A tibble with 62 rows (32 NFL teams, then 30 NBA teams), ordered by
 league, conference, division and division finish, and 16 columns:
 \describe{
-\item{league}{\code{"nfl"} or \code{"nba"}, the \code{sport} value the helpers take.}
+\item{league}{\code{"nfl"} or \code{"nba"}, the \code{league} value the helpers take.}
 \item{season}{\code{2025} for the NFL; \code{2026} for the NBA, whose 2025-26
 season goes by its ending year as in 'hoopR'.}
 \item{team}{Team abbreviation.}
@@ -41,7 +41,7 @@ games), with divisions and conference ranks from ESPN's standings (the
 endpoint \code{hoopR::espn_nba_standings()} reads), whose records the script
 checks against the box scores. \code{last_season_wins} comes from the same
 loaders one season back. Team names and ESPN ids come from
-\code{\link[=team_reference]{team_reference()}}.
+sdvplotR's team reference.
 }
 \usage{
 sdv_example_standings
@@ -50,7 +50,7 @@ sdv_example_standings
 Real standings for one completed season in two leagues, one row per team:
 the 2025 NFL season and the 2025-26 NBA season. The reference examples run on
 it, so the table and plot helpers are shown on sports data. Each \code{team} is
-the abbreviation \code{\link[=valid_team_names]{valid_team_names()}} lists, so it works as the team input of
+the abbreviation \code{\link[=sdv_teams]{sdv_teams()}} lists, so it works as the team input of
 every logo, color and headshot helper as it is.
 }
 \examples{
@@ -65,7 +65,7 @@ table(playoffs$league)
 \donttest{
 subset(sdv_example_standings, division == "Atlantic", c(team, wins, losses)) |>
   gt::gt() |>
-  gt_sdv_logos(columns = "team", sport = "nba")
+  gt_sdv_logos(columns = "team", league = "nba")
 }
 }
 \keyword{datasets}

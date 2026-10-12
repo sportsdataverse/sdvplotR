@@ -8,28 +8,28 @@ df <- data.frame(
 )
 
 test_that("geoms build ggplot layers that resolve paths at draw time", {
-  p <- ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team), sport = "nfl")
+  p <- ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team), league = "nfl")
   expect_s3_class(p, "ggplot")
   expect_s3_class(p$layers[[1]]$geom, "GeomSDVlogo")
   b <- ggplot_build(p)
   expect_in(c("team", "x", "y"), names(b$data[[1]]))
 
-  p2 <- ggplot(df, aes(x, y)) + geom_sdv_wordmarks(aes(team = team), sport = "nfl")
+  p2 <- ggplot(df, aes(x, y)) + geom_sdv_wordmarks(aes(team = team), league = "nfl")
   expect_s3_class(p2$layers[[1]]$geom, "GeomSDVwordmark")
-  p3 <- ggplot(df, aes(x, y)) + geom_sdv_headshots(aes(player_id = id), sport = "nfl")
+  p3 <- ggplot(df, aes(x, y)) + geom_sdv_headshots(aes(player_id = id), league = "nfl", id_system = "gsis")
   expect_s3_class(p3$layers[[1]]$geom, "GeomSDVheadshot")
 })
 
-test_that("geoms validate the sport argument", {
-  expect_snapshot(geom_sdv_logos(sport = "xfl"), error = TRUE)
+test_that("geoms validate the league argument", {
+  expect_error(geom_sdv_logos(league = "xyz"), "Unknown league")
 })
 
 test_that("color and fill scales carry team colours", {
-  sc <- scale_color_sdv(sport = "nfl")
+  sc <- scale_color_sdv(league = "nfl")
   expect_s3_class(sc, "Scale")
   expect_identical(sc$aesthetics, "colour")
   expect_identical(unname(sc$palette(0)["KC"]), unname(sdv_team_colors("nfl", "KC")))
-  sf <- scale_fill_sdv(sport = "nba", type = "secondary", alpha = 0.5)
+  sf <- scale_fill_sdv(league = "nba", which = "secondary", alpha = 0.5)
   expect_identical(sf$aesthetics, "fill")
   expect_match(sf$palette(0)[1], "^#[0-9A-F]{8}$")
   expect_identical(scale_colour_sdv, scale_color_sdv)
@@ -37,10 +37,10 @@ test_that("color and fill scales carry team colours", {
 
 test_that("axis scales produce image labels", {
   local_headshot_map()
-  sx <- scale_x_sdv(sport = "nfl", size = 20)
+  sx <- scale_x_sdv(league = "nfl", size = 20)
   expect_s3_class(sx, "ScaleDiscretePosition")
   expect_match(sx$labels(c("KC", "BUF")), "^<img src='https://.*height = '20'>$")
-  sy <- scale_y_sdv_headshots(sport = "nfl")
+  sy <- scale_y_sdv_headshots(league = "nfl", id_system = "gsis")
   expect_match(sy$labels("00-0033873"), "width = '30'")
 })
 
@@ -52,12 +52,12 @@ test_that("theme helpers require ggtext and return theme objects", {
 })
 
 test_that("ggtitle_image resolves team logos and places the image", {
-  l <- ggtitle_image("KC", "Chiefs", sport = "nfl")
+  l <- ggtitle_image("KC", "Chiefs", league = "nfl")
   expect_match(l$title, "^<img src='https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/.*\\.png' height='15'.*> Chiefs$")
-  r <- ggtitle_image("https://example.com/x.png", "T", image_side = "right", sport = "nba")
+  r <- ggtitle_image("https://example.com/x.png", "T", image_side = "right", league = "nba")
   expect_match(r$title, "^T <img src='https://example.com/x.png'")
-  expect_error(ggtitle_image(sport = "nfl"), "title_image")
-  expect_match(ggtitle_image("KC", sport = "nfl")$title, "^<img")
+  expect_error(ggtitle_image(league = "nfl"), "title_image")
+  expect_match(ggtitle_image("KC", league = "nfl")$title, "^<img")
 })
 
 test_that("ggtitle_image draws the image beside the title, centred on the text", {
@@ -69,7 +69,7 @@ test_that("ggtitle_image draws the image beside the title, centred on the text",
   # the image box and the text glyphs of the title, in the title's own points
   title_parts <- function(side, height) {
     p <- ggplot(mtcars, aes(hp, mpg)) +
-      ggtitle_image(img, "Title text", image_height = height, image_side = side, sport = "nfl") +
+      ggtitle_image(img, "Title text", image_height = height, image_side = side, league = "nfl") +
       theme_title_image(size = 15)
     g <- ggplotGrob(p)
     box <- g$grobs[[which(g$layout$name == "title")]]$children[[1]]
@@ -97,13 +97,13 @@ test_that("ggtitle_image draws the image beside the title, centred on the text",
 
 test_that("sdv_team_tiers builds a plot and validates input", {
   tiers <- data.frame(tier_no = c(1, 1, 2, 3), team = c("KC", "BUF", "SF", "DAL"))
-  p <- sdv_team_tiers(tiers, sport = "nfl", devel = TRUE)
+  p <- sdv_team_tiers(tiers, league = "nfl", devel = TRUE)
   expect_s3_class(p, "ggplot")
   expect_s3_class(ggplot_gtable(ggplot_build(p)), "gtable")
-  expect_snapshot(sdv_team_tiers(data.frame(team = "KC"), sport = "nfl"), error = TRUE)
+  expect_snapshot(sdv_team_tiers(data.frame(team = "KC"), league = "nfl"), error = TRUE)
   # tier_desc is keyed by tier number, not position (non-contiguous tiers)
   gap <- data.frame(tier_no = c(1, 3), team = c("KC", "SF"))
-  p2 <- sdv_team_tiers(gap, sport = "nfl", devel = TRUE, tier_desc = c("1" = "Elite", "3" = "Rebuild"))
+  p2 <- sdv_team_tiers(gap, league = "nfl", devel = TRUE, tier_desc = c("1" = "Elite", "3" = "Rebuild"))
   labs <- ggplot_build(p2)$layout$panel_params[[1]]$y$get_labels()
   expect_false(anyNA(labs))
   expect_true(all(c("Elite", "Rebuild") %in% labs))
@@ -122,81 +122,82 @@ test_that("sdv_team_tiers draws a light theme for dark logos", {
       text = p$layers[[2]]$aes_params$colour
     )
   }
-  dark <- look(sdv_team_tiers(tiers, sport = "nfl", devel = TRUE))
+  dark <- look(sdv_team_tiers(tiers, league = "nfl", devel = TRUE))
   expect_identical(dark$bg, "#1e1e1e")
   expect_identical(dark$label, "white")
-  light <- look(sdv_team_tiers(tiers, sport = "nfl", devel = TRUE, theme = "light"))
+  light <- look(sdv_team_tiers(tiers, league = "nfl", devel = TRUE, theme = "light"))
   expect_identical(light$bg, "#ffffff")
   # every label and line is dark on the white background
   for (col in light[c("title", "label", "sub", "line", "text")]) {
     expect_lt(sum(grDevices::col2rgb(col)), 3 * 128)
   }
-  expect_error(sdv_team_tiers(tiers, sport = "nfl", theme = "blue"), "theme")
+  expect_error(sdv_team_tiers(tiers, league = "nfl", theme = "blue"), "theme")
 })
 
-test_that("sdv_team_tiers draws dark logos on the dark theme and primary ones on light", {
-  # Capitals, Maple Leafs, Lightning: the dark marks differ from the primary
+test_that("sdv_team_tiers draws the default logos unless a variant is given", {
+  # Capitals, Maple Leafs, Lightning: the dark marks differ from the default
   tiers <- data.frame(tier_no = c(1, 1, 2), team = c("WSH", "TOR", "TB"))
-  drawn <- function(...) layer_data(sdv_team_tiers(tiers, sport = "nhl", ...), 2)$path
-  dark <- resolve_logo_url(tiers$team, "nhl", "dark")
-  primary <- logo_from_team(tiers$team, "nhl")
-  expect_match(c(dark, primary), "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
-  expect_false(any(dark == primary))
-  expect_identical(drawn(), dark)
-  expect_identical(drawn(theme = "dark", variant = "auto"), dark)
-  expect_identical(drawn(theme = "light"), primary)
+  drawn <- function(...) layer_data(sdv_team_tiers(tiers, league = "nhl", ...), 2)$path
+  dark <- logo_from_team(tiers$team, "nhl", variant = "dark")
+  default <- logo_from_team(tiers$team, "nhl")
+  expect_match(c(dark, default), "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
+  expect_false(any(dark == default))
+  expect_identical(drawn(), default)
+  expect_identical(drawn(theme = "dark", variant = "dark"), dark)
+  expect_identical(drawn(theme = "light"), default)
 })
 
-test_that("sdv_team_tiers falls back to the primary logo where there is no dark one", {
-  # every team row has a dark logo; conferences mostly don't
-  tiers <- data.frame(tier_no = c(1, 2), team = c("SEC", "PSU"))
-  ref <- get_team_ref("cfb")
-  expect_true(is.na(ref$logo_dark_url[ref$team_abbr == "SEC"]))
-  expect_no_warning(path <- layer_data(sdv_team_tiers(tiers, sport = "cfb"), 2)$path)
-  expect_identical(path, c(logo_from_team("SEC", "cfb"), resolve_logo_url("PSU", "cfb", "dark")))
+test_that("sdv_team_tiers falls back to the default logo where there is no dark one", {
+  # Penn State has a dark mark; the Sun Belt has only its default
+  tiers <- data.frame(tier_no = c(1, 2), team = c("Sun Belt", "PSU"))
+  expect_identical(unique(sdv_marks("Sun Belt", "cfb")$variant), "default")
+  expect_no_warning(path <- layer_data(sdv_team_tiers(tiers, league = "cfb", variant = "dark"), 2)$path)
+  expect_identical(path, c(logo_from_team("Sun Belt", "cfb"), logo_from_team("PSU", "cfb", variant = "dark")))
   expect_match(path, "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
   expect_false(path[[2]] == logo_from_team("PSU", "cfb"))
 })
 
 test_that("sdv_team_tiers passes an explicit variant through", {
   tiers <- data.frame(tier_no = c(1, 2), team = c("WSH", "TOR"))
-  drawn <- function(...) layer_data(sdv_team_tiers(tiers, sport = "nhl", ...), 2)$path
-  expect_identical(drawn(variant = "primary"), logo_from_team(tiers$team, "nhl"))
-  expect_identical(drawn(theme = "light", variant = "dark"), resolve_logo_url(tiers$team, "nhl", "dark"))
+  drawn <- function(...) layer_data(sdv_team_tiers(tiers, league = "nhl", ...), 2)$path
+  expect_identical(drawn(variant = "default"), logo_from_team(tiers$team, "nhl"))
+  expect_identical(drawn(theme = "light", variant = "dark"), logo_from_team(tiers$team, "nhl", variant = "dark"))
   expect_error(drawn(variant = "neon"), "variant")
 })
 
-test_that("headshot geom and scales pass id_type through", {
+test_that("headshot geom and scales pass id_system through", {
   df <- data.frame(x = 1:2, y = 1:2, id = c("2544", "201939"))
-  p <- ggplot(df, aes(x, y)) + geom_sdv_headshots(aes(player_id = id), sport = "nba", id_type = "league")
+  p <- ggplot(df, aes(x, y)) + geom_sdv_headshots(aes(player_id = id), league = "nba", id_system = "league")
   seen <- NULL
   local_mocked_bindings(
-    headshot_from_id = function(player_id, sport, id_type = NULL) {
-      seen <<- id_type
+    headshot_from_id = function(player_id, league, id_system = "espn") {
+      seen <<- id_system
       rep(NA_character_, length(player_id))
     },
     .package = "sdvplotR"
   )
   suppressWarnings(layer_grob(p))
   expect_identical(seen, "league")
-  expect_error(geom_sdv_headshots(sport = "cfb", id_type = "league"), "league player ID")
+  expect_error(geom_sdv_headshots(league = "cfb", id_system = "league"), "league player id")
 })
 
-test_that("headshot axis scales pass id_type through", {
-  sx <- scale_x_sdv_headshots(sport = "mlb", id_type = "league")
+test_that("headshot axis scales pass id_system through", {
+  sx <- scale_x_sdv_headshots(league = "mlb", id_system = "league")
   expect_match(sx$labels("660271"), "img\\.mlbstatic\\.com/.*/people/660271/.*height = '20'")
 })
 
-test_that("color scales accept every key clean_team_abbrs() accepts", {
-  pal <- scale_fill_sdv(sport = "mlb")$palette(0)
+test_that("color scales accept every key the resolver accepts", {
+  pal <- scale_fill_sdv(league = "mlb")$palette(0)
   expect_identical(pal[["AZ"]], pal[["ARI"]]) # MLB Stats API alias
   expect_identical(pal[["CWS"]], pal[["CHW"]])
   expect_identical(pal[["MON"]], pal[["WSH"]]) # historical (Expos)
-  expect_identical(scale_color_sdv(sport = "nba")$palette(0)[["GSW"]], get_team_colors("nba")[["GS"]])
-  # a canonical abbreviation keeps its own team's color
-  expect_identical(unname(pal[names(get_team_colors("mlb"))[1:30]]), unname(get_team_ref("mlb")$color1[match(names(get_team_colors("mlb"))[1:30], get_team_ref("mlb")$team_abbr)]))
+  expect_identical(scale_color_sdv(league = "nba")$palette(0)[["GSW"]], get_team_colors("nba")[["GS"]])
+  # a canonical abbreviation and team_id keep their own team's color
+  t <- sdv_teams("mlb")
+  expect_identical(unname(pal[t$abbr]), t$color_primary)
+  expect_identical(unname(pal[t$team_id]), t$color_primary)
   df <- data.frame(team = c("AZ", "CWS"), v = 1:2)
-  built <- ggplot_build(ggplot(df, aes(team, v, fill = team)) + geom_col() + scale_fill_sdv(sport = "mlb"))
+  built <- ggplot_build(ggplot(df, aes(team, v, fill = team)) + geom_col() + scale_fill_sdv(league = "mlb"))
   expect_false(any(built$data[[1]]$fill == "grey50"))
 })
 
@@ -218,14 +219,14 @@ test_that("geom_sdv_logos passes the season aesthetic to the resolver", {
   df <- data.frame(x = 1:2, y = 1:2, team = c("QUE", "COL"), season = c(1990, NA))
   seen <- list()
   local_mocked_bindings(
-    logo_from_team = function(team, sport, season = NULL) {
+    logo_from_team = function(team, league, season = NULL, ...) {
       seen[[length(seen) + 1]] <<- season
       rep(NA_character_, length(team))
     },
     .package = "sdvplotR"
   )
-  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team, season = season), sport = "nhl")))
-  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team), sport = "nhl")))
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team, season = season), league = "nhl")))
+  suppressWarnings(layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(aes(team = team), league = "nhl")))
   expect_identical(seen[[1]], c(1990, NA))
   expect_identical(seen[[2]], c(NA, NA))
 })
@@ -236,7 +237,7 @@ test_that("geom_sdv_logos draws period marks with and without a season", {
   skip_if_not_installed("rsvg")
   df <- data.frame(x = 1:2, y = 1, team = c("QUE", "HFD"), season = c(1990, 1995))
   for (m in list(aes(team = team, season = season), aes(team = team))) {
-    expect_no_warning(g <- layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(m, sport = "nhl"))[[1]])
+    expect_no_warning(g <- layer_grob(ggplot(df, aes(x, y)) + geom_sdv_logos(m, league = "nhl"))[[1]])
     expect_true(all(vapply(g$children, inherits, logical(1), "rastergrob")))
   }
 })

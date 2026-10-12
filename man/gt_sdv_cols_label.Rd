@@ -7,10 +7,10 @@
 gt_sdv_cols_label(
   gt_object,
   columns = gt::everything(),
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   height = 30,
-  type = c("logo", "wordmark", "headshot"),
-  id_type = NULL
+  mark_type = c("logo", "wordmark", "headshot"),
+  id_system = "espn"
 )
 }
 \arguments{
@@ -18,27 +18,18 @@ gt_sdv_cols_label(
 
 \item{columns}{The columns whose labels should be replaced with logos.}
 
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
 \item{height}{The absolute height (px) of the image.}
 
-\item{type}{One of \code{"logo"}, \code{"wordmark"} or \code{"headshot"}: whether the column
-names are team abbreviations (logo / wordmark) or player IDs (headshot).}
+\item{mark_type}{One of \code{"logo"}, \code{"wordmark"} or \code{"headshot"}: whether the
+column names are teams (logo / wordmark) or player IDs (headshot).}
 
-\item{id_type}{Which ID system \code{player_id} holds. \code{NULL} (the default) takes
-GSIS IDs for the NFL and ESPN athlete IDs for every other sport. \code{"espn"}
-takes ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
-hoopR's and wehoop's \verb{espn_*()} functions. \code{"league"} takes the league's
-own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats \code{PERSON_ID}
-(hoopR's \verb{nba_*()}, wehoop's \verb{wnba_*()}), the MLBAM ID (baseballr's
-\verb{mlb_*()}, Baseball Savant) for MLB, or the NHL API player ID
-(fastRhockey's \verb{nhl_*()} and \verb{load_nhl_*()}) for the NHL, drawn from
-that league's image CDN; college sports have no league option. ESPN and
-league IDs other than GSIS are plain digits, so a mismatch draws the
-wrong player or no image rather than an error. League CDNs draw
-a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
-from datacenter IPs, so a plot drawn on CI or a server can come back
-without those headshots.}
+\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
+league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
+\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
+published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
+\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
 }
 \value{
 An object of class \code{gt_tbl}.
@@ -60,7 +51,7 @@ df <- data.frame(
 
 df |>
   gt() |>
-  gt_sdv_cols_label(columns = c("KC", "BUF", "SF"), sport = "nfl")
+  gt_sdv_cols_label(columns = c("KC", "BUF", "SF"), league = "nfl")
 }
 }
 \seealso{

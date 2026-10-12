@@ -7,10 +7,10 @@
 gt_sdv_headshots(
   gt_object,
   columns,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   height = 30,
   locations = NULL,
-  id_type = NULL
+  id_system = "espn"
 )
 }
 \arguments{
@@ -19,7 +19,7 @@ gt_sdv_headshots(
 \item{columns}{The columns for which the image translation should be applied.
 Argument has no effect if \code{locations} is not \code{NULL}.}
 
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
 \item{height}{The absolute height (px) of the image in the table cell.}
 
@@ -29,30 +29,19 @@ with the team name transformation. Only \code{\link[gt:cells_body]{gt::cells_bod
 \code{\link[gt:cells_stub]{gt::cells_stub()}}, \code{\link[gt:cells_column_labels]{gt::cells_column_labels()}}, and
 \code{\link[gt:cells_row_groups]{gt::cells_row_groups()}} helper functions can be used here.}
 
-\item{id_type}{Which ID system \code{player_id} holds. \code{NULL} (the default) takes
-GSIS IDs for the NFL and ESPN athlete IDs for every other sport. \code{"espn"}
-takes ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
-hoopR's and wehoop's \verb{espn_*()} functions. \code{"league"} takes the league's
-own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats \code{PERSON_ID}
-(hoopR's \verb{nba_*()}, wehoop's \verb{wnba_*()}), the MLBAM ID (baseballr's
-\verb{mlb_*()}, Baseball Savant) for MLB, or the NHL API player ID
-(fastRhockey's \verb{nhl_*()} and \verb{load_nhl_*()}) for the NHL, drawn from
-that league's image CDN; college sports have no league option. ESPN and
-league IDs other than GSIS are plain digits, so a mismatch draws the
-wrong player or no image rather than an error. League CDNs draw
-a silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
-from datacenter IPs, so a plot drawn on CI or a server can come back
-without those headshots.}
+\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
+league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
+\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
+published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
+\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
 }
 \value{
 An object of class \code{gt_tbl}.
 }
 \description{
 Translate player IDs to player headshots and render these
-images in html tables with the 'gt' package. IDs are GSIS IDs for the NFL
-(\code{"00-0033873"}, resolved through the headshot map sdvplotR publishes from
-nflverse rosters to the player's NFL.com headshot) and ESPN athlete IDs for
-every other sport, or as \code{id_type} says. IDs that resolve to no headshot
+images in html tables with the 'gt' package. IDs are ESPN athlete IDs in
+every league, or as \code{id_system} says. IDs that resolve to no headshot
 are left as text.
 }
 \examples{
@@ -67,7 +56,7 @@ df <- data.frame(
 
 df |>
   gt() |>
-  gt_sdv_headshots(columns = "player_id", sport = "nfl")
+  gt_sdv_headshots(columns = "player_id", league = "nfl", id_system = "gsis")
 }
 }
 \seealso{

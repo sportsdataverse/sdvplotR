@@ -2,56 +2,63 @@
 % Please edit documentation in R/team_colors.R
 \name{sdv_team_colors}
 \alias{sdv_team_colors}
-\title{Get Team Colors}
+\title{Team colours}
 \usage{
 sdv_team_colors(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   team = NULL,
-  type = c("primary", "secondary", "all"),
+  which = c("primary", "secondary", "all"),
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE,
   include_conferences = FALSE
 )
 }
 \arguments{
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. Required: one abbreviation
+means different teams in different leagues.}
 
-\item{team}{Character string or vector of team name(s) or abbreviation(s).
-If \code{NULL}, returns colors for all teams.}
+\item{team}{Team identifiers, or \code{NULL} for every team in the league.}
 
-\item{type}{Character string, \code{"primary"}, \code{"secondary"}, or \code{"all"}.}
+\item{which}{\code{"primary"}, \code{"secondary"}, or \code{"all"} (both).}
 
-\item{include_conferences}{If \code{TRUE}, also list the conferences sdvplotR
-has a logo for: the college conferences (\code{"SEC"}, \code{"Big Ten"}, \code{"A-10"})
-and \code{"AFC"}, \code{"NFC"} and \code{"NFL"}. They resolve like teams in every helper
-either way; the default, \code{FALSE}, lists teams only, so code that loops
-over teams sees only teams (nflplotR's \code{valid_team_names()} includes AFC,
-NFC and NFL).}
+\item{season}{\code{NULL}, one season year, or one per value: picks the team
+that used a reused code that season. Without one, a reused code means its
+current holder. Split seasons take their ending year (2021 for 2020-21).}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
+
+\item{strict}{If \code{TRUE}, a value that does not resolve is an error;
+otherwise it becomes \code{NA} with one warning per call.}
+
+\item{include_conferences}{With \code{team = NULL}, also list conference and
+league rows (see \code{\link[=sdv_teams]{sdv_teams()}}).}
 }
 \value{
-With \code{team} supplied, a named character vector (one element per
-team, \code{NA} for unmatched teams): the primary or secondary hex code, or for
-\code{type = "all"} the two codes as one \code{"primary, secondary"} string. With
-\code{team = NULL} and \code{type = "all"}, a data frame with columns:\tabular{lll}{
+With \code{team} given, a character vector named by \code{team} (\code{NA} where a
+team does not resolve); for \code{which = "all"}, \code{"primary, secondary"}
+strings. With \code{team = NULL}, a vector named by abbreviation (the
+\code{team_id} where a team has none), or for \code{which = "all"} a data frame:\tabular{lll}{
    col_name \tab type \tab description \cr
-   team_abbr \tab character \tab Canonical team abbreviation \cr
-   team_name \tab character \tab Full team name \cr
-   primary \tab character \tab Primary team color (hex) \cr
-   secondary \tab character \tab Secondary team color (hex) \cr
+   team_id \tab character \tab Canonical team id \cr
+   abbr \tab character \tab Abbreviation (\code{NA} where the league has none) \cr
+   name \tab character \tab Full name \cr
+   primary \tab character \tab Primary colour (hex) \cr
+   secondary \tab character \tab Secondary colour (hex; \code{NA} where none) \cr
 }
-
-
-With \code{team = NULL} and any other \code{type}, a named character vector of
-every team's color.
 }
 \description{
-Returns the primary and secondary colors (hex codes) for a given team.
+Primary and secondary colours (hex) for teams, resolved from
+any identifier \code{\link[=sdv_resolve]{sdv_resolve()}} accepts. The R counterpart of sdvplot's
+\code{team_colors()}.
 }
 \examples{
-# Get primary color for Kansas City Chiefs
 sdv_team_colors("nfl", "KC")
-
-# Get both colors for multiple teams
-sdv_team_colors("nfl", c("KC", "BUF"), type = "all")
-
-# Get all NFL team primary colors
-sdv_team_colors("nfl", type = "primary")
+sdv_team_colors("nfl", c("KC", "Buffalo Bills"), which = "all")
+sdv_team_colors("ahl", which = "primary")
 }

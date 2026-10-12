@@ -9,8 +9,8 @@
 reactable_sdv_team_color_bar(
   data,
   team_col,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  type = c("primary", "secondary"),
+  league,
+  which = c("primary", "secondary"),
   max_value = NULL,
   na_color = "grey70"
 )
@@ -18,8 +18,8 @@ reactable_sdv_team_color_bar(
 reactable_sdv_team_color_bg(
   data,
   team_col,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  type = c("primary", "secondary"),
+  league,
+  which = c("primary", "secondary"),
   alpha = 0.15,
   na_color = "grey70"
 )
@@ -31,10 +31,9 @@ look up the team of each row.}
 \item{team_col}{Character. Name of the column in \code{data} holding team
 abbreviations.}
 
-\item{sport}{Character string identifying the sport. One of
-\code{\link[=supported_sports]{supported_sports()}}.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
 
-\item{type}{Character. \code{"primary"} or \code{"secondary"} team color.}
+\item{which}{Character. \code{"primary"} or \code{"secondary"} team color.}
 
 \item{max_value}{Numeric. Reference value that fills the whole cell. If
 \code{NULL} (the default), the maximum of the styled column is used.}
@@ -62,8 +61,8 @@ df <- data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11))
 reactable(
   df,
   columns = list(
-    team = colDef(style = reactable_sdv_team_color_bg(df, "team", sport = "nfl")),
-    wins = colDef(style = reactable_sdv_team_color_bar(df, "team", sport = "nfl"))
+    team = colDef(style = reactable_sdv_team_color_bg(df, "team", league = "nfl")),
+    wins = colDef(style = reactable_sdv_team_color_bar(df, "team", league = "nfl"))
   )
 )
 \dontshow{\}) # examplesIf}

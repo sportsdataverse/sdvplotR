@@ -10,8 +10,8 @@
 #' @description These functions map team names to their team colors in
 #'   color and fill aesthetics.
 #'
-#' @param sport Character string identifying the sport.
-#' @param type One of `"primary"` or `"secondary"` to decide which color type to use.
+#' @param league A league key from [sdv_leagues()].
+#' @param which One of `"primary"` or `"secondary"`: which team colour to use.
 #' @param values If `NULL` (the default) use the internal team color vectors. Otherwise
 #'   a set of aesthetic values to map data values to.
 #' @param aesthetics The aesthetic to apply the scale to (`"colour"` or `"fill"`).
@@ -32,7 +32,7 @@
 #' library(sdvplotR)
 #' library(ggplot2)
 #'
-#' team_abbr <- valid_team_names("nfl")[1:16]
+#' team_abbr <- sdv_teams("nfl")$abbr[1:16]
 #'
 #' df <- data.frame(
 #'   random_value = runif(length(team_abbr), 0, 1),
@@ -41,8 +41,8 @@
 #'
 #' ggplot(df, aes(x = teams, y = random_value)) +
 #'   geom_col(aes(color = teams, fill = teams), width = 0.5) +
-#'   scale_color_sdv(sport = "nfl", type = "secondary") +
-#'   scale_fill_sdv(sport = "nfl", alpha = 0.4) +
+#'   scale_color_sdv(league = "nfl", which = "secondary") +
+#'   scale_fill_sdv(league = "nfl", alpha = 0.4) +
 #'   theme_minimal() +
 #'   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 #' }
@@ -51,8 +51,8 @@ NULL
 #' @rdname scale_sdv
 #' @export
 scale_color_sdv <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-    type = c("primary", "secondary"),
+    league,
+    which = c("primary", "secondary"),
     values = NULL,
     ...,
     aesthetics = "colour",
@@ -61,11 +61,11 @@ scale_color_sdv <- function(
     guide = NULL,
     alpha = NA
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  type <- rlang::arg_match0(type, c("primary", "secondary"))
+  league <- check_league(league)
+  which <- rlang::arg_match0(which, c("primary", "secondary"))
 
   if (is.null(values)) {
-    values <- get_team_colors(sport = sport, type = type)
+    values <- get_team_colors(league, which)
   }
 
   if (!is.na(alpha)) values <- scales::alpha(values, alpha = alpha)
@@ -87,8 +87,8 @@ scale_colour_sdv <- scale_color_sdv
 #' @rdname scale_sdv
 #' @export
 scale_fill_sdv <- function(
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-    type = c("primary", "secondary"),
+    league,
+    which = c("primary", "secondary"),
     values = NULL,
     ...,
     aesthetics = "fill",
@@ -97,11 +97,11 @@ scale_fill_sdv <- function(
     guide = NULL,
     alpha = NA
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  type <- rlang::arg_match0(type, c("primary", "secondary"))
+  league <- check_league(league)
+  which <- rlang::arg_match0(which, c("primary", "secondary"))
 
   if (is.null(values)) {
-    values <- get_team_colors(sport = sport, type = type)
+    values <- get_team_colors(league, which)
   }
 
   if (!is.na(alpha)) values <- scales::alpha(values, alpha = alpha)
@@ -136,7 +136,7 @@ scale_fill_sdv <- function(
 #'   children (`axis.text.x.bottom`, ...) to [ggtext::element_markdown()]:
 #'   complete themes in 'ggplot2' 4 set those children themselves.
 #'
-#' @param sport Character string identifying the sport.
+#' @param league A league key from [sdv_leagues()].
 #' @param size The logo size in pixels. It is applied as height for an x-scale
 #'   and as width for a y-scale.
 #' @param ... Other arguments passed to [ggplot2::scale_x_discrete()] or
@@ -155,7 +155,7 @@ scale_fill_sdv <- function(
 #' library(sdvplotR)
 #' library(ggplot2)
 #'
-#' team_abbr <- valid_team_names("nfl")[1:8]
+#' team_abbr <- sdv_teams("nfl")$abbr[1:8]
 #'
 #' df <- data.frame(
 #'   random_value = runif(length(team_abbr), 0, 1),
@@ -165,8 +165,8 @@ scale_fill_sdv <- function(
 #' if (requireNamespace("ggtext", quietly = TRUE)) {
 #'   ggplot(df, aes(x = teams, y = random_value)) +
 #'     geom_col(aes(fill = teams), width = 0.5) +
-#'     scale_fill_sdv(sport = "nfl", alpha = 0.4) +
-#'     scale_x_sdv(sport = "nfl") +
+#'     scale_fill_sdv(league = "nfl", alpha = 0.4) +
+#'     scale_x_sdv(league = "nfl") +
 #'     theme_minimal() +
 #'     theme_x_sdv()
 #' }
@@ -177,19 +177,19 @@ NULL
 #' @export
 scale_x_sdv <- function(
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "bottom",
     size = 12
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
+  league <- check_league(league)
   position <- rlang::arg_match0(position, c("top", "bottom"))
 
   ggplot2::scale_x_discrete(
     ...,
     labels = function(x) {
-      logo_html(x, sport = sport, type = "height", size = size)
+      logo_html(x, league, type = "height", size = size)
     },
     expand = expand,
     guide = guide,
@@ -201,19 +201,19 @@ scale_x_sdv <- function(
 #' @export
 scale_y_sdv <- function(
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "left",
     size = 12
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
+  league <- check_league(league)
   position <- rlang::arg_match0(position, c("left", "right"))
 
   ggplot2::scale_y_discrete(
     ...,
     labels = function(x) {
-      logo_html(x, sport = sport, type = "width", size = size)
+      logo_html(x, league, type = "width", size = size)
     },
     expand = expand,
     guide = guide,
@@ -221,28 +221,26 @@ scale_y_sdv <- function(
   )
 }
 
-#' @param id_type Which ID system the player IDs hold: `NULL` (the default;
-#'   GSIS IDs for the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"`
-#'   (NBA / WNBA Stats `PERSON_ID`, MLBAM, NHL API, GSIS). See [geom_sdv_headshots()].
+#' @inheritParams sdv_headshot_url
 #' @rdname scale_axes_sdv
 #' @export
 scale_x_sdv_headshots <- function(
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "bottom",
     size = 20,
-    id_type = NULL
+    id_system = "espn"
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  id_type <- check_id_type(id_type, sport)
+  league <- check_league(league)
+  id_system <- check_id_system(id_system, league)
   position <- rlang::arg_match0(position, c("top", "bottom"))
 
   ggplot2::scale_x_discrete(
     ...,
     labels = function(x) {
-      headshot_html(x, sport = sport, type = "height", size = size, id_type = id_type)
+      headshot_html(x, league, type = "height", size = size, id_system = id_system)
     },
     expand = expand,
     guide = guide,
@@ -254,21 +252,21 @@ scale_x_sdv_headshots <- function(
 #' @export
 scale_y_sdv_headshots <- function(
     ...,
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+    league,
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "left",
     size = 30,
-    id_type = NULL
+    id_system = "espn"
 ) {
-  sport <- rlang::arg_match0(sport, supported_sports())
-  id_type <- check_id_type(id_type, sport)
+  league <- check_league(league)
+  id_system <- check_id_system(id_system, league)
   position <- rlang::arg_match0(position, c("left", "right"))
 
   ggplot2::scale_y_discrete(
     ...,
     labels = function(x) {
-      headshot_html(x, sport = sport, type = "width", size = size, id_type = id_type)
+      headshot_html(x, league, type = "width", size = size, id_system = id_system)
     },
     expand = expand,
     guide = guide,
@@ -306,7 +304,7 @@ scale_y_sdv_headshots <- function(
 #' library(sdvplotR)
 #' library(ggplot2)
 #'
-#' team_abbr <- valid_team_names("nfl")[1:8]
+#' team_abbr <- sdv_teams("nfl")$abbr[1:8]
 #'
 #' df <- data.frame(
 #'   random_value = runif(length(team_abbr), 0, 1),
@@ -316,7 +314,7 @@ scale_y_sdv_headshots <- function(
 #' if (requireNamespace("ggtext", quietly = TRUE)) {
 #'   ggplot(df, aes(x = teams, y = random_value)) +
 #'     geom_col(width = 0.5) +
-#'     scale_x_sdv(sport = "nfl") +
+#'     scale_x_sdv(league = "nfl") +
 #'     theme_minimal() +
 #'     theme_x_sdv()
 #' }
@@ -360,24 +358,20 @@ theme_y_sdv <- function() {
 # Internal helper for team colors
 # ---------------------------------------------------------------------------
 
-get_team_colors <- function(sport, type = c("primary", "secondary")) {
-  type <- rlang::arg_match0(type, c("primary", "secondary"))
-  ref <- get_team_ref(sport)
-
-  col_name <- if (type == "primary") "color1" else "color2"
-
-  colors <- ref[[col_name]]
-  names(colors) <- ref$team_abbr
-  colors <- colors[!is.na(colors)]
-
-  # Manual scales match data values to these names exactly, so also name each
-  # color by every other key clean_team_abbrs() accepts: provider aliases
-  # ("AZ", "GSW"), full names and historical abbreviations ("MON").
-  keys <- unique(c(names(abbr_mapping[[sport]]), names(historical_team_mappings[[sport]])))
-  keys <- setdiff(keys, names(colors))
-  old <- options(sdvplotR.verbose = FALSE)
-  on.exit(options(old), add = TRUE)
-  canon <- clean_team_abbrs(keys, sport = sport, keep_non_matches = FALSE)
-  keep <- canon %in% names(colors)
-  c(colors, stats::setNames(unname(colors[canon[keep]]), keys[keep]))
+# Every team's colour, named by its team_id and by every alias value that
+# resolves to it (id_system = "auto", no season): a manual scale matches data
+# values to these names exactly. Built once per league per index load.
+get_team_colors <- function(league, which = c("primary", "secondary")) {
+  which <- rlang::arg_match0(which, c("primary", "secondary"))
+  key <- paste0("scale:", league)
+  if (is.null(index_cache[[key]])) {
+    a <- index_aliases()
+    v <- unique(a$value[a$league == league & a$id_system %in% resolve_priority])
+    index_cache[[key]] <- stats::setNames(resolve_ids(v, league)$ids, v)
+  }
+  ids <- index_cache[[key]]
+  t <- sdv_teams(league)
+  col <- t[[paste0("color_", which)]]
+  vals <- c(stats::setNames(col, t$team_id), stats::setNames(col[match(ids, t$team_id)], names(ids)))
+  vals[!is.na(vals) & !duplicated(names(vals))]
 }

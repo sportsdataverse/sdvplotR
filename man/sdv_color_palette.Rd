@@ -2,28 +2,45 @@
 % Please edit documentation in R/team_colors.R
 \name{sdv_color_palette}
 \alias{sdv_color_palette}
-\title{Get Team Color Palette}
+\title{Team colour palette}
 \usage{
 sdv_color_palette(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   teams = NULL,
-  type = c("primary", "secondary")
+  which = c("primary", "secondary"),
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 }
 \arguments{
-\item{sport}{Character string identifying the sport.}
+\item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. Required: one abbreviation
+means different teams in different leagues.}
 
-\item{teams}{Character vector of team names or abbreviations. If \code{NULL},
-returns all teams.}
+\item{teams}{Team identifiers, or \code{NULL} for every team.}
 
-\item{type}{Character string, \code{"primary"} or \code{"secondary"}.}
+\item{which}{\code{"primary"} or \code{"secondary"}.}
+
+\item{season}{\code{NULL}, one season year, or one per value: picks the team
+that used a reused code that season. Without one, a reused code means its
+current holder. Split seasons take their ending year (2021 for 2020-21).}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
+
+\item{strict}{If \code{TRUE}, a value that does not resolve is an error;
+otherwise it becomes \code{NA} with one warning per call.}
 }
 \value{
-Named character vector of colors.
+A named character vector of hex colours, unresolved teams dropped.
 }
 \description{
-Returns a color palette for a given sport, suitable for use with
-ggplot2 \code{scale_fill_manual} or \code{scale_color_manual}.
+A named colour vector for \code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}
+and friends. The R counterpart of sdvplot's \code{palette()}.
 }
 \examples{
 sdv_color_palette("nfl", c("KC", "BUF", "SF"))

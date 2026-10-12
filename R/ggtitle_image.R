@@ -25,13 +25,13 @@
 #'   [ggplot2::theme_minimal()], which replaces every element.
 #'
 #' @param title_image The URL of the image to add to the title. If a valid
-#'   team abbreviation for the specified sport, the team logo will be used.
+#'   team identifier for `league`, the team logo will be used.
 #' @param title The text for the title.
 #' @param image_height The height of the image in pixels.
 #' @param image_side One of `"left"` or `"right"`. Places the image on either
 #'   side of the title text.
 #' @param subtitle Optional text for the subtitle.
-#' @param sport Character string identifying the sport (for team logo resolution).
+#' @param league A league key from [sdv_leagues()].
 #' @param ... Other arguments passed on to [ggtext::element_markdown()], such
 #'   as `size`, `face` and `hjust`.
 #'
@@ -58,7 +58,7 @@
 #'       title = "Seattle Seahawks Analysis",
 #'       image_height = 20,
 #'       image_side = "left",
-#'       sport = "nfl"
+#'       league = "nfl"
 #'     ) +
 #'     theme_title_image(size = 20, hjust = 0.5)
 #' }
@@ -69,10 +69,10 @@ ggtitle_image <- function(
     image_height = 15,
     image_side = c("left", "right"),
     subtitle = ggplot2::waiver(),
-    sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")
+    league
 ) {
   image_side <- match.arg(image_side)
-  sport <- rlang::arg_match0(sport, supported_sports())
+  league <- check_league(league)
 
   if (inherits(title_image, "waiver")) {
     cli::cli_abort("{.arg title_image} must be a team abbreviation or an image URL.")
@@ -80,13 +80,9 @@ ggtitle_image <- function(
   if (inherits(title, "waiver")) title <- ""
 
   # If title_image is a valid team name, use its logo
-  team_check <- clean_team_abbrs(
-    title_image,
-    sport = sport,
-    keep_non_matches = FALSE
-  )
-  if (!is.na(team_check)) {
-    title_image <- logo_from_team(team_check, sport = sport)
+  if (!grepl("^(https?|file)://", title_image)) {
+    u <- suppressWarnings(logo_from_team(title_image, league))
+    if (!is.na(u)) title_image <- u
   }
 
   # gridtext ignores CSS vertical-align; theme_title_image() centers the image
