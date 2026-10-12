@@ -323,6 +323,26 @@ plot_ly(
 A `range` given high-to-low reverses the axis, here so good defense is at the
 top.
 
+`add_sdv_logos()` does the same placement for you, in data units, so there is no
+helper to write. It takes the positions and the teams, and its `size` is the
+logo height as a share of the y-axis span:
+
+```{r plotly-add-logos, out.width = "100%"}
+plot_ly(
+  nhl, x = ~gf, y = ~ga, type = "scatter", mode = "markers",
+  marker = list(size = 28, opacity = 0),
+  text = ~sprintf("%s: %.2f for, %.2f against", team, gf, ga), hoverinfo = "text"
+) |>
+  layout(
+    xaxis = list(title = "Goals for per game", range = range(nhl$gf) + c(-pad, pad)),
+    yaxis = list(title = "Goals against per game", range = rev(range(nhl$ga) + c(-pad, pad)))
+  ) |>
+  add_sdv_logos(nhl$gf, nhl$ga, nhl$team, "nhl", size = 0.08)
+```
+
+`ggplotly()` is the wrong tool for this because it drops layout images, so
+build the chart with `plot_ly()` and add the marks with these helpers.
+
 ## 7. plotly: logos on a category axis
 
 Put each logo under its bar by giving the image `yref = "paper"` (0 is the
@@ -353,6 +373,18 @@ plot_ly(
 
 `sizey` is now a share of the plot's height (paper units), and `sizex` a share
 of one category's slot.
+
+`sdv_axis_logos()` does all of that in one call, hiding the tick labels and
+placing a logo under each category:
+
+```{r plotly-axis-logos, out.width = "100%"}
+plot_ly(
+  mlb_diff, x = ~factor(team, levels = team), y = ~run_diff, type = "bar",
+  marker = list(color = ~fill)
+) |>
+  layout(xaxis = list(title = ""), yaxis = list(title = "Run differential"), margin = list(b = 50)) |>
+  sdv_axis_logos(mlb_diff$team, "mlb")
+```
 
 ## 8. reactable: a sortable, searchable table
 

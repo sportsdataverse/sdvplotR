@@ -256,6 +256,13 @@ reference:
       colors with its logo at center.
     contents:
       - sdv_surface
+  - title: "Interactive plots and maps"
+    desc: >
+      Team marks on plotly charts, interactive ggiraph layers and leaflet maps.
+    contents:
+      - add_sdv_logos
+      - sdv_axis_logos
+      - sdv_colorway
   - title: "Plot Titles"
     desc: Add a logo or image next to a ggplot2 title.
     contents:
