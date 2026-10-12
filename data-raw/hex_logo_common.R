@@ -158,11 +158,11 @@ picks <- list(
   wbb = c("SC", "IOWA", "LSU", "STAN", "UCLA", "ND")
 )
 logo_paths <- function(n) {
-  p <- unlist(lapply(names(picks), function(s) logo_from_team(picks[[s]][seq_len(n)], sport = s)))
+  p <- unlist(lapply(names(picks), function(s) logo_from_team(picks[[s]][seq_len(n)], league = s)))
   stopifnot(!anyNA(p))
   p
 }
-one_per_league <- function() unlist(lapply(names(picks), function(s) logo_from_team(picks[[s]][1], sport = s)))
+one_per_league <- function() unlist(lapply(names(picks), function(s) logo_from_team(picks[[s]][1], league = s)))
 first_colors <- function() unlist(lapply(names(picks), function(s) sdv_team_colors(s, picks[[s]][1])))
 # n logos per league, league order interleaved (nfl, nba, wnba, ... repeating)
 per_league <- function(n) as.vector(matrix(logo_paths(n), ncol = n, byrow = TRUE))

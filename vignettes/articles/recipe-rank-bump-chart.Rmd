@@ -99,7 +99,7 @@ colors <- c()
 for (school in focus) {
   pick <- sdv_team_colors("cfb", school)
   if (any(vapply(colors, distance, numeric(1), b = pick) < 0.6)) {
-    pick <- sdv_team_colors("cfb", school, type = "secondary")
+    pick <- sdv_team_colors("cfb", school, which = "secondary")
   }
   colors[school] <- unname(pick)
 }
@@ -148,7 +148,7 @@ ends <- top10 |>
 
 logo_ends <- function(width = 0.04) {
   list(
-    geom_sdv_logos(aes(x = x, y = rank, team = school, alpha = alpha), data = ends, sport = "cfb", width = width),
+    geom_sdv_logos(aes(x = x, y = rank, team = school, alpha = alpha), data = ends, league = "cfb", width = width),
     expand_limits(x = n_polls + 2.4)
   )
 }

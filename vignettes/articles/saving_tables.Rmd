@@ -64,8 +64,8 @@ qbs <- nflreadr::load_player_stats(2025, summary_level = "reg") |>
 
 passers <- function(df) {
   gt(df) |>
-    gt_sdv_headshots(player_id, sport = "nfl", height = 34) |>
-    gt_sdv_logos(recent_team, sport = "nfl", height = 24) |>
+    gt_sdv_headshots(player_id, league = "nfl", id_system = "gsis", height = 34) |>
+    gt_sdv_logos(recent_team, league = "nfl", height = 24) |>
     fmt_number(epa_db, decimals = 2, force_sign = TRUE) |>
     fmt_number(passing_cpoe, decimals = 1, force_sign = TRUE) |>
     cols_label(
@@ -214,10 +214,10 @@ line for a narrow table.
 `gt_save_batch()` splits the data, builds a table for each group with a function
 you supply, and writes one image per group. The groups here are the four AFC
 divisions: each team's 2025 regular-season record from the schedule, its
-division from `team_reference()`.
+division from `nflreadr::load_teams()`.
 
 ```{r divisions}
-nfl_teams <- team_reference("nfl")
+nfl_teams <- nflreadr::load_teams()
 
 records <- nflreadr::load_schedules(2025) |>
   filter(game_type == "REG", !is.na(home_score)) |>
@@ -231,7 +231,7 @@ records <- nflreadr::load_schedules(2025) |>
     pa = sum(opponent_score),
     .by = team
   ) |>
-  mutate(division = nfl_teams$division[match(team, nfl_teams$team_abbr)]) |>
+  mutate(division = nfl_teams$team_division[match(team, nfl_teams$team_abbr)]) |>
   filter(startsWith(division, "AFC")) |>
   arrange(division, desc(w + t / 2), team)
 
@@ -239,7 +239,7 @@ division_table <- function(df, division) {
   df |>
     select(team, w, l, t, pf, pa) |>
     gt() |>
-    gt_sdv_logos(team, sport = "nfl", height = 28) |>
+    gt_sdv_logos(team, league = "nfl", height = 28) |>
     cols_label(team = "", w = "W", l = "L", t = "T", pf = "PF", pa = "PA") |>
     cols_align(columns = everything(), "center") |>
     tab_header(division, "2025 regular season") |>

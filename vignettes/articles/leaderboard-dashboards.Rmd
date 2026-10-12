@@ -30,9 +30,9 @@ library(dplyr)
 library(gt)
 
 # Get valid team abbreviations
-nfl_teams <- valid_team_names("nfl")
-nba_teams <- valid_team_names("nba")
-cfb_teams <- valid_team_names("cfb")
+nfl_teams <- sdv_teams("nfl")$abbr
+nba_teams <- sdv_teams("nba")$abbr
+cfb_teams <- sdv_teams("cfb")$abbr
 ```
 
 ## Basic Leaderboard with Logos
@@ -56,7 +56,7 @@ standings <- data.frame(
 
 standings |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
     rank = "#",
@@ -85,13 +85,13 @@ Create a leaderboard with team-colored rows:
 # Add team colors to standings
 standings_colored <- standings |>
   mutate(
-    primary_color = sdv_team_colors("nfl", team, type = "primary"),
-    secondary_color = sdv_team_colors("nfl", team, type = "secondary")
+    primary_color = sdv_team_colors("nfl", team, which = "primary"),
+    secondary_color = sdv_team_colors("nfl", team, which = "secondary")
   )
 
 standings_colored |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
     rank = "#",
@@ -122,7 +122,7 @@ Create leaderboards for multiple sports in one table:
 ```{r multi-sport-leaderboard}
 # Sample multi-sport data
 multi_sport_standings <- data.frame(
-  sport = c(rep("NFL", 4), rep("NBA", 4), rep("MLB", 4)),
+  league = c(rep("NFL", 4), rep("NBA", 4), rep("MLB", 4)),
   team = c("KC", "BUF", "SF", "PHI",
            "BOS", "DEN", "MIL", "PHX",
            "LAD", "ATL", "HOU", "BAL"),
@@ -133,14 +133,16 @@ multi_sport_standings <- data.frame(
     pct = wins / (wins + losses),
     rank = row_number()
   ) |>
-  select(sport, rank, team, wins, losses, pct)
+  select(league, rank, team, wins, losses, pct)
 
 multi_sport_standings |>
   gt() |>
-  gt_sdv_logos(columns = "team", sport = "nfl", height = 30) |>
+  gt_sdv_logos(columns = "team", league = "nfl", height = 30, locations = cells_body(columns = team, rows = league == "NFL")) |>
+  gt_sdv_logos(columns = "team", league = "nba", height = 30, locations = cells_body(columns = team, rows = league == "NBA")) |>
+  gt_sdv_logos(columns = "team", league = "mlb", height = 30, locations = cells_body(columns = team, rows = league == "MLB")) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
-    sport = "Sport",
+    league = "Sport",
     rank = "#",
     team = "Team",
     wins = "W",
@@ -174,7 +176,7 @@ player_stats <- data.frame(
 
 player_stats |>
   gt() |>
-  gt_sdv_headshots(columns = "player_id", sport = "nfl", height = 40) |>
+  gt_sdv_headshots(columns = "player_id", league = "nfl", id_system = "gsis", height = 40) |>
   fmt_number(columns = c("pass_yds", "pass_td", "pass_int")) |>
   cols_label(
     rank = "#",
@@ -209,7 +211,7 @@ standings_quartile <- standings |>
 
 standings_quartile |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
     rank = "#",
@@ -252,7 +254,7 @@ Create a Quarto dashboard with sdvplotR visualizations:
 # ```{r}
 # standings |>
 #   gt() |>
-#   gt_sdv_logos(columns = "logo", sport = "nfl")
+#   gt_sdv_logos(columns = "logo", league = "nfl")
 # ```
 
 # ## Team Performance
@@ -260,7 +262,7 @@ Create a Quarto dashboard with sdvplotR visualizations:
 # ```{r}
 # ggplot(standings, aes(x = reorder(team, pct), y = pct)) +
 #   geom_col(aes(fill = team), width = 0.7) +
-#   scale_fill_sdv(sport = "nfl") +
+#   scale_fill_sdv(league = "nfl") +
 #   theme_minimal()
 # ```
 ```
@@ -271,15 +273,15 @@ Create a leaderboard that updates automatically:
 
 ```{r real-time-updates}
 # Function to fetch and display standings
-update_standings <- function(sport = "nfl", week = NULL) {
+update_standings <- function(league = "nfl", week = NULL) {
   # In a real implementation, this would fetch live data
   # For demonstration, we'll use sample data
 
-  message(paste("Updating", toupper(sport), "standings..."))
+  message(paste("Updating", toupper(league), "standings..."))
 
   # Sample standings (replace with real data fetch)
   standings <- data.frame(
-    team = sample(valid_team_names(sport), 10),
+    team = sample(sdv_teams(league)$abbr, 10),
     wins = sample(0:16, 10),
     losses = sample(0:16, 10)
   ) |>
@@ -293,7 +295,7 @@ update_standings <- function(sport = "nfl", week = NULL) {
 
   standings |>
     gt() |>
-    gt_sdv_logos(columns = "logo", sport = sport, height = 30) |>
+    gt_sdv_logos(columns = "logo", league = league, height = 30) |>
     fmt_number(columns = "pct", decimals = 3)
 }
 
@@ -319,7 +321,7 @@ standings_conditional <- standings |>
 
 standings_conditional |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
     rank = "#",
@@ -358,7 +360,7 @@ standings_with_odds <- standings |>
 
 standings_with_odds |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = c("pct", "spread", "total"), decimals = 1) |>
   fmt_number(columns = "moneyline", decimals = 0) |>
   cols_label(

@@ -104,8 +104,8 @@ games <- box |>
   mutate(poss = mean(poss, na.rm = TRUE)) |> # one side's box can miss a count; the other covers it
   ungroup()
 
-teams <- team_reference("nba") |>
-  select(team = team_abbr, name = team_short_name, conference)
+teams <- sdv_teams("nba") |>
+  transmute(team = abbr, name = short_name, conference = sub(" Conference$", "", conference))
 ratings <- games |>
   arrange(game_date, game_id) |>
   group_by(team = team_abbreviation) |>
@@ -163,7 +163,7 @@ standings |>
     "Data: hoopR (ESPN box scores). Possessions estimated from the box score;",
     "ties ordered by net rating. Viz: sdvplotR"
   )) |>
-  gt_sdv_logos(columns = logo, sport = "nba", height = 24) |>
+  gt_sdv_logos(columns = logo, league = "nba", height = 24) |>
   gt_theme_sofa()
 ```
 
@@ -177,8 +177,8 @@ abbreviations to each team's primary color, and `scale_x_sdv()` with
 ggplot(ratings, aes(x = reorder(team, -net), y = net, fill = team)) +
   geom_col(width = 0.75) +
   geom_hline(yintercept = 0, colour = "grey20", linewidth = 0.4) +
-  scale_fill_sdv(sport = "nba", guide = "none") +
-  scale_x_sdv(sport = "nba", size = 20) +
+  scale_fill_sdv(league = "nba", guide = "none") +
+  scale_x_sdv(league = "nba", size = 20) +
   labs(
     title = paste("NBA net rating,", label(season), through),
     subtitle = "Points scored minus points allowed per 100 possessions",
@@ -220,10 +220,10 @@ top <- max(leaders$ppg)
 
 ggplot(leaders, aes(y = name)) +
   geom_col(aes(x = ppg, fill = team), width = 0.7) +
-  geom_sdv_headshots(aes(x = -0.06 * top, player_id = athlete_id), sport = "nba", height = 0.075) +
-  geom_sdv_logos(aes(x = ppg + 0.05 * top, team = team), sport = "nba", height = 0.055) +
+  geom_sdv_headshots(aes(x = -0.06 * top, player_id = athlete_id), league = "nba", height = 0.075) +
+  geom_sdv_logos(aes(x = ppg + 0.05 * top, team = team), league = "nba", height = 0.055) +
   geom_text(aes(x = ppg + 0.1 * top, label = sprintf("%.1f  (%d games)", ppg, gp)), hjust = 0, size = 3.4) +
-  scale_fill_sdv(sport = "nba", guide = "none") +
+  scale_fill_sdv(league = "nba", guide = "none") +
   scale_x_continuous(limits = c(-0.12 * top, 1.4 * top), expand = c(0, 0)) +
   labs(
     title = paste("NBA scoring leaders,", label(season), through),

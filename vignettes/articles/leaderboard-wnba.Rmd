@@ -101,8 +101,8 @@ games <- box |>
   mutate(poss = mean(poss, na.rm = TRUE)) |> # one side's box can miss a count; the other covers it
   ungroup()
 
-teams <- team_reference("wnba") |>
-  select(team = team_abbr, name = team_short_name, conference)
+teams <- sdv_teams("wnba") |>
+  transmute(team = abbr, name = short_name, conference = sub(" Conference$", "", conference))
 ratings <- games |>
   arrange(game_date, game_id) |>
   group_by(team = team_abbreviation) |>
@@ -158,7 +158,7 @@ standings |>
     palette = c("#c84630", "#f7f7f7", "#2e8b57"),
     domain = c(-1, 1) * max(abs(standings$net)), digits = 1, pill_height = 22
   ) |>
-  gt_sdv_logos(columns = logo, sport = "wnba", height = 26) |>
+  gt_sdv_logos(columns = logo, league = "wnba", height = 26) |>
   gt_theme_pl()
 ```
 
@@ -173,7 +173,7 @@ ggplot(ratings, aes(x = ortg, y = drtg)) +
   geom_abline(slope = 1, intercept = seq(-30, 30, by = 5), colour = "grey88", linewidth = 0.3) +
   geom_hline(yintercept = mean(ratings$drtg), linetype = "dashed", colour = "grey55") +
   geom_vline(xintercept = mean(ratings$ortg), linetype = "dashed", colour = "grey55") +
-  geom_sdv_logos(aes(team = team), sport = "wnba", width = 0.065) +
+  geom_sdv_logos(aes(team = team), league = "wnba", width = 0.065) +
   # logos do not widen the limits, so leave room for the outermost ones
   scale_x_continuous(expand = expansion(mult = 0.08)) +
   scale_y_reverse(expand = expansion(mult = 0.12)) +
@@ -233,9 +233,9 @@ leaders |>
     ppg = "PTS", rpg = "REB", apg = "AST", fg_pct = "FG%"
   ) |>
   tab_source_note("Data: wehoop (ESPN box scores) | Viz: sdvplotR") |>
-  gt_sdv_headshots(columns = headshot, sport = "wnba", height = 40) |>
-  gt_sdv_logos(columns = logo, sport = "wnba", height = 26) |>
-  gt_theme_sdv_team(team = leaders$team[1], sport = "wnba")
+  gt_sdv_headshots(columns = headshot, league = "wnba", height = 40) |>
+  gt_sdv_logos(columns = logo, league = "wnba", height = 26) |>
+  gt_theme_sdv_team(team = leaders$team[1], league = "wnba")
 ```
 
 ## Related

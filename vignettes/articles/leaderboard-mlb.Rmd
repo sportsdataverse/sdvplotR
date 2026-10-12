@@ -158,7 +158,7 @@ standings |>
     palette = c("#c84630", "#f7f7f7", "#2a7ab9"), domain = c(-reach, reach),
     digits = 0, pill_height = 22
   ) |>
-  gt_sdv_logos(columns = logo, sport = "mlb", height = 24) |>
+  gt_sdv_logos(columns = logo, league = "mlb", height = 24) |>
   gt_theme_broadsheet()
 ```
 
@@ -182,8 +182,8 @@ if (available) {
   ggplot(rd, aes(y = label)) +
     geom_col(aes(x = diff, fill = abbreviation), width = 0.72) +
     geom_vline(xintercept = 0, colour = "grey20", linewidth = 0.4) +
-    geom_sdv_logos(aes(x = end, team = abbreviation), sport = "mlb", height = 0.028) +
-    scale_fill_sdv(sport = "mlb", guide = "none") +
+    geom_sdv_logos(aes(x = end, team = abbreviation), league = "mlb", height = 0.028) +
+    scale_fill_sdv(league = "mlb", guide = "none") +
     scale_x_continuous(limits = c(-1.15, 1.15) * reach) +
     labs(
       title = paste("MLB run differential,", season, through),
@@ -211,7 +211,7 @@ if (available) {
 
 The Stats API's leaderboards, one category at a time (`mlb_stats_leaders()`;
 the rate stats list qualified players only). Its player ids are MLBAM ids, which
-`gt_sdv_headshots(id_type = "league")` turns into MLB's own headshots. Ties
+`gt_sdv_headshots(id_system = "league")` turns into MLB's own headshots. Ties
 share a rank, so a category can show more than three players.
 
 ```{r leaders-data, eval = available}
@@ -263,8 +263,8 @@ leaders |>
   cols_label(rank = "", headshot = "", player = "Player", abbreviation = "", value = "") |>
   cols_align("right", value) |>
   tab_source_note("Data: MLB Stats API via baseballr | Viz: sdvplotR") |>
-  gt_sdv_headshots(columns = headshot, sport = "mlb", id_type = "league", height = 36) |>
-  gt_sdv_logos(columns = abbreviation, sport = "mlb", height = 22) |>
+  gt_sdv_headshots(columns = headshot, league = "mlb", id_system = "league", height = 36) |>
+  gt_sdv_logos(columns = abbreviation, league = "mlb", height = 22) |>
   gt_theme_savant()
 ```
 

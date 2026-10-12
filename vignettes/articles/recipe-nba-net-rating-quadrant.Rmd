@@ -72,22 +72,22 @@ stopifnot(!anyNA(ratings$net))
 nrow(ratings)
 ```
 
-`r nrow(ratings)` teams in a 30-team league. `clean_team_abbrs()` finds the
-extras: with `keep_non_matches = FALSE`, anything that is not an NBA team comes
-back `NA`. They are the All-Star Game's teams, which ESPN files as
-regular-season games. The conference comes from `team_reference()`, keyed by the
-same cleaned abbreviation.
+`r nrow(ratings)` teams in a 30-team league. `sdv_resolve()` finds the
+extras: anything that is not an NBA team comes back `NA` (with a warning
+naming the values). They are the All-Star Game's teams, which ESPN files as
+regular-season games. The conference comes from `sdv_teams()`, keyed by the
+same team id.
 
-```{r resolve}
+```{r resolve, warning = FALSE}
 ratings <- ratings |>
-  mutate(team_abbr = clean_team_abbrs(team, sport = "nba", keep_non_matches = FALSE))
-filter(ratings, is.na(team_abbr))$team
+  mutate(team_id = sdv_resolve(team, league = "nba"))
+filter(ratings, is.na(team_id))$team
 
-conferences <- team_reference("nba") |>
-  transmute(team_abbr, conference = sub("ern$", "", conference))
+conferences <- sdv_teams("nba") |>
+  transmute(team_id, team_abbr = abbr, conference = sub("ern Conference$", "", conference))
 ratings <- ratings |>
-  filter(!is.na(team_abbr)) |>
-  inner_join(conferences, by = "team_abbr") |>
+  filter(!is.na(team_id)) |>
+  inner_join(conferences, by = "team_id") |>
   arrange(desc(net), team_abbr)
 stopifnot(nrow(ratings) == 30)
 head(ratings)
@@ -116,7 +116,7 @@ every team is read against its conference.
 ```{r facets, fig.alt = "NBA teams drawn as logos in two panels, East and West, with dashed lines at each conference's average offensive and defensive rating."}
 ggplot(ratings, aes(ortg, drtg)) +
   geom_mean_lines(aes(x0 = ortg, y0 = drtg), color = "grey60", linewidth = 0.5) +
-  geom_sdv_logos(aes(team = team_abbr), sport = "nba", width = 0.1) +
+  geom_sdv_logos(aes(team = team_abbr), league = "nba", width = 0.1) +
   facet_wrap(vars(conference))
 ```
 
@@ -163,7 +163,7 @@ net_guides <- list(
 
 p <- ggplot(ratings, aes(ortg, drtg)) +
   net_guides +
-  geom_sdv_logos(aes(team = team_abbr), sport = "nba", width = 0.1) +
+  geom_sdv_logos(aes(team = team_abbr), league = "nba", width = 0.1) +
   facet_wrap(vars(conference)) +
   scale_x_continuous(expand = expansion(mult = 0.06)) +
   scale_y_reverse(expand = expansion(mult = 0.08)) +
@@ -214,7 +214,7 @@ blog_theme <- theme_minimal(base_size = 10) +
 net_chart <- function(logo_width = 0.1, ncol = 2) {
   ggplot(ratings, aes(ortg, drtg)) +
     net_guides +
-    geom_sdv_logos(aes(team = team_abbr), sport = "nba", width = logo_width) +
+    geom_sdv_logos(aes(team = team_abbr), league = "nba", width = logo_width) +
     geom_text(
       aes(label = note), data = leaders,
       hjust = 0, nudge_x = 1.1, size = 3, fontface = "bold", color = "grey20"

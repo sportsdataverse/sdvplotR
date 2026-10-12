@@ -53,7 +53,7 @@ mlb <- baseballr::mlb_standings(season = season, league_id = "103,104") |>
   as.data.frame() |>
   inner_join(mlb_ids, by = "team_records_team_id") |>
   transmute(
-    team = clean_team_abbrs(team_abbreviation, sport = "mlb"),
+    team = sdv_resolve(team_abbreviation, league = "mlb"),
     name = team_full_name,
     wins = team_records_wins,
     losses = team_records_losses,
@@ -68,7 +68,7 @@ nrow(mlb)
 ```{r ggiraph-logos}
 p_mlb <- ggplot(mlb, aes(x = rs, y = ra)) +
   geom_abline(slope = 1, intercept = 0, colour = "grey60", linetype = "dashed") +
-  geom_sdv_logos(aes(team = team), sport = "mlb", width = 0.06) +
+  geom_sdv_logos(aes(team = team), league = "mlb", width = 0.06) +
   geom_point_interactive(
     aes(tooltip = sprintf("%s<br>%d-%d<br>%.2f scored, %.2f allowed per game", name, wins, losses, rs, ra),
         data_id = team),
@@ -128,7 +128,7 @@ p_scorers <- ggplot(scorers, aes(x = ppg, y = ts)) +
   geom_point_interactive(aes(fill = team, tooltip = tip, data_id = athlete_id),
     shape = 21, size = 4, colour = "white", stroke = 0.6
   ) +
-  scale_fill_sdv(sport = "nba") +
+  scale_fill_sdv(league = "nba") +
   scale_y_continuous(labels = scales::label_percent(accuracy = 1)) +
   labs(
     title = "The NBA's 25 top scorers, 2025-26",
@@ -168,7 +168,7 @@ wnba_runs <- wehoop::load_wnba_team_box(season) |>
 
 p_wnba <- ggplot(wnba_runs, aes(x = game_no, y = wins, colour = team)) +
   geom_line_interactive(aes(data_id = team, tooltip = team_display_name), linewidth = 1) +
-  scale_colour_sdv(sport = "wnba") +
+  scale_colour_sdv(league = "wnba") +
   labs(
     title = "The WNBA's 2026 season, win by win",
     subtitle = "Hover a line to pick out a team",
@@ -213,8 +213,8 @@ p_threes <- ggplot(threes, aes(x = team, y = tpa)) +
         tooltip = sprintf("%s: %.1f attempts, %.1f%% made", team_abbreviation, tpa, 100 * tp_pct)),
     width = 0.75
   ) +
-  scale_x_sdv(sport = "nba", size = 16) +
-  scale_fill_sdv(sport = "nba") +
+  scale_x_sdv(league = "nba", size = 16) +
+  scale_fill_sdv(league = "nba") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   labs(
     title = "NBA three-point attempts per game, 2025-26",
@@ -241,7 +241,7 @@ team, positioned in data units. A small helper builds them from
 
 ```{r plotly-helper}
 logo_images <- function(teams, x, y, sport, sizex, sizey = sizex, xref = "x", yref = "y") {
-  urls <- sdv_logo_url(teams, sport = sport)
+  urls <- sdv_logo_url(teams, league = sport)
   lapply(seq_along(urls), function(i) {
     list(
       source = urls[i], xref = xref, yref = yref, x = x[i], y = y[i],
@@ -302,7 +302,7 @@ only. NHL goals for and against per game, 2025-26:
 nhl <- fastRhockey::load_nhl_team_box(season) |>
   as.data.frame() |>
   filter(substr(game_id, 5, 6) == "02") |>
-  mutate(team = clean_team_abbrs(team_abbrev, sport = "nhl")) |>
+  mutate(team = sdv_resolve(team_abbrev, league = "nhl")) |>
   summarise(games = n(), gf = mean(goals), ga = mean(goals_against), .by = team) |>
   arrange(team)
 
@@ -362,9 +362,9 @@ a logo column and `reactable_sdv_team_color_bar()` for a bar in each row's
 team color. The SEC's 2025 football season from ESPN's schedule file:
 
 ```{r reactable}
-sec <- team_reference("cfb") |>
-  filter(conference == "SEC") |>
-  select(team = team_abbr, school = team_location)
+sec <- sdv_teams("cfb") |>
+  filter(conference_id == "cfb:sec") |>
+  select(team = abbr, school = location)
 
 games <- cfbfastR::load_espn_cfb_schedules(2025) |> as.data.frame()
 sec_table <- bind_rows(

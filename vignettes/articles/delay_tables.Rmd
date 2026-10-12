@@ -73,8 +73,8 @@ headshots and `gt_sdv_logos()` the team abbreviations into logos.
 qbs |>
   gt(id = "qb-bars") |>
   gt_theme_almanac() |>
-  gt_sdv_headshots(player_id, sport = "nfl", height = 34) |>
-  gt_sdv_logos(recent_team, sport = "nfl", height = 24) |>
+  gt_sdv_headshots(player_id, league = "nfl", id_system = "gsis", height = 34) |>
+  gt_sdv_logos(recent_team, league = "nfl", height = 24) |>
   gt_percentile_bar(c(epa_ptile, cpoe_ptile), full_track = FALSE, width = 150) |>
   fmt_number(epa_db, decimals = 2, force_sign = TRUE) |>
   fmt_number(passing_cpoe, decimals = 1, force_sign = TRUE) |>
@@ -131,15 +131,15 @@ each team's final seed, tiebreakers and the play-in applied, so the 7 and 8
 seeds are the two play-in winners and the 8 seed can hold the better record.
 
 ```{r west-data}
-nba_teams <- team_reference("nba")
+nba_teams <- sdv_teams("nba")
 
 west <- hoopR::espn_nba_standings(year = 2026) |>
   mutate(
     team_id = as.character(team_id),
-    conference = nba_teams$conference[match(team_id, nba_teams$espn_team_id)],
-    abbr = nba_teams$team_abbr[match(team_id, nba_teams$espn_team_id)]
+    conference = nba_teams$conference[match(team_id, nba_teams$team_id)],
+    abbr = nba_teams$abbr[match(team_id, nba_teams$team_id)]
   ) |>
-  filter(conference == "Western") |>
+  filter(conference == "Western Conference") |>
   arrange(playoffseed) |>
   transmute(
     seed = playoffseed, team = abbr, wins, losses,
@@ -147,14 +147,14 @@ west <- hoopR::espn_nba_standings(year = 2026) |>
   )
 ```
 
-`team_reference()` gives each ESPN team id its conference and abbreviation;
+`sdv_teams()` gives each ESPN team id its conference and abbreviation;
 ESPN's standings leave the conference out.
 
 ```{r west-table}
 west |>
   gt(id = "west") |>
   gt_theme_almanac(accent = "#1D428A") |>
-  gt_sdv_logos(team, sport = "nba", height = 24) |>
+  gt_sdv_logos(team, league = "nba", height = 24) |>
   gt_cutline(after = 0, "Playoffs", color = "#1D428A") |>
   gt_cutline(after = 6, "Play-in", color = "#C8102E", gap = c(12, 0)) |>
   gt_cutline(after = 10, "Lottery", color = "#5A5A5A", gap = c(12, 0)) |>
@@ -236,7 +236,7 @@ its change is left blank and its preseason cell reads `NR`.
 moves |>
   gt(id = "ap-moves") |>
   gt_theme_almanac(accent = "#9E1B32") |>
-  gt_sdv_logos(school, sport = "cfb", height = 22, include_name = TRUE) |>
+  gt_sdv_logos(school, league = "cfb", height = 22, include_name = TRUE) |>
   gt_delta(rank, preseason, column_label = "Places climbed", decimals = 0, arrows = TRUE) |>
   sub_missing(preseason, missing_text = "NR") |>
   cols_label(rank = "Final", school = "Team", conference = "Conference", preseason = "Preseason") |>

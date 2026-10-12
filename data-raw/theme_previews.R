@@ -22,7 +22,7 @@ standings$pct <- standings$w / (standings$w + standings$l)
 
 standings_table <- function() {
   gt(standings) |>
-    gt_sdv_logos(columns = "team", sport = "nfl", height = 28) |>
+    gt_sdv_logos(columns = "team", league = "nfl", height = 28) |>
     cols_label(team = "", name = "Team", w = "W", l = "L", pct = "Win pct") |>
     # sports convention: win percentage without the leading zero (.647)
     fmt(columns = "pct", fns = function(x) sub("^0", "", sprintf("%.3f", x))) |>
@@ -50,7 +50,7 @@ previews <- list(
     standings_table() |> gt_theme_sdv(style = "dark", density = "social"), "gt_theme_sdv", "dark"
   ),
   gt_theme_sdv_team = list(
-    leaders_table() |> gt_theme_sdv_team(team = "KC", sport = "nfl", density = "social"), "gt_theme_sdv_team", ""
+    leaders_table() |> gt_theme_sdv_team(team = "KC", league = "nfl", density = "social"), "gt_theme_sdv_team", ""
   )
 )
 

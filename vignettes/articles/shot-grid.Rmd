@@ -157,8 +157,8 @@ shooter_team <- unique(fga$team_abbrev[fga$athlete_name_1 %in% shooter])
 shooter_team
 # a player traded mid-season has two teams: pick one before taking its colors
 stopifnot(length(shooter_team) == 1)
-above <- sdv_team_colors("nba", shooter_team, type = "primary")
-below <- sdv_team_colors("nba", shooter_team, type = "secondary")
+above <- sdv_team_colors("nba", shooter_team, which = "primary")
+below <- sdv_team_colors("nba", shooter_team, which = "secondary")
 
 ggplot(shown) +
   geom_tile(
@@ -179,7 +179,7 @@ ggplot(shown) +
     title = shooter,
     subtitle = "2025-26 regular season, 3 ft squares with 5+ attempts",
     image_height = 22,
-    sport = "nba"
+    league = "nba"
   ) +
   labs(caption = "Data: hoopR::load_nba_shots()") +
   theme_void() +

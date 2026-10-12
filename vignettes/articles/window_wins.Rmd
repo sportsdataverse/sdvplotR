@@ -50,15 +50,15 @@ games <- schedules |>
   filter(game_type == "REG", !is.na(home_score)) |>
   select(season, home_team, away_team, home_score, away_score) |>
   nflreadr::clean_homeaway() |>
-  mutate(franchise = clean_team_abbrs(team, sport = "nfl"))
+  mutate(franchise = sdv_resolve(team, league = "nfl"))
 ```
 
 The schedules keep each season's abbreviation, so the Raiders are `OAK` before
-2020 and `LV` after. `clean_team_abbrs()` maps every relocated abbreviation to
+2020 and `LV` after. `sdv_resolve()` maps every relocated abbreviation to
 today's franchise key, which is what lets one franchise's ten seasons add up.
 
 ```{r relocations}
-clean_team_abbrs(c("OAK", "SD", "STL"), sport = "nfl")
+sdv_resolve(c("OAK", "SD", "STL"), league = "nfl")
 ```
 
 Each franchise's record per season is then one summary:
@@ -115,9 +115,9 @@ champions <- schedules |>
   filter(game_type == "SB") |>
   transmute(
     season,
-    franchise = clean_team_abbrs(
+    franchise = sdv_resolve(
       if_else(home_score > away_score, home_team, away_team),
-      sport = "nfl"
+      league = "nfl"
     )
   )
 
@@ -217,7 +217,7 @@ columns; each logo's `alt` text is the team's full name.
 
 ```{r logos, eval = FALSE}
 # ... |>
-gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), sport = "nfl", height = 34)
+gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), league = "nfl", height = 34)
 ```
 
 The pattern picks the snaked columns out by name rather than listing ten of them,
@@ -269,7 +269,7 @@ wide |>
   gt_highlight_cells(-years, condition = mask_2, fill = "#FFA970") |>
   gt_snake(n_cols = 2) |>
   gt_theme_athletic() |>
-  gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), sport = "nfl", height = 34) |>
+  gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), league = "nfl", height = 34) |>
   cols_align(columns = everything(), "center") |>
   tab_spanner(columns = matches("^[1-5]_1$"), label = "Most wins in the window", id = "block_1") |>
   tab_spanner(columns = matches("^[1-5]_2$"), label = "Most wins in the window", id = "block_2") |>

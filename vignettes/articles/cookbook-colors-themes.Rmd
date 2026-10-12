@@ -37,18 +37,18 @@ season <- 2026 # NBA, NHL and college basketball: the 2025-26 season; MLB and WN
 
 ## 1. See a league's palette
 
-`team_reference()` holds every team's two colors (`color1`, `color2`), with
-its conference and division. Laid out by division, with each team's logo above
+`sdv_teams()` holds every team's two colors (`color_primary`, `color_secondary`), with
+its conference. Laid out by conference, with each team's logo above
 its two swatches, it is a quick check of what a chart will look like:
 
-```{r palette, fig.width = 8, fig.height = 6.5, fig.alt = "The 32 NHL teams in four rows, one per division. Each team's logo sits above two squares filled with its primary and secondary colors, with the hex codes underneath."}
-nhl_ref <- team_reference("nhl") |>
-  arrange(division, team_abbr) |>
-  mutate(slot = row_number(), .by = division)
+```{r palette, fig.width = 8, fig.height = 6.5, fig.alt = "The 32 NHL teams in four rows, one per conference. Each team's logo sits above two squares filled with its primary and secondary colors, with the hex codes underneath."}
+nhl_ref <- sdv_teams("nhl") |>
+  arrange(conference, abbr) |>
+  mutate(slot = row_number(), .by = conference)
 
 swatches <- bind_rows(
-  transmute(nhl_ref, division, slot, x = slot - 0.2, color = color1),
-  transmute(nhl_ref, division, slot, x = slot + 0.2, color = color2)
+  transmute(nhl_ref, conference, slot, x = slot - 0.2, color = color_primary),
+  transmute(nhl_ref, conference, slot, x = slot + 0.2, color = color_secondary)
 )
 
 ggplot(nhl_ref, aes(x = slot)) +
@@ -56,23 +56,23 @@ ggplot(nhl_ref, aes(x = slot)) +
     width = 0.38, height = 0.5, colour = "grey70", linewidth = 0.2
   ) +
   geom_text(aes(x = x, y = 0.6, label = color), data = swatches, size = 1.8) +
-  geom_sdv_logos(aes(y = 1.75, team = team_abbr), sport = "nhl", height = 0.32) +
+  geom_sdv_logos(aes(y = 1.75, team = team_id), league = "nhl", height = 0.32) +
   scale_fill_identity() +
-  facet_wrap(~division, ncol = 1) +
+  facet_wrap(~conference, ncol = 1) +
   scale_y_continuous(limits = c(0.4, 2.15)) +
-  labs(title = "NHL team colors by division", caption = "Colors: sdvplotR::team_reference()") +
+  labs(title = "NHL team colors by conference", caption = "Colors: sdvplotR::sdv_teams()") +
   theme_void() +
   theme(strip.text = element_text(face = "bold", hjust = 0), plot.margin = margin(8, 8, 8, 8))
 ```
 
-`sdv_team_colors("nhl", type = "all")` returns the same pairs as
+`sdv_team_colors("nhl", which = "all")` returns the same pairs as
 `"primary, secondary"` strings, named by team.
 
 ## 2. One color per row of your data
 
-`sdv_team_colors(sport, team)` returns one color per value, in the order
-given, so it drops straight into `mutate()`; `type = "secondary"` gives the
-other color. Any spelling `clean_team_abbrs()` understands works, here
+`sdv_team_colors(league, team)` returns one color per value, in the order
+given, so it drops straight into `mutate()`; `which = "secondary"` gives the
+other color. Any spelling `sdv_resolve()` understands works, here
 fastRhockey's NHL codes (`LAK`, `TBL`). With color columns in the data, the
 identity scales use them as they are:
 
@@ -86,7 +86,7 @@ nhl_teams <- nhl_games |>
   arrange(desc(gf), team_abbrev) |>
   mutate(
     primary = unname(sdv_team_colors("nhl", team_abbrev)),
-    secondary = unname(sdv_team_colors("nhl", team_abbrev, type = "secondary"))
+    secondary = unname(sdv_team_colors("nhl", team_abbrev, which = "secondary"))
   )
 head(nhl_teams, 5)
 
@@ -106,14 +106,14 @@ ggplot(nhl_teams, aes(x = gf, y = ga)) +
 
 The labels come from ggrepel, which keeps them off each other and off the
 points. A team that doesn't resolve gets `NA`, which the identity scales draw
-grey; check with `valid_team_names()` before you publish. A white secondary,
+grey; check with `sdv_teams()$abbr` before you publish. A white secondary,
 like the Lightning's, disappears as an outline on a white chart (recipe 4).
 
 ## 3. Fill with the primary, outline with the secondary
 
 `scale_fill_sdv()` and `scale_colour_sdv()` map a team column straight to
 colors, no join needed. Fill with the primary and outline with the secondary
-(`type = "secondary"`) for the two-color look of a team's uniform. The WNBA's
+(`which = "secondary"`) for the two-color look of a team's uniform. The WNBA's
 2026 regular season by point differential. ESPN files the All-Star Game and
 the Commissioner's Cup final as regular-season games too, so keep the games
 the schedule marks as standard (`type_abbreviation == "STD"`):
@@ -139,9 +139,9 @@ wnba <- wehoop::load_wnba_team_box(season) |>
 ggplot(wnba, aes(x = team_f, y = diff)) +
   geom_col(aes(fill = team, colour = team), width = 0.7, linewidth = 1.2) +
   geom_hline(yintercept = 0, colour = "grey30") +
-  geom_sdv_logos(aes(y = diff + if_else(diff >= 0, 1.4, -1.4), team = team), sport = "wnba", width = 0.05) +
-  scale_fill_sdv(sport = "wnba") +
-  scale_colour_sdv(sport = "wnba", type = "secondary") +
+  geom_sdv_logos(aes(y = diff + if_else(diff >= 0, 1.4, -1.4), team = team), league = "wnba", width = 0.05) +
+  scale_fill_sdv(league = "wnba") +
+  scale_colour_sdv(league = "wnba", which = "secondary") +
   labs(
     title = "WNBA point differential, 2026 regular season",
     x = NULL, y = "Average point differential per game",
@@ -187,7 +187,7 @@ chosen <- character()
 for (team in finish$team) {
   primary <- sdv_team_colors("nba", team)
   close <- length(chosen) > 0 && min(vapply(chosen, color_gap, numeric(1), b = primary)) < 0.15
-  chosen[team] <- if (close) sdv_team_colors("nba", team, type = "secondary") else primary
+  chosen[team] <- if (close) sdv_team_colors("nba", team, which = "secondary") else primary
 }
 data.frame(
   team = finish$team,
@@ -205,7 +205,7 @@ ggplot(runs, aes(x = game_no, y = wins)) +
   geom_segment(aes(x = game_no, xend = end + 2, y = wins, yend = spot),
     data = finish, colour = "grey60", linewidth = 0.3
   ) +
-  geom_sdv_logos(aes(x = end + 5, y = spot, team = team), data = finish, sport = "nba", height = 0.08) +
+  geom_sdv_logos(aes(x = end + 5, y = spot, team = team), data = finish, league = "nba", height = 0.08) +
   scale_colour_manual(values = chosen, guide = "none") +
   scale_x_continuous(limits = c(0, end + 8)) +
   labs(
@@ -241,7 +241,7 @@ mlb <- baseballr::mlb_standings(season = season, league_id = "103,104") |>
   as.data.frame() |>
   inner_join(mlb_ids, by = "team_records_team_id") |>
   transmute(
-    team = clean_team_abbrs(team_abbreviation, sport = "mlb"),
+    team = sdv_resolve(team_abbreviation, league = "mlb"),
     wins = team_records_wins,
     games = team_records_games_played
   ) |>
@@ -259,7 +259,7 @@ ggplot(mlb, aes(x = wins, y = team_f)) +
   scale_fill_identity() +
   scale_colour_identity() +
   scale_y_discrete(labels = NULL) +
-  geom_sdv_logos(aes(x = -4, team = team), sport = "mlb", height = 0.028) +
+  geom_sdv_logos(aes(x = -4, team = team), league = "mlb", height = 0.028) +
   labs(
     title = "MLB wins, 2026 regular season",
     x = "Wins", y = NULL,
@@ -275,14 +275,14 @@ recipe 10).
 
 ## 6. A named palette for a manual scale
 
-`sdv_color_palette(sport, teams)` returns a named vector of hex codes, the
+`sdv_color_palette(league, teams)` returns a named vector of hex codes, the
 shape `scale_colour_manual(values = )` wants. The SEC's 2025 season, one dot
 per game by final margin, teams ordered by their average:
 
 ```{r named-palette, fig.height = 6, fig.alt = "Strip plot of the 16 SEC football teams' 2025 games, one dot per game at its final scoring margin, colored in the team's primary color, with a black tick at each team's average margin. Teams are sorted by average margin, best at the top."}
-sec <- team_reference("cfb") |>
-  filter(conference == "SEC") |>
-  pull(team_abbr)
+sec <- sdv_teams("cfb") |>
+  filter(conference_id == "cfb:sec") |>
+  pull(abbr)
 
 cfb <- cfbfastR::load_espn_cfb_schedules(2025) |> as.data.frame()
 margins <- bind_rows(
@@ -314,8 +314,8 @@ teams, the axis labels carry the identity and the colors only group the dots.
 
 ## 7. Conference colors
 
-Conferences are rows in sdvplotR's team data too, so `sdv_team_colors()` and
-`geom_sdv_logos()` take a conference's name. Women's college basketball,
+Conferences are rows in sdvplotR's team index too (`include_conferences = TRUE`),
+with their colors and logos. Women's college basketball,
 2025-26: how each conference's teams did against teams from other D-I
 conferences, with each season's membership from wehoop's standings:
 
@@ -333,6 +333,9 @@ wbb_games <- wehoop::load_wbb_team_box(season) |>
   ) |>
   filter(conference != opp_conference)
 
+conf_rows <- sdv_teams("wbb", include_conferences = TRUE) |>
+  filter(program == "conference")
+
 nonconf <- wbb_games |>
   summarise(games = n(), win_pct = mean(team_winner), .by = conference) |>
   arrange(desc(win_pct), conference) |>
@@ -340,12 +343,13 @@ nonconf <- wbb_games |>
   mutate(
     label = sub(" Conference$", "", conference),
     label = factor(label, levels = rev(label)),
-    fill = unname(sdv_team_colors("wbb", conference))
+    key = conf_rows$team_id[match(conference, conf_rows$name)],
+    fill = conf_rows$color_primary[match(conference, conf_rows$name)]
   )
 
 ggplot(nonconf, aes(x = win_pct, y = label)) +
   geom_col(aes(fill = fill), width = 0.65) +
-  geom_sdv_logos(aes(x = win_pct + 0.05, team = conference), sport = "wbb", height = 0.06) +
+  geom_sdv_logos(aes(x = win_pct + 0.05, team = key), league = "wbb", height = 0.06) +
   scale_fill_identity() +
   scale_x_continuous(labels = scales::label_percent(), expand = expansion(mult = c(0, 0.1))) +
   labs(
@@ -358,13 +362,13 @@ ggplot(nonconf, aes(x = win_pct, y = label)) +
   theme(panel.grid.major.y = element_blank(), plot.title.position = "plot")
 ```
 
-`team_reference(sport, include_conferences = TRUE)` lists the conference rows
-with their colors and logo URLs.
+`sdv_teams(league, include_conferences = TRUE)` lists the conference rows
+with their colors; `sdv_logo_url()` gives their logos.
 
 ## 8. A dark background, dark logos and a matching table
 
-Many logos have a dark version for dark backgrounds, in `team_reference()`'s
-`logo_dark_url`; draw it with `geom_from_path()`. `theme_bg` holds the
+Many logos have a dark version for dark backgrounds, `sdv_logo_url(variant = "dark")`;
+draw it with `geom_from_path()`. `theme_bg` holds the
 background color of every gt theme, so a chart can sit on the same canvas as a
 table in that theme. The WNBA on `gt_theme_midnight()`'s background:
 
@@ -373,7 +377,7 @@ bg <- theme_bg$bg[theme_bg$theme == "gt_theme_midnight"]
 bg
 
 dark <- wnba |>
-  inner_join(select(team_reference("wnba"), team = team_abbr, logo_dark_url), by = "team")
+  mutate(logo_dark_url = sdv_logo_url(team, league = "wnba", variant = "dark"))
 
 ggplot(dark, aes(x = pf, y = pa)) +
   geom_abline(slope = 1, intercept = 0, colour = "grey45", linetype = "dashed") +
@@ -401,7 +405,7 @@ dark |>
   head(5) |>
   select(team, pf, pa, diff) |>
   gt() |>
-  gt_sdv_logos(columns = team, sport = "wnba") |>
+  gt_sdv_logos(columns = team, league = "wnba") |>
   fmt_number(columns = c(pf, pa, diff), decimals = 1) |>
   cols_label(team = "", pf = "Scored", pa = "Allowed", diff = "Margin") |>
   tab_header(title = "The WNBA's best margins, 2026") |>
@@ -462,18 +466,18 @@ players |>
   arrange(desc(ppg), athlete_id) |>
   head(6) |>
   gt() |>
-  gt_sdv_headshots(columns = athlete_id, sport = "nba") |>
+  gt_sdv_headshots(columns = athlete_id, league = "nba") |>
   fmt_number(columns = c(ppg, rpg, apg), decimals = 1) |>
   cols_label(
     athlete_id = "", athlete_display_name = "Player", games = "GP",
     ppg = "PTS", rpg = "REB", apg = "AST"
   ) |>
   tab_header(
-    title = paste(team_reference("nba")$team_name[team_reference("nba")$team_abbr == best], "top scorers"),
+    title = paste(sdv_teams("nba")$name[sdv_teams("nba")$abbr == best], "top scorers"),
     subtitle = "2025-26 regular season, per game, 20+ games"
   ) |>
   tab_source_note("Data: hoopR::load_nba_player_box()") |>
-  gt_theme_sdv_team(team = best, sport = "nba")
+  gt_theme_sdv_team(team = best, league = "nba")
 ```
 
 `gt_theme_sdv()` is the house look in light or dark (`style = "dark"`), for

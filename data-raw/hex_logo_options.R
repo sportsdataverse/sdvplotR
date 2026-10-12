@@ -89,11 +89,11 @@ picks <- list(
   wbb = c("SC", "IOWA", "LSU", "STAN", "UCLA", "ND")
 )
 logo_paths <- function(n) {
-  p <- unlist(lapply(names(picks), function(s) logo_from_team(picks[[s]][seq_len(n)], sport = s)))
+  p <- unlist(lapply(names(picks), function(s) logo_from_team(picks[[s]][seq_len(n)], league = s)))
   stopifnot(!anyNA(p))
   p
 }
-one_per_league <- function() unlist(lapply(names(picks), function(s) logo_from_team(picks[[s]][1], sport = s)))
+one_per_league <- function() unlist(lapply(names(picks), function(s) logo_from_team(picks[[s]][1], league = s)))
 
 set.seed(7)
 
