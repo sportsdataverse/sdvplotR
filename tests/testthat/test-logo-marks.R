@@ -1,3 +1,5 @@
+skip_on_cran()
+
 # logo_marks: the SportsDataverse logo archive's copies of today's marks
 # (data-raw/generate_logo_marks.R), read first by every logo / wordmark helper.
 

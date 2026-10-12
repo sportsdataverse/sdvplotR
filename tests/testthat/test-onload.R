@@ -1,3 +1,5 @@
+skip_on_cran()
+
 no_check_env <- c(
   "_R_CHECK_EXAMPLE_TIMING_CPU_TO_ELAPSED_THRESHOLD_" = NA,
   "_R_CHECK_THINGS_IN_OTHER_DIRS_" = NA,

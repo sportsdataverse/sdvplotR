@@ -1,3 +1,5 @@
+skip_on_cran()
+
 test_that("soccer clubs resolve by ESPN id, and by name when no other club shares it", {
   expect_true("soccer" %in% supported_sports())
   expect_identical(clean_team_abbrs("359", "soccer"), "359")

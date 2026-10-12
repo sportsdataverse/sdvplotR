@@ -1,3 +1,5 @@
+skip_on_cran()
+
 library(gt)
 
 html_of <- function(x) as.character(gt::as_raw_html(x, inline_css = FALSE))

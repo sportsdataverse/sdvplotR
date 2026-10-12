@@ -1,3 +1,5 @@
+skip_on_cran()
+
 test_that("reactable cell renderers return img tags or the raw value", {
   f <- reactable_sdv_logos("nfl", variant = "dark", height = 20)
   expect_match(f("KC", 1), paste0("<img src=\"", resolve_logo_url("KC", "nfl", "dark"), "\" style=\"height:20px;"), fixed = TRUE)

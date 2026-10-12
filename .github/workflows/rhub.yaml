@@ -51,6 +51,7 @@ jobs:
       image: ${{ matrix.config.container }}
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      NOT_CRAN: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
@@ -80,6 +81,7 @@ jobs:
         config: ${{ fromJson(needs.setup.outputs.platforms) }}
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      NOT_CRAN: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}

@@ -1,3 +1,5 @@
+skip_on_cran()
+
 test_that("sdv_court_coords converts stats-API shot locations to the sportyR nba frame", {
   df <- data.frame(
     x_legacy = c(0, -220, 220, 0),

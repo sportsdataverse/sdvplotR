@@ -1,3 +1,5 @@
+skip_on_cran()
+
 test_that("the landmark table is the shared, hash-pinned copy", {
   skip_if(utils::packageVersion("cli") < "3.6.0") # cli::hash_file_sha256() arrived in 3.6.0
   path <- system.file("extdata", "pitch_landmarks.csv", package = "sdvplotR")

@@ -1,3 +1,5 @@
+skip_on_cran()
+
 # Row groups change the order gt shows rows in (A, A, B, B below, from data
 # rows 1, 3, 2, 4). Each helper must decorate a cell from that cell's own row.
 

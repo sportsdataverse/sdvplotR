@@ -1,3 +1,5 @@
+skip_on_cran()
+
 library(ggplot2)
 
 test_that("element constructors return theme elements with the sport recorded", {

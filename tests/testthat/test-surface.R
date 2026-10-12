@@ -1,3 +1,5 @@
+skip_on_cran()
+
 check_teams <- c(
   nba = "BOS", wnba = "LV", mbb = "DUKE", wbb = "UCONN",
   nfl = "KC", cfb = "TEX", nhl = "COL", mlb = "NYY"

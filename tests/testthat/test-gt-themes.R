@@ -1,3 +1,5 @@
+skip_on_cran()
+
 html_of <- function(x) as.character(gt::as_raw_html(x, inline_css = FALSE))
 
 test_that("every gt_theme_* returns a gt table that renders", {

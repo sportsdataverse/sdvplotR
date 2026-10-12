@@ -1,3 +1,5 @@
+skip_on_cran()
+
 test_that("logo_from_team resolves every sport and NA for unknowns", {
   for (s in supported_sports()) {
     teams <- valid_team_names(s)[1:3]

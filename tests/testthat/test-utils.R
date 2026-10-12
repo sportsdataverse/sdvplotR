@@ -1,3 +1,5 @@
+skip_on_cran()
+
 test_that("supported_sports lists the eight leagues and soccer", {
   expect_identical(
     supported_sports(),
