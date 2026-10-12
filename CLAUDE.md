@@ -157,13 +157,12 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   `R/utils-*.R`, `R/data.R`, `R/deprecated.R`, `data/theme_bg.rda`) is
   copied from Andrew Weatherman’s
   [gtUtils](https://github.com/andreweatherman/gtUtils) v1.0.0 (MIT,
-  credited in `Authors@R` and `LICENSE.md`). These functions work on any
-  table, so they take no `sport` argument and skip `clean_team_abbrs()`.
-  The port has been restyled (styler, `|>`, lintr), so sync upstream
-  changes by diffing gtUtils against commit `619c64a` (the v1.0.0 the
-  port was taken from; upstream has no tags) and applying the hunks,
-  never by copying files over; keep `"sdvplotR"` in the namespace
-  strings
+  credited in `Authors@R`). These functions work on any table, so they
+  take no `sport` argument and skip `clean_team_abbrs()`. The port has
+  been restyled (styler, `|>`, lintr), so sync upstream changes by
+  diffing gtUtils against commit `619c64a` (the v1.0.0 the port was
+  taken from; upstream has no tags) and applying the hunks, never by
+  copying files over; keep `"sdvplotR"` in the namespace strings
   ([`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md),
   `deprecated.R`). `theme_bg` is built by `data-raw/theme_bg.R`; rerun
   it after adding or recoloring a theme.

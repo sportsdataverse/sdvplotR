@@ -2,8 +2,8 @@
 
 ## Authors
 
-- **[Saiem Gilani](https://x.com/saiemgilani)**. Author, maintainer.
-  [](https://orcid.org/0000-0002-7194-9067)
+- **[Saiem Gilani](https://x.com/saiemgilani)**. Author, maintainer,
+  copyright holder. [](https://orcid.org/0000-0002-7194-9067)
 
 - **[Sebastian Carl](https://x.com/mrcaseb)**. Author.
 
@@ -11,11 +11,7 @@
 
 - **[Camden Kay](https://x.com/camdenkay)**. Author.
 
-- **[Andrew Weatherman](https://github.com/andreweatherman)**. Author,
-  copyright holder.  
-  Author of the 'gtUtils' table functions
-
-- **sdvplotR authors**. Copyright holder.
+- **[Andrew Weatherman](https://github.com/andreweatherman)**. Author.
 
 ## Citation
 

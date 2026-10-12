@@ -29,12 +29,12 @@ Useful links:
 ## Author
 
 **Maintainer**: Saiem Gilani <saiem.gilani@gmail.com>
-([ORCID](https://orcid.org/0000-0002-7194-9067))
+([ORCID](https://orcid.org/0000-0002-7194-9067)) \[copyright holder\]
 
 Authors:
 
 - Saiem Gilani <saiem.gilani@gmail.com>
-  ([ORCID](https://orcid.org/0000-0002-7194-9067))
+  ([ORCID](https://orcid.org/0000-0002-7194-9067)) \[copyright holder\]
 
 - Sebastian Carl <mrcaseb@gmail.com>
 
@@ -42,9 +42,4 @@ Authors:
 
 - Camden Kay <camdenk@gmail.com>
 
-- Andrew Weatherman <andrew@aweatherman.com> (Author of the 'gtUtils'
-  table functions) \[copyright holder\]
-
-Other contributors:
-
-- sdvplotR authors \[copyright holder\]
+- Andrew Weatherman <andrew@aweatherman.com>

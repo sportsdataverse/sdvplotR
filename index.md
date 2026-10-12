@@ -190,8 +190,8 @@ The [**`sdvplotR`** documentation
 website](https://sdvplotR.sportsdataverse.org/) has the full function
 reference and these articles:
 
-🖼️ **[Browse the
-gallery](https://sdvplotR.sportsdataverse.org/articles/gallery.html)**:
+🖼️ [**Browse the
+gallery**](https://sdvplotR.sportsdataverse.org/articles/gallery.html):
 every article by its picture, each linking to the article that draws it.
 
 **Per-sport** (each with companion SportsDataverse package examples):
@@ -242,11 +242,11 @@ scales in ggplot2, team identity, the plotly, ggiraph and leaflet
 integrations, surfaces, and the gt and reactable toolkits, in four color
 themes, light and dark.
 
-📄 **[Download the sdvplotR cheat sheet
-(PDF)](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)**
+📄 [**Download the sdvplotR cheat sheet
+(PDF)**](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)
 
 Browse the other SportsDataverse cheat sheets at
-**[sportsdataverse.org/cheatsheets](https://sportsdataverse.org/cheatsheets)**.
+[**sportsdataverse.org/cheatsheets**](https://sportsdataverse.org/cheatsheets).
 
 ## **The SportsDataverse**
 
