@@ -1,23 +1,32 @@
 ## Release summary
 
 This is the first CRAN submission of sdvplotR, a plotting package for sports
-team logos, wordmarks, player headshots and team colors across nine leagues
+team logos, wordmarks, player headshots and team colors across 28 leagues
 in 'ggplot2', 'gt' and 'reactable'. It is built on 'ggpath' (CRAN) and follows
 the conventions of 'nflplotR' (CRAN).
 
 ## Test environments
 
-* local: Windows 10, R 4.6.1 (`R CMD check --as-cran --run-donttest`)
-* GitHub Actions: ubuntu-latest (R devel, release, oldrel-1),
-  windows-latest (R release), macos-latest (R release)
-* R-hub: linux, windows, macos and macos-arm64 (R devel), ubuntu-next,
-  ubuntu-release, atlas, nosuggests, donttest
+Local results (recorded 2026-10-12):
+
+* local: Windows 10, R 4.6.1 (`R CMD check --as-cran --run-donttest` on the
+  built tarball, 3.5 MB)
+
+PENDING (run after the SportsDataverse CDN index is published, so the checks
+exercise the live path):
+
+* R-hub: linux, windows, macos, macos-arm64, atlas, clang-asan, gcc15, nold,
+  ubuntu-next
+* win-builder: release and devel
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+Local, Windows 10, R 4.6.1: 0 errors | 0 warnings | 2 notes
 
 * This is a new submission.
+* The Windows-only `'NULL'` directory note described below.
+
+R-hub and win-builder: PENDING.
 
 `urlchecker::url_check()` is clean. Words flagged as possibly misspelled in
 the DESCRIPTION (`headshots`, `wordmarks`) are the sports-media terms for
@@ -37,6 +46,10 @@ not occur on Linux, macOS, or R 4.6.0 and earlier.
 
 ## Notes for the CRAN team
 
+* The package reads the SportsDataverse CDN at runtime for its team index
+  and logo manifest, and caches them for a day. Under `R CMD check`, on CRAN
+  and with `options(sdvplotR.offline = TRUE)`, it uses the copy bundled in
+  the package instead and writes nothing outside `tempdir()`.
 * All images are fetched at plot time from public league CDNs (ESPN,
   nflverse) through 'ggpath' and cached for the session; no image files are
   bundled. Examples that download images are wrapped in `\donttest{}` (as
