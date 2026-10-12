@@ -267,6 +267,44 @@ leaders |>
 | 10 | ![Player 4065870 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/wnba/players/full/4065870.png) | Jackie Young | ![Las Vegas Aces](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d3057fc57ddcd581b22821cab1d5fcc21a6e7b9e9bc7a0dcc57c3ef4e8284523.png) | 43 | 18.9 | 4.4 | 6.8 | 48.8% |
 | Data: wehoop (ESPN box scores) \| Viz: sdvplotR |  |  |  |  |  |  |  |  |
 
+## 4. Interactive version
+
+The offense-against-defense chart from section 2 with ggiraph: hover a
+logo for the team’s record and ratings.
+[`geom_sdv_logos_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+is
+[`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
+with a hover target under each logo, so `tooltip` and `data_id` go in
+the same [`aes()`](https://ggplot2.tidyverse.org/reference/aes.html) as
+`team`.
+
+``` r
+
+p_wnba <- ggplot(ratings, aes(x = ortg, y = drtg)) +
+  geom_abline(slope = 1, intercept = seq(-30, 30, by = 5), colour = "grey88", linewidth = 0.3) +
+  geom_hline(yintercept = mean(ratings$drtg), linetype = "dashed", colour = "grey55") +
+  geom_vline(xintercept = mean(ratings$ortg), linetype = "dashed", colour = "grey55") +
+  geom_sdv_logos_interactive(
+    aes(team = team, data_id = team, tooltip = sprintf(
+      "%s, %d-%d<br>Offense %.1f, defense %.1f<br>Net %+.1f per 100 possessions", name, w, l, ortg, drtg, net
+    )),
+    league = "wnba", width = 0.065
+  ) +
+  scale_x_continuous(expand = expansion(mult = 0.08)) +
+  scale_y_reverse(expand = expansion(mult = 0.12)) +
+  labs(
+    title = paste("WNBA offense and defense,", season),
+    x = "Offensive rating", y = "Defensive rating (reversed)"
+  ) +
+  theme_minimal(base_size = 13)
+
+ggiraph::girafe(ggobj = p_wnba, width_svg = 7, height_svg = 5)
+```
+
+More recipes like this one, in plotly, ggiraph, leaflet and reactable,
+are in [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md).
+
 ## Related
 
 - [WNBA](https://sdvplotR.sportsdataverse.org/articles/wnba-viz.md)

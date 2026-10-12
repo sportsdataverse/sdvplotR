@@ -93,7 +93,9 @@ names with the Python package sdvplot and the JavaScript packages
   [`geom_sdv_logos_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md),
   [`geom_sdv_wordmarks_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
   and
-  [`geom_sdv_headshots_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md).
+  [`geom_sdv_headshots_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md),
+  which embed images at most `max_px`
+  160. pixels a side, so 32 logos add about half a megabyte to the page.
 - leaflet:
   [`addSdvLogoMarkers()`](https://sdvplotR.sportsdataverse.org/reference/addSdvLogoMarkers.md).
 
@@ -120,7 +122,9 @@ names with the Python package sdvplot and the JavaScript packages
   [`theme_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
   /
   [`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md).
-  All of them work after a complete theme such as
+  Both draw a copy of each image at most four times its drawn size
+  (sharp in a 300 dpi export, and a few KB a logo in an SVG or ggiraph
+  widget). All of them work after a complete theme such as
   [`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
   on ‘ggplot2’ 4, which sdvplotR requires.
 - [`scale_color_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)

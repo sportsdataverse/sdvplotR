@@ -109,6 +109,21 @@ Card](https://sdvplotR.sportsdataverse.org/articles/recipe-head-to-head-card.md)
 [![Figure](../articles/recipe-wbb-conference-standings_files/figure-html/export-1.png)Recipe:
 WBB Conference
 Standings](https://sdvplotR.sportsdataverse.org/articles/recipe-wbb-conference-standings.md)
+[![Figure](../articles/recipe-nfl-epa-interactive_files/figure-html/export-1.png)Recipe:
+Interactive NFL EPA
+Scatter](https://sdvplotR.sportsdataverse.org/articles/recipe-nfl-epa-interactive.md)
+[![Figure](../articles/recipe-nba-net-rating-interactive_files/figure-html/export-1.png)Recipe:
+Interactive NBA Net
+Rating](https://sdvplotR.sportsdataverse.org/articles/recipe-nba-net-rating-interactive.md)
+[![Figure](../articles/recipe-nhl-shot-map-interactive_files/figure-html/export-1.png)Recipe:
+Interactive NHL Shot
+Map](https://sdvplotR.sportsdataverse.org/articles/recipe-nhl-shot-map-interactive.md)
+[![Figure](../articles/recipe-mlb-run-differential-interactive_files/figure-html/export-1.png)Recipe:
+Interactive MLB Run
+Differential](https://sdvplotR.sportsdataverse.org/articles/recipe-mlb-run-differential-interactive.md)
+[![Figure](../articles/recipe-cfb-stadium-map_files/figure-html/export-1.png)Recipe:
+CFB Stadium
+Map](https://sdvplotR.sportsdataverse.org/articles/recipe-cfb-stadium-map.md)
 [![Figure](../articles/leaderboard-nfl-weekly_files/figure-html/off-def-1.png)NFL
 Weekly
 Leaderboard](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nfl-weekly.md)

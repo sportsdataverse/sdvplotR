@@ -9,7 +9,8 @@ sdvplotR, keeping a 360-team chart legible, ranking the top 25 with
 logos on the axis, the power conferences in small multiples, a
 season-by-season realignment table with conference logos, a conference
 standings table, March as a tier list, a headshot leaderboard, a shot
-chart on a college court and the AP poll as a bump chart. The data are
+chart on a college court and the AP poll as a bump chart, then the
+360-team chart again as an interactive one. The data are
 [hoopR](https://hoopR.sportsdataverse.org)’s ESPN release files on
 GitHub (`load_mbb_*()`): box scores, standings, schedules, shots and the
 adjusted team ratings. Nothing here calls stats.ncaa.org.
@@ -559,6 +560,45 @@ ggplot(poll_top, aes(week, rank)) +
 season for the eight teams ranked highest in the last full poll, one
 line per team in its color with its logo at its final
 rank.](mbb-viz_files/figure-html/ap-poll-1.png)
+
+## 11. Make it interactive
+
+Section 2 gave logos to 25 teams and left the rest as anonymous grey
+points. In an interactive chart every point can name itself: this native
+plotly version keeps the grey points as a marker trace with hover text,
+and
+[`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+places the top 25’s logos as layout images. Hover any point or logo for
+the team, its conference, its tempo and its adjusted margin, with the
+offense and defense behind it; drag a box to zoom into a crowd and
+double-click to zoom back out.
+
+``` r
+
+ratings_hover <- ratings |>
+  mutate(tip = sprintf(
+    "<b>%s</b> (%s)<br>Tempo %.1f<br>Margin %+.1f (offense %.1f, defense %.1f)",
+    team_name, coalesce(conference, "conference unknown"), adj_tempo, adj_em, adj_o, adj_d
+  ))
+
+plotly::plot_ly(
+  ratings_hover, x = ~adj_tempo, y = ~adj_em, type = "scatter", mode = "markers",
+  marker = list(color = "grey", size = 7, opacity = 0.6), text = ~tip, hoverinfo = "text"
+) |>
+  plotly::layout(
+    title = list(text = paste("Tempo vs efficiency, Division I men's basketball,", label), x = 0.02),
+    xaxis = list(title = "Adjusted tempo (possessions per 40 minutes)"),
+    yaxis = list(title = "Adjusted efficiency margin (per 100 possessions)")
+  ) |>
+  add_sdv_logos(top25$adj_tempo, top25$adj_em, top25$team, "mbb", size = 0.05)
+```
+
+Only the top 25 get logos, but `size` is a share of the whole y-axis,
+which every team’s margin spans, so the logos stay small over the crowd
+of points. plotly loads each logo from its URL, so the page stays light.
+[Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md)
+covers plotly, ggiraph and leaflet.
 
 ## Related articles
 

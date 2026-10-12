@@ -6,10 +6,10 @@ Ten charts and tables from the 2026 MLB regular season: run differential
 in team colors, division standings, Pythagorean luck, team and player
 Statcast numbers, home run leaders with their headshots, a spray chart
 on the field, the division races week by week, the franchises that
-moved, and the postseason field as a tier list. The data comes from two
-public sources through
-[baseballr](https://baseballr.sportsdataverse.org): the MLB Stats API
-and Baseball Savant. Neither needs a key.
+moved, and the postseason field as a tier list, then the Pythagorean
+chart as an interactive one. The data comes from two public sources
+through [baseballr](https://baseballr.sportsdataverse.org): the MLB
+Stats API and Baseball Savant. Neither needs a key.
 
 ``` r
 
@@ -702,6 +702,48 @@ sdv_team_tiers(
 division winners, wild cards, teams that missed the postseason by five
 games or fewer, and teams that missed by
 more.](mlb-viz_files/figure-html/team-tiers-1.png)
+
+## 11. Make it interactive
+
+Section 3’s Pythagorean chart as native plotly: a transparent marker
+under each team carries the hover text, and
+[`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+places the logos as layout images at the same coordinates. Hover a logo
+for the team’s record, run differential, expected wins and how far it
+beat or missed them, the numbers the static chart can only place against
+the dashed line.
+
+``` r
+
+pyth_hover <- pyth |>
+  mutate(tip = sprintf(
+    "<b>%s</b><br>%.0f-%.0f, %+.0f run differential<br>%.1f expected wins (%+.1f)",
+    team_name, w, l, diff, xw, luck
+  ))
+lims <- range(pyth$xw, pyth$w) + c(-3, 3) # section 4 reused the name
+
+plotly::plot_ly(
+  pyth_hover, x = ~xw, y = ~w, type = "scatter", mode = "markers",
+  marker = list(size = 26, opacity = 0), text = ~tip, hoverinfo = "text"
+) |>
+  plotly::layout(
+    title = list(text = paste(season, "MLB: actual against expected wins"), x = 0.02),
+    xaxis = list(title = "Expected wins", range = lims),
+    yaxis = list(title = "Actual wins", range = lims),
+    shapes = list(list(
+      type = "line", x0 = lims[1], y0 = lims[1], x1 = lims[2], y1 = lims[2],
+      line = list(color = "grey", dash = "dash", width = 1)
+    ))
+  ) |>
+  add_sdv_logos(pyth_hover$xw, pyth_hover$w, pyth_hover$team, "mlb", size = 0.07)
+```
+
+plotly loads each logo from its URL rather than embedding it, so the
+page stays light. [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md)
+covers plotly, ggiraph and leaflet, and the [Interactive MLB Run
+Differential](https://sdvplotR.sportsdataverse.org/articles/recipe-mlb-run-differential-interactive.md)
+recipe does the same for section 1’s bars.
 
 ## Related articles
 

@@ -7,7 +7,8 @@ teams on one scatter, conference small multiples, conference logos on an
 axis, a conference standings table, the national champion’s season with
 a logo in the title, the College Football Playoff bracket, a rivalry
 across two decades, a quarterback leaderboard with headshots, a ranked
-bar chart with logos on the y axis and a tier list.
+bar chart with logos on the y axis and a tier list. The last section
+makes the first chart interactive.
 
 College football is the league where sdvplotR’s name matching earns its
 keep: the data names schools (`"Ohio State"`, `"San José State"`), and
@@ -664,6 +665,55 @@ sdv_team_tiers(
 Solid, for the 32 best FBS teams of 2025 by their average rank in SP+,
 FPI and SRS, best first within each
 tier.](cfb-viz_files/figure-html/team-tiers-1.png)
+
+## 11. Make it interactive
+
+The 136-team scatter from section 1 is crowded in the middle, which is
+where an interactive chart helps most. This one is native plotly: a
+transparent marker under each team carries the hover text, and
+[`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+places the logos as layout images at the same coordinates. Hover a logo
+for the school, its 2025 conference and its EPA per play on each side;
+drag a box to zoom into the cluster and double-click to zoom back out.
+plotly loads each logo from its URL, so 136 of them add almost nothing
+to the page.
+
+``` r
+
+pad <- 0.03
+fbs_hover <- ratings |>
+  mutate(tip = sprintf(
+    "<b>%s</b> (%s)<br>Offense: %+.3f EPA/play<br>Defense: %+.3f EPA/play allowed<br>Net: %+.3f",
+    team, conference, off_epa, def_epa, net_epa
+  ))
+avg_line <- list(color = "grey", dash = "dash", width = 1)
+
+plotly::plot_ly(
+  fbs_hover, x = ~off_epa, y = ~def_epa, type = "scatter", mode = "markers",
+  marker = list(size = 14, opacity = 0), text = ~tip, hoverinfo = "text"
+) |>
+  plotly::layout(
+    title = list(text = "Every FBS offense and defense, 2025", x = 0.02),
+    xaxis = list(title = "Offense EPA per play", range = range(fbs_hover$off_epa) + c(-pad, pad), zeroline = FALSE),
+    yaxis = list(
+      title = "Defense EPA per play allowed (better is up)", zeroline = FALSE,
+      range = rev(range(fbs_hover$def_epa) + c(-pad, pad))
+    ),
+    shapes = list(
+      list(type = "line", x0 = mean(fbs_hover$off_epa), x1 = mean(fbs_hover$off_epa), yref = "paper", y0 = 0, y1 = 1, line = avg_line),
+      list(type = "line", y0 = mean(fbs_hover$def_epa), y1 = mean(fbs_hover$def_epa), xref = "paper", x0 = 0, x1 = 1, line = avg_line)
+    )
+  ) |>
+  add_sdv_logos(fbs_hover$off_epa, fbs_hover$def_epa, fbs_hover$team_id, "cfb", size = 0.04)
+```
+
+A `range` given high to low reverses the axis, so good defenses sit at
+the top as in the static chart. [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md)
+covers plotly, ggiraph and leaflet, and the [CFB stadium
+map](https://sdvplotR.sportsdataverse.org/articles/recipe-cfb-stadium-map.md)
+recipe puts the same logos on a map of the stadiums with
+[`addSdvLogoMarkers()`](https://sdvplotR.sportsdataverse.org/reference/addSdvLogoMarkers.md).
 
 ## Next steps
 

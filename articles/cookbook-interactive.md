@@ -229,9 +229,9 @@ p_threes <- ggplot(threes, aes(x = team, y = tpa)) +
 girafe(ggobj = p_threes, width_svg = 8, height_svg = 4.5)
 ```
 
-Every logo is embedded in the page at full size, so a chart with dozens
-of them weighs a few hundred kilobytes; recipe 2’s URL-in-tooltip
-approach is the light one.
+Every logo is embedded in the page, as a small copy sized for the axis
+label, so thirty of them add about 100 KB; recipe 2’s URL-in-tooltip
+approach adds nothing.
 
 ## 5. plotly: `ggplotly()` drops the logos, so add them back
 

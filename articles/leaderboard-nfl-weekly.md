@@ -340,6 +340,40 @@ percentage over expected (horizontal) and EPA per dropback (vertical),
 with dashed lines at the averages of the
 group.](leaderboard-nfl-weekly_files/figure-html/qb-chart-1.png)
 
+## 4. Interactive version
+
+The offense-against-defense chart from section 2 as a plotly chart:
+hover a logo for the team’s record, EPA and rank, and drag a box to zoom
+into a crowded corner. A transparent marker trace carries the hover
+text, and
+[`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+puts the logos on as layout images, in data units. plotly sizes its axes
+from the markers only, so the ranges get a margin for the logos, and a
+range given high-to-low reverses the defense axis.
+
+``` r
+
+pad <- function(v) range(v) + c(-1, 1) * 0.08 * diff(range(v))
+plotly::plot_ly(
+  power, x = ~off_epa, y = ~def_epa, type = "scatter", mode = "markers",
+  marker = list(size = 24, opacity = 0), hoverinfo = "text",
+  text = ~sprintf(
+    "%s (%s), rank %d<br>Offense %+.3f, defense %+.3f<br>Net %+.3f per play",
+    name, record, rank, off_epa, def_epa, net
+  )
+) |>
+  plotly::layout(
+    title = list(text = paste("NFL offense and defense,", season, through), x = 0.02),
+    xaxis = list(title = "Offense: EPA per play", range = pad(power$off_epa)),
+    yaxis = list(title = "Defense: EPA allowed per play (reversed)", range = rev(pad(power$def_epa)))
+  ) |>
+  add_sdv_logos(power$off_epa, power$def_epa, power$team, "nfl", size = 0.07)
+```
+
+More recipes like this one, in plotly, ggiraph, leaflet and reactable,
+are in [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md).
+
 ## Related
 
 - [Leaderboard

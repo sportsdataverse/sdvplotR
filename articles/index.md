@@ -214,6 +214,50 @@ end-to-end workflows.
 - [End-to-End Workflows with sdvplotR and the SportsDataverse
   Ecosystem](https://sdvplotR.sportsdataverse.org/articles/workflows.md):
 
+### Interactive
+
+The recipes as charts and maps a reader can hover, filter and zoom, with
+ggiraph, plotly and leaflet. Start with the Interactive Charts cookbook;
+every leaderboard and per-sport article also ends with an interactive
+version.
+
+- [Interactive NFL EPA
+  Scatter](https://sdvplotR.sportsdataverse.org/articles/recipe-nfl-epa-interactive.md):
+
+  Turn the offense-vs-defense EPA chart into a web chart: hover a logo
+  for the team’s numbers and ranks, fade the other 31, and share it as
+  one HTML file.
+
+- [Interactive NBA Net
+  Rating](https://sdvplotR.sportsdataverse.org/articles/recipe-nba-net-rating-interactive.md):
+
+  Build the NBA offense-vs-defense quadrant in plotly with team logos
+  and hover details, then a net-rating bar chart with logos on the axis,
+  and share both as web pages.
+
+- [Interactive NHL Shot
+  Map](https://sdvplotR.sportsdataverse.org/articles/recipe-nhl-shot-map-interactive.md):
+
+  Turn the Stanley Cup clincher’s shot map into a web chart: hover a
+  shot for the shooter, period, time, shot type and result, hover a
+  shooter to light up all of his shots, and keep each team’s logo and
+  score beside its end.
+
+- [Interactive MLB Run
+  Differential](https://sdvplotR.sportsdataverse.org/articles/recipe-mlb-run-differential-interactive.md):
+
+  Make the season’s run differential ranking a web chart: team-color
+  bars with logos on the axis, a hover card with each team’s record and
+  runs, and a linked view of run differential against winning percentage
+  with the Pythagorean expectation.
+
+- [CFB Stadium
+  Map](https://sdvplotR.sportsdataverse.org/articles/recipe-cfb-stadium-map.md):
+
+  Put every FBS program on a map as its logo at its home stadium: hover
+  for the school, click for the stadium, switch conferences on and off,
+  and share it as one HTML file.
+
 ### Leaderboards
 
 Each league’s current season, rebuilt every week with this site: the

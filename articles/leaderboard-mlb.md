@@ -347,6 +347,45 @@ leaders |>
 | 3 | ![Player 693645 headshot](https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/693645/headshot/67/current.png) | Cam Schlittler | ![New York Yankees](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d9/d98856c36bc8d3b0fb0bab5fabd79d2ae057619164365845cbc817b04ae74a26.png) | 239 |
 | Data: MLB Stats API via baseballr \| Viz: sdvplotR |  |  |  |  |
 
+## 4. Interactive version
+
+The 30 clubs from the standings in one reactable: click a column header
+to sort the league by it (run differential, runs scored, streak), or
+search for a club or a division.
+[`reactable_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
+draws the logos, and
+[`reactable_sdv_team_color_bar()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_team_color.md)
+fills each club’s wins cell in its color, to the length of its win
+total.
+
+``` r
+
+league_table <- standings |>
+  arrange(desc(pct), team_name) |>
+  transmute(logo = abbreviation, team_name, division, w, l, pct, rs, ra, diff, streak)
+
+reactable::reactable(
+  league_table,
+  searchable = TRUE, highlight = TRUE, compact = TRUE, defaultPageSize = 15,
+  columns = list(
+    logo = reactable::colDef(name = "", cell = reactable_sdv_logos("mlb", height = 24), html = TRUE, width = 46),
+    team_name = reactable::colDef(name = "Team", minWidth = 150),
+    division = reactable::colDef(name = "Division", minWidth = 120),
+    w = reactable::colDef(name = "W", style = reactable_sdv_team_color_bar(league_table, "logo", "mlb")),
+    l = reactable::colDef(name = "L"),
+    pct = reactable::colDef(name = "Pct", format = reactable::colFormat(digits = 3)),
+    rs = reactable::colDef(name = "RS"),
+    ra = reactable::colDef(name = "RA"),
+    diff = reactable::colDef(name = "Diff"),
+    streak = reactable::colDef(name = "Streak", sortable = FALSE)
+  )
+)
+```
+
+More recipes like this one, in plotly, ggiraph, leaflet and reactable,
+are in [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md).
+
 ## Related
 
 - [MLB](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.md) walks

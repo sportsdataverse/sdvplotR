@@ -260,6 +260,55 @@ game, each bar in the player's team color, with the player's headshot at
 the left of the bar and the team logo at its
 end.](leaderboard-nba_files/figure-html/scoring-leaders-1.png)
 
+## 4. Interactive version
+
+The net rating bars from section 2 with ggiraph: hover a bar for the
+team’s logo, record and offensive and defensive ratings, and the other
+bars fade. The chart is the same ggplot with
+[`geom_col_interactive()`](https://davidgohel.github.io/ggiraph/reference/geom_bar_interactive.html)
+in place of
+[`geom_col()`](https://ggplot2.tidyverse.org/reference/geom_bar.html).
+Here the axis keeps the abbreviations and the logo goes in the tooltip
+as a link
+([`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)),
+which the browser loads on hover; for logos on the axis too, add
+[`scale_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+and
+[`theme_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
+as in section 2 (ggiraph embeds them, about 100 KB for 30).
+
+``` r
+
+p_net <- ggplot(ratings, aes(x = reorder(team, -net), y = net, fill = team)) +
+  ggiraph::geom_col_interactive(
+    aes(data_id = team, tooltip = sprintf(
+      "<img src='%s' height='48'><br><b>%s</b>, %d-%d<br>Offense %.1f, defense %.1f<br>Net %+.1f per 100 possessions",
+      sdv_logo_url(team, league = "nba"), name, w, l, ortg, drtg, net
+    )),
+    width = 0.75
+  ) +
+  geom_hline(yintercept = 0, colour = "grey20", linewidth = 0.4) +
+  scale_fill_sdv(league = "nba", guide = "none") +
+  labs(title = paste("NBA net rating,", label(season), through), x = NULL, y = "Net rating") +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid.major.x = element_blank(), panel.grid.minor = element_blank(),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, size = 8)
+  )
+
+ggiraph::girafe(
+  ggobj = p_net, width_svg = 8, height_svg = 4.5,
+  options = list(
+    ggiraph::opts_hover_inv(css = "opacity:0.3;"),
+    ggiraph::opts_tooltip(css = "background:white;color:black;padding:6px;border-radius:6px;")
+  )
+)
+```
+
+More recipes like this one, in plotly, ggiraph, leaflet and reactable,
+are in [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md).
+
 ## Related
 
 - [NBA](https://sdvplotR.sportsdataverse.org/articles/nba-viz.md) walks

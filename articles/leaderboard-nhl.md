@@ -282,6 +282,37 @@ dark blue and assists in light blue, with each player's headshot at the
 left of the bar, the team logo at its end and the points total beside
 it.](leaderboard-nhl_files/figure-html/points-leaders-1.png)
 
+## 4. Interactive version
+
+The goal differential bars from section 2 as a plotly chart: hover a bar
+for the team’s record and its goals for and against. plotly draws no
+logos on its own, so
+[`sdv_axis_logos()`](https://sdvplotR.sportsdataverse.org/reference/sdv_axis_logos.md)
+hides the team codes and puts a logo under each bar.
+
+``` r
+
+plotly::plot_ly(
+  gd, x = ~factor(team, levels = team), y = ~goal_differential, type = "bar",
+  marker = list(color = unname(sdv_team_colors("nhl", gd$team))),
+  hoverinfo = "text", textposition = "none",
+  text = ~sprintf(
+    "%s, %d-%d-%d<br>%d goals for, %d against (%+d)",
+    team_common_name, wins, losses, ot_losses, goals_for, goals_against, goal_differential
+  )
+) |>
+  plotly::layout(
+    title = list(text = paste("NHL goal differential,", label(season)), x = 0.02),
+    xaxis = list(title = ""), yaxis = list(title = "Goal differential"),
+    margin = list(b = 50, t = 50)
+  ) |>
+  sdv_axis_logos(gd$team, "nhl")
+```
+
+More recipes like this one, in plotly, ggiraph, leaflet and reactable,
+are in [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md).
+
 ## Related
 
 - [NHL](https://sdvplotR.sportsdataverse.org/articles/nhl-viz.md) walks

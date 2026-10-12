@@ -6,7 +6,8 @@ Ten charts and tables from the 2025-26 NBA regular season: an
 offense-vs-defense quadrant and net-rating bars with logos, a conference
 bump chart, a scoring leaderboard with headshots, a shot chart on a
 team-colored court, tiers, a standings table, faceted logos, a home/road
-dumbbell and a table of category leaders. Every number comes from
+dumbbell and a table of category leaders, then the first chart again as
+an interactive one. Every number comes from
 [hoopR](https://hoopR.sportsdataverse.org)’s ESPN release files on
 GitHub (`load_nba_*()`), so nothing here calls stats.nba.com.
 
@@ -604,6 +605,56 @@ per_game |>
 | Blocks | ![Player 5104157 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/5104157.png) | Victor Wembanyama | ![San Antonio Spurs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/cc/cc3d33fa8faf34874258b10a8e0377d70b80c7900b4d90698f35edba9952fa1c.png) | 3.1 | 65 |
 | 3-pointers made | ![Player 3945274 headshot](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3945274.png) | Luka Doncic | ![Los Angeles Lakers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82fda3df51058c5aad8a52123868f43959017be0c39c886e9aefbb77e6c69c89.png) | 4.0 | 64 |
 | Data: hoopR (ESPN) \| Viz: sdvplotR |  |  |  |  |  |
+
+## 11. Make it interactive
+
+The offense-vs-defense quadrant from section 1 again, built with native
+plotly. A transparent marker under each team carries the hover text, and
+[`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+places the logos as layout images at the same coordinates. Hover a logo
+for the team’s record, both ratings and its net rating, the numbers that
+section 1 can only place and section 2 ranks.
+
+``` r
+
+nba_index <- sdv_teams("nba")
+ratings_hover <- ratings |>
+  mutate(
+    name = nba_index$name[match(sdv_resolve(team, league = "nba"), nba_index$team_id)],
+    tip = sprintf(
+      "<b>%s</b> (%s)<br>%d-%d<br>Offensive rating %.1f, defensive %.1f<br>Net %+.1f per 100 possessions",
+      name, conference, wins, games - wins, ortg, drtg, net
+    )
+  )
+
+avg_line <- list(color = "grey", dash = "dash", width = 1)
+
+plotly::plot_ly(
+  ratings_hover, x = ~ortg, y = ~drtg, type = "scatter", mode = "markers",
+  marker = list(size = 30, opacity = 0), text = ~tip, hoverinfo = "text"
+) |>
+  plotly::layout(
+    title = list(text = paste("NBA offense vs defense,", label, "regular season"), x = 0.02),
+    xaxis = list(title = "Offensive rating (points per 100 possessions)", range = x_lim, zeroline = FALSE),
+    yaxis = list(title = "Defensive rating (points allowed per 100)", range = rev(y_lim), zeroline = FALSE),
+    shapes = list(
+      list(type = "line", x0 = mean(ratings$ortg), x1 = mean(ratings$ortg), yref = "paper", y0 = 0, y1 = 1, line = avg_line),
+      list(type = "line", y0 = mean(ratings$drtg), y1 = mean(ratings$drtg), xref = "paper", x0 = 0, x1 = 1, line = avg_line)
+    )
+  ) |>
+  add_sdv_logos(ratings_hover$ortg, ratings_hover$drtg, ratings_hover$team, "nba", size = 0.08)
+```
+
+`x_lim` and `y_lim` are section 1’s axis limits;
+[`rev()`](https://rdrr.io/r/base/rev.html) reverses the defense axis.
+The record counts every regular-season game in the box scores, so New
+York and San Antonio include the NBA Cup final. plotly loads each logo
+from its URL, so the page stays light. [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md)
+covers plotly, ggiraph and leaflet, and the [Interactive NBA Net
+Rating](https://sdvplotR.sportsdataverse.org/articles/recipe-nba-net-rating-interactive.md)
+recipe builds this quadrant and section 2’s net rating bars in plotly,
+step by step.
 
 ## Related articles
 

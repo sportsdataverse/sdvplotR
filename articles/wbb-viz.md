@@ -8,10 +8,11 @@ its ESPN id with the school’s men’s team. These ten examples chart the
 best teams, a conference table, conference strength with conference
 logos, a headshot leaderboard, a shot chart on a college court, a ranked
 top 25, seed-line tiers, the champion’s tournament run and a conference
-race as a bump chart. The data are
-[wehoop](https://wehoop.sportsdataverse.org)’s ESPN release files on
-GitHub (`load_wbb_*()`): box scores, standings, schedules, player box
-scores and shots. Nothing here calls stats.ncaa.org.
+race as a bump chart, then the efficiency landscape as an interactive
+chart. The data are [wehoop](https://wehoop.sportsdataverse.org)’s ESPN
+release files on GitHub (`load_wbb_*()`): box scores, standings,
+schedules, player box scores and shots. Nothing here calls
+stats.ncaa.org.
 
 ## Setup
 
@@ -274,14 +275,6 @@ ratings |>
   ) +
   theme_y_sdv() +
   theme(legend.position = "none", panel.grid.major.y = element_blank())
-#> Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:
-#> known incorrect sRGB profile
-#> Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:
-#> known incorrect sRGB profile
-#> Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:
-#> known incorrect sRGB profile
-#> Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:
-#> known incorrect sRGB profile
 ```
 
 ![Horizontal bar chart of the 31 Division I women's basketball
@@ -447,10 +440,6 @@ head(ratings, 25) |>
   ) +
   theme_x_sdv() +
   theme(legend.position = "none", panel.grid.major.x = element_blank())
-#> Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:
-#> known incorrect sRGB profile
-#> Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:
-#> known incorrect sRGB profile
 ```
 
 ![Column chart of the 25 best Division I women's basketball teams of
@@ -596,6 +585,46 @@ ggplot(weekly, aes(week, rank)) +
 percentage through the 2025-26 regular season, one line per team in its
 color with its logo at its final
 rank.](wbb-viz_files/figure-html/bump-chart-1.png)
+
+## 11. Make it interactive
+
+Section 2’s efficiency landscape, built with native plotly. A
+transparent marker under each team carries the hover text, and
+[`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+places the logos as layout images at the same coordinates. Hover a logo
+for the school, its conference, its games against Division I teams and
+its three ratings; that helps most where logos sit close together, and
+you can drag a box to zoom in on them.
+
+``` r
+
+top36_hover <- top36 |>
+  mutate(tip = sprintf(
+    "<b>%s</b> (%s)<br>%d games against Division I teams<br>Offense %.1f, defense %.1f<br>Net %+.1f per 100 possessions",
+    team_name, coalesce(conference, "conference unknown"), games, ortg, drtg, net
+  ))
+
+pad <- 2
+
+plotly::plot_ly(
+  top36_hover, x = ~ortg, y = ~drtg, type = "scatter", mode = "markers",
+  marker = list(size = 26, opacity = 0), text = ~tip, hoverinfo = "text"
+) |>
+  plotly::layout(
+    title = list(text = paste("The efficiency landscape of the top 36,", label), x = 0.02),
+    xaxis = list(title = "Offensive rating (points per 100 possessions)", range = range(top36$ortg) + c(-pad, pad)),
+    yaxis = list(title = "Defensive rating (allowed per 100)", range = rev(range(top36$drtg) + c(-pad, pad)))
+  ) |>
+  add_sdv_logos(top36_hover$ortg, top36_hover$drtg, top36_hover$team, "wbb", size = 0.07)
+```
+
+A `range` given high to low reverses the axis, so good defenses sit at
+the top. plotly loads each logo from its URL, so the page stays light;
+the [men’s college basketball
+article](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.md) uses
+the same approach to make all 360 teams hoverable. [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md)
+covers plotly, ggiraph and leaflet.
 
 ## Related articles
 

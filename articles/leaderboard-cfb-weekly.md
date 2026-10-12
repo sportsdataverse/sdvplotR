@@ -309,6 +309,46 @@ EPA per play (horizontal) and adjusted defensive EPA allowed per play
 the group's
 averages.](leaderboard-cfb-weekly_files/figure-html/off-def-1.png)
 
+## 4. Interactive version
+
+The top 25 table stops at 25. Every FBS team’s rating goes in a
+reactable instead, which sorts on any column header and searches in the
+browser: type a school or a conference to find it.
+[`reactable_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
+draws the school and conference marks from the same keys as
+[`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
+above.
+
+``` r
+
+every_team <- ratings |>
+  transmute(rank, logo = key, school, conf_logo = conference, conference, record, off, dfn, net)
+logo_col <- function(height) {
+  reactable::colDef(name = "", cell = reactable_sdv_logos("cfb", height = height), html = TRUE, width = 46, sortable = FALSE)
+}
+epa_col <- function(name) reactable::colDef(name = name, format = reactable::colFormat(digits = 3))
+
+reactable::reactable(
+  every_team,
+  searchable = TRUE, highlight = TRUE, compact = TRUE, defaultPageSize = 15,
+  columns = list(
+    rank = reactable::colDef(name = "", width = 46),
+    logo = logo_col(26),
+    school = reactable::colDef(name = "Team", minWidth = 130),
+    conf_logo = logo_col(20),
+    conference = reactable::colDef(name = "Conference", minWidth = 110),
+    record = reactable::colDef(name = "Record", na = "—"),
+    off = epa_col("Offense"),
+    dfn = epa_col("Defense"),
+    net = epa_col("Net")
+  )
+)
+```
+
+More recipes like this one, in plotly, ggiraph, leaflet and reactable,
+are in [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md).
+
 ## Related
 
 - [NFL

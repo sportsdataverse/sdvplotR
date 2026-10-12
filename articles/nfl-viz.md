@@ -7,7 +7,8 @@ with team logos, a ranked bar chart with logos on the axis, division
 standings, small multiples in team colors, the Super Bowl’s win
 probability with a logo in the title, two quarterback leaderboards with
 headshots, three relocated franchises in the logos of their eras, a
-field in a team’s colors and a tier list.
+field in a team’s colors and a tier list. The last section makes the
+first chart interactive.
 
 The play-by-play is nflfastR’s, read from the nflverse releases with
 [nflreadr](https://nflreadr.nflverse.com/);
@@ -637,6 +638,56 @@ sdv_team_tiers(
 ![NFL team logos in five labeled tiers, from Contenders to Rebuilding,
 ranked by net EPA per play in the 2025 regular season, best teams first
 within each tier.](nfl-viz_files/figure-html/team-tiers-1.png)
+
+## 11. Make it interactive
+
+The offense-vs-defense chart from section 1 again, built with native
+plotly. A transparent marker under each team carries the hover text, and
+[`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+places the logos as layout images at the same coordinates. Hover a logo
+for the exact EPA per play on each side of the ball, the success rates
+behind it and the net, numbers the static chart can only place.
+
+``` r
+
+nfl_index <- sdv_teams("nfl")
+epa_hover <- teams |>
+  mutate(
+    name = nfl_index$name[match(sdv_resolve(team, league = "nfl"), nfl_index$team_id)],
+    tip = sprintf(
+      "<b>%s</b><br>Offense: %+.3f EPA/play, %.1f%% success<br>Defense: %+.3f EPA/play allowed, %.1f%% success allowed<br>Net: %+.3f",
+      name, off_epa, 100 * off_sr, def_epa, 100 * def_sr, off_epa - def_epa
+    )
+  )
+pad <- 0.03
+avg_line <- list(color = "grey", dash = "dash", width = 1)
+
+plotly::plot_ly(
+  epa_hover, x = ~off_epa, y = ~def_epa, type = "scatter", mode = "markers",
+  marker = list(size = 30, opacity = 0), text = ~tip, hoverinfo = "text"
+) |>
+  plotly::layout(
+    title = list(text = "NFL offense vs defense, 2025", x = 0.02),
+    xaxis = list(title = "Offense EPA per play", range = range(epa_hover$off_epa) + c(-pad, pad), zeroline = FALSE),
+    yaxis = list(
+      title = "Defense EPA per play allowed (better is up)", zeroline = FALSE,
+      range = rev(range(epa_hover$def_epa) + c(-pad, pad))
+    ),
+    shapes = list(
+      list(type = "line", x0 = mean(epa_hover$off_epa), x1 = mean(epa_hover$off_epa), yref = "paper", y0 = 0, y1 = 1, line = avg_line),
+      list(type = "line", y0 = mean(epa_hover$def_epa), y1 = mean(epa_hover$def_epa), xref = "paper", x0 = 0, x1 = 1, line = avg_line)
+    )
+  ) |>
+  add_sdv_logos(epa_hover$off_epa, epa_hover$def_epa, epa_hover$team, "nfl", size = 0.08)
+```
+
+A `range` given high to low reverses the axis, so good defenses sit at
+the top as in section 1. plotly loads each logo from its URL rather than
+embedding it, so the page stays light. [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md)
+covers plotly, ggiraph and leaflet, and the [Interactive NFL EPA
+Scatter](https://sdvplotR.sportsdataverse.org/articles/recipe-nfl-epa-interactive.md)
+recipe builds this chart up step by step.
 
 ## Next steps
 

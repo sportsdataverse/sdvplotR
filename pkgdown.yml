@@ -29,11 +29,16 @@ articles:
   articles/nhl-viz: nhl-viz.html
   articles/reactable-integration: reactable-integration.html
   articles/recipe-cfb-conference-table: recipe-cfb-conference-table.html
+  articles/recipe-cfb-stadium-map: recipe-cfb-stadium-map.html
   articles/recipe-college-hoops-tiers: recipe-college-hoops-tiers.html
   articles/recipe-head-to-head-card: recipe-head-to-head-card.html
+  articles/recipe-mlb-run-differential-interactive: recipe-mlb-run-differential-interactive.html
   articles/recipe-mlb-run-differential: recipe-mlb-run-differential.html
+  articles/recipe-nba-net-rating-interactive: recipe-nba-net-rating-interactive.html
   articles/recipe-nba-net-rating-quadrant: recipe-nba-net-rating-quadrant.html
+  articles/recipe-nfl-epa-interactive: recipe-nfl-epa-interactive.html
   articles/recipe-nfl-epa-scatter: recipe-nfl-epa-scatter.html
+  articles/recipe-nhl-shot-map-interactive: recipe-nhl-shot-map-interactive.html
   articles/recipe-nhl-shot-map: recipe-nhl-shot-map.html
   articles/recipe-rank-bump-chart: recipe-rank-bump-chart.html
   articles/recipe-wbb-conference-standings: recipe-wbb-conference-standings.html
@@ -52,7 +57,7 @@ articles:
   articles/window_wins: window_wins.html
   articles/wnba-viz: wnba-viz.html
   articles/workflows: workflows.html
-last_built: 2026-10-12T16:33Z
+last_built: 2026-10-12T19:01Z
 urls:
   reference: https://sdvplotR.sportsdataverse.org/reference
   article: https://sdvplotR.sportsdataverse.org/articles

@@ -104,3 +104,45 @@ sdv_surface("soccer", "359", center_logo = TRUE)
 ```
 
 ![](soccer-viz_files/figure-html/clubs-1.png)
+
+## Make it interactive
+
+The ESPN shot map from the first section, with a tooltip on every shot.
+The misses become
+[`geom_point_interactive()`](https://davidgohel.github.io/ggiraph/reference/geom_point_interactive.html)
+from ggiraph, the goals
+[`geom_sdv_logos_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md),
+which draws each logo and an invisible hover target over it, and
+[`ggiraph::girafe()`](https://davidgohel.github.io/ggiraph/reference/girafe.html)
+renders the pitch as an interactive SVG. Hover a shot for the team,
+ESPN’s description of it and its distance from the goal it attacked,
+worked out from the same coordinates the chart plots.
+
+``` r
+
+club_index <- sdv_teams("soccer")
+shots$club <- club_index$name[match(shots$team, club_index$team_id)]
+shots$meters <- sqrt((ifelse(shots$away, -52.5, 52.5) - shots$pitch_x)^2 + shots$pitch_y^2)
+shots$tip <- sprintf("<b>%s</b><br>%s<br>%.0f m from goal", shots$club, shots$type, shots$meters)
+
+p_shots <- sdv_surface("soccer") +
+  ggiraph::geom_point_interactive(
+    aes(pitch_x, pitch_y, tooltip = tip),
+    data = shots[!shots$goal, ], shape = 21, size = 3, fill = scales::alpha("white", 0.01), color = "white"
+  ) +
+  geom_sdv_logos_interactive(
+    aes(pitch_x, pitch_y, team = team, tooltip = tip),
+    data = shots[shots$goal, ], league = "soccer", width = 0.05
+  ) +
+  labs(title = "Manchester City v Aston Villa: every shot (logos: goals)", subtitle = "Hover a shot", caption = "Data: ESPN")
+
+ggiraph::girafe(
+  ggobj = p_shots, width_svg = 9, height_svg = 6,
+  options = list(ggiraph::opts_tooltip(css = "background:white;color:black;padding:6px;border-radius:6px;"))
+)
+```
+
+The circles are filled with white at 1% opacity: a ring with no fill
+catches the pointer only on its outline. [Interactive
+charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md)
+covers ggiraph, plotly and leaflet.
