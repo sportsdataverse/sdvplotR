@@ -6,7 +6,7 @@
 ^\.lintr$
 ^\.coderabbit\.yaml$
 ^\.stylerignore$
-^\.omc$
+(^|/)\.omc$
 ^\.claude$
 ^\.remember$
 ^\.vscode$
