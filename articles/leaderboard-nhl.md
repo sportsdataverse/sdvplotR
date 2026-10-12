@@ -143,9 +143,9 @@ standings |>
 | ![Ottawa Senators](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/05/05bddfd77b0f30e13cd4a81708e41cc72cfad5b9d136a11f35eb01016b27c849.png) | Senators | 5 | 4 | 1 | 0 | 8 | 0.800 | 15 | 11 | +4 | 4-1-0 | W2 |
 | ![Boston Bruins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/70/70f79a2352abcf9ea24bcab9e4863ddfcf1a4d329c9edecb3b64bfbda24409ed.png) | Bruins | 6 | 4 | 2 | 0 | 8 | 0.667 | 20 | 13 | +7 | 4-2-0 | W2 |
 | ![Toronto Maple Leafs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2c7646270d2e07f5ea16b277d9ebf916ee8ee0718f3049d123402e38f930e9ba.png) | Maple Leafs | 6 | 3 | 2 | 1 | 7 | 0.583 | 20 | 18 | +2 | 3-2-1 | W1 |
-| ![Florida Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68f45d7aa38031ec83bd985058f943d54274ad890ebf112f4971388ad87d1d4f.png) | Panthers | 5 | 2 | 1 | 2 | 6 | 0.600 | 9 | 12 | −3 | 2-1-2 | L1 |
+| ![Buffalo Sabres](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c5/c5ff4ae23f112f73eca9569801e9f5b82366fafaa9f1f3dae535f9cafd673148.png) | Sabres | 6 | 3 | 3 | 0 | 6 | 0.500 | 16 | 22 | −6 | 3-3-0 | W1 |
+| ![Florida Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68f45d7aa38031ec83bd985058f943d54274ad890ebf112f4971388ad87d1d4f.png) | Panthers | 6 | 2 | 2 | 2 | 6 | 0.500 | 12 | 17 | −5 | 2-2-2 | L2 |
 | ![Montreal Canadiens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2a/2ab02cb9e6c668e8b981f2b23174be1eb94554b8c3a86dfc5df4f6fb377a8560.png) | Canadiens | 5 | 2 | 2 | 1 | 5 | 0.500 | 15 | 19 | −4 | 2-2-1 | W1 |
-| ![Buffalo Sabres](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c5/c5ff4ae23f112f73eca9569801e9f5b82366fafaa9f1f3dae535f9cafd673148.png) | Sabres | 5 | 2 | 3 | 0 | 4 | 0.400 | 11 | 19 | −8 | 2-3-0 | L2 |
 | ![Detroit Red Wings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a6/a634a4fcd294b2a439ccb16ab4e554227ec57aac2dfc198014f9f112a612c12d.png) | Red Wings | 5 | 1 | 3 | 1 | 3 | 0.300 | 10 | 15 | −5 | 1-3-1 | OT1 |
 | Central |  |  |  |  |  |  |  |  |  |  |  |  |
 | ![Utah Mammoth](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/26/260a50b0164256131df4675b558f03a748525f8c0b138c23f54f37f63c0958d8.png) | Mammoth | 6 | 4 | 2 | 0 | 8 | 0.667 | 22 | 15 | +7 | 4-2-0 | W1 |
