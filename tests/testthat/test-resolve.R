@@ -112,3 +112,13 @@ test_that("sdv_teams() lists teams, and conferences on request", {
   expect_true("SEC" %in% ct$team_id)
   expect_identical(nrow(sdv_teams("nfl")), 32L)
 })
+
+test_that("an ambiguous value's warning names every candidate", {
+  local_snapshot_index()
+  expect_warning(
+    out <- sdv_resolve("Manchester City", "soccer"),
+    "ambiguous: 19257[[:space:]]+Manchester City[[:space:]]+or[[:space:]]+382[[:space:]]+Manchester City",
+    class = "sdvplotR_unresolved_warning"
+  )
+  expect_identical(out, NA_character_)
+})

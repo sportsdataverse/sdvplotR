@@ -73,6 +73,8 @@ test_that("gt_sdv_cols_label swaps column labels for images", {
   expect_match(h, logo_from_team("KC", "nfl"), fixed = TRUE)
   expect_match(h, logo_from_team("BUF", "nfl"), fixed = TRUE)
   expect_match(h, "other")
+  # a label that is no team stays text without a warning
+  expect_no_warning(render_html(gt(df) |> gt_sdv_cols_label(columns = everything(), league = "nfl")))
   h2 <- html_of(gt(data.frame(`00-0033873` = 1, check.names = FALSE)) |>
     gt_sdv_cols_label(league = "nfl", mark_type = "headshot", id_system = "gsis"))
   expect_match(h2, "league/wdckwtob1lybvkmxnf7p")

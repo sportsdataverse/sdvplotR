@@ -18,7 +18,7 @@ sdv_team_tiers(
   no_line_below_tier = NULL,
   devel = FALSE,
   theme = c("dark", "light"),
-  variant = "default"
+  variant = "auto"
 )
 }
 \arguments{
@@ -59,11 +59,13 @@ development.}
 \item{theme}{\code{"dark"} (the default: a near-black background with white
 labels) or \code{"light"} (a white background with dark labels and lines).}
 
-\item{variant}{The logo variant to draw: \code{"default"}, \code{"dark"} (the
-dark-background marks, which keep dark logos such as the Capitals' or Penn
-State's from fading into the dark theme), or a named variant from
-\code{\link[=sdv_marks]{sdv_marks()}}; see \code{\link[=sdv_logo_url]{sdv_logo_url()}}. A team without it draws its closest
-mark, with no warning.}
+\item{variant}{The logo variant to draw. \code{"auto"} (the default, as sdvplot's
+\code{team_tiers()}) draws each team's dark-background mark (\code{"dark"}) on the
+dark theme and its default mark on the light theme, so dark logos such as
+the Capitals' or Penn State's don't fade into the dark background. Any
+other value is \code{"default"}, \code{"dark"} or a named variant from \code{\link[=sdv_marks]{sdv_marks()}}
+(see \code{\link[=sdv_logo_url]{sdv_logo_url()}}), drawn on either theme. A team without the variant
+draws its closest mark, with no warning.}
 }
 \value{
 A ggplot object.

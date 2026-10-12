@@ -7,7 +7,7 @@
 #'
 #' @inheritParams ggplot2::geom_point
 #' @param league A league key from [sdv_leagues()]. A team the logo archive
-#'   has no wordmark for draws its logo instead.
+#'   has no wordmark for is not drawn (its path is `NA`, with a warning).
 #'
 #' @section Aesthetics:
 #' `geom_sdv_wordmarks()` understands the following aesthetics (required aesthetics are in bold):

@@ -119,7 +119,7 @@ df <- data.frame(
 # use logos for x-axis
 ggplot(df, aes(x = teams, y = random_value)) +
   geom_col(aes(color = teams, fill = teams), width = 0.5) +
-  scale_color_sdv(league = "nfl", type = "secondary") +
+  scale_color_sdv(league = "nfl", which = "secondary") +
   scale_fill_sdv(league = "nfl", alpha = 0.4) +
   theme_minimal() +
   theme(axis.text.x = element_sdv_logo(league = "nfl"))

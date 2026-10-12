@@ -32,11 +32,13 @@
 #'   development.
 #' @param theme `"dark"` (the default: a near-black background with white
 #'   labels) or `"light"` (a white background with dark labels and lines).
-#' @param variant The logo variant to draw: `"default"`, `"dark"` (the
-#'   dark-background marks, which keep dark logos such as the Capitals' or Penn
-#'   State's from fading into the dark theme), or a named variant from
-#'   [sdv_marks()]; see [sdv_logo_url()]. A team without it draws its closest
-#'   mark, with no warning.
+#' @param variant The logo variant to draw. `"auto"` (the default, as sdvplot's
+#'   `team_tiers()`) draws each team's dark-background mark (`"dark"`) on the
+#'   dark theme and its default mark on the light theme, so dark logos such as
+#'   the Capitals' or Penn State's don't fade into the dark background. Any
+#'   other value is `"default"`, `"dark"` or a named variant from [sdv_marks()]
+#'   (see [sdv_logo_url()]), drawn on either theme. A team without the variant
+#'   draws its closest mark, with no warning.
 #'
 #' @return A ggplot object.
 #' @export
@@ -75,10 +77,11 @@ sdv_team_tiers <- function(
     no_line_below_tier = NULL,
     devel = FALSE,
     theme = c("dark", "light"),
-    variant = "default"
+    variant = "auto"
 ) {
   league <- check_league(league)
   theme <- rlang::arg_match(theme)
+  if (identical(variant, "auto")) variant <- if (theme == "dark") "dark" else "default"
   check_mark_variant(variant, league)
 
   required_vars <- c("tier_no", "team")

@@ -234,11 +234,11 @@ gt_sdv_cols_label <- function(
         out <- headshot_img(image_url, x, height)
         out[is.na(image_url)] <- x[is.na(image_url)]
       } else {
-        if (mark_type == "logo") {
-          img_url <- logo_from_team(x, league)
-        } else {
-          img_url <- wordmark_from_team(x, league)
-        }
+        # a label that is no team (the default columns take every one) stays text, quietly
+        lookup <- if (mark_type == "logo") logo_from_team else wordmark_from_team
+        img_url <- withCallingHandlers(lookup(x, league),
+          sdvplotR_unresolved_warning = function(w) invokeRestart("muffleWarning")
+        )
 
         # Generate the HTML img tag
         out <- paste0(

@@ -134,7 +134,7 @@ test_that("sdv_team_tiers draws a light theme for dark logos", {
   expect_error(sdv_team_tiers(tiers, league = "nfl", theme = "blue"), "theme")
 })
 
-test_that("sdv_team_tiers draws the default logos unless a variant is given", {
+test_that("sdv_team_tiers draws dark logos on the dark theme and default ones on light", {
   # Capitals, Maple Leafs, Lightning: the dark marks differ from the default
   tiers <- data.frame(tier_no = c(1, 1, 2), team = c("WSH", "TOR", "TB"))
   drawn <- function(...) layer_data(sdv_team_tiers(tiers, league = "nhl", ...), 2)$path
@@ -142,16 +142,17 @@ test_that("sdv_team_tiers draws the default logos unless a variant is given", {
   default <- logo_from_team(tiers$team, "nhl")
   expect_match(c(dark, default), "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
   expect_false(any(dark == default))
-  expect_identical(drawn(), default)
-  expect_identical(drawn(theme = "dark", variant = "dark"), dark)
+  expect_identical(drawn(), dark)
+  expect_identical(drawn(theme = "dark", variant = "auto"), dark)
   expect_identical(drawn(theme = "light"), default)
+  expect_identical(drawn(theme = "dark", variant = "default"), default)
 })
 
 test_that("sdv_team_tiers falls back to the default logo where there is no dark one", {
   # Penn State has a dark mark; the Sun Belt has only its default
   tiers <- data.frame(tier_no = c(1, 2), team = c("Sun Belt", "PSU"))
   expect_identical(unique(sdv_marks("Sun Belt", "cfb")$variant), "default")
-  expect_no_warning(path <- layer_data(sdv_team_tiers(tiers, league = "cfb", variant = "dark"), 2)$path)
+  expect_no_warning(path <- layer_data(sdv_team_tiers(tiers, league = "cfb"), 2)$path)
   expect_identical(path, c(logo_from_team("Sun Belt", "cfb"), logo_from_team("PSU", "cfb", variant = "dark")))
   expect_match(path, "^https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/")
   expect_false(path[[2]] == logo_from_team("PSU", "cfb"))

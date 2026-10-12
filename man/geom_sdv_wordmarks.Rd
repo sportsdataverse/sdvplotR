@@ -95,7 +95,7 @@ lists which parameters it can accept.
 }}
 
 \item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. A team the logo archive
-has no wordmark for draws its logo instead.}
+has no wordmark for is not drawn (its path is \code{NA}, with a warning).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

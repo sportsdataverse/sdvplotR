@@ -17,7 +17,11 @@ test_that("no exported function takes the old argument names", {
   expect_identical(takes("id_type"), character())
   # `type` survives only where it is not a team field (a legend style)
   expect_setequal(takes("type"), "gt_legend_continuous")
-  for (f in takes("variant")) expect_identical(formals(get(f, ns))$variant, "default", info = f)
+  # sdv_team_tiers takes "auto" (dark marks on the dark theme), as sdvplot's team_tiers()
+  for (f in setdiff(takes("variant"), "sdv_team_tiers")) {
+    expect_identical(formals(get(f, ns))$variant, "default", info = f)
+  }
+  expect_identical(formals(sdv_team_tiers)$variant, "auto")
   for (f in takes("id_system")) {
     d <- formals(get(f, ns))$id_system
     expect_true(identical(d, "auto") || identical(d, "espn"), info = f)
