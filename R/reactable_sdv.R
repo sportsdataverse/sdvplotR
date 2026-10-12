@@ -50,12 +50,10 @@ reactable_sdv_logos <- function(
 ) {
   league <- check_league(league)
   check_mark_variant(variant, league)
+  cell_mark <- cell_marks(logo_from_team, league, season, variant, id_system, strict)
   function(value, index) {
-    img_tag(
-      logo_from_team(value, league, season, variant, id_system, strict),
-      team_alt(value, league, season, id_system), height, default_img,
-      fallback = variant_fallback(value, league, variant, logo_from_team, season, id_system)
-    )
+    m <- cell_mark(value, index)
+    img_tag(m$url, m$alt, height, default_img, fallback = m$fallback)
   }
 }
 
@@ -72,12 +70,10 @@ reactable_sdv_wordmarks <- function(
 ) {
   league <- check_league(league)
   check_mark_variant(variant, league)
+  cell_mark <- cell_marks(wordmark_from_team, league, season, variant, id_system, strict)
   function(value, index) {
-    img_tag(
-      wordmark_from_team(value, league, season, variant, id_system, strict),
-      team_alt(value, league, season, id_system), height, default_img,
-      fallback = variant_fallback(value, league, variant, wordmark_from_team, season, id_system)
-    )
+    m <- cell_mark(value, index)
+    img_tag(m$url, m$alt, height, default_img, fallback = m$fallback)
   }
 }
 
@@ -94,6 +90,26 @@ reactable_sdv_headshots <- function(
   id_system <- check_id_system(id_system, league)
   function(value, index) {
     img_tag(headshot_from_id(value, league, id_system), headshot_alt(value), height, default_img, value)
+  }
+}
+
+# A cell's mark, resolved once per distinct value and season: reactable calls
+# the renderer per cell, so a 300-row table would otherwise resolve each team
+# (and warn about each unresolved one) once per row. `season` is one value, or
+# one per row (`index` is the row reactable passes).
+cell_marks <- function(lookup, league, season, variant, id_system, strict) {
+  memo <- new.env(parent = emptyenv())
+  function(value, index) {
+    s <- if (length(season) > 1L) season[index] else season
+    key <- paste(value, is.na(value), s %||% "", sep = "\r")
+    if (is.null(memo[[key]])) {
+      memo[[key]] <- list(
+        url = lookup(value, league, s, variant, id_system, strict),
+        alt = team_alt(value, league, s, id_system),
+        fallback = variant_fallback(value, league, variant, lookup, s, id_system)
+      )
+    }
+    memo[[key]]
   }
 }
 
@@ -129,7 +145,7 @@ img_onerror <- function(url, fallback) {
 # The default mark a variant falls back to in the browser; none for the default
 # itself (resolution has already warned about a value it could not resolve).
 variant_fallback <- function(value, league, variant, lookup, season = NULL, id_system = "auto") {
-  if (identical(variant, "default")) NA_character_ else suppressWarnings(lookup(value, league, season, id_system = id_system))
+  if (identical(variant, "default")) NA_character_ else quiet_miss(lookup(value, league, season, id_system = id_system))
 }
 
 #' Replace 'reactable' Column Headers with Team Logos
@@ -166,7 +182,7 @@ reactable_sdv_cols_label <- function(
   check_mark_variant(variant, league)
   out <- list()
   for (nm in names(.data)) {
-    url <- suppressWarnings(logo_from_team(nm, league, season, variant, id_system, strict))
+    url <- quiet_miss(logo_from_team(nm, league, season, variant, id_system, strict))
     if (is.na(url)) next
     out[[nm]] <- reactable::colDef(
       name = "",
@@ -268,7 +284,7 @@ row_team_colors <- function(data, team_col, league, which, na_color, season = NU
   if (!team_col %in% names(data)) {
     cli::cli_abort("Column {.val {team_col}} not found in {.arg data}.")
   }
-  colors <- sdv_team_colors(league, as.character(data[[team_col]]), which = which,
+  colors <- sdv_team_colors(league, data[[team_col]], which = which,
     season = season, id_system = id_system, strict = strict)
   colors[is.na(colors)] <- na_color
   unname(colors)

@@ -83,3 +83,35 @@ test_that("reactable colour backgrounds use the season's team", {
   expect_match(bg(1, 1), sub("^#", "", then), ignore.case = TRUE)
   expect_no_match(bg(1, 1), sub("^#", "", now), ignore.case = TRUE)
 })
+
+test_that("cell renderers take one season per row", {
+  f <- reactable_sdv_logos("nhl", season = c(1997, 2020))
+  old <- sdv_logo_url("COL", "nhl", season = 1997)
+  new <- sdv_logo_url("COL", "nhl", season = 2020)
+  expect_false(identical(old, new))
+  expect_match(f("COL", 1), old, fixed = TRUE)
+  expect_match(f("COL", 2), new, fixed = TRUE)
+  expect_match(reactable_sdv_wordmarks("nfl", season = c(2000, 2020))("KC", 2), "^<img")
+})
+
+test_that("cell renderers resolve each distinct value once, so an unknown team warns once", {
+  for (factory in list(reactable_sdv_logos, reactable_sdv_wordmarks)) {
+    f <- factory("nfl", variant = "dark")
+    n <- 0L
+    withCallingHandlers(
+      for (i in 1:3) expect_identical(f("nope", i), "nope"),
+      sdvplotR_unresolved_warning = function(w) {
+        n <<- n + 1L
+        invokeRestart("muffleWarning")
+      }
+    )
+    expect_identical(n, 1L)
+  }
+})
+
+test_that("reactable_sdv_cols_label shows the fallback warning on the session's first lookup", {
+  skip_if_not_installed("reactable")
+  local_fixture_index()
+  withr::local_options(sdvplotR.manifest_url = "file:///nonexistent/marks.csv")
+  expect_warning(reactable_sdv_cols_label(data.frame(KC = 1), league = "nfl"), class = "sdvplotR_fallback")
+})
