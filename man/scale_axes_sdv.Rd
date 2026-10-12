@@ -13,7 +13,9 @@ scale_x_sdv(
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "bottom",
-  size = 12
+  size = 12,
+  season = NULL,
+  id_system = "auto"
 )
 
 scale_y_sdv(
@@ -22,7 +24,9 @@ scale_y_sdv(
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "left",
-  size = 12
+  size = 12,
+  season = NULL,
+  id_system = "auto"
 )
 
 scale_x_sdv_headshots(
@@ -60,11 +64,15 @@ scale_y_sdv_headshots(
 \item{size}{The logo size in pixels. It is applied as height for an x-scale
 and as width for a y-scale.}
 
-\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
-league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
-\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
-published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
-\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
+\item{season}{\code{NULL} for today's mark, or a season (or one per team): the
+mark the team wore that season where the archive dates its marks.}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
 }
 \value{
 A ggplot2 scale object.

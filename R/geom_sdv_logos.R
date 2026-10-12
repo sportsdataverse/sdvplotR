@@ -7,6 +7,7 @@
 #'
 #' @inheritParams ggplot2::geom_point
 #' @inheritParams sdv_resolve
+#' @inheritParams sdv_logo_url
 #'
 #' @section Aesthetics:
 #' `geom_sdv_logos()` understands the following aesthetics (required aesthetics are in bold):
@@ -78,6 +79,8 @@ geom_sdv_logos <- function(
     position = "identity",
     ...,
     league,
+    id_system = "auto",
+    strict = FALSE,
     na.rm = FALSE,
     show.legend = FALSE,
     inherit.aes = TRUE
@@ -95,6 +98,8 @@ geom_sdv_logos <- function(
     params = list(
       na.rm = na.rm,
       league = league,
+      id_system = id_system,
+      strict = strict,
       ...
     )
   )
@@ -109,9 +114,9 @@ GeomSDVlogo <- ggplot2::ggproto(
     alpha = NULL, colour = NULL, angle = 0, hjust = 0.5,
     vjust = 0.5, width = 1.0, height = 1.0, season = NA
   ),
-  draw_panel = function(data, panel_params, coord, na.rm = FALSE, league = "nfl") {
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE, league = "nfl", id_system = "auto", strict = FALSE) {
     # Resolve team abbreviations (and seasons) to logo URLs
-    data$path <- logo_from_team(data$team, league, season = data$season)
+    data$path <- logo_from_team(data$team, league, season = data$season, id_system = id_system, strict = strict)
 
     # Delegate to ggpath for actual rendering
     ggpath::GeomFromPath$draw_panel(

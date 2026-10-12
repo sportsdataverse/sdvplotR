@@ -72,3 +72,10 @@ test_that("a logo variant falls back to the default logo when it fails to load",
   cols <- reactable_sdv_cols_label(stats::setNames(data.frame(1), team), league = "nfl", variant = "dark")
   expect_match(cols[[team]]$header, paste0("this.src=&#39;", primary, "&#39;"), fixed = TRUE)
 })
+
+test_that("reactable colour backgrounds use the season's team", {
+  d <- data.frame(team = "OAK", v = 1)
+  bg <- reactable_sdv_team_color_bg(d, "team", league = "nfl", season = 2010)
+  col <- unname(sdv_team_colors("nfl", "OAK", season = 2010))
+  expect_match(bg(1, 1), sub("^#", "", col), ignore.case = TRUE)
+})

@@ -262,3 +262,10 @@ test_that("gt_spotlight dims the other rows to a tone that still passes WCAG AA"
   s <- td_styles(html_of(gt_spotlight(gt(d), rows = 2, dim_color = "#BBBBBB")))
   expect_match(s[1], "color: #BBBBBB;", fixed = TRUE)
 })
+
+test_that("gt_sdv_logos reads the season's mark and other id systems", {
+  html <- gt::as_raw_html(gt_sdv_logos(gt::gt(data.frame(team = "QUE")), "team", league = "nhl", season = 1990))
+  expect_match(html, sdv_logo_url("QUE", "nhl", season = 1990), fixed = TRUE)
+  html2 <- gt::as_raw_html(gt_sdv_logos(gt::gt(data.frame(team = "17")), "team", league = "nhl", id_system = "espn"))
+  expect_match(html2, sdv_logo_url("17", "nhl", id_system = "espn"), fixed = TRUE)
+})

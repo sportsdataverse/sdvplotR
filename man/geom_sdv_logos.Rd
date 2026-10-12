@@ -12,6 +12,8 @@ geom_sdv_logos(
   position = "identity",
   ...,
   league,
+  id_system = "auto",
+  strict = FALSE,
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -96,6 +98,16 @@ lists which parameters it can accept.
 
 \item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. Required: one abbreviation
 means different teams in different leagues.}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
+
+\item{strict}{If \code{TRUE}, a value that does not resolve is an error;
+otherwise it becomes \code{NA} with one warning per call.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

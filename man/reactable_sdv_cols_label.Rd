@@ -4,7 +4,16 @@
 \alias{reactable_sdv_cols_label}
 \title{Replace 'reactable' Column Headers with Team Logos}
 \usage{
-reactable_sdv_cols_label(.data, ..., league, variant = "default", height = 30)
+reactable_sdv_cols_label(
+  .data,
+  ...,
+  league,
+  variant = "default",
+  height = 30,
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
+)
 }
 \arguments{
 \item{.data}{A data frame whose column names are team abbreviations.}
@@ -19,6 +28,19 @@ A team without it gets its closest mark, and in the browser the image
 falls back to the default mark when the variant's file fails to load.}
 
 \item{height}{Numeric. Image height in pixels.}
+
+\item{season}{\code{NULL} for today's mark, or a season (or one per team): the
+mark the team wore that season where the archive dates its marks.}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
+
+\item{strict}{If \code{TRUE}, a value that does not resolve is an error;
+otherwise it becomes \code{NA} with one warning per call.}
 }
 \value{
 A named list of \code{colDef} objects for the \code{columns} argument of

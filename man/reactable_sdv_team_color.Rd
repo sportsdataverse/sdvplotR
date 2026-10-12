@@ -12,7 +12,10 @@ reactable_sdv_team_color_bar(
   league,
   which = c("primary", "secondary"),
   max_value = NULL,
-  na_color = "grey70"
+  na_color = "grey70",
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 
 reactable_sdv_team_color_bg(
@@ -21,7 +24,10 @@ reactable_sdv_team_color_bg(
   league,
   which = c("primary", "secondary"),
   alpha = 0.15,
-  na_color = "grey70"
+  na_color = "grey70",
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 }
 \arguments{
@@ -39,6 +45,19 @@ abbreviations.}
 \code{NULL} (the default), the maximum of the styled column is used.}
 
 \item{na_color}{Color used when a team cannot be resolved.}
+
+\item{season}{\code{NULL} for today's mark, or a season (or one per team): the
+mark the team wore that season where the archive dates its marks.}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
+
+\item{strict}{If \code{TRUE}, a value that does not resolve is an error;
+otherwise it becomes \code{NA} with one warning per call.}
 
 \item{alpha}{Numeric. Opacity of the background fill in \verb{[0, 1]}.}
 }

@@ -11,7 +11,9 @@ gt_sdv_logos(
   height = 30,
   locations = NULL,
   include_name = FALSE,
-  season = NULL
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 }
 \arguments{
@@ -35,9 +37,12 @@ cell shows logo and name (what cbbplotR's \code{gt_cbb_teams()} did), and the
 image gets an empty \code{alt} so the name is not read twice. Defaults to
 \code{FALSE}, the logo alone, whose \code{alt} is the team's full name.}
 
-\item{season}{\code{NULL} (the default) for today's logos, or one season whose
+\item{season}{\code{NULL} (the default) for today's marks, or one season whose
 marks every cell shows (the ending year for the NHL). See the Historical
 logos section.}
+
+\item{id_system, strict}{How the team values are read and what an unresolved
+one does, as in \code{\link[=sdv_logo_url]{sdv_logo_url()}}.}
 }
 \value{
 An object of class \code{gt_tbl}.

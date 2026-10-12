@@ -133,9 +133,9 @@ sdv_headshot_url <- function(player_id, league, id_system = "espn") {
 }
 
 # HTML helpers for axis labels rendered through ggtext::element_markdown()
-logo_html <- function(team, league, type = c("height", "width"), size = 15) {
+logo_html <- function(team, league, type = c("height", "width"), size = 15, season = NULL, id_system = "auto") {
   type <- rlang::arg_match(type)
-  urls <- logo_from_team(team, league)
+  urls <- logo_from_team(team, league, season = season, id_system = id_system)
   ifelse(is.na(urls), team, sprintf("<img src='%s' %s = '%s'>", urls, type, size))
 }
 

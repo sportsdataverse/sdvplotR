@@ -9,6 +9,7 @@
 #'   wordmarks get the team's full name as `alt` text, headshots
 #'   `"Player <id> headshot"`.
 #'
+#' @inheritParams sdv_logo_url
 #' @param league A league key from [sdv_leagues()].
 #' @param variant Character. `"default"`, `"dark"`, or a named variant from
 #'   [sdv_marks()] (`"scoreboard"`, `"grayscale"`, ...); see [sdv_logo_url()].
@@ -42,13 +43,18 @@ reactable_sdv_logos <- function(
     league,
     variant = "default",
     height = 30,
-    default_img = NULL
+    default_img = NULL,
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
 ) {
   league <- check_league(league)
   check_mark_variant(variant, league)
   function(value, index) {
-    img_tag(logo_from_team(value, league, variant = variant), team_alt(value, league), height, default_img,
-      fallback = variant_fallback(value, league, variant, logo_from_team)
+    img_tag(
+      logo_from_team(value, league, season, variant, id_system, strict),
+      team_alt(value, league, season, id_system), height, default_img,
+      fallback = variant_fallback(value, league, variant, logo_from_team, season, id_system)
     )
   }
 }
@@ -59,13 +65,18 @@ reactable_sdv_wordmarks <- function(
     league,
     variant = "default",
     height = 30,
-    default_img = NULL
+    default_img = NULL,
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
 ) {
   league <- check_league(league)
   check_mark_variant(variant, league)
   function(value, index) {
-    img_tag(wordmark_from_team(value, league, variant = variant), team_alt(value, league), height, default_img,
-      fallback = variant_fallback(value, league, variant, wordmark_from_team)
+    img_tag(
+      wordmark_from_team(value, league, season, variant, id_system, strict),
+      team_alt(value, league, season, id_system), height, default_img,
+      fallback = variant_fallback(value, league, variant, wordmark_from_team, season, id_system)
     )
   }
 }
@@ -117,8 +128,8 @@ img_onerror <- function(url, fallback) {
 
 # The default mark a variant falls back to in the browser; none for the default
 # itself (resolution has already warned about a value it could not resolve).
-variant_fallback <- function(value, league, variant, lookup) {
-  if (identical(variant, "default")) NA_character_ else suppressWarnings(lookup(value, league))
+variant_fallback <- function(value, league, variant, lookup, season = NULL, id_system = "auto") {
+  if (identical(variant, "default")) NA_character_ else suppressWarnings(lookup(value, league, season, id_system = id_system))
 }
 
 #' Replace 'reactable' Column Headers with Team Logos
@@ -145,22 +156,25 @@ reactable_sdv_cols_label <- function(
     ...,
     league,
     variant = "default",
-    height = 30
+    height = 30,
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
 ) {
   rlang::check_installed("reactable", "to build reactable column definitions.")
   league <- check_league(league)
   check_mark_variant(variant, league)
   out <- list()
   for (nm in names(.data)) {
-    url <- suppressWarnings(logo_from_team(nm, league, variant = variant))
+    url <- suppressWarnings(logo_from_team(nm, league, season, variant, id_system, strict))
     if (is.na(url)) next
     out[[nm]] <- reactable::colDef(
       name = "",
       html = TRUE,
       header = sprintf(
         '<img src="%s" style="height:%spx;" alt="%s"%s />',
-        url, height, htmltools::htmlEscape(team_alt(nm, league), attribute = TRUE),
-        img_onerror(url, variant_fallback(nm, league, variant, logo_from_team))
+        url, height, htmltools::htmlEscape(team_alt(nm, league, season, id_system), attribute = TRUE),
+        img_onerror(url, variant_fallback(nm, league, variant, logo_from_team, season, id_system))
       ),
       ...
     )
@@ -178,6 +192,7 @@ reactable_sdv_cols_label <- function(
 #'   look up the team of each row.
 #' @param team_col Character. Name of the column in `data` holding team
 #'   abbreviations.
+#' @inheritParams sdv_logo_url
 #' @param league A league key from [sdv_leagues()].
 #' @param which Character. `"primary"` or `"secondary"` team color.
 #' @param max_value Numeric. Reference value that fills the whole cell. If
@@ -210,11 +225,14 @@ reactable_sdv_team_color_bar <- function(
     league,
     which = c("primary", "secondary"),
     max_value = NULL,
-    na_color = "grey70"
+    na_color = "grey70",
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
 ) {
   league <- check_league(league)
   which <- rlang::arg_match0(which, c("primary", "secondary"))
-  colors <- row_team_colors(data, team_col, league, which, na_color)
+  colors <- row_team_colors(data, team_col, league, which, na_color, season, id_system, strict)
   function(value, index, name) {
     top <- max_value %||% max(data[[name]], na.rm = TRUE)
     pct <- if (is.na(value) || !is.finite(top) || top == 0) 0 else round(100 * value / top, 1)
@@ -233,21 +251,25 @@ reactable_sdv_team_color_bg <- function(
     league,
     which = c("primary", "secondary"),
     alpha = 0.15,
-    na_color = "grey70"
+    na_color = "grey70",
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
 ) {
   league <- check_league(league)
   which <- rlang::arg_match0(which, c("primary", "secondary"))
-  colors <- scales::alpha(row_team_colors(data, team_col, league, which, na_color), alpha)
+  colors <- scales::alpha(row_team_colors(data, team_col, league, which, na_color, season, id_system, strict), alpha)
   function(value, index, name) {
     sprintf("background-color:%s;", colors[index])
   }
 }
 
-row_team_colors <- function(data, team_col, league, which, na_color) {
+row_team_colors <- function(data, team_col, league, which, na_color, season = NULL, id_system = "auto", strict = FALSE) {
   if (!team_col %in% names(data)) {
     cli::cli_abort("Column {.val {team_col}} not found in {.arg data}.")
   }
-  colors <- sdv_team_colors(league, as.character(data[[team_col]]), which = which)
+  colors <- sdv_team_colors(league, as.character(data[[team_col]]), which = which,
+    season = season, id_system = id_system, strict = strict)
   colors[is.na(colors)] <- na_color
   unname(colors)
 }

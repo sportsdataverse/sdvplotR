@@ -98,6 +98,7 @@ gt_theme_sdv <- function(gt_object, style = c("light", "dark"),
 #' @param league A league key from [sdv_leagues()]: the league `team` belongs to.
 #'   Needed with a `team`.
 #' @inheritParams gt_theme_sdv
+#' @inheritParams sdv_logo_url
 #'
 #' @returns Returns a modified `gt` table with the theme applied.
 #'
@@ -119,6 +120,7 @@ gt_theme_sdv <- function(gt_object, style = c("light", "dark"),
 gt_theme_sdv_team <- function(gt_object, team = NULL,
                               league,
                               density = c("comfortable", "compact", "social"),
+                              season = NULL, id_system = "auto",
                               ...) {
   .check_gt(gt_object)
 
@@ -130,14 +132,14 @@ gt_theme_sdv_team <- function(gt_object, team = NULL,
       cli::cli_abort("{.arg team} must be a single team, not {length(team)}.")
     }
     league <- check_league(league)
-    if (is.na(resolve_ids(team, league)$ids)) {
+    if (is.na(resolve_ids(team, league, season, id_system)$ids)) {
       cli::cli_abort(c(
         "No {toupper(league)} team matches {.val {team}}.",
         "i" = "See {.run sdvplotR::sdv_teams(\"{league}\")} for accepted keys."
       ))
     }
-    primary <- unname(sdv_team_colors(league, team, which = "primary"))
-    secondary <- unname(sdv_team_colors(league, team, which = "secondary"))
+    primary <- unname(sdv_team_colors(league, team, which = "primary", season = season, id_system = id_system))
+    secondary <- unname(sdv_team_colors(league, team, which = "secondary", season = season, id_system = id_system))
     if (is.na(primary) || !nzchar(primary)) {
       cli::cli_warn("No colors on file for {toupper(league)} team {.val {team}}; using the SportsDataverse colors.")
       primary <- "#0B1A33"

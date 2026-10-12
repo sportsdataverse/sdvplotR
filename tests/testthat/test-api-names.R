@@ -52,3 +52,20 @@ test_that("colours resolve any id system and name the result by the input", {
   expect_identical(nrow(all), 32L)
   expect_error(sdv_team_colors("nfl", "KC", which = "tertiary"))
 })
+
+test_that("every helper that resolves teams takes season, id_system and strict", {
+  ns <- asNamespace("sdvplotR")
+  need <- list(
+    list(args = c("season", "id_system", "strict"), fns = c(
+      "gt_sdv_logos", "gt_sdv_wordmarks", "gt_sdv_cols_label", "reactable_sdv_logos",
+      "reactable_sdv_wordmarks", "reactable_sdv_cols_label", "reactable_sdv_team_color_bar",
+      "reactable_sdv_team_color_bg", "sdv_logo_url", "sdv_team_colors", "sdv_color_palette"
+    )),
+    list(args = c("id_system", "strict"), fns = c("geom_sdv_logos", "geom_sdv_wordmarks")),
+    list(args = c("season", "id_system"), fns = c(
+      "element_sdv_logo", "element_sdv_wordmark", "scale_x_sdv", "scale_y_sdv",
+      "gt_merge_stack_team_color", "gt_theme_sdv_team"
+    ))
+  )
+  for (n in need) for (f in n$fns) expect_true(all(n$args %in% names(formals(get(f, ns)))), info = f)
+})

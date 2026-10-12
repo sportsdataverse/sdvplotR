@@ -20,9 +20,11 @@
 #'   cell shows logo and name (what cbbplotR's `gt_cbb_teams()` did), and the
 #'   image gets an empty `alt` so the name is not read twice. Defaults to
 #'   `FALSE`, the logo alone, whose `alt` is the team's full name.
-#' @param season `NULL` (the default) for today's logos, or one season whose
+#' @param season `NULL` (the default) for today's marks, or one season whose
 #'   marks every cell shows (the ending year for the NHL). See the Historical
 #'   logos section.
+#' @param id_system,strict How the team values are read and what an unresolved
+#'   one does, as in [sdv_logo_url()].
 #'
 #' @inheritSection geom_sdv_logos Historical logos
 #' @return An object of class `gt_tbl`.
@@ -61,7 +63,9 @@ gt_sdv_logos <- function(
     height = 30,
     locations = NULL,
     include_name = FALSE,
-    season = NULL
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
 ) {
   league <- check_league(league)
   if (!is.null(season) && length(season) != 1) {
@@ -76,7 +80,9 @@ gt_sdv_logos <- function(
     league = league,
     type = "logo",
     include_name = include_name,
-    season = season
+    season = season,
+    id_system = id_system,
+    strict = strict
   )
 }
 
@@ -102,7 +108,10 @@ gt_sdv_wordmarks <- function(
     columns,
     league,
     height = 30,
-    locations = NULL
+    locations = NULL,
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
 ) {
   league <- check_league(league)
 
@@ -112,7 +121,10 @@ gt_sdv_wordmarks <- function(
     height = height,
     locations = locations,
     league = league,
-    type = "wordmark"
+    type = "wordmark",
+    season = season,
+    id_system = id_system,
+    strict = strict
   )
 }
 
@@ -189,7 +201,10 @@ gt_sdv_headshots <- function(
 #' @param height The absolute height (px) of the image.
 #' @param mark_type One of `"logo"`, `"wordmark"` or `"headshot"`: whether the
 #'   column names are teams (logo / wordmark) or player IDs (headshot).
-#' @inheritParams geom_sdv_headshots
+#' @inheritParams gt_sdv_logos
+#' @param id_system How the column names are read: for teams, as in
+#'   [sdv_logo_url()] (`"auto"` by default); for `mark_type = "headshot"`,
+#'   as in [sdv_headshot_url()], where `"auto"` means `"espn"`.
 #'
 #' @return An object of class `gt_tbl`.
 #' @seealso [gt_sdv_logos()], [gt_sdv_wordmarks()], [gt_sdv_headshots()]
@@ -215,11 +230,15 @@ gt_sdv_cols_label <- function(
     league,
     height = 30,
     mark_type = c("logo", "wordmark", "headshot"),
-    id_system = "espn"
+    id_system = "auto",
+    season = NULL,
+    strict = FALSE
 ) {
   league <- check_league(league)
   mark_type <- rlang::arg_match0(mark_type, c("logo", "wordmark", "headshot"))
-  if (mark_type == "headshot") id_system <- check_id_system(id_system, league)
+  if (mark_type == "headshot") {
+    id_system <- check_id_system(if (identical(id_system, "auto")) "espn" else id_system, league)
+  }
 
   if (is.numeric(height)) {
     height <- paste0(height, "px")
@@ -236,7 +255,7 @@ gt_sdv_cols_label <- function(
       } else {
         # a label that is no team (the default columns take every one) stays text, quietly
         lookup <- if (mark_type == "logo") logo_from_team else wordmark_from_team
-        img_url <- withCallingHandlers(lookup(x, league),
+        img_url <- withCallingHandlers(lookup(x, league, season, id_system = id_system, strict = strict),
           sdvplotR_unresolved_warning = function(w) invokeRestart("muffleWarning")
         )
 
@@ -247,7 +266,7 @@ gt_sdv_cols_label <- function(
           "\" style=\"height:",
           height,
           ";\" alt=\"",
-          htmltools::htmlEscape(team_alt(x, league), attribute = TRUE),
+          htmltools::htmlEscape(team_alt(x, league, season, id_system), attribute = TRUE),
           "\">"
         )
 
@@ -280,7 +299,9 @@ gt_sdv_image <- function(
     league = "nfl",
     type = c("logo", "wordmark"),
     include_name = FALSE,
-    season = NULL
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
 ) {
   type <- match.arg(type)
 
@@ -299,9 +320,9 @@ gt_sdv_image <- function(
       # gt passes the cell text HTML-escaped ("Texas A&amp;M")
       text <- html_unescape(as.character(x))
       if (type == "logo") {
-        img_url <- logo_from_team(text, league, season = season)
+        img_url <- logo_from_team(text, league, season = season, id_system = id_system, strict = strict)
       } else {
-        img_url <- wordmark_from_team(text, league)
+        img_url <- wordmark_from_team(text, league, season = season, id_system = id_system, strict = strict)
       }
 
       # Generate the HTML img tag
@@ -313,7 +334,7 @@ gt_sdv_image <- function(
         if (isTRUE(include_name)) ";vertical-align:middle;margin-right:0.35em",
         # with include_name the cell's own text already names the team
         ";\" alt=\"",
-        if (!isTRUE(include_name)) htmltools::htmlEscape(team_alt(text, league), attribute = TRUE),
+        if (!isTRUE(include_name)) htmltools::htmlEscape(team_alt(text, league, season, id_system), attribute = TRUE),
         "\">",
         if (isTRUE(include_name)) x
       )
@@ -349,6 +370,7 @@ gt_sdv_image <- function(
 #' @param col1 The column to stack on top. Will be all caps, black bold text.
 #' @param col2 The column to merge and place below. Will be smaller and colored.
 #' @param team_col The column of team names for the color of the bottom text.
+#' @inheritParams sdv_logo_url
 #' @param league A league key from [sdv_leagues()].
 #' @param font_size_top Font size for the top text.
 #' @param font_size_bottom Font size for the bottom text.
@@ -385,7 +407,9 @@ gt_merge_stack_team_color <- function(
     font_size_top = 14,
     font_size_bottom = 12,
     color = "black",
-    background = NULL
+    background = NULL,
+    season = NULL,
+    id_system = "auto"
 ) {
   league <- check_league(league)
 
@@ -401,10 +425,10 @@ gt_merge_stack_team_color <- function(
     cli::cli_abort("Must include a column of team names, `team_col` is NULL")
   }
 
-  team_color <- sdv_team_colors(league, team_bare, which = "primary")
+  team_color <- sdv_team_colors(league, team_bare, which = "primary", season = season, id_system = id_system)
   team_color[is.na(team_color)] <- "grey"
   team_color <- sdv_readable_ink(
-    team_color, sdv_team_colors(league, team_bare, which = "secondary"),
+    team_color, sdv_team_colors(league, team_bare, which = "secondary", season = season, id_system = id_system),
     background %||% .table_background(gt_object)
   )
 

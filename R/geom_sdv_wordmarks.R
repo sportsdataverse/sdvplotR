@@ -6,6 +6,7 @@
 #'   listed by [sdv_teams()].
 #'
 #' @inheritParams ggplot2::geom_point
+#' @inheritParams sdv_logo_url
 #' @param league A league key from [sdv_leagues()]. A team the logo archive
 #'   has no wordmark for is not drawn (its path is `NA`, with a warning).
 #'
@@ -22,6 +23,7 @@
 #'   \item{`vjust = 0.5`}{ - The vertical adjustment relative to the given y coordinate.}
 #'   \item{`width = 1.0`}{ - The desired width of the image in `npc`. A typical size is `width = 0.12`.}
 #'   \item{`height = 1.0`}{ - The desired height of the image in `npc`. A typical size is `height = 0.1`.}
+#'   \item{`season = NA`}{ - The season whose wordmark to draw, as for [geom_sdv_logos()].}
 #' }
 #'
 #' @return A ggplot2 layer ([ggplot2::layer()]) that can be added to a plot
@@ -53,6 +55,8 @@ geom_sdv_wordmarks <- function(
     position = "identity",
     ...,
     league,
+    id_system = "auto",
+    strict = FALSE,
     na.rm = FALSE,
     show.legend = FALSE,
     inherit.aes = TRUE
@@ -70,6 +74,8 @@ geom_sdv_wordmarks <- function(
     params = list(
       na.rm = na.rm,
       league = league,
+      id_system = id_system,
+      strict = strict,
       ...
     )
   )
@@ -82,11 +88,11 @@ GeomSDVwordmark <- ggplot2::ggproto(
   required_aes = c("x", "y", "team"),
   default_aes = ggplot2::aes(
     alpha = NULL, colour = NULL, angle = 0, hjust = 0.5,
-    vjust = 0.5, width = 1.0, height = 1.0
+    vjust = 0.5, width = 1.0, height = 1.0, season = NA
   ),
-  draw_panel = function(data, panel_params, coord, na.rm = FALSE, league = "nfl") {
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE, league = "nfl", id_system = "auto", strict = FALSE) {
     # Resolve team abbreviations to wordmark URLs
-    data$path <- wordmark_from_team(data$team, league)
+    data$path <- wordmark_from_team(data$team, league, season = data$season, id_system = id_system, strict = strict)
 
     # Delegate to ggpath for actual rendering
     ggpath::GeomFromPath$draw_panel(

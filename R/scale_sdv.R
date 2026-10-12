@@ -136,6 +136,7 @@ scale_fill_sdv <- function(
 #'   children (`axis.text.x.bottom`, ...) to [ggtext::element_markdown()]:
 #'   complete themes in 'ggplot2' 4 set those children themselves.
 #'
+#' @inheritParams sdv_logo_url
 #' @param league A league key from [sdv_leagues()].
 #' @param size The logo size in pixels. It is applied as height for an x-scale
 #'   and as width for a y-scale.
@@ -181,7 +182,9 @@ scale_x_sdv <- function(
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "bottom",
-    size = 12
+    size = 12,
+    season = NULL,
+    id_system = "auto"
 ) {
   league <- check_league(league)
   position <- rlang::arg_match0(position, c("top", "bottom"))
@@ -189,7 +192,7 @@ scale_x_sdv <- function(
   ggplot2::scale_x_discrete(
     ...,
     labels = function(x) {
-      logo_html(x, league, type = "height", size = size)
+      logo_html(x, league, type = "height", size = size, season = season, id_system = id_system)
     },
     expand = expand,
     guide = guide,
@@ -205,7 +208,9 @@ scale_y_sdv <- function(
     expand = ggplot2::waiver(),
     guide = ggplot2::waiver(),
     position = "left",
-    size = 12
+    size = 12,
+    season = NULL,
+    id_system = "auto"
 ) {
   league <- check_league(league)
   position <- rlang::arg_match0(position, c("left", "right"))
@@ -213,7 +218,7 @@ scale_y_sdv <- function(
   ggplot2::scale_y_discrete(
     ...,
     labels = function(x) {
-      logo_html(x, league, type = "width", size = size)
+      logo_html(x, league, type = "width", size = size, season = season, id_system = id_system)
     },
     expand = expand,
     guide = guide,

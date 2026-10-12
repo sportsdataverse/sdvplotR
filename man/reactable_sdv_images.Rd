@@ -11,14 +11,20 @@ reactable_sdv_logos(
   league,
   variant = "default",
   height = 30,
-  default_img = NULL
+  default_img = NULL,
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 
 reactable_sdv_wordmarks(
   league,
   variant = "default",
   height = 30,
-  default_img = NULL
+  default_img = NULL,
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 
 reactable_sdv_headshots(
@@ -41,11 +47,18 @@ falls back to the default mark when the variant's file fails to load.}
 \item{default_img}{Character. Fallback image URL used when the value cannot
 be resolved. If \code{NULL} (the default) the raw value is shown instead.}
 
-\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
-league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
-\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
-published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
-\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
+\item{season}{\code{NULL} for today's mark, or a season (or one per team): the
+mark the team wore that season where the archive dates its marks.}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
+
+\item{strict}{If \code{TRUE}, a value that does not resolve is an error;
+otherwise it becomes \code{NA} with one warning per call.}
 }
 \value{
 A function with signature \verb{function(value, index)} suitable for the

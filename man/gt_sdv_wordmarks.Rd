@@ -4,7 +4,16 @@
 \alias{gt_sdv_wordmarks}
 \title{Render Wordmarks in 'gt' Tables}
 \usage{
-gt_sdv_wordmarks(gt_object, columns, league, height = 30, locations = NULL)
+gt_sdv_wordmarks(
+  gt_object,
+  columns,
+  league,
+  height = 30,
+  locations = NULL,
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
+)
 }
 \arguments{
 \item{gt_object}{A table object created using \code{\link[gt:gt]{gt::gt()}}.}
@@ -21,6 +30,13 @@ argument \code{columns}. Otherwise, the cell or set of cells to be associated
 with the team name transformation. Only \code{\link[gt:cells_body]{gt::cells_body()}},
 \code{\link[gt:cells_stub]{gt::cells_stub()}}, \code{\link[gt:cells_column_labels]{gt::cells_column_labels()}}, and
 \code{\link[gt:cells_row_groups]{gt::cells_row_groups()}} helper functions can be used here.}
+
+\item{season}{\code{NULL} (the default) for today's marks, or one season whose
+marks every cell shows (the ending year for the NHL). See the Historical
+logos section.}
+
+\item{id_system, strict}{How the team values are read and what an unresolved
+one does, as in \code{\link[=sdv_logo_url]{sdv_logo_url()}}.}
 }
 \value{
 An object of class \code{gt_tbl}.

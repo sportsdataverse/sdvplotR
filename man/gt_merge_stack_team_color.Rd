@@ -13,7 +13,9 @@ gt_merge_stack_team_color(
   font_size_top = 14,
   font_size_bottom = 12,
   color = "black",
-  background = NULL
+  background = NULL,
+  season = NULL,
+  id_system = "auto"
 )
 }
 \arguments{
@@ -38,6 +40,16 @@ gt_merge_stack_team_color(
 theme such as \code{\link[=gt_theme_midnight]{gt_theme_midnight()}} applied \strong{before} this function is
 taken into account; a theme applied afterwards isn't seen, so set
 \code{background} then. A table with no background color set counts as white.}
+
+\item{season}{\code{NULL} for today's mark, or a season (or one per team): the
+mark the team wore that season where the archive dates its marks.}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
 }
 \value{
 An object of class \code{gt_tbl}.

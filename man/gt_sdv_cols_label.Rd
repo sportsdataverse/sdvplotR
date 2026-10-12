@@ -10,7 +10,9 @@ gt_sdv_cols_label(
   league,
   height = 30,
   mark_type = c("logo", "wordmark", "headshot"),
-  id_system = "espn"
+  id_system = "auto",
+  season = NULL,
+  strict = FALSE
 )
 }
 \arguments{
@@ -25,11 +27,13 @@ gt_sdv_cols_label(
 \item{mark_type}{One of \code{"logo"}, \code{"wordmark"} or \code{"headshot"}: whether the
 column names are teams (logo / wordmark) or player IDs (headshot).}
 
-\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
-league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
-\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
-published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
-\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
+\item{id_system}{How the column names are read: for teams, as in
+\code{\link[=sdv_logo_url]{sdv_logo_url()}} (\code{"auto"} by default); for \code{mark_type = "headshot"},
+as in \code{\link[=sdv_headshot_url]{sdv_headshot_url()}}, where \code{"auto"} means \code{"espn"}.}
+
+\item{season}{\code{NULL} (the default) for today's marks, or one season whose
+marks every cell shows (the ending year for the NHL). See the Historical
+logos section.}
 }
 \value{
 An object of class \code{gt_tbl}.

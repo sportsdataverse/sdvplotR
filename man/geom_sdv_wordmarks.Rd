@@ -12,6 +12,8 @@ geom_sdv_wordmarks(
   position = "identity",
   ...,
   league,
+  id_system = "auto",
+  strict = FALSE,
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -97,6 +99,16 @@ lists which parameters it can accept.
 \item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. A team the logo archive
 has no wordmark for is not drawn (its path is \code{NA}, with a warning).}
 
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
+
+\item{strict}{If \code{TRUE}, a value that does not resolve is an error;
+otherwise it becomes \code{NA} with one warning per call.}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -137,6 +149,7 @@ listed by \code{\link[=sdv_teams]{sdv_teams()}}.
 \item{\code{vjust = 0.5}}{ - The vertical adjustment relative to the given y coordinate.}
 \item{\code{width = 1.0}}{ - The desired width of the image in \code{npc}. A typical size is \code{width = 0.12}.}
 \item{\code{height = 1.0}}{ - The desired height of the image in \code{npc}. A typical size is \code{height = 0.1}.}
+\item{\code{season = NA}}{ - The season whose wordmark to draw, as for \code{\link[=geom_sdv_logos]{geom_sdv_logos()}}.}
 }
 }
 

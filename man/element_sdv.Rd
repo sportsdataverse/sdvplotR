@@ -14,7 +14,9 @@ element_sdv_logo(
   color = NULL,
   hjust = NULL,
   vjust = NULL,
-  size = 0.5
+  size = 0.5,
+  season = NULL,
+  id_system = "auto"
 )
 
 element_sdv_wordmark(
@@ -24,7 +26,9 @@ element_sdv_wordmark(
   color = NULL,
   hjust = NULL,
   vjust = NULL,
-  size = 0.5
+  size = 0.5,
+  season = NULL,
+  id_system = "auto"
 )
 
 element_sdv_headshot(
@@ -65,11 +69,15 @@ for black and white.}
 
 \item{size}{The output grob size in \code{cm}.}
 
-\item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
-league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
-\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
-published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
-\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
+\item{season}{\code{NULL} for today's mark, or a season (or one per team): the
+mark the team wore that season where the archive dates its marks.}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
 
 \item{image_path}{A file path or url to an image.}
 

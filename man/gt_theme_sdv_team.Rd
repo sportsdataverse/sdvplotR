@@ -9,6 +9,8 @@ gt_theme_sdv_team(
   team = NULL,
   league,
   density = c("comfortable", "compact", "social"),
+  season = NULL,
+  id_system = "auto",
   ...
 )
 }
@@ -23,6 +25,16 @@ Needed with a \code{team}.}
 
 \item{density}{Character. The type and padding scale. One of \code{"comfortable"},
 \code{"compact"}, or \code{"social"}. See Density. Defaults to \code{"comfortable"}.}
+
+\item{season}{\code{NULL} for today's mark, or a season (or one per team): the
+mark the team wore that season where the archive dates its marks.}
+
+\item{id_system}{\code{"auto"} (try every id system in priority order) or one
+id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
+\code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
+\code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
+\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
+ESPN's, so \code{"auto"} never reads a number as one).}
 
 \item{...}{Additional arguments passed to \code{gt::tab_options}, applied last so
 they override anything the theme sets.}

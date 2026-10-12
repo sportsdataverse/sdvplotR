@@ -242,3 +242,9 @@ test_that("geom_sdv_logos draws period marks with and without a season", {
     expect_true(all(vapply(g$children, inherits, logical(1), "rastergrob")))
   }
 })
+
+test_that("geom_sdv_logos passes strict to the resolver", {
+  p <- ggplot2::ggplot(data.frame(x = 1, y = 1, t = "nope"), ggplot2::aes(x, y)) +
+    geom_sdv_logos(ggplot2::aes(team = t), league = "nfl", strict = TRUE)
+  expect_error(ggplot2::ggplot_gtable(ggplot2::ggplot_build(p)), class = "sdvplotR_unresolved")
+})
