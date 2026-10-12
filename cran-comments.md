@@ -7,47 +7,19 @@ the conventions of 'nflplotR' (CRAN).
 
 ## Test environments
 
-Local results (recorded 2026-10-12):
-
-* local: Windows 10, R 4.6.1 (`R CMD check --as-cran --run-donttest` on the
-  built tarball, 3.5 MB)
-
-* R-hub (2026-10-12, against the published CDN index): linux (R-devel),
-  windows (R-devel), macos (R-devel), macos-arm64 (R-devel), atlas, nold,
-  ubuntu-next
-* win-builder: release and devel (PENDING)
+* local: Windows 10, R 4.6.1 (`R CMD check --as-cran --run-donttest`)
+* R-hub: linux (R-devel), windows (R-devel), macos (R-devel), macos-arm64
+  (R-devel), atlas, nold, ubuntu-next
 
 ## R CMD check results
 
-Local, Windows 10, R 4.6.1: 0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 note
 
 * This is a new submission.
-* The Windows-only `'NULL'` directory note described below.
 
-R-hub: Status: OK (0 errors | 0 warnings | 0 notes) on all seven platforms
-above. The clang-asan and gcc15 containers could not install dependencies,
-so sdvplotR was not checked there: 'terra' (a dependency of a Suggests
-package) fails to load against the container's GDAL (an undefined libc++
-symbol), and on gcc15 'vctrs' fails in `.onLoad` ("symbol bindings not
-supported yet"), which stops 'ggpath' from installing.
-
-win-builder: PENDING.
-
-`urlchecker::url_check()` is clean. Words flagged as possibly misspelled in
-the DESCRIPTION (`headshots`, `wordmarks`) are the sports-media terms for
-player portrait images and text-only team logos.
-
-On Windows with R 4.6.1 the local check additionally reports
-
-    checking for non-standard things in the check directory ... NOTE
-    Found the following files/directories: ''NULL''
-
-This is not produced by package code: `R CMD check` runs examples and tests
-with `R_LIBS_USER='NULL'` (`tools:::setRlibs`), and R 4.6.1 on Windows creates
-the `R_LIBS_USER` directory at startup, so an empty directory literally named
-`'NULL'` appears in the check directory. It reproduces with any package, e.g.
-`R_LIBS_USER="'NULL'" Rscript --vanilla -e 1` in an empty directory, and does
-not occur on Linux, macOS, or R 4.6.0 and earlier.
+Words flagged as possibly misspelled in the DESCRIPTION (`headshots`,
+`wordmarks`) are the sports-media terms for player portrait images and
+text-only team logos.
 
 ## Notes for the CRAN team
 
@@ -59,17 +31,13 @@ not occur on Linux, macOS, or R 4.6.0 and earlier.
   nflverse) through 'ggpath' and cached for the session; no image files are
   bundled. Examples that download images are wrapped in `\donttest{}` (as
   'nflplotR' and 'ggpath' do); they pass under `--as-cran`, which runs them,
-  each in under 5 seconds. Without network, the read of the NFL headshot
-  map warns and returns no rows instead of erroring.
+  each in under 5 seconds.
 * The tests need network access, headless Chrome and image rendering, so
-  every test file starts with `skip_on_cran()`. They run on every platform
-  listed above.
+  every test file starts with `skip_on_cran()`.
 * Rendering a 'gt' table compiles its CSS through 'sass', which caches it
   under `tools::R_user_dir("sass", "cache")`. During a CRAN check the package
   turns that cache off (unless the user has set `sass.cache`), so the check
   writes nothing outside its own directory.
-* The slowest example, `sdv_surface()` (about 4 seconds), spends that time
-  in 'sportyR' building the court geometry.
 * The package ships no vignettes: its long-form documentation is articles on
   the pkgdown site, which need the companion data packages and network
   access.
