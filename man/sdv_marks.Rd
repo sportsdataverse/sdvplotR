@@ -12,9 +12,8 @@ sdv_marks(team, league, season = NULL, id_system = "auto")
 \item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. Required: one abbreviation
 means different teams in different leagues.}
 
-\item{season}{\code{NULL}, one season year, or one per value: picks the team
-that used a reused code that season. Without one, a reused code means its
-current holder. Split seasons take their ending year (2021 for 2020-21).}
+\item{season}{\code{NULL}, or one season: which team \code{team} names where a code
+was reused across eras. The rows returned cover every season.}
 
 \item{id_system}{\code{"auto"} (try every id system in priority order) or one
 id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},

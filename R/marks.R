@@ -134,6 +134,8 @@ mark_url <- function(team, league, season = NULL, variant = "default", mark_type
 #'   choose from. The R counterpart of sdvplot's `marks()`.
 #' @param team One team identifier, or a conference or league key (`"SEC"`, `"AFC"`).
 #' @inheritParams sdv_resolve
+#' @param season `NULL`, or one season: which team `team` names where a code
+#'   was reused across eras. The rows returned cover every season.
 #' @return A data frame of manifest rows with `team_id`, `variant`,
 #'   `mark_type`, `valid_from`, `valid_to` (the effective season range),
 #'   `source`, `source_rank` and `archive_url`.

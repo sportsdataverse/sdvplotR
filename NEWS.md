@@ -13,7 +13,9 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   Reference, FanGraphs, names, ...) into canonical team ids, using `season`
   for codes reused across eras; `sdv_suggest()` proposes candidates for a
   value that does not resolve. Every helper that takes a team resolves it
-  this way and takes `league`, `season`, `id_system` and `strict`.
+  this way and takes `league`; the helpers that draw marks or colours also
+  take `season` and `id_system`, and `strict` where a value that does not
+  resolve can raise instead of warn.
 * `sdv_teams()`, `sdv_leagues()`, `sdv_team_colors()`, `sdv_color_palette()`
   and `sdv_team_factor()` list and colour teams.
 * The team index and the logo manifest are read from the SportsDataverse CDN
