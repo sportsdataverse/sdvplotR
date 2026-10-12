@@ -46,11 +46,11 @@
 #' library(sdvplotR)
 #' library(ggplot2)
 #'
-#' team_abbr <- sdv_teams("nfl")$abbr[1:16]
+#' team_abbr <- sdv_teams("nfl")$abbr[1:8]
 #'
 #' df <- data.frame(
-#'   a = rep(1:4, 4),
-#'   b = sort(rep(1:4, 4), decreasing = TRUE),
+#'   a = rep(1:4, 2),
+#'   b = rep(2:1, each = 4),
 #'   teams = team_abbr
 #' )
 #'
