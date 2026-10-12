@@ -8,8 +8,13 @@ leagues** of the SportsDataverse team index
 basketball, soccer and more — in
 [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
 [**`gt`**](https://gt.rstudio.com/) tables and
-[**`reactable`**](https://glin.github.io/reactable/) tables. It is built
-on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
+[**`reactable`**](https://glin.github.io/reactable/) tables, and in
+interactive [**`plotly`**](https://plotly-r.com/),
+[**`ggiraph`**](https://davidgohel.github.io/ggiraph/) and
+[**`leaflet`**](https://rstudio.github.io/leaflet/) charts and maps,
+with team-colored playing surfaces from
+[**`sportyR`**](https://sportyR.sportsdataverse.org/). It is built on
+[**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
 approach established by [nflplotR](https://nflplotr.nflverse.com/),
 [cfbplotR](https://cfbplotR.sportsdataverse.org/),
 [nbaplotR](https://mrcaseb.github.io/nbaplotR/) and
@@ -161,6 +166,37 @@ reactable(
   )
 )
 ```
+
+``` r
+
+# Interactive: the logo grid again, each logo with a tooltip (ggiraph) ...
+p <- ggplot(df, aes(x = a, y = b)) +
+  geom_sdv_logos_interactive(aes(team = teams, tooltip = teams, data_id = teams),
+    league = "nfl", width = 0.075
+  ) +
+  theme_void()
+ggiraph::girafe(ggobj = p)
+
+# ... or logos on a native plotly chart (addSdvLogoMarkers() does maps)
+plotly::plot_ly(df, x = ~a, y = ~b, type = "scatter", mode = "markers", text = ~teams) |>
+  add_sdv_logos(df$a, df$b, df$teams, league = "nfl")
+
+# A playing surface painted in a team's colors, ready for shot or play data
+sdv_surface("nba", team = "BOS")
+```
+
+The [Interactive Charts
+cookbook](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.html)
+covers
+[`geom_sdv_logos_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+and its wordmark and headshot siblings,
+[`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md),
+[`sdv_axis_logos()`](https://sdvplotR.sportsdataverse.org/reference/sdv_axis_logos.md)
+and
+[`sdv_colorway()`](https://sdvplotR.sportsdataverse.org/reference/sdv_colorway.md)
+for plotly, and
+[`addSdvLogoMarkers()`](https://sdvplotR.sportsdataverse.org/reference/addSdvLogoMarkers.md)
+for leaflet.
 
 [`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md)
 (light or `style = "dark"`) and

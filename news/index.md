@@ -3,8 +3,9 @@
 ## sdvplotR 0.1.0
 
 Initial release: team logos, wordmarks, player headshots and team
-colours for ggplot2, gt and reactable, across the 28 leagues of the
-SportsDataverse team index
+colours for ggplot2, gt and reactable, and for interactive plotly,
+ggiraph and leaflet charts, across the 28 leagues of the SportsDataverse
+team index
 ([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)),
 built on ‘ggpath’. It shares its team index, logo archive and argument
 names with the Python package sdvplot and the JavaScript packages
