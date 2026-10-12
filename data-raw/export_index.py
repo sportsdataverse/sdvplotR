@@ -54,7 +54,7 @@ def fold_table() -> tuple[str, str]:
 
 def golden(aliases: pl.DataFrame, ver: str) -> list[dict]:
     rng = random.Random(20261011)
-    a = aliases.filter(pl.col("id_system") != "mark")
+    a = aliases.filter(~pl.col("id_system").is_in(_resolve._MARKS_ONLY))
     rows: list[dict] = []
 
     def case(league, value, season, id_system, value_type="character"):
@@ -145,6 +145,37 @@ def golden(aliases: pl.DataFrame, ver: str) -> list[dict]:
                 season="",
                 id_system="",
                 expected=top[0][0] if top else "",
+                reason="",
+                index_version=ver,
+            )
+        )
+    # the mark functions' path (resolve_marks): a conference or league row's own key and its "conference" aliases,
+    # which resolve() never reads; "MAC" stays cfb's Macalester, a team's code winning over a conference's
+    conf = aliases.filter(pl.col("id_system") == "conference")
+    marks = [
+        (r["league"], r["value"])
+        for r in conf.sample(n=min(30, conf.height), seed=19).iter_rows(named=True)
+    ]
+    marks += [
+        ("cfb", "SEC"),
+        ("cfb", "MAC"),
+        ("nfl", "AFC"),
+        ("nfl", "KC"),
+        ("cfb", "zzz not a conference"),
+    ]
+    for league, value in marks:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            got = _resolve.resolve_marks(value, league)
+        rows.append(
+            dict(
+                kind="mark",
+                league=league,
+                value=value,
+                value_type="character",
+                season="",
+                id_system="auto",
+                expected=got or "",
                 reason="",
                 index_version=ver,
             )

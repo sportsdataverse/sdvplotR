@@ -10,6 +10,10 @@ resolve_priority <- c(
 # NHL stats API ids 1-28 are other teams' ESPN ids: only an explicit id_system reads them
 resolve_explicit_only <- "nhl_id"
 non_team_programs <- c("conference", "league")
+# the index's id systems for the mark functions only, never an id_system and
+# never read by sdv_resolve(): "mark" keys archive rows to teams, "conference"
+# holds the conference rows' other names ("Southeastern Conference", "B1G")
+marks_only_systems <- c("mark", "conference")
 # id systems that record a league's whole history (bounds seasons per league)
 history_systems <- c("bref", "sportsipy", "mlbstats", "espn_abbr")
 
@@ -155,7 +159,7 @@ league_lookup <- function(league) {
     a <- a[a$league == league, , drop = FALSE]
     a$key <- norm_value(a$value)
     a <- a[!is.na(a$key), , drop = FALSE]
-    nm <- a[a$id_system != "mark", , drop = FALSE]
+    nm <- a[!a$id_system %in% marks_only_systems, , drop = FALSE]
     latest <- suppressWarnings(max(c(nm$valid_from, nm$valid_to), na.rm = TRUE))
     index_cache[[key]] <- list(
       a = a,
@@ -196,10 +200,18 @@ resolve_systems <- function(id_system, call = rlang::caller_env()) {
   if (id_system == "auto") resolve_priority else id_system
 }
 
+# normalized key -> team_id of the league's conference and league rows, by the
+# row's own key and then its "conference" aliases (the build keeps a key naming
+# one row only); read after every team alias, and only for marks
 non_team_keys <- function(league) {
   t <- sdv_teams(league, include_conferences = TRUE)
   t <- t[t$program %in% non_team_programs, , drop = FALSE]
-  stats::setNames(t$team_id, norm_value(t$team_id))
+  a <- league_lookup(league)$a
+  a <- a[a$id_system == "conference", , drop = FALSE]
+  keys <- c(norm_value(t$team_id), a$key)
+  ids <- c(t$team_id, a$team_id)
+  keep <- !is.na(keys) & !duplicated(keys)
+  stats::setNames(ids[keep], keys[keep])
 }
 
 resolve_ids <- function(x, league, season = NULL, id_system = "auto", marks = FALSE, call = rlang::caller_env()) {
@@ -303,7 +315,9 @@ sdv_suggest <- function(x, league, n = 5) {
     return(out)
   }
   lk <- league_lookup(league)
-  keys <- unique(lk$a$key)
+  # a conference row's name is never a team candidate (Python's suggest() skips it too)
+  a <- lk$a[lk$a$id_system != "conference", , drop = FALSE]
+  keys <- unique(a$key)
   # ponytail: only the top candidate is held to Python (golden suggest rows); later
   # candidates order by edit distance, not difflib's ratio, so their order may differ.
   sim <- 1 - drop(utils::adist(key, keys)) / pmax(nchar(key), nchar(keys))
@@ -312,7 +326,7 @@ sdv_suggest <- function(x, league, n = 5) {
   if (!length(ord)) {
     return(out)
   }
-  ids <- unique(unlist(lapply(keys[ord], function(k) lk$a$team_id[lk$a$key == k]), use.names = FALSE))
+  ids <- unique(unlist(lapply(keys[ord], function(k) a$team_id[a$key == k]), use.names = FALSE))
   ids <- utils::head(ids, n)
   t <- sdv_teams(league, include_conferences = TRUE)
   nm <- t$name[match(ids, t$team_id)]

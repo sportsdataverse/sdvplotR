@@ -1,263 +1,298 @@
 kind,league,value,value_type,season,id_system,expected,reason,index_version
-resolve,mlb,MIA,character,,auto,28,ok,980a3f4cdec6
-resolve,nba,NYK,character,,auto,18,ok,980a3f4cdec6
-resolve,mlb,ANA,character,,bref,3,ok,980a3f4cdec6
-resolve,mlb,SLB,character,,auto,1,ok,980a3f4cdec6
-resolve,nfl,dal,character,,bref,6,ok,980a3f4cdec6
-resolve,mlb,PHI,character,,bref,22,ok,980a3f4cdec6
-resolve,mlb,ATL,character,,auto,15,ok,980a3f4cdec6
-resolve,nba,DNN,character,,auto,7,ok,980a3f4cdec6
-resolve,nba,OKC,character,,bref,25,ok,980a3f4cdec6
-resolve,mlb,HOU,character,,auto,18,ok,980a3f4cdec6
-resolve,cfb,Youngstown St,character,,auto,2754,ok,980a3f4cdec6
-resolve,cfb,Brown,character,,auto,225,ok,980a3f4cdec6
-resolve,cfb,MICH,character,,cfbd,130,ok,980a3f4cdec6
-resolve,cfb,East Central,character,,cfbd,2191,ok,980a3f4cdec6
-resolve,cfb,CMS,character,,auto,17,ok,980a3f4cdec6
-resolve,cfb,Heidelberg,character,,cfbd,191,ok,980a3f4cdec6
-resolve,cfb,Rockford,character,,cfbd,2524,ok,980a3f4cdec6
-resolve,cfb,Western Kentucky,character,,auto,98,ok,980a3f4cdec6
-resolve,cfb,HCU,character,,auto,2277,ok,980a3f4cdec6
-resolve,cfb,Morgan St,character,,auto,2415,ok,980a3f4cdec6
-resolve,cricket,1346029,character,,cricinfo,1346029,ok,980a3f4cdec6
-resolve,cricket,335973,character,,auto,335973,ok,980a3f4cdec6
-resolve,cricket,1335270,character,,auto,1335270,ok,980a3f4cdec6
-resolve,cricket,27,character,,auto,27,ok,980a3f4cdec6
-resolve,cricket,1121244,character,,cricinfo,1121244,ok,980a3f4cdec6
-resolve,cricket,1812,character,,cricinfo,1812,ok,980a3f4cdec6
-resolve,cricket,1208118,character,,auto,1208118,ok,980a3f4cdec6
-resolve,cricket,6,character,,cricinfo,6,ok,980a3f4cdec6
-resolve,cricket,33,character,,cricinfo,33,ok,980a3f4cdec6
-resolve,cricket,509673,character,,auto,509673,ok,980a3f4cdec6
-resolve,nbagl,27,character,,auto,27,ok,980a3f4cdec6
-resolve,cfb,2699,character,,auto,2699,ok,980a3f4cdec6
-resolve,ncaa_baseball,67,character,,espn,67,ok,980a3f4cdec6
-resolve,cfb,398,character,,auto,398,ok,980a3f4cdec6
-resolve,cfb,122666,character,,espn,122666,ok,980a3f4cdec6
-resolve,mlb,10,character,,auto,10,ok,980a3f4cdec6
-resolve,cfb,2316,character,,espn,2316,ok,980a3f4cdec6
-resolve,cfb,324,character,,auto,324,ok,980a3f4cdec6
-resolve,ncaa_baseball,135,character,,espn,135,ok,980a3f4cdec6
-resolve,cfb,2108,character,,auto,2108,ok,980a3f4cdec6
-resolve,cfb,PUR,character,,auto,2509,ok,980a3f4cdec6
-resolve,wbb,UCD,character,,espn_abbr,302,ok,980a3f4cdec6
-resolve,cfb,FUR,character,,auto,231,ok,980a3f4cdec6
-resolve,cfb,CMIN,character,,espn_abbr,2146,ok,980a3f4cdec6
-resolve,ncaa_softball,GONZ,character,,espn_abbr,641,ok,980a3f4cdec6
-resolve,cfb,TENN,character,,auto,2633,ok,980a3f4cdec6
-resolve,ncaa_softball,COR,character,,auto,690,ok,980a3f4cdec6
-resolve,ncaa_softball,BGSU,character,,espn_abbr,518,ok,980a3f4cdec6
-resolve,nbagl,SXF,character,,auto,21,ok,980a3f4cdec6
-resolve,ncaa_baseball,TAM,character,,auto,1273,ok,980a3f4cdec6
-resolve,mlb,CHC,character,,auto,16,ok,980a3f4cdec6
-resolve,mlb,MIL,character,,fangraphs,8,ok,980a3f4cdec6
-resolve,mlb,ATH,character,,fangraphs,11,ok,980a3f4cdec6
-resolve,mlb,ARI,character,,auto,29,ok,980a3f4cdec6
-resolve,mlb,PIT,character,,fangraphs,23,ok,980a3f4cdec6
-resolve,mlb,MIA,character,,auto,28,ok,980a3f4cdec6
-resolve,mlb,TBR,character,,auto,30,ok,980a3f4cdec6
-resolve,mlb,CLE,character,,fangraphs,5,ok,980a3f4cdec6
-resolve,mlb,LAD,character,,auto,19,ok,980a3f4cdec6
-resolve,mlb,CIN,character,,auto,17,ok,980a3f4cdec6
-resolve,echl,2,character,,auto,2,ok,980a3f4cdec6
-resolve,ahl,411,character,,hockeytech,411,ok,980a3f4cdec6
-resolve,ahl,370,character,,auto,370,ok,980a3f4cdec6
-resolve,qmjhl,12,character,,auto,12,ok,980a3f4cdec6
-resolve,echl,18,character,,hockeytech,18,ok,980a3f4cdec6
-resolve,pwhl,11,character,,auto,11,ok,980a3f4cdec6
-resolve,qmjhl,10,character,,auto,10,ok,980a3f4cdec6
-resolve,echl,28,character,,auto,28,ok,980a3f4cdec6
-resolve,ahl,419,character,,auto,419,ok,980a3f4cdec6
-resolve,ahl,404,character,,auto,404,ok,980a3f4cdec6
-resolve,milb,1991,character,,auto,1991,ok,980a3f4cdec6
-resolve,mlb,CHI,character,,auto,16,ok,980a3f4cdec6
-resolve,milb,tol,character,,auto,512,ok,980a3f4cdec6
-resolve,milb,dcb,character,,auto,609,ok,980a3f4cdec6
-resolve,milb,t580,character,,auto,580,ok,980a3f4cdec6
-resolve,milb,A-BRW,character,,mlbstats,406,ok,980a3f4cdec6
-resolve,mlb,se1,character,,auto,8,ok,980a3f4cdec6
-resolve,milb,t635,character,,auto,635,ok,980a3f4cdec6
-resolve,milb,RNO,character,,mlbstats,2310,ok,980a3f4cdec6
-resolve,mlb,sdn,character,,auto,25,ok,980a3f4cdec6
-resolve,ufl,St. Louis Battlehawks,character,,auto,112651,ok,980a3f4cdec6
-resolve,soccer,FC Stade Lausanne-Ouchy,character,,name,21926,ok,980a3f4cdec6
-resolve,ufl,Stallions,character,,auto,126073,ok,980a3f4cdec6
-resolve,soccer,Blackburn Rovers,character,,auto,365,ok,980a3f4cdec6
-resolve,cfb,Mercyhurst Lakers,character,,auto,2385,ok,980a3f4cdec6
-resolve,cfb,IU Penn,character,,auto,2291,ok,980a3f4cdec6
-resolve,wbb,Eastern Illinois,character,,auto,2197,ok,980a3f4cdec6
-resolve,cfb,App State,character,,auto,2026,ok,980a3f4cdec6
-resolve,cfb,Pitt,character,,auto,221,ok,980a3f4cdec6
-resolve,wbb,Cal State Fullerton Titans,character,,auto,2239,ok,980a3f4cdec6
-resolve,nba,1610612742,character,,nba_api,6,ok,980a3f4cdec6
-resolve,nba,1610612766,character,,auto,30,ok,980a3f4cdec6
-resolve,nba,1610612756,character,,auto,21,ok,980a3f4cdec6
-resolve,nba,1610612765,character,,auto,8,ok,980a3f4cdec6
-resolve,nba,1610612764,character,,nba_api,27,ok,980a3f4cdec6
-resolve,nba,1610612737,character,,auto,1,ok,980a3f4cdec6
-resolve,nba,DET,character,,auto,8,ok,980a3f4cdec6
-resolve,nba,MIN,character,,nba_api,16,ok,980a3f4cdec6
-resolve,nba,GSW,character,,auto,9,ok,980a3f4cdec6
-resolve,nba,MIL,character,,auto,15,ok,980a3f4cdec6
-resolve,cfb,544797,character,,auto,257,ok,980a3f4cdec6
-resolve,cfb,523019,character,,ncaa,135,ok,980a3f4cdec6
-resolve,cfb,66648,character,,auto,166,ok,980a3f4cdec6
-resolve,cfb,62734,character,,auto,113,ok,980a3f4cdec6
-resolve,cfb,478230,character,,auto,2717,ok,980a3f4cdec6
-resolve,cfb,622239,character,,auto,251,ok,980a3f4cdec6
-resolve,cfb,19830,character,,auto,2542,ok,980a3f4cdec6
-resolve,cfb,557671,character,,ncaa,79,ok,980a3f4cdec6
-resolve,cfb,499672,character,,auto,2198,ok,980a3f4cdec6
-resolve,cfb,606212,character,,auto,2674,ok,980a3f4cdec6
-resolve,nfl,DAL,character,,auto,6,ok,980a3f4cdec6
-resolve,nfl,OAK,character,,auto,13,ok,980a3f4cdec6
-resolve,nfl,OAK,character,,auto,13,ok,980a3f4cdec6
-resolve,nfl,HOU,character,,auto,34,ok,980a3f4cdec6
-resolve,nfl,GB,character,,auto,9,ok,980a3f4cdec6
-resolve,nfl,TB,character,,nflverse,27,ok,980a3f4cdec6
-resolve,nfl,NYG,character,,auto,19,ok,980a3f4cdec6
-resolve,nfl,DEN,character,,auto,7,ok,980a3f4cdec6
-resolve,nfl,CAR,character,,auto,29,ok,980a3f4cdec6
-resolve,nfl,LV,character,,auto,13,ok,980a3f4cdec6
-resolve,nhl,OTT,character,,nhl,14,ok,980a3f4cdec6
-resolve,nhl,TOR,character,,auto,21,ok,980a3f4cdec6
-resolve,nhl,NJD,character,,auto,11,ok,980a3f4cdec6
-resolve,nhl,HFD,character,,auto,7,ok,980a3f4cdec6
-resolve,nhl,TAN,character,,nhl,21,ok,980a3f4cdec6
-resolve,nhl,DFL,character,,auto,5,ok,980a3f4cdec6
-resolve,nhl,NYR,character,,nhl,13,ok,980a3f4cdec6
-resolve,nhl,LAK,character,,auto,8,ok,980a3f4cdec6
-resolve,nhl,TSP,character,,nhl,21,ok,980a3f4cdec6
-resolve,nhl,ATL,character,,auto,28,ok,980a3f4cdec6
-resolve,nhl,55,character,,nhl_id,124292,ok,980a3f4cdec6
-resolve,nhl,40,character,,nhl_id,5,ok,980a3f4cdec6
-resolve,nhl,28,character,,nhl_id,18,ok,980a3f4cdec6
-resolve,nhl,17,character,,nhl_id,5,ok,980a3f4cdec6
-resolve,nhl,14,character,,nhl_id,20,ok,980a3f4cdec6
-resolve,nhl,34,character,,nhl_id,7,ok,980a3f4cdec6
-resolve,nhl,10,character,,nhl_id,21,ok,980a3f4cdec6
-resolve,nhl,33,character,,nhl_id,28,ok,980a3f4cdec6
-resolve,nhl,31,character,,nhl_id,9,ok,980a3f4cdec6
-resolve,nhl,4,character,,nhl_id,15,ok,980a3f4cdec6
-resolve,aaf,719,character,,auto,719,ok,980a3f4cdec6
-resolve,aaf,720,character,,auto,720,ok,980a3f4cdec6
-resolve,aaf,721,character,,auto,721,ok,980a3f4cdec6
-resolve,aaf,722,character,,auto,722,ok,980a3f4cdec6
-resolve,aaf,723,character,,pff,723,ok,980a3f4cdec6
-resolve,aaf,724,character,,pff,724,ok,980a3f4cdec6
-resolve,aaf,725,character,,auto,725,ok,980a3f4cdec6
-resolve,aaf,726,character,,auto,726,ok,980a3f4cdec6
-resolve,mlb,NYN,character,,auto,21,ok,980a3f4cdec6
-resolve,mlb,KCR,character,,auto,7,ok,980a3f4cdec6
-resolve,nhl,NAS,character,,auto,27,ok,980a3f4cdec6
-resolve,wbb,UL MONROE WARHAWKS,character,,auto,2433,ok,980a3f4cdec6
-resolve,wbb,PACIFIC,character,,auto,279,ok,980a3f4cdec6
-resolve,cfb,MASS,character,,auto,113,ok,980a3f4cdec6
-resolve,wbb,COLUMBIA LIONS,character,,auto,171,ok,980a3f4cdec6
-resolve,wbb,UCSB,character,,auto,2540,ok,980a3f4cdec6
-resolve,wbb,SOUTHERN MISS,character,,sdvplotr,2572,ok,980a3f4cdec6
-resolve,cfb,BUFFALO,character,,sdvplotr,2084,ok,980a3f4cdec6
-resolve,nba,ATL,character,,sportsipy,1,ok,980a3f4cdec6
-resolve,mlb,MIL,character,,sportsipy,8,ok,980a3f4cdec6
-resolve,nba,BOS,character,,auto,2,ok,980a3f4cdec6
-resolve,nfl,dal,character,,auto,6,ok,980a3f4cdec6
-resolve,nba,WAS,character,,sportsipy,27,ok,980a3f4cdec6
-resolve,nba,MIA,character,,auto,14,ok,980a3f4cdec6
-resolve,nba,GSW,character,,sportsipy,9,ok,980a3f4cdec6
-resolve,mlb,BAL,character,,sportsipy,1,ok,980a3f4cdec6
-resolve,nfl,det,character,,auto,8,ok,980a3f4cdec6
-resolve,nba,LAL,character,,auto,13,ok,980a3f4cdec6
-resolve,ncaa_baseball,203,character,,team_id,203,ok,980a3f4cdec6
-resolve,mbb,2097,character,,auto,2097,ok,980a3f4cdec6
-resolve,ncaa_softball,796,character,,auto,796,ok,980a3f4cdec6
-resolve,ushl,22,character,,auto,22,ok,980a3f4cdec6
-resolve,mbb,235,character,,team_id,235,ok,980a3f4cdec6
-resolve,soccer,19321,character,,team_id,19321,ok,980a3f4cdec6
-resolve,milb,5578,character,,team_id,5578,ok,980a3f4cdec6
-resolve,soccer,101,character,,auto,101,ok,980a3f4cdec6
-resolve,soccer,22241,character,,auto,22241,ok,980a3f4cdec6
-resolve,mbb,2464,character,,auto,2464,ok,980a3f4cdec6
-resolve,mlb,MON,character,1969,auto,20,ok,980a3f4cdec6
-resolve,mlb,HOU,character,1962,auto,18,ok,980a3f4cdec6
-resolve,nfl,LV,character,2020,auto,13,ok,980a3f4cdec6
-resolve,mlb,CLE,character,1871,auto,5,ok,980a3f4cdec6
-resolve,xfl,STL,character,2023,auto,112651,ok,980a3f4cdec6
-resolve,mlb,PHI,character,1873,auto,22,ok,980a3f4cdec6
-resolve,nfl,STL,character,1995,auto,14,ok,980a3f4cdec6
-resolve,mlb,min,character,1961,auto,9,ok,980a3f4cdec6
-resolve,xfl,New York Guardians,character,2020,auto,112650,ok,980a3f4cdec6
-resolve,mlb,TOR,character,1977,auto,14,ok,980a3f4cdec6
-resolve,mlb,BSN,character,1907,auto,15,ok,980a3f4cdec6
-resolve,mlb,MIA,character,2012,auto,28,ok,980a3f4cdec6
-resolve,nfl,cle,character,1950,auto,5,ok,980a3f4cdec6
-resolve,mlb,BSN,character,1912,auto,15,ok,980a3f4cdec6
-resolve,nba,CHH,character,1989,auto,30,ok,980a3f4cdec6
-resolve,mlb,BRO,character,1914,auto,19,ok,980a3f4cdec6
-resolve,mlb,CIN,character,1876,auto,17,ok,980a3f4cdec6
-resolve,mlb,OAK,character,1968,auto,11,ok,980a3f4cdec6
-resolve,mlb,CAL,character,1966,auto,3,ok,980a3f4cdec6
-resolve,nhl,WIN,character,1997,auto,28,ok,980a3f4cdec6
-resolve,nfl,oti,character,1960,auto,10,ok,980a3f4cdec6
-resolve,mlb,KCR,character,1969,auto,7,ok,980a3f4cdec6
-resolve,nhl,33,character,1997,auto,,unknown,980a3f4cdec6
-resolve,nba,ORL,character,1990,auto,19,ok,980a3f4cdec6
-resolve,ufl,Houston Gamblers,character,2026,auto,126075,ok,980a3f4cdec6
-resolve,mlb,NYG,character,1883,auto,26,ok,980a3f4cdec6
-resolve,mlb,NYM,character,1962,auto,21,ok,980a3f4cdec6
-resolve,mlb,DET,character,1901,auto,6,ok,980a3f4cdec6
-resolve,mlb,CAL,character,1965,auto,3,ok,980a3f4cdec6
-resolve,mlb,laa,character,1961,auto,3,ok,980a3f4cdec6
-resolve,ufl,DC,character,2024,auto,112646,ok,980a3f4cdec6
-resolve,mlb,KCR,character,1969,auto,7,ok,980a3f4cdec6
-resolve,nba,MIA,character,1989,auto,14,ok,980a3f4cdec6
-resolve,ufl,D.C. Defenders,character,2024,auto,112646,ok,980a3f4cdec6
-resolve,mlb,was,character,2005,auto,20,ok,980a3f4cdec6
-resolve,nfl,atl,character,1966,auto,1,ok,980a3f4cdec6
-resolve,mlb,cle,character,1903,auto,5,ok,980a3f4cdec6
-resolve,nba,NOP,character,2014,auto,3,ok,980a3f4cdec6
-resolve,mlb,MLA,character,1901,auto,1,ok,980a3f4cdec6
-resolve,nfl,mia,character,1966,auto,15,ok,980a3f4cdec6
-resolve,soccer,Monmouth Hawks,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Drake Bulldogs,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Lithuania,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,South Florida Bulls,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,India,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,UNC Asheville Bulldogs,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Creighton Bluejays,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Uzbekistan,character,,auto,,ambiguous,980a3f4cdec6
-resolve,nfl,Los Angeles,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Yale Bulldogs,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Bryant Bulldogs,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Guatemala,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Fairleigh Dickinson Knights,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Iran,character,,auto,,ambiguous,980a3f4cdec6
-resolve,soccer,Deportivo,character,,auto,,ambiguous,980a3f4cdec6
-resolve,cfb,110,integer,,auto,110,ok,980a3f4cdec6
-resolve,cfb,2825,integer,,auto,2825,ok,980a3f4cdec6
-resolve,soccer,18396,integer,,auto,18396,ok,980a3f4cdec6
-resolve,wbb,2241,integer,,auto,2241,ok,980a3f4cdec6
-resolve,ncaa_baseball,139,integer,,auto,139,ok,980a3f4cdec6
-resolve,milb,579,integer,,auto,579,ok,980a3f4cdec6
-resolve,cfb,2119,integer,,auto,2119,ok,980a3f4cdec6
-resolve,cfb,2545,integer,,auto,2545,ok,980a3f4cdec6
-resolve,soccer,471,integer,,auto,471,ok,980a3f4cdec6
-resolve,cricket,2971,integer,,auto,2971,ok,980a3f4cdec6
-resolve,nfl,zzz not a team,character,,auto,,unknown,980a3f4cdec6
-resolve,cfb,,character,,auto,,none,980a3f4cdec6
-resolve,soccer,Atlético Madrid,character,,auto,,ambiguous,980a3f4cdec6
-resolve,mlb,Montréal Expos,character,,auto,,unknown,980a3f4cdec6
-suggest,soccer,NovaIguaçu,character,,,6087,,980a3f4cdec6
-suggest,soccer,VMI eydets,character,,,20569,,980a3f4cdec6
-suggest,cfb,Air orce Falcons,character,,,2005,,980a3f4cdec6
-suggest,soccer,FC Dllas,character,,,185,,980a3f4cdec6
-suggest,ncaa_softball,McNese Cowgirls,character,,,741,,980a3f4cdec6
-suggest,soccer,Colcester United,character,,,339,,980a3f4cdec6
-suggest,ncaa_softball,Lafaette Leopards,character,,,557,,980a3f4cdec6
-suggest,mbb,Cincnnati Bearcats,character,,,2132,,980a3f4cdec6
-suggest,ncaa_baseball,Valdsta State Blazers,character,,,851,,980a3f4cdec6
-suggest,soccer,FC Sartak Trnava,character,,,3929,,980a3f4cdec6
-suggest,nhl,Detrit Red Wings,character,,,5,,980a3f4cdec6
-suggest,milb,Missssippi Braves,character,,,430,,980a3f4cdec6
-suggest,cricket,Islaabad United,character,,,953843,,980a3f4cdec6
-suggest,soccer,UAB lazers,character,,,20395,,980a3f4cdec6
-suggest,mbb,LSU ew Orleans Privateers,character,,,2443,,980a3f4cdec6
+resolve,mlb,MIA,character,,auto,28,ok,0aeef853ec2b
+resolve,nba,NYK,character,,auto,18,ok,0aeef853ec2b
+resolve,mlb,ANA,character,,bref,3,ok,0aeef853ec2b
+resolve,mlb,SLB,character,,auto,1,ok,0aeef853ec2b
+resolve,nfl,dal,character,,bref,6,ok,0aeef853ec2b
+resolve,mlb,PHI,character,,bref,22,ok,0aeef853ec2b
+resolve,mlb,ATL,character,,auto,15,ok,0aeef853ec2b
+resolve,nba,DNN,character,,auto,7,ok,0aeef853ec2b
+resolve,nba,OKC,character,,bref,25,ok,0aeef853ec2b
+resolve,mlb,HOU,character,,auto,18,ok,0aeef853ec2b
+resolve,cfb,Youngstown St,character,,auto,2754,ok,0aeef853ec2b
+resolve,cfb,Brown,character,,auto,225,ok,0aeef853ec2b
+resolve,cfb,MICH,character,,cfbd,130,ok,0aeef853ec2b
+resolve,cfb,East Central,character,,cfbd,2191,ok,0aeef853ec2b
+resolve,cfb,CMS,character,,auto,17,ok,0aeef853ec2b
+resolve,cfb,Heidelberg,character,,cfbd,191,ok,0aeef853ec2b
+resolve,cfb,Rockford,character,,cfbd,2524,ok,0aeef853ec2b
+resolve,cfb,Western Kentucky,character,,auto,98,ok,0aeef853ec2b
+resolve,cfb,HCU,character,,auto,2277,ok,0aeef853ec2b
+resolve,cfb,Morgan St,character,,auto,2415,ok,0aeef853ec2b
+resolve,cricket,1346029,character,,cricinfo,1346029,ok,0aeef853ec2b
+resolve,cricket,335973,character,,auto,335973,ok,0aeef853ec2b
+resolve,cricket,1335270,character,,auto,1335270,ok,0aeef853ec2b
+resolve,cricket,27,character,,auto,27,ok,0aeef853ec2b
+resolve,cricket,1121244,character,,cricinfo,1121244,ok,0aeef853ec2b
+resolve,cricket,1812,character,,cricinfo,1812,ok,0aeef853ec2b
+resolve,cricket,1208118,character,,auto,1208118,ok,0aeef853ec2b
+resolve,cricket,6,character,,cricinfo,6,ok,0aeef853ec2b
+resolve,cricket,33,character,,cricinfo,33,ok,0aeef853ec2b
+resolve,cricket,509673,character,,auto,509673,ok,0aeef853ec2b
+resolve,nbagl,27,character,,auto,27,ok,0aeef853ec2b
+resolve,cfb,2699,character,,auto,2699,ok,0aeef853ec2b
+resolve,ncaa_baseball,67,character,,espn,67,ok,0aeef853ec2b
+resolve,cfb,398,character,,auto,398,ok,0aeef853ec2b
+resolve,cfb,122666,character,,espn,122666,ok,0aeef853ec2b
+resolve,mlb,10,character,,auto,10,ok,0aeef853ec2b
+resolve,cfb,2316,character,,espn,2316,ok,0aeef853ec2b
+resolve,cfb,324,character,,auto,324,ok,0aeef853ec2b
+resolve,ncaa_baseball,135,character,,espn,135,ok,0aeef853ec2b
+resolve,cfb,2108,character,,auto,2108,ok,0aeef853ec2b
+resolve,cfb,PV,character,,auto,2504,ok,0aeef853ec2b
+resolve,wbb,UCD,character,,espn_abbr,302,ok,0aeef853ec2b
+resolve,cfb,FUR,character,,auto,231,ok,0aeef853ec2b
+resolve,cfb,CMIN,character,,espn_abbr,2146,ok,0aeef853ec2b
+resolve,ncaa_softball,GONZ,character,,espn_abbr,641,ok,0aeef853ec2b
+resolve,cfb,TEX,character,,auto,251,ok,0aeef853ec2b
+resolve,ncaa_softball,COR,character,,auto,690,ok,0aeef853ec2b
+resolve,ncaa_softball,BGSU,character,,espn_abbr,518,ok,0aeef853ec2b
+resolve,nbagl,STO,character,,auto,23,ok,0aeef853ec2b
+resolve,ncaa_baseball,TA&M,character,,auto,123,ok,0aeef853ec2b
+resolve,mlb,CHC,character,,auto,16,ok,0aeef853ec2b
+resolve,mlb,MIL,character,,fangraphs,8,ok,0aeef853ec2b
+resolve,mlb,ATH,character,,fangraphs,11,ok,0aeef853ec2b
+resolve,mlb,ARI,character,,auto,29,ok,0aeef853ec2b
+resolve,mlb,PIT,character,,fangraphs,23,ok,0aeef853ec2b
+resolve,mlb,MIA,character,,auto,28,ok,0aeef853ec2b
+resolve,mlb,TBR,character,,auto,30,ok,0aeef853ec2b
+resolve,mlb,CLE,character,,fangraphs,5,ok,0aeef853ec2b
+resolve,mlb,LAD,character,,auto,19,ok,0aeef853ec2b
+resolve,mlb,CIN,character,,auto,17,ok,0aeef853ec2b
+resolve,echl,2,character,,auto,2,ok,0aeef853ec2b
+resolve,ahl,411,character,,hockeytech,411,ok,0aeef853ec2b
+resolve,ahl,370,character,,auto,370,ok,0aeef853ec2b
+resolve,qmjhl,12,character,,auto,12,ok,0aeef853ec2b
+resolve,echl,18,character,,hockeytech,18,ok,0aeef853ec2b
+resolve,pwhl,11,character,,auto,11,ok,0aeef853ec2b
+resolve,qmjhl,10,character,,auto,10,ok,0aeef853ec2b
+resolve,echl,28,character,,auto,28,ok,0aeef853ec2b
+resolve,ahl,419,character,,auto,419,ok,0aeef853ec2b
+resolve,ahl,404,character,,auto,404,ok,0aeef853ec2b
+resolve,milb,1991,character,,auto,1991,ok,0aeef853ec2b
+resolve,mlb,CHI,character,,auto,16,ok,0aeef853ec2b
+resolve,milb,tol,character,,auto,512,ok,0aeef853ec2b
+resolve,milb,dcb,character,,auto,609,ok,0aeef853ec2b
+resolve,milb,t580,character,,auto,580,ok,0aeef853ec2b
+resolve,milb,A-BRW,character,,mlbstats,406,ok,0aeef853ec2b
+resolve,mlb,se1,character,,auto,8,ok,0aeef853ec2b
+resolve,milb,t635,character,,auto,635,ok,0aeef853ec2b
+resolve,milb,RNO,character,,mlbstats,2310,ok,0aeef853ec2b
+resolve,mlb,sdn,character,,auto,25,ok,0aeef853ec2b
+resolve,ufl,St. Louis Battlehawks,character,,auto,112651,ok,0aeef853ec2b
+resolve,soccer,FC Stade Lausanne-Ouchy,character,,name,21926,ok,0aeef853ec2b
+resolve,ufl,Stallions,character,,auto,126073,ok,0aeef853ec2b
+resolve,soccer,Blackburn Rovers,character,,auto,365,ok,0aeef853ec2b
+resolve,cfb,Mercyhurst Lakers,character,,auto,2385,ok,0aeef853ec2b
+resolve,cfb,IU Penn,character,,auto,2291,ok,0aeef853ec2b
+resolve,wbb,Eastern Illinois,character,,auto,2197,ok,0aeef853ec2b
+resolve,cfb,App State,character,,auto,2026,ok,0aeef853ec2b
+resolve,cfb,Pitt,character,,auto,221,ok,0aeef853ec2b
+resolve,wbb,Cal State Fullerton Titans,character,,auto,2239,ok,0aeef853ec2b
+resolve,nba,1610612742,character,,nba_api,6,ok,0aeef853ec2b
+resolve,nba,1610612766,character,,auto,30,ok,0aeef853ec2b
+resolve,nba,1610612756,character,,auto,21,ok,0aeef853ec2b
+resolve,nba,1610612765,character,,auto,8,ok,0aeef853ec2b
+resolve,nba,1610612764,character,,nba_api,27,ok,0aeef853ec2b
+resolve,nba,1610612737,character,,auto,1,ok,0aeef853ec2b
+resolve,nba,DET,character,,auto,8,ok,0aeef853ec2b
+resolve,nba,MIN,character,,nba_api,16,ok,0aeef853ec2b
+resolve,nba,GSW,character,,auto,9,ok,0aeef853ec2b
+resolve,nba,MIL,character,,auto,15,ok,0aeef853ec2b
+resolve,cfb,544797,character,,auto,257,ok,0aeef853ec2b
+resolve,cfb,523019,character,,ncaa,135,ok,0aeef853ec2b
+resolve,cfb,66648,character,,auto,166,ok,0aeef853ec2b
+resolve,cfb,62734,character,,auto,113,ok,0aeef853ec2b
+resolve,cfb,478230,character,,auto,2717,ok,0aeef853ec2b
+resolve,cfb,622239,character,,auto,251,ok,0aeef853ec2b
+resolve,cfb,19830,character,,auto,2542,ok,0aeef853ec2b
+resolve,cfb,557671,character,,ncaa,79,ok,0aeef853ec2b
+resolve,cfb,499672,character,,auto,2198,ok,0aeef853ec2b
+resolve,cfb,606212,character,,auto,2674,ok,0aeef853ec2b
+resolve,nfl,DAL,character,,auto,6,ok,0aeef853ec2b
+resolve,nfl,OAK,character,,auto,13,ok,0aeef853ec2b
+resolve,nfl,OAK,character,,auto,13,ok,0aeef853ec2b
+resolve,nfl,HOU,character,,auto,34,ok,0aeef853ec2b
+resolve,nfl,GB,character,,auto,9,ok,0aeef853ec2b
+resolve,nfl,TB,character,,nflverse,27,ok,0aeef853ec2b
+resolve,nfl,NYG,character,,auto,19,ok,0aeef853ec2b
+resolve,nfl,DEN,character,,auto,7,ok,0aeef853ec2b
+resolve,nfl,CAR,character,,auto,29,ok,0aeef853ec2b
+resolve,nfl,LV,character,,auto,13,ok,0aeef853ec2b
+resolve,nhl,OTT,character,,nhl,14,ok,0aeef853ec2b
+resolve,nhl,TOR,character,,auto,21,ok,0aeef853ec2b
+resolve,nhl,NJD,character,,auto,11,ok,0aeef853ec2b
+resolve,nhl,HFD,character,,auto,7,ok,0aeef853ec2b
+resolve,nhl,TAN,character,,nhl,21,ok,0aeef853ec2b
+resolve,nhl,DFL,character,,auto,5,ok,0aeef853ec2b
+resolve,nhl,NYR,character,,nhl,13,ok,0aeef853ec2b
+resolve,nhl,LAK,character,,auto,8,ok,0aeef853ec2b
+resolve,nhl,TSP,character,,nhl,21,ok,0aeef853ec2b
+resolve,nhl,ATL,character,,auto,28,ok,0aeef853ec2b
+resolve,nhl,55,character,,nhl_id,124292,ok,0aeef853ec2b
+resolve,nhl,40,character,,nhl_id,5,ok,0aeef853ec2b
+resolve,nhl,28,character,,nhl_id,18,ok,0aeef853ec2b
+resolve,nhl,17,character,,nhl_id,5,ok,0aeef853ec2b
+resolve,nhl,14,character,,nhl_id,20,ok,0aeef853ec2b
+resolve,nhl,34,character,,nhl_id,7,ok,0aeef853ec2b
+resolve,nhl,10,character,,nhl_id,21,ok,0aeef853ec2b
+resolve,nhl,33,character,,nhl_id,28,ok,0aeef853ec2b
+resolve,nhl,31,character,,nhl_id,9,ok,0aeef853ec2b
+resolve,nhl,4,character,,nhl_id,15,ok,0aeef853ec2b
+resolve,aaf,719,character,,auto,719,ok,0aeef853ec2b
+resolve,aaf,720,character,,auto,720,ok,0aeef853ec2b
+resolve,aaf,721,character,,auto,721,ok,0aeef853ec2b
+resolve,aaf,722,character,,auto,722,ok,0aeef853ec2b
+resolve,aaf,723,character,,pff,723,ok,0aeef853ec2b
+resolve,aaf,724,character,,pff,724,ok,0aeef853ec2b
+resolve,aaf,725,character,,auto,725,ok,0aeef853ec2b
+resolve,aaf,726,character,,auto,726,ok,0aeef853ec2b
+resolve,mlb,NYA,character,,auto,10,ok,0aeef853ec2b
+resolve,mlb,KC,character,,auto,7,ok,0aeef853ec2b
+resolve,nhl,NAS,character,,auto,27,ok,0aeef853ec2b
+resolve,wbb,UL MONROE,character,,auto,2433,ok,0aeef853ec2b
+resolve,wbb,PACIFIC TIGERS,character,,auto,279,ok,0aeef853ec2b
+resolve,cfb,MCN,character,,auto,2377,ok,0aeef853ec2b
+resolve,wbb,CONNECTICUT,character,,auto,41,ok,0aeef853ec2b
+resolve,wbb,UCR,character,,auto,27,ok,0aeef853ec2b
+resolve,wbb,SOUTHERN METHODIST,character,,sdvplotr,2567,ok,0aeef853ec2b
+resolve,cfb,BUFFALO BULLS,character,,sdvplotr,2084,ok,0aeef853ec2b
+resolve,nba,ATL,character,,sportsipy,1,ok,0aeef853ec2b
+resolve,mlb,MIL,character,,sportsipy,8,ok,0aeef853ec2b
+resolve,nba,BOS,character,,auto,2,ok,0aeef853ec2b
+resolve,nfl,dal,character,,auto,6,ok,0aeef853ec2b
+resolve,nba,WAS,character,,sportsipy,27,ok,0aeef853ec2b
+resolve,nba,MIA,character,,auto,14,ok,0aeef853ec2b
+resolve,nba,GSW,character,,sportsipy,9,ok,0aeef853ec2b
+resolve,mlb,BAL,character,,sportsipy,1,ok,0aeef853ec2b
+resolve,nfl,det,character,,auto,8,ok,0aeef853ec2b
+resolve,nba,LAL,character,,auto,13,ok,0aeef853ec2b
+resolve,ncaa_baseball,203,character,,team_id,203,ok,0aeef853ec2b
+resolve,mbb,2097,character,,auto,2097,ok,0aeef853ec2b
+resolve,ncaa_softball,796,character,,auto,796,ok,0aeef853ec2b
+resolve,ushl,22,character,,auto,22,ok,0aeef853ec2b
+resolve,mbb,235,character,,team_id,235,ok,0aeef853ec2b
+resolve,soccer,19321,character,,team_id,19321,ok,0aeef853ec2b
+resolve,milb,5578,character,,team_id,5578,ok,0aeef853ec2b
+resolve,soccer,101,character,,auto,101,ok,0aeef853ec2b
+resolve,soccer,22241,character,,auto,22241,ok,0aeef853ec2b
+resolve,mbb,2464,character,,auto,2464,ok,0aeef853ec2b
+resolve,mlb,MON,character,1969,auto,20,ok,0aeef853ec2b
+resolve,mlb,HOU,character,1962,auto,18,ok,0aeef853ec2b
+resolve,nfl,LV,character,2020,auto,13,ok,0aeef853ec2b
+resolve,mlb,CLE,character,1871,auto,5,ok,0aeef853ec2b
+resolve,xfl,STL,character,2023,auto,112651,ok,0aeef853ec2b
+resolve,mlb,PHI,character,1873,auto,22,ok,0aeef853ec2b
+resolve,nfl,STL,character,1995,auto,14,ok,0aeef853ec2b
+resolve,mlb,min,character,1961,auto,9,ok,0aeef853ec2b
+resolve,xfl,New York Guardians,character,2020,auto,112650,ok,0aeef853ec2b
+resolve,mlb,TOR,character,1977,auto,14,ok,0aeef853ec2b
+resolve,mlb,BSN,character,1907,auto,15,ok,0aeef853ec2b
+resolve,mlb,MIA,character,2012,auto,28,ok,0aeef853ec2b
+resolve,nfl,cle,character,1950,auto,5,ok,0aeef853ec2b
+resolve,mlb,BSN,character,1912,auto,15,ok,0aeef853ec2b
+resolve,nba,CHH,character,1989,auto,30,ok,0aeef853ec2b
+resolve,mlb,BRO,character,1914,auto,19,ok,0aeef853ec2b
+resolve,mlb,CIN,character,1876,auto,17,ok,0aeef853ec2b
+resolve,mlb,OAK,character,1968,auto,11,ok,0aeef853ec2b
+resolve,mlb,CAL,character,1966,auto,3,ok,0aeef853ec2b
+resolve,nhl,WIN,character,1997,auto,28,ok,0aeef853ec2b
+resolve,nfl,oti,character,1960,auto,10,ok,0aeef853ec2b
+resolve,mlb,KCR,character,1969,auto,7,ok,0aeef853ec2b
+resolve,nhl,33,character,1997,auto,,unknown,0aeef853ec2b
+resolve,nba,ORL,character,1990,auto,19,ok,0aeef853ec2b
+resolve,ufl,Houston Gamblers,character,2026,auto,126075,ok,0aeef853ec2b
+resolve,mlb,NYG,character,1883,auto,26,ok,0aeef853ec2b
+resolve,mlb,NYM,character,1962,auto,21,ok,0aeef853ec2b
+resolve,mlb,DET,character,1901,auto,6,ok,0aeef853ec2b
+resolve,mlb,CAL,character,1965,auto,3,ok,0aeef853ec2b
+resolve,mlb,laa,character,1961,auto,3,ok,0aeef853ec2b
+resolve,ufl,DC,character,2024,auto,112646,ok,0aeef853ec2b
+resolve,mlb,KCR,character,1969,auto,7,ok,0aeef853ec2b
+resolve,nba,MIA,character,1989,auto,14,ok,0aeef853ec2b
+resolve,ufl,D.C. Defenders,character,2024,auto,112646,ok,0aeef853ec2b
+resolve,mlb,was,character,2005,auto,20,ok,0aeef853ec2b
+resolve,nfl,atl,character,1966,auto,1,ok,0aeef853ec2b
+resolve,mlb,cle,character,1903,auto,5,ok,0aeef853ec2b
+resolve,nba,NOP,character,2014,auto,3,ok,0aeef853ec2b
+resolve,mlb,MLA,character,1901,auto,1,ok,0aeef853ec2b
+resolve,nfl,mia,character,1966,auto,15,ok,0aeef853ec2b
+resolve,soccer,Syracuse Orange,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Sheffield United,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Wake Forest Demon Deacons,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,NAC Breda,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,College of Charleston Cougars,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Poland,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Austria,character,,auto,,ambiguous,0aeef853ec2b
+resolve,ncaa_baseball,PAC,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Santos,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Ghana,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Omaha Mavericks,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Fordham Rams,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Duke Blue Devils,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Finland,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,Athletic Club,character,,auto,,ambiguous,0aeef853ec2b
+resolve,cfb,110,integer,,auto,110,ok,0aeef853ec2b
+resolve,cfb,2825,integer,,auto,2825,ok,0aeef853ec2b
+resolve,soccer,18396,integer,,auto,18396,ok,0aeef853ec2b
+resolve,wbb,2241,integer,,auto,2241,ok,0aeef853ec2b
+resolve,ncaa_baseball,139,integer,,auto,139,ok,0aeef853ec2b
+resolve,milb,579,integer,,auto,579,ok,0aeef853ec2b
+resolve,cfb,2119,integer,,auto,2119,ok,0aeef853ec2b
+resolve,cfb,2545,integer,,auto,2545,ok,0aeef853ec2b
+resolve,soccer,471,integer,,auto,471,ok,0aeef853ec2b
+resolve,cricket,2971,integer,,auto,2971,ok,0aeef853ec2b
+resolve,nfl,zzz not a team,character,,auto,,unknown,0aeef853ec2b
+resolve,cfb,,character,,auto,,none,0aeef853ec2b
+resolve,soccer,Atlético Madrid,character,,auto,,ambiguous,0aeef853ec2b
+resolve,mlb,Montréal Expos,character,,auto,,unknown,0aeef853ec2b
+suggest,soccer,NovaIguaçu,character,,,6087,,0aeef853ec2b
+suggest,soccer,VMI eydets,character,,,20569,,0aeef853ec2b
+suggest,cfb,Air orce Falcons,character,,,2005,,0aeef853ec2b
+suggest,soccer,FC Dllas,character,,,185,,0aeef853ec2b
+suggest,ncaa_softball,McNese Cowgirls,character,,,741,,0aeef853ec2b
+suggest,soccer,Colcester United,character,,,339,,0aeef853ec2b
+suggest,ncaa_softball,Lafaette Leopards,character,,,557,,0aeef853ec2b
+suggest,mbb,Cincnnati Bearcats,character,,,2132,,0aeef853ec2b
+suggest,ncaa_baseball,Valdsta State Blazers,character,,,851,,0aeef853ec2b
+suggest,soccer,FC Sartak Trnava,character,,,3929,,0aeef853ec2b
+suggest,nhl,Detrit Red Wings,character,,,5,,0aeef853ec2b
+suggest,milb,Missssippi Braves,character,,,430,,0aeef853ec2b
+suggest,cricket,Islaabad United,character,,,953843,,0aeef853ec2b
+suggest,soccer,UAB lazers,character,,,20395,,0aeef853ec2b
+suggest,mbb,LSU ew Orleans Privateers,character,,,2443,,0aeef853ec2b
+mark,wbb,SLND,character,,auto,Southland,,0aeef853ec2b
+mark,mbb,BIG 12 CONFERENCE,character,,auto,Big 12,,0aeef853ec2b
+mark,wbb,MOUNTAIN WEST CONFERENCE,character,,auto,Mountain West,,0aeef853ec2b
+mark,wbb,SOUTHEASTERN CONFERENCE,character,,auto,SEC,,0aeef853ec2b
+mark,wbb,AE,character,,auto,Am. East,,0aeef853ec2b
+mark,mbb,BIGW,character,,auto,Big West,,0aeef853ec2b
+mark,cfb,COLONIAL ATHLETIC ASSOCIATION,character,,auto,CAA,,0aeef853ec2b
+mark,wbb,LAND,character,,auto,Southland,,0aeef853ec2b
+mark,mbb,BIG TEN CONFERENCE,character,,auto,Big Ten,,0aeef853ec2b
+mark,mbb,PAT,character,,auto,Patriot,,0aeef853ec2b
+mark,cfb,COASTAL ATHLETIC ASSOCIATION FOOTBALL CONFERENCE,character,,auto,CAA,,0aeef853ec2b
+mark,mbb,NEAST,character,,auto,NEC,,0aeef853ec2b
+mark,wbb,WEST COAST,character,,auto,WCC,,0aeef853ec2b
+mark,mbb,METRO CONFERENCE,character,,auto,MAAC,,0aeef853ec2b
+mark,cfb,FBS INDEPENDENTS,character,,auto,FBS Indep.,,0aeef853ec2b
+mark,wbb,HOR,character,,auto,Horizon,,0aeef853ec2b
+mark,mbb,BE,character,,auto,Big East,,0aeef853ec2b
+mark,wbb,ATLANTIC SUN CONFERENCE,character,,auto,Atlantic Sun,,0aeef853ec2b
+mark,cfb,B1G,character,,auto,Big Ten,,0aeef853ec2b
+mark,mbb,COASTAL ATHLETIC ASSOCIATION,character,,auto,CAA,,0aeef853ec2b
+mark,wbb,NEAST,character,,auto,NEC,,0aeef853ec2b
+mark,wbb,BIG WEST CONFERENCE,character,,auto,Big West,,0aeef853ec2b
+mark,cfb,MWEST,character,,auto,Mountain West,,0aeef853ec2b
+mark,mbb,MCC,character,,auto,Horizon,,0aeef853ec2b
+mark,cfb,PACIFIC 8 CONFERENCE,character,,auto,Pac-12,,0aeef853ec2b
+mark,mbb,CONFERENCE USA,character,,auto,CUSA,,0aeef853ec2b
+mark,cfb,MID-EASTERN ATHLETIC CONFERENCE,character,,auto,MEAC,,0aeef853ec2b
+mark,wbb,HORIZON LEAGUE,character,,auto,Horizon,,0aeef853ec2b
+mark,cfb,BELT,character,,auto,Sun Belt,,0aeef853ec2b
+mark,cfb,MOUNTAIN WEST CONFERENCE,character,,auto,Mountain West,,0aeef853ec2b
+mark,cfb,SEC,character,,auto,SEC,,0aeef853ec2b
+mark,cfb,MAC,character,,auto,2359,,0aeef853ec2b
+mark,nfl,AFC,character,,auto,AFC,,0aeef853ec2b
+mark,nfl,KC,character,,auto,12,,0aeef853ec2b
+mark,cfb,zzz not a conference,character,,auto,,,0aeef853ec2b

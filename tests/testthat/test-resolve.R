@@ -43,6 +43,18 @@ test_that("sdv_suggest() puts Python's top candidate first", {
   expect_identical(top, g$expected)
 })
 
+test_that("the mark functions read a conference's names as Python does", {
+  local_snapshot_index()
+  g <- golden()
+  g <- g[g$kind == "mark", ]
+  expect_gt(nrow(g), 0)
+  got <- vapply(seq_len(nrow(g)), function(i) {
+    suppressWarnings(resolve_ids(g$value[i], g$league[i], marks = TRUE)$ids)
+  }, character(1))
+  got[is.na(got)] <- ""
+  expect_identical(got, g$expected, info = paste(g$league, g$value, sep = ":")[got != g$expected])
+})
+
 test_that("factors, numbers and padded strings resolve like the plain string", {
   local_snapshot_index()
   kc <- sdv_resolve("KC", "nfl")
