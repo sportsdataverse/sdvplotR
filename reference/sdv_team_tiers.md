@@ -1,6 +1,6 @@
 # Create Team Tier Plots
 
-This function sets up a ggplot to visualize team tiers across any sport
+This function sets up a ggplot to visualize team tiers across any league
 supported by sdvplotR. Teams are organized by performance or other
 metrics into labeled tiers.
 
@@ -9,8 +9,8 @@ metrics into labeled tiers.
 ``` r
 sdv_team_tiers(
   data,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  title = glue::glue("{toupper(sport)} Team Tiers"),
+  league,
+  title = glue::glue("{toupper(league)} Team Tiers"),
   subtitle = glue::glue("created with the #sdvplotR Tiermaker"),
   caption = NULL,
   tier_desc = c(`1` = "Elite", `2` = "Very Good", `3` = "Medium", `4` = "Bad", `5` =
@@ -21,7 +21,10 @@ sdv_team_tiers(
   no_line_below_tier = NULL,
   devel = FALSE,
   theme = c("dark", "light"),
-  variant = "auto"
+  variant = "auto",
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 ```
 
@@ -30,17 +33,18 @@ sdv_team_tiers(
 - data:
 
   A data frame that must include the variables `tier_no` (the number of
-  the tier starting from the top tier no. 1) and `team` (the team
-  abbreviation). `team` should be one of
-  [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md).
-  If data includes the variable `tier_rank`, these ranks will be used
-  within each tier. Otherwise, if `presort = FALSE`, the function will
-  assume that data is already sorted and if `presort = TRUE`, teams will
-  be sorted alphabetically within tiers.
+  the tier starting from the top tier no. 1) and `team` (the team:
+  anything
+  [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+  accepts). If data includes the variable `tier_rank`, these ranks will
+  be used within each tier. Otherwise, if `presort = FALSE`, the
+  function will assume that data is already sorted and if
+  `presort = TRUE`, teams will be sorted alphabetically within tiers.
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - title:
 
@@ -91,16 +95,24 @@ sdv_team_tiers(
 
 - variant:
 
-  The logo variant to draw. `"auto"` (the default) draws each team's
-  dark-background logo (`"dark"`) on the dark theme and its primary logo
-  on the light theme, so dark marks such as the Capitals', the Giants'
-  or Penn State's don't fade into the dark background. A team with no
-  dark logo draws its primary one, with no warning. Any other value is
-  `"primary"`, `"dark"`, `"scoreboard"` or a named mark of the sport
+  The logo variant to draw. `"auto"` (the default, as sdvplot's
+  `team_tiers()`) draws each team's dark-background mark (`"dark"`) on
+  the dark theme and its default mark on the light theme, so dark logos
+  such as the Capitals' or Penn State's don't fade into the dark
+  background. Any other value is `"default"`, `"dark"` or a named
+  variant from
+  [`sdv_marks()`](https://sdvplotR.sportsdataverse.org/reference/sdv_marks.md)
   (see
   [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)),
-  drawn on either theme, with the same fallback. `"primary"` gives the
-  old look, which drew the primary logo on both themes.
+  drawn on either theme. A team without the variant draws its closest
+  mark, with no warning.
+
+- season, id_system, strict:
+
+  Passed to
+  [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+  and the logo lookup: a season for dated marks, the identifier system
+  of `team`, and whether an unresolved team is an error.
 
 ## Value
 
@@ -120,7 +132,7 @@ df <- data.frame(
 )
 
 # Plot team tiers, each team's primary logo on white
-sdv_team_tiers(df, sport = "nfl", theme = "light")
+sdv_team_tiers(df, league = "nfl", theme = "light")
 
 # }
 ```

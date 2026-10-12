@@ -11,7 +11,7 @@ one table.
   [`gt_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_headshots.md),
   [`gt_merge_stack_team_color()`](https://sdvplotR.sportsdataverse.org/reference/gt_merge_stack_team_color.md)).
   It resolves every abbreviation, alias and relocated franchise through
-  [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md).
+  [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md).
 - **The table toolkit**, ported from Andrew Weatherman’s
   [gtUtils](https://github.com/andreweatherman/gtUtils), handles the
   editorial side: cut lines, colored ranks, captions, legends, grids of
@@ -64,7 +64,7 @@ Start with logos, labels and a box-score win percentage (`.765`, not
 
 base <- function(df, conference) {
   gt(df) |>
-    gt_sdv_logos(columns = "team", sport = "nfl", height = 24) |>
+    gt_sdv_logos(columns = "team", league = "nfl", height = 24) |>
     cols_label(team = "", seed = "Seed", w = "W", l = "L", pct = "Win pct") |>
     sub_missing(columns = "seed", missing_text = "") |>
     fmt(columns = "pct", fns = function(x) sub("^0", "", sprintf("%.3f", x))) |>

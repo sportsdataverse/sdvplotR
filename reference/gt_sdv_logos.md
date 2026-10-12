@@ -9,11 +9,13 @@ tables with the 'gt' package.
 gt_sdv_logos(
   gt_object,
   columns,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   height = 30,
   locations = NULL,
   include_name = FALSE,
-  season = NULL
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 ```
 
@@ -29,9 +31,10 @@ gt_sdv_logos(
   The columns for which the image translation should be applied.
   Argument has no effect if `locations` is not `NULL`.
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - height:
 
@@ -58,9 +61,14 @@ gt_sdv_logos(
 
 - season:
 
-  `NULL` (the default) for today's logos, or one season whose marks
+  `NULL` (the default) for today's marks, or one season whose marks
   every cell shows (the ending year for the NHL). See the Historical
   logos section.
+
+- id_system, strict:
+
+  How the team values are read and what an unresolved one does, as in
+  [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md).
 
 ## Value
 
@@ -69,26 +77,14 @@ An object of class `gt_tbl`.
 ## Historical logos
 
 Given a `season`, a team is drawn with the mark it wore that season
-where sdvplotR has one, and with today's logo otherwise. Coverage:
-
-- NHL: every club identity since 1917-18, primary and dark marks from
-  the NHL's own logo catalog; a club's current era draws today's logo.
-  Teams are keyed by the NHL triCode of that identity (`"QUE"`, `"HFD"`,
-  `"ATL"`, `"MNS"`, `"TBL"`); current clubs also answer to sdvplotR's
-  abbreviation and full name (`"TB"`, `"Tampa Bay Lightning"`).
-
-- NFL and WNBA: relocated and defunct identities only, one mark each:
-  NFL `"STL"` (1995-2015) and `"SD"` (1961-2016); WNBA `"HOU"`, `"SAC"`,
-  `"CHA"`, `"DET"`, `"TUL"`, `"SAS"` and `"SA"`.
-
-- No other league has per-season logos yet.
-
-A key only finds its own identity's marks: `"COL"` in 1990 draws today's
-Avalanche logo (the Nordiques are `"QUE"`), and `"STL"` in 2020 today's
-Rams. The images are copies kept in the SportsDataverse asset archive,
-so they don't change when a league reuses a file name. The NHL marks are
-SVG files, which 'ggpath' reads with the 'rsvg' package. `season` takes
-single years: the ending year for the NHL (`2005` for 2004-05).
+where the SportsDataverse logo archive dates its marks, and with its
+current mark otherwise. The season also picks the team a reused code
+meant then (see
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)).
+The images are copies kept in the archive, so they don't change when a
+league reuses a file name. SVG marks are read with the 'rsvg' package.
+`season` takes single years: the ending year for split seasons (`2005`
+for 2004-05).
 
 ## See also
 
@@ -103,7 +99,7 @@ single years: the ending year for the NHL (`2005` for 2004-05).
 library(gt)
 library(sdvplotR)
 
-teams <- valid_team_names("nfl")[1:8]
+teams <- sdv_teams("nfl")$abbr[1:8]
 df <- data.frame(
   team = teams,
   logo = teams,
@@ -112,7 +108,7 @@ df <- data.frame(
 
 df |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl")
+  gt_sdv_logos(columns = "logo", league = "nfl")
 
 
   

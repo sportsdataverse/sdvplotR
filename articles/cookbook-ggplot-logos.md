@@ -30,7 +30,7 @@ standings, so keep the games the schedule marks as standard
 (`type_abbreviation == "STD"`). The NHL team box score is one row per
 team per game (`02` in the game id is the regular season). College teams
 carry ESPN team ids, which
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
 turns into sdvplotR’s abbreviations, and hoopR’s standings give each
 team’s conference that season.
 
@@ -71,9 +71,9 @@ nba_teams <- hoopR::load_nba_team_box(season) |>
 nhl_games <- fastRhockey::load_nhl_team_box(season) |>
   as.data.frame() |>
   filter(substr(game_id, 5, 6) == "02") |>
-  mutate(team = clean_team_abbrs(team_abbrev, sport = "nhl"))
+  mutate(team = sdv_resolve(team_abbrev, league = "nhl"))
 
-mbb_ref <- team_reference("mbb")
+mbb_ref <- sdv_teams("mbb")
 conferences <- hoopR::load_mbb_standings(season) |>
   as.data.frame() |>
   distinct(team_id = as.character(team_id), conference = group_name) |>
@@ -81,13 +81,13 @@ conferences <- hoopR::load_mbb_standings(season) |>
 mbb <- hoopR::load_mbb_ratings(season) |>
   as.data.frame() |>
   inner_join(conferences, by = "team_id") |>
-  mutate(team = mbb_ref$team_abbr[match(team_id, mbb_ref$espn_team_id)]) |>
+  mutate(team = mbb_ref$abbr[match(team_id, mbb_ref$team_id)]) |>
   filter(!is.na(team)) |>
   arrange(team_id)
 
 c(nfl = nrow(nfl_epa), nba = nrow(nba_teams), nhl = n_distinct(nhl_games$team), mbb = nrow(mbb))
 #> nfl nba nhl mbb 
-#>  32  30  32 365
+#>  32  30  32 361
 range(nba_teams$games) # 82 each once the extra games are gone
 #> [1] 82 82
 ```
@@ -106,7 +106,7 @@ chart into quadrants.
 
 ggplot(nfl_epa, aes(x = off_epa, y = def_epa)) +
   geom_mean_lines(aes(x0 = off_epa, y0 = def_epa), colour = "grey50") +
-  geom_sdv_logos(aes(team = team), sport = "nfl", width = 0.065) +
+  geom_sdv_logos(aes(team = team), league = "nfl", width = 0.065) +
   scale_x_continuous(expand = expansion(mult = 0.08)) + # room for the edge logos
   scale_y_reverse(expand = expansion(mult = 0.08)) + # good defense at the top
   labs(
@@ -152,8 +152,8 @@ ranked <- nba_teams |>
 ggplot(ranked, aes(x = diff, y = team_f)) +
   geom_col(aes(fill = team), width = 0.75) +
   geom_vline(xintercept = 0, colour = "grey30") +
-  geom_sdv_logos(aes(x = logo_x, team = team), sport = "nba", height = 0.028) +
-  scale_fill_sdv(sport = "nba") +
+  geom_sdv_logos(aes(x = logo_x, team = team), league = "nba", height = 0.028) +
+  scale_fill_sdv(league = "nba") +
   scale_x_continuous(expand = expansion(add = 2)) +
   labs(
     title = "NBA point differential, 2025-26 regular season",
@@ -191,8 +191,8 @@ nhl_scoring <- nhl_games |>
 ggplot(nhl_scoring, aes(x = factor(team, levels = team), y = gpg)) +
   geom_col(aes(fill = team), width = 0.7) +
   geom_text(aes(label = sprintf("%.2f", gpg)), vjust = -0.4, size = 3.2) +
-  scale_x_sdv(sport = "nhl", size = 26) +
-  scale_fill_sdv(sport = "nhl") +
+  scale_x_sdv(league = "nhl", size = 26) +
+  scale_fill_sdv(league = "nhl") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.08))) +
   labs(
     title = "NHL goals per game, 2025-26 regular season (top 10)",
@@ -226,14 +226,14 @@ nfl_sacks <- nfl_weeks |>
 
 ggplot(nfl_sacks, aes(x = sacks, y = factor(team, levels = rev(team)))) +
   geom_col(aes(fill = team), width = 0.7) +
-  scale_fill_sdv(sport = "nfl") +
+  scale_fill_sdv(league = "nfl") +
   labs(
     title = "NFL sacks, 2025 regular season (top 10)",
     x = "Sacks", y = NULL,
     caption = "Data: nflreadr::load_team_stats()"
   ) +
   theme_minimal() +
-  theme(axis.text.y = element_sdv_wordmark(sport = "nfl", size = 2.2))
+  theme(axis.text.y = element_sdv_wordmark(league = "nfl", size = 2.2))
 ```
 
 ![Horizontal bar chart of the ten NFL teams with the most sacks in the
@@ -258,8 +258,7 @@ cumulative goal differential:
 
 ``` r
 
-ref_nhl <- team_reference("nhl")
-pacific <- ref_nhl$team_abbr[ref_nhl$division == "Pacific"]
+pacific <- sdv_resolve(c("ANA", "CGY", "EDM", "LAK", "SEA", "SJS", "VAN", "VGK"), league = "nhl")
 
 runs <- nhl_games |>
   filter(team %in% pacific) |>
@@ -283,8 +282,8 @@ ggplot(runs, aes(x = game_no, y = goal_diff)) +
     aes(x = game_no, xend = end + 3, y = goal_diff, yend = spot),
     data = last, colour = "grey60", linewidth = 0.3
   ) +
-  geom_sdv_logos(aes(x = end + 6, y = spot, team = team), data = last, sport = "nhl", height = 0.07) +
-  scale_colour_sdv(sport = "nhl") +
+  geom_sdv_logos(aes(x = end + 6, y = spot, team = team), data = last, league = "nhl", height = 0.07) +
+  scale_colour_sdv(league = "nhl") +
   scale_x_continuous(limits = c(0, end + 9), breaks = seq(0, 80, 20)) +
   labs(
     title = "The Pacific Division's 2025-26 season",
@@ -317,12 +316,12 @@ ggplot(nfl_epa, aes(x = off_epa, y = def_epa)) +
   geom_sdv_logos(
     aes(team = team),
     data = filter(nfl_epa, !team %in% afc_west),
-    sport = "nfl", width = 0.05, alpha = 0.25
+    league = "nfl", width = 0.05, alpha = 0.25
   ) +
   geom_sdv_logos(
     aes(team = team),
     data = filter(nfl_epa, team %in% afc_west),
-    sport = "nfl", width = 0.1
+    league = "nfl", width = 0.1
   ) +
   scale_x_continuous(expand = expansion(mult = 0.1)) +
   scale_y_reverse(expand = expansion(mult = 0.08)) +
@@ -360,7 +359,7 @@ panels <- bind_rows(
   mutate(panel = factor(panel, levels = unique(panel)))
 
 ggplot(panels, aes(x = adj_o, y = adj_d)) +
-  geom_sdv_logos(aes(team = team, width = w), sport = "mbb") +
+  geom_sdv_logos(aes(team = team, width = w), league = "mbb") +
   facet_wrap(~panel) +
   scale_x_continuous(expand = expansion(mult = 0.1)) +
   scale_y_reverse(expand = expansion(mult = 0.08)) +
@@ -410,9 +409,9 @@ ggplot(epa_2012, aes(x = off_epa, y = def_epa)) +
   geom_sdv_logos(
     aes(team = key),
     data = filter(epa_2012, !key %in% c("STL", "SD")),
-    sport = "nfl", season = 2012, width = 0.05, alpha = 0.3
+    league = "nfl", season = 2012, width = 0.05, alpha = 0.3
   ) +
-  geom_sdv_logos(aes(team = key), data = moved, sport = "nfl", season = 2012, width = 0.09) +
+  geom_sdv_logos(aes(team = key), data = moved, league = "nfl", season = 2012, width = 0.09) +
   geom_text(aes(x = label_x, label = label, hjust = hjust), data = moved, fontface = "bold") +
   scale_x_continuous(expand = expansion(mult = 0.08)) +
   scale_y_reverse(expand = expansion(mult = 0.08)) +
@@ -452,8 +451,8 @@ sea <- nfl_weeks |>
   filter(team == "SEA") |>
   mutate(epa = (passing_epa + rushing_epa) / (attempts + sacks_suffered + carries)) |>
   arrange(week)
-good <- unname(sdv_team_colors("nfl", "SEA", type = "primary"))
-bad <- unname(sdv_team_colors("nfl", "SEA", type = "secondary"))
+good <- unname(sdv_team_colors("nfl", "SEA", which = "primary"))
+bad <- unname(sdv_team_colors("nfl", "SEA", which = "secondary"))
 bye <- setdiff(seq_len(max(sea$week)), sea$week)
 
 ggplot(sea, aes(x = week, y = epa)) +
@@ -466,7 +465,7 @@ ggplot(sea, aes(x = week, y = epa)) +
     title = "Seahawks offense, week by week, 2025",
     subtitle = paste("EPA per play by opponent; bye in week", bye),
     image_height = 22,
-    sport = "nfl"
+    league = "nfl"
   ) +
   labs(x = NULL, y = "Offense EPA per play", caption = "Data: nflreadr::load_team_stats()") +
   theme_minimal() +
@@ -503,7 +502,7 @@ tiers <- nba_teams |>
 
 sdv_team_tiers(
   tiers,
-  sport = "nba",
+  league = "nba",
   title = "NBA tiers, 2025-26",
   subtitle = "By average point differential per game",
   caption = "Data: hoopR::load_nba_team_box()",
@@ -527,22 +526,21 @@ first); `presort = TRUE` sorts them alphabetically instead.
 [`geom_from_path()`](https://mrcaseb.github.io/ggpath/reference/geom_from_path.html)
 (from ggpath, re-exported by sdvplotR) draws any picture from a URL or
 local file, with the same `width`, `height` and `alpha`. Conferences are
-rows in `team_reference(include_conferences = TRUE)`, and
+rows in `sdv_teams(include_conferences = TRUE)`, and
 [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
-resolves their names to their logos (the SportsDataverse logo archive’s
-copies of ESPN’s marks). The ten conferences whose average team is
-strongest, by adjusted efficiency margin:
+resolves their short keys to their logos (the SportsDataverse logo
+archive’s copies of ESPN’s marks). The ten conferences whose average
+team is strongest, by adjusted efficiency margin:
 
 ``` r
 
-conf_names <- team_reference("mbb", include_conferences = TRUE) |>
-  filter(type == "conference") |>
-  pull(team_name)
+conf_rows <- sdv_teams("mbb", include_conferences = TRUE) |>
+  filter(program == "conference")
 
 conf <- mbb |>
   summarise(adj_em = mean(adj_em), teams = n(), .by = conference) |>
-  filter(conference %in% conf_names) |>
-  mutate(logo_url = sdv_logo_url(conference, sport = "mbb")) |>
+  filter(conference %in% conf_rows$name) |>
+  mutate(logo_url = sdv_logo_url(conf_rows$team_id[match(conference, conf_rows$name)], league = "mbb")) |>
   arrange(desc(adj_em), conference) |>
   slice_head(n = 10) |>
   mutate(label = sub(" Conference$", "", conference)) |>
@@ -601,7 +599,7 @@ scorers <- players |>
   mutate(last_name = sub("^\\S+\\s+", "", athlete_display_name))
 
 ggplot(scorers, aes(x = ppg, y = ts)) +
-  geom_sdv_headshots(aes(player_id = athlete_id), sport = "nba", height = 0.12) +
+  geom_sdv_headshots(aes(player_id = athlete_id), league = "nba", height = 0.12) +
   geom_label(aes(label = last_name), vjust = 2.6, size = 3, linewidth = 0, alpha = 0.8) +
   scale_x_continuous(expand = expansion(mult = 0.1)) +
   scale_y_continuous(labels = scales::label_percent(accuracy = 1), expand = expansion(mult = 0.15)) +
@@ -633,7 +631,7 @@ Set `bg` so the transparent corners of a saved theme come out white.
 
 p <- ggplot(nfl_epa, aes(x = off_epa, y = def_epa)) +
   geom_mean_lines(aes(x0 = off_epa, y0 = def_epa), colour = "grey50") +
-  geom_sdv_logos(aes(team = team), sport = "nfl", width = 0.065) +
+  geom_sdv_logos(aes(team = team), league = "nfl", width = 0.065) +
   scale_y_reverse() +
   labs(
     title = "NFL offense vs defense, 2025",

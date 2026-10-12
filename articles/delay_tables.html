@@ -91,10 +91,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -322,8 +347,8 @@ logos.</p>
 <code class="sourceCode R"><span><span class="va">qbs</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"qb-bars"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_almanac.html">gt_theme_almanac</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_headshots.html">gt_sdv_headshots</a></span><span class="op">(</span><span class="va">player_id</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">34</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">recent_team</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_headshots.html">gt_sdv_headshots</a></span><span class="op">(</span><span class="va">player_id</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, id_system <span class="op">=</span> <span class="st">"gsis"</span>, height <span class="op">=</span> <span class="fl">34</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">recent_team</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_percentile_bar.html">gt_percentile_bar</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">epa_ptile</span>, <span class="va">cpoe_ptile</span><span class="op">)</span>, full_track <span class="op">=</span> <span class="cn">FALSE</span>, width <span class="op">=</span> <span class="fl">150</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span><span class="va">epa_db</span>, decimals <span class="op">=</span> <span class="fl">2</span>, force_sign <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span><span class="va">passing_cpoe</span>, decimals <span class="op">=</span> <span class="fl">1</span>, force_sign <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1166,27 +1191,27 @@ ESPN’s standings carry each team’s final seed, tiebreakers and the
 play-in applied, so the 7 and 8 seeds are the two play-in winners and
 the 8 seed can hold the better record.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nba_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nba_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">west</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/espn_mbb_standings.html" class="external-link">espn_nba_standings</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2026</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    team_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">team_id</span><span class="op">)</span>,</span>
-<span>    conference <span class="op">=</span> <span class="va">nba_teams</span><span class="op">$</span><span class="va">conference</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">team_id</span>, <span class="va">nba_teams</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span><span class="op">]</span>,</span>
-<span>    abbr <span class="op">=</span> <span class="va">nba_teams</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">team_id</span>, <span class="va">nba_teams</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span><span class="op">]</span></span>
+<span>    conference <span class="op">=</span> <span class="va">nba_teams</span><span class="op">$</span><span class="va">conference</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">team_id</span>, <span class="va">nba_teams</span><span class="op">$</span><span class="va">team_id</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>    abbr <span class="op">=</span> <span class="va">nba_teams</span><span class="op">$</span><span class="va">abbr</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">team_id</span>, <span class="va">nba_teams</span><span class="op">$</span><span class="va">team_id</span><span class="op">)</span><span class="op">]</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">conference</span> <span class="op">==</span> <span class="st">"Western"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">conference</span> <span class="op">==</span> <span class="st">"Western Conference"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">playoffseed</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span></span>
 <span>    seed <span class="op">=</span> <span class="va">playoffseed</span>, team <span class="op">=</span> <span class="va">abbr</span>, <span class="va">wins</span>, <span class="va">losses</span>,</span>
 <span>    pct <span class="op">=</span> <span class="va">winpercent</span>, diff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">differential</span><span class="op">)</span>, last_ten <span class="op">=</span> <span class="va">lasttengames</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/team_reference.html">team_reference()</a></code> gives each ESPN team id its conference
-and abbreviation; ESPN’s standings leave the conference out.</p>
+<p><code><a href="../reference/sdv_teams.html">sdv_teams()</a></code> gives each ESPN team id its conference and
+abbreviation; ESPN’s standings leave the conference out.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">west</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"west"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_almanac.html">gt_theme_almanac</a></span><span class="op">(</span>accent <span class="op">=</span> <span class="st">"#1D428A"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">team</span>, sport <span class="op">=</span> <span class="st">"nba"</span>, height <span class="op">=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">team</span>, league <span class="op">=</span> <span class="st">"nba"</span>, height <span class="op">=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_cutline.html">gt_cutline</a></span><span class="op">(</span>after <span class="op">=</span> <span class="fl">0</span>, <span class="st">"Playoffs"</span>, color <span class="op">=</span> <span class="st">"#1D428A"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_cutline.html">gt_cutline</a></span><span class="op">(</span>after <span class="op">=</span> <span class="fl">6</span>, <span class="st">"Play-in"</span>, color <span class="op">=</span> <span class="st">"#C8102E"</span>, gap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_cutline.html">gt_cutline</a></span><span class="op">(</span>after <span class="op">=</span> <span class="fl">10</span>, <span class="st">"Lottery"</span>, color <span class="op">=</span> <span class="st">"#5A5A5A"</span>, gap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1986,7 +2011,7 @@ preseason cell reads <code>NR</code>.</p>
 <code class="sourceCode R"><span><span class="va">moves</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"ap-moves"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_almanac.html">gt_theme_almanac</a></span><span class="op">(</span>accent <span class="op">=</span> <span class="st">"#9E1B32"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">school</span>, sport <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">22</span>, include_name <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">school</span>, league <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">22</span>, include_name <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_delta.html">gt_delta</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">preseason</span>, column_label <span class="op">=</span> <span class="st">"Places climbed"</span>, decimals <span class="op">=</span> <span class="fl">0</span>, arrows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span><span class="va">preseason</span>, missing_text <span class="op">=</span> <span class="st">"NR"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Final"</span>, school <span class="op">=</span> <span class="st">"Team"</span>, conference <span class="op">=</span> <span class="st">"Conference"</span>, preseason <span class="op">=</span> <span class="st">"Preseason"</span><span class="op">)</span> <span class="op">|&gt;</span></span>

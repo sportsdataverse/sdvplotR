@@ -75,10 +75,35 @@ markdown and centers the image on the title text."><meta property="og:image" con
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul></li>
 <li class="nav-item dropdown">
@@ -238,7 +263,7 @@ markdown and centers the image on the title text.</p>
 <span>  image_height <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>  image_side <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="st">"nba"</span>, <span class="st">"wnba"</span>, <span class="st">"mlb"</span>, <span class="st">"nhl"</span>, <span class="st">"cfb"</span>, <span class="st">"mbb"</span>, <span class="st">"wbb"</span>, <span class="st">"soccer"</span><span class="op">)</span></span>
+<span>  <span class="va">league</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_title_image</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -250,7 +275,7 @@ markdown and centers the image on the title text.</p>
 
 <dl><dt id="arg-title-image">title_image<a class="anchor" aria-label="anchor" href="#arg-title-image"></a></dt>
 <dd><p>The URL of the image to add to the title. If a valid
-team abbreviation for the specified sport, the team logo will be used.</p></dd>
+team identifier for <code>league</code>, the team logo will be used.</p></dd>
 
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
@@ -270,8 +295,8 @@ side of the title text.</p></dd>
 <dd><p>Optional text for the subtitle.</p></dd>
 
 
-<dt id="arg-sport">sport<a class="anchor" aria-label="anchor" href="#arg-sport"></a></dt>
-<dd><p>Character string identifying the sport (for team logo resolution).</p></dd>
+<dt id="arg-league">league<a class="anchor" aria-label="anchor" href="#arg-league"></a></dt>
+<dd><p>A league key from <code><a href="sdv_leagues.html">sdv_leagues()</a></code>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -324,7 +349,7 @@ is an error. Add <code>theme_title_image()</code> after any complete theme such 
 <span class="r-in"><span>      title <span class="op">=</span> <span class="st">"Seattle Seahawks Analysis"</span>,</span></span>
 <span class="r-in"><span>      image_height <span class="op">=</span> <span class="fl">20</span>,</span></span>
 <span class="r-in"><span>      image_side <span class="op">=</span> <span class="st">"left"</span>,</span></span>
-<span class="r-in"><span>      sport <span class="op">=</span> <span class="st">"nfl"</span></span></span>
+<span class="r-in"><span>      league <span class="op">=</span> <span class="st">"nfl"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>    <span class="fu">theme_title_image</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>, hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>

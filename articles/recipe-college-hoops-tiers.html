@@ -98,10 +98,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -286,14 +311,13 @@ for men’s college basketball through hoopR, and
 </h2>
 <p>One row per team: adjusted offense, defense and their margin (points
 per 100 possessions better than an average Division I team, adjusted for
-opponents). The ratings carry ESPN team ids as text;
-<code><a href="../reference/team_reference.html">team_reference()</a></code> has the same ids as integers, plus each
-team’s conference and abbreviation. The id is cast once, on the
-reference side, and the two types are checked before the join.</p>
+opponents). The ratings carry ESPN team ids as text, and so does
+<code><a href="../reference/sdv_teams.html">sdv_teams()</a></code>, which adds each team’s conference and
+abbreviation. The two types are checked before the join.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ratings</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_mbb_player_value.html" class="external-link">load_mbb_ratings</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span></span>
-<span><span class="va">teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span>team_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">espn_team_id</span><span class="op">)</span>, <span class="va">team_abbr</span>, <span class="va">team_short_name</span>, <span class="va">conference</span><span class="op">)</span></span>
+<span><span class="va">teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span><span class="va">team_id</span>, team_abbr <span class="op">=</span> <span class="va">abbr</span>, team_short_name <span class="op">=</span> <span class="va">short_name</span>, conference <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">" Conference$"</span>, <span class="st">""</span>, <span class="va">conference</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">ratings</span><span class="op">$</span><span class="va">team_id</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">teams</span><span class="op">$</span><span class="va">team_id</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">league</span> <span class="op">&lt;-</span> <span class="va">ratings</span> <span class="op">|&gt;</span></span>
@@ -332,7 +356,7 @@ reference side, and the two types are checked before the join.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">draft</span> <span class="op">&lt;-</span> <span class="va">league</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team_abbr</span>, tier_no <span class="op">=</span> <span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># five tiers of (nearly) equal size</span></span>
-<span><span class="fu"><a href="../reference/sdv_team_tiers.html">sdv_team_tiers</a></span><span class="op">(</span><span class="va">draft</span>, sport <span class="op">=</span> <span class="st">"mbb"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/sdv_team_tiers.html">sdv_team_tiers</a></span><span class="op">(</span><span class="va">draft</span>, league <span class="op">=</span> <span class="st">"mbb"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="recipe-college-hoops-tiers_files/figure-html/draft-1.png" class="r-plt" alt="First draft: the 18 Big Ten teams split into five equal tiers on the Tiermaker's dark background, with the default joke tier labels." width="720"></p>
 <p>It looks like a tier list, but the tiers are wrong. Equal-sized
 groups put the best team in the conference in the same tier as a team
@@ -397,7 +421,7 @@ names the data.</p>
 <span><span class="va">tier_list</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">width</span> <span class="op">=</span> <span class="fl">0.075</span>, <span class="va">alpha</span> <span class="op">=</span> <span class="fl">0.8</span>, <span class="va">theme</span> <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/sdv_team_tiers.html">sdv_team_tiers</a></span><span class="op">(</span></span>
 <span>    <span class="va">tiers</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"mbb"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"mbb"</span>,</span>
 <span>    title <span class="op">=</span> <span class="va">title</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Tiers by adjusted efficiency margin, "</span>, <span class="va">season</span> <span class="op">-</span> <span class="fl">1</span>, <span class="st">"-"</span>, <span class="va">season</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">100</span>,</span>

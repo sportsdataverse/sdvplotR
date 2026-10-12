@@ -19,9 +19,8 @@ on [`ggpath`](https://github.com/mrcaseb/ggpath).
     (an S7 object – never
     [`structure()`](https://rdrr.io/r/base/structure.html) a list with
     that class).
-2.  Resolve every team key through
-    [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-    and the resolvers in `R/utils.R` (`logo_from_team()`,
+2.  Resolve every team key through `clean_team_abbrs()` and the
+    resolvers in `R/utils.R` (`logo_from_team()`,
     `wordmark_from_team()`, `headshot_from_id()`, `resolve_logo_url()`).
     Do not duplicate URL logic.
 3.  Every team-aware function takes `sport`, validated with

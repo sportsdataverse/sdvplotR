@@ -98,7 +98,7 @@ and no logo at an edge is cut off.
 ``` r
 
 ggplot(teams, aes(off_epa, def_epa)) +
-  geom_sdv_logos(aes(team = team), sport = "nfl", width = 0.055) +
+  geom_sdv_logos(aes(team = team), league = "nfl", width = 0.055) +
   scale_x_continuous(expand = expansion(mult = 0.07)) +
   scale_y_continuous(expand = expansion(mult = 0.1)) +
   labs(x = "Offense EPA per play", y = "Defense EPA per play allowed")
@@ -144,7 +144,7 @@ quadrants <- list(
 
 ggplot(teams, aes(off_epa, def_epa)) +
   quadrants +
-  geom_sdv_logos(aes(team = team), sport = "nfl", width = 0.055) +
+  geom_sdv_logos(aes(team = team), league = "nfl", width = 0.055) +
   labs(x = "Offense EPA per play", y = "Defense EPA per play allowed")
 ```
 
@@ -208,18 +208,18 @@ epa_chart <- function(logo_width = 0.055) {
     geom_sdv_logos(
       aes(team = team),
       data = filter(teams, !team %in% finalists),
-      sport = "nfl", width = logo_width, alpha = 0.3
+      league = "nfl", width = logo_width, alpha = 0.3
     ) +
     geom_sdv_logos(
       aes(team = team),
       data = filter(teams, team %in% finalists),
-      sport = "nfl", width = logo_width * 1.3
+      league = "nfl", width = logo_width * 1.3
     ) +
     geom_text(
       aes(x = x, label = note, color = team, hjust = hjust),
       data = callouts, size = 3.2, fontface = "bold", lineheight = 0.9
     ) +
-    scale_color_sdv(sport = "nfl") +
+    scale_color_sdv(league = "nfl") +
     labs(
       title = title, subtitle = subtitle,
       x = "Offense EPA per play", y = "Defense EPA per play allowed",

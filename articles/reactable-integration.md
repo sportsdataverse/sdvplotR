@@ -11,13 +11,13 @@ complement the existing `gt` helpers
 ([`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
 et al.) and are designed for interactive / web-first dashboards.
 
-All functions follow the same **sport / variant / size** contract as
+All functions follow the same **league / variant / size** contract as
 their `ggplot2` and `gt` counterparts:
 
 | Argument | Purpose |
 |----|----|
-| `sport` | One of [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md) |
-| `variant` | `"primary"`, `"dark"`, `"scoreboard"` or a named mark of the sport for logos ([`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md) lists them in its error); wordmarks come in `"primary"`, plus `"on_light"` / `"on_dark"` for MLB |
+| `league` | One of [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md) |
+| `variant` | `"default"`, `"dark"` or a named variant of the league’s marks ([`sdv_marks()`](https://sdvplotR.sportsdataverse.org/reference/sdv_marks.md) lists them) |
 | `height` | Image height in pixels |
 | `team_col`, `value_col` | Column names for color / bar resolution |
 
@@ -60,7 +60,7 @@ reactable(
   columns = list(
     team_abbr = colDef(
       name = "Team",
-      cell = reactable_sdv_logos(sport = "nfl", height = 28),
+      cell = reactable_sdv_logos(league = "nfl", height = 28),
       html = TRUE
     ),
     pct = colDef(
@@ -68,7 +68,7 @@ reactable(
       style = reactable_sdv_team_color_bar(
         standings,
         team_col = "team_abbr",
-        sport = "nfl",
+        league = "nfl",
         max_value = 1
       )
     )
@@ -94,7 +94,7 @@ reactable(
   ),
   columns = list(
     team_abbr = colDef(
-      cell = reactable_sdv_logos(sport = "nfl", variant = "dark", height = 28),
+      cell = reactable_sdv_logos(league = "nfl", variant = "dark", height = 28),
       html = TRUE
     ),
     pct = colDef(format = colFormat(digits = 3))
@@ -123,8 +123,8 @@ reactable(
   wide_df,
   columns = reactable_sdv_cols_label(
     wide_df,
-    sport = "nfl",
-    variant = "primary",
+    league = "nfl",
+    variant = "default",
     height = 26
   )
 )
@@ -145,14 +145,14 @@ reactable(
   standings,
   columns = list(
     team_abbr = colDef(
-      cell = reactable_sdv_logos(sport = "nfl", height = 28),
+      cell = reactable_sdv_logos(league = "nfl", height = 28),
       html = TRUE
     ),
-    wins    = colDef(style = reactable_sdv_team_color_bg(standings, "team_abbr", sport = "nfl")),
-    losses  = colDef(style = reactable_sdv_team_color_bg(standings, "team_abbr", sport = "nfl")),
+    wins    = colDef(style = reactable_sdv_team_color_bg(standings, "team_abbr", league = "nfl")),
+    losses  = colDef(style = reactable_sdv_team_color_bg(standings, "team_abbr", league = "nfl")),
     pct     = colDef(
       format = colFormat(digits = 3),
-      style = reactable_sdv_team_color_bg(standings, "team_abbr", sport = "nfl")
+      style = reactable_sdv_team_color_bg(standings, "team_abbr", league = "nfl")
     )
   )
 )
@@ -164,7 +164,7 @@ reactable(
 
 Headshots use the same
 [`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
-helper across all sports. NFL headshots take GSIS IDs, the `gsis_id` in
+helper across all leagues. NFL headshots take GSIS IDs, the `gsis_id` in
 nflreadr’s rosters:
 
 ``` r
@@ -177,10 +177,10 @@ reactable(
   roster,
   columns = list(
     full_name = colDef(name = "Player"),
-    team = colDef(cell = reactable_sdv_logos(sport = "nfl", height = 24), html = TRUE),
+    team = colDef(cell = reactable_sdv_logos(league = "nfl", height = 24), html = TRUE),
     gsis_id = colDef(
       name = "Headshot",
-      cell = reactable_sdv_headshots(sport = "nfl", height = 40),
+      cell = reactable_sdv_headshots(league = "nfl", id_system = "gsis", height = 40),
       html = TRUE
     )
   )
@@ -189,9 +189,9 @@ reactable(
 
 ------------------------------------------------------------------------
 
-## Cross-sport examples
+## Cross-league examples
 
-All helpers work identically across sports — only the `sport` argument
+All helpers work identically across leagues — only the `league` argument
 changes.
 
 ### NBA standings (hoopR)
@@ -211,7 +211,7 @@ nba_standings <- hoopR::load_nba_standings(seasons = nba_season) |>
 reactable(
   nba_standings,
   columns = list(
-    team = colDef(cell = reactable_sdv_logos(sport = "nba", height = 28), html = TRUE),
+    team = colDef(cell = reactable_sdv_logos(league = "nba", height = 28), html = TRUE),
     winPercent = colDef(name = "Pct", format = colFormat(digits = 3))
   )
 )
@@ -243,7 +243,7 @@ built.
 reactable(
   cfb_fpi,
   columns = list(
-    team = colDef(cell = reactable_sdv_logos(sport = "cfb", height = 28), html = TRUE),
+    team = colDef(cell = reactable_sdv_logos(league = "cfb", height = 28), html = TRUE),
     fpi = colDef(name = "FPI", format = colFormat(digits = 1))
   )
 )
@@ -274,11 +274,11 @@ site is built.
 reactable(
   nhl_skaters,
   columns = list(
-    team = colDef(cell = reactable_sdv_logos(sport = "nhl", height = 28), html = TRUE),
+    team = colDef(cell = reactable_sdv_logos(league = "nhl", height = 28), html = TRUE),
     player_id = colDef(
       name = "Headshot",
       # NHL API player ids: the NHL's own image CDN
-      cell = reactable_sdv_headshots(sport = "nhl", id_type = "league", height = 40),
+      cell = reactable_sdv_headshots(league = "nhl", id_system = "league", height = 40),
       html = TRUE
     )
   )
@@ -299,7 +299,7 @@ draws a column that already holds image URLs:
 library(reactablefmtr)
 
 standings |>
-  mutate(logo = sdv_logo_url(team_abbr, sport = "nfl")) |>
+  mutate(logo = sdv_logo_url(team_abbr, league = "nfl")) |>
   select(logo, team_abbr, wins, losses, pct) |>
   reactable(
     columns = list(
@@ -322,11 +322,8 @@ standings |>
 gives the URL the sdvplotR helpers draw: the SportsDataverse logo
 archive’s copy of the mark, an immutable content-addressed file
 (`.../sha256/<ab>/<sha256>.png`), so a table built today still renders
-when ESPN drops or replaces a file
-([`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-lists ESPN’s live URLs, which is where this article’s dark Houston
-Texans logo once 404’d). For the variant resolution, the aliases and the
-historical team mappings inside the table itself, prefer the
+when ESPN drops or replaces a file. For the variant resolution, the
+aliases and the season marks inside the table itself, prefer the
 `reactable_sdv_*` helpers; their `<img>` tags also swap to the primary
 logo in the browser if a variant’s file ever fails to load.
 
@@ -342,5 +339,5 @@ logo in the browser if a variant’s file ever fails to load.
 4.  **Set `height` consistently** across a single table to keep rows
     aligned.
 5.  **Pre-validate teams** with
-    [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+    [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
     before passing to reactable — it avoids silent fallback images.

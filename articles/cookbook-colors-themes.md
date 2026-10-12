@@ -24,51 +24,59 @@ season <- 2026 # NBA, NHL and college basketball: the 2025-26 season; MLB and WN
 
 ## 1. See a league’s palette
 
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-holds every team’s two colors (`color1`, `color2`), with its conference
-and division. Laid out by division, with each team’s logo above its two
-swatches, it is a quick check of what a chart will look like:
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
+holds every team’s two colors (`color_primary`, `color_secondary`), with
+its conference. Laid out in rows of 8 teams, grouped by conference (two
+rows each), with each team’s logo above its two swatches, it is a quick
+check of what a chart will look like:
 
 ``` r
 
-nhl_ref <- team_reference("nhl") |>
-  arrange(division, team_abbr) |>
-  mutate(slot = row_number(), .by = division)
+nhl_ref <- sdv_teams("nhl") |>
+  arrange(conference, abbr) |>
+  mutate(
+    band = (row_number() - 1) %/% 8 + 1,
+    slot = (row_number() - 1) %% 8 + 1,
+    panel = paste(conference, band),
+    .by = conference
+  )
 
 swatches <- bind_rows(
-  transmute(nhl_ref, division, slot, x = slot - 0.2, color = color1),
-  transmute(nhl_ref, division, slot, x = slot + 0.2, color = color2)
+  transmute(nhl_ref, panel, slot, x = slot - 0.2, color = color_primary),
+  transmute(nhl_ref, panel, slot, x = slot + 0.2, color = color_secondary)
 )
 
 ggplot(nhl_ref, aes(x = slot)) +
   geom_tile(aes(x = x, y = 1, fill = color), data = swatches,
     width = 0.38, height = 0.5, colour = "grey70", linewidth = 0.2
   ) +
-  geom_text(aes(x = x, y = 0.6, label = color), data = swatches, size = 1.8) +
-  geom_sdv_logos(aes(y = 1.75, team = team_abbr), sport = "nhl", height = 0.32) +
+  geom_text(aes(y = 0.58, label = paste(color_primary, color_secondary, sep = "
+")), size = 2.6, lineheight = 0.95) +
+  geom_sdv_logos(aes(y = 1.75, team = team_id), league = "nhl", height = 0.3) +
   scale_fill_identity() +
-  facet_wrap(~division, ncol = 1) +
-  scale_y_continuous(limits = c(0.4, 2.15)) +
-  labs(title = "NHL team colors by division", caption = "Colors: sdvplotR::team_reference()") +
+  facet_wrap(~panel, ncol = 1, labeller = as_labeller(function(x) ifelse(endsWith(x, " 1"), sub(" 1$", "", x), ""))) +
+  scale_y_continuous(limits = c(0.3, 2.15)) +
+  labs(title = "NHL team colors by conference", caption = "Colors: sdvplotR::sdv_teams()") +
   theme_void() +
   theme(strip.text = element_text(face = "bold", hjust = 0), plot.margin = margin(8, 8, 8, 8))
 ```
 
-![The 32 NHL teams in four rows, one per division. Each team's logo sits
-above two squares filled with its primary and secondary colors, with the
-hex codes
+![The 32 NHL teams in four rows of 8, grouped by conference: the Eastern
+Conference in the top two rows, the Western Conference in the bottom
+two. Each team's logo sits above two squares filled with its primary and
+secondary colors, with its two hex codes (primary above secondary)
 underneath.](cookbook-colors-themes_files/figure-html/palette-1.png)
 
-`sdv_team_colors("nhl", type = "all")` returns the same pairs as
+`sdv_team_colors("nhl", which = "all")` returns the same pairs as
 `"primary, secondary"` strings, named by team.
 
 ## 2. One color per row of your data
 
-`sdv_team_colors(sport, team)` returns one color per value, in the order
-given, so it drops straight into
+`sdv_team_colors(league, team)` returns one color per value, in the
+order given, so it drops straight into
 [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html);
-`type = "secondary"` gives the other color. Any spelling
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+`which = "secondary"` gives the other color. Any spelling
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
 understands works, here fastRhockey’s NHL codes (`LAK`, `TBL`). With
 color columns in the data, the identity scales use them as they are:
 
@@ -83,15 +91,15 @@ nhl_teams <- nhl_games |>
   arrange(desc(gf), team_abbrev) |>
   mutate(
     primary = unname(sdv_team_colors("nhl", team_abbrev)),
-    secondary = unname(sdv_team_colors("nhl", team_abbrev, type = "secondary"))
+    secondary = unname(sdv_team_colors("nhl", team_abbrev, which = "secondary"))
   )
 head(nhl_teams, 5)
 #>   team_abbrev       gf       ga primary secondary
-#> 1         COL 3.682927 2.243902 #860038   #005EA3
-#> 2         CAR 3.609756 2.719512 #E30426   #000000
-#> 3         PIT 3.573171 2.963415 #000000   #FDB71A
-#> 4         TBL 3.536585 2.609756 #003E7E   #FFFFFF
-#> 5         BUF 3.512195 2.695122 #00468B   #FDB71A
+#> 1         COL 3.682927 2.243902 #860038   #005ea3
+#> 2         CAR 3.609756 2.719512 #e30426   #000000
+#> 3         PIT 3.573171 2.963415 #000000   #fdb71a
+#> 4         TBL 3.536585 2.609756 #003e7e   #ffffff
+#> 5         BUF 3.512195 2.695122 #00468b   #fdb71a
 
 ggplot(nhl_teams, aes(x = gf, y = ga)) +
   geom_point(aes(fill = primary, colour = secondary), shape = 21, size = 6, stroke = 1.5) +
@@ -114,10 +122,9 @@ abbreviation.](cookbook-colors-themes_files/figure-html/per-row-1.png)
 
 The labels come from ggrepel, which keeps them off each other and off
 the points. A team that doesn’t resolve gets `NA`, which the identity
-scales draw grey; check with
-[`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
-before you publish. A white secondary, like the Lightning’s, disappears
-as an outline on a white chart (recipe 4).
+scales draw grey; check with `sdv_teams()$abbr` before you publish. A
+white secondary, like the Lightning’s, disappears as an outline on a
+white chart (recipe 4).
 
 ## 3. Fill with the primary, outline with the secondary
 
@@ -125,7 +132,7 @@ as an outline on a white chart (recipe 4).
 and
 [`scale_colour_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
 map a team column straight to colors, no join needed. Fill with the
-primary and outline with the secondary (`type = "secondary"`) for the
+primary and outline with the secondary (`which = "secondary"`) for the
 two-color look of a team’s uniform. The WNBA’s 2026 regular season by
 point differential. ESPN files the All-Star Game and the Commissioner’s
 Cup final as regular-season games too, so keep the games the schedule
@@ -153,9 +160,9 @@ wnba <- wehoop::load_wnba_team_box(season) |>
 ggplot(wnba, aes(x = team_f, y = diff)) +
   geom_col(aes(fill = team, colour = team), width = 0.7, linewidth = 1.2) +
   geom_hline(yintercept = 0, colour = "grey30") +
-  geom_sdv_logos(aes(y = diff + if_else(diff >= 0, 1.4, -1.4), team = team), sport = "wnba", width = 0.05) +
-  scale_fill_sdv(sport = "wnba") +
-  scale_colour_sdv(sport = "wnba", type = "secondary") +
+  geom_sdv_logos(aes(y = diff + if_else(diff >= 0, 1.4, -1.4), team = team), league = "wnba", width = 0.05) +
+  scale_fill_sdv(league = "wnba") +
+  scale_colour_sdv(league = "wnba", which = "secondary") +
   labs(
     title = "WNBA point differential, 2026 regular season",
     x = NULL, y = "Average point differential per game",
@@ -209,7 +216,7 @@ chosen <- character()
 for (team in finish$team) {
   primary <- sdv_team_colors("nba", team)
   close <- length(chosen) > 0 && min(vapply(chosen, color_gap, numeric(1), b = primary)) < 0.15
-  chosen[team] <- if (close) sdv_team_colors("nba", team, type = "secondary") else primary
+  chosen[team] <- if (close) sdv_team_colors("nba", team, which = "secondary") else primary
 }
 data.frame(
   team = finish$team,
@@ -218,10 +225,10 @@ data.frame(
 )
 #>   team primary    used
 #> 1  LAL #552583 #552583
-#> 2  PHX #29127A #E56020
-#> 3  LAC #12173F #12173F
-#> 4   GS #FDB927 #FDB927
-#> 5  SAC #5A2D81 #6A7A82
+#> 2  PHX #29127a #e56020
+#> 3  LAC #12173f #12173f
+#> 4   GS #fdb927 #fdb927
+#> 5  SAC #5a2d81 #6a7a82
 
 end <- max(finish$game_no)
 # keep line-end logos one logo height apart (see the logos cookbook)
@@ -233,7 +240,7 @@ ggplot(runs, aes(x = game_no, y = wins)) +
   geom_segment(aes(x = game_no, xend = end + 2, y = wins, yend = spot),
     data = finish, colour = "grey60", linewidth = 0.3
   ) +
-  geom_sdv_logos(aes(x = end + 5, y = spot, team = team), data = finish, sport = "nba", height = 0.08) +
+  geom_sdv_logos(aes(x = end + 5, y = spot, team = team), data = finish, league = "nba", height = 0.08) +
   scale_colour_manual(values = chosen, guide = "none") +
   scale_x_continuous(limits = c(0, end + 8)) +
   labs(
@@ -276,7 +283,7 @@ mlb <- baseballr::mlb_standings(season = season, league_id = "103,104") |>
   as.data.frame() |>
   inner_join(mlb_ids, by = "team_records_team_id") |>
   transmute(
-    team = clean_team_abbrs(team_abbreviation, sport = "mlb"),
+    team = sdv_resolve(team_abbreviation, league = "mlb"),
     wins = team_records_wins,
     games = team_records_games_played
   ) |>
@@ -295,7 +302,7 @@ ggplot(mlb, aes(x = wins, y = team_f)) +
   scale_fill_identity() +
   scale_colour_identity() +
   scale_y_discrete(labels = NULL) +
-  geom_sdv_logos(aes(x = -4, team = team), sport = "mlb", height = 0.028) +
+  geom_sdv_logos(aes(x = -4, team = team), league = "mlb", height = 0.028) +
   labs(
     title = "MLB wins, 2026 regular season",
     x = "Wins", y = NULL,
@@ -319,15 +326,15 @@ does the same for its header (see recipe 10).
 
 ## 6. A named palette for a manual scale
 
-`sdv_color_palette(sport, teams)` returns a named vector of hex codes,
+`sdv_color_palette(league, teams)` returns a named vector of hex codes,
 the shape `scale_colour_manual(values = )` wants. The SEC’s 2025 season,
 one dot per game by final margin, teams ordered by their average:
 
 ``` r
 
-sec <- team_reference("cfb") |>
-  filter(conference == "SEC") |>
-  pull(team_abbr)
+sec <- sdv_teams("cfb") |>
+  filter(conference_id == "cfb:sec") |>
+  pull(abbr)
 
 cfb <- cfbfastR::load_espn_cfb_schedules(2025) |> as.data.frame()
 margins <- bind_rows(
@@ -366,13 +373,11 @@ the dots.
 
 ## 7. Conference colors
 
-Conferences are rows in sdvplotR’s team data too, so
-[`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md)
-and
-[`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
-take a conference’s name. Women’s college basketball, 2025-26: how each
-conference’s teams did against teams from other D-I conferences, with
-each season’s membership from wehoop’s standings:
+Conferences are rows in sdvplotR’s team index too
+(`include_conferences = TRUE`), with their colors and logos. Women’s
+college basketball, 2025-26: how each conference’s teams did against
+teams from other D-I conferences, with each season’s membership from
+wehoop’s standings:
 
 ``` r
 
@@ -389,6 +394,9 @@ wbb_games <- wehoop::load_wbb_team_box(season) |>
   ) |>
   filter(conference != opp_conference)
 
+conf_rows <- sdv_teams("wbb", include_conferences = TRUE) |>
+  filter(program == "conference")
+
 nonconf <- wbb_games |>
   summarise(games = n(), win_pct = mean(team_winner), .by = conference) |>
   arrange(desc(win_pct), conference) |>
@@ -396,12 +404,13 @@ nonconf <- wbb_games |>
   mutate(
     label = sub(" Conference$", "", conference),
     label = factor(label, levels = rev(label)),
-    fill = unname(sdv_team_colors("wbb", conference))
+    key = conf_rows$team_id[match(conference, conf_rows$name)],
+    fill = conf_rows$color_primary[match(conference, conf_rows$name)]
   )
 
 ggplot(nonconf, aes(x = win_pct, y = label)) +
   geom_col(aes(fill = fill), width = 0.65) +
-  geom_sdv_logos(aes(x = win_pct + 0.05, team = conference), sport = "wbb", height = 0.06) +
+  geom_sdv_logos(aes(x = win_pct + 0.05, team = key), league = "wbb", height = 0.06) +
   scale_fill_identity() +
   scale_x_continuous(labels = scales::label_percent(), expand = expansion(mult = c(0, 0.1))) +
   labs(
@@ -420,14 +429,15 @@ conferences with the best non-conference winning percentage in the
 ending in its
 logo.](cookbook-colors-themes_files/figure-html/conference-colors-1.png)
 
-`team_reference(sport, include_conferences = TRUE)` lists the conference
-rows with their colors and logo URLs.
+`sdv_teams(league, include_conferences = TRUE)` lists the conference
+rows with their colors;
+[`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+gives their logos.
 
 ## 8. A dark background, dark logos and a matching table
 
-Many logos have a dark version for dark backgrounds, in
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)’s
-`logo_dark_url`; draw it with
+Many logos have a dark version for dark backgrounds,
+`sdv_logo_url(variant = "dark")`; draw it with
 [`geom_from_path()`](https://mrcaseb.github.io/ggpath/reference/geom_from_path.html).
 `theme_bg` holds the background color of every gt theme, so a chart can
 sit on the same canvas as a table in that theme. The WNBA on
@@ -441,7 +451,7 @@ bg
 #> [1] "#0C0D10"
 
 dark <- wnba |>
-  inner_join(select(team_reference("wnba"), team = team_abbr, logo_dark_url), by = "team")
+  mutate(logo_dark_url = sdv_logo_url(team, league = "wnba", variant = "dark"))
 
 ggplot(dark, aes(x = pf, y = pa)) +
   geom_abline(slope = 1, intercept = 0, colour = "grey45", linetype = "dashed") +
@@ -475,7 +485,7 @@ dark |>
   head(5) |>
   select(team, pf, pa, diff) |>
   gt() |>
-  gt_sdv_logos(columns = team, sport = "wnba") |>
+  gt_sdv_logos(columns = team, league = "wnba") |>
   fmt_number(columns = c(pf, pa, diff), decimals = 1) |>
   cols_label(team = "", pf = "Scored", pa = "Allowed", diff = "Margin") |>
   tab_header(title = "The WNBA's best margins, 2026") |>
@@ -604,18 +614,18 @@ players |>
   arrange(desc(ppg), athlete_id) |>
   head(6) |>
   gt() |>
-  gt_sdv_headshots(columns = athlete_id, sport = "nba") |>
+  gt_sdv_headshots(columns = athlete_id, league = "nba") |>
   fmt_number(columns = c(ppg, rpg, apg), decimals = 1) |>
   cols_label(
     athlete_id = "", athlete_display_name = "Player", games = "GP",
     ppg = "PTS", rpg = "REB", apg = "AST"
   ) |>
   tab_header(
-    title = paste(team_reference("nba")$team_name[team_reference("nba")$team_abbr == best], "top scorers"),
+    title = paste(sdv_teams("nba")$name[sdv_teams("nba")$abbr == best], "top scorers"),
     subtitle = "2025-26 regular season, per game, 20+ games"
   ) |>
   tab_source_note("Data: hoopR::load_nba_player_box()") |>
-  gt_theme_sdv_team(team = best, sport = "nba")
+  gt_theme_sdv_team(team = best, league = "nba")
 ```
 
 | Oklahoma City Thunder top scorers |  |  |  |  |  |

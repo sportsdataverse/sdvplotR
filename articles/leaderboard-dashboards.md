@@ -19,9 +19,9 @@ library(dplyr)
 library(gt)
 
 # Get valid team abbreviations
-nfl_teams <- valid_team_names("nfl")
-nba_teams <- valid_team_names("nba")
-cfb_teams <- valid_team_names("cfb")
+nfl_teams <- sdv_teams("nfl")$abbr
+nba_teams <- sdv_teams("nba")$abbr
+cfb_teams <- sdv_teams("cfb")$abbr
 ```
 
 ## Basic Leaderboard with Logos
@@ -46,7 +46,7 @@ standings <- data.frame(
 
 standings |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
     rank = "#",
@@ -90,13 +90,13 @@ Create a leaderboard with team-colored rows:
 # Add team colors to standings
 standings_colored <- standings |>
   mutate(
-    primary_color = sdv_team_colors("nfl", team, type = "primary"),
-    secondary_color = sdv_team_colors("nfl", team, type = "secondary")
+    primary_color = sdv_team_colors("nfl", team, which = "primary"),
+    secondary_color = sdv_team_colors("nfl", team, which = "secondary")
   )
 
 standings_colored |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
     rank = "#",
@@ -124,14 +124,14 @@ standings_colored |>
 |----|----|----|----|----|----|----|----|----|
 | Example data |  |  |  |  |  |  |  |  |
 | \# | Team | Abbrev | W | L | T | Win % | primary_color | secondary_color |
-| 1 | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | KC | 9 | 2 | 0 | 0.818 | \#E31837 | \#FFB612 |
-| 2 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | BUF | 8 | 3 | 0 | 0.727 | \#00338D | \#C60C30 |
-| 3 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | SF | 8 | 3 | 0 | 0.727 | \#AA0000 | \#B3995D |
-| 4 | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | PHI | 7 | 4 | 0 | 0.636 | \#004C54 | \#A5ACAF |
-| 5 | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | DAL | 7 | 4 | 0 | 0.636 | \#002244 | \#B0B7BC |
-| 6 | ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | MIA | 6 | 5 | 0 | 0.545 | \#008E97 | \#F58220 |
-| 7 | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | CIN | 6 | 5 | 0 | 0.545 | \#FB4F14 | \#000000 |
-| 8 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | BAL | 6 | 5 | 0 | 0.545 | \#241773 | \#9E7C0C |
+| 1 | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | KC | 9 | 2 | 0 | 0.818 | \#e31837 | \#ffb612 |
+| 2 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | BUF | 8 | 3 | 0 | 0.727 | \#00338d | \#c60c30 |
+| 3 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | SF | 8 | 3 | 0 | 0.727 | \#aa0000 | \#b3995d |
+| 4 | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | PHI | 7 | 4 | 0 | 0.636 | \#004c54 | \#a5acaf |
+| 5 | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | DAL | 7 | 4 | 0 | 0.636 | \#002244 | \#b0b7bc |
+| 6 | ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | MIA | 6 | 5 | 0 | 0.545 | \#008e97 | \#f58220 |
+| 7 | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | CIN | 6 | 5 | 0 | 0.545 | \#fb4f14 | \#000000 |
+| 8 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | BAL | 6 | 5 | 0 | 0.545 | \#241773 | \#9e7c0c |
 
 ## Multi-Sport Leaderboard
 
@@ -141,7 +141,7 @@ Create leaderboards for multiple sports in one table:
 
 # Sample multi-sport data
 multi_sport_standings <- data.frame(
-  sport = c(rep("NFL", 4), rep("NBA", 4), rep("MLB", 4)),
+  league = c(rep("NFL", 4), rep("NBA", 4), rep("MLB", 4)),
   team = c("KC", "BUF", "SF", "PHI",
            "BOS", "DEN", "MIL", "PHX",
            "LAD", "ATL", "HOU", "BAL"),
@@ -152,14 +152,16 @@ multi_sport_standings <- data.frame(
     pct = wins / (wins + losses),
     rank = row_number()
   ) |>
-  select(sport, rank, team, wins, losses, pct)
+  select(league, rank, team, wins, losses, pct)
 
 multi_sport_standings |>
   gt() |>
-  gt_sdv_logos(columns = "team", sport = "nfl", height = 30) |>
+  gt_sdv_logos(columns = "team", league = "nfl", height = 30, locations = cells_body(columns = team, rows = league == "NFL")) |>
+  gt_sdv_logos(columns = "team", league = "nba", height = 30, locations = cells_body(columns = team, rows = league == "NBA")) |>
+  gt_sdv_logos(columns = "team", league = "mlb", height = 30, locations = cells_body(columns = team, rows = league == "MLB")) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
-    sport = "Sport",
+    league = "Sport",
     rank = "#",
     team = "Team",
     wins = "W",
@@ -180,14 +182,14 @@ multi_sport_standings |>
 | NFL | 2 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 8 | 3 | 0.727 |
 | NFL | 3 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 8 | 3 | 0.727 |
 | NFL | 4 | ![Philadelphia Eagles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png) | 7 | 4 | 0.636 |
-| NBA | 5 | BOS | 25 | 8 | 0.758 |
-| NBA | 6 | ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | 23 | 10 | 0.697 |
-| NBA | 7 | MIL | 22 | 11 | 0.667 |
-| NBA | 8 | PHX | 20 | 13 | 0.606 |
-| MLB | 9 | LAD | 95 | 67 | 0.586 |
-| MLB | 10 | ![Atlanta Falcons](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png) | 90 | 72 | 0.556 |
-| MLB | 11 | ![Houston Texans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png) | 88 | 74 | 0.543 |
-| MLB | 12 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | 85 | 77 | 0.525 |
+| NBA | 5 | ![Boston Celtics](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0d/0d0d6b85971b1d18428ba1161772b8c2f7e3ee103846ec4b4763bf0cc849ece0.png) | 25 | 8 | 0.758 |
+| NBA | 6 | ![Denver Nuggets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/33f295fabf1bc3ddb60dfcbefb35ab9a3a91c865752e4539778495aab27f535d.png) | 23 | 10 | 0.697 |
+| NBA | 7 | ![Milwaukee Bucks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/84/84fbddec67f59fa143f4fde9c2745ca15f3ad03594da4e677a4a1034aefa6f33.png) | 22 | 11 | 0.667 |
+| NBA | 8 | ![Phoenix Suns](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5f/5f8932efdb7595069610b11ec2f417d78a9213691c2ba21e2bd491c172397ead.png) | 20 | 13 | 0.606 |
+| MLB | 9 | ![Los Angeles Dodgers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/aa/aab854c59098d4f465c1c6f31b580f2a38d2ed4f5c0c03df2da76f62f5378dc4.png) | 95 | 67 | 0.586 |
+| MLB | 10 | ![Atlanta Braves](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1c/1c36c62410bbed29624672b006173af58bcdfbb066ae9d6f7c4cb99205e861d2.png) | 90 | 72 | 0.556 |
+| MLB | 11 | ![Houston Astros](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b7/b7e6858d9d11fe9fade351624bfbab74ec12451749feef37bd1f083d59eb4f7b.png) | 88 | 74 | 0.543 |
+| MLB | 12 | ![Baltimore Orioles](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e9/e96827050e6079674fa20221f5b8b8acbd4f80843f861dbb4d0261b309741472.png) | 85 | 77 | 0.525 |
 
 ## Player Leaderboard with Headshots
 
@@ -211,7 +213,7 @@ player_stats <- data.frame(
 
 player_stats |>
   gt() |>
-  gt_sdv_headshots(columns = "player_id", sport = "nfl", height = 40) |>
+  gt_sdv_headshots(columns = "player_id", league = "nfl", id_system = "gsis", height = 40) |>
   fmt_number(columns = c("pass_yds", "pass_td", "pass_int")) |>
   cols_label(
     rank = "#",
@@ -256,7 +258,7 @@ standings_quartile <- standings |>
 
 standings_quartile |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
     rank = "#",
@@ -315,7 +317,7 @@ Create a Quarto dashboard with sdvplotR visualizations:
 # ```{r}
 # standings |>
 #   gt() |>
-#   gt_sdv_logos(columns = "logo", sport = "nfl")
+#   gt_sdv_logos(columns = "logo", league = "nfl")
 # ```
 
 # ## Team Performance
@@ -323,7 +325,7 @@ Create a Quarto dashboard with sdvplotR visualizations:
 # ```{r}
 # ggplot(standings, aes(x = reorder(team, pct), y = pct)) +
 #   geom_col(aes(fill = team), width = 0.7) +
-#   scale_fill_sdv(sport = "nfl") +
+#   scale_fill_sdv(league = "nfl") +
 #   theme_minimal()
 # ```
 ```
@@ -335,15 +337,15 @@ Create a leaderboard that updates automatically:
 ``` r
 
 # Function to fetch and display standings
-update_standings <- function(sport = "nfl", week = NULL) {
+update_standings <- function(league = "nfl", week = NULL) {
   # In a real implementation, this would fetch live data
   # For demonstration, we'll use sample data
 
-  message(paste("Updating", toupper(sport), "standings..."))
+  message(paste("Updating", toupper(league), "standings..."))
 
   # Sample standings (replace with real data fetch)
   standings <- data.frame(
-    team = sample(valid_team_names(sport), 10),
+    team = sample(sdv_teams(league)$abbr, 10),
     wins = sample(0:16, 10),
     losses = sample(0:16, 10)
   ) |>
@@ -357,7 +359,7 @@ update_standings <- function(sport = "nfl", week = NULL) {
 
   standings |>
     gt() |>
-    gt_sdv_logos(columns = "logo", sport = sport, height = 30) |>
+    gt_sdv_logos(columns = "logo", league = league, height = 30) |>
     fmt_number(columns = "pct", decimals = 3)
 }
 
@@ -367,16 +369,16 @@ update_standings("nfl")
 
 | team | wins | losses | pct | logo | rank |
 |----|----|----|----|----|----|
-| CLE | 16 | 0 | 1.000 | ![Cleveland Browns](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png) | 4 |
-| BAL | 7 | 2 | 0.778 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | 6 |
-| JAX | 15 | 6 | 0.714 | ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | 7 |
-| SF | 8 | 5 | 0.615 | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 1 |
-| NO | 11 | 9 | 0.550 | ![New Orleans Saints](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png) | 9 |
-| NYJ | 14 | 13 | 0.519 | ![New York Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png) | 8 |
-| BUF | 5 | 7 | 0.417 | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 2 |
-| MIA | 2 | 3 | 0.400 | ![Miami Dolphins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png) | 10 |
-| LA | 3 | 16 | 0.158 | ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | 3 |
-| DAL | 0 | 11 | 0.000 | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | 5 |
+| MIN | 16 | 0 | 1.000 | ![Minnesota Vikings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png) | 4 |
+| IND | 7 | 2 | 0.778 | ![Indianapolis Colts](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f1/f1f5222a876f810956aa8d4e75d4e6b47bcb3a6d11f876642b674010233c8a97.png) | 6 |
+| ARI | 15 | 6 | 0.714 | ![Arizona Cardinals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f870b58b43585a5b7717d578dd433b0b1e0c462d64ef4bea2aeb8c03f4ae7854.png) | 7 |
+| DAL | 8 | 5 | 0.615 | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | 1 |
+| CHI | 11 | 9 | 0.550 | ![Chicago Bears](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png) | 9 |
+| BAL | 14 | 13 | 0.519 | ![Baltimore Ravens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png) | 8 |
+| KC | 5 | 7 | 0.417 | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | 2 |
+| TB | 2 | 3 | 0.400 | ![Tampa Bay Buccaneers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bc/bcc5d267024650938c9f35558077fe00a31913b89c61768d4ebb63d1ea31fbfd.png) | 10 |
+| LAC | 3 | 16 | 0.158 | ![Los Angeles Chargers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png) | 3 |
+| NE | 0 | 11 | 0.000 | ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | 5 |
 
 ## Conditional Formatting
 
@@ -397,7 +399,7 @@ standings_conditional <- standings |>
 
 standings_conditional |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = "pct", decimals = 3) |>
   cols_label(
     rank = "#",
@@ -450,7 +452,7 @@ standings_with_odds <- standings |>
 
 standings_with_odds |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = c("pct", "spread", "total"), decimals = 1) |>
   fmt_number(columns = "moneyline", decimals = 0) |>
   cols_label(

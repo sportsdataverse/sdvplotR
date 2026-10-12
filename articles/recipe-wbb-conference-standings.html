@@ -98,10 +98,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -287,15 +312,15 @@ logos, team colors, theme and export helpers.</p>
 </h2>
 <p>The schedule has one row per game; stacking the home and away sides
 gives one row per team per game. Conference membership comes from
-<code><a href="../reference/team_reference.html">team_reference()</a></code>, which lists each team’s ESPN id and
+<code><a href="../reference/sdv_teams.html">sdv_teams()</a></code>, which lists each team’s ESPN id and
 conference. The ids are integers on both sides, checked before they are
 matched.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">schedule</span> <span class="op">&lt;-</span> <span class="fu">wehoop</span><span class="fu">::</span><span class="fu"><a href="https://wehoop.sportsdataverse.org/reference/load_wbb_game_rosters.html" class="external-link">load_wbb_schedule</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">status_type_completed</span><span class="op">)</span></span>
-<span><span class="va">members</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"wbb"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">conference</span> <span class="op">==</span> <span class="op">!</span><span class="op">!</span><span class="va">conference</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>team_id <span class="op">=</span> <span class="va">espn_team_id</span>, <span class="va">team_abbr</span><span class="op">)</span></span>
+<span><span class="va">members</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"wbb"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">conference_id</span> <span class="op">==</span> <span class="st">"wbb:sec"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span>team_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">team_id</span><span class="op">)</span>, team_abbr <span class="op">=</span> <span class="va">abbr</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">is.integer</a></span><span class="op">(</span><span class="va">schedule</span><span class="op">$</span><span class="va">home_id</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">is.integer</a></span><span class="op">(</span><span class="va">members</span><span class="op">$</span><span class="va">team_id</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">side</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">me</span>, <span class="va">opp</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1663,8 +1688,8 @@ wins up and losses down, in one glance.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">with_teams</span> <span class="op">&lt;-</span> <span class="va">draft</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_unhide.html" class="external-link">cols_unhide</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_abbr</span>, <span class="va">conf_results</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">team_abbr</span>, sport <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_merge_stack_team_color.html">gt_merge_stack_team_color</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">overall</span>, <span class="va">team_abbr</span>, sport <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">team_abbr</span>, league <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_merge_stack_team_color.html">gt_merge_stack_team_color</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">overall</span>, <span class="va">team_abbr</span>, league <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gtExtras</span><span class="fu">::</span><span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_plt_winloss.html" class="external-link">gt_plt_winloss</a></span><span class="op">(</span></span>
 <span>    <span class="va">conf_results</span>,</span>
 <span>    max_wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lengths.html" class="external-link">lengths</a></span><span class="op">(</span><span class="va">table</span><span class="op">$</span><span class="va">conf_results</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -2144,7 +2169,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c9e93c5450038047b77651cc3713964b83147bfd8df1a96d299f1e190aad002c.png" style="height:28px;" alt="South Carolina Gamecocks"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">South Carolina</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#73000A;font-size:12px">36-4</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#73000a;font-size:12px">36-4</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">15-1</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2156,7 +2181,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12d69bb78c3443bdbcc5a7659f288840a7a3862d70043eda3d8868a229eb7696.png" style="height:28px;" alt="Texas Longhorns"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Texas</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#AF5C37;font-size:12px">35-4</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#af5c37;font-size:12px">35-4</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">13-3</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2180,7 +2205,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d0/d02e29a9f8824740d848b4a83c574b1c1942ba1cdee61b3ee08611634cc86b46.png" style="height:28px;" alt="LSU Tigers"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">LSU</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#461D76;font-size:12px">29-6</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#461d76;font-size:12px">29-6</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">12-4</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2204,7 +2229,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/6f/6f5dec8dea23de372677085b6ecc0d8f49420e3d0a0a5336e7165c94160f5015.png" style="height:28px;" alt="Kentucky Wildcats"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Kentucky</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#0033A0;font-size:12px">25-11</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#0033a0;font-size:12px">25-11</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">8-8</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2216,7 +2241,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/61/61988dd6fb46c4c5dad612e7ef14eeee56b63ada3a0758b30ccf418213ecd826.png" style="height:28px;" alt="Ole Miss Rebels"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Ole Miss</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#13294B;font-size:12px">24-12</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#13294b;font-size:12px">24-12</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">8-8</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2228,7 +2253,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fa/fa5c7fb14d5ffa38eaddfeb80161835e60a3d496b57db5e0ebda5e6475226d8a.png" style="height:28px;" alt="Georgia Lady Bulldogs"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Georgia</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#BA0C2F;font-size:12px">22-10</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#ba0c2f;font-size:12px">22-10</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">8-8</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2252,7 +2277,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bb/bb55649cd4257a7d13b58db3f6cc85af8672b43f6eb215b6e729c7916ba5e4b8.png" style="height:28px;" alt="Alabama Crimson Tide"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Alabama</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#9E1B32;font-size:12px">24-11</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#9e1b32;font-size:12px">24-11</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">7-9</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2276,7 +2301,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2e/2e70460ca7c02a03d238ec4d9dce163a22401bfaa9842cbbf2f1ac1a991d6d50.png" style="height:28px;" alt="Florida Gators"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Florida</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#0021A5;font-size:12px">18-15</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#0021a5;font-size:12px">18-15</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">5-11</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2288,7 +2313,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/18/1854b6d52609c4db7daacc59ce122017c3eabd2e70b9c66deeec297183d4d46b.png" style="height:28px;" alt="Mississippi State Bulldogs"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Mississippi State</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#5D1725;font-size:12px">18-13</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#5d1725;font-size:12px">18-13</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">5-11</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2312,7 +2337,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/80b9ba2db8d91211dc4f1a57ea855d34f6ef1796795e60d5545f91a49af8bf39.png" style="height:28px;" alt="Auburn Tigers"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Auburn</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#002B5C;font-size:12px">15-17</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#002b5c;font-size:12px">15-17</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">3-13</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2324,7 +2349,7 @@ wins up and losses down, in one glance.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/16/16e44ba49923991c70b824707a4c541327834a308472ca471f0001805a6a8d91.png" style="height:28px;" alt="Arkansas Razorbacks"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Arkansas</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#A32136;font-size:12px">12-20</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#a32136;font-size:12px">12-20</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">1-15</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2368,7 +2393,7 @@ conference’s tiebreaker.</p>
 <span>    <span class="st">"Ordered by conference record, then overall record; not the conference's tiebreaker."</span>,</span>
 <span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html" class="external-link">cells_column_labels</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">conf</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">champ</span><span class="op">$</span><span class="va">team_abbr</span>, sport <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">champ</span><span class="op">$</span><span class="va">team_abbr</span>, league <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span></span>
 <span><span class="va">final</span></span></code></pre></div>
 <div id="kgufivjubq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -2898,7 +2923,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c9e93c5450038047b77651cc3713964b83147bfd8df1a96d299f1e190aad002c.png" style="height:28px;" alt="South Carolina Gamecocks"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">South Carolina</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#73000A;font-size:12px">36-4</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#73000a;font-size:12px">36-4</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">15-1</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2910,7 +2935,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12d69bb78c3443bdbcc5a7659f288840a7a3862d70043eda3d8868a229eb7696.png" style="height:28px;" alt="Texas Longhorns"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Texas</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#AF5C37;font-size:12px">35-4</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#af5c37;font-size:12px">35-4</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">13-3</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2934,7 +2959,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d0/d02e29a9f8824740d848b4a83c574b1c1942ba1cdee61b3ee08611634cc86b46.png" style="height:28px;" alt="LSU Tigers"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">LSU</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#461D76;font-size:12px">29-6</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#461d76;font-size:12px">29-6</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">12-4</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2958,7 +2983,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/6f/6f5dec8dea23de372677085b6ecc0d8f49420e3d0a0a5336e7165c94160f5015.png" style="height:28px;" alt="Kentucky Wildcats"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Kentucky</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#0033A0;font-size:12px">25-11</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#0033a0;font-size:12px">25-11</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">8-8</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2970,7 +2995,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/61/61988dd6fb46c4c5dad612e7ef14eeee56b63ada3a0758b30ccf418213ecd826.png" style="height:28px;" alt="Ole Miss Rebels"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Ole Miss</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#13294B;font-size:12px">24-12</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#13294b;font-size:12px">24-12</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">8-8</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -2982,7 +3007,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fa/fa5c7fb14d5ffa38eaddfeb80161835e60a3d496b57db5e0ebda5e6475226d8a.png" style="height:28px;" alt="Georgia Lady Bulldogs"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Georgia</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#BA0C2F;font-size:12px">22-10</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#ba0c2f;font-size:12px">22-10</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">8-8</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -3006,7 +3031,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bb/bb55649cd4257a7d13b58db3f6cc85af8672b43f6eb215b6e729c7916ba5e4b8.png" style="height:28px;" alt="Alabama Crimson Tide"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Alabama</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#9E1B32;font-size:12px">24-11</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#9e1b32;font-size:12px">24-11</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">7-9</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -3030,7 +3055,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2e/2e70460ca7c02a03d238ec4d9dce163a22401bfaa9842cbbf2f1ac1a991d6d50.png" style="height:28px;" alt="Florida Gators"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Florida</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#0021A5;font-size:12px">18-15</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#0021a5;font-size:12px">18-15</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">5-11</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -3042,7 +3067,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/18/1854b6d52609c4db7daacc59ce122017c3eabd2e70b9c66deeec297183d4d46b.png" style="height:28px;" alt="Mississippi State Bulldogs"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Mississippi State</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#5D1725;font-size:12px">18-13</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#5d1725;font-size:12px">18-13</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">5-11</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -3066,7 +3091,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/80b9ba2db8d91211dc4f1a57ea855d34f6ef1796795e60d5545f91a49af8bf39.png" style="height:28px;" alt="Auburn Tigers"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Auburn</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#002B5C;font-size:12px">15-17</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#002b5c;font-size:12px">15-17</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">3-13</td>
 <td headers="conf_results" class="gt_row gt_center">
@@ -3078,7 +3103,7 @@ conference’s tiebreaker.</p>
 <td headers="team_abbr" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/16/16e44ba49923991c70b824707a4c541327834a308472ca471f0001805a6a8d91.png" style="height:28px;" alt="Arkansas Razorbacks"></td>
 <td headers="team" class="gt_row gt_left">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Arkansas</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#A32136;font-size:12px">12-20</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#a32136;font-size:12px">12-20</span></div>
 </td>
 <td headers="conf" class="gt_row gt_center">1-15</td>
 <td headers="conf_results" class="gt_row gt_center">

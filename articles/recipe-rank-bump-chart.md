@@ -118,14 +118,14 @@ colors <- c()
 for (school in focus) {
   pick <- sdv_team_colors("cfb", school)
   if (any(vapply(colors, distance, numeric(1), b = pick) < 0.6)) {
-    pick <- sdv_team_colors("cfb", school, type = "secondary")
+    pick <- sdv_team_colors("cfb", school, which = "secondary")
   }
   colors[school] <- unname(pick)
 }
 rbind(primary = sdv_team_colors("cfb", focus), used = colors)
 #>         Indiana   Ole Miss  Texas Tech
-#> primary "#970310" "#13294B" "#DA291C" 
-#> used    "#970310" "#13294B" "#000000"
+#> primary "#970310" "#13294b" "#da291c" 
+#> used    "#970310" "#13294b" "#000000"
 
 poll_labels <- c("Pre", 4, 8, 12, 16, "Final")
 lines <- list(
@@ -176,7 +176,7 @@ ends <- top10 |>
 
 logo_ends <- function(width = 0.04) {
   list(
-    geom_sdv_logos(aes(x = x, y = rank, team = school, alpha = alpha), data = ends, sport = "cfb", width = width),
+    geom_sdv_logos(aes(x = x, y = rank, team = school, alpha = alpha), data = ends, league = "cfb", width = width),
     expand_limits(x = n_polls + 2.4)
   )
 }

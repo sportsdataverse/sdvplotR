@@ -91,10 +91,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -276,9 +301,9 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get valid team abbreviations</span></span>
-<span><span class="va">nfl_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span></span>
-<span><span class="va">nba_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span></span>
-<span><span class="va">cfb_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="st">"cfb"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">nfl_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span><span class="op">$</span><span class="va">abbr</span></span>
+<span><span class="va">nba_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span><span class="op">$</span><span class="va">abbr</span></span>
+<span><span class="va">cfb_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"cfb"</span><span class="op">)</span><span class="op">$</span><span class="va">abbr</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="weekly-win-probability-charts">Weekly Win-Probability Charts<a class="anchor" aria-label="anchor" href="#weekly-win-probability-charts"></a>
@@ -305,14 +330,14 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">450</span>, y <span class="op">=</span> <span class="fl">0.5</span>, team <span class="op">=</span> <span class="st">"KC"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"nfl"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"nfl"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>    inherit.aes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">450</span>, y <span class="op">=</span> <span class="fl">0.5</span>, team <span class="op">=</span> <span class="st">"BUF"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"nfl"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"nfl"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>    inherit.aes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
@@ -348,7 +373,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">epa_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">offensive_epa</span>, y <span class="op">=</span> <span class="va">defensive_epa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"nfl"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"nfl"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.075</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -384,7 +409,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">top_9</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"nfl"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"nfl"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.15</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_label</a></span><span class="op">(</span></span>
@@ -421,10 +446,10 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"nfl"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"nfl"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.05</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>league <span class="op">=</span> <span class="st">"nfl"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Example Power Rankings"</span>,</span>
@@ -500,7 +525,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Sample data for multiple sports</span></span>
 <span><span class="va">multi_sport_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NFL"</span>, <span class="st">"NBA"</span>, <span class="st">"MLB"</span>, <span class="st">"NHL"</span>, <span class="st">"CFB"</span><span class="op">)</span>,</span>
+<span>  league <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NFL"</span>, <span class="st">"NBA"</span>, <span class="st">"MLB"</span>, <span class="st">"NHL"</span>, <span class="st">"CFB"</span><span class="op">)</span>,</span>
 <span>  team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BOS"</span>, <span class="st">"LAD"</span>, <span class="st">"COL"</span>, <span class="st">"UGA"</span><span class="op">)</span>,</span>
 <span>  record <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"8-2"</span>, <span class="st">"12-3"</span>, <span class="st">"95-67"</span>, <span class="st">"45-12-5"</span>, <span class="st">"11-1"</span><span class="op">)</span>,</span>
 <span>  rank <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
@@ -510,40 +535,40 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">multi_sport_data</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rank</span>, y <span class="op">=</span> <span class="fl">1</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"nfl"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"nfl"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.075</span>,</span>
 <span>    inherit.aes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">multi_sport_data</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rank</span>, y <span class="op">=</span> <span class="fl">1</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"nba"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"nba"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.075</span>,</span>
 <span>    inherit.aes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">multi_sport_data</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rank</span>, y <span class="op">=</span> <span class="fl">1</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"mlb"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"mlb"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.075</span>,</span>
 <span>    inherit.aes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">multi_sport_data</span><span class="op">[</span><span class="fl">4</span>, <span class="op">]</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rank</span>, y <span class="op">=</span> <span class="fl">1</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"nhl"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"nhl"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.075</span>,</span>
 <span>    inherit.aes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">multi_sport_data</span><span class="op">[</span><span class="fl">5</span>, <span class="op">]</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rank</span>, y <span class="op">=</span> <span class="fl">1</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"cfb"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"cfb"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.075</span>,</span>
 <span>    inherit.aes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_label</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">sport</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">league</span><span class="op">)</span>,</span>
 <span>    nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.3</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>    alpha <span class="op">=</span> <span class="fl">0.8</span></span>
@@ -583,7 +608,7 @@ media platforms like Twitter/X, Instagram, and Facebook.</p>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">color_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"nfl"</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>league <span class="op">=</span> <span class="st">"nfl"</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"NFL Team Color Palettes"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Primary Colors"</span>,</span>

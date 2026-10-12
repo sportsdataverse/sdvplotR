@@ -91,10 +91,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -277,9 +302,9 @@ real-time.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get valid team abbreviations</span></span>
-<span><span class="va">nfl_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span></span>
-<span><span class="va">nba_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span></span>
-<span><span class="va">cfb_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="st">"cfb"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">nfl_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span><span class="op">$</span><span class="va">abbr</span></span>
+<span><span class="va">nba_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span><span class="op">$</span><span class="va">abbr</span></span>
+<span><span class="va">cfb_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"cfb"</span><span class="op">)</span><span class="op">$</span><span class="va">abbr</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="basic-leaderboard-with-logos">Basic Leaderboard with Logos<a class="anchor" aria-label="anchor" href="#basic-leaderboard-with-logos"></a>
@@ -302,7 +327,7 @@ real-time.</p>
 <span></span>
 <span><span class="va">standings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
 <span>    rank <span class="op">=</span> <span class="st">"#"</span>,</span>
@@ -878,13 +903,13 @@ real-time.</p>
 <code class="sourceCode R"><span><span class="co"># Add team colors to standings</span></span>
 <span><span class="va">standings_colored</span> <span class="op">&lt;-</span> <span class="va">standings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    primary_color <span class="op">=</span> <span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="va">team</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>    secondary_color <span class="op">=</span> <span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="va">team</span>, type <span class="op">=</span> <span class="st">"secondary"</span><span class="op">)</span></span>
+<span>    primary_color <span class="op">=</span> <span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="va">team</span>, which <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>    secondary_color <span class="op">=</span> <span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="va">team</span>, which <span class="op">=</span> <span class="st">"secondary"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">standings_colored</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
 <span>    rank <span class="op">=</span> <span class="st">"#"</span>,</span>
@@ -1384,8 +1409,8 @@ real-time.</p>
 <td headers="losses" class="gt_row gt_right">2</td>
 <td headers="ties" class="gt_row gt_right">0</td>
 <td headers="pct" class="gt_row gt_right" style="background-color: #00008B; color: #FFFFFF;">0.818</td>
-<td headers="primary_color" class="gt_row gt_left">#E31837</td>
-<td headers="secondary_color" class="gt_row gt_left">#FFB612</td>
+<td headers="primary_color" class="gt_row gt_left">#e31837</td>
+<td headers="secondary_color" class="gt_row gt_left">#ffb612</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">2</td>
@@ -1395,8 +1420,8 @@ real-time.</p>
 <td headers="losses" class="gt_row gt_right">3</td>
 <td headers="ties" class="gt_row gt_right">0</td>
 <td headers="pct" class="gt_row gt_right" style="background-color: #564BAA; color: #FFFFFF;">0.727</td>
-<td headers="primary_color" class="gt_row gt_left">#00338D</td>
-<td headers="secondary_color" class="gt_row gt_left">#C60C30</td>
+<td headers="primary_color" class="gt_row gt_left">#00338d</td>
+<td headers="secondary_color" class="gt_row gt_left">#c60c30</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">3</td>
@@ -1406,8 +1431,8 @@ real-time.</p>
 <td headers="losses" class="gt_row gt_right">3</td>
 <td headers="ties" class="gt_row gt_right">0</td>
 <td headers="pct" class="gt_row gt_right" style="background-color: #564BAA; color: #FFFFFF;">0.727</td>
-<td headers="primary_color" class="gt_row gt_left">#AA0000</td>
-<td headers="secondary_color" class="gt_row gt_left">#B3995D</td>
+<td headers="primary_color" class="gt_row gt_left">#aa0000</td>
+<td headers="secondary_color" class="gt_row gt_left">#b3995d</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">4</td>
@@ -1417,8 +1442,8 @@ real-time.</p>
 <td headers="losses" class="gt_row gt_right">4</td>
 <td headers="ties" class="gt_row gt_right">0</td>
 <td headers="pct" class="gt_row gt_right" style="background-color: #8590C8; color: #000000;">0.636</td>
-<td headers="primary_color" class="gt_row gt_left">#004C54</td>
-<td headers="secondary_color" class="gt_row gt_left">#A5ACAF</td>
+<td headers="primary_color" class="gt_row gt_left">#004c54</td>
+<td headers="secondary_color" class="gt_row gt_left">#a5acaf</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">5</td>
@@ -1429,7 +1454,7 @@ real-time.</p>
 <td headers="ties" class="gt_row gt_right">0</td>
 <td headers="pct" class="gt_row gt_right" style="background-color: #8590C8; color: #000000;">0.636</td>
 <td headers="primary_color" class="gt_row gt_left">#002244</td>
-<td headers="secondary_color" class="gt_row gt_left">#B0B7BC</td>
+<td headers="secondary_color" class="gt_row gt_left">#b0b7bc</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">6</td>
@@ -1439,8 +1464,8 @@ real-time.</p>
 <td headers="losses" class="gt_row gt_right">5</td>
 <td headers="ties" class="gt_row gt_right">0</td>
 <td headers="pct" class="gt_row gt_right" style="background-color: #ADD8E6; color: #000000;">0.545</td>
-<td headers="primary_color" class="gt_row gt_left">#008E97</td>
-<td headers="secondary_color" class="gt_row gt_left">#F58220</td>
+<td headers="primary_color" class="gt_row gt_left">#008e97</td>
+<td headers="secondary_color" class="gt_row gt_left">#f58220</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">7</td>
@@ -1450,7 +1475,7 @@ real-time.</p>
 <td headers="losses" class="gt_row gt_right">5</td>
 <td headers="ties" class="gt_row gt_right">0</td>
 <td headers="pct" class="gt_row gt_right" style="background-color: #ADD8E6; color: #000000;">0.545</td>
-<td headers="primary_color" class="gt_row gt_left">#FB4F14</td>
+<td headers="primary_color" class="gt_row gt_left">#fb4f14</td>
 <td headers="secondary_color" class="gt_row gt_left">#000000</td>
 </tr>
 <tr>
@@ -1462,7 +1487,7 @@ real-time.</p>
 <td headers="ties" class="gt_row gt_right">0</td>
 <td headers="pct" class="gt_row gt_right" style="background-color: #ADD8E6; color: #000000;">0.545</td>
 <td headers="primary_color" class="gt_row gt_left">#241773</td>
-<td headers="secondary_color" class="gt_row gt_left">#9E7C0C</td>
+<td headers="secondary_color" class="gt_row gt_left">#9e7c0c</td>
 </tr>
 </tbody>
 </table>
@@ -1475,7 +1500,7 @@ real-time.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Sample multi-sport data</span></span>
 <span><span class="va">multi_sport_standings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  sport <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"NFL"</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"NBA"</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"MLB"</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  league <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"NFL"</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"NBA"</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"MLB"</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span>, <span class="st">"PHI"</span>,</span>
 <span>           <span class="st">"BOS"</span>, <span class="st">"DEN"</span>, <span class="st">"MIL"</span>, <span class="st">"PHX"</span>,</span>
 <span>           <span class="st">"LAD"</span>, <span class="st">"ATL"</span>, <span class="st">"HOU"</span>, <span class="st">"BAL"</span><span class="op">)</span>,</span>
@@ -1486,14 +1511,16 @@ real-time.</p>
 <span>    pct <span class="op">=</span> <span class="va">wins</span> <span class="op">/</span> <span class="op">(</span><span class="va">wins</span> <span class="op">+</span> <span class="va">losses</span><span class="op">)</span>,</span>
 <span>    rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sport</span>, <span class="va">rank</span>, <span class="va">team</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">pct</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">league</span>, <span class="va">rank</span>, <span class="va">team</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">pct</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">multi_sport_standings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">30</span>, locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html" class="external-link">cells_body</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">team</span>, rows <span class="op">=</span> <span class="va">league</span> <span class="op">==</span> <span class="st">"NFL"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, league <span class="op">=</span> <span class="st">"nba"</span>, height <span class="op">=</span> <span class="fl">30</span>, locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html" class="external-link">cells_body</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">team</span>, rows <span class="op">=</span> <span class="va">league</span> <span class="op">==</span> <span class="st">"NBA"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, league <span class="op">=</span> <span class="st">"mlb"</span>, height <span class="op">=</span> <span class="fl">30</span>, locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html" class="external-link">cells_body</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">team</span>, rows <span class="op">=</span> <span class="va">league</span> <span class="op">==</span> <span class="st">"MLB"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
-<span>    sport <span class="op">=</span> <span class="st">"Sport"</span>,</span>
+<span>    league <span class="op">=</span> <span class="st">"Sport"</span>,</span>
 <span>    rank <span class="op">=</span> <span class="st">"#"</span>,</span>
 <span>    team <span class="op">=</span> <span class="st">"Team"</span>,</span>
 <span>    wins <span class="op">=</span> <span class="st">"W"</span>,</span>
@@ -1962,7 +1989,7 @@ real-time.</p>
 <td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Top Teams Across Sports</td>
     </tr>
 <tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="sport">Sport</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="league">Sport</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rank">#</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">Team</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="wins">W</th>
@@ -1972,7 +1999,7 @@ real-time.</p>
 </thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="sport" class="gt_row gt_left">NFL</td>
+<td headers="league" class="gt_row gt_left">NFL</td>
 <td headers="rank" class="gt_row gt_right">1</td>
 <td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png" style="height:30px;" alt="Kansas City Chiefs"></td>
 <td headers="wins" class="gt_row gt_right">9</td>
@@ -1980,7 +2007,7 @@ real-time.</p>
 <td headers="pct" class="gt_row gt_right">0.818</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">NFL</td>
+<td headers="league" class="gt_row gt_left">NFL</td>
 <td headers="rank" class="gt_row gt_right">2</td>
 <td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png" style="height:30px;" alt="Buffalo Bills"></td>
 <td headers="wins" class="gt_row gt_right">8</td>
@@ -1988,7 +2015,7 @@ real-time.</p>
 <td headers="pct" class="gt_row gt_right">0.727</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">NFL</td>
+<td headers="league" class="gt_row gt_left">NFL</td>
 <td headers="rank" class="gt_row gt_right">3</td>
 <td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png" style="height:30px;" alt="San Francisco 49ers"></td>
 <td headers="wins" class="gt_row gt_right">8</td>
@@ -1996,7 +2023,7 @@ real-time.</p>
 <td headers="pct" class="gt_row gt_right">0.727</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">NFL</td>
+<td headers="league" class="gt_row gt_left">NFL</td>
 <td headers="rank" class="gt_row gt_right">4</td>
 <td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png" style="height:30px;" alt="Philadelphia Eagles"></td>
 <td headers="wins" class="gt_row gt_right">7</td>
@@ -2004,65 +2031,65 @@ real-time.</p>
 <td headers="pct" class="gt_row gt_right">0.636</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">NBA</td>
+<td headers="league" class="gt_row gt_left">NBA</td>
 <td headers="rank" class="gt_row gt_right">5</td>
-<td headers="team" class="gt_row gt_left">BOS</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0d/0d0d6b85971b1d18428ba1161772b8c2f7e3ee103846ec4b4763bf0cc849ece0.png" style="height:30px;" alt="Boston Celtics"></td>
 <td headers="wins" class="gt_row gt_right">25</td>
 <td headers="losses" class="gt_row gt_right">8</td>
 <td headers="pct" class="gt_row gt_right">0.758</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">NBA</td>
+<td headers="league" class="gt_row gt_left">NBA</td>
 <td headers="rank" class="gt_row gt_right">6</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png" style="height:30px;" alt="Denver Broncos"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/33/33f295fabf1bc3ddb60dfcbefb35ab9a3a91c865752e4539778495aab27f535d.png" style="height:30px;" alt="Denver Nuggets"></td>
 <td headers="wins" class="gt_row gt_right">23</td>
 <td headers="losses" class="gt_row gt_right">10</td>
 <td headers="pct" class="gt_row gt_right">0.697</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">NBA</td>
+<td headers="league" class="gt_row gt_left">NBA</td>
 <td headers="rank" class="gt_row gt_right">7</td>
-<td headers="team" class="gt_row gt_left">MIL</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/84/84fbddec67f59fa143f4fde9c2745ca15f3ad03594da4e677a4a1034aefa6f33.png" style="height:30px;" alt="Milwaukee Bucks"></td>
 <td headers="wins" class="gt_row gt_right">22</td>
 <td headers="losses" class="gt_row gt_right">11</td>
 <td headers="pct" class="gt_row gt_right">0.667</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">NBA</td>
+<td headers="league" class="gt_row gt_left">NBA</td>
 <td headers="rank" class="gt_row gt_right">8</td>
-<td headers="team" class="gt_row gt_left">PHX</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5f/5f8932efdb7595069610b11ec2f417d78a9213691c2ba21e2bd491c172397ead.png" style="height:30px;" alt="Phoenix Suns"></td>
 <td headers="wins" class="gt_row gt_right">20</td>
 <td headers="losses" class="gt_row gt_right">13</td>
 <td headers="pct" class="gt_row gt_right">0.606</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">MLB</td>
+<td headers="league" class="gt_row gt_left">MLB</td>
 <td headers="rank" class="gt_row gt_right">9</td>
-<td headers="team" class="gt_row gt_left">LAD</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/aa/aab854c59098d4f465c1c6f31b580f2a38d2ed4f5c0c03df2da76f62f5378dc4.png" style="height:30px;" alt="Los Angeles Dodgers"></td>
 <td headers="wins" class="gt_row gt_right">95</td>
 <td headers="losses" class="gt_row gt_right">67</td>
 <td headers="pct" class="gt_row gt_right">0.586</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">MLB</td>
+<td headers="league" class="gt_row gt_left">MLB</td>
 <td headers="rank" class="gt_row gt_right">10</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png" style="height:30px;" alt="Atlanta Falcons"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1c/1c36c62410bbed29624672b006173af58bcdfbb066ae9d6f7c4cb99205e861d2.png" style="height:30px;" alt="Atlanta Braves"></td>
 <td headers="wins" class="gt_row gt_right">90</td>
 <td headers="losses" class="gt_row gt_right">72</td>
 <td headers="pct" class="gt_row gt_right">0.556</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">MLB</td>
+<td headers="league" class="gt_row gt_left">MLB</td>
 <td headers="rank" class="gt_row gt_right">11</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png" style="height:30px;" alt="Houston Texans"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b7/b7e6858d9d11fe9fade351624bfbab74ec12451749feef37bd1f083d59eb4f7b.png" style="height:30px;" alt="Houston Astros"></td>
 <td headers="wins" class="gt_row gt_right">88</td>
 <td headers="losses" class="gt_row gt_right">74</td>
 <td headers="pct" class="gt_row gt_right">0.543</td>
 </tr>
 <tr>
-<td headers="sport" class="gt_row gt_left">MLB</td>
+<td headers="league" class="gt_row gt_left">MLB</td>
 <td headers="rank" class="gt_row gt_right">12</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png" style="height:30px;" alt="Baltimore Ravens"></td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e9/e96827050e6079674fa20221f5b8b8acbd4f80843f861dbb4d0261b309741472.png" style="height:30px;" alt="Baltimore Orioles"></td>
 <td headers="wins" class="gt_row gt_right">85</td>
 <td headers="losses" class="gt_row gt_right">77</td>
 <td headers="pct" class="gt_row gt_right">0.525</td>
@@ -2092,7 +2119,7 @@ real-time.</p>
 <span></span>
 <span><span class="va">player_stats</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_headshots.html">gt_sdv_headshots</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"player_id"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">40</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_headshots.html">gt_sdv_headshots</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"player_id"</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, id_system <span class="op">=</span> <span class="st">"gsis"</span>, height <span class="op">=</span> <span class="fl">40</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pass_yds"</span>, <span class="st">"pass_td"</span>, <span class="st">"pass_int"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
 <span>    rank <span class="op">=</span> <span class="st">"#"</span>,</span>
@@ -2633,7 +2660,7 @@ real-time.</p>
 <span></span>
 <span><span class="va">standings_quartile</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
 <span>    rank <span class="op">=</span> <span class="st">"#"</span>,</span>
@@ -3233,7 +3260,7 @@ real-time.</p>
 <span><span class="co"># ```{r}</span></span>
 <span><span class="co"># standings |&gt;</span></span>
 <span><span class="co">#   gt() |&gt;</span></span>
-<span><span class="co">#   gt_sdv_logos(columns = "logo", sport = "nfl")</span></span>
+<span><span class="co">#   gt_sdv_logos(columns = "logo", league = "nfl")</span></span>
 <span><span class="co"># ```</span></span>
 <span></span>
 <span><span class="co"># ## Team Performance</span></span>
@@ -3241,7 +3268,7 @@ real-time.</p>
 <span><span class="co"># ```{r}</span></span>
 <span><span class="co"># ggplot(standings, aes(x = reorder(team, pct), y = pct)) +</span></span>
 <span><span class="co">#   geom_col(aes(fill = team), width = 0.7) +</span></span>
-<span><span class="co">#   scale_fill_sdv(sport = "nfl") +</span></span>
+<span><span class="co">#   scale_fill_sdv(league = "nfl") +</span></span>
 <span><span class="co">#   theme_minimal()</span></span>
 <span><span class="co"># ```</span></span></code></pre></div>
 </div>
@@ -3251,15 +3278,15 @@ real-time.</p>
 <p>Create a leaderboard that updates automatically:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Function to fetch and display standings</span></span>
-<span><span class="va">update_standings</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sport</span> <span class="op">=</span> <span class="st">"nfl"</span>, <span class="va">week</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">update_standings</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">league</span> <span class="op">=</span> <span class="st">"nfl"</span>, <span class="va">week</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># In a real implementation, this would fetch live data</span></span>
 <span>  <span class="co"># For demonstration, we'll use sample data</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Updating"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">sport</span><span class="op">)</span>, <span class="st">"standings..."</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Updating"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">league</span><span class="op">)</span>, <span class="st">"standings..."</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># Sample standings (replace with real data fetch)</span></span>
 <span>  <span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>    team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="../reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="va">sport</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>    team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="va">league</span><span class="op">)</span><span class="op">$</span><span class="va">abbr</span>, <span class="fl">10</span><span class="op">)</span>,</span>
 <span>    wins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">16</span>, <span class="fl">10</span><span class="op">)</span>,</span>
 <span>    losses <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">16</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -3273,7 +3300,7 @@ real-time.</p>
 <span></span>
 <span>  <span class="va">standings</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="va">sport</span>, height <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, league <span class="op">=</span> <span class="va">league</span>, height <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -3739,83 +3766,83 @@ real-time.</p>
     </tr></thead>
 <tbody class="gt_table_body">
 <tr>
-<td headers="team" class="gt_row gt_left">CLE</td>
+<td headers="team" class="gt_row gt_left">MIN</td>
 <td headers="wins" class="gt_row gt_right">16</td>
 <td headers="losses" class="gt_row gt_right">0</td>
 <td headers="pct" class="gt_row gt_right">1.000</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png" style="height:30px;" alt="Cleveland Browns"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png" style="height:30px;" alt="Minnesota Vikings"></td>
 <td headers="rank" class="gt_row gt_right">4</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left">BAL</td>
+<td headers="team" class="gt_row gt_left">IND</td>
 <td headers="wins" class="gt_row gt_right">7</td>
 <td headers="losses" class="gt_row gt_right">2</td>
 <td headers="pct" class="gt_row gt_right">0.778</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png" style="height:30px;" alt="Baltimore Ravens"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f1/f1f5222a876f810956aa8d4e75d4e6b47bcb3a6d11f876642b674010233c8a97.png" style="height:30px;" alt="Indianapolis Colts"></td>
 <td headers="rank" class="gt_row gt_right">6</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left">JAX</td>
+<td headers="team" class="gt_row gt_left">ARI</td>
 <td headers="wins" class="gt_row gt_right">15</td>
 <td headers="losses" class="gt_row gt_right">6</td>
 <td headers="pct" class="gt_row gt_right">0.714</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png" style="height:30px;" alt="Jacksonville Jaguars"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f870b58b43585a5b7717d578dd433b0b1e0c462d64ef4bea2aeb8c03f4ae7854.png" style="height:30px;" alt="Arizona Cardinals"></td>
 <td headers="rank" class="gt_row gt_right">7</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left">SF</td>
+<td headers="team" class="gt_row gt_left">DAL</td>
 <td headers="wins" class="gt_row gt_right">8</td>
 <td headers="losses" class="gt_row gt_right">5</td>
 <td headers="pct" class="gt_row gt_right">0.615</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png" style="height:30px;" alt="San Francisco 49ers"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png" style="height:30px;" alt="Dallas Cowboys"></td>
 <td headers="rank" class="gt_row gt_right">1</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left">NO</td>
+<td headers="team" class="gt_row gt_left">CHI</td>
 <td headers="wins" class="gt_row gt_right">11</td>
 <td headers="losses" class="gt_row gt_right">9</td>
 <td headers="pct" class="gt_row gt_right">0.550</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png" style="height:30px;" alt="New Orleans Saints"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png" style="height:30px;" alt="Chicago Bears"></td>
 <td headers="rank" class="gt_row gt_right">9</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left">NYJ</td>
+<td headers="team" class="gt_row gt_left">BAL</td>
 <td headers="wins" class="gt_row gt_right">14</td>
 <td headers="losses" class="gt_row gt_right">13</td>
 <td headers="pct" class="gt_row gt_right">0.519</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png" style="height:30px;" alt="New York Jets"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png" style="height:30px;" alt="Baltimore Ravens"></td>
 <td headers="rank" class="gt_row gt_right">8</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left">BUF</td>
+<td headers="team" class="gt_row gt_left">KC</td>
 <td headers="wins" class="gt_row gt_right">5</td>
 <td headers="losses" class="gt_row gt_right">7</td>
 <td headers="pct" class="gt_row gt_right">0.417</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png" style="height:30px;" alt="Buffalo Bills"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png" style="height:30px;" alt="Kansas City Chiefs"></td>
 <td headers="rank" class="gt_row gt_right">2</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left">MIA</td>
+<td headers="team" class="gt_row gt_left">TB</td>
 <td headers="wins" class="gt_row gt_right">2</td>
 <td headers="losses" class="gt_row gt_right">3</td>
 <td headers="pct" class="gt_row gt_right">0.400</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png" style="height:30px;" alt="Miami Dolphins"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bc/bcc5d267024650938c9f35558077fe00a31913b89c61768d4ebb63d1ea31fbfd.png" style="height:30px;" alt="Tampa Bay Buccaneers"></td>
 <td headers="rank" class="gt_row gt_right">10</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left">LA</td>
+<td headers="team" class="gt_row gt_left">LAC</td>
 <td headers="wins" class="gt_row gt_right">3</td>
 <td headers="losses" class="gt_row gt_right">16</td>
 <td headers="pct" class="gt_row gt_right">0.158</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png" style="height:30px;" alt="Los Angeles Rams"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png" style="height:30px;" alt="Los Angeles Chargers"></td>
 <td headers="rank" class="gt_row gt_right">3</td>
 </tr>
 <tr>
-<td headers="team" class="gt_row gt_left">DAL</td>
+<td headers="team" class="gt_row gt_left">NE</td>
 <td headers="wins" class="gt_row gt_right">0</td>
 <td headers="losses" class="gt_row gt_right">11</td>
 <td headers="pct" class="gt_row gt_right">0.000</td>
-<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png" style="height:30px;" alt="Dallas Cowboys"></td>
+<td headers="logo" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png" style="height:30px;" alt="New England Patriots"></td>
 <td headers="rank" class="gt_row gt_right">5</td>
 </tr>
 </tbody>
@@ -3840,7 +3867,7 @@ real-time.</p>
 <span></span>
 <span><span class="va">standings_conditional</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"pct"</span>, decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>
 <span>    rank <span class="op">=</span> <span class="st">"#"</span>,</span>
@@ -4430,7 +4457,7 @@ real-time.</p>
 <span></span>
 <span><span class="va">standings_with_odds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"logo"</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pct"</span>, <span class="st">"spread"</span>, <span class="st">"total"</span><span class="op">)</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"moneyline"</span>, decimals <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span></span>

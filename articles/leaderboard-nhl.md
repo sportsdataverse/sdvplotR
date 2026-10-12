@@ -130,7 +130,7 @@ standings |>
     pts_pct = "PTS%", gf = "GF", ga = "GA", diff = "DIFF", l10 = "Last 10", streak = "Streak"
   ) |>
   tab_source_note("Data: api-web.nhle.com via fastRhockey | Viz: sdvplotR") |>
-  gt_sdv_logos(columns = logo, sport = "nhl", height = 24) |>
+  gt_sdv_logos(columns = logo, league = "nhl", height = 24) |>
   gt_theme_swiss()
 ```
 
@@ -187,14 +187,14 @@ swap the team codes on the x axis for logos.
 ``` r
 
 gd <- standings |>
-  mutate(team = clean_team_abbrs(team_abbr, sport = "nhl")) |>
+  mutate(team = sdv_resolve(team_abbr, league = "nhl")) |>
   arrange(desc(goal_differential), team) # the team breaks a tie, so an unchanged week renders the same
 
 ggplot(gd, aes(x = factor(team, levels = team), y = goal_differential, fill = team)) +
   geom_col(width = 0.75) +
   geom_hline(yintercept = 0, colour = "grey20", linewidth = 0.4) +
-  scale_fill_sdv(sport = "nhl", guide = "none") +
-  scale_x_sdv(sport = "nhl", size = 20) +
+  scale_fill_sdv(league = "nhl", guide = "none") +
+  scale_x_sdv(league = "nhl", size = 20) +
   labs(
     title = paste("NHL goal differential,", label(season), through),
     subtitle = "Goals for minus goals against",
@@ -219,7 +219,7 @@ axis.](leaderboard-nhl_files/figure-html/goal-differential-1.png)
 
 Goals and assists from the regular-season skater box scores, stacked
 into points. The box scores carry NHL API player ids, which
-`geom_sdv_headshots(id_type = "league")` turns into the NHL’s own
+`geom_sdv_headshots(id_system = "league")` turns into the NHL’s own
 headshots; the game rosters give the full names.
 
 ``` r
@@ -252,9 +252,9 @@ ggplot(leaders, aes(y = full_name)) +
   geom_col(data = bars, aes(x = n, fill = part), width = 0.7) +
   geom_sdv_headshots(
     aes(x = -0.07 * top, player_id = player_id),
-    sport = "nhl", id_type = "league", height = 0.085
+    league = "nhl", id_system = "league", height = 0.085
   ) +
-  geom_sdv_logos(aes(x = points + 0.06 * top, team = team), sport = "nhl", height = 0.06) +
+  geom_sdv_logos(aes(x = points + 0.06 * top, team = team), league = "nhl", height = 0.06) +
   geom_text(aes(x = points + 0.12 * top, label = points), hjust = 0, fontface = "bold", size = 3.8) +
   scale_fill_manual(values = c(Goals = "#1f3b73", Assists = "#9fb4d8"), breaks = c("Goals", "Assists")) +
   scale_x_continuous(limits = c(-0.14 * top, 1.22 * top), expand = c(0, 0)) +

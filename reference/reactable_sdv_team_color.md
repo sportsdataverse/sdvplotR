@@ -12,19 +12,25 @@ background fill.
 reactable_sdv_team_color_bar(
   data,
   team_col,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  type = c("primary", "secondary"),
+  league,
+  which = c("primary", "secondary"),
   max_value = NULL,
-  na_color = "grey70"
+  na_color = "grey70",
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 
 reactable_sdv_team_color_bg(
   data,
   team_col,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  type = c("primary", "secondary"),
+  league,
+  which = c("primary", "secondary"),
   alpha = 0.15,
-  na_color = "grey70"
+  na_color = "grey70",
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 ```
 
@@ -40,12 +46,12 @@ reactable_sdv_team_color_bg(
 
   Character. Name of the column in `data` holding team abbreviations.
 
-- sport:
+- league:
 
-  Character string identifying the sport. One of
-  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md).
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
-- type:
+- which:
 
   Character. `"primary"` or `"secondary"` team color.
 
@@ -57,6 +63,25 @@ reactable_sdv_team_color_bg(
 - na_color:
 
   Color used when a team cannot be resolved.
+
+- season:
+
+  `NULL` for today's mark, or a season (or one per team): the mark the
+  team wore that season where the archive dates its marks.
+
+- id_system:
+
+  `"auto"` (try every id system in priority order) or one id system:
+  `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
+  `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
+  `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
+  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
+  overlap ESPN's, so `"auto"` never reads a number as one).
+
+- strict:
+
+  If `TRUE`, a value that does not resolve is an error; otherwise it
+  becomes `NA` with one warning per call.
 
 - alpha:
 
@@ -79,10 +104,10 @@ df <- data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11))
 reactable(
   df,
   columns = list(
-    team = colDef(style = reactable_sdv_team_color_bg(df, "team", sport = "nfl")),
-    wins = colDef(style = reactable_sdv_team_color_bar(df, "team", sport = "nfl"))
+    team = colDef(style = reactable_sdv_team_color_bg(df, "team", league = "nfl")),
+    wins = colDef(style = reactable_sdv_team_color_bar(df, "team", league = "nfl"))
   )
 )
 
-{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team":["KC","BUF","SF"],"wins":[13,12,11]},"columns":[{"id":"team","name":"team","type":"character","style":[{"background-color":"#E3183726"},{"background-color":"#00338D26"},{"background-color":"#AA000026"}]},{"id":"wins","name":"wins","type":"numeric","style":[{"background-image":"linear-gradient(90deg, #E31837 100%, transparent 100%)"},{"background-image":"linear-gradient(90deg, #00338D 92.3%, transparent 92.3%)"},{"background-image":"linear-gradient(90deg, #AA0000 84.6%, transparent 84.6%)"}]}],"dataKey":"54b46a97531ff2ca3f1398b8ed18a03c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}
+{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team":["KC","BUF","SF"],"wins":[13,12,11]},"columns":[{"id":"team","name":"team","type":"character","style":[{"background-color":"#E3183726"},{"background-color":"#00338D26"},{"background-color":"#AA000026"}]},{"id":"wins","name":"wins","type":"numeric","style":[{"background-image":"linear-gradient(90deg, #e31837 100%, transparent 100%)"},{"background-image":"linear-gradient(90deg, #00338d 92.3%, transparent 92.3%)"},{"background-image":"linear-gradient(90deg, #aa0000 84.6%, transparent 84.6%)"}]}],"dataKey":"4709b48efbba1dea748edda1bbc5ed2c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}
 ```

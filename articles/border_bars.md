@@ -67,7 +67,7 @@ champion <- box |>
 
 games <- box |>
   # Division I teams only; the box scores also hold their games against other divisions
-  filter(team_id %in% team_reference("mbb")$espn_team_id) |>
+  filter(team_id %in% sdv_teams("mbb")$team_id) |>
   inner_join(
     select(box, game_id,
       opponent_team_id = team_id, opp_score = team_score, opp_poss = poss,
@@ -159,7 +159,7 @@ report <- splits |>
   select(group, stat, home, away)
 ```
 
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
 holds the champion’s name;
 [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
 its dark-mode logo (made for a colored ground) and
@@ -168,9 +168,9 @@ its primary color for the bar.
 
 ``` r
 
-team <- filter(team_reference("mbb"), espn_team_id == champion)
-team_color <- unname(sdv_team_colors("mbb", team$team_abbr, "primary"))
-team_logo <- sdv_logo_url(team$team_abbr, sport = "mbb", variant = "dark")
+team <- filter(sdv_teams("mbb"), team_id == champion)
+team_color <- unname(sdv_team_colors("mbb", team$team_id, "primary"))
+team_logo <- sdv_logo_url(team$team_id, league = "mbb", variant = "dark")
 ```
 
 Now the table.
@@ -209,7 +209,7 @@ report |>
   gt_border_bars_top(
     colors = team_color,
     img = team_logo,
-    text = paste("2025-26 recap:", team$team_location),
+    text = paste("2025-26 recap:", team$location),
     text_padding = 10,
     text_size = 20,
     img_width = 44,
@@ -288,8 +288,8 @@ out; a thin bar of the same color on top frames the table.
 scorers |>
   gt() |>
   gt_theme_sofa() |>
-  gt_sdv_headshots(photo, sport = "wnba", height = 36) |>
-  gt_sdv_logos(team, sport = "wnba", height = 26) |>
+  gt_sdv_headshots(photo, league = "wnba", height = 36) |>
+  gt_sdv_logos(team, league = "wnba", height = 26) |>
   fmt_number(ppg, decimals = 1) |>
   fmt_percent(fg_pct, decimals = 1) |>
   cols_label(rank = "", photo = "", player = "Player", team = "", gp = "GP", ppg = "PPG", fg_pct = "FG%") |>
@@ -342,20 +342,19 @@ game_log <- schedule |>
   )
 ```
 
-`sdv_team_colors(type = "all")` returns a team’s colors as one
+`sdv_team_colors(which = "all")` returns a team’s colors as one
 comma-separated string, which splits into the stripe colors;
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-holds the wordmark.
+`sdv_logo_url(mark_type = "wordmark")` returns the wordmark.
 
 ``` r
 
 stripes <- strsplit(unname(sdv_team_colors("nfl", champ, "all")), ", ")[[1]]
-wordmark <- team_reference("nfl")$wordmark_url[team_reference("nfl")$team_abbr == champ]
+wordmark <- sdv_logo_url(champ, league = "nfl", mark_type = "wordmark")
 
 game_log |>
   gt() |>
   gt_theme_sdv() |>
-  gt_sdv_logos(opponent, sport = "nfl", height = 24) |>
+  gt_sdv_logos(opponent, league = "nfl", height = 24) |>
   gt_highlight_cells(result, condition = ~ .x == "W", fill = "#E3F1E7", bold = TRUE) |>
   cols_label(week = "Week", where = "", opponent = "Opponent", result = "", score = "Score") |>
   cols_align(columns = everything(), "center") |>
@@ -366,7 +365,7 @@ game_log |>
 
 [TABLE]
 
-![](https://github.com/nflverse/nflverse-pbp/raw/master/wordmarks/SEA.png)
+![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/71/71b34309a788eb03bb6f58d5dcfd434cfd385bd91913e07327753f886ccba813.png)
 {.table .gt_table quarto-disable-processing="false"
 quarto-bootstrap="false"}
 

@@ -20,34 +20,38 @@ components of the plot, e.g. axis text.
 
 ``` r
 element_sdv_logo(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  alpha = NULL,
-  colour = NA,
-  color = NULL,
-  hjust = NULL,
-  vjust = NULL,
-  size = 0.5
-)
-
-element_sdv_wordmark(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  alpha = NULL,
-  colour = NA,
-  color = NULL,
-  hjust = NULL,
-  vjust = NULL,
-  size = 0.5
-)
-
-element_sdv_headshot(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   alpha = NULL,
   colour = NA,
   color = NULL,
   hjust = NULL,
   vjust = NULL,
   size = 0.5,
-  id_type = NULL
+  season = NULL,
+  id_system = "auto"
+)
+
+element_sdv_wordmark(
+  league,
+  alpha = NULL,
+  colour = NA,
+  color = NULL,
+  hjust = NULL,
+  vjust = NULL,
+  size = 0.5,
+  season = NULL,
+  id_system = "auto"
+)
+
+element_sdv_headshot(
+  league,
+  alpha = NULL,
+  colour = NA,
+  color = NULL,
+  hjust = NULL,
+  vjust = NULL,
+  size = 0.5,
+  id_system = "espn"
 )
 
 element_sdv_raster(
@@ -66,10 +70,10 @@ element_sdv_raster(
 
 ## Arguments
 
-- sport:
+- league:
 
-  Character string identifying the sport. One of
-  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md).
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - alpha:
 
@@ -92,12 +96,19 @@ element_sdv_raster(
 
   The output grob size in `cm`.
 
-- id_type:
+- season:
 
-  Which ID system the player IDs hold: `NULL` (the default; GSIS IDs for
-  the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"` (NBA /
-  WNBA Stats `PERSON_ID`, MLBAM, NHL API, GSIS). See
-  [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md).
+  `NULL` for today's marks, or one season: the marks the teams wore that
+  season. One element draws every label, so one season.
+
+- id_system:
+
+  `"auto"` (try every id system in priority order) or one id system:
+  `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
+  `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
+  `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
+  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
+  overlap ESPN's, so `"auto"` never reads a number as one).
 
 - image_path:
 
@@ -124,7 +135,7 @@ element_sdv_raster(
 ## Details
 
 The elements translate team abbreviations or player IDs into logo images
-or player headshots for the specified sport. Rendering is delegated to
+or player headshots for the specified league. Rendering is delegated to
 [`ggpath::element_path()`](https://mrcaseb.github.io/ggpath/reference/element_path.html),
 which they extend. Set on a parent element such as `axis.text.x`, they
 also replace the position children (`axis.text.x.bottom`,
@@ -144,7 +155,7 @@ set, keeping the child's spacing.
 library(sdvplotR)
 library(ggplot2)
 
-team_abbr <- valid_team_names("nfl")[1:16]
+team_abbr <- sdv_teams("nfl")$abbr[1:16]
 
 df <- data.frame(
   random_value = runif(length(team_abbr), 0, 1),
@@ -154,10 +165,10 @@ df <- data.frame(
 # use logos for x-axis
 ggplot(df, aes(x = teams, y = random_value)) +
   geom_col(aes(color = teams, fill = teams), width = 0.5) +
-  scale_color_sdv(sport = "nfl", type = "secondary") +
-  scale_fill_sdv(sport = "nfl", alpha = 0.4) +
+  scale_color_sdv(league = "nfl", which = "secondary") +
+  scale_fill_sdv(league = "nfl", alpha = 0.4) +
   theme_minimal() +
-  theme(axis.text.x = element_sdv_logo(sport = "nfl"))
+  theme(axis.text.x = element_sdv_logo(league = "nfl"))
 
 # }
 ```

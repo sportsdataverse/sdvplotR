@@ -76,25 +76,27 @@ These two calls are read from a snapshot taken on October 05, 2026
 site is built; `data-raw/article_fixtures.R` takes it with the same
 code.
 
-A few of the NHL’s three-letter codes differ from the ESPN abbreviations
-sdvplotR keys its team colors on.
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-converts them once, so every join and color scale below agrees:
+A few of the NHL’s three-letter codes differ from the abbreviations in
+sdvplotR’s team index.
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+converts them once, to the index’s team ids, so every join and color
+scale below agrees:
 
 ``` r
 
 standings <- standings |>
-  mutate(team = clean_team_abbrs(team_abbr, sport = "nhl"))
+  mutate(team = sdv_resolve(team_abbr, league = "nhl"))
 
 standings |>
-  filter(team != team_abbr) |>
-  select(team_name, team_abbr, team)
-#>             team_name team_abbr team
-#> 1 Tampa Bay Lightning       TBL   TB
-#> 2        Utah Mammoth       UTA UTAH
-#> 3   Los Angeles Kings       LAK   LA
-#> 4   New Jersey Devils       NJD   NJ
-#> 5     San Jose Sharks       SJS   SJ
+  mutate(sdv_abbr = sdv_teams("nhl")$abbr[match(team, sdv_teams("nhl")$team_id)]) |>
+  filter(team_abbr != sdv_abbr) |>
+  select(team_name, team_abbr, sdv_abbr)
+#>             team_name team_abbr sdv_abbr
+#> 1 Tampa Bay Lightning       TBL       TB
+#> 2        Utah Mammoth       UTA     UTAH
+#> 3   Los Angeles Kings       LAK       LA
+#> 4   New Jersey Devils       NJD       NJ
+#> 5     San Jose Sharks       SJS       SJ
 
 api <- "Data: NHL API via fastRhockey | Viz: sdvplotR"
 release <- "Data: fastRhockey play-by-play and box score release | Viz: sdvplotR"
@@ -119,8 +121,8 @@ goal_diff <- standings |>
 ggplot(goal_diff, aes(team, goal_differential)) +
   geom_col(aes(fill = team), width = 0.75) +
   geom_hline(yintercept = 0, colour = "grey20", linewidth = 0.4) +
-  geom_sdv_logos(aes(y = logo_y, team = team), sport = "nhl", width = 0.027) +
-  scale_fill_sdv(sport = "nhl") +
+  geom_sdv_logos(aes(y = logo_y, team = team), league = "nhl", width = 0.027) +
+  scale_fill_sdv(league = "nhl") +
   labs(
     title = "NHL goal differential, 2025-26",
     subtitle = "Regular season, goals for minus goals against",
@@ -168,7 +170,7 @@ standings |>
     point_pctg, regulation_wins, goals_for, goals_against, goal_differential, streak
   ) |>
   gt(groupname_col = "division") |>
-  gt_sdv_logos(columns = "logo", sport = "nhl", height = 22) |>
+  gt_sdv_logos(columns = "logo", league = "nhl", height = 22) |>
   fmt_number(columns = point_pctg, decimals = 3) |>
   cols_align(align = "left", columns = team_name) |>
   cols_label(
@@ -261,13 +263,13 @@ xg <- xg_for |>
   mutate(
     xgf_pg = xgf / gp,
     xga_pg = xga / gp,
-    team = clean_team_abbrs(team_abbrev, sport = "nhl")
+    team = sdv_resolve(team_abbrev, league = "nhl")
   )
 stopifnot(nrow(xg) == 32)
 
 ggplot(xg, aes(xgf_pg, xga_pg)) +
   geom_mean_lines(aes(x0 = xgf_pg, y0 = xga_pg), colour = "grey60") +
-  geom_sdv_logos(aes(team = team), sport = "nhl", width = 0.06) +
+  geom_sdv_logos(aes(team = team), league = "nhl", width = 0.06) +
   scale_y_reverse() +
   labs(
     title = "Who drove play at five-on-five, 2025-26",
@@ -303,7 +305,7 @@ champion <- team_box |>
   summarise(wins = sum(goals > goals_against), .by = team_abbrev) |>
   filter(wins == 4) |>
   pull(team_abbrev)
-champ <- clean_team_abbrs(champion, sport = "nhl")
+champ <- sdv_resolve(champion, league = "nhl")
 champ_name <- standings$team_name[standings$team == champ]
 
 shots <- pbp |>
@@ -334,7 +336,7 @@ sdv_surface("nhl", champ, display_range = "offense") +
       sum(shots$goal), " goals (color); regular season and playoffs"
     ),
     image_height = 20,
-    sport = "nhl"
+    league = "nhl"
   ) +
   labs(caption = release) +
   theme_title_image(size = 14, face = "bold") +
@@ -367,15 +369,15 @@ ratio <- sum(attempts$event_type == "GOAL") / sum(attempts$xg)
 
 finishing <- attempts |>
   summarise(goals = sum(event_type == "GOAL"), xg = sum(xg) * ratio, .by = event_team_abbr) |>
-  mutate(gax = goals - xg, team = clean_team_abbrs(event_team_abbr, sport = "nhl")) |>
+  mutate(gax = goals - xg, team = sdv_resolve(event_team_abbr, league = "nhl")) |>
   arrange(desc(gax), team) |>
   mutate(team = factor(team, levels = team))
 
 ggplot(finishing, aes(team, gax, fill = team)) +
   geom_col(width = 0.75) +
   geom_hline(yintercept = 0, colour = "grey20", linewidth = 0.4) +
-  scale_fill_sdv(sport = "nhl") +
-  scale_x_sdv(sport = "nhl", size = 20) +
+  scale_fill_sdv(league = "nhl") +
+  scale_x_sdv(league = "nhl", size = 20) +
   labs(
     title = "Who finished their chances, 2025-26",
     subtitle = "Goals minus expected goals (scaled to the league), regular season",
@@ -405,8 +407,8 @@ worst (-27.2).
 
 The release’s box scores identify players by their NHL API ID (McDavid
 is 8478402), not their ESPN athlete ID, which is why the headshots pass
-`id_type = "league"`: it draws NHL API IDs from the NHL’s image CDN.
-Leave `id_type` unset for ESPN athlete IDs, such as those in
+`id_system = "league"`: it draws NHL API IDs from the NHL’s image CDN.
+Leave `id_system` unset for ESPN athlete IDs, such as those in
 fastRhockey’s `espn_nhl_*()` data. Both are plain numbers, so the wrong
 setting draws someone else or nothing. Goals and assists stack into
 points, and each player’s team is the one he played his last game for.
@@ -421,7 +423,7 @@ leaders <- skater_box |>
     .by = player_id
   ) |>
   filter(min_rank(desc(points)) <= 10) |>
-  mutate(team = clean_team_abbrs(team_abbrev, sport = "nhl")) |>
+  mutate(team = sdv_resolve(team_abbrev, league = "nhl")) |>
   arrange(points, desc(name)) |>
   mutate(name = factor(name, levels = name))
 bars <- bind_rows(
@@ -434,10 +436,10 @@ ggplot(leaders, aes(y = name)) +
   geom_col(aes(x = n, fill = stat), data = bars, width = 0.7) +
   geom_sdv_headshots(
     aes(x = -12, player_id = player_id),
-    sport = "nhl", id_type = "league", height = 0.085
+    league = "nhl", id_system = "league", height = 0.085
   ) +
   geom_text(aes(x = points + 3, label = points), hjust = 0, fontface = "bold", size = 4) +
-  geom_sdv_logos(aes(x = points + 21, team = team), sport = "nhl", height = 0.065) +
+  geom_sdv_logos(aes(x = points + 21, team = team), league = "nhl", height = 0.065) +
   scale_fill_manual(values = c(Goals = "#1f3b73", Assists = "#9fb4d8"), breaks = c("Goals", "Assists")) +
   scale_x_continuous(
     breaks = seq(0, 150, 25),
@@ -501,7 +503,7 @@ ends <- goalies |>
   arrange(gsax) |>
   mutate(
     name = factor(event_goalie_name, levels = event_goalie_name),
-    team = clean_team_abbrs(team_abbrev, sport = "nhl"),
+    team = sdv_resolve(team_abbrev, league = "nhl"),
     side = sign(gsax)
   )
 
@@ -510,13 +512,13 @@ ggplot(ends, aes(gsax, name)) +
   geom_vline(xintercept = 0, colour = "grey20") +
   geom_sdv_headshots(
     aes(x = gsax + 3.5 * side, player_id = event_goalie_id),
-    sport = "nhl", id_type = "league", height = 0.085
+    league = "nhl", id_system = "league", height = 0.085
   ) +
   geom_text(
     aes(x = gsax + 7.5 * side, label = sprintf("%+.1f", gsax), hjust = if_else(side > 0, 0, 1)),
     fontface = "bold", size = 3.8
   ) +
-  scale_fill_sdv(sport = "nhl") +
+  scale_fill_sdv(league = "nhl") +
   scale_x_continuous(expand = expansion(add = 13)) +
   labs(
     title = "Goals saved above expected, 2025-26",
@@ -552,8 +554,8 @@ Thrashers, are `WPG`:
 
 ``` r
 
-clean_team_abbrs(c("WIN", "PHX", "ARI", "UTA", "WPG"), sport = "nhl")
-#> [1] "UTAH" "UTAH" "UTAH" "UTAH" "WPG"
+sdv_resolve(c("WIN", "PHX", "ARI", "UTA", "WPG"), league = "nhl")
+#> [1] "28"     "129764" "129764" "129764" "28"
 ```
 
 That key draws today’s mark. Given a `season`,
@@ -577,7 +579,7 @@ marks <- tibble(
   )
 
 ggplot(marks, aes(x, 1)) +
-  geom_sdv_logos(aes(team = key, season = season), sport = "nhl", width = 0.08) +
+  geom_sdv_logos(aes(team = key, season = season), league = "nhl", width = 0.08) +
   geom_text(aes(y = 0.55, label = label), size = 3, lineheight = 0.95, vjust = 1) +
   scale_x_continuous(expand = expansion(add = 0.6)) +
   scale_y_continuous(limits = c(0.2, 1.4)) +
@@ -616,7 +618,7 @@ ggplot(lineage, aes(season, pts_pct)) +
   geom_point(colour = sdv_team_colors("nhl", "UTAH"), size = 1.6) +
   geom_sdv_logos(
     aes(x = mid, y = 0.8, team = tri_code, season = mark_season),
-    data = bands, sport = "nhl", height = 0.13, inherit.aes = FALSE
+    data = bands, league = "nhl", height = 0.13, inherit.aes = FALSE
   ) +
   scale_fill_manual(values = c(`TRUE` = "grey93", `FALSE` = NA), guide = "none") +
   scale_x_continuous(breaks = c(1980, 1990, 2000, 2010, 2020, 2026)) +
@@ -689,7 +691,7 @@ distinct_colours <- function(primary, secondary, min_gap = 20) {
 }
 line_colours <- final |>
   arrange(division, division_sequence) |>
-  inner_join(sdv_team_colors("nhl", type = "all"), by = c(team = "team_abbr")) |>
+  inner_join(sdv_team_colors("nhl", which = "all"), by = c(team = "team_id")) |>
   mutate(colour = distinct_colours(primary, secondary), .by = division)
 
 # teams that finish close together would stack their logos, so spread the logos
@@ -711,7 +713,7 @@ ggplot(race, aes(game, above, colour = team)) +
   # inherit.aes = FALSE: a colour aesthetic would tint the logos
   geom_sdv_logos(
     aes(x = 89, y = logo_y, team = team),
-    data = final, sport = "nhl", height = 0.075, inherit.aes = FALSE
+    data = final, league = "nhl", height = 0.075, inherit.aes = FALSE
   ) +
   scale_colour_manual(values = setNames(line_colours$colour, line_colours$team)) +
   scale_x_continuous(breaks = c(1, 20, 40, 60, 82), limits = c(1, 92)) +
@@ -764,7 +766,7 @@ stopifnot(sum(tiers$tier_no < 6) == 16)
 
 sdv_team_tiers(
   select(tiers, tier_no, tier_rank, team),
-  sport = "nhl",
+  league = "nhl",
   title = "The 2026 Stanley Cup playoffs: how far everyone got",
   subtitle = paste(champ_name, "won the Cup; teams ordered by regular-season points within each tier"),
   caption = release,

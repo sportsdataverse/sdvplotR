@@ -18,9 +18,9 @@ library(dplyr)
 library(gt)
 
 # Get valid team abbreviations
-nfl_teams <- valid_team_names("nfl")
-nba_teams <- valid_team_names("nba")
-cfb_teams <- valid_team_names("cfb")
+nfl_teams <- sdv_teams("nfl")$abbr
+nba_teams <- sdv_teams("nba")$abbr
+cfb_teams <- sdv_teams("cfb")$abbr
 ```
 
 ## Weekly Win-Probability Charts
@@ -49,14 +49,14 @@ ggplot(game_data, aes(x = time_left)) +
   geom_sdv_logos(
     data = data.frame(x = 450, y = 0.5, team = "KC"),
     aes(x = x, y = y, team = team),
-    sport = "nfl",
+    league = "nfl",
     width = 0.05,
     inherit.aes = FALSE
   ) +
   geom_sdv_logos(
     data = data.frame(x = 450, y = 0.5, team = "BUF"),
     aes(x = x, y = y, team = team),
-    sport = "nfl",
+    league = "nfl",
     width = 0.05,
     inherit.aes = FALSE
   ) +
@@ -98,7 +98,7 @@ epa_data <- data.frame(
 ggplot(epa_data, aes(x = offensive_epa, y = defensive_epa)) +
   geom_sdv_logos(
     aes(team = team),
-    sport = "nfl",
+    league = "nfl",
     width = 0.075
   ) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
@@ -139,7 +139,7 @@ top_9 <- data.frame(
 ggplot(top_9, aes(x = x, y = y)) +
   geom_sdv_logos(
     aes(team = team),
-    sport = "nfl",
+    league = "nfl",
     width = 0.15
   ) +
   geom_label(
@@ -181,10 +181,10 @@ ggplot(power_rankings, aes(x = rank, y = points)) +
   geom_col(aes(fill = team), width = 0.7) +
   geom_sdv_logos(
     aes(team = team),
-    sport = "nfl",
+    league = "nfl",
     width = 0.05
   ) +
-  scale_fill_sdv(sport = "nfl", alpha = 0.8) +
+  scale_fill_sdv(league = "nfl", alpha = 0.8) +
   scale_y_continuous(limits = c(0, 120)) +
   labs(
     title = "Example Power Rankings",
@@ -272,7 +272,7 @@ Create a multi-sport recap graphic:
 
 # Sample data for multiple sports
 multi_sport_data <- data.frame(
-  sport = c("NFL", "NBA", "MLB", "NHL", "CFB"),
+  league = c("NFL", "NBA", "MLB", "NHL", "CFB"),
   team = c("KC", "BOS", "LAD", "COL", "UGA"),
   record = c("8-2", "12-3", "95-67", "45-12-5", "11-1"),
   rank = 1:5
@@ -282,40 +282,40 @@ ggplot(multi_sport_data, aes(x = rank, y = 1)) +
   geom_sdv_logos(
     data = multi_sport_data[1, ],
     aes(x = rank, y = 1, team = team),
-    sport = "nfl",
+    league = "nfl",
     width = 0.075,
     inherit.aes = FALSE
   ) +
   geom_sdv_logos(
     data = multi_sport_data[2, ],
     aes(x = rank, y = 1, team = team),
-    sport = "nba",
+    league = "nba",
     width = 0.075,
     inherit.aes = FALSE
   ) +
   geom_sdv_logos(
     data = multi_sport_data[3, ],
     aes(x = rank, y = 1, team = team),
-    sport = "mlb",
+    league = "mlb",
     width = 0.075,
     inherit.aes = FALSE
   ) +
   geom_sdv_logos(
     data = multi_sport_data[4, ],
     aes(x = rank, y = 1, team = team),
-    sport = "nhl",
+    league = "nhl",
     width = 0.075,
     inherit.aes = FALSE
   ) +
   geom_sdv_logos(
     data = multi_sport_data[5, ],
     aes(x = rank, y = 1, team = team),
-    sport = "cfb",
+    league = "cfb",
     width = 0.075,
     inherit.aes = FALSE
   ) +
   geom_label(
-    aes(label = sport),
+    aes(label = league),
     nudge_y = -0.3,
     size = 3,
     alpha = 0.8
@@ -360,7 +360,7 @@ color_data <- data.frame(
 
 ggplot(color_data, aes(x = x, y = y)) +
   geom_col(aes(fill = team), width = 0.8) +
-  scale_fill_sdv(sport = "nfl", alpha = 1) +
+  scale_fill_sdv(league = "nfl", alpha = 1) +
   labs(
     title = "NFL Team Color Palettes",
     subtitle = "Primary Colors",

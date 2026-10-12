@@ -1,9 +1,11 @@
 # ggplot2 Layer for Visualizing Sports Team Logos
 
 This geom is used to plot sports team logos instead of points in a
-ggplot. It requires x, y aesthetics as well as a valid team
-abbreviation. The latter can be checked with
-[`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md).
+ggplot. It requires x, y aesthetics as well as a valid team identifier:
+anything
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+accepts, or a conference or league key. A league's teams are listed by
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md).
 
 ## Usage
 
@@ -14,7 +16,9 @@ geom_sdv_logos(
   stat = "identity",
   position = "identity",
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
+  id_system = "auto",
+  strict = FALSE,
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -129,10 +133,25 @@ GeomSDVlogo
     glyphs](https://ggplot2.tidyverse.org/reference/draw_key.html), to
     change the display of the layer in the legend.
 
-- sport:
+- league:
 
-  Character string identifying the sport. One of
-  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md).
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
+  Required: one abbreviation means different teams in different leagues.
+
+- id_system:
+
+  `"auto"` (try every id system in priority order) or one id system:
+  `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
+  `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
+  `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
+  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
+  overlap ESPN's, so `"auto"` never reads a number as one).
+
+- strict:
+
+  If `TRUE`, a value that does not resolve is an error; otherwise it
+  becomes `NA` with one warning per call.
 
 - na.rm:
 
@@ -178,9 +197,8 @@ aesthetics are in bold):
 
 - **team**:
 
-  \- The team abbreviation. Should be one of
-  [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md).
-  The function tries to clean team names internally.
+  \- The team: an abbreviation, name or id, resolved by
+  [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md).
 
 - `alpha = NULL`:
 
@@ -218,32 +236,20 @@ aesthetics are in bold):
 - `season = NA`:
 
   \- The season whose logo to draw: the ending year for the NHL (`1990`
-  for 1989-90), the year elsewhere. Unmapped or `NA`, the team's logo
-  today. See the Historical logos section.
+  for 1989-90), the year elsewhere. `NA` draws the team's logo today.
+  See the Historical logos section.
 
 ## Historical logos
 
 Given a `season`, a team is drawn with the mark it wore that season
-where sdvplotR has one, and with today's logo otherwise. Coverage:
-
-- NHL: every club identity since 1917-18, primary and dark marks from
-  the NHL's own logo catalog; a club's current era draws today's logo.
-  Teams are keyed by the NHL triCode of that identity (`"QUE"`, `"HFD"`,
-  `"ATL"`, `"MNS"`, `"TBL"`); current clubs also answer to sdvplotR's
-  abbreviation and full name (`"TB"`, `"Tampa Bay Lightning"`).
-
-- NFL and WNBA: relocated and defunct identities only, one mark each:
-  NFL `"STL"` (1995-2015) and `"SD"` (1961-2016); WNBA `"HOU"`, `"SAC"`,
-  `"CHA"`, `"DET"`, `"TUL"`, `"SAS"` and `"SA"`.
-
-- No other league has per-season logos yet.
-
-A key only finds its own identity's marks: `"COL"` in 1990 draws today's
-Avalanche logo (the Nordiques are `"QUE"`), and `"STL"` in 2020 today's
-Rams. The images are copies kept in the SportsDataverse asset archive,
-so they don't change when a league reuses a file name. The NHL marks are
-SVG files, which 'ggpath' reads with the 'rsvg' package. `season` takes
-single years: the ending year for the NHL (`2005` for 2004-05).
+where the SportsDataverse logo archive dates its marks, and with its
+current mark otherwise. The season also picks the team a reused code
+meant then (see
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)).
+The images are copies kept in the archive, so they don't change when a
+league reuses a file name. SVG marks are read with the 'rsvg' package.
+`season` takes single years: the ending year for split seasons (`2005`
+for 2004-05).
 
 ## Examples
 
@@ -252,7 +258,7 @@ single years: the ending year for the NHL (`2005` for 2004-05).
 library(sdvplotR)
 library(ggplot2)
 
-team_abbr <- valid_team_names("nfl")[1:16]
+team_abbr <- sdv_teams("nfl")$abbr[1:16]
 
 df <- data.frame(
   a = rep(1:4, 4),
@@ -261,7 +267,7 @@ df <- data.frame(
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_sdv_logos(aes(team = teams), sport = "nfl", width = 0.075) +
+  geom_sdv_logos(aes(team = teams), league = "nfl", width = 0.075) +
   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
   theme_void()
 
@@ -275,7 +281,7 @@ if (requireNamespace("rsvg", quietly = TRUE)) {
     season = c(1990, 1995, 2005, 2015)
   )
   ggplot(old, aes(x = x, y = y)) +
-    geom_sdv_logos(aes(team = team, season = season), sport = "nhl", width = 0.2) +
+    geom_sdv_logos(aes(team = team, season = season), league = "nhl", width = 0.2) +
     theme_void()
 }
 

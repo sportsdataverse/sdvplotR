@@ -77,9 +77,10 @@ charts, and reactable tables.
 - [Interactive
   charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md):
 
-  Ten recipes for team logos on web charts: ggiraph tooltips, hover
-  highlights and logo axes, plotly logos as layout images, a reactable
-  table, self-contained HTML and static PNG exports for social posts.
+  Twelve recipes for team logos on web charts: ggiraph tooltips, hover
+  highlights and logo axes, plotly logos as layout images, leaflet logo
+  markers, a reactable table, self-contained HTML and static PNG exports
+  for social posts.
 
 - [Surfaces and shot
   charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.md):

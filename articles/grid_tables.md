@@ -47,14 +47,14 @@ defense.
 
 ``` r
 
-d1 <- team_reference("mbb")
+d1 <- sdv_teams("mbb")
 
 box <- hoopR::load_mbb_team_box(seasons = 2026) |>
   mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
 
 ratings <- box |>
   # Division I against Division I only
-  filter(team_id %in% d1$espn_team_id, opponent_team_id %in% d1$espn_team_id) |>
+  filter(team_id %in% d1$team_id, opponent_team_id %in% d1$team_id) |>
   inner_join(
     select(box, game_id, opponent_team_id = team_id, opp_poss = poss),
     by = c("game_id", "opponent_team_id")
@@ -68,8 +68,8 @@ ratings <- box |>
     net = off - def,
     off_rank = min_rank(desc(off)),
     def_rank = min_rank(def),
-    team = d1$team_location[match(team_id, d1$espn_team_id)],
-    conf = d1$conference[match(team_id, d1$espn_team_id)]
+    team = d1$location[match(team_id, d1$team_id)],
+    conf = d1$conference[match(team_id, d1$team_id)]
   )
 
 data <- ratings |>
@@ -172,7 +172,7 @@ block <- function(x) {
     tab_spanner(columns = c(off_rank, def_rank), label = "Nat'l rank") |>
     fmt_number(net, decimals = 1, force_sign = TRUE) |>
     gt_color_ranks(c(off_rank, def_rank), domain = rank_domain) |>
-    gt_sdv_logos(team, sport = "mbb", height = 20, include_name = TRUE) |>
+    gt_sdv_logos(team, league = "mbb", height = 20, include_name = TRUE) |>
     gtExtras::gt_add_divider(team, color = "white", weight = px(10)) |>
     tab_options(
       data_row.padding = px(6),
@@ -274,9 +274,9 @@ top_conf <- data |>
   slice(1)
 top_conf
 #> # A tibble: 1 × 2
-#>   conf        n
-#>   <chr>   <int>
-#> 1 Big Ten     5
+#>   conf                   n
+#>   <chr>              <int>
+#> 1 Big Ten Conference     5
 ```
 
 [`gt_spotlight()`](https://sdvplotR.sportsdataverse.org/reference/gt_spotlight.md)
@@ -313,7 +313,7 @@ gt_grid(spot,
 )
 ```
 
-Big Ten has 5 of the top 25
+Big Ten Conference has 5 of the top 25
 
 Men's college basketball, 2025-26, by efficiency margin
 

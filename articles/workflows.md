@@ -54,7 +54,7 @@ team_epa <- pbp |>
 # Step 3: Create visualization
 plot <- ggplot(team_epa, aes(x = reorder(posteam, mean_epa), y = mean_epa)) +
   geom_col(aes(fill = posteam), width = 0.7) +
-  scale_fill_sdv(sport = "nfl", alpha = 0.8) +
+  scale_fill_sdv(league = "nfl", alpha = 0.8) +
   labs(
     title = "Top 10 NFL Teams by Pass EPA",
     subtitle = paste("Season", season),
@@ -92,13 +92,19 @@ cfb_season <- as.integer(format(Sys.Date(), "%Y")) -
   (format(Sys.Date(), "%m-%d") < "12-15")
 cfb_pbp <- cfbfastR::load_cfb_pbp(seasons = cfb_season)
 
-# Step 2: Process data: EPA per pass play; clean_team_abbrs() turns school
-# names into sdvplotR's abbreviations
+# Step 2: Process data: EPA per pass play; sdv_resolve() turns school
+# names into team ids
+fbs_conferences <- c(
+  "cfb:american", "cfb:acc", "cfb:big-12", "cfb:big-ten", "cfb:cusa", "cfb:fbs-independents",
+  "cfb:mac", "cfb:mountain-west", "cfb:pac-12", "cfb:sec", "cfb:sun-belt"
+)
+fbs_ids <- sdv_teams("cfb")$team_id[sdv_teams("cfb")$conference_id %in% fbs_conferences]
 team_perf <- cfb_pbp |>
   filter(pass == 1, !is.na(EPA), !is.na(pos_team)) |>
-  mutate(team = clean_team_abbrs(pos_team, sport = "cfb")) |>
+  # FCS names do not matter here: the filter below keeps FBS offenses only
+  mutate(team = suppressWarnings(sdv_resolve(sub("^Charlotte$", "Charlotte 49ers", pos_team), league = "cfb"))) |>
   # FBS offenses only: the play-by-play also covers FCS games
-  filter(team %in% team_reference("cfb")$team_abbr[team_reference("cfb")$division == "FBS"]) |>
+  filter(team %in% fbs_ids) |>
   group_by(team) |>
   summarise(mean_epa = mean(EPA), n_plays = n(), .groups = "drop") |>
   filter(n_plays >= 100) |>
@@ -111,7 +117,7 @@ tier_data <- team_perf |>
 
 tier_plot <- sdv_team_tiers(
   tier_data,
-  sport = "cfb",
+  league = "cfb",
   title = "CFB Passing Offense Tiers",
   subtitle = paste("EPA per pass play, season", cfb_season),
   tier_desc = c(
@@ -146,7 +152,7 @@ nba_season <- as.integer(format(Sys.Date(), "%Y")) -
 # ESPN tags the All-Star games as regular season too; keeping the league's own
 # teams drops them
 nba_box <- hoopR::load_nba_player_box(seasons = nba_season) |>
-  filter(season_type == 2, !did_not_play, team_abbreviation %in% team_reference("nba")$team_abbr)
+  filter(season_type == 2, !did_not_play, team_abbreviation %in% sdv_teams("nba")$abbr)
 
 # Step 2: Process data
 # one row per player: a player traded mid-season has box scores for two teams
@@ -164,7 +170,7 @@ top_players <- nba_box |>
 player_plot <- ggplot(top_players, aes(x = games, y = avg_points)) +
   geom_sdv_headshots(
     aes(player_id = athlete_id),
-    sport = "nba",
+    league = "nba",
     height = 0.15
   ) +
   geom_label(
@@ -231,7 +237,7 @@ API is not called there; the rest of this workflow uses a snapshot of
 # Step 3: Create gt table
 standings_table <- standings |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "mlb", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "mlb", height = 35) |>
   fmt_number(columns = "win_pct", decimals = 3) |>
   cols_label(
     rank = "#",
@@ -293,13 +299,13 @@ not called there; the rest of this workflow uses a snapshot of
 
 # Step 2: Process data: the NHL's full team names become abbreviations
 team_perf <- nhl_teams |>
-  mutate(team = clean_team_abbrs(team_full_name, sport = "nhl"))
+  mutate(team = sdv_resolve(team_full_name, league = "nhl"))
 
 # Step 3: Create visualization
 nhl_plot <- ggplot(team_perf, aes(x = goals_for_per_game, y = goals_against_per_game)) +
   geom_sdv_logos(
     aes(team = team),
-    sport = "nhl",
+    league = "nhl",
     width = 0.06
   ) +
   scale_y_reverse() +
@@ -348,7 +354,7 @@ nfl_standings <- nflreadr::load_schedules(season) |>
 
 # Step 2: Merge upcoming spreads when a key is set and the API answers (a spent
 # quota or an outage leaves the records-only table); odds name teams in full,
-# and clean_team_abbrs() maps full names to abbreviations
+# and sdv_resolve() maps full names to team ids
 odds <- if (nzchar(Sys.getenv("ODDS_API_KEY"))) {
   tryCatch(
     oddsapiR::toa_sports_odds(sport_key = "americanfootball_nfl", markets = "spreads"),
@@ -357,7 +363,7 @@ odds <- if (nzchar(Sys.getenv("ODDS_API_KEY"))) {
 }
 if (NROW(odds) > 0) {
   spreads <- odds |>
-    mutate(team = clean_team_abbrs(outcomes_name, sport = "nfl")) |>
+    mutate(team = sdv_resolve(outcomes_name, league = "nfl")) |>
     group_by(team) |>
     summarise(Spread = median(outcomes_point, na.rm = TRUE), .groups = "drop")
   nfl_standings <- left_join(nfl_standings, spreads, by = "team")
@@ -367,7 +373,7 @@ if (NROW(odds) > 0) {
 odds_table <- nfl_standings |>
   mutate(logo = team, .before = 1) |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 35) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 35) |>
   fmt_number(columns = "win_pct", decimals = 3) |>
   sub_missing(missing_text = "") |>
   cols_label(logo = "", team = "Team", wins = "Wins", win_pct = "Win %") |>
@@ -382,18 +388,7 @@ gtsave(odds_table, file.path(out_dir, "nfl_standings_odds.html"))
 odds_table
 ```
 
-| NFL Standings with Betting Lines |  |  |  |  |
-|----|----|----|----|----|
-| Season 2025 |  |  |  |  |
-|  | Team | Wins | Win % | Spread |
-| ![Denver Broncos](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png) | DEN | 14 | 0.824 | 3.0 |
-| ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | NE | 14 | 0.824 | -7.0 |
-| ![Seattle Seahawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/2546b1d4fe5cf6c2d75cda53d3fb56bbc4dd43c6b00200586dab5a85df8fa492.png) | SEA | 14 | 0.824 | -3.0 |
-| ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | JAX | 13 | 0.765 | -3.0 |
-| ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | BUF | 12 | 0.706 | 3.5 |
-| ![Houston Texans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png) | HOU | 12 | 0.706 | 3.0 |
-| ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | LA | 12 | 0.706 | -3.5 |
-| ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | SF | 12 | 0.706 | -7.5 |
+[TABLE]
 
 ## Workflow 7: Automated Reporting Pipeline
 
@@ -411,7 +406,7 @@ generate_standings_report <- function(standings, sport, out_dir = tempdir()) {
 
   plot <- ggplot(standings, aes(x = reorder(team, win_pct), y = win_pct)) +
     geom_col(aes(fill = team), width = 0.7) +
-    scale_fill_sdv(sport = sport, alpha = 0.8) +
+    scale_fill_sdv(league = sport, alpha = 0.8) +
     labs(title = paste(toupper(sport), "Standings"), x = NULL, y = "Win Percentage") +
     theme_minimal() +
     theme(
@@ -422,7 +417,7 @@ generate_standings_report <- function(standings, sport, out_dir = tempdir()) {
   table <- standings |>
     select(rank, logo, team, win_pct) |>
     gt() |>
-    gt_sdv_logos(columns = "logo", sport = sport, height = 30) |>
+    gt_sdv_logos(columns = "logo", league = sport, height = 30) |>
     fmt_number(columns = "win_pct", decimals = 3)
 
   # Include a timestamp in exported files
@@ -460,19 +455,19 @@ nba_best <- hoopR::load_nba_standings(seasons = nba_season) |>
 
 multi_sport_comparison <- bind_rows(
   nfl_standings |> slice_max(win_pct, n = 1, with_ties = FALSE) |>
-    transmute(sport = "NFL", top_team = team, win_pct),
-  nba_best |> transmute(sport = "NBA", top_team = team_abbreviation, win_pct = value),
+    transmute(league = "NFL", top_team = team, win_pct),
+  nba_best |> transmute(league = "NBA", top_team = team_abbreviation, win_pct = value),
   standings |> slice_max(win_pct, n = 1, with_ties = FALSE) |>
-    transmute(sport = "MLB", top_team = logo, win_pct),
+    transmute(league = "MLB", top_team = logo, win_pct),
   team_perf |> slice_max(point_pct, n = 1, with_ties = FALSE) |>
-    transmute(sport = "NHL (points %)", top_team = team, win_pct = point_pct)
+    transmute(league = "NHL (points %)", top_team = team, win_pct = point_pct)
 )
 
 comparison_table <- multi_sport_comparison |>
   gt() |>
   fmt_number(columns = "win_pct", decimals = 3) |>
   cols_label(
-    sport = "Sport",
+    league = "Sport",
     top_team = "Top Team",
     win_pct = "Win %"
   ) |>
@@ -495,7 +490,7 @@ comparison_table
 | NFL                                               | DEN      | 0.824 |
 | NBA                                               | OKC      | 0.780 |
 | MLB                                               | MIL      | 0.636 |
-| NHL (points %)                                    | COL      | 0.738 |
+| NHL (points %)                                    | 17       | 0.738 |
 | ¹ Data: SportsDataverse packages \| Viz: sdvplotR |          |       |
 
 ## Best Practices for Workflows

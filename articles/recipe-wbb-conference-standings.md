@@ -26,7 +26,7 @@ dir.create(out_dir)
 
 The schedule has one row per game; stacking the home and away sides
 gives one row per team per game. Conference membership comes from
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md),
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md),
 which lists each team’s ESPN id and conference. The ids are integers on
 both sides, checked before they are matched.
 
@@ -34,9 +34,9 @@ both sides, checked before they are matched.
 
 schedule <- wehoop::load_wbb_schedule(season) |>
   filter(status_type_completed)
-members <- team_reference("wbb") |>
-  filter(conference == !!conference) |>
-  select(team_id = espn_team_id, team_abbr)
+members <- sdv_teams("wbb") |>
+  filter(conference_id == "wbb:sec") |>
+  transmute(team_id = as.integer(team_id), team_abbr = abbr)
 stopifnot(is.integer(schedule$home_id), is.integer(members$team_id))
 
 side <- function(me, opp) {
@@ -214,8 +214,8 @@ one glance.
 
 with_teams <- draft |>
   cols_unhide(c(team_abbr, conf_results)) |>
-  gt_sdv_logos(team_abbr, sport = "wbb", height = 28) |>
-  gt_merge_stack_team_color(team, overall, team_abbr, sport = "wbb") |>
+  gt_sdv_logos(team_abbr, league = "wbb", height = 28) |>
+  gt_merge_stack_team_color(team, overall, team_abbr, league = "wbb") |>
   gtExtras::gt_plt_winloss(
     conf_results,
     max_wins = max(lengths(table$conf_results)),
@@ -263,7 +263,7 @@ final <- with_teams |>
     "Ordered by conference record, then overall record; not the conference's tiebreaker.",
     locations = cells_column_labels(columns = conf)
   ) |>
-  gt_theme_sdv_team(team = champ$team_abbr, sport = "wbb")
+  gt_theme_sdv_team(team = champ$team_abbr, league = "wbb")
 final
 ```
 

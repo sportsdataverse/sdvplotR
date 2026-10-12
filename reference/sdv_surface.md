@@ -13,39 +13,52 @@ exists yet.
 ## Usage
 
 ``` r
-sdv_surface(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer", "fiba"),
-  team = NULL,
-  center_logo = FALSE,
-  ...
-)
+sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
 ```
 
 ## Arguments
 
-- sport:
+- league:
 
-  One of
-  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md),
-  or `"soccer"` or `"fiba"`. Each maps to a 'sportyR' surface:
+  A league with a playing surface: one of `names(surface_map)`, the
+  leagues of
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
+  that 'sportyR' draws, plus `"fiba"`. Each maps to a 'sportyR' surface,
+  after sdvplot's (Python) surfaces:
 
   |  |  |
   |----|----|
-  | sport | surface |
-  | `"nfl"` | `sportyR::geom_football("nfl")` |
+  | league | surface |
+  | `"nfl"`, `"aaf"`, `"ufl"`, `"usfl"`, `"xfl"` | `sportyR::geom_football("nfl")` |
   | `"cfb"` | `sportyR::geom_football("ncaa")` |
-  | `"nba"`, `"wnba"` | `sportyR::geom_basketball("nba")` / `("wnba")` |
+  | `"nba"` | `sportyR::geom_basketball("nba")` |
+  | `"nbagl"` | `sportyR::geom_basketball("nba g league")` |
+  | `"wnba"` | `sportyR::geom_basketball("wnba")` |
   | `"mbb"`, `"wbb"` | `sportyR::geom_basketball("ncaa")` |
-  | `"nhl"` | `sportyR::geom_hockey("nhl")` |
-  | `"mlb"` | `sportyR::geom_baseball("mlb")` |
-  | `"soccer"` | `sportyR::geom_soccer("fifa")`, 105 x 68 m (`pitch_updates` overrides) |
   | `"fiba"` | `sportyR::geom_basketball("fiba")` (28 x 15 m) |
+  | `"mlb"` | `sportyR::geom_baseball("mlb")` |
+  | `"milb"` | `sportyR::geom_baseball("milb")` |
+  | `"ncaa_baseball"` | `sportyR::geom_baseball("ncaa")` |
+  | `"nhl"`, `"whl"` | `sportyR::geom_hockey("nhl")` (no WHL rink in 'sportyR') |
+  | `"pwhl"`, `"ahl"`, `"echl"`, `"ohl"`, `"qmjhl"`, `"ushl"`, `"phf"` | [`sportyR::geom_hockey()`](https://sportyR.sportsdataverse.org/reference/geom_hockey.html) of the same league |
+  | `"ncaa_mhockey"`, `"ncaa_whockey"` | `sportyR::geom_hockey("ncaa")` |
+  | `"soccer"` | `sportyR::geom_soccer("fifa")`, 105 x 68 m (`pitch_updates` overrides) |
+
+  Python's `sdvplot` draws the PWHL on an NHL rink and the G League on
+  its own court class; 'sportyR' 2.2.3 has both, so they use their own
+  here.
 
 - team:
 
   `NULL` (the default) for the plain regulation surface, or one team
-  name or abbreviation, cleaned by
-  [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md).
+  identifier, resolved by
+  [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md).
+
+- season:
+
+  A season for the team's colors and center logo (see
+  [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md));
+  `NULL` is the current identity.
 
 - center_logo:
 

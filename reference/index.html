@@ -69,10 +69,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul></li>
 <li class="nav-item dropdown">
@@ -218,7 +243,7 @@
     <div class="section level2">
       <h2 id="logos-wordmarks-headshots">Logos, Wordmarks &amp; Headshots<a class="anchor" aria-label="anchor" href="#logos-wordmarks-headshots"></a></h2>
 
-      <div class="section-desc"><p>ggplot2 geoms and ggproto objects for rendering team logos, wordmarks and player headshots on plots. Every geom takes a <code>sport</code> argument.</p></div>
+      <div class="section-desc"><p>ggplot2 geoms and ggproto objects for rendering team logos, wordmarks and player headshots on plots. Every geom takes a <code>league</code> argument.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -863,9 +888,9 @@
         </dt>
         <dd>Team-Colored Cell Styles for 'reactable' Tables</dd>
       </dl></div><div class="section level2">
-      <h2 id="team-utilities">Team Utilities<a class="anchor" aria-label="anchor" href="#team-utilities"></a></h2>
+      <h2 id="teams-and-identifiers">Teams and Identifiers<a class="anchor" aria-label="anchor" href="#teams-and-identifiers"></a></h2>
 
-      <div class="section-desc"><p>Validate, clean and factor-order team abbreviations; look up team reference data and colors; control the image cache.</p></div>
+      <div class="section-desc"><p>The shared team index: list leagues and teams, resolve identifiers from any source, colours, logo and headshot URLs, and the data versions and cache.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -874,52 +899,45 @@
 
       <dl><dt>
 
-          <code><a href="supported_sports.html">supported_sports()</a></code>
+          <code><a href="sdv_leagues.html">sdv_leagues()</a></code>
 
         </dt>
-        <dd>Supported Sports</dd>
+        <dd>Leagues sdvplotR knows</dd>
 
         <dt>
 
-          <code><a href="valid_team_names.html">valid_team_names()</a></code>
+          <code><a href="sdv_teams.html">sdv_teams()</a></code>
 
         </dt>
-        <dd>Output Valid Team Names</dd>
+        <dd>Teams in the sdvplotR index</dd>
 
         <dt>
 
-          <code><a href="team_reference.html">team_reference()</a></code>
+          <code><a href="sdv_resolve.html">sdv_resolve()</a></code>
 
         </dt>
-        <dd>Get Team Reference Data</dd>
+        <dd>Resolve team identifiers to canonical team ids</dd>
 
         <dt>
 
-          <code><a href="clean_team_abbrs.html">clean_team_abbrs()</a></code>
+          <code><a href="sdv_suggest.html">sdv_suggest()</a></code>
 
         </dt>
-        <dd>Standardize Team Abbreviations</dd>
-
-        <dt>
-
-          <code><a href="resolve_historical_abbr.html">resolve_historical_abbr()</a></code>
-
-        </dt>
-        <dd>Resolve Historical Team Abbreviations</dd>
+        <dd>Suggest teams for a value that did not resolve</dd>
 
         <dt>
 
           <code><a href="sdv_team_colors.html">sdv_team_colors()</a></code>
 
         </dt>
-        <dd>Get Team Colors</dd>
+        <dd>Team colours</dd>
 
         <dt>
 
           <code><a href="sdv_color_palette.html">sdv_color_palette()</a></code>
 
         </dt>
-        <dd>Get Team Color Palette</dd>
+        <dd>Team colour palette</dd>
 
         <dt>
 
@@ -930,17 +948,38 @@
 
         <dt>
 
-          <code><a href="sdv_logo_url.html">sdv_logo_url()</a></code> <code><a href="sdv_logo_url.html">sdv_headshot_url()</a></code>
+          <code><a href="sdv_logo_url.html">sdv_logo_url()</a></code>
 
         </dt>
-        <dd>Team Logo and Player Headshot URLs</dd>
+        <dd>Team logo and wordmark URLs</dd>
 
         <dt>
 
-          <code><a href="sdvplotR_clear_cache.html">sdvplotR_clear_cache()</a></code>
+          <code><a href="sdv_marks.html">sdv_marks()</a></code>
 
         </dt>
-        <dd>Clear the sdvplotR Caches</dd>
+        <dd>Every archived mark for a team</dd>
+
+        <dt>
+
+          <code><a href="sdv_headshot_url.html">sdv_headshot_url()</a></code>
+
+        </dt>
+        <dd>Player headshot URLs</dd>
+
+        <dt>
+
+          <code><a href="sdv_versions.html">sdv_versions()</a></code>
+
+        </dt>
+        <dd>Versions of the data sdvplotR is using</dd>
+
+        <dt>
+
+          <code><a href="sdv_clear_cache.html">sdv_clear_cache()</a></code>
+
+        </dt>
+        <dd>Clear the sdvplotR caches</dd>
       </dl></div><div class="section level2">
       <h2 id="court-and-pitch-coordinates">Court and Pitch Coordinates<a class="anchor" aria-label="anchor" href="#court-and-pitch-coordinates"></a></h2>
 
@@ -997,6 +1036,50 @@
         </dt>
         <dd>Team-Styled Playing Surfaces</dd>
       </dl></div><div class="section level2">
+      <h2 id="interactive-plots-and-maps">Interactive plots and maps<a class="anchor" aria-label="anchor" href="#interactive-plots-and-maps"></a></h2>
+
+      <div class="section-desc"><p>Team marks on plotly charts, interactive ggiraph layers and leaflet maps.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="add_sdv_logos.html">add_sdv_logos()</a></code> <code><a href="add_sdv_logos.html">add_sdv_wordmarks()</a></code> <code><a href="add_sdv_logos.html">add_sdv_headshots()</a></code>
+
+        </dt>
+        <dd>Team logos, wordmarks and headshots on plotly charts</dd>
+
+        <dt>
+
+          <code><a href="sdv_axis_logos.html">sdv_axis_logos()</a></code>
+
+        </dt>
+        <dd>Team logos as plotly axis labels</dd>
+
+        <dt>
+
+          <code><a href="sdv_colorway.html">sdv_colorway()</a></code>
+
+        </dt>
+        <dd>Team colours as a plotly colorway</dd>
+
+        <dt>
+
+          <code><a href="geom_sdv_logos_interactive.html">geom_sdv_logos_interactive()</a></code> <code><a href="geom_sdv_logos_interactive.html">geom_sdv_wordmarks_interactive()</a></code> <code><a href="geom_sdv_logos_interactive.html">geom_sdv_headshots_interactive()</a></code>
+
+        </dt>
+        <dd>Interactive team logos, wordmarks and headshots (ggiraph)</dd>
+
+        <dt>
+
+          <code><a href="addSdvLogoMarkers.html">addSdvLogoMarkers()</a></code>
+
+        </dt>
+        <dd>Team logo markers on a leaflet map</dd>
+      </dl></div><div class="section level2">
       <h2 id="plot-titles">Plot Titles<a class="anchor" aria-label="anchor" href="#plot-titles"></a></h2>
 
       <div class="section-desc"><p>Add a logo or image next to a ggplot2 title.</p></div>
@@ -1044,22 +1127,6 @@
 
         </dt>
         <dd>Objects exported from other packages</dd>
-      </dl></div><div class="section level2">
-      <h2 id="deprecated">Deprecated<a class="anchor" aria-label="anchor" href="#deprecated"></a></h2>
-
-      <div class="section-desc"><p>Former gtUtils names, kept so ported code keeps working.</p></div>
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="sdvplotR-deprecated.html">gt_color_legend()</a></code> <code><a href="sdvplotR-deprecated.html">gt_centered_legend()</a></code>
-
-        </dt>
-        <dd>Deprecated legend functions</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

@@ -48,19 +48,19 @@ games <- schedules |>
   filter(game_type == "REG", !is.na(home_score)) |>
   select(season, home_team, away_team, home_score, away_score) |>
   nflreadr::clean_homeaway() |>
-  mutate(franchise = clean_team_abbrs(team, sport = "nfl"))
+  mutate(franchise = sdv_resolve(team, league = "nfl"))
 ```
 
 The schedules keep each season’s abbreviation, so the Raiders are `OAK`
 before 2020 and `LV` after.
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
 maps every relocated abbreviation to today’s franchise key, which is
 what lets one franchise’s ten seasons add up.
 
 ``` r
 
-clean_team_abbrs(c("OAK", "SD", "STL"), sport = "nfl")
-#> [1] "LV"  "LAC" "LA"
+sdv_resolve(c("OAK", "SD", "STL"), league = "nfl")
+#> [1] "13" "24" "14"
 ```
 
 Each franchise’s record per season is then one summary:
@@ -124,9 +124,9 @@ champions <- schedules |>
   filter(game_type == "SB") |>
   transmute(
     season,
-    franchise = clean_team_abbrs(
+    franchise = sdv_resolve(
       if_else(home_score > away_score, home_team, away_team),
-      sport = "nfl"
+      league = "nfl"
     )
   )
 
@@ -195,9 +195,9 @@ head(wide, 3)
 #> # A tibble: 3 × 6
 #>   years     `1`   `2`   `3`   `4`   `5`  
 #>   <chr>     <chr> <chr> <chr> <chr> <chr>
-#> 1 1999-2008 IND   NE    PIT   PHI   TEN  
-#> 2 2000-2009 IND   NE    PHI   PIT   GB   
-#> 3 2001-2010 NE    IND   PIT   PHI   GB
+#> 1 1999-2008 11    17    23    21    10   
+#> 2 2000-2009 11    17    21    23    9    
+#> 3 2001-2010 17    11    23    21    9
 ```
 
 ## 5. Color first, then snake
@@ -219,15 +219,15 @@ wide |>
 
 | years     | 1   | 2   | 3   | 4   | 5   |     | years     | 1   | 2   | 3   | 4   | 5   |
 |-----------|-----|-----|-----|-----|-----|-----|-----------|-----|-----|-----|-----|-----|
-| 1999-2008 | IND | NE  | PIT | PHI | TEN |     | 2008-2017 | NE  | PIT | GB  | ATL | NO  |
-| 2000-2009 | IND | NE  | PHI | PIT | GB  |     | 2009-2018 | NE  | PIT | GB  | NO  | SEA |
-| 2001-2010 | NE  | IND | PIT | PHI | GB  |     | 2010-2019 | NE  | GB  | PIT | SEA | NO  |
-| 2002-2011 | NE  | IND | PIT | PHI | GB  |     | 2011-2020 | NE  | GB  | SEA | PIT | NO  |
-| 2003-2012 | NE  | IND | PIT | GB  | BAL |     | 2012-2021 | NE  | SEA | KC  | GB  | PIT |
-| 2004-2013 | NE  | IND | PIT | LAC | GB  |     | 2013-2022 | KC  | NE  | SEA | GB  | PIT |
-| 2005-2014 | NE  | IND | PIT | GB  | LAC |     | 2014-2023 | KC  | NE  | PIT | GB  | SEA |
-| 2006-2015 | NE  | GB  | IND | PIT | BAL |     | 2015-2024 | KC  | PIT | BUF | GB  | BAL |
-| 2007-2016 | NE  | GB  | PIT | IND | DEN |     | 2016-2025 | KC  | BUF | BAL | PIT | PHI |
+| 1999-2008 | 11  | 17  | 23  | 21  | 10  |     | 2008-2017 | 17  | 23  | 9   | 1   | 18  |
+| 2000-2009 | 11  | 17  | 21  | 23  | 9   |     | 2009-2018 | 17  | 23  | 9   | 18  | 26  |
+| 2001-2010 | 17  | 11  | 23  | 21  | 9   |     | 2010-2019 | 17  | 9   | 23  | 26  | 18  |
+| 2002-2011 | 17  | 11  | 23  | 21  | 9   |     | 2011-2020 | 17  | 9   | 26  | 23  | 18  |
+| 2003-2012 | 17  | 11  | 23  | 9   | 33  |     | 2012-2021 | 17  | 26  | 12  | 9   | 23  |
+| 2004-2013 | 17  | 11  | 23  | 24  | 9   |     | 2013-2022 | 12  | 17  | 26  | 23  | 9   |
+| 2005-2014 | 17  | 11  | 23  | 9   | 24  |     | 2014-2023 | 12  | 17  | 23  | 9   | 26  |
+| 2006-2015 | 17  | 9   | 11  | 23  | 33  |     | 2015-2024 | 12  | 23  | 2   | 9   | 33  |
+| 2007-2016 | 17  | 9   | 23  | 11  | 7   |     | 2016-2025 | 12  | 2   | 33  | 23  | 21  |
 
 [`gt_snake()`](https://sdvplotR.sportsdataverse.org/reference/gt_snake.md)
 rebuilds the table with the rows cut into two blocks side by side, and
@@ -263,7 +263,7 @@ team’s full name.
 ``` r
 
 # ... |>
-gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), sport = "nfl", height = 34)
+gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), league = "nfl", height = 34)
 ```
 
 The pattern picks the snaked columns out by name rather than listing ten
@@ -322,7 +322,7 @@ wide |>
   gt_highlight_cells(-years, condition = mask_2, fill = "#FFA970") |>
   gt_snake(n_cols = 2) |>
   gt_theme_athletic() |>
-  gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), sport = "nfl", height = 34) |>
+  gt_sdv_logos(columns = matches("^[1-5]_[0-9]+$"), league = "nfl", height = 34) |>
   cols_align(columns = everything(), "center") |>
   tab_spanner(columns = matches("^[1-5]_1$"), label = "Most wins in the window", id = "block_1") |>
   tab_spanner(columns = matches("^[1-5]_2$"), label = "Most wins in the window", id = "block_2") |>

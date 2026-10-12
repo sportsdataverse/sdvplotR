@@ -7,7 +7,7 @@ secondary color, and the column labels are set in the primary color. The
 colors come from
 [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md),
 so any abbreviation, alias or name
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
 resolves works here.
 
 ## Usage
@@ -16,8 +16,10 @@ resolves works here.
 gt_theme_sdv_team(
   gt_object,
   team = NULL,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   density = c("comfortable", "compact", "social"),
+  season = NULL,
+  id_system = "auto",
   ...
 )
 ```
@@ -30,19 +32,33 @@ gt_theme_sdv_team(
 
 - team:
 
-  Character. One team, as an abbreviation, alias or name for `sport`.
+  Character. One team, as an abbreviation, alias or name for `league`.
   Defaults to `NULL`, which uses the SportsDataverse colors.
 
-- sport:
+- league:
 
-  Character. The league `team` belongs to; see
-  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md).
-  Defaults to `"nfl"`.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md):
+  the league `team` belongs to. Needed with a `team`.
 
 - density:
 
   Character. The type and padding scale. One of `"comfortable"`,
   `"compact"`, or `"social"`. See Density. Defaults to `"comfortable"`.
+
+- season:
+
+  `NULL` for today's mark, or a season (or one per team): the mark the
+  team wore that season where the archive dates its marks.
+
+- id_system:
+
+  `"auto"` (try every id system in priority order) or one id system:
+  `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
+  `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
+  `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
+  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
+  overlap ESPN's, so `"auto"` never reads a number as one).
 
 - ...:
 
@@ -95,7 +111,7 @@ leaders <- data.frame(
 )
 gt(leaders) |>
   tab_header("Chiefs yardage leaders", "2023 regular season") |>
-  gt_theme_sdv_team(team = "KC", sport = "nfl")
+  gt_theme_sdv_team(team = "KC", league = "nfl")
 
 
   

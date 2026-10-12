@@ -9,9 +9,12 @@ html tables with the 'gt' package.
 gt_sdv_wordmarks(
   gt_object,
   columns,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   height = 30,
-  locations = NULL
+  locations = NULL,
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 ```
 
@@ -27,9 +30,10 @@ gt_sdv_wordmarks(
   The columns for which the image translation should be applied.
   Argument has no effect if `locations` is not `NULL`.
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - height:
 
@@ -46,6 +50,17 @@ gt_sdv_wordmarks(
   and
   [`gt::cells_row_groups()`](https://gt.rstudio.com/reference/cells_row_groups.html)
   helper functions can be used here.
+
+- season:
+
+  `NULL` (the default) for today's marks, or one season whose marks
+  every cell shows (the ending year for the NHL). See the Historical
+  logos section.
+
+- id_system, strict:
+
+  How the team values are read and what an unresolved one does, as in
+  [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md).
 
 ## Value
 
@@ -65,7 +80,7 @@ library(gt)
 df <- data.frame(team = c("KC", "BUF", "SF"), wins = c(14, 13, 12))
 df |>
   gt() |>
-  gt_sdv_wordmarks(columns = "team", sport = "nfl")
+  gt_sdv_wordmarks(columns = "team", league = "nfl")
 
 
   

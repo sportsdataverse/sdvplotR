@@ -11,9 +11,7 @@ gt_bold_rows(
   gt_object,
   rows = NULL,
   text_color = "black",
-  highlight_color = NULL,
-  row = NULL,
-  filter_statement = NULL
+  highlight_color = NULL
 )
 ```
 
@@ -38,15 +36,6 @@ gt_bold_rows(
   Character. The background fill for the bolded rows. Set to `NULL` for
   no fill. Defaults to `NULL`.
 
-- row:
-
-  Deprecated. Use `rows`.
-
-- filter_statement:
-
-  Deprecated. Use `rows`, which takes the expression directly rather
-  than as a string.
-
 ## Value
 
 Returns a modified `gt` table with the chosen rows bolded.
@@ -55,9 +44,7 @@ Returns a modified `gt` table with the chosen rows bolded.
 
 `rows` is evaluated against the table's underlying data, so
 `rows = wins > 10` bolds the rows where that is `TRUE`; a numeric vector
-picks rows by index. The deprecated `row` is passed on to `rows`, and
-the deprecated `filter_statement` string, when given, takes precedence
-over `rows`. The styling is applied with a single
+picks rows by index. The styling is applied with a single
 [`gt::tab_style()`](https://gt.rstudio.com/reference/tab_style.html)
 over
 [`gt::cells_body()`](https://gt.rstudio.com/reference/cells_body.html),

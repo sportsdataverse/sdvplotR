@@ -90,7 +90,7 @@ team’s logo, the SportsDataverse logo archive’s copy of it.
 ``` r
 
 nfl_wide <- nfl |>
-  mutate(logo = sdv_logo_url(team, sport = "nfl")) |>
+  mutate(logo = sdv_logo_url(team, league = "nfl")) |>
   pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo, names_sort = TRUE) |>
   arrange(tier)
 ```
@@ -147,22 +147,22 @@ nfl_wide |>
 For the second list we rank the ACC’s men’s basketball teams by
 efficiency margin: points scored minus points allowed per 100
 possessions over the 2025-26 season, tournaments included.
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-lists the conference’s members, with their ESPN ids and logos. The box
-scores hold one row per team per game; joining each row to its
-opponent’s row gives the possessions on both sides.
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
+lists the conference’s members, with their ESPN ids. The box scores hold
+one row per team per game; joining each row to its opponent’s row gives
+the possessions on both sides.
 
 ``` r
 
-acc <- team_reference("mbb") |>
-  filter(conference == "ACC")
+acc <- sdv_teams("mbb") |>
+  filter(conference_id == "mbb:acc")
 
 # possessions estimated from the box score
 box <- hoopR::load_mbb_team_box(seasons = 2026) |>
   mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
 
 acc_margin <- box |>
-  filter(team_id %in% acc$espn_team_id) |>
+  filter(team_id %in% acc$team_id) |>
   inner_join(
     select(box, game_id, opponent_team_id = team_id, opp_poss = poss),
     by = c("game_id", "opponent_team_id")
@@ -171,7 +171,7 @@ acc_margin <- box |>
     eff_margin = 100 * sum(team_score - opponent_team_score) / sum((poss + opp_poss) / 2),
     .by = team_id
   ) |>
-  mutate(team = acc$team_abbr[match(team_id, acc$espn_team_id)])
+  mutate(team = acc$abbr[match(team_id, acc$team_id)])
 ```
 
 This time the tiers are uneven: the top quarter, the middle half and the
@@ -202,7 +202,7 @@ conferences don’t).
 ``` r
 
 acc_wide <- acc_margin |>
-  mutate(logo = sdv_logo_url(team, sport = "mbb", variant = "dark")) |>
+  mutate(logo = sdv_logo_url(team, league = "mbb", variant = "dark")) |>
   pivot_wider(id_cols = tier, names_from = tier_order, values_from = logo, names_sort = TRUE) |>
   arrange(tier)
 ```

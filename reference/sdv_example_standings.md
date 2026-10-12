@@ -4,7 +4,7 @@ Real standings for one completed season in two leagues, one row per
 team: the 2025 NFL season and the 2025-26 NBA season. The reference
 examples run on it, so the table and plot helpers are shown on sports
 data. Each `team` is the abbreviation
-[`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
 lists, so it works as the team input of every logo, color and headshot
 helper as it is.
 
@@ -21,7 +21,7 @@ league, conference, division and division finish, and 16 columns:
 
 - league:
 
-  `"nfl"` or `"nba"`, the `sport` value the helpers take.
+  `"nfl"` or `"nba"`, the `league` value the helpers take.
 
 - season:
 
@@ -91,8 +91,7 @@ ranks from ESPN's standings (the endpoint
 [`hoopR::espn_nba_standings()`](https://hoopR.sportsdataverse.org/reference/espn_mbb_standings.html)
 reads), whose records the script checks against the box scores.
 `last_season_wins` comes from the same loaders one season back. Team
-names and ESPN ids come from
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md).
+names and ESPN ids come from sdvplotR's team reference.
 
 ## Examples
 
@@ -118,7 +117,7 @@ table(playoffs$league)
 # \donttest{
 subset(sdv_example_standings, division == "Atlantic", c(team, wins, losses)) |>
   gt::gt() |>
-  gt_sdv_logos(columns = "team", sport = "nba")
+  gt_sdv_logos(columns = "team", league = "nba")
 
 
   

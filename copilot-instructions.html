@@ -69,10 +69,35 @@
     <li><a class="dropdown-item" href="reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="reference/sdv_team_colors.html">Team Colors</a></li>
   </ul></li>
 <li class="nav-item dropdown">
@@ -223,7 +248,7 @@
 <div class="section level2">
 <h2 id="golden-rules">Golden rules<a class="anchor" aria-label="anchor" href="#golden-rules"></a></h2>
 <ol style="list-style-type: decimal"><li>Never re-implement ggpath rendering: geoms delegate to <code>ggpath::GeomFromPath$draw_panel()</code>; theme elements go through <code>sdv_element_to_path_grob()</code>, which builds a real <code><a href="https://mrcaseb.github.io/ggpath/reference/element_path.html" class="external-link">ggpath::element_path()</a></code> (an S7 object – never <code><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure()</a></code> a list with that class).</li>
-<li>Resolve every team key through <code><a href="reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> and the resolvers in <code>R/utils.R</code> (<code>logo_from_team()</code>, <code>wordmark_from_team()</code>, <code>headshot_from_id()</code>, <code>resolve_logo_url()</code>). Do not duplicate URL logic.</li>
+<li>Resolve every team key through <code>clean_team_abbrs()</code> and the resolvers in <code>R/utils.R</code> (<code>logo_from_team()</code>, <code>wordmark_from_team()</code>, <code>headshot_from_id()</code>, <code>resolve_logo_url()</code>). Do not duplicate URL logic.</li>
 <li>Every team-aware function takes <code>sport</code>, validated with <code>rlang::arg_match0(sport, supported_sports())</code>. The generic <code>gt</code> table toolkit ported from gtUtils (themes, legends, save/crop) works on any table and takes no <code>sport</code>.</li>
 <li>Team data changes go in <code>data-raw/generate_logo_ref.R</code> or <code>R/historical_teams.R</code>, then regenerate <code>R/sysdata.rda</code>. Never hand-edit <code>NAMESPACE</code>, <code>man/</code>, <code>README.md</code> or the <code>.rda</code>.</li>
 <li>Tests run offline and assert on URLs / HTML; image rendering tests use <code>skip_on_cran()</code> + <code>skip_if_offline()</code>.</li>

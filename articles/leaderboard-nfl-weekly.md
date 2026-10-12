@@ -173,9 +173,9 @@ power |>
     "Data: nflverse play-by-play via nflreadr. Pass and run plays;",
     "defense is EPA allowed (lower is better). Viz: sdvplotR"
   )) |>
-  gt_merge_stack_team_color(name, record, team, sport = "nfl") |>
+  gt_merge_stack_team_color(name, record, team, league = "nfl") |>
   gt_delta(net, last3, column_label = "Trend", decimals = 3, arrows = TRUE) |>
-  gt_sdv_logos(columns = team, sport = "nfl", height = 26) |>
+  gt_sdv_logos(columns = team, league = "nfl", height = 26) |>
   gt_theme_athletic()
 ```
 
@@ -198,7 +198,7 @@ ggplot(power, aes(x = off_epa, y = def_epa)) +
   geom_abline(slope = 1, intercept = seq(-0.6, 0.6, by = 0.1), colour = "grey88", linewidth = 0.3) +
   geom_hline(yintercept = mean(power$def_epa), linetype = "dashed", colour = "grey55") +
   geom_vline(xintercept = mean(power$off_epa), linetype = "dashed", colour = "grey55") +
-  geom_sdv_logos(aes(team = team), sport = "nfl", width = 0.06, alpha = 0.9) +
+  geom_sdv_logos(aes(team = team), league = "nfl", width = 0.06, alpha = 0.9) +
   # logos do not widen the limits, so leave room for the outermost ones
   scale_x_continuous(expand = expansion(mult = 0.07)) +
   scale_y_reverse(expand = expansion(mult = 0.07)) +
@@ -282,8 +282,8 @@ qbs |>
     epa,
     palette = good_bad, domain = c(-1, 1) * max(abs(qbs$epa)), digits = 3, pill_height = 22
   ) |>
-  gt_sdv_headshots(columns = headshot, sport = "nfl", height = 34) |>
-  gt_sdv_logos(columns = team, sport = "nfl", height = 22) |>
+  gt_sdv_headshots(columns = headshot, league = "nfl", id_system = "gsis", height = 34) |>
+  gt_sdv_logos(columns = team, league = "nfl", height = 22) |>
   gt_theme_sdv()
 ```
 
@@ -317,7 +317,7 @@ and to the right is efficient and accurate.
 ggplot(qbs, aes(x = cpoe, y = epa)) +
   geom_hline(yintercept = mean(qbs$epa), linetype = "dashed", colour = "grey55") +
   geom_vline(xintercept = mean(qbs$cpoe), linetype = "dashed", colour = "grey55") +
-  geom_sdv_headshots(aes(player_id = id), sport = "nfl", height = 0.08) +
+  geom_sdv_headshots(aes(player_id = id), league = "nfl", id_system = "gsis", height = 0.08) +
   ggrepel::geom_text_repel(
     aes(label = sub("^\\S+\\s+", "", name)), # the last name
     size = 3, colour = "grey25", point.size = 13, box.padding = 0.35,

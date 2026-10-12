@@ -3,7 +3,7 @@
 ## Logos, Wordmarks & Headshots
 
 ggplot2 geoms and ggproto objects for rendering team logos, wordmarks
-and player headshots on plots. Every geom takes a `sport` argument.
+and player headshots on plots. Every geom takes a `league` argument.
 
 - [`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
   [`GeomSDVlogo`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
@@ -401,32 +401,36 @@ reactable tables.
   [`reactable_sdv_team_color_bg()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_team_color.md)
   : Team-Colored Cell Styles for 'reactable' Tables
 
-## Team Utilities
+## Teams and Identifiers
 
-Validate, clean and factor-order team abbreviations; look up team
-reference data and colors; control the image cache.
+The shared team index: list leagues and teams, resolve identifiers from
+any source, colours, logo and headshot URLs, and the data versions and
+cache.
 
-- [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md)
-  : Supported Sports
-- [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
-  : Output Valid Team Names
-- [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-  : Get Team Reference Data
-- [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-  : Standardize Team Abbreviations
-- [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)
-  : Resolve Historical Team Abbreviations
+- [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
+  : Leagues sdvplotR knows
+- [`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
+  : Teams in the sdvplotR index
+- [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+  : Resolve team identifiers to canonical team ids
+- [`sdv_suggest()`](https://sdvplotR.sportsdataverse.org/reference/sdv_suggest.md)
+  : Suggest teams for a value that did not resolve
 - [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md)
-  : Get Team Colors
+  : Team colours
 - [`sdv_color_palette()`](https://sdvplotR.sportsdataverse.org/reference/sdv_color_palette.md)
-  : Get Team Color Palette
+  : Team colour palette
 - [`sdv_team_factor()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_factor.md)
   : Order Team Names as a Factor
 - [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
-  [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
-  : Team Logo and Player Headshot URLs
-- [`sdvplotR_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR_clear_cache.md)
-  : Clear the sdvplotR Caches
+  : Team logo and wordmark URLs
+- [`sdv_marks()`](https://sdvplotR.sportsdataverse.org/reference/sdv_marks.md)
+  : Every archived mark for a team
+- [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_headshot_url.md)
+  : Player headshot URLs
+- [`sdv_versions()`](https://sdvplotR.sportsdataverse.org/reference/sdv_versions.md)
+  : Versions of the data sdvplotR is using
+- [`sdv_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdv_clear_cache.md)
+  : Clear the sdvplotR caches
 
 ## Court and Pitch Coordinates
 
@@ -452,6 +456,26 @@ colors with its logo at center.
 
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   : Team-Styled Playing Surfaces
+
+## Interactive plots and maps
+
+Team marks on plotly charts, interactive ggiraph layers and leaflet
+maps.
+
+- [`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+  [`add_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+  [`add_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+  : Team logos, wordmarks and headshots on plotly charts
+- [`sdv_axis_logos()`](https://sdvplotR.sportsdataverse.org/reference/sdv_axis_logos.md)
+  : Team logos as plotly axis labels
+- [`sdv_colorway()`](https://sdvplotR.sportsdataverse.org/reference/sdv_colorway.md)
+  : Team colours as a plotly colorway
+- [`geom_sdv_logos_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+  [`geom_sdv_wordmarks_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+  [`geom_sdv_headshots_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+  : Interactive team logos, wordmarks and headshots (ggiraph)
+- [`addSdvLogoMarkers()`](https://sdvplotR.sportsdataverse.org/reference/addSdvLogoMarkers.md)
+  : Team logo markers on a leaflet map
 
 ## Plot Titles
 
@@ -481,11 +505,3 @@ Generic image geoms and theme elements provided by the ggpath backend.
   [`geom_median_lines`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
   [`GeomRefLines`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
   : Objects exported from other packages
-
-## Deprecated
-
-Former gtUtils names, kept so ported code keeps working.
-
-- [`gt_color_legend()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR-deprecated.md)
-  [`gt_centered_legend()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR-deprecated.md)
-  : Deprecated legend functions

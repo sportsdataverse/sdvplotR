@@ -188,7 +188,7 @@ margin_bars <- nanoplot_options(
 )
 
 with_marks <- draft |>
-  gt_sdv_logos(team, sport = "cfb", height = 24, include_name = TRUE) |>
+  gt_sdv_logos(team, league = "cfb", height = 24, include_name = TRUE) |>
   cols_nanoplot(
     columns = margins, plot_type = "bar", autoscale = TRUE,
     new_col_name = "bars", new_col_label = "Game by game",

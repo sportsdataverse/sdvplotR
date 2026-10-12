@@ -99,7 +99,9 @@ fbs <- sides |>
   filter(division %in% "fbs") |>
   arrange(week, game_id) |>
   group_by(school) |>
-  summarise(conference = last(conference), .groups = "drop")
+  summarise(conference = last(conference), .groups = "drop") |>
+  # the index keys three conferences by their short codes
+  mutate(conference = recode(conference, "American Athletic" = "AAC", "Conference USA" = "CUSA", "FBS Independents" = "FBS Indep."))
 
 if (schedule_ok) {
   records <- bind_rows(
@@ -155,23 +157,25 @@ ratings <- inner_join(
 ) |>
   mutate(net = off - dfn) |>
   inner_join(fbs, by = "school") |>
+  # "Charlotte" alone is the 49ers or the Saints; the 49ers are the FBS team
+  mutate(key = sub("^Charlotte$", "Charlotte 49ers", school)) |>
   arrange(desc(net), school) |> # the school breaks a tie, so an unchanged week renders the same
   mutate(rank = row_number())
 
 top25 <- ratings |>
   slice_head(n = 25) |>
-  mutate(logo = school, conf_logo = conference) |>
+  mutate(logo = key, conf_logo = conference) |>
   select(rank, logo, school, conf_logo, conference, record, off, dfn, net)
 head(top25)
 #> # A tibble: 6 × 9
-#>    rank logo       school     conf_logo    conference record   off     dfn   net
-#>   <int> <chr>      <chr>      <chr>        <chr>      <chr>  <dbl>   <dbl> <dbl>
-#> 1     1 Alabama    Alabama    SEC          SEC        5-1    0.307 -0.0764 0.383
-#> 2     2 Georgia    Georgia    SEC          SEC        6-0    0.276 -0.108  0.383
-#> 3     3 Notre Dame Notre Dame FBS Indepen… FBS Indep… 6-0    0.257 -0.125  0.382
-#> 4     4 Wisconsin  Wisconsin  Big Ten      Big Ten    4-1    0.170 -0.188  0.357
-#> 5     5 Indiana    Indiana    Big Ten      Big Ten    6-0    0.240 -0.110  0.350
-#> 6     6 Nebraska   Nebraska   Big Ten      Big Ten    5-1    0.205 -0.123  0.327
+#>    rank logo       school     conf_logo  conference record   off     dfn   net
+#>   <int> <chr>      <chr>      <chr>      <chr>      <chr>  <dbl>   <dbl> <dbl>
+#> 1     1 Alabama    Alabama    SEC        SEC        5-1    0.307 -0.0764 0.383
+#> 2     2 Georgia    Georgia    SEC        SEC        6-0    0.276 -0.108  0.383
+#> 3     3 Notre Dame Notre Dame FBS Indep. FBS Indep. 6-0    0.257 -0.125  0.382
+#> 4     4 Wisconsin  Wisconsin  Big Ten    Big Ten    4-1    0.170 -0.188  0.357
+#> 5     5 Indiana    Indiana    Big Ten    Big Ten    6-0    0.240 -0.110  0.350
+#> 6     6 Nebraska   Nebraska   Big Ten    Big Ten    5-1    0.205 -0.123  0.327
 ```
 
 sdvplotR has a row for every FBS conference too, so
@@ -200,8 +204,8 @@ top25 |>
     "FBS vs FBS pass and run plays, garbage time removed; defense is EPA allowed",
     "(lower is better). Viz: sdvplotR"
   )) |>
-  gt_sdv_logos(columns = logo, sport = "cfb", height = 26) |>
-  gt_sdv_logos(columns = conf_logo, sport = "cfb", height = 20) |>
+  gt_sdv_logos(columns = logo, league = "cfb", height = 26) |>
+  gt_sdv_logos(columns = conf_logo, league = "cfb", height = 20) |>
   gt_theme_ncaa()
 ```
 
@@ -212,12 +216,10 @@ top25 |>
 One row per conference, ordered by its average rating, each team’s logo
 at its net rating (nudged up and down in turn so neighbors overlap
 less). The bar in the conference’s color spans it from its lowest team
-to its highest, and the tick marks its average.
-[`scale_colour_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
-and
+to its highest, and the tick marks its average. The colors come from
+`sdv_teams(include_conferences = TRUE)` and
 [`scale_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
-take the conference names like any team key, so the colors and the
-conference marks on the axis come from sdvplotR
+draws the conference marks on the axis from the conference keys
 ([`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
 lets the axis draw images).
 
@@ -235,6 +237,10 @@ teams <- ratings |>
   mutate(y = row + if_else(row_number() %% 2 == 0, 0.17, -0.17)) |>
   ungroup()
 
+conf_rows <- sdv_teams("cfb", include_conferences = TRUE) |>
+  filter(program == "conference")
+conf_colors <- setNames(conf_rows$color_primary, conf_rows$team_id)
+
 ggplot() +
   geom_vline(xintercept = 0, linetype = "dashed", colour = "grey60") +
   geom_segment(
@@ -247,9 +253,9 @@ ggplot() +
     shape = "|", size = 9
   ) +
   # a discrete axis still takes numbers: row 3 is the third conference, so 3.17 sits just above it
-  geom_sdv_logos(data = teams, aes(x = net, y = y, team = school), sport = "cfb", height = 0.04) +
-  scale_colour_sdv(sport = "cfb", guide = "none") +
-  scale_y_sdv(sport = "cfb", size = 30, expand = expansion(add = 0.6)) +
+  geom_sdv_logos(data = teams, aes(x = net, y = y, team = key), league = "cfb", height = 0.04) +
+  scale_colour_manual(values = conf_colors, guide = "none") +
+  scale_y_sdv(league = "cfb", size = 30, expand = expansion(add = 0.6)) +
   scale_x_continuous(expand = expansion(mult = 0.04)) +
   labs(
     title = paste("FBS teams by conference,", season, through),
@@ -264,8 +270,6 @@ ggplot() +
     panel.grid.major.y = element_blank()
   ) +
   theme_y_sdv()
-#> Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:
-#> known incorrect sRGB profile
 ```
 
 ![Every FBS team's logo placed by its net opponent-adjusted EPA per
@@ -285,7 +289,7 @@ are the top 25’s averages.
 ggplot(top25, aes(x = off, y = dfn)) +
   geom_hline(yintercept = mean(top25$dfn), linetype = "dashed", colour = "grey55") +
   geom_vline(xintercept = mean(top25$off), linetype = "dashed", colour = "grey55") +
-  geom_sdv_logos(aes(team = school), sport = "cfb", height = 0.075) +
+  geom_sdv_logos(aes(team = logo), league = "cfb", height = 0.075) +
   scale_x_continuous(expand = expansion(mult = 0.08)) +
   scale_y_reverse(expand = expansion(mult = 0.08)) +
   labs(

@@ -40,13 +40,13 @@ The team box score has one row per team per game; `season_type` 2 is the
 regular season. 2025 is loaded too, for Golden State’s first season.
 ESPN files each All-Star Game as a regular-season game between two teams
 that aren’t WNBA clubs, so an inner join on the ESPN team id to
-`team_reference("wnba")` drops them, and adds each team’s sdvplotR
+`sdv_teams("wnba")` drops them, and adds each team’s sdvplotR
 abbreviation and conference.
 
 ``` r
 
-wnba_teams <- team_reference("wnba") |>
-  select(team_id = espn_team_id, team = team_abbr, conference)
+wnba_teams <- sdv_teams("wnba") |>
+  transmute(team_id = as.integer(team_id), team = abbr, conference = sub(" Conference$", "", conference))
 
 box_all <- wehoop::load_wnba_team_box(seasons = c(season - 1, season)) |>
   filter(season_type == 2) |>
@@ -111,7 +111,7 @@ ggplot(ratings, aes(ortg, drtg)) +
     aes(x0 = ortg, y0 = drtg),
     color = "grey60", linetype = "dashed", linewidth = 0.4
   ) +
-  geom_sdv_logos(aes(team = team), sport = "wnba", width = 0.075) +
+  geom_sdv_logos(aes(team = team), league = "wnba", width = 0.075) +
   annotate(
     "text",
     x = x_lim[c(2, 1, 2, 1)], y = y_lim[c(1, 1, 2, 2)],
@@ -162,12 +162,12 @@ ggplot(runs, aes(game_no, wins, group = run)) +
   annotate("segment", x = 0, y = 0, xend = 44, yend = 22, color = "grey55", linetype = "dashed") +
   geom_line(color = "black", linewidth = 2.4) +
   geom_line(aes(color = team), linewidth = 1.4) +
-  geom_sdv_logos(aes(x = game_no + 2, team = team), data = ends, sport = "wnba", width = 0.045) +
+  geom_sdv_logos(aes(x = game_no + 2, team = team), data = ends, league = "wnba", width = 0.045) +
   geom_text(
     aes(x = game_no + 3.6, label = sprintf("%s: %d-%d", season, wins, game_no - wins)),
     data = ends, hjust = 0, size = 3.6
   ) +
-  scale_color_sdv(sport = "wnba") +
+  scale_color_sdv(league = "wnba") +
   scale_x_continuous(breaks = seq(0, 44, 11), expand = expansion(add = c(0.5, 10))) +
   labs(
     title = "The WNBA's expansion teams, game by game",
@@ -204,8 +204,8 @@ ratings |>
     aes(label = sprintf("%+.1f", net), hjust = if_else(net > 0, -0.15, 1.15)),
     size = 3.4
   ) +
-  scale_fill_sdv(sport = "wnba") +
-  scale_y_sdv(sport = "wnba", size = 18) +
+  scale_fill_sdv(league = "wnba") +
+  scale_y_sdv(league = "wnba", size = 18) +
   scale_x_continuous(expand = expansion(mult = 0.12)) +
   labs(
     title = paste("WNBA net rating,", season, "regular season"),
@@ -240,7 +240,7 @@ tiers <- ratings |>
 
 sdv_team_tiers(
   tiers,
-  sport = "wnba",
+  league = "wnba",
   title = paste("WNBA tiers by net rating,", season),
   subtitle = "Regular-season net rating per 100 possessions, cut at +5, 0 and -5",
   caption = source_note,
@@ -286,8 +286,8 @@ scorers |>
     aes(x = ppg + 0.4, label = sprintf("%s  %.1f", athlete_display_name, ppg)),
     hjust = 0, size = 3.8
   ) +
-  scale_fill_sdv(sport = "wnba") +
-  scale_y_sdv_headshots(sport = "wnba", size = 34) +
+  scale_fill_sdv(league = "wnba") +
+  scale_y_sdv_headshots(league = "wnba", size = 34) +
   scale_x_continuous(limits = c(0, max(scorers$ppg) + 9), expand = expansion(0)) +
   labs(
     title = paste("WNBA scoring leaders,", season),
@@ -389,7 +389,7 @@ standings |>
     differential = "Diff"
   ) |>
   tab_source_note(source_note) |>
-  gt_sdv_logos(columns = logo, sport = "wnba", height = 26) |>
+  gt_sdv_logos(columns = logo, league = "wnba", height = 26) |>
   gt_theme_athletic() |>
   cols_align("left", columns = team_short_display_name) |>
   gt_cutline(after = 8, label = "Playoffs", label_position = "above")
@@ -441,9 +441,9 @@ ggplot(running, aes(game_no, diff)) +
   geom_hline(yintercept = 0, color = "grey50", linewidth = 0.4) +
   geom_line(aes(group = team), color = "black", linewidth = 1.6) +
   geom_line(aes(color = team), linewidth = 1) +
-  geom_sdv_logos(aes(x = game_no + 3, team = team), data = finish, sport = "wnba", width = 0.07) +
+  geom_sdv_logos(aes(x = game_no + 3, team = team), data = finish, league = "wnba", width = 0.07) +
   facet_wrap(~conference, labeller = labeller(conference = function(x) paste(x, "Conference"))) +
-  scale_color_sdv(sport = "wnba") +
+  scale_color_sdv(league = "wnba") +
   scale_x_continuous(expand = expansion(add = c(1, 6))) +
   labs(
     title = paste("Running point differential,", season),
@@ -488,8 +488,8 @@ margins |>
     shape = 21, color = "black", stroke = 0.2, size = 1.9, alpha = 0.85,
     position = position_jitter(width = 0.18, height = 0, seed = 1)
   ) +
-  scale_fill_sdv(sport = "wnba") +
-  scale_x_sdv(sport = "wnba", size = 20) +
+  scale_fill_sdv(league = "wnba") +
+  scale_x_sdv(league = "wnba", size = 20) +
   labs(
     title = paste("Every game's final margin,", season),
     subtitle = "Teams ordered by median margin",
@@ -538,8 +538,8 @@ last_week <- filter(weekly, week_no == max(week_no))
 ggplot(weekly, aes(week_no, rank)) +
   geom_line(aes(group = team), color = "black", linewidth = 1.7) +
   geom_line(aes(color = team), linewidth = 1.1) +
-  geom_sdv_logos(aes(x = week_no + 0.9, team = team), data = last_week, sport = "wnba", width = 0.045) +
-  scale_color_sdv(sport = "wnba") +
+  geom_sdv_logos(aes(x = week_no + 0.9, team = team), data = last_week, league = "wnba", width = 0.045) +
+  scale_color_sdv(league = "wnba") +
   scale_y_reverse(breaks = 1:15) +
   scale_x_continuous(breaks = seq(3, 30, 3), expand = expansion(add = c(0.4, 1.4))) +
   labs(

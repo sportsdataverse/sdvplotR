@@ -42,7 +42,7 @@ shots <- shots[!is.na(shots$pitch_x), ]
 
 sdv_surface("soccer") +
   geom_point(aes(pitch_x, pitch_y), data = shots[!shots$goal, ], shape = 21, size = 3, fill = NA, color = "white") +
-  geom_sdv_logos(aes(pitch_x, pitch_y, team = team), data = shots[shots$goal, ], sport = "soccer", width = 0.05) +
+  geom_sdv_logos(aes(pitch_x, pitch_y, team = team), data = shots[shots$goal, ], league = "soccer", width = 0.05) +
   labs(title = "Manchester City v Aston Villa: every shot (logos: goals)", caption = "Data: ESPN")
 ```
 
@@ -99,7 +99,7 @@ ggplot(raw_sb, aes(x, y, color = team)) +
 
 sdv_team_colors("soccer", c("359", "382", "18418"))
 #>       359       382     18418 
-#> "#E20520" "#99C5EA" "#9D2235"
+#> "#e20520" "#99c5ea" "#9d2235"
 sdv_surface("soccer", "359", center_logo = TRUE)
 ```
 

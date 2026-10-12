@@ -14,7 +14,7 @@ ggtitle_image(
   image_height = 15,
   image_side = c("left", "right"),
   subtitle = ggplot2::waiver(),
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")
+  league
 )
 
 theme_title_image(...)
@@ -24,8 +24,8 @@ theme_title_image(...)
 
 - title_image:
 
-  The URL of the image to add to the title. If a valid team abbreviation
-  for the specified sport, the team logo will be used.
+  The URL of the image to add to the title. If a valid team identifier
+  for `league`, the team logo will be used.
 
 - title:
 
@@ -44,9 +44,10 @@ theme_title_image(...)
 
   Optional text for the subtitle.
 
-- sport:
+- league:
 
-  Character string identifying the sport (for team logo resolution).
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - ...:
 
@@ -103,7 +104,7 @@ if (requireNamespace("ggtext", quietly = TRUE)) {
       title = "Seattle Seahawks Analysis",
       image_height = 20,
       image_side = "left",
-      sport = "nfl"
+      league = "nfl"
     ) +
     theme_title_image(size = 20, hjust = 0.5)
 }

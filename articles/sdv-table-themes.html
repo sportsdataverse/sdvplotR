@@ -91,10 +91,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -284,25 +309,25 @@ thing in the table.</p>
 <p>The final 2025 AFC West standings.
 <code><a href="https://nflseedr.com/reference/nfl_standings.html" class="external-link">nflseedR::nfl_standings()</a></code> computes them from nflverse’s
 schedule, read with <code>nflreadr</code>, NFL tiebreakers included, and
-<code><a href="../reference/team_reference.html">team_reference()</a></code> adds each team’s full name. The logos come
-from <code><a href="../reference/gt_sdv_logos.html">gt_sdv_logos()</a></code>, which resolves the abbreviations
-through <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code>.</p>
+<code><a href="../reference/sdv_teams.html">sdv_teams()</a></code> adds each team’s full name. The logos come from
+<code><a href="../reference/gt_sdv_logos.html">gt_sdv_logos()</a></code>, which resolves the abbreviations through
+<code><a href="../reference/sdv_resolve.html">sdv_resolve()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nfl_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nfl_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu">nflseedR</span><span class="fu">::</span><span class="fu"><a href="https://nflseedr.com/reference/nfl_standings.html" class="external-link">nfl_standings</a></span><span class="op">(</span><span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span>, verbosity <span class="op">=</span> <span class="st">"NONE"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">division</span> <span class="op">==</span> <span class="st">"AFC West"</span><span class="op">)</span></span>
 <span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="va">standings</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">standings</span><span class="op">$</span><span class="va">div_rank</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  team <span class="op">=</span> <span class="va">standings</span><span class="op">$</span><span class="va">team</span>,</span>
-<span>  name <span class="op">=</span> <span class="va">nfl_teams</span><span class="op">$</span><span class="va">team_name</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">standings</span><span class="op">$</span><span class="va">team</span>, <span class="va">nfl_teams</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>  name <span class="op">=</span> <span class="va">nfl_teams</span><span class="op">$</span><span class="va">name</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">standings</span><span class="op">$</span><span class="va">team</span>, <span class="va">nfl_teams</span><span class="op">$</span><span class="va">abbr</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>  w <span class="op">=</span> <span class="va">standings</span><span class="op">$</span><span class="va">true_wins</span>,</span>
 <span>  l <span class="op">=</span> <span class="va">standings</span><span class="op">$</span><span class="va">losses</span>,</span>
 <span>  pct <span class="op">=</span> <span class="va">standings</span><span class="op">$</span><span class="va">win_pct</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">standings_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">standings</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">26</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"team"</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">26</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">""</span>, name <span class="op">=</span> <span class="st">"Team"</span>, w <span class="op">=</span> <span class="st">"W"</span>, l <span class="op">=</span> <span class="st">"L"</span>, pct <span class="op">=</span> <span class="st">"Win pct"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># win percentage without the leading zero, as box scores print it (.647)</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt.html" class="external-link">fmt</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"pct"</span>, fns <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"^0"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.3f"</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1438,7 +1463,7 @@ posts that sit on a dark background.</p>
 the colors <code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</a></code> returns: the title block is
 filled with the primary color, the line under the labels uses the
 secondary color, and the labels are set in the primary color. Any
-abbreviation, alias or full name <code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> accepts
+abbreviation, alias or full name <code><a href="../reference/sdv_resolve.html">sdv_resolve()</a></code> accepts
 works as <code>team</code>. Here the division winner’s yardage leaders,
 from nflverse’s season player stats, wear the winner’s colors.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -1460,10 +1485,10 @@ from nflverse’s season player stats, wear the winner’s colors.</p>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>player <span class="op">=</span> <span class="st">"Player"</span>, stat <span class="op">=</span> <span class="st">""</span>, yards <span class="op">=</span> <span class="st">"Yards"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"yards"</span>, decimals <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">nfl_teams</span><span class="op">$</span><span class="va">team_mascot</span><span class="op">[</span><span class="va">nfl_teams</span><span class="op">$</span><span class="va">team_abbr</span> <span class="op">==</span> <span class="va">winner</span><span class="op">]</span>, <span class="st">"yardage leaders"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">nfl_teams</span><span class="op">$</span><span class="va">short_name</span><span class="op">[</span><span class="va">nfl_teams</span><span class="op">$</span><span class="va">abbr</span> <span class="op">==</span> <span class="va">winner</span><span class="op">]</span>, <span class="st">"yardage leaders"</span><span class="op">)</span>,</span>
 <span>    <span class="st">"2025 regular season"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">winner</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">winner</span>, league <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
 <div id="ulbfdpbcyv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -1929,7 +1954,7 @@ from nflverse’s season player stats, wear the winner’s colors.</p>
   right: 0;
   bottom: 0;
   height: 4px;
-  background: #FB4F14;
+  background: #fb4f14;
 }
 
 #ulbfdpbcyv .gt_col_headings th {
@@ -2015,18 +2040,18 @@ way to the SportsDataverse navy for the column labels.</li>
 <code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</a></code> returns them, dressed in those
 colors.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">color_record</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sport</span>, <span class="va">team</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">color_record</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">league</span>, <span class="va">team</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>    team <span class="op">=</span> <span class="va">team</span>,</span>
-<span>    primary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="va">sport</span>, <span class="va">team</span>, <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    secondary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="va">sport</span>, <span class="va">team</span>, <span class="st">"secondary"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    primary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="va">league</span>, <span class="va">team</span>, <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    secondary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="va">league</span>, <span class="va">team</span>, <span class="st">"secondary"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">color_record</span><span class="op">(</span><span class="st">"mbb"</span>, <span class="st">"DUKE"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="st">"Duke Blue Devils"</span>, <span class="st">"A white secondary: the line takes the primary"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"DUKE"</span>, sport <span class="op">=</span> <span class="st">"mbb"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"DUKE"</span>, league <span class="op">=</span> <span class="st">"mbb"</span><span class="op">)</span></span></code></pre></div>
 <div id="kgufivjubq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -2492,7 +2517,7 @@ colors.</p>
   right: 0;
   bottom: 0;
   height: 4px;
-  background: #00539B;
+  background: #00539b;
 }
 
 #kgufivjubq .gt_col_headings th {
@@ -2544,8 +2569,8 @@ colors.</p>
 </thead>
 <tbody class="gt_table_body"><tr>
 <td headers="team" class="gt_row gt_left">DUKE</td>
-<td headers="primary" class="gt_row gt_left">#00539B</td>
-<td headers="secondary" class="gt_row gt_left">#FFFFFF</td>
+<td headers="primary" class="gt_row gt_left">#00539b</td>
+<td headers="secondary" class="gt_row gt_left">#ffffff</td>
 </tr></tbody>
 </table>
 </div>
@@ -2554,7 +2579,7 @@ colors.</p>
 <span><span class="fu">color_record</span><span class="op">(</span><span class="st">"nfl"</span>, <span class="st">"NO"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span><span class="st">"New Orleans Saints"</span>, <span class="st">"A gold primary: the labels go navy"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"NO"</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/gt_theme_sdv_team.html">gt_theme_sdv_team</a></span><span class="op">(</span>team <span class="op">=</span> <span class="st">"NO"</span>, league <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span></code></pre></div>
 <div id="txvafbsnay" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -3072,7 +3097,7 @@ colors.</p>
 </thead>
 <tbody class="gt_table_body"><tr>
 <td headers="team" class="gt_row gt_left">NO</td>
-<td headers="primary" class="gt_row gt_left">#D3BC8D</td>
+<td headers="primary" class="gt_row gt_left">#d3bc8d</td>
 <td headers="secondary" class="gt_row gt_right">#000000</td>
 </tr></tbody>
 </table>

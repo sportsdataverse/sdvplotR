@@ -28,29 +28,29 @@ The final 2025 AFC West standings.
 [`nflseedR::nfl_standings()`](https://nflseedr.com/reference/nfl_standings.html)
 computes them from nflverse’s schedule, read with `nflreadr`, NFL
 tiebreakers included, and
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
 adds each team’s full name. The logos come from
 [`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md),
 which resolves the abbreviations through
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md).
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md).
 
 ``` r
 
-nfl_teams <- team_reference("nfl")
+nfl_teams <- sdv_teams("nfl")
 
 standings <- nflseedR::nfl_standings(nflreadr::load_schedules(2025), verbosity = "NONE") |>
   subset(division == "AFC West")
 standings <- standings[order(standings$div_rank), ]
 standings <- data.frame(
   team = standings$team,
-  name = nfl_teams$team_name[match(standings$team, nfl_teams$team_abbr)],
+  name = nfl_teams$name[match(standings$team, nfl_teams$abbr)],
   w = standings$true_wins,
   l = standings$losses,
   pct = standings$win_pct
 )
 
 standings_table <- gt(standings) |>
-  gt_sdv_logos(columns = "team", sport = "nfl", height = 26) |>
+  gt_sdv_logos(columns = "team", league = "nfl", height = 26) |>
   cols_label(team = "", name = "Team", w = "W", l = "L", pct = "Win pct") |>
   # win percentage without the leading zero, as box scores print it (.647)
   fmt(columns = "pct", fns = function(x) sub("^0", "", sprintf("%.3f", x))) |>
@@ -108,7 +108,7 @@ takes a team and a sport. It uses the colors
 returns: the title block is filled with the primary color, the line
 under the labels uses the secondary color, and the labels are set in the
 primary color. Any abbreviation, alias or full name
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
 accepts works as `team`. Here the division winner’s yardage leaders,
 from nflverse’s season player stats, wear the winner’s colors.
 
@@ -132,10 +132,10 @@ rbind(
   cols_label(player = "Player", stat = "", yards = "Yards") |>
   fmt_number(columns = "yards", decimals = 0) |>
   tab_header(
-    paste(nfl_teams$team_mascot[nfl_teams$team_abbr == winner], "yardage leaders"),
+    paste(nfl_teams$short_name[nfl_teams$abbr == winner], "yardage leaders"),
     "2025 regular season"
   ) |>
-  gt_theme_sdv_team(team = winner, sport = "nfl")
+  gt_theme_sdv_team(team = winner, league = "nfl")
 ```
 
 | Broncos yardage leaders |           |       |
@@ -164,25 +164,25 @@ returns them, dressed in those colors.
 
 ``` r
 
-color_record <- function(sport, team) {
+color_record <- function(league, team) {
   data.frame(
     team = team,
-    primary = unname(sdv_team_colors(sport, team, "primary")),
-    secondary = unname(sdv_team_colors(sport, team, "secondary"))
+    primary = unname(sdv_team_colors(league, team, "primary")),
+    secondary = unname(sdv_team_colors(league, team, "secondary"))
   )
 }
 
 color_record("mbb", "DUKE") |>
   gt() |>
   tab_header("Duke Blue Devils", "A white secondary: the line takes the primary") |>
-  gt_theme_sdv_team(team = "DUKE", sport = "mbb")
+  gt_theme_sdv_team(team = "DUKE", league = "mbb")
 ```
 
 | Duke Blue Devils                              |          |           |
 |-----------------------------------------------|----------|-----------|
 | A white secondary: the line takes the primary |          |           |
 | team                                          | primary  | secondary |
-| DUKE                                          | \#00539B | \#FFFFFF  |
+| DUKE                                          | \#00539b | \#ffffff  |
 
 ``` r
 
@@ -190,14 +190,14 @@ color_record("mbb", "DUKE") |>
 color_record("nfl", "NO") |>
   gt() |>
   tab_header("New Orleans Saints", "A gold primary: the labels go navy") |>
-  gt_theme_sdv_team(team = "NO", sport = "nfl")
+  gt_theme_sdv_team(team = "NO", league = "nfl")
 ```
 
 | New Orleans Saints                 |          |           |
 |------------------------------------|----------|-----------|
 | A gold primary: the labels go navy |          |           |
 | team                               | primary  | secondary |
-| NO                                 | \#D3BC8D | \#000000  |
+| NO                                 | \#d3bc8d | \#000000  |
 
 With `team = NULL` the table wears the SportsDataverse navy and cyan.
 

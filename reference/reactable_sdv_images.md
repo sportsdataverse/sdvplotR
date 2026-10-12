@@ -11,43 +11,48 @@ text, headshots `"Player <id> headshot"`.
 
 ``` r
 reactable_sdv_logos(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  variant = c("primary", "dark", "scoreboard"),
+  league,
+  variant = "default",
   height = 30,
-  default_img = NULL
+  default_img = NULL,
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 
 reactable_sdv_wordmarks(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  variant = "primary",
+  league,
+  variant = "default",
   height = 30,
-  default_img = NULL
+  default_img = NULL,
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 
 reactable_sdv_headshots(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   height = 40,
   default_img = NULL,
-  id_type = NULL
+  id_system = "espn"
 )
 ```
 
 ## Arguments
 
-- sport:
+- league:
 
-  Character string identifying the sport. One of
-  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md).
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - variant:
 
-  Character. Logo variant: `"primary"`, `"dark"`, `"scoreboard"` or a
-  named mark of the sport (see
-  [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md));
-  wordmarks come in `"primary"` for the NFL and MLB, plus `"on_light"` /
-  `"on_dark"` for MLB. Falls back to the primary image when the
-  requested variant is not available for a team, and, in the browser,
-  when the variant's file fails to load.
+  Character. `"default"`, `"dark"`, or a named variant from
+  [`sdv_marks()`](https://sdvplotR.sportsdataverse.org/reference/sdv_marks.md)
+  (`"scoreboard"`, `"grayscale"`, ...); see
+  [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md).
+  A team without it gets its closest mark, and in the browser the image
+  falls back to the default mark when the variant's file fails to load.
 
 - height:
 
@@ -58,12 +63,24 @@ reactable_sdv_headshots(
   Character. Fallback image URL used when the value cannot be resolved.
   If `NULL` (the default) the raw value is shown instead.
 
-- id_type:
+- season:
 
-  Which ID system the player IDs hold: `NULL` (the default; GSIS IDs for
-  the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"` (NBA /
-  WNBA Stats `PERSON_ID`, MLBAM, NHL API, GSIS). See
-  [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md).
+  `NULL` for today's mark, or a season (or one per team): the mark the
+  team wore that season where the archive dates its marks.
+
+- id_system:
+
+  `"auto"` (try every id system in priority order) or one id system:
+  `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
+  `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
+  `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
+  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
+  overlap ESPN's, so `"auto"` never reads a number as one).
+
+- strict:
+
+  If `TRUE`, a value that does not resolve is an error; otherwise it
+  becomes `NA` with one warning per call.
 
 ## Value
 
@@ -88,7 +105,7 @@ df <- data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11))
 reactable(
   df,
   columns = list(
-    team = colDef(cell = reactable_sdv_logos(sport = "nfl"), html = TRUE)
+    team = colDef(cell = reactable_sdv_logos(league = "nfl"), html = TRUE)
   )
 )
 

@@ -9,40 +9,44 @@ images.
 ``` r
 scale_x_sdv(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "bottom",
-  size = 12
+  size = 12,
+  season = NULL,
+  id_system = "auto"
 )
 
 scale_y_sdv(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "left",
-  size = 12
+  size = 12,
+  season = NULL,
+  id_system = "auto"
 )
 
 scale_x_sdv_headshots(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "bottom",
   size = 20,
-  id_type = NULL
+  id_system = "espn"
 )
 
 scale_y_sdv_headshots(
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   expand = ggplot2::waiver(),
   guide = ggplot2::waiver(),
   position = "left",
   size = 30,
-  id_type = NULL
+  id_system = "espn"
 )
 ```
 
@@ -55,9 +59,10 @@ scale_y_sdv_headshots(
   or
   [`ggplot2::scale_y_discrete()`](https://ggplot2.tidyverse.org/reference/scale_discrete.html).
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - expand:
 
@@ -76,12 +81,19 @@ scale_y_sdv_headshots(
   The logo size in pixels. It is applied as height for an x-scale and as
   width for a y-scale.
 
-- id_type:
+- season:
 
-  Which ID system the player IDs hold: `NULL` (the default; GSIS IDs for
-  the NFL, ESPN athlete IDs otherwise), `"espn"` or `"league"` (NBA /
-  WNBA Stats `PERSON_ID`, MLBAM, NHL API, GSIS). See
-  [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md).
+  `NULL` for today's mark, or a season (or one per team): the mark the
+  team wore that season where the archive dates its marks.
+
+- id_system:
+
+  `"auto"` (try every id system in priority order) or one id system:
+  `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
+  `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
+  `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
+  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
+  overlap ESPN's, so `"auto"` never reads a number as one).
 
 ## Value
 
@@ -116,7 +128,7 @@ complete themes in 'ggplot2' 4 set those children themselves.
 library(sdvplotR)
 library(ggplot2)
 
-team_abbr <- valid_team_names("nfl")[1:8]
+team_abbr <- sdv_teams("nfl")$abbr[1:8]
 
 df <- data.frame(
   random_value = runif(length(team_abbr), 0, 1),
@@ -126,8 +138,8 @@ df <- data.frame(
 if (requireNamespace("ggtext", quietly = TRUE)) {
   ggplot(df, aes(x = teams, y = random_value)) +
     geom_col(aes(fill = teams), width = 0.5) +
-    scale_fill_sdv(sport = "nfl", alpha = 0.4) +
-    scale_x_sdv(sport = "nfl") +
+    scale_fill_sdv(league = "nfl", alpha = 0.4) +
+    scale_x_sdv(league = "nfl") +
     theme_minimal() +
     theme_x_sdv()
 }

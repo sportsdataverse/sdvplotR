@@ -36,12 +36,12 @@ library(dplyr)
 Net rating is points scored minus points allowed per 100 possessions.
 The box scores hold one row per team per game, so joining each row to
 its opponent’s row gives the possessions on both ends;
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
 adds each team’s full name and conference.
 
 ``` r
 
-nba_teams <- team_reference("nba")
+nba_teams <- sdv_teams("nba")
 
 # the NBA Cup final is filed as a regular-season game but counts in no record or stat
 cup_final <- hoopR::load_nba_schedule(2026) |>
@@ -50,7 +50,7 @@ cup_final <- hoopR::load_nba_schedule(2026) |>
 
 box <- hoopR::load_nba_team_box(2026) |>
   # regular season; the box scores also hold the All-Star games
-  filter(season_type == 2, team_abbreviation %in% nba_teams$team_abbr, !game_id %in% cup_final) |>
+  filter(season_type == 2, team_abbreviation %in% nba_teams$abbr, !game_id %in% cup_final) |>
   mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.44 * free_throws_attempted)
 
 records <- summarise(box, w = sum(team_winner), l = sum(!team_winner), .by = team_abbreviation)
@@ -71,8 +71,8 @@ ratings <- rated |>
   inner_join(records, by = "team_abbreviation") |>
   mutate(
     net = off - def,
-    name = nba_teams$team_name[match(team_abbreviation, nba_teams$team_abbr)],
-    conf = nba_teams$conference[match(team_abbreviation, nba_teams$team_abbr)]
+    name = nba_teams$name[match(team_abbreviation, nba_teams$abbr)],
+    conf = sub(" Conference$", "", nba_teams$conference[match(team_abbreviation, nba_teams$abbr)])
   ) |>
   arrange(desc(net), team_abbreviation) |>
   select(team = team_abbreviation, name, conf, w, l, off, def, net)
@@ -83,7 +83,7 @@ top <- slice_head(ratings, n = 8)
 
 base <- function(df) {
   gt(df) |>
-    gt_sdv_logos(team, sport = "nba", height = 26) |>
+    gt_sdv_logos(team, league = "nba", height = 26) |>
     cols_hide(conf) |>
     fmt_number(c(off, def), decimals = 1) |>
     fmt_number(net, decimals = 1, force_sign = TRUE) |>

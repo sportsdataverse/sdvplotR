@@ -1,9 +1,11 @@
 # **sdvplotR**
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
-team logos, wordmarks, player headshots and team colors across **nine
-leagues** — NFL, NBA, WNBA, MLB, NHL, college football, men’s and
-women’s college basketball, and soccer — in
+team logos, wordmarks, player headshots and team colors across the **28
+leagues** of the SportsDataverse team index
+([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md))
+— NFL, NBA, WNBA, MLB, NHL, college football, men’s and women’s college
+basketball, soccer and more — in
 [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
 [**`gt`**](https://gt.rstudio.com/) tables and
 [**`reactable`**](https://glin.github.io/reactable/) tables. It is built
@@ -11,7 +13,7 @@ on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
 approach established by [nflplotR](https://nflplotr.nflverse.com/),
 [cfbplotR](https://cfbplotR.sportsdataverse.org/),
 [nbaplotR](https://mrcaseb.github.io/nbaplotR/) and
-[mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `sport`
+[mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `league`
 argument.
 
 ![Every NFL team's 2023 regular season drawn as its logo, placed by
@@ -83,11 +85,18 @@ npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse
 
 ## **Usage**
 
-Every function takes a `sport` argument (`"nfl"`, `"nba"`, `"wnba"`,
-`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"`). Team keys are
-cleaned automatically: full names, alternate abbreviations used by other
-data providers and historical abbreviations of relocated franchises
-(`"OAK"` → `"LV"`, `"SEA"` → `"OKC"`) all resolve to the same team.
+Every function takes a `league` argument (`"nfl"`, `"nba"`, `"wnba"`,
+`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"` and the rest of
+[`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)).
+Team identifiers are resolved automatically: full names, abbreviations
+from other data providers (ESPN, nflverse, MLB Stats, nba_api, NHL,
+CFBD, NCAA and more) and the codes of relocated franchises all resolve
+to the same team.
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+shows the id a value resolves to,
+[`sdv_suggest()`](https://sdvplotR.sportsdataverse.org/reference/sdv_suggest.md)
+proposes candidates for a typo, and `season` selects the era for codes
+that were reused.
 
 ``` r
 
@@ -98,11 +107,11 @@ library(ggplot2)
 df <- data.frame(
   a     = rep(1:8, 4),
   b     = sort(rep(1:4, 8), decreasing = TRUE),
-  teams = valid_team_names("nfl")
+  teams = sdv_teams("nfl")$abbr
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_sdv_logos(aes(team = teams), sport = "nfl", width = 0.075) +
+  geom_sdv_logos(aes(team = teams), league = "nfl", width = 0.075) +
   theme_void()
 ```
 
@@ -116,9 +125,9 @@ df2 <- data.frame(
 
 ggplot(df2, aes(x = team, y = score)) +
   geom_col(aes(fill = team), show.legend = FALSE) +
-  scale_fill_sdv(sport = "nfl") +
+  scale_fill_sdv(league = "nfl") +
   theme_minimal() +
-  theme(axis.text.x = element_sdv_logo(sport = "nfl", size = 1))
+  theme(axis.text.x = element_sdv_logo(league = "nfl", size = 1))
 ```
 
 ``` r
@@ -128,13 +137,13 @@ library(gt)
 # Logos inside a gt table, in the SportsDataverse table theme
 data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11)) |>
   gt() |>
-  gt_sdv_logos(columns = "team", sport = "nfl") |>
+  gt_sdv_logos(columns = "team", league = "nfl") |>
   gt_theme_sdv()
 
 # ...or dressed in one team's colors
 data.frame(player = c("Patrick Mahomes", "Travis Kelce"), yards = c(4183, 984)) |>
   gt() |>
-  gt_theme_sdv_team(team = "KC", sport = "nfl")
+  gt_theme_sdv_team(team = "KC", league = "nfl")
 ```
 
 ``` r
@@ -147,8 +156,8 @@ df3 <- data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11))
 reactable(
   df3,
   columns = list(
-    team = colDef(cell = reactable_sdv_logos(sport = "nfl"), html = TRUE),
-    wins = colDef(style = reactable_sdv_team_color_bar(df3, "team", sport = "nfl"))
+    team = colDef(cell = reactable_sdv_logos(league = "nfl"), html = TRUE),
+    wins = colDef(style = reactable_sdv_team_color_bar(df3, "team", league = "nfl"))
   )
 )
 ```
@@ -171,9 +180,9 @@ for publishing.
 
 Dark-mode logo variants are available through `variant = "dark"` in the
 table helpers, and
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-exposes the full reference data (ESPN ids, colors, conference /
-division) for every team.
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
+exposes the full reference data (ESPN ids, colors, conference) for every
+team.
 
 ## **Documentation**
 
@@ -285,7 +294,7 @@ BibTeX Citation
 ## Logos, Wordmarks & Headshots
 
 ggplot2 geoms and ggproto objects for rendering team logos, wordmarks
-and player headshots on plots. Every geom takes a `sport` argument.
+and player headshots on plots. Every geom takes a `league` argument.
 
 - [`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
   [`GeomSDVlogo`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
@@ -683,32 +692,36 @@ reactable tables.
   [`reactable_sdv_team_color_bg()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_team_color.md)
   : Team-Colored Cell Styles for 'reactable' Tables
 
-## Team Utilities
+## Teams and Identifiers
 
-Validate, clean and factor-order team abbreviations; look up team
-reference data and colors; control the image cache.
+The shared team index: list leagues and teams, resolve identifiers from
+any source, colours, logo and headshot URLs, and the data versions and
+cache.
 
-- [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md)
-  : Supported Sports
-- [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
-  : Output Valid Team Names
-- [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-  : Get Team Reference Data
-- [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-  : Standardize Team Abbreviations
-- [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)
-  : Resolve Historical Team Abbreviations
+- [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
+  : Leagues sdvplotR knows
+- [`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
+  : Teams in the sdvplotR index
+- [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+  : Resolve team identifiers to canonical team ids
+- [`sdv_suggest()`](https://sdvplotR.sportsdataverse.org/reference/sdv_suggest.md)
+  : Suggest teams for a value that did not resolve
 - [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md)
-  : Get Team Colors
+  : Team colours
 - [`sdv_color_palette()`](https://sdvplotR.sportsdataverse.org/reference/sdv_color_palette.md)
-  : Get Team Color Palette
+  : Team colour palette
 - [`sdv_team_factor()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_factor.md)
   : Order Team Names as a Factor
 - [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
-  [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
-  : Team Logo and Player Headshot URLs
-- [`sdvplotR_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR_clear_cache.md)
-  : Clear the sdvplotR Caches
+  : Team logo and wordmark URLs
+- [`sdv_marks()`](https://sdvplotR.sportsdataverse.org/reference/sdv_marks.md)
+  : Every archived mark for a team
+- [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_headshot_url.md)
+  : Player headshot URLs
+- [`sdv_versions()`](https://sdvplotR.sportsdataverse.org/reference/sdv_versions.md)
+  : Versions of the data sdvplotR is using
+- [`sdv_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdv_clear_cache.md)
+  : Clear the sdvplotR caches
 
 ## Court and Pitch Coordinates
 
@@ -734,6 +747,26 @@ colors with its logo at center.
 
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   : Team-Styled Playing Surfaces
+
+## Interactive plots and maps
+
+Team marks on plotly charts, interactive ggiraph layers and leaflet
+maps.
+
+- [`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+  [`add_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+  [`add_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+  : Team logos, wordmarks and headshots on plotly charts
+- [`sdv_axis_logos()`](https://sdvplotR.sportsdataverse.org/reference/sdv_axis_logos.md)
+  : Team logos as plotly axis labels
+- [`sdv_colorway()`](https://sdvplotR.sportsdataverse.org/reference/sdv_colorway.md)
+  : Team colours as a plotly colorway
+- [`geom_sdv_logos_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+  [`geom_sdv_wordmarks_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+  [`geom_sdv_headshots_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+  : Interactive team logos, wordmarks and headshots (ggiraph)
+- [`addSdvLogoMarkers()`](https://sdvplotR.sportsdataverse.org/reference/addSdvLogoMarkers.md)
+  : Team logo markers on a leaflet map
 
 ## Plot Titles
 
@@ -763,14 +796,6 @@ Generic image geoms and theme elements provided by the ggpath backend.
   [`geom_median_lines`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
   [`GeomRefLines`](https://sdvplotR.sportsdataverse.org/reference/reexports.md)
   : Objects exported from other packages
-
-## Deprecated
-
-Former gtUtils names, kept so ported code keeps working.
-
-- [`gt_color_legend()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR-deprecated.md)
-  [`gt_centered_legend()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR-deprecated.md)
-  : Deprecated legend functions
 
 # Articles
 
@@ -851,9 +876,10 @@ charts, and reactable tables.
 - [Interactive
   charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md):
 
-  Ten recipes for team logos on web charts: ggiraph tooltips, hover
-  highlights and logo axes, plotly logos as layout images, a reactable
-  table, self-contained HTML and static PNG exports for social posts.
+  Twelve recipes for team logos on web charts: ggiraph tooltips, hover
+  highlights and logo axes, plotly logos as layout images, leaflet logo
+  markers, a reactable table, self-contained HTML and static PNG exports
+  for social posts.
 
 - [Surfaces and shot
   charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.md):

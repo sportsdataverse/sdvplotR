@@ -91,10 +91,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -298,43 +323,42 @@ stats.ncaa.org.</p>
 <h2 id="one-school-id-two-programs">1. One school id, two programs<a class="anchor" aria-label="anchor" href="#one-school-id-two-programs"></a>
 </h2>
 <p>ESPN gives a school one team id for its men’s and women’s teams.
-sdvplotR keeps them as separate sports, so the <code>sport</code>
+sdvplotR keeps them as separate leagues, so the <code>league</code>
 argument picks the program: 2633 is the Tennessee Volunteers in
 <code>"mbb"</code> and the Lady Volunteers in <code>"wbb"</code>, each
 with its own name and mark.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">wbb_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"wbb"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">wbb_teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"wbb"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>team_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">team_id</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">wbb_teams</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 364</span></span>
 <span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span>, <span class="va">wbb_teams</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">espn_team_id</span> <span class="op">==</span> <span class="fl">2633</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sport</span>, <span class="va">espn_team_id</span>, <span class="va">team_abbr</span>, <span class="va">team_name</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   sport espn_team_id team_abbr                 team_name</span></span>
-<span><span class="co">#&gt; 1   mbb         2633      TENN      Tennessee Volunteers</span></span>
-<span><span class="co">#&gt; 2   wbb         2633      TENN Tennessee Lady Volunteers</span></span></code></pre></div>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span>, team_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">team_id</span><span class="op">)</span><span class="op">)</span>, <span class="va">wbb_teams</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_id</span> <span class="op">==</span> <span class="fl">2633</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">league</span>, <span class="va">team_id</span>, <span class="va">abbr</span>, <span class="va">name</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   league team_id abbr                      name</span></span>
+<span><span class="co">#&gt; 1    mbb    2633 TENN      Tennessee Volunteers</span></span>
+<span><span class="co">#&gt; 2    wbb    2633 TENN Tennessee Lady Volunteers</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tenn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">1</span>, team <span class="op">=</span> <span class="st">"TENN"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'sport = "mbb"'</span>, <span class="st">'sport = "wbb"'</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tenn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">1</span>, team <span class="op">=</span> <span class="st">"TENN"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'league = "mbb"'</span>, <span class="st">'league = "wbb"'</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">tenn</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">tenn</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>, sport <span class="op">=</span> <span class="st">"mbb"</span>, height <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">tenn</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span>, sport <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">tenn</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>, league <span class="op">=</span> <span class="st">"mbb"</span>, height <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">tenn</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span>, league <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0.55</span>, label <span class="op">=</span> <span class="va">label</span><span class="op">)</span>, family <span class="op">=</span> <span class="st">"mono"</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">2.6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.45</span>, <span class="fl">1.4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"One ESPN team id (2633), two marks"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>, hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="wbb-viz_files/figure-html/one-id-logos-1.png" class="r-plt" alt="The two Tennessee logos sdvplotR draws for ESPN team id 2633: the men's Volunteers mark for sport mbb on the left and the women's Lady Volunteers mark for sport wbb on the right." width="576"></p>
-<p>Names resolve through the reference, nicknames do not, and ESPN ids
-are not keys (join on <code>espn_team_id</code> instead):</p>
+<p><img src="wbb-viz_files/figure-html/one-id-logos-1.png" class="r-plt" alt="The two Tennessee logos sdvplotR draws for ESPN team id 2633: the men's Volunteers mark for league mbb on the left and the women's Lady Volunteers mark for league wbb on the right." width="576"></p>
+<p>Names and ESPN ids both resolve; a nickname alone does not:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tennessee"</span>, <span class="st">"Tennessee Lady Volunteers"</span>, <span class="st">"Lady Vols"</span>, <span class="st">"2633"</span><span class="op">)</span>,</span>
-<span>  sport <span class="op">=</span> <span class="st">"wbb"</span>,</span>
-<span>  keep_non_matches <span class="op">=</span> <span class="cn">FALSE</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sdv_resolve.html">sdv_resolve</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tennessee"</span>, <span class="st">"Tennessee Lady Volunteers"</span>, <span class="st">"2633"</span><span class="op">)</span>,</span>
+<span>  league <span class="op">=</span> <span class="st">"wbb"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "TENN" "TENN" NA     NA</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "2633" "2633" "2633"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="the-efficiency-landscape-of-the-top-36">2. The efficiency landscape of the top 36<a class="anchor" aria-label="anchor" href="#the-efficiency-landscape-of-the-top-36"></a>
@@ -344,18 +368,21 @@ per 100 possessions, counting only regular-season games between two
 Division I teams, with possessions estimated as FGA - OREB + TOV + 0.475
 x FTA (the usual college weight on free throws) and averaged with the
 opponent’s. It is a raw rating, not adjusted for schedule. Each team’s
-conference comes from the season’s standings; the full name resolves to
-the conference’s own key (<code>"American Conference"</code>, not
-<code>"American"</code>, which is American University).</p>
+conference comes from the season’s standings; the full conference name
+is matched to the conference row’s own key
+(<code>"American Conference"</code>, not <code>"American"</code>, which
+is American University).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu">wehoop</span><span class="fu">::</span><span class="fu"><a href="https://wehoop.sportsdataverse.org/reference/load_wbb_game_rosters.html" class="external-link">load_wbb_standings</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">season</span><span class="op">)</span></span>
+<span><span class="va">conf_rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"wbb"</span>, include_conferences <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">program</span> <span class="op">==</span> <span class="st">"conference"</span><span class="op">)</span></span>
 <span><span class="va">conferences</span> <span class="op">&lt;-</span> <span class="va">standings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">team_id</span>, conference <span class="op">=</span> <span class="va">group_short_name</span>, <span class="va">group_name</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>conference_key <span class="op">=</span> <span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="va">group_name</span>, sport <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>conference_key <span class="op">=</span> <span class="va">conf_rows</span><span class="op">$</span><span class="va">team_id</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">group_name</span>, <span class="va">conf_rows</span><span class="op">$</span><span class="va">name</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">group_name</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">anyDuplicated</a></span><span class="op">(</span><span class="va">conferences</span><span class="op">$</span><span class="va">team_id</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="va">wbb_teams</span><span class="op">$</span><span class="va">espn_team_id</span></span>
+<span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="va">wbb_teams</span><span class="op">$</span><span class="va">team_id</span></span>
 <span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu">wehoop</span><span class="fu">::</span><span class="fu"><a href="https://wehoop.sportsdataverse.org/reference/load_wbb_game_rosters.html" class="external-link">load_wbb_team_box</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season_type</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">team_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">d1</span>, <span class="va">opponent_team_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">d1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
@@ -378,7 +405,7 @@ the conference’s own key (<code>"American Conference"</code>, not
 <span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>net <span class="op">=</span> <span class="va">ortg</span> <span class="op">-</span> <span class="va">drtg</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">wbb_teams</span>, team_id <span class="op">=</span> <span class="va">espn_team_id</span>, team <span class="op">=</span> <span class="va">team_abbr</span>, <span class="va">team_name</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"team_id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">wbb_teams</span>, <span class="va">team_id</span>, team <span class="op">=</span> <span class="va">abbr</span>, team_name <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"team_id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">conferences</span>, by <span class="op">=</span> <span class="st">"team_id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span>, <span class="va">team</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">ratings</span><span class="op">)</span></span>
@@ -392,7 +419,7 @@ to put good defenses on top.</p>
 <code class="sourceCode R"><span><span class="va">top36</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ratings</span>, <span class="fl">36</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">top36</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">ortg</span>, <span class="va">drtg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"wbb"</span>, width <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, league <span class="op">=</span> <span class="st">"wbb"</span>, width <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.08</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.06</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
@@ -439,7 +466,7 @@ one table to the next.</p>
 <span>    home <span class="op">=</span> <span class="st">"Home"</span>, road <span class="op">=</span> <span class="st">"Road"</span>, vsaprankedteams <span class="op">=</span> <span class="st">"vs AP 25"</span>, margin <span class="op">=</span> <span class="st">"Margin"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span><span class="va">source_note</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">logo</span>, sport <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">26</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">logo</span>, league <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">26</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_color_pills.html">gt_color_pills</a></span><span class="op">(</span><span class="va">margin</span>, digits <span class="op">=</span> <span class="fl">1</span>, domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">40</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_athletic.html">gt_theme_athletic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span><span class="st">"left"</span>, columns <span class="op">=</span> <span class="va">team_name</span><span class="op">)</span></span></code></pre></div>
@@ -1126,11 +1153,12 @@ one table to the next.</p>
 <div class="section level2">
 <h2 id="conference-strength-with-conference-logos">4. Conference strength, with conference logos<a class="anchor" aria-label="anchor" href="#conference-strength-with-conference-logos"></a>
 </h2>
-<p>Conferences are rows in sdvplotR too, with logos and colors, so a
-chart of conferences works the same way as a chart of teams:
+<p>Conferences are rows in the team index too, with logos and colors, so
+a chart of conferences works the same way as a chart of teams:
 <code><a href="../reference/scale_axes_sdv.html">scale_y_sdv()</a></code> draws the conference marks on the axis and
-<code><a href="../reference/scale_sdv.html">scale_fill_sdv()</a></code> fills each bar in the conference’s color.
-Each bar is the average net rating of the conference’s teams.</p>
+each bar is filled in the conference’s color from
+<code><a href="../reference/sdv_teams.html">sdv_teams()</a></code>. Each bar is the average net rating of the
+conference’s teams.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ratings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">conference_key</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1145,8 +1173,8 @@ Each bar is the average net rating of the conference’s teams.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%+.1f"</span>, <span class="va">net</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">net</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="op">-</span><span class="fl">0.15</span>, <span class="fl">1.15</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3.2</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_axes_sdv.html">scale_y_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"wbb"</span>, size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">conf_rows</span><span class="op">$</span><span class="va">color_primary</span>, <span class="va">conf_rows</span><span class="op">$</span><span class="va">team_id</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_axes_sdv.html">scale_y_sdv</a></span><span class="op">(</span>league <span class="op">=</span> <span class="st">"wbb"</span>, size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.12</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Conference strength,"</span>, <span class="va">label</span><span class="op">)</span>,</span>
@@ -1213,10 +1241,10 @@ games.</p>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span><span class="va">ppg</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_percent.html" class="external-link">fmt_percent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">fg_pct</span>, <span class="va">fg3_pct</span><span class="op">)</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span><span class="va">source_note</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_headshots.html">gt_sdv_headshots</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">headshot</span>, sport <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">42</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">logo</span>, sport <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_headshots.html">gt_sdv_headshots</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">headshot</span>, league <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">42</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">logo</span>, league <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">28</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_sofa.html">gt_theme_sofa</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="ktvorzbzjr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ktayyjktvo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -1225,22 +1253,22 @@ games.</p>
 @import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#ktvorzbzjr table {
+#ktayyjktvo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ktvorzbzjr thead, #ktvorzbzjr tbody, #ktvorzbzjr tfoot, #ktvorzbzjr tr, #ktvorzbzjr td, #ktvorzbzjr th {
+#ktayyjktvo thead, #ktayyjktvo tbody, #ktayyjktvo tfoot, #ktayyjktvo tr, #ktayyjktvo td, #ktayyjktvo th {
   border-style: none;
 }
 
-#ktvorzbzjr p {
+#ktayyjktvo p {
   margin: 0;
   padding: 0;
 }
 
-#ktvorzbzjr .gt_table {
+#ktayyjktvo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1266,12 +1294,12 @@ games.</p>
   border-left-color: #F0EAD6;
 }
 
-#ktvorzbzjr .gt_caption {
+#ktayyjktvo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ktvorzbzjr .gt_title {
+#ktayyjktvo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1283,7 +1311,7 @@ games.</p>
   border-bottom-width: 0;
 }
 
-#ktvorzbzjr .gt_subtitle {
+#ktayyjktvo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1295,7 +1323,7 @@ games.</p>
   border-top-width: 0;
 }
 
-#ktvorzbzjr .gt_heading {
+#ktayyjktvo .gt_heading {
   background-color: #F0EAD6;
   text-align: left;
   border-bottom-color: #F0EAD6;
@@ -1307,13 +1335,13 @@ games.</p>
   border-right-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_bottom_border {
+#ktayyjktvo .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_col_headings {
+#ktayyjktvo .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1328,7 +1356,7 @@ games.</p>
   border-right-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_col_heading {
+#ktayyjktvo .gt_col_heading {
   color: #333333;
   background-color: #F0EAD6;
   font-size: 100%;
@@ -1348,7 +1376,7 @@ games.</p>
   overflow-x: hidden;
 }
 
-#ktvorzbzjr .gt_column_spanner_outer {
+#ktayyjktvo .gt_column_spanner_outer {
   color: #333333;
   background-color: #F0EAD6;
   font-size: 100%;
@@ -1360,15 +1388,15 @@ games.</p>
   padding-right: 4px;
 }
 
-#ktvorzbzjr .gt_column_spanner_outer:first-child {
+#ktayyjktvo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ktvorzbzjr .gt_column_spanner_outer:last-child {
+#ktayyjktvo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ktvorzbzjr .gt_column_spanner {
+#ktayyjktvo .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1380,11 +1408,11 @@ games.</p>
   width: 100%;
 }
 
-#ktvorzbzjr .gt_spanner_row {
+#ktayyjktvo .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ktvorzbzjr .gt_group_heading {
+#ktayyjktvo .gt_group_heading {
   padding-top: 1.5px;
   padding-bottom: 1.5px;
   padding-left: 5px;
@@ -1410,7 +1438,7 @@ games.</p>
   text-align: left;
 }
 
-#ktvorzbzjr .gt_empty_group_heading {
+#ktayyjktvo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #F0EAD6;
@@ -1425,15 +1453,15 @@ games.</p>
   vertical-align: middle;
 }
 
-#ktvorzbzjr .gt_from_md > :first-child {
+#ktayyjktvo .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ktvorzbzjr .gt_from_md > :last-child {
+#ktayyjktvo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ktvorzbzjr .gt_row {
+#ktayyjktvo .gt_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1452,7 +1480,7 @@ games.</p>
   overflow-x: hidden;
 }
 
-#ktvorzbzjr .gt_stub {
+#ktayyjktvo .gt_stub {
   color: #333333;
   background-color: #F0EAD6;
   font-size: 100%;
@@ -1465,7 +1493,7 @@ games.</p>
   padding-right: 5px;
 }
 
-#ktvorzbzjr .gt_stub_row_group {
+#ktayyjktvo .gt_stub_row_group {
   color: #333333;
   background-color: #F0EAD6;
   font-size: 100%;
@@ -1479,15 +1507,15 @@ games.</p>
   vertical-align: top;
 }
 
-#ktvorzbzjr .gt_row_group_first td {
+#ktayyjktvo .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ktvorzbzjr .gt_row_group_first th {
+#ktayyjktvo .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ktvorzbzjr .gt_summary_row {
+#ktayyjktvo .gt_summary_row {
   color: #333333;
   background-color: #F0EAD6;
   text-transform: inherit;
@@ -1497,16 +1525,16 @@ games.</p>
   padding-right: 5px;
 }
 
-#ktvorzbzjr .gt_first_summary_row {
+#ktayyjktvo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_first_summary_row.thick {
+#ktayyjktvo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ktvorzbzjr .gt_last_summary_row {
+#ktayyjktvo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1516,7 +1544,7 @@ games.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_grand_summary_row {
+#ktayyjktvo .gt_grand_summary_row {
   color: #333333;
   background-color: #F0EAD6;
   text-transform: inherit;
@@ -1526,7 +1554,7 @@ games.</p>
   padding-right: 5px;
 }
 
-#ktvorzbzjr .gt_first_grand_summary_row {
+#ktayyjktvo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1536,7 +1564,7 @@ games.</p>
   border-top-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_last_grand_summary_row_top {
+#ktayyjktvo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1546,11 +1574,11 @@ games.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_striped {
+#ktayyjktvo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ktvorzbzjr .gt_table_body {
+#ktayyjktvo .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1559,7 +1587,7 @@ games.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_footnotes {
+#ktayyjktvo .gt_footnotes {
   color: #333333;
   background-color: #F0EAD6;
   border-bottom-style: none;
@@ -1573,7 +1601,7 @@ games.</p>
   border-right-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_footnote {
+#ktayyjktvo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1582,7 +1610,7 @@ games.</p>
   padding-right: 5px;
 }
 
-#ktvorzbzjr .gt_sourcenotes {
+#ktayyjktvo .gt_sourcenotes {
   color: #333333;
   background-color: #F0EAD6;
   border-bottom-style: none;
@@ -1596,7 +1624,7 @@ games.</p>
   border-right-color: #D3D3D3;
 }
 
-#ktvorzbzjr .gt_sourcenote {
+#ktayyjktvo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1604,105 +1632,105 @@ games.</p>
   padding-right: 5px;
 }
 
-#ktvorzbzjr .gt_left {
+#ktayyjktvo .gt_left {
   text-align: left;
 }
 
-#ktvorzbzjr .gt_center {
+#ktayyjktvo .gt_center {
   text-align: center;
 }
 
-#ktvorzbzjr .gt_right {
+#ktayyjktvo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ktvorzbzjr .gt_font_normal {
+#ktayyjktvo .gt_font_normal {
   font-weight: normal;
 }
 
-#ktvorzbzjr .gt_font_bold {
+#ktayyjktvo .gt_font_bold {
   font-weight: bold;
 }
 
-#ktvorzbzjr .gt_font_italic {
+#ktayyjktvo .gt_font_italic {
   font-style: italic;
 }
 
-#ktvorzbzjr .gt_super {
+#ktayyjktvo .gt_super {
   font-size: 65%;
 }
 
-#ktvorzbzjr .gt_footnote_marks {
+#ktayyjktvo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ktvorzbzjr .gt_asterisk {
+#ktayyjktvo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ktvorzbzjr .gt_indent_1 {
+#ktayyjktvo .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ktvorzbzjr .gt_indent_2 {
+#ktayyjktvo .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ktvorzbzjr .gt_indent_3 {
+#ktayyjktvo .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ktvorzbzjr .gt_indent_4 {
+#ktayyjktvo .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ktvorzbzjr .gt_indent_5 {
+#ktayyjktvo .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ktvorzbzjr .katex-display {
+#ktayyjktvo .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ktvorzbzjr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ktayyjktvo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
-#ktvorzbzjr tbody tr:last-child {
+#ktayyjktvo tbody tr:last-child {
   border-bottom: 2px solid #F0EAD6;
 }
 
-#ktvorzbzjr .gt_col_heading {
+#ktayyjktvo .gt_col_heading {
   padding-bottom: 2px;
   padding-top: 2px;
 }
 
-#ktvorzbzjr .gt_subtitle {
+#ktayyjktvo .gt_subtitle {
   padding-top: 0px !important;
   padding-bottom: 4px !important;
 }
 
-#ktvorzbzjr .gt_sourcenote {
+#ktayyjktvo .gt_sourcenote {
   border-bottom-color: #F0EAD6 !important;
 }
 
-#ktvorzbzjr .gt_heading {
+#ktayyjktvo .gt_heading {
   padding-bottom: 0px;
   padding-top: 6px;
 }
 
-#ktvorzbzjr .gt_column_spanner {
+#ktayyjktvo .gt_column_spanner {
   font-size: 12px;
   font-weight: bold;
   text-decoration: underline;
 }
 
-#ktvorzbzjr .gt_table {
+#ktayyjktvo .gt_table {
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }
@@ -1894,7 +1922,7 @@ rather than team colors.</p>
 <span>      <span class="st">"Every field goal attempt: %d made (white), %d missed (red crosses), %.1f%%"</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">shots</span><span class="op">$</span><span class="va">scoring_play</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">!</span><span class="va">shots</span><span class="op">$</span><span class="va">scoring_play</span><span class="op">)</span>, <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">shots</span><span class="op">$</span><span class="va">scoring_play</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"wbb"</span></span>
+<span>    league <span class="op">=</span> <span class="st">"wbb"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="va">source_note</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtitle_image.html">theme_title_image</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span></code></pre></div>
@@ -1912,8 +1940,8 @@ the factor order sets the bar order.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">net</span>, fill <span class="op">=</span> <span class="va">team</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, color <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.1f"</span>, <span class="va">net</span><span class="op">)</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.4</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_axes_sdv.html">scale_x_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"wbb"</span>, size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_fill_sdv</a></span><span class="op">(</span>league <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_axes_sdv.html">scale_x_sdv</a></span><span class="op">(</span>league <span class="op">=</span> <span class="st">"wbb"</span>, size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.08</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"The top 25 by net rating,"</span>, <span class="va">label</span><span class="op">)</span>,</span>
@@ -1946,7 +1974,7 @@ white.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/sdv_team_tiers.html">sdv_team_tiers</a></span><span class="op">(</span></span>
 <span>  <span class="va">tiers</span>,</span>
-<span>  sport <span class="op">=</span> <span class="st">"wbb"</span>,</span>
+<span>  league <span class="op">=</span> <span class="st">"wbb"</span>,</span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Seed lines by net rating,"</span>, <span class="va">label</span><span class="op">)</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="st">"Four teams to a line, best first; not the selection committee's bracket"</span>,</span>
 <span>  caption <span class="op">=</span> <span class="va">source_note</span>,</span>
@@ -1970,7 +1998,7 @@ abbreviation as well as a URL.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^NCAA Women's Basketball Championship"</span>, <span class="va">notes_headline</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">final</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ncaa</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"National Championship"</span>, <span class="va">notes_headline</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">champion_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">final</span><span class="op">$</span><span class="va">home_winner</span>, <span class="va">final</span><span class="op">$</span><span class="va">home_id</span>, <span class="va">final</span><span class="op">$</span><span class="va">away_id</span><span class="op">)</span></span>
-<span><span class="va">champion</span> <span class="op">&lt;-</span> <span class="va">wbb_teams</span><span class="op">$</span><span class="va">team_abbr</span><span class="op">[</span><span class="va">wbb_teams</span><span class="op">$</span><span class="va">espn_team_id</span> <span class="op">==</span> <span class="va">champion_id</span><span class="op">]</span></span>
+<span><span class="va">champion</span> <span class="op">&lt;-</span> <span class="va">wbb_teams</span><span class="op">$</span><span class="va">abbr</span><span class="op">[</span><span class="va">wbb_teams</span><span class="op">$</span><span class="va">team_id</span> <span class="op">==</span> <span class="va">champion_id</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">run</span> <span class="op">&lt;-</span> <span class="va">ncaa</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">home_id</span> <span class="op">==</span> <span class="va">champion_id</span> <span class="op">|</span> <span class="va">away_id</span> <span class="op">==</span> <span class="va">champion_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1981,19 +2009,19 @@ abbreviation as well as a URL.</p>
 <span>    opponent_id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">home_id</span> <span class="op">==</span> <span class="va">champion_id</span>, <span class="va">away_id</span>, <span class="va">home_id</span><span class="op">)</span>,</span>
 <span>    margin <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">home_id</span> <span class="op">==</span> <span class="va">champion_id</span>, <span class="va">home_score</span> <span class="op">-</span> <span class="va">away_score</span>, <span class="va">away_score</span> <span class="op">-</span> <span class="va">home_score</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">wbb_teams</span>, opponent_id <span class="op">=</span> <span class="va">espn_team_id</span>, opponent <span class="op">=</span> <span class="va">team_abbr</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"opponent_id"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">wbb_teams</span>, opponent_id <span class="op">=</span> <span class="va">team_id</span>, opponent <span class="op">=</span> <span class="va">abbr</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"opponent_id"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">run</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">round</span>, <span class="va">margin</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="va">champion</span>, sport <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.65</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="va">champion</span>, league <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.65</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">margin</span> <span class="op">/</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="va">margin</span><span class="op">)</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"white"</span>, fontface <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">margin</span> <span class="op">+</span> <span class="fl">6</span>, team <span class="op">=</span> <span class="va">opponent</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">0.13</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">margin</span> <span class="op">+</span> <span class="fl">6</span>, team <span class="op">=</span> <span class="va">opponent</span><span class="op">)</span>, league <span class="op">=</span> <span class="st">"wbb"</span>, height <span class="op">=</span> <span class="fl">0.13</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">run</span><span class="op">$</span><span class="va">margin</span><span class="op">)</span> <span class="op">+</span> <span class="fl">11</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtitle_image.html">ggtitle_image</a></span><span class="op">(</span></span>
 <span>    title_image <span class="op">=</span> <span class="va">champion</span>,</span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"**The national champion's run, "</span>, <span class="va">season</span>, <span class="st">"**"</span><span class="op">)</span>,</span>
 <span>    image_height <span class="op">=</span> <span class="fl">40</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Winning margin in each NCAA tournament game, opponent's logo on top"</span>,</span>
-<span>    sport <span class="op">=</span> <span class="st">"wbb"</span></span>
+<span>    league <span class="op">=</span> <span class="st">"wbb"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Winning margin (points)"</span>, caption <span class="op">=</span> <span class="va">source_note</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtitle_image.html">theme_title_image</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span>
@@ -2038,8 +2066,8 @@ then by abbreviation, so the same data always draw the same chart.</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">weekly</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">week</span>, <span class="va">rank</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="fl">1.6</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">week</span> <span class="op">+</span> <span class="fl">4</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">finish</span>, sport <span class="op">=</span> <span class="st">"wbb"</span>, width <span class="op">=</span> <span class="fl">0.04</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_color_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">week</span> <span class="op">+</span> <span class="fl">4</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">finish</span>, league <span class="op">=</span> <span class="st">"wbb"</span>, width <span class="op">=</span> <span class="fl">0.04</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_color_sdv</a></span><span class="op">(</span>league <span class="op">=</span> <span class="st">"wbb"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html" class="external-link">scale_x_date</a></span><span class="op">(</span>date_labels <span class="op">=</span> <span class="st">"%b %d"</span>, expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>

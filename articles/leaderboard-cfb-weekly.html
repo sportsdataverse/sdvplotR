@@ -98,10 +98,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -355,7 +380,9 @@ schedule’s played games, against FBS and FCS opponents alike.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">division</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">"fbs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">week</span>, <span class="va">game_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">school</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>conference <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html" class="external-link">last</a></span><span class="op">(</span><span class="va">conference</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>conference <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html" class="external-link">last</a></span><span class="op">(</span><span class="va">conference</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># the index keys three conferences by their short codes</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>conference <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span><span class="va">conference</span>, <span class="st">"American Athletic"</span> <span class="op">=</span> <span class="st">"AAC"</span>, <span class="st">"Conference USA"</span> <span class="op">=</span> <span class="st">"CUSA"</span>, <span class="st">"FBS Independents"</span> <span class="op">=</span> <span class="st">"FBS Indep."</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">schedule_ok</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">records</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
@@ -410,23 +437,25 @@ adjusted defense.</p>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>net <span class="op">=</span> <span class="va">off</span> <span class="op">-</span> <span class="va">dfn</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">fbs</span>, by <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># "Charlotte" alone is the 49ers or the Saints; the 49ers are the FBS team</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"^Charlotte$"</span>, <span class="st">"Charlotte 49ers"</span>, <span class="va">school</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span>, <span class="va">school</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># the school breaks a tie, so an unchanged week renders the same</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">top25</span> <span class="op">&lt;-</span> <span class="va">ratings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">25</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>logo <span class="op">=</span> <span class="va">school</span>, conf_logo <span class="op">=</span> <span class="va">conference</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>logo <span class="op">=</span> <span class="va">key</span>, conf_logo <span class="op">=</span> <span class="va">conference</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">logo</span>, <span class="va">school</span>, <span class="va">conf_logo</span>, <span class="va">conference</span>, <span class="va">record</span>, <span class="va">off</span>, <span class="va">dfn</span>, <span class="va">net</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">top25</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
-<span><span class="co">#&gt;    rank logo       school     conf_logo    conference record   off     dfn   net</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 Alabama    Alabama    SEC          SEC        5-1    0.307 -<span style="color: #BB0000;">0.076</span><span style="color: #BB0000; text-decoration: underline;">4</span> 0.383</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 Georgia    Georgia    SEC          SEC        6-0    0.276 -<span style="color: #BB0000;">0.108</span>  0.383</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 Notre Dame Notre Dame FBS Indepen… FBS Indep… 6-0    0.257 -<span style="color: #BB0000;">0.125</span>  0.382</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 Wisconsin  Wisconsin  Big Ten      Big Ten    4-1    0.170 -<span style="color: #BB0000;">0.188</span>  0.357</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 Indiana    Indiana    Big Ten      Big Ten    6-0    0.240 -<span style="color: #BB0000;">0.110</span>  0.350</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 Nebraska   Nebraska   Big Ten      Big Ten    5-1    0.205 -<span style="color: #BB0000;">0.123</span>  0.327</span></span></code></pre></div>
+<span><span class="co">#&gt;    rank logo       school     conf_logo  conference record   off     dfn   net</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 Alabama    Alabama    SEC        SEC        5-1    0.307 -<span style="color: #BB0000;">0.076</span><span style="color: #BB0000; text-decoration: underline;">4</span> 0.383</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 Georgia    Georgia    SEC        SEC        6-0    0.276 -<span style="color: #BB0000;">0.108</span>  0.383</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 Notre Dame Notre Dame FBS Indep. FBS Indep. 6-0    0.257 -<span style="color: #BB0000;">0.125</span>  0.382</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 Wisconsin  Wisconsin  Big Ten    Big Ten    4-1    0.170 -<span style="color: #BB0000;">0.188</span>  0.357</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 Indiana    Indiana    Big Ten    Big Ten    6-0    0.240 -<span style="color: #BB0000;">0.110</span>  0.350</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 Nebraska   Nebraska   Big Ten    Big Ten    5-1    0.205 -<span style="color: #BB0000;">0.123</span>  0.327</span></span></code></pre></div>
 <p>sdvplotR has a row for every FBS conference too, so
 <code><a href="../reference/gt_sdv_logos.html">gt_sdv_logos()</a></code> draws the conference marks from the
 play-by-play’s conference names, next to the school logos.</p>
@@ -450,8 +479,8 @@ play-by-play’s conference names, next to the school logos.</p>
 <span>    <span class="st">"FBS vs FBS pass and run plays, garbage time removed; defense is EPA allowed"</span>,</span>
 <span>    <span class="st">"(lower is better). Viz: sdvplotR"</span></span>
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">logo</span>, sport <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">26</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">conf_logo</span>, sport <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">logo</span>, league <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">26</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">conf_logo</span>, league <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_ncaa.html">gt_theme_ncaa</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div id="cfb-top25" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Almarai:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -1005,8 +1034,8 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">3</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5c/5c0412f57d3fdf05789d255595ce014bbed36c6468f8ec3d8471450efe5f9f10.png" style="height:26px;" alt="Notre Dame Fighting Irish"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Notre Dame</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a5/a5165124ec8fe15b77bd82b0ea72e779930f3a69c6999bb15fc6dca4f0bab8b6.png" style="height:20px;" alt="FBS Independents"></td>
-<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">FBS Independents</td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1a/1abb03690acfaee8e0e3111fcdf70fde85404801e8703171eccbb3ed3d281392.png" style="height:20px;" alt="FBS Independents"></td>
+<td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">FBS Indep.</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">6-0</td>
 <td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.257</td>
 <td headers="dfn" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">−0.125</td>
@@ -1016,7 +1045,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4</td>
 <td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/36/36a5c3e0fae73171c91f10ceb170ea820f4f46c4899ee8a66e900a60b597ee98.png" style="height:26px;" alt="Wisconsin Badgers"></td>
 <td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Wisconsin</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c134007f405aaa5c2174616876d09d2dfa51635938fa31def5321147201e5f6.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
 <td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.170</td>
@@ -1027,7 +1056,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0d/0dfc3e06f6e158d96df2b9729de6b1cd6a5a5756ec365cd0b998aa6ecb45aa66.png" style="height:26px;" alt="Indiana Hoosiers"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Indiana</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c134007f405aaa5c2174616876d09d2dfa51635938fa31def5321147201e5f6.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">6-0</td>
 <td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.240</td>
@@ -1038,7 +1067,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">6</td>
 <td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c0/c09e5b394cfa5be2f2369c5e63210a12e25943b904d077c6469714ca9f8285e2.png" style="height:26px;" alt="Nebraska Cornhuskers"></td>
 <td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Nebraska</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c134007f405aaa5c2174616876d09d2dfa51635938fa31def5321147201e5f6.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
 <td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.205</td>
@@ -1071,7 +1100,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">9</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/6d/6dbe512c1b9b4e8c0ebcfcb4b3620b6229a05619e8bf70b3051a8e6c4964240d.png" style="height:26px;" alt="Ohio State Buckeyes"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Ohio State</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c134007f405aaa5c2174616876d09d2dfa51635938fa31def5321147201e5f6.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
 <td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.213</td>
@@ -1115,7 +1144,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">13</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54d1837e37240cb37dcbea2b2dfd518bdf8531344e5f5397ff02a1d2111b5b43.png" style="height:26px;" alt="Utah Utes"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Utah</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5a/5a8dd7e0b8cfdb65c55e650a6e8c669905fdf2c634ff6c591907abee465be48a.png" style="height:20px;" alt="Big 12 Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
 <td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.254</td>
@@ -1126,7 +1155,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">14</td>
 <td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c49b759151574b979556fb10f1e245ec8cb03b4b3b80d4d352b5f909293976d.png" style="height:26px;" alt="BYU Cougars"></td>
 <td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">BYU</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5a/5a8dd7e0b8cfdb65c55e650a6e8c669905fdf2c634ff6c591907abee465be48a.png" style="height:20px;" alt="Big 12 Conference"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
 <td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
 <td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.136</td>
@@ -1137,7 +1166,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">15</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d4/d447850b4a4d514fb7692fec4cda3e4fe7268c9d664b53e93f0f8fd476b1e6d3.png" style="height:26px;" alt="Northwestern Wildcats"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Northwestern</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c134007f405aaa5c2174616876d09d2dfa51635938fa31def5321147201e5f6.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">4-1</td>
 <td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.280</td>
@@ -1159,7 +1188,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">17</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/57/57dca8a00b01bebcfb1e0c7ceafe0b046e175c47ec7225713b3930e7fcb7cd05.png" style="height:26px;" alt="Oregon Ducks"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Oregon</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c134007f405aaa5c2174616876d09d2dfa51635938fa31def5321147201e5f6.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">3-2</td>
 <td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.071</td>
@@ -1170,7 +1199,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">18</td>
 <td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e1/e1daa000b25e45917bfaa93464b8725980c8e3c1a859f1fb51174e9d37aee08b.png" style="height:26px;" alt="Kansas Jayhawks"></td>
 <td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Kansas</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5a/5a8dd7e0b8cfdb65c55e650a6e8c669905fdf2c634ff6c591907abee465be48a.png" style="height:20px;" alt="Big 12 Conference"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
 <td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">2-3</td>
 <td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.165</td>
@@ -1203,7 +1232,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">21</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/51/5145c6eb67719f52cdf51c92ef6b30486c9a585ca129624d6c7837e369321a23.png" style="height:26px;" alt="UCLA Bruins"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">UCLA</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c134007f405aaa5c2174616876d09d2dfa51635938fa31def5321147201e5f6.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">5-0</td>
 <td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.115</td>
@@ -1215,7 +1244,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/23/2309e841473bc8b4297e83a1bbab7581d296189a20f904aa578c67f2327c2184.png" style="height:26px;" alt="Liberty Flames"></td>
 <td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Liberty</td>
 <td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/42/42baaf1bfc559aca9deaf57d60d4d3d0fd6ec71b1d53dbc825ecd8fa8ae138ea.png" style="height:20px;" alt="Conference USA"></td>
-<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Conference USA</td>
+<td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">CUSA</td>
 <td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
 <td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.158</td>
 <td headers="dfn" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.012</td>
@@ -1225,7 +1254,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">23</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/91/910dbf467c9b442f1b493280bbc027ba5a1f91e2ce314fae099d637aade7d42b.png" style="height:26px;" alt="Michigan Wolverines"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Michigan</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c134007f405aaa5c2174616876d09d2dfa51635938fa31def5321147201e5f6.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">3-2</td>
 <td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.110</td>
@@ -1236,7 +1265,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">24</td>
 <td headers="logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f0/f01db22fd85d00eaf8f9b5952bc8e7c0b458beae33753c312cb54c5515f7c967.png" style="height:26px;" alt="Arizona Wildcats"></td>
 <td headers="school" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Arizona</td>
-<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c6/c6a338051c393e58cf3a535c18c0526d240fa3b938e87ae16f6a08fe9c1a7282.png" style="height:20px;" alt="Big 12 Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5a/5a8dd7e0b8cfdb65c55e650a6e8c669905fdf2c634ff6c591907abee465be48a.png" style="height:20px;" alt="Big 12 Conference"></td>
 <td headers="conference" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">Big 12</td>
 <td headers="record" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">5-1</td>
 <td headers="off" class="gt_row gt_left gt_striped" style="font-family: 'Open Sans'; font-size: 14px;">+0.192</td>
@@ -1247,7 +1276,7 @@ play-by-play’s conference names, next to the school logos.</p>
 <td headers="rank" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">25</td>
 <td headers="logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ab/abd4a69d1efca7bd1c944acf8a5a77b5bce41602da970e9779f0bf6079489c1a.png" style="height:26px;" alt="USC Trojans"></td>
 <td headers="school" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">USC</td>
-<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/be/bed97965d498755ad30ae16f06cc2715ac0cf7206ed51495259fe917ae3db290.png" style="height:20px;" alt="Big Ten Conference"></td>
+<td headers="conf_logo" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4c/4c134007f405aaa5c2174616876d09d2dfa51635938fa31def5321147201e5f6.png" style="height:20px;" alt="Big Ten Conference"></td>
 <td headers="conference" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">Big Ten</td>
 <td headers="record" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">6-1</td>
 <td headers="off" class="gt_row gt_left" style="font-family: 'Open Sans'; font-size: 14px;">+0.309</td>
@@ -1267,11 +1296,11 @@ play-by-play’s conference names, next to the school logos.</p>
 <p>One row per conference, ordered by its average rating, each team’s
 logo at its net rating (nudged up and down in turn so neighbors overlap
 less). The bar in the conference’s color spans it from its lowest team
-to its highest, and the tick marks its average.
-<code><a href="../reference/scale_sdv.html">scale_colour_sdv()</a></code> and <code><a href="../reference/scale_axes_sdv.html">scale_y_sdv()</a></code> take the
-conference names like any team key, so the colors and the conference
-marks on the axis come from sdvplotR (<code><a href="../reference/theme_sdv.html">theme_y_sdv()</a></code> lets
-the axis draw images).</p>
+to its highest, and the tick marks its average. The colors come from
+<code>sdv_teams(include_conferences = TRUE)</code> and
+<code><a href="../reference/scale_axes_sdv.html">scale_y_sdv()</a></code> draws the conference marks on the axis from
+the conference keys (<code><a href="../reference/theme_sdv.html">theme_y_sdv()</a></code> lets the axis draw
+images).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">conf_order</span> <span class="op">&lt;-</span> <span class="va">ratings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">conference</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1285,6 +1314,10 @@ the axis draw images).</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">row</span> <span class="op">+</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fl">0.17</span>, <span class="op">-</span><span class="fl">0.17</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
+<span><span class="va">conf_rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"cfb"</span>, include_conferences <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">program</span> <span class="op">==</span> <span class="st">"conference"</span><span class="op">)</span></span>
+<span><span class="va">conf_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">conf_rows</span><span class="op">$</span><span class="va">color_primary</span>, <span class="va">conf_rows</span><span class="op">$</span><span class="va">team_id</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, colour <span class="op">=</span> <span class="st">"grey60"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span></span>
@@ -1297,9 +1330,9 @@ the axis draw images).</p>
 <span>    shape <span class="op">=</span> <span class="st">"|"</span>, size <span class="op">=</span> <span class="fl">9</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># a discrete axis still takes numbers: row 3 is the third conference, so 3.17 sits just above it</span></span>
-<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">teams</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">net</span>, y <span class="op">=</span> <span class="va">y</span>, team <span class="op">=</span> <span class="va">school</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">0.04</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_sdv.html">scale_colour_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"cfb"</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_axes_sdv.html">scale_y_sdv</a></span><span class="op">(</span>sport <span class="op">=</span> <span class="st">"cfb"</span>, size <span class="op">=</span> <span class="fl">30</span>, expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">teams</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">net</span>, y <span class="op">=</span> <span class="va">y</span>, team <span class="op">=</span> <span class="va">key</span><span class="op">)</span>, league <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">0.04</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">conf_colors</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_axes_sdv.html">scale_y_sdv</a></span><span class="op">(</span>league <span class="op">=</span> <span class="st">"cfb"</span>, size <span class="op">=</span> <span class="fl">30</span>, expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.04</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"FBS teams by conference,"</span>, <span class="va">season</span>, <span class="va">through</span><span class="op">)</span>,</span>
@@ -1313,9 +1346,7 @@ the axis draw images).</p>
 <span>    panel.grid.minor <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    panel.grid.major.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/theme_sdv.html">theme_y_sdv</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:</span></span>
-<span><span class="co">#&gt; known incorrect sRGB profile</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/theme_sdv.html">theme_y_sdv</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="leaderboard-cfb-weekly_files/figure-html/by-conference-1.png" class="r-plt" alt="Every FBS team's logo placed by its net opponent-adjusted EPA per play, one row per conference ordered by average rating, with each conference's logo on the vertical axis and a bar in its color spanning its teams." width="768"></p>
 </div>
 <div class="section level2">
@@ -1328,7 +1359,7 @@ dashed lines are the top 25’s averages.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">top25</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">off</span>, y <span class="op">=</span> <span class="va">dfn</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">top25</span><span class="op">$</span><span class="va">dfn</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, colour <span class="op">=</span> <span class="st">"grey55"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">top25</span><span class="op">$</span><span class="va">off</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, colour <span class="op">=</span> <span class="st">"grey55"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">school</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">0.075</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">logo</span><span class="op">)</span>, league <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">0.075</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.08</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.08</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>

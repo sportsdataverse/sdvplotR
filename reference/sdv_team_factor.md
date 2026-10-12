@@ -1,17 +1,13 @@
 # Order Team Names as a Factor
 
-Creates a factor of cleaned, valid team names. Levels are restricted to
-teams present in
-[`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
-so that downstream ggplot2 scales drop invalid entries gracefully.
+A factor of `teams` as given, levels ordered by each team's
+abbreviation; values that do not resolve are `NA` (with the resolver's
+warning), so downstream ggplot2 scales drop them.
 
 ## Usage
 
 ``` r
-sdv_team_factor(
-  teams,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer")
-)
+sdv_team_factor(teams, league, season = NULL, id_system = "auto")
 ```
 
 ## Arguments
@@ -20,18 +16,24 @@ sdv_team_factor(
 
   Character vector of team names.
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
+
+- season, id_system:
+
+  Passed to
+  [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md).
 
 ## Value
 
-An ordered `factor` of the cleaned, valid team names.
+A `factor` of `teams`.
 
 ## Examples
 
 ``` r
-sdv_team_factor(c("KC", "BUF", "invalid"), sport = "nfl")
+suppressWarnings(sdv_team_factor(c("KC", "BUF", "invalid"), league = "nfl"))
 #> [1] KC   BUF  <NA>
 #> Levels: BUF KC
 ```

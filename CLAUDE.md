@@ -59,10 +59,7 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   the UAC the basketball WAC became never draws the WAC.
   `tests/testthat/fixtures/conference_keys.csv` pins every key that
   resolved to a conference before them. Divergence from nflplotR:
-  [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-  /
-  [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
-  /
+  `team_reference()` / `valid_team_names()` /
   [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md)
   list conferences only with `include_conferences = TRUE`, because users
   filter and loop over those frames as teams. **Never hand-edit the
@@ -83,10 +80,10 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   `data-raw/logo_history_legacy.csv`. URLs are the archive’s
   content-addressed copies, never ESPN / NHL originals (overwritten in
   place). A historical key never goes through
-  [`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md),
-  so `"COL"` never draws a Nordiques mark. Each script re-saves the
-  other’s objects; rerun this one after `generate_logo_ref.R`. NHL marks
-  are SVG, which ggpath reads with `rsvg`.
+  `resolve_historical_abbr()`, so `"COL"` never draws a Nordiques mark.
+  Each script re-saves the other’s objects; rerun this one after
+  `generate_logo_ref.R`. NHL marks are SVG, which ggpath reads with
+  `rsvg`.
 
 - `R/sysdata.rda` also holds `logo_marks` (sport, key, type, variant,
   url): the archive’s copies of today’s logos and wordmarks, read FIRST
@@ -103,9 +100,8 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   for a sport iff `logo_variants` / `wordmark_variants` or
   `archive_variants(sport)` has it. Run order: `generate_logo_ref.R` -\>
   `generate_logo_history.R` -\> `generate_logo_marks.R`; all three save
-  the four objects with `xz`.
-  [`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-  keeps the source URLs on purpose (public columns).
+  the four objects with `xz`. `team_reference()` keeps the source URLs
+  on purpose (public columns).
 
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
   `headshot_gsis_map.rds` from this repo’s `sdvplotr_infrastructure`
@@ -113,9 +109,8 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   through
   [`nflreadr::rds_from_url()`](https://nflreadr.nflverse.com/reference/rds_from_url.html),
   memoised a day. A failed read (empty map) is dropped from that cache
-  so the next call retries, and
-  [`sdvplotR_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdvplotR_clear_cache.md)
-  drops only this URL, not the user’s nflreadr cache.
+  so the next call retries, and `sdvplotR_clear_cache()` drops only this
+  URL, not the user’s nflreadr cache.
   `data-raw/update_headshot_gsis_map.R` builds it from
   [`nflreadr::load_rosters()`](https://nflreadr.nflverse.com/reference/load_rosters.html)
   1999 onward (one file per season; a combined map at each player’s
@@ -163,8 +158,7 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   copied from Andrew Weatherman’s
   [gtUtils](https://github.com/andreweatherman/gtUtils) v1.0.0 (MIT,
   credited in `Authors@R` and `LICENSE.md`). These functions work on any
-  table, so they take no `sport` argument and skip
-  [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md).
+  table, so they take no `sport` argument and skip `clean_team_abbrs()`.
   The port has been restyled (styler, `|>`, lintr), so sync upstream
   changes by diffing gtUtils against commit `619c64a` (the v1.0.0 the
   port was taken from; upstream has no tags) and applying the hunks,
@@ -199,8 +193,7 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
     Their `element_grob()` methods map the labels to URLs and call
     [`NextMethod()`](https://rdrr.io/r/base/UseMethod.html). Never
     re-class a plain list as `element_path`.
-3.  **One resolver path.** All lookups go through
-    [`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+3.  **One resolver path.** All lookups go through `clean_team_abbrs()`
     so aliases and historical abbreviations apply everywhere (geoms,
     elements, gt, reactable). Don’t add per-function cleaning.
 4.  Never hand-edit `NAMESPACE`, `man/`, `README.md` (edit `README.Rmd`)

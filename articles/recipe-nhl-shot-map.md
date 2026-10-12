@@ -145,8 +145,8 @@ draw_shots <- function(...) {
       data = goals, size = 2.6, fontface = "bold",
       fill = "white", linewidth = 0, label.padding = unit(0.12, "lines")
     ) +
-    scale_color_sdv(sport = "nhl", guide = "none") +
-    scale_fill_sdv(sport = "nhl", guide = "none") +
+    scale_color_sdv(league = "nhl", guide = "none") +
+    scale_fill_sdv(league = "nhl", guide = "none") +
     scale_size_area(max_size = 4.5, guide = "none")
 }
 
@@ -172,7 +172,7 @@ and the caption carries the source.
 
 ``` r
 
-club_names <- team_reference("nhl") |> select(team_abbr, team_name)
+club_names <- sdv_teams("nhl") |> select(team_abbr = abbr, team_name = name)
 scoreboard <- tibble(
   team = c(game$away_team_abbr, game$home_team_abbr),
   x = c(-122, 122), # outside the boards, on the side each team attacks
@@ -188,7 +188,7 @@ loser <- slice_min(scoreboard, score, n = 1)
 
 shot_map <- function() {
   draw_shots(xlims = c(-142, 142)) +
-    geom_sdv_logos(aes(x = x, y = 14, team = team), data = scoreboard, sport = "nhl", height = 0.2) +
+    geom_sdv_logos(aes(x = x, y = 14, team = team), data = scoreboard, league = "nhl", height = 0.2) +
     geom_text(aes(x = x, y = -8, label = score), data = scoreboard, size = 11, fontface = "bold") +
     geom_text(
       aes(x = x, y = -21, label = paste(sog, "shots\non goal")),

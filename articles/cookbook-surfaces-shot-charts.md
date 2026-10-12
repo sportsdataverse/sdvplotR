@@ -43,10 +43,10 @@ surfaces <- c(
   wnba = "WNBA court", mbb = "College basketball court (men's and women's)",
   nhl = "NHL rink", mlb = "MLB field"
 )
-for (sport in names(surfaces)) {
-  p <- sdv_surface(sport) + labs(title = surfaces[[sport]]) + titled
+for (lg in names(surfaces)) {
+  p <- sdv_surface(lg) + labs(title = surfaces[[lg]]) + titled
   # the baseball field paints the whole plot background grass green
-  if (sport == "mlb") p <- p + theme(plot.title = element_text(colour = "white"))
+  if (lg == "mlb") p <- p + theme(plot.title = element_text(colour = "white"))
   print(p)
 }
 ```
@@ -142,10 +142,10 @@ most_wins <- function(schedule, box) {
 nba_best <- most_wins(hoopR::load_nba_schedule(2026), hoopR::load_nba_team_box(2026))
 wnba_best <- most_wins(wehoop::load_wnba_schedule(2026), wehoop::load_wnba_team_box(2026))
 
-mbb_ref <- team_reference("mbb")
+mbb_ref <- sdv_teams("mbb")
 mbb_best <- hoopR::load_mbb_ratings(2026) |>
   as.data.frame() |>
-  mutate(team = mbb_ref$team_abbr[match(team_id, mbb_ref$espn_team_id)]) |>
+  mutate(team = mbb_ref$abbr[match(team_id, mbb_ref$team_id)]) |>
   filter(!is.na(team)) |>
   slice_max(adj_em, n = 1, with_ties = FALSE)
 
@@ -166,10 +166,10 @@ best
 #>    nba   wnba    mbb    wbb 
 #>  "OKC"  "MIN" "MICH" "CONN"
 
-for (sport in names(best)) {
+for (lg in names(best)) {
   print(
-    sdv_surface(sport, best[[sport]], center_logo = TRUE) +
-      labs(title = paste(toupper(sport), best[[sport]])) +
+    sdv_surface(lg, best[[lg]], center_logo = TRUE) +
+      labs(title = paste(toupper(lg), best[[lg]])) +
       titled
   )
 }
@@ -232,7 +232,7 @@ head(shots[, c("x_legacy", "y_legacy", "court_x", "court_y")], 3)
 #> 2       18      259  -15.85     1.8
 #> 3      -88      248  -16.95    -8.8
 
-team <- clean_team_abbrs(leader$team, sport = "nba")
+team <- sdv_resolve(leader$team, league = "nba")
 sdv_surface("nba", team, display_range = "defense") +
   geom_point(aes(court_x, court_y, fill = shot_result), data = shots,
     shape = 21, colour = "grey15", stroke = 0.25, size = 1.6, alpha = 0.8
@@ -259,7 +259,7 @@ outline.](cookbook-surfaces-shot-charts_files/figure-html/nba-shots-1.png)
 The paint is in the team’s primary color too, so a made shot drawn in
 that color would vanish there: an outline (`shape = 21`) keeps every dot
 visible. The stats API’s own tricodes (`OKC`, `GSW`, `SAS`) go through
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
 to sdvplotR’s keys. hoopR’s `nba_shotchartdetail()` uses the same frame
 in `LOC_X` / `LOC_Y`: pass those names to
 [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md).
@@ -290,7 +290,7 @@ wnba_leader
 #>   person_id player_name points team
 #> 1   1628909    Mitchell    897  IND
 
-wnba_team <- clean_team_abbrs(wnba_leader$team, sport = "wnba")
+wnba_team <- sdv_resolve(wnba_leader$team, league = "wnba")
 wnba_player <- wnba_shots |>
   filter(person_id == wnba_leader$person_id) |>
   sdv_court_coords()
@@ -337,7 +337,7 @@ second <- nba_shots |>
   ) |>
   arrange(desc(points), person_id) |>
   slice(2)
-second_team <- clean_team_abbrs(second$team, sport = "nba")
+second_team <- sdv_resolve(second$team, league = "nba")
 
 turned <- nba_shots |>
   filter(person_id == second$person_id) |>
@@ -464,11 +464,11 @@ his <- goals |>
     y_net = if_else(x < 0, -y, y),
     net = if_else(empty_net, "Empty net", "Goalie in net")
   )
-nhl_team <- clean_team_abbrs(scorer$event_team_abbr, sport = "nhl")
+nhl_team <- sdv_resolve(scorer$event_team_abbr, league = "nhl")
 
 sdv_surface("nhl", nhl_team, display_range = "offense") +
   geom_point(aes(x_net, y_net, shape = net), data = his,
-    size = 2.6, fill = sdv_team_colors("nhl", nhl_team, type = "secondary"), colour = "black", stroke = 0.4
+    size = 2.6, fill = sdv_team_colors("nhl", nhl_team, which = "secondary"), colour = "black", stroke = 0.4
   ) +
   scale_shape_manual(values = c(`Goalie in net` = 21, `Empty net` = 24), name = NULL) +
   labs(
@@ -508,15 +508,15 @@ mlb_best <- baseballr::mlb_standings(season = 2026, league_id = "103,104") |>
   inner_join(mlb_ids, by = "team_records_team_id") |>
   slice_max(team_records_wins, n = 1, with_ties = FALSE) |>
   transmute(
-    team = clean_team_abbrs(team_abbreviation, sport = "mlb"),
+    team = sdv_resolve(team_abbreviation, league = "mlb"),
     name = team_full_name, wins = team_records_wins, losses = team_records_losses
   )
 mlb_best
 #>   team              name wins losses
-#> 1  MIL Milwaukee Brewers  103     59
+#> 1    8 Milwaukee Brewers  103     59
 
 sdv_surface("mlb") +
-  geom_sdv_logos(aes(x = 0, y = 330, team = team), data = mlb_best, sport = "mlb", width = 0.16) +
+  geom_sdv_logos(aes(x = 0, y = 330, team = team), data = mlb_best, league = "mlb", width = 0.16) +
   labs(
     title = sprintf("%s, %d-%d: MLB's best record in 2026", mlb_best$name, mlb_best$wins, mlb_best$losses),
     caption = "Data: baseballr::mlb_standings() (MLB Stats API)"
@@ -587,10 +587,10 @@ count(drives, posteam, result)
 
 # both teams' primaries are navy, so the loser takes its secondary
 loser <- setdiff(drives$posteam, champion)
-drive_colors <- c(sdv_team_colors("nfl", champion), sdv_team_colors("nfl", loser, type = "secondary"))
+drive_colors <- c(sdv_team_colors("nfl", champion), sdv_team_colors("nfl", loser, which = "secondary"))
 drive_colors
 #>       SEA        NE 
-#> "#002244" "#C60C30"
+#> "#002244" "#c60c30"
 
 sdv_surface("nfl") +
   geom_segment(aes(x = x, xend = xend, y = y, yend = y, colour = posteam), data = drives,

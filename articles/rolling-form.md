@@ -158,7 +158,7 @@ for a pair that does not rely on red-green vision.
 
 movers |>
   gt(groupname_col = "group") |>
-  gt_sdv_logos(entity_name, sport = "cfb", height = 22, include_name = TRUE) |>
+  gt_sdv_logos(entity_name, league = "cfb", height = 22, include_name = TRUE) |>
   gt_delta(prev, cur, column_label = "Change", decimals = 3) |>
   fmt_number(c(prev, cur), decimals = 3) |>
   cols_merge(c(cur, n), pattern = "{1} (n = {2})") |>

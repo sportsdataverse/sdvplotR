@@ -17,8 +17,7 @@ gt_column_subheaders(
   heading_size = 14,
   subtitle_size = 10,
   font = NULL,
-  ...,
-  gt_table = NULL
+  ...
 )
 ```
 
@@ -66,10 +65,6 @@ gt_column_subheaders(
   `subtitle` (the subtitle text). A column left out of `...` uses its
   column name as the heading and a non-breaking space (`&nbsp;`) as the
   subtitle.
-
-- gt_table:
-
-  Deprecated. Use `gt_object`.
 
 ## Value
 

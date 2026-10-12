@@ -15,8 +15,7 @@ gt_set_font(
   font_family,
   from_google_font = TRUE,
   weight = NULL,
-  style = NULL,
-  gt_table = NULL
+  style = NULL
 )
 ```
 
@@ -49,10 +48,6 @@ gt_set_font(
   Character. The font style applied to every part, one of `"normal"`,
   `"italic"`, or `"oblique"`. Defaults to `NULL`, which leaves the style
   alone.
-
-- gt_table:
-
-  Deprecated. Use `gt_object`.
 
 ## Value
 

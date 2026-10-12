@@ -1,9 +1,11 @@
 # **sdvplotR**
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
-team logos, wordmarks, player headshots and team colors across **nine
-leagues** — NFL, NBA, WNBA, MLB, NHL, college football, men’s and
-women’s college basketball, and soccer — in
+team logos, wordmarks, player headshots and team colors across the **28
+leagues** of the SportsDataverse team index
+([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md))
+— NFL, NBA, WNBA, MLB, NHL, college football, men’s and women’s college
+basketball, soccer and more — in
 [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
 [**`gt`**](https://gt.rstudio.com/) tables and
 [**`reactable`**](https://glin.github.io/reactable/) tables. It is built
@@ -11,7 +13,7 @@ on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
 approach established by [nflplotR](https://nflplotr.nflverse.com/),
 [cfbplotR](https://cfbplotR.sportsdataverse.org/),
 [nbaplotR](https://mrcaseb.github.io/nbaplotR/) and
-[mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `sport`
+[mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `league`
 argument.
 
 ![Every NFL team's 2023 regular season drawn as its logo, placed by
@@ -83,11 +85,18 @@ npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse
 
 ## **Usage**
 
-Every function takes a `sport` argument (`"nfl"`, `"nba"`, `"wnba"`,
-`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"`). Team keys are
-cleaned automatically: full names, alternate abbreviations used by other
-data providers and historical abbreviations of relocated franchises
-(`"OAK"` → `"LV"`, `"SEA"` → `"OKC"`) all resolve to the same team.
+Every function takes a `league` argument (`"nfl"`, `"nba"`, `"wnba"`,
+`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"` and the rest of
+[`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)).
+Team identifiers are resolved automatically: full names, abbreviations
+from other data providers (ESPN, nflverse, MLB Stats, nba_api, NHL,
+CFBD, NCAA and more) and the codes of relocated franchises all resolve
+to the same team.
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+shows the id a value resolves to,
+[`sdv_suggest()`](https://sdvplotR.sportsdataverse.org/reference/sdv_suggest.md)
+proposes candidates for a typo, and `season` selects the era for codes
+that were reused.
 
 ``` r
 
@@ -98,11 +107,11 @@ library(ggplot2)
 df <- data.frame(
   a     = rep(1:8, 4),
   b     = sort(rep(1:4, 8), decreasing = TRUE),
-  teams = valid_team_names("nfl")
+  teams = sdv_teams("nfl")$abbr
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_sdv_logos(aes(team = teams), sport = "nfl", width = 0.075) +
+  geom_sdv_logos(aes(team = teams), league = "nfl", width = 0.075) +
   theme_void()
 ```
 
@@ -116,9 +125,9 @@ df2 <- data.frame(
 
 ggplot(df2, aes(x = team, y = score)) +
   geom_col(aes(fill = team), show.legend = FALSE) +
-  scale_fill_sdv(sport = "nfl") +
+  scale_fill_sdv(league = "nfl") +
   theme_minimal() +
-  theme(axis.text.x = element_sdv_logo(sport = "nfl", size = 1))
+  theme(axis.text.x = element_sdv_logo(league = "nfl", size = 1))
 ```
 
 ``` r
@@ -128,13 +137,13 @@ library(gt)
 # Logos inside a gt table, in the SportsDataverse table theme
 data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11)) |>
   gt() |>
-  gt_sdv_logos(columns = "team", sport = "nfl") |>
+  gt_sdv_logos(columns = "team", league = "nfl") |>
   gt_theme_sdv()
 
 # ...or dressed in one team's colors
 data.frame(player = c("Patrick Mahomes", "Travis Kelce"), yards = c(4183, 984)) |>
   gt() |>
-  gt_theme_sdv_team(team = "KC", sport = "nfl")
+  gt_theme_sdv_team(team = "KC", league = "nfl")
 ```
 
 ``` r
@@ -147,8 +156,8 @@ df3 <- data.frame(team = c("KC", "BUF", "SF"), wins = c(13, 12, 11))
 reactable(
   df3,
   columns = list(
-    team = colDef(cell = reactable_sdv_logos(sport = "nfl"), html = TRUE),
-    wins = colDef(style = reactable_sdv_team_color_bar(df3, "team", sport = "nfl"))
+    team = colDef(cell = reactable_sdv_logos(league = "nfl"), html = TRUE),
+    wins = colDef(style = reactable_sdv_team_color_bar(df3, "team", league = "nfl"))
   )
 )
 ```
@@ -171,9 +180,9 @@ for publishing.
 
 Dark-mode logo variants are available through `variant = "dark"` in the
 table helpers, and
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-exposes the full reference data (ESPN ids, colors, conference /
-division) for every team.
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
+exposes the full reference data (ESPN ids, colors, conference) for every
+team.
 
 ## **Documentation**
 

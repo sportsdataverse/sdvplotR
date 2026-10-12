@@ -12,11 +12,13 @@ gt_merge_stack_team_color(
   col1,
   col2,
   team_col,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   font_size_top = 14,
   font_size_bottom = 12,
   color = "black",
-  background = NULL
+  background = NULL,
+  season = NULL,
+  id_system = "auto"
 )
 ```
 
@@ -38,9 +40,10 @@ gt_merge_stack_team_color(
 
   The column of team names for the color of the bottom text.
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - font_size_top:
 
@@ -62,6 +65,20 @@ gt_merge_stack_team_color(
   applied **before** this function is taken into account; a theme
   applied afterwards isn't seen, so set `background` then. A table with
   no background color set counts as white.
+
+- season:
+
+  `NULL` for today's mark, or a season (or one per team): the mark the
+  team wore that season where the archive dates its marks.
+
+- id_system:
+
+  `"auto"` (try every id system in priority order) or one id system:
+  `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
+  `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
+  `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
+  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
+  overlap ESPN's, so `"auto"` never reads a number as one).
 
 ## Value
 
@@ -90,7 +107,7 @@ df <- data.frame(
 
 df |>
   gt() |>
-  gt_merge_stack_team_color(team, mascot, team, sport = "nfl")
+  gt_merge_stack_team_color(team, mascot, team, league = "nfl")
 
 
   

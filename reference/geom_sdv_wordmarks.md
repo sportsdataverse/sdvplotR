@@ -1,9 +1,11 @@
 # ggplot2 Layer for Visualizing Sports Team Wordmarks
 
 This geom is used to plot sports team wordmarks instead of points in a
-ggplot. It requires x, y aesthetics as well as a valid team
-abbreviation. The latter can be checked with
-[`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md).
+ggplot. It requires x, y aesthetics as well as a valid team identifier:
+anything
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+accepts. A league's teams are listed by
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md).
 
 ## Usage
 
@@ -14,7 +16,9 @@ geom_sdv_wordmarks(
   stat = "identity",
   position = "identity",
   ...,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
+  id_system = "auto",
+  strict = FALSE,
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE
@@ -129,12 +133,26 @@ GeomSDVwordmark
     glyphs](https://ggplot2.tidyverse.org/reference/draw_key.html), to
     change the display of the layer in the legend.
 
-- sport:
+- league:
 
-  Character string identifying the sport. One of
-  [`supported_sports()`](https://sdvplotR.sportsdataverse.org/reference/supported_sports.md).
-  Soccer is accepted, but soccer team wordmark lookups return `NA`
-  because the club references carry no wordmark URLs.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
+  A team the logo archive has no wordmark for is not drawn (its path is
+  `NA`, with a warning).
+
+- id_system:
+
+  `"auto"` (try every id system in priority order) or one id system:
+  `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
+  `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
+  `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
+  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
+  overlap ESPN's, so `"auto"` never reads a number as one).
+
+- strict:
+
+  If `TRUE`, a value that does not resolve is an error; otherwise it
+  becomes `NA` with one warning per call.
 
 - na.rm:
 
@@ -180,8 +198,8 @@ aesthetics are in bold):
 
 - **team**:
 
-  \- The team abbreviation. Should be one of
-  [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md).
+  \- The team: an abbreviation, name or id, resolved by
+  [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md).
 
 - `alpha = NULL`:
 
@@ -216,6 +234,11 @@ aesthetics are in bold):
   \- The desired height of the image in `npc`. A typical size is
   `height = 0.1`.
 
+- `season = NA`:
+
+  \- The season whose wordmark to draw, as for
+  [`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md).
+
 ## Examples
 
 ``` r
@@ -223,7 +246,7 @@ aesthetics are in bold):
 library(sdvplotR)
 library(ggplot2)
 
-team_abbr <- valid_team_names("nfl")[1:8]
+team_abbr <- sdv_teams("nfl")$abbr[1:8]
 
 df <- data.frame(
   a = rep(1:4, 2),
@@ -232,7 +255,7 @@ df <- data.frame(
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_sdv_wordmarks(aes(team = teams), sport = "nfl", width = 0.12) +
+  geom_sdv_wordmarks(aes(team = teams), league = "nfl", width = 0.12) +
   geom_label(aes(label = teams), nudge_y = -0.20, alpha = 0.5) +
   scale_x_continuous(expand = expansion(add = 0.5)) +
   theme_void()

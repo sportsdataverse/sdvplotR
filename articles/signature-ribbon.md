@@ -148,8 +148,8 @@ shooter_team <- curves |>
 stopifnot(length(shooter_team) == 1)
 shooter_team
 #> [1] "LAL"
-above <- sdv_team_colors("nba", shooter_team, type = "primary")
-below <- sdv_team_colors("nba", shooter_team, type = "secondary")
+above <- sdv_team_colors("nba", shooter_team, which = "primary")
+below <- sdv_team_colors("nba", shooter_team, which = "secondary")
 ```
 
 ## The ribbon
@@ -202,7 +202,7 @@ ggplot(ribbon) +
     title = shooter,
     subtitle = "2025-26, 1 ft buckets to 35 ft, buckets under 10 attempts faded",
     image_height = 22,
-    sport = "nba"
+    league = "nba"
   ) +
   labs(caption = "Data: sportsdataverse-data release nba_stats_metric_curves") +
   theme_minimal() +

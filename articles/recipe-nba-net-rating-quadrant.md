@@ -75,37 +75,37 @@ nrow(ratings)
 ```
 
 33 teams in a 30-team league.
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-finds the extras: with `keep_non_matches = FALSE`, anything that is not
-an NBA team comes back `NA`. They are the All-Star Game’s teams, which
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+finds the extras: anything that is not an NBA team comes back `NA` (with
+a warning naming the values). They are the All-Star Game’s teams, which
 ESPN files as regular-season games. The conference comes from
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md),
-keyed by the same cleaned abbreviation.
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md),
+keyed by the same team id.
 
 ``` r
 
 ratings <- ratings |>
-  mutate(team_abbr = clean_team_abbrs(team, sport = "nba", keep_non_matches = FALSE))
-filter(ratings, is.na(team_abbr))$team
+  mutate(team_id = sdv_resolve(team, league = "nba"))
+filter(ratings, is.na(team_id))$team
 #> [1] "STARS"   "STRIPES" "WORLD"
 
-conferences <- team_reference("nba") |>
-  transmute(team_abbr, conference = sub("ern$", "", conference))
+conferences <- sdv_teams("nba") |>
+  transmute(team_id, team_abbr = abbr, conference = sub("ern Conference$", "", conference))
 ratings <- ratings |>
-  filter(!is.na(team_abbr)) |>
-  inner_join(conferences, by = "team_abbr") |>
+  filter(!is.na(team_id)) |>
+  inner_join(conferences, by = "team_id") |>
   arrange(desc(net), team_abbr)
 stopifnot(nrow(ratings) == 30)
 head(ratings)
-#> # A tibble: 6 × 6
-#>   team   ortg  drtg   net team_abbr conference
-#>   <chr> <dbl> <dbl> <dbl> <chr>     <chr>     
-#> 1 OKC    116.  105. 10.9  OKC       West      
-#> 2 DET    114.  106.  7.93 DET       East      
-#> 3 SA     117.  109.  7.86 SA        West      
-#> 4 BOS    117.  109.  7.85 BOS       East      
-#> 5 NY     117.  110.  6.40 NY        East      
-#> 6 HOU    115.  110.  5.21 HOU       West
+#> # A tibble: 6 × 7
+#>   team   ortg  drtg   net team_id team_abbr conference
+#>   <chr> <dbl> <dbl> <dbl> <chr>   <chr>     <chr>     
+#> 1 OKC    116.  105. 10.9  25      OKC       West      
+#> 2 DET    114.  106.  7.93 8       DET       East      
+#> 3 SA     117.  109.  7.86 24      SA        West      
+#> 4 BOS    117.  109.  7.85 2       BOS       East      
+#> 5 NY     117.  110.  6.40 18      NY        East      
+#> 6 HOU    115.  110.  5.21 10      HOU       West
 ```
 
 ## 2. The first draft
@@ -141,7 +141,7 @@ read against its conference.
 
 ggplot(ratings, aes(ortg, drtg)) +
   geom_mean_lines(aes(x0 = ortg, y0 = drtg), color = "grey60", linewidth = 0.5) +
-  geom_sdv_logos(aes(team = team_abbr), sport = "nba", width = 0.1) +
+  geom_sdv_logos(aes(team = team_abbr), league = "nba", width = 0.1) +
   facet_wrap(vars(conference))
 ```
 
@@ -197,7 +197,7 @@ net_guides <- list(
 
 p <- ggplot(ratings, aes(ortg, drtg)) +
   net_guides +
-  geom_sdv_logos(aes(team = team_abbr), sport = "nba", width = 0.1) +
+  geom_sdv_logos(aes(team = team_abbr), league = "nba", width = 0.1) +
   facet_wrap(vars(conference)) +
   scale_x_continuous(expand = expansion(mult = 0.06)) +
   scale_y_reverse(expand = expansion(mult = 0.08)) +
@@ -254,7 +254,7 @@ blog_theme <- theme_minimal(base_size = 10) +
 net_chart <- function(logo_width = 0.1, ncol = 2) {
   ggplot(ratings, aes(ortg, drtg)) +
     net_guides +
-    geom_sdv_logos(aes(team = team_abbr), sport = "nba", width = logo_width) +
+    geom_sdv_logos(aes(team = team_abbr), league = "nba", width = logo_width) +
     geom_text(
       aes(label = note), data = leaders,
       hjust = 0, nudge_x = 1.1, size = 3, fontface = "bold", color = "grey20"

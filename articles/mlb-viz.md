@@ -103,22 +103,23 @@ The output below uses a snapshot of these calls taken on October 05,
 built; `data-raw/article_fixtures.R` takes it with the same code.
 
 The Stats API and Savant write a few team abbreviations differently from
-ESPN, whose abbreviations sdvplotR keys its team colors on.
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-converts them once, at the start, so every later join and color scale
-agrees:
+sdvplotR’s team index.
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+converts them once, at the start, to the index’s team ids, so every
+later join and color scale agrees:
 
 ``` r
 
 standings <- standings |>
-  mutate(team = clean_team_abbrs(abbreviation, sport = "mlb"), pct = w / (w + l))
+  mutate(team = sdv_resolve(abbreviation, league = "mlb"), pct = w / (w + l))
 
 standings |>
-  filter(team != abbreviation) |>
-  select(team_name, abbreviation, team)
-#>              team_name abbreviation team
-#> 1    Chicago White Sox          CWS  CHW
-#> 2 Arizona Diamondbacks           AZ  ARI
+  mutate(sdv_abbr = sdv_teams("mlb")$abbr[match(team, sdv_teams("mlb")$team_id)]) |>
+  filter(abbreviation != sdv_abbr) |>
+  select(team_name, abbreviation, sdv_abbr)
+#>              team_name abbreviation sdv_abbr
+#> 1    Chicago White Sox          CWS      CHW
+#> 2 Arizona Diamondbacks           AZ      ARI
 
 stats_api <- "Data: MLB Stats API via baseballr | Viz: sdvplotR"
 savant <- "Data: Baseball Savant via baseballr | Viz: sdvplotR"
@@ -144,8 +145,8 @@ run_diff <- standings |>
 ggplot(run_diff, aes(team, diff, fill = team)) +
   geom_col(width = 0.75) +
   geom_hline(yintercept = 0, colour = "grey20", linewidth = 0.4) +
-  scale_fill_sdv(sport = "mlb") +
-  scale_x_sdv(sport = "mlb", size = 20) +
+  scale_fill_sdv(league = "mlb") +
+  scale_x_sdv(league = "mlb", size = 20) +
   labs(
     title = paste(season, "MLB run differential"),
     subtitle = "Regular season, runs scored minus runs allowed",
@@ -189,7 +190,7 @@ standings |>
   arrange(division, rank) |>
   select(division, logo, team_name, w, l, pct, gb, rs, ra, diff, strk) |>
   gt(groupname_col = "division") |>
-  gt_sdv_logos(columns = "logo", sport = "mlb", height = 24) |>
+  gt_sdv_logos(columns = "logo", league = "mlb", height = 24) |>
   fmt(columns = pct, fns = rate) |>
   cols_label(
     logo = "", team_name = "Team", w = "W", l = "L", pct = "Pct", gb = "GB",
@@ -268,7 +269,7 @@ ggplot(pyth, aes(xw, w)) +
     "text", x = lims[2] - 1, y = lims[1] + 1, hjust = 1, vjust = 0, size = 3.6,
     colour = "grey35", label = "Won fewer"
   ) +
-  geom_sdv_logos(aes(team = team), sport = "mlb", width = 0.065) +
+  geom_sdv_logos(aes(team = team), league = "mlb", width = 0.065) +
   coord_equal(xlim = lims, ylim = lims) +
   labs(
     title = paste(season, "MLB: actual against expected wins"),
@@ -295,18 +296,18 @@ Baseball Savant’s expected statistics at the team level. Expected wOBA
 (xwOBA) grades every batted ball by its exit velocity and launch angle,
 so a team above the line got more from its contact than the contact’s
 quality predicts. Savant’s `team_id` column holds abbreviations, which
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
 converts like any other.
 
 ``` r
 
 xstats <- team_xstats |>
-  mutate(team = clean_team_abbrs(team_id, sport = "mlb"))
+  mutate(team = sdv_resolve(team_id, league = "mlb"))
 lims <- range(xstats$woba, xstats$est_woba) + c(-0.004, 0.004)
 
 ggplot(xstats, aes(est_woba, woba)) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = "grey60") +
-  geom_sdv_logos(aes(team = team), sport = "mlb", width = 0.055) +
+  geom_sdv_logos(aes(team = team), league = "mlb", width = 0.055) +
   scale_x_continuous(labels = rate) +
   scale_y_continuous(labels = rate) +
   coord_equal(xlim = lims, ylim = lims) +
@@ -329,10 +330,10 @@ equal.](mlb-viz_files/figure-html/statcast-teams-1.png)
 ## 5. Home run leaders with headshots
 
 The Stats API and Savant identify players by their MLBAM ID, which is
-why the headshots pass `id_type = "league"`: it draws MLBAM IDs from
-MLB’s own image CDN. Leave `id_type` unset for ESPN athlete IDs, such as
-those in baseballr’s `espn_mlb_*()` data. Both are plain numbers, so the
-wrong setting draws someone else or nothing. Everyone tied for tenth
+why the headshots pass `id_system = "league"`: it draws MLBAM IDs from
+MLB’s own image CDN. Leave `id_system` unset for ESPN athlete IDs, such
+as those in baseballr’s `espn_mlb_*()` data. Both are plain numbers, so
+the wrong setting draws someone else or nothing. Everyone tied for tenth
 makes the list.
 
 ``` r
@@ -345,13 +346,13 @@ hr_leaders <- hitters |>
 
 ggplot(hr_leaders, aes(home_runs, player)) +
   geom_col(aes(fill = team), width = 0.72) +
-  geom_sdv_logos(aes(x = -3, team = team), sport = "mlb", height = 0.065) +
+  geom_sdv_logos(aes(x = -3, team = team), league = "mlb", height = 0.065) +
   geom_sdv_headshots(
     aes(x = home_runs + 3.2, player_id = player_id),
-    sport = "mlb", id_type = "league", height = 0.085
+    league = "mlb", id_system = "league", height = 0.085
   ) +
   geom_text(aes(x = home_runs + 6.6, label = home_runs), hjust = 0, fontface = "bold", size = 4) +
-  scale_fill_sdv(sport = "mlb") +
+  scale_fill_sdv(league = "mlb") +
   scale_x_continuous(limits = c(-6, max(hr_leaders$home_runs) + 10), expand = expansion(0)) +
   labs(
     title = paste(season, "MLB home run leaders"),
@@ -403,7 +404,7 @@ sdv_surface("mlb", xlims = c(-330, 330), ylims = c(-20, 480)) +
   ) +
   geom_sdv_logos(
     aes(x = -265, y = 430, team = team),
-    data = distinct(spray, player, team), sport = "mlb", width = 0.13
+    data = distinct(spray, player, team), league = "mlb", width = 0.13
   ) +
   scale_fill_distiller(palette = "YlOrRd", direction = 1, name = "Distance (ft)") +
   facet_wrap(~player) +
@@ -457,7 +458,7 @@ ggplot(contact, aes(avg_hit_speed, brl_percent)) +
   geom_point(colour = "grey70", size = 1.6) +
   geom_sdv_headshots(
     aes(player_id = player_id),
-    data = barrels, sport = "mlb", id_type = "league", height = 0.1
+    data = barrels, league = "mlb", id_system = "league", height = 0.1
   ) +
   name_labels(-1) +
   name_labels(1) +
@@ -530,7 +531,7 @@ distinct_colours <- function(primary, secondary, min_gap = 20) {
 }
 line_colours <- final |>
   arrange(division, place) |>
-  inner_join(sdv_team_colors("mlb", type = "all"), by = c(team = "team_abbr")) |>
+  inner_join(sdv_team_colors("mlb", which = "all"), by = c(team = "team_id")) |>
   mutate(colour = distinct_colours(primary, secondary), .by = division)
 
 ggplot(race, aes(week, place, colour = team)) +
@@ -539,7 +540,7 @@ ggplot(race, aes(week, place, colour = team)) +
   # inherit.aes = FALSE: a colour aesthetic would tint the logos
   geom_sdv_logos(
     aes(x = week + 10, y = place, team = team),
-    data = final, sport = "mlb", width = 0.07, inherit.aes = FALSE
+    data = final, league = "mlb", width = 0.07, inherit.aes = FALSE
   ) +
   scale_colour_manual(values = setNames(line_colours$colour, line_colours$team)) +
   scale_y_reverse(breaks = 1:5) +
@@ -579,8 +580,8 @@ Old abbreviations are not a reliable key:
 
 ``` r
 
-clean_team_abbrs(c("OAK", "KCA", "MON", "BRO"), sport = "mlb", keep_non_matches = FALSE)
-#> [1] "ATH" "KC"  "WSH" NA
+sdv_resolve(c("OAK", "KCA", "MON", "BRO"), league = "mlb")
+#> [1] "11" "7"  "20" "19"
 ```
 
 sdvplotR maps the Oakland and Montreal codes to the clubs they became,
@@ -623,14 +624,14 @@ ggplot(eras, aes(y = team)) +
     aes(x = to + 3, label = name),
     data = filter(eras, current), hjust = 0, size = 3.3, fontface = "bold"
   ) +
-  scale_fill_sdv(sport = "mlb") +
+  scale_fill_sdv(league = "mlb") +
   scale_alpha_manual(values = c(`TRUE` = 1, `FALSE` = 0.55)) +
   scale_colour_identity() +
   scale_x_continuous(
     breaks = c(1901, seq(1925, 2000, 25), season),
     limits = c(1901, season + 32), expand = expansion(0)
   ) +
-  scale_y_sdv(sport = "mlb", size = 22) +
+  scale_y_sdv(league = "mlb", size = 22) +
   labs(
     title = "Nine MLB franchises that moved",
     subtitle = "One shade per city, from 1901 or the franchise's first season",
@@ -683,7 +684,7 @@ stopifnot(sum(field$tier_no == 1) == 6, sum(field$tier_no == 2) == 6)
 
 sdv_team_tiers(
   select(field, tier_no, tier_rank, team),
-  sport = "mlb",
+  league = "mlb",
   title = paste("How the", season, "postseason field was built"),
   subtitle = "Regular season; teams ordered by wins within each tier",
   caption = stats_api,

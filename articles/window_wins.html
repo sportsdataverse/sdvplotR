@@ -91,10 +91,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -296,15 +321,15 @@ renaming the <code>home_*</code> / <code>away_*</code> pairs to
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="st">"REG"</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">home_score</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">home_team</span>, <span class="va">away_team</span>, <span class="va">home_score</span>, <span class="va">away_score</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/clean_homeaway.html" class="external-link">clean_homeaway</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>franchise <span class="op">=</span> <span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="va">team</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>franchise <span class="op">=</span> <span class="fu"><a href="../reference/sdv_resolve.html">sdv_resolve</a></span><span class="op">(</span><span class="va">team</span>, league <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The schedules keep each season’s abbreviation, so the Raiders are
 <code>OAK</code> before 2020 and <code>LV</code> after.
-<code><a href="../reference/clean_team_abbrs.html">clean_team_abbrs()</a></code> maps every relocated abbreviation to
-today’s franchise key, which is what lets one franchise’s ten seasons
-add up.</p>
+<code><a href="../reference/sdv_resolve.html">sdv_resolve()</a></code> maps every relocated abbreviation to today’s
+franchise key, which is what lets one franchise’s ten seasons add
+up.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OAK"</span>, <span class="st">"SD"</span>, <span class="st">"STL"</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "LV"  "LAC" "LA"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sdv_resolve.html">sdv_resolve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OAK"</span>, <span class="st">"SD"</span>, <span class="st">"STL"</span><span class="op">)</span>, league <span class="op">=</span> <span class="st">"nfl"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "13" "24" "14"</span></span></code></pre></div>
 <p>Each franchise’s record per season is then one summary:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">records</span> <span class="op">&lt;-</span> <span class="va">games</span> <span class="op">|&gt;</span></span>
@@ -357,9 +382,9 @@ same.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="st">"SB"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span></span>
 <span>    <span class="va">season</span>,</span>
-<span>    franchise <span class="op">=</span> <span class="fu"><a href="../reference/clean_team_abbrs.html">clean_team_abbrs</a></span><span class="op">(</span></span>
+<span>    franchise <span class="op">=</span> <span class="fu"><a href="../reference/sdv_resolve.html">sdv_resolve</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">home_score</span> <span class="op">&gt;</span> <span class="va">away_score</span>, <span class="va">home_team</span>, <span class="va">away_team</span><span class="op">)</span>,</span>
-<span>      sport <span class="op">=</span> <span class="st">"nfl"</span></span>
+<span>      league <span class="op">=</span> <span class="st">"nfl"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -420,9 +445,9 @@ it needs no mask of its own.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   years     `1`   `2`   `3`   `4`   `5`  </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1999-2008 IND   NE    PIT   PHI   TEN  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2000-2009 IND   NE    PHI   PIT   GB   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 2001-2010 NE    IND   PIT   PHI   GB</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1999-2008 11    17    23    21    10   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2000-2009 11    17    21    23    9    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 2001-2010 17    11    23    21    9</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="color-first-then-snake">5. Color first, then snake<a class="anchor" aria-label="anchor" href="#color-first-then-snake"></a>
@@ -961,138 +986,138 @@ on the plain, un-snaked table, then fold it.</p>
 <tbody class="gt_table_body">
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">1999-2008</td>
-<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">IND</td>
-<td headers="2_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PHI</td>
-<td headers="5_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">TEN</td>
+<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="2_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">21</td>
+<td headers="5_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">10</td>
 <td headers=".gap1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"></td>
 <td headers="years_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2008-2017</td>
-<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">ATL</td>
-<td headers="5_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NO</td>
+<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">1</td>
+<td headers="5_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">18</td>
 </tr>
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2000-2009</td>
-<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">IND</td>
-<td headers="2_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="3_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PHI</td>
-<td headers="4_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="5_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
+<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="2_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="3_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">21</td>
+<td headers="4_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="5_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
 <td headers=".gap1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"></td>
 <td headers="years_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2009-2018</td>
-<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="4_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NO</td>
-<td headers="5_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">SEA</td>
+<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="4_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">18</td>
+<td headers="5_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">26</td>
 </tr>
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2001-2010</td>
-<td headers="1_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">IND</td>
-<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PHI</td>
-<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
+<td headers="1_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">21</td>
+<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
 <td headers=".gap1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"></td>
 <td headers="years_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2010-2019</td>
-<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="3_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="4_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">SEA</td>
-<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NO</td>
+<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="3_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="4_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">26</td>
+<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">18</td>
 </tr>
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2002-2011</td>
-<td headers="1_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">IND</td>
-<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PHI</td>
-<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
+<td headers="1_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">21</td>
+<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
 <td headers=".gap1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"></td>
 <td headers="years_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2011-2020</td>
-<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">SEA</td>
-<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NO</td>
+<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">26</td>
+<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">18</td>
 </tr>
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2003-2012</td>
-<td headers="1_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">IND</td>
-<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="4_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">BAL</td>
+<td headers="1_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="4_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">33</td>
 <td headers=".gap1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"></td>
 <td headers="years_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2012-2021</td>
-<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">SEA</td>
-<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">KC</td>
-<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
+<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">26</td>
+<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">12</td>
+<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
 </tr>
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2004-2013</td>
-<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">IND</td>
-<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">LAC</td>
-<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
+<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">24</td>
+<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
 <td headers=".gap1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"></td>
 <td headers="years_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2013-2022</td>
-<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">KC</td>
-<td headers="2_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">SEA</td>
-<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
+<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">12</td>
+<td headers="2_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">26</td>
+<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
 </tr>
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2005-2014</td>
-<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">IND</td>
-<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="4_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="5_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">LAC</td>
+<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="3_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="4_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="5_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">24</td>
 <td headers=".gap1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"></td>
 <td headers="years_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2014-2023</td>
-<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">KC</td>
-<td headers="2_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="3_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">SEA</td>
+<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">12</td>
+<td headers="2_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="3_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">26</td>
 </tr>
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2006-2015</td>
-<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="3_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">IND</td>
-<td headers="4_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">BAL</td>
+<td headers="1_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="3_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="4_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">33</td>
 <td headers=".gap1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"></td>
 <td headers="years_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2015-2024</td>
-<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">KC</td>
-<td headers="2_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="3_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">BUF</td>
-<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">BAL</td>
+<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">12</td>
+<td headers="2_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="3_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2</td>
+<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">33</td>
 </tr>
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2007-2016</td>
-<td headers="1_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">NE</td>
-<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">GB</td>
-<td headers="3_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">IND</td>
-<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">DEN</td>
+<td headers="1_1" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="2_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
+<td headers="3_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="4_1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="5_1" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">7</td>
 <td headers=".gap1" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"></td>
 <td headers="years_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2016-2025</td>
-<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">KC</td>
-<td headers="2_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">BUF</td>
-<td headers="3_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">BAL</td>
-<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PIT</td>
-<td headers="5_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">PHI</td>
+<td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">12</td>
+<td headers="2_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">2</td>
+<td headers="3_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">33</td>
+<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="5_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">21</td>
 </tr>
 </tbody>
 </table>
@@ -1124,7 +1149,7 @@ takes all ten franchise columns; each logo’s <code>alt</code> text is
 the team’s full name.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ... |&gt;</span></span>
-<span><span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"^[1-5]_[0-9]+$"</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">34</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"^[1-5]_[0-9]+$"</span><span class="op">)</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">34</span><span class="op">)</span></span></code></pre></div>
 <p>The pattern picks the snaked columns out by name rather than listing
 ten of them, so the code survives a change to <code>n_cols</code>.</p>
 </div>
@@ -1178,7 +1203,7 @@ rule color.</p>
 <span>  <span class="fu"><a href="../reference/gt_highlight_cells.html">gt_highlight_cells</a></span><span class="op">(</span><span class="op">-</span><span class="va">years</span>, condition <span class="op">=</span> <span class="va">mask_2</span>, fill <span class="op">=</span> <span class="st">"#FFA970"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_snake.html">gt_snake</a></span><span class="op">(</span>n_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_athletic.html">gt_theme_athletic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"^[1-5]_[0-9]+$"</span><span class="op">)</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">34</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"^[1-5]_[0-9]+$"</span><span class="op">)</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">34</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"center"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"^[1-5]_1$"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Most wins in the window"</span>, id <span class="op">=</span> <span class="st">"block_1"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"^[1-5]_2$"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Most wins in the window"</span>, id <span class="op">=</span> <span class="st">"block_2"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1858,8 +1883,8 @@ rule color.</p>
 <td headers="1_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black; border-right-width: 1.5px; border-right-style: dotted; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png" style="height:34px;" alt="Kansas City Chiefs"></td>
 <td headers="2_2" class="gt_row gt_center" style="background-color: #FFA970; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black; border-right-width: 1.5px; border-right-style: dotted; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png" style="height:34px;" alt="New England Patriots"></td>
 <td headers="3_2" class="gt_row gt_center" style="background-color: #F4D7A4; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black; border-right-width: 1.5px; border-right-style: dotted; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/2546b1d4fe5cf6c2d75cda53d3fb56bbc4dd43c6b00200586dab5a85df8fa492.png" style="height:34px;" alt="Seattle Seahawks"></td>
-<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black; border-right-width: 1.5px; border-right-style: dotted; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png" style="height:34px;" alt="Green Bay Packers"></td>
-<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black; border-right-width: 1.5px; border-right-style: dotted; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/806bcb72e75ed184a99bea34df458e6cd87145fc9a863945f3356b01122aeb6f.png" style="height:34px;" alt="Pittsburgh Steelers"></td>
+<td headers="4_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black; border-right-width: 1.5px; border-right-style: dotted; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/806bcb72e75ed184a99bea34df458e6cd87145fc9a863945f3356b01122aeb6f.png" style="height:34px;" alt="Pittsburgh Steelers"></td>
+<td headers="5_2" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black; border-right-width: 1.5px; border-right-style: dotted; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png" style="height:34px;" alt="Green Bay Packers"></td>
 </tr>
 <tr>
 <td headers="years_1" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black; border-right-width: 1.5px; border-right-style: dotted; border-right-color: black;">2005-2014</td>

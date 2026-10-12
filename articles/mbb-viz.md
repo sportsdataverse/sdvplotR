@@ -40,42 +40,50 @@ theme_set(
 )
 ```
 
-## 1. ESPN team ids, names and what doesn’t resolve
+## 1. Team ids, names and what doesn’t resolve
 
-`team_reference("mbb")` lists every Division I program sdvplotR knows,
-one row per team, with its ESPN team id. sdvplotR’s own key is the ESPN
-abbreviation, and full names, short names and the names other providers
-use (NCAA.com, KenPom, Torvik) resolve to it too:
+`sdv_teams("mbb")` lists every Division I program sdvplotR knows, one
+row per team, with its ESPN team id (`team_id`). Full names, short
+names, ESPN ids and the names other providers use (NCAA.com, KenPom,
+Torvik) all resolve to that id:
 
 ``` r
 
-mbb_teams <- team_reference("mbb")
+mbb_teams <- sdv_teams("mbb") |>
+  mutate(team_id = as.integer(team_id))
 nrow(mbb_teams)
 #> [1] 366
 
-clean_team_abbrs(
-  c("Michigan", "Michigan Wolverines", "Connecticut", "Saint Mary's", "St. Mary's", "130", "American", "American Conference"),
-  sport = "mbb",
-  keep_non_matches = FALSE
+sdv_resolve(
+  c("Michigan", "Michigan Wolverines", "Connecticut", "Saint Mary's", "130", "American"),
+  league = "mbb"
 )
-#> [1] "MICH" "MICH" "CONN" "SMC"  NA     NA     "AMER" "AAC"
+#> [1] "130"  "130"  "41"   "2608" "130"  "44"
 ```
 
-Three things in that output matter for real data. “St. Mary’s” matches
-nothing: short forms that no provider uses come back `NA`. `"130"`,
-Michigan’s ESPN id, is not a key either; ids can’t be told apart from
-other numbers, so join on `espn_team_id` instead. And `"American"` is
-American University, a Patriot League team: the American Conference is
-`"American Conference"` (`"AAC"`). Conferences are rows too, listed with
-`team_reference("mbb", include_conferences = TRUE)`.
+Two things in that output matter for real data. `"130"` is Michigan’s
+ESPN id, and `"Michigan"` and `"Michigan Wolverines"` give the same
+team. And `"American"` is American University, a Patriot League team:
+the American Conference is `"American Conference"`, a conference row,
+listed with `sdv_teams("mbb", include_conferences = TRUE)`, not a team.
+A short form no provider uses does not resolve;
+[`sdv_suggest()`](https://sdvplotR.sportsdataverse.org/reference/sdv_suggest.md)
+proposes candidates, and never picks one for you:
 
-hoopR’s adjusted ratings store the ESPN id as text while
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-stores it as an integer, so cast before the join. The ratings also rate
-every non-Division I opponent a Division I team played; the inner join
-keeps the Division I teams. Each team’s 2025-26 conference comes from
-that season’s standings, not from
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md),
+``` r
+
+sdv_suggest("St. Marys", "mbb", n = 3)
+#> [1] team_id name   
+#> <0 rows> (or 0-length row.names)
+```
+
+hoopR’s adjusted ratings store the ESPN id as text while the box scores
+store it as an integer; `mbb_teams` above holds it as an integer, so
+cast the ratings before the join. The ratings also rate every
+non-Division I opponent a Division I team played; the inner join keeps
+the Division I teams. Each team’s 2025-26 conference comes from that
+season’s standings, not from
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md),
 whose `conference` is today’s (the College Basketball Crown is a
 postseason event filed as a group, so it is dropped).
 
@@ -93,7 +101,7 @@ nrow(ratings)
 #> [1] 727
 
 ratings <- ratings |>
-  inner_join(select(mbb_teams, team_id = espn_team_id, team = team_abbr, team_name), by = "team_id") |>
+  inner_join(select(mbb_teams, team_id, team = abbr, team_name = name), by = "team_id") |>
   left_join(conferences, by = "team_id") |>
   arrange(desc(adj_em), team)
 nrow(ratings)
@@ -114,7 +122,7 @@ top25 <- head(ratings, 25)
 ggplot(ratings, aes(adj_tempo, adj_em)) +
   geom_hline(yintercept = 0, color = "grey60", linewidth = 0.4) +
   geom_point(color = "grey75", size = 1.6) +
-  geom_sdv_logos(aes(team = team), data = top25, sport = "mbb", width = 0.035) +
+  geom_sdv_logos(aes(team = team), data = top25, league = "mbb", width = 0.035) +
   labs(
     title = paste("Tempo vs efficiency, Division I men's basketball,", label),
     subtitle = paste(nrow(ratings), "teams; logos for the top 25 by adjusted efficiency margin"),
@@ -143,8 +151,8 @@ top25 |>
   ggplot(aes(adj_em, team, fill = team)) +
   geom_col(width = 0.75, color = "black", linewidth = 0.2) +
   geom_text(aes(label = sprintf("%.1f", adj_em)), hjust = -0.15, size = 3.3) +
-  scale_fill_sdv(sport = "mbb") +
-  scale_y_sdv(sport = "mbb", size = 16) +
+  scale_fill_sdv(league = "mbb") +
+  scale_y_sdv(league = "mbb", size = 16) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.08))) +
   labs(
     title = paste("The top 25 by adjusted efficiency margin,", label),
@@ -180,7 +188,7 @@ power <- ratings |>
 
 ggplot(power, aes(adj_o, adj_d)) +
   geom_mean_lines(aes(x0 = adj_o, y0 = adj_d), color = "grey60", linewidth = 0.4) +
-  geom_sdv_logos(aes(team = team), sport = "mbb", width = 0.085) +
+  geom_sdv_logos(aes(team = team), league = "mbb", width = 0.085) +
   facet_wrap(~conference, ncol = 3) +
   scale_y_reverse() +
   labs(
@@ -205,14 +213,17 @@ seasons of standings and follow the twelve teams of the 2023-24 Pac-12:
 ten left for the ACC, Big 12 and Big Ten in 2024, and Oregon State and
 Washington State spent two seasons in the West Coast Conference. The
 last column is
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)’s
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)’s
 conference, today’s, where those two anchor the rebuilt Pac-12.
-Conference names resolve to conference logos, so
+Conference names give conference logos, so
 [`gt_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_logos.md)
 draws every column; `include_name = TRUE` keeps the name beside the
 mark.
 
 ``` r
+
+conf_rows <- sdv_teams("mbb", include_conferences = TRUE) |>
+  filter(program == "conference")
 
 history <- hoopR::load_mbb_standings(seasons = (season - 2):season) |>
   filter(group_abbreviation != "CBC") |>
@@ -226,10 +237,11 @@ history |>
   filter(team_id %in% pac12) |>
   pivot_wider(names_from = season, values_from = conference, names_prefix = "s") |>
   inner_join(
-    select(mbb_teams, team_id = espn_team_id, team = team_abbr, team_name, today = conference),
+    select(mbb_teams, team_id, team = abbr, team_name = name, today = conference),
     by = "team_id"
   ) |>
   arrange(s2026, team_name) |>
+  mutate(today = conf_rows$team_id[match(today, conf_rows$name)]) |>
   select(team, team_name, s2024, s2025, s2026, today) |>
   gt() |>
   tab_header(
@@ -241,8 +253,8 @@ history |>
     s2026 = "2025-26", today = "Today"
   ) |>
   tab_source_note(source_note) |>
-  gt_sdv_logos(columns = team, sport = "mbb", height = 28) |>
-  gt_sdv_logos(columns = c(s2024, s2025, s2026, today), sport = "mbb", height = 22, include_name = TRUE) |>
+  gt_sdv_logos(columns = team, league = "mbb", height = 28) |>
+  gt_sdv_logos(columns = c(s2024, s2025, s2026, today), league = "mbb", height = 22, include_name = TRUE) |>
   gt_theme_sdv()
 ```
 
@@ -302,8 +314,8 @@ standings |>
   ) |>
   fmt_number(margin, decimals = 1, force_sign = TRUE) |>
   tab_source_note(source_note) |>
-  gt_merge_stack_team_color(team_name, total, team, sport = "mbb") |>
-  gt_sdv_logos(columns = logo, sport = "mbb", height = 28) |>
+  gt_merge_stack_team_color(team_name, total, team, league = "mbb") |>
+  gt_sdv_logos(columns = logo, league = "mbb", height = 28) |>
   gt_color_pills(adj_em, digits = 1, domain = c(-10, 50)) |>
   gt_theme_athletic() |>
   cols_hide(team)
@@ -349,7 +361,7 @@ tiers <- runs |>
 
 sdv_team_tiers(
   tiers,
-  sport = "mbb",
+  league = "mbb",
   title = paste("The", season, "NCAA tournament, by how far each team went"),
   subtitle = "The Sweet 16; best adjusted efficiency margin first within each tier",
   caption = source_note,
@@ -376,7 +388,7 @@ games.
 ``` r
 
 players <- hoopR::load_mbb_player_box(seasons = season) |>
-  filter(season_type == 2, !did_not_play, team_id %in% mbb_teams$espn_team_id)
+  filter(season_type == 2, !did_not_play, team_id %in% mbb_teams$team_id)
 
 scorers <- players |>
   arrange(game_date) |>
@@ -390,10 +402,10 @@ scorers <- players |>
 
 ggplot(scorers, aes(ppg, athlete_display_name)) +
   geom_col(aes(fill = team), width = 0.7, color = "black", linewidth = 0.2) +
-  geom_sdv_logos(aes(x = ppg + 1.3, team = team), sport = "mbb", height = 0.075) +
-  geom_sdv_headshots(aes(x = ppg + 3.8, player_id = athlete_id), sport = "mbb", height = 0.09) +
+  geom_sdv_logos(aes(x = ppg + 1.3, team = team), league = "mbb", height = 0.075) +
+  geom_sdv_headshots(aes(x = ppg + 3.8, player_id = athlete_id), league = "mbb", height = 0.09) +
   geom_text(aes(x = ppg + 6.2, label = sprintf("%.1f", ppg)), fontface = "bold", hjust = 0) +
-  scale_fill_sdv(sport = "mbb") +
+  scale_fill_sdv(league = "mbb") +
   scale_x_continuous(limits = c(0, max(scorers$ppg) + 9), expand = expansion(0)) +
   labs(
     title = paste("Division I scoring leaders,", label),
@@ -454,7 +466,7 @@ sdv_surface("mbb", star_team, display_range = "defense") +
   geom_point(
     aes(x, y),
     data = filter(shots, scoring_play),
-    shape = 21, fill = sdv_team_colors(star_team, sport = "mbb", type = "secondary"),
+    shape = 21, fill = sdv_team_colors(star_team, league = "mbb", which = "secondary"),
     color = "black", stroke = 0.3, size = 2
   ) +
   labs(
@@ -529,8 +541,8 @@ poll_top <- filter(poll, team_id %in% top_final$team_id)
 ggplot(poll_top, aes(week, rank)) +
   geom_line(aes(group = team), color = "black", linewidth = 1.5, na.rm = TRUE) +
   geom_line(aes(color = team), linewidth = 0.9, na.rm = TRUE) +
-  geom_sdv_logos(aes(x = week + 5, team = team), data = top_final, sport = "mbb", width = 0.04) +
-  scale_color_sdv(sport = "mbb") +
+  geom_sdv_logos(aes(x = week + 5, team = team), data = top_final, league = "mbb", width = 0.04) +
+  scale_color_sdv(league = "mbb") +
   scale_y_reverse(breaks = c(1, 5, 10, 15, 20, 25)) +
   scale_x_date(date_labels = "%b %d", expand = expansion(add = c(2, 9))) +
   labs(

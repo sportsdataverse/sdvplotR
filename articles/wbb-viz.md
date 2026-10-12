@@ -42,31 +42,32 @@ theme_set(
 ## 1. One school id, two programs
 
 ESPN gives a school one team id for its men’s and women’s teams.
-sdvplotR keeps them as separate sports, so the `sport` argument picks
+sdvplotR keeps them as separate leagues, so the `league` argument picks
 the program: 2633 is the Tennessee Volunteers in `"mbb"` and the Lady
 Volunteers in `"wbb"`, each with its own name and mark.
 
 ``` r
 
-wbb_teams <- team_reference("wbb")
+wbb_teams <- sdv_teams("wbb") |>
+  mutate(team_id = as.integer(team_id))
 nrow(wbb_teams)
 #> [1] 364
 
-bind_rows(team_reference("mbb"), wbb_teams) |>
-  filter(espn_team_id == 2633) |>
-  select(sport, espn_team_id, team_abbr, team_name)
-#>   sport espn_team_id team_abbr                 team_name
-#> 1   mbb         2633      TENN      Tennessee Volunteers
-#> 2   wbb         2633      TENN Tennessee Lady Volunteers
+bind_rows(mutate(sdv_teams("mbb"), team_id = as.integer(team_id)), wbb_teams) |>
+  filter(team_id == 2633) |>
+  select(league, team_id, abbr, name)
+#>   league team_id abbr                      name
+#> 1    mbb    2633 TENN      Tennessee Volunteers
+#> 2    wbb    2633 TENN Tennessee Lady Volunteers
 ```
 
 ``` r
 
-tenn <- data.frame(x = c(1, 2), y = 1, team = "TENN", label = c('sport = "mbb"', 'sport = "wbb"'))
+tenn <- data.frame(x = c(1, 2), y = 1, team = "TENN", label = c('league = "mbb"', 'league = "wbb"'))
 
 ggplot(tenn, aes(x, y)) +
-  geom_sdv_logos(aes(team = team), data = tenn[1, ], sport = "mbb", height = 0.6) +
-  geom_sdv_logos(aes(team = team), data = tenn[2, ], sport = "wbb", height = 0.6) +
+  geom_sdv_logos(aes(team = team), data = tenn[1, ], league = "mbb", height = 0.6) +
+  geom_sdv_logos(aes(team = team), data = tenn[2, ], league = "wbb", height = 0.6) +
   geom_text(aes(y = 0.55, label = label), family = "mono", size = 4) +
   scale_x_continuous(limits = c(0.4, 2.6)) +
   scale_y_continuous(limits = c(0.45, 1.4)) +
@@ -76,21 +77,19 @@ ggplot(tenn, aes(x, y)) +
 ```
 
 ![The two Tennessee logos sdvplotR draws for ESPN team id 2633: the
-men's Volunteers mark for sport mbb on the left and the women's Lady
-Volunteers mark for sport wbb on the
+men's Volunteers mark for league mbb on the left and the women's Lady
+Volunteers mark for league wbb on the
 right.](wbb-viz_files/figure-html/one-id-logos-1.png)
 
-Names resolve through the reference, nicknames do not, and ESPN ids are
-not keys (join on `espn_team_id` instead):
+Names and ESPN ids both resolve; a nickname alone does not:
 
 ``` r
 
-clean_team_abbrs(
-  c("Tennessee", "Tennessee Lady Volunteers", "Lady Vols", "2633"),
-  sport = "wbb",
-  keep_non_matches = FALSE
+sdv_resolve(
+  c("Tennessee", "Tennessee Lady Volunteers", "2633"),
+  league = "wbb"
 )
-#> [1] "TENN" "TENN" NA     NA
+#> [1] "2633" "2633" "2633"
 ```
 
 ## 2. The efficiency landscape of the top 36
@@ -100,20 +99,22 @@ Box scores are enough for a simple rating: points scored and allowed per
 I teams, with possessions estimated as FGA - OREB + TOV + 0.475 x FTA
 (the usual college weight on free throws) and averaged with the
 opponent’s. It is a raw rating, not adjusted for schedule. Each team’s
-conference comes from the season’s standings; the full name resolves to
-the conference’s own key (`"American Conference"`, not `"American"`,
-which is American University).
+conference comes from the season’s standings; the full conference name
+is matched to the conference row’s own key (`"American Conference"`, not
+`"American"`, which is American University).
 
 ``` r
 
 standings <- wehoop::load_wbb_standings(seasons = season)
+conf_rows <- sdv_teams("wbb", include_conferences = TRUE) |>
+  filter(program == "conference")
 conferences <- standings |>
   distinct(team_id, conference = group_short_name, group_name) |>
-  mutate(conference_key = clean_team_abbrs(group_name, sport = "wbb")) |>
+  mutate(conference_key = conf_rows$team_id[match(group_name, conf_rows$name)]) |>
   select(-group_name)
 stopifnot(!anyDuplicated(conferences$team_id))
 
-d1 <- wbb_teams$espn_team_id
+d1 <- wbb_teams$team_id
 box <- wehoop::load_wbb_team_box(seasons = season) |>
   filter(season_type == 2, team_id %in% d1, opponent_team_id %in% d1) |>
   mutate(
@@ -136,7 +137,7 @@ ratings <- box |>
     .groups = "drop"
   ) |>
   mutate(net = ortg - drtg) |>
-  inner_join(select(wbb_teams, team_id = espn_team_id, team = team_abbr, team_name), by = "team_id") |>
+  inner_join(select(wbb_teams, team_id, team = abbr, team_name = name), by = "team_id") |>
   left_join(conferences, by = "team_id") |>
   arrange(desc(net), team)
 nrow(ratings)
@@ -154,7 +155,7 @@ to put good defenses on top.
 top36 <- head(ratings, 36)
 
 ggplot(top36, aes(ortg, drtg)) +
-  geom_sdv_logos(aes(team = team), sport = "wbb", width = 0.05) +
+  geom_sdv_logos(aes(team = team), league = "wbb", width = 0.05) +
   scale_y_reverse(expand = expansion(mult = 0.08)) +
   scale_x_continuous(expand = expansion(mult = 0.06)) +
   labs(
@@ -208,7 +209,7 @@ standings |>
     home = "Home", road = "Road", vsaprankedteams = "vs AP 25", margin = "Margin"
   ) |>
   tab_source_note(source_note) |>
-  gt_sdv_logos(columns = logo, sport = "wbb", height = 26) |>
+  gt_sdv_logos(columns = logo, league = "wbb", height = 26) |>
   gt_color_pills(margin, digits = 1, domain = c(-40, 40)) |>
   gt_theme_athletic() |>
   cols_align("left", columns = team_name)
@@ -238,13 +239,13 @@ standings |>
 
 ## 4. Conference strength, with conference logos
 
-Conferences are rows in sdvplotR too, with logos and colors, so a chart
-of conferences works the same way as a chart of teams:
+Conferences are rows in the team index too, with logos and colors, so a
+chart of conferences works the same way as a chart of teams:
 [`scale_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
-draws the conference marks on the axis and
-[`scale_fill_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
-fills each bar in the conference’s color. Each bar is the average net
-rating of the conference’s teams.
+draws the conference marks on the axis and each bar is filled in the
+conference’s color from
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md).
+Each bar is the average net rating of the conference’s teams.
 
 ``` r
 
@@ -261,8 +262,8 @@ ratings |>
     aes(label = sprintf("%+.1f", net), hjust = if_else(net > 0, -0.15, 1.15)),
     size = 3.2
   ) +
-  scale_fill_sdv(sport = "wbb") +
-  scale_y_sdv(sport = "wbb", size = 18) +
+  scale_fill_manual(values = setNames(conf_rows$color_primary, conf_rows$team_id)) +
+  scale_y_sdv(league = "wbb", size = 18) +
   scale_x_continuous(expand = expansion(mult = 0.12)) +
   labs(
     title = paste("Conference strength,", label),
@@ -337,8 +338,8 @@ leaders |>
   fmt_number(ppg, decimals = 1) |>
   fmt_percent(c(fg_pct, fg3_pct), decimals = 1) |>
   tab_source_note(source_note) |>
-  gt_sdv_headshots(columns = headshot, sport = "wbb", height = 42) |>
-  gt_sdv_logos(columns = logo, sport = "wbb", height = 28) |>
+  gt_sdv_headshots(columns = headshot, league = "wbb", height = 42) |>
+  gt_sdv_logos(columns = logo, league = "wbb", height = 28) |>
   gt_theme_sofa()
 ```
 
@@ -409,7 +410,7 @@ sdv_surface("wbb", star$team, display_range = "defense") +
       "Every field goal attempt: %d made (white), %d missed (red crosses), %.1f%%",
       sum(shots$scoring_play), sum(!shots$scoring_play), 100 * mean(shots$scoring_play)
     ),
-    sport = "wbb"
+    league = "wbb"
   ) +
   labs(caption = source_note) +
   theme_title_image(size = 14)
@@ -434,8 +435,8 @@ head(ratings, 25) |>
   ggplot(aes(team, net, fill = team)) +
   geom_col(width = 0.75, color = "black", linewidth = 0.2) +
   geom_text(aes(label = sprintf("%.1f", net)), vjust = -0.4, size = 3) +
-  scale_fill_sdv(sport = "wbb") +
-  scale_x_sdv(sport = "wbb", size = 18) +
+  scale_fill_sdv(league = "wbb") +
+  scale_x_sdv(league = "wbb", size = 18) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.08))) +
   labs(
     title = paste("The top 25 by net rating,", label),
@@ -473,7 +474,7 @@ tiers <- head(ratings, 16) |>
 
 sdv_team_tiers(
   tiers,
-  sport = "wbb",
+  league = "wbb",
   title = paste("Seed lines by net rating,", label),
   subtitle = "Four teams to a line, best first; not the selection committee's bracket",
   caption = source_note,
@@ -503,7 +504,7 @@ ncaa <- schedule |>
   filter(grepl("^NCAA Women's Basketball Championship", notes_headline))
 final <- filter(ncaa, grepl("National Championship", notes_headline))
 champion_id <- if_else(final$home_winner, final$home_id, final$away_id)
-champion <- wbb_teams$team_abbr[wbb_teams$espn_team_id == champion_id]
+champion <- wbb_teams$abbr[wbb_teams$team_id == champion_id]
 
 run <- ncaa |>
   filter(home_id == champion_id | away_id == champion_id) |>
@@ -514,19 +515,19 @@ run <- ncaa |>
     opponent_id = if_else(home_id == champion_id, away_id, home_id),
     margin = if_else(home_id == champion_id, home_score - away_score, away_score - home_score)
   ) |>
-  inner_join(select(wbb_teams, opponent_id = espn_team_id, opponent = team_abbr), by = "opponent_id")
+  inner_join(select(wbb_teams, opponent_id = team_id, opponent = abbr), by = "opponent_id")
 
 ggplot(run, aes(round, margin)) +
-  geom_col(fill = sdv_team_colors(champion, sport = "wbb"), width = 0.65) +
+  geom_col(fill = sdv_team_colors(champion, league = "wbb"), width = 0.65) +
   geom_text(aes(y = margin / 2, label = paste0("+", margin)), color = "white", fontface = "bold", size = 5) +
-  geom_sdv_logos(aes(y = margin + 6, team = opponent), sport = "wbb", height = 0.13) +
+  geom_sdv_logos(aes(y = margin + 6, team = opponent), league = "wbb", height = 0.13) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05)), limits = c(0, max(run$margin) + 11)) +
   ggtitle_image(
     title_image = champion,
     title = paste0("**The national champion's run, ", season, "**"),
     image_height = 40,
     subtitle = "Winning margin in each NCAA tournament game, opponent's logo on top",
-    sport = "wbb"
+    league = "wbb"
   ) +
   labs(x = NULL, y = "Winning margin (points)", caption = source_note) +
   theme_title_image(size = 15) +
@@ -577,8 +578,8 @@ finish <- filter(weekly, week == max(week))
 ggplot(weekly, aes(week, rank)) +
   geom_line(aes(group = team), color = "black", linewidth = 1.6) +
   geom_line(aes(color = team), linewidth = 1) +
-  geom_sdv_logos(aes(x = week + 4, team = team), data = finish, sport = "wbb", width = 0.04) +
-  scale_color_sdv(sport = "wbb") +
+  geom_sdv_logos(aes(x = week + 4, team = team), data = finish, league = "wbb", width = 0.04) +
+  scale_color_sdv(league = "wbb") +
   scale_y_reverse(breaks = 1:16) +
   scale_x_date(date_labels = "%b %d", expand = expansion(add = c(1, 7))) +
   labs(

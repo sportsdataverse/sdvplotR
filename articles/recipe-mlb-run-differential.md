@@ -127,7 +127,7 @@ tie each bar to a club; it reads the MLB Stats API abbreviations (`AZ`,
 ggplot(totals, aes(diff, reorder(team, diff))) +
   geom_col(aes(fill = team), width = 0.7) +
   geom_vline(xintercept = 0, color = "grey20", linewidth = 0.4) +
-  scale_fill_sdv(sport = "mlb") +
+  scale_fill_sdv(league = "mlb") +
   labs(x = NULL, y = NULL) +
   theme_minimal() +
   theme(panel.grid.major.y = element_blank(), panel.grid.minor = element_blank())
@@ -152,12 +152,12 @@ bars <- function(logo_height = 0.026) {
   ggplot(ranked, aes(y = y)) +
     geom_col(aes(x = diff, fill = team), orientation = "y", width = 0.72) +
     geom_vline(xintercept = 0, color = "grey20", linewidth = 0.4) +
-    geom_sdv_logos(aes(x = diff + side * pad, team = team), sport = "mlb", height = logo_height) +
+    geom_sdv_logos(aes(x = diff + side * pad, team = team), league = "mlb", height = logo_height) +
     geom_text(
       aes(x = diff + side * 2.1 * pad, label = sprintf("%+d", diff), hjust = if_else(side > 0, 0, 1)),
       size = 2.4, color = "grey30"
     ) +
-    scale_fill_sdv(sport = "mlb") +
+    scale_fill_sdv(league = "mlb") +
     scale_x_continuous(limits = range(totals$diff) + c(-3.6, 3.6) * pad) +
     scale_y_continuous(expand = expansion(add = 0.7)) +
     labs(x = NULL, y = NULL) +
@@ -211,8 +211,8 @@ arc <- function(logo_height = 0.07) {
     geom_line(color = "grey86", linewidth = 0.3) +
     geom_hline(yintercept = 0, color = "grey20", linewidth = 0.4) +
     geom_line(aes(color = team), data = focus, linewidth = 0.9) +
-    geom_sdv_logos(aes(x = x, y = y, team = team), data = ends, inherit.aes = FALSE, sport = "mlb", height = logo_height) +
-    scale_color_sdv(sport = "mlb") +
+    geom_sdv_logos(aes(x = x, y = y, team = team), data = ends, inherit.aes = FALSE, league = "mlb", height = logo_height) +
+    scale_color_sdv(league = "mlb") +
     scale_x_continuous(breaks = c(1, 40, 81, 120, 162), limits = c(0, 178)) +
     scale_y_continuous(expand = expansion(mult = 0.1)) +
     labs(x = "Game", y = NULL) +
@@ -246,8 +246,8 @@ is exactly 1600 x 1000 px.
 
 best <- tail(totals, 1)
 worst <- head(totals, 1)
-clubs <- team_reference("mlb")
-club_name <- function(abbr) clubs$team_name[match(clean_team_abbrs(abbr, sport = "mlb"), clubs$team_abbr)]
+clubs <- sdv_teams("mlb")
+club_name <- function(abbr) clubs$name[match(sdv_resolve(abbr, league = "mlb"), clubs$team_id)]
 panel_title <- theme(plot.title = element_text(face = "bold", size = 9.5))
 
 graphic <- (bars() + labs(title = "Final run differential") + panel_title) +

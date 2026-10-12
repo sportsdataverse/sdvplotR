@@ -1,82 +1,105 @@
-# Get Team Colors
+# Team colours
 
-Returns the primary and secondary colors (hex codes) for a given team.
+Primary and secondary colours (hex) for teams, resolved from any
+identifier
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+accepts. The R counterpart of sdvplot's `team_colors()`.
 
 ## Usage
 
 ``` r
 sdv_team_colors(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   team = NULL,
-  type = c("primary", "secondary", "all"),
+  which = c("primary", "secondary", "all"),
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE,
   include_conferences = FALSE
 )
 ```
 
 ## Arguments
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
+  Required: one abbreviation means different teams in different leagues.
 
 - team:
 
-  Character string or vector of team name(s) or abbreviation(s). If
-  `NULL`, returns colors for all teams.
+  Team identifiers, or `NULL` for every team in the league.
 
-- type:
+- which:
 
-  Character string, `"primary"`, `"secondary"`, or `"all"`.
+  `"primary"`, `"secondary"`, or `"all"` (both).
+
+- season:
+
+  `NULL`, one season year, or one per value: picks the team that used a
+  reused code that season. Without one, a reused code means its current
+  holder. Split seasons take their ending year (2021 for 2020-21).
+
+- id_system:
+
+  `"auto"` (try every id system in priority order) or one id system:
+  `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
+  `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
+  `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
+  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
+  overlap ESPN's, so `"auto"` never reads a number as one).
+
+- strict:
+
+  If `TRUE`, a value that does not resolve is an error; otherwise it
+  becomes `NA` with one warning per call.
 
 - include_conferences:
 
-  If `TRUE`, also list the conferences sdvplotR has a logo for: the
-  college conferences (`"SEC"`, `"Big Ten"`, `"A-10"`) and `"AFC"`,
-  `"NFC"` and `"NFL"`. They resolve like teams in every helper either
-  way; the default, `FALSE`, lists teams only, so code that loops over
-  teams sees only teams (nflplotR's
-  [`valid_team_names()`](https://sdvplotR.sportsdataverse.org/reference/valid_team_names.md)
-  includes AFC, NFC and NFL).
+  With `team = NULL`, also list conference and league rows (see
+  [`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)).
 
 ## Value
 
-With `team` supplied, a named character vector (one element per team,
-`NA` for unmatched teams): the primary or secondary hex code, or for
-`type = "all"` the two codes as one `"primary, secondary"` string. With
-`team = NULL` and `type = "all"`, a data frame with columns:
+With `team` given, a character vector named by `team` (`NA` where a team
+does not resolve); for `which = "all"`, `"primary, secondary"` strings.
+With `team = NULL`, a vector named by abbreviation (the `team_id` where
+a team has none), or for `which = "all"` a data frame:
 
-|           |           |                             |
-|-----------|-----------|-----------------------------|
-| col_name  | type      | description                 |
-| team_abbr | character | Canonical team abbreviation |
-| team_name | character | Full team name              |
-| primary   | character | Primary team color (hex)    |
-| secondary | character | Secondary team color (hex)  |
-
-With `team = NULL` and any other `type`, a named character vector of
-every team's color.
+|           |           |                                               |
+|-----------|-----------|-----------------------------------------------|
+| col_name  | type      | description                                   |
+| team_id   | character | Canonical team id                             |
+| abbr      | character | Abbreviation (`NA` where the league has none) |
+| name      | character | Full name                                     |
+| primary   | character | Primary colour (hex)                          |
+| secondary | character | Secondary colour (hex; `NA` where none)       |
 
 ## Examples
 
 ``` r
-# Get primary color for Kansas City Chiefs
 sdv_team_colors("nfl", "KC")
 #>        KC 
-#> "#E31837" 
-
-# Get both colors for multiple teams
-sdv_team_colors("nfl", c("KC", "BUF"), type = "all")
-#>                 KC                BUF 
-#> "#E31837, #FFB612" "#00338D, #C60C30" 
-
-# Get all NFL team primary colors
-sdv_team_colors("nfl", type = "primary")
-#>       ARI       ATL       BAL       BUF       CAR       CHI       CIN       CLE 
-#> "#97233F" "#A71930" "#241773" "#00338D" "#0085CA" "#0B162A" "#FB4F14" "#FF3C00" 
-#>       DAL       DEN       DET        GB       HOU       IND       JAX        KC 
-#> "#002244" "#002244" "#0076B6" "#203731" "#03202F" "#002C5F" "#006778" "#E31837" 
-#>        LA       LAC        LV       MIA       MIN        NE        NO       NYG 
-#> "#003594" "#007BC7" "#000000" "#008E97" "#4F2683" "#002244" "#D3BC8D" "#0B2265" 
-#>       NYJ       PHI       PIT       SEA        SF        TB       TEN       WAS 
-#> "#003F2D" "#004C54" "#000000" "#002244" "#AA0000" "#A71930" "#4495D2" "#5A1414" 
+#> "#e31837" 
+sdv_team_colors("nfl", c("KC", "Buffalo Bills"), which = "all")
+#>                 KC      Buffalo Bills 
+#> "#e31837, #ffb612" "#00338d, #c60c30" 
+sdv_team_colors("ahl", which = "primary")
+#>       307       309       310       311       312       313       314       315 
+#> "#202458" "#fcaa07" "#be2d39" "#53526d" "#022e63" "#f68129" "#e80215" "#45342d" 
+#>       316       317       318       319       321       323       324       325 
+#> "#feba21" "#00468c" "#d2454b" "#402a2e" "#002d62" "#011689" "#003e7f" "#036188" 
+#>       326       327       328       329       330       331       334       335 
+#> "#b86914" "#90b3cf" "#77613e" "#015836" "#000000" "#000000" "#013f68" "#003e7e" 
+#>       336       337       344       370       371       372       373       375 
+#> "#b2a07c" "#644b37" "#919497" "#02667f" "#db0425" "#2c2323" "#bc9856" "#bb0011" 
+#>       379       380       383       384       387       389       390       395 
+#> "#000000" "#0e8242" "#011436" "#dc0019" "#1d275d" "#00512f" "#d42233" "#1fbfc9" 
+#>       396       397       398       399       400       402       403       404 
+#> "#0a1f50" "#002f87" "#514356" "#a97e34" "#cb0111" "#fb4210" "#fcb426" "#f47937" 
+#>       405       406       411       412       413       414       415       419 
+#> "#00788a" "#cb0211" "#091f40" "#7a0023" "#ca2030" "#d31c2e" "#222a62" "#fad566" 
+#>       437       440       444       445       457 
+#> "#000000" "#002d56" "#cf152d" "#c8102e" "#00468c" 
 ```

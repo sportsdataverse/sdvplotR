@@ -91,10 +91,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -317,7 +342,7 @@ are estimated from the box score.</p>
 <span></span>
 <span><span class="va">games</span> <span class="op">&lt;-</span> <span class="va">box</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Division I teams only; the box scores also hold their games against other divisions</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span><span class="op">$</span><span class="va">espn_team_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span><span class="op">$</span><span class="va">team_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">box</span>, <span class="va">game_id</span>,</span>
 <span>      opponent_team_id <span class="op">=</span> <span class="va">team_id</span>, opp_score <span class="op">=</span> <span class="va">team_score</span>, opp_poss <span class="op">=</span> <span class="va">poss</span>,</span>
@@ -397,14 +422,14 @@ sections.</p>
 <span>    stat <span class="op">=</span> <span class="va">labels</span><span class="op">[</span><span class="va">stat</span><span class="op">]</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">stat</span>, <span class="va">home</span>, <span class="va">away</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/team_reference.html">team_reference()</a></code> holds the champion’s name;
+<p><code><a href="../reference/sdv_teams.html">sdv_teams()</a></code> holds the champion’s name;
 <code><a href="../reference/sdv_logo_url.html">sdv_logo_url()</a></code> its dark-mode logo (made for a colored
 ground) and <code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</a></code> its primary color for the
 bar.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">team</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span>, <span class="va">espn_team_id</span> <span class="op">==</span> <span class="va">champion</span><span class="op">)</span></span>
-<span><span class="va">team_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"mbb"</span>, <span class="va">team</span><span class="op">$</span><span class="va">team_abbr</span>, <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">team_logo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_logo_url.html">sdv_logo_url</a></span><span class="op">(</span><span class="va">team</span><span class="op">$</span><span class="va">team_abbr</span>, sport <span class="op">=</span> <span class="st">"mbb"</span>, variant <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">team</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span>, <span class="va">team_id</span> <span class="op">==</span> <span class="va">champion</span><span class="op">)</span></span>
+<span><span class="va">team_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"mbb"</span>, <span class="va">team</span><span class="op">$</span><span class="va">team_id</span>, <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">team_logo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_logo_url.html">sdv_logo_url</a></span><span class="op">(</span><span class="va">team</span><span class="op">$</span><span class="va">team_id</span>, league <span class="op">=</span> <span class="st">"mbb"</span>, variant <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span></span></code></pre></div>
 <p>Now the table. <code><a href="../reference/gt_theme_savant.html">gt_theme_savant()</a></code> gives a clean base,
 <code><a href="../reference/gt_color_pills.html">gt_color_pills()</a></code> fills the two percentile columns over a
 fixed <code>[0, 1]</code> domain, and <code><a href="../reference/gt_border_bars_top.html">gt_border_bars_top()</a></code>
@@ -437,7 +462,7 @@ around.</p>
 <span>  <span class="fu"><a href="../reference/gt_border_bars_top.html">gt_border_bars_top</a></span><span class="op">(</span></span>
 <span>    colors <span class="op">=</span> <span class="va">team_color</span>,</span>
 <span>    img <span class="op">=</span> <span class="va">team_logo</span>,</span>
-<span>    text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"2025-26 recap:"</span>, <span class="va">team</span><span class="op">$</span><span class="va">team_location</span><span class="op">)</span>,</span>
+<span>    text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"2025-26 recap:"</span>, <span class="va">team</span><span class="op">$</span><span class="va">location</span><span class="op">)</span>,</span>
 <span>    text_padding <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>    text_size <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>    img_width <span class="op">=</span> <span class="fl">44</span>,</span>
@@ -955,7 +980,7 @@ around.</p>
 <table class="table gt_table" style="table-layout:fixed;" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <caption>
 <style>@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');</style>
-<div style="display: flex; justify-content: space-between; align-items: center; height: 62px; background-color: #00274C; width: 100%; margin-left: auto; margin-right: auto;">
+<div style="display: flex; justify-content: space-between; align-items: center; height: 62px; background-color: #00274c; width: 100%; margin-left: auto; margin-right: auto;">
 <span style="font-weight:bold; color:#FFFFFF; font-size:20px; padding-left: 10px; font-family: 'Roboto Condensed';">2025-26 recap: Michigan</span><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f6/f6f492cd2b0f6855912d909852ee6fe5e71094a94518c1b38273e680a27d4236.png" width="44px" height="44px" style="padding-right:10px;" alt="">
 </div>
 </caption>
@@ -1118,8 +1143,8 @@ frames the table.</p>
 <code class="sourceCode R"><span><span class="va">scorers</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_sofa.html">gt_theme_sofa</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_headshots.html">gt_sdv_headshots</a></span><span class="op">(</span><span class="va">photo</span>, sport <span class="op">=</span> <span class="st">"wnba"</span>, height <span class="op">=</span> <span class="fl">36</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">team</span>, sport <span class="op">=</span> <span class="st">"wnba"</span>, height <span class="op">=</span> <span class="fl">26</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_headshots.html">gt_sdv_headshots</a></span><span class="op">(</span><span class="va">photo</span>, league <span class="op">=</span> <span class="st">"wnba"</span>, height <span class="op">=</span> <span class="fl">36</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">team</span>, league <span class="op">=</span> <span class="st">"wnba"</span>, height <span class="op">=</span> <span class="fl">26</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span><span class="va">ppg</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_percent.html" class="external-link">fmt_percent</a></span><span class="op">(</span><span class="va">fg_pct</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">""</span>, photo <span class="op">=</span> <span class="st">""</span>, player <span class="op">=</span> <span class="st">"Player"</span>, team <span class="op">=</span> <span class="st">""</span>, gp <span class="op">=</span> <span class="st">"GP"</span>, ppg <span class="op">=</span> <span class="st">"PPG"</span>, fg_pct <span class="op">=</span> <span class="st">"FG%"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1790,17 +1815,18 @@ it into one row per team.</p>
 <span>    result <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">&gt;</span> <span class="va">opponent_score</span>, <span class="st">"W"</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">team_score</span> <span class="op">&lt;</span> <span class="va">opponent_score</span>, <span class="st">"L"</span>, <span class="st">"T"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">team_score</span>, <span class="st">"-"</span>, <span class="va">opponent_score</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><code>sdv_team_colors(type = "all")</code> returns a team’s colors as
-one comma-separated string, which splits into the stripe colors;
-<code><a href="../reference/team_reference.html">team_reference()</a></code> holds the wordmark.</p>
+<p><code>sdv_team_colors(which = "all")</code> returns a team’s colors
+as one comma-separated string, which splits into the stripe colors;
+<code>sdv_logo_url(mark_type = "wordmark")</code> returns the
+wordmark.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stripes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="va">champ</span>, <span class="st">"all"</span><span class="op">)</span><span class="op">)</span>, <span class="st">", "</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">wordmark</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span><span class="op">$</span><span class="va">wordmark_url</span><span class="op">[</span><span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span><span class="op">$</span><span class="va">team_abbr</span> <span class="op">==</span> <span class="va">champ</span><span class="op">]</span></span>
+<span><span class="va">wordmark</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_logo_url.html">sdv_logo_url</a></span><span class="op">(</span><span class="va">champ</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, mark_type <span class="op">=</span> <span class="st">"wordmark"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">game_log</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_sdv.html">gt_theme_sdv</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">opponent</span>, sport <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span><span class="va">opponent</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, height <span class="op">=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_highlight_cells.html">gt_highlight_cells</a></span><span class="op">(</span><span class="va">result</span>, condition <span class="op">=</span> <span class="op">~</span> <span class="va">.x</span> <span class="op">==</span> <span class="st">"W"</span>, fill <span class="op">=</span> <span class="st">"#E3F1E7"</span>, bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>week <span class="op">=</span> <span class="st">"Week"</span>, where <span class="op">=</span> <span class="st">""</span>, opponent <span class="op">=</span> <span class="st">"Opponent"</span>, result <span class="op">=</span> <span class="st">""</span>, score <span class="op">=</span> <span class="st">"Score"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"center"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -2324,7 +2350,7 @@ one comma-separated string, which splits into the stripe colors;
 <caption>
 <style>@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');</style>
 <div style="display: flex; justify-content: space-between; align-items: center; height: 56px; background-color: #FFFFFF; width: 100%; margin-left: auto; margin-right: auto;">
-<span></span><img src="https://github.com/nflverse/nflverse-pbp/raw/master/wordmarks/SEA.png" width="168px" height="46px" style="padding-right:10px;" alt="">
+<span></span><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/71/71b34309a788eb03bb6f58d5dcfd434cfd385bd91913e07327753f886ccba813.png" width="168px" height="46px" style="padding-right:10px;" alt="">
 </div>
 </caption>
   <thead><tr class="gt_col_headings">

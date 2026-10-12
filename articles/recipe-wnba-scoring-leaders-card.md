@@ -116,7 +116,7 @@ luminance <- function(hex) {
 }
 
 primary <- sdv_team_colors("wnba", leaders$team)
-secondary <- sdv_team_colors("wnba", leaders$team, type = "secondary")
+secondary <- sdv_team_colors("wnba", leaders$team, which = "secondary")
 leaders <- leaders |>
   mutate(color = unname(if_else(luminance(primary) < 0.3, primary, secondary)))
 
@@ -151,9 +151,9 @@ rows <- function(data, bar_from = 47, bar_to = 95) {
   scale <- (bar_to - bar_from) / max(data$ppg)
   ggplot(data, aes(y = rank)) +
     geom_text(aes(x = 3, label = rank), size = 5.5, fontface = "bold", color = "grey60") +
-    geom_sdv_headshots(aes(x = 12, player_id = athlete_id), sport = "wnba", height = 0.85 / n) +
+    geom_sdv_headshots(aes(x = 12, player_id = athlete_id), league = "wnba", height = 0.85 / n) +
     geom_text(aes(x = 20, y = rank - 0.17, label = athlete_display_name), hjust = 0, size = 4, fontface = "bold") +
-    geom_sdv_logos(aes(x = 21.6, y = rank + 0.2, team = team), sport = "wnba", height = 0.36 / n) +
+    geom_sdv_logos(aes(x = 21.6, y = rank + 0.2, team = team), league = "wnba", height = 0.36 / n) +
     geom_text(aes(x = 24, y = rank + 0.2, label = team), hjust = 0, size = 3, color = "grey40") +
     geom_rect(
       aes(xmin = bar_from, xmax = bar_from + ppg * scale, ymin = rank - 0.28, ymax = rank + 0.28, fill = color)

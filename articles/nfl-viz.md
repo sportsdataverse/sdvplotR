@@ -72,7 +72,7 @@ teams <- inner_join(offense, defense, by = "team")
 
 ggplot(teams, aes(x = off_epa, y = def_epa)) +
   geom_mean_lines(aes(x0 = off_epa, y0 = def_epa), color = "grey50", linewidth = 0.4) +
-  geom_sdv_logos(aes(team = team), sport = "nfl", width = 0.055, alpha = 0.9) +
+  geom_sdv_logos(aes(team = team), league = "nfl", width = 0.055, alpha = 0.9) +
   annotate(
     "text", x = max(teams$off_epa), y = min(teams$def_epa),
     label = "good offense, good defense", hjust = 1, vjust = 1, color = "grey45", size = 3.2
@@ -117,7 +117,7 @@ ranked <- teams |>
 ggplot(ranked, aes(x = team, y = sr_diff)) +
   geom_col(aes(fill = team), width = 0.75) +
   geom_hline(yintercept = 0, color = "grey30", linewidth = 0.3) +
-  scale_fill_sdv(sport = "nfl") +
+  scale_fill_sdv(league = "nfl") +
   scale_y_continuous(labels = function(v) sub("^\\+0$", "0", sprintf("%+.0f", 100 * v))) +
   labs(
     title = "Offensive success rate, 2025",
@@ -129,7 +129,7 @@ ggplot(ranked, aes(x = team, y = sr_diff)) +
   theme(
     legend.position = "none",
     panel.grid.major.x = element_blank(),
-    axis.text.x = element_sdv_logo(sport = "nfl", size = 0.5)
+    axis.text.x = element_sdv_logo(league = "nfl", size = 0.5)
   )
 ```
 
@@ -192,7 +192,7 @@ limit <- max(abs(standings$Diff)) # a color scale centered on zero
 
 standings |>
   gt(groupname_col = "division") |>
-  gt_sdv_logos(columns = "logo", sport = "nfl", height = 22) |>
+  gt_sdv_logos(columns = "logo", league = "nfl", height = 22) |>
   cols_label(logo = "", nick = "Team") |>
   data_color(
     columns = "Diff",
@@ -280,9 +280,9 @@ ggplot(running, aes(x = week, y = diff, color = team)) +
   geom_line(linewidth = 0.8) +
   geom_sdv_logos(
     aes(x = week + 1.4, y = diff, team = team),
-    data = ends, sport = "nfl", width = 0.12, inherit.aes = FALSE
+    data = ends, league = "nfl", width = 0.12, inherit.aes = FALSE
   ) +
-  scale_color_sdv(sport = "nfl") +
+  scale_color_sdv(league = "nfl") +
   scale_x_continuous(breaks = c(1, 6, 12, 18), limits = c(1, 20)) +
   facet_wrap(~division, ncol = 4) +
   labs(
@@ -324,7 +324,7 @@ wp <- pbp |>
 
 away_color <- sdv_team_colors("nfl", away)
 home_color <- sdv_team_colors("nfl", home)
-if (away_color == home_color) away_color <- sdv_team_colors("nfl", away, type = "secondary")
+if (away_color == home_color) away_color <- sdv_team_colors("nfl", away, which = "secondary")
 
 nick <- function(abbr) nfl_teams$nick[match(abbr, nfl_teams$team)]
 title <- sprintf(
@@ -344,7 +344,7 @@ ggplot(wp, aes(x = minute)) +
     title = title,
     subtitle = "nflfastR win probability, by minutes played",
     image_height = 30,
-    sport = "nfl"
+    league = "nfl"
   ) +
   labs(
     x = "Minutes played",
@@ -394,8 +394,8 @@ top_qbs <- head(qbs, 16)
 
 ggplot(top_qbs, aes(x = epa, y = reorder(player, epa))) +
   geom_col(aes(fill = team), width = 0.7) +
-  geom_sdv_headshots(aes(x = epa + 0.022, player_id = id), sport = "nfl", height = 0.058) +
-  scale_fill_sdv(sport = "nfl") +
+  geom_sdv_headshots(aes(x = epa + 0.022, player_id = id), league = "nfl", id_system = "gsis", height = 0.058) +
+  scale_fill_sdv(league = "nfl") +
   scale_x_continuous(expand = expansion(mult = c(0, 0.08))) +
   labs(
     title = "Top 16 quarterbacks by EPA per dropback, 2025",
@@ -428,8 +428,8 @@ top_qbs |>
   mutate(rank = row_number(), headshot = id) |>
   select(rank, headshot, player, team, dropbacks, epa, success, cpoe) |>
   gt() |>
-  gt_sdv_headshots(columns = "headshot", sport = "nfl", height = 36) |>
-  gt_sdv_logos(columns = "team", sport = "nfl", height = 24) |>
+  gt_sdv_headshots(columns = "headshot", league = "nfl", id_system = "gsis", height = 36) |>
+  gt_sdv_logos(columns = "team", league = "nfl", height = 24) |>
   fmt_number(columns = "epa", decimals = 3) |>
   fmt_percent(columns = "success", decimals = 1) |>
   fmt_number(columns = "cpoe", decimals = 1, force_sign = TRUE) |>
@@ -468,34 +468,33 @@ top_qbs |>
 
 Schedules use the abbreviation a team had that season: `OAK` until 2019,
 `SD` until 2016, `STL` until 2015.
-[`resolve_historical_abbr()`](https://sdvplotR.sportsdataverse.org/reference/resolve_historical_abbr.md)
-maps each to today’s franchise and passes anything else through, so it
-reads only the old codes.
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-applies the same mapping and every other spelling too, so other sources’
-`LAR` and a full name become nflverse’s `LA` as well:
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+maps each to today’s franchise, and every other spelling too, so other
+sources’ `LAR` and a full name become nflverse’s `LA` team as well:
 
 ``` r
 
+nfl_index <- sdv_teams("nfl")
+
 data.frame(abbr = c("OAK", "SD", "STL", "LAR", "Los Angeles Rams")) |>
   mutate(
-    current = resolve_historical_abbr(abbr, sport = "nfl"),
-    key = clean_team_abbrs(abbr, sport = "nfl")
+    team_id = sdv_resolve(abbr, league = "nfl"),
+    current = nfl_index$abbr[match(team_id, nfl_index$team_id)]
   )
-#>               abbr          current key
-#> 1              OAK               LV  LV
-#> 2               SD              LAC LAC
-#> 3              STL               LA  LA
-#> 4              LAR              LAR  LA
-#> 5 Los Angeles Rams Los Angeles Rams  LA
+#>               abbr team_id current
+#> 1              OAK      13      LV
+#> 2               SD      24     LAC
+#> 3              STL      14      LA
+#> 4              LAR      14      LA
+#> 5 Los Angeles Rams      14      LA
 ```
 
-Grouping on that key keeps each franchise together across its move. The
-logos take the season’s own abbreviation plus a `season` aesthetic.
-sdvplotR keeps the marks of relocated NFL identities, so the `STL` and
-`SD` seasons draw the St. Louis Rams’ and San Diego Chargers’ logos;
-every season of a current identity draws today’s logo, including the
-Rams’ and Chargers’ first years in Los Angeles before their 2020
+Grouping on that franchise keeps each franchise together across its
+move. The logos take the season’s own abbreviation plus a `season`
+aesthetic. sdvplotR keeps the marks of relocated NFL identities, so the
+`STL` and `SD` seasons draw the St. Louis Rams’ and San Diego Chargers’
+logos; every season of a current identity draws today’s logo, including
+the Rams’ and Chargers’ first years in Los Angeles before their 2020
 redesigns. (The Raiders kept their shield.)
 
 ``` r
@@ -508,7 +507,7 @@ history <- nflreadr::load_schedules(2012:season) |>
 wins <- history |>
   group_by(season, team) |>
   summarise(wins = sum(team_score > opponent_score), .groups = "drop") |>
-  mutate(franchise = clean_team_abbrs(team, sport = "nfl"))
+  mutate(franchise = nfl_index$abbr[match(sdv_resolve(team, league = "nfl"), nfl_index$team_id)])
 
 moves <- data.frame(
   franchise = c("LV", "LAC", "LA"),
@@ -519,12 +518,12 @@ moves <- data.frame(
 ggplot(wins, aes(x = season, y = wins)) +
   geom_vline(aes(xintercept = moved - 0.5), data = moves, linetype = "dashed", color = "grey50") +
   geom_line(aes(color = franchise), linewidth = 0.8) +
-  geom_sdv_logos(aes(team = team, season = season), sport = "nfl", height = 0.22) +
+  geom_sdv_logos(aes(team = team, season = season), league = "nfl", height = 0.22) +
   geom_text(
     aes(x = moved - 0.6, y = 16.5, label = label),
     data = moves, hjust = 1, vjust = 1, size = 3, color = "grey40"
   ) +
-  scale_color_sdv(sport = "nfl") +
+  scale_color_sdv(league = "nfl") +
   scale_x_continuous(breaks = seq(2012, season, 2)) +
   scale_y_continuous(limits = c(-1, 17), breaks = c(0, 4, 8, 12, 16)) +
   facet_wrap(~franchise, ncol = 1, labeller = as_labeller(\(x) nick(x))) +
@@ -579,7 +578,7 @@ sdv_surface("nfl", "SEA", center_logo = TRUE, display_range = "in_bounds_only") 
     arrow = arrow(length = unit(0.12, "cm")), linewidth = 0.6
   ) +
   scale_color_manual(
-    values = c(pass = unname(sdv_team_colors("nfl", "SEA", type = "secondary")), run = "white")
+    values = c(pass = unname(sdv_team_colors("nfl", "SEA", which = "secondary")), run = "white")
   ) +
   labs(
     title = sprintf("Seattle's %d touchdowns from scrimmage, 2025", nrow(tds)),
@@ -621,7 +620,7 @@ tiers <- teams |>
 
 sdv_team_tiers(
   tiers,
-  sport = "nfl",
+  league = "nfl",
   title = "NFL tiers by net EPA per play, 2025",
   subtitle = "Offense EPA per play minus defense EPA per play allowed",
   caption = caption,

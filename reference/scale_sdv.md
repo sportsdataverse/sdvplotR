@@ -7,8 +7,8 @@ aesthetics.
 
 ``` r
 scale_color_sdv(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  type = c("primary", "secondary"),
+  league,
+  which = c("primary", "secondary"),
   values = NULL,
   ...,
   aesthetics = "colour",
@@ -19,8 +19,8 @@ scale_color_sdv(
 )
 
 scale_colour_sdv(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  type = c("primary", "secondary"),
+  league,
+  which = c("primary", "secondary"),
   values = NULL,
   ...,
   aesthetics = "colour",
@@ -31,8 +31,8 @@ scale_colour_sdv(
 )
 
 scale_fill_sdv(
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
-  type = c("primary", "secondary"),
+  league,
+  which = c("primary", "secondary"),
   values = NULL,
   ...,
   aesthetics = "fill",
@@ -45,13 +45,14 @@ scale_fill_sdv(
 
 ## Arguments
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
-- type:
+- which:
 
-  One of `"primary"` or `"secondary"` to decide which color type to use.
+  One of `"primary"` or `"secondary"`: which team colour to use.
 
 - values:
 
@@ -98,7 +99,7 @@ A ggplot2 scale object.
 library(sdvplotR)
 library(ggplot2)
 
-team_abbr <- valid_team_names("nfl")[1:16]
+team_abbr <- sdv_teams("nfl")$abbr[1:16]
 
 df <- data.frame(
   random_value = runif(length(team_abbr), 0, 1),
@@ -107,8 +108,8 @@ df <- data.frame(
 
 ggplot(df, aes(x = teams, y = random_value)) +
   geom_col(aes(color = teams, fill = teams), width = 0.5) +
-  scale_color_sdv(sport = "nfl", type = "secondary") +
-  scale_fill_sdv(sport = "nfl", alpha = 0.4) +
+  scale_color_sdv(league = "nfl", which = "secondary") +
+  scale_fill_sdv(league = "nfl", alpha = 0.4) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 

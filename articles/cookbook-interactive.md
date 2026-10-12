@@ -2,14 +2,15 @@
 
 On this page
 
-Ten recipes for team logos and headshots on charts you can hover, zoom
-and share: [ggiraph](https://davidgohel.github.io/ggiraph/) makes a
+Twelve recipes for team logos and headshots on charts you can hover,
+zoom and share: [ggiraph](https://davidgohel.github.io/ggiraph/) makes a
 ggplot interactive and keeps every sdvplotR layer,
 [plotly](https://plotly.com/r/) draws logos as layout images, and
-[reactable](https://glin.github.io/reactable/) makes a sortable table.
-The last two recipes save a chart as one HTML file and as a PNG for a
-social post. The data is one season each from MLB (baseballr, from the
-MLB Stats API), the NBA, the WNBA and the NHL (hoopR, wehoop and
+[reactable](https://glin.github.io/reactable/) makes a sortable table;
+[leaflet](https://rstudio.github.io/leaflet/) puts logos on a map. The
+last two recipes save a chart as one HTML file and as a PNG for a social
+post. The data is one season each from MLB (baseballr, from the MLB
+Stats API), the NBA, the WNBA and the NHL (hoopR, wehoop and
 fastRhockey), and the NFL and college football (nflreadr and cfbfastR),
 all but MLB read from SportsDataverse release files.
 
@@ -43,7 +44,7 @@ mlb <- baseballr::mlb_standings(season = season, league_id = "103,104") |>
   as.data.frame() |>
   inner_join(mlb_ids, by = "team_records_team_id") |>
   transmute(
-    team = clean_team_abbrs(team_abbreviation, sport = "mlb"),
+    team = sdv_resolve(team_abbreviation, league = "mlb"),
     name = team_full_name,
     wins = team_records_wins,
     losses = team_records_losses,
@@ -60,7 +61,7 @@ nrow(mlb)
 
 p_mlb <- ggplot(mlb, aes(x = rs, y = ra)) +
   geom_abline(slope = 1, intercept = 0, colour = "grey60", linetype = "dashed") +
-  geom_sdv_logos(aes(team = team), sport = "mlb", width = 0.06) +
+  geom_sdv_logos(aes(team = team), league = "mlb", width = 0.06) +
   geom_point_interactive(
     aes(tooltip = sprintf("%s<br>%d-%d<br>%.2f scored, %.2f allowed per game", name, wins, losses, rs, ra),
         data_id = team),
@@ -121,7 +122,7 @@ p_scorers <- ggplot(scorers, aes(x = ppg, y = ts)) +
   geom_point_interactive(aes(fill = team, tooltip = tip, data_id = athlete_id),
     shape = 21, size = 4, colour = "white", stroke = 0.6
   ) +
-  scale_fill_sdv(sport = "nba") +
+  scale_fill_sdv(league = "nba") +
   scale_y_continuous(labels = scales::label_percent(accuracy = 1)) +
   labs(
     title = "The NBA's 25 top scorers, 2025-26",
@@ -163,7 +164,7 @@ wnba_runs <- wehoop::load_wnba_team_box(season) |>
 
 p_wnba <- ggplot(wnba_runs, aes(x = game_no, y = wins, colour = team)) +
   geom_line_interactive(aes(data_id = team, tooltip = team_display_name), linewidth = 1) +
-  scale_colour_sdv(sport = "wnba") +
+  scale_colour_sdv(league = "wnba") +
   labs(
     title = "The WNBA's 2026 season, win by win",
     subtitle = "Hover a line to pick out a team",
@@ -213,8 +214,8 @@ p_threes <- ggplot(threes, aes(x = team, y = tpa)) +
         tooltip = sprintf("%s: %.1f attempts, %.1f%% made", team_abbreviation, tpa, 100 * tp_pct)),
     width = 0.75
   ) +
-  scale_x_sdv(sport = "nba", size = 16) +
-  scale_fill_sdv(sport = "nba") +
+  scale_x_sdv(league = "nba", size = 16) +
+  scale_fill_sdv(league = "nba") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   labs(
     title = "NBA three-point attempts per game, 2025-26",
@@ -244,7 +245,7 @@ The NFL’s 2025 offenses and defenses:
 ``` r
 
 logo_images <- function(teams, x, y, sport, sizex, sizey = sizex, xref = "x", yref = "y") {
-  urls <- sdv_logo_url(teams, sport = sport)
+  urls <- sdv_logo_url(teams, league = sport)
   lapply(seq_along(urls), function(i) {
     list(
       source = urls[i], xref = xref, yref = yref, x = x[i], y = y[i],
@@ -309,7 +310,7 @@ goals for and against per game, 2025-26:
 nhl <- fastRhockey::load_nhl_team_box(season) |>
   as.data.frame() |>
   filter(substr(game_id, 5, 6) == "02") |>
-  mutate(team = clean_team_abbrs(team_abbrev, sport = "nhl")) |>
+  mutate(team = sdv_resolve(team_abbrev, league = "nhl")) |>
   summarise(games = n(), gf = mean(goals), ga = mean(goals_against), .by = team) |>
   arrange(team)
 
@@ -329,6 +330,30 @@ plot_ly(
 
 A `range` given high-to-low reverses the axis, here so good defense is
 at the top.
+
+[`add_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+does the same placement for you, in data units, so there is no helper to
+write. It takes the positions and the teams, and its `size` is the logo
+height as a share of the y-axis span:
+
+``` r
+
+plot_ly(
+  nhl, x = ~gf, y = ~ga, type = "scatter", mode = "markers",
+  marker = list(size = 28, opacity = 0),
+  text = ~sprintf("%s: %.2f for, %.2f against", team, gf, ga), hoverinfo = "text"
+) |>
+  layout(
+    xaxis = list(title = "Goals for per game", range = range(nhl$gf) + c(-pad, pad)),
+    yaxis = list(title = "Goals against per game", range = rev(range(nhl$ga) + c(-pad, pad)))
+  ) |>
+  add_sdv_logos(nhl$gf, nhl$ga, nhl$team, "nhl", size = 0.08)
+```
+
+[`ggplotly()`](https://rdrr.io/pkg/plotly/man/ggplotly.html) is the
+wrong tool for this because it drops layout images, so build the chart
+with [`plot_ly()`](https://rdrr.io/pkg/plotly/man/plot_ly.html) and add
+the marks with these helpers.
 
 ## 7. plotly: logos on a category axis
 
@@ -362,6 +387,20 @@ plot_ly(
 `sizey` is now a share of the plot’s height (paper units), and `sizex` a
 share of one category’s slot.
 
+[`sdv_axis_logos()`](https://sdvplotR.sportsdataverse.org/reference/sdv_axis_logos.md)
+does all of that in one call, hiding the tick labels and placing a logo
+under each category:
+
+``` r
+
+plot_ly(
+  mlb_diff, x = ~factor(team, levels = team), y = ~run_diff, type = "bar",
+  marker = list(color = ~fill)
+) |>
+  layout(xaxis = list(title = ""), yaxis = list(title = "Run differential"), margin = list(b = 50)) |>
+  sdv_axis_logos(mlb_diff$team, "mlb")
+```
+
 ## 8. reactable: a sortable, searchable table
 
 For a table rather than a chart, reactable sorts, searches and pages in
@@ -374,9 +413,9 @@ ESPN’s schedule file:
 
 ``` r
 
-sec <- team_reference("cfb") |>
-  filter(conference == "SEC") |>
-  select(team = team_abbr, school = team_location)
+sec <- sdv_teams("cfb") |>
+  filter(conference_id == "cfb:sec") |>
+  select(team = abbr, school = location)
 
 games <- cfbfastR::load_espn_cfb_schedules(2025) |> as.data.frame()
 sec_table <- bind_rows(
@@ -409,7 +448,49 @@ integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration
 article covers the other renderers: headshots, logo column headers and
 team-colored rows.
 
-## 9. Share a chart as one HTML file
+## 9. ggiraph: one call for the images and the hover
+
+[`geom_sdv_logos_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+is
+[`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
+plus the hover layer of recipe 1, so `tooltip` and `data_id` go in the
+same [`aes()`](https://ggplot2.tidyverse.org/reference/aes.html) as
+`team`. The wordmark and headshot geoms have `_interactive()` versions
+too. A small hand-made table of NFL teams:
+
+``` r
+
+demo <- data.frame(x = 1:3, y = c(2, 3, 1), team = c("KC", "BUF", "BAL"))
+p_demo <- ggplot(demo, aes(x, y)) +
+  geom_sdv_logos_interactive(
+    aes(team = team, tooltip = team, data_id = team),
+    league = "nfl", width = 0.15
+  ) +
+  xlim(0.5, 3.5) + ylim(0.5, 3.5) +
+  theme_minimal()
+girafe(ggobj = p_demo, width_svg = 5, height_svg = 4)
+```
+
+## 10. leaflet: logos as map markers
+
+[`addSdvLogoMarkers()`](https://sdvplotR.sportsdataverse.org/reference/addSdvLogoMarkers.md)
+puts a team’s logo on each marker; `lng`, `lat` and `team` take formulas
+that read the map’s data. A team without a logo keeps leaflet’s default
+marker, with a warning, so no point goes missing.
+
+``` r
+
+stadiums <- data.frame(
+  team = c("KC", "BUF", "GB"),
+  lon = c(-94.48, -78.79, -88.06),
+  lat = c(39.05, 42.77, 44.50)
+)
+leaflet::leaflet(stadiums) |>
+  leaflet::addTiles() |>
+  addSdvLogoMarkers(~lon, ~lat, ~team, league = "nfl", label = ~team)
+```
+
+## 11. Share a chart as one HTML file
 
 [`htmlwidgets::saveWidget()`](https://rdrr.io/pkg/htmlwidgets/man/saveWidget.html)
 writes any of these widgets to a file. `selfcontained = TRUE` inlines
@@ -438,7 +519,7 @@ of each is ggiraph’s own JavaScript and fonts, inlined. With
 `selfcontained = FALSE` the libraries go in a folder beside the HTML
 instead, which a web server can share across pages.
 
-## 10. Export a static PNG for social
+## 12. Export a static PNG for social
 
 A ggiraph chart is a ggplot underneath, so
 [`ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html) makes

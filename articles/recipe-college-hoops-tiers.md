@@ -26,17 +26,16 @@ dir.create(out_dir)
 
 One row per team: adjusted offense, defense and their margin (points per
 100 possessions better than an average Division I team, adjusted for
-opponents). The ratings carry ESPN team ids as text;
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-has the same ids as integers, plus each team’s conference and
-abbreviation. The id is cast once, on the reference side, and the two
-types are checked before the join.
+opponents). The ratings carry ESPN team ids as text, and so does
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md),
+which adds each team’s conference and abbreviation. The two types are
+checked before the join.
 
 ``` r
 
 ratings <- hoopR::load_mbb_ratings(season)
-teams <- team_reference("mbb") |>
-  transmute(team_id = as.character(espn_team_id), team_abbr, team_short_name, conference)
+teams <- sdv_teams("mbb") |>
+  transmute(team_id, team_abbr = abbr, team_short_name = short_name, conference = sub(" Conference$", "", conference))
 stopifnot(identical(class(ratings$team_id), class(teams$team_id)))
 
 league <- ratings |>
@@ -77,7 +76,7 @@ Five tiers of equal size, straight into
 
 draft <- league |>
   mutate(team = team_abbr, tier_no = ((row_number() - 1) * 5) %/% n() + 1) # five tiers of (nearly) equal size
-sdv_team_tiers(draft, sport = "mbb")
+sdv_team_tiers(draft, league = "mbb")
 ```
 
 ![First draft: the 18 Big Ten teams split into five equal tiers on the
@@ -149,7 +148,7 @@ tiers <- league |>
 tier_list <- function(width = 0.075, alpha = 0.8, theme = "dark") {
   sdv_team_tiers(
     tiers,
-    sport = "mbb",
+    league = "mbb",
     title = title,
     subtitle = paste0(
       "Tiers by adjusted efficiency margin, ", season - 1, "-", season %% 100,

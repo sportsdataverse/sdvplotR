@@ -172,11 +172,11 @@ both sides. Each team’s secondary color tells them apart.
 ``` r
 
 primary <- sdv_team_colors("nfl", pair)
-secondary <- sdv_team_colors("nfl", pair, type = "secondary")
+secondary <- sdv_team_colors("nfl", pair, which = "secondary")
 rbind(primary, secondary)
 #>           SEA       NE       
 #> primary   "#002244" "#002244"
-#> secondary "#69be28" "#C60C30"
+#> secondary "#69be28" "#c60c30"
 colors <- if (anyDuplicated(primary)) secondary else primary
 
 butterfly() + scale_fill_manual(values = colors, guide = "none")
@@ -192,9 +192,8 @@ The card is dark, which most game-week graphics are, so the logos are
 the dark variant: the mark drawn for a dark background, which keeps navy
 outlines from disappearing.
 [`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md)
-draws a team’s primary mark;
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md)
-lists every team’s `logo_dark_url`, and
+draws a team’s primary mark; `sdv_logo_url(variant = "dark")` returns
+every team’s dark logo, and
 [`geom_from_path()`](https://mrcaseb.github.io/ggpath/reference/geom_from_path.html)
 (from ggpath, re-exported by sdvplotR) draws any image URL. Each team
 gets its logo and record above its side, the kicker names the game, and
@@ -207,10 +206,10 @@ bg <- "#0f1923"
 ink <- "#ffffff"
 muted <- "#9fb0c3"
 
-header <- team_reference("nfl") |>
-  filter(team_abbr %in% pair) |>
+header <- sdv_teams("nfl") |>
+  filter(abbr %in% pair) |>
   transmute(
-    team = team_abbr, logo = logo_dark_url, name = team_mascot,
+    team = abbr, logo = sdv_logo_url(team_id, league = "nfl", variant = "dark"), name = short_name,
     x = if_else(team == pair[1], -0.85, 0.85)
   ) |>
   inner_join(select(teams, team, w, l), by = "team") |>

@@ -56,8 +56,8 @@ theme_set(
 
 The schedule carries each team’s division and its conference **that
 season**.
-[`clean_team_abbrs()`](https://sdvplotR.sportsdataverse.org/reference/clean_team_abbrs.md)
-turns the school names into sdvplotR’s abbreviations:
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+turns the school names into team ids:
 
 ``` r
 
@@ -67,43 +67,53 @@ fbs <- bind_rows(
 ) |>
   filter(division == "fbs") |>
   distinct(team, conference) |>
-  mutate(abbr = clean_team_abbrs(team, sport = "cfb"))
+  mutate(
+    # the index keys three conferences by their short codes
+    conference = recode(conference, "American Athletic" = "AAC", "Conference USA" = "CUSA", "FBS Independents" = "FBS Indep."),
+    # "Charlotte" alone is the 49ers or the Saints; the 49ers are the FBS team
+    team_id = sdv_resolve(sub("^Charlotte$", "Charlotte 49ers", team), league = "cfb")
+  )
 
 nrow(fbs)
 #> [1] 136
 count(fbs, conference, sort = TRUE)
 #> # A tibble: 11 × 2
-#>    conference            n
-#>    <chr>             <int>
-#>  1 Big Ten              18
-#>  2 ACC                  17
-#>  3 Big 12               16
-#>  4 SEC                  16
-#>  5 American Athletic    14
-#>  6 Sun Belt             14
-#>  7 Mid-American         13
-#>  8 Conference USA       12
-#>  9 Mountain West        12
-#> 10 FBS Independents      2
-#> 11 Pac-12                2
+#>    conference        n
+#>    <chr>         <int>
+#>  1 Big Ten          18
+#>  2 ACC              17
+#>  3 Big 12           16
+#>  4 SEC              16
+#>  5 AAC              14
+#>  6 Sun Belt         14
+#>  7 Mid-American     13
+#>  8 CUSA             12
+#>  9 Mountain West    12
+#> 10 FBS Indep.        2
+#> 11 Pac-12            2
 ```
 
-Conference names resolve too: `"American Athletic"` is the `AAC` key and
-`"Conference USA"` the `CUSA` key. That makes it easy to check the
-season’s conferences against
-[`team_reference()`](https://sdvplotR.sportsdataverse.org/reference/team_reference.md),
-which holds each school’s conference **today**. A tutorial on a past
-season should take conferences from that season’s data:
+Conferences are rows of the team index too
+(`sdv_teams("cfb", include_conferences = TRUE)`), which holds each
+school’s conference **today**. Checking the season’s conferences against
+it shows who has moved. A tutorial on a past season should take
+conferences from that season’s data:
 
 ``` r
 
+conf_rows <- sdv_teams("cfb", include_conferences = TRUE) |>
+  filter(program == "conference")
+
 fbs |>
-  mutate(conf_2025 = clean_team_abbrs(conference, sport = "cfb")) |>
-  inner_join(
-    select(team_reference("cfb"), abbr = team_abbr, conf_today = conference),
-    by = "abbr"
+  inner_join(select(sdv_teams("cfb"), team_id, conf_today = conference_id), by = "team_id") |>
+  mutate(
+    conf_today = conf_rows$team_id[match(conf_today, conf_rows$conference_id)],
+    conf_2025 = coalesce(
+      conf_rows$team_id[match(tolower(conference), tolower(conf_rows$team_id))],
+      conf_rows$team_id[match(tolower(conference), tolower(conf_rows$short_name))]
+    )
   ) |>
-  filter(conf_2025 != conf_today) |>
+  filter(!is.na(conf_2025), conf_2025 != conf_today) |>
   arrange(conf_today, team) |>
   select(team, conf_2025, conf_today)
 #> # A tibble: 9 × 3
@@ -148,7 +158,7 @@ ratings <- fbs |>
 
 ggplot(ratings, aes(x = off_epa, y = def_epa)) +
   geom_mean_lines(aes(x0 = off_epa, y0 = def_epa), color = "grey50", linewidth = 0.4) +
-  geom_sdv_logos(aes(team = abbr), sport = "cfb", width = 0.032) +
+  geom_sdv_logos(aes(team = team_id), league = "cfb", width = 0.032) +
   scale_y_reverse() +
   labs(
     title = "Every FBS offense and defense, 2025",
@@ -176,7 +186,7 @@ repeats it in every panel.
 
 ggplot(ratings, aes(x = off_epa, y = def_epa)) +
   geom_point(data = select(ratings, -conference), color = "grey85", size = 1) +
-  geom_sdv_logos(aes(team = abbr), sport = "cfb", width = 0.1) +
+  geom_sdv_logos(aes(team = team_id), league = "cfb", width = 0.1) +
   scale_y_reverse() +
   facet_wrap(~conference, ncol = 4) +
   labs(
@@ -231,8 +241,8 @@ ggplot(by_conf, aes(x = sp, y = conference)) +
     aes(x = median_sp, xend = median_sp, y = as.numeric(conference) - 0.4, yend = as.numeric(conference) + 0.4),
     data = medians, color = "grey30", linewidth = 0.6
   ) +
-  geom_sdv_logos(aes(y = as.numeric(conference) + offset, team = abbr), sport = "cfb", height = 0.03) +
-  scale_y_sdv(sport = "cfb", size = 28) +
+  geom_sdv_logos(aes(y = as.numeric(conference) + offset, team = team_id), league = "cfb", height = 0.03) +
+  scale_y_sdv(league = "cfb", size = 28) +
   labs(
     title = "Conference strength by SP+, 2025",
     subtitle = "Each FBS team's SP+ rating; the line is the conference median",
@@ -242,8 +252,6 @@ ggplot(by_conf, aes(x = sp, y = conference)) +
   ) +
   theme_y_sdv() +
   theme(panel.grid.major.y = element_blank(), panel.grid.minor = element_blank())
-#> Warning in png::readPNG(get_file(path), native = TRUE): libpng warning: iCCP:
-#> known incorrect sRGB profile
 ```
 
 ![Strip chart of the 2025 SP+ rating of every FBS team, one row per
@@ -308,12 +316,12 @@ sec <- sides |>
   left_join(postseason, by = "team") |>
   # conference record, then overall record: not the SEC's tiebreakers
   arrange(desc(conf_w), desc(w), desc(sp), team) |>
-  mutate(logo = clean_team_abbrs(team, sport = "cfb")) |>
+  mutate(logo = sdv_resolve(team, league = "cfb")) |>
   select(logo, team, conf_w, conf_l, w, l, pf, pa, sp, postseason)
 
 sec |>
   gt() |>
-  gt_sdv_logos(columns = "logo", sport = "cfb", height = 24) |>
+  gt_sdv_logos(columns = "logo", league = "cfb", height = 24) |>
   gt_fmt_tally(columns = c(conf_w, conf_l), label = "SEC") |>
   gt_fmt_tally(columns = c(w, l), label = "Overall") |>
   fmt_number(columns = "sp", decimals = 1) |>
@@ -367,7 +375,7 @@ ggplot(games, aes(x = game, y = margin)) +
     label = "Big Ten title game and playoff", size = 3.2, color = "grey40"
   ) +
   geom_col(fill = sdv_team_colors("cfb", champion), width = 0.7) +
-  geom_sdv_logos(aes(y = margin + 6, team = opponent), sport = "cfb", height = 0.085) +
+  geom_sdv_logos(aes(y = margin + 6, team = opponent), league = "cfb", height = 0.085) +
   scale_x_continuous(breaks = games$game) +
   scale_y_continuous(limits = c(0, max(games$margin) + 18), expand = c(0, 0)) +
   ggtitle_image(
@@ -375,7 +383,7 @@ ggplot(games, aes(x = game, y = margin)) +
     title = sprintf("%s's %s national title season", champion, record),
     subtitle = "Margin of victory in every game, opponents' logos above the bars",
     image_height = 30,
-    sport = "cfb"
+    league = "cfb"
   ) +
   labs(x = "Game", y = "Margin of victory", caption = "Data: CollegeFootballData.com via cfbfastR") +
   theme_title_image(size = 15, face = "bold") +
@@ -435,7 +443,7 @@ place <- function(team, r) {
   y
 }
 invisible(place(cfp$winner[cfp$round == 4], 5))
-slots$abbr <- clean_team_abbrs(slots$team, sport = "cfb")
+slots$team_id <- sdv_resolve(slots$team, league = "cfb")
 
 ggplot() +
   # each game: from both teams to the round's midline, then on to the winner
@@ -448,8 +456,8 @@ ggplot() +
     data = edges, size = 3, linewidth = 0, fill = "white", color = "grey25"
   ) +
   geom_sdv_logos(
-    aes(x = x, y = y, team = abbr, alpha = if_else(lost, 0.3, 1)),
-    data = slots, sport = "cfb", height = 0.075
+    aes(x = x, y = y, team = team_id, alpha = if_else(lost, 0.3, 1)),
+    data = slots, league = "cfb", height = 0.075
   ) +
   scale_alpha_identity() +
   scale_x_continuous(breaks = 1:5, labels = rounds, position = "top", limits = c(0.6, 5.4)) +
@@ -482,16 +490,16 @@ series <- cfbfastR::cfbd_team_matchup("Ohio State", "Michigan", min_year = 2004,
   filter(!is.na(home_score)) |>
   mutate(
     osu_margin = if_else(home_team == "Ohio State", home_score - away_score, away_score - home_score),
-    winner_abbr = clean_team_abbrs(winner, sport = "cfb"),
+    winner_id = sdv_resolve(winner, league = "cfb"),
     tip = osu_margin + if_else(osu_margin > 0, 6, -6)
   )
 
 ggplot(series, aes(x = season, y = osu_margin)) +
-  geom_col(aes(fill = winner_abbr), width = 0.75) +
+  geom_col(aes(fill = winner_id), width = 0.75) +
   geom_hline(yintercept = 0, color = "grey30") +
-  geom_sdv_logos(aes(y = tip, team = winner_abbr), sport = "cfb", height = 0.075) +
+  geom_sdv_logos(aes(y = tip, team = winner_id), league = "cfb", height = 0.075) +
   annotate("text", x = 2020, y = 2, label = "no game", angle = 90, hjust = 0, size = 3, color = "grey45") +
-  scale_fill_sdv(sport = "cfb") +
+  scale_fill_sdv(league = "cfb") +
   scale_x_continuous(breaks = seq(2004, season, 3)) +
   scale_y_continuous(limits = c(-35, 50)) +
   labs(
@@ -543,13 +551,13 @@ qbs <- pbp |>
   filter(dropbacks >= 300) |>
   arrange(desc(epa), qb_id) |>
   head(15) |>
-  mutate(abbr = clean_team_abbrs(team, sport = "cfb"), qb_id = as.character(qb_id))
+  mutate(team_id = sdv_resolve(team, league = "cfb"), qb_id = as.character(qb_id))
 
 ggplot(qbs, aes(x = epa, y = reorder(qb, epa))) +
-  geom_col(aes(fill = abbr), width = 0.75) +
-  geom_sdv_logos(aes(x = -0.016, team = abbr), sport = "cfb", height = 0.05) +
-  geom_sdv_headshots(aes(x = epa + 0.022, player_id = qb_id), sport = "cfb", height = 0.06) +
-  scale_fill_sdv(sport = "cfb") +
+  geom_col(aes(fill = team_id), width = 0.75) +
+  geom_sdv_logos(aes(x = -0.016, team = team_id), league = "cfb", height = 0.05) +
+  geom_sdv_headshots(aes(x = epa + 0.022, player_id = qb_id), league = "cfb", height = 0.06) +
+  scale_fill_sdv(league = "cfb") +
   scale_x_continuous(breaks = seq(0, 0.4, 0.1), expand = expansion(mult = c(0.02, 0.08))) +
   labs(
     title = "Top 15 FBS quarterbacks by EPA per dropback, 2025",
@@ -581,13 +589,13 @@ top25 <- sp |>
   inner_join(fbs, by = "team") |>
   arrange(sp_rank, team) |>
   head(25) |>
-  mutate(abbr = factor(abbr, levels = rev(abbr)))
+  mutate(team_id = factor(team_id, levels = rev(team_id)))
 
-ggplot(top25, aes(x = sp, y = abbr)) +
-  geom_col(aes(fill = abbr), width = 0.75) +
+ggplot(top25, aes(x = sp, y = team_id)) +
+  geom_col(aes(fill = team_id), width = 0.75) +
   geom_text(aes(label = sprintf("%.1f", sp)), hjust = -0.2, size = 3) +
-  scale_fill_sdv(sport = "cfb") +
-  scale_y_sdv(sport = "cfb", size = 18) +
+  scale_fill_sdv(league = "cfb") +
+  scale_y_sdv(league = "cfb", size = 18) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.08))) +
   labs(
     title = "Final SP+ top 25, 2025",
@@ -613,29 +621,31 @@ and the Simple Rating System
 ([`cfbfastR::cfbd_ratings_srs()`](https://cfbfastR.sportsdataverse.org/reference/cfbd_ratings_srs.html)).
 The top 32 go into five tiers with
 [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md).
-FPI comes keyed by ESPN abbreviation, which is already sdvplotR’s key.
+FPI comes keyed by ESPN abbreviation, which
+[`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+turns into a team id.
 
 ``` r
 
 fpi <- cfbfastR::espn_ratings_fpi(year = season) |>
-  transmute(abbr = team_abbreviation, fpi = as.numeric(fpi))
+  transmute(team_id = suppressWarnings(sdv_resolve(team_abbreviation, league = "cfb")), fpi = as.numeric(fpi))
 srs <- cfbfastR::cfbd_ratings_srs(year = season) |>
   select(team, srs = rating)
 
 composite <- fbs |>
   inner_join(sp, by = "team") |>
   inner_join(srs, by = "team") |>
-  inner_join(fpi, by = "abbr") |>
+  inner_join(fpi, by = "team_id") |>
   mutate(score = (rank(-sp) + rank(-fpi) + rank(-srs)) / 3) |>
-  arrange(score, abbr) |>
+  arrange(score, team_id) |>
   head(32)
 
 sizes <- c(4, 6, 7, 7, 8) # teams per tier, top to bottom
 composite$tier_no <- rep(seq_along(sizes), sizes)
 
 sdv_team_tiers(
-  select(composite, tier_no, team = abbr),
-  sport = "cfb",
+  select(composite, tier_no, team = team_id),
+  league = "cfb",
   title = "College football tiers, 2025",
   subtitle = "Average rank in SP+, FPI and SRS among FBS teams",
   caption = "Data: CollegeFootballData.com and ESPN via cfbfastR",

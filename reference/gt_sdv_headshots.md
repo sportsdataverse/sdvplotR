@@ -1,11 +1,9 @@
 # Render Player Headshots in 'gt' Tables
 
 Translate player IDs to player headshots and render these images in html
-tables with the 'gt' package. IDs are GSIS IDs for the NFL
-(`"00-0033873"`, resolved through the headshot map sdvplotR publishes
-from nflverse rosters to the player's NFL.com headshot) and ESPN athlete
-IDs for every other sport, or as `id_type` says. IDs that resolve to no
-headshot are left as text.
+tables with the 'gt' package. IDs are ESPN athlete IDs in every league,
+or as `id_system` says. IDs that resolve to no headshot are left as
+text.
 
 ## Usage
 
@@ -13,10 +11,10 @@ headshot are left as text.
 gt_sdv_headshots(
   gt_object,
   columns,
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   height = 30,
   locations = NULL,
-  id_type = NULL
+  id_system = "espn"
 )
 ```
 
@@ -32,9 +30,10 @@ gt_sdv_headshots(
   The columns for which the image translation should be applied.
   Argument has no effect if `locations` is not `NULL`.
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - height:
 
@@ -52,22 +51,13 @@ gt_sdv_headshots(
   [`gt::cells_row_groups()`](https://gt.rstudio.com/reference/cells_row_groups.html)
   helper functions can be used here.
 
-- id_type:
+- id_system:
 
-  Which ID system `player_id` holds. `NULL` (the default) takes GSIS IDs
-  for the NFL and ESPN athlete IDs for every other sport. `"espn"` takes
-  ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
-  hoopR's and wehoop's `espn_*()` functions. `"league"` takes the
-  league's own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats
-  `PERSON_ID` (hoopR's `nba_*()`, wehoop's `wnba_*()`), the MLBAM ID
-  (baseballr's `mlb_*()`, Baseball Savant) for MLB, or the NHL API
-  player ID (fastRhockey's `nhl_*()` and `load_nhl_*()`) for the NHL,
-  drawn from that league's image CDN; college sports have no league
-  option. ESPN and league IDs other than GSIS are plain digits, so a
-  mismatch draws the wrong player or no image rather than an error.
-  League CDNs draw a silhouette for an unknown ID, and the NBA and WNBA
-  CDNs refuse requests from datacenter IPs, so a plot drawn on CI or a
-  server can come back without those headshots.
+  `"espn"` (ESPN athlete ids; the default, for every league with ESPN
+  headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb), `"gsis"`
+  (nflverse's NFL gsis ids, such as `"00-0033873"`, read through a
+  published map) or `"league"` (the league's own player id: NBA / WNBA
+  Stats `PERSON_ID`, MLBAM, NHL API; for the NFL, the gsis id).
 
 ## Value
 
@@ -93,7 +83,7 @@ df <- data.frame(
 
 df |>
   gt() |>
-  gt_sdv_headshots(columns = "player_id", sport = "nfl")
+  gt_sdv_headshots(columns = "player_id", league = "nfl", id_system = "gsis")
 
 
   

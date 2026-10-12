@@ -39,14 +39,14 @@ theme_set(
 The team box score has one row per team per game. `season_type` 2 is the
 regular season (3 is the playoffs, 5 the play-in). ESPN files the
 All-Star games as regular-season games too, between teams that aren’t
-NBA clubs, so an inner join on the ESPN team id to
-`team_reference("nba")` drops them and adds each team’s sdvplotR
-abbreviation and conference in the same step.
+NBA clubs, so an inner join on the ESPN team id to `sdv_teams("nba")`
+drops them and adds each team’s sdvplotR abbreviation and conference in
+the same step.
 
 ``` r
 
-nba_teams <- team_reference("nba") |>
-  select(team_id = espn_team_id, team = team_abbr, conference)
+nba_teams <- sdv_teams("nba") |>
+  transmute(team_id = as.integer(team_id), team = abbr, conference = sub(" Conference$", "", conference))
 
 box <- hoopR::load_nba_team_box(seasons = season) |>
   filter(season_type == 2) |>
@@ -129,7 +129,7 @@ ggplot(ratings, aes(ortg, drtg)) +
     aes(x0 = ortg, y0 = drtg),
     color = "grey60", linetype = "dashed", linewidth = 0.4
   ) +
-  geom_sdv_logos(aes(team = team), sport = "nba", width = 0.065) +
+  geom_sdv_logos(aes(team = team), league = "nba", width = 0.065) +
   annotate(
     "text",
     x = x_lim[c(2, 1, 2, 1)], y = y_lim[c(1, 1, 2, 2)],
@@ -169,8 +169,8 @@ ratings |>
   ggplot(aes(team, net, fill = team)) +
   geom_col(width = 0.75) +
   geom_hline(yintercept = 0, linewidth = 0.4) +
-  scale_fill_sdv(sport = "nba") +
-  scale_x_sdv(sport = "nba", size = 16) +
+  scale_fill_sdv(league = "nba") +
+  scale_x_sdv(league = "nba", size = 16) +
   labs(
     title = paste("NBA net rating,", label, "regular season"),
     x = NULL,
@@ -220,8 +220,8 @@ finish <- filter(west, week_no == max(week_no))
 ggplot(west, aes(week_no, rank)) +
   geom_line(aes(color = team), linewidth = 1.1, alpha = 0.85) +
   # the logos get no color aesthetic: a colour would tint the whole image
-  geom_sdv_logos(aes(x = week_no + 1, team = team), data = finish, sport = "nba", width = 0.04) +
-  scale_color_sdv(sport = "nba") +
+  geom_sdv_logos(aes(x = week_no + 1, team = team), data = finish, league = "nba", width = 0.04) +
+  scale_color_sdv(league = "nba") +
   scale_y_reverse(breaks = 1:15) +
   scale_x_continuous(breaks = seq(5, 30, 5), expand = expansion(add = c(0.5, 1.5))) +
   labs(
@@ -279,10 +279,10 @@ scorers <- per_game |>
 
 ggplot(scorers, aes(points, athlete_display_name)) +
   geom_col(aes(fill = team), width = 0.7) +
-  geom_sdv_logos(aes(x = points + 1.6, team = team), sport = "nba", height = 0.07) +
-  geom_sdv_headshots(aes(x = points + 4.6, player_id = athlete_id), sport = "nba", height = 0.09) +
+  geom_sdv_logos(aes(x = points + 1.6, team = team), league = "nba", height = 0.07) +
+  geom_sdv_headshots(aes(x = points + 4.6, player_id = athlete_id), league = "nba", height = 0.09) +
   geom_text(aes(x = points + 7.4, label = sprintf("%.1f", points)), fontface = "bold", hjust = 0) +
-  scale_fill_sdv(sport = "nba") +
+  scale_fill_sdv(league = "nba") +
   scale_x_continuous(limits = c(0, max(scorers$points) + 10), expand = expansion(0)) +
   labs(
     title = paste("NBA scoring leaders,", label),
@@ -302,17 +302,17 @@ game.](nba-viz_files/figure-html/player-headshots-1.png)
 These are ESPN athlete ids. stats.nba.com numbers players differently
 (`PERSON_ID`), and the two can’t be told apart by shape: an NBA Stats id
 read as an ESPN id draws someone else or nothing. For data keyed by NBA
-Stats ids, pass `id_type = "league"` to draw from the NBA’s own image
+Stats ids, pass `id_system = "league"` to draw from the NBA’s own image
 CDN:
 
 ``` r
 
-geom_sdv_headshots(aes(player_id = person_id), sport = "nba", id_type = "league")
+geom_sdv_headshots(aes(player_id = person_id), league = "nba", id_system = "league")
 ```
 
 That CDN refuses requests from datacenter IPs, this site’s build server
-among them, so the articles here use ESPN ids. `id_type` works the same
-in
+among them, so the articles here use ESPN ids. `id_system` works the
+same in
 [`gt_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_headshots.md),
 [`reactable_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
 and the headshot axis scales.
@@ -348,7 +348,7 @@ shots <- hoopR::load_nba_shots(seasons = season) |>
     result = if_else(scoring_play, "Made", "Missed")
   )
 
-made_color <- sdv_team_colors(star$team, sport = "nba", type = "secondary")
+made_color <- sdv_team_colors(star$team, league = "nba", which = "secondary")
 
 sdv_surface("nba", star$team, display_range = "defense") +
   geom_point(
@@ -396,7 +396,7 @@ tiers <- ratings |>
 
 sdv_team_tiers(
   tiers,
-  sport = "nba",
+  league = "nba",
   title = paste("NBA tiers by net rating,", label),
   subtitle = "Regular-season net rating per 100 possessions, cut at +6, +2, -2 and -6",
   caption = source_note,
@@ -449,7 +449,7 @@ standings |>
     differential = "Diff"
   ) |>
   tab_source_note(source_note) |>
-  gt_sdv_logos(columns = logo, sport = "nba", height = 26) |>
+  gt_sdv_logos(columns = logo, league = "nba", height = 26) |>
   gt_theme_athletic() |>
   cols_align("left", columns = team_short_display_name) |>
   gt_cutline(after = c(6, 10), label = c("Playoffs", "Play-in"), label_position = "above")
@@ -488,7 +488,7 @@ how well they make them, East vs West:
 
 ggplot(ratings, aes(fg3a_rate, fg3_pct)) +
   geom_mean_lines(aes(x0 = fg3a_rate, y0 = fg3_pct), color = "grey60", linewidth = 0.4) +
-  geom_sdv_logos(aes(team = team), sport = "nba", width = 0.09) +
+  geom_sdv_logos(aes(team = team), league = "nba", width = 0.09) +
   facet_wrap(~conference, labeller = labeller(conference = function(x) paste(x, "Conference"))) +
   scale_x_continuous(labels = scales::percent, expand = expansion(mult = 0.12)) +
   scale_y_continuous(labels = scales::percent_format(accuracy = 0.1), expand = expansion(mult = 0.12)) +
@@ -532,7 +532,7 @@ ggplot(home_road, aes(y = team)) +
   geom_segment(aes(x = road, xend = home, yend = team), color = "grey70", linewidth = 1.2) +
   geom_point(aes(x = road), color = "#E15759", size = 3) +
   geom_point(aes(x = home), color = "#4E79A7", size = 3) +
-  scale_y_sdv(sport = "nba", size = 14) +
+  scale_y_sdv(league = "nba", size = 14) +
   scale_x_continuous(labels = scales::percent, limits = c(0, 1)) +
   labs(
     title = paste("Home and road win percentage,", label),
@@ -588,8 +588,8 @@ per_game |>
   cols_label(category = "", headshot = "", player = "Player", logo = "Team", value = "Per game", games = "GP") |>
   fmt_number(value, decimals = 1) |>
   tab_source_note(source_note) |>
-  gt_sdv_headshots(columns = headshot, sport = "nba", height = 44) |>
-  gt_sdv_logos(columns = logo, sport = "nba", height = 28) |>
+  gt_sdv_headshots(columns = headshot, league = "nba", height = 44) |>
+  gt_sdv_logos(columns = logo, league = "nba", height = 28) |>
   gt_theme_sdv()
 ```
 

@@ -149,8 +149,8 @@ as text.
 
 # ... |>
 sub_missing(columns = all_of(wk), missing_text = "BYE") |>
-  gt_sdv_logos(columns = all_of(wk), sport = "cfb", height = 24) |>
-  gt_sdv_logos(columns = team, sport = "cfb", height = 22, include_name = TRUE)
+  gt_sdv_logos(columns = all_of(wk), league = "cfb", height = 24) |>
+  gt_sdv_logos(columns = team, league = "cfb", height = 22, include_name = TRUE)
 ```
 
 ## 5. The legend
@@ -185,8 +185,8 @@ opponents |>
     text_color = "#565C64", size = px(9), weight = 600
   ) |>
   sub_missing(columns = all_of(wk), missing_text = "BYE") |>
-  gt_sdv_logos(columns = all_of(wk), sport = "cfb", height = 24) |>
-  gt_sdv_logos(columns = team, sport = "cfb", height = 22, include_name = TRUE) |>
+  gt_sdv_logos(columns = all_of(wk), league = "cfb", height = 24) |>
+  gt_sdv_logos(columns = team, league = "cfb", height = 22, include_name = TRUE) |>
   cols_align(columns = all_of(wk), "center") |>
   cols_width(team ~ px(136), all_of(wk) ~ px(36)) |>
   cols_label(team = "") |>
@@ -233,7 +233,7 @@ cup_final <- hoopR::load_nba_schedule(2026) |>
 
 nba <- hoopR::load_nba_team_box(2026) |>
   # regular season; the box scores also hold the All-Star games
-  filter(season_type == 2, team_abbreviation %in% valid_team_names("nba"), !game_id %in% cup_final)
+  filter(season_type == 2, team_abbreviation %in% sdv_teams("nba")$abbr, !game_id %in% cup_final)
 
 best <- nba |>
   summarise(wins = sum(team_winner), losses = sum(!team_winner), .by = team_abbreviation) |>
@@ -293,14 +293,14 @@ sit under the logos, so a glance down the grid shows the streaks.
 
 ``` r
 
-team_name <- team_reference("nba")$team_name[team_reference("nba")$team_abbr == best$team_abbreviation]
+team_name <- sdv_teams("nba")$name[sdv_teams("nba")$abbr == best$team_abbreviation]
 
 calendar |>
   gt(id = "team-calendar") |>
   gt_highlight_cells(all_of(days), condition = win_mask, fill = "#CDEBD3") |>
   gt_highlight_cells(all_of(days), condition = loss_mask, fill = "#F6CFCB") |>
   sub_missing(columns = all_of(days), missing_text = "") |>
-  gt_sdv_logos(columns = all_of(days), sport = "nba", height = 26) |>
+  gt_sdv_logos(columns = all_of(days), league = "nba", height = 26) |>
   cols_label(week = "Week of") |>
   cols_align(columns = all_of(days), "center") |>
   cols_width(week ~ px(78), all_of(days) ~ px(52)) |>
@@ -308,7 +308,7 @@ calendar |>
     title = paste0(team_name, ", ", best$wins, "-", best$losses),
     subtitle = "The 2025-26 regular season, game by game"
   ) |>
-  gt_theme_sdv_team(team = best$team_abbreviation, sport = "nba", density = "compact") |>
+  gt_theme_sdv_team(team = best$team_abbreviation, league = "nba", density = "compact") |>
   gt_border_grid(color = "#FFFFFF", weight = 2) |>
   gt_legend_discrete(
     c("Win" = "#CDEBD3", "Loss" = "#F6CFCB"),

@@ -9,10 +9,12 @@ column labels of 'gt' tables.
 gt_sdv_cols_label(
   gt_object,
   columns = gt::everything(),
-  sport = c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer"),
+  league,
   height = 30,
-  type = c("logo", "wordmark", "headshot"),
-  id_type = NULL
+  mark_type = c("logo", "wordmark", "headshot"),
+  id_system = "auto",
+  season = NULL,
+  strict = FALSE
 )
 ```
 
@@ -27,36 +29,34 @@ gt_sdv_cols_label(
 
   The columns whose labels should be replaced with logos.
 
-- sport:
+- league:
 
-  Character string identifying the sport.
+  A league key from
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md).
 
 - height:
 
   The absolute height (px) of the image.
 
-- type:
+- mark_type:
 
   One of `"logo"`, `"wordmark"` or `"headshot"`: whether the column
-  names are team abbreviations (logo / wordmark) or player IDs
-  (headshot).
+  names are teams (logo / wordmark) or player IDs (headshot).
 
-- id_type:
+- id_system:
 
-  Which ID system `player_id` holds. `NULL` (the default) takes GSIS IDs
-  for the NFL and ESPN athlete IDs for every other sport. `"espn"` takes
-  ESPN athlete IDs for any sport, the IDs in ESPN-sourced data such as
-  hoopR's and wehoop's `espn_*()` functions. `"league"` takes the
-  league's own ID: the GSIS ID for the NFL, the NBA Stats or WNBA Stats
-  `PERSON_ID` (hoopR's `nba_*()`, wehoop's `wnba_*()`), the MLBAM ID
-  (baseballr's `mlb_*()`, Baseball Savant) for MLB, or the NHL API
-  player ID (fastRhockey's `nhl_*()` and `load_nhl_*()`) for the NHL,
-  drawn from that league's image CDN; college sports have no league
-  option. ESPN and league IDs other than GSIS are plain digits, so a
-  mismatch draws the wrong player or no image rather than an error.
-  League CDNs draw a silhouette for an unknown ID, and the NBA and WNBA
-  CDNs refuse requests from datacenter IPs, so a plot drawn on CI or a
-  server can come back without those headshots.
+  How the column names are read. `"auto"` (the default) is
+  [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)'s
+  automatic reading for logo and wordmark labels, and means `"espn"`
+  when `mark_type = "headshot"`; otherwise as in
+  [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_headshot_url.md).
+
+- season, strict:
+
+  For logo and wordmark labels only (headshots take neither): the season
+  whose mark to show, and whether an unresolved label is an error. With
+  `strict = TRUE` every label that is not a team errors, including the
+  non-team columns the default `columns = gt::everything()` takes.
 
 ## Value
 
@@ -83,7 +83,7 @@ df <- data.frame(
 
 df |>
   gt() |>
-  gt_sdv_cols_label(columns = c("KC", "BUF", "SF"), sport = "nfl")
+  gt_sdv_cols_label(columns = c("KC", "BUF", "SF"), league = "nfl")
 
 
   

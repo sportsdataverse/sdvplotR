@@ -98,10 +98,35 @@
     <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
-    <li><a class="dropdown-item" href="../reference/valid_team_names.html">Valid Names</a></li>
-    <li><a class="dropdown-item" href="../reference/clean_team_abbrs.html">Clean Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/resolve_historical_abbr.html">Historical Abbreviations</a></li>
-    <li><a class="dropdown-item" href="../reference/team_reference.html">Team Reference</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_sdv.html">Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/scale_axes_sdv.html">Axis Logos</a></li>
+    <li><a class="dropdown-item" href="../reference/element_sdv.html">Axis Image Elements</a></li>
+    <li><a class="dropdown-item" href="../reference/ggtitle_image.html">Title Image</a></li>
+    <li><a class="dropdown-item" href="../reference/reexports.html">ggpath Re-exports</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Premade Plots</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_team_tiers.html">Team Tiers</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_surface.html">Playing Surfaces</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Tables</h6></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_logos.html">gt: Logos / Wordmarks</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_sdv_headshots.html">gt: Headshots</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_merge_stack_team_color.html">gt: Team-Colored Stack</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_images.html">reactable: Images</a></li>
+    <li><a class="dropdown-item" href="../reference/reactable_sdv_team_color.html">reactable: Team Colors</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_theme_sdv.html">gt: SportsDataverse Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-themes">gt: Table Themes</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-annotations">gt: Annotations</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-coloring">gt: Coloring</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-formatting">gt: Formatting</a></li>
+    <li><a class="dropdown-item" href="../reference/index.html#gt-table-layout">gt: Layout</a></li>
+    <li><a class="dropdown-item" href="../reference/gt_save_crop.html">gt: Save &amp; Crop</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Utilities</h6></li>
+    <li><a class="dropdown-item" href="../reference/sdv_teams.html">Teams</a></li>
+    <li><a class="dropdown-item" href="../reference/sdv_resolve.html">Resolve Identifiers</a></li>
     <li><a class="dropdown-item" href="../reference/sdv_team_colors.html">Team Colors</a></li>
   </ul>
 </li>
@@ -416,11 +441,11 @@ both teams’ primary color is the same navy, so the card would be one
 color on both sides. Each team’s secondary color tells them apart.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">primary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="va">pair</span><span class="op">)</span></span>
-<span><span class="va">secondary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="va">pair</span>, type <span class="op">=</span> <span class="st">"secondary"</span><span class="op">)</span></span>
+<span><span class="va">secondary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="va">pair</span>, which <span class="op">=</span> <span class="st">"secondary"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">primary</span>, <span class="va">secondary</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           SEA       NE       </span></span>
 <span><span class="co">#&gt; primary   "#002244" "#002244"</span></span>
-<span><span class="co">#&gt; secondary "#69be28" "#C60C30"</span></span>
+<span><span class="co">#&gt; secondary "#69be28" "#c60c30"</span></span>
 <span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">anyDuplicated</a></span><span class="op">(</span><span class="va">primary</span><span class="op">)</span><span class="op">)</span> <span class="va">secondary</span> <span class="kw">else</span> <span class="va">primary</span></span>
 <span></span>
 <span><span class="fu">butterfly</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">colors</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
@@ -432,21 +457,21 @@ color on both sides. Each team’s secondary color tells them apart.</p>
 <p>The card is dark, which most game-week graphics are, so the logos are
 the dark variant: the mark drawn for a dark background, which keeps navy
 outlines from disappearing. <code><a href="../reference/geom_sdv_logos.html">geom_sdv_logos()</a></code> draws a team’s
-primary mark; <code><a href="../reference/team_reference.html">team_reference()</a></code> lists every team’s
-<code>logo_dark_url</code>, and <code><a href="https://mrcaseb.github.io/ggpath/reference/geom_from_path.html" class="external-link">geom_from_path()</a></code> (from
-ggpath, re-exported by sdvplotR) draws any image URL. Each team gets its
-logo and record above its side, the kicker names the game, and the
-footer the source. The header is more rows on the same canvas, at
-negative y, so one function draws both export sizes.</p>
+primary mark; <code>sdv_logo_url(variant = "dark")</code> returns every
+team’s dark logo, and <code><a href="https://mrcaseb.github.io/ggpath/reference/geom_from_path.html" class="external-link">geom_from_path()</a></code> (from ggpath,
+re-exported by sdvplotR) draws any image URL. Each team gets its logo
+and record above its side, the kicker names the game, and the footer the
+source. The header is more rows on the same canvas, at negative y, so
+one function draws both export sizes.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bg</span> <span class="op">&lt;-</span> <span class="st">"#0f1923"</span></span>
 <span><span class="va">ink</span> <span class="op">&lt;-</span> <span class="st">"#ffffff"</span></span>
 <span><span class="va">muted</span> <span class="op">&lt;-</span> <span class="st">"#9fb0c3"</span></span>
 <span></span>
-<span><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/team_reference.html">team_reference</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team_abbr</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">pair</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"nfl"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">abbr</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">pair</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span></span>
-<span>    team <span class="op">=</span> <span class="va">team_abbr</span>, logo <span class="op">=</span> <span class="va">logo_dark_url</span>, name <span class="op">=</span> <span class="va">team_mascot</span>,</span>
+<span>    team <span class="op">=</span> <span class="va">abbr</span>, logo <span class="op">=</span> <span class="fu"><a href="../reference/sdv_logo_url.html">sdv_logo_url</a></span><span class="op">(</span><span class="va">team_id</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, variant <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span>, name <span class="op">=</span> <span class="va">short_name</span>,</span>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">team</span> <span class="op">==</span> <span class="va">pair</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="op">-</span><span class="fl">0.85</span>, <span class="fl">0.85</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">teams</span>, <span class="va">team</span>, <span class="va">w</span>, <span class="va">l</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"team"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
