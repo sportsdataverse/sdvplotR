@@ -81,7 +81,7 @@ ggtitle_image <- function(
 
   # If title_image is a valid team name, use its logo
   if (!grepl("^(https?|file)://", title_image)) {
-    u <- suppressWarnings(logo_from_team(title_image, league))
+    u <- quiet_miss(logo_from_team(title_image, league))
     if (!is.na(u)) title_image <- u
   }
 

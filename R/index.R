@@ -34,6 +34,9 @@ fetch_to_cache <- function(url, path, ttl = getOption("sdvplotR.index_ttl", 8640
   dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
   tmp <- tempfile(tmpdir = dirname(path))
   on.exit(unlink(tmp), add = TRUE)
+  # the manifest is ~18 MB: R's 60 s default timeout cuts it off on a slow link
+  old <- options(timeout = max(300, getOption("timeout")))
+  on.exit(options(old), add = TRUE)
   err <- tryCatch(
     {
       warnings_fail(utils::download.file(url, tmp, mode = "wb", quiet = TRUE))
@@ -41,8 +44,8 @@ fetch_to_cache <- function(url, path, ttl = getOption("sdvplotR.index_ttl", 8640
     },
     error = function(e) conditionMessage(e)
   )
+  if (is.null(err) && !file.copy(tmp, path, overwrite = TRUE)) err <- "could not write the cache file"
   if (is.null(err)) {
-    file.copy(tmp, path, overwrite = TRUE)
     return(path)
   }
   if (file.exists(path)) {
@@ -66,9 +69,7 @@ warnings_fail <- function(expr, allow = character()) {
 read_index_csv <- function(path, cols) {
   # read whole, and require a final newline: a file cut off mid-row (even one
   # re-gzipped as valid) would otherwise load as a shortened table
-  con <- if (grepl("\\.gz$", path)) gzfile(path, "rb") else file(path, "rb")
-  on.exit(close(con))
-  raw <- warnings_fail(readBin(con, "raw", n = file.size(path) * 50 + 1e6))
+  raw <- warnings_fail(read_raw(path))
   if (!length(raw) || raw[length(raw)] != as.raw(10L)) stop(basename(path), " is truncated (no final newline)", call. = FALSE)
   df <- warnings_fail(utils::read.csv(
     text = rawToChar(raw), colClasses = "character", na.strings = "", encoding = "UTF-8", check.names = FALSE
@@ -78,6 +79,23 @@ read_index_csv <- function(path, cols) {
   df <- df[cols]
   for (col in intersect(c("valid_from", "valid_to"), cols)) df[[col]] <- as.integer(df[[col]])
   df
+}
+
+# A plain file in one read of its size; a .gz in 10 MB chunks until empty (its
+# unpacked size is unknown, and readBin allocates whatever `n` asks for).
+read_raw <- function(path) {
+  if (!grepl("\\.gz$", path)) {
+    return(readBin(path, "raw", n = file.size(path)))
+  }
+  con <- gzfile(path, "rb")
+  on.exit(close(con))
+  chunks <- list()
+  repeat {
+    b <- readBin(con, "raw", n = 1e7)
+    if (!length(b)) break
+    chunks[[length(chunks) + 1L]] <- b
+  }
+  unlist(chunks) %||% raw()
 }
 
 warn_once <- function(id, msg, .envir = parent.frame()) {
@@ -95,7 +113,12 @@ read_live_index <- function() {
   ver <- trimws(readLines(ptr, n = 1L, warn = FALSE))
   if (!length(ver) || !grepl("^[0-9a-f]{6,64}$", ver)) stop("latest.txt does not name an index version", call. = FALSE)
   get <- function(file, cols) {
-    read_index_csv(fetch_to_cache(paste(index_url(), ver, file, sep = "/"), cache_path("index", ver, file), ttl = Inf), cols)
+    path <- fetch_to_cache(paste(index_url(), ver, file, sep = "/"), cache_path("index", ver, file), ttl = Inf)
+    # a version file never expires (ttl = Inf): delete a corrupt one so the next session refetches it
+    tryCatch(read_index_csv(path, cols), error = function(e) {
+      unlink(path)
+      stop(e)
+    })
   }
   stale <- attr(ptr, "stale")
   idx <- list(
@@ -145,7 +168,6 @@ load_marks <- function() {
         stale <- attr(path, "stale")
         if (!is.null(stale)) {
           warn_once("marks", c("Could not refresh the logo manifest ({stale}).", i = "Using the cached copy."))
-          source <- "cache"
         }
         attr(df, "source") <- if (is.null(stale)) "live" else "cache"
         df
@@ -200,9 +222,9 @@ forget_index <- function() {
 #'
 #' @description sdvplotR keeps the team index, the logo manifest and the NFL
 #'   headshot map in memory for the session, keeps the index and manifest on
-#'   disk (in `tools::R_user_dir("sdvplotR", "cache")`) for a day, and draws
-#'   images through 'ggpath', which caches them for the session. This clears
-#'   all of them, so the next call reads the CDN again.
+#'   disk (in `tools::R_user_dir("sdvplotR", "cache")`) for a day. This clears
+#'   them, and the image cache of 'ggpath' when 'ggpath' provides a way to, so
+#'   the next call reads the CDN again.
 #' @return Invisibly `NULL`, called for its side effect.
 #' @seealso [sdv_versions()] for what is loaded now.
 #' @export

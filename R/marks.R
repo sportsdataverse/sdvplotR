@@ -119,7 +119,11 @@ mark_url <- function(team, league, season = NULL, variant = "default", mark_type
   out <- url_u[match(combo, combo[u])]
   out[is.na(r$ids)] <- NA_character_
   none <- unique(as.character(team)[!is.na(r$ids) & is.na(out)])
-  if (length(none)) cli::cli_warn("No {mark_type} archived for {.val {none}} ({.val {league}}).", call = call)
+  if (length(none)) {
+    cli::cli_warn("No {mark_type} archived for {.val {none}} ({.val {league}}).",
+      class = "sdvplotR_no_mark_warning", call = call
+    )
+  }
   unname(out)
 }
 

@@ -12,9 +12,9 @@ Invisibly \code{NULL}, called for its side effect.
 \description{
 sdvplotR keeps the team index, the logo manifest and the NFL
 headshot map in memory for the session, keeps the index and manifest on
-disk (in \code{tools::R_user_dir("sdvplotR", "cache")}) for a day, and draws
-images through 'ggpath', which caches them for the session. This clears
-all of them, so the next call reads the CDN again.
+disk (in \code{tools::R_user_dir("sdvplotR", "cache")}) for a day. This clears
+them, and the image cache of 'ggpath' when 'ggpath' provides a way to, so
+the next call reads the CDN again.
 }
 \examples{
 sdv_clear_cache()

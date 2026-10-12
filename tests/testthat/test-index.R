@@ -113,3 +113,37 @@ test_that("a failed manifest refresh with a stale cache warns and reports the ca
   expect_identical(index_cache$marks_source, "cache")
   expect_true("archive_url" %in% names(index_marks()))
 })
+
+test_that("a corrupt cached version file is deleted, so the next session refetches it", {
+  local_fixture_index()
+  index_teams()
+  cached <- file.path(tools::R_user_dir("sdvplotR", "cache"), "index", snapshot_meta$index_version, "aliases.csv.gz")
+  writeBin(as.raw(c(0x1f, 0x8b, 0x08, 0x00)), cached)
+  forget_index()
+  expect_warning(index_teams(), class = "sdvplotR_fallback")
+  expect_false(file.exists(cached))
+  forget_index()
+  expect_no_warning(index_teams())
+  expect_identical(index_cache$source, "live")
+})
+
+test_that("gzipped files are read to the end in chunks, plain files whole", {
+  path <- withr::local_tempfile(fileext = ".csv.gz")
+  con <- gzfile(path, "wb")
+  writeBin(as.raw(rep(c(0x61, 0x0a), 1.2e7)), con) # 24 MB unpacked: three 10 MB chunks
+  close(con)
+  expect_length(read_raw(path), 2.4e7)
+  plain <- withr::local_tempfile(fileext = ".csv")
+  writeBin(charToRaw("a,b
+1,2
+"), plain)
+  expect_identical(rawToChar(read_raw(plain)), "a,b
+1,2
+")
+})
+
+test_that("helpers that quiet a lookup miss still show the once-per-session fallback warning", {
+  local_fixture_index()
+  withr::local_options(sdvplotR.manifest_url = "file:///nonexistent/marks.csv")
+  expect_warning(ggtitle_image("KC", league = "nfl"), class = "sdvplotR_fallback")
+})

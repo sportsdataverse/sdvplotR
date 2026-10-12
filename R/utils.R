@@ -30,6 +30,24 @@ team_alt <- function(team, league, season = NULL, id_system = "auto") {
   ifelse(is.na(nm), as.character(team), nm)
 }
 
+# For a lookup whose caller handles a miss itself (shows the text, aborts with
+# its own message): quiet the unresolved and no-mark warnings only. A blanket
+# suppressWarnings() would also eat the once-per-session sdvplotR_fallback
+# warning, which then never shows.
+quiet_miss <- function(expr) {
+  muffle <- function(w) invokeRestart("muffleWarning")
+  withCallingHandlers(expr, sdvplotR_unresolved_warning = muffle, sdvplotR_no_mark_warning = muffle)
+}
+
+# A team or player id as text: as.character() writes 4000000 as "4e+06";
+# sprintf() is exact for every whole number a double holds.
+id_chr <- function(x) {
+  if (!is.numeric(x)) {
+    return(as.character(x))
+  }
+  ifelse(!is.na(x) & is.finite(x) & x == trunc(x), sprintf("%.0f", x), as.character(x))
+}
+
 headshot_alt <- function(id) paste0("Player ", id, " headshot")
 
 # ---------------------------------------------------------------------------

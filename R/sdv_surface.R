@@ -116,7 +116,7 @@ sdv_surface <- function(
     if (!is.character(team) || length(team) != 1L || is.na(team)) {
       cli::cli_abort("{.arg team} must be one team name or abbreviation.")
     }
-    primary <- unname(suppressWarnings(sdv_team_colors(league, team, which = "primary", season = season)))
+    primary <- unname(quiet_miss(sdv_team_colors(league, team, which = "primary", season = season)))
     if (is.na(primary)) {
       cli::cli_abort(c(
         "{.val {team}} is not a {.val {league}} team.",
