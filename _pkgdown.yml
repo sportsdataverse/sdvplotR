@@ -62,12 +62,12 @@ template:
     btn-border-radius: 0.25rem
   opengraph:
     image:
-      src: "https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png"
-      alt: "sdvplotR hex logo"
+      src: "https://sdvplotR.sportsdataverse.org/sdvplotR-social-card.png"
+      alt: "sdvplotR: team logos, wordmarks, headshots and colors in ggplot2, gt and reactable"
     twitter:
       creator: "@saiemgilani"
       site: "@SportsDataverse"
-      card: summary
+      card: summary_large_image
 
 toc:
   depth: 3

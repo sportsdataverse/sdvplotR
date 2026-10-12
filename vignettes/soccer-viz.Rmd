@@ -4,7 +4,7 @@ description: "Convert soccer event coordinates from any major provider to one 10
 author: "Saiem Gilani <br><a href='https://x.com/saiemgilani' target='blank'><img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;label=%40saiemgilani&amp;logo=x&amp;style=for-the-badge' alt='@saiemgilani'/></a> <a href='https://github.com/saiemgilani' target='blank'><img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@saiemgilani'/></a>"
 opengraph:
   image:
-    src: "https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png"
+    src: "https://sdvplotR.sportsdataverse.org/sdvplotR-social-card.png"
   twitter:
     site: "@SportsDataverse"
     card: summary_large_image

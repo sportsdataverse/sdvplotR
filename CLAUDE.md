@@ -195,7 +195,7 @@ Actions) gives no such NOTE.
   never build them. Front matter follows the SportsDataverse vignette template:
   `title`, `description`, `author` (Saiem Gilani with the X and GitHub follow
   badges), `opengraph` (the image is the article's gallery picture, else the
-  hex logo; `twitter: site "@SportsDataverse", card summary_large_image,
+  site's social card, `pkgdown/assets/sdvplotR-social-card.png`; `twitter: site "@SportsDataverse", card summary_large_image,
   creator "@saiemgilani"`) and `output: html_document`, never a `vignette:`
   block. Every article ends with **Our Authors**, **Citation** and **Related
   SportsDataverse packages** sections; copy them from an existing article. They
