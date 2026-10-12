@@ -12,10 +12,14 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   nflverse, MLB Stats, nba_api, NHL, HockeyTech, CFBD, NCAA, PFF, Sports
   Reference, FanGraphs, names, ...) into canonical team ids, using `season`
   for codes reused across eras; `sdv_suggest()` proposes candidates for a
-  value that does not resolve. Every helper that takes a team resolves it
-  this way and takes `league`; the helpers that draw marks or colours also
-  take `season` and `id_system`, and `strict` where a value that does not
-  resolve can raise instead of warn.
+  value that does not resolve. The helpers that take a team take `league` and
+  `id_system`. Those that draw team marks or colours also take `season`
+  (the `geom_sdv_*` layers read it as an aesthetic or a constant), and the
+  logo, wordmark and colour helpers take `strict` to raise instead of warn
+  when a value does not resolve. Headshot helpers take no `season`;
+  `ggtitle_image()`, `scale_colour_sdv()`, `scale_color_sdv()` and
+  `scale_fill_sdv()` take neither `season` nor `id_system`; `sdv_surface()`
+  takes `league` and `season` but no `id_system`.
 * `sdv_teams()`, `sdv_leagues()`, `sdv_team_colors()`, `sdv_color_palette()`
   and `sdv_team_factor()` list and colour teams.
 * The team index and the logo manifest are read from the SportsDataverse CDN
