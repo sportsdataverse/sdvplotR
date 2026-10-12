@@ -18,7 +18,7 @@ with 15 teams: an offense-vs-defense quadrant, the expansion teams' win races,
 net-rating bars with logos on the axis, tiers, a scoring leaderboard with
 headshots as axis labels, a binned shot chart, a standings table, running
 point differential by conference, game-by-game margins and a season-long bump
-chart. Every number comes from [wehoop](https://wehoop.sportsdataverse.org)'s
+chart, then the scoring leaders as an interactive chart. Every number comes from [wehoop](https://wehoop.sportsdataverse.org)'s
 ESPN release files on GitHub (`load_wnba_*()`), so nothing here calls
 stats.wnba.com.
 
@@ -467,6 +467,54 @@ ggplot(weekly, aes(week_no, rank)) +
   ) +
   theme(legend.position = "none", panel.grid.major.x = element_blank())
 ```
+
+## 11. Make it interactive
+
+Section 5's scoring leaders as a ggiraph chart. `geom_col_interactive()` from
+ggiraph takes a `tooltip` and a `data_id` beside the usual bar aesthetics, and
+`ggiraph::girafe()` renders the ggplot as an interactive SVG. The tooltip is
+HTML, so it carries the headshot too: `sdv_headshot_url()` gives each player's
+image URL, and the browser loads it only when you hover. Hover a bar for her
+headshot, team, games and points per game.
+
+```{r leaders-interactive}
+scorers_hover <- scorers |>
+  mutate(
+    player = factor(athlete_display_name, levels = rev(athlete_display_name)),
+    tip = sprintf(
+      "<img src='%s' height='80'><br><b>%s</b> (%s)<br>%.1f points per game in %d games",
+      sdv_headshot_url(athlete_id, league = "wnba"), athlete_display_name, team, ppg, games
+    )
+  )
+
+p_scorers <- ggplot(scorers_hover, aes(ppg, player)) +
+  ggiraph::geom_col_interactive(
+    aes(fill = team, tooltip = tip, data_id = athlete_id),
+    width = 0.7, color = "black", linewidth = 0.2
+  ) +
+  scale_fill_sdv(league = "wnba") +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.05))) +
+  labs(
+    title = paste("WNBA scoring leaders,", season),
+    subtitle = "Points per game, 30 or more games; hover a bar for the player",
+    x = "Points per game", y = NULL,
+    caption = source_note
+  ) +
+  theme(legend.position = "none", panel.grid.major.y = element_blank())
+
+ggiraph::girafe(
+  ggobj = p_scorers, width_svg = 8, height_svg = 5.5,
+  options = list(
+    ggiraph::opts_tooltip(css = "background:white;color:black;padding:6px;border-radius:6px;"),
+    ggiraph::opts_hover(css = "opacity:0.8;")
+  )
+)
+```
+
+A headshot drawn on the chart itself, with `geom_sdv_headshots_interactive()`,
+is embedded in the SVG as a copy at most 160 px a side, about 25 KB each; the
+URL in the tooltip adds nothing to the page and shows the photo at full size. [Interactive charts](cookbook-interactive.html)
+covers ggiraph, plotly and leaflet.
 
 ## Related articles
 

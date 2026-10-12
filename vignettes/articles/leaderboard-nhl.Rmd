@@ -240,6 +240,35 @@ ggplot(leaders, aes(y = full_name)) +
   )
 ```
 
+## 4. Interactive version
+
+The goal differential bars from section 2 as a plotly chart: hover a bar for the
+team's record and its goals for and against. plotly draws no logos on its own,
+so `sdv_axis_logos()` hides the team codes and puts a logo under each bar.
+
+```{r goal-differential-interactive, eval = standings_ok, out.width = "100%"}
+plotly::plot_ly(
+  gd, x = ~factor(team, levels = team), y = ~goal_differential, type = "bar",
+  marker = list(color = unname(sdv_team_colors("nhl", gd$team))),
+  hoverinfo = "text", textposition = "none",
+  text = ~sprintf(
+    "%s, %d-%d-%d<br>%d goals for, %d against (%+d)",
+    team_common_name, wins, losses, ot_losses, goals_for, goals_against, goal_differential
+  )
+) |>
+  plotly::layout(
+    title = list(text = paste("NHL goal differential,", label(season)), x = 0.02),
+    xaxis = list(title = ""), yaxis = list(title = "Goal differential"),
+    margin = list(b = 50, t = 50)
+  ) |>
+  sdv_axis_logos(gd$team, "nhl")
+```
+
+`r unavailable("NHL standings", standings_ok)`
+
+More recipes like this one, in plotly, ggiraph, leaflet and reactable, are in
+[Interactive charts](cookbook-interactive.html).
+
 ## Related
 
 - [NHL](nhl-viz.html) walks through fastRhockey and sdvplotR more broadly.

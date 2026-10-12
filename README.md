@@ -225,6 +225,18 @@ leaflet](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.html
 · [Surfaces and Shot
 Charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.html)
 
+**Interactive** (ggiraph, plotly and leaflet; every per-sport and
+leaderboard article also ends with an interactive version): [NFL EPA
+Scatter](https://sdvplotR.sportsdataverse.org/articles/recipe-nfl-epa-interactive.html)
+· [NBA Net
+Rating](https://sdvplotR.sportsdataverse.org/articles/recipe-nba-net-rating-interactive.html)
+· [NHL Shot
+Map](https://sdvplotR.sportsdataverse.org/articles/recipe-nhl-shot-map-interactive.html)
+· [MLB Run
+Differential](https://sdvplotR.sportsdataverse.org/articles/recipe-mlb-run-differential-interactive.html)
+· [CFB Stadium
+Map](https://sdvplotR.sportsdataverse.org/articles/recipe-cfb-stadium-map.html)
+
 ## **Cheat sheet**
 
 A printable four-page reference for **sdvplotR**: team logos, colors and

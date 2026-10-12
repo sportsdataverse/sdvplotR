@@ -352,6 +352,18 @@ articles:
       - articles/rolling-form
       - articles/signature-ribbon
       - articles/workflows
+  - title: "Interactive"
+    desc: >
+      The recipes as charts and maps a reader can hover, filter and zoom, with
+      ggiraph, plotly and leaflet. Start with the Interactive Charts cookbook;
+      every leaderboard and per-sport article also ends with an interactive
+      version.
+    contents:
+      - articles/recipe-nfl-epa-interactive
+      - articles/recipe-nba-net-rating-interactive
+      - articles/recipe-nhl-shot-map-interactive
+      - articles/recipe-mlb-run-differential-interactive
+      - articles/recipe-cfb-stadium-map
   - title: "Leaderboards"
     desc: >
       Each league's current season, rebuilt every week with this site: the
@@ -597,6 +609,20 @@ navbar:
         href: articles/signature-ribbon.html
       - text: "End-to-End Workflows"
         href: articles/workflows.html
+      - text: --------------------------------
+      - text: "Interactive"
+      - text: "Interactive Charts Cookbook"
+        href: articles/cookbook-interactive.html
+      - text: "NFL EPA Scatter"
+        href: articles/recipe-nfl-epa-interactive.html
+      - text: "NBA Net Rating"
+        href: articles/recipe-nba-net-rating-interactive.html
+      - text: "NHL Shot Map"
+        href: articles/recipe-nhl-shot-map-interactive.html
+      - text: "MLB Run Differential"
+        href: articles/recipe-mlb-run-differential-interactive.html
+      - text: "CFB Stadium Map"
+        href: articles/recipe-cfb-stadium-map.html
       - text: --------------------------------
       - text: "Leaderboards"
       - text: "NFL Weekly"

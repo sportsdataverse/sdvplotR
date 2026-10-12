@@ -21,7 +21,8 @@ Ten charts and tables from the 2025-26 NHL season: goal differential in team
 colors, the final standings, five-on-five expected goals, the champion's shot
 map on a rink, finishing and goaltending against expected goals, the scoring
 leaders with their headshots, one franchise's marks from Winnipeg to Utah, the
-points race and the playoffs as a tier list. The data comes through
+points race and the playoffs as a tier list, then the expected-goals chart as
+an interactive one. The data comes through
 [fastRhockey](https://fastRhockey.sportsdataverse.org): its release files
 (play-by-play with an expected-goals value on every unblocked shot, and box
 scores), and the NHL's own APIs for the official standings and the franchise
@@ -671,6 +672,51 @@ sdv_team_tiers(
   width = 0.05
 )
 ```
+
+## 11. Make it interactive
+
+Section 3's expected-goals scatter, built with native plotly. A transparent
+marker under each team carries the hover text, and `add_sdv_logos()` places
+the logos as layout images at the same coordinates. Hover a logo for the
+team's five-on-five expected goals for and against per game and its share of
+the two, the numbers the static chart can only place.
+
+```{r xg-interactive, out.width = "100%"}
+xg_hover <- xg |>
+  left_join(select(standings, team, team_name), by = "team") |>
+  mutate(tip = sprintf(
+    "<b>%s</b><br>5v5 xG for: %.2f per game<br>5v5 xG against: %.2f per game<br>xG share: %.1f%% (%d games)",
+    team_name, xgf_pg, xga_pg, 100 * xgf / (xgf + xga), gp
+  ))
+
+pad <- 0.1
+avg_line <- list(color = "grey", dash = "dash", width = 1)
+
+plotly::plot_ly(
+  xg_hover, x = ~xgf_pg, y = ~xga_pg, type = "scatter", mode = "markers",
+  marker = list(size = 30, opacity = 0), text = ~tip, hoverinfo = "text"
+) |>
+  plotly::layout(
+    title = list(text = "Who drove play at five-on-five, 2025-26", x = 0.02),
+    xaxis = list(title = "5v5 xG for per game", range = range(xg_hover$xgf_pg) + c(-pad, pad), zeroline = FALSE),
+    yaxis = list(
+      title = "5v5 xG against per game (reversed)", zeroline = FALSE,
+      range = rev(range(xg_hover$xga_pg) + c(-pad, pad))
+    ),
+    shapes = list(
+      list(type = "line", x0 = mean(xg_hover$xgf_pg), x1 = mean(xg_hover$xgf_pg), yref = "paper", y0 = 0, y1 = 1, line = avg_line),
+      list(type = "line", y0 = mean(xg_hover$xga_pg), y1 = mean(xg_hover$xga_pg), xref = "paper", x0 = 0, x1 = 1, line = avg_line)
+    )
+  ) |>
+  add_sdv_logos(xg_hover$xgf_pg, xg_hover$xga_pg, xg_hover$team, "nhl", size = 0.08)
+```
+
+A `range` given high to low reverses the axis, as `scale_y_reverse()` did in
+section 3. plotly loads each logo from its URL, so the page stays light.
+[Interactive charts](cookbook-interactive.html) covers plotly, ggiraph and
+leaflet, and the
+[Interactive NHL Shot Map](recipe-nhl-shot-map-interactive.html) recipe makes
+a shot map like section 4's interactive.
 
 ## Related articles
 

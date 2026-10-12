@@ -17,7 +17,7 @@ Ten charts and tables from the 2025-26 NBA regular season: an offense-vs-defense
 quadrant and net-rating bars with logos, a conference bump chart, a scoring
 leaderboard with headshots, a shot chart on a team-colored court, tiers, a
 standings table, faceted logos, a home/road dumbbell and a table of category
-leaders. Every number comes from
+leaders, then the first chart again as an interactive one. Every number comes from
 [hoopR](https://hoopR.sportsdataverse.org)'s ESPN release files on GitHub
 (`load_nba_*()`), so nothing here calls stats.nba.com.
 
@@ -494,6 +494,51 @@ per_game |>
   gt_sdv_logos(columns = logo, league = "nba", height = 28) |>
   gt_theme_sdv()
 ```
+
+## 11. Make it interactive
+
+The offense-vs-defense quadrant from section 1 again, built with native plotly.
+A transparent marker under each team carries the hover text, and
+`add_sdv_logos()` places the logos as layout images at the same coordinates.
+Hover a logo for the team's record, both ratings and its net rating, the
+numbers that section 1 can only place and section 2 ranks.
+
+```{r ratings-interactive, out.width = "100%"}
+nba_index <- sdv_teams("nba")
+ratings_hover <- ratings |>
+  mutate(
+    name = nba_index$name[match(sdv_resolve(team, league = "nba"), nba_index$team_id)],
+    tip = sprintf(
+      "<b>%s</b> (%s)<br>%d-%d<br>Offensive rating %.1f, defensive %.1f<br>Net %+.1f per 100 possessions",
+      name, conference, wins, games - wins, ortg, drtg, net
+    )
+  )
+
+avg_line <- list(color = "grey", dash = "dash", width = 1)
+
+plotly::plot_ly(
+  ratings_hover, x = ~ortg, y = ~drtg, type = "scatter", mode = "markers",
+  marker = list(size = 30, opacity = 0), text = ~tip, hoverinfo = "text"
+) |>
+  plotly::layout(
+    title = list(text = paste("NBA offense vs defense,", label, "regular season"), x = 0.02),
+    xaxis = list(title = "Offensive rating (points per 100 possessions)", range = x_lim, zeroline = FALSE),
+    yaxis = list(title = "Defensive rating (points allowed per 100)", range = rev(y_lim), zeroline = FALSE),
+    shapes = list(
+      list(type = "line", x0 = mean(ratings$ortg), x1 = mean(ratings$ortg), yref = "paper", y0 = 0, y1 = 1, line = avg_line),
+      list(type = "line", y0 = mean(ratings$drtg), y1 = mean(ratings$drtg), xref = "paper", x0 = 0, x1 = 1, line = avg_line)
+    )
+  ) |>
+  add_sdv_logos(ratings_hover$ortg, ratings_hover$drtg, ratings_hover$team, "nba", size = 0.08)
+```
+
+`x_lim` and `y_lim` are section 1's axis limits; `rev()` reverses the defense
+axis. The record counts every regular-season game in the box scores, so New
+York and San Antonio include the NBA Cup final. plotly loads each logo from its
+URL, so the page stays light. [Interactive charts](cookbook-interactive.html)
+covers plotly, ggiraph and leaflet, and the
+[Interactive NBA Net Rating](recipe-nba-net-rating-interactive.html) recipe
+builds this quadrant and section 2's net rating bars in plotly, step by step.
 
 ## Related articles
 
