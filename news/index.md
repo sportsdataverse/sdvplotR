@@ -130,7 +130,9 @@ names with the Python package sdvplot and the JavaScript packages
 - Conference rows (the college conferences, and the AFC, NFC and NFL)
   have logos and colours: `sdv_teams(include_conferences = TRUE)` lists
   them and the image helpers draw them from their short keys (`"SEC"`,
-  `"Big Ten"`, `"Pac-12"`).
+  `"Big Ten"`, `"Pac-12"`) or their other names
+  (`"Southeastern Conference"`, `"B1G"`). A team’s code wins over a
+  conference’s: cfb’s `"MAC"` is Macalester.
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, with dark marks on its dark theme
   (`variant = "auto"`) and a `theme = "light"` option;

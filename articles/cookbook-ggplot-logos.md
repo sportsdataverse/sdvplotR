@@ -87,7 +87,7 @@ mbb <- hoopR::load_mbb_ratings(season) |>
 
 c(nfl = nrow(nfl_epa), nba = nrow(nba_teams), nhl = n_distinct(nhl_games$team), mbb = nrow(mbb))
 #> nfl nba nhl mbb 
-#>  32  30  32 361
+#>  32  30  32 365
 range(nba_teams$games) # 82 each once the extra games are gone
 #> [1] 82 82
 ```

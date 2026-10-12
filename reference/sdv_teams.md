@@ -687,7 +687,7 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 533    cfb          2913           BRE                         Brevard Tornados
 #> 534    cfb          2916           UIW                 Incarnate Word Cardinals
 #> 535    cfb          2919          MNIL             Monmouth (IL) Fighting Scots
-#> 536    cfb           292          <NA>            UT Rio Grande Valley Vaqueros
+#> 536    cfb           292           RGV            UT Rio Grande Valley Vaqueros
 #> 537    cfb          2923          POPI                   Pomona Pitzer Sagehens
 #> 538    cfb          2927          SOSU     Southwestern Oklahoma State Bulldogs
 #> 539    cfb           293          VTSC         Vermont State Castleton Spartans
