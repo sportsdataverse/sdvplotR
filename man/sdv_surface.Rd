@@ -4,24 +4,38 @@
 \alias{sdv_surface}
 \title{Team-Styled Playing Surfaces}
 \usage{
-sdv_surface(league, team = NULL, center_logo = FALSE, ...)
+sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
 }
 \arguments{
-\item{league}{One of \code{"nfl"}, \code{"nba"}, \code{"wnba"}, \code{"mlb"}, \code{"nhl"}, \code{"cfb"}, \code{"mbb"},
-\code{"wbb"}, \code{"soccer"} or \code{"fiba"}. Each maps to a 'sportyR' surface:\tabular{ll}{
+\item{league}{A league with a playing surface: one of \code{names(surface_map)}, the
+leagues of \code{\link[=sdv_leagues]{sdv_leagues()}} that 'sportyR' draws, plus \code{"fiba"}. Each maps
+to a 'sportyR' surface, after sdvplot's (Python) surfaces:\tabular{ll}{
    league \tab surface \cr
-   \code{"nfl"} \tab \code{sportyR::geom_football("nfl")} \cr
+   \code{"nfl"}, \code{"aaf"}, \code{"ufl"}, \code{"usfl"}, \code{"xfl"} \tab \code{sportyR::geom_football("nfl")} \cr
    \code{"cfb"} \tab \code{sportyR::geom_football("ncaa")} \cr
-   \code{"nba"}, \code{"wnba"} \tab \code{sportyR::geom_basketball("nba")} / \code{("wnba")} \cr
+   \code{"nba"} \tab \code{sportyR::geom_basketball("nba")} \cr
+   \code{"nbagl"} \tab \code{sportyR::geom_basketball("nba g league")} \cr
+   \code{"wnba"} \tab \code{sportyR::geom_basketball("wnba")} \cr
    \code{"mbb"}, \code{"wbb"} \tab \code{sportyR::geom_basketball("ncaa")} \cr
-   \code{"nhl"} \tab \code{sportyR::geom_hockey("nhl")} \cr
-   \code{"mlb"} \tab \code{sportyR::geom_baseball("mlb")} \cr
-   \code{"soccer"} \tab \code{sportyR::geom_soccer("fifa")}, 105 x 68 m (\code{pitch_updates} overrides) \cr
    \code{"fiba"} \tab \code{sportyR::geom_basketball("fiba")} (28 x 15 m) \cr
-}}
+   \code{"mlb"} \tab \code{sportyR::geom_baseball("mlb")} \cr
+   \code{"milb"} \tab \code{sportyR::geom_baseball("milb")} \cr
+   \code{"ncaa_baseball"} \tab \code{sportyR::geom_baseball("ncaa")} \cr
+   \code{"nhl"}, \code{"whl"} \tab \code{sportyR::geom_hockey("nhl")} (no WHL rink in 'sportyR') \cr
+   \code{"pwhl"}, \code{"ahl"}, \code{"echl"}, \code{"ohl"}, \code{"qmjhl"}, \code{"ushl"}, \code{"phf"} \tab \code{sportyR::geom_hockey()} of the same league \cr
+   \code{"ncaa_mhockey"}, \code{"ncaa_whockey"} \tab \code{sportyR::geom_hockey("ncaa")} \cr
+   \code{"soccer"} \tab \code{sportyR::geom_soccer("fifa")}, 105 x 68 m (\code{pitch_updates} overrides) \cr
+}
+
+
+Python's \code{sdvplot} draws the PWHL on an NHL rink and the G League on its own court
+class; 'sportyR' 2.2.3 has both, so they use their own here.}
 
 \item{team}{\code{NULL} (the default) for the plain regulation surface, or one
 team identifier, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}.}
+
+\item{season}{A season for the team's colors and center logo (see
+\code{\link[=sdv_team_colors]{sdv_team_colors()}}); \code{NULL} is the current identity.}
 
 \item{center_logo}{If \code{TRUE}, draw the team's logo at center court, center
 ice or midfield. Needs a \code{team}; ignored with a warning for \code{"mlb"},

@@ -9,21 +9,33 @@
 #'   (paint colors, center logos, end zone art, special-event floors) exists
 #'   yet.
 #'
-#' @param league One of `"nfl"`, `"nba"`, `"wnba"`, `"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`,
-#'   `"wbb"`, `"soccer"` or `"fiba"`. Each maps to a 'sportyR' surface:
+#' @param league A league with a playing surface: one of `names(surface_map)`, the
+#'   leagues of [sdv_leagues()] that 'sportyR' draws, plus `"fiba"`. Each maps
+#'   to a 'sportyR' surface, after sdvplot's (Python) surfaces:
 #'
 #'   | league | surface |
 #'   |---|---|
-#'   | `"nfl"` | `sportyR::geom_football("nfl")` |
+#'   | `"nfl"`, `"aaf"`, `"ufl"`, `"usfl"`, `"xfl"` | `sportyR::geom_football("nfl")` |
 #'   | `"cfb"` | `sportyR::geom_football("ncaa")` |
-#'   | `"nba"`, `"wnba"` | `sportyR::geom_basketball("nba")` / `("wnba")` |
+#'   | `"nba"` | `sportyR::geom_basketball("nba")` |
+#'   | `"nbagl"` | `sportyR::geom_basketball("nba g league")` |
+#'   | `"wnba"` | `sportyR::geom_basketball("wnba")` |
 #'   | `"mbb"`, `"wbb"` | `sportyR::geom_basketball("ncaa")` |
-#'   | `"nhl"` | `sportyR::geom_hockey("nhl")` |
-#'   | `"mlb"` | `sportyR::geom_baseball("mlb")` |
-#'   | `"soccer"` | `sportyR::geom_soccer("fifa")`, 105 x 68 m (`pitch_updates` overrides) |
 #'   | `"fiba"` | `sportyR::geom_basketball("fiba")` (28 x 15 m) |
+#'   | `"mlb"` | `sportyR::geom_baseball("mlb")` |
+#'   | `"milb"` | `sportyR::geom_baseball("milb")` |
+#'   | `"ncaa_baseball"` | `sportyR::geom_baseball("ncaa")` |
+#'   | `"nhl"`, `"whl"` | `sportyR::geom_hockey("nhl")` (no WHL rink in 'sportyR') |
+#'   | `"pwhl"`, `"ahl"`, `"echl"`, `"ohl"`, `"qmjhl"`, `"ushl"`, `"phf"` | `sportyR::geom_hockey()` of the same league |
+#'   | `"ncaa_mhockey"`, `"ncaa_whockey"` | `sportyR::geom_hockey("ncaa")` |
+#'   | `"soccer"` | `sportyR::geom_soccer("fifa")`, 105 x 68 m (`pitch_updates` overrides) |
+#'
+#'   Python's `sdvplot` draws the PWHL on an NHL rink and the G League on its own court
+#'   class; 'sportyR' 2.2.3 has both, so they use their own here.
 #' @param team `NULL` (the default) for the plain regulation surface, or one
 #'   team identifier, resolved by [sdv_resolve()].
+#' @param season A season for the team's colors and center logo (see
+#'   [sdv_team_colors()]); `NULL` is the current identity.
 #' @param center_logo If `TRUE`, draw the team's logo at center court, center
 #'   ice or midfield. Needs a `team`; ignored with a warning for `"mlb"`,
 #'   whose surface is an infield with no center.
@@ -77,31 +89,20 @@
 sdv_surface <- function(
   league,
   team = NULL,
+  season = NULL,
   center_logo = FALSE,
   ...
 ) {
-  league <- rlang::arg_match0(league, surface_sports())
+  if (!rlang::is_string(league) || !league %in% names(surface_map)) {
+    cli::cli_abort(c(
+      "No playing surface for {.val {league}}.",
+      i = "Surfaces exist for {.val {names(surface_map)}}."
+    ))
+  }
   rlang::check_installed("sportyR", reason = "to draw playing surfaces.")
 
-  geom <- switch(league,
-    nfl = ,
-    cfb = "geom_football",
-    nba = ,
-    wnba = ,
-    mbb = ,
-    wbb = ,
-    fiba = "geom_basketball",
-    nhl = "geom_hockey",
-    mlb = "geom_baseball",
-    soccer = "geom_soccer"
-  )
-  sporty_league <- switch(league,
-    cfb = ,
-    mbb = ,
-    wbb = "ncaa",
-    soccer = "fifa",
-    league
-  )
+  geom <- surface_map[[league]][[1]]
+  sporty_league <- surface_map[[league]][[2]]
   args <- list(...)
   if (league == "soccer") {
     # sportyR's "fifa" pitch is FIFA's 120 x 90 m maximum; real pitches (and sdv_pitch_coords()) are 105 x 68
@@ -115,14 +116,14 @@ sdv_surface <- function(
     if (!is.character(team) || length(team) != 1L || is.na(team)) {
       cli::cli_abort("{.arg team} must be one team name or abbreviation.")
     }
-    primary <- unname(suppressWarnings(sdv_team_colors(league, team, which = "primary")))
+    primary <- unname(suppressWarnings(sdv_team_colors(league, team, which = "primary", season = season)))
     if (is.na(primary)) {
       cli::cli_abort(c(
         "{.val {team}} is not a {.val {league}} team.",
         i = "See {.code sdv_teams(\"{league}\")}."
       ))
     }
-    secondary <- unname(sdv_team_colors(league, team, which = "secondary"))
+    secondary <- unname(sdv_team_colors(league, team, which = "secondary", season = season))
     args$color_updates <- utils::modifyList(
       surface_color_updates(geom, primary, secondary),
       as.list(args$color_updates)
@@ -136,7 +137,7 @@ sdv_surface <- function(
     if (geom == "geom_baseball") {
       cli::cli_warn("{.arg center_logo} is ignored for {.val mlb}: the infield has no center.")
     } else {
-      p <- p + surface_logo_layer(geom, team, league, args)
+      p <- p + surface_logo_layer(geom, team, league, season, args)
     }
   }
   p
@@ -190,7 +191,7 @@ surface_color_updates <- function(geom, primary, secondary) {
 
 # The team logo at the surface's center, `size` surface units across. ESPN's
 # dark-background variant goes on dark grass.
-surface_logo_layer <- function(geom, team, league, args) {
+surface_logo_layer <- function(geom, team, league, season, args) {
   size <- c(geom_basketball = 12, geom_football = 10, geom_hockey = 24, geom_soccer = 18.3)[[geom]]
   from <- c(geom_basketball = "ft", geom_football = "yd", geom_hockey = "ft", geom_soccer = "m")[[geom]]
   unit_arg <- c(
@@ -205,7 +206,7 @@ surface_logo_layer <- function(geom, team, league, args) {
     angle = args$rotation %||% 0
   )
   variant <- if (.theme_on_color(surface_base[[geom]]) == "#FFFFFF") "dark" else "default"
-  center$path <- logo_from_team(team, league, variant = variant)
+  center$path <- logo_from_team(team, league, season = season, variant = variant)
 
   ggplot2::layer(
     data = center,
@@ -230,6 +231,17 @@ GeomSDVsurfaceLogo <- ggplot2::ggproto(
   }
 )
 
-# Surface keys: the leagues with a sportyR surface. "fiba" has no team
-# identities yet, so it draws without a team.
-surface_sports <- function() c("nfl", "nba", "wnba", "mlb", "nhl", "cfb", "mbb", "wbb", "soccer", "fiba")
+# league -> sportyR geom and its league, after sdvplot's SURFACES (Python)
+surface_map <- list(
+  nfl = c("geom_football", "nfl"), aaf = c("geom_football", "nfl"), ufl = c("geom_football", "nfl"),
+  usfl = c("geom_football", "nfl"), xfl = c("geom_football", "nfl"), cfb = c("geom_football", "ncaa"),
+  nba = c("geom_basketball", "nba"), nbagl = c("geom_basketball", "nba g league"),
+  wnba = c("geom_basketball", "wnba"),
+  mbb = c("geom_basketball", "ncaa"), wbb = c("geom_basketball", "ncaa"), fiba = c("geom_basketball", "fiba"),
+  mlb = c("geom_baseball", "mlb"), milb = c("geom_baseball", "milb"), ncaa_baseball = c("geom_baseball", "ncaa"),
+  nhl = c("geom_hockey", "nhl"), whl = c("geom_hockey", "nhl"), pwhl = c("geom_hockey", "pwhl"),
+  ahl = c("geom_hockey", "ahl"), echl = c("geom_hockey", "echl"), ohl = c("geom_hockey", "ohl"),
+  qmjhl = c("geom_hockey", "qmjhl"), ushl = c("geom_hockey", "ushl"), phf = c("geom_hockey", "phf"),
+  ncaa_mhockey = c("geom_hockey", "ncaa"), ncaa_whockey = c("geom_hockey", "ncaa"),
+  soccer = c("geom_soccer", "fifa")
+)

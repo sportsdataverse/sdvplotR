@@ -18,7 +18,10 @@ sdv_team_tiers(
   no_line_below_tier = NULL,
   devel = FALSE,
   theme = c("dark", "light"),
-  variant = "auto"
+  variant = "auto",
+  season = NULL,
+  id_system = "auto",
+  strict = FALSE
 )
 }
 \arguments{
@@ -66,6 +69,10 @@ the Capitals' or Penn State's don't fade into the dark background. Any
 other value is \code{"default"}, \code{"dark"} or a named variant from \code{\link[=sdv_marks]{sdv_marks()}}
 (see \code{\link[=sdv_logo_url]{sdv_logo_url()}}), drawn on either theme. A team without the variant
 draws its closest mark, with no warning.}
+
+\item{season, id_system, strict}{Passed to \code{\link[=sdv_resolve]{sdv_resolve()}} and the logo lookup:
+a season for dated marks, the identifier system of \code{team}, and whether
+an unresolved team is an error.}
 }
 \value{
 A ggplot object.

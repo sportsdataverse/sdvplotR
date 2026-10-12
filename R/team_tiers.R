@@ -39,6 +39,9 @@
 #'   other value is `"default"`, `"dark"` or a named variant from [sdv_marks()]
 #'   (see [sdv_logo_url()]), drawn on either theme. A team without the variant
 #'   draws its closest mark, with no warning.
+#' @param season,id_system,strict Passed to [sdv_resolve()] and the logo lookup:
+#'   a season for dated marks, the identifier system of `team`, and whether
+#'   an unresolved team is an error.
 #'
 #' @return A ggplot object.
 #' @export
@@ -77,7 +80,10 @@ sdv_team_tiers <- function(
     no_line_below_tier = NULL,
     devel = FALSE,
     theme = c("dark", "light"),
-    variant = "auto"
+    variant = "auto",
+    season = NULL,
+    id_system = "auto",
+    strict = FALSE
 ) {
   league <- check_league(league)
   theme <- rlang::arg_match(theme)
@@ -121,7 +127,10 @@ sdv_team_tiers <- function(
   }
 
   # a team without the variant falls back to its closest mark
-  data$path <- logo_from_team(data$team, league, variant = variant)
+  data$path <- logo_from_team(
+    data$team, league,
+    season = season, variant = variant, id_system = id_system, strict = strict
+  )
 
   p <- ggplot2::ggplot(
     data,
@@ -182,19 +191,24 @@ sdv_team_tiers <- function(
 
 #' Order Team Names as a Factor
 #'
-#' @description Creates a factor of team names whose levels are the values
-#'   that resolve to a team of `league` (see [sdv_resolve()]), so downstream
-#'   ggplot2 scales drop invalid entries gracefully.
+#' @description A factor of `teams` as given, levels ordered by each team's
+#'   abbreviation; values that do not resolve are `NA` (with the resolver's
+#'   warning), so downstream ggplot2 scales drop them.
 #'
 #' @param teams Character vector of team names.
 #' @param league A league key from [sdv_leagues()].
-#' @return A `factor` of `teams`, levels limited to the values that resolve.
+#' @param season,id_system Passed to [sdv_resolve()].
+#' @return A `factor` of `teams`.
 #' @export
 #' @examples
-#' sdv_team_factor(c("KC", "BUF", "invalid"), league = "nfl")
-sdv_team_factor <- function(teams, league) {
-  league <- check_league(league)
-
-  ids <- resolve_ids(teams, league)$ids
-  factor(teams, levels = sort(unique(as.character(teams)[!is.na(ids)])))
+#' suppressWarnings(sdv_team_factor(c("KC", "BUF", "invalid"), league = "nfl"))
+sdv_team_factor <- function(teams, league, season = NULL, id_system = "auto") {
+  teams <- as.character(teams)
+  ids <- sdv_resolve(teams, league, season = season, id_system = id_system)
+  t <- sdv_teams(league)
+  abbr <- t$abbr[match(ids, t$team_id)]
+  abbr <- ifelse(is.na(abbr), ids, abbr)
+  keep <- !is.na(ids) & !duplicated(teams)
+  lv <- teams[keep][order(abbr[keep], teams[keep], method = "radix")]
+  factor(ifelse(is.na(ids), NA_character_, teams), levels = lv)
 }

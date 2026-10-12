@@ -115,7 +115,7 @@ test_that("bad teams and arguments error clearly", {
   expect_error(sdv_surface("nba", "NOT_A_TEAM"), "is not a \"nba\" team")
   expect_error(sdv_surface("nba", c("BOS", "LAL")), "one team")
   expect_error(sdv_surface("nba", center_logo = TRUE), "needs a `team`")
-  expect_error(sdv_surface("nascar"), "must be one of")
+  expect_error(sdv_surface("nascar"), "No playing surface")
 })
 
 test_that("a missing sportyR is an informative error", {
@@ -182,4 +182,16 @@ test_that("fiba draws sportyR's FIBA court", {
 test_that("surfaces without team identities refuse a team", {
   skip_if_not_installed("sportyR")
   expect_error(sdv_surface("fiba", "ESP"), "No team identities")
+})
+
+test_that("every league with a surface draws one; others error with the list", {
+  skip_if_not_installed("sportyR")
+  for (lg in names(surface_map)) expect_s3_class(sdv_surface(lg), "ggplot")
+  expect_error(sdv_surface("cricket"), "fiba")
+})
+
+test_that("a minor-league team colours its surface", {
+  skip_if_not_installed("sportyR")
+  t <- sdv_teams("ahl")$team_id[1]
+  expect_s3_class(sdv_surface("ahl", team = t), "ggplot")
 })

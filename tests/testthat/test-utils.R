@@ -130,7 +130,7 @@ test_that("sdv_color_palette drops unknown teams", {
 })
 
 test_that("sdv_team_factor keeps only resolving values as levels", {
-  f <- sdv_team_factor(c("KC", "buf", "OAK", "bad"), league = "nfl")
+  f <- suppressWarnings(sdv_team_factor(c("KC", "buf", "OAK", "bad"), league = "nfl"))
   expect_s3_class(f, "factor")
   expect_setequal(levels(f), c("buf", "KC", "OAK"))
   expect_identical(as.character(f), c("KC", "buf", "OAK", NA))

@@ -168,21 +168,20 @@ test_that("gt_sdv_cols_label alt-names the team for logo and wordmark labels", {
 })
 
 test_that("gt_tiers alt-names each entry by the team its image shows", {
-  # gt_tiers' alt text still reads the package's own logo tables
-  ref <- logo_ref[logo_ref$sport == "nfl", ]
-  comets <- logo_history$url[logo_history$identity_name == "Houston Comets"][[1]]
+  # alt text names a mark from the manifest's entity_name
+  comets <- index_marks()$archive_url[index_marks()$entity_name == "Utica Comets"][[1]]
   d <- data.frame(
     tier = c("A", "B"),
-    `1` = c(ref$logo_url[ref$team_abbr == "KC"], ref$logo_dark_url[ref$team_abbr == "BUF"]),
+    `1` = c(sdv_logo_url("KC", "nfl"), sdv_logo_url("BUF", "nfl", variant = "dark")),
     `2` = c("https://x/my-team.png", comets),
     `3` = NA_character_,
     check.names = FALSE
   )
   h <- html_of(gt(d) |> gt_tiers(levels = c("A", "B"), colors = c("#1B7837", "#B2182B")))
   # a logo the package knows takes the team's name, anything else its file name
-  expect_identical(alts_of(h), c("Kansas City Chiefs", "my-team", "Buffalo Bills", "Houston Comets"))
+  expect_identical(alts_of(h), c("Kansas City Chiefs", "my-team", "Buffalo Bills", "Utica Comets"))
   h <- html_of(gt(d) |> gt_tiers(c(A = "#1B7837", B = "#B2182B"), alt = function(url) paste("Logo", basename(url))))
-  expect_identical(alts_of(h), c("Logo kc.png", "Logo my-team.png", "Logo buf.png", paste("Logo", basename(comets))))
+  expect_identical(alts_of(h), paste("Logo", basename(c(d$`1`, "https://x/my-team.png", comets)[c(1, 3, 2, 4)])))
   expect_snapshot(gt(d) |> gt_tiers(c(A = "#1B7837", B = "#B2182B"), alt = "Logo"), error = TRUE)
 })
 
@@ -274,4 +273,9 @@ test_that("gt_sdv_cols_label headshots take auto as espn", {
   h <- html_of(gt(data.frame(`2544` = 1, check.names = FALSE)) |>
     gt_sdv_cols_label(league = "nba", mark_type = "headshot"))
   expect_match(h, sdv_headshot_url("2544", "nba"), fixed = TRUE)
+})
+
+test_that("tier alt text names the team from the manifest", {
+  expect_identical(.tier_alt(sdv_logo_url("KC", "nfl")), "Kansas City Chiefs")
+  expect_identical(.tier_alt("https://example.com/x/foo.png"), "foo")
 })

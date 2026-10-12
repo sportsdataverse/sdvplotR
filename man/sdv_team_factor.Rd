@@ -4,21 +4,23 @@
 \alias{sdv_team_factor}
 \title{Order Team Names as a Factor}
 \usage{
-sdv_team_factor(teams, league)
+sdv_team_factor(teams, league, season = NULL, id_system = "auto")
 }
 \arguments{
 \item{teams}{Character vector of team names.}
 
 \item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}.}
+
+\item{season, id_system}{Passed to \code{\link[=sdv_resolve]{sdv_resolve()}}.}
 }
 \value{
-A \code{factor} of \code{teams}, levels limited to the values that resolve.
+A \code{factor} of \code{teams}.
 }
 \description{
-Creates a factor of team names whose levels are the values
-that resolve to a team of \code{league} (see \code{\link[=sdv_resolve]{sdv_resolve()}}), so downstream
-ggplot2 scales drop invalid entries gracefully.
+A factor of \code{teams} as given, levels ordered by each team's
+abbreviation; values that do not resolve are \code{NA} (with the resolver's
+warning), so downstream ggplot2 scales drop them.
 }
 \examples{
-sdv_team_factor(c("KC", "BUF", "invalid"), league = "nfl")
+suppressWarnings(sdv_team_factor(c("KC", "BUF", "invalid"), league = "nfl"))
 }
