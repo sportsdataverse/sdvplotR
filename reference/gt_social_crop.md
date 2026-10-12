@@ -69,7 +69,8 @@ gt_social_crop(
 
 ## Value
 
-Returns the cropped and padded image file.
+Invisibly, `file` after writing the cropped and padded image to it, or
+the encoded image as a raw vector when `file` is `NULL`.
 
 ## See also
 

@@ -58,7 +58,12 @@ gt_theme_preview(
 
 ## Value
 
-Displays the grid in the viewer, or writes it to `file`.
+What
+[`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md)
+returns: an
+[`htmltools::browsable()`](https://rstudio.github.io/htmltools/reference/browsable.html)
+tag list of the previews, which prints in the viewer; with `file`,
+invisibly `file` after writing the PNG to it.
 
 ## Details
 

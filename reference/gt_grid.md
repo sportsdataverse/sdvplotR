@@ -128,7 +128,10 @@ gt_grid(
 
 ## Value
 
-Displays the grid in the viewer, or writes it to `file`.
+An
+[`htmltools::browsable()`](https://rstudio.github.io/htmltools/reference/browsable.html)
+tag list of the grid, which prints in the viewer; with `file`, invisibly
+`file` after writing the PNG to it.
 
 ## Details
 

@@ -39,7 +39,7 @@ take a `style` argument:
 ## Source
 
 Read back from each theme's `table.background.color` by
-`data-raw/theme_bg.R`.
+[`data-raw/theme_bg.R`](https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/theme_bg.R).
 [`gt_theme_drench()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_drench.md)
 takes its background from its `color` argument and
 [`gt_theme_broadsheet()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_broadsheet.md)

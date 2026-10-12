@@ -87,7 +87,7 @@ addSdvLogoMarkers(
 
 ## Value
 
-The map.
+The leaflet map (an htmlwidget) with the markers added.
 
 ## Examples
 

@@ -96,7 +96,10 @@ gt_stack_tables(
 
 ## Value
 
-Displays the stacked tables in the viewer, or writes them to `file`.
+An
+[`htmltools::browsable()`](https://rstudio.github.io/htmltools/reference/browsable.html)
+tag list of the stacked tables, which prints in the viewer; with `file`,
+invisibly `file` after writing the PNG to it.
 
 ## Details
 

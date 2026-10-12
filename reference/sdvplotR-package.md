@@ -16,7 +16,7 @@ resolved to one canonical team id per league through the team index and
 logo manifest of the SportsDataverse logo archive
 <https://github.com/sportsdataverse/sdv-assets>, read at run time with a
 copy bundled in the package. Built on 'ggpath' following the conventions
-of 'nflplotR' and designed to work with the companion 'SportsDataverse'
+of 'nflplotR' and designed to work with the companion SportsDataverse
 data packages. Also includes the 'gtUtils' table themes, color legends,
 cut lines, significance notation, outlier flags and cropping and saving
 helpers for 'gt' tables.

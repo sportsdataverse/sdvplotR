@@ -80,9 +80,10 @@ league, conference, division and division finish, and 16 columns:
 
 ## Source
 
-Built by `data-raw/sdv_examples.R`. NFL: the nflverse schedules release,
-`nflreadr::load_schedules(2025)`, with the standings and conference
-ranks from
+Built by
+[`data-raw/sdv_examples.R`](https://github.com/sportsdataverse/sdvplotR/blob/main/data-raw/sdv_examples.R).
+NFL: the nflverse schedules release, `nflreadr::load_schedules(2025)`,
+with the standings and conference ranks from
 [`nflseedR::nfl_standings()`](https://nflseedr.com/reference/nfl_standings.html).
 NBA: the sportsdataverse-data team box release,
 `hoopR::load_nba_team_box(2026)`, counting standings games only (not the

@@ -12,6 +12,10 @@
 - [Getting Started with
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/getting-started.md):
 
+  Install sdvplotR and draw your first team logos, colors and headshots
+  in ggplot2, gt and reactable across the 28 leagues of the
+  SportsDataverse team index.
+
 ### Per-Sport Articles
 
 Data ingest with the companion SportsDataverse package, then sdvplotR
@@ -20,14 +24,30 @@ visualization, for each sport.
 - [NFL Visualizations with nflverse and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.md):
 
+  Ten charts and tables from the 2025 NFL season with nflreadr and
+  sdvplotR: offense against defense with logos, standings, quarterback
+  headshots, relocated franchises and a team-colored field.
+
 - [College Football Visualizations with cfbfastR and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.md):
+
+  Ten charts and tables from the 2025 college football season with
+  cfbfastR and sdvplotR: every FBS team on one scatter, conference
+  standings, the Playoff bracket, quarterback headshots and tiers.
 
 - [NBA Visualizations with hoopR and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/nba-viz.md):
 
+  Ten charts and tables from the 2025-26 NBA season with hoopR and
+  sdvplotR: a ratings quadrant, net-rating bars, a bump chart,
+  headshots, a team-colored shot chart and an interactive version.
+
 - [WNBA Visualizations with wehoop and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/wnba-viz.md):
+
+  Ten charts and tables from the 2026 WNBA season, the first with 15
+  teams, with wehoop and sdvplotR: a ratings quadrant, expansion win
+  races, headshots, a binned shot chart and an interactive chart.
 
 - [MLB Visualizations with baseballr and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.md):
@@ -47,11 +67,21 @@ visualization, for each sport.
 - [Men's College Basketball Visualizations with hoopR and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.md):
 
+  Division I men’s basketball has more than 360 teams in 31 conferences,
+  and the conferences change from one season to the next.
+
 - [Women's College Basketball Visualizations with wehoop and
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.md):
 
+  Division I women’s basketball has more than 360 teams, and each shares
+  its ESPN id with the school’s men’s team.
+
 - [Soccer: any provider's shots on one
   pitch](https://sdvplotR.sportsdataverse.org/articles/soccer-viz.md):
+
+  Convert soccer event coordinates from any major provider to one 105 x
+  68 m pitch frame with sdv_pitch_coords(), then draw them with
+  sdvplotR.
 
 ### Cookbooks
 
@@ -94,6 +124,10 @@ charts, and reactable tables.
 - [reactable
   Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.md):
 
+  sdvplotR provides a family of helpers for embedding team logos,
+  wordmarks, player headshots, and team-colored bars in reactable
+  tables.
+
 ### Tables cookbook
 
 gt tables on SportsDataverse data: the house themes, standings with cut
@@ -103,24 +137,67 @@ comes from Andrew Weatherman’s gtUtils.
 
 - [SportsDataverse Table
   Themes](https://sdvplotR.sportsdataverse.org/articles/sdv-table-themes.md):
+
+  The SportsDataverse table themes for gt: gt_theme_sdv() in light or
+  dark, and gt_theme_sdv_team() dressed in one team’s colors.
+
 - [Team Tables with the gt
   Toolkit](https://sdvplotR.sportsdataverse.org/articles/gt-toolkit.md):
+
+  The two kinds of gt helpers on one table: the team layer of logos,
+  headshots and colors, and the table toolkit of themes, legends and cut
+  lines.
+
 - [Styling Headers, Legends, and
   Captions](https://sdvplotR.sportsdataverse.org/articles/styling.md):
+
+  Style headers, legends and captions in gt tables through the
+  named-list arguments of gt_title_header() and the other helpers that
+  take them.
+
 - [Saving and Posting
   Tables](https://sdvplotR.sportsdataverse.org/articles/saving_tables.md):
+
+  Save gt tables as images sized for each platform, crop the whitespace,
+  and post the same table to the web and to social feeds.
+
 - [Border
   Bars](https://sdvplotR.sportsdataverse.org/articles/border_bars.md):
+
+  Colored bars above or below a gt table with gt_border_bars_top() and
+  gt_border_bars_bottom(), stacked or as a single accent.
+
 - [Percentile Bars and Cut
   Lines](https://sdvplotR.sportsdataverse.org/articles/delay_tables.md):
+
+  Percentile bars, cut lines and significance marks that show which
+  values in a gt table stand out and where one group ends and the next
+  begins.
+
 - [Creating Faceted
   Tables](https://sdvplotR.sportsdataverse.org/articles/grid_tables.md):
+
+  Split a long gt table into side-by-side panels with gt_grid(), so 25
+  rows fit an image shaped for posting.
+
 - [Building a Schedule
   Matrix](https://sdvplotR.sportsdataverse.org/articles/schedule_matrix.md):
+
+  A schedule matrix puts one team per row and one week per column, and
+  draws each opponent’s logo in the cell where they met.
+
 - [Creating Tier
   Lists](https://sdvplotR.sportsdataverse.org/articles/tier_list.md):
+
+  A tier list ranks teams into colored bands, best band on top, each
+  band a row of logos.
+
 - [Winningest Franchises in Rolling
   Windows](https://sdvplotR.sportsdataverse.org/articles/window_wins.md):
+
+  The NFL’s five winningest franchises in every ten-year window from
+  1999-2008 to 2016-2025, each drawn as its logo and shaded by its Super
+  Bowl wins.
 
 ### Recipes
 
@@ -202,17 +279,34 @@ end-to-end workflows.
 - [Neighbour
   Ranks](https://sdvplotR.sportsdataverse.org/articles/neighbour-ranks.md):
 
+  One team in the middle of an 11-row table, with the five teams ranked
+  just above and below it, so the gaps to its neighbours show next to
+  the rank.
+
 - [Shot
   Grid](https://sdvplotR.sportsdataverse.org/articles/shot-grid.md):
+
+  A shot chart cut into a grid of zones, each colored by a shooter’s
+  percentage against the league from that spot, rather than one dot per
+  attempt.
 
 - [Rolling
   Form](https://sdvplotR.sportsdataverse.org/articles/rolling-form.md):
 
+  Each team’s last 150 offensive plays against the 150 before them,
+  drawn so a change in form shows before the season average catches up.
+
 - [Signature
   Ribbon](https://sdvplotR.sportsdataverse.org/articles/signature-ribbon.md):
 
+  A shooter’s profile as a ribbon: how often each distance is attempted
+  and how well it is made, drawn along the shot distance.
+
 - [End-to-End Workflows with sdvplotR and the SportsDataverse
   Ecosystem](https://sdvplotR.sportsdataverse.org/articles/workflows.md):
+
+  End-to-end workflows: load data from SportsDataverse packages, draw it
+  with sdvplotR, and export the charts and tables.
 
 ### Interactive
 
@@ -308,6 +402,9 @@ offseason.
 - [Leaderboard Dashboards with sdvplotR, gt, and
   Quarto](https://sdvplotR.sportsdataverse.org/articles/leaderboard-dashboards.md):
 
+  Leaderboard dashboards with sdvplotR, gt tables and Quarto: team
+  logos, colors and rankings laid out for a page that updates.
+
 ### Automation
 
 Make and post social graphics on a schedule.
@@ -322,3 +419,6 @@ Make and post social graphics on a schedule.
 
 - [Social Posting Patterns with
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/social-posting.md):
+
+  Shareable sports graphics with sdvplotR: team logos, colors and titles
+  sized and exported for X, Bluesky and Instagram.

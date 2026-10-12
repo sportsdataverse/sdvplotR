@@ -314,3 +314,54 @@ charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md).
 - [Social graphics,
   automated](https://sdvplotR.sportsdataverse.org/articles/automation-social.md)
   posts leaderboards like these on a schedule.
+
+## **Our Authors**
+
+- [Saiem Gilani](https://x.com/saiemgilani)  
+  [![@saiemgilani](https://img.shields.io/twitter/follow/saiemgilani?color=blue&label=%40saiemgilani&logo=x&style=for-the-badge)](https://x.com/saiemgilani)
+  [![@saiemgilani](https://img.shields.io/github/followers/saiemgilani?color=eee&logo=Github&style=for-the-badge)](https://github.com/saiemgilani)
+- [Sebastian Carl](https://x.com/mrcaseb)  
+  [![@mrcaseb](https://img.shields.io/twitter/follow/mrcaseb?color=blue&label=%40mrcaseb&logo=x&style=for-the-badge)](https://x.com/mrcaseb)
+  [![@mrcaseb](https://img.shields.io/github/followers/mrcaseb?color=eee&logo=Github&style=for-the-badge)](https://github.com/mrcaseb)
+- [Jared Lee](https://github.com/Kazink36)  
+  [![@Kazink36](https://img.shields.io/github/followers/Kazink36?color=eee&logo=Github&style=for-the-badge)](https://github.com/Kazink36)
+- [Camden Kay](https://x.com/camdenkay)  
+  [![@camdenkay](https://img.shields.io/twitter/follow/camdenkay?color=blue&label=%40camdenkay&logo=x&style=for-the-badge)](https://x.com/camdenkay)
+  [![@camdenk](https://img.shields.io/github/followers/camdenk?color=eee&logo=Github&style=for-the-badge)](https://github.com/camdenk)
+- [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)  
+  [![@andreweatherman](https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge)](https://github.com/andreweatherman)
+
+## **Citation**
+
+To cite the [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) R
+package in publications, use:
+
+BibTeX Citation
+
+``` bibtex
+@misc{gilani_carl_lee_kay_weatherman_sdvplotR,
+  author = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},
+  title = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},
+  url = {https://sdvplotR.sportsdataverse.org},
+  year = {2026}
+}
+```
+
+## **Related SportsDataverse packages**
+
+- [**sdvplot**](https://sdvplot.sportsdataverse.org/) - the Python
+  plotting package
+- [**sdvplot-js**](https://plot.sportsdataverse.org/) - the JavaScript /
+  TypeScript plotting packages
+- [**cfbfastR**](https://cfbfastR.sportsdataverse.org/) - college
+  football
+- [**hoopR**](https://hoopR.sportsdataverse.org/) - men’s basketball
+- [**wehoop**](https://wehoop.sportsdataverse.org/) - women’s basketball
+- [**baseballr**](https://baseballr.sportsdataverse.org/) - baseball
+- [**fastRhockey**](https://fastRhockey.sportsdataverse.org/) - hockey
+- [**oddsapiR**](https://oddsapiR.sportsdataverse.org/) - betting odds
+- [**sportyR**](https://sportyR.sportsdataverse.org/) - playing surfaces
+- [**sportsdataverse-py**](https://py.sportsdataverse.org/) - the Python
+  package
+- [**sportsdataverse-R**](https://r.sportsdataverse.org/) - the R
+  meta-package
