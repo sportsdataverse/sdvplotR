@@ -596,27 +596,6 @@ headshot_html <- function(player_id, sport, type = c("height", "width"), size = 
 # Cache management
 # ---------------------------------------------------------------------------
 
-#' Clear the sdvplotR Caches
-#'
-#' @description sdvplotR reads the NFL headshot map once per session and keeps
-#'   it in memory, and renders images through 'ggpath', which caches
-#'   downloaded images for the session. This function clears both (the
-#'   'ggpath' cache when 'ggpath' exposes a cache-clearing function), so the
-#'   next NFL headshot reads the current published map.
-#' @return Invisibly `NULL`, called for its side effect.
-#' @export
-#' @examples
-#' sdvplotR_clear_cache()
-sdvplotR_clear_cache <- function() {
-  # the NFL headshot map is cached for the session (load_headshot_map())
-  forget_headshot_map()
-  if ("clear_cache" %in% getNamespaceExports("ggpath")) {
-    getExportedValue("ggpath", "clear_cache")()
-  }
-  cli::cli_alert_success("sdvplotR cache cleared.")
-  invisible(NULL)
-}
-
 
 # Screenshots a gt table to `filename` through headless Chrome, as
 # gtExtras::gtsave_extra() did (without taking gtExtras and its paletteer
