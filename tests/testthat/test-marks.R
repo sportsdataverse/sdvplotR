@@ -41,12 +41,29 @@ test_that("select_mark ranks by variant, then season coverage, then source", {
   expect_identical(row$archive_url, sdv_logo_url("KC", "nfl"))
 })
 
-test_that("ranking puts open-ended, then latest-ending marks first within a source (radix NA handling)", {
-  r <- data.frame(source_rank = c(0L, 0L, 0L), valid_to = c(2010L, NA, 2020L), first_seen = "2026-01-01",
-                  valid_from = NA_integer_, sha256 = c("a", "b", "c"))
-  o <- order(r$source_rank, is.na(r$valid_to), r$valid_to, r$first_seen, r$valid_from, r$sha256,
-             decreasing = c(FALSE, TRUE, TRUE, TRUE, TRUE, FALSE), method = "radix", na.last = TRUE)
-  expect_identical(r$sha256[o], c("b", "c", "a"))
+test_that("ranking puts open-ended, then latest-ending marks first within a source", {
+  local_snapshot_index()
+  default_logos <- function(m, src) m[m$variant == "default" & m$mark_type == "logo" & m$source == src, ]
+  lv <- default_logos(sdv_marks("LV", "nfl"), "espn") # source_rank 0: today's logo, then 1960-2019
+  expect_identical(lv$valid_to, c(NA, 2019L))
+  col <- default_logos(sdv_marks("COL", "nhl"), "nhl") # three closed eras, latest-ending first
+  expect_length(col$valid_to, 3L)
+  expect_true(all(diff(col$valid_to) < 0))
+})
+
+test_that("select_mark takes a dated row covering the season, and dark falls back to default", {
+  local_snapshot_index()
+  lv <- sdv_resolve("LV", "nfl")
+  expect_true(is.na(select_mark(lv, "nfl", NA_integer_, "default", "logo")$valid_to))
+  old <- select_mark(lv, "nfl", 2000L, "default", "logo")
+  expect_true(old$valid_from <= 2000L && old$valid_to >= 2000L)
+  # the AHL's Hartford Wolf Pack have no dark logo: the season's default, the latest-ending covering row
+  hw <- select_mark("307", "ahl", 2010L, "dark", "logo")
+  expect_identical(hw$variant, "default")
+  r <- ranked_marks("ahl")
+  cov <- r[which(r$team_id == "307" & r$mark_type == "logo" & r$valid_from <= 2010L & r$valid_to >= 2010L), ]
+  expect_gt(nrow(cov), 1L)
+  expect_identical(hw$valid_to, max(cov$valid_to))
 })
 
 test_that("an unresolved team gives NA with the resolver's warning; vectors keep their length", {
