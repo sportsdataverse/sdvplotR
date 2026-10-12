@@ -86,5 +86,6 @@ test_that("the row helpers keep a table small", {
     gt_color_pills(c(a, b), domain = c(0, 1)) |>
     gt_significance(a, p, legend = FALSE)
   # one text_transform per row used to hold a copy of the table each: ~50 MB here
-  expect_lt(length(serialize(tbl, NULL)), 5e6)
+  size <- length(serialize(tbl, NULL))
+  expect_lt(size, 5e6, label = paste0("serialized table (", size_report(tbl), ")"))
 })
