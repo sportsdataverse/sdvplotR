@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-12:** the 2026-27 season, 4-6 games in per team.
+**Updated 2026-10-12:** the 2026-27 season, 4-7 games in per team.
 Early-season tables move a lot from week to week.
 
 This page is rebuilt every week with the site. It builds the standings,
@@ -136,7 +136,7 @@ standings |>
 
 | NHL standings, 2026-27 |  |  |  |  |  |  |  |  |  |  |  |  |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|
-| Through Oct 10 (4-6 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
+| Through Oct 11 (4-7 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
 |  | Team | GP | W | L | OTL | PTS | PTS% | GF | GA | DIFF | Last 10 | Streak |
 | Atlantic |  |  |  |  |  |  |  |  |  |  |  |  |
 | ![Tampa Bay Lightning](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3f/3f46ba7991bb86ecd35112b65136b507325d023fc43d42e3d8015354363a62b3.png) | Lightning | 5 | 4 | 1 | 0 | 8 | 0.800 | 16 | 12 | +4 | 4-1-0 | W4 |
@@ -157,14 +157,14 @@ standings |>
 | ![St. Louis Blues](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/af/af4f35bdd196d566c9caa33e42dc0cd5284053631cb4a8ef190fb107f9e071b8.png) | Blues | 5 | 2 | 2 | 1 | 5 | 0.500 | 14 | 16 | −2 | 2-2-1 | W1 |
 | ![Chicago Blackhawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4e/4e3260f13d674c1ec71e6ac7c08f9c6d4680fe4052a087814b66466ddaca15d9.png) | Blackhawks | 6 | 1 | 5 | 0 | 2 | 0.167 | 12 | 26 | −14 | 1-5-0 | L2 |
 | Metropolitan |  |  |  |  |  |  |  |  |  |  |  |  |
+| ![Carolina Hurricanes](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8b28b34fbd7b4953c550fc9fde1656f68f1f402088f3d86922e3c6ba514330a0.png) | Hurricanes | 7 | 5 | 1 | 1 | 11 | 0.786 | 27 | 17 | +10 | 5-1-1 | W5 |
 | ![New York Rangers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7a/7a43515a4551cc0708140f89d2f54d57259dde1498001c29ec28cc5b1d96fa7f.png) | Rangers | 7 | 5 | 2 | 0 | 10 | 0.714 | 23 | 13 | +10 | 5-2-0 | W1 |
-| ![Carolina Hurricanes](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8b28b34fbd7b4953c550fc9fde1656f68f1f402088f3d86922e3c6ba514330a0.png) | Hurricanes | 6 | 4 | 1 | 1 | 9 | 0.750 | 23 | 16 | +7 | 4-1-1 | W4 |
 | ![Pittsburgh Penguins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1b/1b4dc90de4cb2eef301c0d2f9ffefd5cef2e0de1a8ad7d863e96ef686986e00f.png) | Penguins | 6 | 3 | 2 | 1 | 7 | 0.583 | 22 | 17 | +5 | 3-2-1 | W1 |
 | ![Washington Capitals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/59/5987a4f5511e6bd443042757522b040d1b7a258a4bc488693a250b658cf43a6d.png) | Capitals | 5 | 3 | 2 | 0 | 6 | 0.600 | 17 | 14 | +3 | 3-2-0 | L1 |
 | ![New Jersey Devils](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9a/9a10cdba30197130eb999bd19e9f40fb34be153599f09e98e6c7f472e41ef242.png) | Devils | 4 | 2 | 2 | 0 | 4 | 0.500 | 10 | 14 | −4 | 2-2-0 | W1 |
 | ![Columbus Blue Jackets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a1/a140e93fa031bae0464306c52fa24aef3821fa9d17e92cf66939efb6b0d2a957.png) | Blue Jackets | 4 | 2 | 2 | 0 | 4 | 0.500 | 13 | 14 | −1 | 2-2-0 | L1 |
 | ![New York Islanders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e6/e6bfc0d1b6d437d6fa09028ac465691ac64154cf396584f1d174bbe32be17921.png) | Islanders | 5 | 2 | 3 | 0 | 4 | 0.400 | 16 | 13 | +3 | 2-3-0 | L1 |
-| ![Philadelphia Flyers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/04/0411764d10618e764c58e5c9b7e88d9b0dc7c77ebe9813095c338cd485e2dd04.png) | Flyers | 6 | 0 | 4 | 2 | 2 | 0.167 | 7 | 24 | −17 | 0-4-2 | L3 |
+| ![Philadelphia Flyers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/04/0411764d10618e764c58e5c9b7e88d9b0dc7c77ebe9813095c338cd485e2dd04.png) | Flyers | 7 | 0 | 5 | 2 | 2 | 0.143 | 8 | 28 | −20 | 0-5-2 | L4 |
 | Pacific |  |  |  |  |  |  |  |  |  |  |  |  |
 | ![Vegas Golden Knights](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/91/913da521af36370b9b9a3df6ca6b869c915b54732cc166d369865fbc24197e44.png) | Golden Knights | 6 | 5 | 1 | 0 | 10 | 0.833 | 23 | 14 | +9 | 5-1-0 | W4 |
 | ![Edmonton Oilers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f8e95d487f02c85aeb65a200f226b795e7a8de95604df49664962ad473d57666.png) | Oilers | 5 | 4 | 0 | 1 | 9 | 0.900 | 25 | 17 | +8 | 4-0-1 | W4 |
