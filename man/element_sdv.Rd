@@ -69,8 +69,8 @@ for black and white.}
 
 \item{size}{The output grob size in \code{cm}.}
 
-\item{season}{\code{NULL} for today's mark, or a season (or one per team): the
-mark the team wore that season where the archive dates its marks.}
+\item{season}{\code{NULL} for today's marks, or one season: the marks the teams
+wore that season. One element draws every label, so one season.}
 
 \item{id_system}{\code{"auto"} (try every id system in priority order) or one
 id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},

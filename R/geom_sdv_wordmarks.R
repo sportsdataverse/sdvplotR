@@ -90,9 +90,22 @@ GeomSDVwordmark <- ggplot2::ggproto(
     alpha = NULL, colour = NULL, angle = 0, hjust = 0.5,
     vjust = 0.5, width = 1.0, height = 1.0, season = NA
   ),
+  # resolved once for the whole layer, not per facet panel in draw_panel, so a
+  # value that does not resolve warns once
+  setup_data = function(data, params) {
+    data$path <- wordmark_from_team(data$team, params$league %||% "nfl",
+      season = data$season %||% rep(NA, nrow(data)),
+      id_system = params$id_system %||% "auto", strict = isTRUE(params$strict)
+    )
+    data
+  },
+  # league, id_system and strict stay in the signature: ggplot2 reads a geom's parameters from it
   draw_panel = function(data, panel_params, coord, na.rm = FALSE, league = "nfl", id_system = "auto", strict = FALSE) {
-    # Resolve team abbreviations to wordmark URLs
-    data$path <- wordmark_from_team(data$team, league, season = data$season, id_system = id_system, strict = strict)
+    # a value with no image has already warned (or drawn nothing): don't hand ggpath an NA path to fail on
+    data <- data[!is.na(data$path), , drop = FALSE]
+    if (!nrow(data)) {
+      return(ggplot2::zeroGrob())
+    }
 
     # Delegate to ggpath for actual rendering
     ggpath::GeomFromPath$draw_panel(

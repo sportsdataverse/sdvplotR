@@ -22,6 +22,8 @@
 #'   [ggplot2::theme_minimal()] set, keeping the child's spacing.
 #'
 #' @inheritParams sdv_logo_url
+#' @param season `NULL` for today's marks, or one season: the marks the teams
+#'   wore that season. One element draws every label, so one season.
 #' @param league A league key from [sdv_leagues()].
 #' @param alpha The alpha channel (transparency) between 0 and 1.
 #' @param colour,color The image will be colorized with this color. Use `"b/w"`
@@ -181,6 +183,14 @@ element_season <- function(element) if (is.na(element@season)) NULL else element
 
 new_sdv_element <- function(cls, league, alpha, colour, color, hjust, vjust, size, ...) {
   league <- check_league(league)
+  season <- list(...)$season
+  # one element draws every label of an axis or strip: there is no row to match a season vector to
+  if (!is.null(season) && length(season) != 1L) {
+    cli::cli_abort(
+      "{.arg season} must be one season (or {.code NULL} for today's marks), not {length(season)} values.",
+      call = rlang::caller_env()
+    )
+  }
   element <- cls(
     league = league,
     alpha = alpha %||% 1,

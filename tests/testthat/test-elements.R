@@ -114,3 +114,9 @@ test_that("scale_x_sdv labels carry the season's mark", {
   lab <- scale_x_sdv(league = "nhl", season = 1990)$labels("QUE")
   expect_match(lab, sdv_logo_url("QUE", "nhl", season = 1990), fixed = TRUE)
 })
+
+test_that("an element takes one season, and says so when given several", {
+  expect_error(element_sdv_logo(league = "nfl", season = c(2000, 2010)), "one season")
+  expect_error(element_sdv_wordmark(league = "nfl", season = c(2000, 2010)), "one season")
+  expect_identical(element_sdv_logo(league = "nfl", season = 2000)@season, 2000)
+})

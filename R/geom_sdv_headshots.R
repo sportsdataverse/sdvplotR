@@ -97,6 +97,11 @@ GeomSDVheadshot <- ggplot2::ggproto(
   draw_panel = function(data, panel_params, coord, na.rm = FALSE, league = "nfl", id_system = "espn") {
     # Resolve player IDs to headshot URLs
     data$path <- headshot_from_id(data$player_id, league, id_system)
+    # a value with no image has already warned (or drawn nothing): don't hand ggpath an NA path to fail on
+    data <- data[!is.na(data$path), , drop = FALSE]
+    if (!nrow(data)) {
+      return(ggplot2::zeroGrob())
+    }
 
     # Delegate to ggpath for actual rendering
     ggpath::GeomFromPath$draw_panel(

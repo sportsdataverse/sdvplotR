@@ -248,3 +248,17 @@ test_that("geom_sdv_logos passes strict to the resolver", {
     geom_sdv_logos(ggplot2::aes(team = t), league = "nfl", strict = TRUE)
   expect_error(ggplot2::ggplot_gtable(ggplot2::ggplot_build(p)), class = "sdvplotR_unresolved")
 })
+
+test_that("a team with no image warns once across facet panels and draws nothing, without ggpath failing on NA", {
+  d <- data.frame(x = 1:4, y = 1:4, team = c("KC", "nope", "BUF", "nope"), panel = c("a", "a", "b", "b"))
+  p <- ggplot2::ggplot(d, ggplot2::aes(x, y)) +
+    geom_sdv_logos(ggplot2::aes(team = team), league = "nfl") +
+    ggplot2::facet_wrap(~panel)
+  msgs <- character()
+  withCallingHandlers(ggplot2::ggplotGrob(p), warning = function(w) {
+    msgs <<- c(msgs, conditionMessage(w))
+    invokeRestart("muffleWarning")
+  })
+  expect_false(any(grepl("failed to read", msgs)))
+  expect_identical(sum(grepl("nope", msgs)), 1L)
+})
