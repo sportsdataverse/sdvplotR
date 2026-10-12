@@ -46,7 +46,8 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
 * plotly: `add_sdv_logos()`, `add_sdv_wordmarks()`, `add_sdv_headshots()`,
   `sdv_axis_logos()` and `sdv_colorway()`.
 * ggiraph: `geom_sdv_logos_interactive()`, `geom_sdv_wordmarks_interactive()`
-  and `geom_sdv_headshots_interactive()`.
+  and `geom_sdv_headshots_interactive()`, which embed images at most `max_px`
+  (160) pixels a side, so 32 logos add about half a megabyte to the page.
 * leaflet: `addSdvLogoMarkers()`.
 
 ## Plots, surfaces and tables

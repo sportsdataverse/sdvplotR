@@ -30,6 +30,29 @@ axis_span <- function(v) {
   if (!is.finite(r) || r == 0) 1 else r
 }
 
+# The span of the axis the marks sit on, as sdvplot's plotly adapter measures
+# it: the range set on the axis, else everything its traces cover plus the new
+# marks (what plotly's autorange fits; bars from zero). Marks placed for a
+# subset of the plotted data (a top 25 on a 360-team axis) are then sized
+# against the whole axis, not the subset.
+# ponytail: sdvplot also pins the range with room for the marks and stacks bars;
+# add both if marks are clipped at the edge or sized off on stacked bars.
+chart_span <- function(p, v, letter, ref) {
+  # plotly_build() runs again when the chart prints: its messages show then
+  b <- suppressMessages(suppressWarnings(plotly::plotly_build(p)))$x
+  rng <- suppressWarnings(as.numeric(b$layout[[sub("^([xy])", "\\1axis", ref)]]$range))
+  if (length(rng) == 2 && all(is.finite(rng))) {
+    return(abs(diff(rng)))
+  }
+  on_axis <- Filter(function(t) identical(t[[paste0(letter, "axis")]] %||% letter, ref), b$data)
+  vals <- c(list(v), lapply(on_axis, function(t) unlist(t[[letter]], use.names = FALSE)))
+  bars <- any(vapply(on_axis, function(t) identical(t$type, "bar"), logical(1)))
+  if (!all(vapply(vals, function(x) is.null(x) || is.numeric(x), logical(1)))) {
+    return(length(unique(unlist(lapply(vals, as.character)))))
+  }
+  axis_span(c(unlist(vals), if (bars) 0))
+}
+
 # ponytail: numeric and categorical axes; date axes abort (add when asked).
 add_layout_images <- function(p, x, y, urls, size, xref, yref) {
   check_not_date(x, y)
@@ -38,8 +61,8 @@ add_layout_images <- function(p, x, y, urls, size, xref, yref) {
   y <- rep_len(if (is.factor(y)) as.character(y) else y, n)
   urls <- rep_len(urls, n)
   # sizing "contain" fits each image by height; sizex only bounds the width
-  sizey <- size * axis_span(y)
-  sizex <- 2 * axis_span(x)
+  sizey <- size * chart_span(p, y, "y", yref)
+  sizex <- 2 * chart_span(p, x, "x", xref)
   ok <- which(!is.na(urls) & !is.na(x) & !is.na(y))
   imgs <- lapply(ok, function(i) {
     list(
@@ -58,8 +81,11 @@ add_layout_images <- function(p, x, y, urls, size, xref, yref) {
 #'   images, so draw a ggplot with [geom_sdv_logos()] or
 #'   [geom_sdv_logos_interactive()] instead.
 #' @details Images are placed in data units and fitted by height: each is sized to
-#'   `size` times the y-axis span (the number of categories on a categorical axis),
-#'   so a chart with a wide y range gets proportionally taller marks. Images already
+#'   `size` times the y-axis span, as sdvplot's plotly adapter sizes them. The span
+#'   is the axis range when one is set, and otherwise everything the chart's traces
+#'   on that axis cover plus the new marks (the number of categories on a
+#'   categorical axis), so marks for a subset of the plotted points are sized
+#'   against the whole axis. Images already
 #'   on the chart, including ones set with [plotly::layout()], are kept. Date axes
 #'   are not supported yet.
 #' @param p A plotly object.
@@ -67,8 +93,8 @@ add_layout_images <- function(p, x, y, urls, size, xref, yref) {
 #' @param team Team identifiers, one per position.
 #' @param player_id Player ids, one per position.
 #' @inheritParams sdv_logo_url
-#' @param size Each image is fitted by height to `size` times the y-axis span (the
-#'   number of categories on a categorical axis), so `0.08` is 8% of the axis.
+#' @param size Each image is fitted by height to `size` times the y-axis span (see
+#'   Details), so `0.08` is 8% of the axis.
 #'   The width follows the image's aspect ratio.
 #' @param xref,yref The axes the positions refer to (`"x2"` for a subplot's).
 #' @return The plotly object with the images added.

@@ -124,20 +124,10 @@ GeomSDVlogo <- ggplot2::ggproto(
     data
   },
   # league, id_system and strict stay in the signature: ggplot2 reads a geom's parameters from it
-  draw_panel = function(data, panel_params, coord, na.rm = FALSE, league = "nfl", id_system = "auto", strict = FALSE) {
-    # a value with no image has already warned (or drawn nothing): don't hand ggpath an NA path to fail on
-    data <- data[!is.na(data$path), , drop = FALSE]
-    if (!nrow(data)) {
-      return(ggplot2::zeroGrob())
-    }
-
-    # Delegate to ggpath for actual rendering
-    ggpath::GeomFromPath$draw_panel(
-      data = data,
-      panel_params = panel_params,
-      coord = coord,
-      na.rm = na.rm
-    )
+  # max_px: set by the interactive geoms (draw_image_panel())
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE, league = "nfl", id_system = "auto", strict = FALSE,
+                        max_px = NULL) {
+    draw_image_panel(data, panel_params, coord, na.rm, max_px)
   },
   draw_key = function(...) grid::nullGrob()
 )

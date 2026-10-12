@@ -12,6 +12,7 @@ geom_sdv_logos_interactive(
   ...,
   league,
   hover_size = 8,
+  max_px = 160,
   id_system = "auto",
   strict = FALSE,
   inherit.aes = TRUE
@@ -23,6 +24,7 @@ geom_sdv_wordmarks_interactive(
   ...,
   league,
   hover_size = 8,
+  max_px = 160,
   id_system = "auto",
   strict = FALSE,
   inherit.aes = TRUE
@@ -34,6 +36,7 @@ geom_sdv_headshots_interactive(
   ...,
   league,
   hover_size = 8,
+  max_px = 160,
   id_system = "espn",
   inherit.aes = TRUE
 )
@@ -65,6 +68,11 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 means different teams in different leagues.}
 
 \item{hover_size}{The size of the invisible hover target, in ggplot2 point size.}
+
+\item{max_px}{The longest side, in pixels, of each image embedded in the
+page. ggiraph writes every image into the widget, and a source logo
+(500 px) or headshot is 20-300 KB, so 30 of them make a page of megabytes;
+160 px stays sharp at the size these geoms draw. \code{NULL} embeds the source.}
 
 \item{id_system}{For headshots, as in \code{\link[=sdv_headshot_url]{sdv_headshot_url()}}.}
 

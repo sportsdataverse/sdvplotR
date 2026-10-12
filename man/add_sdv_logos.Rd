@@ -58,8 +58,8 @@ add_sdv_headshots(
 \item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}. Required: one abbreviation
 means different teams in different leagues.}
 
-\item{size}{Each image is fitted by height to \code{size} times the y-axis span (the
-number of categories on a categorical axis), so \code{0.08} is 8\% of the axis.
+\item{size}{Each image is fitted by height to \code{size} times the y-axis span (see
+Details), so \code{0.08} is 8\% of the axis.
 The width follows the image's aspect ratio.}
 
 \item{season}{\code{NULL} for today's mark, or a season (or one per team): the
@@ -91,8 +91,11 @@ images, so draw a ggplot with \code{\link[=geom_sdv_logos]{geom_sdv_logos()}} or
 }
 \details{
 Images are placed in data units and fitted by height: each is sized to
-\code{size} times the y-axis span (the number of categories on a categorical axis),
-so a chart with a wide y range gets proportionally taller marks. Images already
+\code{size} times the y-axis span, as sdvplot's plotly adapter sizes them. The span
+is the axis range when one is set, and otherwise everything the chart's traces
+on that axis cover plus the new marks (the number of categories on a
+categorical axis), so marks for a subset of the plotted points are sized
+against the whole axis. Images already
 on the chart, including ones set with \code{\link[plotly:layout]{plotly::layout()}}, are kept. Date axes
 are not supported yet.
 }

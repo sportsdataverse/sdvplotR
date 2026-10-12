@@ -15,6 +15,19 @@ test_that("add_sdv_logos places one layout image per resolved team, in data unit
   expect_equal(img[[1]]$sizey, 0.08 * 2)
 })
 
+test_that("marks are sized against the whole axis, not the values passed", {
+  # logos for two of 101 plotted points: 8% of the axis the traces span (0-100), as sdvplot sizes them
+  p <- plotly::plot_ly(x = 0:100, y = 0:100, type = "scatter", mode = "markers")
+  img <- built_images(add_sdv_logos(p, c(40, 50), c(40, 50), c("KC", "BUF"), "nfl"))
+  expect_equal(img[[1]]$sizey, 0.08 * 100)
+  # a range set on the axis wins
+  ranged <- plotly::layout(p, yaxis = list(range = c(0, 10)))
+  expect_equal(built_images(add_sdv_logos(ranged, 40, 5, "KC", "nfl"))[[1]]$sizey, 0.08 * 10)
+  # bars run from zero
+  bars <- plotly::plot_ly(x = c("KC", "BUF"), y = c(5, 8), type = "bar")
+  expect_equal(built_images(add_sdv_logos(bars, c("KC", "BUF"), c(5, 8), c("KC", "BUF"), "nfl"))[[1]]$sizey, 0.08 * 8)
+})
+
 test_that("calls accumulate, and unresolved teams are skipped with the resolver's warning", {
   p <- add_sdv_logos(base_plot(), 1, 3, "KC", "nfl")
   expect_warning(p <- add_sdv_logos(p, 1:2, 3:4, c("BUF", "nope"), "nfl"), class = "sdvplotR_unresolved_warning")

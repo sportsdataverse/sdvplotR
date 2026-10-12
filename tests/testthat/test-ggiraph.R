@@ -18,3 +18,19 @@ test_that("headshot hover layers drop player_id", {
   ls <- geom_sdv_headshots_interactive(ggplot2::aes(1, 1, player_id = 3139477, tooltip = "x"), league = "nfl")
   expect_false("player_id" %in% names(ls[[2]]$mapping))
 })
+
+test_that("interactive geoms embed small copies of the images", {
+  # ggiraph writes each image into the page: the image layer asks for copies at most max_px a side
+  ls <- geom_sdv_logos_interactive(ggplot2::aes(1, 1, team = "KC", tooltip = "KC"), league = "nfl")
+  expect_identical(ls[[1]]$geom_params$max_px, 160)
+  expect_null(geom_sdv_logos_interactive(ggplot2::aes(1, 1, team = "KC"), league = "nfl", max_px = NULL)[[1]]$geom_params$max_px)
+  expect_null(geom_sdv_logos(ggplot2::aes(1, 1, team = "KC"), league = "nfl")$geom_params$max_px)
+
+  src <- tempfile(fileext = ".png")
+  magick::image_write(magick::image_blank(500, 250, "red"), src, format = "png")
+  small <- small_image(src, 160)
+  info <- magick::image_info(magick::image_read(small))
+  expect_identical(c(info$width, info$height), c(160L, 80L))
+  expect_identical(small_image(src, 160), small) # made once per image and size
+  expect_identical(small_image(file.path(tempdir(), "no-such-image.png"), 160), file.path(tempdir(), "no-such-image.png"))
+})

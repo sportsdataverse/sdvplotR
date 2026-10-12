@@ -50,6 +50,40 @@ id_chr <- function(x) {
 
 headshot_alt <- function(id) paste0("Player ", id, " headshot")
 
+# The shared tail of the image geoms' draw_panel: drop rows with no image (they
+# have already warned), shrink each image to `max_px` on its longer side when
+# asked, and let ggpath draw. ggiraph embeds every image in the page at its
+# source size (an ESPN logo is 500 px and 20-60 KB, a headshot ~270 KB), so the
+# interactive geoms ask for small copies; the static geoms draw the source.
+draw_image_panel <- function(data, panel_params, coord, na.rm, max_px = NULL) {
+  data <- data[!is.na(data$path), , drop = FALSE]
+  if (!nrow(data)) {
+    return(ggplot2::zeroGrob())
+  }
+  if (!is.null(max_px)) {
+    u <- unique(data$path)
+    data$path <- vapply(u, small_image, character(1), px = max_px, USE.NAMES = FALSE)[match(data$path, u)]
+  }
+  ggpath::GeomFromPath$draw_panel(data = data, panel_params = panel_params, coord = coord, na.rm = na.rm)
+}
+
+# A copy of the image at `path` no larger than px x px, as a PNG in this
+# session's temp directory (made once per image and size). An image that
+# cannot be read is left to ggpath, which handles (and reports) it as usual.
+small_image <- function(path, px) {
+  out <- file.path(tempdir(), "sdvplotR-images", paste0(rlang::hash(list(path, px)), ".png"))
+  if (file.exists(out)) {
+    return(out)
+  }
+  img <- tryCatch(magick::image_read(path), error = function(e) NULL)
+  if (is.null(img)) {
+    return(path)
+  }
+  dir.create(dirname(out), showWarnings = FALSE, recursive = TRUE)
+  magick::image_write(magick::image_scale(img, sprintf("%dx%d>", px, px)), out, format = "png")
+  out
+}
+
 # ---------------------------------------------------------------------------
 # Headshots
 # ---------------------------------------------------------------------------

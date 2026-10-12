@@ -33,6 +33,10 @@ interactive_layers <- function(image_layer, image_aes, mapping, data, hover_size
 #'   invisible interactive point over each that takes the hover.
 #' @inheritParams geom_sdv_logos
 #' @param hover_size The size of the invisible hover target, in ggplot2 point size.
+#' @param max_px The longest side, in pixels, of each image embedded in the
+#'   page. ggiraph writes every image into the widget, and a source logo
+#'   (500 px) or headshot is 20-300 KB, so 30 of them make a page of megabytes;
+#'   160 px stays sharp at the size these geoms draw. `NULL` embeds the source.
 #' @param ... Passed to the image layer (`width`, `height`, `alpha`, ...).
 #' @return A list of two ggplot2 layers, to add with `+`.
 #' @export
@@ -48,28 +52,34 @@ interactive_layers <- function(image_layer, image_aes, mapping, data, hover_size
 #'   ggiraph::girafe(ggobj = p)
 #' }
 #' }
-geom_sdv_logos_interactive <- function(mapping = NULL, data = NULL, ..., league, hover_size = 8,
+geom_sdv_logos_interactive <- function(mapping = NULL, data = NULL, ..., league, hover_size = 8, max_px = 160,
                                        id_system = "auto", strict = FALSE, inherit.aes = TRUE) {
   interactive_layers(function(m) {
-    geom_sdv_logos(m, data, ..., league = league, id_system = id_system, strict = strict, inherit.aes = inherit.aes)
+    geom_sdv_logos(m, data, ...,
+      league = league, id_system = id_system, strict = strict, max_px = max_px,
+      inherit.aes = inherit.aes
+    )
   }, "team", mapping, data, hover_size, inherit.aes)
 }
 
 #' @rdname geom_sdv_logos_interactive
 #' @export
-geom_sdv_wordmarks_interactive <- function(mapping = NULL, data = NULL, ..., league, hover_size = 8,
+geom_sdv_wordmarks_interactive <- function(mapping = NULL, data = NULL, ..., league, hover_size = 8, max_px = 160,
                                            id_system = "auto", strict = FALSE, inherit.aes = TRUE) {
   interactive_layers(function(m) {
-    geom_sdv_wordmarks(m, data, ..., league = league, id_system = id_system, strict = strict, inherit.aes = inherit.aes)
+    geom_sdv_wordmarks(m, data, ...,
+      league = league, id_system = id_system, strict = strict, max_px = max_px,
+      inherit.aes = inherit.aes
+    )
   }, "team", mapping, data, hover_size, inherit.aes)
 }
 
 #' @rdname geom_sdv_logos_interactive
 #' @param id_system For headshots, as in [sdv_headshot_url()].
 #' @export
-geom_sdv_headshots_interactive <- function(mapping = NULL, data = NULL, ..., league, hover_size = 8,
+geom_sdv_headshots_interactive <- function(mapping = NULL, data = NULL, ..., league, hover_size = 8, max_px = 160,
                                            id_system = "espn", inherit.aes = TRUE) {
   interactive_layers(function(m) {
-    geom_sdv_headshots(m, data, ..., league = league, id_system = id_system, inherit.aes = inherit.aes)
+    geom_sdv_headshots(m, data, ..., league = league, id_system = id_system, max_px = max_px, inherit.aes = inherit.aes)
   }, "player_id", mapping, data, hover_size, inherit.aes)
 }
