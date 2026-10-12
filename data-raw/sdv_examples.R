@@ -12,8 +12,8 @@
 #   * last_season_wins: the same loaders one season back (NFL 2024, NBA
 #     2024-25), for year-over-year examples.
 #
-# Team keys, ESPN ids and names come from this package's own team_reference(),
-# so every `team` resolves through clean_team_abbrs() as itself.
+# Team keys, ESPN ids and names come from this package's own sdv_teams(),
+# so every `team` resolves through sdv_resolve() as itself.
 #
 # Run from the package root: Rscript data-raw/sdv_examples.R
 
@@ -150,7 +150,7 @@ nba <- tibble::tibble(
   league = "nba",
   season = as.integer(nba_season),
   team = nba$team,
-  conference = NA_character_, # from team_reference() below
+  conference = NA_character_, # from sdv_teams() below
   division = nba$division,
   wins = as.integer(nba$wins),
   losses = as.integer(nba$losses),
@@ -164,9 +164,8 @@ nba <- tibble::tibble(
 
 # Together --------------------------------------------------------------------
 
-ref <- bind_rows(team_reference("nfl"), team_reference("nba")) |>
-  filter(type == "team") |>
-  transmute(league = sport, team = team_abbr, espn_team_id, team_name, ref_conf = conference)
+ref <- bind_rows(sdv_teams("nfl"), sdv_teams("nba")) |>
+  transmute(league, team = abbr, espn_team_id = as.integer(team_id), team_name = name, ref_conf = conference)
 
 sdv_example_standings <- bind_rows(nfl, nba) |>
   left_join(ref, by = c("league", "team")) |>
@@ -196,7 +195,8 @@ sdv_example_standings <- sdv_example_standings |>
 # every key is canonical, so it resolves to itself in each helper
 for (lg in c("nfl", "nba")) {
   k <- sdv_example_standings$team[sdv_example_standings$league == lg]
-  stopifnot(identical(clean_team_abbrs(k, sport = lg, keep_non_matches = FALSE), k))
+  lt <- sdv_teams(lg)
+  stopifnot(identical(sdv_resolve(k, lg, strict = TRUE), lt$team_id[match(k, lt$abbr)]))
 }
 # within a conference the ranks run 1..n
 stopifnot(all(tapply(

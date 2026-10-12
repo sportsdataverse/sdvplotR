@@ -8,19 +8,15 @@
 #' @param rows The rows to bold. Either an expression evaluated against the
 #'   table's data, such as `wins > 10`, or a numeric vector of row indices. If
 #'   `NULL`, every row is bolded. Defaults to `NULL`.
-#' @param row Deprecated. Use `rows`.
 #' @param text_color Character. The text color for the bolded rows. Defaults to
 #'   `"black"`.
 #' @param highlight_color Character. The background fill for the bolded rows. Set
 #'   to `NULL` for no fill. Defaults to `NULL`.
-#' @param filter_statement Deprecated. Use `rows`, which takes the expression
-#'   directly rather than as a string.
 #'
 #' @details
 #' `rows` is evaluated against the table's underlying data, so `rows = wins > 10`
 #' bolds the rows where that is `TRUE`; a numeric vector picks rows by index. The
-#' deprecated `row` is passed on to `rows`, and the deprecated `filter_statement`
-#' string, when given, takes precedence over `rows`. The styling is applied with a single
+#' styling is applied with a single
 #' `gt::tab_style()` over `gt::cells_body()`, so it covers every column of the
 #' chosen rows.
 #'
@@ -43,24 +39,14 @@
 gt_bold_rows <- function(gt_object,
                          rows = NULL,
                          text_color = "black",
-                         highlight_color = NULL,
-                         row = NULL,
-                         filter_statement = NULL) {
+                         highlight_color = NULL) {
   .check_gt(gt_object)
 
   # extract data
   data <- gt_object[["_data"]]
 
-  if (!is.null(row)) {
-    lifecycle_warn("row", "rows")
-    rows <- row
-  }
-  if (!is.null(filter_statement)) {
-    lifecycle_warn("filter_statement", "rows")
-  }
-
   rows_q <- rlang::enquo(rows)
-  if (!rlang::quo_is_null(rows_q) && is.null(filter_statement)) {
+  if (!rlang::quo_is_null(rows_q)) {
     res <- rlang::eval_tidy(rows_q, data = data)
     idx <- if (is.logical(res)) which(res) else as.integer(res)
     idx <- idx[!is.na(idx) & idx >= 1 & idx <= nrow(data)]
@@ -71,13 +57,7 @@ gt_bold_rows <- function(gt_object,
     return(.bold_rows_apply(gt_object, idx, text_color, highlight_color))
   }
 
-  rows_to_change <- if (!is.null(filter_statement)) {
-    which(eval(parse(text = filter_statement), envir = data))
-  } else {
-    seq_len(nrow(data))
-  }
-
-  .bold_rows_apply(gt_object, rows_to_change, text_color, highlight_color)
+  .bold_rows_apply(gt_object, seq_len(nrow(data)), text_color, highlight_color)
 }
 
 # bold text, and a fill only when a highlight color is given
@@ -91,18 +71,4 @@ gt_bold_rows <- function(gt_object,
       locations = gt::cells_body(rows = rows),
       style = style
     )
-}
-
-# one warning per session per argument, so a loop does not spam; rlang
-# tracks the frequency, so no user option is set
-lifecycle_warn <- function(old, new) {
-  cli::cli_warn(
-    c(
-      "{.arg {old}} is deprecated.",
-      "i" = "Use {.arg {new}}, which takes an expression such as {.code wins > 10} \\
-             or a vector of row indices."
-    ),
-    .frequency = "once",
-    .frequency_id = paste0("sdvplotR_deprecated_", old)
-  )
 }

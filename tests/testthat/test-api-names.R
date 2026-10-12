@@ -69,3 +69,32 @@ test_that("every helper that resolves teams takes season, id_system and strict",
   )
   for (n in need) for (f in n$fns) expect_true(all(n$args %in% names(formals(get(f, ns)))), info = f)
 })
+
+test_that("no deprecated or pre-index object remains", {
+  ns <- asNamespace("sdvplotR")
+  gone <- c(
+    "gt_color_legend", "gt_centered_legend", "logo_ref", "logo_marks", "logo_history",
+    "abbr_mapping", "soccer_ambiguous", "historical_team_mappings"
+  )
+  expect_identical(intersect(gone, ls(ns, all.names = TRUE)), character())
+})
+
+test_that("the source tree never mentions a removed name", {
+  root <- testthat::test_path("..", "..")
+  skip_if_not(dir.exists(file.path(root, "R")), "source tree not available (installed package)")
+  files <- c(
+    list.files(file.path(root, c("R", "vignettes", "man")), pattern = "[.](R|Rmd|Rd|md)$", recursive = TRUE, full.names = TRUE),
+    file.path(root, c("README.Rmd", "NEWS.md", "_pkgdown.yml"))
+  )
+  pat <- paste0(
+    "supported_sports|team_reference|valid_team_names|clean_team_abbrs|resolve_historical_abbr|",
+    "sdvplotR_clear_cache|gt_color_legend|gt_centered_legend|sdvplotR-deprecated|(?<![A-Za-z0-9_])id_type(?![A-Za-z0-9_])|",
+    "(?<![A-Za-z0-9_])sport[[:space:]]*=|variant[[:space:]]*=[[:space:]]*\"primary\"|[Dd]eprecat"
+  )
+  hits <- unlist(lapply(files[file.exists(files)], function(f) {
+    l <- readLines(f, warn = FALSE)
+    i <- grep(pat, l, perl = TRUE)
+    if (length(i)) paste0(basename(f), ":", i, ": ", trimws(l[i]))
+  }))
+  expect_identical(hits, NULL, info = paste(utils::head(hits, 30), collapse = "\n"))
+})

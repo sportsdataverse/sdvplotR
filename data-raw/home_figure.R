@@ -15,12 +15,12 @@ sides <- rbind(
   data.frame(team = games$away_team, scored = games$away_score, allowed = games$home_score)
 )
 teams <- aggregate(cbind(scored, allowed) ~ team, data = sides, FUN = mean)
-stopifnot(nrow(teams) == 32, all(teams$team %in% valid_team_names("nfl")))
+stopifnot(nrow(teams) == 32, all(teams$team %in% sdv_teams("nfl")$abbr))
 
 p <- ggplot(teams, aes(x = scored, y = allowed)) +
   geom_hline(yintercept = mean(teams$allowed), linetype = "dashed", colour = "grey65") +
   geom_vline(xintercept = mean(teams$scored), linetype = "dashed", colour = "grey65") +
-  geom_sdv_logos(aes(team = team), sport = "nfl", width = 0.06) +
+  geom_sdv_logos(aes(team = team), league = "nfl", width = 0.06) +
   scale_y_reverse() +
   labs(
     title = "Points scored and allowed per game",

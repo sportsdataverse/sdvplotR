@@ -265,11 +265,6 @@ reference:
     desc: Generic image geoms and theme elements provided by the ggpath backend.
     contents:
       - reexports
-  - title: "Deprecated"
-    desc: Former gtUtils names, kept so ported code keeps working.
-    contents:
-      - sdvplotR-deprecated
-
 articles:
   - title: "Gallery"
     contents:

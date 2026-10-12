@@ -19,7 +19,6 @@
 #'   value is a list with two elements: `heading` (the main heading) and `subtitle`
 #'   (the subtitle text). A column left out of `...` uses its column name as the
 #'   heading and a non-breaking space (`&nbsp;`) as the subtitle.
-#' @param gt_table Deprecated. Use `gt_object`.
 #'
 #' @details
 #' Every column in the table is relabeled, not only the ones named in `...`. The
@@ -60,17 +59,7 @@ gt_column_subheaders <- function(gt_object,
                                  heading_size = 14,
                                  subtitle_size = 10,
                                  font = NULL,
-                                 ...,
-                                 gt_table = NULL) {
-  # deprecated argument, kept so old calls keep working
-  if (!is.null(gt_table)) {
-    cli::cli_warn(c(
-      "The {.arg gt_table} argument of {.fn gt_column_subheaders} is deprecated.",
-      "i" = "Use {.arg gt_object} instead."
-    ))
-    gt_object <- gt_table
-  }
-
+                                 ...) {
   .check_gt(gt_object)
 
   subheaders <- list(...)

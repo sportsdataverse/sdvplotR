@@ -9,8 +9,7 @@ gt_set_font(
   font_family,
   from_google_font = TRUE,
   weight = NULL,
-  style = NULL,
-  gt_table = NULL
+  style = NULL
 )
 }
 \arguments{
@@ -29,8 +28,6 @@ Defaults to \code{NULL}, which leaves the weight alone.}
 \item{style}{Character. The font style applied to every part, one of
 \code{"normal"}, \code{"italic"}, or \code{"oblique"}. Defaults to \code{NULL}, which leaves the
 style alone.}
-
-\item{gt_table}{Deprecated. Use \code{gt_object}.}
 }
 \value{
 Returns a modified \code{gt} table with the font family applied to every

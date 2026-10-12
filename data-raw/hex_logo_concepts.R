@@ -58,9 +58,9 @@ opt_surfaces <- function() {
 # ---- H1. palette: a swatch grid of real team colours, one row per league -----
 league_colors <- function(n = 12) {
   lapply(names(picks), function(s) {
-    ref <- team_reference(s)
-    cols <- ref$color1[!is.na(ref$color1)]
-    cols[!cols %in% c("#FFFFFF", "#000000")][seq_len(n)]
+    ref <- sdv_teams(s)
+    cols <- ref$color_primary[!is.na(ref$color_primary)]
+    cols[!toupper(cols) %in% c("#FFFFFF", "#000000")][seq_len(n)]
   })
 }
 opt_palette <- function() {

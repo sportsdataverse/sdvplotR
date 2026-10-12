@@ -16,7 +16,6 @@
 #' @param style Character. The font style applied to every part, one of
 #'   `"normal"`, `"italic"`, or `"oblique"`. Defaults to `NULL`, which leaves the
 #'   style alone.
-#' @param gt_table Deprecated. Use `gt_object`.
 #'
 #' @details
 #' The font is applied with a single `gt::tab_style()` over a list of cell
@@ -44,17 +43,7 @@ gt_set_font <- function(gt_object,
                         font_family,
                         from_google_font = TRUE,
                         weight = NULL,
-                        style = NULL,
-                        gt_table = NULL) {
-  # deprecated argument, kept so old calls keep working
-  if (!is.null(gt_table)) {
-    cli::cli_warn(c(
-      "The {.arg gt_table} argument of {.fn gt_set_font} is deprecated.",
-      "i" = "Use {.arg gt_object} instead."
-    ))
-    gt_object <- gt_table
-  }
-
+                        style = NULL) {
   .check_gt(gt_object)
 
   family <- if (isTRUE(from_google_font)) gt::google_font(font_family) else font_family

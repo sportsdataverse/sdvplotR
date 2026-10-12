@@ -8,9 +8,7 @@ gt_bold_rows(
   gt_object,
   rows = NULL,
   text_color = "black",
-  highlight_color = NULL,
-  row = NULL,
-  filter_statement = NULL
+  highlight_color = NULL
 )
 }
 \arguments{
@@ -25,11 +23,6 @@ table's data, such as \code{wins > 10}, or a numeric vector of row indices. If
 
 \item{highlight_color}{Character. The background fill for the bolded rows. Set
 to \code{NULL} for no fill. Defaults to \code{NULL}.}
-
-\item{row}{Deprecated. Use \code{rows}.}
-
-\item{filter_statement}{Deprecated. Use \code{rows}, which takes the expression
-directly rather than as a string.}
 }
 \value{
 Returns a modified \code{gt} table with the chosen rows bolded.
@@ -42,8 +35,7 @@ neither, every row is bolded.
 \details{
 \code{rows} is evaluated against the table's underlying data, so \code{rows = wins > 10}
 bolds the rows where that is \code{TRUE}; a numeric vector picks rows by index. The
-deprecated \code{row} is passed on to \code{rows}, and the deprecated \code{filter_statement}
-string, when given, takes precedence over \code{rows}. The styling is applied with a single
+styling is applied with a single
 \code{gt::tab_style()} over \code{gt::cells_body()}, so it covers every column of the
 chosen rows.
 }

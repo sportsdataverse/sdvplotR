@@ -25,6 +25,7 @@ stopifnot(nchar(fold_from) == nchar(fold_to))
 
 env <- new.env()
 load("R/sysdata.rda", envir = env)
+rm(list = intersect(c("logo_ref", "logo_marks", "logo_history", "abbr_mapping", "soccer_ambiguous"), ls(env)), envir = env)
 for (n in c("snapshot_teams", "snapshot_aliases", "snapshot_marks", "snapshot_meta", "fold_from", "fold_to")) {
   assign(n, get(n), envir = env)
 }

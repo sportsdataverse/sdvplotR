@@ -13,8 +13,7 @@ gt_column_subheaders(
   heading_size = 14,
   subtitle_size = 10,
   font = NULL,
-  ...,
-  gt_table = NULL
+  ...
 )
 }
 \arguments{
@@ -40,8 +39,6 @@ rendering the table or loaded by the theme. Defaults to \code{NULL}.}
 value is a list with two elements: \code{heading} (the main heading) and \code{subtitle}
 (the subtitle text). A column left out of \code{...} uses its column name as the
 heading and a non-breaking space (\verb{&nbsp;}) as the subtitle.}
-
-\item{gt_table}{Deprecated. Use \code{gt_object}.}
 }
 \value{
 Returns a modified \code{gt} table with stacked headers and subtitles.
