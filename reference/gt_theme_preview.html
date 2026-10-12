@@ -330,8 +330,10 @@ shown at their defaults.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nfl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sdv_example_standings</span>, <span class="va">league</span> <span class="op">==</span> <span class="st">"nfl"</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nfl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">sdv_example_standings</span>, <span class="va">league</span> <span class="op">==</span> <span class="st">"nfl"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">gt_theme_preview</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">nfl</span>,</span></span>
 <span class="r-in"><span>  themes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gt_theme_sdv"</span>, <span class="st">"gt_theme_kenpom"</span>, <span class="st">"gt_theme_athletic"</span><span class="op">)</span></span></span>
@@ -1883,8 +1885,10 @@ shown at their defaults.</p>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive() &amp;&amp; rlang::is_installed("webshot2") &amp;&amp; isTRUE(file.exists(chromote::find_chrome()))</span></span></span>
 <span class="r-in"><span><span class="co"># a subset, saved as one wide image; saving needs a headless Chrome (webshot2)</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="va">nba</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sdv_example_standings</span>, <span class="va">league</span> <span class="op">==</span> <span class="st">"nba"</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nba</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">sdv_example_standings</span>, <span class="va">league</span> <span class="op">==</span> <span class="st">"nba"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">team_name</span>, <span class="va">wins</span>, <span class="va">losses</span>, <span class="va">win_pct</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">gt_theme_preview</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">nba</span>,</span></span>
 <span class="r-in"><span>  themes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gt_theme_broadsheet"</span>, <span class="st">"gt_theme_swiss"</span>, <span class="st">"gt_theme_midnight"</span><span class="op">)</span>,</span></span>

@@ -84,8 +84,10 @@ if (FALSE) { # interactive() && rlang::is_installed("webshot2") && isTRUE(file.e
 # \donttest{
 library(gt)
 
-nfc_west <- subset(sdv_example_standings, division == "NFC West",
-  c(team_name, wins:points_against))
+nfc_west <- subset(
+  sdv_example_standings, division == "NFC West",
+  c(team_name, wins:points_against)
+)
 
 gt(nfc_west) |>
   gt_theme_broadsheet(density = "social") |>

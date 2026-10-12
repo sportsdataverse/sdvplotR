@@ -83,8 +83,10 @@ which does the layout.
 ## Examples
 
 ``` r
-nfl <- subset(sdv_example_standings, league == "nfl",
-  c(team_name, wins, losses, win_pct))
+nfl <- subset(
+  sdv_example_standings, league == "nfl",
+  c(team_name, wins, losses, win_pct)
+)
 gt_theme_preview(
   nfl,
   themes = c("gt_theme_sdv", "gt_theme_kenpom", "gt_theme_athletic")

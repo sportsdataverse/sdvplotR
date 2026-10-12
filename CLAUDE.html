@@ -325,7 +325,9 @@
 </ul></div>
 <div class="section level2">
 <h2 id="formatting">Formatting<a class="anchor" aria-label="anchor" href="#formatting"></a></h2>
-<ul><li>Run <code>styler</code> only on files a change adds. styler 1.11 rewrites this repo’s double-indent function signatures (<code>f &lt;- function(\n    arg,\n    arg) {</code>) in existing files, which turns a small fix into a diff across every signature; lintr’s indentation_linter also disagrees with that style (the known lints on <code>main</code>).</li>
+<ul><li>Run <code>styler</code> only on files a change adds. styler 1.11 rewrites this repo’s double-indent function signatures (<code>f &lt;- function(\n    arg,\n    arg) {</code>) in existing files, which turns a small fix into a diff across every signature; lintr’s indentation_linter also disagrees with that style. To apply styler’s other fixes across the package (as on 2026-10-12), style a copy of <code>R/</code> and <code>tests/</code> and keep every hunk except the whitespace-only ones, which are the signature re-indents.</li>
+<li>
+<code>lintr::lint_package()</code> is at 0. Roxygen lines that cannot wrap (markdown table rows, <code>\figure{}</code> macros) sit inside <code># nolint start: line_length_linter.</code> / <code># nolint end</code> placed outside the <code>#'</code> block.</li>
 </ul></div>
 <div class="section level2">
 <h2 id="commit-convention">Commit convention<a class="anchor" aria-label="anchor" href="#commit-convention"></a></h2>

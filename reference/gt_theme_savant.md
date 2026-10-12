@@ -62,8 +62,10 @@ export at.
 
 ``` r
 library(gt)
-afc_east <- subset(sdv_example_standings, division == "AFC East",
-  c(team_name, wins:points_against))
+afc_east <- subset(
+  sdv_example_standings, division == "AFC East",
+  c(team_name, wins:points_against)
+)
 gt(afc_east) |> gt_theme_savant()
 
 

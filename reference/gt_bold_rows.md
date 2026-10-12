@@ -55,8 +55,10 @@ so it covers every column of the chosen rows.
 ``` r
 library(gt)
 
-nfc_west <- subset(sdv_example_standings, division == "NFC West",
-  c(team_name, wins:points_against))
+nfc_west <- subset(
+  sdv_example_standings, division == "NFC West",
+  c(team_name, wins:points_against)
+)
 
 # bold every row
 gt(nfc_west) |> gt_bold_rows()

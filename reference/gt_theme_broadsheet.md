@@ -80,8 +80,10 @@ for explaining a colored column.
 ``` r
 library(gt)
 
-nfc_east <- subset(sdv_example_standings, division == "NFC East",
-  c(team_name, wins:points_against))
+nfc_east <- subset(
+  sdv_example_standings, division == "NFC East",
+  c(team_name, wins:points_against)
+)
 gt(nfc_east) |> gt_theme_broadsheet()
 
 

@@ -69,8 +69,10 @@ style](figures/gt_theme_sofa_dark.png)
 
 ``` r
 library(gt)
-nfc_north <- subset(sdv_example_standings, division == "NFC North",
-  c(team_name, wins:points_against))
+nfc_north <- subset(
+  sdv_example_standings, division == "NFC North",
+  c(team_name, wins:points_against)
+)
 gt(nfc_north) |> gt_theme_sofa()
 
 

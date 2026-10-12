@@ -87,8 +87,10 @@ for visible attribution in the source note.
 ``` r
 library(gt)
 
-afc_south <- subset(sdv_example_standings, division == "AFC South",
-  c(team_name, wins:points_against))
+afc_south <- subset(
+  sdv_example_standings, division == "AFC South",
+  c(team_name, wins:points_against)
+)
 
 gt(afc_south) |> gt_watermark(text = "DRAFT", angle = -30, opacity = 0.08)
 

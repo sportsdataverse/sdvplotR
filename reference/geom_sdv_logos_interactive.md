@@ -126,7 +126,8 @@ if (requireNamespace("ggiraph", quietly = TRUE)) {
   d <- data.frame(x = 1:3, y = c(2, 3, 1), team = c("KC", "BUF", "BAL"))
   p <- ggplot(d, aes(x, y)) +
     geom_sdv_logos_interactive(
-      aes(team = team, tooltip = team, data_id = team), league = "nfl", width = 0.1
+      aes(team = team, tooltip = team, data_id = team),
+      league = "nfl", width = 0.1
     )
   ggiraph::girafe(ggobj = p)
 }

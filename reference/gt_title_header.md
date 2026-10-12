@@ -109,8 +109,10 @@ for the footer equivalent.
 ``` r
 library(gt)
 
-nfc_west <- subset(sdv_example_standings, division == "NFC West",
-  c(team_name, wins:points_against))
+nfc_west <- subset(
+  sdv_example_standings, division == "NFC West",
+  c(team_name, wins:points_against)
+)
 
 gt(nfc_west) |>
   gt_title_header(

@@ -179,8 +179,10 @@ for a continuous ramp.
 ``` r
 library(gt)
 
-afc_west <- subset(sdv_example_standings, division == "AFC West",
-  c(team_name, wins, losses, playoff_wins))
+afc_west <- subset(
+  sdv_example_standings, division == "AFC West",
+  c(team_name, wins, losses, playoff_wins)
+)
 
 # a named vector is the quickest way in
 gt(afc_west) |>

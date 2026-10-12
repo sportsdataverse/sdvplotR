@@ -78,8 +78,10 @@ and its `scale_by` argument, so the underlying data is left untouched.
 library(gt)
 
 # an NBA season's points, scored and allowed
-atlantic <- subset(sdv_example_standings, division == "Atlantic",
-  c(team_name, points_for, points_against))
+atlantic <- subset(
+  sdv_example_standings, division == "Atlantic",
+  c(team_name, points_for, points_against)
+)
 
 # Boston's 9,418 points render as 9.4, with "Figures in thousands." beneath
 gt(atlantic) |>

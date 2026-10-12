@@ -74,8 +74,10 @@ for significance notation.
 ``` r
 library(gt)
 
-afc_west <- subset(sdv_example_standings, division == "AFC West",
-  c(team_name, wins:points_against))
+afc_west <- subset(
+  sdv_example_standings, division == "AFC West",
+  c(team_name, wins:points_against)
+)
 gt(afc_west) |> gt_theme_booktabs()
 
 

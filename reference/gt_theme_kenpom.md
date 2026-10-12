@@ -66,8 +66,10 @@ export at.
 
 ``` r
 library(gt)
-central <- subset(sdv_example_standings, division == "Central",
-  c(team_name, wins, losses, win_pct:points_against))
+central <- subset(
+  sdv_example_standings, division == "Central",
+  c(team_name, wins, losses, win_pct:points_against)
+)
 gt(central) |> gt_theme_kenpom()
 
 

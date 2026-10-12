@@ -94,8 +94,10 @@ library(ggplot2)
 nfl <- subset(sdv_example_standings, league == "nfl")
 p <- ggplot(nfl, aes(x = points_for, y = points_against)) +
   geom_point() +
-  labs(title = "This Title will be overwritten",
-       subtitle = "Points scored and allowed, 2025 regular season")
+  labs(
+    title = "This Title will be overwritten",
+    subtitle = "Points scored and allowed, 2025 regular season"
+  )
 
 if (requireNamespace("ggtext", quietly = TRUE)) {
   p +

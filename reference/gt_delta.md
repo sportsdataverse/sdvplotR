@@ -114,8 +114,10 @@ for disclosing a divided scale.
 ``` r
 library(gt)
 
-nfc_north <- subset(sdv_example_standings, division == "NFC North",
-  c(team_name, last_season_wins, wins))
+nfc_north <- subset(
+  sdv_example_standings, division == "NFC North",
+  c(team_name, last_season_wins, wins)
+)
 
 # the change in wins from 2024, colored by sign
 gt(nfc_north) |> gt_delta(last_season_wins, wins)
