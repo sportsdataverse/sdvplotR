@@ -38,28 +38,34 @@ season <- 2026 # NBA, NHL and college basketball: the 2025-26 season; MLB and WN
 ## 1. See a league's palette
 
 `sdv_teams()` holds every team's two colors (`color_primary`, `color_secondary`), with
-its conference. Laid out in one row per conference (16 teams each), with each team's logo above
+its conference. Laid out in rows of 8 teams, grouped by conference (two rows each), with each team's logo above
 its two swatches, it is a quick check of what a chart will look like:
 
-```{r palette, fig.width = 14, fig.height = 4.2, fig.alt = "The 32 NHL teams in two rows of 16, one per conference, Eastern above Western. Each team's logo sits above two squares filled with its primary and secondary colors, with the hex codes underneath."}
+```{r palette, fig.width = 8, fig.height = 7, out.width = "100%", fig.alt = "The 32 NHL teams in four rows of 8, grouped by conference: the Eastern Conference in the top two rows, the Western Conference in the bottom two. Each team's logo sits above two squares filled with its primary and secondary colors, with its two hex codes (primary above secondary) underneath."}
 nhl_ref <- sdv_teams("nhl") |>
   arrange(conference, abbr) |>
-  mutate(slot = row_number(), .by = conference)
+  mutate(
+    band = (row_number() - 1) %/% 8 + 1,
+    slot = (row_number() - 1) %% 8 + 1,
+    panel = paste(conference, band),
+    .by = conference
+  )
 
 swatches <- bind_rows(
-  transmute(nhl_ref, conference, slot, x = slot - 0.2, color = color_primary),
-  transmute(nhl_ref, conference, slot, x = slot + 0.2, color = color_secondary)
+  transmute(nhl_ref, panel, slot, x = slot - 0.2, color = color_primary),
+  transmute(nhl_ref, panel, slot, x = slot + 0.2, color = color_secondary)
 )
 
 ggplot(nhl_ref, aes(x = slot)) +
   geom_tile(aes(x = x, y = 1, fill = color), data = swatches,
     width = 0.38, height = 0.5, colour = "grey70", linewidth = 0.2
   ) +
-  geom_text(aes(x = x, y = 0.6, label = color), data = swatches, size = 1.8) +
-  geom_sdv_logos(aes(y = 1.75, team = team_id), league = "nhl", height = 0.32) +
+  geom_text(aes(y = 0.58, label = paste(color_primary, color_secondary, sep = "
+")), size = 2.6, lineheight = 0.95) +
+  geom_sdv_logos(aes(y = 1.75, team = team_id), league = "nhl", height = 0.3) +
   scale_fill_identity() +
-  facet_wrap(~conference, ncol = 1) +
-  scale_y_continuous(limits = c(0.4, 2.15)) +
+  facet_wrap(~panel, ncol = 1, labeller = as_labeller(function(x) ifelse(endsWith(x, " 1"), sub(" 1$", "", x), ""))) +
+  scale_y_continuous(limits = c(0.3, 2.15)) +
   labs(title = "NHL team colors by conference", caption = "Colors: sdvplotR::sdv_teams()") +
   theme_void() +
   theme(strip.text = element_text(face = "bold", hjust = 0), plot.margin = margin(8, 8, 8, 8))

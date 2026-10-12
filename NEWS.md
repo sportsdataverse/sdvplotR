@@ -14,9 +14,16 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   for codes reused across eras; `sdv_suggest()` proposes candidates for a
   value that does not resolve. The helpers that take a team take `league` and
   `id_system`. Those that draw team marks or colours also take `season`
-  (the `geom_sdv_*` layers read it as an aesthetic or a constant), and the
-  logo, wordmark and colour helpers take `strict` to raise instead of warn
-  when a value does not resolve. Headshot helpers take no `season`;
+  (the `geom_sdv_*` layers read it as an aesthetic or a constant).
+  `strict` (raise instead of warn when a value does not resolve) is taken by
+  `sdv_resolve()`, `sdv_logo_url()`, `sdv_team_colors()`,
+  `sdv_color_palette()`, `sdv_team_tiers()` and the logo, wordmark, label and
+  colour-bar helpers (`geom_sdv_logos()`, `geom_sdv_wordmarks()`,
+  `add_sdv_logos()`, `add_sdv_wordmarks()`, `addSdvLogoMarkers()`,
+  `sdv_axis_logos()` and the `gt_sdv_*` and `reactable_sdv_*` helpers that draw
+  them), but not by `sdv_marks()`, `element_sdv_logo()`,
+  `element_sdv_wordmark()`, `scale_x_sdv()`, `scale_y_sdv()`, `sdv_colorway()`
+  or `sdv_team_factor()`. Headshot helpers take no `season`;
   `ggtitle_image()`, `scale_colour_sdv()`, `scale_color_sdv()` and
   `scale_fill_sdv()` take neither `season` nor `id_system`; `sdv_surface()`
   takes `league` and `season` but no `id_system`.
