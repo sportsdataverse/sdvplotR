@@ -12,12 +12,10 @@ Local results (recorded 2026-10-12):
 * local: Windows 10, R 4.6.1 (`R CMD check --as-cran --run-donttest` on the
   built tarball, 3.5 MB)
 
-PENDING (run after the SportsDataverse CDN index is published, so the checks
-exercise the live path):
-
-* R-hub: linux, windows, macos, macos-arm64, atlas, clang-asan, gcc15, nold,
+* R-hub (2026-10-12, against the published CDN index): linux (R-devel),
+  windows (R-devel), macos (R-devel), macos-arm64 (R-devel), atlas, nold,
   ubuntu-next
-* win-builder: release and devel
+* win-builder: release and devel (PENDING)
 
 ## R CMD check results
 
@@ -26,7 +24,14 @@ Local, Windows 10, R 4.6.1: 0 errors | 0 warnings | 2 notes
 * This is a new submission.
 * The Windows-only `'NULL'` directory note described below.
 
-R-hub and win-builder: PENDING.
+R-hub: Status: OK (0 errors | 0 warnings | 0 notes) on all seven platforms
+above. The clang-asan and gcc15 containers could not install dependencies,
+so sdvplotR was not checked there: 'terra' (a dependency of a Suggests
+package) fails to load against the container's GDAL (an undefined libc++
+symbol), and on gcc15 'vctrs' fails in `.onLoad` ("symbol bindings not
+supported yet"), which stops 'ggpath' from installing.
+
+win-builder: PENDING.
 
 `urlchecker::url_check()` is clean. Words flagged as possibly misspelled in
 the DESCRIPTION (`headshots`, `wordmarks`) are the sports-media terms for
