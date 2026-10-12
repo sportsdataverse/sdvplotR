@@ -1,0 +1,213 @@
+---
+title: "Team Tables with the gt Toolkit"
+description: "The two kinds of gt helpers on one table: the team layer of logos, headshots and colors, and the table toolkit of themes, legends and cut lines."
+author: "Saiem Gilani <br><a href='https://x.com/saiemgilani' target='blank'><img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;label=%40saiemgilani&amp;logo=x&amp;style=for-the-badge' alt='@saiemgilani'/></a> <a href='https://github.com/saiemgilani' target='blank'><img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@saiemgilani'/></a>"
+opengraph:
+  image:
+    src: "https://sdvplotR.sportsdataverse.org/reference/figures/gt_theme_sdv_dark.png"
+  twitter:
+    site: "@SportsDataverse"
+    card: summary_large_image
+    creator: "@saiemgilani"
+output: html_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+sdvplotR has two kinds of `gt` helpers, and this article uses both on one table.
+
+- **The team layer** turns team keys into logos, headshots and team colors
+  (`gt_sdv_logos()`, `gt_sdv_headshots()`, `gt_merge_stack_team_color()`). It
+  resolves every abbreviation, alias and relocated franchise through
+  `sdv_resolve()`.
+- **The table toolkit**, ported from Andrew Weatherman's
+  [gtUtils](https://github.com/andreweatherman/gtUtils), handles the editorial
+  side: cut lines, colored ranks, captions, legends, grids of tables, themes, and
+  saving images sized for posting.
+
+Every one of these functions takes a `gt` table and returns one, so they chain
+in any order. Having both in one package means one install, and one set of
+conventions for how a sports table is built.
+
+```{r setup, message = FALSE}
+library(sdvplotR)
+library(gt)
+```
+
+## The data
+
+The final 2025 standings. `nflseedR::nfl_standings()` computes them from
+nflverse's schedule, read with `nflreadr`, NFL tiebreakers included; its
+`conf_rank` is each team's place in its conference, so ranks 1-7 are the playoff
+seeds. The seeds come first in seed order, followed by the rest.
+
+```{r data, message = FALSE}
+standings <- nflseedR::nfl_standings(nflreadr::load_schedules(2025), verbosity = "NONE")
+
+conference_standings <- function(conference) {
+  s <- standings[standings$conf == conference, ]
+  s <- s[order(s$conf_rank), ]
+  data.frame(
+    team = s$team,
+    seed = ifelse(s$conf_rank <= 7, s$conf_rank, NA),
+    w = s$true_wins,
+    l = s$losses,
+    pct = s$win_pct
+  )
+}
+
+afc <- conference_standings("AFC")
+```
+
+## Step by step
+
+Start with logos, labels and a box-score win percentage (`.765`, not `0.765`).
+
+```{r base}
+base <- function(df, conference) {
+  gt(df) |>
+    gt_sdv_logos(columns = "team", league = "nfl", height = 24) |>
+    cols_label(team = "", seed = "Seed", w = "W", l = "L", pct = "Win pct") |>
+    sub_missing(columns = "seed", missing_text = "") |>
+    fmt(columns = "pct", fns = function(x) sub("^0", "", sprintf("%.3f", x))) |>
+    tab_header(paste(conference, "playoff picture"), "Final 2025 standings")
+}
+base(afc, "AFC")
+```
+
+A standings table is read around one question: who is in? `gt_cutline()` draws
+the answer as a line after the seventh row, with a label, so readers don't have
+to count seeds.
+
+```{r cutline}
+base(afc, "AFC") |>
+  gt_cutline(after = 7, label = "Playoff line")
+```
+
+`gt_color_ranks()` colors a column by its values, which shows where the wins
+cluster faster than reading the numbers;
+`reverse = TRUE` puts the most wins at the green end. The cut line's label sits
+in the row below the line and clears that row's cell colors, so with colored
+cells, keep the line unlabeled and say what it means in the caption.
+`gt_538_caption()` separates that note from the source line.
+`gt_theme_sdv()` goes last so it styles everything added before it, and
+`density` is passed through for the saved version below.
+
+```{r full}
+playoff_table <- function(df, conference, density = "comfortable") {
+  base(df, conference) |>
+    gt_cutline(after = 7) |>
+    gt_color_ranks(columns = "w", reverse = TRUE) |>
+    gt_538_caption(
+      top_caption = "Above the line: playoff teams.",
+      bottom_caption = "Data: nflverse via nflreadr and nflseedR"
+    ) |>
+    gt_theme_sdv(density = density)
+}
+playoff_table(afc, "AFC")
+```
+
+## Both conferences at once
+
+`gt_grid()` lays several finished tables out under one shared title and source
+line. Each table keeps its own theme and cut line; a note that applies to both
+goes in the grid's `caption`, so each table's own caption stays short and the
+tables stay narrow enough to sit side by side.
+
+```{r grid}
+nfc <- conference_standings("NFC")
+
+gt_grid(
+  list(playoff_table(afc, "AFC"), playoff_table(nfc, "NFC")),
+  ncol = 2,
+  title = "The 2025 NFL playoff field",
+  subtitle = "Final regular-season standings",
+  caption = "Seeds 1-4 won their division; 5-7 are wild cards.",
+  title_style = list(font = "Chivo", weight = 800)
+)
+```
+
+On a narrow screen the grid scrolls sideways inside its own box, so the page
+around it stays in place.
+
+## Posting it
+
+`gt_save_crop()` saves a single table, trimmed and padded; `gt_social_crop()`
+pads it to a platform's aspect ratio. Use the theme's background from `theme_bg`
+so the padding blends with the table. `gt_grid()` saves the whole grid when you
+give it a `file`. Saving drives a headless Chrome through `webshot2`, so these
+lines are not run here.
+
+```{r save, eval = FALSE}
+bg <- theme_bg$bg[theme_bg$theme == "gt_theme_sdv" & theme_bg$has_style == "light"]
+
+playoff_table(afc, "AFC", density = "social") |>
+  gt_social_crop("afc-playoffs.png", aspect_ratio = "4:5", bg = bg)
+
+gt_grid(
+  list(playoff_table(afc, "AFC"), playoff_table(nfc, "NFC")),
+  title = "The 2025 NFL playoff field",
+  file = "playoff-field.png"
+)
+```
+
+## Where to go next
+
+- [SportsDataverse Table Themes](sdv-table-themes.html) covers the house theme,
+  the dark style and team colors.
+- The rest of the Tables cookbook goes deeper on single tools:
+  [styling headers, legends and captions](styling.html),
+  [percentile bars and cut lines](delay_tables.html),
+  [faceted tables](grid_tables.html),
+  [tier lists](tier_list.html),
+  [border bars](border_bars.html),
+  [schedule matrices](schedule_matrix.html),
+  [rolling windows](window_wins.html) and
+  [saving and posting](saving_tables.html).
+
+## **Our Authors**
+
+-   [Saiem Gilani](https://x.com/saiemgilani)<br>
+<a href='https://x.com/saiemgilani' target='blank'><img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;label=%40saiemgilani&amp;logo=x&amp;style=for-the-badge' alt='@saiemgilani'/></a>
+<a href='https://github.com/saiemgilani' target='blank'><img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@saiemgilani'/></a>
+-   [Sebastian Carl](https://x.com/mrcaseb)<br>
+<a href='https://x.com/mrcaseb' target='blank'><img src='https://img.shields.io/twitter/follow/mrcaseb?color=blue&amp;label=%40mrcaseb&amp;logo=x&amp;style=for-the-badge' alt='@mrcaseb'/></a>
+<a href='https://github.com/mrcaseb' target='blank'><img src='https://img.shields.io/github/followers/mrcaseb?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@mrcaseb'/></a>
+-   [Jared Lee](https://github.com/Kazink36)<br>
+<a href='https://github.com/Kazink36' target='blank'><img src='https://img.shields.io/github/followers/Kazink36?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@Kazink36'/></a>
+-   [Camden Kay](https://x.com/camdenkay)<br>
+<a href='https://x.com/camdenkay' target='blank'><img src='https://img.shields.io/twitter/follow/camdenkay?color=blue&amp;label=%40camdenkay&amp;logo=x&amp;style=for-the-badge' alt='@camdenkay'/></a>
+<a href='https://github.com/camdenk' target='blank'><img src='https://img.shields.io/github/followers/camdenk?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@camdenk'/></a>
+-   [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)<br>
+<a href='https://github.com/andreweatherman' target='blank'><img src='https://img.shields.io/github/followers/andreweatherman?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@andreweatherman'/></a>
+
+## **Citation**
+
+To cite the [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) R package in publications, use:
+
+BibTeX Citation
+
+```bibtex
+@misc{gilani_carl_lee_kay_weatherman_sdvplotR,
+  author = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},
+  title = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},
+  url = {https://sdvplotR.sportsdataverse.org},
+  year = {2026}
+}
+```
+
+## **Related SportsDataverse packages**
+
+-   [**sdvplot**](https://sdvplot.sportsdataverse.org/) - the Python plotting package
+-   [**sdvplot-js**](https://plot.sportsdataverse.org/) - the JavaScript / TypeScript plotting packages
+-   [**cfbfastR**](https://cfbfastR.sportsdataverse.org/) - college football
+-   [**hoopR**](https://hoopR.sportsdataverse.org/) - men's basketball
+-   [**wehoop**](https://wehoop.sportsdataverse.org/) - women's basketball
+-   [**baseballr**](https://baseballr.sportsdataverse.org/) - baseball
+-   [**fastRhockey**](https://fastRhockey.sportsdataverse.org/) - hockey
+-   [**oddsapiR**](https://oddsapiR.sportsdataverse.org/) - betting odds
+-   [**sportyR**](https://sportyR.sportsdataverse.org/) - playing surfaces
+-   [**sportsdataverse-py**](https://py.sportsdataverse.org/) - the Python package
+-   [**sportsdataverse-R**](https://r.sportsdataverse.org/) - the R meta-package

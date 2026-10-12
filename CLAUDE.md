@@ -187,16 +187,21 @@ Actions) gives no such NOTE.
 ## CRAN packaging notes
 
 - The package ships no vignettes. Every article is a pkgdown-only article in
-  `vignettes/articles/<slug>.Rmd` (named `articles/<slug>` in `_pkgdown.yml`,
-  published at `articles/<slug>.html`), with its fixtures and images beside it
-  in `vignettes/articles/fixtures/` and `vignettes/articles/images/`.
+  `vignettes/<slug>.Rmd` (named `<slug>` in `_pkgdown.yml`, published at
+  `articles/<slug>.html`), with its fixtures and images beside it in
+  `vignettes/fixtures/` and `vignettes/images/`, as in cfbfastR.
   `.Rbuildignore` drops the whole `^vignettes$` directory, and DESCRIPTION has
-  no `VignetteBuilder` (and no knitr / rmarkdown). New articles take `title:`
-  and `description:` front matter only (`usethis::use_article()`), never a
-  `vignette:` block. They need the companion packages listed under
-  `Config/Needs/website`; build one with
-  `pkgdown::build_article("articles/<slug>")`. Paths inside an article are
-  relative to `vignettes/articles/` (the repo root is `../../`).
+  no `VignetteBuilder` (and no knitr / rmarkdown), so R CMD check and CRAN
+  never build them. Front matter follows the SportsDataverse vignette template:
+  `title`, `description`, `author` (Saiem Gilani with the X and GitHub follow
+  badges), `opengraph` (the image is the article's gallery picture, else the
+  hex logo; `twitter: site "@SportsDataverse", card summary_large_image,
+  creator "@saiemgilani"`) and `output: html_document`, never a `vignette:`
+  block. Every article ends with **Our Authors**, **Citation** and **Related
+  SportsDataverse packages** sections; copy them from an existing article. They
+  need the companion packages listed under `Config/Needs/website`; build one
+  with `pkgdown::build_article("<slug>")`. Paths inside an article are relative
+  to `vignettes/` (the repo root is `../`).
 - Examples that download images are wrapped in `\donttest{}`. Never use
   `\dontrun{}`: examples that save images through a headless Chrome go in an
   `@examplesIf interactive() && <webshot2 + Chrome available>` block wrapping
