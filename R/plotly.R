@@ -76,7 +76,9 @@ add_layout_images <- function(p, x, y, urls, size, xref, yref) {
 #' @examples
 #' \donttest{
 #' if (requireNamespace("plotly", quietly = TRUE)) {
-#'   d <- data.frame(team = c("KC", "BUF", "BAL"), off = c(0.12, 0.15, 0.18), def = c(-0.05, 0.02, -0.08))
+#'   d <- data.frame(
+#'     team = c("KC", "BUF", "BAL"), off = c(0.12, 0.15, 0.18), def = c(-0.05, 0.02, -0.08)
+#'   )
 #'   plotly::plot_ly(d, x = ~off, y = ~def, type = "scatter", mode = "markers", text = ~team) |>
 #'     add_sdv_logos(d$off, d$def, d$team, "nfl")
 #' }

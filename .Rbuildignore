@@ -29,7 +29,7 @@
 ^revdep$
 ^man/figures/README-
 (^|/)Rplots\.pdf$
-^\.ruff_cache$
+(^|/)\.ruff_cache$
 ^\.git$
 ^examples$
 ^\.superpowers$
