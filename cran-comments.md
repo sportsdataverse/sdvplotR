@@ -42,8 +42,14 @@ not occur on Linux, macOS, or R 4.6.0 and earlier.
   bundled. Examples that download images are wrapped in `\donttest{}` (as
   'nflplotR' and 'ggpath' do); they pass under `--as-cran`, which runs them,
   each in under 5 seconds. Without network, the read of the NFL headshot
-  map warns and returns no rows instead of erroring. The one test that
-  renders images skips on CRAN.
+  map warns and returns no rows instead of erroring.
+* The tests need network access, headless Chrome and image rendering, so
+  every test file starts with `skip_on_cran()`. They run on every platform
+  listed above.
+* Rendering a 'gt' table compiles its CSS through 'sass', which caches it
+  under `tools::R_user_dir("sass", "cache")`. During a CRAN check the package
+  turns that cache off (unless the user has set `sass.cache`), so the check
+  writes nothing outside its own directory.
 * The slowest example, `sdv_surface()` (about 4 seconds), spends that time
   in 'sportyR' building the court geometry.
 * The package ships no vignettes: its long-form documentation is articles on
