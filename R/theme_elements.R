@@ -208,7 +208,12 @@ new_sdv_element <- function(cls, league, alpha, colour, color, hjust, vjust, siz
 # (`size` cm, at 96 dpi), as the axis scales do (img_html()): sharp up to ~380
 # dpi, and small where an SVG device (ggiraph, svglite) writes it into the file.
 element_images <- function(paths, element) {
-  size <- element@size
+  # ggpath >= 1.1.2 keeps the image size as a unit in @image_size; before, cm in @size
+  size <- if ("image_size" %in% S7::prop_names(element)) {
+    grid::convertUnit(element@image_size, "cm", valueOnly = TRUE)
+  } else {
+    element@size
+  }
   if (!is.numeric(size) || length(size) != 1L || is.na(size)) {
     return(paths)
   }

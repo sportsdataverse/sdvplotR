@@ -163,6 +163,14 @@ test_that("with no map (offline) every NFL id resolves to NA", {
 # online, as a user's session is: setup.R turns sdvplotR.offline on for the suite
 local_fresh_headshot_map <- function(env = parent.frame()) {
   withr::local_options(sdvplotR.offline = FALSE, .local_envir = env)
+  # an --as-cran check (R-hub ubuntu-next) sets these, and probably_cran() then reads the snapshot
+  withr::local_envvar(
+    "_R_CHECK_EXAMPLE_TIMING_CPU_TO_ELAPSED_THRESHOLD_" = "",
+    "_R_CHECK_THINGS_IN_OTHER_DIRS_" = "",
+    "_R_CHECK_THINGS_IN_OTHER_DIRS_XTRA_" = "",
+    "_R_CHECK_PACKAGE_NAME_" = "",
+    .local_envir = env
+  )
   forget_headshot_map()
   withr::defer(forget_headshot_map(), envir = env)
 }
