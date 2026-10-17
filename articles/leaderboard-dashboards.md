@@ -236,8 +236,8 @@ player_stats |>
 | \# | Player | Name | Team | Yards | TD | INT |
 | 1 | ![Player 00-0033873 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png) | P. Mahomes | KC | 4,200.00 | 32.00 | 8.00 |
 | 2 | ![Player 00-0026498 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | M. Stafford | LAR | 3,800.00 | 28.00 | 12.00 |
-| 3 | ![Player 00-0035228 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/btfruyf33adgnjzpcuen.png) | K. Murray | ARI | 3,500.00 | 25.00 | 10.00 |
-| 4 | ![Player 00-0033869 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yxs7ix2pmcfv5k1qn1sk.png) | J. Allen | BUF | 4,100.00 | 30.00 | 9.00 |
+| 3 | ![Player 00-0035228 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/qzoa3bglbgxpxcvjqzo1.png) | K. Murray | ARI | 3,500.00 | 25.00 | 10.00 |
+| 4 | ![Player 00-0033869 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/j0qtdgphb0ufvfglf34b.png) | J. Allen | BUF | 4,100.00 | 30.00 | 9.00 |
 
 ## Quartile-Based Leaderboard
 

@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-12:** the 2026 season through week 6.
+**Updated 2026-10-17:** the 2026 season through week 7.
 
 This page is rebuilt every week with the site. It rates every FBS team
 by opponent-adjusted EPA per play, a simple cousin of SP+ built from the
@@ -170,12 +170,12 @@ head(top25)
 #> # A tibble: 6 × 9
 #>    rank logo       school     conf_logo  conference record   off     dfn   net
 #>   <int> <chr>      <chr>      <chr>      <chr>      <chr>  <dbl>   <dbl> <dbl>
-#> 1     1 Alabama    Alabama    SEC        SEC        5-1    0.307 -0.0764 0.383
-#> 2     2 Georgia    Georgia    SEC        SEC        6-0    0.276 -0.108  0.383
-#> 3     3 Notre Dame Notre Dame FBS Indep. FBS Indep. 6-0    0.257 -0.125  0.382
-#> 4     4 Wisconsin  Wisconsin  Big Ten    Big Ten    4-1    0.170 -0.188  0.357
-#> 5     5 Indiana    Indiana    Big Ten    Big Ten    6-0    0.240 -0.110  0.350
-#> 6     6 Nebraska   Nebraska   Big Ten    Big Ten    5-1    0.205 -0.123  0.327
+#> 1     1 Georgia    Georgia    SEC        SEC        6-0    0.286 -0.105  0.391
+#> 2     2 Alabama    Alabama    SEC        SEC        5-1    0.305 -0.0759 0.381
+#> 3     3 Notre Dame Notre Dame FBS Indep. FBS Indep. 6-0    0.259 -0.118  0.378
+#> 4     4 Indiana    Indiana    Big Ten    Big Ten    6-1    0.260 -0.106  0.365
+#> 5     5 Wisconsin  Wisconsin  Big Ten    Big Ten    4-1    0.169 -0.188  0.358
+#> 6     6 Nebraska   Nebraska   Big Ten    Big Ten    5-1    0.204 -0.123  0.327
 ```
 
 sdvplotR has a row for every FBS conference too, so
