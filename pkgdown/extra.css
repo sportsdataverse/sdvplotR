@@ -133,6 +133,20 @@ small.nav-text.text-muted {
   }
 }
 
+/* between the collapse point and xl, "Changelog" and "Data status" wrapped under
+   their icons; tighter links and a narrower search keep the bar on one line */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .navbar .nav-link {
+    white-space: nowrap;
+    padding-left: 0.4rem !important;
+    padding-right: 0.4rem !important;
+  }
+  .navbar #search-input { width: 8.5rem; }
+}
+
+/* leaflet widgets come out a fixed ~680px wide; keep every widget inside the column */
+.html-widget { max-width: 100%; }
+
 /* the home sidebar is ~180px wide at tablet widths; keep README badges inside it */
 aside img {
   max-width: 100%;

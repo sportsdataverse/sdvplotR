@@ -212,7 +212,9 @@ gt_grid <- function(tables = NULL, ncol = 2, labels = NULL, label_style = list()
       " grid-template-columns: repeat(", ncol, ", max-content);",
       " gap: ", gap, "px;",
       " align-items: ", items[[align]], ";",
-      " justify-content: center;"
+      " justify-content: center;",
+      # wider than a phone: scroll inside the grid from its left edge, not past the page
+      " justify-content: safe center; overflow-x: auto;"
     ),
     lapply(seq_along(tables), function(i) {
       if (is.null(labels)) {
