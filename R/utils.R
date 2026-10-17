@@ -69,7 +69,12 @@ draw_image_panel <- function(data, panel_params, coord, na.rm, max_px = NULL) {
 # A copy of the image at `path` no larger than px x px, as a PNG in this
 # session's temp directory (made once per image and size). An image that
 # cannot be read is left to ggpath, which handles (and reports) it as usual.
+# An SVG is vector, so it is left as it is (and magick warns reading one
+# without librsvg).
 small_image <- function(path, px) {
+  if (grepl("\\.svg$", path, ignore.case = TRUE)) {
+    return(path)
+  }
   out <- file.path(tempdir(), "sdvplotR-images", paste0(rlang::hash(list(path, px)), ".png"))
   if (file.exists(out)) {
     return(out)

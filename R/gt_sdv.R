@@ -322,7 +322,7 @@ gt_sdv_image <- function(
     data = gt_object,
     locations = locations,
     fn = function(x) {
-      # gt passes the cell text HTML-escaped ("Texas A&amp;M")
+      # gt < 1.4 passes the cell text HTML-escaped ("Texas A&amp;M"), 1.4 raw
       text <- html_unescape(as.character(x))
       if (type == "logo") {
         img_url <- logo_from_team(text, league, season = season, id_system = id_system, strict = strict)
@@ -341,7 +341,7 @@ gt_sdv_image <- function(
         ";\" alt=\"",
         if (!isTRUE(include_name)) htmltools::htmlEscape(team_alt(text, league, season, id_system), attribute = TRUE),
         "\">",
-        if (isTRUE(include_name)) x
+        if (isTRUE(include_name)) htmltools::htmlEscape(text)
       )
 
       out <- lapply(out, gt::html)
