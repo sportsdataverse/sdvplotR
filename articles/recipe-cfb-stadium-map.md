@@ -100,7 +100,7 @@ to find it).
 lower48 <- c(-125, 24, -66.5, 49.5) # west, south, east, north
 
 leaflet(stadiums) |>
-  addProviderTiles(providers$CartoDB.Positron) |>
+  addProviderTiles(providers$Esri.WorldGrayCanvas) |>
   addSdvLogoMarkers(~lon, ~lat, ~team, league = "cfb", size = 26, label = ~school) |>
   fitBounds(lower48[1], lower48[2], lower48[3], lower48[4])
 ```
@@ -111,7 +111,7 @@ details:
 ``` r
 
 leaflet(stadiums) |>
-  addProviderTiles(providers$CartoDB.Positron) |>
+  addProviderTiles(providers$Esri.WorldGrayCanvas) |>
   addSdvLogoMarkers(~lon, ~lat, ~team, league = "cfb", size = 26, label = ~school, popup = ~popup) |>
   fitBounds(lower48[1], lower48[2], lower48[3], lower48[4])
 ```
@@ -125,7 +125,7 @@ conference, or compare two:
 ``` r
 
 stadium_map <- leaflet() |>
-  addProviderTiles(providers$CartoDB.Positron)
+  addProviderTiles(providers$Esri.WorldGrayCanvas)
 for (conf in unique(stadiums$conference)) {
   stadium_map <- stadium_map |>
     addSdvLogoMarkers(
