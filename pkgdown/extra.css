@@ -147,6 +147,12 @@ small.nav-text.text-muted {
 /* leaflet widgets come out a fixed ~680px wide; keep every widget inside the column */
 .html-widget { max-width: 100%; }
 
+/* stacked under the content, pkgdown sizes the sidebar calc(100vw - 1rem); 100vw counts a
+   desktop scrollbar, so narrow windows scrolled sideways by its width. Size it to the row */
+@media (max-width: 767.98px) {
+  .row > aside { width: calc(100% - 1rem); }
+}
+
 /* the home sidebar is ~180px wide at tablet widths; keep README badges inside it */
 aside img {
   max-width: 100%;
