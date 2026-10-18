@@ -1,6 +1,6 @@
 ---
 title: "Surfaces and shot charts"
-description: "Eleven recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field and a football drive chart and Euroleague shots on the FIBA court."
+description: "Thirteen recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field, a football drive chart, Euroleague shots on the FIBA court, and every other sport and league sportyR draws, from lacrosse, tennis, volleyball and curling to an NCAA softball field."
 author: "Saiem Gilani <br><a href='https://x.com/saiemgilani' target='blank'><img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;label=%40saiemgilani&amp;logo=x&amp;style=for-the-badge' alt='@saiemgilani'/></a> <a href='https://github.com/saiemgilani' target='blank'><img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@saiemgilani'/></a>"
 opengraph:
   image:
@@ -23,12 +23,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-Eleven recipes for playing surfaces and the charts drawn on them:
+Thirteen recipes for playing surfaces and the charts drawn on them:
 `sdv_surface()` for every sport it supports, team colors and a center logo,
 NBA and WNBA shot charts from the stats-API shot files (moved onto the court
 with `sdv_court_coords()`), a vertical half court, a college shot chart from
 ESPN's locations, a hockey goal map, a baseball field, a football drive
-chart and Euroleague shots on the FIBA court. The surfaces are drawn by [sportyR](https://sportyR.sportsdataverse.org).
+chart, Euroleague shots on the FIBA court, then the rest of the 59 surfaces: lacrosse,
+tennis, volleyball, curling, more football, baseball, hockey and soccer leagues
+and an NCAA softball field. The surfaces are drawn by [sportyR](https://sportyR.sportsdataverse.org).
 The data is one season each from the NFL (nflreadr), the NBA, WNBA and
 college basketball (hoopR and wehoop), the NHL (fastRhockey) and MLB
 (baseballr). The NBA and WNBA shots are the stats-API shot files the
@@ -510,6 +512,61 @@ euro
 sdv_surface("fiba", display_range = "defense") +
   geom_point(aes(court_x, court_y), data = euro, colour = "red", size = 3, na.rm = TRUE) +
   labs(title = "Euroleague shot locations on the FIBA court", caption = "hoopR::euroleague_game_points() columns") +
+  titled
+```
+
+## 12. Every other sport and league sportyR draws
+
+`sdv_surface()` takes 59 surface keys, the table sdvplot (Python) and
+sdvplot-js share: beyond the leagues above, the CFL and NFHS fields, the
+NFHS court, Little League, PONY and NFHS baseball, the IIHF, NWHL and the
+PWHL's own rink, the EPL, MLS, NWSL, FIFA and NCAA pitches, and four sports
+of their own: lacrosse, tennis, volleyball and curling. None of those have team
+identities, so they take no `team`; only the leagues of `sdv_leagues()` do.
+
+```{r more-leagues, fig.width = 6, fig.height = 3.6, fig.show = "hold", out.width = "49%", fig.alt = "Six more regulation surfaces drawn by sportyR: a CFL field, an NFHS football field, an NFHS basketball court, a Little League field, an IIHF rink and the PWHL's rink."}
+more <- c(
+  cfl = "CFL field", nfhs_football = "NFHS football field", nfhs_basketball = "NFHS basketball court",
+  little_league = "Little League field", iihf = "IIHF rink", pwhl = "PWHL rink"
+)
+for (lg in names(more)) {
+  p <- sdv_surface(lg) + labs(title = more[[lg]]) + titled
+  if (lg == "little_league") p <- p + theme(plot.title = element_text(colour = "white"))
+  print(p)
+}
+```
+
+Lacrosse has seven leagues: the NLL's box, the PLL, World Lacrosse, and the
+NCAA and USA Lacrosse men's and women's fields. Tennis (ATP, WTA, ITF, ITA,
+USTA, NCAA), volleyball (FIVB, USA Volleyball, NCAA) and curling (WCF, Curling
+Canada) follow.
+
+```{r new-sports, fig.width = 6, fig.height = 3.6, fig.show = "hold", out.width = "49%", fig.alt = "Six more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA women's lacrosse field, a PLL field, an ATP tennis court, an FIVB volleyball court and a WCF curling sheet."}
+sports <- c(
+  nll = "NLL box lacrosse", ncaa_wlacrosse = "NCAA women's lacrosse", pll = "PLL lacrosse",
+  atp = "ATP tennis court", fivb = "FIVB volleyball court", wcf = "WCF curling sheet"
+)
+for (lg in names(sports)) {
+  # a curling sheet is long and thin: turn it to fill a wide plot
+  p <- if (lg == "wcf") sdv_surface(lg, rotation = 90) else sdv_surface(lg)
+  print(p + labs(title = sports[[lg]]) + titled)
+}
+```
+
+## 13. A softball field for an NCAA team
+
+`"ncaa_softball"` is both a team league and a surface. It needs sportyR
+2.3.0 or later, not yet on CRAN (`remotes::install_github("sportsdataverse/sportyR")`);
+with an older sportyR, `sdv_surface()` says so. As on a baseball field, no part
+of the infield takes a team colour, so the team is checked and the field keeps
+sportyR's look; a `center_logo` is ignored with a warning. The team's logo
+goes in the title instead, with `ggtitle_image()`. Like baseball, the field's
+origin is home plate.
+
+```{r softball-field, eval = utils::packageVersion("sportyR") >= "2.3.0", fig.alt = "A regulation NCAA softball field drawn by sportyR, with the UCLA Bruins logo beside the title."}
+sdv_surface("ncaa_softball", "UCLA") +
+  ggtitle_image(title_image = "UCLA", title = "A regulation NCAA softball field, for UCLA", image_height = 25, league = "ncaa_softball") +
+  theme_title_image(size = 14, face = "bold", colour = "white") +
   titled
 ```
 
