@@ -130,6 +130,21 @@ test_that("gt_theme_source themes a table with the spec's font and rules", {
   expect_match(h2, paste0("'", fam, "', ", .tt_generic_family(fam)), fixed = TRUE)
 })
 
+# the same two lists are asserted in sdvplot and sdvtables, so the three heuristics agree on every face
+test_that("every registry face gets the shared generic family", {
+  serif <- c(
+    "Crimson Text", "Fraunces", "Gelasio", "Libre Bodoni", "Libre Caslon Display", "Libre Caslon Text",
+    "Lora", "Newsreader", "Playfair Display", "Roboto Slab", "Source Serif 4", "Spectral", "Tinos"
+  )
+  mono <- c("Courier Prime", "DM Mono", "IBM Plex Mono", "JetBrains Mono", "Roboto Mono")
+  faces <- unique(unlist(lapply(.tt_registry(), function(t) Filter(is.character, t$fonts))))
+  g <- vapply(faces, .tt_generic_family, character(1))
+  expect_setequal(faces[g == "serif"], serif)
+  expect_setequal(faces[g == "monospace"], mono)
+  expect_identical(.tt_font_stack(table_theme_spec("evolving-hockey")$fonts$body), "\"Crimson Text\", serif")
+  expect_identical(.tt_font_stack(table_theme_spec("gtextras-dot-matrix")$fonts$body), "\"Courier Prime\", monospace")
+})
+
 test_that("gt_theme_source honours mode, density and rejects bad input", {
   light <- html_of(gt_theme_source(tiny(), "datagolf"))
   dark <- html_of(gt_theme_source(tiny(), "datagolf", mode = "dark"))

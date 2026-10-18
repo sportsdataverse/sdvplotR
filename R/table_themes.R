@@ -83,7 +83,8 @@
   utils::head(hit[order(d, hit, method = "radix")], 3)
 }
 
-# the CSS generic family a face falls back to, guessed from its name (same rule as sdvplot)
+# the CSS generic family a face falls back to, guessed from its name; keep the regexes identical to
+# sdvplot `_generic_family` and sdvtables registry.ts
 .tt_generic_family <- function(family) {
   if (is.null(family) || !nzchar(family)) {
     return("sans-serif")
@@ -91,7 +92,10 @@
   if (grepl("mono|code|courier", family, ignore.case = TRUE)) {
     return("monospace")
   }
-  serif <- "serif|slab|bodoni|caslon|garamond|playfair|lora|newsreader|tinos|spectral|gelasio|merriweather"
+  serif <- paste0(
+    "serif|slab|bodoni|caslon|garamond|playfair|lora|newsreader|tinos|spectral|gelasio|merriweather",
+    "|crimson|fraunces"
+  )
   if (grepl(serif, family, ignore.case = TRUE) && !grepl("sans", tolower(family), fixed = TRUE)) {
     return("serif")
   }
