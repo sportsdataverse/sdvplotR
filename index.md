@@ -315,6 +315,9 @@ Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-th
 [![GitHub
 stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=eee&logo=github&style=for-the-badge&label=Star%20sdvplotR&maxAge=2592000)](https://github.com/sportsdataverse/sdvplotR)
 
+[![Star history of
+sportsdataverse/sdvplotR](https://raw.githubusercontent.com/sportsdataverse/sdvplotR/star-history/star-history.png)](https://github.com/sportsdataverse/sdvplotR/stargazers)
+
 ## **Our Authors**
 
 - [Saiem Gilani](https://x.com/saiemgilani) [![ORCID
