@@ -220,10 +220,10 @@ shared_surfaces <- list(
   wcf = c("geom_curling", "wcf"), curling_canada = c("geom_curling", "curling canada")
 )
 
-# skip a key whose sportyR geom is newer than the installed sportyR
-skip_if_sportyr_lacks <- function(league) {
+# TRUE when the installed sportyR draws the key (its geom is not newer than it)
+sportyr_has <- function(league) {
   need <- surface_min_sportyr[league]
-  if (!is.na(need)) skip_if(utils::packageVersion("sportyR") < need, paste("needs sportyR", need))
+  is.na(need) || utils::packageVersion("sportyR") >= need
 }
 
 test_that("surface_map carries the 59 shared keys with the shared sport and league", {
@@ -235,7 +235,7 @@ test_that("surface_map carries the 59 shared keys with the shared sport and leag
 test_that("every key draws its sportyR surface, unchanged", {
   skip_if_not_installed("sportyR")
   for (lg in setdiff(names(surface_map), "soccer")) {
-    if (!is.na(surface_min_sportyr[lg]) && utils::packageVersion("sportyR") < surface_min_sportyr[[lg]]) next
+    if (!sportyr_has(lg)) next
     m <- surface_map[[lg]]
     expected <- getExportedValue("sportyR", m[[1]])(m[[2]])
     p <- sdv_surface(lg)
@@ -252,7 +252,7 @@ test_that("pwhl draws the PWHL's own rink, not the NHL's", {
 
 test_that("ncaa_softball is a team league and a surface: the field draws and the team resolves", {
   skip_if_not_installed("sportyR")
-  skip_if_sportyr_lacks("ncaa_softball")
+  skip_if_not(sportyr_has("ncaa_softball"), "needs sportyR 2.3.0")
   plain <- sportyR::geom_softball("ncaa")
   p <- sdv_surface("ncaa_softball", "UCLA")
   # an infield has nothing team-colored: the field stays sportyR's
@@ -292,7 +292,7 @@ test_that("with an installed sportyR older than 2.3.0, softball errors clearly",
 test_that("every league with a surface draws one; others error with the list", {
   skip_if_not_installed("sportyR")
   for (lg in names(surface_map)) {
-    if (!is.na(surface_min_sportyr[lg]) && utils::packageVersion("sportyR") < surface_min_sportyr[[lg]]) next
+    if (!sportyr_has(lg)) next
     expect_s3_class(sdv_surface(lg), "ggplot")
   }
   expect_error(sdv_surface("cricket"), "fiba")

@@ -563,6 +563,9 @@ sportyR's look; a `center_logo` is ignored with a warning. The team's logo
 goes in the title instead, with `ggtitle_image()`. Like baseball, the field's
 origin is home plate.
 
+The figure below needs sportyR 2.3.0 or later: where only CRAN's sportyR is
+installed, the chunk is not run and no figure appears.
+
 ```{r softball-field, eval = utils::packageVersion("sportyR") >= "2.3.0", fig.alt = "A regulation NCAA softball field drawn by sportyR, with the UCLA Bruins logo beside the title."}
 sdv_surface("ncaa_softball", "UCLA") +
   ggtitle_image(title_image = "UCLA", title = "A regulation NCAA softball field, for UCLA", image_height = 25, league = "ncaa_softball") +
