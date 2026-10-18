@@ -543,6 +543,130 @@ image’s canvas.
 
   Background colors used by the `gt_theme_*()` table themes
 
+## Table themes by source
+
+122 surveyed table styles, by the name of the source they follow
+(`datagolf`, `wikipedia`, `nejm`, …), shared with the Python and
+JavaScript packages.
+[`gt_theme_source()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_source.md)
+and
+[`reactable_sdv_theme()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_theme.md)
+apply any of them; the shortcuts name the most useful 20.
+
+- [`sdv_table_themes()`](https://sdvplotR.sportsdataverse.org/reference/sdv_table_themes.md)
+  : List the surveyed table themes
+
+- [`table_theme_spec()`](https://sdvplotR.sportsdataverse.org/reference/table_theme_spec.md)
+  : Resolve a surveyed table theme
+
+- [`gt_theme_source()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_source.md)
+  :
+
+  A surveyed table style as a `gt` theme
+
+- [`reactable_sdv_theme()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_theme.md)
+  : A surveyed table style as a 'reactable' theme
+
+- [`gt_theme_basketball_reference()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_basketball_reference.md)
+  :
+
+  Basketball-Reference table style for `gt` tables
+
+- [`gt_theme_datagolf()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_datagolf.md)
+  :
+
+  DataGolf table style for `gt` tables
+
+- [`gt_theme_fivethirtyeight_site()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_fivethirtyeight_site.md)
+  :
+
+  FiveThirtyEight (forecast tables) table style for `gt` tables
+
+- [`gt_theme_wikipedia()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_wikipedia.md)
+  :
+
+  Wikipedia wikitable table style for `gt` tables
+
+- [`gt_theme_cleaning_the_glass()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_cleaning_the_glass.md)
+  :
+
+  Cleaning the Glass table style for `gt` tables
+
+- [`gt_theme_bbc_sport()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_bbc_sport.md)
+  :
+
+  BBC Sport table style for `gt` tables
+
+- [`gt_theme_opta_analyst()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_opta_analyst.md)
+  :
+
+  Opta Analyst table style for `gt` tables
+
+- [`gt_theme_our_world_in_data()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_our_world_in_data.md)
+  :
+
+  Our World in Data table style for `gt` tables
+
+- [`gt_theme_bloomberg_markets()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_bloomberg_markets.md)
+  :
+
+  Bloomberg.com Markets table style for `gt` tables
+
+- [`gt_theme_aer()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_aer.md)
+  :
+
+  American Economic Review (AEA style) table style for `gt` tables
+
+- [`gt_theme_nzz()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_nzz.md)
+  :
+
+  NZZ (Q table) table style for `gt` tables
+
+- [`gt_theme_guardian()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_guardian.md)
+  :
+
+  The Guardian table style for `gt` tables
+
+- [`gt_theme_barttorvik()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_barttorvik.md)
+  :
+
+  Bart Torvik (T-Rank) table style for `gt` tables
+
+- [`gt_theme_espn_site()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_espn_site.md)
+  :
+
+  ESPN (BPI / FPI tables) table style for `gt` tables
+
+- [`gt_theme_gov_uk()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_gov_uk.md)
+  :
+
+  GOV.UK Design System table table style for `gt` tables
+
+- [`gt_theme_washington_post()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_washington_post.md)
+  :
+
+  The Washington Post (WPDS) table style for `gt` tables
+
+- [`gt_theme_reuters_graphics()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_reuters_graphics.md)
+  :
+
+  Reuters Graphics table style for `gt` tables
+
+- [`gt_theme_formula1()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_formula1.md)
+  :
+
+  Formula 1 table style for `gt` tables
+
+- [`gt_theme_dunks_and_threes()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_dunks_and_threes.md)
+  :
+
+  Dunks & Threes table style for `gt` tables
+
+- [`gt_theme_economist()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_economist.md)
+  :
+
+  The Economist table style for `gt` tables
+
 ## gt Table Annotations
 
 Captions, headers, cut lines, marginalia, watermarks and social tags.
@@ -1017,6 +1141,12 @@ comes from Andrew Weatherman’s gtUtils.
 
   The SportsDataverse table themes for gt: gt_theme_sdv() in light or
   dark, and gt_theme_sdv_team() dressed in one team’s colors.
+
+- [Table theme
+  registry](https://sdvplotR.sportsdataverse.org/articles/table-themes.md):
+
+  Every surveyed table theme: the source it copies, its dark policy, a
+  preview, and the call for gt and reactable.
 
 - [Team Tables with the gt
   Toolkit](https://sdvplotR.sportsdataverse.org/articles/gt-toolkit.md):

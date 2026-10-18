@@ -128,6 +128,20 @@ names with the Python package sdvplot and the JavaScript packages
   widget). All of them work after a complete theme such as
   [`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
   on ‘ggplot2’ 4, which sdvplotR requires.
+- [`gt_theme_source()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_source.md)
+  and
+  [`reactable_sdv_theme()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_theme.md)
+  apply any of 122 surveyed table styles, named for their source
+  (`"datagolf"`, `"wikipedia"`, `"nejm"`, …);
+  [`sdv_table_themes()`](https://sdvplotR.sportsdataverse.org/reference/sdv_table_themes.md)
+  lists them and
+  [`table_theme_spec()`](https://sdvplotR.sportsdataverse.org/reference/table_theme_spec.md)
+  resolves one. The registry is shared with sdvplot and sdvtables.
+  Twenty shortcuts such as
+  [`gt_theme_datagolf()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_datagolf.md)
+  and
+  [`gt_theme_wikipedia()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_wikipedia.md)
+  name the most useful.
 - [`scale_color_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
   and
   [`scale_fill_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)

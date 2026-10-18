@@ -149,6 +149,12 @@ comes from Andrew Weatherman’s gtUtils.
   The SportsDataverse table themes for gt: gt_theme_sdv() in light or
   dark, and gt_theme_sdv_team() dressed in one team’s colors.
 
+- [Table theme
+  registry](https://sdvplotR.sportsdataverse.org/articles/table-themes.md):
+
+  Every surveyed table theme: the source it copies, its dark policy, a
+  preview, and the call for gt and reactable.
+
 - [Team Tables with the gt
   Toolkit](https://sdvplotR.sportsdataverse.org/articles/gt-toolkit.md):
 
