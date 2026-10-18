@@ -64,6 +64,11 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   300 dpi export, and a few KB a logo in an SVG or ggiraph widget). All of
   them work after a complete theme such as `theme_minimal()` on 'ggplot2' 4,
   which sdvplotR requires.
+* `gt_theme_source()` and `reactable_sdv_theme()` apply any of 122 surveyed
+  table styles, named for their source (`"datagolf"`, `"wikipedia"`, `"nejm"`,
+  ...); `sdv_table_themes()` lists them and `table_theme_spec()` resolves one.
+  The registry is shared with sdvplot and sdvtables. Twenty shortcuts such as
+  `gt_theme_datagolf()` and `gt_theme_wikipedia()` name the most useful.
 * `scale_color_sdv()` and `scale_fill_sdv()` map teams to their primary or
   secondary colours.
 * Conference rows (the college conferences, and the AFC, NFC and NFL) have

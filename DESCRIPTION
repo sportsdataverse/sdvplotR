@@ -49,6 +49,7 @@ Imports:
     grid,
     gt (>= 0.10.0),
     htmltools,
+    jsonlite,
     magick,
     rlang (>= 1.0.0),
     S7 (>= 0.2.0),

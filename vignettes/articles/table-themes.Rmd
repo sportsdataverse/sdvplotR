@@ -1,0 +1,53 @@
+---
+title: "Table theme registry"
+description: "Every surveyed table theme: the source it copies, its dark policy, a preview, and the call for gt and reactable."
+output: html_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(sdvplotR)
+```
+
+sdvplotR ships one table theme for each of 122 surveyed sources, named after the
+source: `datagolf`, `basketball-reference`, `wikipedia`, `nejm`. The same
+registry is read by sdvplot (Python) and sdvtables (JavaScript), so a name means
+the same table in every language. The list below is built from
+`sdv_table_themes()` when this article is knit, so it cannot drift from the
+package.
+
+The full gallery, with filters, is at
+<https://plot.sportsdataverse.org/guides/table-theme-registry>.
+
+```{r, eval = FALSE}
+gt_object |> gt_theme_source("datagolf")             # a gt table
+gt_object |> gt_theme_source("datagolf", mode = "dark")
+reactable::reactable(df, theme = reactable_sdv_theme("datagolf"))
+```
+
+Both functions read the registry only. The 27 reactablefmtr names (such as
+`espn`) raise an error pointing at the `reactablefmtr::` function; the
+registry's `espn-site` is the site's own look.
+`mode = "dark"` works for themes whose dark policy is `native` (measured) or
+`derived` (from the light palette); on a `none` theme it raises, naming three
+dark-capable themes in the same category.
+
+```{r, results = "asis", echo = FALSE}
+img <- "https://plot.sportsdataverse.org/img/table-themes"
+th <- sdv_table_themes()
+for (cat in sort(unique(th$category))) {
+  rows <- th[th$category == cat, ]
+  cat("\n\n## ", cat, " (", nrow(rows), ")\n\n", sep = "")
+  for (i in seq_len(nrow(rows))) {
+    id <- rows$id[i]
+    cat("### `", id, "`\n\n", rows$source[i], ", dark: ", rows$dark_policy[i], "\n\n", sep = "")
+    cat("<img src=\"", img, "/", id, "-light.webp\" alt=\"", rows$source[i],
+        " table theme, light\" loading=\"lazy\" width=\"480\"> ", sep = "")
+    if (rows$dark_policy[i] != "none") {
+      cat("<img src=\"", img, "/", id, "-dark.webp\" alt=\"", rows$source[i],
+          " table theme, dark\" loading=\"lazy\" width=\"480\">", sep = "")
+    }
+    cat("\n\n`gt_theme_source(gt, \"", id, "\")` &middot; `reactable_sdv_theme(\"", id, "\")`\n\n", sep = "")
+  }
+}
+```
