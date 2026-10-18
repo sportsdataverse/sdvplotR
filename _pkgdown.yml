@@ -167,13 +167,13 @@ reference:
     desc: >
       122 surveyed table styles, by the name of the source they follow
       (`datagolf`, `wikipedia`, `nejm`, ...), shared with the Python and
-      JavaScript packages. `gt_theme_source()` and `reactable_theme_sdv()`
+      JavaScript packages. `gt_theme_source()` and `reactable_sdv_theme()`
       apply any of them; the shortcuts name the most useful 20.
     contents:
       - sdv_table_themes
       - table_theme_spec
       - gt_theme_source
-      - reactable_theme_sdv
+      - reactable_sdv_theme
       - gt_theme_basketball_reference
       - gt_theme_datagolf
       - gt_theme_fivethirtyeight_site

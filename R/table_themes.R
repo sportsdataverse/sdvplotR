@@ -118,7 +118,7 @@
 #' The registry of 122 table styles surveyed from published sources
 #' (`"datagolf"`, `"wikipedia"`, `"nejm"`, ...), shared with the Python and
 #' JavaScript packages. Use an id with [gt_theme_source()],
-#' [reactable_theme_sdv()] or [table_theme_spec()].
+#' [reactable_sdv_theme()] or [table_theme_spec()].
 #'
 #' @param mode `"dark"` keeps only the themes that have a dark variant;
 #'   `"light"` or `NULL` (the default) keeps all.
@@ -133,7 +133,7 @@
 #' sdv_table_themes(mode = "dark", category = "sports")
 #'
 #' @seealso [table_theme_spec()] to resolve one theme, [gt_theme_source()] and
-#'   [reactable_theme_sdv()] to apply one.
+#'   [reactable_sdv_theme()] to apply one.
 #' @export
 sdv_table_themes <- function(mode = NULL, category = NULL) {
   if (!is.null(mode)) .tt_check_mode(mode)
@@ -174,7 +174,7 @@ sdv_table_themes <- function(mode = NULL, category = NULL) {
 #' spec$structure$rowRule
 #'
 #' @seealso [sdv_table_themes()] to list the ids, [gt_theme_source()] and
-#'   [reactable_theme_sdv()] to apply one.
+#'   [reactable_sdv_theme()] to apply one.
 #' @export
 table_theme_spec <- function(name, mode = c("light", "dark")) {
   mode <- if (identical(mode, c("light", "dark"))) "light" else mode

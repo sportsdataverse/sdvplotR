@@ -32,7 +32,7 @@
 #' gt(central) |> gt_theme_source("datagolf")
 #' gt(central) |> gt_theme_source("datagolf", mode = "dark", density = "compact")
 #'
-#' @seealso [sdv_table_themes()], [table_theme_spec()], [reactable_theme_sdv()]
+#' @seealso [sdv_table_themes()], [table_theme_spec()], [reactable_sdv_theme()]
 #' @import gt
 #' @export
 gt_theme_source <- function(gt_object, name, mode = "light", density = "comfortable") {

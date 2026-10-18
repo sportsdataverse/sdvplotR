@@ -24,18 +24,18 @@
 #' @examplesIf requireNamespace("reactable", quietly = TRUE)
 #' library(reactable)
 #' df <- data.frame(team = c("KC", "BUF", "BAL"), wins = c(12, 10, 9))
-#' reactable(df, theme = reactable_theme_sdv("wikipedia"))
-#' reactable(df, theme = reactable_theme_sdv("datagolf", mode = "dark"))
+#' reactable(df, theme = reactable_sdv_theme("wikipedia"))
+#' reactable(df, theme = reactable_sdv_theme("datagolf", mode = "dark"))
 #'
 #' @seealso [sdv_table_themes()], [table_theme_spec()], [gt_theme_source()]
 #' @export
-reactable_theme_sdv <- function(name, mode = "light") {
+reactable_sdv_theme <- function(name, mode = "light") {
   rlang::check_installed("reactable", reason = "to build a 'reactable' theme.")
   .tt_check_mode(mode)
   if (is.character(name) && length(name) == 1L && name %in% .tt_fmtr_names) {
     port <- paste0("reactablefmtr::", name, "()")
     msg <- c(
-      "{.val {name}} is a {.pkg reactablefmtr} theme, which {.fn reactable_theme_sdv} does not rebuild.",
+      "{.val {name}} is a {.pkg reactablefmtr} theme, which {.fn reactable_sdv_theme} does not rebuild.",
       "i" = "Call {.code {port}} instead."
     )
     if (name %in% .tt_site_ports) {

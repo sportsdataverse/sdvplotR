@@ -21,7 +21,7 @@ A tibble with one row per theme: \code{id}, \code{source}, \code{category} and
 The registry of 122 table styles surveyed from published sources
 (\code{"datagolf"}, \code{"wikipedia"}, \code{"nejm"}, ...), shared with the Python and
 JavaScript packages. Use an id with \code{\link[=gt_theme_source]{gt_theme_source()}},
-\code{\link[=reactable_theme_sdv]{reactable_theme_sdv()}} or \code{\link[=table_theme_spec]{table_theme_spec()}}.
+\code{\link[=reactable_sdv_theme]{reactable_sdv_theme()}} or \code{\link[=table_theme_spec]{table_theme_spec()}}.
 }
 \examples{
 sdv_table_themes()
@@ -30,5 +30,5 @@ sdv_table_themes(mode = "dark", category = "sports")
 }
 \seealso{
 \code{\link[=table_theme_spec]{table_theme_spec()}} to resolve one theme, \code{\link[=gt_theme_source]{gt_theme_source()}} and
-\code{\link[=reactable_theme_sdv]{reactable_theme_sdv()}} to apply one.
+\code{\link[=reactable_sdv_theme]{reactable_sdv_theme()}} to apply one.
 }

@@ -22,11 +22,12 @@ The full gallery, with filters, is at
 ```{r, eval = FALSE}
 gt_object |> gt_theme_source("datagolf")             # a gt table
 gt_object |> gt_theme_source("datagolf", mode = "dark")
-reactable::reactable(df, theme = reactable_theme_sdv("datagolf"))
+reactable::reactable(df, theme = reactable_sdv_theme("datagolf"))
 ```
 
-Lookup runs through the house themes, then the 27 reactablefmtr ports (bare
-names such as `espn`), then the registry (`espn-site` is the site's own look).
+Both functions read the registry only. The 27 reactablefmtr names (such as
+`espn`) raise an error pointing at the `reactablefmtr::` function; the
+registry's `espn-site` is the site's own look.
 `mode = "dark"` works for themes whose dark policy is `native` (measured) or
 `derived` (from the light palette); on a `none` theme it raises, naming three
 dark-capable themes in the same category.
@@ -46,7 +47,7 @@ for (cat in sort(unique(th$category))) {
       cat("<img src=\"", img, "/", id, "-dark.webp\" alt=\"", rows$source[i],
           " table theme, dark\" loading=\"lazy\" width=\"480\">", sep = "")
     }
-    cat("\n\n`gt_theme_source(gt, \"", id, "\")` &middot; `reactable_theme_sdv(\"", id, "\")`\n\n", sep = "")
+    cat("\n\n`gt_theme_source(gt, \"", id, "\")` &middot; `reactable_sdv_theme(\"", id, "\")`\n\n", sep = "")
   }
 }
 ```

@@ -33,5 +33,5 @@ spec$structure$rowRule
 }
 \seealso{
 \code{\link[=sdv_table_themes]{sdv_table_themes()}} to list the ids, \code{\link[=gt_theme_source]{gt_theme_source()}} and
-\code{\link[=reactable_theme_sdv]{reactable_theme_sdv()}} to apply one.
+\code{\link[=reactable_sdv_theme]{reactable_sdv_theme()}} to apply one.
 }

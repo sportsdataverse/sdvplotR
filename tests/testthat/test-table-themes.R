@@ -71,10 +71,10 @@ test_that("unknown names suggest close matches; bare site names point at the -si
   expect_error(table_theme_spec("wikipedia", "sepia"), "mode")
 })
 
-test_that("reactable_theme_sdv maps the spec onto reactableTheme", {
+test_that("reactable_sdv_theme maps the spec onto reactableTheme", {
   skip_if_not_installed("reactable")
   sp <- table_theme_spec("wikipedia")
-  th <- reactable_theme_sdv("wikipedia")
+  th <- reactable_sdv_theme("wikipedia")
   expect_s3_class(th, "reactableTheme")
   expect_identical(th$borderColor, sp$palette$hline)
   expect_identical(th$color, sp$palette$text)
@@ -88,27 +88,27 @@ test_that("reactable_theme_sdv maps the spec onto reactableTheme", {
   # highlight = bg mixed 6% toward the text color
   expect_identical(tolower(.theme_mix(sp$palette$text, sp$palette$bg, 0.06)), th$highlightColor)
   # python parity: the same registry resolves to the same hover color
-  expect_identical(reactable_theme_sdv("datagolf", "dark")$backgroundColor, "#141414")
+  expect_identical(reactable_sdv_theme("datagolf", "dark")$backgroundColor, "#141414")
 })
 
-test_that("reactable_theme_sdv refuses reactablefmtr names and unknown ids", {
+test_that("reactable_sdv_theme refuses reactablefmtr names and unknown ids", {
   skip_if_not_installed("reactable")
-  expect_error(reactable_theme_sdv("nytimes"), "reactablefmtr::nytimes")
-  expect_error(reactable_theme_sdv("espn"), "espn-site")
-  expect_error(reactable_theme_sdv("pff"), "pff-site")
-  expect_error(reactable_theme_sdv("datagolff"), "datagolf")
-  expect_error(reactable_theme_sdv("nejm", "dark"), "light-only")
-  for (n in .tt_fmtr_names) expect_error(reactable_theme_sdv(n), "reactablefmtr")
+  expect_error(reactable_sdv_theme("nytimes"), "reactablefmtr::nytimes")
+  expect_error(reactable_sdv_theme("espn"), "espn-site")
+  expect_error(reactable_sdv_theme("pff"), "pff-site")
+  expect_error(reactable_sdv_theme("datagolff"), "datagolf")
+  expect_error(reactable_sdv_theme("nejm", "dark"), "light-only")
+  for (n in .tt_fmtr_names) expect_error(reactable_sdv_theme(n), "reactablefmtr")
   expect_length(.tt_fmtr_names, 27)
 })
 
 test_that("every id x mode builds a reactable theme", {
   skip_if_not_installed("reactable")
   for (i in sdv_table_themes()$id) {
-    expect_s3_class(reactable_theme_sdv(i), "reactableTheme")
+    expect_s3_class(reactable_sdv_theme(i), "reactableTheme")
   }
   for (i in sdv_table_themes(mode = "dark")$id) {
-    expect_s3_class(reactable_theme_sdv(i, "dark"), "reactableTheme")
+    expect_s3_class(reactable_sdv_theme(i, "dark"), "reactableTheme")
   }
 })
 

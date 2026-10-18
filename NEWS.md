@@ -64,7 +64,7 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   300 dpi export, and a few KB a logo in an SVG or ggiraph widget). All of
   them work after a complete theme such as `theme_minimal()` on 'ggplot2' 4,
   which sdvplotR requires.
-* `gt_theme_source()` and `reactable_theme_sdv()` apply any of 122 surveyed
+* `gt_theme_source()` and `reactable_sdv_theme()` apply any of 122 surveyed
   table styles, named for their source (`"datagolf"`, `"wikipedia"`, `"nejm"`,
   ...); `sdv_table_themes()` lists them and `table_theme_spec()` resolves one.
   The registry is shared with sdvplot and sdvtables. Twenty shortcuts such as

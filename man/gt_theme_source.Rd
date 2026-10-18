@@ -46,5 +46,5 @@ gt(central) |> gt_theme_source("datagolf", mode = "dark", density = "compact")
 
 }
 \seealso{
-\code{\link[=sdv_table_themes]{sdv_table_themes()}}, \code{\link[=table_theme_spec]{table_theme_spec()}}, \code{\link[=reactable_theme_sdv]{reactable_theme_sdv()}}
+\code{\link[=sdv_table_themes]{sdv_table_themes()}}, \code{\link[=table_theme_spec]{table_theme_spec()}}, \code{\link[=reactable_sdv_theme]{reactable_sdv_theme()}}
 }
