@@ -16,6 +16,9 @@ the same table in every language. The list below is built from
 `sdv_table_themes()` when this article is knit, so it cannot drift from the
 package.
 
+The full gallery, with filters, is at
+<https://plot.sportsdataverse.org/guides/table-theme-registry>.
+
 ```{r, eval = FALSE}
 gt_object |> gt_theme_source("datagolf")             # a gt table
 gt_object |> gt_theme_source("datagolf", mode = "dark")
