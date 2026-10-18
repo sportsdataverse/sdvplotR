@@ -8,6 +8,8 @@ articles:
   cookbook-colors-themes: cookbook-colors-themes.html
   cookbook-ggplot-logos: cookbook-ggplot-logos.html
   cookbook-interactive: cookbook-interactive.html
+  cookbook-leaflet-maps: cookbook-leaflet-maps.html
+  cookbook-reactable: cookbook-reactable.html
   cookbook-surfaces-shot-charts: cookbook-surfaces-shot-charts.html
   delay_tables: delay_tables.html
   gallery: gallery.html
@@ -57,7 +59,7 @@ articles:
   window_wins: window_wins.html
   wnba-viz: wnba-viz.html
   workflows: workflows.html
-last_built: 2026-10-17T23:38Z
+last_built: 2026-10-18T02:08Z
 urls:
   reference: https://sdvplotR.sportsdataverse.org/reference
   article: https://sdvplotR.sportsdataverse.org/articles

@@ -87,7 +87,7 @@ visualization, for each sport.
 
 Task-oriented, cross-league recipes: logos and headshots in ggplot2,
 team colors and themes, interactive charts, playing surfaces and shot
-charts, and reactable tables.
+charts, and reactable tables (with reactablefmtr).
 
 - [Logos, wordmarks and headshots in
   ggplot2](https://sdvplotR.sportsdataverse.org/articles/cookbook-ggplot-logos.md):
@@ -127,6 +127,14 @@ charts, and reactable tables.
   sdvplotR provides a family of helpers for embedding team logos,
   wordmarks, player headshots, and team-colored bars in reactable
   tables.
+
+- [reactable and reactablefmtr
+  cookbook](https://sdvplotR.sportsdataverse.org/articles/cookbook-reactable.md):
+
+  Ten recipes for team tables on the web: reactablefmtr data bars,
+  heatmap tiles, icon sets, pill buttons, merged columns, image
+  comparisons and themes, plus wordmarks, grouped rows, conference logos
+  and expandable rows in reactable, across six leagues.
 
 ### Tables cookbook
 
@@ -351,6 +359,14 @@ version.
   Put every FBS program on a map as its logo at its home stadium: hover
   for the school, click for the stadium, switch conferences on and off,
   and share it as one HTML file.
+
+- [Team maps with
+  leaflet](https://sdvplotR.sportsdataverse.org/articles/cookbook-leaflet-maps.md):
+
+  Five leaflet maps with team logos as markers: every MLB ballpark with
+  its dimensions, the parks by division, team-colored circles sized by
+  wins, spring training with clustered markers, and the coast-to-coast
+  Big Ten.
 
 ### Leaderboards
 

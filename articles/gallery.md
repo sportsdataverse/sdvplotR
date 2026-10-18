@@ -79,6 +79,12 @@ Charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-interactive.md)
 [![Figure](../articles/cookbook-surfaces-shot-charts_files/figure-html/nba-shots-1.png)Surfaces
 and Shot
 Charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.md)
+[![Figure](../articles/cookbook-reactable_files/figure-html/export-1.png)reactable
+and reactablefmtr
+Cookbook](https://sdvplotR.sportsdataverse.org/articles/cookbook-reactable.md)
+[![Figure](../articles/cookbook-leaflet-maps_files/figure-html/export-1.png)Team
+Maps with
+leaflet](https://sdvplotR.sportsdataverse.org/articles/cookbook-leaflet-maps.md)
 [![Figure](../articles/recipe-nfl-epa-scatter_files/figure-html/export-1.png)Recipe:
 NFL EPA
 Scatter](https://sdvplotR.sportsdataverse.org/articles/recipe-nfl-epa-scatter.md)
