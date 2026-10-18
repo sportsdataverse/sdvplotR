@@ -238,9 +238,7 @@ surface_color_updates <- function(geom, primary, secondary) {
 surface_logo_layer <- function(geom, sporty_league, team, league, season, args) {
   offset <- 0
   if (geom %in% c("geom_baseball", "geom_softball")) {
-    # sportyR exports no field parameters; read the same table its geoms read
-    dims <- utils::getFromNamespace("surface_dimensions", "sportyR")[[sub("geom_", "", geom)]][[sporty_league]]
-    dims <- utils::modifyList(dims, as.list(args$field_updates))
+    dims <- utils::modifyList(sportyr_field_params(sub("geom_", "", geom), sporty_league), as.list(args$field_updates))
     offset <- (dims$baseline_distance * sqrt(2) + dims$center_field_distance) / 2
     size <- field_logo_fraction * dims$center_field_distance
   } else {
@@ -277,6 +275,19 @@ surface_logo_layer <- function(geom, sporty_league, team, league, season, args) 
     inherit.aes = FALSE,
     params = list(logo_size = size)
   )
+}
+
+# A league's sportyR field parameters: sportyR's get_surface_dimensions() where
+# it exists (after 2.3.0's #68), else the internal table its geoms read
+# (CRAN 2.2.3 exports no accessor).
+sportyr_has_accessor <- function() {
+  exists("get_surface_dimensions", envir = asNamespace("sportyR"), inherits = FALSE)
+}
+sportyr_field_params <- function(sport, league) {
+  if (sportyr_has_accessor()) {
+    return(getExportedValue("sportyR", "get_surface_dimensions")(sport, league))
+  }
+  utils::getFromNamespace("surface_dimensions", "sportyR")[[sport]][[league]]
 }
 
 # ggpath sizes an image in npc of the panel; convert from surface units at

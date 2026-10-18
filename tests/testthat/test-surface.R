@@ -334,3 +334,36 @@ test_that("on a baseball or softball field the logo sits in shallow center field
   expect_equal(c(l$data$x, l$data$y), c(0, (60 * sqrt(2) + 220) / 2), tolerance = 1e-9)
   expect_equal(l$geom_params$logo_size, 0.15 * 220, tolerance = 1e-9)
 })
+
+test_that("diamond field parameters come from sportyR's accessor, or its table on older sportyR", {
+  skip_if_not_installed("sportyR")
+  diamonds <- c("mlb", "milb", "ncaa_baseball", "little_league", "pony", "nfhs_baseball", "ncaa_softball")
+  diamonds <- Filter(sportyr_has, diamonds)
+  table <- utils::getFromNamespace("surface_dimensions", "sportyR")
+  for (k in diamonds) {
+    m <- surface_map[[k]]
+    sport <- sub("geom_", "", m[[1]])
+    expect_identical(sportyr_field_params(sport, m[[2]]), table[[sport]][[m[[2]]]], info = k)
+  }
+
+  # the fallback reads the same table when the accessor is absent (CRAN 2.2.3)
+  local_mocked_bindings(sportyr_has_accessor = function() FALSE)
+  for (k in diamonds) {
+    m <- surface_map[[k]]
+    sport <- sub("geom_", "", m[[1]])
+    expect_identical(sportyr_field_params(sport, m[[2]]), table[[sport]][[m[[2]]]], info = k)
+  }
+})
+
+test_that("with sportyR's accessor, the logo reads its field parameters", {
+  skip_if_not_installed("sportyR")
+  skip_if_not(sportyr_has_accessor(), "sportyR without get_surface_dimensions()")
+  local_mocked_bindings(
+    get_surface_dimensions = function(sport, league = NULL) list(baseline_distance = 100, center_field_distance = 500),
+    .package = "sportyR"
+  )
+  l <- sdv_surface("mlb", "NYY", center_logo = TRUE)
+  l <- l$layers[[length(l$layers)]]
+  expect_equal(l$data$y, (100 * sqrt(2) + 500) / 2, tolerance = 1e-9)
+  expect_equal(l$geom_params$logo_size, 0.15 * 500, tolerance = 1e-9)
+})
