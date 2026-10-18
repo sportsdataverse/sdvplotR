@@ -302,15 +302,6 @@ Browse the other SportsDataverse cheat sheets at
 See the full ecosystem at
 [sportsdataverse.org](https://sportsdataverse.org/).
 
-## Star History
-
-<a href="https://github.com/sportsdataverse/sdvplotR/stargazers">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/star-history/star-history-dark.svg">
-    <img alt="Star history of sportsdataverse/sdvplotR" src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/star-history/star-history.png" width="600">
-  </picture>
-</a>
-
 ## Follow the [SportsDataverse](https://x.com/SportsDataverse) on X and star this repo
 
 [![X
@@ -318,6 +309,13 @@ Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-th
 
 [![GitHub
 stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=eee&logo=github&style=for-the-badge&label=Star%20sdvplotR&maxAge=2592000)](https://github.com/sportsdataverse/sdvplotR)
+
+<a href="https://github.com/sportsdataverse/sdvplotR/stargazers">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/star-history/star-history-dark.svg">
+    <img alt="Star history of sportsdataverse/sdvplotR" src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/star-history/star-history.png" width="600">
+  </picture>
+</a>
 
 ## **Our Authors**
 
