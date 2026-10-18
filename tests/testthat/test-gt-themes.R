@@ -5,7 +5,7 @@ html_of <- function(x) as.character(gt::as_raw_html(x, inline_css = FALSE))
 test_that("every gt_theme_* returns a gt table that renders", {
   themes <- setdiff(
     grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE),
-    "gt_theme_preview"
+    c("gt_theme_preview", registry_theme_fns)
   )
   expect_gte(length(themes), 18)
   for (nm in themes) {
@@ -18,7 +18,7 @@ test_that("every gt_theme_* returns a gt table that renders", {
 test_that("theme_bg matches the background every theme applies", {
   themes <- setdiff(
     grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE),
-    "gt_theme_preview"
+    c("gt_theme_preview", registry_theme_fns)
   )
   expect_setequal(unique(theme_bg$theme), themes)
   for (i in seq_len(nrow(theme_bg))) {
@@ -101,7 +101,7 @@ test_that("gt_theme_sdv sets the navy background in dark style", {
 test_that("every theme lets options passed through ... override its own", {
   themes <- setdiff(
     grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE),
-    "gt_theme_preview"
+    c("gt_theme_preview", registry_theme_fns)
   )
   for (nm in themes) {
     tbl <- get(nm, envir = asNamespace("sdvplotR"))(
@@ -118,7 +118,7 @@ test_that("the caller's options survive density scaling and forced striping", {
   opt <- function(tbl, name) tbl[["_options"]]$value[[match(name, tbl[["_options"]]$parameter)]]
   themes <- setdiff(
     grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE),
-    "gt_theme_preview"
+    c("gt_theme_preview", registry_theme_fns)
   )
   for (nm in themes) {
     tbl <- get(nm, envir = asNamespace("sdvplotR"))(

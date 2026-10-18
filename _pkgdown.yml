@@ -163,6 +163,37 @@ reference:
       - gt_theme_preview
       - pal_midnight
       - theme_bg
+  - title: "Table themes by source"
+    desc: >
+      122 surveyed table styles, by the name of the source they follow
+      (`datagolf`, `wikipedia`, `nejm`, ...), shared with the Python and
+      JavaScript packages. `gt_theme_source()` and `reactable_theme_sdv()`
+      apply any of them; the shortcuts name the most useful 20.
+    contents:
+      - sdv_table_themes
+      - table_theme_spec
+      - gt_theme_source
+      - reactable_theme_sdv
+      - gt_theme_basketball_reference
+      - gt_theme_datagolf
+      - gt_theme_fivethirtyeight_site
+      - gt_theme_wikipedia
+      - gt_theme_cleaning_the_glass
+      - gt_theme_bbc_sport
+      - gt_theme_opta_analyst
+      - gt_theme_our_world_in_data
+      - gt_theme_bloomberg_markets
+      - gt_theme_aer
+      - gt_theme_nzz
+      - gt_theme_guardian
+      - gt_theme_barttorvik
+      - gt_theme_espn_site
+      - gt_theme_gov_uk
+      - gt_theme_washington_post
+      - gt_theme_reuters_graphics
+      - gt_theme_formula1
+      - gt_theme_dunks_and_threes
+      - gt_theme_economist
   - title: "gt Table Annotations"
     desc: Captions, headers, cut lines, marginalia, watermarks and social tags.
     contents:
