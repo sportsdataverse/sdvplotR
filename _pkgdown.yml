@@ -306,13 +306,14 @@ articles:
     desc: >
       Task-oriented, cross-league recipes: logos and headshots in ggplot2,
       team colors and themes, interactive charts, playing surfaces and shot
-      charts, and reactable tables.
+      charts, and reactable tables (with reactablefmtr).
     contents:
       - cookbook-ggplot-logos
       - cookbook-colors-themes
       - cookbook-interactive
       - cookbook-surfaces-shot-charts
       - reactable-integration
+      - cookbook-reactable
   - title: "Tables cookbook"
     desc: >
       gt tables on SportsDataverse data: the house themes, standings with cut
@@ -364,6 +365,7 @@ articles:
       - recipe-nhl-shot-map-interactive
       - recipe-mlb-run-differential-interactive
       - recipe-cfb-stadium-map
+      - cookbook-leaflet-maps
   - title: "Leaderboards"
     desc: >
       Each league's current season, rebuilt every week with this site: the
@@ -556,6 +558,8 @@ navbar:
         href: articles/leaderboard-dashboards.html
       - text: "reactable Integration"
         href: articles/reactable-integration.html
+      - text: "reactable and reactablefmtr Cookbook"
+        href: articles/cookbook-reactable.html
       - text: --------------------------------
       - text: "Tables cookbook"
       - text: "SportsDataverse Table Themes"
@@ -624,6 +628,8 @@ navbar:
         href: articles/recipe-mlb-run-differential-interactive.html
       - text: "CFB Stadium Map"
         href: articles/recipe-cfb-stadium-map.html
+      - text: "Team Maps with leaflet"
+        href: articles/cookbook-leaflet-maps.html
       - text: --------------------------------
       - text: "Leaderboards"
       - text: "NFL Weekly"
