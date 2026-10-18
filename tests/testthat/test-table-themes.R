@@ -130,6 +130,16 @@ test_that("gt_theme_source themes a table with the spec's font and rules", {
   expect_match(h2, paste0("'", fam, "', ", .tt_generic_family(fam)), fixed = TRUE)
 })
 
+test_that("gt_theme_source imports the title, label and subtitle Google fonts too", {
+  h <- html_of(gt_theme_source(tiny(), "washington-post"))
+  fonts <- table_theme_spec("washington-post")$fonts
+  imports <- regmatches(h, gregexpr("@import url\\([\"']https://fonts.googleapis.com/css2\\?family=[^:&\"']+", h))[[1]]
+  imported <- gsub("+", " ", sub(".*family=", "", imports), fixed = TRUE)
+  # every distinct face (Libre Franklin, Libre Bodoni, Gelasio) is imported
+  expect_setequal(unique(imported), unique(c(fonts$body, fonts$title, fonts$label, fonts$subtitle)))
+  expect_true("Libre Bodoni" %in% imported)
+})
+
 # the same two lists are asserted in sdvplot and sdvtables, so the three heuristics agree on every face
 test_that("every registry face gets the shared generic family", {
   serif <- c(

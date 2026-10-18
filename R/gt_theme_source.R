@@ -55,9 +55,17 @@ gt_theme_source <- function(gt_object, name, mode = "light", density = "comforta
   gt_object <- res$object
   tid <- res$id
 
-  # a face with its generic family: gt writes 'Lora', serif. Only the table font imports
-  # the Google font (below), so the stylesheet carries one @import per family, not one per style
-  face <- function(family) c(family, .tt_generic_family(family))
+  # a face with its generic family: gt writes 'Lora', serif. gt @imports a Google font once per
+  # style that names it, so only a family's first use carries the import (the table font below
+  # imports the body face); title, label and subtitle faces that differ from it still load
+  seen <- fonts$body
+  face <- function(family) {
+    if (family %in% seen) {
+      return(c(family, .tt_generic_family(family)))
+    }
+    seen <<- c(seen, family)
+    list(gt::google_font(family), .tt_generic_family(family))
+  }
   text <- function(role, family, weight, color, ...) {
     gt::cell_text(
       font = face(family), weight = weight, size = gt::px(tr(sizes[[role]], role)),
