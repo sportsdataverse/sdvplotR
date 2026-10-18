@@ -7,39 +7,61 @@
 sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
 }
 \arguments{
-\item{league}{A league with a playing surface: one of \code{names(surface_map)}, the
-leagues of \code{\link[=sdv_leagues]{sdv_leagues()}} that 'sportyR' draws, plus \code{"fiba"}. Each maps
-to a 'sportyR' surface, after sdvplot's (Python) surfaces:\tabular{ll}{
+\item{league}{One of the 59 SportsDataverse surface keys, the table sdvplot
+(Python) and sdvplot-js share. Each maps to a 'sportyR' surface:\tabular{ll}{
    league \tab surface \cr
    \code{"nfl"}, \code{"aaf"}, \code{"ufl"}, \code{"usfl"}, \code{"xfl"} \tab \code{sportyR::geom_football("nfl")} \cr
    \code{"cfb"} \tab \code{sportyR::geom_football("ncaa")} \cr
+   \code{"cfl"} \tab \code{sportyR::geom_football("cfl")} \cr
+   \code{"nfhs_football"} \tab \code{sportyR::geom_football("nfhs11")} \cr
    \code{"nba"} \tab \code{sportyR::geom_basketball("nba")} \cr
    \code{"nbagl"} \tab \code{sportyR::geom_basketball("nba g league")} \cr
    \code{"wnba"} \tab \code{sportyR::geom_basketball("wnba")} \cr
    \code{"mbb"}, \code{"wbb"} \tab \code{sportyR::geom_basketball("ncaa")} \cr
    \code{"fiba"} \tab \code{sportyR::geom_basketball("fiba")} (28 x 15 m) \cr
-   \code{"mlb"} \tab \code{sportyR::geom_baseball("mlb")} \cr
-   \code{"milb"} \tab \code{sportyR::geom_baseball("milb")} \cr
+   \code{"nfhs_basketball"} \tab \code{sportyR::geom_basketball("nfhs")} \cr
+   \code{"mlb"}, \code{"milb"}, \code{"pony"} \tab \code{sportyR::geom_baseball()} of the same league \cr
    \code{"ncaa_baseball"} \tab \code{sportyR::geom_baseball("ncaa")} \cr
+   \code{"little_league"} \tab \code{sportyR::geom_baseball("little league")} \cr
+   \code{"nfhs_baseball"} \tab \code{sportyR::geom_baseball("nfhs")} \cr
+   \code{"ncaa_softball"} \tab \code{sportyR::geom_softball("ncaa")} (needs 'sportyR' 2.3.0) \cr
    \code{"nhl"}, \code{"whl"} \tab \code{sportyR::geom_hockey("nhl")} (no WHL rink in 'sportyR') \cr
-   \code{"pwhl"}, \code{"ahl"}, \code{"echl"}, \code{"ohl"}, \code{"qmjhl"}, \code{"ushl"}, \code{"phf"} \tab \code{sportyR::geom_hockey()} of the same league \cr
+   \code{"pwhl"}, \code{"ahl"}, \code{"echl"}, \code{"ohl"}, \code{"qmjhl"}, \code{"ushl"}, \code{"phf"}, \code{"iihf"}, \code{"nwhl"} \tab \code{sportyR::geom_hockey()} of the same league \cr
    \code{"ncaa_mhockey"}, \code{"ncaa_whockey"} \tab \code{sportyR::geom_hockey("ncaa")} \cr
    \code{"soccer"} \tab \code{sportyR::geom_soccer("fifa")}, 105 x 68 m (\code{pitch_updates} overrides) \cr
+   \code{"fifa"}, \code{"epl"}, \code{"mls"}, \code{"nwsl"} \tab \code{sportyR::geom_soccer()} of the same league ('sportyR''s own pitch size) \cr
+   \code{"ncaa_soccer"} \tab \code{sportyR::geom_soccer("ncaa")} \cr
+   \code{"nll"}, \code{"pll"} \tab \code{sportyR::geom_lacrosse()} of the same league \cr
+   \code{"world_lacrosse"} \tab \code{sportyR::geom_lacrosse("world lacrosse")} \cr
+   \code{"ncaa_mlacrosse"}, \code{"ncaa_wlacrosse"} \tab \code{sportyR::geom_lacrosse("ncaam")}, \code{("ncaaw")} \cr
+   \code{"usa_mlacrosse"}, \code{"usa_wlacrosse"} \tab \code{sportyR::geom_lacrosse("usam")}, \code{("usaw")} \cr
+   \code{"atp"}, \code{"wta"}, \code{"itf"}, \code{"ita"}, \code{"usta"} \tab \code{sportyR::geom_tennis()} of the same league \cr
+   \code{"ncaa_tennis"} \tab \code{sportyR::geom_tennis("ncaa")} \cr
+   \code{"fivb"} \tab \code{sportyR::geom_volleyball("fivb")} \cr
+   \code{"usa_volleyball"} \tab \code{sportyR::geom_volleyball("usa volleyball")} \cr
+   \code{"ncaa_volleyball"} \tab \code{sportyR::geom_volleyball("ncaa")} \cr
+   \code{"wcf"} \tab \code{sportyR::geom_curling("wcf")} \cr
+   \code{"curling_canada"} \tab \code{sportyR::geom_curling("curling canada")} \cr
 }
 
 
-Python's \code{sdvplot} draws the PWHL on an NHL rink and the G League on its own court
-class; 'sportyR' 2.2.3 has both, so they use their own here.}
+The PWHL and the G League draw their own rink and court, as in sdvplot and
+sdvplot-js. \code{"ncaa_softball"} needs 'sportyR' 2.3.0 or later (not yet on
+CRAN: \code{remotes::install_github("sportsdataverse/sportyR")}); with an older
+'sportyR' it errors naming that version. 'sportyR' 2.3.0 also fixes several
+lacrosse markings 2.2.3 draws wrongly.}
 
 \item{team}{\code{NULL} (the default) for the plain regulation surface, or one
-team identifier, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}.}
+team identifier, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}. Only keys that are also
+team leagues of \code{\link[=sdv_leagues]{sdv_leagues()}} take one; the others (\code{"fiba"}, \code{"atp"},
+\code{"nll"}, \code{"epl"}, ...) error.}
 
 \item{season}{A season for the team's colors and center logo (see
 \code{\link[=sdv_team_colors]{sdv_team_colors()}}); \code{NULL} is the current identity.}
 
 \item{center_logo}{If \code{TRUE}, draw the team's logo at center court, center
-ice or midfield. Needs a \code{team}; ignored with a warning for \code{"mlb"},
-whose surface is an infield with no center.}
+ice or midfield. Needs a \code{team}; ignored with a warning on baseball and
+softball fields, whose surface is an infield with no center.}
 
 \item{...}{Passed to the 'sportyR' geom: \code{display_range}, \code{rotation},
 \code{x_trans}, \code{y_trans}, \code{xlims}, \code{ylims}, the unit arguments, and
@@ -73,10 +95,13 @@ more with it.
 \item Hockey: the center line, center faceoff circle and center faceoff spot
 take the primary color, or the secondary where the primary is too pale
 to read on white ice (under 3:1 contrast); the boards take the primary.
-\item Baseball: nothing. No part of a regulation infield is team-colored
-(the green background is the outfield grass), so the team is checked
-and the surface stays 'sportyR''s.
+\item Baseball and softball: nothing. No part of a regulation infield is
+team-colored (the green background is the outfield grass), so the team
+is checked and the surface stays 'sportyR''s.
 }
+
+Lacrosse, tennis, volleyball and curling surfaces have no team identities
+yet and take no \code{team}.
 
 Soccer and FIBA surfaces are drawn in meters. "soccer" defaults to a
 regulation 105 x 68 m pitch, the frame \code{\link[=sdv_pitch_coords]{sdv_pitch_coords()}} converts to;

@@ -182,11 +182,119 @@ test_that("fiba draws sportyR's FIBA court", {
 test_that("surfaces without team identities refuse a team", {
   skip_if_not_installed("sportyR")
   expect_error(sdv_surface("fiba", "ESP"), "No team identities")
+  # every key that is not an sdv team league, as in sdvplot (Python) and sdvplot-js
+  teamless <- setdiff(names(surface_map), sdv_leagues())
+  expect_true(all(c("fiba", "atp", "nll", "wcf", "epl", "cfl", "nfhs_football") %in% teamless))
+  for (lg in teamless) {
+    expect_error(sdv_surface(lg, "BOS"), paste0("No team identities for \"", lg, "\""), info = lg)
+  }
+})
+
+# the SDV surface-key table, identical to sdvplot's SURFACES (Python) and sdvplot-js's src/surfaces.ts
+shared_surfaces <- list(
+  nfl = c("geom_football", "nfl"), aaf = c("geom_football", "nfl"), ufl = c("geom_football", "nfl"),
+  usfl = c("geom_football", "nfl"), xfl = c("geom_football", "nfl"), cfb = c("geom_football", "ncaa"),
+  cfl = c("geom_football", "cfl"), nfhs_football = c("geom_football", "nfhs11"),
+  nba = c("geom_basketball", "nba"), nbagl = c("geom_basketball", "nba g league"),
+  wnba = c("geom_basketball", "wnba"), mbb = c("geom_basketball", "ncaa"), wbb = c("geom_basketball", "ncaa"),
+  fiba = c("geom_basketball", "fiba"), nfhs_basketball = c("geom_basketball", "nfhs"),
+  mlb = c("geom_baseball", "mlb"), milb = c("geom_baseball", "milb"), ncaa_baseball = c("geom_baseball", "ncaa"),
+  little_league = c("geom_baseball", "little league"), pony = c("geom_baseball", "pony"),
+  nfhs_baseball = c("geom_baseball", "nfhs"),
+  ncaa_softball = c("geom_softball", "ncaa"),
+  nhl = c("geom_hockey", "nhl"), whl = c("geom_hockey", "nhl"), pwhl = c("geom_hockey", "pwhl"),
+  ahl = c("geom_hockey", "ahl"), echl = c("geom_hockey", "echl"), ohl = c("geom_hockey", "ohl"),
+  qmjhl = c("geom_hockey", "qmjhl"), ushl = c("geom_hockey", "ushl"), phf = c("geom_hockey", "phf"),
+  iihf = c("geom_hockey", "iihf"), nwhl = c("geom_hockey", "nwhl"),
+  ncaa_mhockey = c("geom_hockey", "ncaa"), ncaa_whockey = c("geom_hockey", "ncaa"),
+  soccer = c("geom_soccer", "fifa"), fifa = c("geom_soccer", "fifa"), epl = c("geom_soccer", "epl"),
+  mls = c("geom_soccer", "mls"), nwsl = c("geom_soccer", "nwsl"), ncaa_soccer = c("geom_soccer", "ncaa"),
+  nll = c("geom_lacrosse", "nll"), pll = c("geom_lacrosse", "pll"),
+  world_lacrosse = c("geom_lacrosse", "world lacrosse"), ncaa_mlacrosse = c("geom_lacrosse", "ncaam"),
+  ncaa_wlacrosse = c("geom_lacrosse", "ncaaw"), usa_mlacrosse = c("geom_lacrosse", "usam"),
+  usa_wlacrosse = c("geom_lacrosse", "usaw"),
+  atp = c("geom_tennis", "atp"), wta = c("geom_tennis", "wta"), itf = c("geom_tennis", "itf"),
+  ita = c("geom_tennis", "ita"), usta = c("geom_tennis", "usta"), ncaa_tennis = c("geom_tennis", "ncaa"),
+  fivb = c("geom_volleyball", "fivb"), usa_volleyball = c("geom_volleyball", "usa volleyball"),
+  ncaa_volleyball = c("geom_volleyball", "ncaa"),
+  wcf = c("geom_curling", "wcf"), curling_canada = c("geom_curling", "curling canada")
+)
+
+# skip a key whose sportyR geom is newer than the installed sportyR
+skip_if_sportyr_lacks <- function(league) {
+  need <- surface_min_sportyr[league]
+  if (!is.na(need)) skip_if(utils::packageVersion("sportyR") < need, paste("needs sportyR", need))
+}
+
+test_that("surface_map carries the 59 shared keys with the shared sport and league", {
+  expect_length(surface_map, 59L)
+  expect_identical(surface_map[order(names(surface_map))], shared_surfaces[order(names(shared_surfaces))])
+  expect_identical(names(surface_min_sportyr), "ncaa_softball")
+})
+
+test_that("every key draws its sportyR surface, unchanged", {
+  skip_if_not_installed("sportyR")
+  for (lg in setdiff(names(surface_map), "soccer")) {
+    if (!is.na(surface_min_sportyr[lg]) && utils::packageVersion("sportyR") < surface_min_sportyr[[lg]]) next
+    m <- surface_map[[lg]]
+    expected <- getExportedValue("sportyR", m[[1]])(m[[2]])
+    p <- sdv_surface(lg)
+    expect_identical(surface_data(p), surface_data(expected), info = lg)
+    expect_identical(surface_colors(p), surface_colors(expected), info = lg)
+  }
+})
+
+test_that("pwhl draws the PWHL's own rink, not the NHL's", {
+  skip_if_not_installed("sportyR")
+  expect_identical(surface_data(sdv_surface("pwhl")), surface_data(sportyR::geom_hockey("pwhl")))
+  expect_false(identical(surface_data(sdv_surface("pwhl")), surface_data(sportyR::geom_hockey("nhl"))))
+})
+
+test_that("ncaa_softball is a team league and a surface: the field draws and the team resolves", {
+  skip_if_not_installed("sportyR")
+  skip_if_sportyr_lacks("ncaa_softball")
+  plain <- sportyR::geom_softball("ncaa")
+  p <- sdv_surface("ncaa_softball", "UCLA")
+  # an infield has nothing team-colored: the field stays sportyR's
+  expect_identical(surface_data(p), surface_data(plain))
+  expect_identical(surface_colors(p), surface_colors(plain))
+  expect_false(is.na(sdv_team_colors("ncaa_softball", "UCLA", which = "primary")))
+  expect_false(is.na(logo_from_team("UCLA", "ncaa_softball")))
+  expect_error(sdv_surface("ncaa_softball", "NOT_A_TEAM"), "is not a \"ncaa_softball\" team")
+  expect_warning(p <- sdv_surface("ncaa_softball", "UCLA", center_logo = TRUE), "ignored for \"ncaa_softball\"")
+  expect_false(any(vapply(p$layers, function(l) inherits(l$geom, "GeomSDVsurfaceLogo"), logical(1))))
+  # color_updates still reach sportyR
+  p <- sdv_surface("ncaa_softball", "UCLA", color_updates = list(infield_dirt = "#123456"))
+  expect_identical(
+    surface_colors(p),
+    surface_colors(sportyR::geom_softball("ncaa", color_updates = list(infield_dirt = "#123456")))
+  )
+})
+
+test_that("a key newer than the installed sportyR errors naming the version, not inside sportyR", {
+  skip_if_not_installed("sportyR")
+  local_mocked_bindings(packageVersion = function(pkg, ...) package_version("2.2.3"), .package = "utils")
+  expect_error(
+    sdv_surface("ncaa_softball"),
+    "sportyR.*2\\.3\\.0.*remotes::install_github\\(\"sportsdataverse/sportyR\"\\)"
+  )
+  expect_error(sdv_surface("ncaa_softball", "UCLA"), "2\\.3\\.0")
+  # keys sportyR 2.2.3 has are not gated
+  expect_s3_class(sdv_surface("nll"), "ggplot")
+})
+
+test_that("with an installed sportyR older than 2.3.0, softball errors clearly", {
+  skip_if_not_installed("sportyR")
+  skip_if(utils::packageVersion("sportyR") >= "2.3.0", "sportyR has geom_softball()")
+  expect_error(sdv_surface("ncaa_softball"), "needs 'sportyR' 2\\.3\\.0")
 })
 
 test_that("every league with a surface draws one; others error with the list", {
   skip_if_not_installed("sportyR")
-  for (lg in names(surface_map)) expect_s3_class(sdv_surface(lg), "ggplot")
+  for (lg in names(surface_map)) {
+    if (!is.na(surface_min_sportyr[lg]) && utils::packageVersion("sportyR") < surface_min_sportyr[[lg]]) next
+    expect_s3_class(sdv_surface(lg), "ggplot")
+  }
   expect_error(sdv_surface("cricket"), "fiba")
 })
 

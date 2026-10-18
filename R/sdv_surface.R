@@ -10,36 +10,58 @@
 #'   (paint colors, center logos, end zone art, special-event floors) exists
 #'   yet.
 #'
-#' @param league A league with a playing surface: one of `names(surface_map)`, the
-#'   leagues of [sdv_leagues()] that 'sportyR' draws, plus `"fiba"`. Each maps
-#'   to a 'sportyR' surface, after sdvplot's (Python) surfaces:
+#' @param league One of the 59 SportsDataverse surface keys, the table sdvplot
+#'   (Python) and sdvplot-js share. Each maps to a 'sportyR' surface:
 #'
 #'   | league | surface |
 #'   |---|---|
 #'   | `"nfl"`, `"aaf"`, `"ufl"`, `"usfl"`, `"xfl"` | `sportyR::geom_football("nfl")` |
 #'   | `"cfb"` | `sportyR::geom_football("ncaa")` |
+#'   | `"cfl"` | `sportyR::geom_football("cfl")` |
+#'   | `"nfhs_football"` | `sportyR::geom_football("nfhs11")` |
 #'   | `"nba"` | `sportyR::geom_basketball("nba")` |
 #'   | `"nbagl"` | `sportyR::geom_basketball("nba g league")` |
 #'   | `"wnba"` | `sportyR::geom_basketball("wnba")` |
 #'   | `"mbb"`, `"wbb"` | `sportyR::geom_basketball("ncaa")` |
 #'   | `"fiba"` | `sportyR::geom_basketball("fiba")` (28 x 15 m) |
-#'   | `"mlb"` | `sportyR::geom_baseball("mlb")` |
-#'   | `"milb"` | `sportyR::geom_baseball("milb")` |
+#'   | `"nfhs_basketball"` | `sportyR::geom_basketball("nfhs")` |
+#'   | `"mlb"`, `"milb"`, `"pony"` | `sportyR::geom_baseball()` of the same league |
 #'   | `"ncaa_baseball"` | `sportyR::geom_baseball("ncaa")` |
+#'   | `"little_league"` | `sportyR::geom_baseball("little league")` |
+#'   | `"nfhs_baseball"` | `sportyR::geom_baseball("nfhs")` |
+#'   | `"ncaa_softball"` | `sportyR::geom_softball("ncaa")` (needs 'sportyR' 2.3.0) |
 #'   | `"nhl"`, `"whl"` | `sportyR::geom_hockey("nhl")` (no WHL rink in 'sportyR') |
-#'   | `"pwhl"`, `"ahl"`, `"echl"`, `"ohl"`, `"qmjhl"`, `"ushl"`, `"phf"` | `sportyR::geom_hockey()` of the same league |
+#'   | `"pwhl"`, `"ahl"`, `"echl"`, `"ohl"`, `"qmjhl"`, `"ushl"`, `"phf"`, `"iihf"`, `"nwhl"` | `sportyR::geom_hockey()` of the same league |
 #'   | `"ncaa_mhockey"`, `"ncaa_whockey"` | `sportyR::geom_hockey("ncaa")` |
 #'   | `"soccer"` | `sportyR::geom_soccer("fifa")`, 105 x 68 m (`pitch_updates` overrides) |
+#'   | `"fifa"`, `"epl"`, `"mls"`, `"nwsl"` | `sportyR::geom_soccer()` of the same league ('sportyR''s own pitch size) |
+#'   | `"ncaa_soccer"` | `sportyR::geom_soccer("ncaa")` |
+#'   | `"nll"`, `"pll"` | `sportyR::geom_lacrosse()` of the same league |
+#'   | `"world_lacrosse"` | `sportyR::geom_lacrosse("world lacrosse")` |
+#'   | `"ncaa_mlacrosse"`, `"ncaa_wlacrosse"` | `sportyR::geom_lacrosse("ncaam")`, `("ncaaw")` |
+#'   | `"usa_mlacrosse"`, `"usa_wlacrosse"` | `sportyR::geom_lacrosse("usam")`, `("usaw")` |
+#'   | `"atp"`, `"wta"`, `"itf"`, `"ita"`, `"usta"` | `sportyR::geom_tennis()` of the same league |
+#'   | `"ncaa_tennis"` | `sportyR::geom_tennis("ncaa")` |
+#'   | `"fivb"` | `sportyR::geom_volleyball("fivb")` |
+#'   | `"usa_volleyball"` | `sportyR::geom_volleyball("usa volleyball")` |
+#'   | `"ncaa_volleyball"` | `sportyR::geom_volleyball("ncaa")` |
+#'   | `"wcf"` | `sportyR::geom_curling("wcf")` |
+#'   | `"curling_canada"` | `sportyR::geom_curling("curling canada")` |
 #'
-#'   Python's `sdvplot` draws the PWHL on an NHL rink and the G League on its own court
-#'   class; 'sportyR' 2.2.3 has both, so they use their own here.
+#'   The PWHL and the G League draw their own rink and court, as in sdvplot and
+#'   sdvplot-js. `"ncaa_softball"` needs 'sportyR' 2.3.0 or later (not yet on
+#'   CRAN: `remotes::install_github("sportsdataverse/sportyR")`); with an older
+#'   'sportyR' it errors naming that version. 'sportyR' 2.3.0 also fixes several
+#'   lacrosse markings 2.2.3 draws wrongly.
 #' @param team `NULL` (the default) for the plain regulation surface, or one
-#'   team identifier, resolved by [sdv_resolve()].
+#'   team identifier, resolved by [sdv_resolve()]. Only keys that are also
+#'   team leagues of [sdv_leagues()] take one; the others (`"fiba"`, `"atp"`,
+#'   `"nll"`, `"epl"`, ...) error.
 #' @param season A season for the team's colors and center logo (see
 #'   [sdv_team_colors()]); `NULL` is the current identity.
 #' @param center_logo If `TRUE`, draw the team's logo at center court, center
-#'   ice or midfield. Needs a `team`; ignored with a warning for `"mlb"`,
-#'   whose surface is an infield with no center.
+#'   ice or midfield. Needs a `team`; ignored with a warning on baseball and
+#'   softball fields, whose surface is an infield with no center.
 #' @param ... Passed to the 'sportyR' geom: `display_range`, `rotation`,
 #'   `x_trans`, `y_trans`, `xlims`, `ylims`, the unit arguments, and
 #'   `color_updates`, which overrides the team colors feature by feature (see
@@ -57,9 +79,12 @@
 #'   * Hockey: the center line, center faceoff circle and center faceoff spot
 #'     take the primary color, or the secondary where the primary is too pale
 #'     to read on white ice (under 3:1 contrast); the boards take the primary.
-#'   * Baseball: nothing. No part of a regulation infield is team-colored
-#'     (the green background is the outfield grass), so the team is checked
-#'     and the surface stays 'sportyR''s.
+#'   * Baseball and softball: nothing. No part of a regulation infield is
+#'     team-colored (the green background is the outfield grass), so the team
+#'     is checked and the surface stays 'sportyR''s.
+#'
+#'   Lacrosse, tennis, volleyball and curling surfaces have no team identities
+#'   yet and take no `team`.
 #'
 #'   Soccer and FIBA surfaces are drawn in meters. "soccer" defaults to a
 #'   regulation 105 x 68 m pitch, the frame [sdv_pitch_coords()] converts to;
@@ -102,6 +127,13 @@ sdv_surface <- function(
     ))
   }
   rlang::check_installed("sportyR", reason = "to draw playing surfaces.")
+  need <- surface_min_sportyr[league]
+  if (!is.na(need) && utils::packageVersion("sportyR") < need) {
+    cli::cli_abort(c(
+      "{.val {league}} needs 'sportyR' {need} or later; {utils::packageVersion('sportyR')} is installed.",
+      i = "Install it with {.code remotes::install_github(\"sportsdataverse/sportyR\")}."
+    ))
+  }
 
   geom <- surface_map[[league]][[1]]
   sporty_league <- surface_map[[league]][[2]]
@@ -110,7 +142,7 @@ sdv_surface <- function(
     # sportyR's "fifa" pitch is FIFA's 120 x 90 m maximum; real pitches (and sdv_pitch_coords()) are 105 x 68
     args$pitch_updates <- utils::modifyList(list(pitch_length = 105, pitch_width = 68), as.list(args$pitch_updates))
   }
-  if (!is.null(team) && league == "fiba") {
+  if (!is.null(team) && !league %in% sdv_leagues()) {
     cli::cli_abort("No team identities for {.val {league}} yet: draw the plain surface with {.code team = NULL}.")
   }
 
@@ -136,8 +168,8 @@ sdv_surface <- function(
 
   if (isTRUE(center_logo)) {
     if (is.null(team)) cli::cli_abort("{.arg center_logo} needs a {.arg team}.")
-    if (geom == "geom_baseball") {
-      cli::cli_warn("{.arg center_logo} is ignored for {.val mlb}: the infield has no center.")
+    if (geom %in% c("geom_baseball", "geom_softball")) {
+      cli::cli_warn("{.arg center_logo} is ignored for {.val {league}}: the infield has no center.")
     } else {
       p <- p + surface_logo_layer(geom, team, league, season, args)
     }
@@ -186,6 +218,7 @@ surface_color_updates <- function(geom, primary, secondary) {
     # sportyR's baseball background is the outfield grass; the infield's dirt,
     # grass, bases and chalk have no team color to take
     geom_baseball = list(),
+    geom_softball = list(),
     # the pitch keeps its regulation colors; the club is the center logo
     geom_soccer = list()
   )
@@ -233,17 +266,39 @@ GeomSDVsurfaceLogo <- ggplot2::ggproto(
   }
 )
 
-# league -> sportyR geom and its league, after sdvplot's SURFACES (Python)
+# league -> sportyR geom and its league: the SDV surface-key table shared with
+# sdvplot's SURFACES (Python) and sdvplot-js's src/surfaces.ts
 surface_map <- list(
   nfl = c("geom_football", "nfl"), aaf = c("geom_football", "nfl"), ufl = c("geom_football", "nfl"),
   usfl = c("geom_football", "nfl"), xfl = c("geom_football", "nfl"), cfb = c("geom_football", "ncaa"),
+  cfl = c("geom_football", "cfl"), nfhs_football = c("geom_football", "nfhs11"),
   nba = c("geom_basketball", "nba"), nbagl = c("geom_basketball", "nba g league"),
   wnba = c("geom_basketball", "wnba"),
   mbb = c("geom_basketball", "ncaa"), wbb = c("geom_basketball", "ncaa"), fiba = c("geom_basketball", "fiba"),
+  nfhs_basketball = c("geom_basketball", "nfhs"),
   mlb = c("geom_baseball", "mlb"), milb = c("geom_baseball", "milb"), ncaa_baseball = c("geom_baseball", "ncaa"),
+  little_league = c("geom_baseball", "little league"), pony = c("geom_baseball", "pony"),
+  nfhs_baseball = c("geom_baseball", "nfhs"),
+  ncaa_softball = c("geom_softball", "ncaa"),
   nhl = c("geom_hockey", "nhl"), whl = c("geom_hockey", "nhl"), pwhl = c("geom_hockey", "pwhl"),
   ahl = c("geom_hockey", "ahl"), echl = c("geom_hockey", "echl"), ohl = c("geom_hockey", "ohl"),
   qmjhl = c("geom_hockey", "qmjhl"), ushl = c("geom_hockey", "ushl"), phf = c("geom_hockey", "phf"),
+  iihf = c("geom_hockey", "iihf"), nwhl = c("geom_hockey", "nwhl"),
   ncaa_mhockey = c("geom_hockey", "ncaa"), ncaa_whockey = c("geom_hockey", "ncaa"),
-  soccer = c("geom_soccer", "fifa")
+  soccer = c("geom_soccer", "fifa"), fifa = c("geom_soccer", "fifa"), epl = c("geom_soccer", "epl"),
+  mls = c("geom_soccer", "mls"), nwsl = c("geom_soccer", "nwsl"), ncaa_soccer = c("geom_soccer", "ncaa"),
+  nll = c("geom_lacrosse", "nll"), pll = c("geom_lacrosse", "pll"),
+  world_lacrosse = c("geom_lacrosse", "world lacrosse"), ncaa_mlacrosse = c("geom_lacrosse", "ncaam"),
+  ncaa_wlacrosse = c("geom_lacrosse", "ncaaw"), usa_mlacrosse = c("geom_lacrosse", "usam"),
+  usa_wlacrosse = c("geom_lacrosse", "usaw"),
+  atp = c("geom_tennis", "atp"), wta = c("geom_tennis", "wta"), itf = c("geom_tennis", "itf"),
+  ita = c("geom_tennis", "ita"), usta = c("geom_tennis", "usta"), ncaa_tennis = c("geom_tennis", "ncaa"),
+  fivb = c("geom_volleyball", "fivb"), usa_volleyball = c("geom_volleyball", "usa volleyball"),
+  ncaa_volleyball = c("geom_volleyball", "ncaa"),
+  wcf = c("geom_curling", "wcf"), curling_canada = c("geom_curling", "curling canada")
 )
+
+# Keys whose sportyR geom is newer than CRAN's 2.2.3, checked at call time
+# (sportyR stays in Suggests with no version floor). Every other key draws
+# with 2.2.3, which has lacrosse, tennis, volleyball, curling and every league.
+surface_min_sportyr <- c(ncaa_softball = "2.3.0")
