@@ -60,8 +60,13 @@
 #' @param season A season for the team's colors and center logo (see
 #'   [sdv_team_colors()]); `NULL` is the current identity.
 #' @param center_logo If `TRUE`, draw the team's logo at center court, center
-#'   ice or midfield. Needs a `team`; ignored with a warning on baseball and
-#'   softball fields, whose surface is an infield with no center.
+#'   ice or midfield. Needs a `team`. A baseball or softball field has no
+#'   center, so the logo goes in shallow center field: at `x = 0`, midway
+#'   between second base (`baseline_distance * sqrt(2)` from home plate) and
+#'   the center-field fence (`center_field_distance`), and `0.15 *
+#'   center_field_distance` across, from the league's 'sportyR' field
+#'   parameters and any `field_updates`. On an MLB field that is 60 feet across
+#'   at 263.6 feet from home plate.
 #' @param ... Passed to the 'sportyR' geom: `display_range`, `rotation`,
 #'   `x_trans`, `y_trans`, `xlims`, `ylims`, the unit arguments, and
 #'   `color_updates`, which overrides the team colors feature by feature (see
@@ -95,7 +100,8 @@
 #'   Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
 #'   (yards for football, meters for soccer and FIBA). The center logo is sized
 #'   in those units (12 feet on a court, 10 yards on a field, 24 feet on a
-#'   rink, 18.3 m on a pitch) and follows
+#'   rink, 18.3 m on a pitch, 0.15 x the center-field distance on a baseball or
+#'   softball field, whose origin is home plate) and follows
 #'   `x_trans`, `y_trans`, `rotation` and the unit arguments.
 #'
 #' @return A ggplot object ([ggplot2::ggplot()]) with `coord_fixed()`; add
@@ -168,11 +174,7 @@ sdv_surface <- function(
 
   if (isTRUE(center_logo)) {
     if (is.null(team)) cli::cli_abort("{.arg center_logo} needs a {.arg team}.")
-    if (geom %in% c("geom_baseball", "geom_softball")) {
-      cli::cli_warn("{.arg center_logo} is ignored for {.val {league}}: the infield has no center.")
-    } else {
-      p <- p + surface_logo_layer(geom, team, league, season, args)
-    }
+    p <- p + surface_logo_layer(geom, sporty_league, team, league, season, args)
   }
   p
 }
@@ -183,8 +185,14 @@ surface_base <- c(
   geom_basketball = "#d2ab6f",
   geom_football = "#196f0c",
   geom_hockey = "#ffffff",
-  geom_soccer = "#196f0c"
+  geom_soccer = "#196f0c",
+  geom_baseball = "#395d33",
+  geom_softball = "#395d33"
 )
+
+# A diamond's logo goes in shallow center field, this fraction of the
+# center-field distance across (shared with sdvplot, Python).
+field_logo_fraction <- 0.15
 
 # color_updates for a team. Fills keep the primary, the team's identity;
 # lines are what has to stay legible, so they are chosen by contrast.
@@ -224,20 +232,36 @@ surface_color_updates <- function(geom, primary, secondary) {
   )
 }
 
-# The team logo at the surface's center, `size` surface units across. ESPN's
+# The team logo at the surface's center, `size` surface units across, or on a
+# diamond (origin at home plate) in shallow center field. ESPN's
 # dark-background variant goes on dark grass.
-surface_logo_layer <- function(geom, team, league, season, args) {
-  size <- c(geom_basketball = 12, geom_football = 10, geom_hockey = 24, geom_soccer = 18.3)[[geom]]
-  from <- c(geom_basketball = "ft", geom_football = "yd", geom_hockey = "ft", geom_soccer = "m")[[geom]]
+surface_logo_layer <- function(geom, sporty_league, team, league, season, args) {
+  offset <- 0
+  if (geom %in% c("geom_baseball", "geom_softball")) {
+    # sportyR exports no field parameters; read the same table its geoms read
+    dims <- utils::getFromNamespace("surface_dimensions", "sportyR")[[sub("geom_", "", geom)]][[sporty_league]]
+    dims <- utils::modifyList(dims, as.list(args$field_updates))
+    offset <- (dims$baseline_distance * sqrt(2) + dims$center_field_distance) / 2
+    size <- field_logo_fraction * dims$center_field_distance
+  } else {
+    size <- c(geom_basketball = 12, geom_football = 10, geom_hockey = 24, geom_soccer = 18.3)[[geom]]
+  }
+  from <- c(
+    geom_basketball = "ft", geom_football = "yd", geom_hockey = "ft", geom_soccer = "m",
+    geom_baseball = "ft", geom_softball = "ft"
+  )[[geom]]
   unit_arg <- c(
     geom_basketball = "court_units", geom_football = "field_units", geom_hockey = "rink_units",
-    geom_soccer = "pitch_units"
+    geom_soccer = "pitch_units", geom_baseball = "field_units", geom_softball = "field_units"
   )[[geom]]
-  if (!is.null(args[[unit_arg]])) size <- sportyR::convert_units(size, from, args[[unit_arg]])
+  if (!is.null(args[[unit_arg]])) {
+    size <- sportyR::convert_units(size, from, args[[unit_arg]])
+    offset <- sportyR::convert_units(offset, from, args[[unit_arg]])
+  }
 
   # sportyR translates, then rotates about the origin
   center <- sportyR::rotate_coords(
-    data.frame(x = args$x_trans %||% 0, y = args$y_trans %||% 0),
+    data.frame(x = args$x_trans %||% 0, y = offset + (args$y_trans %||% 0)),
     angle = args$rotation %||% 0
   )
   variant <- if (.theme_on_color(surface_base[[geom]]) == "#FFFFFF") "dark" else "default"

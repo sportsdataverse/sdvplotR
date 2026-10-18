@@ -86,7 +86,11 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   and its leagues, from the NFL to NFHS, Little League, the ATP and the WCF.
   Leagues without a surface of their own use their sport's (the WHL, for one,
   uses the NHL rink); the PWHL draws its own rink. Given a team, a few features
-  take its colours, and `center_logo = TRUE` puts its logo at the center. These
+  take its colours, and `center_logo = TRUE` puts its logo at the center; on a
+  baseball or softball field, whose origin is home plate, it goes in shallow
+  center field instead, midway between second base and the center-field fence
+  and 0.15 x the center-field distance across (it used to warn and draw no
+  logo), as in sdvplot (Python). These
   are stylized surfaces built from team colours, not the teams' real floor,
   field or rink designs. Keys that are not team leagues (`"fiba"`, `"atp"`,
   `"nll"`, `"epl"`, ...) take no `team`. `"ncaa_softball"` is both a team

@@ -60,8 +60,12 @@ team leagues of \code{\link[=sdv_leagues]{sdv_leagues()}} take one; the others (
 \code{\link[=sdv_team_colors]{sdv_team_colors()}}); \code{NULL} is the current identity.}
 
 \item{center_logo}{If \code{TRUE}, draw the team's logo at center court, center
-ice or midfield. Needs a \code{team}; ignored with a warning on baseball and
-softball fields, whose surface is an infield with no center.}
+ice or midfield. Needs a \code{team}. A baseball or softball field has no
+center, so the logo goes in shallow center field: at \code{x = 0}, midway
+between second base (\code{baseline_distance * sqrt(2)} from home plate) and
+the center-field fence (\code{center_field_distance}), and \code{0.15 * center_field_distance} across, from the league's 'sportyR' field
+parameters and any \code{field_updates}. On an MLB field that is 60 feet across
+at 263.6 feet from home plate.}
 
 \item{...}{Passed to the 'sportyR' geom: \code{display_range}, \code{rotation},
 \code{x_trans}, \code{y_trans}, \code{xlims}, \code{ylims}, the unit arguments, and
@@ -112,7 +116,8 @@ regulation colors. FIBA takes no \code{team} yet.
 Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
 (yards for football, meters for soccer and FIBA). The center logo is sized
 in those units (12 feet on a court, 10 yards on a field, 24 feet on a
-rink, 18.3 m on a pitch) and follows
+rink, 18.3 m on a pitch, 0.15 x the center-field distance on a baseball or
+softball field, whose origin is home plate) and follows
 \code{x_trans}, \code{y_trans}, \code{rotation} and the unit arguments.
 }
 \examples{

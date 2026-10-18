@@ -146,8 +146,9 @@ test_that("center_logo places the team logo at the surface's center", {
   expect_equal(c(l$data$x, l$data$y), c(0, 10))
   expect_equal(l$geom_params$logo_size, 24 * 0.3048)
 
-  expect_warning(p <- sdv_surface("mlb", "NYY", center_logo = TRUE), "ignored")
-  expect_false(any(vapply(p$layers, function(l) inherits(l$geom, "GeomSDVsurfaceLogo"), logical(1))))
+  # a baseball field has no center: the logo goes in shallow center field (tested below)
+  expect_no_warning(l <- logo_layer(sdv_surface("mlb", "NYY", center_logo = TRUE)))
+  expect_s3_class(l$geom, "GeomSDVsurfaceLogo")
 })
 
 test_that("the center logo is sized in surface units when drawn", {
@@ -261,8 +262,8 @@ test_that("ncaa_softball is a team league and a surface: the field draws and the
   expect_false(is.na(sdv_team_colors("ncaa_softball", "UCLA", which = "primary")))
   expect_false(is.na(logo_from_team("UCLA", "ncaa_softball")))
   expect_error(sdv_surface("ncaa_softball", "NOT_A_TEAM"), "is not a \"ncaa_softball\" team")
-  expect_warning(p <- sdv_surface("ncaa_softball", "UCLA", center_logo = TRUE), "ignored for \"ncaa_softball\"")
-  expect_false(any(vapply(p$layers, function(l) inherits(l$geom, "GeomSDVsurfaceLogo"), logical(1))))
+  expect_no_warning(p <- sdv_surface("ncaa_softball", "UCLA", center_logo = TRUE))
+  expect_identical(p$layers[[length(p$layers)]]$data$path, logo_from_team("UCLA", "ncaa_softball", variant = "dark"))
   # color_updates still reach sportyR
   p <- sdv_surface("ncaa_softball", "UCLA", color_updates = list(infield_dirt = "#123456"))
   expect_identical(
@@ -302,4 +303,34 @@ test_that("a minor-league team colours its surface", {
   skip_if_not_installed("sportyR")
   t <- sdv_teams("ahl")$team_id[1]
   expect_s3_class(sdv_surface("ahl", team = t), "ggplot")
+})
+
+test_that("on a baseball or softball field the logo sits in shallow center field", {
+  skip_if_not_installed("sportyR")
+  logo_layer <- function(p) p$layers[[length(p$layers)]]
+  # x = 0, y = midway between second base (base path * sqrt(2)) and the center-field fence;
+  # 0.15 x the center-field distance across
+  l <- logo_layer(sdv_surface("mlb", "NYY", center_logo = TRUE))
+  expect_equal(c(l$data$x, l$data$y), c(0, (90 * sqrt(2) + 400) / 2), tolerance = 1e-9)
+  expect_equal(l$geom_params$logo_size, 0.15 * 400, tolerance = 1e-9)
+  # the grass is dark: ESPN's dark-background logo
+  expect_identical(l$data$path, logo_from_team("NYY", "mlb", variant = "dark"))
+
+  # field_updates reshape the field, and the logo follows
+  l <- logo_layer(sdv_surface("milb", sdv_teams("milb")$team_id[1], center_logo = TRUE, field_updates = list(
+    baseline_distance = 80, center_field_distance = 315
+  )))
+  expect_equal(l$data$y, (80 * sqrt(2) + 315) / 2, tolerance = 1e-9)
+  expect_equal(l$geom_params$logo_size, 0.15 * 315, tolerance = 1e-9)
+
+  # follows units, translation and rotation like the other surfaces
+  l <- logo_layer(sdv_surface("mlb", "NYY", center_logo = TRUE, field_units = "m", rotation = 90))
+  y <- (90 * sqrt(2) + 400) / 2 * 0.3048
+  expect_equal(c(l$data$x, l$data$y), c(-y, 0), tolerance = 1e-9)
+  expect_equal(l$geom_params$logo_size, 0.15 * 400 * 0.3048, tolerance = 1e-9)
+
+  skip_if_not(sportyr_has("ncaa_softball"), "needs sportyR 2.3.0")
+  l <- logo_layer(sdv_surface("ncaa_softball", "UCLA", center_logo = TRUE))
+  expect_equal(c(l$data$x, l$data$y), c(0, (60 * sqrt(2) + 220) / 2), tolerance = 1e-9)
+  expect_equal(l$geom_params$logo_size, 0.15 * 220, tolerance = 1e-9)
 })
