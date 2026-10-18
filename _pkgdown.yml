@@ -353,6 +353,7 @@ articles:
       comes from Andrew Weatherman's gtUtils.
     contents:
       - sdv-table-themes
+      - articles/table-themes
       - gt-toolkit
       - styling
       - saving_tables
