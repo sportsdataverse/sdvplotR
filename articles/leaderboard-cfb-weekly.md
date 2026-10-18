@@ -172,7 +172,7 @@ head(top25)
 #>   <int> <chr>      <chr>      <chr>      <chr>      <chr>  <dbl>   <dbl> <dbl>
 #> 1     1 Georgia    Georgia    SEC        SEC        6-1    0.291 -0.100  0.391
 #> 2     2 Notre Dame Notre Dame FBS Indep. FBS Indep. 6-0    0.264 -0.114  0.378
-#> 3     3 Alabama    Alabama    SEC        SEC        5-1    0.304 -0.0613 0.365
+#> 3     3 Alabama    Alabama    SEC        SEC        5-2    0.304 -0.0613 0.365
 #> 4     4 Wisconsin  Wisconsin  Big Ten    Big Ten    4-1    0.174 -0.184  0.358
 #> 5     5 Indiana    Indiana    Big Ten    Big Ten    6-1    0.226 -0.125  0.351
 #> 6     6 LSU        LSU        SEC        SEC        5-2    0.122 -0.222  0.345
