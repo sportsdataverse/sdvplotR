@@ -308,8 +308,8 @@
     </div>
 
     <!-- sdvplotR: phones get "On this page" here, collapsed; pkgdown/extra.js copies the list in -->
-    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p><strong>Updated 2026-10-18:</strong> the 2026 season through week 6
-(80 games).</p>
+    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p><strong>Updated 2026-10-19:</strong> the 2026 season through week 6
+(92 games).</p>
 <p>This page is rebuilt every week with the site. It finds the latest
 NFL season with play-by-play, ranks every team by EPA (expected points
 added) per play, plots offense against defense, and lists the most
@@ -436,14 +436,14 @@ logos.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">team</span>, <span class="va">name</span>, <span class="va">record</span>, <span class="va">diff</span>, <span class="va">off_epa</span>, <span class="va">def_epa</span>, <span class="va">net</span>, <span class="va">last3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">power</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
-<span><span class="co">#&gt;    rank team  name    record  diff off_epa  def_epa    net  last3</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 SF    49ers   5-0       61  0.187  -<span style="color: #BB0000;">0.072</span><span style="color: #BB0000; text-decoration: underline;">3</span>  0.260  0.176 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 KC    Chiefs  4-0       41  0.157  -<span style="color: #BB0000;">0.031</span><span style="color: #BB0000; text-decoration: underline;">4</span>  0.188  0.122 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 JAX   Jaguars 4-1       53  0.105  -<span style="color: #BB0000;">0.073</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.178  0.194 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 MIN   Vikings 5-0       45 -<span style="color: #BB0000;">0.099</span><span style="color: #BB0000; text-decoration: underline;">9</span> -<span style="color: #BB0000;">0.235</span>   0.135  0.145 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 BAL   Ravens  4-1       27  0.132   0.002<span style="text-decoration: underline;">32</span> 0.129  0.097<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 CIN   Bengals 3-2       19  0.067<span style="text-decoration: underline;">8</span> -<span style="color: #BB0000;">0.023</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.091<span style="text-decoration: underline;">1</span> 0.054<span style="text-decoration: underline;">5</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    rank team  name     record  diff off_epa  def_epa   net  last3</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 SF    49ers    5-0       61  0.187  -<span style="color: #BB0000;">0.072</span><span style="color: #BB0000; text-decoration: underline;">3</span>  0.260 0.176 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 KC    Chiefs   5-0       57  0.140  -<span style="color: #BB0000;">0.083</span><span style="color: #BB0000; text-decoration: underline;">9</span>  0.224 0.224 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 MIN   Vikings  5-0       45 -<span style="color: #BB0000;">0.099</span><span style="color: #BB0000; text-decoration: underline;">9</span> -<span style="color: #BB0000;">0.235</span>   0.135 0.145 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 JAX   Jaguars  4-2       50  0.114  -<span style="color: #BB0000;">0.016</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.130 0.022<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 BAL   Ravens   4-2       24  0.097<span style="text-decoration: underline;">7</span> -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">4</span>  0.116 0.094<span style="text-decoration: underline;">8</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 CAR   Panthers 3-2       23  0.093<span style="text-decoration: underline;">4</span> -<span style="color: #BB0000;">0.008</span><span style="color: #BB0000; text-decoration: underline;">29</span> 0.102 0.081<span style="text-decoration: underline;">6</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">good_bad</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#c84630"</span>, <span class="st">"#f7f7f7"</span>, <span class="st">"#2e8b57"</span><span class="op">)</span></span>
 <span><span class="va">reach</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">power</span><span class="op">$</span><span class="va">off_epa</span>, <span class="va">power</span><span class="op">$</span><span class="va">def_epa</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># one symmetric scale for both sides</span></span>
@@ -993,31 +993,17 @@ logos.</p>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png" style="height:26px;" alt="Kansas City Chiefs"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Chiefs</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#e31837;font-size:12px">4-0</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#e31837;font-size:12px">5-0</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+41</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #76AF89; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.157</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #DDE8E0; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.031</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #6BA981; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.188</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.122</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.066</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+57</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #84B795; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.140</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #B2D0BB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.084</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #4F9A6C; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.224</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.224</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.001</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">3</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png" style="height:26px;" alt="Jacksonville Jaguars"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Jaguars</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#006778;font-size:12px">4-1</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+53</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #A1C7AC; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.105</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #BBD5C3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.073</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #73AD87; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.178</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.194</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.016</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">4</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png" style="height:26px;" alt="Minnesota Vikings"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Vikings</span></div>
@@ -1031,21 +1017,49 @@ logos.</p>
 <td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.010</td>
 </tr>
 <tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">4</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png" style="height:26px;" alt="Jacksonville Jaguars"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Jaguars</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#006778;font-size:12px">4-2</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+50</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #99C2A6; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.114</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #EAF0EB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.016</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #96C1A4; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.130</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.023</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.108</td>
+</tr>
+<tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">5</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png" style="height:26px;" alt="Baltimore Ravens"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Ravens</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#241773;font-size:12px">4-1</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#241773;font-size:12px">4-2</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+27</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #8BBA9A; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.132</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #F7F5F5; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.002</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #97C1A4; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.129</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.097</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.032</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+24</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #A7CAB1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.098</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #E8EEEA; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.018</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #A1C7AC; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.116</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.095</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.021</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">6</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png" style="height:26px;" alt="Carolina Panthers"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Panthers</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#000000;font-size:12px">3-2</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+23</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #AACCB4; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.093</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #F0F3F1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.008</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #ABCDB5; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.102</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.082</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.020</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">7</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png" style="height:26px;" alt="Cincinnati Bengals"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Bengals</span></div>
@@ -1059,63 +1073,63 @@ logos.</p>
 <td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.037</td>
 </tr>
 <tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">7</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png" style="height:26px;" alt="Los Angeles Rams"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Rams</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#003594;font-size:12px">2-3</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−1</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #C1D9C8; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.065</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #E4ECE6; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.023</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #B5D2BE; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.088</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.080</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.008</td>
-</tr>
-<tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">8</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png" style="height:26px;" alt="Carolina Panthers"></td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png" style="height:26px;" alt="Chicago Bears"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Panthers</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#000000;font-size:12px">2-2</span></div>
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Bears</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#0b162a;font-size:12px">4-2</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+12</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #B0CFB9; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.086</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #F7EBE8; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.016</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #C3DAC9; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.070</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.180</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.110</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+31</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #DCE8DF; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.033</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #DAE7DE; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.035</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #C4DBCB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.068</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.034</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.102</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">9</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png" style="height:26px;" alt="New England Patriots"></td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png" style="height:26px;" alt="Los Angeles Rams"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Patriots</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#002244;font-size:12px">3-2</span></div>
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Rams</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#003594;font-size:12px">2-4</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+16</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #CFE1D4; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.048</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #EAF0EC; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.015</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #C8DCCE; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.064</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.027</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.036</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−3</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #D7E5DB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.039</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #E3ECE6; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.024</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #C8DDCE; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.063</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.081</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.018</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">10</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png" style="height:26px;" alt="Buffalo Bills"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Bills</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#00338d;font-size:12px">4-1</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#00338d;font-size:12px">5-1</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+23</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #479666; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.211</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #E28772; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.151</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #CBDED0; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.059</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.038</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.097</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+26</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #4B9869; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.206</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #E38A75; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.148</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #CBDED1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.059</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.011</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.069</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">11</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png" style="height:26px;" alt="New England Patriots"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Patriots</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#002244;font-size:12px">4-2</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+23</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #D4E3D8; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.042</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #E9EFEB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.016</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #CBDFD1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.059</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.177</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.118</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">12</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/2546b1d4fe5cf6c2d75cda53d3fb56bbc4dd43c6b00200586dab5a85df8fa492.png" style="height:26px;" alt="Seattle Seahawks"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Seahawks</span></div>
@@ -1129,77 +1143,49 @@ logos.</p>
 <td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.121</td>
 </tr>
 <tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">12</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png" style="height:26px;" alt="Chicago Bears"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Bears</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#0b162a;font-size:12px">3-2</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+23</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #D8E6DC; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.038</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #F7F4F3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.004</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #DEE9E1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.034</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.016</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.018</td>
-</tr>
-<tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">13</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png" style="height:26px;" alt="Las Vegas Raiders"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Raiders</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#000000;font-size:12px">3-2</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+3</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #E8EEE9; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.019</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #EBF0EC; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.015</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #DEE9E1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.033</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.072</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.106</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">14</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png" style="height:26px;" alt="Houston Texans"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Texans</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#03202f;font-size:12px">1-4</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#03202f;font-size:12px">2-4</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−2</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #F5F6F5; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.003</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #E9EFEB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.016</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #E9EFEA; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.019</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.151</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.132</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+1</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #D2E2D7; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.045</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #F7EDEB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.013</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #E0EAE2; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.031</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.176</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.145</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">14</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png" style="height:26px;" alt="Green Bay Packers"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Packers</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#203731;font-size:12px">4-2</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+2</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #F7F4F3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.004</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #E0EAE3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.027</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #E6EDE8; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.023</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.246</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.222</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">15</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png" style="height:26px;" alt="Atlanta Falcons"></td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png" style="height:26px;" alt="Las Vegas Raiders"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Falcons</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#a71930;font-size:12px">2-3</span></div>
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Raiders</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#000000;font-size:12px">3-3</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−3</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #F6E5E1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.024</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #DAE7DE; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.035</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #EFF3F0; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.011</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.242</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.231</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">0</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #D9E6DD; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.036</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #F7E9E6; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.018</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #E9EFEB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.018</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.173</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.192</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">16</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png" style="height:26px;" alt="New York Jets"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Jets</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#003f2d;font-size:12px">2-3</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−3</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #F6E5E0; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.024</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #DAE7DE; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.035</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #EFF3F0; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.010</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.073</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.083</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png" style="height:26px;" alt="Detroit Lions"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Lions</span></div>
@@ -1213,18 +1199,32 @@ logos.</p>
 <td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.074</td>
 </tr>
 <tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">18</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png" style="height:26px;" alt="Green Bay Packers"></td>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">17</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/806bcb72e75ed184a99bea34df458e6cd87145fc9a863945f3356b01122aeb6f.png" style="height:26px;" alt="Pittsburgh Steelers"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Packers</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#203731;font-size:12px">3-2</span></div>
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Steelers</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#000000;font-size:12px">4-2</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−8</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #F7EDEB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.013</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #F0F3F1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.009</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #F7F4F3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.004</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.096</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.101</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+9</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #F4D2CA; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.050</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #C9DDCF; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.056</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #F2F4F3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.007</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.098</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.091</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">18</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png" style="height:26px;" alt="New York Jets"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Jets</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#003f2d;font-size:12px">2-4</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−10</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #F6E5E1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.024</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #E1EBE3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.027</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #F5F6F5; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.003</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.074</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.077</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">19</td>
@@ -1242,73 +1242,73 @@ logos.</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">20</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/806bcb72e75ed184a99bea34df458e6cd87145fc9a863945f3356b01122aeb6f.png" style="height:26px;" alt="Pittsburgh Steelers"></td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png" style="height:26px;" alt="Atlanta Falcons"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Steelers</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#000000;font-size:12px">3-2</span></div>
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Falcons</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#a71930;font-size:12px">2-4</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+2</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #F6E6E2; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.023</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #F5F6F5; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.002</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #F7E9E6; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.021</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.046</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.067</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−11</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #F4CFC6; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.054</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #E0EAE3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.027</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #F6E5E1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.026</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.067</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.093</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">21</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png" style="height:26px;" alt="Dallas Cowboys"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Cowboys</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#002244;font-size:12px">2-3</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+2</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #76AF89; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.157</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #DA705A; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.182</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #F6E7E3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.024</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.068</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.043</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">22</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bc/bcc5d267024650938c9f35558077fe00a31913b89c61768d4ebb63d1ea31fbfd.png" style="height:26px;" alt="Tampa Bay Buccaneers"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Buccaneers</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#a71930;font-size:12px">1-4</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−12</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #EFB3A4; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.092</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #C7DCCD; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.059</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #F6E0DB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.034</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.044</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.077</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png" style="height:26px;" alt="Cleveland Browns"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Browns</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#311d00;font-size:12px">3-2</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−19</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #F3C8BD; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.063</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #E5EDE7; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.022</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #F5DBD5; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.041</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.002</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.043</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">24</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62e361850e7ba3a50dfd09cbb38429e994d1c23b0f999c74421f10e37c7067e7.png" style="height:26px;" alt="New York Giants"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Giants</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#0b2265;font-size:12px">3-1-1</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#0b2265;font-size:12px">3-2-1</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+3</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−4</td>
 <td headers="off_epa" class="gt_row gt_center" style="background-color: #F7F2F0; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.007</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #F5D3CB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.048</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #F4D2CA; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.055</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.063</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.118</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #F6E2DD; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.028</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #F6DFDA; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.035</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.074</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.109</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">22</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png" style="height:26px;" alt="Cleveland Browns"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Browns</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#311d00;font-size:12px">4-2</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−16</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #F2C0B4; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.074</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #DCE8DF; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.032</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #F5DBD5; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.041</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.048</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.006</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">23</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bc/bcc5d267024650938c9f35558077fe00a31913b89c61768d4ebb63d1ea31fbfd.png" style="height:26px;" alt="Tampa Bay Buccaneers"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Buccaneers</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#a71930;font-size:12px">1-5</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−19</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #E89987; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.127</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #B5D2BE; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.080</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #F5D7D0; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.047</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.009</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.056</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">24</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png" style="height:26px;" alt="Dallas Cowboys"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Cowboys</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#002244;font-size:12px">2-4</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−8</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #A0C6AC; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.106</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #E18570; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.154</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #F5D6CF; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.048</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.089</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.040</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">25</td>
@@ -1329,84 +1329,84 @@ logos.</p>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f1/f1f5222a876f810956aa8d4e75d4e6b47bcb3a6d11f876642b674010233c8a97.png" style="height:26px;" alt="Indianapolis Colts"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Colts</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#002c5f;font-size:12px">2-3</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#002c5f;font-size:12px">2-4</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−14</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #F5DBD4; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.038</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #F2C5BA; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.067</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #EEB0A2; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.105</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.024</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.082</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−20</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #F4D2C9; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.050</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #F5D3CB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.048</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #EFB5A7; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.099</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.022</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.077</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">27</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png" style="height:26px;" alt="New Orleans Saints"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Saints</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#000000;font-size:12px">1-4</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−33</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #F5D9D2; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.040</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #EFB5A7; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.089</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #EAA18F; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.129</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.261</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.132</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">28</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png" style="height:26px;" alt="Los Angeles Chargers"></td>
-<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Chargers</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#007bc7;font-size:12px">0-5</span></div>
-</td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−45</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #D76952; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.192</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #CBDFD1; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.053</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #E89A88; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.139</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.049</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.089</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">29</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f870b58b43585a5b7717d578dd433b0b1e0c462d64ef4bea2aeb8c03f4ae7854.png" style="height:26px;" alt="Arizona Cardinals"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Cardinals</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#97233f;font-size:12px">1-4</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#97233f;font-size:12px">2-4</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−54</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #F7EEEB; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.013</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #E69581; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.133</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #E79682; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.146</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.218</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.073</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−52</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #F7ECE9; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.015</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #EFB3A4; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.092</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #EEAFA0; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.107</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.117</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.010</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">28</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png" style="height:26px;" alt="New Orleans Saints"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Saints</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#000000;font-size:12px">2-4</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−26</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #F5D7D0; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.043</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #F2C2B6; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.071</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #EDAB9B; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.114</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.200</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.085</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">29</td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/27/27cf283fca5b2e9e1c5e995a465a54223424c157d2013b603a6491f99333cf45.png" style="height:26px;" alt="Tennessee Titans"></td>
+<td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Titans</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#d50a0a;font-size:12px">1-5</span></div>
+</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−45</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #E79885; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.129</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #F6E4DF; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.026</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #E58F7B; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.155</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.216</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.061</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">30</td>
 <td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png" style="height:26px;" alt="Philadelphia Eagles"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
 <div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Eagles</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#004c54;font-size:12px">2-3</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#004c54;font-size:12px">2-4</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−20</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−31</td>
 <td headers="off_epa" class="gt_row gt_center" style="background-color: #EBA594; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.111</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #F4D3CA; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.049</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #E48C78; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.159</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.267</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.107</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #F3C9BF; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.062</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #E1836E; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.173</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.213</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.040</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">31</td>
-<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/27/27cf283fca5b2e9e1c5e995a465a54223424c157d2013b603a6491f99333cf45.png" style="height:26px;" alt="Tennessee Titans"></td>
+<td headers="team" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png" style="height:26px;" alt="Los Angeles Chargers"></td>
 <td headers="name" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">
-<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Titans</span></div>
-<div style="line-height:10px"><span style="font-weight:bold;color:#d50a0a;font-size:12px">0-5</span></div>
+<div style="line-height:12px"><span style="font-weight:bold;font-variant:small-caps;color:black;font-size:14px">Chargers</span></div>
+<div style="line-height:10px"><span style="font-weight:bold;color:#007bc7;font-size:12px">0-6</span></div>
 </td>
-<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−51</td>
-<td headers="off_epa" class="gt_row gt_center" style="background-color: #E6937F; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.136</td>
-<td headers="def_epa" class="gt_row gt_center" style="background-color: #F4CDC3; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">+0.057</td>
-<td headers="net" class="gt_row gt_center" style="background-color: #DC765F; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.193</td>
-<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.226</td>
-<td headers="Trend" class="gt_row gt_center" style="color: #B2182B; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▼ 0.033</td>
+<td headers="diff" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−61</td>
+<td headers="off_epa" class="gt_row gt_center" style="background-color: #D15B44; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.209</td>
+<td headers="def_epa" class="gt_row gt_center" style="background-color: #DBE7DE; color: #000000; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.034</td>
+<td headers="net" class="gt_row gt_center" style="background-color: #E0826D; color: #FFFFFF; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.174</td>
+<td headers="last3" class="gt_row gt_center" style="border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">−0.167</td>
+<td headers="Trend" class="gt_row gt_center" style="color: #1B7837; border-left-width: 0.5px; border-left-style: solid; border-left-color: black; border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">▲ 0.008</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_center" style="border-top-width: 1.5px; border-top-style: dotted; border-top-color: black;">32</td>
@@ -1494,7 +1494,7 @@ names.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">full_names</span>, by <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">full_name</span>, <span class="va">name</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">qbs</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 30</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 33</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">qbs</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -2056,18 +2056,6 @@ names.</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">2</td>
-<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ynrhq9iv30ysjpwmrfdv.png" style="height:34px;" alt="Player 00-0034857 headshot"></td>
-<td headers="name" class="gt_row gt_left">Josh Allen</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png" style="height:22px;" alt="Buffalo Bills"></td>
-<td headers="dropbacks" class="gt_row gt_right">167</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #429463; color: #000000; border-radius: 10px; text-align: center; ">0.383</span></td>
-<td headers="cpoe" class="gt_row gt_right">+5.0</td>
-<td headers="success" class="gt_row gt_right">47.3%</td>
-<td headers="td" class="gt_row gt_right">7</td>
-<td headers="int" class="gt_row gt_right">4</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_right">3</td>
 <td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/eno6s5qzl9grbfbfwhoa.png" style="height:34px;" alt="Player 00-0034796 headshot"></td>
 <td headers="name" class="gt_row gt_left">Lamar Jackson</td>
 <td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png" style="height:22px;" alt="Baltimore Ravens"></td>
@@ -2079,7 +2067,31 @@ names.</p>
 <td headers="int" class="gt_row gt_right">1</td>
 </tr>
 <tr>
+<td headers="rank" class="gt_row gt_right">3</td>
+<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ynrhq9iv30ysjpwmrfdv.png" style="height:34px;" alt="Player 00-0034857 headshot"></td>
+<td headers="name" class="gt_row gt_left">Josh Allen</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png" style="height:22px;" alt="Buffalo Bills"></td>
+<td headers="dropbacks" class="gt_row gt_right">203</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #4C9869; color: #000000; border-radius: 10px; text-align: center; ">0.365</span></td>
+<td headers="cpoe" class="gt_row gt_right">+5.1</td>
+<td headers="success" class="gt_row gt_right">47.8%</td>
+<td headers="td" class="gt_row gt_right">9</td>
+<td headers="int" class="gt_row gt_right">4</td>
+</tr>
+<tr>
 <td headers="rank" class="gt_row gt_right">4</td>
+<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/h4qs11kutwiw7whekmyt.png" style="height:34px;" alt="Player 00-0039918 headshot"></td>
+<td headers="name" class="gt_row gt_left">Caleb Williams</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png" style="height:22px;" alt="Chicago Bears"></td>
+<td headers="dropbacks" class="gt_row gt_right">111</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #5DA176; color: #000000; border-radius: 10px; text-align: center; ">0.332</span></td>
+<td headers="cpoe" class="gt_row gt_right">+9.8</td>
+<td headers="success" class="gt_row gt_right">51.4%</td>
+<td headers="td" class="gt_row gt_right">3</td>
+<td headers="int" class="gt_row gt_right">1</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">5</td>
 <td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png" style="height:34px;" alt="Player 00-0033106 headshot"></td>
 <td headers="name" class="gt_row gt_left">Jared Goff</td>
 <td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png" style="height:22px;" alt="Detroit Lions"></td>
@@ -2091,64 +2103,52 @@ names.</p>
 <td headers="int" class="gt_row gt_right">0</td>
 </tr>
 <tr>
-<td headers="rank" class="gt_row gt_right">5</td>
+<td headers="rank" class="gt_row gt_right">6</td>
 <td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/k9uzdernqkx7oquy7dkg.png" style="height:34px;" alt="Player 00-0036971 headshot"></td>
 <td headers="name" class="gt_row gt_left">Trevor Lawrence</td>
 <td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png" style="height:22px;" alt="Jacksonville Jaguars"></td>
-<td headers="dropbacks" class="gt_row gt_right">158</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #7BB18D; color: #000000; border-radius: 10px; text-align: center; ">0.269</span></td>
-<td headers="cpoe" class="gt_row gt_right">+5.9</td>
-<td headers="success" class="gt_row gt_right">49.4%</td>
-<td headers="td" class="gt_row gt_right">10</td>
-<td headers="int" class="gt_row gt_right">3</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_right">6</td>
-<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/vcvhmxvxw2a3armle0af.png" style="height:34px;" alt="Player 00-0039150 headshot"></td>
-<td headers="name" class="gt_row gt_left">Bryce Young</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png" style="height:22px;" alt="Carolina Panthers"></td>
-<td headers="dropbacks" class="gt_row gt_right">175</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #81B592; color: #000000; border-radius: 10px; text-align: center; ">0.254</span></td>
-<td headers="cpoe" class="gt_row gt_right">+5.7</td>
-<td headers="success" class="gt_row gt_right">46.3%</td>
-<td headers="td" class="gt_row gt_right">9</td>
-<td headers="int" class="gt_row gt_right">2</td>
+<td headers="dropbacks" class="gt_row gt_right">201</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #7BB18D; color: #000000; border-radius: 10px; text-align: center; ">0.268</span></td>
+<td headers="cpoe" class="gt_row gt_right">+3.4</td>
+<td headers="success" class="gt_row gt_right">50.2%</td>
+<td headers="td" class="gt_row gt_right">14</td>
+<td headers="int" class="gt_row gt_right">4</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">7</td>
-<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png" style="height:34px;" alt="Player 00-0033077 headshot"></td>
-<td headers="name" class="gt_row gt_left">Dak Prescott</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png" style="height:22px;" alt="Dallas Cowboys"></td>
-<td headers="dropbacks" class="gt_row gt_right">211</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #93BFA1; color: #000000; border-radius: 10px; text-align: center; ">0.217</span></td>
-<td headers="cpoe" class="gt_row gt_right">+1.9</td>
-<td headers="success" class="gt_row gt_right">50.2%</td>
-<td headers="td" class="gt_row gt_right">9</td>
-<td headers="int" class="gt_row gt_right">3</td>
+<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mkauzrg7vo8lfziigsbg.png" style="height:34px;" alt="Player 00-0039851 headshot"></td>
+<td headers="name" class="gt_row gt_left">Drake Maye</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png" style="height:22px;" alt="New England Patriots"></td>
+<td headers="dropbacks" class="gt_row gt_right">215</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #8ABA9A; color: #000000; border-radius: 10px; text-align: center; ">0.235</span></td>
+<td headers="cpoe" class="gt_row gt_right">+5.2</td>
+<td headers="success" class="gt_row gt_right">51.6%</td>
+<td headers="td" class="gt_row gt_right">11</td>
+<td headers="int" class="gt_row gt_right">7</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">8</td>
-<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png" style="height:34px;" alt="Player 00-0033873 headshot"></td>
-<td headers="name" class="gt_row gt_left">Patrick Mahomes</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png" style="height:22px;" alt="Kansas City Chiefs"></td>
-<td headers="dropbacks" class="gt_row gt_right">143</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #98C2A5; color: #000000; border-radius: 10px; text-align: center; ">0.205</span></td>
-<td headers="cpoe" class="gt_row gt_right">+0.8</td>
-<td headers="success" class="gt_row gt_right">49.0%</td>
-<td headers="td" class="gt_row gt_right">9</td>
+<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/vcvhmxvxw2a3armle0af.png" style="height:34px;" alt="Player 00-0039150 headshot"></td>
+<td headers="name" class="gt_row gt_left">Bryce Young</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png" style="height:22px;" alt="Carolina Panthers"></td>
+<td headers="dropbacks" class="gt_row gt_right">218</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #90BD9E; color: #000000; border-radius: 10px; text-align: center; ">0.223</span></td>
+<td headers="cpoe" class="gt_row gt_right">+3.0</td>
+<td headers="success" class="gt_row gt_right">45.0%</td>
+<td headers="td" class="gt_row gt_right">11</td>
 <td headers="int" class="gt_row gt_right">2</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">9</td>
-<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mkauzrg7vo8lfziigsbg.png" style="height:34px;" alt="Player 00-0039851 headshot"></td>
-<td headers="name" class="gt_row gt_left">Drake Maye</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png" style="height:22px;" alt="New England Patriots"></td>
-<td headers="dropbacks" class="gt_row gt_right">180</td>
+<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/za7cynvpwlsro1tsaijk.png" style="height:34px;" alt="Player 00-0029604 headshot"></td>
+<td headers="name" class="gt_row gt_left">Kirk Cousins</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png" style="height:22px;" alt="Las Vegas Raiders"></td>
+<td headers="dropbacks" class="gt_row gt_right">224</td>
 <td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #99C2A6; color: #000000; border-radius: 10px; text-align: center; ">0.204</span></td>
-<td headers="cpoe" class="gt_row gt_right">+6.7</td>
-<td headers="success" class="gt_row gt_right">52.8%</td>
-<td headers="td" class="gt_row gt_right">8</td>
-<td headers="int" class="gt_row gt_right">7</td>
+<td headers="cpoe" class="gt_row gt_right">−0.7</td>
+<td headers="success" class="gt_row gt_right">48.7%</td>
+<td headers="td" class="gt_row gt_right">14</td>
+<td headers="int" class="gt_row gt_right">5</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">10</td>
@@ -2164,15 +2164,15 @@ names.</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">11</td>
-<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/za7cynvpwlsro1tsaijk.png" style="height:34px;" alt="Player 00-0029604 headshot"></td>
-<td headers="name" class="gt_row gt_left">Kirk Cousins</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png" style="height:22px;" alt="Las Vegas Raiders"></td>
-<td headers="dropbacks" class="gt_row gt_right">183</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #A1C7AC; color: #000000; border-radius: 10px; text-align: center; ">0.186</span></td>
-<td headers="cpoe" class="gt_row gt_right">+1.4</td>
-<td headers="success" class="gt_row gt_right">48.6%</td>
-<td headers="td" class="gt_row gt_right">12</td>
-<td headers="int" class="gt_row gt_right">4</td>
+<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png" style="height:34px;" alt="Player 00-0033873 headshot"></td>
+<td headers="name" class="gt_row gt_left">Patrick Mahomes</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png" style="height:22px;" alt="Kansas City Chiefs"></td>
+<td headers="dropbacks" class="gt_row gt_right">175</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #A4C8AF; color: #000000; border-radius: 10px; text-align: center; ">0.180</span></td>
+<td headers="cpoe" class="gt_row gt_right">+2.5</td>
+<td headers="success" class="gt_row gt_right">50.3%</td>
+<td headers="td" class="gt_row gt_right">9</td>
+<td headers="int" class="gt_row gt_right">3</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">12</td>
@@ -2188,51 +2188,51 @@ names.</p>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">13</td>
-<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png" style="height:34px;" alt="Player 00-0026498 headshot"></td>
-<td headers="name" class="gt_row gt_left">Matthew Stafford</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png" style="height:22px;" alt="Los Angeles Rams"></td>
-<td headers="dropbacks" class="gt_row gt_right">225</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #B3D1BC; color: #000000; border-radius: 10px; text-align: center; ">0.147</span></td>
-<td headers="cpoe" class="gt_row gt_right">+0.3</td>
-<td headers="success" class="gt_row gt_right">48.4%</td>
-<td headers="td" class="gt_row gt_right">9</td>
-<td headers="int" class="gt_row gt_right">6</td>
-</tr>
-<tr>
-<td headers="rank" class="gt_row gt_right">14</td>
 <td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/tt4zrtxlhifaljhj0rn7.png" style="height:34px;" alt="Player 00-0039163 headshot"></td>
 <td headers="name" class="gt_row gt_left">C.J. Stroud</td>
 <td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png" style="height:22px;" alt="Houston Texans"></td>
-<td headers="dropbacks" class="gt_row gt_right">202</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #BCD6C4; color: #000000; border-radius: 10px; text-align: center; ">0.127</span></td>
-<td headers="cpoe" class="gt_row gt_right">+2.5</td>
-<td headers="success" class="gt_row gt_right">48.5%</td>
-<td headers="td" class="gt_row gt_right">6</td>
-<td headers="int" class="gt_row gt_right">0</td>
+<td headers="dropbacks" class="gt_row gt_right">237</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #ABCDB6; color: #000000; border-radius: 10px; text-align: center; ">0.163</span></td>
+<td headers="cpoe" class="gt_row gt_right">+3.9</td>
+<td headers="success" class="gt_row gt_right">48.9%</td>
+<td headers="td" class="gt_row gt_right">9</td>
+<td headers="int" class="gt_row gt_right">1</td>
+</tr>
+<tr>
+<td headers="rank" class="gt_row gt_right">14</td>
+<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png" style="height:34px;" alt="Player 00-0033077 headshot"></td>
+<td headers="name" class="gt_row gt_left">Dak Prescott</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png" style="height:22px;" alt="Dallas Cowboys"></td>
+<td headers="dropbacks" class="gt_row gt_right">268</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #B8D4C0; color: #000000; border-radius: 10px; text-align: center; ">0.136</span></td>
+<td headers="cpoe" class="gt_row gt_right">+0.8</td>
+<td headers="success" class="gt_row gt_right">48.1%</td>
+<td headers="td" class="gt_row gt_right">10</td>
+<td headers="int" class="gt_row gt_right">5</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">15</td>
-<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png" style="height:34px;" alt="Player 00-0036264 headshot"></td>
-<td headers="name" class="gt_row gt_left">Jordan Love</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png" style="height:22px;" alt="Green Bay Packers"></td>
-<td headers="dropbacks" class="gt_row gt_right">197</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #C4DACA; color: #000000; border-radius: 10px; text-align: center; ">0.111</span></td>
-<td headers="cpoe" class="gt_row gt_right">−3.1</td>
-<td headers="success" class="gt_row gt_right">43.1%</td>
-<td headers="td" class="gt_row gt_right">10</td>
-<td headers="int" class="gt_row gt_right">3</td>
+<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mip4kogkqxwkkya6mvmh.png" style="height:34px;" alt="Player 00-0039917 headshot"></td>
+<td headers="name" class="gt_row gt_left">Michael Penix Jr.</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png" style="height:22px;" alt="Atlanta Falcons"></td>
+<td headers="dropbacks" class="gt_row gt_right">125</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #BDD7C5; color: #000000; border-radius: 10px; text-align: center; ">0.124</span></td>
+<td headers="cpoe" class="gt_row gt_right">−1.5</td>
+<td headers="success" class="gt_row gt_right">45.6%</td>
+<td headers="td" class="gt_row gt_right">6</td>
+<td headers="int" class="gt_row gt_right">1</td>
 </tr>
 <tr>
 <td headers="rank" class="gt_row gt_right">16</td>
-<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/private/t_headshot_desktop/f_auto/league/otfs2docj6eahaebo5xn.png" style="height:34px;" alt="Player 00-0033537 headshot"></td>
-<td headers="name" class="gt_row gt_left">Deshaun Watson</td>
-<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png" style="height:22px;" alt="Cleveland Browns"></td>
-<td headers="dropbacks" class="gt_row gt_right">184</td>
-<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #D2E2D6; color: #000000; border-radius: 10px; text-align: center; ">0.080</span></td>
-<td headers="cpoe" class="gt_row gt_right">−2.4</td>
-<td headers="success" class="gt_row gt_right">44.0%</td>
-<td headers="td" class="gt_row gt_right">7</td>
-<td headers="int" class="gt_row gt_right">2</td>
+<td headers="headshot" class="gt_row gt_right"><img src="https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png" style="height:34px;" alt="Player 00-0026498 headshot"></td>
+<td headers="name" class="gt_row gt_left">Matthew Stafford</td>
+<td headers="team" class="gt_row gt_left"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png" style="height:22px;" alt="Los Angeles Rams"></td>
+<td headers="dropbacks" class="gt_row gt_right">262</td>
+<td headers="epa" class="gt_row gt_right"><span style="display: inline-block; box-sizing: content-box; width: 5ch; padding-left: 3px; padding-right: 3px; height: 22px; line-height: 22px; background-color: #C1D9C8; color: #000000; border-radius: 10px; text-align: center; ">0.117</span></td>
+<td headers="cpoe" class="gt_row gt_right">+0.8</td>
+<td headers="success" class="gt_row gt_right">48.1%</td>
+<td headers="td" class="gt_row gt_right">11</td>
+<td headers="int" class="gt_row gt_right">6</td>
 </tr>
 </tbody>
 <tfoot><tr class="gt_sourcenotes">
@@ -2291,7 +2291,7 @@ reverses the defense axis.</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/add_sdv_logos.html">add_sdv_logos</a></span><span class="op">(</span><span class="va">power</span><span class="op">$</span><span class="va">off_epa</span>, <span class="va">power</span><span class="op">$</span><span class="va">def_epa</span>, <span class="va">power</span><span class="op">$</span><span class="va">team</span>, <span class="st">"nfl"</span>, size <span class="op">=</span> <span class="fl">0.07</span><span class="op">)</span></span></code></pre></div>
 <div class="plotly html-widget html-fill-item" id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:100%;height:576px;"></div>
-<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"visdat":{"10d397124d683":["function () ","plotlyVisDat"]},"cur_data":"10d397124d683","attrs":{"10d397124d683":{"x":{},"y":{},"mode":"markers","marker":{"size":24,"opacity":0},"hoverinfo":"text","text":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":{"text":"NFL offense and defense, 2026 through week 6","x":0.02},"xaxis":{"domain":[0,1],"automargin":true,"title":"Offense: EPA per play","range":[-0.22382196208261343,0.24294528547970085]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Defense: EPA allowed per play (reversed)","range":[0.21491581046750927,-0.26801532634310132]},"images":[{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png","xref":"x","yref":"y","x":0.187402757307785,"y":-0.072296779308767184,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png","xref":"x","yref":"y","x":0.15658236507030862,"y":-0.031380780929532281,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png","xref":"x","yref":"y","x":0.10499878989031391,"y":-0.073194823995957101,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png","xref":"x","yref":"y","x":-0.099869579698338096,"y":-0.23470973070099027,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png","xref":"x","yref":"y","x":0.13164128478012574,"y":0.0023225603236451437,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png","xref":"x","yref":"y","x":0.067813533778500357,"y":-0.023245201406975575,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png","xref":"x","yref":"y","x":0.065160098490884721,"y":-0.023283494237182425,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png","xref":"x","yref":"y","x":0.086108995287248954,"y":0.01601637941574607,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png","xref":"x","yref":"y","x":0.048334233431203528,"y":-0.015300636833519876,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png","xref":"x","yref":"y","x":0.2107544408202309,"y":0.15129957001680305,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/2546b1d4fe5cf6c2d75cda53d3fb56bbc4dd43c6b00200586dab5a85df8fa492.png","xref":"x","yref":"y","x":-0.073855013970465705,"y":-0.11265933736250461,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png","xref":"x","yref":"y","x":0.037797405577892913,"y":0.0040972776591887833,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png","xref":"x","yref":"y","x":0.018590937070570177,"y":-0.014764486860007163,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png","xref":"x","yref":"y","x":0.0025478443778578636,"y":-0.016487356546176359,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png","xref":"x","yref":"y","x":-0.024269124109394781,"y":-0.034922059689687097,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png","xref":"x","yref":"y","x":-0.024444040460137151,"y":-0.03489871717897846,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png","xref":"x","yref":"y","x":0.17608829440132945,"y":0.1659864946103165,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png","xref":"x","yref":"y","x":-0.013108894154629198,"y":-0.0086361024220093473,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png","xref":"x","yref":"y","x":-0.063906513450936037,"y":-0.045955460350104407,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/806bcb72e75ed184a99bea34df458e6cd87145fc9a863945f3356b01122aeb6f.png","xref":"x","yref":"y","x":-0.023299047013122576,"y":-0.0024747151237507021,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png","xref":"x","yref":"y","x":0.15728167332069337,"y":0.18161021482539819,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bc/bcc5d267024650938c9f35558077fe00a31913b89c61768d4ebb63d1ea31fbfd.png","xref":"x","yref":"y","x":-0.092274255756614632,"y":-0.05873792248873301,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png","xref":"x","yref":"y","x":-0.063437272349852206,"y":-0.021954502695945476,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62e361850e7ba3a50dfd09cbb38429e994d1c23b0f999c74421f10e37c7067e7.png","xref":"x","yref":"y","x":-0.0073162311048671864,"y":0.04770966144312036,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png","xref":"x","yref":"y","x":-0.0084860303316373238,"y":0.04975554123049919,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f1/f1f5222a876f810956aa8d4e75d4e6b47bcb3a6d11f876642b674010233c8a97.png","xref":"x","yref":"y","x":-0.037864902439229894,"y":0.067460667887426967,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png","xref":"x","yref":"y","x":-0.039966542330809623,"y":0.088728025113106887,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png","xref":"x","yref":"y","x":-0.19163111742314348,"y":-0.052993333066918967,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f870b58b43585a5b7717d578dd433b0b1e0c462d64ef4bea2aeb8c03f4ae7854.png","xref":"x","yref":"y","x":-0.012600551780965809,"y":0.13308944814099471,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png","xref":"x","yref":"y","x":-0.11056852684322584,"y":0.048908678742099483,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/27/27cf283fca5b2e9e1c5e995a465a54223424c157d2013b603a6491f99333cf45.png","xref":"x","yref":"y","x":-0.1357404366683361,"y":0.057168530336650758,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png","xref":"x","yref":"y","x":-0.11769341392726454,"y":0.10551613494240079,"sizex":0.93353449512462849,"sizey":0.033805179576742748,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"}],"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[0.187402757307785,0.15658236507030862,0.10499878989031391,-0.099869579698338096,0.13164128478012574,0.067813533778500357,0.065160098490884721,0.086108995287248954,0.048334233431203528,0.2107544408202309,-0.073855013970465705,0.037797405577892913,0.018590937070570177,0.0025478443778578636,-0.024269124109394781,-0.024444040460137151,0.17608829440132945,-0.013108894154629198,-0.063906513450936037,-0.023299047013122576,0.15728167332069337,-0.092274255756614632,-0.063437272349852206,-0.0073162311048671864,-0.0084860303316373238,-0.037864902439229894,-0.039966542330809623,-0.19163111742314348,-0.012600551780965809,-0.11056852684322584,-0.1357404366683361,-0.11769341392726454],"y":[-0.072296779308767184,-0.031380780929532281,-0.073194823995957101,-0.23470973070099027,0.0023225603236451437,-0.023245201406975575,-0.023283494237182425,0.01601637941574607,-0.015300636833519876,0.15129957001680305,-0.11265933736250461,0.0040972776591887833,-0.014764486860007163,-0.016487356546176359,-0.034922059689687097,-0.03489871717897846,0.1659864946103165,-0.0086361024220093473,-0.045955460350104407,-0.0024747151237507021,0.18161021482539819,-0.05873792248873301,-0.021954502695945476,0.04770966144312036,0.04975554123049919,0.067460667887426967,0.088728025113106887,-0.052993333066918967,0.13308944814099471,0.048908678742099483,0.057168530336650758,0.10551613494240079],"mode":"markers","marker":{"color":"rgba(31,119,180,1)","size":24,"opacity":0,"line":{"color":"rgba(31,119,180,1)"}},"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"text":["49ers (5-0), rank 1<br>Offense +0.187, defense -0.072<br>Net +0.260 per play","Chiefs (4-0), rank 2<br>Offense +0.157, defense -0.031<br>Net +0.188 per play","Jaguars (4-1), rank 3<br>Offense +0.105, defense -0.073<br>Net +0.178 per play","Vikings (5-0), rank 4<br>Offense -0.100, defense -0.235<br>Net +0.135 per play","Ravens (4-1), rank 5<br>Offense +0.132, defense +0.002<br>Net +0.129 per play","Bengals (3-2), rank 6<br>Offense +0.068, defense -0.023<br>Net +0.091 per play","Rams (2-3), rank 7<br>Offense +0.065, defense -0.023<br>Net +0.088 per play","Panthers (2-2), rank 8<br>Offense +0.086, defense +0.016<br>Net +0.070 per play","Patriots (3-2), rank 9<br>Offense +0.048, defense -0.015<br>Net +0.064 per play","Bills (4-1), rank 10<br>Offense +0.211, defense +0.151<br>Net +0.059 per play","Seahawks (3-3), rank 11<br>Offense -0.074, defense -0.113<br>Net +0.039 per play","Bears (3-2), rank 12<br>Offense +0.038, defense +0.004<br>Net +0.034 per play","Raiders (3-2), rank 13<br>Offense +0.019, defense -0.015<br>Net +0.033 per play","Texans (1-4), rank 14<br>Offense +0.003, defense -0.016<br>Net +0.019 per play","Falcons (2-3), rank 15<br>Offense -0.024, defense -0.035<br>Net +0.011 per play","Jets (2-3), rank 16<br>Offense -0.024, defense -0.035<br>Net +0.010 per play","Lions (3-2), rank 17<br>Offense +0.176, defense +0.166<br>Net +0.010 per play","Packers (3-2), rank 18<br>Offense -0.013, defense -0.009<br>Net -0.004 per play","Broncos (4-2), rank 19<br>Offense -0.064, defense -0.046<br>Net -0.018 per play","Steelers (3-2), rank 20<br>Offense -0.023, defense -0.002<br>Net -0.021 per play","Cowboys (2-3), rank 21<br>Offense +0.157, defense +0.182<br>Net -0.024 per play","Buccaneers (1-4), rank 22<br>Offense -0.092, defense -0.059<br>Net -0.034 per play","Browns (3-2), rank 23<br>Offense -0.063, defense -0.022<br>Net -0.041 per play","Giants (3-1-1), rank 24<br>Offense -0.007, defense +0.048<br>Net -0.055 per play","Commanders (1-3-1), rank 25<br>Offense -0.008, defense +0.050<br>Net -0.058 per play","Colts (2-3), rank 26<br>Offense -0.038, defense +0.067<br>Net -0.105 per play","Saints (1-4), rank 27<br>Offense -0.040, defense +0.089<br>Net -0.129 per play","Chargers (0-5), rank 28<br>Offense -0.192, defense -0.053<br>Net -0.139 per play","Cardinals (1-4), rank 29<br>Offense -0.013, defense +0.133<br>Net -0.146 per play","Eagles (2-3), rank 30<br>Offense -0.111, defense +0.049<br>Net -0.159 per play","Titans (0-5), rank 31<br>Offense -0.136, defense +0.057<br>Net -0.193 per play","Dolphins (0-5), rank 32<br>Offense -0.118, defense +0.106<br>Net -0.223 per play"],"type":"scatter","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script><p>More recipes like this one, in plotly, ggiraph, leaflet and
+<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"visdat":{"10cab5c73977f":["function () ","plotlyVisDat"]},"cur_data":"10cab5c73977f","attrs":{"10cab5c73977f":{"x":{},"y":{},"mode":"markers","marker":{"size":24,"opacity":0},"hoverinfo":"text","text":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":{"text":"NFL offense and defense, 2026 through week 6","x":0.02},"xaxis":{"domain":[0,1],"automargin":true,"title":"Offense: EPA per play","range":[-0.24206681172955738,0.23960789072566099]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Defense: EPA allowed per play (reversed)","range":[0.19804219263522105,-0.26676542872589482]},"images":[{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png","xref":"x","yref":"y","x":0.187402757307785,"y":-0.072296779308767184,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png","xref":"x","yref":"y","x":0.1396847998065345,"y":-0.083947118045640493,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png","xref":"x","yref":"y","x":-0.099869579698338096,"y":-0.23470973070099027,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png","xref":"x","yref":"y","x":0.11423471673480801,"y":-0.016188881115402651,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/67/67796023c172c9aeab5bcdac9204823d3590097246ad1cb92971134b5f26dcc0.png","xref":"x","yref":"y","x":0.097748671524751349,"y":-0.018381454036171731,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png","xref":"x","yref":"y","x":0.093378443309585682,"y":-0.0082894759891168086,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png","xref":"x","yref":"y","x":0.067813533778500357,"y":-0.023245201406975564,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png","xref":"x","yref":"y","x":0.032656537357105518,"y":-0.035182984551024116,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png","xref":"x","yref":"y","x":0.039033010064131686,"y":-0.023978809518177026,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png","xref":"x","yref":"y","x":0.20638894572874938,"y":0.14761342483847115,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png","xref":"x","yref":"y","x":0.042292790654087885,"y":-0.016340001026599639,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/2546b1d4fe5cf6c2d75cda53d3fb56bbc4dd43c6b00200586dab5a85df8fa492.png","xref":"x","yref":"y","x":-0.073855013970465705,"y":-0.11265933736250461,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png","xref":"x","yref":"y","x":0.044763238586472728,"y":0.013426826965952722,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png","xref":"x","yref":"y","x":-0.0043881571915290454,"y":-0.027460989733363722,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png","xref":"x","yref":"y","x":0.036479178625262669,"y":0.018325100059952072,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png","xref":"x","yref":"y","x":0.17608829440132945,"y":0.1659864946103165,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/80/806bcb72e75ed184a99bea34df458e6cd87145fc9a863945f3356b01122aeb6f.png","xref":"x","yref":"y","x":-0.049599449910120427,"y":-0.056140195681935706,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png","xref":"x","yref":"y","x":-0.023939709383997209,"y":-0.026958941852254992,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c9/c98bec2be32e27b19f79f5da86ac6ef133c78d75ab78aadb28ef36696c3213e8.png","xref":"x","yref":"y","x":-0.063906513450936037,"y":-0.045955460350104407,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fe/fe566e9da6f7986b2bac321571bd751247ff93af15c51ae555486fb1bee90c91.png","xref":"x","yref":"y","x":-0.053547863419516804,"y":-0.027326178320757431,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62e361850e7ba3a50dfd09cbb38429e994d1c23b0f999c74421f10e37c7067e7.png","xref":"x","yref":"y","x":-0.0072949169756380853,"y":0.027829426705025109,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9b/9b286fc4286dc39b1b5a6a08aab042b456ba5fdce99e45e49a4d1e2672411fa2.png","xref":"x","yref":"y","x":-0.073811733244429883,"y":-0.032415731692494905,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bc/bcc5d267024650938c9f35558077fe00a31913b89c61768d4ebb63d1ea31fbfd.png","xref":"x","yref":"y","x":-0.12658415515965457,"y":-0.079763545722576004,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png","xref":"x","yref":"y","x":0.10587654933180959,"y":0.15421864631488272,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png","xref":"x","yref":"y","x":-0.0084860303316373238,"y":0.04975554123049919,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f1/f1f5222a876f810956aa8d4e75d4e6b47bcb3a6d11f876642b674010233c8a97.png","xref":"x","yref":"y","x":-0.050231290517092908,"y":0.048448376676797501,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f870b58b43585a5b7717d578dd433b0b1e0c462d64ef4bea2aeb8c03f4ae7854.png","xref":"x","yref":"y","x":-0.015088713784110926,"y":0.092320031173307934,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68ddfdf1d7ee8317f1af083a0c6d59142a11e8af4dad73c3c50bbafc338e0a94.png","xref":"x","yref":"y","x":-0.042847964531044377,"y":0.071287716026760206,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/27/27cf283fca5b2e9e1c5e995a465a54223424c157d2013b603a6491f99333cf45.png","xref":"x","yref":"y","x":-0.12913994740746909,"y":0.02596205482494161,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/28/2875f50f8b756ed5ea3866105b4683f5c603aa542e2c7f7870287e1d3d006100.png","xref":"x","yref":"y","x":-0.1114775372938084,"y":0.061789046304441576,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/5400f85bd93129c056717a771da57a97225e15f39c0022107ce89ef993f15bb0.png","xref":"x","yref":"y","x":-0.20884786673264577,"y":-0.034353870297025274,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"},{"source":"https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b9/b9631269a82abda39bd748afc82390679ca67bfc167bc3581665e237407de8e0.png","xref":"x","yref":"y","x":-0.11769341392726454,"y":0.10551613494240079,"sizex":0.96334940491043675,"sizey":0.032536533495278117,"xanchor":"center","yanchor":"middle","sizing":"contain","layer":"above"}],"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[0.187402757307785,0.1396847998065345,-0.099869579698338096,0.11423471673480801,0.097748671524751349,0.093378443309585682,0.067813533778500357,0.032656537357105518,0.039033010064131686,0.20638894572874938,0.042292790654087885,-0.073855013970465705,0.044763238586472728,-0.0043881571915290454,0.036479178625262669,0.17608829440132945,-0.049599449910120427,-0.023939709383997209,-0.063906513450936037,-0.053547863419516804,-0.0072949169756380853,-0.073811733244429883,-0.12658415515965457,0.10587654933180959,-0.0084860303316373238,-0.050231290517092908,-0.015088713784110926,-0.042847964531044377,-0.12913994740746909,-0.1114775372938084,-0.20884786673264577,-0.11769341392726454],"y":[-0.072296779308767184,-0.083947118045640493,-0.23470973070099027,-0.016188881115402651,-0.018381454036171731,-0.0082894759891168086,-0.023245201406975564,-0.035182984551024116,-0.023978809518177026,0.14761342483847115,-0.016340001026599639,-0.11265933736250461,0.013426826965952722,-0.027460989733363722,0.018325100059952072,0.1659864946103165,-0.056140195681935706,-0.026958941852254992,-0.045955460350104407,-0.027326178320757431,0.027829426705025109,-0.032415731692494905,-0.079763545722576004,0.15421864631488272,0.04975554123049919,0.048448376676797501,0.092320031173307934,0.071287716026760206,0.02596205482494161,0.061789046304441576,-0.034353870297025274,0.10551613494240079],"mode":"markers","marker":{"color":"rgba(31,119,180,1)","size":24,"opacity":0,"line":{"color":"rgba(31,119,180,1)"}},"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"text":["49ers (5-0), rank 1<br>Offense +0.187, defense -0.072<br>Net +0.260 per play","Chiefs (5-0), rank 2<br>Offense +0.140, defense -0.084<br>Net +0.224 per play","Vikings (5-0), rank 3<br>Offense -0.100, defense -0.235<br>Net +0.135 per play","Jaguars (4-2), rank 4<br>Offense +0.114, defense -0.016<br>Net +0.130 per play","Ravens (4-2), rank 5<br>Offense +0.098, defense -0.018<br>Net +0.116 per play","Panthers (3-2), rank 6<br>Offense +0.093, defense -0.008<br>Net +0.102 per play","Bengals (3-2), rank 7<br>Offense +0.068, defense -0.023<br>Net +0.091 per play","Bears (4-2), rank 8<br>Offense +0.033, defense -0.035<br>Net +0.068 per play","Rams (2-4), rank 9<br>Offense +0.039, defense -0.024<br>Net +0.063 per play","Bills (5-1), rank 10<br>Offense +0.206, defense +0.148<br>Net +0.059 per play","Patriots (4-2), rank 11<br>Offense +0.042, defense -0.016<br>Net +0.059 per play","Seahawks (3-3), rank 12<br>Offense -0.074, defense -0.113<br>Net +0.039 per play","Texans (2-4), rank 13<br>Offense +0.045, defense +0.013<br>Net +0.031 per play","Packers (4-2), rank 14<br>Offense -0.004, defense -0.027<br>Net +0.023 per play","Raiders (3-3), rank 15<br>Offense +0.036, defense +0.018<br>Net +0.018 per play","Lions (3-2), rank 16<br>Offense +0.176, defense +0.166<br>Net +0.010 per play","Steelers (4-2), rank 17<br>Offense -0.050, defense -0.056<br>Net +0.007 per play","Jets (2-4), rank 18<br>Offense -0.024, defense -0.027<br>Net +0.003 per play","Broncos (4-2), rank 19<br>Offense -0.064, defense -0.046<br>Net -0.018 per play","Falcons (2-4), rank 20<br>Offense -0.054, defense -0.027<br>Net -0.026 per play","Giants (3-2-1), rank 21<br>Offense -0.007, defense +0.028<br>Net -0.035 per play","Browns (4-2), rank 22<br>Offense -0.074, defense -0.032<br>Net -0.041 per play","Buccaneers (1-5), rank 23<br>Offense -0.127, defense -0.080<br>Net -0.047 per play","Cowboys (2-4), rank 24<br>Offense +0.106, defense +0.154<br>Net -0.048 per play","Commanders (1-3-1), rank 25<br>Offense -0.008, defense +0.050<br>Net -0.058 per play","Colts (2-4), rank 26<br>Offense -0.050, defense +0.048<br>Net -0.099 per play","Cardinals (2-4), rank 27<br>Offense -0.015, defense +0.092<br>Net -0.107 per play","Saints (2-4), rank 28<br>Offense -0.043, defense +0.071<br>Net -0.114 per play","Titans (1-5), rank 29<br>Offense -0.129, defense +0.026<br>Net -0.155 per play","Eagles (2-4), rank 30<br>Offense -0.111, defense +0.062<br>Net -0.173 per play","Chargers (0-6), rank 31<br>Offense -0.209, defense -0.034<br>Net -0.174 per play","Dolphins (0-5), rank 32<br>Offense -0.118, defense +0.106<br>Net -0.223 per play"],"type":"scatter","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script><p>More recipes like this one, in plotly, ggiraph, leaflet and
 reactable, are in <a href="cookbook-interactive.html">Interactive
 charts</a>.</p>
 </div>

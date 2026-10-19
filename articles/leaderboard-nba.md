@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-18:** the offseason, so this is the final 2025-26
+**Updated 2026-10-19:** the offseason, so this is the final 2025-26
 regular season; the 2026-27 season has no games yet.
 
 This page is rebuilt every week with the site. It builds the standings
