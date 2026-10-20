@@ -575,8 +575,10 @@ High-level functions that build complete branded plots.
 
 ## Playing Surfaces
 
-Regulation courts, fields and rinks from ‘sportyR’, styled in a team’s
-colors with its logo at center.
+Every regulation court, field, rink and sheet ‘sportyR’ draws (59
+surface keys, lacrosse, tennis, volleyball, curling and softball
+included); a team league’s surface takes a team’s colors and its logo at
+center.
 
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   : Team-Styled Playing Surfaces

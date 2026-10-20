@@ -17,8 +17,8 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <script src="../extra.js"></script><meta property="og:title" content="Surfaces and shot charts">
-<meta name="description" content="Eleven recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field and a football drive chart and Euroleague shots on the FIBA court.">
-<meta property="og:description" content="Eleven recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field and a football drive chart and Euroleague shots on the FIBA court.">
+<meta name="description" content="Thirteen recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field, a football drive chart, Euroleague shots on the FIBA court, and every other sport and league sportyR draws, from lacrosse, tennis, volleyball and curling to an NCAA softball field.">
+<meta property="og:description" content="Thirteen recipes for playing surfaces: every sport's surface, team colors and a center logo, NBA and WNBA shot charts with sdv_court_coords(), a rotated half court, a college shot chart, a hockey goal map, a baseball field, a football drive chart, Euroleague shots on the FIBA court, and every other sport and league sportyR draws, from lacrosse, tennis, volleyball and curling to an NCAA softball field.">
 <meta property="og:image" content="https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts_files/figure-html/nba-shots-1.png">
 <meta property="og:image:alt" content="sdvplotR: team logos, wordmarks, headshots and colors in ggplot2, gt and reactable">
 <meta name="twitter:card" content="summary_large_image">
@@ -306,13 +306,15 @@
     </div>
 
     <!-- sdvplotR: phones get "On this page" here, collapsed; pkgdown/extra.js copies the list in -->
-    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p>Eleven recipes for playing surfaces and the charts drawn on them:
+    <details class="toc-mobile d-md-none"><summary>On this page</summary><nav aria-label="Table of contents"></nav></details><p>Thirteen recipes for playing surfaces and the charts drawn on them:
 <code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> for every sport it supports, team colors and
 a center logo, NBA and WNBA shot charts from the stats-API shot files
 (moved onto the court with <code><a href="../reference/sdv_court_coords.html">sdv_court_coords()</a></code>), a vertical
 half court, a college shot chart from ESPN’s locations, a hockey goal
-map, a baseball field, a football drive chart and Euroleague shots on
-the FIBA court. The surfaces are drawn by <a href="https://sportyR.sportsdataverse.org" class="external-link">sportyR</a>. The data is one
+map, a baseball field, a football drive chart, Euroleague shots on the
+FIBA court, then the rest of the 59 surfaces: lacrosse, tennis,
+volleyball, curling, more football, baseball, hockey and soccer leagues
+and an NCAA softball field. The surfaces are drawn by <a href="https://sportyR.sportsdataverse.org" class="external-link">sportyR</a>. The data is one
 season each from the NFL (nflreadr), the NBA, WNBA and college
 basketball (hoopR and wehoop), the NHL (fastRhockey) and MLB
 (baseballr). The NBA and WNBA shots are the stats-API shot files the
@@ -704,12 +706,13 @@ on the side it was taken from.</p>
 <h2 id="a-baseball-field-with-a-logo-in-center-field">9. A baseball field with a logo in center field<a class="anchor" aria-label="anchor" href="#a-baseball-field-with-a-logo-in-center-field"></a>
 </h2>
 <p>Baseball fields have no team-colored lines, so
-<code>sdv_surface("mlb", team)</code> draws the regulation field, and
-the origin is home plate, so a center logo would sit on the plate
-(<code>center_logo</code> warns and skips it). The field also paints the
-whole plot background green, so set titles in white. Draw the field,
-then place the logo yourself, in center field about 330 ft out. The team
-with MLB’s best 2026 record:</p>
+<code>sdv_surface("mlb", team)</code> draws the regulation field. Its
+origin is home plate, so <code>center_logo = TRUE</code> puts the logo
+in shallow center field instead: midway between second base and the
+center-field fence (263.6 ft out on an MLB field), 0.15 x the
+center-field distance across (60 ft). The field also paints the whole
+plot background green, so set titles in white. The team with MLB’s best
+2026 record:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mlb_ids</span> <span class="op">&lt;-</span> <span class="fu">baseballr</span><span class="fu">::</span><span class="fu"><a href="https://billpetti.github.io/baseballr/reference/mlb_teams.html" class="external-link">mlb_teams</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fl">2026</span>, sport_ids <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -726,8 +729,7 @@ with MLB’s best 2026 record:</p>
 <span><span class="co">#&gt;   team              name wins losses</span></span>
 <span><span class="co">#&gt; 1    8 Milwaukee Brewers  103     59</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sdv_surface.html">sdv_surface</a></span><span class="op">(</span><span class="st">"mlb"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_sdv_logos.html">geom_sdv_logos</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">330</span>, team <span class="op">=</span> <span class="va">team</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mlb_best</span>, league <span class="op">=</span> <span class="st">"mlb"</span>, width <span class="op">=</span> <span class="fl">0.16</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="../reference/sdv_surface.html">sdv_surface</a></span><span class="op">(</span><span class="st">"mlb"</span>, <span class="va">mlb_best</span><span class="op">$</span><span class="va">team</span>, center_logo <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%s, %d-%d: MLB's best record in 2026"</span>, <span class="va">mlb_best</span><span class="op">$</span><span class="va">name</span>, <span class="va">mlb_best</span><span class="op">$</span><span class="va">wins</span>, <span class="va">mlb_best</span><span class="op">$</span><span class="va">losses</span><span class="op">)</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Data: baseballr::mlb_standings() (MLB Stats API)"</span></span>
@@ -735,9 +737,8 @@ with MLB’s best 2026 record:</p>
 <span>  <span class="va">titled</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>, plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="cookbook-surfaces-shot-charts_files/figure-html/baseball-field-1.png" class="r-plt" alt="A regulation MLB baseball field with the logo of the team with the best 2026 regular-season record in center field." width="672"></p>
-<p>Any ggplot layer goes on a surface the same way, in the surface’s
-units: here feet from home plate, so a spray chart’s hit locations drop
-straight in.</p>
+<p>Any ggplot layer goes on a surface in the surface’s units: here feet
+from home plate, so a spray chart’s hit locations drop straight in.</p>
 </div>
 <div class="section level2">
 <h2 id="a-football-drive-chart">10. A football drive chart<a class="anchor" aria-label="anchor" href="#a-football-drive-chart"></a>
@@ -846,6 +847,67 @@ arc, a corner three and a free throw.</p>
 <p><img src="cookbook-surfaces-shot-charts_files/figure-html/euroleague-fiba-1.png" class="r-plt" alt="The left half of a FIBA court with four red dots: at the rim, on the free-throw line, at the top of the three-point arc and in a corner." width="576"></p>
 </div>
 <div class="section level2">
+<h2 id="every-other-sport-and-league-sportyr-draws">12. Every other sport and league sportyR draws<a class="anchor" aria-label="anchor" href="#every-other-sport-and-league-sportyr-draws"></a>
+</h2>
+<p><code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> takes 59 surface keys, the table sdvplot
+(Python) and sdvplot-js share: beyond the leagues above, the CFL and
+NFHS fields, the NFHS court, Little League, PONY and NFHS baseball, the
+IIHF, NWHL and the PWHL’s own rink, the EPL, MLS, NWSL, FIFA and NCAA
+pitches, and four sports of their own: lacrosse, tennis, volleyball and
+curling. Only the keys that are also leagues of
+<code><a href="../reference/sdv_leagues.html">sdv_leagues()</a></code> (the PWHL among these) take a
+<code>team</code>; the others have no team identities yet and error if
+given one.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">more</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  cfl <span class="op">=</span> <span class="st">"CFL field"</span>, nfhs_football <span class="op">=</span> <span class="st">"NFHS football field"</span>, nfhs_basketball <span class="op">=</span> <span class="st">"NFHS basketball court"</span>,</span>
+<span>  little_league <span class="op">=</span> <span class="st">"Little League field"</span>, iihf <span class="op">=</span> <span class="st">"IIHF rink"</span>, pwhl <span class="op">=</span> <span class="st">"PWHL rink"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">lg</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">more</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_surface.html">sdv_surface</a></span><span class="op">(</span><span class="va">lg</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">more</span><span class="op">[[</span><span class="va">lg</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="va">titled</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">lg</span> <span class="op">==</span> <span class="st">"little_league"</span><span class="op">)</span> <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><img src="cookbook-surfaces-shot-charts_files/figure-html/more-leagues-1.png" class="r-plt" alt="Six more regulation surfaces drawn by sportyR: a CFL field, an NFHS football field, an NFHS basketball court, a Little League field, an IIHF rink and the PWHL's rink." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/more-leagues-2.png" class="r-plt" alt="Six more regulation surfaces drawn by sportyR: a CFL field, an NFHS football field, an NFHS basketball court, a Little League field, an IIHF rink and the PWHL's rink." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/more-leagues-3.png" class="r-plt" alt="Six more regulation surfaces drawn by sportyR: a CFL field, an NFHS football field, an NFHS basketball court, a Little League field, an IIHF rink and the PWHL's rink." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/more-leagues-4.png" class="r-plt" alt="Six more regulation surfaces drawn by sportyR: a CFL field, an NFHS football field, an NFHS basketball court, a Little League field, an IIHF rink and the PWHL's rink." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/more-leagues-5.png" class="r-plt" alt="Six more regulation surfaces drawn by sportyR: a CFL field, an NFHS football field, an NFHS basketball court, a Little League field, an IIHF rink and the PWHL's rink." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/more-leagues-6.png" class="r-plt" alt="Six more regulation surfaces drawn by sportyR: a CFL field, an NFHS football field, an NFHS basketball court, a Little League field, an IIHF rink and the PWHL's rink." width="49%"></p>
+<p>Lacrosse has seven leagues: the NLL’s box, the PLL, World Lacrosse,
+and the NCAA and USA Lacrosse men’s and women’s fields. Tennis (ATP,
+WTA, ITF, ITA, USTA, NCAA), volleyball (FIVB, USA Volleyball, NCAA) and
+curling (WCF, Curling Canada) follow.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sports</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  nll <span class="op">=</span> <span class="st">"NLL box lacrosse"</span>, ncaa_wlacrosse <span class="op">=</span> <span class="st">"NCAA women's lacrosse"</span>, pll <span class="op">=</span> <span class="st">"PLL lacrosse"</span>,</span>
+<span>  atp <span class="op">=</span> <span class="st">"ATP tennis court"</span>, fivb <span class="op">=</span> <span class="st">"FIVB volleyball court"</span>, wcf <span class="op">=</span> <span class="st">"WCF curling sheet"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">lg</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sports</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># a curling sheet is long and thin: turn it to fill a wide plot</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="va">lg</span> <span class="op">==</span> <span class="st">"wcf"</span><span class="op">)</span> <span class="fu"><a href="../reference/sdv_surface.html">sdv_surface</a></span><span class="op">(</span><span class="va">lg</span>, rotation <span class="op">=</span> <span class="fl">90</span><span class="op">)</span> <span class="kw">else</span> <span class="fu"><a href="../reference/sdv_surface.html">sdv_surface</a></span><span class="op">(</span><span class="va">lg</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">sports</span><span class="op">[[</span><span class="va">lg</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="va">titled</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><img src="cookbook-surfaces-shot-charts_files/figure-html/new-sports-1.png" class="r-plt" alt="Six more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA women's lacrosse field, a PLL field, an ATP tennis court, an FIVB volleyball court and a WCF curling sheet." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/new-sports-2.png" class="r-plt" alt="Six more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA women's lacrosse field, a PLL field, an ATP tennis court, an FIVB volleyball court and a WCF curling sheet." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/new-sports-3.png" class="r-plt" alt="Six more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA women's lacrosse field, a PLL field, an ATP tennis court, an FIVB volleyball court and a WCF curling sheet." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/new-sports-4.png" class="r-plt" alt="Six more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA women's lacrosse field, a PLL field, an ATP tennis court, an FIVB volleyball court and a WCF curling sheet." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/new-sports-5.png" class="r-plt" alt="Six more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA women's lacrosse field, a PLL field, an ATP tennis court, an FIVB volleyball court and a WCF curling sheet." width="49%"><img src="cookbook-surfaces-shot-charts_files/figure-html/new-sports-6.png" class="r-plt" alt="Six more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA women's lacrosse field, a PLL field, an ATP tennis court, an FIVB volleyball court and a WCF curling sheet." width="49%"></p>
+</div>
+<div class="section level2">
+<h2 id="a-softball-field-for-an-ncaa-team">13. A softball field for an NCAA team<a class="anchor" aria-label="anchor" href="#a-softball-field-for-an-ncaa-team"></a>
+</h2>
+<p><code>"ncaa_softball"</code> is both a team league and a surface. It
+needs sportyR 2.3.0 or later, not yet on CRAN
+(<code>remotes::install_github("sportsdataverse/sportyR")</code>); with
+an older sportyR, <code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> says so. As on a baseball
+field, no part of the infield takes a team colour, so the team is
+checked and the field keeps sportyR’s look.
+<code>center_logo = TRUE</code> would put the logo in shallow center
+field, as on a baseball field; here it goes in the title instead, with
+<code><a href="../reference/ggtitle_image.html">ggtitle_image()</a></code>. Like baseball, the field’s origin is home
+plate.</p>
+<p>The figure below needs sportyR 2.3.0 or later: where only CRAN’s
+sportyR is installed, the chunk is not run and no figure appears.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sdv_surface.html">sdv_surface</a></span><span class="op">(</span><span class="st">"ncaa_softball"</span>, <span class="st">"UCLA"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/ggtitle_image.html">ggtitle_image</a></span><span class="op">(</span>title_image <span class="op">=</span> <span class="st">"UCLA"</span>, title <span class="op">=</span> <span class="st">"A regulation NCAA softball field, for UCLA"</span>, image_height <span class="op">=</span> <span class="fl">25</span>, league <span class="op">=</span> <span class="st">"ncaa_softball"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/ggtitle_image.html">theme_title_image</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">titled</span></span></code></pre></div>
+<p><img src="cookbook-surfaces-shot-charts_files/figure-html/softball-field-1.png" class="r-plt" alt="A regulation NCAA softball field drawn by sportyR, with the UCLA Bruins logo beside the title." width="672"></p>
+</div>
+<div class="section level2">
 <h2 id="our-authors">
 <strong>Our Authors</strong><a class="anchor" aria-label="anchor" href="#our-authors"></a>
 </h2>
@@ -878,12 +940,12 @@ arc, a corner three and a free throw.</p>
 <p>To cite the <a href="https://sdvplotR.sportsdataverse.org/"><strong><code>sdvplotR</code></strong></a>
 R package in publications, use:</p>
 <p>BibTeX Citation</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="related-sportsdataverse-packages">

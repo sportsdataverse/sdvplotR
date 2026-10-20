@@ -115,11 +115,13 @@ charts, and reactable tables (with reactablefmtr).
 - [Surfaces and shot
   charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.md):
 
-  Eleven recipes for playing surfaces: every sport’s surface, team
+  Thirteen recipes for playing surfaces: every sport’s surface, team
   colors and a center logo, NBA and WNBA shot charts with
   sdv_court_coords(), a rotated half court, a college shot chart, a
-  hockey goal map, a baseball field and a football drive chart and
-  Euroleague shots on the FIBA court.
+  hockey goal map, a baseball field, a football drive chart, Euroleague
+  shots on the FIBA court, and every other sport and league sportyR
+  draws, from lacrosse, tennis, volleyball and curling to an NCAA
+  softball field.
 
 - [reactable
   Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.md):

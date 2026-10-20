@@ -2,14 +2,16 @@
 
 On this page
 
-Eleven recipes for playing surfaces and the charts drawn on them:
+Thirteen recipes for playing surfaces and the charts drawn on them:
 [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
 for every sport it supports, team colors and a center logo, NBA and WNBA
 shot charts from the stats-API shot files (moved onto the court with
 [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)),
 a vertical half court, a college shot chart from ESPN’s locations, a
-hockey goal map, a baseball field, a football drive chart and Euroleague
-shots on the FIBA court. The surfaces are drawn by
+hockey goal map, a baseball field, a football drive chart, Euroleague
+shots on the FIBA court, then the rest of the 59 surfaces: lacrosse,
+tennis, volleyball, curling, more football, baseball, hockey and soccer
+leagues and an NCAA softball field. The surfaces are drawn by
 [sportyR](https://sportyR.sportsdataverse.org). The data is one season
 each from the NFL (nflreadr), the NBA, WNBA and college basketball
 (hoopR and wehoop), the NHL (fastRhockey) and MLB (baseballr). The NBA
@@ -492,11 +494,12 @@ the half turn here keeps each shot on the side it was taken from.
 ## 9. A baseball field with a logo in center field
 
 Baseball fields have no team-colored lines, so
-`sdv_surface("mlb", team)` draws the regulation field, and the origin is
-home plate, so a center logo would sit on the plate (`center_logo` warns
-and skips it). The field also paints the whole plot background green, so
-set titles in white. Draw the field, then place the logo yourself, in
-center field about 330 ft out. The team with MLB’s best 2026 record:
+`sdv_surface("mlb", team)` draws the regulation field. Its origin is
+home plate, so `center_logo = TRUE` puts the logo in shallow center
+field instead: midway between second base and the center-field fence
+(263.6 ft out on an MLB field), 0.15 x the center-field distance across
+(60 ft). The field also paints the whole plot background green, so set
+titles in white. The team with MLB’s best 2026 record:
 
 ``` r
 
@@ -515,8 +518,7 @@ mlb_best
 #>   team              name wins losses
 #> 1    8 Milwaukee Brewers  103     59
 
-sdv_surface("mlb") +
-  geom_sdv_logos(aes(x = 0, y = 330, team = team), data = mlb_best, league = "mlb", width = 0.16) +
+sdv_surface("mlb", mlb_best$team, center_logo = TRUE) +
   labs(
     title = sprintf("%s, %d-%d: MLB's best record in 2026", mlb_best$name, mlb_best$wins, mlb_best$losses),
     caption = "Data: baseballr::mlb_standings() (MLB Stats API)"
@@ -529,9 +531,8 @@ sdv_surface("mlb") +
 best 2026 regular-season record in center
 field.](cookbook-surfaces-shot-charts_files/figure-html/baseball-field-1.png)
 
-Any ggplot layer goes on a surface the same way, in the surface’s units:
-here feet from home plate, so a spray chart’s hit locations drop
-straight in.
+Any ggplot layer goes on a surface in the surface’s units: here feet
+from home plate, so a spray chart’s hit locations drop straight in.
 
 ## 10. A football drive chart
 
@@ -650,6 +651,129 @@ sdv_surface("fiba", display_range = "defense") +
 ![The left half of a FIBA court with four red dots: at the rim, on the
 free-throw line, at the top of the three-point arc and in a
 corner.](cookbook-surfaces-shot-charts_files/figure-html/euroleague-fiba-1.png)
+
+## 12. Every other sport and league sportyR draws
+
+[`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+takes 59 surface keys, the table sdvplot (Python) and sdvplot-js share:
+beyond the leagues above, the CFL and NFHS fields, the NFHS court,
+Little League, PONY and NFHS baseball, the IIHF, NWHL and the PWHL’s own
+rink, the EPL, MLS, NWSL, FIFA and NCAA pitches, and four sports of
+their own: lacrosse, tennis, volleyball and curling. Only the keys that
+are also leagues of
+[`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
+(the PWHL among these) take a `team`; the others have no team identities
+yet and error if given one.
+
+``` r
+
+more <- c(
+  cfl = "CFL field", nfhs_football = "NFHS football field", nfhs_basketball = "NFHS basketball court",
+  little_league = "Little League field", iihf = "IIHF rink", pwhl = "PWHL rink"
+)
+for (lg in names(more)) {
+  p <- sdv_surface(lg) + labs(title = more[[lg]]) + titled
+  if (lg == "little_league") p <- p + theme(plot.title = element_text(colour = "white"))
+  print(p)
+}
+```
+
+![Six more regulation surfaces drawn by sportyR: a CFL field, an NFHS
+football field, an NFHS basketball court, a Little League field, an IIHF
+rink and the PWHL's
+rink.](cookbook-surfaces-shot-charts_files/figure-html/more-leagues-1.png)![Six
+more regulation surfaces drawn by sportyR: a CFL field, an NFHS football
+field, an NFHS basketball court, a Little League field, an IIHF rink and
+the PWHL's
+rink.](cookbook-surfaces-shot-charts_files/figure-html/more-leagues-2.png)![Six
+more regulation surfaces drawn by sportyR: a CFL field, an NFHS football
+field, an NFHS basketball court, a Little League field, an IIHF rink and
+the PWHL's
+rink.](cookbook-surfaces-shot-charts_files/figure-html/more-leagues-3.png)![Six
+more regulation surfaces drawn by sportyR: a CFL field, an NFHS football
+field, an NFHS basketball court, a Little League field, an IIHF rink and
+the PWHL's
+rink.](cookbook-surfaces-shot-charts_files/figure-html/more-leagues-4.png)![Six
+more regulation surfaces drawn by sportyR: a CFL field, an NFHS football
+field, an NFHS basketball court, a Little League field, an IIHF rink and
+the PWHL's
+rink.](cookbook-surfaces-shot-charts_files/figure-html/more-leagues-5.png)![Six
+more regulation surfaces drawn by sportyR: a CFL field, an NFHS football
+field, an NFHS basketball court, a Little League field, an IIHF rink and
+the PWHL's
+rink.](cookbook-surfaces-shot-charts_files/figure-html/more-leagues-6.png)
+
+Lacrosse has seven leagues: the NLL’s box, the PLL, World Lacrosse, and
+the NCAA and USA Lacrosse men’s and women’s fields. Tennis (ATP, WTA,
+ITF, ITA, USTA, NCAA), volleyball (FIVB, USA Volleyball, NCAA) and
+curling (WCF, Curling Canada) follow.
+
+``` r
+
+sports <- c(
+  nll = "NLL box lacrosse", ncaa_wlacrosse = "NCAA women's lacrosse", pll = "PLL lacrosse",
+  atp = "ATP tennis court", fivb = "FIVB volleyball court", wcf = "WCF curling sheet"
+)
+for (lg in names(sports)) {
+  # a curling sheet is long and thin: turn it to fill a wide plot
+  p <- if (lg == "wcf") sdv_surface(lg, rotation = 90) else sdv_surface(lg)
+  print(p + labs(title = sports[[lg]]) + titled)
+}
+```
+
+![Six more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA
+women's lacrosse field, a PLL field, an ATP tennis court, an FIVB
+volleyball court and a WCF curling
+sheet.](cookbook-surfaces-shot-charts_files/figure-html/new-sports-1.png)![Six
+more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA
+women's lacrosse field, a PLL field, an ATP tennis court, an FIVB
+volleyball court and a WCF curling
+sheet.](cookbook-surfaces-shot-charts_files/figure-html/new-sports-2.png)![Six
+more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA
+women's lacrosse field, a PLL field, an ATP tennis court, an FIVB
+volleyball court and a WCF curling
+sheet.](cookbook-surfaces-shot-charts_files/figure-html/new-sports-3.png)![Six
+more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA
+women's lacrosse field, a PLL field, an ATP tennis court, an FIVB
+volleyball court and a WCF curling
+sheet.](cookbook-surfaces-shot-charts_files/figure-html/new-sports-4.png)![Six
+more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA
+women's lacrosse field, a PLL field, an ATP tennis court, an FIVB
+volleyball court and a WCF curling
+sheet.](cookbook-surfaces-shot-charts_files/figure-html/new-sports-5.png)![Six
+more surfaces drawn by sportyR: an NLL box lacrosse floor, an NCAA
+women's lacrosse field, a PLL field, an ATP tennis court, an FIVB
+volleyball court and a WCF curling
+sheet.](cookbook-surfaces-shot-charts_files/figure-html/new-sports-6.png)
+
+## 13. A softball field for an NCAA team
+
+`"ncaa_softball"` is both a team league and a surface. It needs sportyR
+2.3.0 or later, not yet on CRAN
+(`remotes::install_github("sportsdataverse/sportyR")`); with an older
+sportyR,
+[`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+says so. As on a baseball field, no part of the infield takes a team
+colour, so the team is checked and the field keeps sportyR’s look.
+`center_logo = TRUE` would put the logo in shallow center field, as on a
+baseball field; here it goes in the title instead, with
+[`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md).
+Like baseball, the field’s origin is home plate.
+
+The figure below needs sportyR 2.3.0 or later: where only CRAN’s sportyR
+is installed, the chunk is not run and no figure appears.
+
+``` r
+
+sdv_surface("ncaa_softball", "UCLA") +
+  ggtitle_image(title_image = "UCLA", title = "A regulation NCAA softball field, for UCLA", image_height = 25, league = "ncaa_softball") +
+  theme_title_image(size = 14, face = "bold", colour = "white") +
+  titled
+```
+
+![A regulation NCAA softball field drawn by sportyR, with the UCLA
+Bruins logo beside the
+title.](cookbook-surfaces-shot-charts_files/figure-html/softball-field-1.png)
 
 ## **Our Authors**
 

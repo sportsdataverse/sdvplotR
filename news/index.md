@@ -160,13 +160,25 @@ names with the Python package sdvplot and the JavaScript packages
   [`theme_title_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
   places a logo next to a plot title.
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
-  draws a court, field, rink or pitch through ‘sportyR’ for 27 leagues
-  and FIBA courts, as a ggplot to plot data on. Leagues without a
-  surface of their own use their sport’s (the WHL, for one, uses the NHL
-  rink). Given a team, a few features take its colours, and
-  `center_logo = TRUE` puts its logo at the center. These are stylized
-  surfaces built from team colours, not the teams’ real floor, field or
-  rink designs.
+  draws a court, field, rink, pitch or sheet through ‘sportyR’ for 59
+  surface keys, the table sdvplot (Python) and sdvplot-js share, as a
+  ggplot to plot data on: every sport ‘sportyR’ draws (basketball,
+  football, baseball, softball, hockey, soccer, lacrosse, tennis,
+  volleyball, curling) and its leagues, from the NFL to NFHS, Little
+  League, the ATP and the WCF. Leagues without a surface of their own
+  use their sport’s (the WHL, for one, uses the NHL rink); the PWHL
+  draws its own rink. Given a team, a few features take its colours, and
+  `center_logo = TRUE` puts its logo at the center; on a baseball or
+  softball field, whose origin is home plate, it goes in shallow center
+  field instead, midway between second base and the center-field fence
+  and 0.15 x the center-field distance across (it used to warn and draw
+  no logo), as in sdvplot (Python). These are stylized surfaces built
+  from team colours, not the teams’ real floor, field or rink designs.
+  Keys that are not team leagues (`"fiba"`, `"atp"`, `"nll"`, `"epl"`,
+  …) take no `team`. `"ncaa_softball"` is both a team league and a
+  surface and needs ‘sportyR’ 2.3.0, not yet on CRAN; with an older
+  ‘sportyR’ it errors naming the version and
+  `remotes::install_github("sportsdataverse/sportyR")`.
 - [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)
   converts stats.nba.com / stats.wnba.com legacy shot locations
   (`x_legacy`/`y_legacy`, or `LOC_X`/`LOC_Y` from the

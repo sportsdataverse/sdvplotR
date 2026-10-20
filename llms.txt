@@ -12,7 +12,9 @@ basketball, soccer and more — in
 interactive [**`plotly`**](https://plotly-r.com/),
 [**`ggiraph`**](https://davidgohel.github.io/ggiraph/) and
 [**`leaflet`**](https://rstudio.github.io/leaflet/) charts and maps,
-with team-colored playing surfaces from
+with playing surfaces (59 of them: every court, field, rink and sheet,
+lacrosse, tennis, volleyball and curling included; the team leagues’
+surfaces take a team’s colors) from
 [**`sportyR`**](https://sportyR.sportsdataverse.org/). It is built on
 [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
 approach established by [nflplotR](https://nflplotr.nflverse.com/),
@@ -183,6 +185,8 @@ plotly::plot_ly(df, x = ~a, y = ~b, type = "scatter", mode = "markers", text = ~
 
 # A playing surface painted in a team's colors, ready for shot or play data
 sdv_surface("nba", team = "BOS")
+# ... or any of 59 surfaces, lacrosse to curling: see the Surfaces cookbook
+sdv_surface("nll")
 ```
 
 The [Interactive Charts
@@ -939,8 +943,10 @@ High-level functions that build complete branded plots.
 
 ## Playing Surfaces
 
-Regulation courts, fields and rinks from ‘sportyR’, styled in a team’s
-colors with its logo at center.
+Every regulation court, field, rink and sheet ‘sportyR’ draws (59
+surface keys, lacrosse, tennis, volleyball, curling and softball
+included); a team league’s surface takes a team’s colors and its logo at
+center.
 
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   : Team-Styled Playing Surfaces
@@ -1111,11 +1117,13 @@ charts, and reactable tables (with reactablefmtr).
 - [Surfaces and shot
   charts](https://sdvplotR.sportsdataverse.org/articles/cookbook-surfaces-shot-charts.md):
 
-  Eleven recipes for playing surfaces: every sport’s surface, team
+  Thirteen recipes for playing surfaces: every sport’s surface, team
   colors and a center logo, NBA and WNBA shot charts with
   sdv_court_coords(), a rotated half court, a college shot chart, a
-  hockey goal map, a baseball field and a football drive chart and
-  Euroleague shots on the FIBA court.
+  hockey goal map, a baseball field, a football drive chart, Euroleague
+  shots on the FIBA court, and every other sport and league sportyR
+  draws, from lacrosse, tennis, volleyball and curling to an NCAA
+  softball field.
 
 - [reactable
   Integration](https://sdvplotR.sportsdataverse.org/articles/reactable-integration.md):

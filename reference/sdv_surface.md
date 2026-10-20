@@ -20,39 +20,60 @@ sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
 
 - league:
 
-  A league with a playing surface: one of `names(surface_map)`, the
-  leagues of
-  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
-  that 'sportyR' draws, plus `"fiba"`. Each maps to a 'sportyR' surface,
-  after sdvplot's (Python) surfaces:
+  One of the 59 SportsDataverse surface keys, the table sdvplot (Python)
+  and sdvplot-js share. Each maps to a 'sportyR' surface:
 
   |  |  |
   |----|----|
   | league | surface |
   | `"nfl"`, `"aaf"`, `"ufl"`, `"usfl"`, `"xfl"` | `sportyR::geom_football("nfl")` |
   | `"cfb"` | `sportyR::geom_football("ncaa")` |
+  | `"cfl"` | `sportyR::geom_football("cfl")` |
+  | `"nfhs_football"` | `sportyR::geom_football("nfhs11")` |
   | `"nba"` | `sportyR::geom_basketball("nba")` |
   | `"nbagl"` | `sportyR::geom_basketball("nba g league")` |
   | `"wnba"` | `sportyR::geom_basketball("wnba")` |
   | `"mbb"`, `"wbb"` | `sportyR::geom_basketball("ncaa")` |
   | `"fiba"` | `sportyR::geom_basketball("fiba")` (28 x 15 m) |
-  | `"mlb"` | `sportyR::geom_baseball("mlb")` |
-  | `"milb"` | `sportyR::geom_baseball("milb")` |
+  | `"nfhs_basketball"` | `sportyR::geom_basketball("nfhs")` |
+  | `"mlb"`, `"milb"`, `"pony"` | [`sportyR::geom_baseball()`](https://sportyR.sportsdataverse.org/reference/geom_baseball.html) of the same league |
   | `"ncaa_baseball"` | `sportyR::geom_baseball("ncaa")` |
+  | `"little_league"` | `sportyR::geom_baseball("little league")` |
+  | `"nfhs_baseball"` | `sportyR::geom_baseball("nfhs")` |
+  | `"ncaa_softball"` | `sportyR::geom_softball("ncaa")` (needs 'sportyR' 2.3.0) |
   | `"nhl"`, `"whl"` | `sportyR::geom_hockey("nhl")` (no WHL rink in 'sportyR') |
-  | `"pwhl"`, `"ahl"`, `"echl"`, `"ohl"`, `"qmjhl"`, `"ushl"`, `"phf"` | [`sportyR::geom_hockey()`](https://sportyR.sportsdataverse.org/reference/geom_hockey.html) of the same league |
+  | `"pwhl"`, `"ahl"`, `"echl"`, `"ohl"`, `"qmjhl"`, `"ushl"`, `"phf"`, `"iihf"`, `"nwhl"` | [`sportyR::geom_hockey()`](https://sportyR.sportsdataverse.org/reference/geom_hockey.html) of the same league |
   | `"ncaa_mhockey"`, `"ncaa_whockey"` | `sportyR::geom_hockey("ncaa")` |
   | `"soccer"` | `sportyR::geom_soccer("fifa")`, 105 x 68 m (`pitch_updates` overrides) |
+  | `"fifa"`, `"epl"`, `"mls"`, `"nwsl"` | [`sportyR::geom_soccer()`](https://sportyR.sportsdataverse.org/reference/geom_soccer.html) of the same league ('sportyR”s own pitch size) |
+  | `"ncaa_soccer"` | `sportyR::geom_soccer("ncaa")` |
+  | `"nll"`, `"pll"` | [`sportyR::geom_lacrosse()`](https://sportyR.sportsdataverse.org/reference/geom_lacrosse.html) of the same league |
+  | `"world_lacrosse"` | `sportyR::geom_lacrosse("world lacrosse")` |
+  | `"ncaa_mlacrosse"`, `"ncaa_wlacrosse"` | `sportyR::geom_lacrosse("ncaam")`, `("ncaaw")` |
+  | `"usa_mlacrosse"`, `"usa_wlacrosse"` | `sportyR::geom_lacrosse("usam")`, `("usaw")` |
+  | `"atp"`, `"wta"`, `"itf"`, `"ita"`, `"usta"` | [`sportyR::geom_tennis()`](https://sportyR.sportsdataverse.org/reference/geom_tennis.html) of the same league |
+  | `"ncaa_tennis"` | `sportyR::geom_tennis("ncaa")` |
+  | `"fivb"` | `sportyR::geom_volleyball("fivb")` |
+  | `"usa_volleyball"` | `sportyR::geom_volleyball("usa volleyball")` |
+  | `"ncaa_volleyball"` | `sportyR::geom_volleyball("ncaa")` |
+  | `"wcf"` | `sportyR::geom_curling("wcf")` |
+  | `"curling_canada"` | `sportyR::geom_curling("curling canada")` |
 
-  Python's `sdvplot` draws the PWHL on an NHL rink and the G League on
-  its own court class; 'sportyR' 2.2.3 has both, so they use their own
-  here.
+  The PWHL and the G League draw their own rink and court, as in sdvplot
+  and sdvplot-js. `"ncaa_softball"` needs 'sportyR' 2.3.0 or later (not
+  yet on CRAN: `remotes::install_github("sportsdataverse/sportyR")`);
+  with an older 'sportyR' it errors naming that version. 'sportyR' 2.2.3
+  draws several lacrosse markings wrongly; the fixes are in 'sportyR'
+  pull request 68, not yet merged.
 
 - team:
 
   `NULL` (the default) for the plain regulation surface, or one team
   identifier, resolved by
   [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md).
+  Only keys that are also team leagues of
+  [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
+  take one; the others (`"fiba"`, `"atp"`, `"nll"`, `"epl"`, ...) error.
 
 - season:
 
@@ -63,8 +84,13 @@ sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
 - center_logo:
 
   If `TRUE`, draw the team's logo at center court, center ice or
-  midfield. Needs a `team`; ignored with a warning for `"mlb"`, whose
-  surface is an infield with no center.
+  midfield. Needs a `team`. A baseball or softball field has no center,
+  so the logo goes in shallow center field: at `x = 0`, midway between
+  second base (`baseline_distance * sqrt(2)` from home plate) and the
+  center-field fence (`center_field_distance`), and
+  `0.15 * center_field_distance` across, from the league's 'sportyR'
+  field parameters and any `field_updates`. On an MLB field that is 60
+  feet across at 263.6 feet from home plate.
 
 - ...:
 
@@ -100,9 +126,12 @@ white:
   to read on white ice (under 3:1 contrast); the boards take the
   primary.
 
-- Baseball: nothing. No part of a regulation infield is team-colored
-  (the green background is the outfield grass), so the team is checked
-  and the surface stays 'sportyR”s.
+- Baseball and softball: nothing. No part of a regulation infield is
+  team-colored (the green background is the outfield grass), so the team
+  is checked and the surface stays 'sportyR”s.
+
+Lacrosse, tennis, volleyball and curling surfaces have no team
+identities yet and take no `team`.
 
 Soccer and FIBA surfaces are drawn in meters. "soccer" defaults to a
 regulation 105 x 68 m pitch, the frame
@@ -114,8 +143,9 @@ the pitch keeps its regulation colors. FIBA takes no `team` yet.
 Surfaces use 'sportyR”s coordinates: the origin at the center, in feet
 (yards for football, meters for soccer and FIBA). The center logo is
 sized in those units (12 feet on a court, 10 yards on a field, 24 feet
-on a rink, 18.3 m on a pitch) and follows `x_trans`, `y_trans`,
-`rotation` and the unit arguments.
+on a rink, 18.3 m on a pitch, 0.15 x the center-field distance on a
+baseball or softball field, whose origin is home plate) and follows
+`x_trans`, `y_trans`, `rotation` and the unit arguments.
 
 ## Examples
 
