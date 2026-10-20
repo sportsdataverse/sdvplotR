@@ -51,8 +51,9 @@
 #'   The PWHL and the G League draw their own rink and court, as in sdvplot and
 #'   sdvplot-js. `"ncaa_softball"` needs 'sportyR' 2.3.0 or later (not yet on
 #'   CRAN: `remotes::install_github("sportsdataverse/sportyR")`); with an older
-#'   'sportyR' it errors naming that version. 'sportyR' 2.3.0 also fixes several
-#'   lacrosse markings 2.2.3 draws wrongly.
+#'   'sportyR' it errors naming that version. 'sportyR' 2.2.3 draws several
+#'   lacrosse markings wrongly; the fixes are in 'sportyR' pull request 68,
+#'   not yet merged.
 #' @param team `NULL` (the default) for the plain regulation surface, or one
 #'   team identifier, resolved by [sdv_resolve()]. Only keys that are also
 #'   team leagues of [sdv_leagues()] take one; the others (`"fiba"`, `"atp"`,
@@ -237,17 +238,19 @@ surface_color_updates <- function(geom, primary, secondary) {
 # dark-background variant goes on dark grass.
 surface_logo_layer <- function(geom, sporty_league, team, league, season, args) {
   offset <- 0
-  if (geom %in% c("geom_baseball", "geom_softball")) {
-    dims <- utils::modifyList(sportyr_field_params(sub("geom_", "", geom), sporty_league), as.list(args$field_updates))
-    offset <- (dims$baseline_distance * sqrt(2) + dims$center_field_distance) / 2
-    size <- field_logo_fraction * dims$center_field_distance
-  } else {
-    size <- c(geom_basketball = 12, geom_football = 10, geom_hockey = 24, geom_soccer = 18.3)[[geom]]
-  }
   from <- c(
     geom_basketball = "ft", geom_football = "yd", geom_hockey = "ft", geom_soccer = "m",
     geom_baseball = "ft", geom_softball = "ft"
   )[[geom]]
+  if (geom %in% c("geom_baseball", "geom_softball")) {
+    dims <- utils::modifyList(sportyr_field_params(sub("geom_", "", geom), sporty_league), as.list(args$field_updates))
+    offset <- (dims$baseline_distance * sqrt(2) + dims$center_field_distance) / 2
+    size <- field_logo_fraction * dims$center_field_distance
+    # the field's own unit, which field_updates may change
+    from <- dims$field_units %||% "ft"
+  } else {
+    size <- c(geom_basketball = 12, geom_football = 10, geom_hockey = 24, geom_soccer = 18.3)[[geom]]
+  }
   unit_arg <- c(
     geom_basketball = "court_units", geom_football = "field_units", geom_hockey = "rink_units",
     geom_soccer = "pitch_units", geom_baseball = "field_units", geom_softball = "field_units"

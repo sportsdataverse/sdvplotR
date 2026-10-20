@@ -329,6 +329,13 @@ test_that("on a baseball or softball field the logo sits in shallow center field
   expect_equal(c(l$data$x, l$data$y), c(-y, 0), tolerance = 1e-9)
   expect_equal(l$geom_params$logo_size, 0.15 * 400 * 0.3048, tolerance = 1e-9)
 
+  # a field given in meters through field_updates converts from meters, as sportyR's field does
+  l <- logo_layer(sdv_surface("mlb", "NYY", center_logo = TRUE, field_units = "ft", field_updates = list(
+    field_units = "m", baseline_distance = 90 * 0.3048, center_field_distance = 400 * 0.3048
+  )))
+  expect_equal(l$data$y, (90 * sqrt(2) + 400) / 2, tolerance = 1e-6)
+  expect_equal(l$geom_params$logo_size, 0.15 * 400, tolerance = 1e-6)
+
   skip_if_not(sportyr_has("ncaa_softball"), "needs sportyR 2.3.0")
   l <- logo_layer(sdv_surface("ncaa_softball", "UCLA", center_logo = TRUE))
   expect_equal(c(l$data$x, l$data$y), c(0, (60 * sqrt(2) + 220) / 2), tolerance = 1e-9)

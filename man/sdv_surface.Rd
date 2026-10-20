@@ -48,8 +48,9 @@ sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
 The PWHL and the G League draw their own rink and court, as in sdvplot and
 sdvplot-js. \code{"ncaa_softball"} needs 'sportyR' 2.3.0 or later (not yet on
 CRAN: \code{remotes::install_github("sportsdataverse/sportyR")}); with an older
-'sportyR' it errors naming that version. 'sportyR' 2.3.0 also fixes several
-lacrosse markings 2.2.3 draws wrongly.}
+'sportyR' it errors naming that version. 'sportyR' 2.2.3 draws several
+lacrosse markings wrongly; the fixes are in 'sportyR' pull request 68,
+not yet merged.}
 
 \item{team}{\code{NULL} (the default) for the plain regulation surface, or one
 team identifier, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}. Only keys that are also
