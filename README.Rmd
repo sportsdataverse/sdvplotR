@@ -52,8 +52,9 @@ basketball, soccer and more — in
 interactive [**`plotly`**](https://plotly-r.com/),
 [**`ggiraph`**](https://davidgohel.github.io/ggiraph/) and
 [**`leaflet`**](https://rstudio.github.io/leaflet/) charts and maps,
-with team-colored playing surfaces (59 of them: every court, field, rink
-and sheet, lacrosse, tennis, volleyball and curling included) from
+with playing surfaces (59 of them: every court, field, rink and sheet,
+lacrosse, tennis, volleyball and curling included; the team leagues'
+surfaces take a team's colors) from
 [**`sportyR`**](https://sportyR.sportsdataverse.org/). It is built
 on [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
 approach established by [nflplotR](https://nflplotr.nflverse.com/),
