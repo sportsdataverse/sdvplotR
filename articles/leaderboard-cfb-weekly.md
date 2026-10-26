@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-20:** the 2026 season through week 7.
+**Updated 2026-10-26:** the 2026 season through week 8.
 
 This page is rebuilt every week with the site. It rates every FBS team
 by opponent-adjusted EPA per play, a simple cousin of SP+ built from the
@@ -168,14 +168,14 @@ top25 <- ratings |>
   select(rank, logo, school, conf_logo, conference, record, off, dfn, net)
 head(top25)
 #> # A tibble: 6 × 9
-#>    rank logo       school     conf_logo  conference record   off     dfn   net
-#>   <int> <chr>      <chr>      <chr>      <chr>      <chr>  <dbl>   <dbl> <dbl>
-#> 1     1 LSU        LSU        SEC        SEC        5-2    0.147 -0.223  0.370
-#> 2     2 Indiana    Indiana    Big Ten    Big Ten    6-1    0.227 -0.109  0.335
-#> 3     3 Notre Dame Notre Dame FBS Indep. FBS Indep. 6-1    0.244 -0.0682 0.313
-#> 4     4 Georgia    Georgia    SEC        SEC        6-1    0.263 -0.0260 0.289
-#> 5     5 Alabama    Alabama    SEC        SEC        5-2    0.248 -0.0380 0.286
-#> 6     6 Wisconsin  Wisconsin  Big Ten    Big Ten    4-2    0.141 -0.134  0.275
+#>    rank logo        school      conf_logo  conference record   off     dfn   net
+#>   <int> <chr>       <chr>       <chr>      <chr>      <chr>  <dbl>   <dbl> <dbl>
+#> 1     1 LSU         LSU         SEC        SEC        6-2    0.185 -0.184  0.369
+#> 2     2 Indiana     Indiana     Big Ten    Big Ten    7-1    0.176 -0.127  0.303
+#> 3     3 Notre Dame  Notre Dame  FBS Indep. FBS Indep. 6-1    0.226 -0.0694 0.296
+#> 4     4 Wake Forest Wake Forest ACC        ACC        6-1    0.202 -0.0823 0.284
+#> 5     5 Georgia     Georgia     SEC        SEC        6-1    0.248 -0.0245 0.272
+#> 6     6 Wisconsin   Wisconsin   Big Ten    Big Ten    5-2    0.115 -0.157  0.272
 ```
 
 sdvplotR has a row for every FBS conference too, so

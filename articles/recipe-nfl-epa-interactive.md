@@ -207,7 +207,7 @@ dir.create(out)
 html <- file.path(out, "nfl_epa_interactive.html")
 htmlwidgets::saveWidget(epa_widget, html, selfcontained = TRUE, title = "NFL offense vs defense")
 round(file.size(html) / 1024) # kilobytes
-#> [1] 9046
+#> [1] 9048
 ```
 
 ## 5. The static version

@@ -244,7 +244,7 @@ dir.create(out_dir)
 html <- file.path(out_dir, "mlb_run_differential.html")
 htmlwidgets::saveWidget(mlb_widget, html, selfcontained = TRUE)
 round(file.size(html) / 1024) # kilobytes
-#> [1] 8914
+#> [1] 8918
 ```
 
 ## 6. A static version

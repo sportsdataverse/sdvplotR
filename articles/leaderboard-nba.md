@@ -2,8 +2,7 @@
 
 On this page
 
-**Updated 2026-10-20:** the offseason, so this is the final 2025-26
-regular season; the 2026-27 season has no games yet.
+**Updated 2026-10-26:** the 2026-27 season through October 25.
 
 This page is rebuilt every week with the site. It builds the standings
 with offensive, defensive and net ratings, charts net rating with logos
@@ -111,14 +110,14 @@ ratings <- games |>
   arrange(desc(pct), desc(net), team) # the team breaks a tie, so an unchanged week renders the same
 head(ratings)
 #> # A tibble: 6 × 10
-#>   team      w     l   l10  ortg  drtg   pct   net name    conference
-#>   <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl> <chr>   <chr>     
-#> 1 OKC      64    18     7  116.  105. 0.780 10.9  Thunder Western   
-#> 2 SA       62    20     8  117.  109. 0.756  8.08 Spurs   Western   
-#> 3 DET      60    22     8  114.  106. 0.732  7.93 Pistons Eastern   
-#> 4 BOS      56    26     8  117.  109. 0.683  7.85 Celtics Eastern   
-#> 5 DEN      54    28    10  120.  115. 0.659  5.04 Nuggets Western   
-#> 6 NY       53    29     6  117.  110. 0.646  6.34 Knicks  Eastern
+#>   team      w     l   l10  ortg  drtg   pct   net name          conference
+#>   <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl> <chr>         <chr>     
+#> 1 POR       2     0     2  122.  98.0     1  23.6 Trail Blazers Western   
+#> 2 MIN       3     0     3  116.  93.8     1  22.4 Timberwolves  Western   
+#> 3 LAL       3     0     3  123. 110.      1  12.5 Lakers        Western   
+#> 4 DET       3     0     3  115. 102.      1  12.3 Pistons       Eastern   
+#> 5 MEM       3     0     3  117. 105.      1  11.1 Grizzlies     Western   
+#> 6 OKC       3     0     3  104.  93.7     1  10.1 Thunder       Western
 ```
 
 ## 1. Standings with net rating

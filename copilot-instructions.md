@@ -2,8 +2,8 @@
 
 These instructions tell GitHub Copilot (and other AI coding assistants)
 how to write code that fits this repository. The fuller guide is
-[CLAUDE.md](https://sdvplotR.sportsdataverse.org/CLAUDE.md);
-[CONTRIBUTING.md](https://sdvplotR.sportsdataverse.org/CONTRIBUTING.md)
+[CLAUDE.md](https://sdvplotR.sportsdataverse.org/../CLAUDE.md);
+[CONTRIBUTING.md](https://sdvplotR.sportsdataverse.org/../CONTRIBUTING.md)
 covers the workflow.
 
 `sdvplotR` is a ggplot2 / gt / reactable extension for team logos,

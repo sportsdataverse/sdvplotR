@@ -101,7 +101,7 @@ thin_rink <- function(rink) {
 rink_points <- function(rink) sum(vapply(rink$layers, function(l) NROW(l$data), 1L))
 c(before = rink_points(sdv_surface("nhl")), after = rink_points(thin_rink(sdv_surface("nhl"))))
 #> before  after 
-#> 122424  20257
+#> 122428  20251
 ```
 
 ## 2. A tooltip on every shot
@@ -267,7 +267,7 @@ dir.create(out_dir)
 html <- file.path(out_dir, "nhl_shot_map.html")
 htmlwidgets::saveWidget(shot_widget, html, selfcontained = TRUE)
 round(file.size(html) / 1024) # kilobytes
-#> [1] 8869
+#> [1] 8870
 ```
 
 ## 6. A static version
