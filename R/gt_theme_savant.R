@@ -43,13 +43,9 @@ gt_theme_savant <- function(gt_object,
                             ...) {
   .check_gt(gt_object)
 
-  table_id <- subset(gt_object[["_options"]], parameter == "table_id")$value[[1]]
-
-  if (is.na(table_id)) {
-    table_id <- gt::random_id()
-    opt_position <- which("table_id" %in% gt_object[["_options"]][["parameter"]])[[1]]
-    gt_object[["_options"]][["value"]][[opt_position]] <- table_id
-  }
+  res <- .table_id(gt_object)
+  gt_object <- res$object
+  table_id <- res$id
 
   gt_object |>
     # cell body

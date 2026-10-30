@@ -93,7 +93,7 @@ gt_border_bars_top <- function(gt_object,
   # try to get font from title class but just inherit base if no font is specified
   font_info <- tryCatch(
     {
-      filter(gt_object[["_styles", exact = TRUE]], locname == "title")$styles[[1]]$cell_text$font
+      filter(gt_object[["_styles", exact = TRUE]], .data$locname == "title")$styles[[1]]$cell_text$font
     },
     error = function(e) {
       "inherit"
@@ -259,7 +259,7 @@ gt_border_bars_bottom <- function(gt_object,
 
   font_info <- tryCatch(
     {
-      filter(gt_object[["_styles", exact = TRUE]], locname == "source_notes")$styles[[1]]$cell_text$font
+      filter(gt_object[["_styles", exact = TRUE]], .data$locname == "source_notes")$styles[[1]]$cell_text$font
     },
     error = function(e) {
       "inherit"

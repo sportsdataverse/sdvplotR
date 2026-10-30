@@ -45,13 +45,9 @@ gt_theme_tier <- function(gt_object, style = "dark",
                           ...) {
   .check_gt(gt_object)
 
-  table_id <- subset(gt_object[["_options"]], parameter == "table_id")$value[[1]]
-
-  if (is.na(table_id)) {
-    table_id <- gt::random_id()
-    opt_position <- which("table_id" %in% gt_object[["_options"]][["parameter"]])[[1]]
-    gt_object[["_options"]][["value"]][[opt_position]] <- table_id
-  }
+  res <- .table_id(gt_object)
+  gt_object <- res$object
+  table_id <- res$id
 
   base_color <- if (style == "dark") "#1a1a17" else "#ffffff"
   data <- gt_object[["_data"]]

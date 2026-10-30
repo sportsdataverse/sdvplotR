@@ -182,6 +182,7 @@ importFrom(htmltools,
 )
 importFrom(rlang,
   "%||%",
+  ":=",
   .data,
   sym
 )

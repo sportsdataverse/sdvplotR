@@ -133,6 +133,18 @@ test_that("the caller's options survive density scaling and forced striping", {
   }
 })
 
+test_that("id-scoped themes keep the caller's table id, or assign one", {
+  opt <- function(tbl, name) tbl[["_options"]]$value[[match(name, tbl[["_options"]]$parameter)]]
+  for (nm in c("gt_theme_ncaa", "gt_theme_savant", "gt_theme_sofa", "gt_theme_tier")) {
+    fn <- get(nm, envir = asNamespace("sdvplotR"))
+    tbl <- fn(gt::gt(head(mtcars), id = "mine"))
+    expect_identical(opt(tbl, "table_id"), "mine", info = nm)
+    expect_match(html_of(tbl), "#mine .gt_", fixed = TRUE, info = nm)
+    id <- opt(fn(gt::gt(head(mtcars))), "table_id")
+    expect_true(is.character(id) && !is.na(id) && nzchar(id), info = nm)
+  }
+})
+
 test_that("density rescales a table styled on locations with no size role", {
   g <- gt::gt(head(mtcars), rownames_to_stub = TRUE) |>
     gt::grand_summary_rows(columns = "mpg", fns = list(total = ~ sum(.))) |>
