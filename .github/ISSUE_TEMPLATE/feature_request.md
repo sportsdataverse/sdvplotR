@@ -24,6 +24,9 @@ A clear and concise description of any alternative solutions or features you've 
 - [ ] CFB
 - [ ] MBB
 - [ ] WBB
+- [ ] Soccer
+- [ ] Other league of `sdv_leagues()` (key: ___)
+- [ ] Playing surface (`sdv_surface()`, key: ___)
 - [ ] All / cross-sport
 
 **Existing implementations**
