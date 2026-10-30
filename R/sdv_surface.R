@@ -131,6 +131,11 @@ sdv_surface <- function(
     ))
   }
   rlang::check_installed("sportyR", version = "2.4.5", reason = "to draw playing surfaces.")
+  # an update installed above leaves an older namespace loaded until R restarts
+  loaded <- getNamespaceVersion("sportyR")
+  if (utils::compareVersion(loaded, "2.4.5") < 0) {
+    cli::cli_abort("'sportyR' {loaded} is loaded; restart R to use 2.4.5 or later.")
+  }
 
   geom <- surface_map[[league]][[1]]
   sporty_league <- surface_map[[league]][[2]]

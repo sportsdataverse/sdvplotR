@@ -273,6 +273,12 @@ test_that("an installed sportyR older than 2.4.5 errors through check_installed(
   expect_error(sdv_surface("ncaa_softball", "UCLA"), "2\\.4\\.5")
 })
 
+test_that("an older sportyR still loaded after an update asks for a restart", {
+  skip_if_not_installed("sportyR")
+  local_mocked_bindings(getNamespaceVersion = function(ns) c(version = "2.2.3"), .package = "base")
+  expect_error(sdv_surface("nba"), "'sportyR' 2\\.2\\.3 is loaded; restart R")
+})
+
 test_that("every league with a surface draws one; others error with the list", {
   skip_if_not_installed("sportyR")
   for (lg in names(surface_map)) {
