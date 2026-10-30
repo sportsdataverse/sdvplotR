@@ -28,7 +28,7 @@ Authors:
   \item Sebastian Carl \email{mrcaseb@gmail.com}
   \item Jared Lee \email{13jaredlee@gmail.com}
   \item Camden Kay \email{camdenk@gmail.com}
-  \item Andrew Weatherman \email{andrew@aweatherman.com} (Author of the included 'gtUtils' code) [copyright holder]
+  \item Andrew Weatherman \email{andrew@aweatherman.com} (Author of the included 'gtUtils' code)
 }
 
 }

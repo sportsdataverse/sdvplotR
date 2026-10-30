@@ -7,7 +7,7 @@ Authors@R: c(
     person("Sebastian", "Carl", , "mrcaseb@gmail.com", role = "aut"),
     person("Jared", "Lee", , "13jaredlee@gmail.com", role = "aut"),
     person("Camden", "Kay", , "camdenk@gmail.com", role = "aut"),
-    person("Andrew", "Weatherman", , "andrew@aweatherman.com", role = c("aut", "cph"),
+    person("Andrew", "Weatherman", , "andrew@aweatherman.com", role = "aut",
            comment = "Author of the included 'gtUtils' code")
   )
 Description: Sports team logos, wordmarks, player headshots and team

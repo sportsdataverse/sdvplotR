@@ -18,8 +18,6 @@ to CRAN or tagged), so this section describes the whole package.
   a team's end zones are painted inside it. The lacrosse markings (neutral
   zones, penalty boxes, goal fans, goal mouths, face-off markers) and the
   `nhl92` hockey goal crease are drawn correctly.
-* Andrew Weatherman is listed as a copyright holder of the included 'gtUtils'
-  code.
 
 ## Overview
 
