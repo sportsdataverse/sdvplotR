@@ -29,7 +29,7 @@
 `%||%` <- function(x, y) if (is.null(x) || length(x) == 0) y else x
 
 # league -> hashtag, default leaderboard stat, whether a season spans two calendar years (named
-# by the year it ends), the month it starts, and its sdvplotR sport
+# by the year it ends) and the month it starts
 LEAGUES <- list(
   nfl = list(tag = "NFL", stat = "passing_yards", two_year = FALSE, start = 9),
   nba = list(tag = "NBA", stat = "points", two_year = TRUE, start = 10),
@@ -176,10 +176,17 @@ season_state <- function(league, season) {
   schedule_state(standard_schedule(league, raw))
 }
 
-#' The top players in one stat: rank, id, name, position, team (an sdvplotR key), display value
+# A team's current sdvplotR abbreviation from any id the data uses (old codes included); NA for a
+# side that is not a franchise (All-Star and exhibition teams)
+team_abbr <- function(x, league) {
+  ids <- suppressWarnings(sdvplotR::sdv_resolve(x, league))
+  teams <- sdvplotR::sdv_teams(league)
+  teams$abbr[match(ids, as.character(teams$team_id))]
+}
+
+#' The top players in one stat: rank, id, name, position, team (an sdvplotR abbreviation), display value
 fetch_leaders <- function(league, stat = NULL, season = NULL, top = 10, today = Sys.Date()) {
   stat <- stat %||% LEAGUES[[league]]$stat
-  sport <- league
   if (league %in% c("nba", "wnba") && !stat %in% BOX_STATS$basketball) {
     stop(no_data(sprintf("--stat for %s is one of: %s", league, paste(BOX_STATS$basketball, collapse = ", "))))
   }
@@ -202,7 +209,7 @@ fetch_leaders <- function(league, stat = NULL, season = NULL, top = 10, today = 
     }
     out <- data.frame(
       id = rows$player_id, name = rows$player_display_name, position = rows$position,
-      team = rows$recent_team, value = rows[[stat]], id_type = "gsis"
+      team = rows$recent_team, value = rows[[stat]], id_system = "gsis"
     )
     out$display <- formatC(out$value, format = "d", big.mark = ",")
   } else if (league %in% c("nba", "wnba")) {
@@ -216,7 +223,7 @@ fetch_leaders <- function(league, stat = NULL, season = NULL, top = 10, today = 
       )
     }))
     out <- agg[agg$gp >= max(games) / 2, ] # half the most games any team has played
-    out$id_type <- "espn"
+    out$id_system <- "espn"
     out$display <- sprintf("%.1f", out$value)
   } else if (league == "nhl") {
     rows <- rows[order(rows$game_date, rows$game_id), ]
@@ -230,21 +237,21 @@ fetch_leaders <- function(league, stat = NULL, season = NULL, top = 10, today = 
     full <- quietly(fastRhockey::load_nhl_game_rosters(seasons = year)) # "C. McDavid" -> "Connor McDavid"
     full_name <- full$full_name[match(out$id, as.character(full$player_id))]
     if (NROW(full)) out$name <- ifelse(is.na(full_name), out$name, full_name)
-    out$id_type <- "league"
+    out$id_system <- "league"
     out$display <- as.character(out$value)
   } else {
     clubs <- quietly(baseballr::mlb_teams(season = year, sport_ids = 1))
     out <- data.frame(
       id = as.character(rows$person_id), name = rows$person_full_name, position = "",
       team = clubs$team_abbreviation[match(rows$team_id, clubs$team_id)],
-      value = as.numeric(rows$value), display = sub("^0\\.", ".", rows$value), id_type = "league"
+      value = as.numeric(rows$value), display = sub("^0\\.", ".", rows$value), id_system = "league"
     )
     ascending <- grepl("earnedRunAverage|walksAndHitsPerInningPitched", stat) # lower is better
     out <- out[order(if (ascending) out$value else -out$value), ]
   }
   if (league != "mlb") out <- out[order(-out$value, out$id), ] # the id breaks a tie, so a re-run matches
   out <- utils::head(out, top)
-  out$team <- sdvplotR::clean_team_abbrs(out$team, sport = sport)
+  out$team <- team_abbr(out$team, league)
   out$rank <- match(out$value, out$value) # ties share the better rank
   note <- if (year != wanted) {
     sprintf(
@@ -314,8 +321,8 @@ finals <- function(league, season) {
     return(NULL)
   }
   g$phase[is.na(g$phase)] <- ""
-  g$away <- sdvplotR::clean_team_abbrs(g$away, sport = league, keep_non_matches = FALSE)
-  g$home <- sdvplotR::clean_team_abbrs(g$home, sport = league, keep_non_matches = FALSE)
+  g$away <- team_abbr(g$away, league)
+  g$home <- team_abbr(g$home, league)
   g <- g[!is.na(g$away) & !is.na(g$home), ] # All-Star and exhibition sides are not franchises
   g[order(g$date, g$game_id), ]
 }
@@ -381,8 +388,8 @@ fetch_box <- function(league, games, season) {
       out
     })
     return(data.frame(
-      game_id = p$game_id, team = sdvplotR::clean_team_abbrs(p$team, sport = "nfl"), id = p$player_id,
-      id_type = "gsis", name = p$player_display_name, position = p$position, score = num(p, "fantasy_points"),
+      game_id = p$game_id, team = team_abbr(p$team, "nfl"), id = p$player_id,
+      id_system = "gsis", name = p$player_display_name, position = p$position, score = num(p, "fantasy_points"),
       lines = I(lines)
     ))
   }
@@ -408,8 +415,8 @@ fetch_box <- function(league, games, season) {
       ), collapse = " · ")
     })
     return(data.frame(
-      game_id = as.character(p$game_id), team = sdvplotR::clean_team_abbrs(p$team_abbreviation, sport = league),
-      id = as.character(p$athlete_id), id_type = "espn", name = p$athlete_display_name,
+      game_id = as.character(p$game_id), team = team_abbr(p$team_abbreviation, league),
+      id = as.character(p$athlete_id), id_system = "espn", name = p$athlete_display_name,
       position = p$athlete_position_abbreviation, score = score, lines = I(lines)
     ))
   }
@@ -426,8 +433,8 @@ fetch_box <- function(league, games, season) {
     a <- num(p, "assists")
     sog <- num(p, "shots_on_goal")
     return(data.frame(
-      game_id = as.character(p$game_id), team = sdvplotR::clean_team_abbrs(p$team_abbrev, sport = "nhl"),
-      id = as.character(p$player_id), id_type = "league", name = ifelse(is.na(name), p$player_name, name),
+      game_id = as.character(p$game_id), team = team_abbr(p$team_abbrev, "nhl"),
+      id = as.character(p$player_id), id_system = "league", name = ifelse(is.na(name), p$player_name, name),
       position = ifelse(p$position %in% c("L", "R"), paste0(p$position, "W"), p$position),
       score = 0.75 * g + 0.7 * a + 0.075 * sog + 0.05 * num(p, "blocked_shots"),
       lines = I(as.list(sprintf("%d G · %d A · %d PTS · %d SOG", g, a, g + a, sog)))
@@ -449,14 +456,14 @@ contrast <- function(a, b) {
   (l[2] + 0.05) / (l[1] + 0.05)
 }
 on_color <- function(bg) if (contrast("#000000", bg) >= contrast("#ffffff", bg)) "#000000" else "#ffffff"
-team_color <- function(sport, team) {
-  col <- unname(sdvplotR::sdv_team_colors(sport, team, type = "primary"))
+team_color <- function(league, team) {
+  col <- unname(sdvplotR::sdv_team_colors(league, team, which = "primary"))
   if (length(col) != 1 || is.na(col)) NEUTRAL else col
 }
-team_name <- function(sport, team) {
-  ref <- sdvplotR::team_reference(sport)
-  row <- ref[match(team, ref$team_abbr), ]
-  c(location = row$team_location %||% team, mascot = row$team_mascot %||% "")
+team_name <- function(league, team) {
+  ref <- sdvplotR::sdv_teams(league)
+  row <- ref[match(team, ref$abbr), ]
+  c(location = row$location %||% team, mascot = row$short_name %||% "")
 }
 
 # A text size (in points) that keeps `text` within `width` pixels, from `size` down
@@ -490,18 +497,16 @@ panel <- function(x0, y0, x1, y1, fill) {
     colour = if (contrast(fill, BG) < 1.5) NEUTRAL else NA, linewidth = 1
   )
 }
-logo <- function(sport, team, x, y, height, alpha = 1) {
+logo <- function(league, team, x, y, height, alpha = 1) {
   sdvplotR::geom_sdv_logos(
     data = data.frame(x = x, y = y, team = team), ggplot2::aes(x = x, y = y, team = team),
-    sport = sport, height = height, alpha = alpha, inherit.aes = FALSE
+    league = league, height = height, alpha = alpha, inherit.aes = FALSE
   )
 }
 save_png <- function(plot, path, size) {
   ggplot2::ggsave(path, plot, width = size[1] / 100, height = size[2] / 100, dpi = 100, bg = BG)
   list(path = basename(path), width = size[1], height = size[2])
 }
-# sdvplotR's id_type: NULL is the sport's default (GSIS ids for the NFL)
-as_id_type <- function(x) if (identical(x, "gsis")) NULL else x
 phase_label <- function(phase) if (nzchar(phase)) toupper(gsub("-", "", phase)) else ""
 
 score_card <- function(game, league, day, path) {
@@ -548,7 +553,7 @@ potg_card <- function(player, game, league, day, path) {
     # ESPN and the leagues serve their headshots at 600 x 436 or so: this draws them near full size
     sdvplotR::geom_sdv_headshots(
       data = data.frame(x = 400, y = 460 + 0.42 * size[2] / 2, id = player$id),
-      ggplot2::aes(x = x, y = y, player_id = id), sport = league, id_type = as_id_type(player$id_type),
+      ggplot2::aes(x = x, y = y, player_id = id), league = league, id_system = player$id_system,
       height = 0.42, inherit.aes = FALSE
     )
   meta <- c(player$position, paste(nm[["location"]], nm[["mascot"]]))
@@ -584,11 +589,11 @@ leaderboard_image <- function(leaders, league, size, today, path) {
     gt::tab_source_note(CREDIT)
   if (!is.null(leaders$note)) gt <- gt::tab_source_note(gt, leaders$note)
   gt <- gt |>
-    sdvplotR::gt_merge_stack_team_color(name, sub, team, sport = league) |>
+    sdvplotR::gt_merge_stack_team_color(name, sub, team, league = league) |>
     gt::cols_hide(team) |>
-    sdvplotR::gt_sdv_headshots(headshot, sport = league, id_type = as_id_type(f$id_type[1]), height = 52) |>
-    sdvplotR::gt_sdv_logos(logo, sport = league, height = 40) |>
-    sdvplotR::gt_theme_sdv_team(team = f$team[1], sport = league, density = "social", table.width = gt::px(760))
+    sdvplotR::gt_sdv_headshots(headshot, league = league, id_system = f$id_system[1], height = 52) |>
+    sdvplotR::gt_sdv_logos(logo, league = league, height = 40) |>
+    sdvplotR::gt_theme_sdv_team(team = f$team[1], league = league, density = "social", table.width = gt::px(760))
   px <- SIZES[[size]]
   sdvplotR::gt_social_crop(gt, path,
     aspect_ratio = paste(px, collapse = ":"), bg = team_color(league, f$team[1]),

@@ -83,7 +83,7 @@ test_that("the source tree never mentions a removed name", {
   root <- testthat::test_path("..", "..")
   skip_if_not(dir.exists(file.path(root, "R")), "source tree not available (installed package)")
   files <- c(
-    list.files(file.path(root, c("R", "vignettes", "man")), pattern = "[.](R|Rmd|Rd|md)$", recursive = TRUE, full.names = TRUE),
+    list.files(file.path(root, c("R", "vignettes", "man", "examples")), pattern = "[.](R|Rmd|Rd|md)$", recursive = TRUE, full.names = TRUE),
     file.path(root, c("README.Rmd", "NEWS.md", "_pkgdown.yml"))
   )
   pat <- paste0(
