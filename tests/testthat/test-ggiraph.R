@@ -46,3 +46,13 @@ test_that("axis-label images are copies at most 4 x the label size, with forward
   expect_match(html[[1]], "width = '12'", fixed = TRUE)
   expect_identical(magick::image_info(magick::image_read(path))$width, 48L)
 })
+
+test_that("interactive wordmarks are the wordmark layer plus an invisible hover layer", {
+  d <- data.frame(x = 1:2, y = 1:2, t = c("KC", "BUF"))
+  ls <- geom_sdv_wordmarks_interactive(ggplot2::aes(x, y, team = t, tooltip = t, data_id = t), data = d, league = "nfl")
+  expect_length(ls, 2L)
+  expect_s3_class(ls[[1]]$geom, "GeomSDVwordmark")
+  expect_true(inherits(ls[[2]]$geom, "GeomInteractivePoint"))
+  expect_identical(ls[[1]]$geom_params$max_px, 160)
+  expect_s3_class(ggplot2::ggplot_build(ggplot2::ggplot(d) + ls), "ggplot_built")
+})
