@@ -248,7 +248,8 @@ gt_snake <- function(gt_object, n_cols = 2, rows_per_col = NULL, gap = 20,
 
   # keep the caller's table id, which the rebuild drops. scoped gap css needs one
   do_clean <- isTRUE(clean_gaps) && length(spacers) > 0
-  orig_id <- subset(gt_object[["_options"]], parameter == "table_id")[["value"]][[1]]
+  opts <- gt_object[["_options"]]
+  orig_id <- opts$value[opts$parameter == "table_id"][[1]]
   if (!is.na(orig_id) || do_clean) {
     id <- if (is.na(orig_id)) gt::random_id() else orig_id
     pos <- which(res[["_options"]][["parameter"]] == "table_id")[[1]]

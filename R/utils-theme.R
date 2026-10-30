@@ -21,7 +21,8 @@
 
 # find or assign a random table id for css stuff
 .table_id <- function(gt_object) {
-  table_id <- subset(gt_object[["_options"]], parameter == "table_id")$value[[1]]
+  opts <- gt_object[["_options"]]
+  table_id <- opts$value[opts$parameter == "table_id"][[1]]
   if (is.na(table_id)) {
     table_id <- gt::random_id()
     opt_position <- which("table_id" %in% gt_object[["_options"]][["parameter"]])[[1]]

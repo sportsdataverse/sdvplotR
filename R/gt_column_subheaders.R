@@ -34,7 +34,7 @@
 #'
 #' @importFrom gt cols_label
 #' @importFrom glue glue
-#' @importFrom rlang sym
+#' @importFrom rlang sym :=
 #' @importFrom htmltools HTML
 #'
 #' @examples
