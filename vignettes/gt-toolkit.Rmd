@@ -166,6 +166,13 @@ gt_grid(
   [schedule matrices](schedule_matrix.html),
   [rolling windows](window_wins.html) and
   [saving and posting](saving_tables.html).
+- Smaller helpers each have an example on their reference page:
+  `gt_bold_rows()`, `gt_row_accent()`, `gt_group_stripes()`,
+  `gt_highlight_na()`, `gt_color_results()`, `gt_fmt_rank()`,
+  `gt_indicator_boxes()`, `gt_outliers()`, `gt_column_subheaders()`,
+  `gt_marginalia()`, `gt_scale_note()`, `gt_set_font()` and
+  `gt_wrap_labels()`; `gt_sdv_cols_label()` puts logos in the column labels.
+  `gt_theme_preview()` shows every table theme on your own data.
 
 ## **Our Authors**
 
