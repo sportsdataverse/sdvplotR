@@ -6,7 +6,9 @@
 #' @param data A data frame. A `gt` table is also accepted, in which case its
 #'   underlying data is used.
 #' @param themes Character. The theme functions to show, by name. If `NULL`,
-#'   every `gt_theme_*` in the package is used. Defaults to `NULL`.
+#'   every `gt_theme_*` in the package that needs nothing but the table is
+#'   used, which leaves out [gt_theme_source()] (it needs a registry `name`)
+#'   and [gt_theme_sdv_team()] (it needs a team). Defaults to `NULL`.
 #' @param n Integer. How many rows of `data` to show in each panel. Defaults to
 #'   `5`.
 #' @param ncol Integer. The number of panels across. Defaults to `3`.
@@ -68,10 +70,13 @@ gt_theme_preview <- function(data, themes = NULL, n = 5, ncol = 3,
     cand <- sort(grep("^gt_theme_", getNamespaceExports("sdvplotR"), value = TRUE))
     # this function matches its own pattern, and calling it as a theme recurses
     cand <- setdiff(cand, "gt_theme_preview")
-    # keep only things shaped like a theme: first argument is the table
+    # keep only things shaped like a theme: first argument is the table, and
+    # nothing else is required (gt_theme_source() needs a registry name,
+    # gt_theme_sdv_team() a team)
     themes <- Filter(function(nm) {
       f <- formals(get(nm, envir = asNamespace("sdvplotR")))
-      length(f) && names(f)[[1]] == "gt_object"
+      required <- names(f)[-1][vapply(f[-1], identical, logical(1), quote(expr = ))]
+      length(f) && names(f)[[1]] == "gt_object" && all(required == "...")
     }, cand)
   }
   missing <- themes[!vapply(themes, exists, logical(1), where = asNamespace("sdvplotR"))]
