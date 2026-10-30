@@ -11,8 +11,7 @@
 
 - **[Camden Kay](https://x.com/camdenkay)**. Author.
 
-- **[Andrew Weatherman](https://github.com/andreweatherman)**. Author,
-  copyright holder.  
+- **[Andrew Weatherman](https://github.com/andreweatherman)**. Author.  
   Author of the included 'gtUtils' code
 
 ## Citation

@@ -260,7 +260,6 @@
 <ul><li>
 <code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> needs ‘sportyR’ 2.4.5 or later, which is on CRAN (<code>install.packages("sportyR")</code>); <code>Suggests</code> declares the floor and <code><a href="../reference/sdv_surface.html">sdv_surface()</a></code> checks it with <code><a href="https://rlang.r-lib.org/reference/is_installed.html" class="external-link">rlang::check_installed()</a></code>. It reads a field’s parameters through <code><a href="https://sportyR.sportsdataverse.org/reference/get_surface_dimensions.html" class="external-link">sportyR::get_surface_dimensions()</a></code> and no longer reads anything internal to ‘sportyR’.</li>
 <li>Surfaces follow sportyR 2.4.5’s geometry. Feature positions and the display range scale with the unit arguments, so a surface drawn in meters and its center logo agree. NFL, college and NFHS football fields have a white border outline (change it with <code>color_updates = list(field_border_outline = ...)</code>); a team’s end zones are painted inside it. The lacrosse markings (neutral zones, penalty boxes, goal fans, goal mouths, face-off markers) and the <code>nhl92</code> hockey goal crease are drawn correctly.</li>
-<li>Andrew Weatherman is listed as a copyright holder of the included ‘gtUtils’ code.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="overview-0-3-0">Overview<a class="anchor" aria-label="anchor" href="#overview-0-3-0"></a></h3>

@@ -47,4 +47,4 @@ Authors:
 - Camden Kay <camdenk@gmail.com>
 
 - Andrew Weatherman <andrew@aweatherman.com> (Author of the included
-  'gtUtils' code) \[copyright holder\]
+  'gtUtils' code)
