@@ -3,25 +3,27 @@
 ## Package Overview
 
 `sdvplotR` plots team logos, wordmarks, player headshots and team colors
-for eight leagues (NFL, NBA, WNBA, MLB, NHL, CFB, MBB, WBB) in ggplot2,
-gt and reactable. It is the multi-league successor to `nflplotR` /
-`cfbplotR` / `nbaplotR` / `mlbplotR`, built on `ggpath`, with one
-`league` argument on every function instead of one package per league.
+for the 28 leagues of the SportsDataverse team index
+([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md))
+in ggplot2, gt, reactable, plotly, ggiraph and leaflet, and draws 59
+team-styled playing surfaces through sportyR. It is the multi-league
+successor to `nflplotR` / `cfbplotR` / `nbaplotR` / `mlbplotR`, built on
+`ggpath`, with one `league` argument on every function instead of one
+package per league.
 
-- **Version**: 0.1.0 (`DESCRIPTION`); first CRAN submission in
-  preparation
+- **Version**: 0.3.0 (`DESCRIPTION`), the first CRAN submission (earlier
+  r-universe builds were all numbered 0.1.0)
 - **R**: \>= 4.1; `ggplot2 (>= 4.0.0)`, `ggpath (>= 1.1.0)`,
   `gt (>= 0.10.0)`
 - **License**: MIT; **Branch**: `main`
 - **Docs**: <https://sdvplotR.sportsdataverse.org> (pkgdown, deployed to
   `gh-pages` by `.github/workflows/pkgdown.yaml`)
-- **Local R toolchain**: use R 4.6.x
-  (`C:/Program Files/R/R-4.6.1/bin/Rscript.exe`); the 4.5 library is
-  missing roxygen2.
+- **R toolchain**: R \>= 4.6 with roxygen2 8.1.0
+  (`Config/roxygen2/version`).
 
 ## Architecture
 
-    team id / name / code (any of 19 id systems)
+    team id / name / code (any of 18 id systems, or id_system = "auto")
        -> resolve_ids()                 (R/resolve.R; behind sdv_resolve() and every helper)
        -> mark_url() -> select_mark()   (logo / wordmark by variant + season, from index_marks())
           headshot_from_id()            (player ids; id_system "espn" | "gsis" | "league")
@@ -67,19 +69,18 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
   proposes candidates for a value that doesn’t resolve. Helpers that
   take a team take `league` and `id_system`; those that draw marks or
   colours also take `season`; `strict` raises instead of warning on an
-  unresolved value. See NEWS.md (0.1.0) for exactly which helpers take
+  unresolved value. See NEWS.md (0.3.0) for exactly which helpers take
   which.
 
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
   `headshot_gsis_map.rds` from this repo’s `sdvplotr_infrastructure`
   pre-release (never “Latest”, so `@*release` installs are unaffected)
-  through
-  [`nflreadr::rds_from_url()`](https://nflreadr.nflverse.com/reference/rds_from_url.html),
-  memoised a day. A failed read (empty map) is dropped from that cache
-  so the next call retries, and
+  through the internal `read_rds_url()` (`R/utils.R`), cached for the
+  session. A failed read (empty map) is not cached, so the next call
+  retries, and
   [`sdv_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdv_clear_cache.md)
-  drops only this URL, not the user’s nflreadr cache.
-  `data-raw/update_headshot_gsis_map.R` builds it from
+  drops the cached map. `data-raw/update_headshot_gsis_map.R` builds it
+  from
   [`nflreadr::load_rosters()`](https://nflreadr.nflverse.com/reference/load_rosters.html)
   1999 onward (one file per season; a combined map at each player’s
   latest season with an NFL.com image, else their latest row;
@@ -115,26 +116,28 @@ gt and reactable. It is the multi-league successor to `nflplotR` /
 
 - Canonical keys: nflverse abbreviations for the NFL (`LA`, `LV`,
   `WAS`), ESPN abbreviations everywhere else (`GS`, `NY`, `UTAH`, `ATH`,
-  `CON`). Aliases from other providers live in the `aliases` list of the
-  data script; relocations live in `R/historical_teams.R`.
+  `CON`). Aliases from other providers and relocated franchises’ codes
+  are rows of the team index (`index_aliases()`, `snapshot_aliases`);
+  fix them upstream in the index, not here.
 
-- Wordmarks exist only for the NFL (nflverse). Other leagues resolve to
+- Wordmarks exist where the logo manifest has them (the NFL, MLB, MiLB
+  and the PHF in the bundled snapshot). Teams without one resolve to
   `NA` and the helpers fall back gracefully.
 
 - **gtUtils port**: the generic `gt` table toolkit (themes, legends, cut
   lines, save/crop helpers; `R/gt_*.R` other than `gt_sdv.R`,
-  `R/utils-*.R`, `R/data.R`, `R/deprecated.R`, `data/theme_bg.rda`) is
-  copied from Andrew Weatherman’s
-  [gtUtils](https://github.com/andreweatherman/gtUtils) v1.0.0 (MIT,
-  credited in `Authors@R`). These functions work on any table, so they
-  take no `league` argument and skip the team resolver. The port has
-  been restyled (styler, `|>`, lintr), so sync upstream changes by
-  diffing gtUtils against commit `619c64a` (the v1.0.0 the port was
-  taken from; upstream has no tags) and applying the hunks, never by
-  copying files over; keep `"sdvplotR"` in the namespace strings
-  ([`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md),
-  `deprecated.R`). `theme_bg` is built by `data-raw/theme_bg.R`; rerun
-  it after adding or recoloring a theme.
+  `R/utils-*.R`, `R/data.R`, `data/theme_bg.rda`) is copied from Andrew
+  Weatherman’s [gtUtils](https://github.com/andreweatherman/gtUtils)
+  v1.0.0 (MIT; he is `aut` and `cph` in `Authors@R`). These functions
+  work on any table, so they take no `league` argument and skip the team
+  resolver. The port has been restyled (styler, `|>`, lintr), so sync
+  upstream changes by diffing gtUtils against commit `619c64a` (the
+  v1.0.0 the port was taken from; upstream has no tags) and applying the
+  hunks, never by copying files over; keep `"sdvplotR"` in the namespace
+  string in
+  [`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md).
+  `theme_bg` is built by `data-raw/theme_bg.R`; rerun it after adding or
+  recoloring a theme.
 
 - **SportsDataverse themes**:
   [`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md)
@@ -227,13 +230,20 @@ snapshot; `Rscript data-raw/hex_logo.R` regenerates
   `cleanEx()` then fails with “connections left open”.
 - `\figure{}` options use `style="width:100\%"`, not `width=100\%`;
   checkRd wants width/height attributes in pixels.
-- `Suggests` is deliberately small (chromote, ggtext, gridtext,
-  reactable, rsvg, sportyR, testthat, webshot2, withr); companion data
-  packages are website / development needs, not package dependencies.
+- `Suggests` holds only what exported functions or tests call (chromote,
+  ggiraph, ggsoccer, ggtext, gridtext, leaflet, paletteer, plotly,
+  reactable, rsvg, sportyR, testthat, webshot2, withr), each behind
+  [`rlang::check_installed()`](https://rlang.r-lib.org/reference/is_installed.html)
+  or [`requireNamespace()`](https://rdrr.io/r/base/ns-load.html);
+  companion data packages are website / development needs, not package
+  dependencies.
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
-  calls ‘sportyR’ (GPL-3) through its exported functions only, after
-  [`rlang::check_installed()`](https://rlang.r-lib.org/reference/is_installed.html).
-  sdvplotR is MIT: never copy, vendor or translate sportyR source.
+  calls ‘sportyR’ (GPL-3) through its exported functions only
+  (`get_surface_dimensions()`, the `geom_*()` functions,
+  `convert_units()`, `rotate_coords()`), after
+  `rlang::check_installed("sportyR", version = "2.4.5")`; `Suggests`
+  carries the same `sportyR (>= 2.4.5)` floor. sdvplotR is MIT: never
+  copy, vendor or translate sportyR source.
 
 ## Formatting
 

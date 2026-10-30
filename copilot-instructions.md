@@ -6,39 +6,58 @@ how to write code that fits this repository. The fuller guide is
 [CONTRIBUTING.md](https://sdvplotR.sportsdataverse.org/../CONTRIBUTING.md)
 covers the workflow.
 
-`sdvplotR` is a ggplot2 / gt / reactable extension for team logos,
-wordmarks, player headshots and team colors across eight leagues, built
-on [`ggpath`](https://github.com/mrcaseb/ggpath).
+`sdvplotR` draws team logos, wordmarks, player headshots and team colors
+in ggplot2, gt, reactable, plotly, ggiraph and leaflet across the 28
+leagues of the SportsDataverse team index
+([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)),
+built on [`ggpath`](https://github.com/mrcaseb/ggpath).
+[`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+draws 59 team-styled playing surfaces through ‘sportyR’ (\>= 2.4.5).
 
 ## Golden rules
 
-1.  Never re-implement ggpath rendering: geoms delegate to
-    `ggpath::GeomFromPath$draw_panel()`; theme elements go through
-    `sdv_element_to_path_grob()`, which builds a real
-    [`ggpath::element_path()`](https://mrcaseb.github.io/ggpath/reference/element_path.html)
-    (an S7 object – never
-    [`structure()`](https://rdrr.io/r/base/structure.html) a list with
-    that class).
-2.  Resolve every team key through `clean_team_abbrs()` and the
-    resolvers in `R/utils.R` (`logo_from_team()`,
-    `wordmark_from_team()`, `headshot_from_id()`, `resolve_logo_url()`).
-    Do not duplicate URL logic.
-3.  Every team-aware function takes `sport`, validated with
-    `rlang::arg_match0(sport, supported_sports())`. The generic `gt`
-    table toolkit ported from gtUtils (themes, legends, save/crop) works
-    on any table and takes no `sport`.
-4.  Team data changes go in `data-raw/generate_logo_ref.R` or
-    `R/historical_teams.R`, then regenerate `R/sysdata.rda`. Never
-    hand-edit `NAMESPACE`, `man/`, `README.md` or the `.rda`.
-5.  Tests run offline and assert on URLs / HTML; image rendering tests
-    use `skip_on_cran()` + `skip_if_offline()`.
-6.  Never add AI assistants as commit co-authors.
+1.  Never re-implement ggpath rendering: geoms set `data$path` and
+    delegate to `ggpath::GeomFromPath$draw_panel()`. Theme elements
+    ([`element_sdv_logo()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md),
+    `_wordmark()`, `_headshot()`) are S7 subclasses of
+    [`ggpath::element_path`](https://mrcaseb.github.io/ggpath/reference/element_path.html)
+    (`R/theme_elements.R`); never re-class a plain list as
+    `element_path`.
+2.  Resolve every team through `resolve_ids()` (`R/resolve.R`, behind
+    [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)),
+    then `mark_url()` / `select_mark()` (`R/marks.R`) for logos and
+    wordmarks, or `headshot_from_id()` (`R/utils.R`) for players. Do not
+    add per-function cleaning or URL logic.
+3.  Every team-aware function takes `league` (validated against
+    [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md))
+    and `id_system`; those that draw marks or colors also take `season`,
+    and `strict` raises instead of warning on an unresolved value.
+    Headshot helpers take `id_system = "espn"` (default), `"gsis"` or
+    `"league"`. The generic `gt` toolkit ported from gtUtils
+    (`gt_theme_*()`, legends, cut lines, save/crop helpers) works on any
+    table and takes no `league`.
+4.  Team data is read from the team index and the sdv-assets logo
+    manifest (`R/index.R`: `index_teams()`, `index_aliases()`,
+    `index_marks()`), with a bundled snapshot in `R/sysdata.rda`. Fix
+    team data upstream (sdv-assets / the sdvplot team index); refresh
+    the snapshot with `data-raw/export_index.py` then
+    `Rscript data-raw/build_index_snapshot.R`. Never hand-edit
+    `NAMESPACE`, `man/`, `README.md` or the `.rda`.
+5.  Call ‘sportyR’ only through its exported functions
+    ([`sportyR::get_surface_dimensions()`](https://sportyR.sportsdataverse.org/reference/get_surface_dimensions.html),
+    the `geom_*()` functions), after
+    `rlang::check_installed("sportyR", version = "2.4.5")`.
+6.  Tests run offline and assert on URLs / HTML. Every test file starts
+    with `skip_on_cran()`; image rendering tests also use
+    `skip_if_offline()`.
+7.  Never add AI assistants as commit co-authors.
 
 ## After changing code
 
 - `devtools::document()`, `devtools::test()`,
   `devtools::check(args = "--as-cran")`.
-- Add new exported topics to `_pkgdown.yml` `reference:`.
+- Add new exported topics to `_pkgdown.yml` `reference:` and run
+  [`pkgdown::check_pkgdown()`](https://pkgdown.r-lib.org/reference/check_pkgdown.html).
 - Update `NEWS.md` for user-visible changes; re-render `README.Rmd` if
   edited.
 - Commit with Conventional Commits (`feat(geom):`, `fix(gt):`,

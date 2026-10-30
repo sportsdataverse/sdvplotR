@@ -23,7 +23,7 @@ and `manifest_source`.
 ``` r
 sdv_versions()
 #> $package
-#> [1] "0.1.0"
+#> [1] "0.3.0"
 #> 
 #> $index_version
 #> [1] "0aeef853ec2b"

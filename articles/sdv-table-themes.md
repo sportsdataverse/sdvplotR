@@ -265,8 +265,8 @@ standings_table |>
   gt_save_crop("afc-west.png", bg = bg)
 ```
 
-To see these next to the 18 other themes in the package on your own
-data, run `gt_theme_preview(standings)`.
+To see these next to every other theme that needs only the table, on
+your own data, run `gt_theme_preview(standings)`.
 
 ## **Our Authors**
 

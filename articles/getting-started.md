@@ -223,6 +223,43 @@ ggplot(cfb_df, aes(x = x, y = y)) +
   theme_void()
 ```
 
+## Every league
+
+[`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
+lists all 28 leagues of the team index, from the NFL and the Premier
+League to the junior hockey leagues, NCAA softball and cricket. The loop
+below draws ten teams of each that have a logo, one row per league. This
+article reads teams from the snapshot bundled with the package
+(`options(sdvplotR.offline = TRUE)`, set before its first lookup), so it
+does not wait on a live fetch of the index.
+
+``` r
+
+teams <- do.call(rbind, lapply(sdv_leagues(), function(lg) {
+  t <- sdv_teams(lg)
+  # sdv_logo_url() warns for teams with no archived logo; keep ten that have one
+  t <- tail(t[!is.na(suppressWarnings(sdv_logo_url(t$team_id, lg))), ], 10)
+  data.frame(league = lg, team = t$team_id, x = seq_len(nrow(t)))
+}))
+# geom_sdv_logos() takes one league per layer: one layer per league
+layers <- lapply(split(teams, teams$league), function(d) {
+  geom_sdv_logos(aes(x = x, y = 0, team = team), data = d, league = d$league[1], width = 0.08)
+})
+ggplot() +
+  layers +
+  facet_wrap(~league, ncol = 2) +
+  scale_x_continuous(limits = c(0.5, 10.5)) +
+  theme_void() +
+  theme(
+    strip.text = element_text(face = "bold", hjust = 0),
+    plot.background = element_rect(fill = "white", colour = NA)
+  )
+```
+
+![Ten team logos for each of the 28 leagues of the SportsDataverse team
+index, one labelled row per league, from the AAF and AHL to the
+XFL.](getting-started_files/figure-html/every-league-1.png)
+
 ## Next Steps
 
 - Explore the function documentation with

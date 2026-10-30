@@ -27,7 +27,7 @@
 {"@context":"https://schema.org","@graph":[
   {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
    "name":"sdvplotR","alternateName":"sdvplotR: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'",
-   "description":"An R package for plotting team logos, wordmarks, player headshots and team colors across the NFL, NBA, WNBA, MLB, NHL, college football and college basketball in ggplot2, gt and reactable.",
+   "description":"An R package for plotting team logos, wordmarks and team colors across the 28 leagues of the SportsDataverse team index, from the NFL, NBA, WNBA, MLB and NHL to college sports and soccer, and player headshots for the major US leagues and college basketball and football, in ggplot2, gt, reactable, plotly, ggiraph and leaflet.",
    "url":"https://sdvplotr.sportsdataverse.org/",
    "codeRepository":"https://github.com/sportsdataverse/sdvplotR",
    "programmingLanguage":{"@type":"ComputerLanguage","name":"R"},
@@ -53,7 +53,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sdvplotR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -3625,6 +3625,16 @@ give it a <code>file</code>. Saving drives a headless Chrome through
 covers the house theme, the dark style and team colors.</li>
 <li>The rest of the Tables cookbook goes deeper on single tools: <a href="styling.html">styling headers, legends and captions</a>, <a href="delay_tables.html">percentile bars and cut lines</a>, <a href="grid_tables.html">faceted tables</a>, <a href="tier_list.html">tier lists</a>, <a href="border_bars.html">border
 bars</a>, <a href="schedule_matrix.html">schedule matrices</a>, <a href="window_wins.html">rolling windows</a> and <a href="saving_tables.html">saving and posting</a>.</li>
+<li>Smaller helpers each have an example on their reference page:
+<code><a href="../reference/gt_bold_rows.html">gt_bold_rows()</a></code>, <code><a href="../reference/gt_row_accent.html">gt_row_accent()</a></code>,
+<code><a href="../reference/gt_group_stripes.html">gt_group_stripes()</a></code>, <code><a href="../reference/gt_highlight_na.html">gt_highlight_na()</a></code>,
+<code><a href="../reference/gt_color_results.html">gt_color_results()</a></code>, <code><a href="../reference/gt_fmt_rank.html">gt_fmt_rank()</a></code>,
+<code><a href="../reference/gt_indicator_boxes.html">gt_indicator_boxes()</a></code>, <code><a href="../reference/gt_outliers.html">gt_outliers()</a></code>,
+<code><a href="../reference/gt_column_subheaders.html">gt_column_subheaders()</a></code>, <code><a href="../reference/gt_marginalia.html">gt_marginalia()</a></code>,
+<code><a href="../reference/gt_scale_note.html">gt_scale_note()</a></code>, <code><a href="../reference/gt_set_font.html">gt_set_font()</a></code> and
+<code><a href="../reference/gt_wrap_labels.html">gt_wrap_labels()</a></code>; <code><a href="../reference/gt_sdv_cols_label.html">gt_sdv_cols_label()</a></code> puts
+logos in the column labels. <code><a href="../reference/gt_theme_preview.html">gt_theme_preview()</a></code> shows every
+theme that needs only the table on your own data.</li>
 </ul>
 </div>
 <div class="section level2">

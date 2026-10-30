@@ -212,10 +212,10 @@ Or keep the plain scale and set the axis text to an image element:
 [`element_sdv_logo()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md),
 or
 [`element_sdv_wordmark()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
-for the NFL, the only league with wordmarks, on `axis.text.y` (or
-`axis.text.x`), after the complete theme. `size` is in centimetres along
-the image’s longer side, so a wide wordmark needs a bigger value than a
-square logo.
+for a league with wordmarks in the logo archive (the NFL, MLB and MiLB),
+on `axis.text.y` (or `axis.text.x`), after the complete theme. `size` is
+in centimetres along the image’s longer side, so a wide wordmark needs a
+bigger value than a square logo.
 
 ``` r
 
@@ -246,6 +246,24 @@ with
 [`theme_y_sdv()`](https://sdvplotR.sportsdataverse.org/reference/theme_sdv.md)
 does the same for a y axis; image labels follow the factor levels, so
 set the order before the scale sees it.
+
+Wordmarks go everywhere logos go:
+[`geom_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_wordmarks.md)
+draws them as a layer like
+[`geom_sdv_logos()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.md),
+[`gt_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_wordmarks.md)
+and
+[`reactable_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/reactable_sdv_images.md)
+put them in table cells, and
+[`add_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+(plotly) and
+[`geom_sdv_wordmarks_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.md)
+(ggiraph) put them in interactive charts. Player headshots have the same
+set:
+[`element_sdv_headshot()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md),
+[`scale_x_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md),
+[`add_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.md)
+and the rest.
 
 ## 4. Label each line’s last point with a logo
 

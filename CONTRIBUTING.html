@@ -3,7 +3,7 @@
 {"@context":"https://schema.org","@graph":[
   {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
    "name":"sdvplotR","alternateName":"sdvplotR: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'",
-   "description":"An R package for plotting team logos, wordmarks, player headshots and team colors across the NFL, NBA, WNBA, MLB, NHL, college football and college basketball in ggplot2, gt and reactable.",
+   "description":"An R package for plotting team logos, wordmarks and team colors across the 28 leagues of the SportsDataverse team index, from the NFL, NBA, WNBA, MLB and NHL to college sports and soccer, and player headshots for the major US leagues and college basketball and football, in ggplot2, gt, reactable, plotly, ggiraph and leaflet.",
    "url":"https://sdvplotr.sportsdataverse.org/",
    "codeRepository":"https://github.com/sportsdataverse/sdvplotR",
    "programmingLanguage":{"@type":"ComputerLanguage","name":"R"},
@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="index.html">sdvplotR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -258,7 +258,7 @@
 <div class="section level2">
 <h2 id="filing-an-issue">Filing an issue<a class="anchor" aria-label="anchor" href="#filing-an-issue"></a></h2>
 <ul><li>Use the <strong>Bug report</strong> template and include a minimal <a href="https://reprex.tidyverse.org/" class="external-link">reprex</a> plus <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code>.</li>
-<li>Use the <strong>Missing or incorrect team data</strong> template for a wrong logo, color, abbreviation or historical mapping. Cite a source (team media guide, league site, ESPN).</li>
+<li>Use the <strong>Missing or incorrect team data</strong> template for a wrong logo, color, abbreviation or historical mapping. Include what <code><a href="reference/sdv_teams.html">sdv_teams()</a></code>, <code><a href="reference/sdv_resolve.html">sdv_resolve()</a></code> or <code><a href="reference/sdv_team_colors.html">sdv_team_colors()</a></code> return and cite a source (team media guide, league site, ESPN).</li>
 <li>Use the <strong>Feature request</strong> template for new functionality. Link the equivalent in nflplotR / cfbplotR / nbaplotR / mlbplotR if one exists.</li>
 </ul></div>
 <div class="section level2">
@@ -267,37 +267,41 @@
 <code class="sourceCode R"><span><span class="co"># R &gt;= 4.1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"devtools"</span>, <span class="st">"roxygen2"</span>, <span class="st">"testthat"</span>, <span class="st">"pkgdown"</span>, <span class="st">"styler"</span>, <span class="st">"lintr"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">test</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">document</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">test</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span>args <span class="op">=</span> <span class="st">"--as-cran"</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="reference/sdv_surface.html">sdv_surface()</a></code> needs ‘sportyR’ 2.4.5 or later (<code>install.packages("sportyR")</code>).</p>
 </div>
 <div class="section level2">
 <h2 id="how-the-package-is-put-together">How the package is put together<a class="anchor" aria-label="anchor" href="#how-the-package-is-put-together"></a></h2>
-<p>sdvplotR is a thin domain layer on top of <a href="https://mrcaseb.github.io/ggpath/" class="external-link">ggpath</a>:</p>
-<ol style="list-style-type: decimal"><li>
-<code>R/utils.R</code> resolves a team abbreviation or player id to an image URL (<code>logo_from_team()</code>, <code>wordmark_from_team()</code>, <code>headshot_from_id()</code>, variant-aware <code>resolve_logo_url()</code>).</li>
-<li>Geoms resolve the <code>team</code> / <code>player_id</code> aesthetic to a <code>path</code> column and delegate rendering to <code>ggpath::GeomFromPath$draw_panel()</code>.</li>
-<li>Theme elements are plain S3 lists; their <code>element_grob()</code> methods build a real <code><a href="https://mrcaseb.github.io/ggpath/reference/element_path.html" class="external-link">ggpath::element_path()</a></code> (an S7 object) and hand off to ggplot2. Never re-class a list as <code>element_path</code>.</li>
-<li>gt / reactable helpers emit <code>&lt;img&gt;</code> tags or inline CSS from the same resolvers.</li>
-<li>Team data lives in <code>R/sysdata.rda</code> (<code>logo_ref</code>, <code>abbr_mapping</code>), built by <code>data-raw/generate_logo_ref.R</code> from the ESPN team endpoints and <code><a href="https://nflreadr.nflverse.com/reference/load_teams.html" class="external-link">nflreadr::load_teams()</a></code>. Historical / relocated abbreviations are in <code>R/historical_teams.R</code>.</li>
+<p>sdvplotR is a domain layer on top of <a href="https://mrcaseb.github.io/ggpath/" class="external-link">ggpath</a>:</p>
+<ol style="list-style-type: decimal"><li>Team data comes from two shared artifacts: the SportsDataverse <strong>team index</strong> (teams and their aliases across 18 id systems, the same index sdvplot and the JavaScript packages read) and the <strong>sdv-assets logo manifest</strong> (every archived logo and wordmark by team, variant and season). <code>R/index.R</code> reads both from the SportsDataverse CDN and caches them for a day; <code>R/sysdata.rda</code> holds a bundled snapshot for offline use and CRAN checks (<code>options(sdvplotR.offline = TRUE)</code>).</li>
+<li>Every function that takes a team takes a <code>league</code> (one of the 28 leagues of <code><a href="reference/sdv_leagues.html">sdv_leagues()</a></code>) and an <code>id_system</code>; those that draw marks or colors also take a <code>season</code>. All of them resolve teams through <code>resolve_ids()</code> (<code>R/resolve.R</code>, behind <code><a href="reference/sdv_resolve.html">sdv_resolve()</a></code>), so aliases, id systems and codes reused across eras apply everywhere. Don’t add per-function cleaning.</li>
+<li>
+<code>mark_url()</code> / <code>select_mark()</code> (<code>R/marks.R</code>) pick a logo or wordmark by variant and season; <code>headshot_from_id()</code> (<code>R/utils.R</code>) builds player headshot URLs for <code>id_system = "espn"</code>, <code>"gsis"</code> or <code>"league"</code>.</li>
+<li>Geoms (<code><a href="reference/geom_sdv_logos.html">geom_sdv_logos()</a></code>, <code><a href="reference/geom_sdv_wordmarks.html">geom_sdv_wordmarks()</a></code>, <code><a href="reference/geom_sdv_headshots.html">geom_sdv_headshots()</a></code>) set a <code>path</code> column and delegate rendering to <code>ggpath::GeomFromPath$draw_panel()</code>.</li>
+<li>Theme elements (<code><a href="reference/element_sdv.html">element_sdv_logo()</a></code> and friends, <code>R/theme_elements.R</code>) are S7 subclasses of <code><a href="https://mrcaseb.github.io/ggpath/reference/element_path.html" class="external-link">ggpath::element_path</a></code>. Never re-class a plain list as <code>element_path</code>.</li>
+<li>The gt, reactable, plotly, ggiraph and leaflet helpers emit <code>&lt;img&gt;</code> tags, inline CSS or layout images from the same resolvers. The generic <code>gt</code> toolkit ported from gtUtils (<code>gt_theme_*()</code>, legends, cut lines, save/crop helpers) works on any table and takes no <code>league</code>.</li>
+<li>
+<code><a href="reference/sdv_surface.html">sdv_surface()</a></code> draws 59 playing-surface keys through ‘sportyR’’s exported functions only.</li>
 </ol></div>
 <div class="section level2">
 <h2 id="making-changes">Making changes<a class="anchor" aria-label="anchor" href="#making-changes"></a></h2>
 <ul><li>Branch from <code>main</code> (<code>feat/...</code>, <code>fix/...</code>, <code>docs/...</code>).</li>
-<li>Follow the <a href="https://style.tidyverse.org/" class="external-link">tidyverse style guide</a>; run <code>styler::style_pkg()</code> on files you touched.</li>
-<li>Add or update tests in <code>tests/testthat/test-&lt;file&gt;.R</code>. Tests must run offline: assert on the resolved URLs / HTML, and <code>skip_on_cran()</code> + <code>skip_if_offline()</code> for anything that renders images.</li>
-<li>Every exported function needs roxygen docs with <code>@param</code>, <code>@return</code> and <code>@examples</code>. Examples that download images go in <code>\donttest{}</code>.</li>
-<li>Run <code>devtools::document()</code> and commit <code>man/</code> and <code>NAMESPACE</code>; never edit them by hand.</li>
+<li>Follow the <a href="https://style.tidyverse.org/" class="external-link">tidyverse style guide</a>. Run <code>styler::style_file()</code> on files you add; styler rewrites the repo’s double-indented function signatures in existing files (see <code>CLAUDE.md</code>, Formatting). <code>lintr::lint_package()</code> should report no lints.</li>
+<li>Add or update tests in <code>tests/testthat/test-&lt;file&gt;.R</code>. Every test file starts with <code>skip_on_cran()</code>. Tests run offline (<code>tests/testthat/setup.R</code> sets <code>sdvplotR.offline</code>): assert on the resolved URLs / HTML, and add <code>skip_if_offline()</code> for anything that renders images.</li>
+<li>Every exported function needs roxygen docs with <code>@param</code>, <code>@return</code> and <code>@examples</code>. Examples that download images go in <code>\donttest{}</code>; never use <code>\dontrun{}</code>.</li>
+<li>Run <code>devtools::document()</code> and commit <code>man/</code> and <code>NAMESPACE</code>; never edit them by hand. List new exported topics in <code>_pkgdown.yml</code> and run <code><a href="https://pkgdown.r-lib.org/reference/check_pkgdown.html" class="external-link">pkgdown::check_pkgdown()</a></code>.</li>
 <li>
-<strong>Team data changes</strong> go in <code>data-raw/generate_logo_ref.R</code> (or <code>R/historical_teams.R</code> for relocations), then re-run the script and commit the regenerated <code>R/sysdata.rda</code>. Never hand-edit the <code>.rda</code>.</li>
+<strong>Team data</strong> (logos, colors, aliases, relocations) is fixed upstream in <a href="https://github.com/sportsdataverse/sdv-assets" class="external-link">sdv-assets</a> and the sdvplot team index, not here. To refresh the bundled snapshot, run <code>python data-raw/export_index.py</code> and then <code>Rscript data-raw/build_index_snapshot.R</code> from the package root. Never hand-edit <code>R/sysdata.rda</code>.</li>
 <li>Add a bullet to <code>NEWS.md</code> for user-facing changes.</li>
 <li>If <code>README.Rmd</code> changed, re-render with <code>devtools::build_readme()</code>.</li>
 <li>
-<code>devtools::check()</code> should report 0 errors, 0 warnings, 0 notes before you open the pull request.</li>
+<code>devtools::check(args = "--as-cran")</code> should report 0 errors, 0 warnings and 0 notes (a “New submission” note aside) before you open the pull request.</li>
 </ul></div>
 <div class="section level2">
 <h2 id="commit-messages">Commit messages<a class="anchor" aria-label="anchor" href="#commit-messages"></a></h2>
-<p>Use <a href="https://www.conventionalcommits.org/" class="external-link">Conventional Commits</a>: <code>feat(geom): ...</code>, <code>fix(gt): ...</code>, <code>data(nhl): ...</code>, <code>docs: ...</code>, <code>test: ...</code>, <code>chore: ...</code>. Do not add AI assistants as commit co-authors.</p>
+<p>Use <a href="https://www.conventionalcommits.org/" class="external-link">Conventional Commits</a>: <code>feat(geom): ...</code>, <code>fix(gt): ...</code>, <code>data(nhl): ...</code>, <code>docs: ...</code>, <code>test: ...</code>, <code>chore: ...</code>, <code>ci: ...</code>. Do not add AI assistants as commit co-authors.</p>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a></h2>

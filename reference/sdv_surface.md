@@ -20,8 +20,8 @@ sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
 
 - league:
 
-  One of the 59 SportsDataverse surface keys, the table sdvplot (Python)
-  and sdvplot-js share. Each maps to a 'sportyR' surface:
+  One of the 59 SportsDataverse surface keys, the same table sdvplot-js
+  uses. Each maps to a 'sportyR' surface:
 
   |  |  |
   |----|----|
@@ -40,7 +40,7 @@ sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
   | `"ncaa_baseball"` | `sportyR::geom_baseball("ncaa")` |
   | `"little_league"` | `sportyR::geom_baseball("little league")` |
   | `"nfhs_baseball"` | `sportyR::geom_baseball("nfhs")` |
-  | `"ncaa_softball"` | `sportyR::geom_softball("ncaa")` (needs 'sportyR' 2.3.0) |
+  | `"ncaa_softball"` | `sportyR::geom_softball("ncaa")` |
   | `"nhl"`, `"whl"` | `sportyR::geom_hockey("nhl")` (no WHL rink in 'sportyR') |
   | `"pwhl"`, `"ahl"`, `"echl"`, `"ohl"`, `"qmjhl"`, `"ushl"`, `"phf"`, `"iihf"`, `"nwhl"` | [`sportyR::geom_hockey()`](https://sportyR.sportsdataverse.org/reference/geom_hockey.html) of the same league |
   | `"ncaa_mhockey"`, `"ncaa_whockey"` | `sportyR::geom_hockey("ncaa")` |
@@ -59,12 +59,9 @@ sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
   | `"wcf"` | `sportyR::geom_curling("wcf")` |
   | `"curling_canada"` | `sportyR::geom_curling("curling canada")` |
 
-  The PWHL and the G League draw their own rink and court, as in sdvplot
-  and sdvplot-js. `"ncaa_softball"` needs 'sportyR' 2.3.0 or later (not
-  yet on CRAN: `remotes::install_github("sportsdataverse/sportyR")`);
-  with an older 'sportyR' it errors naming that version. 'sportyR' 2.2.3
-  draws several lacrosse markings wrongly; the fixes are in 'sportyR'
-  pull request 68, not yet merged.
+  The PWHL and the G League draw their own rink and court, as in
+  sdvplot-js. Surfaces need 'sportyR' 2.4.5 or later, from CRAN
+  (`install.packages("sportyR")`).
 
 - team:
 

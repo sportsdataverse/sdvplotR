@@ -1,11 +1,9 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://sdvplotR.sportsdataverse.org/404.html</loc></url>
-<url><loc>https://sdvplotR.sportsdataverse.org/CLAUDE.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/CONTRIBUTING.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/LICENSE-text.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/LICENSE.html</loc></url>
-<url><loc>https://sdvplotR.sportsdataverse.org/PULL_REQUEST_TEMPLATE.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/automation-social.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/border_bars.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/cfb-viz.html</loc></url>
@@ -66,7 +64,6 @@
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/wnba-viz.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/articles/workflows.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/authors.html</loc></url>
-<url><loc>https://sdvplotR.sportsdataverse.org/copilot-instructions.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/index.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/news/index.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/addSdvLogoMarkers.html</loc></url>

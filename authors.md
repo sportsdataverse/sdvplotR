@@ -11,7 +11,9 @@
 
 - **[Camden Kay](https://x.com/camdenkay)**. Author.
 
-- **[Andrew Weatherman](https://github.com/andreweatherman)**. Author.
+- **[Andrew Weatherman](https://github.com/andreweatherman)**. Author,
+  copyright holder.  
+  Author of the included 'gtUtils' code
 
 ## Citation
 
@@ -20,7 +22,7 @@ Source:
 
 Saiem Gilani, Sebastian Carl, Jared Lee, Camden Kay, and Andrew
 Weatherman (2026). sdvplotR: The SportsDataverse's R Package for
-Multi-League Sports Plotting. R package version 0.1.0. Retrieved from
+Multi-League Sports Plotting. R package version 0.3.0. Retrieved from
 https://sdvplotR.sportsdataverse.org
 
     @Misc{gilani_carl_lee_kay_weatherman_sdvplotR,
@@ -28,5 +30,5 @@ https://sdvplotR.sportsdataverse.org
       title = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},
       url = {https://sdvplotR.sportsdataverse.org},
       year = {2026},
-      note = {R package version 0.1.0},
+      note = {R package version 0.3.0},
     }

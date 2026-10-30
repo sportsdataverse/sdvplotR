@@ -199,6 +199,25 @@ gt_grid(
   windows](https://sdvplotR.sportsdataverse.org/articles/window_wins.md)
   and [saving and
   posting](https://sdvplotR.sportsdataverse.org/articles/saving_tables.md).
+- Smaller helpers each have an example on their reference page:
+  [`gt_bold_rows()`](https://sdvplotR.sportsdataverse.org/reference/gt_bold_rows.md),
+  [`gt_row_accent()`](https://sdvplotR.sportsdataverse.org/reference/gt_row_accent.md),
+  [`gt_group_stripes()`](https://sdvplotR.sportsdataverse.org/reference/gt_group_stripes.md),
+  [`gt_highlight_na()`](https://sdvplotR.sportsdataverse.org/reference/gt_highlight_na.md),
+  [`gt_color_results()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_results.md),
+  [`gt_fmt_rank()`](https://sdvplotR.sportsdataverse.org/reference/gt_fmt_rank.md),
+  [`gt_indicator_boxes()`](https://sdvplotR.sportsdataverse.org/reference/gt_indicator_boxes.md),
+  [`gt_outliers()`](https://sdvplotR.sportsdataverse.org/reference/gt_outliers.md),
+  [`gt_column_subheaders()`](https://sdvplotR.sportsdataverse.org/reference/gt_column_subheaders.md),
+  [`gt_marginalia()`](https://sdvplotR.sportsdataverse.org/reference/gt_marginalia.md),
+  [`gt_scale_note()`](https://sdvplotR.sportsdataverse.org/reference/gt_scale_note.md),
+  [`gt_set_font()`](https://sdvplotR.sportsdataverse.org/reference/gt_set_font.md)
+  and
+  [`gt_wrap_labels()`](https://sdvplotR.sportsdataverse.org/reference/gt_wrap_labels.md);
+  [`gt_sdv_cols_label()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_cols_label.md)
+  puts logos in the column labels.
+  [`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md)
+  shows every theme that needs only the table on your own data.
 
 ## **Our Authors**
 

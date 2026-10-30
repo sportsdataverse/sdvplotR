@@ -9,15 +9,15 @@ shot charts from the stats-API shot files (moved onto the court with
 [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)),
 a vertical half court, a college shot chart from ESPN’s locations, a
 hockey goal map, a baseball field, a football drive chart, Euroleague
-shots on the FIBA court, then the rest of the 59 surfaces: lacrosse,
-tennis, volleyball, curling, more football, baseball, hockey and soccer
-leagues and an NCAA softball field. The surfaces are drawn by
-[sportyR](https://sportyR.sportsdataverse.org). The data is one season
-each from the NFL (nflreadr), the NBA, WNBA and college basketball
-(hoopR and wehoop), the NHL (fastRhockey) and MLB (baseballr). The NBA
-and WNBA shots are the stats-API shot files the SportsDataverse
-publishes as GitHub releases, so nothing here calls stats.nba.com or
-stats.wnba.com.
+shots on the FIBA court, then the other surfaces (lacrosse, tennis,
+volleyball, curling and more football, baseball, hockey and soccer
+leagues, with all 59 in one grid) and an NCAA softball field. The
+surfaces are drawn by [sportyR](https://sportyR.sportsdataverse.org).
+The data is one season each from the NFL (nflreadr), the NBA, WNBA and
+college basketball (hoopR and wehoop), the NHL (fastRhockey) and MLB
+(baseballr). The NBA and WNBA shots are the stats-API shot files the
+SportsDataverse publishes as GitHub releases, so nothing here calls
+stats.nba.com or stats.wnba.com.
 
 ``` r
 
@@ -655,12 +655,12 @@ corner.](cookbook-surfaces-shot-charts_files/figure-html/euroleague-fiba-1.png)
 ## 12. Every other sport and league sportyR draws
 
 [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
-takes 59 surface keys, the table sdvplot (Python) and sdvplot-js share:
-beyond the leagues above, the CFL and NFHS fields, the NFHS court,
-Little League, PONY and NFHS baseball, the IIHF, NWHL and the PWHL’s own
-rink, the EPL, MLS, NWSL, FIFA and NCAA pitches, and four sports of
-their own: lacrosse, tennis, volleyball and curling. Only the keys that
-are also leagues of
+takes 59 surface keys, the same table sdvplot-js uses: beyond the
+leagues above, the CFL and NFHS fields, the NFHS court, Little League,
+PONY and NFHS baseball, the IIHF, NWHL and the PWHL’s own rink, the EPL,
+MLS, NWSL, FIFA and NCAA pitches, and four sports of their own:
+lacrosse, tennis, volleyball and curling. Only the keys that are also
+leagues of
 [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
 (the PWHL among these) take a `team`; the others have no team identities
 yet and error if given one.
@@ -746,22 +746,226 @@ women's lacrosse field, a PLL field, an ATP tennis court, an FIVB
 volleyball court and a WCF curling
 sheet.](cookbook-surfaces-shot-charts_files/figure-html/new-sports-6.png)
 
+All 59 keys, in the order of the table in
+[`?sdv_surface`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md).
+Keys that share a ‘sportyR’ surface (the AAF, UFL, USFL and XFL use the
+NFL field; the WHL the NHL rink) draw the same picture. No team is
+given, so this needs no network.
+
+``` r
+
+keys <- c(
+  "nfl", "aaf", "ufl", "usfl", "xfl", "cfb", "cfl", "nfhs_football",
+  "nba", "nbagl", "wnba", "mbb", "wbb", "fiba", "nfhs_basketball",
+  "mlb", "milb", "pony", "ncaa_baseball", "little_league", "nfhs_baseball", "ncaa_softball",
+  "nhl", "whl", "pwhl", "ahl", "echl", "ohl", "qmjhl", "ushl", "phf", "iihf", "nwhl",
+  "ncaa_mhockey", "ncaa_whockey",
+  "soccer", "fifa", "epl", "mls", "nwsl", "ncaa_soccer",
+  "nll", "pll", "world_lacrosse", "ncaa_mlacrosse", "ncaa_wlacrosse", "usa_mlacrosse", "usa_wlacrosse",
+  "atp", "wta", "itf", "ita", "usta", "ncaa_tennis",
+  "fivb", "usa_volleyball", "ncaa_volleyball",
+  "wcf", "curling_canada"
+)
+```
+
+``` r
+
+# the diamonds sit on dark grass, so their titles are white
+diamonds <- c("mlb", "milb", "pony", "ncaa_baseball", "little_league", "nfhs_baseball", "ncaa_softball")
+for (lg in keys) {
+  p <- if (lg %in% c("wcf", "curling_canada")) sdv_surface(lg, rotation = 90) else sdv_surface(lg)
+  title_colour <- if (lg %in% diamonds) "white" else "black"
+  print(p + labs(title = lg) + theme(plot.title = element_text(size = 18, face = "bold", colour = title_colour)))
+}
+```
+
+![The plain regulation surface sportyR draws for the "nfl" key, titled
+with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-1.png)![The
+plain regulation surface sportyR draws for the "aaf" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-2.png)![The
+plain regulation surface sportyR draws for the "ufl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-3.png)![The
+plain regulation surface sportyR draws for the "usfl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-4.png)![The
+plain regulation surface sportyR draws for the "xfl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-5.png)![The
+plain regulation surface sportyR draws for the "cfb" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-6.png)![The
+plain regulation surface sportyR draws for the "cfl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-7.png)![The
+plain regulation surface sportyR draws for the "nfhs_football" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-8.png)![The
+plain regulation surface sportyR draws for the "nba" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-9.png)![The
+plain regulation surface sportyR draws for the "nbagl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-10.png)![The
+plain regulation surface sportyR draws for the "wnba" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-11.png)![The
+plain regulation surface sportyR draws for the "mbb" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-12.png)![The
+plain regulation surface sportyR draws for the "wbb" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-13.png)![The
+plain regulation surface sportyR draws for the "fiba" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-14.png)![The
+plain regulation surface sportyR draws for the "nfhs_basketball" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-15.png)![The
+plain regulation surface sportyR draws for the "mlb" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-16.png)![The
+plain regulation surface sportyR draws for the "milb" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-17.png)![The
+plain regulation surface sportyR draws for the "pony" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-18.png)![The
+plain regulation surface sportyR draws for the "ncaa_baseball" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-19.png)![The
+plain regulation surface sportyR draws for the "little_league" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-20.png)![The
+plain regulation surface sportyR draws for the "nfhs_baseball" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-21.png)![The
+plain regulation surface sportyR draws for the "ncaa_softball" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-22.png)![The
+plain regulation surface sportyR draws for the "nhl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-23.png)![The
+plain regulation surface sportyR draws for the "whl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-24.png)![The
+plain regulation surface sportyR draws for the "pwhl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-25.png)![The
+plain regulation surface sportyR draws for the "ahl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-26.png)![The
+plain regulation surface sportyR draws for the "echl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-27.png)![The
+plain regulation surface sportyR draws for the "ohl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-28.png)![The
+plain regulation surface sportyR draws for the "qmjhl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-29.png)![The
+plain regulation surface sportyR draws for the "ushl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-30.png)![The
+plain regulation surface sportyR draws for the "phf" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-31.png)![The
+plain regulation surface sportyR draws for the "iihf" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-32.png)![The
+plain regulation surface sportyR draws for the "nwhl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-33.png)![The
+plain regulation surface sportyR draws for the "ncaa_mhockey" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-34.png)![The
+plain regulation surface sportyR draws for the "ncaa_whockey" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-35.png)![The
+plain regulation surface sportyR draws for the "soccer" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-36.png)![The
+plain regulation surface sportyR draws for the "fifa" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-37.png)![The
+plain regulation surface sportyR draws for the "epl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-38.png)![The
+plain regulation surface sportyR draws for the "mls" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-39.png)![The
+plain regulation surface sportyR draws for the "nwsl" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-40.png)![The
+plain regulation surface sportyR draws for the "ncaa_soccer" key, titled
+with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-41.png)![The
+plain regulation surface sportyR draws for the "nll" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-42.png)![The
+plain regulation surface sportyR draws for the "pll" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-43.png)![The
+plain regulation surface sportyR draws for the "world_lacrosse" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-44.png)![The
+plain regulation surface sportyR draws for the "ncaa_mlacrosse" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-45.png)![The
+plain regulation surface sportyR draws for the "ncaa_wlacrosse" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-46.png)![The
+plain regulation surface sportyR draws for the "usa_mlacrosse" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-47.png)![The
+plain regulation surface sportyR draws for the "usa_wlacrosse" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-48.png)![The
+plain regulation surface sportyR draws for the "atp" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-49.png)![The
+plain regulation surface sportyR draws for the "wta" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-50.png)![The
+plain regulation surface sportyR draws for the "itf" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-51.png)![The
+plain regulation surface sportyR draws for the "ita" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-52.png)![The
+plain regulation surface sportyR draws for the "usta" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-53.png)![The
+plain regulation surface sportyR draws for the "ncaa_tennis" key, titled
+with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-54.png)![The
+plain regulation surface sportyR draws for the "fivb" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-55.png)![The
+plain regulation surface sportyR draws for the "usa_volleyball" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-56.png)![The
+plain regulation surface sportyR draws for the "ncaa_volleyball" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-57.png)![The
+plain regulation surface sportyR draws for the "wcf" key, titled with
+the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-58.png)![The
+plain regulation surface sportyR draws for the "curling_canada" key,
+titled with the
+key.](cookbook-surfaces-shot-charts_files/figure-html/all-surfaces-59.png)
+
 ## 13. A softball field for an NCAA team
 
-`"ncaa_softball"` is both a team league and a surface. It needs sportyR
-2.3.0 or later, not yet on CRAN
-(`remotes::install_github("sportsdataverse/sportyR")`); with an older
-sportyR,
-[`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
-says so. As on a baseball field, no part of the infield takes a team
-colour, so the team is checked and the field keeps sportyR’s look.
-`center_logo = TRUE` would put the logo in shallow center field, as on a
-baseball field; here it goes in the title instead, with
+`"ncaa_softball"` is both a team league and a surface. As on a baseball
+field, no part of the infield takes a team colour, so the team is
+checked and the field keeps sportyR’s look. `center_logo = TRUE` would
+put the logo in shallow center field, as on a baseball field; here it
+goes in the title instead, with
 [`ggtitle_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md).
 Like baseball, the field’s origin is home plate.
-
-The figure below needs sportyR 2.3.0 or later: where only CRAN’s sportyR
-is installed, the chunk is not run and no figure appears.
 
 ``` r
 

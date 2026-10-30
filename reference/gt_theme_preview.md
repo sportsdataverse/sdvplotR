@@ -28,7 +28,12 @@ gt_theme_preview(
 - themes:
 
   Character. The theme functions to show, by name. If `NULL`, every
-  `gt_theme_*` in the package is used. Defaults to `NULL`.
+  `gt_theme_*` in the package that needs nothing but the table is used,
+  which leaves out
+  [`gt_theme_source()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_source.md)
+  (it needs a registry `name`) and
+  [`gt_theme_sdv_team()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv_team.md)
+  (its `league` argument has no default). Defaults to `NULL`.
 
 - n:
 

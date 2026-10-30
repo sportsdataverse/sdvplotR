@@ -1,11 +1,39 @@
 # Changelog
 
-## sdvplotR 0.1.0
+## sdvplotR 0.3.0
 
-Initial release: team logos, wordmarks, player headshots and team
-colours for ggplot2, gt and reactable, and for interactive plotly,
-ggiraph and leaflet charts, across the 28 leagues of the SportsDataverse
-team index
+First CRAN release. Earlier development builds were published only on
+r-universe, every one of them numbered 0.1.0 (no 0.1.0 or 0.2.0 was
+released to CRAN or tagged), so this section describes the whole
+package.
+
+### sportyR 2.4.5 and the CRAN submission
+
+- [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+  needs ‘sportyR’ 2.4.5 or later, which is on CRAN
+  (`install.packages("sportyR")`); `Suggests` declares the floor and
+  [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+  checks it with
+  [`rlang::check_installed()`](https://rlang.r-lib.org/reference/is_installed.html).
+  It reads a field’s parameters through
+  [`sportyR::get_surface_dimensions()`](https://sportyR.sportsdataverse.org/reference/get_surface_dimensions.html)
+  and no longer reads anything internal to ‘sportyR’.
+- Surfaces follow sportyR 2.4.5’s geometry. Feature positions and the
+  display range scale with the unit arguments, so a surface drawn in
+  meters and its center logo agree. NFL, college and NFHS football
+  fields have a white border outline (change it with
+  `color_updates = list(field_border_outline = ...)`); a team’s end
+  zones are painted inside it. The lacrosse markings (neutral zones,
+  penalty boxes, goal fans, goal mouths, face-off markers) and the
+  `nhl92` hockey goal crease are drawn correctly.
+- Andrew Weatherman is listed as a copyright holder of the included
+  ‘gtUtils’ code.
+
+### Overview
+
+Team logos, wordmarks, player headshots and team colours for ggplot2, gt
+and reactable, and for interactive plotly, ggiraph and leaflet charts,
+across the 28 leagues of the SportsDataverse team index
 ([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)),
 built on ‘ggpath’. It shares its team index, logo archive and argument
 names with the Python package sdvplot and the JavaScript packages
@@ -14,7 +42,7 @@ names with the Python package sdvplot and the JavaScript packages
 ### Teams and identifiers
 
 - [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
-  turns team identifiers from any of 19 id systems (ESPN, nflverse, MLB
+  turns team identifiers from any of 18 id systems (ESPN, nflverse, MLB
   Stats, nba_api, NHL, HockeyTech, CFBD, NCAA, PFF, Sports Reference,
   FanGraphs, names, …) into canonical team ids, using `season` for codes
   reused across eras;
@@ -161,24 +189,21 @@ names with the Python package sdvplot and the JavaScript packages
   places a logo next to a plot title.
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   draws a court, field, rink, pitch or sheet through ‘sportyR’ for 59
-  surface keys, the table sdvplot (Python) and sdvplot-js share, as a
-  ggplot to plot data on: every sport ‘sportyR’ draws (basketball,
-  football, baseball, softball, hockey, soccer, lacrosse, tennis,
-  volleyball, curling) and its leagues, from the NFL to NFHS, Little
-  League, the ATP and the WCF. Leagues without a surface of their own
-  use their sport’s (the WHL, for one, uses the NHL rink); the PWHL
-  draws its own rink. Given a team, a few features take its colours, and
-  `center_logo = TRUE` puts its logo at the center; on a baseball or
-  softball field, whose origin is home plate, it goes in shallow center
-  field instead, midway between second base and the center-field fence
-  and 0.15 x the center-field distance across (it used to warn and draw
-  no logo), as in sdvplot (Python). These are stylized surfaces built
-  from team colours, not the teams’ real floor, field or rink designs.
-  Keys that are not team leagues (`"fiba"`, `"atp"`, `"nll"`, `"epl"`,
-  …) take no `team`. `"ncaa_softball"` is both a team league and a
-  surface and needs ‘sportyR’ 2.3.0, not yet on CRAN; with an older
-  ‘sportyR’ it errors naming the version and
-  `remotes::install_github("sportsdataverse/sportyR")`.
+  surface keys (the table sdvplot-js uses; sdvplot, the Python package,
+  is moving to it), as a ggplot to plot data on: every sport ‘sportyR’
+  draws (basketball, football, baseball, softball, hockey, soccer,
+  lacrosse, tennis, volleyball, curling) and its leagues, from the NFL
+  to NFHS, Little League, the ATP and the WCF. Leagues without a surface
+  of their own use their sport’s (the WHL, for one, uses the NHL rink);
+  the PWHL draws its own rink. Given a team, a few features take its
+  colours, and `center_logo = TRUE` puts its logo at the center; on a
+  baseball or softball field, whose origin is home plate, it goes in
+  shallow center field instead, midway between second base and the
+  center-field fence and 0.15 x the center-field distance across (it
+  used to warn and draw no logo). These are stylized surfaces built from
+  team colours, not the teams’ real floor, field or rink designs. Keys
+  that are not team leagues (`"fiba"`, `"atp"`, `"nll"`, `"epl"`, …)
+  take no `team`. `"ncaa_softball"` is both a team league and a surface.
 - [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)
   converts stats.nba.com / stats.wnba.com legacy shot locations
   (`x_legacy`/`y_legacy`, or `LOC_X`/`LOC_Y` from the
@@ -243,7 +268,7 @@ names with the Python package sdvplot and the JavaScript packages
   and
   [`gt_social_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_social_crop.md),
   and the `theme_bg` background lookup. The eight gtUtils articles are
-  on the website as “gt Table Cookbooks”.
+  on the website under “Tables cookbook”.
 - Every `gt_theme_*()` keeps its own row colours on a Bootstrap page
   (pkgdown, Quarto) in either colour mode.
   [`gt_color_pills()`](https://sdvplotR.sportsdataverse.org/reference/gt_color_pills.md),
@@ -286,5 +311,11 @@ names with the Python package sdvplot and the JavaScript packages
   included, is on the pkgdown site
   (<https://sdvplotR.sportsdataverse.org/articles/>), among them
   “SportsDataverse Table Themes”, “Team Tables with the gt Toolkit” and
-  a “Visual recipes” group that rebuilds SportsDataverse web visuals as
-  static tables and plots on real data.
+  a “Recipes” group that rebuilds SportsDataverse web visuals as static
+  tables and plots on real data.
+
+## sdvplotR 0.1.0
+
+Development version number of the builds published on r-universe before
+the first CRAN release; never released to CRAN or tagged. Its changes
+are described under 0.3.0.
