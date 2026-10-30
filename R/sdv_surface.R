@@ -10,8 +10,8 @@
 #'   (paint colors, center logos, end zone art, special-event floors) exists
 #'   yet.
 #'
-#' @param league One of the 59 SportsDataverse surface keys, the table sdvplot
-#'   (Python) and sdvplot-js share. Each maps to a 'sportyR' surface:
+#' @param league One of the 59 SportsDataverse surface keys, the same table
+#'   sdvplot-js uses. Each maps to a 'sportyR' surface:
 #'
 #'   | league | surface |
 #'   |---|---|
@@ -29,7 +29,7 @@
 #'   | `"ncaa_baseball"` | `sportyR::geom_baseball("ncaa")` |
 #'   | `"little_league"` | `sportyR::geom_baseball("little league")` |
 #'   | `"nfhs_baseball"` | `sportyR::geom_baseball("nfhs")` |
-#'   | `"ncaa_softball"` | `sportyR::geom_softball("ncaa")` (needs 'sportyR' 2.3.0) |
+#'   | `"ncaa_softball"` | `sportyR::geom_softball("ncaa")` |
 #'   | `"nhl"`, `"whl"` | `sportyR::geom_hockey("nhl")` (no WHL rink in 'sportyR') |
 #'   | `"pwhl"`, `"ahl"`, `"echl"`, `"ohl"`, `"qmjhl"`, `"ushl"`, `"phf"`, `"iihf"`, `"nwhl"` | `sportyR::geom_hockey()` of the same league |
 #'   | `"ncaa_mhockey"`, `"ncaa_whockey"` | `sportyR::geom_hockey("ncaa")` |
@@ -48,12 +48,9 @@
 #'   | `"wcf"` | `sportyR::geom_curling("wcf")` |
 #'   | `"curling_canada"` | `sportyR::geom_curling("curling canada")` |
 #'
-#'   The PWHL and the G League draw their own rink and court, as in sdvplot and
-#'   sdvplot-js. `"ncaa_softball"` needs 'sportyR' 2.3.0 or later (not yet on
-#'   CRAN: `remotes::install_github("sportsdataverse/sportyR")`); with an older
-#'   'sportyR' it errors naming that version. 'sportyR' 2.2.3 draws several
-#'   lacrosse markings wrongly; the fixes are in 'sportyR' pull request 68,
-#'   not yet merged.
+#'   The PWHL and the G League draw their own rink and court, as in
+#'   sdvplot-js. Surfaces need 'sportyR' 2.4.5 or later, from CRAN
+#'   (`install.packages("sportyR")`).
 #' @param team `NULL` (the default) for the plain regulation surface, or one
 #'   team identifier, resolved by [sdv_resolve()]. Only keys that are also
 #'   team leagues of [sdv_leagues()] take one; the others (`"fiba"`, `"atp"`,
@@ -133,14 +130,7 @@ sdv_surface <- function(
       i = "Surfaces exist for {.val {names(surface_map)}}."
     ))
   }
-  rlang::check_installed("sportyR", reason = "to draw playing surfaces.")
-  need <- surface_min_sportyr[league]
-  if (!is.na(need) && utils::packageVersion("sportyR") < need) {
-    cli::cli_abort(c(
-      "{.val {league}} needs 'sportyR' {need} or later; {utils::packageVersion('sportyR')} is installed.",
-      i = "Install it with {.code remotes::install_github(\"sportsdataverse/sportyR\")}."
-    ))
-  }
+  rlang::check_installed("sportyR", version = "2.4.5", reason = "to draw playing surfaces.")
 
   geom <- surface_map[[league]][[1]]
   sporty_league <- surface_map[[league]][[2]]
@@ -180,19 +170,20 @@ sdv_surface <- function(
   p
 }
 
-# sportyR 2.2.3's regulation playing-area colors, which team colors are
+# sportyR 2.4.5's regulation playing-area colors, which team colors are
 # checked against: court wood, field grass, ice.
 surface_base <- c(
   geom_basketball = "#d2ab6f",
   geom_football = "#196f0c",
   geom_hockey = "#ffffff",
-  geom_soccer = "#196f0c",
+  geom_soccer = "#195f0c",
   geom_baseball = "#395d33",
   geom_softball = "#395d33"
 )
 
 # A diamond's logo goes in shallow center field, this fraction of the
-# center-field distance across (shared with sdvplot, Python).
+# center-field distance across (sdvplot, the Python package, is adopting the
+# same placement).
 field_logo_fraction <- 0.15
 
 # color_updates for a team. Fills keep the primary, the team's identity;
@@ -243,7 +234,10 @@ surface_logo_layer <- function(geom, sporty_league, team, league, season, args) 
     geom_baseball = "ft", geom_softball = "ft"
   )[[geom]]
   if (geom %in% c("geom_baseball", "geom_softball")) {
-    dims <- utils::modifyList(sportyr_field_params(sub("geom_", "", geom), sporty_league), as.list(args$field_updates))
+    dims <- utils::modifyList(
+      sportyR::get_surface_dimensions(sub("geom_", "", geom), sporty_league),
+      as.list(args$field_updates)
+    )
     offset <- (dims$baseline_distance * sqrt(2) + dims$center_field_distance) / 2
     size <- field_logo_fraction * dims$center_field_distance
     # the field's own unit, which field_updates may change
@@ -280,19 +274,6 @@ surface_logo_layer <- function(geom, sporty_league, team, league, season, args) 
   )
 }
 
-# A league's sportyR field parameters: sportyR's get_surface_dimensions() where
-# it exists (after 2.3.0's #68), else the internal table its geoms read
-# (CRAN 2.2.3 exports no accessor).
-sportyr_has_accessor <- function() {
-  exists("get_surface_dimensions", envir = asNamespace("sportyR"), inherits = FALSE)
-}
-sportyr_field_params <- function(sport, league) {
-  if (sportyr_has_accessor()) {
-    return(getExportedValue("sportyR", "get_surface_dimensions")(sport, league))
-  }
-  utils::getFromNamespace("surface_dimensions", "sportyR")[[sport]][[league]]
-}
-
 # ggpath sizes an image in npc of the panel; convert from surface units at
 # draw time, so zooms, display ranges and rotations keep the logo's size.
 GeomSDVsurfaceLogo <- ggplot2::ggproto(
@@ -304,8 +285,9 @@ GeomSDVsurfaceLogo <- ggplot2::ggproto(
   }
 )
 
-# league -> sportyR geom and its league: the SDV surface-key table shared with
-# sdvplot's SURFACES (Python) and sdvplot-js's src/surfaces.ts
+# league -> sportyR geom and its league: the SDV surface-key table, the same as
+# sdvplot-js's src/surfaces.ts (sdvplot's SURFACES, Python, is being brought in
+# line with it)
 surface_map <- list(
   nfl = c("geom_football", "nfl"), aaf = c("geom_football", "nfl"), ufl = c("geom_football", "nfl"),
   usfl = c("geom_football", "nfl"), xfl = c("geom_football", "nfl"), cfb = c("geom_football", "ncaa"),
@@ -335,8 +317,3 @@ surface_map <- list(
   ncaa_volleyball = c("geom_volleyball", "ncaa"),
   wcf = c("geom_curling", "wcf"), curling_canada = c("geom_curling", "curling canada")
 )
-
-# Keys whose sportyR geom is newer than CRAN's 2.2.3, checked at call time
-# (sportyR stays in Suggests with no version floor). Every other key draws
-# with 2.2.3, which has lacrosse, tennis, volleyball, curling and every league.
-surface_min_sportyr <- c(ncaa_softball = "2.3.0")

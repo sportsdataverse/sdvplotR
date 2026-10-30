@@ -555,19 +555,14 @@ for (lg in names(sports)) {
 
 ## 13. A softball field for an NCAA team
 
-`"ncaa_softball"` is both a team league and a surface. It needs sportyR
-2.3.0 or later, not yet on CRAN (`remotes::install_github("sportsdataverse/sportyR")`);
-with an older sportyR, `sdv_surface()` says so. As on a baseball field, no part
+`"ncaa_softball"` is both a team league and a surface. As on a baseball field, no part
 of the infield takes a team colour, so the team is checked and the field keeps
 sportyR's look. `center_logo = TRUE` would put the logo in shallow center
 field, as on a baseball field; here it goes in the title instead, with
 `ggtitle_image()`. Like baseball, the field's
 origin is home plate.
 
-The figure below needs sportyR 2.3.0 or later: where only CRAN's sportyR is
-installed, the chunk is not run and no figure appears.
-
-```{r softball-field, eval = utils::packageVersion("sportyR") >= "2.3.0", fig.alt = "A regulation NCAA softball field drawn by sportyR, with the UCLA Bruins logo beside the title."}
+```{r softball-field, fig.alt = "A regulation NCAA softball field drawn by sportyR, with the UCLA Bruins logo beside the title."}
 sdv_surface("ncaa_softball", "UCLA") +
   ggtitle_image(title_image = "UCLA", title = "A regulation NCAA softball field, for UCLA", image_height = 25, league = "ncaa_softball") +
   theme_title_image(size = 14, face = "bold", colour = "white") +
