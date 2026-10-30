@@ -10,14 +10,15 @@ figs <- list.files("man/figures", "[.]png$", full.names = TRUE)
 figs <- figs[!startsWith(basename(figs), "README-")]
 for (f in figs) {
   img <- magick::image_read(f)
+  info <- magick::image_info(img)
   colour_type <- as.integer(readBin(f, "raw", 26)[26]) # PNG IHDR: 0 grey, 3 palette
-  if (magick::image_info(img)$width <= 1000 && colour_type %in% c(0L, 3L)) next
-  if (magick::image_info(img)$width > 1000) img <- magick::image_resize(img, "1000x")
+  if (info$width <= 1000 && colour_type %in% c(0L, 3L)) next
+  if (info$width > 1000) img <- magick::image_resize(img, "1000x")
   tmp <- tempfile(fileext = ".png")
-  # png8 forces a palette PNG; the logo has an alpha channel, which png8 would
-  # cut to on/off, so it goes through "png" (magick still writes a palette).
+  # png8 forces a palette PNG but cuts transparency to on/off, so an image with
+  # any transparency (the logo) goes through "png" (magick still writes a palette).
   # quality 90 = zlib level 9 with no row filter, the smallest for palette PNGs.
-  fmt <- if (colour_type %in% c(4L, 6L)) "png" else "png8"
+  fmt <- if (info$matte) "png" else "png8"
   magick::image_write(magick::image_quantize(img, 256, dither = FALSE), tmp, format = fmt, quality = 90)
   if (file.size(tmp) < file.size(f)) file.copy(tmp, f, overwrite = TRUE)
 }
