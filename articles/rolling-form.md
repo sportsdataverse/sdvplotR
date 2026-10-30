@@ -35,7 +35,7 @@ url <- paste0(
 windows <- as.data.frame(nflreadr::load_from_url(url))
 stopifnot(nrow(windows) > 0)
 dim(windows)
-#> [1] 26408    20
+#> [1] 26416    20
 names(windows)
 #>  [1] "season"          "entity_type"     "entity_id"       "entity_name"    
 #>  [5] "team_id"         "metric"          "window_unit"     "window_n"       
@@ -63,15 +63,15 @@ count(windows, entity_type, metric, window_unit, window_n)
 #> 3       player          epa    dropback       50  668
 #> 4       player          epa    dropback      100  668
 #> 5       player          epa    dropback      300  668
-#> 6       player          epa      target       30 3206
-#> 7       player          epa      target       60 3206
+#> 6       player          epa      target       30 3208
+#> 7       player          epa      target       60 3208
 #> 8       player success_rate       carry       50 2158
 #> 9       player success_rate       carry      100 2158
 #> 10      player success_rate    dropback       50  668
 #> 11      player success_rate    dropback      100  668
 #> 12      player success_rate    dropback      300  668
-#> 13      player success_rate      target       30 3206
-#> 14      player success_rate      target       60 3206
+#> 13      player success_rate      target       30 3208
+#> 14      player success_rate      target       60 3208
 #> 15        team          epa        play      150  236
 #> 16        team          epa        play      300  236
 #> 17        team success_rate        play      150  236
@@ -85,7 +85,7 @@ This file is the season in progress. The date shows how current it is:
 as_of <- unique(windows$as_of_date)
 stopifnot(length(as_of) == 1)
 as_of
-#> [1] "2026-10-28"
+#> [1] "2026-10-29"
 ```
 
 ## Risers and fallers
@@ -117,14 +117,14 @@ movers <- bind_rows(
 movers
 #>      group               entity_name        prev         cur   n       pct
 #> 1   Risers    San Diego State Aztecs -0.23293605  0.17642408 150 85.964912
-#> 2   Risers  Washington State Cougars -0.28524798  0.10727357 150 78.508772
-#> 3   Risers           Navy Midshipmen -0.05607612  0.30006255 150 97.368421
+#> 2   Risers  Washington State Cougars -0.28524798  0.10727357 150 78.947368
+#> 3   Risers           Navy Midshipmen -0.05607612  0.30006255 150 97.807018
 #> 4   Risers        Delaware Blue Hens -0.06975082  0.27173343 150 94.298246
 #> 5   Risers    App State Mountaineers -0.10360019  0.21930021 150 89.473684
 #> 6  Fallers    Northern Iowa Panthers  0.27039169 -0.29584162 150  6.140351
-#> 7  Fallers      Holy Cross Crusaders  0.27948097 -0.20416812 150 16.228070
-#> 8  Fallers           Kansas Jayhawks  0.36568181 -0.09017984 150 37.280702
-#> 9  Fallers      Alabama Crimson Tide  0.35902022 -0.07098271 150 42.105263
+#> 7  Fallers      Holy Cross Crusaders  0.27948097 -0.20416812 150 16.666667
+#> 8  Fallers           Kansas Jayhawks  0.36568181 -0.09017984 150 37.719298
+#> 9  Fallers      Alabama Crimson Tide  0.35902022 -0.07098271 150 42.543860
 #> 10 Fallers Northwestern State Demons -0.13158858 -0.54315963 150  0.000000
 #>    delta_prev_rank
 #> 1                1

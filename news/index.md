@@ -26,6 +26,10 @@ package.
   zones are painted inside it. The lacrosse markings (neutral zones,
   penalty boxes, goal fans, goal mouths, face-off markers) and the
   `nhl92` hockey goal crease are drawn correctly.
+- The installed package is smaller: the bundled team-data snapshot is
+  stored xz-compressed and the help-page figures are palette PNGs at
+  most 1000 px wide. The code no longer declares global variables for R
+  CMD check.
 
 ### Overview
 
