@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-10-26:** the 2026-27 season through October 25.
+**Updated 2026-10-30:** the 2026-27 season through October 28.
 
 This page is rebuilt every week with the site. It builds the standings
 with offensive, defensive and net ratings, charts net rating with logos
@@ -112,12 +112,12 @@ head(ratings)
 #> # A tibble: 6 × 10
 #>   team      w     l   l10  ortg  drtg   pct   net name          conference
 #>   <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl> <chr>         <chr>     
-#> 1 POR       2     0     2  122.  98.0     1  23.6 Trail Blazers Western   
-#> 2 MIN       3     0     3  116.  93.8     1  22.4 Timberwolves  Western   
-#> 3 LAL       3     0     3  123. 110.      1  12.5 Lakers        Western   
-#> 4 DET       3     0     3  115. 102.      1  12.3 Pistons       Eastern   
-#> 5 MEM       3     0     3  117. 105.      1  11.1 Grizzlies     Western   
-#> 6 OKC       3     0     3  104.  93.7     1  10.1 Thunder       Western
+#> 1 POR       3     0     3  125.  107.   1   18.1  Trail Blazers Western   
+#> 2 HOU       5     0     5  120.  106.   1   13.8  Rockets       Western   
+#> 3 MEM       4     0     4  114.  105.   1    9.54 Grizzlies     Western   
+#> 4 LAL       4     1     4  120.  111.   0.8  9.36 Lakers        Western   
+#> 5 DET       4     1     4  110.  103.   0.8  6.39 Pistons       Eastern   
+#> 6 OKC       4     1     4  106.  103.   0.8  3.53 Thunder       Western
 ```
 
 ## 1. Standings with net rating
