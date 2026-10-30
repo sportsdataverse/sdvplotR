@@ -19,6 +19,9 @@ knitr::opts_chunk$set(
 )
 # the examples draw sample values at random; a fixed seed keeps the output the same between builds
 set.seed(2026)
+# the site builds this article from the team-index snapshot bundled with the
+# package, set before the first lookup so every chunk reads the same data
+options(sdvplotR.offline = TRUE)
 ```
 
 ## Introduction
@@ -209,12 +212,12 @@ ggplot(cfb_df, aes(x = x, y = y)) +
 
 `sdv_leagues()` lists all 28 leagues of the team index, from the NFL and the
 Premier League to the junior hockey leagues, NCAA softball and cricket. The
-loop below draws ten teams of each that have a logo, one row per league. It reads the team list
-from the snapshot bundled with the package (`sdvplotR.offline`), so it does not
+loop below draws ten teams of each that have a logo, one row per league. This
+article reads teams from the snapshot bundled with the package
+(`options(sdvplotR.offline = TRUE)`, set before its first lookup), so it does not
 wait on a live fetch of the index.
 
 ```{r every-league, fig.width = 8, fig.height = 12, fig.alt = "Ten team logos for each of the 28 leagues of the SportsDataverse team index, one labelled row per league, from the AAF and AHL to the XFL."}
-op <- options(sdvplotR.offline = TRUE)
 teams <- do.call(rbind, lapply(sdv_leagues(), function(lg) {
   t <- sdv_teams(lg)
   # sdv_logo_url() warns for teams with no archived logo; keep ten that have one
@@ -234,7 +237,6 @@ ggplot() +
     strip.text = element_text(face = "bold", hjust = 0),
     plot.background = element_rect(fill = "white", colour = NA)
   )
-options(op)
 ```
 
 ## Next Steps

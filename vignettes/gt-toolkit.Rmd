@@ -172,7 +172,8 @@ gt_grid(
   `gt_indicator_boxes()`, `gt_outliers()`, `gt_column_subheaders()`,
   `gt_marginalia()`, `gt_scale_note()`, `gt_set_font()` and
   `gt_wrap_labels()`; `gt_sdv_cols_label()` puts logos in the column labels.
-  `gt_theme_preview()` shows every table theme on your own data.
+  `gt_theme_preview()` shows every theme that needs only the table on your
+  own data.
 
 ## **Our Authors**
 

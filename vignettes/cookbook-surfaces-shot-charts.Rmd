@@ -557,7 +557,7 @@ All 59 keys, in the order of the table in `?sdv_surface`. Keys that share a
 'sportyR' surface (the AAF, UFL, USFL and XFL use the NFL field; the WHL the
 NHL rink) draw the same picture. No team is given, so this needs no network.
 
-```{r all-surfaces, fig.width = 4, fig.height = 2.6, fig.show = "hold", out.width = "24%", fig.alt = "All 59 SportsDataverse surface keys drawn by sportyR, each a small plain regulation surface titled with its key: football fields, basketball courts, baseball and softball fields, hockey rinks, soccer pitches, lacrosse fields, tennis and volleyball courts and curling sheets."}
+```{r surface-keys}
 keys <- c(
   "nfl", "aaf", "ufl", "usfl", "xfl", "cfb", "cfl", "nfhs_football",
   "nba", "nbagl", "wnba", "mbb", "wbb", "fiba", "nfhs_basketball",
@@ -570,9 +570,15 @@ keys <- c(
   "fivb", "usa_volleyball", "ncaa_volleyball",
   "wcf", "curling_canada"
 )
+```
+
+```{r all-surfaces, fig.width = 4, fig.height = 2.6, fig.show = "hold", out.width = "24%", fig.alt = paste0("The plain regulation surface sportyR draws for the \"", keys, "\" key, titled with the key.")}
+# the diamonds sit on dark grass, so their titles are white
+diamonds <- c("mlb", "milb", "pony", "ncaa_baseball", "little_league", "nfhs_baseball", "ncaa_softball")
 for (lg in keys) {
   p <- if (lg %in% c("wcf", "curling_canada")) sdv_surface(lg, rotation = 90) else sdv_surface(lg)
-  print(p + labs(title = lg) + theme(plot.title = element_text(size = 18, face = "bold")))
+  title_colour <- if (lg %in% diamonds) "white" else "black"
+  print(p + labs(title = lg) + theme(plot.title = element_text(size = 18, face = "bold", colour = title_colour)))
 }
 ```
 

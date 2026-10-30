@@ -3,11 +3,11 @@
 Please confirm the following before submitting your pull request:
 
 - [ ] I have read the [contributing guide](https://github.com/sportsdataverse/sdvplotR/blob/main/CONTRIBUTING.md)
-- [ ] I have created a feature/bugfix branch from `main`
+- [ ] My branch starts from `main` (`feat/...`, `fix/...`, `docs/...`)
 - [ ] I have updated the relevant documentation (roxygen2 `@description`, `@param`, `@return`, `@examples`)
 - [ ] I have added/updated tests for any new behavior (`testthat`; every test file starts with `skip_on_cran()`)
 - [ ] `devtools::document()` has been run and `man/` + `NAMESPACE` are committed
-- [ ] `devtools::test()` passes and `devtools::check(args = "--as-cran")` has no ERRORs or WARNINGs
+- [ ] `devtools::test()` passes and `devtools::check(args = "--as-cran")` has no ERRORs, WARNINGs or NOTEs (a "New submission" note aside)
 - [ ] `styler::style_file()` has been run on new `.R` files only (see CLAUDE.md, Formatting)
 - [ ] `lintr::lint_package()` reports no lints (or linting CI has passed)
 - [ ] I have added an entry to `NEWS.md` describing the change (under the top version header)
