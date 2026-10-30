@@ -467,7 +467,7 @@ team_name <- function(league, team) {
 }
 
 # A text size (in points) that keeps `text` within `width` pixels, from `size` down
-# ponytail: average glyph width is a guess (0.58 em, sans bold); measure with systemfonts if it clips
+# The average glyph width is a guess (0.58 em, sans bold); measure with systemfonts if it clips
 fit <- function(text, width, size) min(size, width / (0.58 * 100 / 72 * max(nchar(text), 1)))
 
 # A canvas whose data coordinates are its pixels, on the dark background
@@ -730,7 +730,7 @@ run_gameday <- function(args, today = Sys.Date()) {
 # Posting
 
 # Approximate grapheme count: combining marks, variation selectors and joiners do not count.
-# ponytail: overcounts emoji ZWJ sequences, so the 300 limit errs safe; use stringi's
+# It overcounts emoji ZWJ sequences, so the 300 limit errs safe; use stringi's
 # grapheme boundaries if captions carry many emoji
 NOT_GRAPHEMES <- paste0("[\\p{M}", "‍︎️", "]") # non-ASCII, so PCRE runs in UTF-8 mode
 graphemes <- function(text) nchar(gsub(NOT_GRAPHEMES, "", enc2utf8(text), perl = TRUE), type = "chars")

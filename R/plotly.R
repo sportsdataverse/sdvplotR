@@ -35,7 +35,7 @@ axis_span <- function(v) {
 # marks (what plotly's autorange fits; bars from zero). Marks placed for a
 # subset of the plotted data (a top 25 on a 360-team axis) are then sized
 # against the whole axis, not the subset.
-# ponytail: sdvplot also pins the range with room for the marks and stacks bars;
+# sdvplot also pins the range with room for the marks and stacks bars;
 # add both if marks are clipped at the edge or sized off on stacked bars.
 chart_span <- function(p, v, letter, ref) {
   # plotly_build() runs again when the chart prints: its messages show then
@@ -53,7 +53,7 @@ chart_span <- function(p, v, letter, ref) {
   axis_span(c(unlist(vals), if (bars) 0))
 }
 
-# ponytail: numeric and categorical axes; date axes abort (add when asked).
+# Handles numeric and categorical axes; date axes abort.
 add_layout_images <- function(p, x, y, urls, size, xref, yref) {
   check_not_date(x, y)
   n <- max(length(x), length(y), length(urls))

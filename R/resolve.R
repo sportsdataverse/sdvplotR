@@ -83,7 +83,7 @@ sdv_teams <- function(league = NULL, include_conferences = FALSE) {
 # A team value as a comparison key, as sdvplot's norm_value: trimmed, accents
 # and typographic punctuation folded, case-folded, integral numbers without a
 # decimal point ("13.0" -> "13"). NA for missing or empty.
-# ponytail: fold_from/fold_to cover one-to-one Latin folds (U+00C0-024F,
+# fold_from/fold_to cover one-to-one Latin folds (U+00C0-024F,
 # U+1E00-1EFF); NFKD's compatibility forms (ligatures, full-width) and
 # casefold's "ss" for sharp s are not ported. Add them if the golden file ever
 # fails on one.
@@ -331,7 +331,7 @@ sdv_suggest <- function(x, league, n = 5) {
   # a conference row's name is never a team candidate (Python's suggest() skips it too)
   a <- lk$a[lk$a$id_system != "conference", , drop = FALSE]
   keys <- unique(a$key)
-  # ponytail: only the top candidate is held to Python (golden suggest rows); later
+  # Only the top candidate is held to Python (golden suggest rows); later
   # candidates order by edit distance, not difflib's ratio, so their order may differ.
   sim <- 1 - drop(utils::adist(key, keys)) / pmax(nchar(key), nchar(keys))
   ord <- order(-sim, keys, method = "radix")

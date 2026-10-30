@@ -1,6 +1,6 @@
 # ggiraph: the image layer draws, an invisible interactive point on top takes
 # the hover, click and selection.
-# ponytail: an overlay, not an interactive image grob; ggiraph's grob internals
+# It is an overlay, not an interactive image grob; ggiraph's grob internals
 # change between versions. Upgrade if hover needs the image's exact outline.
 
 interactive_aes <- c("tooltip", "data_id", "onclick", "hover_css", "selected_css")
