@@ -66,3 +66,6 @@ for (name in names(previews)) {
     gt_save_crop(p[[1]], file.path("man/figures", paste0(name, ".png")), bg = bg, whitespace = 40)
   }
 }
+
+# shrink the previews the package ships (installed size)
+source("data-raw/shrink_figures.R")

@@ -64,3 +64,6 @@ writeLines(sprintf(paste0(
   '<image width="96" height="96" xlink:href="data:image/png;base64,%s"/></svg>'
 ), png96), "pkgdown/favicon/favicon.svg")
 cat("wrote pkgdown/favicon/*\n")
+
+# shrink man/figures/logo.png to a palette PNG (installed size)
+source("data-raw/shrink_figures.R")

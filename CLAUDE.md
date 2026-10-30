@@ -156,7 +156,10 @@ Actions) gives no such NOTE.
 
 `python data-raw/export_index.py` then `Rscript data-raw/build_index_snapshot.R`
 refresh the offline team-data snapshot;
-`Rscript data-raw/hex_logo.R` regenerates `man/figures/logo.png`.
+`Rscript data-raw/hex_logo.R` regenerates `man/figures/logo.png`. It and
+`data-raw/theme_previews.R` end by sourcing `data-raw/shrink_figures.R`, which
+stores `man/figures` as palette PNGs at most 1000 px wide to keep the installed
+size under 5 MB; run it after adding or replacing any other figure there.
 
 ## CRAN packaging notes
 

@@ -85,4 +85,5 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
+SysDataCompression: xz
 Roxygen: list(markdown = TRUE)
