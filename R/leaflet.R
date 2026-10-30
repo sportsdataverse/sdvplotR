@@ -35,7 +35,7 @@ addSdvLogoMarkers <- function(map, lng, lat, team, league, size = 32, season = N
   season <- leaflet::evalFormula(season, data)
   n <- length(team)
   dots <- lapply(list(...), leaflet::evalFormula, data = data)
-  # ponytail: only atomic vectors one per row (label, popup, layerId, ...) are split with the rows; lists
+  # Only atomic vectors with one value per row (label, popup, layerId, ...) are split with the rows; lists
   # (options, popupOptions, labelOptions, icons) pass whole, since markerOptions() is a 9-element list
   # that would otherwise be cut on a 9-row map. A scalar-per-row list column would need splitting by hand.
   rows <- function(idx) lapply(dots, function(a) if (is.atomic(a) && length(a) == n && n > 1) a[idx] else a)

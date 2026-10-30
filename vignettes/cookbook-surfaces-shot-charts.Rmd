@@ -28,8 +28,9 @@ Thirteen recipes for playing surfaces and the charts drawn on them:
 NBA and WNBA shot charts from the stats-API shot files (moved onto the court
 with `sdv_court_coords()`), a vertical half court, a college shot chart from
 ESPN's locations, a hockey goal map, a baseball field, a football drive
-chart, Euroleague shots on the FIBA court, then the rest of the 59 surfaces: lacrosse,
-tennis, volleyball, curling, more football, baseball, hockey and soccer leagues
+chart, Euroleague shots on the FIBA court, then the other surfaces (lacrosse,
+tennis, volleyball, curling and more football, baseball, hockey and soccer
+leagues, with all 59 in one grid)
 and an NCAA softball field. The surfaces are drawn by [sportyR](https://sportyR.sportsdataverse.org).
 The data is one season each from the NFL (nflreadr), the NBA, WNBA and
 college basketball (hoopR and wehoop), the NHL (fastRhockey) and MLB
@@ -516,8 +517,7 @@ sdv_surface("fiba", display_range = "defense") +
 
 ## 12. Every other sport and league sportyR draws
 
-`sdv_surface()` takes 59 surface keys, the table sdvplot (Python) and
-sdvplot-js share: beyond the leagues above, the CFL and NFHS fields, the
+`sdv_surface()` takes 59 surface keys, the same table sdvplot-js uses: beyond the leagues above, the CFL and NFHS fields, the
 NFHS court, Little League, PONY and NFHS baseball, the IIHF, NWHL and the
 PWHL's own rink, the EPL, MLS, NWSL, FIFA and NCAA pitches, and four sports
 of their own: lacrosse, tennis, volleyball and curling. Only the keys that are
@@ -553,21 +553,45 @@ for (lg in names(sports)) {
 }
 ```
 
+All 59 keys, in the order of the table in `?sdv_surface`. Keys that share a
+'sportyR' surface (the AAF, UFL, USFL and XFL use the NFL field; the WHL the
+NHL rink) draw the same picture. No team is given, so this needs no network.
+
+```{r surface-keys}
+keys <- c(
+  "nfl", "aaf", "ufl", "usfl", "xfl", "cfb", "cfl", "nfhs_football",
+  "nba", "nbagl", "wnba", "mbb", "wbb", "fiba", "nfhs_basketball",
+  "mlb", "milb", "pony", "ncaa_baseball", "little_league", "nfhs_baseball", "ncaa_softball",
+  "nhl", "whl", "pwhl", "ahl", "echl", "ohl", "qmjhl", "ushl", "phf", "iihf", "nwhl",
+  "ncaa_mhockey", "ncaa_whockey",
+  "soccer", "fifa", "epl", "mls", "nwsl", "ncaa_soccer",
+  "nll", "pll", "world_lacrosse", "ncaa_mlacrosse", "ncaa_wlacrosse", "usa_mlacrosse", "usa_wlacrosse",
+  "atp", "wta", "itf", "ita", "usta", "ncaa_tennis",
+  "fivb", "usa_volleyball", "ncaa_volleyball",
+  "wcf", "curling_canada"
+)
+```
+
+```{r all-surfaces, fig.width = 4, fig.height = 2.6, fig.show = "hold", out.width = "24%", fig.alt = paste0("The plain regulation surface sportyR draws for the \"", keys, "\" key, titled with the key.")}
+# the diamonds sit on dark grass, so their titles are white
+diamonds <- c("mlb", "milb", "pony", "ncaa_baseball", "little_league", "nfhs_baseball", "ncaa_softball")
+for (lg in keys) {
+  p <- if (lg %in% c("wcf", "curling_canada")) sdv_surface(lg, rotation = 90) else sdv_surface(lg)
+  title_colour <- if (lg %in% diamonds) "white" else "black"
+  print(p + labs(title = lg) + theme(plot.title = element_text(size = 18, face = "bold", colour = title_colour)))
+}
+```
+
 ## 13. A softball field for an NCAA team
 
-`"ncaa_softball"` is both a team league and a surface. It needs sportyR
-2.3.0 or later, not yet on CRAN (`remotes::install_github("sportsdataverse/sportyR")`);
-with an older sportyR, `sdv_surface()` says so. As on a baseball field, no part
+`"ncaa_softball"` is both a team league and a surface. As on a baseball field, no part
 of the infield takes a team colour, so the team is checked and the field keeps
 sportyR's look. `center_logo = TRUE` would put the logo in shallow center
 field, as on a baseball field; here it goes in the title instead, with
 `ggtitle_image()`. Like baseball, the field's
 origin is home plate.
 
-The figure below needs sportyR 2.3.0 or later: where only CRAN's sportyR is
-installed, the chunk is not run and no figure appears.
-
-```{r softball-field, eval = utils::packageVersion("sportyR") >= "2.3.0", fig.alt = "A regulation NCAA softball field drawn by sportyR, with the UCLA Bruins logo beside the title."}
+```{r softball-field, fig.alt = "A regulation NCAA softball field drawn by sportyR, with the UCLA Bruins logo beside the title."}
 sdv_surface("ncaa_softball", "UCLA") +
   ggtitle_image(title_image = "UCLA", title = "A regulation NCAA softball field, for UCLA", image_height = 25, league = "ncaa_softball") +
   theme_title_image(size = 14, face = "bold", colour = "white") +

@@ -19,7 +19,10 @@ gt_theme_preview(
 underlying data is used.}
 
 \item{themes}{Character. The theme functions to show, by name. If \code{NULL},
-every \verb{gt_theme_*} in the package is used. Defaults to \code{NULL}.}
+every \verb{gt_theme_*} in the package that needs nothing but the table is
+used, which leaves out \code{\link[=gt_theme_source]{gt_theme_source()}} (it needs a registry \code{name})
+and \code{\link[=gt_theme_sdv_team]{gt_theme_sdv_team()}} (its \code{league} argument has no default). Defaults
+to \code{NULL}.}
 
 \item{n}{Integer. How many rows of \code{data} to show in each panel. Defaults to
 \code{5}.}

@@ -7,8 +7,8 @@
 sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
 }
 \arguments{
-\item{league}{One of the 59 SportsDataverse surface keys, the table sdvplot
-(Python) and sdvplot-js share. Each maps to a 'sportyR' surface:\tabular{ll}{
+\item{league}{One of the 59 SportsDataverse surface keys, the same table
+sdvplot-js uses. Each maps to a 'sportyR' surface:\tabular{ll}{
    league \tab surface \cr
    \code{"nfl"}, \code{"aaf"}, \code{"ufl"}, \code{"usfl"}, \code{"xfl"} \tab \code{sportyR::geom_football("nfl")} \cr
    \code{"cfb"} \tab \code{sportyR::geom_football("ncaa")} \cr
@@ -24,7 +24,7 @@ sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
    \code{"ncaa_baseball"} \tab \code{sportyR::geom_baseball("ncaa")} \cr
    \code{"little_league"} \tab \code{sportyR::geom_baseball("little league")} \cr
    \code{"nfhs_baseball"} \tab \code{sportyR::geom_baseball("nfhs")} \cr
-   \code{"ncaa_softball"} \tab \code{sportyR::geom_softball("ncaa")} (needs 'sportyR' 2.3.0) \cr
+   \code{"ncaa_softball"} \tab \code{sportyR::geom_softball("ncaa")} \cr
    \code{"nhl"}, \code{"whl"} \tab \code{sportyR::geom_hockey("nhl")} (no WHL rink in 'sportyR') \cr
    \code{"pwhl"}, \code{"ahl"}, \code{"echl"}, \code{"ohl"}, \code{"qmjhl"}, \code{"ushl"}, \code{"phf"}, \code{"iihf"}, \code{"nwhl"} \tab \code{sportyR::geom_hockey()} of the same league \cr
    \code{"ncaa_mhockey"}, \code{"ncaa_whockey"} \tab \code{sportyR::geom_hockey("ncaa")} \cr
@@ -45,12 +45,9 @@ sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
 }
 
 
-The PWHL and the G League draw their own rink and court, as in sdvplot and
-sdvplot-js. \code{"ncaa_softball"} needs 'sportyR' 2.3.0 or later (not yet on
-CRAN: \code{remotes::install_github("sportsdataverse/sportyR")}); with an older
-'sportyR' it errors naming that version. 'sportyR' 2.2.3 draws several
-lacrosse markings wrongly; the fixes are in 'sportyR' pull request 68,
-not yet merged.}
+The PWHL and the G League draw their own rink and court, as in
+sdvplot-js. Surfaces need 'sportyR' 2.4.5 or later, from CRAN
+(\code{install.packages("sportyR")}).}
 
 \item{team}{\code{NULL} (the default) for the plain regulation surface, or one
 team identifier, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}. Only keys that are also

@@ -150,7 +150,7 @@ gt_theme_kenpom <- function(gt_object,
       locations = gt::cells_body(rows = 1:(nrow(data) - 1)),
       style = gt::cell_borders(sides = "bottom", color = "#000000", weight = px(1))
     ) |>
-    # uh this is kinda hacky but it works
+    # a spanner over every column, hidden by the CSS below, gives the labels a top border row
     tab_spanner(columns = everything(), "toss_out_spanner_dev") |>
     gt::tab_options(
       data_row.padding = 2,

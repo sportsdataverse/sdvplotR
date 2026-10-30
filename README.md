@@ -38,8 +38,8 @@ interactive [**`plotly`**](https://plotly-r.com/),
 [**`ggiraph`**](https://davidgohel.github.io/ggiraph/) and
 [**`leaflet`**](https://rstudio.github.io/leaflet/) charts and maps,
 with playing surfaces (59 of them: every court, field, rink and sheet,
-lacrosse, tennis, volleyball and curling included; the team leagues'
-surfaces take a team's colors) from
+lacrosse, tennis, volleyball and curling included; the team leagues’
+surfaces take a team’s colors) from
 [**`sportyR`**](https://sportyR.sportsdataverse.org/). It is built on
 [**`ggpath`**](https://mrcaseb.github.io/ggpath/) and unifies the
 approach established by [nflplotR](https://nflplotr.nflverse.com/),
@@ -48,7 +48,7 @@ approach established by [nflplotR](https://nflplotr.nflverse.com/),
 [mlbplotR](https://camdenk.github.io/mlbplotR/) behind one `league`
 argument.
 
-<img src="man/figures/README-home.png" alt="Every NFL team's 2023 regular season drawn as its logo, placed by points scored and allowed per game." width="100%" />
+<img src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/README-home.png" alt="Every NFL team's 2023 regular season drawn as its logo, placed by points scored and allowed per game." width="100%" />
 
 Part of the [SportsDataverse](https://sportsdataverse.org/) family of R
 packages for sports analytics.
@@ -113,14 +113,15 @@ npm install @sportsdataverse/sdvplot @sportsdataverse/sdvtables @sportsdataverse
 
 ## **Usage**
 
-Every function takes a `league` argument (`"nfl"`, `"nba"`, `"wnba"`,
-`"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"` and the rest of
-`sdv_leagues()`). Team identifiers are resolved automatically: full
-names, abbreviations from other data providers (ESPN, nflverse, MLB
-Stats, nba\_api, NHL, CFBD, NCAA and more) and the codes of relocated
-franchises all resolve to the same team. `sdv_resolve()` shows the id a
-value resolves to, `sdv_suggest()` proposes candidates for a typo, and
-`season` selects the era for codes that were reused.
+Every team-aware function takes a `league` argument (`"nfl"`, `"nba"`,
+`"wnba"`, `"mlb"`, `"nhl"`, `"cfb"`, `"mbb"`, `"wbb"`, `"soccer"` and
+the rest of `sdv_leagues()`). Team identifiers are resolved
+automatically: full names, abbreviations from other data providers
+(ESPN, nflverse, MLB Stats, nba\_api, NHL, CFBD, NCAA and more) and the
+codes of relocated franchises all resolve to the same team.
+`sdv_resolve()` shows the id a value resolves to, `sdv_suggest()`
+proposes candidates for a typo, and `season` selects the era for codes
+that were reused.
 
 ``` r
 library(sdvplotR)
@@ -216,14 +217,15 @@ notation, outlier flags, faceted grids and `gt_save_crop()` /
 `gt_social_crop()` for publishing.
 
 Dark-mode logo variants are available through `variant = "dark"` in the
-table helpers, and `sdv_teams()` exposes the full reference data (ESPN
-ids, colors, conference) for every team.
+reactable helpers (`reactable_sdv_logos(variant = "dark")`) and
+`sdv_logo_url()`, and `sdv_teams()` exposes the full reference data
+(ESPN ids, colors, conference) for every team.
 
 ## **Documentation**
 
 The [**`sdvplotR`** documentation
 website](https://sdvplotR.sportsdataverse.org/) has the full function
-reference and these articles:
+reference and every article; a selection:
 
 🖼️ [**Browse the
 gallery**](https://sdvplotR.sportsdataverse.org/articles/gallery.html):
@@ -237,7 +239,8 @@ every article by its picture, each linking to the article that draws it.
 [MLB](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.html) ·
 [NHL](https://sdvplotR.sportsdataverse.org/articles/nhl-viz.html) ·
 [MBB](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.html) ·
-[WBB](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html)
+[WBB](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html) ·
+[Soccer](https://sdvplotR.sportsdataverse.org/articles/soccer-viz.html)
 
 **Cookbooks:** [Getting
 Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.html)
@@ -269,6 +272,52 @@ Map](https://sdvplotR.sportsdataverse.org/articles/recipe-nhl-shot-map-interacti
 Differential](https://sdvplotR.sportsdataverse.org/articles/recipe-mlb-run-differential-interactive.html)
 · [CFB Stadium
 Map](https://sdvplotR.sportsdataverse.org/articles/recipe-cfb-stadium-map.html)
+· [Team Maps with
+leaflet](https://sdvplotR.sportsdataverse.org/articles/cookbook-leaflet-maps.html)
+
+**Tables cookbook:** [SportsDataverse Table
+Themes](https://sdvplotR.sportsdataverse.org/articles/sdv-table-themes.html)
+· [Table Theme
+Registry](https://sdvplotR.sportsdataverse.org/articles/articles/table-themes.html)
+· [Team Tables with the gt
+Toolkit](https://sdvplotR.sportsdataverse.org/articles/gt-toolkit.html)
+· [reactable and
+reactablefmtr](https://sdvplotR.sportsdataverse.org/articles/cookbook-reactable.html)
+· [Saving and Posting
+Tables](https://sdvplotR.sportsdataverse.org/articles/saving_tables.html)
+· [Tier
+Lists](https://sdvplotR.sportsdataverse.org/articles/tier_list.html) and
+six more gtUtils recipes
+
+**Recipes:** [NFL EPA
+Scatter](https://sdvplotR.sportsdataverse.org/articles/recipe-nfl-epa-scatter.html)
+· [Head-to-Head
+Card](https://sdvplotR.sportsdataverse.org/articles/recipe-head-to-head-card.html)
+· [Rank Bump
+Chart](https://sdvplotR.sportsdataverse.org/articles/recipe-rank-bump-chart.html)
+· [Rolling
+Form](https://sdvplotR.sportsdataverse.org/articles/rolling-form.html)
+and eleven more
+
+**Leaderboards:**
+[NFL](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nfl-weekly.html)
+·
+[CFB](https://sdvplotR.sportsdataverse.org/articles/leaderboard-cfb-weekly.html)
+·
+[NBA](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nba.html)
+·
+[WNBA](https://sdvplotR.sportsdataverse.org/articles/leaderboard-wnba.html)
+·
+[MLB](https://sdvplotR.sportsdataverse.org/articles/leaderboard-mlb.html)
+·
+[NHL](https://sdvplotR.sportsdataverse.org/articles/leaderboard-nhl.html)
+
+**Automation:** [Social Graphics,
+Automated](https://sdvplotR.sportsdataverse.org/articles/automation-social.html)
+
+The [articles
+index](https://sdvplotR.sportsdataverse.org/articles/index.html) lists
+all of them.
 
 ## **Cheat sheet**
 
@@ -314,12 +363,10 @@ Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-th
 [![GitHub
 stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=eee&logo=github&style=for-the-badge&label=Star%20sdvplotR&maxAge=2592000)](https://github.com/sportsdataverse/sdvplotR)
 
-<a href="https://github.com/sportsdataverse/sdvplotR/stargazers">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/star-history/star-history-dark.svg">
-    <img alt="Star history of sportsdataverse/sdvplotR" src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/star-history/star-history.png" width="600">
-  </picture>
-</a>
+<a href="https://github.com/sportsdataverse/sdvplotR"> <picture>
+<source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/star-history/star-history-dark.svg">
+<img alt="Star history of sportsdataverse/sdvplotR" src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/star-history/star-history.png" width="600">
+</picture> </a>
 
 ## **Our Authors**
 

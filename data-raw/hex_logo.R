@@ -38,11 +38,13 @@ p <- ggplot() + base_sky() +
 
 dir.create("man/figures", showWarnings = FALSE, recursive = TRUE)
 big <- save_hex(p, tempdir(), "sdvplotR-logo")
-file.copy(big, "man/figures/logo.png", overwrite = TRUE)
-cat("wrote man/figures/logo.png (1036 x 1200) with", paste(logo_teams, collapse = " "), "\n")
+# 480 px wide is twice the largest size the README and site show it at; the
+# full 1036 x 1200 render would add a megabyte to the installed package
+magick::image_write(magick::image_resize(magick::image_read(big), "480x"), "man/figures/logo.png", format = "png")
+cat("wrote man/figures/logo.png (480 x 556) with", paste(logo_teams, collapse = " "), "\n")
 
 # favicons for pkgdown (pkgdown::build_favicons() needs an external API)
-logo <- magick::image_trim(magick::image_read("man/figures/logo.png"))
+logo <- magick::image_trim(magick::image_read(big))
 dir.create("pkgdown/favicon", showWarnings = FALSE, recursive = TRUE)
 square <- function(px) {
   magick::image_extent(magick::image_scale(logo, sprintf("%dx%d", px, px)), sprintf("%dx%d", px, px), color = "none")
@@ -55,4 +57,10 @@ magick::image_write(square(16), "pkgdown/favicon/favicon-16x16.png")
 magick::image_write(square(32), "pkgdown/favicon/favicon-32x32.png")
 magick::image_write(square(96), "pkgdown/favicon/favicon-96x96.png")
 magick::image_write(c(square(16), square(32), square(48)), "pkgdown/favicon/favicon.ico", format = "ico")
+# pkgdown's template also links favicon.svg: an SVG wrapping the 96 px PNG
+png96 <- base64enc::base64encode("pkgdown/favicon/favicon-96x96.png")
+writeLines(sprintf(paste0(
+  '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" viewBox="0 0 96 96">',
+  '<image width="96" height="96" xlink:href="data:image/png;base64,%s"/></svg>'
+), png96), "pkgdown/favicon/favicon.svg")
 cat("wrote pkgdown/favicon/*\n")

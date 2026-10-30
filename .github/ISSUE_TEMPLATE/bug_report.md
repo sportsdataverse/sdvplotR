@@ -39,6 +39,9 @@ sessionInfo()
 - [ ] CFB
 - [ ] MBB
 - [ ] WBB
+- [ ] Soccer
+- [ ] Other league of `sdv_leagues()` (key: ___)
+- [ ] Playing surface (`sdv_surface()`, key: ___)
 - [ ] N/A (cross-sport / utility)
 
 **Which function(s)?**

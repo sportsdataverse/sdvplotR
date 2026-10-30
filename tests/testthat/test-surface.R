@@ -183,7 +183,7 @@ test_that("fiba draws sportyR's FIBA court", {
 test_that("surfaces without team identities refuse a team", {
   skip_if_not_installed("sportyR")
   expect_error(sdv_surface("fiba", "ESP"), "No team identities")
-  # every key that is not an sdv team league, as in sdvplot (Python) and sdvplot-js
+  # every key that is not an sdv team league, as in sdvplot-js
   teamless <- setdiff(names(surface_map), sdv_leagues())
   expect_true(all(c("fiba", "atp", "nll", "wcf", "epl", "cfl", "nfhs_football") %in% teamless))
   for (lg in teamless) {
@@ -191,7 +191,7 @@ test_that("surfaces without team identities refuse a team", {
   }
 })
 
-# the SDV surface-key table, identical to sdvplot's SURFACES (Python) and sdvplot-js's src/surfaces.ts
+# the SDV surface-key table, identical to sdvplot-js's src/surfaces.ts (sdvplot, Python, is moving to it)
 shared_surfaces <- list(
   nfl = c("geom_football", "nfl"), aaf = c("geom_football", "nfl"), ufl = c("geom_football", "nfl"),
   usfl = c("geom_football", "nfl"), xfl = c("geom_football", "nfl"), cfb = c("geom_football", "ncaa"),
@@ -221,22 +221,14 @@ shared_surfaces <- list(
   wcf = c("geom_curling", "wcf"), curling_canada = c("geom_curling", "curling canada")
 )
 
-# TRUE when the installed sportyR draws the key (its geom is not newer than it)
-sportyr_has <- function(league) {
-  need <- surface_min_sportyr[league]
-  is.na(need) || utils::packageVersion("sportyR") >= need
-}
-
 test_that("surface_map carries the 59 shared keys with the shared sport and league", {
   expect_length(surface_map, 59L)
   expect_identical(surface_map[order(names(surface_map))], shared_surfaces[order(names(shared_surfaces))])
-  expect_identical(names(surface_min_sportyr), "ncaa_softball")
 })
 
 test_that("every key draws its sportyR surface, unchanged", {
   skip_if_not_installed("sportyR")
   for (lg in setdiff(names(surface_map), "soccer")) {
-    if (!sportyr_has(lg)) next
     m <- surface_map[[lg]]
     expected <- getExportedValue("sportyR", m[[1]])(m[[2]])
     p <- sdv_surface(lg)
@@ -253,7 +245,6 @@ test_that("pwhl draws the PWHL's own rink, not the NHL's", {
 
 test_that("ncaa_softball is a team league and a surface: the field draws and the team resolves", {
   skip_if_not_installed("sportyR")
-  skip_if_not(sportyr_has("ncaa_softball"), "needs sportyR 2.3.0")
   plain <- sportyR::geom_softball("ncaa")
   p <- sdv_surface("ncaa_softball", "UCLA")
   # an infield has nothing team-colored: the field stays sportyR's
@@ -272,28 +263,25 @@ test_that("ncaa_softball is a team league and a surface: the field draws and the
   )
 })
 
-test_that("a key newer than the installed sportyR errors naming the version, not inside sportyR", {
+test_that("an installed sportyR older than 2.4.5 errors through check_installed(), before sportyR runs", {
   skip_if_not_installed("sportyR")
-  local_mocked_bindings(packageVersion = function(pkg, ...) package_version("2.2.3"), .package = "utils")
-  expect_error(
-    sdv_surface("ncaa_softball"),
-    "sportyR.*2\\.3\\.0.*remotes::install_github\\(\"sportsdataverse/sportyR\"\\)"
-  )
-  expect_error(sdv_surface("ncaa_softball", "UCLA"), "2\\.3\\.0")
-  # keys sportyR 2.2.3 has are not gated
-  expect_s3_class(sdv_surface("nll"), "ggplot")
+  # rlang's own hook for what is installed: a sportyR that meets no version floor
+  withr::local_options(list(`rlang:::is_installed_hook` = function(pkg, ver, cmp) {
+    !(pkg == "sportyR" & !is.na(ver))
+  }))
+  expect_error(sdv_surface("nba"), "sportyR.*2\\.4\\.5")
+  expect_error(sdv_surface("ncaa_softball", "UCLA"), "2\\.4\\.5")
 })
 
-test_that("with an installed sportyR older than 2.3.0, softball errors clearly", {
+test_that("an older sportyR still loaded after an update asks for a restart", {
   skip_if_not_installed("sportyR")
-  skip_if(utils::packageVersion("sportyR") >= "2.3.0", "sportyR has geom_softball()")
-  expect_error(sdv_surface("ncaa_softball"), "needs 'sportyR' 2\\.3\\.0")
+  local_mocked_bindings(getNamespaceVersion = function(ns) c(version = "2.2.3"), .package = "base")
+  expect_error(sdv_surface("nba"), "'sportyR' 2\\.2\\.3 is loaded; restart R")
 })
 
 test_that("every league with a surface draws one; others error with the list", {
   skip_if_not_installed("sportyR")
   for (lg in names(surface_map)) {
-    if (!sportyr_has(lg)) next
     expect_s3_class(sdv_surface(lg), "ggplot")
   }
   expect_error(sdv_surface("cricket"), "fiba")
@@ -336,35 +324,13 @@ test_that("on a baseball or softball field the logo sits in shallow center field
   expect_equal(l$data$y, (90 * sqrt(2) + 400) / 2, tolerance = 1e-6)
   expect_equal(l$geom_params$logo_size, 0.15 * 400, tolerance = 1e-6)
 
-  skip_if_not(sportyr_has("ncaa_softball"), "needs sportyR 2.3.0")
   l <- logo_layer(sdv_surface("ncaa_softball", "UCLA", center_logo = TRUE))
   expect_equal(c(l$data$x, l$data$y), c(0, (60 * sqrt(2) + 220) / 2), tolerance = 1e-9)
   expect_equal(l$geom_params$logo_size, 0.15 * 220, tolerance = 1e-9)
 })
 
-test_that("diamond field parameters come from sportyR's accessor, or its table on older sportyR", {
+test_that("the diamond logo reads its field parameters from sportyR::get_surface_dimensions()", {
   skip_if_not_installed("sportyR")
-  diamonds <- c("mlb", "milb", "ncaa_baseball", "little_league", "pony", "nfhs_baseball", "ncaa_softball")
-  diamonds <- Filter(sportyr_has, diamonds)
-  table <- utils::getFromNamespace("surface_dimensions", "sportyR")
-  for (k in diamonds) {
-    m <- surface_map[[k]]
-    sport <- sub("geom_", "", m[[1]])
-    expect_identical(sportyr_field_params(sport, m[[2]]), table[[sport]][[m[[2]]]], info = k)
-  }
-
-  # the fallback reads the same table when the accessor is absent (CRAN 2.2.3)
-  local_mocked_bindings(sportyr_has_accessor = function() FALSE)
-  for (k in diamonds) {
-    m <- surface_map[[k]]
-    sport <- sub("geom_", "", m[[1]])
-    expect_identical(sportyr_field_params(sport, m[[2]]), table[[sport]][[m[[2]]]], info = k)
-  }
-})
-
-test_that("with sportyR's accessor, the logo reads its field parameters", {
-  skip_if_not_installed("sportyR")
-  skip_if_not(sportyr_has_accessor(), "sportyR without get_surface_dimensions()")
   local_mocked_bindings(
     get_surface_dimensions = function(sport, league = NULL) list(baseline_distance = 100, center_field_distance = 500),
     .package = "sportyR"

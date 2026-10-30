@@ -6,7 +6,7 @@ labels: data
 assignees: ''
 ---
 
-**Which sport?**
+**Which league?**
 - [ ] NFL
 - [ ] NBA
 - [ ] WNBA
@@ -15,6 +15,8 @@ assignees: ''
 - [ ] CFB
 - [ ] MBB
 - [ ] WBB
+- [ ] Soccer
+- [ ] Other league of `sdv_leagues()` (key: ___)
 
 **Team(s) affected**
 e.g., `KC` (NFL), `OSU` (CFB), `LAL` (NBA)
@@ -31,7 +33,8 @@ e.g., `KC` (NFL), `OSU` (CFB), `LAL` (NBA)
 **Current value(s)**
 ```
 # paste current output, e.g.:
-valid_team_names("nfl")
+sdv_teams("nfl")
+sdv_resolve("OAK", "nfl")
 sdv_team_colors("nfl", "KC")
 ```
 

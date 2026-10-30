@@ -88,3 +88,13 @@ test_that("sdv_axis_logos keeps numeric axis values numeric", {
   img <- plotly::plotly_build(sdv_axis_logos(p, c(12, 2), "nfl"))$x$layout$images
   expect_identical(img[[1]]$x, 12)
 })
+
+test_that("add_sdv_wordmarks places the teams' wordmarks", {
+  p <- add_sdv_wordmarks(base_plot(), x = 1:2, y = c(3, 5), team = c("KC", "BUF"), league = "nfl")
+  img <- built_images(p)
+  expect_length(img, 2L)
+  expect_identical(
+    vapply(img, `[[`, "", "source"),
+    unname(sdv_logo_url(c("KC", "BUF"), "nfl", mark_type = "wordmark"))
+  )
+})

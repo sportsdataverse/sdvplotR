@@ -194,8 +194,9 @@ ggplot(nhl_scoring, aes(x = factor(team, levels = team), y = gpg)) +
 ```
 
 Or keep the plain scale and set the axis text to an image element:
-`element_sdv_logo()`, or `element_sdv_wordmark()` for the NFL, the only league
-with wordmarks, on `axis.text.y` (or `axis.text.x`), after the complete theme.
+`element_sdv_logo()`, or `element_sdv_wordmark()` for a league with wordmarks
+in the logo archive (the NFL, MLB and MiLB), on `axis.text.y` (or
+`axis.text.x`), after the complete theme.
 `size` is in centimetres along the image's longer side, so a wide wordmark
 needs a bigger value than a square logo.
 
@@ -219,6 +220,14 @@ ggplot(nfl_sacks, aes(x = sacks, y = factor(team, levels = rev(team)))) +
 
 `scale_y_sdv()` with `theme_y_sdv()` does the same for a y axis; image
 labels follow the factor levels, so set the order before the scale sees it.
+
+Wordmarks go everywhere logos go: `geom_sdv_wordmarks()` draws them as a
+layer like `geom_sdv_logos()`, `gt_sdv_wordmarks()` and
+`reactable_sdv_wordmarks()` put them in table cells, and
+`add_sdv_wordmarks()` (plotly) and `geom_sdv_wordmarks_interactive()`
+(ggiraph) put them in interactive charts. Player headshots have the same set:
+`element_sdv_headshot()`, `scale_x_sdv_headshots()`, `add_sdv_headshots()`
+and the rest.
 
 ## 4. Label each line's last point with a logo
 

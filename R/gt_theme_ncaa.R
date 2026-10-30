@@ -132,7 +132,7 @@ gt_theme_ncaa <- function(gt_object,
         size = px(12)
       )
     ) |>
-    # uh this is kinda hacky but it works
+    # a spanner over every column, hidden by the CSS below, gives the labels a top border row
     tab_spanner(columns = everything(), "toss_out_spanner_dev") |>
     gt::tab_options(
       data_row.padding = 2,
