@@ -59,13 +59,39 @@ jobs:
           # workflows.Rmd merges live spreads from The Odds API (oddsapiR) when this is set
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
 
+      # pkgdown renders every .md at the top level and in .github/ as a page;
+      # the contributor and agent notes are not for the site or the sitemap
+      - name: Drop contributor and agent notes from the site
+        run: |
+          rm -f docs/CLAUDE.html docs/copilot-instructions.html docs/PULL_REQUEST_TEMPLATE.html
+          if [ -f docs/sitemap.xml ]; then
+            perl -0pi -e 's{\s*<url>\s*<loc>[^<]*/(?:CLAUDE|copilot-instructions|PULL_REQUEST_TEMPLATE)\.html</loc>\s*</url>}{}g' docs/sitemap.xml
+          fi
+          ! grep -E 'CLAUDE|copilot-instructions|PULL_REQUEST_TEMPLATE' docs/sitemap.xml
+
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
         with:
           clean: false
           branch: gh-pages
           folder: docs
+
+      # clean: false keeps files the build no longer makes, so pages deleted
+      # above stay on gh-pages from earlier deploys until removed here
+      - name: Remove stale note pages from gh-pages
+        if: github.event_name != 'pull_request'
+        run: |
+          git fetch --depth=1 origin gh-pages
+          git worktree add --detach "$RUNNER_TEMP/gh-pages" FETCH_HEAD
+          cd "$RUNNER_TEMP/gh-pages"
+          stale=$(ls CLAUDE.html copilot-instructions.html PULL_REQUEST_TEMPLATE.html 2>/dev/null || true)
+          if [ -z "$stale" ]; then exit 0; fi
+          git rm -q $stale
+          git -c user.name="github-actions[bot]" \
+            -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -qm "Remove the contributor and agent notes from the site"
+          git push origin HEAD:gh-pages
 
       # After the deploy, so a dead card never blocks a content deploy; the run still turns red.
       # A renamed chunk leaves the gallery card pointing at a figure that is no longer built.
