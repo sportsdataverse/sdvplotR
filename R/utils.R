@@ -118,7 +118,8 @@ espn_headshot_url <- function(espn_id, league) {
 # gets the CDN's silhouette, not a 404. cdn.nba.com and cdn.wnba.com answer 403
 # to datacenter IPs. HockeyTech's leaguestat CDN answers 404 for an unknown id
 # (the roster feed's "nophoto" placeholder is the feed's, not the CDN's), as
-# ESPN does, so those draw nothing, like any missing image.
+# ESPN does: the ggplot geoms skip those with a warning, and the gt / reactable
+# / ggtext helpers show a broken image, as for any missing image.
 hockeytech_headshot_url <- function(client) {
   paste0("https://assets.leaguestat.com/", client, "/240x240/%s.jpg")
 }
@@ -206,7 +207,8 @@ headshot_from_id <- function(player_id, league, id_system = "espn") {
 #' @return A character vector the length of `player_id`: the URL, or `NA` for
 #'   a missing or malformed id or (gsis) one not in the map. The URL is built
 #'   from the id alone, so an id the CDN has no photo for still gets one: ESPN
-#'   and HockeyTech answer it with a 404 and the helpers draw nothing there;
+#'   and HockeyTech answer it with a 404, which the ggplot geoms skip with a
+#'   warning and the gt, reactable and ggtext helpers show as a broken image;
 #'   the NBA, WNBA, MLB and NHL CDNs serve a silhouette.
 #' @details
 #' Headshots by league and `id_system`:

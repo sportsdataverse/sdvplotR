@@ -22,7 +22,8 @@ take which.}
 A character vector the length of \code{player_id}: the URL, or \code{NA} for
 a missing or malformed id or (gsis) one not in the map. The URL is built
 from the id alone, so an id the CDN has no photo for still gets one: ESPN
-and HockeyTech answer it with a 404 and the helpers draw nothing there;
+and HockeyTech answer it with a 404, which the ggplot geoms skip with a
+warning and the gt, reactable and ggtext helpers show as a broken image;
 the NBA, WNBA, MLB and NHL CDNs serve a silhouette.
 }
 \description{
