@@ -40,8 +40,9 @@ without that profile do not report it.
   SportsDataverse logo archive and the league CDNs through 'ggpath' and
   cached for the session. The images in `man/figures` are the package logo
   and the table-theme previews used in the help pages. The previews show no
-  team logos or headshots; the package logo's bar chart labels its eight bars
-  with small team marks. Examples that download images
+  team logos or headshots; the package logo shows muted team logos behind the
+  package name, as the logo of 'nflplotR' (CRAN) does. Examples that
+  download images
   are wrapped in `\donttest{}` (as 'nflplotR' and 'ggpath' do); they pass
   under `--as-cran`, which runs them (52 seconds in total locally).
 * 'sportyR' (>= 2.4.5, CRAN) is in Suggests: `sdv_surface()` checks for it

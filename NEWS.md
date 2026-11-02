@@ -24,6 +24,8 @@ to CRAN or tagged), so this section describes the whole package.
 * The table-theme previews on the help pages show no team logos: the
   `gt_theme_sdv()` previews drop their logo column, and `?gt_theme_tier`
   previews the theme on a standings table instead of a tier list of logos.
+* A new hex logo: the package name across a muted wall of team logos from all
+  eight leagues of the original bar chart, on the SportsDataverse starfield.
 
 ## Overview
 
