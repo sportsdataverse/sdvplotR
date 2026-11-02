@@ -21,8 +21,7 @@ were published only on r-universe.
 
 * This is a new submission.
 
-The installed size (5.1 Mb: R 2.0 Mb, help 2.6 Mb) is reported as INFO, not
-as a NOTE.
+The installed size is about 3 Mb, and the installed-size check passes.
 
 On the local machine the check also listed a directory named `'NULL'` under
 "non-standard things in the check directory". That directory is created by
@@ -39,9 +38,11 @@ without that profile do not report it.
   the package instead and writes nothing outside `tempdir()`.
 * Team logos and player headshots are fetched at plot time from the
   SportsDataverse logo archive and the league CDNs through 'ggpath' and
-  cached for the session; no team logo or headshot images are bundled. The
-  images in `man/figures` are the package logo, the table-theme previews and
-  one example figure used in the help pages. Examples that download images
+  cached for the session. The images in `man/figures` are the package logo
+  and the table-theme previews used in the help pages. The previews show no
+  team logos or headshots; the package logo shows muted team logos behind the
+  package name, as the logo of 'nflplotR' (CRAN) does. Examples that
+  download images
   are wrapped in `\donttest{}` (as 'nflplotR' and 'ggpath' do); they pass
   under `--as-cran`, which runs them (52 seconds in total locally).
 * 'sportyR' (>= 2.4.5, CRAN) is in Suggests: `sdv_surface()` checks for it

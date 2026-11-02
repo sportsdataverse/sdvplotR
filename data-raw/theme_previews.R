@@ -20,10 +20,11 @@ standings <- data.frame(
 )
 standings$pct <- standings$w / (standings$w + standings$l)
 
+# No team logos: these previews ship in the package (man/figures), and the
+# package bundles no team marks, it fetches them at plot time.
 standings_table <- function() {
-  gt(standings) |>
-    gt_sdv_logos(columns = "team", league = "nfl", height = 28) |>
-    cols_label(team = "", name = "Team", w = "W", l = "L", pct = "Win pct") |>
+  gt(standings[names(standings) != "team"]) |>
+    cols_label(name = "Team", w = "W", l = "L", pct = "Win pct") |>
     # sports convention: win percentage without the leading zero (.647)
     fmt(columns = "pct", fns = function(x) sub("^0", "", sprintf("%.3f", x))) |>
     tab_header("AFC West standings", "2023 regular season") |>
@@ -51,7 +52,8 @@ previews <- list(
   ),
   gt_theme_sdv_team = list(
     leaders_table() |> gt_theme_sdv_team(team = "KC", league = "nfl", density = "social"), "gt_theme_sdv_team", ""
-  )
+  ),
+  gt_theme_tier = list(standings_table() |> gt_theme_tier(density = "social"), "gt_theme_tier", "dark")
 )
 
 html_dir <- Sys.getenv("SDV_PREVIEW_HTML_DIR")

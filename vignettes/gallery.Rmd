@@ -85,7 +85,7 @@ cards <- data.frame(
     preview("gt_theme_sdv"), preview("gt_theme_sdv_dark"),
     preview("gt_theme_terminal"), preview("gt_theme_broadsheet"), preview("gt_theme_savant"),
     preview("gt_theme_almanac"), preview("gt_theme_swiss"), preview("gt_theme_scoreboard"),
-    preview("tier_list_example"), preview("gt_theme_athletic"),
+    "../articles/images/tier_list_example.png", preview("gt_theme_athletic"),
     preview("gt_theme_tufte"), fig("shot-grid", "plot"),
     preview("gt_theme_kenpom"), fig("signature-ribbon", "plot"),
     fig("cookbook-ggplot-logos", "line-ends"), fig("cookbook-colors-themes", "palette"),

@@ -18,8 +18,10 @@ for (f in figs) {
   # png8 forces a palette PNG but cuts transparency to on/off, so an image with
   # any transparency (the logo) goes through "png" (magick still writes a palette).
   # quality 90 = zlib level 9 with no row filter, the smallest for palette PNGs.
+  # Quantise in sRGB: magick's default colourspace darkens a dark, many-coloured
+  # image such as the logo's starfield and its muted logos.
   fmt <- if (info$matte) "png" else "png8"
-  magick::image_write(magick::image_quantize(img, 256, dither = FALSE), tmp, format = fmt, quality = 90)
+  magick::image_write(magick::image_quantize(img, 256, colorspace = "sRGB", dither = FALSE), tmp, format = fmt, quality = 90)
   if (file.size(tmp) < file.size(f)) file.copy(tmp, f, overwrite = TRUE)
 }
 cat("man/figures:", sum(file.size(figs)), "bytes\n")
