@@ -2,7 +2,8 @@
 #'
 #' @description This geom is used to plot player headshots instead
 #'   of points in a ggplot. It requires x, y aesthetics as well as a valid
-#'   player identifier: an ESPN athlete ID by default, in every league. Set
+#'   player identifier: an ESPN athlete ID by default ([sdv_headshot_url()]
+#'   lists which leagues take which IDs). Set
 #'   `id_system` to plot IDs from another source (nflverse's gsis IDs, or the
 #'   league's own player IDs). A team's ESPN athlete IDs come
 #'   with its roster: `hoopR::espn_mbb_team_roster()` and

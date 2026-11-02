@@ -30,18 +30,18 @@ with the team name transformation. Only \code{\link[gt:cells_body]{gt::cells_bod
 \code{\link[gt:cells_row_groups]{gt::cells_row_groups()}} helper functions can be used here.}
 
 \item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
-league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
-\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
-published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
-\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
+league with ESPN headshots), \code{"gsis"} (nflverse's NFL gsis ids, such as
+\code{"00-0033873"}, read through a published map) or \code{"league"} (the league's
+own player id). The details of \code{\link[=sdv_headshot_url]{sdv_headshot_url()}} list which leagues
+take which.}
 }
 \value{
 An object of class \code{gt_tbl}.
 }
 \description{
 Translate player IDs to player headshots and render these
-images in html tables with the 'gt' package. IDs are ESPN athlete IDs in
-every league, or as \code{id_system} says. IDs that resolve to no headshot
+images in html tables with the 'gt' package. IDs are ESPN athlete IDs by
+default, or as \code{id_system} says. IDs that resolve to no headshot
 are left as text.
 }
 \examples{

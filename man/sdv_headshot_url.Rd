@@ -13,22 +13,47 @@ sdv_headshot_url(player_id, league, id_system = "espn")
 means different teams in different leagues.}
 
 \item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
-league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
-\code{"gsis"} (nflverse's NFL gsis ids, such as \code{"00-0033873"}, read through a
-published map) or \code{"league"} (the league's own player id: NBA / WNBA Stats
-\code{PERSON_ID}, MLBAM, NHL API; for the NFL, the gsis id).}
+league with ESPN headshots), \code{"gsis"} (nflverse's NFL gsis ids, such as
+\code{"00-0033873"}, read through a published map) or \code{"league"} (the league's
+own player id). The details of \code{\link[=sdv_headshot_url]{sdv_headshot_url()}} list which leagues
+take which.}
 }
 \value{
 A character vector the length of \code{player_id}: the URL, or \code{NA} for
-a missing or malformed id or (gsis) one not in the map.
+a missing or malformed id or (gsis) one not in the map. The URL is built
+from the id alone, so an id the CDN has no photo for still gets one: ESPN
+and HockeyTech answer it with a 404, which the ggplot geoms skip with a
+warning and the gt, reactable and ggtext helpers show as a broken image;
+the NBA, WNBA, MLB and NHL CDNs serve a silhouette.
 }
 \description{
 The headshot image URL for player ids, as every sdvplotR
 headshot helper draws it. The R counterpart of sdvplot's \code{headshot_url()}.
 }
+\details{
+Headshots by league and \code{id_system}:\tabular{lll}{
+   League \tab \code{"espn"} \tab \code{"league"} \cr
+   nfl \tab ESPN athlete id \tab gsis id (as \code{"gsis"}) \cr
+   nba, wnba \tab ESPN athlete id \tab NBA / WNBA Stats \code{PERSON_ID} \cr
+   mlb \tab ESPN athlete id \tab MLBAM id \cr
+   nhl \tab ESPN athlete id \tab NHL API player id \cr
+   nbagl \tab ESPN athlete id (the NBA's id space) \tab none \cr
+   soccer \tab ESPN athlete id \tab none \cr
+   cfb, mbb, wbb \tab ESPN athlete id \tab none \cr
+   pwhl, ahl, echl, ohl, whl, qmjhl, ushl \tab none \tab HockeyTech \code{player_id} \cr
+}
+
+
+ESPN files G League photos with the NBA's, so a G League player's ESPN id
+is the one ESPN uses for him in the NBA. ESPN has photos for only part of
+the G League and soccer rosters. The HockeyTech leagues' images come from
+the leagues' stats provider's CDN (\code{assets.leaguestat.com}), keyed by the
+\code{player_id} in their HockeyTech feeds. Other leagues have no headshots.
+}
 \examples{
 sdv_headshot_url(3139477, "nfl")
 sdv_headshot_url("2544", "nba", id_system = "league")
+sdv_headshot_url(52, "pwhl", id_system = "league")
 \donttest{
 # nflverse gsis ids read the published headshot map
 sdv_headshot_url("00-0033873", "nfl", id_system = "gsis")
