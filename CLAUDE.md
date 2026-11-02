@@ -41,10 +41,14 @@ team id / name / code (any of 18 id systems, or id_system = "auto")
   `index_marks()`. `sdv_versions()` reports what is loaded; `sdv_clear_cache()`
   drops it.
 - `R/sysdata.rda` holds the offline / CRAN fallback (`snapshot_teams`,
-  `snapshot_aliases`, `snapshot_marks`, `snapshot_meta`, plus `fold_from` /
-  `fold_to`), used when `options(sdvplotR.offline = TRUE)` or the CDN read
-  fails. Rebuild it with `data-raw/export_index.py`, then
-  `Rscript data-raw/build_index_snapshot.R` from the package root. **Never
+  `snapshot_aliases`, `snapshot_marks`, `snapshot_meta`, plus the fold tables
+  `fold_from` / `fold_to` and `fold_multi_from` / `fold_multi_to`, Python's
+  NFKD + casefold per character for `norm_value()`), used when
+  `options(sdvplotR.offline = TRUE)` or the CDN read fails. Rebuild it with
+  `data-raw/export_index.py`, then `Rscript data-raw/build_index_snapshot.R`
+  from the package root. The export reads the sibling `../sdvplot` checkout,
+  refuses one with uncommitted `src/` changes, and records its commit in
+  `data-raw/sdvplot_commit.txt`; commit that file with the snapshot. **Never
   hand-edit the `.rda`.**
 - Conferences and leagues are rows in the index too (`non_team_programs` in
   `R/resolve.R`); `sdv_teams()` and `sdv_team_colors()` list them only with

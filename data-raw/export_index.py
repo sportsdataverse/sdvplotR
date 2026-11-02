@@ -2,6 +2,7 @@
 
 Run from the sdvplotR root:  uv run --project ../sdvplot --frozen python data-raw/export_index.py
 Writes data-raw/index/ (the full index, read by build_index_snapshot.R; also what sdv-assets stage 25 publishes),
+data-raw/sdvplot_commit.txt (the sdvplot commit it read; it refuses an sdvplot with uncommitted changes),
 tests/testthat/fixtures/index/ + fixtures/marks.csv (a two-league subset), data-raw/index/fold.txt, and
 tests/testthat/fixtures/resolve_golden.csv (Python's answers, which test-resolve.R holds R to).
 """
@@ -9,6 +10,7 @@ tests/testthat/fixtures/resolve_golden.csv (Python's answers, which test-resolve
 import csv
 import gzip
 import random
+import subprocess
 import sys
 import unicodedata
 import urllib.request
@@ -17,7 +19,7 @@ from pathlib import Path
 
 import polars as pl
 import sdvplot
-from sdvplot import _index, _resolve
+from sdvplot import _index, _normalize, _resolve
 
 MANIFEST = (
     "https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/manifest/marks.csv"
@@ -38,18 +40,78 @@ def write_index(
     (out / "latest.txt").write_text(ver + "\n", encoding="utf-8")
 
 
-def fold_table() -> tuple[str, str]:
-    """Latin letters whose NFKD form minus combining marks is one ASCII character (what sdvplot's norm_value does)."""
-    src, dst = [], []
-    for cp in [*range(0xC0, 0x250), *range(0x1E00, 0x1F00)]:
+FOLD_RANGES = (
+    range(0xA1, 0x250),  # Latin-1 Supplement and Latin Extended-A/B
+    range(0x1E00, 0x1F00),  # Latin Extended Additional
+    range(0xFB00, 0xFB07),  # Latin ligatures
+    range(0xFF01, 0xFF5F),  # full-width ASCII
+)
+
+
+def fold_table() -> tuple[str, str, list[tuple[str, str]]]:
+    """Every character in FOLD_RANGES that sdvplot's norm_value changes (NFKD, combining marks dropped, casefolded),
+    as it changes it mid-word: one-to-one folds for R's chartr(), and the rest ("ß" -> "ss", ligatures) as pairs."""
+    src, dst, multi = [], [], []
+    for cp in (cp for r in FOLD_RANGES for cp in r):
         c = chr(cp)
-        d = "".join(
-            x for x in unicodedata.normalize("NFKD", c) if not unicodedata.combining(x)
-        )
-        if d != c and len(d) == 1 and d.isascii() and d.isalpha():
+        if unicodedata.combining(c) or c.isspace():
+            continue  # R drops combining marks and folds Unicode spaces itself
+        n = _normalize.norm_value(f"a{c}a")[
+            1:-1
+        ]  # mid-word, so strip() cannot eat a fold to a space
+        if n == c:
+            continue
+        if len(n) == 1:
             src.append(c)
-            dst.append(d)
-    return "".join(src), "".join(dst)
+            dst.append(n)
+        else:
+            multi.append((c, n))
+    return "".join(src), "".join(dst), multi
+
+
+def sdvplot_commit() -> str:
+    """The commit of the sdvplot checkout being read; exits if its package source has uncommitted changes."""
+    repo = Path(sdvplot.__file__).resolve().parents[2]
+
+    def run(*args: str) -> str:
+        return subprocess.run(
+            ["git", "-C", str(repo), *args], check=True, capture_output=True, text=True
+        ).stdout.strip()
+
+    if run("status", "--porcelain", "--", "src"):
+        sys.exit(
+            f"{repo} has uncommitted changes under src/: commit them so the snapshot names a commit"
+        )
+    return run("rev-parse", "HEAD")
+
+
+def norm_rows(
+    aliases: pl.DataFrame, multi: list[tuple[str, str]], src: str, ver: str
+) -> list[dict]:
+    """norm_value's answers for every non-ASCII alias value and every fold-table character, for test-resolve.R."""
+    values = sorted(
+        v
+        for v in aliases.get_column("value").unique().to_list()
+        if v and not v.isascii()
+    )
+    chars = list(src) + [c for c, _ in multi]
+    values += [
+        "K" + "".join(chars[i : i + 20]) + "ge" for i in range(0, len(chars), 20)
+    ]
+    return [
+        dict(
+            kind="norm",
+            league="",
+            value=v,
+            value_type="character",
+            season="",
+            id_system="",
+            expected=_normalize.norm_value(v) or "",
+            reason="",
+            index_version=ver,
+        )
+        for v in values
+    ]
 
 
 def golden(aliases: pl.DataFrame, ver: str) -> list[dict]:
@@ -187,13 +249,22 @@ def main() -> None:
     root = Path.cwd()
     if not (root / "DESCRIPTION").exists():
         sys.exit("run from the sdvplotR root")
+    commit = sdvplot_commit()
     ver = _index.index_version()
     teams = pl.read_parquet(_index.data_dir() / "teams.parquet")
     aliases = _index.alias_table()
     write_index(teams, aliases, root / "data-raw" / "index", ver)
-    src, dst = fold_table()
+    # tracked (data-raw/index/ is not): which sdvplot the snapshot in R/sysdata.rda came from
+    (root / "data-raw" / "sdvplot_commit.txt").write_text(
+        f"sdvplot commit the team index {ver} (R/sysdata.rda, the test fixtures and the golden file) was "
+        f"exported from (data-raw/export_index.py):\n{commit}\n",
+        encoding="utf-8",
+    )
+    # line 1 -> line 2 character by character (chartr), then one "from<TAB>to" line per multi-character fold
+    src, dst, multi = fold_table()
     (root / "data-raw" / "index" / "fold.txt").write_text(
-        src + "\n" + dst + "\n", encoding="utf-8"
+        "\n".join([src, dst, *(f"{c}\t{n}" for c, n in multi)]) + "\n",
+        encoding="utf-8",
     )
 
     fx = root / "tests" / "testthat" / "fixtures"
@@ -206,7 +277,7 @@ def main() -> None:
         pl.col("league").is_in(FIXTURE_LEAGUES) & (pl.col("level") == "team")
     ).write_csv(fx / "marks.csv")
 
-    rows = golden(aliases, ver)
+    rows = golden(aliases, ver) + norm_rows(aliases, multi, src, ver)
     with open(fx / "resolve_golden.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()

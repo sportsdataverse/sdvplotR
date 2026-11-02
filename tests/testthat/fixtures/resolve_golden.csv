@@ -296,3 +296,222 @@ mark,cfb,MAC,character,,auto,2359,,0aeef853ec2b
 mark,nfl,AFC,character,,auto,AFC,,0aeef853ec2b
 mark,nfl,KC,character,,auto,12,,0aeef853ec2b
 mark,cfb,zzz not a conference,character,,auto,,,0aeef853ec2b
+norm,,1. FC Nürnberg,character,,,1. fc nurnberg,,0aeef853ec2b
+norm,,AD Alcorcón,character,,,ad alcorcon,,0aeef853ec2b
+norm,,Académica de Coimbra,character,,,academica de coimbra,,0aeef853ec2b
+norm,,Académico de Viseu,character,,,academico de viseu,,0aeef853ec2b
+norm,,Alavés,character,,,alaves,,0aeef853ec2b
+norm,,Alianza Atlético,character,,,alianza atletico,,0aeef853ec2b
+norm,,Almería,character,,,almeria,,0aeef853ec2b
+norm,,América,character,,,america,,0aeef853ec2b
+norm,,América Mineiro,character,,,america mineiro,,0aeef853ec2b
+norm,,América de Cali,character,,,america de cali,,0aeef853ec2b
+norm,,América-RN,character,,,america-rn,,0aeef853ec2b
+norm,,Anzoátegui FC,character,,,anzoategui fc,,0aeef853ec2b
+norm,,Anápolis,character,,,anapolis,,0aeef853ec2b
+norm,,Atlético Bucaramanga,character,,,atletico bucaramanga,,0aeef853ec2b
+norm,,Atlético FC,character,,,atletico fc,,0aeef853ec2b
+norm,,Atlético Goianiense,character,,,atletico goianiense,,0aeef853ec2b
+norm,,Atlético Grau,character,,,atletico grau,,0aeef853ec2b
+norm,,Atlético Junior,character,,,atletico junior,,0aeef853ec2b
+norm,,Atlético Madrid,character,,,atletico madrid,,0aeef853ec2b
+norm,,Atlético Nacional,character,,,atletico nacional,,0aeef853ec2b
+norm,,Atlético Tucumán,character,,,atletico tucuman,,0aeef853ec2b
+norm,,Atlético de San Luis,character,,,atletico de san luis,,0aeef853ec2b
+norm,,Atlético-MG,character,,,atletico-mg,,0aeef853ec2b
+norm,,Avaí,character,,,avai,,0aeef853ec2b
+norm,,BK Häcken,character,,,bk hacken,,0aeef853ec2b
+norm,,Belgrano (Córdoba),character,,,belgrano (cordoba),,0aeef853ec2b
+norm,,Bogotá FC,character,,,bogota fc,,0aeef853ec2b
+norm,,Bolívar,character,,,bolivar,,0aeef853ec2b
+norm,,Borussia Mönchengladbach,character,,,borussia monchengladbach,,0aeef853ec2b
+norm,,Boyacá Chicó FC,character,,,boyaca chico fc,,0aeef853ec2b
+norm,,Brown de Adrogué,character,,,brown de adrogue,,0aeef853ec2b
+norm,,Brøndby IF,character,,,brøndby if,,0aeef853ec2b
+norm,,CD Municipal Limeño,character,,,cd municipal limeno,,0aeef853ec2b
+norm,,CF Montréal,character,,,cf montreal,,0aeef853ec2b
+norm,,Cartaginés,character,,,cartagines,,0aeef853ec2b
+norm,,Castellón,character,,,castellon,,0aeef853ec2b
+norm,,Ceará,character,,,ceara,,0aeef853ec2b
+norm,,Ceilândia,character,,,ceilandia,,0aeef853ec2b
+norm,,Central Córdoba (Santiago del Estero),character,,,central cordoba (santiago del estero),,0aeef853ec2b
+norm,,Central Español Fútbol Club,character,,,central espanol futbol club,,0aeef853ec2b
+norm,,Cerro Porteño,character,,,cerro porteno,,0aeef853ec2b
+norm,,"Chicoutimi, Saguenéens",character,,,"chicoutimi, sagueneens",,0aeef853ec2b
+norm,,Ciudad de Bolívar,character,,,ciudad de bolivar,,0aeef853ec2b
+norm,,Club Atlético La Paz,character,,,club atletico la paz,,0aeef853ec2b
+norm,,Club Atlético Morelia,character,,,club atletico morelia,,0aeef853ec2b
+norm,,Club Deportivo Marathón,character,,,club deportivo marathon,,0aeef853ec2b
+norm,,Cobán Imperial,character,,,coban imperial,,0aeef853ec2b
+norm,,Colón (Santa Fe),character,,,colon (santa fe),,0aeef853ec2b
+norm,,Confiança,character,,,confianca,,0aeef853ec2b
+norm,,Copiapó,character,,,copiapo,,0aeef853ec2b
+norm,,Criciúma,character,,,criciuma,,0aeef853ec2b
+norm,,Cuiabá,character,,,cuiaba,,0aeef853ec2b
+norm,,Curaçao,character,,,curacao,,0aeef853ec2b
+norm,,Curicó Unido,character,,,curico unido,,0aeef853ec2b
+norm,,Cádiz,character,,,cadiz,,0aeef853ec2b
+norm,,Córdoba,character,,,cordoba,,0aeef853ec2b
+norm,,Cúcuta Deportivo,character,,,cucuta deportivo,,0aeef853ec2b
+norm,,Delfín,character,,,delfin,,0aeef853ec2b
+norm,,Deportes Quindío,character,,,deportes quindio,,0aeef853ec2b
+norm,,Deportivo Maipú,character,,,deportivo maipu,,0aeef853ec2b
+norm,,Deportivo Morón,character,,,deportivo moron,,0aeef853ec2b
+norm,,Deportivo Táchira,character,,,deportivo tachira,,0aeef853ec2b
+norm,,Djurgården,character,,,djurgarden,,0aeef853ec2b
+norm,,Dux Logroño,character,,,dux logrono,,0aeef853ec2b
+norm,,Escorpiones Belén,character,,,escorpiones belen,,0aeef853ec2b
+norm,,Estudiantes de Mérida,character,,,estudiantes de merida,,0aeef853ec2b
+norm,,Estudiantes de Río Cuarto,character,,,estudiantes de rio cuarto,,0aeef853ec2b
+norm,,F.C. København,character,,,f.c. københavn,,0aeef853ec2b
+norm,,FC Blau-Weiß Linz,character,,,fc blau-weiss linz,,0aeef853ec2b
+norm,,FC Juárez,character,,,fc juarez,,0aeef853ec2b
+norm,,FC Nordsjælland,character,,,fc nordsjælland,,0aeef853ec2b
+norm,,FC Zlín,character,,,fc zlin,,0aeef853ec2b
+norm,,FC Zürich,character,,,fc zurich,,0aeef853ec2b
+norm,,Fortuna Düsseldorf,character,,,fortuna dusseldorf,,0aeef853ec2b
+norm,,GV San José,character,,,gv san jose,,0aeef853ec2b
+norm,,Gimnàstic de Tarragona,character,,,gimnastic de tarragona,,0aeef853ec2b
+norm,,Goiás,character,,,goias,,0aeef853ec2b
+norm,,Grêmio,character,,,gremio,,0aeef853ec2b
+norm,,Guabirá,character,,,guabira,,0aeef853ec2b
+norm,,Guaraní,character,,,guarani,,0aeef853ec2b
+norm,,Génesis PN,character,,,genesis pn,,0aeef853ec2b
+norm,,Güemes,character,,,guemes,,0aeef853ec2b
+norm,,HB Køge,character,,,hb køge,,0aeef853ec2b
+norm,,Hawaiʻi Hilo,character,,,hawaiʻi hilo,,0aeef853ec2b
+norm,,Hawaiʻi Hilo Vulcans,character,,,hawaiʻi hilo vulcans,,0aeef853ec2b
+norm,,Hawaiʻi Pacific,character,,,hawaiʻi pacific,,0aeef853ec2b
+norm,,Hawaiʻi Pacific Sea Warriors,character,,,hawaiʻi pacific sea warriors,,0aeef853ec2b
+norm,,Huracán,character,,,huracan,,0aeef853ec2b
+norm,,IFK Göteborg,character,,,ifk goteborg,,0aeef853ec2b
+norm,,IFK Norrköping,character,,,ifk norrkoping,,0aeef853ec2b
+norm,,Independiente Medellín,character,,,independiente medellin,,0aeef853ec2b
+norm,,Instituto (Córdoba),character,,,instituto (cordoba),,0aeef853ec2b
+norm,,Internacional de Bogotá,character,,,internacional de bogota,,0aeef853ec2b
+norm,,Isidro Metapán,character,,,isidro metapan,,0aeef853ec2b
+norm,,Itagüí Leones,character,,,itagui leones,,0aeef853ec2b
+norm,,Ituzaingó,character,,,ituzaingo,,0aeef853ec2b
+norm,,Jaguares de Córdoba,character,,,jaguares de cordoba,,0aeef853ec2b
+norm,,KF Shkëndija,character,,,kf shkendija,,0aeef853ec2b
+norm,,Lanús,character,,,lanus,,0aeef853ec2b
+norm,,Leganés,character,,,leganes,,0aeef853ec2b
+norm,,León,character,,,leon,,0aeef853ec2b
+norm,,Luis Ángel Firpo,character,,,luis angel firpo,,0aeef853ec2b
+norm,,Macará,character,,,macara,,0aeef853ec2b
+norm,,Malmö FF,character,,,malmo ff,,0aeef853ec2b
+norm,,Mirandés,character,,,mirandes,,0aeef853ec2b
+norm,,Mjällby AIF,character,,,mjallby aif,,0aeef853ec2b
+norm,,Montréal Victoire,character,,,montreal victoire,,0aeef853ec2b
+norm,,Málaga,character,,,malaga,,0aeef853ec2b
+norm,,Nacional Asunción,character,,,nacional asuncion,,0aeef853ec2b
+norm,,Nacional Potosí,character,,,nacional potosi,,0aeef853ec2b
+norm,,Nova Iguaçu,character,,,nova iguacu,,0aeef853ec2b
+norm,,Náutico,character,,,nautico,,0aeef853ec2b
+norm,,Operário PR,character,,,operario pr,,0aeef853ec2b
+norm,,Orléans,character,,,orleans,,0aeef853ec2b
+norm,,Paços de Ferreira,character,,,pacos de ferreira,,0aeef853ec2b
+norm,,Peñarol,character,,,penarol,,0aeef853ec2b
+norm,,Preußen Münster,character,,,preussen munster,,0aeef853ec2b
+norm,,Pérez Zeledón,character,,,perez zeledon,,0aeef853ec2b
+norm,,Querétaro,character,,,queretaro,,0aeef853ec2b
+norm,,"Québec, Remparts",character,,,"quebec, remparts",,0aeef853ec2b
+norm,,RAAL La Louvière,character,,,raal la louviere,,0aeef853ec2b
+norm,,Racing (Córdoba),character,,,racing (cordoba),,0aeef853ec2b
+norm,,Raków Czestochowa,character,,,rakow czestochowa,,0aeef853ec2b
+norm,,Real España,character,,,real espana,,0aeef853ec2b
+norm,,Real Potosí,character,,,real potosi,,0aeef853ec2b
+norm,,"Rimouski, Océanic",character,,,"rimouski, oceanic",,0aeef853ec2b
+norm,,Rubio Ñú,character,,,rubio nu,,0aeef853ec2b
+norm,,SAN JOSÉ ST,character,,,san jose st,,0aeef853ec2b
+norm,,SAN JOSÉ STATE,character,,,san jose state,,0aeef853ec2b
+norm,,SAN JOSÉ STATE SPARTANS,character,,,san jose state spartans,,0aeef853ec2b
+norm,,Saarbrücken,character,,,saarbrucken,,0aeef853ec2b
+norm,,Saint-Étienne,character,,,saint-etienne,,0aeef853ec2b
+norm,,San José St,character,,,san jose st,,0aeef853ec2b
+norm,,San José State,character,,,san jose state,,0aeef853ec2b
+norm,,San José State Spartans,character,,,san jose state spartans,,0aeef853ec2b
+norm,,San Martín (Burzaco),character,,,san martin (burzaco),,0aeef853ec2b
+norm,,San Martín (San Juan),character,,,san martin (san juan),,0aeef853ec2b
+norm,,San Martín (Tucumán),character,,,san martin (tucuman),,0aeef853ec2b
+norm,,Sarmiento (Junín),character,,,sarmiento (junin),,0aeef853ec2b
+norm,,"Sherbrooke, Phœnix",character,,,"sherbrooke, phœnix",,0aeef853ec2b
+norm,,SpVgg Greuther Fürth,character,,,spvgg greuther furth,,0aeef853ec2b
+norm,,Sporting Gijón,character,,,sporting gijon,,0aeef853ec2b
+norm,,Sporting San José,character,,,sporting san jose,,0aeef853ec2b
+norm,,Sportivo Luqueño,character,,,sportivo luqueno,,0aeef853ec2b
+norm,,"St-Jérôme, Alouettes",character,,,"st-jerome, alouettes",,0aeef853ec2b
+norm,,St. Pölten,character,,,st. polten,,0aeef853ec2b
+norm,,São Bernardo,character,,,sao bernardo,,0aeef853ec2b
+norm,,São José-RS,character,,,sao jose-rs,,0aeef853ec2b
+norm,,São Luiz-RS,character,,,sao luiz-rs,,0aeef853ec2b
+norm,,São Paulo,character,,,sao paulo,,0aeef853ec2b
+norm,,Sønderjyske Fodbold,character,,,sønderjyske fodbold,,0aeef853ec2b
+norm,,Talleres (Córdoba),character,,,talleres (cordoba),,0aeef853ec2b
+norm,,Tepatitlán FC,character,,,tepatitlan fc,,0aeef853ec2b
+norm,,Tristán Suárez,character,,,tristan suarez,,0aeef853ec2b
+norm,,Trois-Rivières Lions,character,,,trois-rivieres lions,,0aeef853ec2b
+norm,,Técnico Universitario,character,,,tecnico universitario,,0aeef853ec2b
+norm,,Türkiye,character,,,turkiye,,0aeef853ec2b
+norm,,Türkiye U21,character,,,turkiye u21,,0aeef853ec2b
+norm,,Uberlândia,character,,,uberlandia,,0aeef853ec2b
+norm,,Universidad Católica,character,,,universidad catolica,,0aeef853ec2b
+norm,,Universidad Católica (Quito),character,,,universidad catolica (quito),,0aeef853ec2b
+norm,,Universidad de Concepción,character,,,universidad de concepcion,,0aeef853ec2b
+norm,,Unión (Santa Fe),character,,,union (santa fe),,0aeef853ec2b
+norm,,Unión Española,character,,,union espanola,,0aeef853ec2b
+norm,,Unión La Calera,character,,,union la calera,,0aeef853ec2b
+norm,,Unión Magdalena,character,,,union magdalena,,0aeef853ec2b
+norm,,Unión San Felipe,character,,,union san felipe,,0aeef853ec2b
+norm,,"Verdun, Collège Français",character,,,"verdun, college francais",,0aeef853ec2b
+norm,,Villa Dálmine,character,,,villa dalmine,,0aeef853ec2b
+norm,,Vitória,character,,,vitoria,,0aeef853ec2b
+norm,,Vitória de Guimaraes,character,,,vitoria de guimaraes,,0aeef853ec2b
+norm,,Västerås SK,character,,,vasteras sk,,0aeef853ec2b
+norm,,Vålerenga,character,,,valerenga,,0aeef853ec2b
+norm,,Vélez Sarsfield,character,,,velez sarsfield,,0aeef853ec2b
+norm,,Víkingur,character,,,vikingur,,0aeef853ec2b
+norm,,Würzburger Kickers,character,,,wurzburger kickers,,0aeef853ec2b
+norm,,Xelajú MC,character,,,xelaju mc,,0aeef853ec2b
+norm,,Águila,character,,,aguila,,0aeef853ec2b
+norm,,Águilas Doradas,character,,,aguilas doradas,,0aeef853ec2b
+norm,,Çorum FK,character,,,corum fk,,0aeef853ec2b
+norm,,Ñublense,character,,,nublense,,0aeef853ec2b
+norm,,Örgryte IS,character,,,orgryte is,,0aeef853ec2b
+norm,,Östers IF,character,,,osters if,,0aeef853ec2b
+norm,,Östersunds FK,character,,,ostersunds fk,,0aeef853ec2b
+norm,,K¨ª¯²³´µ¸¹ºÀÁÂÃÄÅÆÇÈÉge,character,,,k a 23 μ 1oaaaaaaæceege,,0aeef853ec2b
+norm,,KÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞge,character,,,keeiiiiðnoooooøuuuuyþge,,0aeef853ec2b
+norm,,Kàáâãäåçèéêëìíîïñòóôõge,character,,,kaaaaaaceeeeiiiinooooge,,0aeef853ec2b
+norm,,KöùúûüýÿĀāĂăĄąĆćĈĉĊċČge,character,,,kouuuuyyaaaaaacccccccge,,0aeef853ec2b
+norm,,KčĎďĐĒēĔĕĖėĘęĚěĜĝĞğĠġge,character,,,kcddđeeeeeeeeeeggggggge,,0aeef853ec2b
+norm,,KĢģĤĥĦĨĩĪīĬĭĮįİĴĵĶķĹĺge,character,,,kgghhħiiiiiiiiijjkkllge,,0aeef853ec2b
+norm,,KĻļĽľŁŃńŅņŇňŊŌōŎŏŐőŒŔge,character,,,kllllłnnnnnnŋooooooœrge,,0aeef853ec2b
+norm,,KŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŨũge,character,,,krrrrrssssssssttttŧuuge,,0aeef853ec2b
+norm,,KŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽge,character,,,kuuuuuuuuuuwwyyyzzzzzge,,0aeef853ec2b
+norm,,KžſƁƂƄƆƇƉƊƋƎƏƐƑƓƔƖƗƘƜge,character,,,kzsɓƃƅɔƈɖɗƌǝəɛƒɠɣɩɨƙɯge,,0aeef853ec2b
+norm,,KƝƟƠơƢƤƦƧƩƬƮƯưƱƲƳƵƷƸƼge,character,,,kɲɵooƣƥʀƨʃƭʈuuʊʋƴƶʒƹƽge,,0aeef853ec2b
+norm,,KǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǞǟǠǡge,character,,,kaaiioouuuuuuuuuuaaaage,,0aeef853ec2b
+norm,,KǢǣǤǦǧǨǩǪǫǬǭǮǯǰǴǵǶǷǸǹge,character,,,kææǥggkkooooʒʒjggƕƿnnge,,0aeef853ec2b
+norm,,KǺǻǼǽǾǿȀȁȂȃȄȅȆȇȈȉȊȋȌȍge,character,,,kaaææøøaaaaeeeeiiiiooge,,0aeef853ec2b
+norm,,KȎȏȐȑȒȓȔȕȖȗȘșȚțȜȞȟȠȢȤge,character,,,koorrrruuuussttȝhhƞȣȥge,,0aeef853ec2b
+norm,,KȦȧȨȩȪȫȬȭȮȯȰȱȲȳȺȻȽȾɁɃge,character,,,kaaeeooooooooyyⱥȼƚⱦɂƀge,,0aeef853ec2b
+norm,,KɄɅɆɈɊɌɎḀḁḂḃḄḅḆḇḈḉḊḋḌge,character,,,kʉʌɇɉɋɍɏaabbbbbbccdddge,,0aeef853ec2b
+norm,,KḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟḠge,character,,,kdddddddeeeeeeeeeeffgge,,0aeef853ec2b
+norm,,KḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴge,character,,,kghhhhhhhhhhiiiikkkkkge,,0aeef853ec2b
+norm,,KḵḶḷḸḹḺḻḼḽḾḿṀṁṂṃṄṅṆṇṈge,character,,,kkllllllllmmmmmmnnnnnge,,0aeef853ec2b
+norm,,KṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜge,character,,,knnnoooooooopppprrrrrge,,0aeef853ec2b
+norm,,KṝṞṟṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰge,character,,,krrrsssssssssstttttttge,,0aeef853ec2b
+norm,,KṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿẀẁẂẃẄge,character,,,ktuuuuuuuuuuvvvvwwwwwge,,0aeef853ec2b
+norm,,KẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘge,character,,,kwwwwwxxxxyyzzzzzzhtwge,,0aeef853ec2b
+norm,,KẙẛẠạẢảẤấẦầẨẩẪẫẬậẮắẰằge,character,,,kysaaaaaaaaaaaaaaaaaage,,0aeef853ec2b
+norm,,KẲẳẴẵẶặẸẹẺẻẼẽẾếỀềỂểỄễge,character,,,kaaaaaaeeeeeeeeeeeeeege,,0aeef853ec2b
+norm,,KỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộge,character,,,keeiiiiooooooooooooooge,,0aeef853ec2b
+norm,,KỚớỜờỞởỠỡỢợỤụỦủỨứỪừỬửge,character,,,koooooooooouuuuuuuuuuge,,0aeef853ec2b
+norm,,KỮữỰựỲỳỴỵỶỷỸỹỺỼỾ！＂＃＄％ge,character,,,"kuuuuyyyyyyyyỻỽỿ!""#$%ge",,0aeef853ec2b
+norm,,K＆＇（）＊＋，－．／０１２３４５６７８９ge,character,,,"k&'()*+,-./0123456789ge",,0aeef853ec2b
+norm,,K：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭge,character,,,k:;<=>?@abcdefghijklmge,,0aeef853ec2b
+norm,,KＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿｀ａge,character,,,knopqrstuvwxyz[\]^_`age,,0aeef853ec2b
+norm,,Kｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕge,character,,,kbcdefghijklmnopqrstuge,,0aeef853ec2b
+norm,,Kｖｗｘｙｚ｛｜｝～¼½¾ßĲĳĿŀŉǄǅge,character,,,kvwxyz{|}~1⁄41⁄23⁄4ssijijl·l·ʼndzdzge,,0aeef853ec2b
+norm,,KǆǇǈǉǊǋǌǱǲǳẚẞﬀﬁﬂﬃﬄﬅﬆge,character,,,kdzljljljnjnjnjdzdzdzaʾssfffiflffifflststge,,0aeef853ec2b
