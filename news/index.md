@@ -39,6 +39,12 @@ package.
 - A new hex logo: the package name across a muted wall of team logos
   from all eight leagues of the original bar chart, on the
   SportsDataverse starfield.
+- Team names are matched exactly as sdvplot matches them: the sharp s
+  folds to “ss” and ligatures, full-width letters and fractions fold as
+  Unicode’s NFKD does
+  ([\#70](https://github.com/sportsdataverse/sdvplotR/issues/70)). A
+  golden file of sdvplot’s answers for every non-ASCII team alias checks
+  it.
 
 ### Overview
 

@@ -263,6 +263,7 @@
 <li>The installed package is smaller: the bundled team-data snapshot is stored xz-compressed and the help-page figures are palette PNGs at most 1000 px wide. The code no longer declares global variables for R CMD check.</li>
 <li>The table-theme previews on the help pages show no team logos: the <code><a href="../reference/gt_theme_sdv.html">gt_theme_sdv()</a></code> previews drop their logo column, and <code><a href="../reference/gt_theme_tier.html">?gt_theme_tier</a></code> previews the theme on a standings table instead of a tier list of logos.</li>
 <li>A new hex logo: the package name across a muted wall of team logos from all eight leagues of the original bar chart, on the SportsDataverse starfield.</li>
+<li>Team names are matched exactly as sdvplot matches them: the sharp s folds to “ss” and ligatures, full-width letters and fractions fold as Unicode’s NFKD does (<a href="https://github.com/sportsdataverse/sdvplotR/issues/70" class="external-link">#70</a>). A golden file of sdvplot’s answers for every non-ASCII team alias checks it.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="overview-0-3-0">Overview<a class="anchor" aria-label="anchor" href="#overview-0-3-0"></a></h3>
