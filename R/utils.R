@@ -103,7 +103,10 @@ small_images <- function(paths, px) {
 espn_slug <- c(
   nfl = "nfl", nba = "nba", wnba = "wnba", mlb = "mlb", nhl = "nhl",
   cfb = "college-football", mbb = "mens-college-basketball",
-  wbb = "womens-college-basketball"
+  wbb = "womens-college-basketball",
+  # ESPN files G League photos under nba/ (nba-development/ 404s): G League
+  # and NBA athletes share one ESPN id space
+  nbagl = "nba", soccer = "soccer"
 )
 
 espn_headshot_url <- function(espn_id, league) {
@@ -111,8 +114,15 @@ espn_headshot_url <- function(espn_id, league) {
 }
 
 # Headshots keyed by the league's own player id (NBA / WNBA Stats PERSON_ID,
-# MLBAM, NHL API). An unknown id gets the CDN's silhouette, not a 404.
-# cdn.nba.com and cdn.wnba.com answer 403 to datacenter IPs.
+# MLBAM, NHL API, HockeyTech player_id). An unknown NBA / WNBA / MLB / NHL id
+# gets the CDN's silhouette, not a 404. cdn.nba.com and cdn.wnba.com answer 403
+# to datacenter IPs. HockeyTech's leaguestat CDN answers 404 for an unknown id
+# (the roster feed's "nophoto" placeholder is the feed's, not the CDN's), as
+# ESPN does, so those draw nothing, like any missing image.
+hockeytech_headshot_url <- function(client) {
+  paste0("https://assets.leaguestat.com/", client, "/240x240/%s.jpg")
+}
+
 league_headshot_url <- c(
   nba = "https://cdn.nba.com/headshots/nba/latest/260x190/%s.png",
   wnba = "https://cdn.wnba.com/headshots/wnba/latest/260x190/%s.png",
@@ -120,7 +130,14 @@ league_headshot_url <- c(
     "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/",
     "w_213,q_auto:best/v1/people/%s/headshot/67/current.png"
   ),
-  nhl = "https://assets.nhle.com/mugs/nhl/latest/%s.png"
+  nhl = "https://assets.nhle.com/mugs/nhl/latest/%s.png",
+  pwhl = hockeytech_headshot_url("pwhl"),
+  ahl = hockeytech_headshot_url("ahl"),
+  echl = hockeytech_headshot_url("echl"),
+  ohl = hockeytech_headshot_url("ohl"),
+  whl = hockeytech_headshot_url("whl"),
+  qmjhl = hockeytech_headshot_url("lhjmq"), # HockeyTech's client code for the QMJHL
+  ushl = hockeytech_headshot_url("ushl")
 )
 
 # "espn" (ESPN athlete ids, the default in every league), "gsis" (nflverse's
@@ -128,7 +145,12 @@ league_headshot_url <- c(
 check_id_system <- function(id_system, league, call = rlang::caller_env()) {
   id_system <- rlang::arg_match0(id_system, c("espn", "gsis", "league"), error_call = call)
   if (id_system == "espn" && !league %in% names(espn_slug)) {
-    cli::cli_abort("No ESPN headshots for {.val {league}}; they exist for {.val {names(espn_slug)}}.", call = call)
+    cli::cli_abort(c(
+      "No ESPN headshots for {.val {league}}; they exist for {.val {names(espn_slug)}}.",
+      i = if (league %in% names(league_headshot_url)) {
+        "Use the league's own player ids with {.code id_system = \"league\"}."
+      }
+    ), call = call)
   }
   if (id_system == "gsis" && league != "nfl") {
     cli::cli_abort("{.code id_system = \"gsis\"} takes NFL ids (nflverse's gsis ids) only.", call = call)
@@ -169,6 +191,7 @@ headshot_from_id <- function(player_id, league, id_system = "espn") {
   unname(url)
 }
 
+# nolint start: line_length_linter. table rows cannot wrap
 #' Player headshot URLs
 #'
 #' @description The headshot image URL for player ids, as every sdvplotR
@@ -176,21 +199,45 @@ headshot_from_id <- function(player_id, league, id_system = "espn") {
 #' @param player_id A vector of player ids.
 #' @inheritParams sdv_resolve
 #' @param id_system `"espn"` (ESPN athlete ids; the default, for every
-#'   league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
-#'   `"gsis"` (nflverse's NFL gsis ids, such as `"00-0033873"`, read through a
-#'   published map) or `"league"` (the league's own player id: NBA / WNBA Stats
-#'   `PERSON_ID`, MLBAM, NHL API; for the NFL, the gsis id).
+#'   league with ESPN headshots), `"gsis"` (nflverse's NFL gsis ids, such as
+#'   `"00-0033873"`, read through a published map) or `"league"` (the league's
+#'   own player id). The details of [sdv_headshot_url()] list which leagues
+#'   take which.
 #' @return A character vector the length of `player_id`: the URL, or `NA` for
-#'   a missing or malformed id or (gsis) one not in the map.
+#'   a missing or malformed id or (gsis) one not in the map. The URL is built
+#'   from the id alone, so an id the CDN has no photo for still gets one: ESPN
+#'   and HockeyTech answer it with a 404 and the helpers draw nothing there;
+#'   the NBA, WNBA, MLB and NHL CDNs serve a silhouette.
+#' @details
+#' Headshots by league and `id_system`:
+#'
+#' | League | `"espn"` | `"league"` |
+#' |---|---|---|
+#' | nfl | ESPN athlete id | gsis id (as `"gsis"`) |
+#' | nba, wnba | ESPN athlete id | NBA / WNBA Stats `PERSON_ID` |
+#' | mlb | ESPN athlete id | MLBAM id |
+#' | nhl | ESPN athlete id | NHL API player id |
+#' | nbagl | ESPN athlete id (the NBA's id space) | none |
+#' | soccer | ESPN athlete id | none |
+#' | cfb, mbb, wbb | ESPN athlete id | none |
+#' | pwhl, ahl, echl, ohl, whl, qmjhl, ushl | none | HockeyTech `player_id` |
+#'
+#' ESPN files G League photos with the NBA's, so a G League player's ESPN id
+#' is the one ESPN uses for him in the NBA. ESPN has photos for only part of
+#' the G League and soccer rosters. The HockeyTech leagues' images come from
+#' the leagues' stats provider's CDN (`assets.leaguestat.com`), keyed by the
+#' `player_id` in their HockeyTech feeds. Other leagues have no headshots.
 #' @seealso [sdv_logo_url()].
 #' @export
 #' @examples
 #' sdv_headshot_url(3139477, "nfl")
 #' sdv_headshot_url("2544", "nba", id_system = "league")
+#' sdv_headshot_url(52, "pwhl", id_system = "league")
 #' \donttest{
 #' # nflverse gsis ids read the published headshot map
 #' sdv_headshot_url("00-0033873", "nfl", id_system = "gsis")
 #' }
+# nolint end
 sdv_headshot_url <- function(player_id, league, id_system = "espn") {
   check_league(league)
   headshot_from_id(player_id, league, check_id_system(id_system, league))

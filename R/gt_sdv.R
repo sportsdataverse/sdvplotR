@@ -131,8 +131,8 @@ gt_sdv_wordmarks <- function(
 #' Render Player Headshots in 'gt' Tables
 #'
 #' @description Translate player IDs to player headshots and render these
-#'   images in html tables with the 'gt' package. IDs are ESPN athlete IDs in
-#'   every league, or as `id_system` says. IDs that resolve to no headshot
+#'   images in html tables with the 'gt' package. IDs are ESPN athlete IDs by
+#'   default, or as `id_system` says. IDs that resolve to no headshot
 #'   are left as text.
 #'
 #' @inheritParams gt_sdv_logos
