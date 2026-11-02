@@ -18,15 +18,23 @@ snapshot_marks <- marks[c(
   "valid_from", "valid_to", "source", "first_seen", "sha256", "ext"
 )]
 snapshot_meta <- list(index_version = ver, manifest_rows = nrow(marks), built = format(Sys.Date()))
+# fold.txt: line 1 -> line 2 character by character, then "from<TAB>to" lines for multi-character folds
 fold <- readLines(file.path(src, "fold.txt"), encoding = "UTF-8")
 fold_from <- fold[[1]]
 fold_to <- fold[[2]]
 stopifnot(nchar(fold_from) == nchar(fold_to))
+multi <- strsplit(fold[-(1:2)], "\t", fixed = TRUE)
+stopifnot(all(lengths(multi) == 2L))
+fold_multi_from <- vapply(multi, `[[`, "", 1L)
+fold_multi_to <- vapply(multi, `[[`, "", 2L)
 
 env <- new.env()
 load("R/sysdata.rda", envir = env)
 rm(list = intersect(c("logo_ref", "logo_marks", "logo_history", "abbr_mapping", "soccer_ambiguous"), ls(env)), envir = env)
-for (n in c("snapshot_teams", "snapshot_aliases", "snapshot_marks", "snapshot_meta", "fold_from", "fold_to")) {
+for (n in c(
+  "snapshot_teams", "snapshot_aliases", "snapshot_marks", "snapshot_meta",
+  "fold_from", "fold_to", "fold_multi_from", "fold_multi_to"
+)) {
   assign(n, get(n), envir = env)
 }
 save(list = ls(env), file = "R/sysdata.rda", envir = env, compress = "xz")

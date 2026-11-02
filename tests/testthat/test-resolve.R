@@ -55,6 +55,16 @@ test_that("the mark functions read a conference's names as Python does", {
   expect_identical(got, g$expected, info = paste(g$league, g$value, sep = ":")[got != g$expected])
 })
 
+test_that("team values normalize as Python's norm_value does", {
+  g <- golden()
+  g <- g[g$kind == "norm", ]
+  expect_gt(nrow(g), 0)
+  got <- norm_value(g$value)
+  got[is.na(got)] <- ""
+  expect_identical(got, g$expected, info = paste(g$value, got, sep = " -> ")[got != g$expected])
+  expect_identical(norm_value(c("Straße", "ﬁnal", "Køge")), c("strasse", "final", "køge"))
+})
+
 test_that("factors, numbers and padded strings resolve like the plain string", {
   local_snapshot_index()
   kc <- sdv_resolve("KC", "nfl")
