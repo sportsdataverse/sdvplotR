@@ -245,6 +245,7 @@ resolve,cricket,2971,integer,,auto,2971,ok,0aeef853ec2b
 resolve,nfl,zzz not a team,character,,auto,,unknown,0aeef853ec2b
 resolve,cfb,,character,,auto,,none,0aeef853ec2b
 resolve,soccer,Atlético Madrid,character,,auto,,ambiguous,0aeef853ec2b
+resolve,soccer,VästerÅs SK,character,,auto,22163,ok,0aeef853ec2b
 resolve,mlb,Montréal Expos,character,,auto,,unknown,0aeef853ec2b
 suggest,soccer,NovaIguaçu,character,,,6087,,0aeef853ec2b
 suggest,soccer,VMI eydets,character,,,20569,,0aeef853ec2b
@@ -508,10 +509,13 @@ norm,,KẙẛẠạẢảẤấẦầẨẩẪẫẬậẮắẰằge,character,
 norm,,KẲẳẴẵẶặẸẹẺẻẼẽẾếỀềỂểỄễge,character,,,kaaaaaaeeeeeeeeeeeeeege,,0aeef853ec2b
 norm,,KỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộge,character,,,keeiiiiooooooooooooooge,,0aeef853ec2b
 norm,,KỚớỜờỞởỠỡỢợỤụỦủỨứỪừỬửge,character,,,koooooooooouuuuuuuuuuge,,0aeef853ec2b
-norm,,KỮữỰựỲỳỴỵỶỷỸỹỺỼỾ！＂＃＄％ge,character,,,"kuuuuyyyyyyyyỻỽỿ!""#$%ge",,0aeef853ec2b
-norm,,K＆＇（）＊＋，－．／０１２３４５６７８９ge,character,,,"k&'()*+,-./0123456789ge",,0aeef853ec2b
-norm,,K：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭge,character,,,k:;<=>?@abcdefghijklmge,,0aeef853ec2b
-norm,,KＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿｀ａge,character,,,knopqrstuvwxyz[\]^_`age,,0aeef853ec2b
-norm,,Kｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕge,character,,,kbcdefghijklmnopqrstuge,,0aeef853ec2b
-norm,,Kｖｗｘｙｚ｛｜｝～¼½¾ßĲĳĿŀŉǄǅge,character,,,kvwxyz{|}~1⁄41⁄23⁄4ssijijl·l·ʼndzdzge,,0aeef853ec2b
-norm,,KǆǇǈǉǊǋǌǱǲǳẚẞﬀﬁﬂﬃﬄﬅﬆge,character,,,kdzljljljnjnjnjdzdzdzaʾssfffiflffifflststge,,0aeef853ec2b
+norm,,KỮữỰựỲỳỴỵỶỷỸỹỺỼỾℂℇℊℋℌge,character,,,kuuuuyyyyyyyyỻỽỿcɛghhge,,0aeef853ec2b
+norm,,KℍℎℏℐℑℒℓℕℙℚℛℜℝℤΩℨKÅℬℭge,character,,,khhħiillnpqrrrzωzkabcge,,0aeef853ec2b
+norm,,KℯℰℱℲℳℴℵℶℷℸℹℼℽℾℿ⅀ⅅⅆⅇⅈge,character,,,keefⅎmoאבגדiπγγπ∑ddeige,,0aeef853ec2b
+norm,,Kⅉ！＂＃＄％＆＇（）＊＋，－．／０１２３ge,character,,,"kj!""#$%&'()*+,-./0123ge",,0aeef853ec2b
+norm,,K４５６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧge,character,,,k456789:;<=>?@abcdefgge,,0aeef853ec2b
+norm,,KＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［ge,character,,,khijklmnopqrstuvwxyz[ge,,0aeef853ec2b
+norm,,K＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏge,character,,,k\]^_`abcdefghijklmnoge,,0aeef853ec2b
+norm,,Kｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～¼½¾ßĲge,character,,,kpqrstuvwxyz{|}~1⁄41⁄23⁄4ssijge,,0aeef853ec2b
+norm,,KĳĿŀŉǄǅǆǇǈǉǊǋǌǱǲǳẚẞ℀℁ge,character,,,kijl·l·ʼndzdzdzljljljnjnjnjdzdzdzaʾssa/ca/sge,,0aeef853ec2b
+norm,,K℃℅℆℉№℠℡™℻ﬀﬁﬂﬃﬄﬅﬆge,character,,,k°cc/oc/u°fnosmteltmfaxfffiflffifflststge,,0aeef853ec2b

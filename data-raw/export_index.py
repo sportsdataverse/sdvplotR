@@ -43,6 +43,7 @@ def write_index(
 FOLD_RANGES = (
     range(0xA1, 0x250),  # Latin-1 Supplement and Latin Extended-A/B
     range(0x1E00, 0x1F00),  # Latin Extended Additional
+    range(0x2100, 0x2150),  # Letterlike Symbols: the Angstrom and Kelvin signs, "TM"
     range(0xFB00, 0xFB07),  # Latin ligatures
     range(0xFF01, 0xFF5F),  # full-width ASCII
 )
@@ -189,6 +190,7 @@ def golden(aliases: pl.DataFrame, ver: str) -> list[dict]:
         ("nfl", "zzz not a team"),
         ("cfb", ""),
         ("soccer", "Atlético Madrid"),
+        ("soccer", "VästerÅs SK"),  # the Angstrom sign, folded as Västerås SK
         ("mlb", "Montréal Expos"),
     ):
         case(league, value, None, "auto")
