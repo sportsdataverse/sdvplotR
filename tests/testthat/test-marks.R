@@ -71,3 +71,22 @@ test_that("an unresolved team gives NA with the resolver's warning; vectors keep
   expect_warning(u <- sdv_logo_url(c("KC", "nope", NA), "nfl"), class = "sdvplotR_unresolved_warning")
   expect_identical(is.na(u), c(FALSE, TRUE, TRUE))
 })
+
+test_that("every conference and league row draws", {
+  local_snapshot_index()
+  nt <- sdv_teams(include_conferences = TRUE)
+  nt <- nt[nt$program %in% c("conference", "league"), , drop = FALSE]
+  u <- suppressWarnings(mapply(sdv_logo_url, nt$team_id, nt$league))
+  expect_identical(nt$team_id[is.na(u)], character(0)) # names the undrawable rows on failure
+})
+
+test_that("pro league, conference and division marks draw", {
+  local_snapshot_index()
+  # an NHL division is archived at manifest level "division", not "conference"
+  for (k in list(
+    c("MLB", "mlb"), c("AL", "mlb"), c("NL", "mlb"), c("NBA", "nba"), c("East", "nba"),
+    c("WNBA", "wnba"), c("NHL", "nhl"), c("Metropolitan", "nhl"), c("Atlantic", "nhl"), c("AAF", "aaf")
+  )) {
+    expect_match(sdv_logo_url(k[1], k[2]), "^https://", info = k[1])
+  }
+})

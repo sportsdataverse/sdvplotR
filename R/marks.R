@@ -56,9 +56,9 @@ ranked_marks <- function(league) {
   key <- paste0("ranked:", league)
   if (is.null(index_cache[[key]])) {
     m <- index_marks()
-    nt <- m$level %in% non_team_programs
+    nt <- m$level %in% non_team_levels
     m <- m[(m$level == "team" & m$league == league) | nt, , drop = FALSE]
-    nt <- m$level %in% non_team_programs
+    nt <- m$level %in% non_team_levels
     k <- ifelse(nt, paste(m$level, m$league, m$source, m$entity_id, sep = ":"), paste(m$source, m$entity_id, sep = ":"))
     al <- mark_aliases(league)
     j <- match(tolower(trimws(k)), al$key)

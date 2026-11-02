@@ -10,6 +10,9 @@ resolve_priority <- c(
 # NHL stats API ids 1-28 are other teams' ESPN ids: only an explicit id_system reads them
 resolve_explicit_only <- "nhl_id"
 non_team_programs <- c("conference", "league")
+# the manifest levels of non-team marks: an index row's program is one of the
+# above, but a division mark (the NHL's) is archived at level "division"
+non_team_levels <- c(non_team_programs, "division")
 # the index's id systems for the mark functions only, never an id_system and
 # never read by sdv_resolve(): "mark" keys archive rows to teams, "conference"
 # holds the conference rows' other names ("Southeastern Conference", "B1G")
