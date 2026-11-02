@@ -22,7 +22,12 @@ and
 [`gt_theme_tier()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_tier.md)
 come from Andrew Weatherman’s
 [gtUtils](https://github.com/andreweatherman/gtUtils), and this article
-follows his tier-list example.
+follows his tier-list example, which ranks the ACC by 2024 KenPom
+rating:
+
+![gtUtils' example tier list: ACC basketball teams' logos in Elite,
+Average and Poor bands by 2024 KenPom
+rating.](images/tier_list_example.png)
 
 ``` r
 

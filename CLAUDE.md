@@ -128,13 +128,12 @@ package per league.
   lines, save/crop helpers; `R/gt_*.R` other than `gt_sdv.R`,
   `R/utils-*.R`, `R/data.R`, `data/theme_bg.rda`) is copied from Andrew
   Weatherman’s [gtUtils](https://github.com/andreweatherman/gtUtils)
-  v1.0.0 (MIT; he is `aut` and `cph` in `Authors@R`). These functions
-  work on any table, so they take no `league` argument and skip the team
-  resolver. The port has been restyled (styler, `|>`, lintr), so sync
-  upstream changes by diffing gtUtils against commit `619c64a` (the
-  v1.0.0 the port was taken from; upstream has no tags) and applying the
-  hunks, never by copying files over; keep `"sdvplotR"` in the namespace
-  string in
+  v1.0.0 (MIT). These functions work on any table, so they take no
+  `league` argument and skip the team resolver. The port has been
+  restyled (styler, `|>`, lintr), so sync upstream changes by diffing
+  gtUtils against commit `619c64a` (the v1.0.0 the port was taken from;
+  upstream has no tags) and applying the hunks, never by copying files
+  over; keep `"sdvplotR"` in the namespace string in
   [`gt_theme_preview()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_preview.md).
   `theme_bg` is built by `data-raw/theme_bg.R`; rerun it after adding or
   recoloring a theme.
@@ -144,10 +143,12 @@ package per league.
   /
   [`gt_theme_sdv_team()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv_team.md)
   (`R/gt_theme_sdv.R`) share `.sdv_theme_build()`; a palette list
-  decides the look. Their `man/figures` previews come from
-  `data-raw/theme_previews.R` (real 2023 NFL data, saved with
+  decides the look. Their `man/figures` previews, and
+  [`gt_theme_tier()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_tier.md)’s,
+  come from `data-raw/theme_previews.R` (real 2023 NFL data, saved with
   [`gt_save_crop()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_crop.md));
-  rerun it after changing either theme.
+  rerun it after changing any of those themes. Help-page figures ship in
+  the package, so they show no team logos or headshots.
 
 ## Golden rules
 

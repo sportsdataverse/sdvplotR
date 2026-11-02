@@ -2,8 +2,8 @@
 
 On this page
 
-**Updated 2026-10-30:** the final 2026 regular season; the postseason is
-under way.
+**Updated 2026-11-02:** the offseason, so this is the final 2026 regular
+season.
 
 This page is rebuilt every week with the site. It builds the division
 standings, charts run differential with logos and lists the league

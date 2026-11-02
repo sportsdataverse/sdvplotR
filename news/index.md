@@ -30,6 +30,15 @@ package.
   stored xz-compressed and the help-page figures are palette PNGs at
   most 1000 px wide. The code no longer declares global variables for R
   CMD check.
+- The table-theme previews on the help pages show no team logos: the
+  [`gt_theme_sdv()`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_sdv.md)
+  previews drop their logo column, and
+  [`?gt_theme_tier`](https://sdvplotR.sportsdataverse.org/reference/gt_theme_tier.md)
+  previews the theme on a standings table instead of a tier list of
+  logos.
+- A new hex logo: the package name across a muted wall of team logos
+  from all eight leagues of the original bar chart, on the
+  SportsDataverse starfield.
 
 ### Overview
 

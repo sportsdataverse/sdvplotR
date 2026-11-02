@@ -54,7 +54,7 @@ Tables](https://sdvplotR.sportsdataverse.org/articles/grid_tables.md)
 [![Table theme
 preview](../reference/figures/gt_theme_scoreboard.png)Schedule
 Matrix](https://sdvplotR.sportsdataverse.org/articles/schedule_matrix.md)
-[![Table theme preview](../reference/figures/tier_list_example.png)Tier
+[![Figure](../articles/images/tier_list_example.png)Tier
 Lists](https://sdvplotR.sportsdataverse.org/articles/tier_list.md)
 [![Table theme
 preview](../reference/figures/gt_theme_athletic.png)Rolling-Window

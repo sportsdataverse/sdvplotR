@@ -62,7 +62,7 @@ export at.
 
 ## Figures
 
-![Example tier list table](figures/tier_list_example.png)
+![Preview of the tier list theme, dark style](figures/gt_theme_tier.png)
 
 ## Examples
 
