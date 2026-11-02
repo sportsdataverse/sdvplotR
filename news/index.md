@@ -125,6 +125,10 @@ names with the Python package sdvplot and the JavaScript packages
   and the headshot helpers read ESPN athlete ids in every league by
   default; `id_system = "gsis"` reads nflverse NFL ids and
   `id_system = "league"` the league’s own player ids.
+- Headshots for more leagues: G League (`"nbagl"`, ESPN files its photos
+  with the NBA’s) and soccer by ESPN athlete id, and the PWHL, AHL,
+  ECHL, OHL, WHL, QMJHL and USHL by HockeyTech player id with
+  `id_system = "league"` (`assets.leaguestat.com`).
 
 ### Interactive plots and maps
 

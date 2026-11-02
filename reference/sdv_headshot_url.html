@@ -280,16 +280,28 @@ means different teams in different leagues.</p></dd>
 
 <dt id="arg-id-system">id_system<a class="anchor" aria-label="anchor" href="#arg-id-system"></a></dt>
 <dd><p><code>"espn"</code> (ESPN athlete ids; the default, for every
-league with ESPN headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb),
-<code>"gsis"</code> (nflverse's NFL gsis ids, such as <code>"00-0033873"</code>, read through a
-published map) or <code>"league"</code> (the league's own player id: NBA / WNBA Stats
-<code>PERSON_ID</code>, MLBAM, NHL API; for the NFL, the gsis id).</p></dd>
+league with ESPN headshots), <code>"gsis"</code> (nflverse's NFL gsis ids, such as
+<code>"00-0033873"</code>, read through a published map) or <code>"league"</code> (the league's
+own player id). The details of <code>sdv_headshot_url()</code> list which leagues
+take which.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A character vector the length of <code>player_id</code>: the URL, or <code>NA</code> for
-a missing or malformed id or (gsis) one not in the map.</p>
+a missing or malformed id or (gsis) one not in the map. The URL is built
+from the id alone, so an id the CDN has no photo for still gets one: ESPN
+and HockeyTech answer it with a 404, which the ggplot geoms skip with a
+warning and the gt, reactable and ggtext helpers show as a broken image;
+the NBA, WNBA, MLB and NHL CDNs serve a silhouette.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Headshots by league and <code>id_system</code>:</p><table class="table table"><tr><td>League</td><td><code>"espn"</code></td><td><code>"league"</code></td></tr><tr><td>nfl</td><td>ESPN athlete id</td><td>gsis id (as <code>"gsis"</code>)</td></tr><tr><td>nba, wnba</td><td>ESPN athlete id</td><td>NBA / WNBA Stats <code>PERSON_ID</code></td></tr><tr><td>mlb</td><td>ESPN athlete id</td><td>MLBAM id</td></tr><tr><td>nhl</td><td>ESPN athlete id</td><td>NHL API player id</td></tr><tr><td>nbagl</td><td>ESPN athlete id (the NBA's id space)</td><td>none</td></tr><tr><td>soccer</td><td>ESPN athlete id</td><td>none</td></tr><tr><td>cfb, mbb, wbb</td><td>ESPN athlete id</td><td>none</td></tr><tr><td>pwhl, ahl, echl, ohl, whl, qmjhl, ushl</td><td>none</td><td>HockeyTech <code>player_id</code></td></tr></table><p>ESPN files G League photos with the NBA's, so a G League player's ESPN id
+is the one ESPN uses for him in the NBA. ESPN has photos for only part of
+the G League and soccer rosters. The HockeyTech leagues' images come from
+the leagues' stats provider's CDN (<code>assets.leaguestat.com</code>), keyed by the
+<code>player_id</code> in their HockeyTech feeds. Other leagues have no headshots.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -302,6 +314,8 @@ a missing or malformed id or (gsis) one not in the map.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/3139477.png"</span>
 <span class="r-in"><span><span class="fu">sdv_headshot_url</span><span class="op">(</span><span class="st">"2544"</span>, <span class="st">"nba"</span>, id_system <span class="op">=</span> <span class="st">"league"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://cdn.nba.com/headshots/nba/latest/260x190/2544.png"</span>
+<span class="r-in"><span><span class="fu">sdv_headshot_url</span><span class="op">(</span><span class="fl">52</span>, <span class="st">"pwhl"</span>, id_system <span class="op">=</span> <span class="st">"league"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://assets.leaguestat.com/pwhl/240x240/52.jpg"</span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># nflverse gsis ids read the published headshot map</span></span></span>
 <span class="r-in"><span><span class="fu">sdv_headshot_url</span><span class="op">(</span><span class="st">"00-0033873"</span>, <span class="st">"nfl"</span>, id_system <span class="op">=</span> <span class="st">"gsis"</span><span class="op">)</span></span></span>

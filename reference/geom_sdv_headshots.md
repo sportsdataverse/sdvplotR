@@ -2,10 +2,11 @@
 
 This geom is used to plot player headshots instead of points in a
 ggplot. It requires x, y aesthetics as well as a valid player
-identifier: an ESPN athlete ID by default, in every league. Set
-`id_system` to plot IDs from another source (nflverse's gsis IDs, or the
-league's own player IDs). A team's ESPN athlete IDs come with its
-roster:
+identifier: an ESPN athlete ID by default
+([`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_headshot_url.md)
+lists which leagues take which IDs). Set `id_system` to plot IDs from
+another source (nflverse's gsis IDs, or the league's own player IDs). A
+team's ESPN athlete IDs come with its roster:
 [`hoopR::espn_mbb_team_roster()`](https://hoopR.sportsdataverse.org/reference/espn_mbb_team.html)
 and `espn_nba_team_roster()`,
 [`wehoop::espn_wbb_team_roster()`](https://wehoop.sportsdataverse.org/reference/espn_wbb_team.html)
@@ -147,10 +148,11 @@ GeomSDVheadshot
 - id_system:
 
   `"espn"` (ESPN athlete ids; the default, for every league with ESPN
-  headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb), `"gsis"`
-  (nflverse's NFL gsis ids, such as `"00-0033873"`, read through a
-  published map) or `"league"` (the league's own player id: NBA / WNBA
-  Stats `PERSON_ID`, MLBAM, NHL API; for the NFL, the gsis id).
+  headshots), `"gsis"` (nflverse's NFL gsis ids, such as `"00-0033873"`,
+  read through a published map) or `"league"` (the league's own player
+  id). The details of
+  [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_headshot_url.md)
+  list which leagues take which.
 
 - na.rm:
 

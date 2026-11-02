@@ -1,9 +1,8 @@
 # Render Player Headshots in 'gt' Tables
 
 Translate player IDs to player headshots and render these images in html
-tables with the 'gt' package. IDs are ESPN athlete IDs in every league,
-or as `id_system` says. IDs that resolve to no headshot are left as
-text.
+tables with the 'gt' package. IDs are ESPN athlete IDs by default, or as
+`id_system` says. IDs that resolve to no headshot are left as text.
 
 ## Usage
 
@@ -54,10 +53,11 @@ gt_sdv_headshots(
 - id_system:
 
   `"espn"` (ESPN athlete ids; the default, for every league with ESPN
-  headshots: nfl, nba, wnba, mlb, nhl, cfb, mbb, wbb), `"gsis"`
-  (nflverse's NFL gsis ids, such as `"00-0033873"`, read through a
-  published map) or `"league"` (the league's own player id: NBA / WNBA
-  Stats `PERSON_ID`, MLBAM, NHL API; for the NFL, the gsis id).
+  headshots), `"gsis"` (nflverse's NFL gsis ids, such as `"00-0033873"`,
+  read through a published map) or `"league"` (the league's own player
+  id). The details of
+  [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_headshot_url.md)
+  list which leagues take which.
 
 ## Value
 
