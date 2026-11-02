@@ -27,7 +27,7 @@
 #' the table. Pairs with [gt_tiers()], which builds the tier rows themselves.
 #'
 #' @section Figures:
-#' \if{html}{\figure{tier_list_example.png}{options: style="width:100\%" alt="Example tier list table"}}
+#' \if{html}{\figure{gt_theme_tier.png}{options: style="width:100\%" alt="Preview of the tier list theme, dark style"}}
 #'
 #' @examples
 #' library(gt)

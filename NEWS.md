@@ -21,6 +21,9 @@ to CRAN or tagged), so this section describes the whole package.
 * The installed package is smaller: the bundled team-data snapshot is stored
   xz-compressed and the help-page figures are palette PNGs at most 1000 px
   wide. The code no longer declares global variables for R CMD check.
+* The table-theme previews on the help pages show no team logos: the
+  `gt_theme_sdv()` previews drop their logo column, and `?gt_theme_tier`
+  previews the theme on a standings table instead of a tier list of logos.
 
 ## Overview
 

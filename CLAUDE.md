@@ -103,7 +103,7 @@ team id / name / code (any of 18 id systems, or id_system = "auto")
   lines, save/crop helpers; `R/gt_*.R` other than `gt_sdv.R`, `R/utils-*.R`,
   `R/data.R`, `data/theme_bg.rda`) is copied from
   Andrew Weatherman's [gtUtils](https://github.com/andreweatherman/gtUtils)
-  v1.0.0 (MIT; he is `aut` and `cph` in `Authors@R`). These functions
+  v1.0.0 (MIT). These functions
   work on any table, so they take no `league` argument and skip
   the team resolver. The port has been restyled (styler, `|>`, lintr), so
   sync upstream changes by diffing gtUtils against commit `619c64a` (the v1.0.0 the port was taken from; upstream has no tags) and applying
@@ -112,9 +112,10 @@ team id / name / code (any of 18 id systems, or id_system = "auto")
   `data-raw/theme_bg.R`; rerun it after adding or recoloring a theme.
 - **SportsDataverse themes**: `gt_theme_sdv()` / `gt_theme_sdv_team()`
   (`R/gt_theme_sdv.R`) share `.sdv_theme_build()`; a palette list decides the
-  look. Their `man/figures` previews come from `data-raw/theme_previews.R`
-  (real 2023 NFL data, saved with `gt_save_crop()`); rerun it after changing
-  either theme.
+  look. Their `man/figures` previews, and `gt_theme_tier()`'s, come from
+  `data-raw/theme_previews.R` (real 2023 NFL data, saved with
+  `gt_save_crop()`); rerun it after changing any of those themes. Help-page
+  figures ship in the package, so they show no team logos or headshots.
 
 ## Golden rules
 

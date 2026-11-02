@@ -4,7 +4,7 @@ description: "A tier list ranks teams into colored bands, best band on top, each
 author: "Saiem Gilani <br><a href='https://x.com/saiemgilani' target='blank'><img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;label=%40saiemgilani&amp;logo=x&amp;style=for-the-badge' alt='@saiemgilani'/></a> <a href='https://github.com/saiemgilani' target='blank'><img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@saiemgilani'/></a>"
 opengraph:
   image:
-    src: "https://sdvplotR.sportsdataverse.org/reference/figures/tier_list_example.png"
+    src: "https://sdvplotR.sportsdataverse.org/articles/images/tier_list_example.png"
   twitter:
     site: "@SportsDataverse"
     card: summary_large_image
@@ -34,7 +34,11 @@ slot holding an image URL. This article builds two:
 
 `gt_tiers()` and `gt_theme_tier()` come from Andrew Weatherman's
 [gtUtils](https://github.com/andreweatherman/gtUtils), and this article follows
-his tier-list example.
+his tier-list example, which ranks the ACC by 2024 KenPom rating:
+
+```{r gtutils-example, echo = FALSE, out.width = "70%", fig.alt = "gtUtils' example tier list: ACC basketball teams' logos in Elite, Average and Poor bands by 2024 KenPom rating."}
+knitr::include_graphics("images/tier_list_example.png")
+```
 
 ```{r setup}
 library(sdvplotR)
