@@ -87,7 +87,8 @@ test_that("pro league, conference and division marks draw", {
     c("MLB", "mlb"), c("AL", "mlb"), c("NL", "mlb"), c("NBA", "nba"), c("East", "nba"),
     c("WNBA", "wnba"), c("NHL", "nhl"), c("Metropolitan", "nhl"), c("Atlantic", "nhl"), c("AAF", "aaf"),
     # the NHL's conferences have only their Conference Final wordmarks, drawn as their logos
-    c("Eastern", "nhl"), c("Western", "nhl")
+    c("Eastern", "nhl"), c("Western", "nhl"),
+    c("CFL", "cfl"), c("Hockey East", "ncaa_mhockey"), c("NEWHA", "ncaa_whockey")
   )) {
     expect_match(sdv_logo_url(k[1], k[2]), "^https://", info = k[1])
   }

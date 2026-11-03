@@ -134,6 +134,10 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   logos too.
 * College baseball, softball and men's and women's hockey teams carry a
   `conference`; a soccer club's `conference` is its domestic league ("eng.1").
+* Every college conference a team carries has a logo, including the hockey
+  conferences (Hockey East, NCHC, ECAC, CCHA, Atlantic Hockey America, WCHA,
+  CHA, NEWHA); softball conferences run through 2026; the CFL has a league
+  mark; F1 constructors reach back to 2002 (team index 0b75158c6504).
 * `sdv_team_tiers()` builds tier charts, with dark marks on its dark theme
   (`variant = "auto"`) and a `theme = "light"` option; `ggtitle_image()` with
   `theme_title_image()` places a logo next to a plot title.
