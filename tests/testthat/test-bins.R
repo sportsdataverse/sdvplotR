@@ -165,3 +165,130 @@ test_that("a data_id mapped in ggplot() wins over the cell id", {
   )
   expect_true(all(startsWith(own$data_id, "bin-")))
 })
+
+test_that("origin shifts the lattice so a cell is centred on it; ids stay absolute", {
+  # integer shots and an integer origin, so x + 3 - 3 is x exactly: the same cells, moved
+  b <- sdv_bins(oracle$x_legacy, oracle$y_legacy, radius = 15)
+  moved <- sdv_bins(oracle$x_legacy + 3, oracle$y_legacy - 40, radius = 15, origin = c(3, -40))
+  expect_identical(moved$count, b$count)
+  expect_identical(moved$x, b$x + 3)
+  expect_identical(moved$y, b$y - 40)
+  expect_identical(moved$cell_id, paste0(js_number(b$x + 3), ",", js_number(b$y - 40)))
+  # a hoop-centred lattice: the hoop's cell is centred on the hoop, for either shape
+  for (args in list(list(radius = 1), list(shape = "square", side = 1))) {
+    ids <- do.call(sdv_bin_ids, c(list(c(0, 0.2, 5), c(5.25, 5.4, 5.25)), args, list(origin = c(0, 5.25))))
+    expect_identical(ids[1:2], c("0,5.25", "0,5.25"))
+  }
+  expect_identical(sdv_bin_ids(0, 5.25, shape = "square", side = 1), "0,5")
+  expect_identical(
+    sdv_bin_ids(oracle$x_legacy, oracle$y_legacy, radius = 10, origin = c(0, 0)), oracle$hex10
+  )
+  expect_error(sdv_bins(1, 1, radius = 1, origin = 0), "origin")
+  expect_error(sdv_bin_ids(1, 1, radius = 1, origin = c(0, NA)), "origin")
+  expect_error(geom_sdv_bins(radius = 1, origin = "hoop"), "origin")
+})
+
+test_that("weights sum per cell; missing or non-finite ones count 0 but the point stays binned", {
+  b <- sdv_bins(oracle$x_legacy, oracle$y_legacy, radius = 15)
+  expect_identical(b$weight, as.double(b$count))
+  w <- oracle$x_legacy %% 3 + 1
+  bw <- sdv_bins(oracle$x_legacy, oracle$y_legacy, radius = 15, weights = w)
+  expect_identical(bw$count, b$count)
+  expect_equal(bw$weight, vapply(bw$rows, function(r) sum(w[r]), numeric(1)))
+  bad <- sdv_bins(c(0, 1, 2, 3, NA), c(0, 1, 2, 3, 0), radius = 10, weights = c(2, NA, Inf, NaN, 5))
+  expect_identical(bad$count, 4L)
+  expect_identical(bad$weight, 2)
+  expect_error(sdv_bins(1:2, 1:2, radius = 1, weights = 1), "weights")
+  expect_error(sdv_bins(1:2, 1:2, radius = 1, weights = c("a", "b")), "weights")
+})
+
+test_that("geom_sdv_bins takes origin and a weight aesthetic", {
+  shots$pts <- ifelse(abs(shots$x) > 220 | shots$y > 237, 3, 2)
+  shots$pts[1:2] <- c(NA, Inf)
+  p <- ggplot2::ggplot(shots, ggplot2::aes(x, y, weight = pts)) +
+    geom_sdv_bins(shape = "square", side = 15, origin = c(0, 52.5))
+  expect_no_warning(d <- ggplot2::layer_data(p))
+  b <- sdv_bins(shots$x, shots$y, shape = "square", side = 15, origin = c(0, 52.5), weights = shots$pts)
+  expect_identical(d$cell_id, b$cell_id)
+  expect_identical(d$count, b$count)
+  expect_identical(d$weight, b$weight)
+  expect_equal(d$density, b$weight / sum(b$weight))
+  expect_identical(sum(d$count), 2000L)
+  # fill stays the count; after_stat(weight) fills by the weight
+  expect_identical(d$fill, ggplot2::layer_data(ggplot2::ggplot(shots, ggplot2::aes(x, y)) +
+    geom_sdv_bins(shape = "square", side = 15, origin = c(0, 52.5)))$fill)
+  pw <- ggplot2::ggplot(shots, ggplot2::aes(x, y, weight = pts)) +
+    geom_sdv_bins(ggplot2::aes(fill = ggplot2::after_stat(weight)), radius = 15)
+  expect_identical(ggplot2::layer_data(pw)$weight, sdv_bins(shots$x, shots$y, radius = 15, weights = shots$pts)$weight)
+  skip_if_not_installed("ggiraph")
+  pi <- ggplot2::ggplot(shots, ggplot2::aes(x, y, weight = pts)) + geom_sdv_bins_interactive(radius = 15, origin = c(1, 1))
+  expect_no_warning(di <- ggplot2::layer_data(pi))
+  expect_identical(di$data_id, sdv_bins(shots$x, shots$y, radius = 15, origin = c(1, 1))$cell_id)
+})
+
+test_that("ggplotly links cells and points through a highlight_key on the cell id", {
+  skip_if_not_installed("plotly")
+  shots$cell_id <- sdv_bin_ids(shots$x, shots$y, radius = 15, origin = c(0, 5))
+  p <- ggplot2::ggplot(plotly::highlight_key(shots, ~cell_id), ggplot2::aes(x, y)) +
+    geom_sdv_bins(radius = 15, origin = c(0, 5)) +
+    ggplot2::geom_point()
+  built <- plotly::plotly_build(plotly::highlight(plotly::ggplotly(p), on = "plotly_click", off = "plotly_doubleclick"))$x$data
+  cells <- Filter(function(t) identical(t$fill, "toself"), built)
+  points <- Filter(function(t) identical(t$mode, "markers") && !is.null(t$key), built)[[1]]
+  # one trace per cell, hovered on its fill, keyed by its own cell id, in the points' crosstalk set
+  expect_length(cells, length(unique(shots$cell_id)))
+  expect_true(all(vapply(cells, function(t) isTRUE(t[["_isSimpleKey"]]) && t$hoveron == "fills", logical(1))))
+  expect_setequal(vapply(cells, function(t) t$key[[1]], ""), shots$cell_id)
+  expect_identical(unique(vapply(cells, function(t) t$set, "")), points$set)
+  expect_setequal(as.character(points$key), shots$cell_id)
+  # without crosstalk data the cells carry no key
+  plain <- plotly::plotly_build(plotly::ggplotly(ggplot2::ggplot(shots, ggplot2::aes(x, y)) + geom_sdv_bins(radius = 15)))
+  expect_true(all(vapply(plain$x$data, function(t) is.null(t$key), logical(1))))
+})
+
+test_that("cell_fill shrinks the drawn squares (0.88 by default), never the lattice; hexagons tile at 1", {
+  drawn_width <- function(...) {
+    d <- ggplot2::layer_data(ggplot2::ggplot(shots, ggplot2::aes(x, y)) + geom_sdv_bins(...))
+    poly <- cell_polygons(d)
+    list(d = d, w = as.vector(tapply(poly$x, poly$group, function(v) max(v) - min(v))))
+  }
+  sq <- drawn_width(shape = "square", side = 15)
+  # the drawn squares never reach the cell side, so neighbours never touch
+  expect_true(all(sq$w < 15 - 1e-9))
+  expect_equal(sq$w, rep(0.88 * 15, nrow(sq$d)))
+  # the cells and the scales stay the lattice's
+  expect_equal(sq$d$xmax - sq$d$xmin, rep(15, nrow(sq$d)))
+  expect_identical(sq$d$count, sdv_bins(shots$x, shots$y, shape = "square", side = 15)$count)
+  expect_equal(drawn_width(shape = "square", side = 15, cell_fill = 1)$w, rep(15, nrow(sq$d)))
+  hex <- drawn_width(radius = 15)
+  expect_equal(hex$w, rep(sqrt(3) * 15, nrow(hex$d))) # full-radius hexagons
+  expect_equal(drawn_width(radius = 15, cell_fill = 0.5)$w, rep(sqrt(3) * 7.5, nrow(hex$d)))
+  expect_error(geom_sdv_bins(radius = 1, cell_fill = 0), "cell_fill")
+  expect_error(geom_sdv_bins(radius = 1, cell_fill = 1.5), "cell_fill")
+  expect_error(geom_sdv_bins(radius = 1, min_count = NA), "min_count")
+})
+
+test_that("min_count leaves cells with fewer points out of the layer only", {
+  all_cells <- sdv_bins(shots$x, shots$y, shape = "square", side = 15)
+  expect_true(any(all_cells$count == 1))
+  d <- ggplot2::layer_data(ggplot2::ggplot(shots, ggplot2::aes(x, y)) +
+    geom_sdv_bins(shape = "square", side = 15, min_count = 2))
+  expect_identical(d$cell_id, all_cells$cell_id[all_cells$count >= 2])
+  expect_true(all(d$count >= 2))
+  # density stays each cell's share of all the points
+  expect_equal(d$density, all_cells$count[all_cells$count >= 2] / 2000)
+  expect_identical(nrow(ggplot2::layer_data(ggplot2::ggplot(shots, ggplot2::aes(x, y)) +
+    geom_sdv_bins(shape = "square", side = 15))), nrow(all_cells))
+})
+
+test_that("an origin that pushes finite points past the double range is refused", {
+  expect_error(sdv_bins(1e308, 0, radius = 1, origin = c(-1e308, 0)), "overflow")
+  expect_error(sdv_bin_ids(0, -1e308, radius = 1, origin = c(0, 1e308)), "overflow")
+})
+
+test_that("a group whose weights sum to 0 has NaN density", {
+  d <- ggplot2::layer_data(ggplot2::ggplot(shots, ggplot2::aes(x, y, weight = 0 * x)) +
+    geom_sdv_bins(shape = "square", side = 15))
+  expect_true(all(d$weight == 0))
+  expect_true(all(is.nan(d$density)))
+})

@@ -102,6 +102,18 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   its cell id, so points given `sdv_bin_ids()` link to their cell for hover
   and selection in one `girafe()`. Ids are strings, `"x,y"`, as in
   sdvplot-js's linked interactivity. `plotly::ggplotly()` draws the cells too.
+* The bins take `origin = c(x, y)`, the point a cell is centred on (a
+  hoop-centred lattice: `origin` = the basket's coordinates; ids stay the
+  absolute centres), and weights: `sdv_bins(weights = )` and a `weight`
+  aesthetic on the geoms add each cell's `weight` (the sum of its points'
+  weights, its count without them; `after_stat(weight)`, and `density` is a
+  share of it). `geom_sdv_bins()` and `geom_sdv_bins_interactive()` draw
+  each cell at `cell_fill` of the lattice cell (by default 0.88 for squares,
+  so they no longer touch, and 1 for hexagons; sdvplot's `fill`) and leave
+  out cells under `min_count` points (`min_count = 2` draws no single
+  attempts). In `ggplotly()` each cell is its own trace, with its tooltip on
+  the fill; with the data as a `plotly::highlight_key()` on `sdv_bin_ids()`,
+  `plotly::highlight()` links cells and points without Shiny.
 
 ## Interactive plots and maps
 

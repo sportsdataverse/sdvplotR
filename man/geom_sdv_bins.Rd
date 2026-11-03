@@ -13,6 +13,9 @@ geom_sdv_bins(
   radius = NULL,
   side = NULL,
   equal_area = FALSE,
+  origin = c(0, 0),
+  cell_fill = NULL,
+  min_count = 1,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -20,7 +23,8 @@ geom_sdv_bins(
 }
 \arguments{
 \item{mapping, data, position, na.rm, show.legend, inherit.aes}{As in
-\code{\link[ggplot2:geom_polygon]{ggplot2::geom_polygon()}}. \code{x} and \code{y} are required.}
+\code{\link[ggplot2:geom_polygon]{ggplot2::geom_polygon()}}. \code{x} and \code{y} are required; \code{weight} is
+optional.}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{ggplot2::layer()}}, such as
 \code{colour}, \code{linewidth} or \code{alpha} set to a value.}
@@ -36,6 +40,17 @@ square has.}
 \item{equal_area}{For squares: size them by \code{radius} to the area of a
 hexagon of that circumradius, so a hex chart and a square chart of the
 same data have cells of the same area.}
+
+\item{origin}{The point a cell is centred on, \code{c(x, y)} in the points'
+units: a hoop-centred lattice, origin = the basket's coordinates. The
+default \code{c(0, 0)} centres a cell on the data origin.}
+
+\item{cell_fill}{The drawn cell's size as a fraction of the lattice cell's,
+a number in (0, 1]; \code{NULL} (the default) is 0.88 for squares and 1 for
+hexagons. sdvplot's \code{fill}.}
+
+\item{min_count}{Cells with fewer points than this are not drawn (default
+1, every cell); \code{min_count = 2} draws no single attempts.}
 }
 \value{
 A ggplot2 layer.
@@ -46,25 +61,69 @@ or squares (\code{shape = "square"}) and draws each cell filled by its count.
 The cells are \code{\link[=sdv_bins]{sdv_bins()}}'s, so they match sdvplot (Python) and
 sdvplot-js. Sizes are in data units, so on a court from \code{\link[=sdv_surface]{sdv_surface()}}
 with \code{\link[=sdv_court_coords]{sdv_court_coords()}}'s \code{court_x} / \code{court_y} (feet), \code{radius = 1}
-is a 1-foot hexagon and \code{side = 1.5} a 1.5-foot square.
+is a 1-foot hexagon and \code{side = 1.5} a 1.5-foot square. Map \code{weight}
+(as in \code{\link[ggplot2:geom_hex]{ggplot2::geom_hex()}}) to sum a value per cell, and fill by it
+with \code{aes(fill = after_stat(weight))}.
 }
 \details{
 Unlike \code{\link[ggplot2:geom_hex]{ggplot2::geom_hex()}}, whose cells stretch with the axes,
 these are true hexagons and squares in data space, sized by \code{radius} or
 \code{side} rather than a bin count: under \code{\link[ggplot2:coord_fixed]{ggplot2::coord_fixed()}} (as
 \code{\link[=sdv_surface]{sdv_surface()}} draws) they look regular. The lattice has a cell centred
-on the data origin (centre court on an \code{\link[=sdv_surface]{sdv_surface()}} court); bin the
-NBA legacy frame with \code{\link[=sdv_bins]{sdv_bins()}} for cells centred on the hoop.
+on \code{origin}, by default the data origin (centre court on an
+\code{\link[=sdv_surface]{sdv_surface()}} court); for a hoop-centred lattice, set \code{origin} to the
+basket's coordinates.
 
-Each group is binned on its own; facets bin each panel's data.
+\code{cell_fill} draws each cell at a fraction of the lattice cell, around its
+centre: by default 0.88 for squares, so neighbouring squares keep a gap
+instead of touching edge to edge, and 1 for hexagons, the conventional
+tiled hexbin look. (sdvplot (Python) calls it \code{fill}; here \code{fill} is the
+aesthetic.) The cells, their counts and the scales are the lattice's
+whatever \code{cell_fill} is.
+
+\code{min_count} leaves out cells with fewer points: \code{min_count = 2} on a shot
+chart draws no single attempts, which otherwise clutter its perimeter.
+It only filters what is drawn: \code{density} is still each cell's share of
+all the group's points, and \code{\link[=sdv_bins]{sdv_bins()}} returns every cell.
+
+Each group is binned on its own; facets bin each panel's data. Binning
+happens after the position scales transform x and y, so under a
+transformed scale (\code{scale_x_log10()}) the sizes and \code{origin} are in the
+transformed units, as \code{\link[ggplot2:geom_hex]{ggplot2::geom_hex()}}'s \code{binwidth} is.
 }
 \section{Computed variables}{
 
 \itemize{
 \item \code{after_stat(count)}: points in the cell (the default \code{fill}).
-\item \code{after_stat(density)}: the cell's share of its group's points.
+\item \code{after_stat(weight)}: the sum of the cell's points' \code{weight}
+aesthetic (a missing or non-finite weight counts 0); its \code{count} when
+\code{weight} is not mapped.
+\item \code{after_stat(density)}: the cell's share of its group's weight (of its
+points when \code{weight} is not mapped); \code{NaN} when the group's weights
+sum to 0.
 \item \code{after_stat(cell_id)}: the cell's id, \code{"x,y"} (\code{\link[=sdv_bins]{sdv_bins()}}).
 }
+}
+
+\section{Linking cells and points in plotly}{
+
+\code{\link[plotly:ggplotly]{plotly::ggplotly()}} draws the cells, and links them to their points
+without Shiny through plotly's crosstalk support: give the points their
+cell id with \code{\link[=sdv_bin_ids]{sdv_bin_ids()}} (same \code{shape}, size and \code{origin}), make the
+plot's data a \code{\link[plotly:highlight_key]{plotly::highlight_key()}} keyed by it, and call
+\code{\link[plotly:highlight]{plotly::highlight()}}. Each cell's polygon carries its cell id as its
+plotly \code{key}, so clicking a cell highlights its points, and clicking a
+point lights its cell and cell-mates. This needs the default tooltip:
+plotly then draws each cell as its own trace, which a click selects
+whole.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{d$cell_id <- sdv_bin_ids(d$x, d$y, radius = 0.3)
+p <- ggplot(plotly::highlight_key(d, ~cell_id), aes(x, y)) +
+  geom_sdv_bins(radius = 0.3, alpha = 0.7) +
+  geom_point(size = 0.5) +
+  coord_fixed()
+plotly::highlight(plotly::ggplotly(p), on = "plotly_click", off = "plotly_doubleclick")
+}\if{html}{\out{</div>}}
 }
 
 \examples{
@@ -78,6 +137,10 @@ ggplot(d, aes(x, y)) +
   geom_sdv_bins(aes(fill = after_stat(density)),
     shape = "square", radius = 0.3, equal_area = TRUE
   ) +
+  coord_fixed()
+# touching squares, and no single-point cells
+ggplot(d, aes(x, y)) +
+  geom_sdv_bins(shape = "square", side = 0.4, cell_fill = 1, min_count = 2) +
   coord_fixed()
 }
 \seealso{

@@ -5,7 +5,16 @@
 \alias{sdv_bin_ids}
 \title{Bin points into hexagons or squares}
 \usage{
-sdv_bins(x, y, shape = "hex", radius = NULL, side = NULL, equal_area = FALSE)
+sdv_bins(
+  x,
+  y,
+  shape = "hex",
+  radius = NULL,
+  side = NULL,
+  equal_area = FALSE,
+  origin = c(0, 0),
+  weights = NULL
+)
 
 sdv_bin_ids(
   x,
@@ -13,7 +22,8 @@ sdv_bin_ids(
   shape = "hex",
   radius = NULL,
   side = NULL,
-  equal_area = FALSE
+  equal_area = FALSE,
+  origin = c(0, 0)
 )
 }
 \arguments{
@@ -30,6 +40,15 @@ square has.}
 \item{equal_area}{For squares: size them by \code{radius} to the area of a
 hexagon of that circumradius, so a hex chart and a square chart of the
 same data have cells of the same area.}
+
+\item{origin}{The point a cell is centred on, \code{c(x, y)} in the points'
+units: a hoop-centred lattice, origin = the basket's coordinates. The
+default \code{c(0, 0)} centres a cell on the data origin.}
+
+\item{weights}{\code{NULL} (the default) or a numeric vector as long as \code{x},
+each point's weight (points scored, say). A cell's \code{weight} is the sum of
+its points' weights; a missing or non-finite weight counts 0, but the
+point is still binned and counted.}
 }
 \value{
 \code{sdv_bins()}: a data frame with one row per cell, in first-seen order:\tabular{lll}{
@@ -38,6 +57,7 @@ same data have cells of the same area.}
    x \tab numeric \tab The cell centre's x, in the points' units \cr
    y \tab numeric \tab The cell centre's y, in the points' units \cr
    count \tab integer \tab Points in the cell \cr
+   weight \tab numeric \tab The sum of the cell's points' \code{weights} (its \code{count} without \code{weights}) \cr
    rows \tab list \tab Integer positions (1-based) of the cell's points in \code{x} / \code{y}, in input order \cr
 }
 
@@ -59,7 +79,10 @@ Sizes are in the points' own units (data space, not pixels): a
 hexagon has circumradius \code{radius}, a square side \code{side}, and with
 \code{equal_area = TRUE} a square has the area of a hexagon of circumradius
 \code{radius} (side \code{radius * sqrt(3 * sqrt(3) / 2)}, about \code{1.6119 * radius}).
-Both lattices have a cell centred on the origin.
+Both lattices have a cell centred on \code{origin}, \code{c(0, 0)} by default:
+for a hoop-centred lattice, origin = the basket's coordinates (the points
+are binned as \code{x - origin[1]}, \code{y - origin[2]} and the centres shifted
+back, so ids are still the absolute centres).
 \itemize{
 \item Hexagons are d3-hexbin's lattice: rows \code{1.5 * radius} apart, columns
 \code{sqrt(3) * radius} apart, odd rows shifted half a column. Each point
@@ -91,6 +114,9 @@ sdv_bins(x, y, radius = 10)
 sdv_bins(x, y, shape = "square", side = 10)
 sdv_bins(x, y, shape = "square", radius = 10, equal_area = TRUE)
 sdv_bin_ids(x, y, radius = 10)
+# the same shots in feet from the baseline, the hoop at (0, 5.25): a
+# hoop-centred lattice puts them in the same cells, weighted by points
+sdv_bins(x / 10, y / 10 + 5.25, radius = 1, origin = c(0, 5.25), weights = c(2, 2, 3))
 }
 \seealso{
 \code{\link[=geom_sdv_bins]{geom_sdv_bins()}} to draw the cells, \code{\link[=geom_sdv_bins_interactive]{geom_sdv_bins_interactive()}}
