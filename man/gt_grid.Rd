@@ -148,12 +148,13 @@ gt_grid(by_division,
   subtitle_style = list(italic = TRUE, color = "#8A8A8A")
 )
 
-\dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 # straight to an image; saving needs a headless Chrome (webshot2)
 \donttest{
-gt_grid(by_division, ncol = 2, file = tempfile(fileext = ".png"), bg = "#FBFAF7")
+if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+  gt_grid(by_division, ncol = 2, file = tempfile(fileext = ".png"), bg = "#FBFAF7")
 }
-\dontshow{\}) # examplesIf}
+}
+
 }
 \seealso{
 \code{\link[=gt_stack_tables]{gt_stack_tables()}} for a vertical stack, and \code{\link[=gt_snake]{gt_snake()}} for

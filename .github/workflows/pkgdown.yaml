@@ -51,7 +51,21 @@ jobs:
           needs: website
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        run: |
+          # pkgdown builds articles in file-name order and checks each page's images as it goes, so the gallery
+          # (built early) reports the figures of later articles as missing. Defer its check until every article is
+          # built; the check still runs, alt text included, and "Check gallery images exist" below re-verifies.
+          check_images <- pkgdown:::check_missing_images
+          deferred <- list()
+          utils::assignInNamespace("check_missing_images", function(pkg, src_path, dst_path) {
+            if (identical(as.character(dst_path), "articles/gallery.html")) {
+              deferred[[length(deferred) + 1]] <<- list(pkg, src_path, dst_path)
+            } else {
+              check_images(pkg, src_path, dst_path)
+            }
+          }, ns = "pkgdown")
+          pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+          for (d in deferred) do.call(check_images, d)
         shell: Rscript {0}
         env:
           # cfb-viz.Rmd calls cfbfastR::load_cfb_schedules(), which needs a CollegeFootballData.com key

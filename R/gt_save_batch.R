@@ -38,18 +38,20 @@
 #'
 #' @returns Invisibly, a character vector of the files written.
 #'
-#' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
+#' @examples
 #' \donttest{
-#' library(gt)
+#' if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+#'   library(gt)
 #'
-#' build <- function(df, group) {
-#'   gt(df[c("team_name", "wins", "losses", "points_for")]) |>
-#'     gt_theme_broadsheet() |>
-#'     tab_header(title = group)
+#'   build <- function(df, group) {
+#'     gt(df[c("team_name", "wins", "losses", "points_for")]) |>
+#'       gt_theme_broadsheet() |>
+#'       tab_header(title = group)
+#'   }
+#'
+#'   nfl <- subset(sdv_example_standings, league == "nfl")
+#'   gt_save_batch(nfl, conference, build, "nfl-{group}.png", dir = tempdir())
 #' }
-#'
-#' nfl <- subset(sdv_example_standings, league == "nfl")
-#' gt_save_batch(nfl, conference, build, "nfl-{group}.png", dir = tempdir())
 #' }
 #'
 #' @seealso [gt_grid()] for the same split composed into one image instead.

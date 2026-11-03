@@ -69,17 +69,19 @@
 #'
 #' gt_stack_tables(list(t1, t2))
 #'
-#' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
+#' @examples
 #' # one heading over the stack, saved straight to an image; saving needs a
 #' # headless Chrome (webshot2)
 #' \donttest{
-#' gt_stack_tables(
-#'   list(t1, t2),
-#'   title = "Two leagues",
-#'   subtitle = "Stacked into one block",
-#'   title_style = list(font = "Oswald", size = 30, transform = "uppercase"),
-#'   file = tempfile(fileext = ".png")
-#' )
+#' if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+#'   gt_stack_tables(
+#'     list(t1, t2),
+#'     title = "Two leagues",
+#'     subtitle = "Stacked into one block",
+#'     title_style = list(font = "Oswald", size = 30, transform = "uppercase"),
+#'     file = tempfile(fileext = ".png")
+#'   )
+#' }
 #' }
 #'
 #' @seealso [gt_grid()] for a side-by-side grid and [gt_snake()] for folding one

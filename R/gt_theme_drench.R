@@ -43,13 +43,15 @@
 #' )
 #' gt(southwest) |> gt_theme_drench()
 #'
-#' @examplesIf interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
+#' @examples
 #' # a brand color, with a matching export canvas; saving needs a headless
 #' # Chrome (webshot2)
 #' \donttest{
-#' gt(southwest) |>
-#'   gt_theme_drench(color = "#4B1E78", density = "social") |>
-#'   gt_social_crop(tempfile(fileext = ".png"), bg = "#4B1E78")
+#' if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+#'   gt(southwest) |>
+#'     gt_theme_drench(color = "#4B1E78", density = "social") |>
+#'     gt_social_crop(tempfile(fileext = ".png"), bg = "#4B1E78")
+#' }
 #' }
 #'
 #' @seealso [gt_theme_midnight()] for a restrained dark background instead.

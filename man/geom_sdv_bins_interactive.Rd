@@ -41,9 +41,9 @@ square has.}
 hexagon of that circumradius, so a hex chart and a square chart of the
 same data have cells of the same area.}
 
-\item{origin}{The point a cell is centred on, \code{c(x, y)} in the points'
-units: a hoop-centred lattice, origin = the basket's coordinates. The
-default \code{c(0, 0)} centres a cell on the data origin.}
+\item{origin}{The point a cell is centered on, \code{c(x, y)} in the points'
+units: a hoop-centered lattice, origin = the basket's coordinates. The
+default \code{c(0, 0)} centers a cell on the data origin.}
 
 \item{cell_fill}{The drawn cell's size as a fraction of the lattice cell's,
 a number in (0, 1]; \code{NULL} (the default) is 0.88 for squares and 1 for
@@ -66,7 +66,7 @@ points, and a point lights its cell and its cell-mates, in one
 }
 \details{
 \strong{The linking contract} is sdvplot-js's: ids are strings, and a
-cell's id is \code{"x,y"}, its centre as JavaScript writes the numbers
+cell's id is \code{"x,y"}, its center as JavaScript writes the numbers
 (\code{\link[=sdv_bins]{sdv_bins()}}). A point links to a cell when its \code{data_id} equals the
 cell's, so bin both with the same lattice (\code{shape}, \code{radius} / \code{side},
 \code{equal_area}, \code{origin}) in the same coordinates. Selection works the same way: with

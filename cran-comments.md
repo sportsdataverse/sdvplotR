@@ -9,9 +9,11 @@ were published only on r-universe.
 
 ## Test environments
 
-* local: Windows 10 x64, R 4.6.1 (2026-06-24 ucrt), `R CMD check --as-cran`
-  on the built tarball (which also runs the `\donttest{}` examples), with
-  'sportyR' 2.4.5 from CRAN
+* local: Windows 10 x64, R 4.6.0 (ucrt), `R CMD check --as-cran` on the built
+  tarball (which also runs the `\donttest{}` examples, 48 seconds in total), and
+  again with `_R_CHECK_DEPENDS_ONLY_=true` (Suggests not installed): Status OK
+* R-hub (GitHub Actions, R-devel): Linux, Windows, macOS (x86_64 and arm64),
+  and the `nosuggests` platform
 * GitHub Actions (R-CMD-check workflow): macOS (release), Windows (release),
   Ubuntu (devel, release, oldrel-1)
 
@@ -21,13 +23,7 @@ were published only on r-universe.
 
 * This is a new submission.
 
-The installed size is about 3 Mb, and the installed-size check passes.
-
-On the local machine the check also listed a directory named `'NULL'` under
-"non-standard things in the check directory". That directory is created by
-that machine's R start-up profile when `R_LIBS_USER` is set to `'NULL'`
-(`Rscript -e 1` creates it too), not by the package, and R installations
-without that profile do not report it.
+The installed size is about 3.3 Mb (tarball 2.1 Mb).
 
 ## Notes for the CRAN team
 
@@ -44,7 +40,7 @@ without that profile do not report it.
   package name, as the logo of 'nflplotR' (CRAN) does. Examples that
   download images
   are wrapped in `\donttest{}` (as 'nflplotR' and 'ggpath' do); they pass
-  under `--as-cran`, which runs them (52 seconds in total locally).
+  under `--as-cran`, which runs them (48 seconds in total locally).
 * 'sportyR' (>= 2.4.5, CRAN) is in Suggests: `sdv_surface()` checks for it
   with `rlang::check_installed()` and calls only its exported functions.
 * The tests need network access, headless Chrome or image rendering for

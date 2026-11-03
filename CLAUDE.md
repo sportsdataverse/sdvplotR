@@ -185,9 +185,10 @@ size under 5 MB; run it after adding or replacing any other figure there.
   with `pkgdown::build_article("<slug>")`. Paths inside an article are relative
   to `vignettes/` (the repo root is `../`).
 - Examples that download images are wrapped in `\donttest{}`. Never use
-  `\dontrun{}`: examples that save images through a headless Chrome go in an
-  `@examplesIf interactive() && <webshot2 + Chrome available>` block wrapping
-  `\donttest{}` (see `R/gt_save_crop.R`) and write to `tempfile()` /
+  `\dontrun{}`: examples that save images through a headless Chrome put their
+  code inside `\donttest{ if (interactive() && <webshot2 + Chrome available>) { ... } }`
+  (see `R/gt_save_crop.R`; not `@examplesIf`, whose FALSE condition pkgdown
+  reports as a warning on every build) and write to `tempfile()` /
   `tempdir()`, never to the working directory. `interactive()` is required:
   chromote starts Chrome through processx's supervisor, whose fifo
   connections stay open for the session, and R CMD check's `cleanEx()` then

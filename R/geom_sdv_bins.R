@@ -62,13 +62,13 @@ GeomSdvBins <- ggplot2::ggproto("GeomSdvBins", ggplot2::Geom,
 #' @details Unlike [ggplot2::geom_hex()], whose cells stretch with the axes,
 #'   these are true hexagons and squares in data space, sized by `radius` or
 #'   `side` rather than a bin count: under [ggplot2::coord_fixed()] (as
-#'   [sdv_surface()] draws) they look regular. The lattice has a cell centred
-#'   on `origin`, by default the data origin (centre court on an
-#'   [sdv_surface()] court); for a hoop-centred lattice, set `origin` to the
+#'   [sdv_surface()] draws) they look regular. The lattice has a cell centered
+#'   on `origin`, by default the data origin (center court on an
+#'   [sdv_surface()] court); for a hoop-centered lattice, set `origin` to the
 #'   basket's coordinates.
 #'
 #'   `cell_fill` draws each cell at a fraction of the lattice cell, around its
-#'   centre: by default 0.88 for squares, so neighbouring squares keep a gap
+#'   center: by default 0.88 for squares, so neighboring squares keep a gap
 #'   instead of touching edge to edge, and 1 for hexagons, the conventional
 #'   tiled hexbin look. (sdvplot (Python) calls it `fill`; here `fill` is the
 #'   aesthetic.) The cells, their counts and the scales are the lattice's
@@ -192,7 +192,7 @@ aes_list <- function(m) stats::setNames(lapply(names(m), function(n) m[[n]]), na
 #'   points, and a point lights its cell and its cell-mates, in one
 #'   [ggiraph::girafe()] (one plot, or several combined with 'patchwork').
 #' @details **The linking contract** is sdvplot-js's: ids are strings, and a
-#'   cell's id is `"x,y"`, its centre as JavaScript writes the numbers
+#'   cell's id is `"x,y"`, its center as JavaScript writes the numbers
 #'   ([sdv_bins()]). A point links to a cell when its `data_id` equals the
 #'   cell's, so bin both with the same lattice (`shape`, `radius` / `side`,
 #'   `equal_area`, `origin`) in the same coordinates. Selection works the same way: with
