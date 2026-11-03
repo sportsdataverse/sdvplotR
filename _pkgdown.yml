@@ -295,6 +295,14 @@ reference:
       team league's surface takes a team's colors and its logo at center.
     contents:
       - sdv_surface
+  - title: "Hexagonal and Square Bins"
+    desc: >
+      Bin points into hexagons or equal-area squares, the lattice sdvplot and
+      sdvplot-js share, and draw or link the cells.
+    contents:
+      - sdv_bins
+      - geom_sdv_bins
+      - geom_sdv_bins_interactive
   - title: "Interactive plots and maps"
     desc: >
       Team marks on plotly charts, interactive ggiraph layers and leaflet maps.

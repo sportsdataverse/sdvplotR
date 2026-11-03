@@ -84,6 +84,25 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   F1 driver headshots are not covered: formula1.com keys them by its own
   driver reference (`MAXVER01`), not a driver number or Jolpica `driver_id`.
 
+## Hexagonal and square bins
+
+* `sdv_bins()` bins x/y points into hexagons (`shape = "hex"`, the default) or
+  squares (`shape = "square"`), sized in data units by `radius` (a hexagon's
+  circumradius), `side` (a square's) or, with `equal_area = TRUE`, squares of
+  a radius-`radius` hexagon's area. It returns one row per cell (`cell_id`,
+  centre, `count` and the `rows` it holds, in first-seen order);
+  `sdv_bin_ids()` gives each point's cell id. The lattice, argument names and
+  ids are sdvplot-js's `binner()` and sdvplot's: on 2000 real NBA shots every
+  cell id matches sdvplot-js byte for byte under six lattices, d3-hexbin's
+  nearest-centre quirk included.
+* `geom_sdv_bins()` draws those cells as true hexagons or squares in data
+  space, filled by `after_stat(count)` (also `density` and `cell_id`), on any
+  plot or an `sdv_surface()` court.
+* `geom_sdv_bins_interactive()` is its ggiraph twin: each cell's `data_id` is
+  its cell id, so points given `sdv_bin_ids()` link to their cell for hover
+  and selection in one `girafe()`. Ids are strings, `"x,y"`, as in
+  sdvplot-js's linked interactivity. `plotly::ggplotly()` draws the cells too.
+
 ## Interactive plots and maps
 
 * plotly: `add_sdv_logos()`, `add_sdv_wordmarks()`, `add_sdv_headshots()`,
