@@ -215,7 +215,13 @@ bin_points <- function(x, y, lattice, origin = c(0, 0), call = rlang::caller_env
   }
   ox <- as.double(origin[[1]])
   oy <- as.double(origin[[2]])
-  b <- bin_centres(as.double(x) - ox, as.double(y) - oy, lattice)
+  dx <- as.double(x) - ox
+  dy <- as.double(y) - oy
+  # a finite point shifted past the double range would be dropped as missing: refuse instead
+  if (any(is.finite(x) & !is.finite(dx)) || any(is.finite(y) & !is.finite(dy))) {
+    cli::cli_abort("{.arg origin} is too far from {.arg x} or {.arg y}: the shifted coordinates overflow.", call = call)
+  }
+  b <- bin_centres(dx, dy, lattice)
   b$x <- b$x + ox
   b$y <- b$y + oy
   b$id <- cell_ids(b$x, b$y)

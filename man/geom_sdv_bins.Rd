@@ -86,7 +86,10 @@ chart draws no single attempts, which otherwise clutter its perimeter.
 It only filters what is drawn: \code{density} is still each cell's share of
 all the group's points, and \code{\link[=sdv_bins]{sdv_bins()}} returns every cell.
 
-Each group is binned on its own; facets bin each panel's data.
+Each group is binned on its own; facets bin each panel's data. Binning
+happens after the position scales transform x and y, so under a
+transformed scale (\code{scale_x_log10()}) the sizes and \code{origin} are in the
+transformed units, as \code{\link[ggplot2:geom_hex]{ggplot2::geom_hex()}}'s \code{binwidth} is.
 }
 \section{Computed variables}{
 
@@ -96,7 +99,8 @@ Each group is binned on its own; facets bin each panel's data.
 aesthetic (a missing or non-finite weight counts 0); its \code{count} when
 \code{weight} is not mapped.
 \item \code{after_stat(density)}: the cell's share of its group's weight (of its
-points when \code{weight} is not mapped).
+points when \code{weight} is not mapped); \code{NaN} when the group's weights
+sum to 0.
 \item \code{after_stat(cell_id)}: the cell's id, \code{"x,y"} (\code{\link[=sdv_bins]{sdv_bins()}}).
 }
 }

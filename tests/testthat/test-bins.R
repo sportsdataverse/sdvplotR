@@ -280,3 +280,15 @@ test_that("min_count leaves cells with fewer points out of the layer only", {
   expect_identical(nrow(ggplot2::layer_data(ggplot2::ggplot(shots, ggplot2::aes(x, y)) +
     geom_sdv_bins(shape = "square", side = 15))), nrow(all_cells))
 })
+
+test_that("an origin that pushes finite points past the double range is refused", {
+  expect_error(sdv_bins(1e308, 0, radius = 1, origin = c(-1e308, 0)), "overflow")
+  expect_error(sdv_bin_ids(0, -1e308, radius = 1, origin = c(0, 1e308)), "overflow")
+})
+
+test_that("a group whose weights sum to 0 has NaN density", {
+  d <- ggplot2::layer_data(ggplot2::ggplot(shots, ggplot2::aes(x, y, weight = 0 * x)) +
+    geom_sdv_bins(shape = "square", side = 15))
+  expect_true(all(d$weight == 0))
+  expect_true(all(is.nan(d$density)))
+})

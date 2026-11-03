@@ -79,14 +79,18 @@ GeomSdvBins <- ggplot2::ggproto("GeomSdvBins", ggplot2::Geom,
 #'   It only filters what is drawn: `density` is still each cell's share of
 #'   all the group's points, and [sdv_bins()] returns every cell.
 #'
-#'   Each group is binned on its own; facets bin each panel's data.
+#'   Each group is binned on its own; facets bin each panel's data. Binning
+#'   happens after the position scales transform x and y, so under a
+#'   transformed scale (`scale_x_log10()`) the sizes and `origin` are in the
+#'   transformed units, as [ggplot2::geom_hex()]'s `binwidth` is.
 #' @section Computed variables:
 #'   * `after_stat(count)`: points in the cell (the default `fill`).
 #'   * `after_stat(weight)`: the sum of the cell's points' `weight`
 #'     aesthetic (a missing or non-finite weight counts 0); its `count` when
 #'     `weight` is not mapped.
 #'   * `after_stat(density)`: the cell's share of its group's weight (of its
-#'     points when `weight` is not mapped).
+#'     points when `weight` is not mapped); `NaN` when the group's weights
+#'     sum to 0.
 #'   * `after_stat(cell_id)`: the cell's id, `"x,y"` ([sdv_bins()]).
 #' @section Linking cells and points in plotly:
 #'   [plotly::ggplotly()] draws the cells, and links them to their points
