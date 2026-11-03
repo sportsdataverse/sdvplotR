@@ -26,13 +26,13 @@ sdv_versions()
 #> [1] "0.3.0"
 #> 
 #> $index_version
-#> [1] "387c6729bd3f"
+#> [1] "0b75158c6504"
 #> 
 #> $index_source
 #> [1] "live"
 #> 
 #> $manifest_rows
-#> [1] 46099
+#> [1] 46172
 #> 
 #> $manifest_source
 #> [1] "live"

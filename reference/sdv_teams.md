@@ -842,68 +842,73 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 688    cfb                AAC                AAC
 #> 689    cfb                ACC                ACC
 #> 690    cfb                ASC                ASC
-#> 691    cfb             Big 12             Big 12
-#> 692    cfb            Big Sky            Big Sky
-#> 693    cfb            Big Ten            Big Ten
-#> 694    cfb                CAA                CAA
-#> 695    cfb               CCIW               CCIW
-#> 696    cfb               CIAA               CIAA
-#> 697    cfb                CNE                CNE
-#> 698    cfb               CUSA               CUSA
-#> 699    cfb          Carolinas          Carolinas
-#> 700    cfb           Empire 8           Empire 8
-#> 701    cfb         FBS Indep.         FBS Indep.
-#> 702    cfb         FCS Indep.         FCS Indep.
-#> 703    cfb              GLIAC              GLIAC
-#> 704    cfb               GLVC               GLVC
-#> 705    cfb                GSC                GSC
-#> 706    cfb     Great American     Great American
-#> 707    cfb               HCAC               HCAC
-#> 708    cfb                Ivy                Ivy
-#> 709    cfb                LSC                LSC
-#> 710    cfb           Landmark           Landmark
-#> 711    cfb     Liberty League     Liberty League
-#> 712    cfb                MAC                MAC
-#> 713    cfb             MASCAC             MASCAC
-#> 714    cfb               MEAC               MEAC
-#> 715    cfb                MEC                MEC
-#> 716    cfb               MIAA               MIAA
-#> 717    cfb          MIAA (MI)          MIAA (MI)
-#> 718    cfb               MIAC               MIAC
-#> 719    cfb               MVFC               MVFC
-#> 720    cfb    Middle Atlantic    Middle Atlantic
-#> 721    cfb Midwest Conference Midwest Conference
-#> 722    cfb      Mountain West      Mountain West
-#> 723    cfb               NACC               NACC
-#> 724    cfb               NCAA               NCAA
-#> 725    cfb               NCAC               NCAC
-#> 726    cfb               NE10               NE10
-#> 727    cfb                NEC                NEC
-#> 728    cfb             NESCAC             NESCAC
-#> 729    cfb             NEWMAC             NEWMAC
-#> 730    cfb               NJAC               NJAC
-#> 731    cfb               NSIC               NSIC
-#> 732    cfb                NWC                NWC
-#> 733    cfb                OAC                OAC
-#> 734    cfb               ODAC               ODAC
-#> 735    cfb                OVC                OVC
-#> 736    cfb                PAC                PAC
-#> 737    cfb               PSAC               PSAC
-#> 738    cfb             Pac-12             Pac-12
-#> 739    cfb            Patriot            Patriot
-#> 740    cfb            Pioneer            Pioneer
-#> 741    cfb               RMAC               RMAC
-#> 742    cfb              SCIAC              SCIAC
-#> 743    cfb                SEC                SEC
-#> 744    cfb               SIAC               SIAC
-#> 745    cfb               SWAC               SWAC
-#> 746    cfb              SoCon              SoCon
-#> 747    cfb          Southland          Southland
-#> 748    cfb           Sun Belt           Sun Belt
-#> 749    cfb               UMAC               UMAC
-#> 750    cfb          USA South          USA South
-#> 751    cfb                WAC                WAC
-#> 752    cfb               WIAC               WIAC
+#> 691    cfb    American Rivers    American Rivers
+#> 692    cfb             Big 12             Big 12
+#> 693    cfb            Big Sky            Big Sky
+#> 694    cfb            Big Ten            Big Ten
+#> 695    cfb                CAA                CAA
+#> 696    cfb               CCIW               CCIW
+#> 697    cfb               CIAA               CIAA
+#> 698    cfb                CNE                CNE
+#> 699    cfb               CUSA               CUSA
+#> 700    cfb          Carolinas          Carolinas
+#> 701    cfb         Centennial         Centennial
+#> 702    cfb           Empire 8           Empire 8
+#> 703    cfb         FBS Indep.         FBS Indep.
+#> 704    cfb         FCS Indep.         FCS Indep.
+#> 705    cfb              G-MAC              G-MAC
+#> 706    cfb              GLIAC              GLIAC
+#> 707    cfb               GLVC               GLVC
+#> 708    cfb                GSC                GSC
+#> 709    cfb     Great American     Great American
+#> 710    cfb               HCAC               HCAC
+#> 711    cfb                Ivy                Ivy
+#> 712    cfb                LSC                LSC
+#> 713    cfb           Landmark           Landmark
+#> 714    cfb     Liberty League     Liberty League
+#> 715    cfb                MAC                MAC
+#> 716    cfb             MASCAC             MASCAC
+#> 717    cfb               MEAC               MEAC
+#> 718    cfb                MEC                MEC
+#> 719    cfb               MIAA               MIAA
+#> 720    cfb          MIAA (MI)          MIAA (MI)
+#> 721    cfb               MIAC               MIAC
+#> 722    cfb               MVFC               MVFC
+#> 723    cfb    Middle Atlantic    Middle Atlantic
+#> 724    cfb Midwest Conference Midwest Conference
+#> 725    cfb      Mountain West      Mountain West
+#> 726    cfb               NACC               NACC
+#> 727    cfb               NCAA               NCAA
+#> 728    cfb               NCAC               NCAC
+#> 729    cfb               NE10               NE10
+#> 730    cfb                NEC                NEC
+#> 731    cfb             NESCAC             NESCAC
+#> 732    cfb             NEWMAC             NEWMAC
+#> 733    cfb               NJAC               NJAC
+#> 734    cfb               NSIC               NSIC
+#> 735    cfb                NWC                NWC
+#> 736    cfb                OAC                OAC
+#> 737    cfb               ODAC               ODAC
+#> 738    cfb                OVC                OVC
+#> 739    cfb                PAC                PAC
+#> 740    cfb               PSAC               PSAC
+#> 741    cfb             Pac-12             Pac-12
+#> 742    cfb            Patriot            Patriot
+#> 743    cfb            Pioneer            Pioneer
+#> 744    cfb               RMAC               RMAC
+#> 745    cfb                SAA                SAA
+#> 746    cfb               SCAC               SCAC
+#> 747    cfb              SCIAC              SCIAC
+#> 748    cfb                SEC                SEC
+#> 749    cfb               SIAC               SIAC
+#> 750    cfb               SWAC               SWAC
+#> 751    cfb              SoCon              SoCon
+#> 752    cfb          Southland          Southland
+#> 753    cfb           Sun Belt           Sun Belt
+#> 754    cfb               UMAC               UMAC
+#> 755    cfb          USA South          USA South
+#> 756    cfb                WAC                WAC
+#> 757    cfb               WIAC               WIAC
 #>                                                        name         short_name
 #> 1                                         Eureka Red Devils             Eureka
 #> 2                                  Centenary (LA) Gentlemen     Centenary (LA)
@@ -1595,68 +1600,73 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 688                                     American Conference           American
 #> 689                               Atlantic Coast Conference                ACC
 #> 690                           American Southwest Conference American Southwest
-#> 691                                       Big 12 Conference             Big 12
-#> 692                                      Big Sky Conference            Big Sky
-#> 693                                      Big Ten Conference            Big Ten
-#> 694                            Coastal Athletic Association                CAA
-#> 695            College Conference of Illinois and Wisconsin               CCIW
-#> 696            Central Intercollegiate Athletic Association               CIAA
-#> 697                               Conference of New England                CNE
-#> 698                                          Conference USA     Conference USA
-#> 699                                    Conference Carolinas          Carolinas
-#> 700                                                Empire 8           Empire 8
-#> 701                                        FBS Independents   FBS Independents
-#> 702                                        FCS Independents   FCS Independents
-#> 703         Great Lakes Intercollegiate Athletic Conference              GLIAC
-#> 704                           Great Lakes Valley Conference        Great Lakes
-#> 705                                   Gulf South Conference         Gulf South
-#> 706                               Great American Conference     Great American
-#> 707                Heartland Collegiate Athletic Conference          Heartland
-#> 708                                              Ivy League                Ivy
-#> 709                                    Lone Star Conference          Lone Star
-#> 710                                     Landmark Conference           Landmark
-#> 711                                          Liberty League     Liberty League
-#> 712                                 Mid-American Conference       Mid-American
-#> 713      Massachusetts State Collegiate Athletic Conference             MASCAC
-#> 714                         Mid-Eastern Athletic Conference               MEAC
-#> 715                                Mountain East Conference      Mountain East
-#> 716       Mid-America Intercollegiate Athletics Association        Mid-America
-#> 717           Michigan Intercollegiate Athletic Association           Michigan
-#> 718           Minnesota Intercollegiate Athletic Conference          Minnesota
-#> 719                     Missouri Valley Football Conference    Missouri Valley
-#> 720                             Middle Atlantic Conferences    Middle Atlantic
-#> 721                                      Midwest Conference            Midwest
-#> 722                                Mountain West Conference      Mountain West
-#> 723                Northern Athletics Collegiate Conference               NACC
-#> 724                National Collegiate Athletic Association               NCAA
-#> 725                         North Coast Athletic Conference        North Coast
-#> 726                                 Northeast-10 Conference       Northeast-10
-#> 727                                    Northeast Conference          Northeast
-#> 728           New England Small College Athletic Conference             NESCAC
-#> 729       New England Women's and Men's Athletic Conference             NEWMAC
-#> 730                          New Jersey Athletic Conference         New Jersey
-#> 731                 Northern Sun Intercollegiate Conference       Northern Sun
-#> 732                                    Northwest Conference          Northwest
-#> 733                                Ohio Athletic Conference               Ohio
-#> 734                        Old Dominion Athletic Conference       Old Dominion
-#> 735                                  Ohio Valley Conference                OVC
-#> 736                         Presidents' Athletic Conference        Presidents'
-#> 737                  Pennsylvania State Athletic Conference               PSAC
-#> 738                                       Pac-12 Conference             Pac-12
-#> 739                                          Patriot League     Patriot League
-#> 740                                 Pioneer Football League            Pioneer
-#> 741                      Rocky Mountain Athletic Conference     Rocky Mountain
-#> 742 Southern California Intercollegiate Athletic Conference              SCIAC
-#> 743                                 Southeastern Conference                SEC
-#> 744            Southern Intercollegiate Athletic Conference               SIAC
-#> 745                        Southwestern Athletic Conference               SWAC
-#> 746                                     Southern Conference           Southern
-#> 747                                    Southland Conference          Southland
-#> 748                                     Sun Belt Conference           Sun Belt
-#> 749                       Upper Midwest Athletic Conference      Upper Midwest
-#> 750                           USA South Athletic Conference          USA South
-#> 751                             Western Athletic Conference                WAC
-#> 752           Wisconsin Intercollegiate Athletic Conference               WIAC
+#> 691                              American Rivers Conference    American Rivers
+#> 692                                       Big 12 Conference             Big 12
+#> 693                                      Big Sky Conference            Big Sky
+#> 694                                      Big Ten Conference            Big Ten
+#> 695                            Coastal Athletic Association                CAA
+#> 696            College Conference of Illinois and Wisconsin               CCIW
+#> 697            Central Intercollegiate Athletic Association               CIAA
+#> 698                               Conference of New England                CNE
+#> 699                                          Conference USA     Conference USA
+#> 700                                    Conference Carolinas          Carolinas
+#> 701                                   Centennial Conference         Centennial
+#> 702                                                Empire 8           Empire 8
+#> 703                                        FBS Independents   FBS Independents
+#> 704                                        FCS Independents   FCS Independents
+#> 705                       Great Midwest Athletic Conference              G-MAC
+#> 706         Great Lakes Intercollegiate Athletic Conference              GLIAC
+#> 707                           Great Lakes Valley Conference        Great Lakes
+#> 708                                   Gulf South Conference         Gulf South
+#> 709                               Great American Conference     Great American
+#> 710                Heartland Collegiate Athletic Conference          Heartland
+#> 711                                              Ivy League                Ivy
+#> 712                                    Lone Star Conference          Lone Star
+#> 713                                     Landmark Conference           Landmark
+#> 714                                          Liberty League     Liberty League
+#> 715                                 Mid-American Conference       Mid-American
+#> 716      Massachusetts State Collegiate Athletic Conference             MASCAC
+#> 717                         Mid-Eastern Athletic Conference               MEAC
+#> 718                                Mountain East Conference      Mountain East
+#> 719       Mid-America Intercollegiate Athletics Association        Mid-America
+#> 720           Michigan Intercollegiate Athletic Association           Michigan
+#> 721           Minnesota Intercollegiate Athletic Conference          Minnesota
+#> 722                     Missouri Valley Football Conference    Missouri Valley
+#> 723                             Middle Atlantic Conferences    Middle Atlantic
+#> 724                                      Midwest Conference            Midwest
+#> 725                                Mountain West Conference      Mountain West
+#> 726                Northern Athletics Collegiate Conference               NACC
+#> 727                National Collegiate Athletic Association               NCAA
+#> 728                         North Coast Athletic Conference        North Coast
+#> 729                                 Northeast-10 Conference       Northeast-10
+#> 730                                    Northeast Conference          Northeast
+#> 731           New England Small College Athletic Conference             NESCAC
+#> 732       New England Women's and Men's Athletic Conference             NEWMAC
+#> 733                          New Jersey Athletic Conference         New Jersey
+#> 734                 Northern Sun Intercollegiate Conference       Northern Sun
+#> 735                                    Northwest Conference          Northwest
+#> 736                                Ohio Athletic Conference               Ohio
+#> 737                        Old Dominion Athletic Conference       Old Dominion
+#> 738                                  Ohio Valley Conference                OVC
+#> 739                         Presidents' Athletic Conference        Presidents'
+#> 740                  Pennsylvania State Athletic Conference               PSAC
+#> 741                                       Pac-12 Conference             Pac-12
+#> 742                                          Patriot League     Patriot League
+#> 743                                 Pioneer Football League            Pioneer
+#> 744                      Rocky Mountain Athletic Conference     Rocky Mountain
+#> 745                           Southern Athletic Association                SAA
+#> 746                 Southern Collegiate Athletic Conference               SCAC
+#> 747 Southern California Intercollegiate Athletic Conference              SCIAC
+#> 748                                 Southeastern Conference                SEC
+#> 749            Southern Intercollegiate Athletic Conference               SIAC
+#> 750                        Southwestern Athletic Conference               SWAC
+#> 751                                     Southern Conference           Southern
+#> 752                                    Southland Conference          Southland
+#> 753                                     Sun Belt Conference           Sun Belt
+#> 754                       Upper Midwest Athletic Conference      Upper Midwest
+#> 755                           USA South Athletic Conference          USA South
+#> 756                             Western Athletic Conference                WAC
+#> 757           Wisconsin Intercollegiate Athletic Conference               WIAC
 #>                        location    program                    conference_id
 #> 1                        Eureka   football                         cfb:nacc
 #> 2                Centenary (LA)   football cfb:southern-collegiate-athletic
@@ -2348,68 +2358,73 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 688                        <NA> conference                     cfb:american
 #> 689                        <NA> conference                          cfb:acc
 #> 690                        <NA> conference           cfb:american-southwest
-#> 691                        <NA> conference                       cfb:big-12
-#> 692                        <NA> conference                      cfb:big-sky
-#> 693                        <NA> conference                      cfb:big-ten
-#> 694                        <NA> conference                          cfb:caa
-#> 695                        <NA> conference                         cfb:cciw
-#> 696                        <NA> conference                         cfb:ciaa
-#> 697                        <NA> conference                             <NA>
-#> 698                        <NA> conference                         cfb:cusa
-#> 699                        <NA> conference                    cfb:carolinas
-#> 700                        <NA> conference                     cfb:empire-8
-#> 701                        <NA> conference             cfb:fbs-independents
-#> 702                        <NA> conference             cfb:fcs-independents
-#> 703                        <NA> conference                        cfb:gliac
-#> 704                        <NA> conference                  cfb:great-lakes
-#> 705                        <NA> conference                   cfb:gulf-south
-#> 706                        <NA> conference               cfb:great-american
-#> 707                        <NA> conference                    cfb:heartland
-#> 708                        <NA> conference                          cfb:ivy
-#> 709                        <NA> conference                    cfb:lone-star
-#> 710                        <NA> conference          cfb:landmark-conference
-#> 711                        <NA> conference               cfb:liberty-league
-#> 712                        <NA> conference                          cfb:mac
-#> 713                        <NA> conference                        cfb:mscac
-#> 714                        <NA> conference                         cfb:meac
-#> 715                        <NA> conference                cfb:mountain-east
-#> 716                        <NA> conference                  cfb:mid-america
-#> 717                        <NA> conference                     cfb:michigan
-#> 718                        <NA> conference                    cfb:minnesota
-#> 719                        <NA> conference                         cfb:mvfc
-#> 720                        <NA> conference                 cfb:mid-atlantic
-#> 721                        <NA> conference                      cfb:midwest
-#> 722                        <NA> conference                cfb:mountain-west
-#> 723                        <NA> conference                         cfb:nacc
-#> 724                        <NA>     league                             <NA>
-#> 725                        <NA> conference                  cfb:north-coast
-#> 726                        <NA> conference                 cfb:northeast-10
-#> 727                        <NA> conference                          cfb:nec
-#> 728                        <NA> conference                       cfb:nescac
-#> 729                        <NA> conference                       cfb:newmac
-#> 730                        <NA> conference                   cfb:new-jersey
-#> 731                        <NA> conference                 cfb:northern-sun
-#> 732                        <NA> conference                    cfb:northwest
-#> 733                        <NA> conference                         cfb:ohio
-#> 734                        <NA> conference                 cfb:old-dominion
-#> 735                        <NA> conference                          cfb:ovc
-#> 736                        <NA> conference                   cfb:presidents
-#> 737                        <NA> conference  cfb:pennsylvania-state-athletic
-#> 738                        <NA> conference                       cfb:pac-12
-#> 739                        <NA> conference                      cfb:patriot
-#> 740                        <NA> conference                      cfb:pioneer
-#> 741                        <NA> conference               cfb:rocky-mountain
-#> 742                        <NA> conference                        cfb:sciac
-#> 743                        <NA> conference                          cfb:sec
-#> 744                        <NA> conference                         cfb:siac
-#> 745                        <NA> conference                         cfb:swac
-#> 746                        <NA> conference                     cfb:southern
-#> 747                        <NA> conference                    cfb:southland
-#> 748                        <NA> conference                     cfb:sun-belt
-#> 749                        <NA> conference                cfb:upper-midwest
-#> 750                        <NA> conference                    cfb:usa-south
-#> 751                        <NA> conference                             <NA>
-#> 752                        <NA> conference                    cfb:wisconsin
+#> 691                        <NA> conference              cfb:american-rivers
+#> 692                        <NA> conference                       cfb:big-12
+#> 693                        <NA> conference                      cfb:big-sky
+#> 694                        <NA> conference                      cfb:big-ten
+#> 695                        <NA> conference                          cfb:caa
+#> 696                        <NA> conference                         cfb:cciw
+#> 697                        <NA> conference                         cfb:ciaa
+#> 698                        <NA> conference                             <NA>
+#> 699                        <NA> conference                         cfb:cusa
+#> 700                        <NA> conference                    cfb:carolinas
+#> 701                        <NA> conference                   cfb:centennial
+#> 702                        <NA> conference                     cfb:empire-8
+#> 703                        <NA> conference             cfb:fbs-independents
+#> 704                        <NA> conference             cfb:fcs-independents
+#> 705                        <NA> conference       cfb:great-midwest-athletic
+#> 706                        <NA> conference                        cfb:gliac
+#> 707                        <NA> conference                  cfb:great-lakes
+#> 708                        <NA> conference                   cfb:gulf-south
+#> 709                        <NA> conference               cfb:great-american
+#> 710                        <NA> conference                    cfb:heartland
+#> 711                        <NA> conference                          cfb:ivy
+#> 712                        <NA> conference                    cfb:lone-star
+#> 713                        <NA> conference          cfb:landmark-conference
+#> 714                        <NA> conference               cfb:liberty-league
+#> 715                        <NA> conference                          cfb:mac
+#> 716                        <NA> conference                        cfb:mscac
+#> 717                        <NA> conference                         cfb:meac
+#> 718                        <NA> conference                cfb:mountain-east
+#> 719                        <NA> conference                  cfb:mid-america
+#> 720                        <NA> conference                     cfb:michigan
+#> 721                        <NA> conference                    cfb:minnesota
+#> 722                        <NA> conference                         cfb:mvfc
+#> 723                        <NA> conference                 cfb:mid-atlantic
+#> 724                        <NA> conference                      cfb:midwest
+#> 725                        <NA> conference                cfb:mountain-west
+#> 726                        <NA> conference                         cfb:nacc
+#> 727                        <NA>     league                             <NA>
+#> 728                        <NA> conference                  cfb:north-coast
+#> 729                        <NA> conference                 cfb:northeast-10
+#> 730                        <NA> conference                          cfb:nec
+#> 731                        <NA> conference                       cfb:nescac
+#> 732                        <NA> conference                       cfb:newmac
+#> 733                        <NA> conference                   cfb:new-jersey
+#> 734                        <NA> conference                 cfb:northern-sun
+#> 735                        <NA> conference                    cfb:northwest
+#> 736                        <NA> conference                         cfb:ohio
+#> 737                        <NA> conference                 cfb:old-dominion
+#> 738                        <NA> conference                          cfb:ovc
+#> 739                        <NA> conference                   cfb:presidents
+#> 740                        <NA> conference  cfb:pennsylvania-state-athletic
+#> 741                        <NA> conference                       cfb:pac-12
+#> 742                        <NA> conference                      cfb:patriot
+#> 743                        <NA> conference                      cfb:pioneer
+#> 744                        <NA> conference               cfb:rocky-mountain
+#> 745                        <NA> conference            cfb:southern-athletic
+#> 746                        <NA> conference cfb:southern-collegiate-athletic
+#> 747                        <NA> conference                        cfb:sciac
+#> 748                        <NA> conference                          cfb:sec
+#> 749                        <NA> conference                         cfb:siac
+#> 750                        <NA> conference                         cfb:swac
+#> 751                        <NA> conference                     cfb:southern
+#> 752                        <NA> conference                    cfb:southland
+#> 753                        <NA> conference                     cfb:sun-belt
+#> 754                        <NA> conference                cfb:upper-midwest
+#> 755                        <NA> conference                    cfb:usa-south
+#> 756                        <NA> conference                             <NA>
+#> 757                        <NA> conference                    cfb:wisconsin
 #>                                                  conference color_primary
 #> 1                  Northern Athletics Collegiate Conference       #960a2c
 #> 2                   Southern Collegiate Athletic Conference       #8a2432
@@ -3101,68 +3116,73 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 688                                     American Conference       #0e1d41
 #> 689                               Atlantic Coast Conference       #003ca6
 #> 690                           American Southwest Conference       #ff9da7
-#> 691                                       Big 12 Conference       #fa4238
-#> 692                                      Big Sky Conference       #0133a0
-#> 693                                      Big Ten Conference       #0082cb
-#> 694                            Coastal Athletic Association       #002648
-#> 695            College Conference of Illinois and Wisconsin       #f28e2b
-#> 696            Central Intercollegiate Athletic Association       #bab0ac
-#> 697                               Conference of New England       #9c755f
-#> 698                                          Conference USA       #002638
-#> 699                                    Conference Carolinas       #e15759
-#> 700                                                Empire 8       #4e79a7
-#> 701                                        FBS Independents       #76b7b2
-#> 702                                        FCS Independents       #9c755f
-#> 703         Great Lakes Intercollegiate Athletic Conference       #ff9da7
-#> 704                           Great Lakes Valley Conference       #bab0ac
-#> 705                                   Gulf South Conference       #edc948
-#> 706                               Great American Conference       #76b7b2
-#> 707                Heartland Collegiate Athletic Conference       #bab0ac
-#> 708                                              Ivy League       #18563f
-#> 709                                    Lone Star Conference       #9c755f
-#> 710                                     Landmark Conference       #edc948
-#> 711                                          Liberty League       #edc948
-#> 712                                 Mid-American Conference       #009844
-#> 713      Massachusetts State Collegiate Athletic Conference       #ff9da7
-#> 714                         Mid-Eastern Athletic Conference       #582c82
-#> 715                                Mountain East Conference       #59a14f
-#> 716       Mid-America Intercollegiate Athletics Association       #bab0ac
-#> 717           Michigan Intercollegiate Athletic Association       #4e79a7
-#> 718           Minnesota Intercollegiate Athletic Conference       #bab0ac
-#> 719                     Missouri Valley Football Conference       #9c755f
-#> 720                             Middle Atlantic Conferences       #59a14f
-#> 721                                      Midwest Conference       #4e79a7
-#> 722                                Mountain West Conference       #4e2d7f
-#> 723                Northern Athletics Collegiate Conference       #e15759
-#> 724                                                    <NA>       #e15759
-#> 725                         North Coast Athletic Conference       #e15759
-#> 726                                 Northeast-10 Conference       #ff9da7
-#> 727                                    Northeast Conference       #035f9b
-#> 728           New England Small College Athletic Conference       #76b7b2
-#> 729       New England Women's and Men's Athletic Conference       #76b7b2
-#> 730                          New Jersey Athletic Conference       #59a14f
-#> 731                 Northern Sun Intercollegiate Conference       #9c755f
-#> 732                                    Northwest Conference       #f28e2b
-#> 733                                Ohio Athletic Conference       #edc948
-#> 734                        Old Dominion Athletic Conference       #59a14f
-#> 735                                  Ohio Valley Conference       #a51844
-#> 736                         Presidents' Athletic Conference       #edc948
-#> 737                  Pennsylvania State Athletic Conference       #4e79a7
-#> 738                                       Pac-12 Conference       #001a6f
-#> 739                                          Patriot League       #00205a
-#> 740                                 Pioneer Football League       #ff9da7
-#> 741                      Rocky Mountain Athletic Conference       #59a14f
-#> 742 Southern California Intercollegiate Athletic Conference       #4e79a7
-#> 743                                 Southeastern Conference       #012d74
-#> 744            Southern Intercollegiate Athletic Conference       #bab0ac
-#> 745                        Southwestern Athletic Conference       #e2201b
-#> 746                                     Southern Conference       #001588
-#> 747                                    Southland Conference       #c1a552
-#> 748                                     Sun Belt Conference       #0c2140
-#> 749                       Upper Midwest Athletic Conference       #ff9da7
-#> 750                           USA South Athletic Conference       #bab0ac
-#> 751                             Western Athletic Conference       #8a2432
-#> 752           Wisconsin Intercollegiate Athletic Conference       #bab0ac
+#> 691                              American Rivers Conference       #edc948
+#> 692                                       Big 12 Conference       #fa4238
+#> 693                                      Big Sky Conference       #0133a0
+#> 694                                      Big Ten Conference       #0082cb
+#> 695                            Coastal Athletic Association       #002648
+#> 696            College Conference of Illinois and Wisconsin       #f28e2b
+#> 697            Central Intercollegiate Athletic Association       #bab0ac
+#> 698                               Conference of New England       #9c755f
+#> 699                                          Conference USA       #002638
+#> 700                                    Conference Carolinas       #e15759
+#> 701                                   Centennial Conference       #e15759
+#> 702                                                Empire 8       #4e79a7
+#> 703                                        FBS Independents       #76b7b2
+#> 704                                        FCS Independents       #9c755f
+#> 705                       Great Midwest Athletic Conference       #76b7b2
+#> 706         Great Lakes Intercollegiate Athletic Conference       #ff9da7
+#> 707                           Great Lakes Valley Conference       #bab0ac
+#> 708                                   Gulf South Conference       #edc948
+#> 709                               Great American Conference       #76b7b2
+#> 710                Heartland Collegiate Athletic Conference       #bab0ac
+#> 711                                              Ivy League       #18563f
+#> 712                                    Lone Star Conference       #9c755f
+#> 713                                     Landmark Conference       #edc948
+#> 714                                          Liberty League       #edc948
+#> 715                                 Mid-American Conference       #009844
+#> 716      Massachusetts State Collegiate Athletic Conference       #ff9da7
+#> 717                         Mid-Eastern Athletic Conference       #582c82
+#> 718                                Mountain East Conference       #59a14f
+#> 719       Mid-America Intercollegiate Athletics Association       #bab0ac
+#> 720           Michigan Intercollegiate Athletic Association       #4e79a7
+#> 721           Minnesota Intercollegiate Athletic Conference       #bab0ac
+#> 722                     Missouri Valley Football Conference       #9c755f
+#> 723                             Middle Atlantic Conferences       #59a14f
+#> 724                                      Midwest Conference       #4e79a7
+#> 725                                Mountain West Conference       #4e2d7f
+#> 726                Northern Athletics Collegiate Conference       #e15759
+#> 727                                                    <NA>       #e15759
+#> 728                         North Coast Athletic Conference       #e15759
+#> 729                                 Northeast-10 Conference       #ff9da7
+#> 730                                    Northeast Conference       #035f9b
+#> 731           New England Small College Athletic Conference       #76b7b2
+#> 732       New England Women's and Men's Athletic Conference       #76b7b2
+#> 733                          New Jersey Athletic Conference       #59a14f
+#> 734                 Northern Sun Intercollegiate Conference       #9c755f
+#> 735                                    Northwest Conference       #f28e2b
+#> 736                                Ohio Athletic Conference       #edc948
+#> 737                        Old Dominion Athletic Conference       #59a14f
+#> 738                                  Ohio Valley Conference       #a51844
+#> 739                         Presidents' Athletic Conference       #edc948
+#> 740                  Pennsylvania State Athletic Conference       #4e79a7
+#> 741                                       Pac-12 Conference       #001a6f
+#> 742                                          Patriot League       #00205a
+#> 743                                 Pioneer Football League       #ff9da7
+#> 744                      Rocky Mountain Athletic Conference       #59a14f
+#> 745                           Southern Athletic Association       #f28e2b
+#> 746                 Southern Collegiate Athletic Conference       #b07aa1
+#> 747 Southern California Intercollegiate Athletic Conference       #4e79a7
+#> 748                                 Southeastern Conference       #012d74
+#> 749            Southern Intercollegiate Athletic Conference       #bab0ac
+#> 750                        Southwestern Athletic Conference       #e2201b
+#> 751                                     Southern Conference       #001588
+#> 752                                    Southland Conference       #c1a552
+#> 753                                     Sun Belt Conference       #0c2140
+#> 754                       Upper Midwest Athletic Conference       #ff9da7
+#> 755                           USA South Athletic Conference       #bab0ac
+#> 756                             Western Athletic Conference       #8a2432
+#> 757           Wisconsin Intercollegiate Athletic Conference       #bab0ac
 #>     color_secondary color_source
 #> 1           #c09a05         espn
 #> 2           #300e12         logo
@@ -3854,66 +3874,71 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 688         #e2201b     cbbplotR
 #> 689            <NA>     cbbplotR
 #> 690         #9c755f     fallback
-#> 691            <NA>     cbbplotR
-#> 692         #43c6e7     cbbplotR
-#> 693            <NA>     cbbplotR
+#> 691         #b07aa1     fallback
+#> 692            <NA>     cbbplotR
+#> 693         #43c6e7     cbbplotR
 #> 694            <NA>     cbbplotR
-#> 695         #e15759     fallback
-#> 696         #4e79a7     fallback
-#> 697         #bab0ac     fallback
-#> 698         #e31c47     cbbplotR
-#> 699         #76b7b2     fallback
-#> 700         #f28e2b     fallback
-#> 701         #59a14f     fallback
-#> 702         #bab0ac     fallback
-#> 703         #9c755f     fallback
-#> 704         #4e79a7     fallback
-#> 705         #b07aa1     fallback
-#> 706         #59a14f     fallback
+#> 695            <NA>     cbbplotR
+#> 696         #e15759     fallback
+#> 697         #4e79a7     fallback
+#> 698         #bab0ac     fallback
+#> 699         #e31c47     cbbplotR
+#> 700         #76b7b2     fallback
+#> 701         #76b7b2     fallback
+#> 702         #f28e2b     fallback
+#> 703         #59a14f     fallback
+#> 704         #bab0ac     fallback
+#> 705         #59a14f     fallback
+#> 706         #9c755f     fallback
 #> 707         #4e79a7     fallback
-#> 708            <NA>     cbbplotR
-#> 709         #bab0ac     fallback
-#> 710         #b07aa1     fallback
-#> 711         #b07aa1     fallback
-#> 712         #0c2140     cbbplotR
-#> 713         #9c755f     fallback
-#> 714         #feb81d     cbbplotR
-#> 715         #edc948     fallback
-#> 716         #4e79a7     fallback
-#> 717         #f28e2b     fallback
-#> 718         #4e79a7     fallback
-#> 719         #bab0ac     fallback
-#> 720         #edc948     fallback
-#> 721         #f28e2b     fallback
-#> 722         #afafaf     cbbplotR
-#> 723         #76b7b2     fallback
-#> 724         #76b7b2     fallback
-#> 725         #76b7b2     fallback
-#> 726         #9c755f     fallback
-#> 727            <NA>     cbbplotR
-#> 728         #59a14f     fallback
-#> 729         #59a14f     fallback
-#> 730         #edc948     fallback
-#> 731         #bab0ac     fallback
-#> 732         #e15759     fallback
-#> 733         #b07aa1     fallback
-#> 734         #edc948     fallback
-#> 735         #d0ae85     cbbplotR
+#> 708         #b07aa1     fallback
+#> 709         #59a14f     fallback
+#> 710         #4e79a7     fallback
+#> 711            <NA>     cbbplotR
+#> 712         #bab0ac     fallback
+#> 713         #b07aa1     fallback
+#> 714         #b07aa1     fallback
+#> 715         #0c2140     cbbplotR
+#> 716         #9c755f     fallback
+#> 717         #feb81d     cbbplotR
+#> 718         #edc948     fallback
+#> 719         #4e79a7     fallback
+#> 720         #f28e2b     fallback
+#> 721         #4e79a7     fallback
+#> 722         #bab0ac     fallback
+#> 723         #edc948     fallback
+#> 724         #f28e2b     fallback
+#> 725         #afafaf     cbbplotR
+#> 726         #76b7b2     fallback
+#> 727         #76b7b2     fallback
+#> 728         #76b7b2     fallback
+#> 729         #9c755f     fallback
+#> 730            <NA>     cbbplotR
+#> 731         #59a14f     fallback
+#> 732         #59a14f     fallback
+#> 733         #edc948     fallback
+#> 734         #bab0ac     fallback
+#> 735         #e15759     fallback
 #> 736         #b07aa1     fallback
-#> 737         #f28e2b     fallback
-#> 738            <NA>     cbbplotR
-#> 739         #d9291c     cbbplotR
-#> 740         #9c755f     fallback
-#> 741         #edc948     fallback
-#> 742         #f28e2b     fallback
-#> 743         #ffd040     cbbplotR
-#> 744         #4e79a7     fallback
-#> 745            <NA>     cbbplotR
-#> 746            <NA>     cbbplotR
-#> 747            <NA>     cbbplotR
-#> 748         #f5a606     cbbplotR
-#> 749         #9c755f     fallback
-#> 750         #4e79a7     fallback
+#> 737         #edc948     fallback
+#> 738         #d0ae85     cbbplotR
+#> 739         #b07aa1     fallback
+#> 740         #f28e2b     fallback
+#> 741            <NA>     cbbplotR
+#> 742         #d9291c     cbbplotR
+#> 743         #9c755f     fallback
+#> 744         #edc948     fallback
+#> 745         #e15759     fallback
+#> 746         #ff9da7     fallback
+#> 747         #f28e2b     fallback
+#> 748         #ffd040     cbbplotR
+#> 749         #4e79a7     fallback
+#> 750            <NA>     cbbplotR
 #> 751            <NA>     cbbplotR
-#> 752         #4e79a7     fallback
+#> 752            <NA>     cbbplotR
+#> 753         #f5a606     cbbplotR
+#> 754         #9c755f     fallback
+#> 755         #4e79a7     fallback
+#> 756            <NA>     cbbplotR
+#> 757         #4e79a7     fallback
 ```
