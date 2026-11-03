@@ -41,9 +41,9 @@ square has.}
 hexagon of that circumradius, so a hex chart and a square chart of the
 same data have cells of the same area.}
 
-\item{origin}{The point a cell is centred on, \code{c(x, y)} in the points'
-units: a hoop-centred lattice, origin = the basket's coordinates. The
-default \code{c(0, 0)} centres a cell on the data origin.}
+\item{origin}{The point a cell is centered on, \code{c(x, y)} in the points'
+units: a hoop-centered lattice, origin = the basket's coordinates. The
+default \code{c(0, 0)} centers a cell on the data origin.}
 
 \item{weights}{\code{NULL} (the default) or a numeric vector as long as \code{x},
 each point's weight (points scored, say). A cell's \code{weight} is the sum of
@@ -54,8 +54,8 @@ point is still binned and counted.}
 \code{sdv_bins()}: a data frame with one row per cell, in first-seen order:\tabular{lll}{
    col_name \tab type \tab description \cr
    cell_id \tab character \tab The cell's id, \code{"x,y"} (see Details) \cr
-   x \tab numeric \tab The cell centre's x, in the points' units \cr
-   y \tab numeric \tab The cell centre's y, in the points' units \cr
+   x \tab numeric \tab The cell center's x, in the points' units \cr
+   y \tab numeric \tab The cell center's y, in the points' units \cr
    count \tab integer \tab Points in the cell \cr
    weight \tab numeric \tab The sum of the cell's points' \code{weights} (its \code{count} without \code{weights}) \cr
    rows \tab list \tab Integer positions (1-based) of the cell's points in \code{x} / \code{y}, in input order \cr
@@ -67,7 +67,7 @@ point is still binned and counted.}
 }
 \description{
 \code{sdv_bins()} bins x/y points into pointy-top hexagons
-(\code{shape = "hex"}, the default) or axis-aligned squares (\code{shape = "square"}) and returns one row per cell: its id, centre, count and the
+(\code{shape = "hex"}, the default) or axis-aligned squares (\code{shape = "square"}) and returns one row per cell: its id, center, count and the
 rows it holds. \code{sdv_bin_ids()} returns each point's cell id instead, the
 key that links a point to its cell in an interactive chart
 (\code{\link[=geom_sdv_bins_interactive]{geom_sdv_bins_interactive()}}). The lattice is the one sdvplot (Python)
@@ -79,18 +79,18 @@ Sizes are in the points' own units (data space, not pixels): a
 hexagon has circumradius \code{radius}, a square side \code{side}, and with
 \code{equal_area = TRUE} a square has the area of a hexagon of circumradius
 \code{radius} (side \code{radius * sqrt(3 * sqrt(3) / 2)}, about \code{1.6119 * radius}).
-Both lattices have a cell centred on \code{origin}, \code{c(0, 0)} by default:
-for a hoop-centred lattice, origin = the basket's coordinates (the points
-are binned as \code{x - origin[1]}, \code{y - origin[2]} and the centres shifted
-back, so ids are still the absolute centres).
+Both lattices have a cell centered on \code{origin}, \code{c(0, 0)} by default:
+for a hoop-centered lattice, origin = the basket's coordinates (the points
+are binned as \code{x - origin[1]}, \code{y - origin[2]} and the centers shifted
+back, so ids are still the absolute centers).
 \itemize{
 \item Hexagons are d3-hexbin's lattice: rows \code{1.5 * radius} apart, columns
 \code{sqrt(3) * radius} apart, odd rows shifted half a column. Each point
-goes to the centre d3-hexbin picks, which is close to but not exactly
+goes to the center d3-hexbin picks, which is close to but not exactly
 the nearest one, so about 1-2\% of points sit just outside the hexagon
 drawn for their cell (22 of 2000 real shots at radius 10). That is
 faithful to d3-hexbin, sdvplot-js and sdvplot.
-\item Squares are centred on \verb{(i * side, j * side)} and half-open: a point
+\item Squares are centered on \verb{(i * side, j * side)} and half-open: a point
 exactly on an edge goes to the higher cell (JavaScript's \code{Math.round()},
 which d3-hexbin uses). Every point lies inside its square.
 }
@@ -100,7 +100,7 @@ Points with a missing or non-finite coordinate are skipped (sdvplot-js
 skips \code{NaN}; it would put an infinite one in a cell of its own).
 
 \strong{Ids are strings}, as in sdvplot-js's linked interactivity: a cell's id
-is \code{"x,y"}, its centre written as JavaScript writes a number (the
+is \code{"x,y"}, its center written as JavaScript writes a number (the
 shortest decimal that reads back exactly, \code{-0} as \code{0}), the
 \code{data-sdv-id} sdvplot-js stamps on the cell. The rim cell of a shot chart
 in the NBA legacy frame is \code{"0,0"} for either shape.
@@ -115,7 +115,7 @@ sdv_bins(x, y, shape = "square", side = 10)
 sdv_bins(x, y, shape = "square", radius = 10, equal_area = TRUE)
 sdv_bin_ids(x, y, radius = 10)
 # the same shots in feet from the baseline, the hoop at (0, 5.25): a
-# hoop-centred lattice puts them in the same cells, weighted by points
+# hoop-centered lattice puts them in the same cells, weighted by points
 sdv_bins(x / 10, y / 10 + 5.25, radius = 1, origin = c(0, 5.25), weights = c(2, 2, 3))
 }
 \seealso{

@@ -41,9 +41,9 @@ square has.}
 hexagon of that circumradius, so a hex chart and a square chart of the
 same data have cells of the same area.}
 
-\item{origin}{The point a cell is centred on, \code{c(x, y)} in the points'
-units: a hoop-centred lattice, origin = the basket's coordinates. The
-default \code{c(0, 0)} centres a cell on the data origin.}
+\item{origin}{The point a cell is centered on, \code{c(x, y)} in the points'
+units: a hoop-centered lattice, origin = the basket's coordinates. The
+default \code{c(0, 0)} centers a cell on the data origin.}
 
 \item{cell_fill}{The drawn cell's size as a fraction of the lattice cell's,
 a number in (0, 1]; \code{NULL} (the default) is 0.88 for squares and 1 for
@@ -69,13 +69,13 @@ with \code{aes(fill = after_stat(weight))}.
 Unlike \code{\link[ggplot2:geom_hex]{ggplot2::geom_hex()}}, whose cells stretch with the axes,
 these are true hexagons and squares in data space, sized by \code{radius} or
 \code{side} rather than a bin count: under \code{\link[ggplot2:coord_fixed]{ggplot2::coord_fixed()}} (as
-\code{\link[=sdv_surface]{sdv_surface()}} draws) they look regular. The lattice has a cell centred
-on \code{origin}, by default the data origin (centre court on an
-\code{\link[=sdv_surface]{sdv_surface()}} court); for a hoop-centred lattice, set \code{origin} to the
+\code{\link[=sdv_surface]{sdv_surface()}} draws) they look regular. The lattice has a cell centered
+on \code{origin}, by default the data origin (center court on an
+\code{\link[=sdv_surface]{sdv_surface()}} court); for a hoop-centered lattice, set \code{origin} to the
 basket's coordinates.
 
 \code{cell_fill} draws each cell at a fraction of the lattice cell, around its
-centre: by default 0.88 for squares, so neighbouring squares keep a gap
+center: by default 0.88 for squares, so neighboring squares keep a gap
 instead of touching edge to edge, and 1 for hexagons, the conventional
 tiled hexbin look. (sdvplot (Python) calls it \code{fill}; here \code{fill} is the
 aesthetic.) The cells, their counts and the scales are the lattice's
