@@ -80,7 +80,8 @@ for padding onto a fixed-ratio canvas.
 
 ``` r
 # \donttest{
-if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+if (interactive() && rlang::is_installed("webshot2") &&
+    isTRUE(file.exists(chromote::find_chrome()))) {
   library(gt)
 
   afc_east <- subset(
