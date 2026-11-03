@@ -146,7 +146,7 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   and 0.15 x the center-field distance across (it used to warn and draw no
   logo). These
   are stylized surfaces built from team colours, not the teams' real floor,
-  field or rink designs. Keys that are not team leagues (`"fiba"`, `"atp"`,
+  field or rink designs. Keys that are not team leagues (`"fifa"`, `"atp"`,
   `"nll"`, `"epl"`, ...) take no `team`. `"ncaa_softball"` is both a team
   league and a surface.
 * `sdv_court_coords()` converts stats.nba.com / stats.wnba.com legacy shot

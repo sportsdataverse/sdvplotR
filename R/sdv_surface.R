@@ -93,7 +93,7 @@
 #'   regulation 105 x 68 m pitch, the frame [sdv_pitch_coords()] converts to;
 #'   'sportyR''s own "fifa" default is FIFA's 120 x 90 m maximum. Soccer takes a
 #'   `team` for its center logo (18.3 m, the center circle); the pitch keeps its
-#'   regulation colors. FIBA takes no `team` yet.
+#'   regulation colors. FIBA takes a national team (`"fiba"` pools them).
 #'
 #'   Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
 #'   (yards for football, meters for soccer and FIBA). The center logo is sized
