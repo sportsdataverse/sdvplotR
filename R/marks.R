@@ -84,8 +84,12 @@ ranked_marks <- function(league) {
 # then any variant. Within each, season-covering rows first (explicit ranges
 # before open-ended ones), else any row.
 select_mark <- function(team_id, league, season, variant, mark_type) {
-  r <- ranked_marks(league)
-  r <- r[r$team_id == team_id & r$mark_type == mark_type, , drop = FALSE]
+  every <- ranked_marks(league)
+  every <- every[every$team_id == team_id, , drop = FALSE]
+  r <- every[every$mark_type == mark_type, , drop = FALSE]
+  # a conference whose only official mark is a wordmark (the NHL's conference
+  # final marks) draws it as its logo; teams never do (as sdvplot's select_mark)
+  if (!nrow(r) && mark_type == "logo") r <- every[every$level %in% non_team_levels, , drop = FALSE]
   side <- if (variant == "dark") "dark" else "light"
   v <- r$variant
   requested <- v == variant

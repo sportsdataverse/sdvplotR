@@ -53,7 +53,7 @@
 #'   (`install.packages("sportyR")`).
 #' @param team `NULL` (the default) for the plain regulation surface, or one
 #'   team identifier, resolved by [sdv_resolve()]. Only keys that are also
-#'   team leagues of [sdv_leagues()] take one; the others (`"fiba"`, `"atp"`,
+#'   team leagues of [sdv_leagues()] take one; the others (`"fifa"`, `"atp"`,
 #'   `"nll"`, `"epl"`, ...) error.
 #' @param season A season for the team's colors and center logo (see
 #'   [sdv_team_colors()]); `NULL` is the current identity.

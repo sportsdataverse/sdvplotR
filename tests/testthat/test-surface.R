@@ -182,10 +182,12 @@ test_that("fiba draws sportyR's FIBA court", {
 
 test_that("surfaces without team identities refuse a team", {
   skip_if_not_installed("sportyR")
-  expect_error(sdv_surface("fiba", "ESP"), "No team identities")
+  expect_error(sdv_surface("fifa", "ESP"), "No team identities")
   # every key that is not an sdv team league, as in sdvplot-js
   teamless <- setdiff(names(surface_map), sdv_leagues())
-  expect_true(all(c("fiba", "atp", "nll", "wcf", "epl", "cfl", "nfhs_football") %in% teamless))
+  expect_true(all(c("fifa", "atp", "nll", "wcf", "epl", "nfhs_football") %in% teamless))
+  # cfl, fiba (national teams) and iihf are team leagues of the index
+  expect_false(any(c("cfl", "fiba", "iihf") %in% teamless))
   for (lg in teamless) {
     expect_error(sdv_surface(lg, "BOS"), paste0("No team identities for \"", lg, "\""), info = lg)
   }

@@ -2,7 +2,7 @@
 
 This is the first CRAN submission of sdvplotR (version 0.3.0), a plotting
 package for sports team logos, wordmarks, player headshots and team colors
-across 28 leagues in 'ggplot2', 'gt' and 'reactable', and in 'plotly',
+across 49 leagues in 'ggplot2', 'gt' and 'reactable', and in 'plotly',
 'ggiraph' and 'leaflet'. It is built on 'ggpath' (CRAN) and follows the
 conventions of 'nflplotR' (CRAN). Earlier development builds, numbered 0.1.0,
 were published only on r-universe.

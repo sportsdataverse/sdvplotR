@@ -15,8 +15,10 @@ non_team_programs <- c("conference", "league")
 non_team_levels <- c(non_team_programs, "division")
 # the index's id systems for the mark functions only, never an id_system and
 # never read by sdv_resolve(): "mark" keys archive rows to teams, "conference"
-# holds the conference rows' other names ("Southeastern Conference", "B1G")
-marks_only_systems <- c("mark", "conference")
+# holds the conference rows' other names ("Southeastern Conference", "B1G"),
+# "competition" the soccer competitions each club was seen in (a slug names
+# many clubs)
+marks_only_systems <- c("mark", "conference", "competition")
 # id systems that record a league's whole history (bounds seasons per league)
 history_systems <- c("bref", "sportsipy", "mlbstats", "espn_abbr")
 

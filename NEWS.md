@@ -35,7 +35,7 @@ to CRAN or tagged), so this section describes the whole package.
 
 Team logos, wordmarks, player headshots and team colours for
 ggplot2, gt and reactable, and for interactive plotly, ggiraph and leaflet
-charts, across the 28 leagues of the SportsDataverse team index
+charts, across the 49 leagues of the SportsDataverse team index
 (`sdv_leagues()`), built on 'ggpath'. It shares its team index, logo
 archive and argument names with the Python package sdvplot and the
 JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
@@ -116,8 +116,19 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
 * League, pro-conference and division rows draw too: `"MLB"`, `"AL"`, `"NL"`,
   `"NBA"`, `"East"`, `"West"`, `"WNBA"`, `"NHL"`, the NHL's divisions
   (`"Atlantic"`, `"Metropolitan"`, `"Central"`, `"Pacific"`), `"AAF"` and `"NCAA"`
-  in each college league (team index bd9721cd00c7). An NHL division's mark is
+  in each college league (team index 387c6729bd3f). An NHL division's mark is
   archived at level `"division"`, which the mark lookup now reads as non-team.
+* 21 more leagues (49 in all): the CFL, CEBL, EASL, LBA, NBL, Formula 1
+  constructors (`"f1"`, by Jolpica constructor id), national teams pooled as
+  `"fiba"` and `"iihf"`, and 13 junior and minor hockey leagues (SPHL, CHL, BCHL,
+  AJHL, SJHL, OJHL, CCHL, GOJHL, MHL, NOJHL, VIJHL, KIJHL, MJHL). `sdv_surface()`
+  takes a team on `"cfl"`, `"fiba"` and `"iihf"`.
+* The NHL's `"Eastern"` and `"Western"` conferences draw their Conference Final
+  wordmarks as their logos (a conference or league row with no logo takes its
+  wordmark; a team never does). Division II and III football conferences have
+  logos too.
+* College baseball, softball and men's and women's hockey teams carry a
+  `conference`; a soccer club's `conference` is its domestic league ("eng.1").
 * `sdv_team_tiers()` builds tier charts, with dark marks on its dark theme
   (`variant = "auto"`) and a `theme = "light"` option; `ggtitle_image()` with
   `theme_title_image()` places a logo next to a plot title.

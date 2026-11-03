@@ -51,7 +51,7 @@ sdvplot-js. Surfaces need 'sportyR' 2.4.5 or later, from CRAN
 
 \item{team}{\code{NULL} (the default) for the plain regulation surface, or one
 team identifier, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}. Only keys that are also
-team leagues of \code{\link[=sdv_leagues]{sdv_leagues()}} take one; the others (\code{"fiba"}, \code{"atp"},
+team leagues of \code{\link[=sdv_leagues]{sdv_leagues()}} take one; the others (\code{"fifa"}, \code{"atp"},
 \code{"nll"}, \code{"epl"}, ...) error.}
 
 \item{season}{A season for the team's colors and center logo (see

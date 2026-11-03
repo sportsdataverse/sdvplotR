@@ -1,521 +1,524 @@
 kind,league,value,value_type,season,id_system,expected,reason,index_version
-resolve,mlb,MIA,character,,auto,28,ok,bd9721cd00c7
-resolve,nba,NYK,character,,auto,18,ok,bd9721cd00c7
-resolve,mlb,ANA,character,,bref,3,ok,bd9721cd00c7
-resolve,mlb,SLB,character,,auto,1,ok,bd9721cd00c7
-resolve,nfl,dal,character,,bref,6,ok,bd9721cd00c7
-resolve,mlb,PHI,character,,bref,22,ok,bd9721cd00c7
-resolve,mlb,ATL,character,,auto,15,ok,bd9721cd00c7
-resolve,nba,DNN,character,,auto,7,ok,bd9721cd00c7
-resolve,nba,OKC,character,,bref,25,ok,bd9721cd00c7
-resolve,mlb,HOU,character,,auto,18,ok,bd9721cd00c7
-resolve,cfb,Youngstown St,character,,auto,2754,ok,bd9721cd00c7
-resolve,cfb,Brown,character,,auto,225,ok,bd9721cd00c7
-resolve,cfb,MICH,character,,cfbd,130,ok,bd9721cd00c7
-resolve,cfb,East Central,character,,cfbd,2191,ok,bd9721cd00c7
-resolve,cfb,CMS,character,,auto,17,ok,bd9721cd00c7
-resolve,cfb,Heidelberg,character,,cfbd,191,ok,bd9721cd00c7
-resolve,cfb,Rockford,character,,cfbd,2524,ok,bd9721cd00c7
-resolve,cfb,Western Kentucky,character,,auto,98,ok,bd9721cd00c7
-resolve,cfb,HCU,character,,auto,2277,ok,bd9721cd00c7
-resolve,cfb,Morgan St,character,,auto,2415,ok,bd9721cd00c7
-resolve,cricket,1346029,character,,cricinfo,1346029,ok,bd9721cd00c7
-resolve,cricket,335973,character,,auto,335973,ok,bd9721cd00c7
-resolve,cricket,1335270,character,,auto,1335270,ok,bd9721cd00c7
-resolve,cricket,27,character,,auto,27,ok,bd9721cd00c7
-resolve,cricket,1121244,character,,cricinfo,1121244,ok,bd9721cd00c7
-resolve,cricket,1812,character,,cricinfo,1812,ok,bd9721cd00c7
-resolve,cricket,1208118,character,,auto,1208118,ok,bd9721cd00c7
-resolve,cricket,6,character,,cricinfo,6,ok,bd9721cd00c7
-resolve,cricket,33,character,,cricinfo,33,ok,bd9721cd00c7
-resolve,cricket,509673,character,,auto,509673,ok,bd9721cd00c7
-resolve,nbagl,27,character,,auto,27,ok,bd9721cd00c7
-resolve,cfb,2699,character,,auto,2699,ok,bd9721cd00c7
-resolve,ncaa_baseball,67,character,,espn,67,ok,bd9721cd00c7
-resolve,cfb,398,character,,auto,398,ok,bd9721cd00c7
-resolve,cfb,122666,character,,espn,122666,ok,bd9721cd00c7
-resolve,mlb,10,character,,auto,10,ok,bd9721cd00c7
-resolve,cfb,2316,character,,espn,2316,ok,bd9721cd00c7
-resolve,cfb,324,character,,auto,324,ok,bd9721cd00c7
-resolve,ncaa_baseball,135,character,,espn,135,ok,bd9721cd00c7
-resolve,cfb,2108,character,,auto,2108,ok,bd9721cd00c7
-resolve,cfb,PV,character,,auto,2504,ok,bd9721cd00c7
-resolve,wbb,UCD,character,,espn_abbr,302,ok,bd9721cd00c7
-resolve,cfb,FUR,character,,auto,231,ok,bd9721cd00c7
-resolve,cfb,CMIN,character,,espn_abbr,2146,ok,bd9721cd00c7
-resolve,ncaa_softball,GONZ,character,,espn_abbr,641,ok,bd9721cd00c7
-resolve,cfb,TEX,character,,auto,251,ok,bd9721cd00c7
-resolve,ncaa_softball,COR,character,,auto,690,ok,bd9721cd00c7
-resolve,ncaa_softball,BGSU,character,,espn_abbr,518,ok,bd9721cd00c7
-resolve,nbagl,STO,character,,auto,23,ok,bd9721cd00c7
-resolve,ncaa_baseball,TA&M,character,,auto,123,ok,bd9721cd00c7
-resolve,mlb,CHC,character,,auto,16,ok,bd9721cd00c7
-resolve,mlb,MIL,character,,fangraphs,8,ok,bd9721cd00c7
-resolve,mlb,ATH,character,,fangraphs,11,ok,bd9721cd00c7
-resolve,mlb,ARI,character,,auto,29,ok,bd9721cd00c7
-resolve,mlb,PIT,character,,fangraphs,23,ok,bd9721cd00c7
-resolve,mlb,MIA,character,,auto,28,ok,bd9721cd00c7
-resolve,mlb,TBR,character,,auto,30,ok,bd9721cd00c7
-resolve,mlb,CLE,character,,fangraphs,5,ok,bd9721cd00c7
-resolve,mlb,LAD,character,,auto,19,ok,bd9721cd00c7
-resolve,mlb,CIN,character,,auto,17,ok,bd9721cd00c7
-resolve,echl,2,character,,auto,2,ok,bd9721cd00c7
-resolve,ahl,411,character,,hockeytech,411,ok,bd9721cd00c7
-resolve,ahl,370,character,,auto,370,ok,bd9721cd00c7
-resolve,qmjhl,12,character,,auto,12,ok,bd9721cd00c7
-resolve,echl,18,character,,hockeytech,18,ok,bd9721cd00c7
-resolve,pwhl,11,character,,auto,11,ok,bd9721cd00c7
-resolve,qmjhl,10,character,,auto,10,ok,bd9721cd00c7
-resolve,echl,28,character,,auto,28,ok,bd9721cd00c7
-resolve,ahl,419,character,,auto,419,ok,bd9721cd00c7
-resolve,ahl,404,character,,auto,404,ok,bd9721cd00c7
-resolve,milb,1991,character,,auto,1991,ok,bd9721cd00c7
-resolve,mlb,CHI,character,,auto,16,ok,bd9721cd00c7
-resolve,milb,tol,character,,auto,512,ok,bd9721cd00c7
-resolve,milb,dcb,character,,auto,609,ok,bd9721cd00c7
-resolve,milb,t580,character,,auto,580,ok,bd9721cd00c7
-resolve,milb,A-BRW,character,,mlbstats,406,ok,bd9721cd00c7
-resolve,mlb,se1,character,,auto,8,ok,bd9721cd00c7
-resolve,milb,t635,character,,auto,635,ok,bd9721cd00c7
-resolve,milb,RNO,character,,mlbstats,2310,ok,bd9721cd00c7
-resolve,mlb,sdn,character,,auto,25,ok,bd9721cd00c7
-resolve,ufl,St. Louis Battlehawks,character,,auto,112651,ok,bd9721cd00c7
-resolve,soccer,FC Stade Lausanne-Ouchy,character,,name,21926,ok,bd9721cd00c7
-resolve,ufl,Stallions,character,,auto,126073,ok,bd9721cd00c7
-resolve,soccer,Blackburn Rovers,character,,auto,365,ok,bd9721cd00c7
-resolve,cfb,Mercyhurst Lakers,character,,auto,2385,ok,bd9721cd00c7
-resolve,cfb,IU Penn,character,,auto,2291,ok,bd9721cd00c7
-resolve,wbb,Eastern Illinois,character,,auto,2197,ok,bd9721cd00c7
-resolve,cfb,App State,character,,auto,2026,ok,bd9721cd00c7
-resolve,cfb,Pitt,character,,auto,221,ok,bd9721cd00c7
-resolve,wbb,Cal State Fullerton Titans,character,,auto,2239,ok,bd9721cd00c7
-resolve,nba,1610612742,character,,nba_api,6,ok,bd9721cd00c7
-resolve,nba,1610612766,character,,auto,30,ok,bd9721cd00c7
-resolve,nba,1610612756,character,,auto,21,ok,bd9721cd00c7
-resolve,nba,1610612765,character,,auto,8,ok,bd9721cd00c7
-resolve,nba,1610612764,character,,nba_api,27,ok,bd9721cd00c7
-resolve,nba,1610612737,character,,auto,1,ok,bd9721cd00c7
-resolve,nba,DET,character,,auto,8,ok,bd9721cd00c7
-resolve,nba,MIN,character,,nba_api,16,ok,bd9721cd00c7
-resolve,nba,GSW,character,,auto,9,ok,bd9721cd00c7
-resolve,nba,MIL,character,,auto,15,ok,bd9721cd00c7
-resolve,cfb,544797,character,,auto,257,ok,bd9721cd00c7
-resolve,cfb,523019,character,,ncaa,135,ok,bd9721cd00c7
-resolve,cfb,66648,character,,auto,166,ok,bd9721cd00c7
-resolve,cfb,62734,character,,auto,113,ok,bd9721cd00c7
-resolve,cfb,478230,character,,auto,2717,ok,bd9721cd00c7
-resolve,cfb,622239,character,,auto,251,ok,bd9721cd00c7
-resolve,cfb,19830,character,,auto,2542,ok,bd9721cd00c7
-resolve,cfb,557671,character,,ncaa,79,ok,bd9721cd00c7
-resolve,cfb,499672,character,,auto,2198,ok,bd9721cd00c7
-resolve,cfb,606212,character,,auto,2674,ok,bd9721cd00c7
-resolve,nfl,DAL,character,,auto,6,ok,bd9721cd00c7
-resolve,nfl,OAK,character,,auto,13,ok,bd9721cd00c7
-resolve,nfl,OAK,character,,auto,13,ok,bd9721cd00c7
-resolve,nfl,HOU,character,,auto,34,ok,bd9721cd00c7
-resolve,nfl,GB,character,,auto,9,ok,bd9721cd00c7
-resolve,nfl,TB,character,,nflverse,27,ok,bd9721cd00c7
-resolve,nfl,NYG,character,,auto,19,ok,bd9721cd00c7
-resolve,nfl,DEN,character,,auto,7,ok,bd9721cd00c7
-resolve,nfl,CAR,character,,auto,29,ok,bd9721cd00c7
-resolve,nfl,LV,character,,auto,13,ok,bd9721cd00c7
-resolve,nhl,OTT,character,,nhl,14,ok,bd9721cd00c7
-resolve,nhl,TOR,character,,auto,21,ok,bd9721cd00c7
-resolve,nhl,NJD,character,,auto,11,ok,bd9721cd00c7
-resolve,nhl,HFD,character,,auto,7,ok,bd9721cd00c7
-resolve,nhl,TAN,character,,nhl,21,ok,bd9721cd00c7
-resolve,nhl,DFL,character,,auto,5,ok,bd9721cd00c7
-resolve,nhl,NYR,character,,nhl,13,ok,bd9721cd00c7
-resolve,nhl,LAK,character,,auto,8,ok,bd9721cd00c7
-resolve,nhl,TSP,character,,nhl,21,ok,bd9721cd00c7
-resolve,nhl,ATL,character,,auto,28,ok,bd9721cd00c7
-resolve,nhl,55,character,,nhl_id,124292,ok,bd9721cd00c7
-resolve,nhl,40,character,,nhl_id,5,ok,bd9721cd00c7
-resolve,nhl,28,character,,nhl_id,18,ok,bd9721cd00c7
-resolve,nhl,17,character,,nhl_id,5,ok,bd9721cd00c7
-resolve,nhl,14,character,,nhl_id,20,ok,bd9721cd00c7
-resolve,nhl,34,character,,nhl_id,7,ok,bd9721cd00c7
-resolve,nhl,10,character,,nhl_id,21,ok,bd9721cd00c7
-resolve,nhl,33,character,,nhl_id,28,ok,bd9721cd00c7
-resolve,nhl,31,character,,nhl_id,9,ok,bd9721cd00c7
-resolve,nhl,4,character,,nhl_id,15,ok,bd9721cd00c7
-resolve,aaf,719,character,,auto,719,ok,bd9721cd00c7
-resolve,aaf,720,character,,auto,720,ok,bd9721cd00c7
-resolve,aaf,721,character,,auto,721,ok,bd9721cd00c7
-resolve,aaf,722,character,,auto,722,ok,bd9721cd00c7
-resolve,aaf,723,character,,pff,723,ok,bd9721cd00c7
-resolve,aaf,724,character,,pff,724,ok,bd9721cd00c7
-resolve,aaf,725,character,,auto,725,ok,bd9721cd00c7
-resolve,aaf,726,character,,auto,726,ok,bd9721cd00c7
-resolve,mlb,NYA,character,,auto,10,ok,bd9721cd00c7
-resolve,mlb,KC,character,,auto,7,ok,bd9721cd00c7
-resolve,nhl,NAS,character,,auto,27,ok,bd9721cd00c7
-resolve,wbb,UL MONROE,character,,auto,2433,ok,bd9721cd00c7
-resolve,wbb,PACIFIC TIGERS,character,,auto,279,ok,bd9721cd00c7
-resolve,cfb,MCN,character,,auto,2377,ok,bd9721cd00c7
-resolve,wbb,CONNECTICUT,character,,auto,41,ok,bd9721cd00c7
-resolve,wbb,UCR,character,,auto,27,ok,bd9721cd00c7
-resolve,wbb,SOUTHERN METHODIST,character,,sdvplotr,2567,ok,bd9721cd00c7
-resolve,cfb,BUFFALO BULLS,character,,sdvplotr,2084,ok,bd9721cd00c7
-resolve,nba,ATL,character,,sportsipy,1,ok,bd9721cd00c7
-resolve,mlb,MIL,character,,sportsipy,8,ok,bd9721cd00c7
-resolve,nba,BOS,character,,auto,2,ok,bd9721cd00c7
-resolve,nfl,dal,character,,auto,6,ok,bd9721cd00c7
-resolve,nba,WAS,character,,sportsipy,27,ok,bd9721cd00c7
-resolve,nba,MIA,character,,auto,14,ok,bd9721cd00c7
-resolve,nba,GSW,character,,sportsipy,9,ok,bd9721cd00c7
-resolve,mlb,BAL,character,,sportsipy,1,ok,bd9721cd00c7
-resolve,nfl,det,character,,auto,8,ok,bd9721cd00c7
-resolve,nba,LAL,character,,auto,13,ok,bd9721cd00c7
-resolve,ncaa_baseball,203,character,,team_id,203,ok,bd9721cd00c7
-resolve,mbb,2097,character,,auto,2097,ok,bd9721cd00c7
-resolve,ncaa_softball,796,character,,auto,796,ok,bd9721cd00c7
-resolve,ushl,22,character,,auto,22,ok,bd9721cd00c7
-resolve,mbb,235,character,,team_id,235,ok,bd9721cd00c7
-resolve,soccer,19321,character,,team_id,19321,ok,bd9721cd00c7
-resolve,milb,5578,character,,team_id,5578,ok,bd9721cd00c7
-resolve,soccer,101,character,,auto,101,ok,bd9721cd00c7
-resolve,soccer,22241,character,,auto,22241,ok,bd9721cd00c7
-resolve,mbb,2464,character,,auto,2464,ok,bd9721cd00c7
-resolve,mlb,MON,character,1969,auto,20,ok,bd9721cd00c7
-resolve,mlb,HOU,character,1962,auto,18,ok,bd9721cd00c7
-resolve,nfl,LV,character,2020,auto,13,ok,bd9721cd00c7
-resolve,mlb,CLE,character,1871,auto,5,ok,bd9721cd00c7
-resolve,xfl,STL,character,2023,auto,112651,ok,bd9721cd00c7
-resolve,mlb,PHI,character,1873,auto,22,ok,bd9721cd00c7
-resolve,nfl,STL,character,1995,auto,14,ok,bd9721cd00c7
-resolve,mlb,min,character,1961,auto,9,ok,bd9721cd00c7
-resolve,xfl,New York Guardians,character,2020,auto,112650,ok,bd9721cd00c7
-resolve,mlb,TOR,character,1977,auto,14,ok,bd9721cd00c7
-resolve,mlb,BSN,character,1907,auto,15,ok,bd9721cd00c7
-resolve,mlb,MIA,character,2012,auto,28,ok,bd9721cd00c7
-resolve,nfl,cle,character,1950,auto,5,ok,bd9721cd00c7
-resolve,mlb,BSN,character,1912,auto,15,ok,bd9721cd00c7
-resolve,nba,CHH,character,1989,auto,30,ok,bd9721cd00c7
-resolve,mlb,BRO,character,1914,auto,19,ok,bd9721cd00c7
-resolve,mlb,CIN,character,1876,auto,17,ok,bd9721cd00c7
-resolve,mlb,OAK,character,1968,auto,11,ok,bd9721cd00c7
-resolve,mlb,CAL,character,1966,auto,3,ok,bd9721cd00c7
-resolve,nhl,WIN,character,1997,auto,28,ok,bd9721cd00c7
-resolve,nfl,oti,character,1960,auto,10,ok,bd9721cd00c7
-resolve,mlb,KCR,character,1969,auto,7,ok,bd9721cd00c7
-resolve,nhl,33,character,1997,auto,,unknown,bd9721cd00c7
-resolve,nba,ORL,character,1990,auto,19,ok,bd9721cd00c7
-resolve,ufl,Houston Gamblers,character,2026,auto,126075,ok,bd9721cd00c7
-resolve,mlb,NYG,character,1883,auto,26,ok,bd9721cd00c7
-resolve,mlb,NYM,character,1962,auto,21,ok,bd9721cd00c7
-resolve,mlb,DET,character,1901,auto,6,ok,bd9721cd00c7
-resolve,mlb,CAL,character,1965,auto,3,ok,bd9721cd00c7
-resolve,mlb,laa,character,1961,auto,3,ok,bd9721cd00c7
-resolve,ufl,DC,character,2024,auto,112646,ok,bd9721cd00c7
-resolve,mlb,KCR,character,1969,auto,7,ok,bd9721cd00c7
-resolve,nba,MIA,character,1989,auto,14,ok,bd9721cd00c7
-resolve,ufl,D.C. Defenders,character,2024,auto,112646,ok,bd9721cd00c7
-resolve,mlb,was,character,2005,auto,20,ok,bd9721cd00c7
-resolve,nfl,atl,character,1966,auto,1,ok,bd9721cd00c7
-resolve,mlb,cle,character,1903,auto,5,ok,bd9721cd00c7
-resolve,nba,NOP,character,2014,auto,3,ok,bd9721cd00c7
-resolve,mlb,MLA,character,1901,auto,1,ok,bd9721cd00c7
-resolve,nfl,mia,character,1966,auto,15,ok,bd9721cd00c7
-resolve,soccer,Syracuse Orange,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Sheffield United,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Wake Forest Demon Deacons,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,NAC Breda,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,College of Charleston Cougars,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Poland,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Austria,character,,auto,,ambiguous,bd9721cd00c7
-resolve,ncaa_baseball,PAC,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Santos,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Ghana,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Omaha Mavericks,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Fordham Rams,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Duke Blue Devils,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Finland,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,Athletic Club,character,,auto,,ambiguous,bd9721cd00c7
-resolve,cfb,110,integer,,auto,110,ok,bd9721cd00c7
-resolve,cfb,2825,integer,,auto,2825,ok,bd9721cd00c7
-resolve,soccer,18396,integer,,auto,18396,ok,bd9721cd00c7
-resolve,wbb,2241,integer,,auto,2241,ok,bd9721cd00c7
-resolve,ncaa_baseball,139,integer,,auto,139,ok,bd9721cd00c7
-resolve,milb,579,integer,,auto,579,ok,bd9721cd00c7
-resolve,cfb,2119,integer,,auto,2119,ok,bd9721cd00c7
-resolve,cfb,2545,integer,,auto,2545,ok,bd9721cd00c7
-resolve,soccer,471,integer,,auto,471,ok,bd9721cd00c7
-resolve,cricket,2971,integer,,auto,2971,ok,bd9721cd00c7
-resolve,nfl,zzz not a team,character,,auto,,unknown,bd9721cd00c7
-resolve,cfb,,character,,auto,,none,bd9721cd00c7
-resolve,soccer,Atlético Madrid,character,,auto,,ambiguous,bd9721cd00c7
-resolve,soccer,VästerÅs SK,character,,auto,22163,ok,bd9721cd00c7
-resolve,mlb,Montréal Expos,character,,auto,,unknown,bd9721cd00c7
-suggest,soccer,NovaIguaçu,character,,,6087,,bd9721cd00c7
-suggest,soccer,VMI eydets,character,,,20569,,bd9721cd00c7
-suggest,cfb,Air orce Falcons,character,,,2005,,bd9721cd00c7
-suggest,soccer,FC Dllas,character,,,185,,bd9721cd00c7
-suggest,ncaa_softball,McNese Cowgirls,character,,,741,,bd9721cd00c7
-suggest,soccer,Colcester United,character,,,339,,bd9721cd00c7
-suggest,ncaa_softball,Lafaette Leopards,character,,,557,,bd9721cd00c7
-suggest,mbb,Cincnnati Bearcats,character,,,2132,,bd9721cd00c7
-suggest,ncaa_baseball,Valdsta State Blazers,character,,,851,,bd9721cd00c7
-suggest,soccer,FC Sartak Trnava,character,,,3929,,bd9721cd00c7
-suggest,nhl,Detrit Red Wings,character,,,5,,bd9721cd00c7
-suggest,milb,Missssippi Braves,character,,,430,,bd9721cd00c7
-suggest,cricket,Islaabad United,character,,,953843,,bd9721cd00c7
-suggest,soccer,UAB lazers,character,,,20395,,bd9721cd00c7
-suggest,mbb,LSU ew Orleans Privateers,character,,,2443,,bd9721cd00c7
-mark,wbb,SLND,character,,auto,Southland,,bd9721cd00c7
-mark,mbb,BIG 12 CONFERENCE,character,,auto,Big 12,,bd9721cd00c7
-mark,wbb,MOUNTAIN WEST CONFERENCE,character,,auto,Mountain West,,bd9721cd00c7
-mark,wbb,SOUTHEASTERN CONFERENCE,character,,auto,SEC,,bd9721cd00c7
-mark,wbb,AE,character,,auto,Am. East,,bd9721cd00c7
-mark,mbb,BIGW,character,,auto,Big West,,bd9721cd00c7
-mark,cfb,COLONIAL ATHLETIC ASSOCIATION,character,,auto,CAA,,bd9721cd00c7
-mark,wbb,LAND,character,,auto,Southland,,bd9721cd00c7
-mark,mbb,BIG TEN CONFERENCE,character,,auto,Big Ten,,bd9721cd00c7
-mark,mbb,PAT,character,,auto,Patriot,,bd9721cd00c7
-mark,cfb,COASTAL ATHLETIC ASSOCIATION FOOTBALL CONFERENCE,character,,auto,CAA,,bd9721cd00c7
-mark,mbb,NEAST,character,,auto,NEC,,bd9721cd00c7
-mark,wbb,WEST COAST,character,,auto,WCC,,bd9721cd00c7
-mark,mbb,METRO CONFERENCE,character,,auto,MAAC,,bd9721cd00c7
-mark,cfb,FBS INDEPENDENTS,character,,auto,FBS Indep.,,bd9721cd00c7
-mark,wbb,HOR,character,,auto,Horizon,,bd9721cd00c7
-mark,mbb,BE,character,,auto,Big East,,bd9721cd00c7
-mark,wbb,ATLANTIC SUN CONFERENCE,character,,auto,Atlantic Sun,,bd9721cd00c7
-mark,cfb,B1G,character,,auto,Big Ten,,bd9721cd00c7
-mark,mbb,COASTAL ATHLETIC ASSOCIATION,character,,auto,CAA,,bd9721cd00c7
-mark,wbb,NEAST,character,,auto,NEC,,bd9721cd00c7
-mark,wbb,BIG WEST CONFERENCE,character,,auto,Big West,,bd9721cd00c7
-mark,cfb,MWEST,character,,auto,Mountain West,,bd9721cd00c7
-mark,mbb,MCC,character,,auto,Horizon,,bd9721cd00c7
-mark,cfb,PACIFIC 8 CONFERENCE,character,,auto,Pac-12,,bd9721cd00c7
-mark,mbb,CONFERENCE USA,character,,auto,CUSA,,bd9721cd00c7
-mark,cfb,MID-EASTERN ATHLETIC CONFERENCE,character,,auto,MEAC,,bd9721cd00c7
-mark,wbb,HORIZON LEAGUE,character,,auto,Horizon,,bd9721cd00c7
-mark,cfb,BELT,character,,auto,Sun Belt,,bd9721cd00c7
-mark,cfb,MOUNTAIN WEST CONFERENCE,character,,auto,Mountain West,,bd9721cd00c7
-mark,cfb,SEC,character,,auto,SEC,,bd9721cd00c7
-mark,cfb,MAC,character,,auto,2359,,bd9721cd00c7
-mark,nfl,AFC,character,,auto,AFC,,bd9721cd00c7
-mark,nfl,KC,character,,auto,12,,bd9721cd00c7
-mark,cfb,zzz not a conference,character,,auto,,,bd9721cd00c7
-norm,,1. FC Nürnberg,character,,,1. fc nurnberg,,bd9721cd00c7
-norm,,AD Alcorcón,character,,,ad alcorcon,,bd9721cd00c7
-norm,,Académica de Coimbra,character,,,academica de coimbra,,bd9721cd00c7
-norm,,Académico de Viseu,character,,,academico de viseu,,bd9721cd00c7
-norm,,Alavés,character,,,alaves,,bd9721cd00c7
-norm,,Alianza Atlético,character,,,alianza atletico,,bd9721cd00c7
-norm,,Almería,character,,,almeria,,bd9721cd00c7
-norm,,América,character,,,america,,bd9721cd00c7
-norm,,América Mineiro,character,,,america mineiro,,bd9721cd00c7
-norm,,América de Cali,character,,,america de cali,,bd9721cd00c7
-norm,,América-RN,character,,,america-rn,,bd9721cd00c7
-norm,,Anzoátegui FC,character,,,anzoategui fc,,bd9721cd00c7
-norm,,Anápolis,character,,,anapolis,,bd9721cd00c7
-norm,,Atlético Bucaramanga,character,,,atletico bucaramanga,,bd9721cd00c7
-norm,,Atlético FC,character,,,atletico fc,,bd9721cd00c7
-norm,,Atlético Goianiense,character,,,atletico goianiense,,bd9721cd00c7
-norm,,Atlético Grau,character,,,atletico grau,,bd9721cd00c7
-norm,,Atlético Junior,character,,,atletico junior,,bd9721cd00c7
-norm,,Atlético Madrid,character,,,atletico madrid,,bd9721cd00c7
-norm,,Atlético Nacional,character,,,atletico nacional,,bd9721cd00c7
-norm,,Atlético Tucumán,character,,,atletico tucuman,,bd9721cd00c7
-norm,,Atlético de San Luis,character,,,atletico de san luis,,bd9721cd00c7
-norm,,Atlético-MG,character,,,atletico-mg,,bd9721cd00c7
-norm,,Avaí,character,,,avai,,bd9721cd00c7
-norm,,BK Häcken,character,,,bk hacken,,bd9721cd00c7
-norm,,Belgrano (Córdoba),character,,,belgrano (cordoba),,bd9721cd00c7
-norm,,Bogotá FC,character,,,bogota fc,,bd9721cd00c7
-norm,,Bolívar,character,,,bolivar,,bd9721cd00c7
-norm,,Borussia Mönchengladbach,character,,,borussia monchengladbach,,bd9721cd00c7
-norm,,Boyacá Chicó FC,character,,,boyaca chico fc,,bd9721cd00c7
-norm,,Brown de Adrogué,character,,,brown de adrogue,,bd9721cd00c7
-norm,,Brøndby IF,character,,,brøndby if,,bd9721cd00c7
-norm,,CD Municipal Limeño,character,,,cd municipal limeno,,bd9721cd00c7
-norm,,CF Montréal,character,,,cf montreal,,bd9721cd00c7
-norm,,Cartaginés,character,,,cartagines,,bd9721cd00c7
-norm,,Castellón,character,,,castellon,,bd9721cd00c7
-norm,,Ceará,character,,,ceara,,bd9721cd00c7
-norm,,Ceilândia,character,,,ceilandia,,bd9721cd00c7
-norm,,Central Córdoba (Santiago del Estero),character,,,central cordoba (santiago del estero),,bd9721cd00c7
-norm,,Central Español Fútbol Club,character,,,central espanol futbol club,,bd9721cd00c7
-norm,,Cerro Porteño,character,,,cerro porteno,,bd9721cd00c7
-norm,,"Chicoutimi, Saguenéens",character,,,"chicoutimi, sagueneens",,bd9721cd00c7
-norm,,Ciudad de Bolívar,character,,,ciudad de bolivar,,bd9721cd00c7
-norm,,Club Atlético La Paz,character,,,club atletico la paz,,bd9721cd00c7
-norm,,Club Atlético Morelia,character,,,club atletico morelia,,bd9721cd00c7
-norm,,Club Deportivo Marathón,character,,,club deportivo marathon,,bd9721cd00c7
-norm,,Cobán Imperial,character,,,coban imperial,,bd9721cd00c7
-norm,,Colón (Santa Fe),character,,,colon (santa fe),,bd9721cd00c7
-norm,,Confiança,character,,,confianca,,bd9721cd00c7
-norm,,Copiapó,character,,,copiapo,,bd9721cd00c7
-norm,,Criciúma,character,,,criciuma,,bd9721cd00c7
-norm,,Cuiabá,character,,,cuiaba,,bd9721cd00c7
-norm,,Curaçao,character,,,curacao,,bd9721cd00c7
-norm,,Curicó Unido,character,,,curico unido,,bd9721cd00c7
-norm,,Cádiz,character,,,cadiz,,bd9721cd00c7
-norm,,Córdoba,character,,,cordoba,,bd9721cd00c7
-norm,,Cúcuta Deportivo,character,,,cucuta deportivo,,bd9721cd00c7
-norm,,Delfín,character,,,delfin,,bd9721cd00c7
-norm,,Deportes Quindío,character,,,deportes quindio,,bd9721cd00c7
-norm,,Deportivo Maipú,character,,,deportivo maipu,,bd9721cd00c7
-norm,,Deportivo Morón,character,,,deportivo moron,,bd9721cd00c7
-norm,,Deportivo Táchira,character,,,deportivo tachira,,bd9721cd00c7
-norm,,Djurgården,character,,,djurgarden,,bd9721cd00c7
-norm,,Dux Logroño,character,,,dux logrono,,bd9721cd00c7
-norm,,Escorpiones Belén,character,,,escorpiones belen,,bd9721cd00c7
-norm,,Estudiantes de Mérida,character,,,estudiantes de merida,,bd9721cd00c7
-norm,,Estudiantes de Río Cuarto,character,,,estudiantes de rio cuarto,,bd9721cd00c7
-norm,,F.C. København,character,,,f.c. københavn,,bd9721cd00c7
-norm,,FC Blau-Weiß Linz,character,,,fc blau-weiss linz,,bd9721cd00c7
-norm,,FC Juárez,character,,,fc juarez,,bd9721cd00c7
-norm,,FC Nordsjælland,character,,,fc nordsjælland,,bd9721cd00c7
-norm,,FC Zlín,character,,,fc zlin,,bd9721cd00c7
-norm,,FC Zürich,character,,,fc zurich,,bd9721cd00c7
-norm,,Fortuna Düsseldorf,character,,,fortuna dusseldorf,,bd9721cd00c7
-norm,,GV San José,character,,,gv san jose,,bd9721cd00c7
-norm,,Gimnàstic de Tarragona,character,,,gimnastic de tarragona,,bd9721cd00c7
-norm,,Goiás,character,,,goias,,bd9721cd00c7
-norm,,Grêmio,character,,,gremio,,bd9721cd00c7
-norm,,Guabirá,character,,,guabira,,bd9721cd00c7
-norm,,Guaraní,character,,,guarani,,bd9721cd00c7
-norm,,Génesis PN,character,,,genesis pn,,bd9721cd00c7
-norm,,Güemes,character,,,guemes,,bd9721cd00c7
-norm,,HB Køge,character,,,hb køge,,bd9721cd00c7
-norm,,Hawaiʻi Hilo,character,,,hawaiʻi hilo,,bd9721cd00c7
-norm,,Hawaiʻi Hilo Vulcans,character,,,hawaiʻi hilo vulcans,,bd9721cd00c7
-norm,,Hawaiʻi Pacific,character,,,hawaiʻi pacific,,bd9721cd00c7
-norm,,Hawaiʻi Pacific Sea Warriors,character,,,hawaiʻi pacific sea warriors,,bd9721cd00c7
-norm,,Huracán,character,,,huracan,,bd9721cd00c7
-norm,,IFK Göteborg,character,,,ifk goteborg,,bd9721cd00c7
-norm,,IFK Norrköping,character,,,ifk norrkoping,,bd9721cd00c7
-norm,,Independiente Medellín,character,,,independiente medellin,,bd9721cd00c7
-norm,,Instituto (Córdoba),character,,,instituto (cordoba),,bd9721cd00c7
-norm,,Internacional de Bogotá,character,,,internacional de bogota,,bd9721cd00c7
-norm,,Isidro Metapán,character,,,isidro metapan,,bd9721cd00c7
-norm,,Itagüí Leones,character,,,itagui leones,,bd9721cd00c7
-norm,,Ituzaingó,character,,,ituzaingo,,bd9721cd00c7
-norm,,Jaguares de Córdoba,character,,,jaguares de cordoba,,bd9721cd00c7
-norm,,KF Shkëndija,character,,,kf shkendija,,bd9721cd00c7
-norm,,Lanús,character,,,lanus,,bd9721cd00c7
-norm,,Leganés,character,,,leganes,,bd9721cd00c7
-norm,,León,character,,,leon,,bd9721cd00c7
-norm,,Luis Ángel Firpo,character,,,luis angel firpo,,bd9721cd00c7
-norm,,Macará,character,,,macara,,bd9721cd00c7
-norm,,Malmö FF,character,,,malmo ff,,bd9721cd00c7
-norm,,Mirandés,character,,,mirandes,,bd9721cd00c7
-norm,,Mjällby AIF,character,,,mjallby aif,,bd9721cd00c7
-norm,,Montréal Victoire,character,,,montreal victoire,,bd9721cd00c7
-norm,,Málaga,character,,,malaga,,bd9721cd00c7
-norm,,Nacional Asunción,character,,,nacional asuncion,,bd9721cd00c7
-norm,,Nacional Potosí,character,,,nacional potosi,,bd9721cd00c7
-norm,,Nova Iguaçu,character,,,nova iguacu,,bd9721cd00c7
-norm,,Náutico,character,,,nautico,,bd9721cd00c7
-norm,,Operário PR,character,,,operario pr,,bd9721cd00c7
-norm,,Orléans,character,,,orleans,,bd9721cd00c7
-norm,,Paços de Ferreira,character,,,pacos de ferreira,,bd9721cd00c7
-norm,,Peñarol,character,,,penarol,,bd9721cd00c7
-norm,,Preußen Münster,character,,,preussen munster,,bd9721cd00c7
-norm,,Pérez Zeledón,character,,,perez zeledon,,bd9721cd00c7
-norm,,Querétaro,character,,,queretaro,,bd9721cd00c7
-norm,,"Québec, Remparts",character,,,"quebec, remparts",,bd9721cd00c7
-norm,,RAAL La Louvière,character,,,raal la louviere,,bd9721cd00c7
-norm,,Racing (Córdoba),character,,,racing (cordoba),,bd9721cd00c7
-norm,,Raków Czestochowa,character,,,rakow czestochowa,,bd9721cd00c7
-norm,,Real España,character,,,real espana,,bd9721cd00c7
-norm,,Real Potosí,character,,,real potosi,,bd9721cd00c7
-norm,,"Rimouski, Océanic",character,,,"rimouski, oceanic",,bd9721cd00c7
-norm,,Rubio Ñú,character,,,rubio nu,,bd9721cd00c7
-norm,,SAN JOSÉ ST,character,,,san jose st,,bd9721cd00c7
-norm,,SAN JOSÉ STATE,character,,,san jose state,,bd9721cd00c7
-norm,,SAN JOSÉ STATE SPARTANS,character,,,san jose state spartans,,bd9721cd00c7
-norm,,Saarbrücken,character,,,saarbrucken,,bd9721cd00c7
-norm,,Saint-Étienne,character,,,saint-etienne,,bd9721cd00c7
-norm,,San José St,character,,,san jose st,,bd9721cd00c7
-norm,,San José State,character,,,san jose state,,bd9721cd00c7
-norm,,San José State Spartans,character,,,san jose state spartans,,bd9721cd00c7
-norm,,San Martín (Burzaco),character,,,san martin (burzaco),,bd9721cd00c7
-norm,,San Martín (San Juan),character,,,san martin (san juan),,bd9721cd00c7
-norm,,San Martín (Tucumán),character,,,san martin (tucuman),,bd9721cd00c7
-norm,,Sarmiento (Junín),character,,,sarmiento (junin),,bd9721cd00c7
-norm,,"Sherbrooke, Phœnix",character,,,"sherbrooke, phœnix",,bd9721cd00c7
-norm,,SpVgg Greuther Fürth,character,,,spvgg greuther furth,,bd9721cd00c7
-norm,,Sporting Gijón,character,,,sporting gijon,,bd9721cd00c7
-norm,,Sporting San José,character,,,sporting san jose,,bd9721cd00c7
-norm,,Sportivo Luqueño,character,,,sportivo luqueno,,bd9721cd00c7
-norm,,"St-Jérôme, Alouettes",character,,,"st-jerome, alouettes",,bd9721cd00c7
-norm,,St. Pölten,character,,,st. polten,,bd9721cd00c7
-norm,,São Bernardo,character,,,sao bernardo,,bd9721cd00c7
-norm,,São José-RS,character,,,sao jose-rs,,bd9721cd00c7
-norm,,São Luiz-RS,character,,,sao luiz-rs,,bd9721cd00c7
-norm,,São Paulo,character,,,sao paulo,,bd9721cd00c7
-norm,,Sønderjyske Fodbold,character,,,sønderjyske fodbold,,bd9721cd00c7
-norm,,Talleres (Córdoba),character,,,talleres (cordoba),,bd9721cd00c7
-norm,,Tepatitlán FC,character,,,tepatitlan fc,,bd9721cd00c7
-norm,,Tristán Suárez,character,,,tristan suarez,,bd9721cd00c7
-norm,,Trois-Rivières Lions,character,,,trois-rivieres lions,,bd9721cd00c7
-norm,,Técnico Universitario,character,,,tecnico universitario,,bd9721cd00c7
-norm,,Türkiye,character,,,turkiye,,bd9721cd00c7
-norm,,Türkiye U21,character,,,turkiye u21,,bd9721cd00c7
-norm,,Uberlândia,character,,,uberlandia,,bd9721cd00c7
-norm,,Universidad Católica,character,,,universidad catolica,,bd9721cd00c7
-norm,,Universidad Católica (Quito),character,,,universidad catolica (quito),,bd9721cd00c7
-norm,,Universidad de Concepción,character,,,universidad de concepcion,,bd9721cd00c7
-norm,,Unión (Santa Fe),character,,,union (santa fe),,bd9721cd00c7
-norm,,Unión Española,character,,,union espanola,,bd9721cd00c7
-norm,,Unión La Calera,character,,,union la calera,,bd9721cd00c7
-norm,,Unión Magdalena,character,,,union magdalena,,bd9721cd00c7
-norm,,Unión San Felipe,character,,,union san felipe,,bd9721cd00c7
-norm,,"Verdun, Collège Français",character,,,"verdun, college francais",,bd9721cd00c7
-norm,,Villa Dálmine,character,,,villa dalmine,,bd9721cd00c7
-norm,,Vitória,character,,,vitoria,,bd9721cd00c7
-norm,,Vitória de Guimaraes,character,,,vitoria de guimaraes,,bd9721cd00c7
-norm,,Västerås SK,character,,,vasteras sk,,bd9721cd00c7
-norm,,Vålerenga,character,,,valerenga,,bd9721cd00c7
-norm,,Vélez Sarsfield,character,,,velez sarsfield,,bd9721cd00c7
-norm,,Víkingur,character,,,vikingur,,bd9721cd00c7
-norm,,Würzburger Kickers,character,,,wurzburger kickers,,bd9721cd00c7
-norm,,Xelajú MC,character,,,xelaju mc,,bd9721cd00c7
-norm,,Águila,character,,,aguila,,bd9721cd00c7
-norm,,Águilas Doradas,character,,,aguilas doradas,,bd9721cd00c7
-norm,,Çorum FK,character,,,corum fk,,bd9721cd00c7
-norm,,Ñublense,character,,,nublense,,bd9721cd00c7
-norm,,Örgryte IS,character,,,orgryte is,,bd9721cd00c7
-norm,,Östers IF,character,,,osters if,,bd9721cd00c7
-norm,,Östersunds FK,character,,,ostersunds fk,,bd9721cd00c7
-norm,,K¨ª¯²³´µ¸¹ºÀÁÂÃÄÅÆÇÈÉge,character,,,k a 23 μ 1oaaaaaaæceege,,bd9721cd00c7
-norm,,KÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞge,character,,,keeiiiiðnoooooøuuuuyþge,,bd9721cd00c7
-norm,,Kàáâãäåçèéêëìíîïñòóôõge,character,,,kaaaaaaceeeeiiiinooooge,,bd9721cd00c7
-norm,,KöùúûüýÿĀāĂăĄąĆćĈĉĊċČge,character,,,kouuuuyyaaaaaacccccccge,,bd9721cd00c7
-norm,,KčĎďĐĒēĔĕĖėĘęĚěĜĝĞğĠġge,character,,,kcddđeeeeeeeeeeggggggge,,bd9721cd00c7
-norm,,KĢģĤĥĦĨĩĪīĬĭĮįİĴĵĶķĹĺge,character,,,kgghhħiiiiiiiiijjkkllge,,bd9721cd00c7
-norm,,KĻļĽľŁŃńŅņŇňŊŌōŎŏŐőŒŔge,character,,,kllllłnnnnnnŋooooooœrge,,bd9721cd00c7
-norm,,KŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŨũge,character,,,krrrrrssssssssttttŧuuge,,bd9721cd00c7
-norm,,KŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽge,character,,,kuuuuuuuuuuwwyyyzzzzzge,,bd9721cd00c7
-norm,,KžſƁƂƄƆƇƉƊƋƎƏƐƑƓƔƖƗƘƜge,character,,,kzsɓƃƅɔƈɖɗƌǝəɛƒɠɣɩɨƙɯge,,bd9721cd00c7
-norm,,KƝƟƠơƢƤƦƧƩƬƮƯưƱƲƳƵƷƸƼge,character,,,kɲɵooƣƥʀƨʃƭʈuuʊʋƴƶʒƹƽge,,bd9721cd00c7
-norm,,KǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǞǟǠǡge,character,,,kaaiioouuuuuuuuuuaaaage,,bd9721cd00c7
-norm,,KǢǣǤǦǧǨǩǪǫǬǭǮǯǰǴǵǶǷǸǹge,character,,,kææǥggkkooooʒʒjggƕƿnnge,,bd9721cd00c7
-norm,,KǺǻǼǽǾǿȀȁȂȃȄȅȆȇȈȉȊȋȌȍge,character,,,kaaææøøaaaaeeeeiiiiooge,,bd9721cd00c7
-norm,,KȎȏȐȑȒȓȔȕȖȗȘșȚțȜȞȟȠȢȤge,character,,,koorrrruuuussttȝhhƞȣȥge,,bd9721cd00c7
-norm,,KȦȧȨȩȪȫȬȭȮȯȰȱȲȳȺȻȽȾɁɃge,character,,,kaaeeooooooooyyⱥȼƚⱦɂƀge,,bd9721cd00c7
-norm,,KɄɅɆɈɊɌɎḀḁḂḃḄḅḆḇḈḉḊḋḌge,character,,,kʉʌɇɉɋɍɏaabbbbbbccdddge,,bd9721cd00c7
-norm,,KḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟḠge,character,,,kdddddddeeeeeeeeeeffgge,,bd9721cd00c7
-norm,,KḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴge,character,,,kghhhhhhhhhhiiiikkkkkge,,bd9721cd00c7
-norm,,KḵḶḷḸḹḺḻḼḽḾḿṀṁṂṃṄṅṆṇṈge,character,,,kkllllllllmmmmmmnnnnnge,,bd9721cd00c7
-norm,,KṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜge,character,,,knnnoooooooopppprrrrrge,,bd9721cd00c7
-norm,,KṝṞṟṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰge,character,,,krrrsssssssssstttttttge,,bd9721cd00c7
-norm,,KṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿẀẁẂẃẄge,character,,,ktuuuuuuuuuuvvvvwwwwwge,,bd9721cd00c7
-norm,,KẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘge,character,,,kwwwwwxxxxyyzzzzzzhtwge,,bd9721cd00c7
-norm,,KẙẛẠạẢảẤấẦầẨẩẪẫẬậẮắẰằge,character,,,kysaaaaaaaaaaaaaaaaaage,,bd9721cd00c7
-norm,,KẲẳẴẵẶặẸẹẺẻẼẽẾếỀềỂểỄễge,character,,,kaaaaaaeeeeeeeeeeeeeege,,bd9721cd00c7
-norm,,KỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộge,character,,,keeiiiiooooooooooooooge,,bd9721cd00c7
-norm,,KỚớỜờỞởỠỡỢợỤụỦủỨứỪừỬửge,character,,,koooooooooouuuuuuuuuuge,,bd9721cd00c7
-norm,,KỮữỰựỲỳỴỵỶỷỸỹỺỼỾℂℇℊℋℌge,character,,,kuuuuyyyyyyyyỻỽỿcɛghhge,,bd9721cd00c7
-norm,,KℍℎℏℐℑℒℓℕℙℚℛℜℝℤΩℨKÅℬℭge,character,,,khhħiillnpqrrrzωzkabcge,,bd9721cd00c7
-norm,,KℯℰℱℲℳℴℵℶℷℸℹℼℽℾℿ⅀ⅅⅆⅇⅈge,character,,,keefⅎmoאבגדiπγγπ∑ddeige,,bd9721cd00c7
-norm,,Kⅉ！＂＃＄％＆＇（）＊＋，－．／０１２３ge,character,,,"kj!""#$%&'()*+,-./0123ge",,bd9721cd00c7
-norm,,K４５６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧge,character,,,k456789:;<=>?@abcdefgge,,bd9721cd00c7
-norm,,KＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［ge,character,,,khijklmnopqrstuvwxyz[ge,,bd9721cd00c7
-norm,,K＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏge,character,,,k\]^_`abcdefghijklmnoge,,bd9721cd00c7
-norm,,Kｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～¼½¾ßĲge,character,,,kpqrstuvwxyz{|}~1⁄41⁄23⁄4ssijge,,bd9721cd00c7
-norm,,KĳĿŀŉǄǅǆǇǈǉǊǋǌǱǲǳẚẞ℀℁ge,character,,,kijl·l·ʼndzdzdzljljljnjnjnjdzdzdzaʾssa/ca/sge,,bd9721cd00c7
-norm,,K℃℅℆℉№℠℡™℻ﬀﬁﬂﬃﬄﬅﬆge,character,,,k°cc/oc/u°fnosmteltmfaxfffiflffifflststge,,bd9721cd00c7
+resolve,mlb,MIA,character,,auto,28,ok,387c6729bd3f
+resolve,nba,NYK,character,,auto,18,ok,387c6729bd3f
+resolve,mlb,ANA,character,,bref,3,ok,387c6729bd3f
+resolve,mlb,SLB,character,,auto,1,ok,387c6729bd3f
+resolve,nfl,dal,character,,bref,6,ok,387c6729bd3f
+resolve,mlb,PHI,character,,bref,22,ok,387c6729bd3f
+resolve,mlb,ATL,character,,auto,15,ok,387c6729bd3f
+resolve,nba,DNN,character,,auto,7,ok,387c6729bd3f
+resolve,nba,OKC,character,,bref,25,ok,387c6729bd3f
+resolve,mlb,HOU,character,,auto,18,ok,387c6729bd3f
+resolve,cfb,Youngstown St,character,,auto,2754,ok,387c6729bd3f
+resolve,cfb,Brown,character,,auto,225,ok,387c6729bd3f
+resolve,cfb,MICH,character,,cfbd,130,ok,387c6729bd3f
+resolve,cfb,East Central,character,,cfbd,2191,ok,387c6729bd3f
+resolve,cfb,CMS,character,,auto,17,ok,387c6729bd3f
+resolve,cfb,Heidelberg,character,,cfbd,191,ok,387c6729bd3f
+resolve,cfb,Rockford,character,,cfbd,2524,ok,387c6729bd3f
+resolve,cfb,Western Kentucky,character,,auto,98,ok,387c6729bd3f
+resolve,cfb,HCU,character,,auto,2277,ok,387c6729bd3f
+resolve,cfb,Morgan St,character,,auto,2415,ok,387c6729bd3f
+resolve,cricket,1346029,character,,cricinfo,1346029,ok,387c6729bd3f
+resolve,cricket,335973,character,,auto,335973,ok,387c6729bd3f
+resolve,cricket,1335270,character,,auto,1335270,ok,387c6729bd3f
+resolve,cricket,27,character,,auto,27,ok,387c6729bd3f
+resolve,cricket,1121244,character,,cricinfo,1121244,ok,387c6729bd3f
+resolve,cricket,1812,character,,cricinfo,1812,ok,387c6729bd3f
+resolve,cricket,1208118,character,,auto,1208118,ok,387c6729bd3f
+resolve,cricket,6,character,,cricinfo,6,ok,387c6729bd3f
+resolve,cricket,33,character,,cricinfo,33,ok,387c6729bd3f
+resolve,cricket,509673,character,,auto,509673,ok,387c6729bd3f
+resolve,nba,7,character,,auto,7,ok,387c6729bd3f
+resolve,cfb,2714,character,,auto,2714,ok,387c6729bd3f
+resolve,ncaa_baseball,452,character,,espn,452,ok,387c6729bd3f
+resolve,cfb,433,character,,auto,433,ok,387c6729bd3f
+resolve,cfb,122666,character,,espn,122666,ok,387c6729bd3f
+resolve,mbb,55,character,,auto,55,ok,387c6729bd3f
+resolve,cfb,233,character,,espn,233,ok,387c6729bd3f
+resolve,cfb,348,character,,auto,348,ok,387c6729bd3f
+resolve,ncaa_baseball,121,character,,espn,121,ok,387c6729bd3f
+resolve,cfb,2116,character,,auto,2116,ok,387c6729bd3f
+resolve,cfb,RMC,character,,auto,2516,ok,387c6729bd3f
+resolve,wbb,UAB,character,,espn_abbr,5,ok,387c6729bd3f
+resolve,cfb,GAST,character,,auto,2247,ok,387c6729bd3f
+resolve,cfb,CN,character,,espn_abbr,2105,ok,387c6729bd3f
+resolve,ncaa_softball,ETSU,character,,espn_abbr,658,ok,387c6729bd3f
+resolve,cfb,TUFT,character,,auto,112,ok,387c6729bd3f
+resolve,ncaa_softball,CASE,character,,auto,870,ok,387c6729bd3f
+resolve,ncaa_softball,ALCN,character,,espn_abbr,623,ok,387c6729bd3f
+resolve,nba,TOR,character,,auto,28,ok,387c6729bd3f
+resolve,ncaa_baseball,SFA,character,,auto,438,ok,387c6729bd3f
+resolve,mlb,CHC,character,,auto,16,ok,387c6729bd3f
+resolve,mlb,MIL,character,,fangraphs,8,ok,387c6729bd3f
+resolve,mlb,ATH,character,,fangraphs,11,ok,387c6729bd3f
+resolve,mlb,ARI,character,,auto,29,ok,387c6729bd3f
+resolve,mlb,PIT,character,,fangraphs,23,ok,387c6729bd3f
+resolve,mlb,MIA,character,,auto,28,ok,387c6729bd3f
+resolve,mlb,TBR,character,,auto,30,ok,387c6729bd3f
+resolve,mlb,CLE,character,,fangraphs,5,ok,387c6729bd3f
+resolve,mlb,LAD,character,,auto,19,ok,387c6729bd3f
+resolve,mlb,CIN,character,,auto,17,ok,387c6729bd3f
+resolve,echl,4,character,,auto,4,ok,387c6729bd3f
+resolve,chl,12,character,,hockeytech,12,ok,387c6729bd3f
+resolve,ajhl,12,character,,auto,12,ok,387c6729bd3f
+resolve,ojhl,15,character,,auto,15,ok,387c6729bd3f
+resolve,echl,23,character,,hockeytech,23,ok,387c6729bd3f
+resolve,ohl,10,character,,auto,10,ok,387c6729bd3f
+resolve,ohl,8,character,,auto,8,ok,387c6729bd3f
+resolve,echl,67,character,,auto,67,ok,387c6729bd3f
+resolve,chl,31,character,,auto,31,ok,387c6729bd3f
+resolve,cchl,3,character,,auto,3,ok,387c6729bd3f
+resolve,milb,1991,character,,auto,1991,ok,387c6729bd3f
+resolve,mlb,CHI,character,,auto,16,ok,387c6729bd3f
+resolve,milb,tol,character,,auto,512,ok,387c6729bd3f
+resolve,milb,dcb,character,,auto,609,ok,387c6729bd3f
+resolve,milb,t580,character,,auto,580,ok,387c6729bd3f
+resolve,milb,A-BRW,character,,mlbstats,406,ok,387c6729bd3f
+resolve,mlb,se1,character,,auto,8,ok,387c6729bd3f
+resolve,milb,t635,character,,auto,635,ok,387c6729bd3f
+resolve,milb,RNO,character,,mlbstats,2310,ok,387c6729bd3f
+resolve,mlb,sdn,character,,auto,25,ok,387c6729bd3f
+resolve,ufl,Birmingham,character,,auto,126073,ok,387c6729bd3f
+resolve,soccer,Eastern Kentucky Colonels,character,,name,20607,ok,387c6729bd3f
+resolve,ufl,Birmingham Stallions,character,,auto,126073,ok,387c6729bd3f
+resolve,soccer,Arkansas State Red Wolves,character,,auto,20587,ok,387c6729bd3f
+resolve,cfb,Mary Hardin Baylor,character,,auto,2371,ok,387c6729bd3f
+resolve,cfb,Hawai'i,character,,auto,62,ok,387c6729bd3f
+resolve,wbb,Creighton Bluejays,character,,auto,156,ok,387c6729bd3f
+resolve,cebl,Ottawa BlackJacks,character,,auto,20,ok,387c6729bd3f
+resolve,cfb,Pac Lutheran,character,,auto,2486,ok,387c6729bd3f
+resolve,wbb,Baylor Bears,character,,auto,239,ok,387c6729bd3f
+resolve,nba,1610612742,character,,nba_api,6,ok,387c6729bd3f
+resolve,nba,1610612766,character,,auto,30,ok,387c6729bd3f
+resolve,nba,1610612756,character,,auto,21,ok,387c6729bd3f
+resolve,nba,1610612765,character,,auto,8,ok,387c6729bd3f
+resolve,nba,1610612764,character,,nba_api,27,ok,387c6729bd3f
+resolve,nba,1610612737,character,,auto,1,ok,387c6729bd3f
+resolve,nba,DET,character,,auto,8,ok,387c6729bd3f
+resolve,nba,MIN,character,,nba_api,16,ok,387c6729bd3f
+resolve,nba,GSW,character,,auto,9,ok,387c6729bd3f
+resolve,nba,MIL,character,,auto,15,ok,387c6729bd3f
+resolve,cfb,544797,character,,auto,257,ok,387c6729bd3f
+resolve,cfb,523019,character,,ncaa,135,ok,387c6729bd3f
+resolve,cfb,66648,character,,auto,166,ok,387c6729bd3f
+resolve,cfb,62734,character,,auto,113,ok,387c6729bd3f
+resolve,cfb,478230,character,,auto,2717,ok,387c6729bd3f
+resolve,cfb,622239,character,,auto,251,ok,387c6729bd3f
+resolve,cfb,19830,character,,auto,2542,ok,387c6729bd3f
+resolve,cfb,557671,character,,ncaa,79,ok,387c6729bd3f
+resolve,cfb,499672,character,,auto,2198,ok,387c6729bd3f
+resolve,cfb,606212,character,,auto,2674,ok,387c6729bd3f
+resolve,nfl,DAL,character,,auto,6,ok,387c6729bd3f
+resolve,nfl,OAK,character,,auto,13,ok,387c6729bd3f
+resolve,nfl,OAK,character,,auto,13,ok,387c6729bd3f
+resolve,nfl,HOU,character,,auto,34,ok,387c6729bd3f
+resolve,nfl,GB,character,,auto,9,ok,387c6729bd3f
+resolve,nfl,TB,character,,nflverse,27,ok,387c6729bd3f
+resolve,nfl,NYG,character,,auto,19,ok,387c6729bd3f
+resolve,nfl,DEN,character,,auto,7,ok,387c6729bd3f
+resolve,nfl,CAR,character,,auto,29,ok,387c6729bd3f
+resolve,nfl,LV,character,,auto,13,ok,387c6729bd3f
+resolve,nhl,OTT,character,,nhl,14,ok,387c6729bd3f
+resolve,nhl,TOR,character,,auto,21,ok,387c6729bd3f
+resolve,nhl,NJD,character,,auto,11,ok,387c6729bd3f
+resolve,nhl,HFD,character,,auto,7,ok,387c6729bd3f
+resolve,nhl,TAN,character,,nhl,21,ok,387c6729bd3f
+resolve,nhl,DFL,character,,auto,5,ok,387c6729bd3f
+resolve,nhl,NYR,character,,nhl,13,ok,387c6729bd3f
+resolve,nhl,LAK,character,,auto,8,ok,387c6729bd3f
+resolve,nhl,TSP,character,,nhl,21,ok,387c6729bd3f
+resolve,nhl,ATL,character,,auto,28,ok,387c6729bd3f
+resolve,nhl,55,character,,nhl_id,124292,ok,387c6729bd3f
+resolve,nhl,40,character,,nhl_id,5,ok,387c6729bd3f
+resolve,nhl,28,character,,nhl_id,18,ok,387c6729bd3f
+resolve,nhl,17,character,,nhl_id,5,ok,387c6729bd3f
+resolve,nhl,14,character,,nhl_id,20,ok,387c6729bd3f
+resolve,nhl,34,character,,nhl_id,7,ok,387c6729bd3f
+resolve,nhl,10,character,,nhl_id,21,ok,387c6729bd3f
+resolve,nhl,33,character,,nhl_id,28,ok,387c6729bd3f
+resolve,nhl,31,character,,nhl_id,9,ok,387c6729bd3f
+resolve,nhl,4,character,,nhl_id,15,ok,387c6729bd3f
+resolve,aaf,719,character,,auto,719,ok,387c6729bd3f
+resolve,aaf,720,character,,auto,720,ok,387c6729bd3f
+resolve,aaf,721,character,,auto,721,ok,387c6729bd3f
+resolve,aaf,722,character,,auto,722,ok,387c6729bd3f
+resolve,aaf,723,character,,pff,723,ok,387c6729bd3f
+resolve,aaf,724,character,,pff,724,ok,387c6729bd3f
+resolve,aaf,725,character,,auto,725,ok,387c6729bd3f
+resolve,aaf,726,character,,auto,726,ok,387c6729bd3f
+resolve,mlb,NYA,character,,auto,10,ok,387c6729bd3f
+resolve,mlb,KC,character,,auto,7,ok,387c6729bd3f
+resolve,nhl,NAS,character,,auto,27,ok,387c6729bd3f
+resolve,wbb,UL MONROE,character,,auto,2433,ok,387c6729bd3f
+resolve,wbb,PACIFIC TIGERS,character,,auto,279,ok,387c6729bd3f
+resolve,cfb,MCN,character,,auto,2377,ok,387c6729bd3f
+resolve,wbb,CONNECTICUT,character,,auto,41,ok,387c6729bd3f
+resolve,wbb,UCR,character,,auto,27,ok,387c6729bd3f
+resolve,wbb,SOUTHERN METHODIST,character,,sdvplotr,2567,ok,387c6729bd3f
+resolve,cfb,BUFFALO BULLS,character,,sdvplotr,2084,ok,387c6729bd3f
+resolve,nba,ATL,character,,sportsipy,1,ok,387c6729bd3f
+resolve,mlb,MIL,character,,sportsipy,8,ok,387c6729bd3f
+resolve,nba,BOS,character,,auto,2,ok,387c6729bd3f
+resolve,nfl,dal,character,,auto,6,ok,387c6729bd3f
+resolve,nba,WAS,character,,sportsipy,27,ok,387c6729bd3f
+resolve,nba,MIA,character,,auto,14,ok,387c6729bd3f
+resolve,nba,GSW,character,,sportsipy,9,ok,387c6729bd3f
+resolve,mlb,BAL,character,,sportsipy,1,ok,387c6729bd3f
+resolve,nfl,det,character,,auto,8,ok,387c6729bd3f
+resolve,nba,LAL,character,,auto,13,ok,387c6729bd3f
+resolve,nba,18,character,,team_id,18,ok,387c6729bd3f
+resolve,f1,rb,character,,auto,rb,ok,387c6729bd3f
+resolve,ncaa_softball,650,character,,auto,650,ok,387c6729bd3f
+resolve,usfl,michigan-panthers,character,,auto,michigan-panthers,ok,387c6729bd3f
+resolve,gojhl,71,character,,team_id,71,ok,387c6729bd3f
+resolve,soccer,17992,character,,team_id,17992,ok,387c6729bd3f
+resolve,milb,2131,character,,team_id,2131,ok,387c6729bd3f
+resolve,nfl,34,character,,auto,34,ok,387c6729bd3f
+resolve,soccer,21563,character,,auto,21563,ok,387c6729bd3f
+resolve,kijhl,7,character,,auto,7,ok,387c6729bd3f
+resolve,mlb,MON,character,1969,auto,20,ok,387c6729bd3f
+resolve,mlb,HOU,character,1962,auto,18,ok,387c6729bd3f
+resolve,nfl,LV,character,2020,auto,13,ok,387c6729bd3f
+resolve,mlb,CLE,character,1871,auto,5,ok,387c6729bd3f
+resolve,xfl,STL,character,2023,auto,112651,ok,387c6729bd3f
+resolve,mlb,PHI,character,1873,auto,22,ok,387c6729bd3f
+resolve,nfl,STL,character,1995,auto,14,ok,387c6729bd3f
+resolve,mlb,min,character,1961,auto,9,ok,387c6729bd3f
+resolve,xfl,New York Guardians,character,2020,auto,112650,ok,387c6729bd3f
+resolve,mlb,TOR,character,1977,auto,14,ok,387c6729bd3f
+resolve,mlb,BSN,character,1907,auto,15,ok,387c6729bd3f
+resolve,mlb,MIA,character,2012,auto,28,ok,387c6729bd3f
+resolve,nfl,cle,character,1950,auto,5,ok,387c6729bd3f
+resolve,mlb,BSN,character,1912,auto,15,ok,387c6729bd3f
+resolve,nba,CHH,character,1989,auto,30,ok,387c6729bd3f
+resolve,mlb,BRO,character,1914,auto,19,ok,387c6729bd3f
+resolve,mlb,CIN,character,1876,auto,17,ok,387c6729bd3f
+resolve,mlb,OAK,character,1968,auto,11,ok,387c6729bd3f
+resolve,mlb,CAL,character,1966,auto,3,ok,387c6729bd3f
+resolve,nhl,WIN,character,1997,auto,28,ok,387c6729bd3f
+resolve,nfl,oti,character,1960,auto,10,ok,387c6729bd3f
+resolve,mlb,KCR,character,1969,auto,7,ok,387c6729bd3f
+resolve,nhl,33,character,1997,auto,,unknown,387c6729bd3f
+resolve,nba,ORL,character,1990,auto,19,ok,387c6729bd3f
+resolve,ufl,Houston Gamblers,character,2026,auto,126075,ok,387c6729bd3f
+resolve,mlb,NYG,character,1883,auto,26,ok,387c6729bd3f
+resolve,mlb,NYM,character,1962,auto,21,ok,387c6729bd3f
+resolve,mlb,DET,character,1901,auto,6,ok,387c6729bd3f
+resolve,mlb,CAL,character,1965,auto,3,ok,387c6729bd3f
+resolve,mlb,laa,character,1961,auto,3,ok,387c6729bd3f
+resolve,ufl,DC,character,2024,auto,112646,ok,387c6729bd3f
+resolve,mlb,KCR,character,1969,auto,7,ok,387c6729bd3f
+resolve,nba,MIA,character,1989,auto,14,ok,387c6729bd3f
+resolve,ufl,D.C. Defenders,character,2024,auto,112646,ok,387c6729bd3f
+resolve,mlb,was,character,2005,auto,20,ok,387c6729bd3f
+resolve,nfl,atl,character,1966,auto,1,ok,387c6729bd3f
+resolve,mlb,cle,character,1903,auto,5,ok,387c6729bd3f
+resolve,nba,NOP,character,2014,auto,3,ok,387c6729bd3f
+resolve,mlb,MLA,character,1901,auto,1,ok,387c6729bd3f
+resolve,nfl,mia,character,1966,auto,15,ok,387c6729bd3f
+resolve,soccer,Stonehill Skyhawks,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Santos,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Vålerenga,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Mexico,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Butler Bulldogs,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Paraguay,character,,auto,,ambiguous,387c6729bd3f
+resolve,ojhl,Burlington Cougars,character,,auto,,ambiguous,387c6729bd3f
+resolve,fiba,USA,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Saint Mary's Gaels,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Fairfield Stags,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Northern Illinois Huskies,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Ecuador,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Colombia,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,Duke Blue Devils,character,,auto,,ambiguous,387c6729bd3f
+resolve,nfl,Los Angeles,character,,auto,,ambiguous,387c6729bd3f
+resolve,ajhl,6,integer,,auto,6,ok,387c6729bd3f
+resolve,cfb,2757,integer,,auto,2757,ok,387c6729bd3f
+resolve,soccer,16728,integer,,auto,16728,ok,387c6729bd3f
+resolve,wbb,2166,integer,,auto,2166,ok,387c6729bd3f
+resolve,milb,632,integer,,auto,632,ok,387c6729bd3f
+resolve,milb,3430,integer,,auto,3430,ok,387c6729bd3f
+resolve,cfb,202,integer,,auto,202,ok,387c6729bd3f
+resolve,cfb,245,integer,,auto,245,ok,387c6729bd3f
+resolve,soccer,4371,integer,,auto,4371,ok,387c6729bd3f
+resolve,chl,90,integer,,auto,90,ok,387c6729bd3f
+resolve,nfl,zzz not a team,character,,auto,,unknown,387c6729bd3f
+resolve,cfb,,character,,auto,,none,387c6729bd3f
+resolve,soccer,Atlético Madrid,character,,auto,,ambiguous,387c6729bd3f
+resolve,soccer,VästerÅs SK,character,,auto,22163,ok,387c6729bd3f
+resolve,mlb,Montréal Expos,character,,auto,,unknown,387c6729bd3f
+suggest,soccer,Luxebourg,character,,,20967,,387c6729bd3f
+suggest,soccer,Tajiistan,character,,,6723,,387c6729bd3f
+suggest,cfb,Andeson (SC) Trojans,character,,,129469,,387c6729bd3f
+suggest,soccer,Magalanes,character,,,17363,,387c6729bd3f
+suggest,ncaa_softball,Oregn Ducks,character,,,636,,387c6729bd3f
+suggest,soccer,Akhmt Grozny,character,,,2991,,387c6729bd3f
+suggest,ncaa_mhockey,SOUTERN NEW HAMPSHIRE,character,,,3256,,387c6729bd3f
+suggest,gojhl,PortColborne Sailors,character,,,14,,387c6729bd3f
+suggest,ncaa_baseball,Loyoa Chicago Ramblers,character,,,381,,387c6729bd3f
+suggest,soccer,Livepool,character,,,19971,,387c6729bd3f
+suggest,ncaa_whockey,OhioState Buckeyes,character,,,194,,387c6729bd3f
+suggest,mbb,IonaGaels,character,,,314,,387c6729bd3f
+suggest,cricket,Austalia,character,,,2,,387c6729bd3f
+suggest,soccer,Bayen Munich,character,,,132,,387c6729bd3f
+suggest,mbb,LongIsland University Sharks,character,,,112358,,387c6729bd3f
+mark,wbb,SLND,character,,auto,Southland,,387c6729bd3f
+mark,mbb,BIG 12 CONFERENCE,character,,auto,Big 12,,387c6729bd3f
+mark,wbb,MOUNTAIN WEST CONFERENCE,character,,auto,Mountain West,,387c6729bd3f
+mark,wbb,SOUTHEASTERN CONFERENCE,character,,auto,SEC,,387c6729bd3f
+mark,wbb,AE,character,,auto,Am. East,,387c6729bd3f
+mark,mbb,BIGW,character,,auto,Big West,,387c6729bd3f
+mark,cfb,COLONIAL ATHLETIC ASSOCIATION,character,,auto,CAA,,387c6729bd3f
+mark,wbb,LAND,character,,auto,Southland,,387c6729bd3f
+mark,mbb,BIG TEN CONFERENCE,character,,auto,Big Ten,,387c6729bd3f
+mark,mbb,PAT,character,,auto,Patriot,,387c6729bd3f
+mark,cfb,COASTAL ATHLETIC ASSOCIATION FOOTBALL CONFERENCE,character,,auto,CAA,,387c6729bd3f
+mark,mbb,NEAST,character,,auto,NEC,,387c6729bd3f
+mark,wbb,WEST COAST,character,,auto,WCC,,387c6729bd3f
+mark,mbb,METRO CONFERENCE,character,,auto,MAAC,,387c6729bd3f
+mark,cfb,FBS INDEPENDENTS,character,,auto,FBS Indep.,,387c6729bd3f
+mark,wbb,HOR,character,,auto,Horizon,,387c6729bd3f
+mark,mbb,BE,character,,auto,Big East,,387c6729bd3f
+mark,wbb,ATLANTIC SUN CONFERENCE,character,,auto,Atlantic Sun,,387c6729bd3f
+mark,cfb,B1G,character,,auto,Big Ten,,387c6729bd3f
+mark,mbb,COASTAL ATHLETIC ASSOCIATION,character,,auto,CAA,,387c6729bd3f
+mark,wbb,NEAST,character,,auto,NEC,,387c6729bd3f
+mark,wbb,BIG WEST CONFERENCE,character,,auto,Big West,,387c6729bd3f
+mark,cfb,MWEST,character,,auto,Mountain West,,387c6729bd3f
+mark,mbb,MCC,character,,auto,Horizon,,387c6729bd3f
+mark,cfb,PACIFIC 8 CONFERENCE,character,,auto,Pac-12,,387c6729bd3f
+mark,mbb,CONFERENCE USA,character,,auto,CUSA,,387c6729bd3f
+mark,cfb,MID-EASTERN ATHLETIC CONFERENCE,character,,auto,MEAC,,387c6729bd3f
+mark,wbb,HORIZON LEAGUE,character,,auto,Horizon,,387c6729bd3f
+mark,cfb,BELT,character,,auto,Sun Belt,,387c6729bd3f
+mark,cfb,MOUNTAIN WEST CONFERENCE,character,,auto,Mountain West,,387c6729bd3f
+mark,cfb,SEC,character,,auto,SEC,,387c6729bd3f
+mark,cfb,MAC,character,,auto,2359,,387c6729bd3f
+mark,nfl,AFC,character,,auto,AFC,,387c6729bd3f
+mark,nfl,KC,character,,auto,12,,387c6729bd3f
+mark,cfb,zzz not a conference,character,,auto,,,387c6729bd3f
+norm,,1. FC Nürnberg,character,,,1. fc nurnberg,,387c6729bd3f
+norm,,AD Alcorcón,character,,,ad alcorcon,,387c6729bd3f
+norm,,Académica de Coimbra,character,,,academica de coimbra,,387c6729bd3f
+norm,,Académico de Viseu,character,,,academico de viseu,,387c6729bd3f
+norm,,Acqua S.Bernardo Cantù,character,,,acqua s.bernardo cantu,,387c6729bd3f
+norm,,Alavés,character,,,alaves,,387c6729bd3f
+norm,,Alianza Atlético,character,,,alianza atletico,,387c6729bd3f
+norm,,Almería,character,,,almeria,,387c6729bd3f
+norm,,América,character,,,america,,387c6729bd3f
+norm,,América Mineiro,character,,,america mineiro,,387c6729bd3f
+norm,,América de Cali,character,,,america de cali,,387c6729bd3f
+norm,,América-RN,character,,,america-rn,,387c6729bd3f
+norm,,Anzoátegui FC,character,,,anzoategui fc,,387c6729bd3f
+norm,,Anápolis,character,,,anapolis,,387c6729bd3f
+norm,,Atlético Bucaramanga,character,,,atletico bucaramanga,,387c6729bd3f
+norm,,Atlético FC,character,,,atletico fc,,387c6729bd3f
+norm,,Atlético Goianiense,character,,,atletico goianiense,,387c6729bd3f
+norm,,Atlético Grau,character,,,atletico grau,,387c6729bd3f
+norm,,Atlético Junior,character,,,atletico junior,,387c6729bd3f
+norm,,Atlético Madrid,character,,,atletico madrid,,387c6729bd3f
+norm,,Atlético Nacional,character,,,atletico nacional,,387c6729bd3f
+norm,,Atlético Tucumán,character,,,atletico tucuman,,387c6729bd3f
+norm,,Atlético de San Luis,character,,,atletico de san luis,,387c6729bd3f
+norm,,Atlético-MG,character,,,atletico-mg,,387c6729bd3f
+norm,,Avaí,character,,,avai,,387c6729bd3f
+norm,,BK Häcken,character,,,bk hacken,,387c6729bd3f
+norm,,Belgrano (Córdoba),character,,,belgrano (cordoba),,387c6729bd3f
+norm,,Bogotá FC,character,,,bogota fc,,387c6729bd3f
+norm,,Bolívar,character,,,bolivar,,387c6729bd3f
+norm,,Borussia Mönchengladbach,character,,,borussia monchengladbach,,387c6729bd3f
+norm,,Boyacá Chicó FC,character,,,boyaca chico fc,,387c6729bd3f
+norm,,Brown de Adrogué,character,,,brown de adrogue,,387c6729bd3f
+norm,,Brøndby IF,character,,,brøndby if,,387c6729bd3f
+norm,,CD Municipal Limeño,character,,,cd municipal limeno,,387c6729bd3f
+norm,,CF Montréal,character,,,cf montreal,,387c6729bd3f
+norm,,Cartaginés,character,,,cartagines,,387c6729bd3f
+norm,,Castellón,character,,,castellon,,387c6729bd3f
+norm,,Ceará,character,,,ceara,,387c6729bd3f
+norm,,Ceilândia,character,,,ceilandia,,387c6729bd3f
+norm,,Central Córdoba (Santiago del Estero),character,,,central cordoba (santiago del estero),,387c6729bd3f
+norm,,Central Español Fútbol Club,character,,,central espanol futbol club,,387c6729bd3f
+norm,,Cerro Porteño,character,,,cerro porteno,,387c6729bd3f
+norm,,Chicoutimi Saguenéens,character,,,chicoutimi sagueneens,,387c6729bd3f
+norm,,"Chicoutimi, Saguenéens",character,,,"chicoutimi, sagueneens",,387c6729bd3f
+norm,,Ciudad de Bolívar,character,,,ciudad de bolivar,,387c6729bd3f
+norm,,Club Atlético La Paz,character,,,club atletico la paz,,387c6729bd3f
+norm,,Club Atlético Morelia,character,,,club atletico morelia,,387c6729bd3f
+norm,,Club Deportivo Marathón,character,,,club deportivo marathon,,387c6729bd3f
+norm,,Cobán Imperial,character,,,coban imperial,,387c6729bd3f
+norm,,Colón (Santa Fe),character,,,colon (santa fe),,387c6729bd3f
+norm,,Confiança,character,,,confianca,,387c6729bd3f
+norm,,Copiapó,character,,,copiapo,,387c6729bd3f
+norm,,Criciúma,character,,,criciuma,,387c6729bd3f
+norm,,Cuiabá,character,,,cuiaba,,387c6729bd3f
+norm,,Curaçao,character,,,curacao,,387c6729bd3f
+norm,,Curicó Unido,character,,,curico unido,,387c6729bd3f
+norm,,Cádiz,character,,,cadiz,,387c6729bd3f
+norm,,Córdoba,character,,,cordoba,,387c6729bd3f
+norm,,Cúcuta Deportivo,character,,,cucuta deportivo,,387c6729bd3f
+norm,,Delfín,character,,,delfin,,387c6729bd3f
+norm,,Deportes Quindío,character,,,deportes quindio,,387c6729bd3f
+norm,,Deportivo Maipú,character,,,deportivo maipu,,387c6729bd3f
+norm,,Deportivo Morón,character,,,deportivo moron,,387c6729bd3f
+norm,,Deportivo Táchira,character,,,deportivo tachira,,387c6729bd3f
+norm,,Djurgården,character,,,djurgarden,,387c6729bd3f
+norm,,Dux Logroño,character,,,dux logrono,,387c6729bd3f
+norm,,Escorpiones Belén,character,,,escorpiones belen,,387c6729bd3f
+norm,,Estudiantes de Mérida,character,,,estudiantes de merida,,387c6729bd3f
+norm,,Estudiantes de Río Cuarto,character,,,estudiantes de rio cuarto,,387c6729bd3f
+norm,,F.C. København,character,,,f.c. københavn,,387c6729bd3f
+norm,,FC Blau-Weiß Linz,character,,,fc blau-weiss linz,,387c6729bd3f
+norm,,FC Juárez,character,,,fc juarez,,387c6729bd3f
+norm,,FC Nordsjælland,character,,,fc nordsjælland,,387c6729bd3f
+norm,,FC Zlín,character,,,fc zlin,,387c6729bd3f
+norm,,FC Zürich,character,,,fc zurich,,387c6729bd3f
+norm,,Fortuna Düsseldorf,character,,,fortuna dusseldorf,,387c6729bd3f
+norm,,GV San José,character,,,gv san jose,,387c6729bd3f
+norm,,Gimnàstic de Tarragona,character,,,gimnastic de tarragona,,387c6729bd3f
+norm,,Goiás,character,,,goias,,387c6729bd3f
+norm,,Grêmio,character,,,gremio,,387c6729bd3f
+norm,,Guabirá,character,,,guabira,,387c6729bd3f
+norm,,Guaraní,character,,,guarani,,387c6729bd3f
+norm,,Génesis PN,character,,,genesis pn,,387c6729bd3f
+norm,,Güemes,character,,,guemes,,387c6729bd3f
+norm,,HB Køge,character,,,hb køge,,387c6729bd3f
+norm,,Hawaiʻi Hilo,character,,,hawaiʻi hilo,,387c6729bd3f
+norm,,Hawaiʻi Hilo Vulcans,character,,,hawaiʻi hilo vulcans,,387c6729bd3f
+norm,,Hawaiʻi Pacific,character,,,hawaiʻi pacific,,387c6729bd3f
+norm,,Hawaiʻi Pacific Sea Warriors,character,,,hawaiʻi pacific sea warriors,,387c6729bd3f
+norm,,Huracán,character,,,huracan,,387c6729bd3f
+norm,,IFK Göteborg,character,,,ifk goteborg,,387c6729bd3f
+norm,,IFK Norrköping,character,,,ifk norrkoping,,387c6729bd3f
+norm,,Independiente Medellín,character,,,independiente medellin,,387c6729bd3f
+norm,,Instituto (Córdoba),character,,,instituto (cordoba),,387c6729bd3f
+norm,,Internacional de Bogotá,character,,,internacional de bogota,,387c6729bd3f
+norm,,Isidro Metapán,character,,,isidro metapan,,387c6729bd3f
+norm,,Itagüí Leones,character,,,itagui leones,,387c6729bd3f
+norm,,Ituzaingó,character,,,ituzaingo,,387c6729bd3f
+norm,,Jaguares de Córdoba,character,,,jaguares de cordoba,,387c6729bd3f
+norm,,KF Shkëndija,character,,,kf shkendija,,387c6729bd3f
+norm,,Lanús,character,,,lanus,,387c6729bd3f
+norm,,Leganés,character,,,leganes,,387c6729bd3f
+norm,,León,character,,,leon,,387c6729bd3f
+norm,,Luis Ángel Firpo,character,,,luis angel firpo,,387c6729bd3f
+norm,,Macará,character,,,macara,,387c6729bd3f
+norm,,Malmö FF,character,,,malmo ff,,387c6729bd3f
+norm,,Mirandés,character,,,mirandes,,387c6729bd3f
+norm,,Mjällby AIF,character,,,mjallby aif,,387c6729bd3f
+norm,,Montréal Victoire,character,,,montreal victoire,,387c6729bd3f
+norm,,Málaga,character,,,malaga,,387c6729bd3f
+norm,,Nacional Asunción,character,,,nacional asuncion,,387c6729bd3f
+norm,,Nacional Potosí,character,,,nacional potosi,,387c6729bd3f
+norm,,Nova Iguaçu,character,,,nova iguacu,,387c6729bd3f
+norm,,Náutico,character,,,nautico,,387c6729bd3f
+norm,,Operário PR,character,,,operario pr,,387c6729bd3f
+norm,,Orléans,character,,,orleans,,387c6729bd3f
+norm,,Paços de Ferreira,character,,,pacos de ferreira,,387c6729bd3f
+norm,,Peñarol,character,,,penarol,,387c6729bd3f
+norm,,Preußen Münster,character,,,preussen munster,,387c6729bd3f
+norm,,Pérez Zeledón,character,,,perez zeledon,,387c6729bd3f
+norm,,Querétaro,character,,,queretaro,,387c6729bd3f
+norm,,Québec Remparts,character,,,quebec remparts,,387c6729bd3f
+norm,,"Québec, Remparts",character,,,"quebec, remparts",,387c6729bd3f
+norm,,RAAL La Louvière,character,,,raal la louviere,,387c6729bd3f
+norm,,Racing (Córdoba),character,,,racing (cordoba),,387c6729bd3f
+norm,,Raków Czestochowa,character,,,rakow czestochowa,,387c6729bd3f
+norm,,Real España,character,,,real espana,,387c6729bd3f
+norm,,Real Potosí,character,,,real potosi,,387c6729bd3f
+norm,,"Rimouski, Océanic",character,,,"rimouski, oceanic",,387c6729bd3f
+norm,,Rubio Ñú,character,,,rubio nu,,387c6729bd3f
+norm,,SAN JOSÉ ST,character,,,san jose st,,387c6729bd3f
+norm,,SAN JOSÉ STATE,character,,,san jose state,,387c6729bd3f
+norm,,SAN JOSÉ STATE SPARTANS,character,,,san jose state spartans,,387c6729bd3f
+norm,,Saarbrücken,character,,,saarbrucken,,387c6729bd3f
+norm,,Saint-Étienne,character,,,saint-etienne,,387c6729bd3f
+norm,,San José St,character,,,san jose st,,387c6729bd3f
+norm,,San José State,character,,,san jose state,,387c6729bd3f
+norm,,San José State Spartans,character,,,san jose state spartans,,387c6729bd3f
+norm,,San Martín (Burzaco),character,,,san martin (burzaco),,387c6729bd3f
+norm,,San Martín (San Juan),character,,,san martin (san juan),,387c6729bd3f
+norm,,San Martín (Tucumán),character,,,san martin (tucuman),,387c6729bd3f
+norm,,Sarmiento (Junín),character,,,sarmiento (junin),,387c6729bd3f
+norm,,"Sherbrooke, Phœnix",character,,,"sherbrooke, phœnix",,387c6729bd3f
+norm,,SpVgg Greuther Fürth,character,,,spvgg greuther furth,,387c6729bd3f
+norm,,Sporting Gijón,character,,,sporting gijon,,387c6729bd3f
+norm,,Sporting San José,character,,,sporting san jose,,387c6729bd3f
+norm,,Sportivo Luqueño,character,,,sportivo luqueno,,387c6729bd3f
+norm,,"St-Jérôme, Alouettes",character,,,"st-jerome, alouettes",,387c6729bd3f
+norm,,St. Pölten,character,,,st. polten,,387c6729bd3f
+norm,,São Bernardo,character,,,sao bernardo,,387c6729bd3f
+norm,,São José-RS,character,,,sao jose-rs,,387c6729bd3f
+norm,,São Luiz-RS,character,,,sao luiz-rs,,387c6729bd3f
+norm,,São Paulo,character,,,sao paulo,,387c6729bd3f
+norm,,Sønderjyske Fodbold,character,,,sønderjyske fodbold,,387c6729bd3f
+norm,,Talleres (Córdoba),character,,,talleres (cordoba),,387c6729bd3f
+norm,,Tepatitlán FC,character,,,tepatitlan fc,,387c6729bd3f
+norm,,Tristán Suárez,character,,,tristan suarez,,387c6729bd3f
+norm,,Trois-Rivières Lions,character,,,trois-rivieres lions,,387c6729bd3f
+norm,,Técnico Universitario,character,,,tecnico universitario,,387c6729bd3f
+norm,,Türkiye,character,,,turkiye,,387c6729bd3f
+norm,,Türkiye U21,character,,,turkiye u21,,387c6729bd3f
+norm,,Uberlândia,character,,,uberlandia,,387c6729bd3f
+norm,,Universidad Católica,character,,,universidad catolica,,387c6729bd3f
+norm,,Universidad Católica (Quito),character,,,universidad catolica (quito),,387c6729bd3f
+norm,,Universidad de Concepción,character,,,universidad de concepcion,,387c6729bd3f
+norm,,Unión (Santa Fe),character,,,union (santa fe),,387c6729bd3f
+norm,,Unión Española,character,,,union espanola,,387c6729bd3f
+norm,,Unión La Calera,character,,,union la calera,,387c6729bd3f
+norm,,Unión Magdalena,character,,,union magdalena,,387c6729bd3f
+norm,,Unión San Felipe,character,,,union san felipe,,387c6729bd3f
+norm,,"Verdun, Collège Français",character,,,"verdun, college francais",,387c6729bd3f
+norm,,Villa Dálmine,character,,,villa dalmine,,387c6729bd3f
+norm,,Vitória,character,,,vitoria,,387c6729bd3f
+norm,,Vitória de Guimaraes,character,,,vitoria de guimaraes,,387c6729bd3f
+norm,,Västerås SK,character,,,vasteras sk,,387c6729bd3f
+norm,,Vålerenga,character,,,valerenga,,387c6729bd3f
+norm,,Vélez Sarsfield,character,,,velez sarsfield,,387c6729bd3f
+norm,,Víkingur,character,,,vikingur,,387c6729bd3f
+norm,,Würzburger Kickers,character,,,wurzburger kickers,,387c6729bd3f
+norm,,Xelajú MC,character,,,xelaju mc,,387c6729bd3f
+norm,,Águila,character,,,aguila,,387c6729bd3f
+norm,,Águilas Doradas,character,,,aguilas doradas,,387c6729bd3f
+norm,,Çorum FK,character,,,corum fk,,387c6729bd3f
+norm,,Ñublense,character,,,nublense,,387c6729bd3f
+norm,,Örgryte IS,character,,,orgryte is,,387c6729bd3f
+norm,,Östers IF,character,,,osters if,,387c6729bd3f
+norm,,Östersunds FK,character,,,ostersunds fk,,387c6729bd3f
+norm,,K¨ª¯²³´µ¸¹ºÀÁÂÃÄÅÆÇÈÉge,character,,,k a 23 μ 1oaaaaaaæceege,,387c6729bd3f
+norm,,KÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞge,character,,,keeiiiiðnoooooøuuuuyþge,,387c6729bd3f
+norm,,Kàáâãäåçèéêëìíîïñòóôõge,character,,,kaaaaaaceeeeiiiinooooge,,387c6729bd3f
+norm,,KöùúûüýÿĀāĂăĄąĆćĈĉĊċČge,character,,,kouuuuyyaaaaaacccccccge,,387c6729bd3f
+norm,,KčĎďĐĒēĔĕĖėĘęĚěĜĝĞğĠġge,character,,,kcddđeeeeeeeeeeggggggge,,387c6729bd3f
+norm,,KĢģĤĥĦĨĩĪīĬĭĮįİĴĵĶķĹĺge,character,,,kgghhħiiiiiiiiijjkkllge,,387c6729bd3f
+norm,,KĻļĽľŁŃńŅņŇňŊŌōŎŏŐőŒŔge,character,,,kllllłnnnnnnŋooooooœrge,,387c6729bd3f
+norm,,KŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŨũge,character,,,krrrrrssssssssttttŧuuge,,387c6729bd3f
+norm,,KŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽge,character,,,kuuuuuuuuuuwwyyyzzzzzge,,387c6729bd3f
+norm,,KžſƁƂƄƆƇƉƊƋƎƏƐƑƓƔƖƗƘƜge,character,,,kzsɓƃƅɔƈɖɗƌǝəɛƒɠɣɩɨƙɯge,,387c6729bd3f
+norm,,KƝƟƠơƢƤƦƧƩƬƮƯưƱƲƳƵƷƸƼge,character,,,kɲɵooƣƥʀƨʃƭʈuuʊʋƴƶʒƹƽge,,387c6729bd3f
+norm,,KǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǞǟǠǡge,character,,,kaaiioouuuuuuuuuuaaaage,,387c6729bd3f
+norm,,KǢǣǤǦǧǨǩǪǫǬǭǮǯǰǴǵǶǷǸǹge,character,,,kææǥggkkooooʒʒjggƕƿnnge,,387c6729bd3f
+norm,,KǺǻǼǽǾǿȀȁȂȃȄȅȆȇȈȉȊȋȌȍge,character,,,kaaææøøaaaaeeeeiiiiooge,,387c6729bd3f
+norm,,KȎȏȐȑȒȓȔȕȖȗȘșȚțȜȞȟȠȢȤge,character,,,koorrrruuuussttȝhhƞȣȥge,,387c6729bd3f
+norm,,KȦȧȨȩȪȫȬȭȮȯȰȱȲȳȺȻȽȾɁɃge,character,,,kaaeeooooooooyyⱥȼƚⱦɂƀge,,387c6729bd3f
+norm,,KɄɅɆɈɊɌɎḀḁḂḃḄḅḆḇḈḉḊḋḌge,character,,,kʉʌɇɉɋɍɏaabbbbbbccdddge,,387c6729bd3f
+norm,,KḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟḠge,character,,,kdddddddeeeeeeeeeeffgge,,387c6729bd3f
+norm,,KḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴge,character,,,kghhhhhhhhhhiiiikkkkkge,,387c6729bd3f
+norm,,KḵḶḷḸḹḺḻḼḽḾḿṀṁṂṃṄṅṆṇṈge,character,,,kkllllllllmmmmmmnnnnnge,,387c6729bd3f
+norm,,KṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜge,character,,,knnnoooooooopppprrrrrge,,387c6729bd3f
+norm,,KṝṞṟṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰge,character,,,krrrsssssssssstttttttge,,387c6729bd3f
+norm,,KṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿẀẁẂẃẄge,character,,,ktuuuuuuuuuuvvvvwwwwwge,,387c6729bd3f
+norm,,KẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘge,character,,,kwwwwwxxxxyyzzzzzzhtwge,,387c6729bd3f
+norm,,KẙẛẠạẢảẤấẦầẨẩẪẫẬậẮắẰằge,character,,,kysaaaaaaaaaaaaaaaaaage,,387c6729bd3f
+norm,,KẲẳẴẵẶặẸẹẺẻẼẽẾếỀềỂểỄễge,character,,,kaaaaaaeeeeeeeeeeeeeege,,387c6729bd3f
+norm,,KỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộge,character,,,keeiiiiooooooooooooooge,,387c6729bd3f
+norm,,KỚớỜờỞởỠỡỢợỤụỦủỨứỪừỬửge,character,,,koooooooooouuuuuuuuuuge,,387c6729bd3f
+norm,,KỮữỰựỲỳỴỵỶỷỸỹỺỼỾℂℇℊℋℌge,character,,,kuuuuyyyyyyyyỻỽỿcɛghhge,,387c6729bd3f
+norm,,KℍℎℏℐℑℒℓℕℙℚℛℜℝℤΩℨKÅℬℭge,character,,,khhħiillnpqrrrzωzkabcge,,387c6729bd3f
+norm,,KℯℰℱℲℳℴℵℶℷℸℹℼℽℾℿ⅀ⅅⅆⅇⅈge,character,,,keefⅎmoאבגדiπγγπ∑ddeige,,387c6729bd3f
+norm,,Kⅉ！＂＃＄％＆＇（）＊＋，－．／０１２３ge,character,,,"kj!""#$%&'()*+,-./0123ge",,387c6729bd3f
+norm,,K４５６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧge,character,,,k456789:;<=>?@abcdefgge,,387c6729bd3f
+norm,,KＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［ge,character,,,khijklmnopqrstuvwxyz[ge,,387c6729bd3f
+norm,,K＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏge,character,,,k\]^_`abcdefghijklmnoge,,387c6729bd3f
+norm,,Kｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～¼½¾ßĲge,character,,,kpqrstuvwxyz{|}~1⁄41⁄23⁄4ssijge,,387c6729bd3f
+norm,,KĳĿŀŉǄǅǆǇǈǉǊǋǌǱǲǳẚẞ℀℁ge,character,,,kijl·l·ʼndzdzdzljljljnjnjnjdzdzdzaʾssa/ca/sge,,387c6729bd3f
+norm,,K℃℅℆℉№℠℡™℻ﬀﬁﬂﬃﬄﬅﬆge,character,,,k°cc/oc/u°fnosmteltmfaxfffiflffifflststge,,387c6729bd3f

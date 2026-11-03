@@ -85,8 +85,25 @@ test_that("pro league, conference and division marks draw", {
   # an NHL division is archived at manifest level "division", not "conference"
   for (k in list(
     c("MLB", "mlb"), c("AL", "mlb"), c("NL", "mlb"), c("NBA", "nba"), c("East", "nba"),
-    c("WNBA", "wnba"), c("NHL", "nhl"), c("Metropolitan", "nhl"), c("Atlantic", "nhl"), c("AAF", "aaf")
+    c("WNBA", "wnba"), c("NHL", "nhl"), c("Metropolitan", "nhl"), c("Atlantic", "nhl"), c("AAF", "aaf"),
+    # the NHL's conferences have only their Conference Final wordmarks, drawn as their logos
+    c("Eastern", "nhl"), c("Western", "nhl")
   )) {
     expect_match(sdv_logo_url(k[1], k[2]), "^https://", info = k[1])
+  }
+})
+
+test_that("a team never borrows its wordmark as a logo", {
+  local_snapshot_index()
+  # MLB teams have wordmarks; their logo is still a logo row
+  expect_false(identical(sdv_logo_url("NYY", "mlb"), sdv_logo_url("NYY", "mlb", mark_type = "wordmark")))
+})
+
+test_that("the new leagues resolve and draw", {
+  local_snapshot_index()
+  for (lg in c("cfl", "cebl", "easl", "lba", "f1", "nbl", "fiba", "iihf", "sphl", "ojhl")) {
+    t <- sdv_teams(lg)
+    expect_gt(nrow(t), 0)
+    expect_match(sdv_logo_url(t$team_id[1], lg), "^https://", info = lg)
   }
 })
