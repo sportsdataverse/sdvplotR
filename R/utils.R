@@ -138,7 +138,21 @@ league_headshot_url <- c(
   ohl = hockeytech_headshot_url("ohl"),
   whl = hockeytech_headshot_url("whl"),
   qmjhl = hockeytech_headshot_url("lhjmq"), # HockeyTech's client code for the QMJHL
-  ushl = hockeytech_headshot_url("ushl")
+  ushl = hockeytech_headshot_url("ushl"),
+  # the junior and minor leagues, each under its own key as client code
+  sphl = hockeytech_headshot_url("sphl"),
+  chl = hockeytech_headshot_url("chl"),
+  bchl = hockeytech_headshot_url("bchl"),
+  ajhl = hockeytech_headshot_url("ajhl"),
+  sjhl = hockeytech_headshot_url("sjhl"),
+  ojhl = hockeytech_headshot_url("ojhl"),
+  cchl = hockeytech_headshot_url("cchl"),
+  gojhl = hockeytech_headshot_url("gojhl"),
+  mhl = hockeytech_headshot_url("mhl"),
+  nojhl = hockeytech_headshot_url("nojhl"),
+  vijhl = hockeytech_headshot_url("vijhl"),
+  kijhl = hockeytech_headshot_url("kijhl"),
+  mjhl = hockeytech_headshot_url("mjhl")
 )
 
 # "espn" (ESPN athlete ids, the default in every league), "gsis" (nflverse's
@@ -223,12 +237,15 @@ headshot_from_id <- function(player_id, league, id_system = "espn") {
 #' | soccer | ESPN athlete id | none |
 #' | cfb, mbb, wbb | ESPN athlete id | none |
 #' | pwhl, ahl, echl, ohl, whl, qmjhl, ushl | none | HockeyTech `player_id` |
+#' | sphl, chl, bchl, ajhl, sjhl, ojhl, cchl, gojhl, mhl, nojhl, vijhl, kijhl, mjhl | none | HockeyTech `player_id` |
 #'
 #' ESPN files G League photos with the NBA's, so a G League player's ESPN id
 #' is the one ESPN uses for him in the NBA. ESPN has photos for only part of
 #' the G League and soccer rosters. The HockeyTech leagues' images come from
 #' the leagues' stats provider's CDN (`assets.leaguestat.com`), keyed by the
-#' `player_id` in their HockeyTech feeds. Other leagues have no headshots.
+#' `player_id` in their HockeyTech feeds. Other leagues have no headshots;
+#' F1 drivers have none because formula1.com keys its photos by its own driver
+#' reference (`MAXVER01`), not a driver number or Jolpica `driver_id`.
 #' @seealso [sdv_logo_url()].
 #' @export
 #' @examples

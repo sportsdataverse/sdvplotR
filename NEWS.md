@@ -75,9 +75,14 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   every league by default; `id_system = "gsis"` reads nflverse NFL ids and
   `id_system = "league"` the league's own player ids.
 * Headshots for more leagues: G League (`"nbagl"`, ESPN files its photos
-  with the NBA's) and soccer by ESPN athlete id, and the PWHL, AHL, ECHL,
-  OHL, WHL, QMJHL and USHL by HockeyTech player id with
-  `id_system = "league"` (`assets.leaguestat.com`).
+  with the NBA's) and soccer by ESPN athlete id, and the 20 HockeyTech
+  leagues by HockeyTech player id with `id_system = "league"`
+  (`assets.leaguestat.com`): the PWHL, AHL, ECHL, OHL, WHL, QMJHL and USHL,
+  and the junior and minor leagues `"sphl"`, `"chl"`, `"bchl"`, `"ajhl"`,
+  `"sjhl"`, `"ojhl"`, `"cchl"`, `"gojhl"`, `"mhl"`, `"nojhl"`, `"vijhl"`,
+  `"kijhl"` and `"mjhl"` (each league's key is its leaguestat client code).
+  F1 driver headshots are not covered: formula1.com keys them by its own
+  driver reference (`MAXVER01`), not a driver number or Jolpica `driver_id`.
 
 ## Interactive plots and maps
 

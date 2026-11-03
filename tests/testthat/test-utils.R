@@ -309,6 +309,9 @@ test_that("G League and soccer headshots read ESPN athlete ids", {
 
 test_that("HockeyTech leagues read their player ids on the leaguestat CDN", {
   clients <- c(pwhl = "pwhl", ahl = "ahl", echl = "echl", ohl = "ohl", whl = "whl", qmjhl = "lhjmq", ushl = "ushl")
+  # the junior and minor leagues, each probed 2026-11-02 with a roster player_id that returned a 240x240 JPEG
+  juniors <- c("sphl", "chl", "bchl", "ajhl", "sjhl", "ojhl", "cchl", "gojhl", "mhl", "nojhl", "vijhl", "kijhl", "mjhl")
+  clients <- c(clients, stats::setNames(juniors, juniors))
   for (lg in names(clients)) {
     expect_identical(
       sdv_headshot_url(c(52, NA), lg, id_system = "league"),
@@ -325,6 +328,7 @@ test_that("the new headshot CDNs serve a known player's photo", {
   skip_if_offline("assets.leaguestat.com")
   for (u in c(
     sdv_headshot_url(52, "pwhl", id_system = "league"),
+    sdv_headshot_url(5833, "mjhl", id_system = "league"),
     sdv_headshot_url(45843, "soccer"),
     sdv_headshot_url(5105337, "nbagl")
   )) {
