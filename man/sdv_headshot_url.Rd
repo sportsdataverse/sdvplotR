@@ -14,13 +14,15 @@ means different teams in different leagues.}
 
 \item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
 league with ESPN headshots), \code{"gsis"} (nflverse's NFL gsis ids, such as
-\code{"00-0033873"}, read through a published map) or \code{"league"} (the league's
-own player id). The details of \code{\link[=sdv_headshot_url]{sdv_headshot_url()}} list which leagues
-take which.}
+\code{"00-0033873"}, read through a published map), \code{"league"} (the league's
+own player id), or another provider's player id, drawn as the ESPN
+athlete's headshot: \code{"fox"}, \code{"yahoo"}, \code{"cbs"}, \code{"kenpom"}, \code{"ncaa"}
+(stats.ncaa.org), \code{"nba_stats"} or \code{"wnba_stats"}. The details of
+\code{\link[=sdv_headshot_url]{sdv_headshot_url()}} list which leagues take which.}
 }
 \value{
 A character vector the length of \code{player_id}: the URL, or \code{NA} for
-a missing or malformed id or (gsis) one not in the map. The URL is built
+a missing or malformed id or (gsis, a provider) one not in its map. The URL is built
 from the id alone, so an id the CDN has no photo for still gets one: ESPN
 and HockeyTech answer it with a 404, which the ggplot geoms skip with a
 warning and the gt, reactable and ggtext helpers show as a broken image;
@@ -52,6 +54,20 @@ the leagues' stats provider's CDN (\code{assets.leaguestat.com}), keyed by the
 \code{player_id} in their HockeyTech feeds. Other leagues have no headshots;
 F1 drivers have none because formula1.com keys its photos by its own driver
 reference (\code{MAXVER01}), not a driver number or Jolpica \code{driver_id}.
+
+Other providers' player ids map to ESPN athlete ids through
+sdv-reference-data's \verb{\{league\}_player_aliases} tables (the
+sportsdataverse-data \verb{\{league\}_groups} releases), and draw that athlete's
+ESPN headshot. The map for a league and provider is downloaded when first
+needed and kept for the session; an id it does not hold is \code{NA}.\tabular{ll}{
+   League \tab Provider \code{id_system} \cr
+   nfl \tab \code{"fox"}, \code{"yahoo"}, \code{"cbs"} \cr
+   cfb \tab \code{"fox"}, \code{"yahoo"}, \code{"cbs"}, \code{"ncaa"} \cr
+   nba \tab \code{"fox"}, \code{"yahoo"}, \code{"nba_stats"} \cr
+   wnba \tab \code{"fox"}, \code{"yahoo"}, \code{"wnba_stats"} \cr
+   mbb \tab \code{"fox"}, \code{"yahoo"}, \code{"kenpom"}, \code{"ncaa"} \cr
+   wbb \tab \code{"fox"}, \code{"yahoo"}, \code{"ncaa"} \cr
+}
 }
 \examples{
 sdv_headshot_url(3139477, "nfl")
