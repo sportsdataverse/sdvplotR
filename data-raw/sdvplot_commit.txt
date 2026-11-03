@@ -1,2 +1,2 @@
-sdvplot commit the team index bd9721cd00c7 (R/sysdata.rda, the test fixtures and the golden file) was exported from (data-raw/export_index.py):
-551ab54e4d9d9e02e6147d22c0d49f2c3e6bf698
+sdvplot commit the team index 387c6729bd3f (R/sysdata.rda, the test fixtures and the golden file) was exported from (data-raw/export_index.py):
+435c5154b5d90cdccf30192b7c75ede424a79451

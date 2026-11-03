@@ -53,7 +53,7 @@
 #'   (`install.packages("sportyR")`).
 #' @param team `NULL` (the default) for the plain regulation surface, or one
 #'   team identifier, resolved by [sdv_resolve()]. Only keys that are also
-#'   team leagues of [sdv_leagues()] take one; the others (`"fiba"`, `"atp"`,
+#'   team leagues of [sdv_leagues()] take one; the others (`"fifa"`, `"atp"`,
 #'   `"nll"`, `"epl"`, ...) error.
 #' @param season A season for the team's colors and center logo (see
 #'   [sdv_team_colors()]); `NULL` is the current identity.
@@ -93,7 +93,7 @@
 #'   regulation 105 x 68 m pitch, the frame [sdv_pitch_coords()] converts to;
 #'   'sportyR''s own "fifa" default is FIFA's 120 x 90 m maximum. Soccer takes a
 #'   `team` for its center logo (18.3 m, the center circle); the pitch keeps its
-#'   regulation colors. FIBA takes no `team` yet.
+#'   regulation colors. FIBA takes a national team (`"fiba"` pools them).
 #'
 #'   Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
 #'   (yards for football, meters for soccer and FIBA). The center logo is sized

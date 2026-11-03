@@ -1,6 +1,6 @@
 ---
 title: "Getting Started with sdvplotR"
-description: "Install sdvplotR and draw your first team logos, colors and headshots in ggplot2, gt and reactable across the 28 leagues of the SportsDataverse team index."
+description: "Install sdvplotR and draw your first team logos, colors and headshots in ggplot2, gt and reactable across the 49 leagues of the SportsDataverse team index."
 author: "Saiem Gilani <br><a href='https://x.com/saiemgilani' target='blank'><img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;label=%40saiemgilani&amp;logo=x&amp;style=for-the-badge' alt='@saiemgilani'/></a> <a href='https://github.com/saiemgilani' target='blank'><img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@saiemgilani'/></a>"
 opengraph:
   image:
@@ -46,7 +46,7 @@ head(nfl_teams)
 nfl_team_names <- sdv_teams("nfl")$name
 head(nfl_team_names)
 
-# The 28 leagues of the team index
+# The 49 leagues of the team index
 sdv_leagues()
 ```
 
@@ -210,17 +210,17 @@ ggplot(cfb_df, aes(x = x, y = y)) +
 
 ## Every league
 
-`sdv_leagues()` lists all 28 leagues of the team index, from the NFL and the
+`sdv_leagues()` lists all 49 leagues of the team index, from the NFL and the
 Premier League to the junior hockey leagues, NCAA softball and cricket. The
-loop below draws ten teams of each that have a logo, one row per league. This
+loop below draws up to ten teams of each that have a logo, one row per league. This
 article reads teams from the snapshot bundled with the package
 (`options(sdvplotR.offline = TRUE)`, set before its first lookup), so it does not
 wait on a live fetch of the index.
 
-```{r every-league, fig.width = 8, fig.height = 12, fig.alt = "Ten team logos for each of the 28 leagues of the SportsDataverse team index, one labelled row per league, from the AAF and AHL to the XFL."}
+```{r every-league, fig.width = 8, fig.height = 21, fig.alt = "Up to ten team logos for each of the 49 leagues of the SportsDataverse team index, one labelled row per league, from the AAF and AHL to the XFL."}
 teams <- do.call(rbind, lapply(sdv_leagues(), function(lg) {
   t <- sdv_teams(lg)
-  # sdv_logo_url() warns for teams with no archived logo; keep ten that have one
+  # sdv_logo_url() warns for teams with no archived logo; keep up to ten that have one
   t <- tail(t[!is.na(suppressWarnings(sdv_logo_url(t$team_id, lg))), ], 10)
   data.frame(league = lg, team = t$team_id, x = seq_len(nrow(t)))
 }))

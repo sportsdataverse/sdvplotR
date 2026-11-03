@@ -51,7 +51,7 @@ sdvplot-js. Surfaces need 'sportyR' 2.4.5 or later, from CRAN
 
 \item{team}{\code{NULL} (the default) for the plain regulation surface, or one
 team identifier, resolved by \code{\link[=sdv_resolve]{sdv_resolve()}}. Only keys that are also
-team leagues of \code{\link[=sdv_leagues]{sdv_leagues()}} take one; the others (\code{"fiba"}, \code{"atp"},
+team leagues of \code{\link[=sdv_leagues]{sdv_leagues()}} take one; the others (\code{"fifa"}, \code{"atp"},
 \code{"nll"}, \code{"epl"}, ...) error.}
 
 \item{season}{A season for the team's colors and center logo (see
@@ -109,7 +109,7 @@ Soccer and FIBA surfaces are drawn in meters. "soccer" defaults to a
 regulation 105 x 68 m pitch, the frame \code{\link[=sdv_pitch_coords]{sdv_pitch_coords()}} converts to;
 'sportyR''s own "fifa" default is FIFA's 120 x 90 m maximum. Soccer takes a
 \code{team} for its center logo (18.3 m, the center circle); the pitch keeps its
-regulation colors. FIBA takes no \code{team} yet.
+regulation colors. FIBA takes a national team (\code{"fiba"} pools them).
 
 Surfaces use 'sportyR''s coordinates: the origin at the center, in feet
 (yards for football, meters for soccer and FIBA). The center logo is sized

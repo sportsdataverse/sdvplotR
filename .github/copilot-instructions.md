@@ -6,7 +6,7 @@ write code that fits this repository. The fuller guide is
 workflow.
 
 `sdvplotR` draws team logos, wordmarks, player headshots and team colors in
-ggplot2, gt, reactable, plotly, ggiraph and leaflet across the 28 leagues of
+ggplot2, gt, reactable, plotly, ggiraph and leaflet across the 49 leagues of
 the SportsDataverse team index (`sdv_leagues()`), built on
 [`ggpath`](https://github.com/mrcaseb/ggpath). `sdv_surface()` draws 59
 team-styled playing surfaces through 'sportyR' (>= 2.4.5).
