@@ -13,6 +13,9 @@ geom_sdv_bins_interactive(
   radius = NULL,
   side = NULL,
   equal_area = FALSE,
+  origin = c(0, 0),
+  cell_fill = NULL,
+  min_count = 1,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -20,7 +23,8 @@ geom_sdv_bins_interactive(
 }
 \arguments{
 \item{mapping, data, position, na.rm, show.legend, inherit.aes}{As in
-\code{\link[ggplot2:geom_polygon]{ggplot2::geom_polygon()}}. \code{x} and \code{y} are required.}
+\code{\link[ggplot2:geom_polygon]{ggplot2::geom_polygon()}}. \code{x} and \code{y} are required; \code{weight} is
+optional.}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{ggplot2::layer()}}, such as
 \code{colour}, \code{linewidth} or \code{alpha} set to a value.}
@@ -36,6 +40,17 @@ square has.}
 \item{equal_area}{For squares: size them by \code{radius} to the area of a
 hexagon of that circumradius, so a hex chart and a square chart of the
 same data have cells of the same area.}
+
+\item{origin}{The point a cell is centred on, \code{c(x, y)} in the points'
+units: a hoop-centred lattice, origin = the basket's coordinates. The
+default \code{c(0, 0)} centres a cell on the data origin.}
+
+\item{cell_fill}{The drawn cell's size as a fraction of the lattice cell's,
+a number in (0, 1]; \code{NULL} (the default) is 0.88 for squares and 1 for
+hexagons. sdvplot's \code{fill}.}
+
+\item{min_count}{Cells with fewer points than this are not drawn (default
+1, every cell); \code{min_count = 2} draws no single attempts.}
 }
 \value{
 A ggplot2 layer.
@@ -54,7 +69,7 @@ points, and a point lights its cell and its cell-mates, in one
 cell's id is \code{"x,y"}, its centre as JavaScript writes the numbers
 (\code{\link[=sdv_bins]{sdv_bins()}}). A point links to a cell when its \code{data_id} equals the
 cell's, so bin both with the same lattice (\code{shape}, \code{radius} / \code{side},
-\code{equal_area}) in the same coordinates. Selection works the same way: with
+\code{equal_area}, \code{origin}) in the same coordinates. Selection works the same way: with
 \code{ggiraph::opts_selection(type = "multiple")}, the selected ids (in Shiny,
 \verb{input$<outputId>_selected}) are cell ids, and \code{sdv_bins()}'s \code{rows}
 column maps each back to its points, for a linked table or any other

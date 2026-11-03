@@ -116,7 +116,10 @@ cell_ids <- function(cx, cy) paste0(js_number(cx), rep_len(",", length(cx)), js_
 #'   hexagon has circumradius `radius`, a square side `side`, and with
 #'   `equal_area = TRUE` a square has the area of a hexagon of circumradius
 #'   `radius` (side `radius * sqrt(3 * sqrt(3) / 2)`, about `1.6119 * radius`).
-#'   Both lattices have a cell centred on the origin.
+#'   Both lattices have a cell centred on `origin`, `c(0, 0)` by default:
+#'   for a hoop-centred lattice, origin = the basket's coordinates (the points
+#'   are binned as `x - origin[1]`, `y - origin[2]` and the centres shifted
+#'   back, so ids are still the absolute centres).
 #'
 #'   * Hexagons are d3-hexbin's lattice: rows `1.5 * radius` apart, columns
 #'     `sqrt(3) * radius` apart, odd rows shifted half a column. Each point
@@ -146,6 +149,13 @@ cell_ids <- function(cx, cy) paste0(js_number(cx), rep_len(",", length(cx)), js_
 #' @param equal_area For squares: size them by `radius` to the area of a
 #'   hexagon of that circumradius, so a hex chart and a square chart of the
 #'   same data have cells of the same area.
+#' @param origin The point a cell is centred on, `c(x, y)` in the points'
+#'   units: a hoop-centred lattice, origin = the basket's coordinates. The
+#'   default `c(0, 0)` centres a cell on the data origin.
+#' @param weights `NULL` (the default) or a numeric vector as long as `x`,
+#'   each point's weight (points scored, say). A cell's `weight` is the sum of
+#'   its points' weights; a missing or non-finite weight counts 0, but the
+#'   point is still binned and counted.
 #' @return `sdv_bins()`: a data frame with one row per cell, in first-seen order:
 #'   | col_name | type | description |
 #'   |---|---|---|
@@ -153,6 +163,7 @@ cell_ids <- function(cx, cy) paste0(js_number(cx), rep_len(",", length(cx)), js_
 #'   | x | numeric | The cell centre's x, in the points' units |
 #'   | y | numeric | The cell centre's y, in the points' units |
 #'   | count | integer | Points in the cell |
+#'   | weight | numeric | The sum of the cell's points' `weights` (its `count` without `weights`) |
 #'   | rows | list | Integer positions (1-based) of the cell's points in `x` / `y`, in input order |
 #'
 #'   `sdv_bin_ids()`: a character vector as long as `x`, each point's cell id
@@ -169,38 +180,62 @@ cell_ids <- function(cx, cy) paste0(js_number(cx), rep_len(",", length(cx)), js_
 #' sdv_bins(x, y, shape = "square", side = 10)
 #' sdv_bins(x, y, shape = "square", radius = 10, equal_area = TRUE)
 #' sdv_bin_ids(x, y, radius = 10)
-sdv_bins <- function(x, y, shape = "hex", radius = NULL, side = NULL, equal_area = FALSE) {
-  b <- bin_points(x, y, bin_lattice(shape, radius, side, equal_area))
+#' # the same shots in feet from the baseline, the hoop at (0, 5.25): a
+#' # hoop-centred lattice puts them in the same cells, weighted by points
+#' sdv_bins(x / 10, y / 10 + 5.25, radius = 1, origin = c(0, 5.25), weights = c(2, 2, 3))
+sdv_bins <- function(x, y, shape = "hex", radius = NULL, side = NULL, equal_area = FALSE, origin = c(0, 0),
+                     weights = NULL) {
+  b <- bin_points(x, y, bin_lattice(shape, radius, side, equal_area), origin)
+  if (!is.null(weights) && !(is.numeric(weights) && length(weights) == length(b$keep))) {
+    cli::cli_abort("{.arg weights} must be {.code NULL} or a numeric vector as long as {.arg x}.")
+  }
   members <- unname(split(which(b$keep), b$cell))
-  cells <- bin_cells(b)
+  cells <- bin_cells(b, weights)
   cells$rows <- I(members)
   cells
 }
 
 #' @rdname sdv_bins
 #' @export
-sdv_bin_ids <- function(x, y, shape = "hex", radius = NULL, side = NULL, equal_area = FALSE) {
-  b <- bin_points(x, y, bin_lattice(shape, radius, side, equal_area))
+sdv_bin_ids <- function(x, y, shape = "hex", radius = NULL, side = NULL, equal_area = FALSE, origin = c(0, 0)) {
+  b <- bin_points(x, y, bin_lattice(shape, radius, side, equal_area), origin)
   out <- rep(NA_character_, length(b$keep))
   out[b$keep] <- b$id
   out
 }
 
-# Each kept point's centre, id and cell number (first-seen order), plus the keep mask.
-bin_points <- function(x, y, lattice, call = rlang::caller_env()) {
+# Each kept point's centre, id and cell number (first-seen order), plus the keep mask. The lattice is shifted to
+# `origin`: bin x - ox, y - oy, then add the origin back to the centres (c(0, 0) leaves every double as it was).
+bin_points <- function(x, y, lattice, origin = c(0, 0), call = rlang::caller_env()) {
   if (!is.numeric(x) || !is.numeric(y) || length(x) != length(y)) {
     cli::cli_abort("{.arg x} and {.arg y} must be numeric vectors of the same length.", call = call)
   }
-  b <- bin_centres(as.double(x), as.double(y), lattice)
+  if (!(is.numeric(origin) && length(origin) == 2 && all(is.finite(origin)))) {
+    cli::cli_abort("{.arg origin} must be two finite numbers, {.code c(x, y)}.", call = call)
+  }
+  ox <- as.double(origin[[1]])
+  oy <- as.double(origin[[2]])
+  b <- bin_centres(as.double(x) - ox, as.double(y) - oy, lattice)
+  b$x <- b$x + ox
+  b$y <- b$y + oy
   b$id <- cell_ids(b$x, b$y)
   b$cell <- match(b$id, unique(b$id))
   b
 }
 
-# One row per cell: id, centre, count.
-bin_cells <- function(b) {
+# One row per cell: id, centre, count and weight (the sum of the kept points' weights, non-finite ones 0; the
+# count when `weights` is NULL).
+bin_cells <- function(b, weights = NULL) {
   first <- !duplicated(b$cell)
-  data.frame(cell_id = b$id[first], x = b$x[first], y = b$y[first], count = tabulate(b$cell, nbins = sum(first)))
+  n <- sum(first)
+  count <- tabulate(b$cell, nbins = n)
+  weight <- as.double(count)
+  if (!is.null(weights)) {
+    w <- as.double(weights[b$keep])
+    w[!is.finite(w)] <- 0
+    weight <- vapply(split(w, factor(b$cell, levels = seq_len(n))), sum, numeric(1), USE.NAMES = FALSE)
+  }
+  data.frame(cell_id = b$id[first], x = b$x[first], y = b$y[first], count = count, weight = weight)
 }
 
 # A cell's vertices around (0, 0): a pointy-top hexagon of circumradius `size` (d3-hexbin's vertex order,
