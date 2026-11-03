@@ -80,23 +80,23 @@ for a plain trimmed save.
 ## Examples
 
 ``` r
-if (FALSE) { # interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))
 # \donttest{
-library(gt)
+if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+  library(gt)
 
-nfc_west <- subset(
-  sdv_example_standings, division == "NFC West",
-  c(team_name, wins:points_against)
-)
+  nfc_west <- subset(
+    sdv_example_standings, division == "NFC West",
+    c(team_name, wins:points_against)
+  )
 
-gt(nfc_west) |>
-  gt_theme_broadsheet(density = "social") |>
-  gt_social_crop(tempfile(fileext = ".png"), aspect_ratio = "4:5")
+  gt(nfc_west) |>
+    gt_theme_broadsheet(density = "social") |>
+    gt_social_crop(tempfile(fileext = ".png"), aspect_ratio = "4:5")
 
-# match the canvas to a dark theme
-gt(nfc_west) |>
-  gt_theme_midnight() |>
-  gt_social_crop(tempfile(fileext = ".png"), bg = "#0C0D10")
-# }
+  # match the canvas to a dark theme
+  gt(nfc_west) |>
+    gt_theme_midnight() |>
+    gt_social_crop(tempfile(fileext = ".png"), bg = "#0C0D10")
 }
+# }
 ```

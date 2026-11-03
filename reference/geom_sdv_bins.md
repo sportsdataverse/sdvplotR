@@ -71,9 +71,9 @@ geom_sdv_bins(
 
 - origin:
 
-  The point a cell is centred on, `c(x, y)` in the points' units: a
-  hoop-centred lattice, origin = the basket's coordinates. The default
-  `c(0, 0)` centres a cell on the data origin.
+  The point a cell is centered on, `c(x, y)` in the points' units: a
+  hoop-centered lattice, origin = the basket's coordinates. The default
+  `c(0, 0)` centers a cell on the data origin.
 
 - cell_fill:
 
@@ -100,14 +100,14 @@ under
 [`ggplot2::coord_fixed()`](https://ggplot2.tidyverse.org/reference/coord_fixed.html)
 (as
 [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
-draws) they look regular. The lattice has a cell centred on `origin`, by
-default the data origin (centre court on an
+draws) they look regular. The lattice has a cell centered on `origin`,
+by default the data origin (center court on an
 [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
-court); for a hoop-centred lattice, set `origin` to the basket's
+court); for a hoop-centered lattice, set `origin` to the basket's
 coordinates.
 
 `cell_fill` draws each cell at a fraction of the lattice cell, around
-its centre: by default 0.88 for squares, so neighbouring squares keep a
+its center: by default 0.88 for squares, so neighboring squares keep a
 gap instead of touching edge to edge, and 1 for hexagons, the
 conventional tiled hexbin look. (sdvplot (Python) calls it `fill`; here
 `fill` is the aesthetic.) The cells, their counts and the scales are the

@@ -227,9 +227,11 @@ run it after adding or replacing any other figure there.
   `pkgdown::build_article("<slug>")`. Paths inside an article are
   relative to `vignettes/` (the repo root is `../`).
 - Examples that download images are wrapped in `\donttest{}`. Never use
-  `\dontrun{}`: examples that save images through a headless Chrome go
-  in an `@examplesIf interactive() && <webshot2 + Chrome available>`
-  block wrapping `\donttest{}` (see `R/gt_save_crop.R`) and write to
+  `\dontrun{}`: examples that save images through a headless Chrome put
+  their code inside
+  `\donttest{ if (interactive() && <webshot2 + Chrome available>) { ... } }`
+  (see `R/gt_save_crop.R`; not `@examplesIf`, whose FALSE condition
+  pkgdown reports as a warning on every build) and write to
   [`tempfile()`](https://rdrr.io/r/base/tempfile.html) /
   [`tempdir()`](https://rdrr.io/r/base/tempfile.html), never to the
   working directory.

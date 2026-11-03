@@ -334,9 +334,9 @@ same data have cells of the same area.</p></dd>
 
 
 <dt id="arg-origin">origin<a class="anchor" aria-label="anchor" href="#arg-origin"></a></dt>
-<dd><p>The point a cell is centred on, <code>c(x, y)</code> in the points'
-units: a hoop-centred lattice, origin = the basket's coordinates. The
-default <code>c(0, 0)</code> centres a cell on the data origin.</p></dd>
+<dd><p>The point a cell is centered on, <code>c(x, y)</code> in the points'
+units: a hoop-centered lattice, origin = the basket's coordinates. The
+default <code>c(0, 0)</code> centers a cell on the data origin.</p></dd>
 
 
 <dt id="arg-cell-fill">cell_fill<a class="anchor" aria-label="anchor" href="#arg-cell-fill"></a></dt>
@@ -359,12 +359,12 @@ hexagons. sdvplot's <code>fill</code>.</p></dd>
     <p>Unlike <code><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html" class="external-link">ggplot2::geom_hex()</a></code>, whose cells stretch with the axes,
 these are true hexagons and squares in data space, sized by <code>radius</code> or
 <code>side</code> rather than a bin count: under <code><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">ggplot2::coord_fixed()</a></code> (as
-<code><a href="sdv_surface.html">sdv_surface()</a></code> draws) they look regular. The lattice has a cell centred
-on <code>origin</code>, by default the data origin (centre court on an
-<code><a href="sdv_surface.html">sdv_surface()</a></code> court); for a hoop-centred lattice, set <code>origin</code> to the
+<code><a href="sdv_surface.html">sdv_surface()</a></code> draws) they look regular. The lattice has a cell centered
+on <code>origin</code>, by default the data origin (center court on an
+<code><a href="sdv_surface.html">sdv_surface()</a></code> court); for a hoop-centered lattice, set <code>origin</code> to the
 basket's coordinates.</p>
 <p><code>cell_fill</code> draws each cell at a fraction of the lattice cell, around its
-centre: by default 0.88 for squares, so neighbouring squares keep a gap
+center: by default 0.88 for squares, so neighboring squares keep a gap
 instead of touching edge to edge, and 1 for hexagons, the conventional
 tiled hexbin look. (sdvplot (Python) calls it <code>fill</code>; here <code>fill</code> is the
 aesthetic.) The cells, their counts and the scales are the lattice's

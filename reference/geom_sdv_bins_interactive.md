@@ -67,9 +67,9 @@ geom_sdv_bins_interactive(
 
 - origin:
 
-  The point a cell is centred on, `c(x, y)` in the points' units: a
-  hoop-centred lattice, origin = the basket's coordinates. The default
-  `c(0, 0)` centres a cell on the data origin.
+  The point a cell is centered on, `c(x, y)` in the points' units: a
+  hoop-centered lattice, origin = the basket's coordinates. The default
+  `c(0, 0)` centers a cell on the data origin.
 
 - cell_fill:
 
@@ -89,7 +89,7 @@ A ggplot2 layer.
 ## Details
 
 **The linking contract** is sdvplot-js's: ids are strings, and a cell's
-id is `"x,y"`, its centre as JavaScript writes the numbers
+id is `"x,y"`, its center as JavaScript writes the numbers
 ([`sdv_bins()`](https://sdvplotR.sportsdataverse.org/reference/sdv_bins.md)).
 A point links to a cell when its `data_id` equals the cell's, so bin
 both with the same lattice (`shape`, `radius` / `side`, `equal_area`,
