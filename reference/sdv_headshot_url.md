@@ -25,18 +25,20 @@ sdv_headshot_url(player_id, league, id_system = "espn")
 
   `"espn"` (ESPN athlete ids; the default, for every league with ESPN
   headshots), `"gsis"` (nflverse's NFL gsis ids, such as `"00-0033873"`,
-  read through a published map) or `"league"` (the league's own player
-  id). The details of `sdv_headshot_url()` list which leagues take
-  which.
+  read through a published map), `"league"` (the league's own player
+  id), or another provider's player id, drawn as the ESPN athlete's
+  headshot: `"fox"`, `"yahoo"`, `"cbs"`, `"kenpom"`, `"ncaa"`
+  (stats.ncaa.org), `"nba_stats"` or `"wnba_stats"`. The details of
+  `sdv_headshot_url()` list which leagues take which.
 
 ## Value
 
 A character vector the length of `player_id`: the URL, or `NA` for a
-missing or malformed id or (gsis) one not in the map. The URL is built
-from the id alone, so an id the CDN has no photo for still gets one:
-ESPN and HockeyTech answer it with a 404, which the ggplot geoms skip
-with a warning and the gt, reactable and ggtext helpers show as a broken
-image; the NBA, WNBA, MLB and NHL CDNs serve a silhouette.
+missing or malformed id or (gsis, a provider) one not in its map. The
+URL is built from the id alone, so an id the CDN has no photo for still
+gets one: ESPN and HockeyTech answer it with a 404, which the ggplot
+geoms skip with a warning and the gt, reactable and ggtext helpers show
+as a broken image; the NBA, WNBA, MLB and NHL CDNs serve a silhouette.
 
 ## Details
 
@@ -63,6 +65,23 @@ keyed by the `player_id` in their HockeyTech feeds. Other leagues have
 no headshots; F1 drivers have none because formula1.com keys its photos
 by its own driver reference (`MAXVER01`), not a driver number or Jolpica
 `driver_id`.
+
+Other providers' player ids map to ESPN athlete ids through
+sdv-reference-data's `{league}_player_aliases` tables (the
+sportsdataverse-data `{league}_groups` releases), and draw that
+athlete's ESPN headshot. The map for a league and provider is downloaded
+when first needed and kept for the session; an id it does not hold is
+`NA`.
+
+|        |                                          |
+|--------|------------------------------------------|
+| League | Provider `id_system`                     |
+| nfl    | `"fox"`, `"yahoo"`, `"cbs"`              |
+| cfb    | `"fox"`, `"yahoo"`, `"cbs"`, `"ncaa"`    |
+| nba    | `"fox"`, `"yahoo"`, `"nba_stats"`        |
+| wnba   | `"fox"`, `"yahoo"`, `"wnba_stats"`       |
+| mbb    | `"fox"`, `"yahoo"`, `"kenpom"`, `"ncaa"` |
+| wbb    | `"fox"`, `"yahoo"`, `"ncaa"`             |
 
 ## See also
 

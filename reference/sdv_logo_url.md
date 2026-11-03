@@ -55,8 +55,10 @@ sdv_logo_url(
   `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
   `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
   `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
-  `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which
-  overlap ESPN's, so `"auto"` never reads a number as one).
+  `"yahoo"`, `"kenpom"`, `"torvik"`, `"sdvplotr"`, `"name"`, or one
+  `"auto"` never tries because its numbers overlap ESPN's: `"nhl_id"`
+  (NHL stats API ids), `"fox"`, `"cbs"`, `"sports247"` (247Sports team
+  and institution ids) or `"on3"`.
 
 - strict:
 

@@ -23,10 +23,10 @@ package per league.
 
 ## Architecture
 
-    team id / name / code (any of 18 id systems, or id_system = "auto")
+    team id / name / code (any of 25 id systems, or id_system = "auto")
        -> resolve_ids()                 (R/resolve.R; behind sdv_resolve() and every helper)
        -> mark_url() -> select_mark()   (logo / wordmark by variant + season, from index_marks())
-          headshot_from_id()            (player ids; id_system "espn" | "gsis" | "league")
+          headshot_from_id()            (player ids; id_system "espn" | "gsis" | "league" | a provider)
        -> image URL (the sdv-assets archive's content-addressed copy)
        -> ggpath renders:  GeomFromPath$draw_panel()  (geoms)
                            element_path S7 object     (theme elements)
@@ -113,8 +113,15 @@ package per league.
   by the league id, so no map is needed; they serve a silhouette for
   unknown ids, and cdn.nba.com / cdn.wnba.com return 403 to datacenter
   IPs (the droplet, likely CI), so tests assert URLs only. College
-  sports have no league option. ID systems can’t be told apart by shape,
-  so never guess.
+  sports have no league option. Provider player ids (`"fox"`, `"yahoo"`,
+  `"cbs"`, `"kenpom"`, `"ncaa"`, `"nba_stats"`, `"wnba_stats"`;
+  `player_alias_sources` by league) map to ESPN athletes through
+  `load_player_alias_map()`: one `player_aliases_<league>_<source>.rds`
+  per pair on `sdvplotr_infrastructure`, built from sdv-reference-data’s
+  `{league}_player_aliases` by `data-raw/update_player_alias_maps.R`,
+  read and cached like the gsis map; tests mock it
+  (`helper-headshots.R`). ID systems can’t be told apart by shape, so
+  never guess.
 
 - When nflverse / nflplotR already does something (data, headshots,
   caching), follow their approach and document any divergence.

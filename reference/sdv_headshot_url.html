@@ -281,15 +281,17 @@ means different teams in different leagues.</p></dd>
 <dt id="arg-id-system">id_system<a class="anchor" aria-label="anchor" href="#arg-id-system"></a></dt>
 <dd><p><code>"espn"</code> (ESPN athlete ids; the default, for every
 league with ESPN headshots), <code>"gsis"</code> (nflverse's NFL gsis ids, such as
-<code>"00-0033873"</code>, read through a published map) or <code>"league"</code> (the league's
-own player id). The details of <code>sdv_headshot_url()</code> list which leagues
-take which.</p></dd>
+<code>"00-0033873"</code>, read through a published map), <code>"league"</code> (the league's
+own player id), or another provider's player id, drawn as the ESPN
+athlete's headshot: <code>"fox"</code>, <code>"yahoo"</code>, <code>"cbs"</code>, <code>"kenpom"</code>, <code>"ncaa"</code>
+(stats.ncaa.org), <code>"nba_stats"</code> or <code>"wnba_stats"</code>. The details of
+<code>sdv_headshot_url()</code> list which leagues take which.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A character vector the length of <code>player_id</code>: the URL, or <code>NA</code> for
-a missing or malformed id or (gsis) one not in the map. The URL is built
+a missing or malformed id or (gsis, a provider) one not in its map. The URL is built
 from the id alone, so an id the CDN has no photo for still gets one: ESPN
 and HockeyTech answer it with a 404, which the ggplot geoms skip with a
 warning and the gt, reactable and ggtext helpers show as a broken image;
@@ -304,7 +306,11 @@ the leagues' stats provider's CDN (<code>assets.leaguestat.com</code>), keyed by
 <code>player_id</code> in their HockeyTech feeds. Other leagues have no headshots;
 F1 drivers have none because formula1.com keys its photos by its own driver
 reference (<code>MAXVER01</code>), not a driver number or Jolpica <code>driver_id</code>.</p>
-    </div>
+<p>Other providers' player ids map to ESPN athlete ids through
+sdv-reference-data's <code>{league}_player_aliases</code> tables (the
+sportsdataverse-data <code>{league}_groups</code> releases), and draw that athlete's
+ESPN headshot. The map for a league and provider is downloaded when first
+needed and kept for the session; an id it does not hold is <code>NA</code>.</p><table class="table table"><tr><td>League</td><td>Provider <code>id_system</code></td></tr><tr><td>nfl</td><td><code>"fox"</code>, <code>"yahoo"</code>, <code>"cbs"</code></td></tr><tr><td>cfb</td><td><code>"fox"</code>, <code>"yahoo"</code>, <code>"cbs"</code>, <code>"ncaa"</code></td></tr><tr><td>nba</td><td><code>"fox"</code>, <code>"yahoo"</code>, <code>"nba_stats"</code></td></tr><tr><td>wnba</td><td><code>"fox"</code>, <code>"yahoo"</code>, <code>"wnba_stats"</code></td></tr><tr><td>mbb</td><td><code>"fox"</code>, <code>"yahoo"</code>, <code>"kenpom"</code>, <code>"ncaa"</code></td></tr><tr><td>wbb</td><td><code>"fox"</code>, <code>"yahoo"</code>, <code>"ncaa"</code></td></tr></table></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="sdv_logo_url.html">sdv_logo_url()</a></code>.</p></div>

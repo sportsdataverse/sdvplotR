@@ -54,8 +54,10 @@ gt_sdv_headshots(
 
   `"espn"` (ESPN athlete ids; the default, for every league with ESPN
   headshots), `"gsis"` (nflverse's NFL gsis ids, such as `"00-0033873"`,
-  read through a published map) or `"league"` (the league's own player
-  id). The details of
+  read through a published map), `"league"` (the league's own player
+  id), or another provider's player id, drawn as the ESPN athlete's
+  headshot: `"fox"`, `"yahoo"`, `"cbs"`, `"kenpom"`, `"ncaa"`
+  (stats.ncaa.org), `"nba_stats"` or `"wnba_stats"`. The details of
   [`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_headshot_url.md)
   list which leagues take which.
 
