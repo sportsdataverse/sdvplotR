@@ -2549,7 +2549,7 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 121                 Southern Collegiate Athletic Conference       #b20838
 #> 122                              United Athletic Conference       #8e0b0b
 #> 123                                            Old Dominion       #012853
-#> 124                                                So. Cal.       #ffffff
+#> 124                                                So. Cal.       #b5121b
 #> 125                                               Northwest       #b4183a
 #> 126                                 Mid-American Conference       #ba0c2f
 #> 127                                               USA South       #215732
@@ -2622,7 +2622,7 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 194                                               Lone Star       #006430
 #> 195                                                    <NA>       #434445
 #> 196                  Pennsylvania State Athletic Conference       #bb131a
-#> 197                                                    SIAC       #f68428
+#> 197                                                    SIAC       #eb7135
 #> 198                                                    CIAA       #1235c5
 #> 199                               Atlantic Coast Conference       #003594
 #> 200                            Coastal Athletic Association       #020303
@@ -3380,7 +3380,7 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 194         #508f6b         logo
 #> 195            <NA>         logo
 #> 196         #b27f82         logo
-#> 197         #6c207f         logo
+#> 197         #702b7c         logo
 #> 198         #7888ce         logo
 #> 199         #ffb81c         espn
 #> 200         #b59a57         espn
