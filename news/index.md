@@ -164,6 +164,26 @@ names with the Python package sdvplot and the JavaScript packages
   Ids are strings, `"x,y"`, as in sdvplot-js’s linked interactivity.
   [`plotly::ggplotly()`](https://rdrr.io/pkg/plotly/man/ggplotly.html)
   draws the cells too.
+- The bins take `origin = c(x, y)`, the point a cell is centred on (a
+  hoop-centred lattice: `origin` = the basket’s coordinates; ids stay
+  the absolute centres), and weights: `sdv_bins(weights = )` and a
+  `weight` aesthetic on the geoms add each cell’s `weight` (the sum of
+  its points’ weights, its count without them; `after_stat(weight)`, and
+  `density` is a share of it).
+  [`geom_sdv_bins()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_bins.md)
+  and
+  [`geom_sdv_bins_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_bins_interactive.md)
+  draw each cell at `cell_fill` of the lattice cell (by default 0.88 for
+  squares, so they no longer touch, and 1 for hexagons; sdvplot’s
+  `fill`) and leave out cells under `min_count` points (`min_count = 2`
+  draws no single attempts). In
+  [`ggplotly()`](https://rdrr.io/pkg/plotly/man/ggplotly.html) each cell
+  is its own trace, with its tooltip on the fill; with the data as a
+  [`plotly::highlight_key()`](https://rdrr.io/pkg/plotly/man/highlight_key.html)
+  on
+  [`sdv_bin_ids()`](https://sdvplotR.sportsdataverse.org/reference/sdv_bins.md),
+  [`plotly::highlight()`](https://rdrr.io/pkg/plotly/man/highlight.html)
+  links cells and points without Shiny.
 
 ### Interactive plots and maps
 

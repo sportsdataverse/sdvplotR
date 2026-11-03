@@ -4,12 +4,16 @@ or squares (shape = &quot;square&quot;) and draws each cell filled by its count.
 The cells are sdv_bins()'s, so they match sdvplot (Python) and
 sdvplot-js. Sizes are in data units, so on a court from sdv_surface()
 with sdv_court_coords()'s court_x / court_y (feet), radius = 1
-is a 1-foot hexagon and side = 1.5 a 1.5-foot square."><meta property="og:description" content="Bins x/y points into hexagons (shape = &quot;hex&quot;, the default)
+is a 1-foot hexagon and side = 1.5 a 1.5-foot square. Map weight
+(as in ggplot2::geom_hex()) to sum a value per cell, and fill by it
+with aes(fill = after_stat(weight))."><meta property="og:description" content="Bins x/y points into hexagons (shape = &quot;hex&quot;, the default)
 or squares (shape = &quot;square&quot;) and draws each cell filled by its count.
 The cells are sdv_bins()'s, so they match sdvplot (Python) and
 sdvplot-js. Sizes are in data units, so on a court from sdv_surface()
 with sdv_court_coords()'s court_x / court_y (feet), radius = 1
-is a 1-foot hexagon and side = 1.5 a 1.5-foot square."><meta property="og:image" content="https://sdvplotR.sportsdataverse.org/sdvplotR-social-card.png"><meta property="og:image:alt" content="sdvplotR: team logos, wordmarks, headshots and colors in ggplot2, gt and reactable"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@saiemgilani"><meta name="twitter:site" content="@SportsDataverse"><!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script><script src="https://sdvplotr.sportsdataverse.org/plausible-init.js"></script><script type="application/ld+json">
+is a 1-foot hexagon and side = 1.5 a 1.5-foot square. Map weight
+(as in ggplot2::geom_hex()) to sum a value per cell, and fill by it
+with aes(fill = after_stat(weight))."><meta property="og:image" content="https://sdvplotR.sportsdataverse.org/sdvplotR-social-card.png"><meta property="og:image:alt" content="sdvplotR: team logos, wordmarks, headshots and colors in ggplot2, gt and reactable"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@saiemgilani"><meta name="twitter:site" content="@SportsDataverse"><!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-Y-iB-vquikSg24pTisxby.js"></script><script src="https://sdvplotr.sportsdataverse.org/plausible-init.js"></script><script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
   {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
    "name":"sdvplotR","alternateName":"sdvplotR: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'",
@@ -269,7 +273,9 @@ or squares (<code>shape = "square"</code>) and draws each cell filled by its cou
 The cells are <code><a href="sdv_bins.html">sdv_bins()</a></code>'s, so they match sdvplot (Python) and
 sdvplot-js. Sizes are in data units, so on a court from <code><a href="sdv_surface.html">sdv_surface()</a></code>
 with <code><a href="sdv_court_coords.html">sdv_court_coords()</a></code>'s <code>court_x</code> / <code>court_y</code> (feet), <code>radius = 1</code>
-is a 1-foot hexagon and <code>side = 1.5</code> a 1.5-foot square.</p>
+is a 1-foot hexagon and <code>side = 1.5</code> a 1.5-foot square. Map <code>weight</code>
+(as in <code><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html" class="external-link">ggplot2::geom_hex()</a></code>) to sum a value per cell, and fill by it
+with <code>aes(fill = after_stat(weight))</code>.</p>
     </div>
 
     <div class="section level2">
@@ -283,6 +289,9 @@ is a 1-foot hexagon and <code>side = 1.5</code> a 1.5-foot square.</p>
 <span>  radius <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  side <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  equal_area <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  origin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  cell_fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_count <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -295,7 +304,8 @@ is a 1-foot hexagon and <code>side = 1.5</code> a 1.5-foot square.</p>
 
 <dl><dt id="arg-mapping-data-position-na-rm-show-legend-inherit-aes">mapping, data, position, na.rm, show.legend, inherit.aes<a class="anchor" aria-label="anchor" href="#arg-mapping-data-position-na-rm-show-legend-inherit-aes"></a></dt>
 <dd><p>As in
-<code><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html" class="external-link">ggplot2::geom_polygon()</a></code>. <code>x</code> and <code>y</code> are required.</p></dd>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html" class="external-link">ggplot2::geom_polygon()</a></code>. <code>x</code> and <code>y</code> are required; <code>weight</code> is
+optional.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -322,6 +332,23 @@ square has.</p></dd>
 hexagon of that circumradius, so a hex chart and a square chart of the
 same data have cells of the same area.</p></dd>
 
+
+<dt id="arg-origin">origin<a class="anchor" aria-label="anchor" href="#arg-origin"></a></dt>
+<dd><p>The point a cell is centred on, <code>c(x, y)</code> in the points'
+units: a hoop-centred lattice, origin = the basket's coordinates. The
+default <code>c(0, 0)</code> centres a cell on the data origin.</p></dd>
+
+
+<dt id="arg-cell-fill">cell_fill<a class="anchor" aria-label="anchor" href="#arg-cell-fill"></a></dt>
+<dd><p>The drawn cell's size as a fraction of the lattice cell's,
+a number in (0, 1]; <code>NULL</code> (the default) is 0.88 for squares and 1 for
+hexagons. sdvplot's <code>fill</code>.</p></dd>
+
+
+<dt id="arg-min-count">min_count<a class="anchor" aria-label="anchor" href="#arg-min-count"></a></dt>
+<dd><p>Cells with fewer points than this are not drawn (default
+1, every cell); <code>min_count = 2</code> draws no single attempts.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -333,18 +360,57 @@ same data have cells of the same area.</p></dd>
 these are true hexagons and squares in data space, sized by <code>radius</code> or
 <code>side</code> rather than a bin count: under <code><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">ggplot2::coord_fixed()</a></code> (as
 <code><a href="sdv_surface.html">sdv_surface()</a></code> draws) they look regular. The lattice has a cell centred
-on the data origin (centre court on an <code><a href="sdv_surface.html">sdv_surface()</a></code> court); bin the
-NBA legacy frame with <code><a href="sdv_bins.html">sdv_bins()</a></code> for cells centred on the hoop.</p>
-<p>Each group is binned on its own; facets bin each panel's data.</p>
+on <code>origin</code>, by default the data origin (centre court on an
+<code><a href="sdv_surface.html">sdv_surface()</a></code> court); for a hoop-centred lattice, set <code>origin</code> to the
+basket's coordinates.</p>
+<p><code>cell_fill</code> draws each cell at a fraction of the lattice cell, around its
+centre: by default 0.88 for squares, so neighbouring squares keep a gap
+instead of touching edge to edge, and 1 for hexagons, the conventional
+tiled hexbin look. (sdvplot (Python) calls it <code>fill</code>; here <code>fill</code> is the
+aesthetic.) The cells, their counts and the scales are the lattice's
+whatever <code>cell_fill</code> is.</p>
+<p><code>min_count</code> leaves out cells with fewer points: <code>min_count = 2</code> on a shot
+chart draws no single attempts, which otherwise clutter its perimeter.
+It only filters what is drawn: <code>density</code> is still each cell's share of
+all the group's points, and <code><a href="sdv_bins.html">sdv_bins()</a></code> returns every cell.</p>
+<p>Each group is binned on its own; facets bin each panel's data. Binning
+happens after the position scales transform x and y, so under a
+transformed scale (<code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_log10()</a></code>) the sizes and <code>origin</code> are in the
+transformed units, as <code><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html" class="external-link">ggplot2::geom_hex()</a></code>'s <code>binwidth</code> is.</p>
     </div>
     <div class="section level2">
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
 
 
 <ul><li><p><code>after_stat(count)</code>: points in the cell (the default <code>fill</code>).</p></li>
-<li><p><code>after_stat(density)</code>: the cell's share of its group's points.</p></li>
+<li><p><code>after_stat(weight)</code>: the sum of the cell's points' <code>weight</code>
+aesthetic (a missing or non-finite weight counts 0); its <code>count</code> when
+<code>weight</code> is not mapped.</p></li>
+<li><p><code>after_stat(density)</code>: the cell's share of its group's weight (of its
+points when <code>weight</code> is not mapped); <code>NaN</code> when the group's weights
+sum to 0.</p></li>
 <li><p><code>after_stat(cell_id)</code>: the cell's id, <code>"x,y"</code> (<code><a href="sdv_bins.html">sdv_bins()</a></code>).</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="linking-cells-and-points-in-plotly">Linking cells and points in plotly<a class="anchor" aria-label="anchor" href="#linking-cells-and-points-in-plotly"></a></h2>
+
+
+<p><code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">plotly::ggplotly()</a></code> draws the cells, and links them to their points
+without Shiny through plotly's crosstalk support: give the points their
+cell id with <code><a href="sdv_bins.html">sdv_bin_ids()</a></code> (same <code>shape</code>, size and <code>origin</code>), make the
+plot's data a <code><a href="https://rdrr.io/pkg/plotly/man/highlight_key.html" class="external-link">plotly::highlight_key()</a></code> keyed by it, and call
+<code><a href="https://rdrr.io/pkg/plotly/man/highlight.html" class="external-link">plotly::highlight()</a></code>. Each cell's polygon carries its cell id as its
+plotly <code>key</code>, so clicking a cell highlights its points, and clicking a
+point lights its cell and cell-mates. This needs the default tooltip:
+plotly then draws each cell as its own trace, which a click selects
+whole.</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">d</span><span class="op">$</span><span class="va">cell_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_bins.html">sdv_bin_ids</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">x</span>, <span class="va">d</span><span class="op">$</span><span class="va">y</span>, radius <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu">plotly</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/highlight_key.html" class="external-link">highlight_key</a></span><span class="op">(</span><span class="va">d</span>, <span class="op">~</span><span class="va">cell_id</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sdv_bins.html">geom_sdv_bins</a></span><span class="op">(</span>radius <span class="op">=</span> <span class="fl">0.3</span>, alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">plotly</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/highlight.html" class="external-link">highlight</a></span><span class="op">(</span><span class="fu">plotly</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, on <span class="op">=</span> <span class="st">"plotly_click"</span>, off <span class="op">=</span> <span class="st">"plotly_doubleclick"</span><span class="op">)</span></span></code></pre><p></p></div>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="geom_sdv_bins_interactive.html">geom_sdv_bins_interactive()</a></code> to link each cell to its points.</p></div>
@@ -365,6 +431,11 @@ NBA legacy frame with <code><a href="sdv_bins.html">sdv_bins()</a></code> for ce
 <span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_sdv_bins-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># touching squares, and no single-point cells</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">d</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_sdv_bins</span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"square"</span>, side <span class="op">=</span> <span class="fl">0.4</span>, cell_fill <span class="op">=</span> <span class="fl">1</span>, min_count <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_sdv_bins-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -13,7 +13,16 @@ same cells with the same ids.
 ## Usage
 
 ``` r
-sdv_bins(x, y, shape = "hex", radius = NULL, side = NULL, equal_area = FALSE)
+sdv_bins(
+  x,
+  y,
+  shape = "hex",
+  radius = NULL,
+  side = NULL,
+  equal_area = FALSE,
+  origin = c(0, 0),
+  weights = NULL
+)
 
 sdv_bin_ids(
   x,
@@ -21,7 +30,8 @@ sdv_bin_ids(
   shape = "hex",
   radius = NULL,
   side = NULL,
-  equal_area = FALSE
+  equal_area = FALSE,
+  origin = c(0, 0)
 )
 ```
 
@@ -50,6 +60,19 @@ sdv_bin_ids(
   circumradius, so a hex chart and a square chart of the same data have
   cells of the same area.
 
+- origin:
+
+  The point a cell is centred on, `c(x, y)` in the points' units: a
+  hoop-centred lattice, origin = the basket's coordinates. The default
+  `c(0, 0)` centres a cell on the data origin.
+
+- weights:
+
+  `NULL` (the default) or a numeric vector as long as `x`, each point's
+  weight (points scored, say). A cell's `weight` is the sum of its
+  points' weights; a missing or non-finite weight counts 0, but the
+  point is still binned and counted.
+
 ## Value
 
 `sdv_bins()`: a data frame with one row per cell, in first-seen order:
@@ -61,6 +84,7 @@ sdv_bin_ids(
 | x | numeric | The cell centre's x, in the points' units |
 | y | numeric | The cell centre's y, in the points' units |
 | count | integer | Points in the cell |
+| weight | numeric | The sum of the cell's points' `weights` (its `count` without `weights`) |
 | rows | list | Integer positions (1-based) of the cell's points in `x` / `y`, in input order |
 
 `sdv_bin_ids()`: a character vector as long as `x`, each point's cell id
@@ -72,7 +96,10 @@ Sizes are in the points' own units (data space, not pixels): a hexagon
 has circumradius `radius`, a square side `side`, and with
 `equal_area = TRUE` a square has the area of a hexagon of circumradius
 `radius` (side `radius * sqrt(3 * sqrt(3) / 2)`, about
-`1.6119 * radius`). Both lattices have a cell centred on the origin.
+`1.6119 * radius`). Both lattices have a cell centred on `origin`,
+`c(0, 0)` by default: for a hoop-centred lattice, origin = the basket's
+coordinates (the points are binned as `x - origin[1]`, `y - origin[2]`
+and the centres shifted back, so ids are still the absolute centres).
 
 - Hexagons are d3-hexbin's lattice: rows `1.5 * radius` apart, columns
   `sqrt(3) * radius` apart, odd rows shifted half a column. Each point
@@ -111,19 +138,25 @@ to link them to their points.
 x <- c(0, -1, -44)
 y <- c(0, 7, 252)
 sdv_bins(x, y, radius = 10)
-#>                   cell_id         x   y count rows
-#> 1                     0,0   0.00000   0     2 1, 2
-#> 2 -43.301270189221924,255 -43.30127 255     1    3
+#>                   cell_id         x   y count weight rows
+#> 1                     0,0   0.00000   0     2      2 1, 2
+#> 2 -43.301270189221924,255 -43.30127 255     1      1    3
 sdv_bins(x, y, shape = "square", side = 10)
-#>   cell_id   x   y count rows
-#> 1     0,0   0   0     1    1
-#> 2    0,10   0  10     1    2
-#> 3 -40,250 -40 250     1    3
+#>   cell_id   x   y count weight rows
+#> 1     0,0   0   0     1      1    1
+#> 2    0,10   0  10     1      1    2
+#> 3 -40,250 -40 250     1      1    3
 sdv_bins(x, y, shape = "square", radius = 10, equal_area = TRUE)
-#>                                  cell_id         x        y count rows
-#> 1                                    0,0   0.00000   0.0000     2 1, 2
-#> 2 -48.355646932059386,257.89678363765006 -48.35565 257.8968     1    3
+#>                                  cell_id         x        y count weight rows
+#> 1                                    0,0   0.00000   0.0000     2      2 1, 2
+#> 2 -48.355646932059386,257.89678363765006 -48.35565 257.8968     1      1    3
 sdv_bin_ids(x, y, radius = 10)
 #> [1] "0,0"                     "0,0"                    
 #> [3] "-43.301270189221924,255"
+# the same shots in feet from the baseline, the hoop at (0, 5.25): a
+# hoop-centred lattice puts them in the same cells, weighted by points
+sdv_bins(x / 10, y / 10 + 5.25, radius = 1, origin = c(0, 5.25), weights = c(2, 2, 3))
+#>                    cell_id         x     y count weight rows
+#> 1                   0,5.25  0.000000  5.25     2      4 1, 2
+#> 2 -4.330127018922193,30.75 -4.330127 30.75     1      3    3
 ```
