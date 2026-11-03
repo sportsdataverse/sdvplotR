@@ -81,12 +81,17 @@ bin_centres <- function(x, y, lattice) {
 js_number <- function(v) {
   out <- trimws(formatC(v, digits = 15, format = "fg"))
   for (d in 16:17) {
-    bad <- as.numeric(out) != v
+    bad <- read_numbers(out) != v
     if (!any(bad)) break
     out[bad] <- trimws(formatC(v[bad], digits = d, format = "fg"))
   }
   out
 }
+
+# Read decimal strings back with C's strtod (through jsonlite's parser): it rounds correctly everywhere, while
+# as.numeric() is R's own parser, one ulp off on macOS arm64 (no 80-bit long double), which turned
+# "96.71129386411877" into a 17-digit id there.
+read_numbers <- function(s) jsonlite::parse_json(paste0("[", paste(s, collapse = ","), "]"), simplifyVector = TRUE)
 
 cell_ids <- function(cx, cy) paste0(js_number(cx), rep_len(",", length(cx)), js_number(cy))
 
