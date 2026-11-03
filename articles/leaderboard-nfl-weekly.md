@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-03:** the 2026 season through week 8 (120 games).
+**Updated 2026-11-03:** the 2026 season through week 8 (121 games).
 
 This page is rebuilt every week with the site. It finds the latest NFL
 season with play-by-play, ranks every team by EPA (expected points
@@ -291,9 +291,9 @@ qbs |>
 |----|----|----|----|----|----|----|----|----|----|
 | Minimum 120 dropbacks, through week 8 |  |  |  |  |  |  |  |  |  |
 |  |  | Quarterback |  | Dropbacks | EPA/db | CPOE | Success | TD | INT |
-| 1 | ![Player 00-0039918 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/h4qs11kutwiw7whekmyt.png) | Caleb Williams | ![Chicago Bears](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png) | 150 | 0.348 | +9.0 | 51.3% | 5 | 1 |
-| 2 | ![Player 00-0034857 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ynrhq9iv30ysjpwmrfdv.png) | Josh Allen | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 241 | 0.339 | +4.0 | 47.7% | 11 | 5 |
-| 3 | ![Player 00-0037834 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/xs2fyj1sqdgwvt9ihbri.png) | Brock Purdy | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 232 | 0.331 | +4.3 | 54.3% | 15 | 4 |
+| 1 | ![Player 00-0034857 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ynrhq9iv30ysjpwmrfdv.png) | Josh Allen | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 241 | 0.339 | +4.0 | 47.7% | 11 | 5 |
+| 2 | ![Player 00-0037834 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/xs2fyj1sqdgwvt9ihbri.png) | Brock Purdy | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 232 | 0.331 | +4.3 | 54.3% | 15 | 4 |
+| 3 | ![Player 00-0039918 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/h4qs11kutwiw7whekmyt.png) | Caleb Williams | ![Chicago Bears](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png) | 186 | 0.320 | +7.6 | 51.6% | 6 | 1 |
 | 4 | ![Player 00-0036971 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/k9uzdernqkx7oquy7dkg.png) | Trevor Lawrence | ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | 220 | 0.277 | +3.9 | 50.9% | 17 | 4 |
 | 5 | ![Player 00-0039851 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mkauzrg7vo8lfziigsbg.png) | Drake Maye | ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | 276 | 0.267 | +7.3 | 52.5% | 15 | 8 |
 | 6 | ![Player 00-0033106 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png) | Jared Goff | ![Detroit Lions](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png) | 269 | 0.255 | +1.1 | 50.6% | 15 | 1 |

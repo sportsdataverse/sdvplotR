@@ -181,22 +181,22 @@ gt_grid(by_division, ncol = 2)
 @import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#eoelfyoqai table {
+#kjuuljgenu table {
   font-family: 'Source Serif 4', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#eoelfyoqai thead, #eoelfyoqai tbody, #eoelfyoqai tfoot, #eoelfyoqai tr, #eoelfyoqai td, #eoelfyoqai th {
+#kjuuljgenu thead, #kjuuljgenu tbody, #kjuuljgenu tfoot, #kjuuljgenu tr, #kjuuljgenu td, #kjuuljgenu th {
   border-style: none;
 }
 
-#eoelfyoqai p {
+#kjuuljgenu p {
   margin: 0;
   padding: 0;
 }
 
-#eoelfyoqai .gt_table {
+#kjuuljgenu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -222,12 +222,12 @@ gt_grid(by_division, ncol = 2)
   border-left-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_caption {
+#kjuuljgenu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#eoelfyoqai .gt_title {
+#kjuuljgenu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -239,7 +239,7 @@ gt_grid(by_division, ncol = 2)
   border-bottom-width: 0;
 }
 
-#eoelfyoqai .gt_subtitle {
+#kjuuljgenu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -251,7 +251,7 @@ gt_grid(by_division, ncol = 2)
   border-top-width: 0;
 }
 
-#eoelfyoqai .gt_heading {
+#kjuuljgenu .gt_heading {
   background-color: #FBFAF7;
   text-align: left;
   border-bottom-color: #FBFAF7;
@@ -263,13 +263,13 @@ gt_grid(by_division, ncol = 2)
   border-right-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_bottom_border {
+#kjuuljgenu .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_col_headings {
+#kjuuljgenu .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -284,7 +284,7 @@ gt_grid(by_division, ncol = 2)
   border-right-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_col_heading {
+#kjuuljgenu .gt_col_heading {
   color: #333333;
   background-color: #FBFAF7;
   font-size: 100%;
@@ -304,7 +304,7 @@ gt_grid(by_division, ncol = 2)
   overflow-x: hidden;
 }
 
-#eoelfyoqai .gt_column_spanner_outer {
+#kjuuljgenu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FBFAF7;
   font-size: 100%;
@@ -316,15 +316,15 @@ gt_grid(by_division, ncol = 2)
   padding-right: 4px;
 }
 
-#eoelfyoqai .gt_column_spanner_outer:first-child {
+#kjuuljgenu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eoelfyoqai .gt_column_spanner_outer:last-child {
+#kjuuljgenu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eoelfyoqai .gt_column_spanner {
+#kjuuljgenu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 1.5px;
   border-bottom-color: #16130F;
@@ -336,11 +336,11 @@ gt_grid(by_division, ncol = 2)
   width: 100%;
 }
 
-#eoelfyoqai .gt_spanner_row {
+#kjuuljgenu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#eoelfyoqai .gt_group_heading {
+#kjuuljgenu .gt_group_heading {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -366,7 +366,7 @@ gt_grid(by_division, ncol = 2)
   text-align: left;
 }
 
-#eoelfyoqai .gt_empty_group_heading {
+#kjuuljgenu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FBFAF7;
@@ -381,15 +381,15 @@ gt_grid(by_division, ncol = 2)
   vertical-align: middle;
 }
 
-#eoelfyoqai .gt_from_md > :first-child {
+#kjuuljgenu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eoelfyoqai .gt_from_md > :last-child {
+#kjuuljgenu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eoelfyoqai .gt_row {
+#kjuuljgenu .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -408,7 +408,7 @@ gt_grid(by_division, ncol = 2)
   overflow-x: hidden;
 }
 
-#eoelfyoqai .gt_stub {
+#kjuuljgenu .gt_stub {
   color: #333333;
   background-color: #FBFAF7;
   font-size: 100%;
@@ -421,7 +421,7 @@ gt_grid(by_division, ncol = 2)
   padding-right: 5px;
 }
 
-#eoelfyoqai .gt_stub_row_group {
+#kjuuljgenu .gt_stub_row_group {
   color: #333333;
   background-color: #FBFAF7;
   font-size: 100%;
@@ -435,15 +435,15 @@ gt_grid(by_division, ncol = 2)
   vertical-align: top;
 }
 
-#eoelfyoqai .gt_row_group_first td {
+#kjuuljgenu .gt_row_group_first td {
   border-top-width: 1px;
 }
 
-#eoelfyoqai .gt_row_group_first th {
+#kjuuljgenu .gt_row_group_first th {
   border-top-width: 1px;
 }
 
-#eoelfyoqai .gt_summary_row {
+#kjuuljgenu .gt_summary_row {
   color: #333333;
   background-color: #FBFAF7;
   text-transform: inherit;
@@ -453,16 +453,16 @@ gt_grid(by_division, ncol = 2)
   padding-right: 5px;
 }
 
-#eoelfyoqai .gt_first_summary_row {
+#kjuuljgenu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_first_summary_row.thick {
+#kjuuljgenu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#eoelfyoqai .gt_last_summary_row {
+#kjuuljgenu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -472,7 +472,7 @@ gt_grid(by_division, ncol = 2)
   border-bottom-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_grand_summary_row {
+#kjuuljgenu .gt_grand_summary_row {
   color: #333333;
   background-color: #FBFAF7;
   text-transform: inherit;
@@ -482,7 +482,7 @@ gt_grid(by_division, ncol = 2)
   padding-right: 5px;
 }
 
-#eoelfyoqai .gt_first_grand_summary_row {
+#kjuuljgenu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -492,7 +492,7 @@ gt_grid(by_division, ncol = 2)
   border-top-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_last_grand_summary_row_top {
+#kjuuljgenu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -502,11 +502,11 @@ gt_grid(by_division, ncol = 2)
   border-bottom-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_striped {
+#kjuuljgenu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eoelfyoqai .gt_table_body {
+#kjuuljgenu .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -515,7 +515,7 @@ gt_grid(by_division, ncol = 2)
   border-bottom-color: #16130F;
 }
 
-#eoelfyoqai .gt_footnotes {
+#kjuuljgenu .gt_footnotes {
   color: #333333;
   background-color: #FBFAF7;
   border-bottom-style: none;
@@ -529,7 +529,7 @@ gt_grid(by_division, ncol = 2)
   border-right-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_footnote {
+#kjuuljgenu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -538,7 +538,7 @@ gt_grid(by_division, ncol = 2)
   padding-right: 5px;
 }
 
-#eoelfyoqai .gt_sourcenotes {
+#kjuuljgenu .gt_sourcenotes {
   color: #333333;
   background-color: #FBFAF7;
   border-bottom-style: none;
@@ -552,7 +552,7 @@ gt_grid(by_division, ncol = 2)
   border-right-color: #D3D3D3;
 }
 
-#eoelfyoqai .gt_sourcenote {
+#kjuuljgenu .gt_sourcenote {
   font-size: 90%;
   padding-top: 6px;
   padding-bottom: 6px;
@@ -560,108 +560,108 @@ gt_grid(by_division, ncol = 2)
   padding-right: 5px;
 }
 
-#eoelfyoqai .gt_left {
+#kjuuljgenu .gt_left {
   text-align: left;
 }
 
-#eoelfyoqai .gt_center {
+#kjuuljgenu .gt_center {
   text-align: center;
 }
 
-#eoelfyoqai .gt_right {
+#kjuuljgenu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eoelfyoqai .gt_font_normal {
+#kjuuljgenu .gt_font_normal {
   font-weight: normal;
 }
 
-#eoelfyoqai .gt_font_bold {
+#kjuuljgenu .gt_font_bold {
   font-weight: bold;
 }
 
-#eoelfyoqai .gt_font_italic {
+#kjuuljgenu .gt_font_italic {
   font-style: italic;
 }
 
-#eoelfyoqai .gt_super {
+#kjuuljgenu .gt_super {
   font-size: 65%;
 }
 
-#eoelfyoqai .gt_footnote_marks {
+#kjuuljgenu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#eoelfyoqai .gt_asterisk {
+#kjuuljgenu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#eoelfyoqai .gt_indent_1 {
+#kjuuljgenu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#eoelfyoqai .gt_indent_2 {
+#kjuuljgenu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#eoelfyoqai .gt_indent_3 {
+#kjuuljgenu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#eoelfyoqai .gt_indent_4 {
+#kjuuljgenu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#eoelfyoqai .gt_indent_5 {
+#kjuuljgenu .gt_indent_5 {
   text-indent: 25px;
 }
 
-#eoelfyoqai .katex-display {
+#kjuuljgenu .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#eoelfyoqai div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kjuuljgenu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
-#eoelfyoqai td {
+#kjuuljgenu td {
   font-variant-numeric: tabular-nums;
 }
 
-#eoelfyoqai tbody tr:last-child {
+#kjuuljgenu tbody tr:last-child {
   border-bottom: 2px solid #FBFAF7;
 }
 
-#eoelfyoqai .gt_col_heading, #eoelfyoqai .gt_column_spanner {
+#kjuuljgenu .gt_col_heading, #kjuuljgenu .gt_column_spanner {
   letter-spacing: 0.09em;
 }
 
-#eoelfyoqai .gt_row_group_first td {
+#kjuuljgenu .gt_row_group_first td {
   padding-top: 4px;
 }
 
-#eoelfyoqai .gt_group_heading {
+#kjuuljgenu .gt_group_heading {
   letter-spacing: 0.08em;
 }
 
-#eoelfyoqai .gt_subtitle {
+#kjuuljgenu .gt_subtitle {
   padding-bottom: 14px !important;
 }
 
-#eoelfyoqai .gt_title {
+#kjuuljgenu .gt_title {
   padding-bottom: 3px !important;
 }
 
-#eoelfyoqai .gt_sourcenote {
+#kjuuljgenu .gt_sourcenote {
   padding-top: 10px;
 }
 
-#eoelfyoqai .gt_table {
+#kjuuljgenu .gt_table {
   --bs-table-bg: transparent;
   --bs-table-color: currentcolor;
 }

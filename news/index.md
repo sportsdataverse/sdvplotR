@@ -136,6 +136,35 @@ names with the Python package sdvplot and the JavaScript packages
   them by its own driver reference (`MAXVER01`), not a driver number or
   Jolpica `driver_id`.
 
+### Hexagonal and square bins
+
+- [`sdv_bins()`](https://sdvplotR.sportsdataverse.org/reference/sdv_bins.md)
+  bins x/y points into hexagons (`shape = "hex"`, the default) or
+  squares (`shape = "square"`), sized in data units by `radius` (a
+  hexagon’s circumradius), `side` (a square’s) or, with
+  `equal_area = TRUE`, squares of a radius-`radius` hexagon’s area. It
+  returns one row per cell (`cell_id`, centre, `count` and the `rows` it
+  holds, in first-seen order);
+  [`sdv_bin_ids()`](https://sdvplotR.sportsdataverse.org/reference/sdv_bins.md)
+  gives each point’s cell id. The lattice, argument names and ids are
+  sdvplot-js’s `binner()` and sdvplot’s: on 2000 real NBA shots every
+  cell id matches sdvplot-js byte for byte under six lattices,
+  d3-hexbin’s nearest-centre quirk included.
+- [`geom_sdv_bins()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_bins.md)
+  draws those cells as true hexagons or squares in data space, filled by
+  `after_stat(count)` (also `density` and `cell_id`), on any plot or an
+  [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+  court.
+- [`geom_sdv_bins_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_bins_interactive.md)
+  is its ggiraph twin: each cell’s `data_id` is its cell id, so points
+  given
+  [`sdv_bin_ids()`](https://sdvplotR.sportsdataverse.org/reference/sdv_bins.md)
+  link to their cell for hover and selection in one
+  [`girafe()`](https://davidgohel.github.io/ggiraph/reference/girafe.html).
+  Ids are strings, `"x,y"`, as in sdvplot-js’s linked interactivity.
+  [`plotly::ggplotly()`](https://rdrr.io/pkg/plotly/man/ggplotly.html)
+  draws the cells too.
+
 ### Interactive plots and maps
 
 - plotly:

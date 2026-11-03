@@ -69,6 +69,8 @@
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/addSdvLogoMarkers.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/add_sdv_logos.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/element_sdv.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/reference/geom_sdv_bins.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/reference/geom_sdv_bins_interactive.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/geom_sdv_logos_interactive.html</loc></url>
@@ -170,6 +172,7 @@
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/scale_sdv.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/sdv_axis_logos.html</loc></url>
+<url><loc>https://sdvplotR.sportsdataverse.org/reference/sdv_bins.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/sdv_clear_cache.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/sdv_color_palette.html</loc></url>
 <url><loc>https://sdvplotR.sportsdataverse.org/reference/sdv_colorway.html</loc></url>

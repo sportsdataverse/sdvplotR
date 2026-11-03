@@ -1002,6 +1002,19 @@ center.
 - [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
   : Team-Styled Playing Surfaces
 
+## Hexagonal and Square Bins
+
+Bin points into hexagons or equal-area squares, the lattice sdvplot and
+sdvplot-js share, and draw or link the cells.
+
+- [`sdv_bins()`](https://sdvplotR.sportsdataverse.org/reference/sdv_bins.md)
+  [`sdv_bin_ids()`](https://sdvplotR.sportsdataverse.org/reference/sdv_bins.md)
+  : Bin points into hexagons or squares
+- [`geom_sdv_bins()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_bins.md)
+  : Hexagonal or square bins
+- [`geom_sdv_bins_interactive()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_bins_interactive.md)
+  : Interactive hexagonal or square bins (ggiraph)
+
 ## Interactive plots and maps
 
 Team marks on plotly charts, interactive ggiraph layers and leaflet
