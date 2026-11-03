@@ -1,5 +1,17 @@
 # Changelog
 
+## sdvplotR (development version)
+
+- The team index carries more provider team ids, from the
+  sportsdataverse-data crosswalk releases: stats.ncaa.org org (school)
+  ids and season team ids as `id_system = "ncaa"` for men’s and women’s
+  college basketball and college baseball, org ids for college softball
+  (`sdv_resolve(193, "mbb", id_system = "ncaa")` is Duke), and WNBA
+  Stats team ids and tricodes as `"nba_api"`
+  (`sdv_resolve(1611661319, "wnba", id_system = "nba_api")` is the
+  Aces). Under `"auto"` an ESPN id wins over an equal NCAA id, so pass
+  `id_system = "ncaa"` for NCAA ids.
+
 ## sdvplotR 0.3.0
 
 First CRAN release. Earlier development builds were published only on

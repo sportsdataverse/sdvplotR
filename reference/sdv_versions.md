@@ -26,7 +26,7 @@ sdv_versions()
 #> [1] "0.3.0"
 #> 
 #> $index_version
-#> [1] "b677a2088576"
+#> [1] "25025639a265"
 #> 
 #> $index_source
 #> [1] "live"

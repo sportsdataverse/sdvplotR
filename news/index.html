@@ -253,6 +253,10 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="sdvplotr-development-version">sdvplotR (development version)<a class="anchor" aria-label="anchor" href="#sdvplotr-development-version"></a></h2>
+<ul><li>The team index carries more provider team ids, from the sportsdataverse-data crosswalk releases: stats.ncaa.org org (school) ids and season team ids as <code>id_system = "ncaa"</code> for men’s and women’s college basketball and college baseball, org ids for college softball (<code>sdv_resolve(193, "mbb", id_system = "ncaa")</code> is Duke), and WNBA Stats team ids and tricodes as <code>"nba_api"</code> (<code>sdv_resolve(1611661319, "wnba", id_system = "nba_api")</code> is the Aces). Under <code>"auto"</code> an ESPN id wins over an equal NCAA id, so pass <code>id_system = "ncaa"</code> for NCAA ids.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="sdvplotr-030">sdvplotR 0.3.0<a class="anchor" aria-label="anchor" href="#sdvplotr-030"></a></h2>
 <p>First CRAN release. Earlier development builds were published only on r-universe, every one of them numbered 0.1.0 (no 0.1.0 or 0.2.0 was released to CRAN or tagged), so this section describes the whole package.</p>
 <div class="section level3">
