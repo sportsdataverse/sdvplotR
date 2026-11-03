@@ -53,27 +53,28 @@ width with the height following, so several tables saved at the same \code{width
 line up when posted together. The temporary file is removed afterward.
 }
 \examples{
-\dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 \donttest{
-library(gt)
+if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+  library(gt)
 
-afc_east <- subset(
-  sdv_example_standings, division == "AFC East",
-  c(team_name, wins:points_against)
-)
-gt(afc_east) |>
-  gt_theme_broadsheet() |>
-  gt_save_crop(tempfile(fileext = ".png"))
+  afc_east <- subset(
+    sdv_example_standings, division == "AFC East",
+    c(team_name, wins:points_against)
+  )
+  gt(afc_east) |>
+    gt_theme_broadsheet() |>
+    gt_save_crop(tempfile(fileext = ".png"))
 
-# pin a shared width across a series
-atlantic <- subset(
-  sdv_example_standings, division == "Atlantic",
-  c(team_name, wins, losses, win_pct:points_against)
-)
-gt(atlantic) |>
-  gt_save_crop(tempfile(fileext = ".png"), width = 900, bg = "#FBFAF7")
+  # pin a shared width across a series
+  atlantic <- subset(
+    sdv_example_standings, division == "Atlantic",
+    c(team_name, wins, losses, win_pct:points_against)
+  )
+  gt(atlantic) |>
+    gt_save_crop(tempfile(fileext = ".png"), width = 900, bg = "#FBFAF7")
 }
-\dontshow{\}) # examplesIf}
+}
+
 }
 \seealso{
 \code{\link[=gt_social_crop]{gt_social_crop()}} for padding onto a fixed-ratio canvas.

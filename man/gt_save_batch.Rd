@@ -68,20 +68,21 @@ posted together can come out at different widths. With it, every image is
 padded to the width of the widest before its border is added.
 }
 \examples{
-\dontshow{if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) withAutoprint(\{ # examplesIf}
 \donttest{
-library(gt)
+if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+  library(gt)
 
-build <- function(df, group) {
-  gt(df[c("team_name", "wins", "losses", "points_for")]) |>
-    gt_theme_broadsheet() |>
-    tab_header(title = group)
+  build <- function(df, group) {
+    gt(df[c("team_name", "wins", "losses", "points_for")]) |>
+      gt_theme_broadsheet() |>
+      tab_header(title = group)
+  }
+
+  nfl <- subset(sdv_example_standings, league == "nfl")
+  gt_save_batch(nfl, conference, build, "nfl-{group}.png", dir = tempdir())
+}
 }
 
-nfl <- subset(sdv_example_standings, league == "nfl")
-gt_save_batch(nfl, conference, build, "nfl-{group}.png", dir = tempdir())
-}
-\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=gt_grid]{gt_grid()}} for the same split composed into one image instead.
