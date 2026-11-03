@@ -148,3 +148,20 @@ test_that("ggplotly draws the cells as polygons", {
   expect_gt(length(fills), 0)
   expect_identical(sum(vapply(fills, function(t) sum(is.finite(t$x)), numeric(1))), 7 * 211) # closed rings
 })
+
+test_that("lattices whose spacing or centres overflow are refused", {
+  expect_error(sdv_bins(0, 0, radius = 1e308), "overflows")
+  expect_error(sdv_bins(1e300, 0, shape = "square", side = 1e-10), "overflows")
+})
+
+test_that("a data_id mapped in ggplot() wins over the cell id", {
+  skip_if_not_installed("ggiraph")
+  d <- data.frame(x = c(0, 1, 30), y = c(0, 1, 30), g = c("a", "b", "c"))
+  layer_id <- ggplot2::layer_data(ggplot2::ggplot(d, ggplot2::aes(x, y)) + geom_sdv_bins_interactive(radius = 5))
+  expect_true(all(grepl(",", layer_id$data_id))) # the cell ids by default
+  own <- ggplot2::layer_data(
+    ggplot2::ggplot(d, ggplot2::aes(x, y, data_id = ggplot2::after_stat(paste0("bin-", count)))) +
+      geom_sdv_bins_interactive(radius = 5)
+  )
+  expect_true(all(startsWith(own$data_id, "bin-")))
+})

@@ -31,7 +31,11 @@ bin_lattice <- function(shape, radius, side, equal_area, call = rlang::caller_en
   if (!(is.numeric(v) && length(v) == 1 && is.finite(v) && v > 0)) {
     cli::cli_abort("{.arg {want}} must be a finite number > 0, not {.obj_type_friendly {v}}.", call = call)
   }
-  list(shape = shape, size = if (equal_area) v * equal_area_factor else v)
+  size <- if (equal_area) v * equal_area_factor else v
+  if (!is.finite(size * 2)) { # the hexagon lattice's row spacing is 2 * size: past the double range it is Inf
+    cli::cli_abort("{.arg {want}} = {v} is too large: the cell spacing overflows.", call = call)
+  }
+  list(shape = shape, size = size)
 }
 
 # JavaScript's Math.round: halves go toward +Inf (R's round() goes to even).
@@ -49,6 +53,9 @@ bin_centres <- function(x, y, lattice) {
   if (lattice$shape == "square") {
     cx <- js_round(x / r) * r
     cy <- js_round(y / r) * r
+    if (!all(is.finite(cx) & is.finite(cy))) { # a side so small that x / side overflows
+      cli::cli_abort("{.arg side} = {r} is too small for these coordinates: a cell centre overflows.")
+    }
   } else {
     # d3-hexbin hexbin.js:28-47, operation for operation (the same doubles as sdvplot-js)
     dx <- r * 2 * sin(pi / 3)

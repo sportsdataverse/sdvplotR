@@ -95,18 +95,20 @@ geom_sdv_bins <- function(mapping = NULL, data = NULL, position = "identity", ..
 }
 
 bins_layer <- function(geom, mapping, data, position, ..., shape, radius, side, equal_area, na.rm, show.legend,
-                       inherit.aes, call = rlang::caller_env()) {
+                       inherit.aes, stat = StatSdvBins, call = rlang::caller_env()) {
   lattice <- bin_lattice(shape, radius, side, equal_area, call = call) # fail at the call, not at print
   ggplot2::layer(
-    data = data, mapping = mapping, stat = StatSdvBins, geom = geom, position = position,
+    data = data, mapping = mapping, stat = stat, geom = geom, position = position,
     show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(shape = lattice$shape, size = lattice$size, na.rm = na.rm, ...)
   )
 }
 
-# The cell id each interactive cell carries unless the caller maps data_id (top level: an aes() inside a
-# function body is a global-variable NOTE in R CMD check).
-bins_data_id <- ggplot2::aes(data_id = ggplot2::after_stat(cell_id))
+# The interactive stat: each cell carries its cell id as data_id unless a data_id is mapped, in the layer or in
+# ggplot() (a stat's default aesthetics apply only to what the combined mapping leaves unset).
+StatSdvBinsInteractive <- ggplot2::ggproto("StatSdvBinsInteractive", StatSdvBins,
+  default_aes = ggplot2::aes(fill = ggplot2::after_stat(count), data_id = ggplot2::after_stat(cell_id))
+)
 
 # A mapping as a plain named list (ggplot2 4's S7 mapping has no as.list()), NULL entries kept.
 aes_list <- function(m) stats::setNames(lapply(names(m), function(n) m[[n]]), names(m))
@@ -162,9 +164,6 @@ geom_sdv_bins_interactive <- function(mapping = NULL, data = NULL, position = "i
                                       radius = NULL, side = NULL, equal_area = FALSE, na.rm = FALSE,
                                       show.legend = NA, inherit.aes = TRUE) {
   rlang::check_installed("ggiraph", reason = "for interactive bins.")
-  if (!"data_id" %in% names(mapping)) {
-    mapping <- do.call(ggplot2::aes, c(aes_list(mapping), aes_list(bins_data_id)))
-  }
   geom <- ggplot2::ggproto("GeomInteractiveSdvBins", GeomSdvBins,
     default_aes = do.call(ggplot2::aes, c(
       aes_list(GeomSdvBins$default_aes),
@@ -174,7 +173,7 @@ geom_sdv_bins_interactive <- function(mapping = NULL, data = NULL, position = "i
   )
   bins_layer(geom, mapping, data, position, ...,
     shape = shape, radius = radius, side = side, equal_area = equal_area, na.rm = na.rm,
-    show.legend = show.legend, inherit.aes = inherit.aes
+    show.legend = show.legend, inherit.aes = inherit.aes, stat = StatSdvBinsInteractive
   )
 }
 
