@@ -108,3 +108,12 @@ test_that("the new leagues resolve and draw", {
     expect_match(sdv_logo_url(t$team_id[1], lg), "^https://", info = lg)
   }
 })
+
+test_that("a team's conference name draws its conference's logo", {
+  local_snapshot_index()
+  for (lg in c("ncaa_baseball", "ncaa_softball", "ncaa_mhockey", "ncaa_whockey")) {
+    carried <- unique(stats::na.omit(sdv_teams(lg)$conference))
+    u <- suppressWarnings(vapply(carried, function(x) sdv_logo_url(x, lg), ""))
+    expect_identical(carried[is.na(u)], character(0), info = lg)
+  }
+})
