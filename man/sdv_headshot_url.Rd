@@ -41,6 +41,7 @@ Headshots by league and \code{id_system}:\tabular{lll}{
    soccer \tab ESPN athlete id \tab none \cr
    cfb, mbb, wbb \tab ESPN athlete id \tab none \cr
    pwhl, ahl, echl, ohl, whl, qmjhl, ushl \tab none \tab HockeyTech \code{player_id} \cr
+   sphl, chl, bchl, ajhl, sjhl, ojhl, cchl, gojhl, mhl, nojhl, vijhl, kijhl, mjhl \tab none \tab HockeyTech \code{player_id} \cr
 }
 
 
@@ -48,7 +49,9 @@ ESPN files G League photos with the NBA's, so a G League player's ESPN id
 is the one ESPN uses for him in the NBA. ESPN has photos for only part of
 the G League and soccer rosters. The HockeyTech leagues' images come from
 the leagues' stats provider's CDN (\code{assets.leaguestat.com}), keyed by the
-\code{player_id} in their HockeyTech feeds. Other leagues have no headshots.
+\code{player_id} in their HockeyTech feeds. Other leagues have no headshots;
+F1 drivers have none because formula1.com keys its photos by its own driver
+reference (\code{MAXVER01}), not a driver number or Jolpica \code{driver_id}.
 }
 \examples{
 sdv_headshot_url(3139477, "nfl")
