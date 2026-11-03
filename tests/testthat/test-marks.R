@@ -87,7 +87,8 @@ test_that("pro league, conference and division marks draw", {
     c("MLB", "mlb"), c("AL", "mlb"), c("NL", "mlb"), c("NBA", "nba"), c("East", "nba"),
     c("WNBA", "wnba"), c("NHL", "nhl"), c("Metropolitan", "nhl"), c("Atlantic", "nhl"), c("AAF", "aaf"),
     # the NHL's conferences have only their Conference Final wordmarks, drawn as their logos
-    c("Eastern", "nhl"), c("Western", "nhl")
+    c("Eastern", "nhl"), c("Western", "nhl"),
+    c("CFL", "cfl"), c("Hockey East", "ncaa_mhockey"), c("NEWHA", "ncaa_whockey")
   )) {
     expect_match(sdv_logo_url(k[1], k[2]), "^https://", info = k[1])
   }
@@ -105,5 +106,14 @@ test_that("the new leagues resolve and draw", {
     t <- sdv_teams(lg)
     expect_gt(nrow(t), 0)
     expect_match(sdv_logo_url(t$team_id[1], lg), "^https://", info = lg)
+  }
+})
+
+test_that("a team's conference name draws its conference's logo", {
+  local_snapshot_index()
+  for (lg in c("ncaa_baseball", "ncaa_softball", "ncaa_mhockey", "ncaa_whockey")) {
+    carried <- unique(stats::na.omit(sdv_teams(lg)$conference))
+    u <- suppressWarnings(vapply(carried, function(x) sdv_logo_url(x, lg), ""))
+    expect_identical(carried[is.na(u)], character(0), info = lg)
   }
 })
