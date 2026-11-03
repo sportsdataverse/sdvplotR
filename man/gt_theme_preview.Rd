@@ -67,7 +67,8 @@ gt_theme_preview(
 
 # a subset, saved as one wide image; saving needs a headless Chrome (webshot2)
 \donttest{
-if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+if (interactive() && rlang::is_installed("webshot2") &&
+    isTRUE(file.exists(chromote::find_chrome()))) {
   nba <- subset(
     sdv_example_standings, league == "nba",
     c(team_name, wins, losses, win_pct)

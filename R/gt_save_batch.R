@@ -40,7 +40,8 @@
 #'
 #' @examples
 #' \donttest{
-#' if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+#' if (interactive() && rlang::is_installed("webshot2") &&
+#'     isTRUE(file.exists(chromote::find_chrome()))) {
 #'   library(gt)
 #'
 #'   build <- function(df, group) {

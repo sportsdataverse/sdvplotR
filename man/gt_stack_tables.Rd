@@ -112,7 +112,8 @@ gt_stack_tables(list(t1, t2))
 # one heading over the stack, saved straight to an image; saving needs a
 # headless Chrome (webshot2)
 \donttest{
-if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+if (interactive() && rlang::is_installed("webshot2") &&
+    isTRUE(file.exists(chromote::find_chrome()))) {
   gt_stack_tables(
     list(t1, t2),
     title = "Two leagues",

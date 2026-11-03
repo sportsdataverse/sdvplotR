@@ -38,7 +38,8 @@ bg
 
 # saving needs a headless Chrome (webshot2)
 \donttest{
-if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+if (interactive() && rlang::is_installed("webshot2") &&
+    isTRUE(file.exists(chromote::find_chrome()))) {
   nfc_west <- subset(
     sdv_example_standings, division == "NFC West",
     c(team_name, wins:points_against)

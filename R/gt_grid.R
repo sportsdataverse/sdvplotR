@@ -107,7 +107,8 @@
 #' @examples
 #' # straight to an image; saving needs a headless Chrome (webshot2)
 #' \donttest{
-#' if (interactive() && rlang::is_installed("webshot2") && isTRUE(file.exists(chromote::find_chrome()))) {
+#' if (interactive() && rlang::is_installed("webshot2") &&
+#'     isTRUE(file.exists(chromote::find_chrome()))) {
 #'   gt_grid(by_division, ncol = 2, file = tempfile(fileext = ".png"), bg = "#FBFAF7")
 #' }
 #' }
