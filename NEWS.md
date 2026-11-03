@@ -1,5 +1,21 @@
 # sdvplotR (development version)
 
+* The team index carries Fox, Yahoo, CBS, 247Sports, On3, KenPom and Torvik
+  team ids, from sdv-reference-data's `{league}_team_aliases` tables (NFL,
+  college football, NBA, WNBA, men's and women's college basketball, MLB,
+  NHL). Yahoo ids resolve under `"auto"` (`sdv_resolve("ncaaf.t.1", "cfb")`);
+  Fox, CBS, 247Sports and On3 numbers are other teams' ESPN ids, so they
+  resolve only with an explicit `id_system`: `sdv_resolve("25", "cfb")` is
+  ESPN's California and `sdv_resolve("25", "cfb", id_system = "fox")` is Ohio
+  State. KenPom and Torvik team names come before `"name"` under `"auto"`.
+* The headshot helpers (`sdv_headshot_url()`, `geom_sdv_headshots()`,
+  `gt_sdv_headshots()` and the rest) take other providers' player ids:
+  `id_system = "fox"`, `"yahoo"`, `"cbs"`, `"kenpom"`, `"ncaa"`,
+  `"nba_stats"` or `"wnba_stats"` (by league, as `sdv_headshot_url()` lists)
+  draw the ESPN headshot of the athlete sdv-reference-data's
+  `{league}_player_aliases` matches the id to. Each league and provider's map
+  is downloaded when first needed and kept for the session.
+
 * The team index carries more provider team ids, from the sportsdataverse-data
   crosswalk releases: stats.ncaa.org org (school) ids and season team ids as
   `id_system = "ncaa"` for men's and women's college basketball and college

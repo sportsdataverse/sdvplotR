@@ -154,3 +154,13 @@ test_that("NCAA and WNBA Stats team ids resolve through the crosswalk aliases", 
   expect_identical(sdv_resolve(c(1611661319, "LVA"), "wnba", id_system = "nba_api"), c("17", "17")) # the Aces
   expect_identical(sdv_resolve("1611661319", "wnba"), "17")
 })
+
+test_that("team_aliases ids: Fox / CBS / 247 / On3 only when named, Yahoo under auto", {
+  local_snapshot_index()
+  expect_identical(sdv_resolve("25", "cfb"), "25") # ESPN's California
+  expect_identical(sdv_resolve(25, "cfb", id_system = "fox"), "194") # Fox 25: Ohio State
+  expect_identical(sdv_resolve(c("ncaaf.t.1", "nba.t.1", "ncaab.t.10"), "cfb")[1], "228")
+  expect_identical(sdv_resolve("nba.t.1", "nba"), "1")
+  expect_identical(sdv_resolve("ncaab.t.10", "mbb"), "2016")
+  expect_identical(sdv_resolve("Boston College", "mbb", id_system = "kenpom"), "103")
+})

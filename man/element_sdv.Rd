@@ -76,8 +76,10 @@ wore that season. One element draws every label, so one season.}
 id system: \code{"team_id"}, \code{"espn"}, \code{"espn_abbr"}, \code{"nhl"}, \code{"nflverse"},
 \code{"mlbstats"}, \code{"nba_api"}, \code{"hockeytech"}, \code{"ncaa"}, \code{"pff"},
 \code{"cricinfo"}, \code{"cfbd"}, \code{"bref"}, \code{"sportsipy"}, \code{"fangraphs"},
-\code{"sdvplotr"}, \code{"name"}, or \code{"nhl_id"} (NHL stats API ids, which overlap
-ESPN's, so \code{"auto"} never reads a number as one).}
+\code{"yahoo"}, \code{"kenpom"}, \code{"torvik"}, \code{"sdvplotr"}, \code{"name"}, or one
+\code{"auto"} never tries because its numbers overlap ESPN's: \code{"nhl_id"} (NHL
+stats API ids), \code{"fox"}, \code{"cbs"}, \code{"sports247"} (247Sports team and
+institution ids) or \code{"on3"}.}
 
 \item{image_path}{A file path or url to an image.}
 

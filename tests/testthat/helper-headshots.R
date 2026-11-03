@@ -20,3 +20,23 @@ local_headshot_map <- function(map = headshot_map_fixture, env = parent.frame())
     .env = env
   )
 }
+
+# Provider headshots read one map per (league, source) (load_player_alias_map()).
+# Real rows of nba_player_aliases: LeBron James (ESPN 1966) by his Yahoo, Fox and
+# NBA Stats ids.
+player_alias_fixture <- list(
+  nba_yahoo = data.frame(source_player_id = "nba.p.3704", athlete_id = "1966"),
+  nba_fox = data.frame(source_player_id = "1120", athlete_id = "1966"),
+  nba_nba_stats = data.frame(source_player_id = "2544", athlete_id = "1966")
+)
+
+local_player_alias_maps <- function(maps = player_alias_fixture, env = parent.frame()) {
+  testthat::local_mocked_bindings(
+    load_player_alias_map = function(league, source) {
+      m <- maps[[paste0(league, "_", source)]]
+      if (is.null(m)) data.frame(source_player_id = character(), athlete_id = character()) else m
+    },
+    .package = "sdvplotR",
+    .env = env
+  )
+}

@@ -158,7 +158,11 @@ def golden(aliases: pl.DataFrame, ver: str) -> list[dict]:
     for (system,), g in sorted(a.group_by("id_system"), key=lambda t: t[0]):
         picks = g.sample(n=min(10, g.height), seed=rng.randrange(10**6))
         for r in picks.iter_rows(named=True):
-            explicit = system if (system == "nhl_id" or rng.random() < 0.33) else "auto"
+            explicit = (
+                system
+                if (system in _resolve.EXPLICIT_ONLY or rng.random() < 0.33)
+                else "auto"
+            )  # an EXPLICIT_ONLY id under "auto" is read as another system's
             case(r["league"], r["value"], None, explicit)
     dated = a.filter(
         pl.col("valid_from").is_not_null() | pl.col("valid_to").is_not_null()

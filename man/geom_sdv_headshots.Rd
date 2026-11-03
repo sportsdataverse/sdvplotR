@@ -100,9 +100,11 @@ means different teams in different leagues.}
 
 \item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
 league with ESPN headshots), \code{"gsis"} (nflverse's NFL gsis ids, such as
-\code{"00-0033873"}, read through a published map) or \code{"league"} (the league's
-own player id). The details of \code{\link[=sdv_headshot_url]{sdv_headshot_url()}} list which leagues
-take which.}
+\code{"00-0033873"}, read through a published map), \code{"league"} (the league's
+own player id), or another provider's player id, drawn as the ESPN
+athlete's headshot: \code{"fox"}, \code{"yahoo"}, \code{"cbs"}, \code{"kenpom"}, \code{"ncaa"}
+(stats.ncaa.org), \code{"nba_stats"} or \code{"wnba_stats"}. The details of
+\code{\link[=sdv_headshot_url]{sdv_headshot_url()}} list which leagues take which.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -128,8 +130,9 @@ This geom is used to plot player headshots instead
 of points in a ggplot. It requires x, y aesthetics as well as a valid
 player identifier: an ESPN athlete ID by default (\code{\link[=sdv_headshot_url]{sdv_headshot_url()}}
 lists which leagues take which IDs). Set
-\code{id_system} to plot IDs from another source (nflverse's gsis IDs, or the
-league's own player IDs). A team's ESPN athlete IDs come
+\code{id_system} to plot IDs from another source (nflverse's gsis IDs, the
+league's own player IDs, or a provider's such as Fox, Yahoo or
+stats.ncaa.org, drawn as the ESPN athlete's headshot). A team's ESPN athlete IDs come
 with its roster: \code{hoopR::espn_mbb_team_roster()} and
 \code{espn_nba_team_roster()}, \code{wehoop::espn_wbb_team_roster()} and
 \code{espn_wnba_team_roster()}, and \code{cfbfastR::espn_cfb_team_roster()} each

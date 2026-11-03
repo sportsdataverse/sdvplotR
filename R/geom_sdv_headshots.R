@@ -4,8 +4,9 @@
 #'   of points in a ggplot. It requires x, y aesthetics as well as a valid
 #'   player identifier: an ESPN athlete ID by default ([sdv_headshot_url()]
 #'   lists which leagues take which IDs). Set
-#'   `id_system` to plot IDs from another source (nflverse's gsis IDs, or the
-#'   league's own player IDs). A team's ESPN athlete IDs come
+#'   `id_system` to plot IDs from another source (nflverse's gsis IDs, the
+#'   league's own player IDs, or a provider's such as Fox, Yahoo or
+#'   stats.ncaa.org, drawn as the ESPN athlete's headshot). A team's ESPN athlete IDs come
 #'   with its roster: `hoopR::espn_mbb_team_roster()` and
 #'   `espn_nba_team_roster()`, `wehoop::espn_wbb_team_roster()` and
 #'   `espn_wnba_team_roster()`, and `cfbfastR::espn_cfb_team_roster()` each

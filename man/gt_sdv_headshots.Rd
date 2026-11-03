@@ -31,9 +31,11 @@ with the team name transformation. Only \code{\link[gt:cells_body]{gt::cells_bod
 
 \item{id_system}{\code{"espn"} (ESPN athlete ids; the default, for every
 league with ESPN headshots), \code{"gsis"} (nflverse's NFL gsis ids, such as
-\code{"00-0033873"}, read through a published map) or \code{"league"} (the league's
-own player id). The details of \code{\link[=sdv_headshot_url]{sdv_headshot_url()}} list which leagues
-take which.}
+\code{"00-0033873"}, read through a published map), \code{"league"} (the league's
+own player id), or another provider's player id, drawn as the ESPN
+athlete's headshot: \code{"fox"}, \code{"yahoo"}, \code{"cbs"}, \code{"kenpom"}, \code{"ncaa"}
+(stats.ncaa.org), \code{"nba_stats"} or \code{"wnba_stats"}. The details of
+\code{\link[=sdv_headshot_url]{sdv_headshot_url()}} list which leagues take which.}
 }
 \value{
 An object of class \code{gt_tbl}.

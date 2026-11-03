@@ -5,10 +5,13 @@
 # The order id_system = "auto" tries; the first system with a candidate decides.
 resolve_priority <- c(
   "team_id", "espn", "espn_abbr", "nhl", "nflverse", "mlbstats", "nba_api", "hockeytech",
-  "ncaa", "pff", "cricinfo", "cfbd", "bref", "sportsipy", "fangraphs", "sdvplotr", "name"
+  "ncaa", "pff", "cricinfo", "cfbd", "bref", "sportsipy", "fangraphs", "yahoo", "kenpom", "torvik",
+  "sdvplotr", "name"
 )
-# NHL stats API ids 1-28 are other teams' ESPN ids: only an explicit id_system reads them
-resolve_explicit_only <- "nhl_id"
+# Other teams' ESPN ids, so only an explicit id_system reads them: NHL stats API
+# ids 1-28, and Fox, CBS, 247Sports and On3 ids (Fox 25 is Ohio State, ESPN 25
+# California)
+resolve_explicit_only <- c("nhl_id", "fox", "cbs", "sports247", "on3")
 non_team_programs <- c("conference", "league")
 # the manifest levels of non-team marks: an index row's program is one of the
 # above, but a division mark (the NHL's) is archived at level "division"
@@ -297,8 +300,10 @@ report_unresolved <- function(x, why, league, strict = FALSE, call = rlang::call
 #'   id system: `"team_id"`, `"espn"`, `"espn_abbr"`, `"nhl"`, `"nflverse"`,
 #'   `"mlbstats"`, `"nba_api"`, `"hockeytech"`, `"ncaa"`, `"pff"`,
 #'   `"cricinfo"`, `"cfbd"`, `"bref"`, `"sportsipy"`, `"fangraphs"`,
-#'   `"sdvplotr"`, `"name"`, or `"nhl_id"` (NHL stats API ids, which overlap
-#'   ESPN's, so `"auto"` never reads a number as one).
+#'   `"yahoo"`, `"kenpom"`, `"torvik"`, `"sdvplotr"`, `"name"`, or one
+#'   `"auto"` never tries because its numbers overlap ESPN's: `"nhl_id"` (NHL
+#'   stats API ids), `"fox"`, `"cbs"`, `"sports247"` (247Sports team and
+#'   institution ids) or `"on3"`.
 #' @param strict If `TRUE`, a value that does not resolve is an error;
 #'   otherwise it becomes `NA` with one warning per call.
 #' @return A character vector of `team_id`s, the length of `x`.

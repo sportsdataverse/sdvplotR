@@ -155,10 +155,32 @@ league_headshot_url <- c(
   mjhl = hockeytech_headshot_url("mjhl")
 )
 
+# Other providers' player ids, each read through sdv-reference-data's
+# {league}_player_aliases (CONTRACT.md), which maps a source's player id to the
+# ESPN athlete id: the headshot is that athlete's ESPN headshot
+player_alias_sources <- list(
+  nfl = c("fox", "yahoo", "cbs"),
+  cfb = c("fox", "yahoo", "cbs", "ncaa"),
+  nba = c("fox", "yahoo", "nba_stats"),
+  wnba = c("fox", "yahoo", "wnba_stats"),
+  mbb = c("fox", "yahoo", "kenpom", "ncaa"),
+  wbb = c("fox", "yahoo", "ncaa")
+)
+provider_id_systems <- unique(unlist(player_alias_sources, use.names = FALSE))
+
 # "espn" (ESPN athlete ids, the default in every league), "gsis" (nflverse's
-# NFL ids) or "league" (the league's own ids; the NFL's league id is the gsis id)
+# NFL ids), "league" (the league's own ids; the NFL's league id is the gsis id)
+# or a player_alias_sources provider
 check_id_system <- function(id_system, league, call = rlang::caller_env()) {
-  id_system <- rlang::arg_match0(id_system, c("espn", "gsis", "league"), error_call = call)
+  id_system <- rlang::arg_match0(id_system, c("espn", "gsis", "league", provider_id_systems), error_call = call)
+  if (id_system %in% provider_id_systems && !id_system %in% player_alias_sources[[league]]) {
+    has <- vapply(player_alias_sources, function(s) id_system %in% s, logical(1))
+    with_ids <- names(player_alias_sources)[has] # nolint: object_usage_linter. used in the cli message below
+    cli::cli_abort(
+      "{.code id_system = \"{id_system}\"} player ids map to ESPN athletes in {.val {with_ids}} only.",
+      call = call
+    )
+  }
   if (id_system == "espn" && !league %in% names(espn_slug)) {
     cli::cli_abort(c(
       "No ESPN headshots for {.val {league}}; they exist for {.val {names(espn_slug)}}.",
@@ -199,6 +221,10 @@ headshot_from_id <- function(player_id, league, id_system = "espn") {
     nfl <- map$headshot_nfl[i]
     espn <- map$espn_id[i]
     ifelse(!is.na(nfl), nfl_headshot_url(nfl), ifelse(!is.na(espn), espn_headshot_url(espn, "nfl"), NA_character_))
+  } else if (id_system %in% provider_id_systems) {
+    map <- load_player_alias_map(league, id_system)
+    espn <- map$athlete_id[match(player_id, map$source_player_id)]
+    ifelse(!is.na(espn), espn_headshot_url(espn, league), NA_character_)
   } else {
     ifelse(numeric_id, sprintf(league_headshot_url[[league]], player_id), NA_character_)
   }
@@ -215,11 +241,13 @@ headshot_from_id <- function(player_id, league, id_system = "espn") {
 #' @inheritParams sdv_resolve
 #' @param id_system `"espn"` (ESPN athlete ids; the default, for every
 #'   league with ESPN headshots), `"gsis"` (nflverse's NFL gsis ids, such as
-#'   `"00-0033873"`, read through a published map) or `"league"` (the league's
-#'   own player id). The details of [sdv_headshot_url()] list which leagues
-#'   take which.
+#'   `"00-0033873"`, read through a published map), `"league"` (the league's
+#'   own player id), or another provider's player id, drawn as the ESPN
+#'   athlete's headshot: `"fox"`, `"yahoo"`, `"cbs"`, `"kenpom"`, `"ncaa"`
+#'   (stats.ncaa.org), `"nba_stats"` or `"wnba_stats"`. The details of
+#'   [sdv_headshot_url()] list which leagues take which.
 #' @return A character vector the length of `player_id`: the URL, or `NA` for
-#'   a missing or malformed id or (gsis) one not in the map. The URL is built
+#'   a missing or malformed id or (gsis, a provider) one not in its map. The URL is built
 #'   from the id alone, so an id the CDN has no photo for still gets one: ESPN
 #'   and HockeyTech answer it with a 404, which the ggplot geoms skip with a
 #'   warning and the gt, reactable and ggtext helpers show as a broken image;
@@ -246,6 +274,21 @@ headshot_from_id <- function(player_id, league, id_system = "espn") {
 #' `player_id` in their HockeyTech feeds. Other leagues have no headshots;
 #' F1 drivers have none because formula1.com keys its photos by its own driver
 #' reference (`MAXVER01`), not a driver number or Jolpica `driver_id`.
+#'
+#' Other providers' player ids map to ESPN athlete ids through
+#' sdv-reference-data's `{league}_player_aliases` tables (the
+#' sportsdataverse-data `{league}_groups` releases), and draw that athlete's
+#' ESPN headshot. The map for a league and provider is downloaded when first
+#' needed and kept for the session; an id it does not hold is `NA`.
+#'
+#' | League | Provider `id_system` |
+#' |---|---|
+#' | nfl | `"fox"`, `"yahoo"`, `"cbs"` |
+#' | cfb | `"fox"`, `"yahoo"`, `"cbs"`, `"ncaa"` |
+#' | nba | `"fox"`, `"yahoo"`, `"nba_stats"` |
+#' | wnba | `"fox"`, `"yahoo"`, `"wnba_stats"` |
+#' | mbb | `"fox"`, `"yahoo"`, `"kenpom"`, `"ncaa"` |
+#' | wbb | `"fox"`, `"yahoo"`, `"ncaa"` |
 #' @seealso [sdv_logo_url()].
 #' @export
 #' @examples
@@ -313,7 +356,43 @@ load_headshot_map <- function() {
 
 forget_headshot_map <- function() {
   headshot_map_cache$map <- NULL
+  rm(list = ls(player_alias_cache), envir = player_alias_cache)
   invisible(NULL)
+}
+
+# Provider player id -> ESPN athlete id maps, one per (league, source):
+# data-raw/update_player_alias_maps.R publishes them from the
+# sportsdataverse-data {league}_player_aliases tables (cfb's alone has 421k
+# rows, too many to bundle) to the sdvplotr_infrastructure release. Each is read
+# when first needed and kept for the session; offline, and on a failed read
+# (which warns and retries on the next call), it has no rows, so every id is NA.
+# A source with no ids in a league yet is published as an empty map.
+player_alias_map_url <- function(league, source) {
+  paste0(
+    "https://github.com/sportsdataverse/sdvplotR/releases/download/",
+    "sdvplotr_infrastructure/player_aliases_", league, "_", source, ".rds"
+  )
+}
+
+player_alias_cache <- new.env(parent = emptyenv())
+
+load_player_alias_map <- function(league, source) {
+  key <- paste0(league, "_", source)
+  if (!is.null(player_alias_cache[[key]])) {
+    return(player_alias_cache[[key]])
+  }
+  empty <- data.frame(source_player_id = character(), athlete_id = character())
+  if (use_snapshot()) {
+    return(empty)
+  }
+  map <- read_rds_url(player_alias_map_url(league, source))
+  # an empty map is a good read (the source has no ids there yet, as mbb / wbb
+  # Yahoo), kept like any other; only a failed read is retried
+  if (!is.data.frame(map) || !all(names(empty) %in% names(map))) {
+    return(empty)
+  }
+  player_alias_cache[[key]] <- map
+  map
 }
 
 # readRDS() of a remote .rds. Any failure, opening the connection (offline, a

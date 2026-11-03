@@ -416,3 +416,52 @@ test_that(".resolve_palette expands a paletteer name from either registry", {
   expect_length(d, 256)
   expect_match(d, "^#[0-9A-Fa-f]{6}")
 })
+
+test_that("provider player ids draw the ESPN athlete's headshot through player_aliases", {
+  local_player_alias_maps()
+  lebron <- "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1966.png"
+  expect_identical(sdv_headshot_url("nba.p.3704", "nba", id_system = "yahoo"), lebron)
+  expect_identical(sdv_headshot_url(c(1120, NA), "nba", id_system = "fox"), c(lebron, NA_character_))
+  expect_identical(sdv_headshot_url(2544, "nba", id_system = "nba_stats"), lebron)
+  # a source's ids are its own: LeBron's NBA Stats id is no Fox id
+  expect_identical(sdv_headshot_url(2544, "nba", id_system = "fox"), NA_character_)
+  expect_error(sdv_headshot_url(1, "nba", id_system = "kenpom"), "mbb")
+  expect_error(sdv_headshot_url(1, "nba", id_system = "nflverse"), "must be one of")
+})
+
+test_that("offline, a player alias map is never fetched, and a good read is kept for the session", {
+  local_fresh_headshot_map()
+  calls <- 0
+  local_mocked_bindings(read_rds_url = function(url) {
+    calls <<- calls + 1
+    expect_match(url, "sdvplotr_infrastructure/player_aliases_nba_yahoo[.]rds$")
+    player_alias_fixture$nba_yahoo
+  })
+  withr::local_options(sdvplotR.offline = TRUE)
+  expect_identical(nrow(load_player_alias_map("nba", "yahoo")), 0L)
+  expect_identical(calls, 0)
+  withr::local_options(sdvplotR.offline = FALSE)
+  expect_identical(load_player_alias_map("nba", "yahoo"), player_alias_fixture$nba_yahoo)
+  expect_identical(load_player_alias_map("nba", "yahoo"), player_alias_fixture$nba_yahoo)
+  expect_identical(calls, 1)
+  forget_headshot_map() # sdv_clear_cache() drops the alias maps too
+  load_player_alias_map("nba", "yahoo")
+  expect_identical(calls, 2)
+})
+
+test_that("an empty player alias map (a source with no ids there yet) is kept; a failed read is not", {
+  local_fresh_headshot_map()
+  calls <- 0
+  served <- data.frame(source_player_id = character(), athlete_id = character())
+  local_mocked_bindings(read_rds_url = function(url) {
+    calls <<- calls + 1
+    served
+  })
+  expect_identical(nrow(load_player_alias_map("mbb", "yahoo")), 0L)
+  load_player_alias_map("mbb", "yahoo")
+  expect_identical(calls, 1)
+  served <- NULL # a failed read
+  expect_identical(nrow(load_player_alias_map("wbb", "yahoo")), 0L)
+  load_player_alias_map("wbb", "yahoo")
+  expect_identical(calls, 3)
+})
