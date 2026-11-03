@@ -171,6 +171,15 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   mark; F1 constructors reach back to 2002. A team's `conference` value draws
   its conference's logo ("Hockey East Association"), not only the short key
   (team index b2f30ebdd911).
+* Soccer has 50 more clubs (Liga MX Femenil, the Women's FA Cup, Copa del Rey
+  and more) and ESPN's current names for 16 others. Three women's basketball
+  teams take ESPN's names for them (Central Arkansas Sugar Bears, East
+  Tennessee State Buccaneers, Hawai'i Rainbow Wahine). College baseball and
+  softball take ESPN's current abbreviations. HockeyTech's interleague
+  opponents (six OHL teams in the QMJHL, three in the MJHL) are no longer
+  teams of those leagues. A name a women's club shares with a men's club
+  ("Cruz Azul") now matches both, so use the team id (team index
+  b677a2088576).
 * `sdv_team_tiers()` builds tier charts, with dark marks on its dark theme
   (`variant = "auto"`) and a `theme = "light"` option; `ggtitle_image()` with
   `theme_title_image()` places a logo next to a plot title.
