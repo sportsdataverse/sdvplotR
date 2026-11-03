@@ -151,2858 +151,3018 @@ sdv_teams("nfl")
 #> 31     nflverse
 #> 32     nflverse
 sdv_teams("cfb", include_conferences = TRUE)
-#>     league       team_id          abbr                                     name
-#> 1      cfb           101          ERKA                        Eureka Red Devils
-#> 2      cfb        101442          CTLA                 Centenary (LA) Gentlemen
-#> 3      cfb        101784          ERSK                     Erskine Flying Fleet
-#> 4      cfb           103            BC                    Boston College Eagles
-#> 5      cfb           107            HC                     Holy Cross Crusaders
-#> 6      cfb           108          HARV                          Harvard Crimson
-#> 7      cfb           109           MIT                            MIT Engineers
-#> 8      cfb            11          COMU                  Colorado Mesa Mavericks
-#> 9      cfb           110           MMT                 Mass Maritime Buccaneers
-#> 10     cfb        110242           UWF                   West Florida Argonauts
-#> 11     cfb        110243          UTPB                 UT Permian Basin Falcons
-#> 12     cfb        110438          DEAN                            Dean Bulldogs
-#> 13     cfb        111610          STAU                      St. Andrews Knights
-#> 14     cfb        111674          ALVR                   Alvernia Golden Wolves
-#> 15     cfb        111675           UNE                  New England Nor'easters
-#> 16     cfb           112          TUFT                             Tufts Jumbos
-#> 17     cfb        112334            FP                   Franklin Pierce Ravens
-#> 18     cfb        112335          WHLG                       Wheeling Cardinals
-#> 19     cfb           113          MASS                  Massachusetts Minutemen
-#> 20     cfb           114          FBSU                  Fitchburg State Falcons
-#> 21     cfb           118           JHU                  Johns Hopkins Blue Jays
-#> 22     cfb           119           TOW                            Towson Tigers
-#> 23     cfb            12          ARIZ                         Arizona Wildcats
-#> 24     cfb           120            MD                       Maryland Terrapins
-#> 25     cfb           121          BATE                            Bates Bobcats
-#> 26     cfb        122666          BART                          Barton Bulldogs
-#> 27     cfb        122774          KYSN                          Keystone Giants
-#> 28     cfb        123086          NAMU                 North American Stallions
-#> 29     cfb           124          AUGS                         Augsburg Auggies
-#> 30     cfb        124179          LNCA                  Lincoln (CA) Oaklanders
-#> 31     cfb        124180          BLUS                 Bluefield State Big Blue
-#> 32     cfb           125          GVSU                Grand Valley State Lakers
-#> 33     cfb        125974          HLBT                            Hilbert Hawks
-#> 34     cfb           126          KALC                        Kalamazoo Hornets
-#> 35     cfb        126086          POST                              Post Eagles
-#> 36     cfb           127           MSU                  Michigan State Spartans
-#> 37     cfb        127954            EU                           Eastern Eagles
-#> 38     cfb           128           NMI               Northern Michigan Wildcats
-#> 39     cfb           129          SVSU           Saginaw Valley State Cardinals
-#> 40     cfb        129469          ANSC                    Anderson (SC) Trojans
-#> 41     cfb        129738          CALU                           Calvin Knights
-#> 42     cfb            13            CP                        Cal Poly Mustangs
-#> 43     cfb           130          MICH                      Michigan Wolverines
-#> 44     cfb           131          WSMI                Wayne State (MI) Warriors
-#> 45     cfb           132           BST                    Bemidji State Beavers
-#> 46     cfb           133          OLAF                            St. Olaf Oles
-#> 47     cfb           134           UMD                Minnesota Duluth Bulldogs
-#> 48     cfb           135          MINN                 Minnesota Golden Gophers
-#> 49     cfb           137          MOWE                Missouri Western Griffons
-#> 50     cfb           138          MWMO        Northwest Missouri State Bearcats
-#> 51     cfb           142           MIZ                          Missouri Tigers
-#> 52     cfb           143          WUMO               Washington St. Louis Bears
-#> 53     cfb           145          MISS                          Ole Miss Rebels
-#> 54     cfb           146           GRO                    Grove City Wolverines
-#> 55     cfb           147          MTST                    Montana State Bobcats
-#> 56     cfb           149          MONT                        Montana Grizzlies
-#> 57     cfb           150          DUKE                         Duke Blue Devils
-#> 58     cfb           151           ECU                    East Carolina Pirates
-#> 59     cfb           152          NCSU                        NC State Wolfpack
-#> 60     cfb           153           UNC                 North Carolina Tar Heels
-#> 61     cfb           154          WAKE                Wake Forest Demon Deacons
-#> 62     cfb           155           UND              North Dakota Fighting Hawks
-#> 63     cfb           158           NEB                     Nebraska Cornhuskers
-#> 64     cfb           159          DART                      Dartmouth Big Green
-#> 65     cfb            16           SAC                 Sacramento State Hornets
-#> 66     cfb           160           UNH                   New Hampshire Wildcats
-#> 67     cfb           162          HMLN                           Hamline Pipers
-#> 68     cfb           163          PRIN                         Princeton Tigers
-#> 69     cfb           164          RUTG                  Rutgers Scarlet Knights
-#> 70     cfb           166          NMSU                  New Mexico State Aggies
-#> 71     cfb           167           UNM                         New Mexico Lobos
-#> 72     cfb            17           CMS             Claremont Mudd Scripps Stags
-#> 73     cfb           171          COLU                           Columbia Lions
-#> 74     cfb           172           COR                          Cornell Big Red
-#> 75     cfb           173          HRTW                           Hartwick Hawks
-#> 76     cfb           174          HBRT                         Hobart Statesmen
-#> 77     cfb           175           ITH                           Ithaca Bombers
-#> 78     cfb            18          BRIS                  Bridgewater State Bears
-#> 79     cfb           183           SYR                          Syracuse Orange
-#> 80     cfb           184          URNY            Rochester (NY) Yellow Jackets
-#> 81     cfb           188            BW           Baldwin Wallace Yellow Jackets
-#> 82     cfb           189          BGSU                    Bowling Green Falcons
-#> 83     cfb           190           DEF          Defiance College Yellow Jackets
-#> 84     cfb           191          HDBG               Heidelberg Student Princes
-#> 85     cfb           193          M-OH                      Miami (OH) RedHawks
-#> 86     cfb           194           OSU                      Ohio State Buckeyes
-#> 87     cfb           195          OHIO                             Ohio Bobcats
-#> 88     cfb           196          NESU            Northeastern State RiverHawks
-#> 89     cfb           197          OKST                   Oklahoma State Cowboys
-#> 90     cfb           199          SEOK Southeastern Oklahoma State Savage Storm
-#> 91     cfb             2           AUB                            Auburn Tigers
-#> 92     cfb           200           SNU          Southern Nazarene Crimson Storm
-#> 93     cfb          2000           ACU               Abilene Christian Wildcats
-#> 94     cfb          2001          ADSU                    Adams State Grizzlies
-#> 95     cfb          2003           ADR                          Adrian Bulldogs
-#> 96     cfb          2005            AF                        Air Force Falcons
-#> 97     cfb          2006           AKR                               Akron Zips
-#> 98     cfb           201            OU                         Oklahoma Sooners
-#> 99     cfb          2010          AAMU                     Alabama A&M Bulldogs
-#> 100    cfb          2011          ALST                    Alabama State Hornets
-#> 101    cfb          2013          ABSU                 Albany State Golden Rams
-#> 102    cfb          2015          ALBR                           Albright Lions
-#> 103    cfb          2016          ALCN                      Alcorn State Braves
-#> 104    cfb          2018          ALLG                         Allegheny Gators
-#> 105    cfb          2019          ALNU                     Allen Yellow Jackets
-#> 106    cfb           202          TLSA                   Tulsa Golden Hurricane
-#> 107    cfb          2022           AIC    American International Yellow Jackets
-#> 108    cfb          2023          ANIN                     Anderson (IN) Ravens
-#> 109    cfb          2025          AGSU                        Angelo State Rams
-#> 110    cfb          2026           APP                   App State Mountaineers
-#> 111    cfb          2028           UAM         Arkansas Monticello Boll Weevils
-#> 112    cfb          2029          UAPB         Arkansas-Pine Bluff Golden Lions
-#> 113    cfb           203          LINF                        Linfield Wildcats
-#> 114    cfb          2032          ARST                Arkansas State Red Wolves
-#> 115    cfb          2033          ARTE                Arkansas Tech Wonder Boys
-#> 116    cfb          2038           ASP                    Assumption Greyhounds
-#> 117    cfb           204          ORST                     Oregon State Beavers
-#> 118    cfb          2042          AUGC                   Augustana (IL) Vikings
-#> 119    cfb          2043          AUSD                   Augustana (SD) Vikings
-#> 120    cfb          2044           AUR                          Aurora Spartans
-#> 121    cfb          2045           AUS                             Austin 'Roos
-#> 122    cfb          2046          APSU                    Austin Peay Governors
-#> 123    cfb          2047          AVER                          Averett Cougars
-#> 124    cfb          2049           APU                    Azusa Pacific Cougars
-#> 125    cfb           205          PCOR                      Pacific (OR) Boxers
-#> 126    cfb          2050          BALL                     Ball State Cardinals
-#> 127    cfb          2056          BELH                         Belhaven Blazers
-#> 128    cfb          2060          BENT                          Bentley Falcons
-#> 129    cfb          2062          BCWV                       Bethany (WV) Bison
-#> 130    cfb          2064          BTTN                     Bethel (TN) Wildcats
-#> 131    cfb          2065           BCU                 Bethune-Cookman Wildcats
-#> 132    cfb          2069          BHSU         Black Hills State Yellow Jackets
-#> 133    cfb          2071           BBU                       Bloomsburg Huskies
-#> 134    cfb          2074           BLF                         Bluffton Beavers
-#> 135    cfb          2075          BOWE                     Bowie State Bulldogs
-#> 136    cfb          2079           BRI                       Bridgewater Eagles
-#> 137    cfb          2083          BUCK                           Bucknell Bison
-#> 138    cfb          2084           BUF                            Buffalo Bulls
-#> 139    cfb          2085           BSU                    Buffalo State Bengals
-#> 140    cfb          2086          BTLR                          Butler Bulldogs
-#> 141    cfb           209           LHU                   Lock Haven Bald Eagles
-#> 142    cfb          2094           CLU                    Cal Lutheran Kingsmen
-#> 143    cfb          2097           CAM                 Campbell Fighting Camels
-#> 144    cfb            21          SDSU                   San Diego State Aztecs
-#> 145    cfb           210          MILL                   Millersville Marauders
-#> 146    cfb          2101           CAR                         Carleton Knights
-#> 147    cfb          2102          CGMU                  Carnegie Mellon Tartans
-#> 148    cfb          2105            CN                     Carson Newman Eagles
-#> 149    cfb          2106           CCW                       Carthage Firebirds
-#> 150    cfb          2107           CAT                          Catawba Indians
-#> 151    cfb          2108          CATH                       Catholic Cardinals
-#> 152    cfb          2110          CARK                   Central Arkansas Bears
-#> 153    cfb          2115          CCSU          Central Connecticut Blue Devils
-#> 154    cfb          2116           UCF                              UCF Knights
-#> 155    cfb          2117           CMU               Central Michigan Chippewas
-#> 156    cfb          2118           UCM                   Central Missouri Mules
-#> 157    cfb          2119          CNSU                  Central State Marauders
-#> 158    cfb          2120          CWAU              Central Washington Wildcats
-#> 159    cfb          2121           CCO                          Centre Colonels
-#> 160    cfb          2122           UCO                Central Oklahoma Bronchos
-#> 161    cfb          2123          CHAD                     Chadron State Eagles
-#> 162    cfb          2127          CHSO           Charleston Southern Buccaneers
-#> 163    cfb          2128          UCWV            Charleston (WV) Golden Eagles
-#> 164    cfb           213           PSU                 Penn State Nittany Lions
-#> 165    cfb          2130          CHST                    Chicago State Cougars
-#> 166    cfb          2132           CIN                      Cincinnati Bearcats
-#> 167    cfb          2134          CLRN                    Clarion Golden Eagles
-#> 168    cfb          2141           COE                              Coe Kohawks
-#> 169    cfb          2142          COLG                          Colgate Raiders
-#> 170    cfb          2146          CMIN      Colorado School of Mines Orediggers
-#> 171    cfb          2148          CONC                   Concord Mountain Lions
-#> 172    cfb           215           SRU                   Slippery Rock The Rock
-#> 173    cfb          2151           CUC                Concordia Chicago Cougars
-#> 174    cfb          2152          CCMN                   Concordia (MN) Cobbers
-#> 175    cfb          2155          CNIA                        Cornell (IA) Rams
-#> 176    cfb           216          SUSQ                  Susquehanna River Hawks
-#> 177    cfb          2166           DAV                        Davidson Wildcats
-#> 178    cfb          2168           DAY                            Dayton Flyers
-#> 179    cfb          2169           DSU                   Delaware State Hornets
-#> 180    cfb          2170          DLST                    Delta State Statesmen
-#> 181    cfb          2171           DSN                          Denison Big Red
-#> 182    cfb          2175          DKSN                     Dickinson Red Devils
-#> 183    cfb           218           TEM                              Temple Owls
-#> 184    cfb          2181          DRKE                           Drake Bulldogs
-#> 185    cfb          2184           DUQ                           Duquesne Dukes
-#> 186    cfb          2188           ESU                East Stroudsburg Warriors
-#> 187    cfb           219          PENN                     Pennsylvania Quakers
-#> 188    cfb          2191          ECNU                      East Central Tigers
-#> 189    cfb          2193          ETSU          East Tennessee State Buccaneers
-#> 190    cfb          2194          ETBU                East Texas Baptist Tigers
-#> 191    cfb          2197           EIU                Eastern Illinois Panthers
-#> 192    cfb          2198           EKU                Eastern Kentucky Colonels
-#> 193    cfb          2199           EMU                  Eastern Michigan Eagles
-#> 194    cfb          2201          ENMU            Eastern New Mexico Greyhounds
-#> 195    cfb          2202          EORE                           Eastern Oregon
-#> 196    cfb          2205          EDBR                  Edinboro Fighting Scots
-#> 197    cfb          2206           EDW                     Edward Waters Tigers
-#> 198    cfb          2207          ECSU             Elizabeth City State Vikings
-#> 199    cfb           221          PITT                      Pittsburgh Panthers
-#> 200    cfb          2210          ELON                             Elon Phoenix
-#> 201    cfb          2213           EHC                      Emory & Henry Wasps
-#> 202    cfb          2214          EMSU                    Emporia State Hornets
-#> 203    cfb           222          VILL                       Villanova Wildcats
-#> 204    cfb          2220          FAYU               Fayetteville State Broncos
-#> 205    cfb          2221          FDUF                       FDU Florham Devils
-#> 206    cfb          2222          FRST                    Ferris State Bulldogs
-#> 207    cfb          2224            UF                           Findlay Oilers
-#> 208    cfb          2226           FAU                    Florida Atlantic Owls
-#> 209    cfb          2229           FIU           Florida International Panthers
-#> 210    cfb           223          WCHT                 West Chester Golden Rams
-#> 211    cfb          2230           FOR                             Fordham Rams
-#> 212    cfb          2231          FHSU                         Fort Hays Tigers
-#> 213    cfb          2232          FVSU               Fort Valley State Wildcats
-#> 214    cfb          2233          FRKL                       Franklin Grizzlies
-#> 215    cfb          2234           FMC            Franklin & Marshall Diplomats
-#> 216    cfb          2237          FLWC                      Fort Lewis Skyhawks
-#> 217    cfb          2241          GWEB            Gardner-Webb Runnin' Bulldogs
-#> 218    cfb          2242           GEN                  Geneva Golden Tornadoes
-#> 219    cfb          2244           GMU         George Mason University Patriots
-#> 220    cfb          2245          GTKY                   Georgetown (KY) Tigers
-#> 221    cfb          2247          GAST                   Georgia State Panthers
-#> 222    cfb          2248          GTYB                       Gettysburg Bullets
-#> 223    cfb          2249          GVLS                 Glenville State Pioneers
-#> 224    cfb           225          BRWN                              Brown Bears
-#> 225    cfb          2254     GRANDVIEW                       Des Moines Vikings
-#> 226    cfb          2256          GRNB                         Greensboro Pride
-#> 227    cfb          2257          GRNV                      Greenville Panthers
-#> 228    cfb          2258          GLFD                         Guilford Quakers
-#> 229    cfb          2261          HAMP                          Hampton Pirates
-#> 230    cfb          2262          HNVR                         Hanover Panthers
-#> 231    cfb          2264          HARD                           Harding Bisons
-#> 232    cfb           227           URI                        Rhode Island Rams
-#> 233    cfb          2271          HSTU                  Henderson State Reddies
-#> 234    cfb          2273          HLDL                       Hillsdale Chargers
-#> 235    cfb          2274          HIRM                           Hiram Terriers
-#> 236    cfb          2277           HCU                Houston Christian Huskies
-#> 237    cfb           228          CLEM                           Clemson Tigers
-#> 238    cfb          2280          HUSS                            Husson Eagles
-#> 239    cfb          2283          BNIL                  Benedictine (IL) Eagles
-#> 240    cfb          2286          ILLC                Illinois College Blueboys
-#> 241    cfb          2287          ILST                  Illinois State Redbirds
-#> 242    cfb          2291           IUP            IU Pennsylvania Crimson Hawks
-#> 243    cfb          2292          INDY                  Indianapolis Greyhounds
-#> 244    cfb          2294          IOWA                            Iowa Hawkeyes
-#> 245    cfb          2296          JKST                     Jackson State Tigers
-#> 246    cfb            23          SJSU                  San José State Spartans
-#> 247    cfb          2302           JCU                John Carroll Blue Streaks
-#> 248    cfb          2304          JCSU            Johnson C. Smith Golden Bulls
-#> 249    cfb          2305            KU                          Kansas Jayhawks
-#> 250    cfb          2306           KSU                    Kansas State Wildcats
-#> 251    cfb          2309          KENT                Kent State Golden Flashes
-#> 252    cfb           231           FUR                          Furman Paladins
-#> 253    cfb          2310          KYSU                Kentucky State Thorobreds
-#> 254    cfb          2315          KUTZ                    Kutztown Golden Bears
-#> 255    cfb          2316           KWC               Kentucky Wesleyan Panthers
-#> 256    cfb          2318           ULV                        La Verne Leopards
-#> 257    cfb          2320           LAM                          Lamar Cardinals
-#> 258    cfb          2323          LANE                     Lane College Dragons
-#> 259    cfb          2324          LNGT                           Langston Lions
-#> 260    cfb          2329           LEH                    Lehigh Mountain Hawks
-#> 261    cfb           233          SDAK                     South Dakota Coyotes
-#> 262    cfb          2331          LENR                       Lenoir Rhyne Bears
-#> 263    cfb          2333            LC               Lewis & Clark River Otters
-#> 264    cfb          2335           LIB                           Liberty Flames
-#> 265    cfb          2339          LNPA                       Lincoln (PA) Lions
-#> 266    cfb          2341           LIU            Long Island University Sharks
-#> 267    cfb          2348            LT                  Louisiana Tech Bulldogs
-#> 268    cfb           235           MEM                           Memphis Tigers
-#> 269    cfb          2354          LYCO                        Lycoming Warriors
-#> 270    cfb          2359           MAC                         Macalester Scots
-#> 271    cfb           236           UTC                         Chattanooga Mocs
-#> 272    cfb          2362          MNCH                      Manchester Spartans
-#> 273    cfb          2364          MNST                Minnesota State Mavericks
-#> 274    cfb          2365          MNFD                   Mansfield Mountaineers
-#> 275    cfb          2368          MRST                         Marist Red Foxes
-#> 276    cfb          2369           MHU                          Mars Hill Lions
-#> 277    cfb           237          UNNY                    Union Garnet Chargers
-#> 278    cfb          2371           MHB             Mary Hardin Baylor Crusaders
-#> 279    cfb          2373          MCTN                     Maryville (TN) Scots
-#> 280    cfb          2377           MCN                          McNeese Cowboys
-#> 281    cfb           238           VAN                    Vanderbilt Commodores
-#> 282    cfb          2382           MER                             Mercer Bears
-#> 283    cfb          2383           MMA                 Merchant Marine Mariners
-#> 284    cfb          2385          MERC                        Mercyhurst Lakers
-#> 285    cfb           239           BAY                             Baylor Bears
-#> 286    cfb          2390           MIA                         Miami Hurricanes
-#> 287    cfb          2392           MTU                    Michigan Tech Huskies
-#> 288    cfb          2393          MTSU            Middle Tennessee Blue Raiders
-#> 289    cfb          2394          MIDB                      Middlebury Panthers
-#> 290    cfb          2396          MILE                       Miles Golden Bears
-#> 291    cfb          2398          MLSP                          Millsaps Majors
-#> 292    cfb          2399          MNMO                 Minnesota Morris Cougars
-#> 293    cfb            24          STAN                        Stanford Cardinal
-#> 294    cfb          2400          MVSU    Mississippi Valley State Delta Devils
-#> 295    cfb          2402          MS&T                      Missouri S&T Miners
-#> 296    cfb          2403          MSSU            Missouri Southern State Lions
-#> 297    cfb          2405          MONM                           Monmouth Hawks
-#> 298    cfb           241           MCM                        McMurry War Hawks
-#> 299    cfb          2413          MORE                    Morehead State Eagles
-#> 300    cfb          2415          MORG                       Morgan State Bears
-#> 301    cfb          2416          MNGS                       Morningside Chiefs
-#> 302    cfb          2419           MSJ                    Mount St Joseph Lions
-#> 303    cfb           242          RICE                                Rice Owls
-#> 304    cfb          2422          MUHL                         Muhlenberg Mules
-#> 305    cfb          2424          NMHU             New Mexico Highlands Cowboys
-#> 306    cfb          2426          NAVY                          Navy Midshipmen
-#> 307    cfb          2428          NCCU            North Carolina Central Eagles
-#> 308    cfb          2429           CLT                          Charlotte 49ers
-#> 309    cfb          2433           ULM                       UL Monroe Warhawks
-#> 310    cfb          2438          NEBK                  Nebraska Kearney Lopers
-#> 311    cfb          2439          UNLV                              UNLV Rebels
-#> 312    cfb          2440           NEV                         Nevada Wolf Pack
-#> 313    cfb          2441          NHVN                       New Haven Chargers
-#> 314    cfb          2442          TCNJ          The College of New Jersey Lions
-#> 315    cfb          2444          NBRY                          Newberry Wolves
-#> 316    cfb          2447          NICH                        Nicholls Colonels
-#> 317    cfb          2448          NCAT                North Carolina A&T Aggies
-#> 318    cfb          2449          NDSU                 North Dakota State Bison
-#> 319    cfb           245          TA&M                         Texas A&M Aggies
-#> 320    cfb          2450          NORF                   Norfolk State Spartans
-#> 321    cfb          2453           UNA                      North Alabama Lions
-#> 322    cfb          2458          UNCO                  Northern Colorado Bears
-#> 323    cfb          2459           NIU                Northern Illinois Huskies
-#> 324    cfb           246           JUN                           Juniata Eagles
-#> 325    cfb          2460           UNI                   Northern Iowa Panthers
-#> 326    cfb          2464           NAU             Northern Arizona Lumberjacks
-#> 327    cfb          2466          NWST                Northwestern State Demons
-#> 328    cfb          2467          NWCH                           Norwich Cadets
-#> 329    cfb           247          KNGS                          King's Monarchs
-#> 330    cfb          2477          OHDU                  Ohio Dominican Panthers
-#> 331    cfb           248           HOU                          Houston Cougars
-#> 332    cfb          2483           ORE                             Oregon Ducks
-#> 333    cfb          2486          PCLT                   Pacific Lutheran Lutes
-#> 334    cfb          2487          PACE                             Pace Setters
-#> 335    cfb           249           UNT                   North Texas Mean Green
-#> 336    cfb            25           CAL                  California Golden Bears
-#> 337    cfb          2502          PRST                   Portland State Vikings
-#> 338    cfb          2504            PV                Prairie View A&M Panthers
-#> 339    cfb          2506          PRES                   Presbyterian Blue Hose
-#> 340    cfb          2508           PUG                      Puget Sound Loggers
-#> 341    cfb          2509           PUR                      Purdue Boilermakers
-#> 342    cfb           251           TEX                          Texas Longhorns
-#> 343    cfb          2516           RMC            Randolph Macon Yellow Jackets
-#> 344    cfb          2519          RHDS                              Rhodes Lynx
-#> 345    cfb           252           BYU                              BYU Cougars
-#> 346    cfb          2523           RMU                  Robert Morris Colonials
-#> 347    cfb          2524           RFU                         Rockford Regents
-#> 348    cfb          2528           RPI                     Rensselaer Engineers
-#> 349    cfb          2529           SHU                    Sacred Heart Pioneers
-#> 350    cfb           253           SUU               Southern Utah Thunderbirds
-#> 351    cfb          2532           SAL                      Salisbury Sea Gulls
-#> 352    cfb          2534          SHSU                     Sam Houston Bearkats
-#> 353    cfb          2535           SAM                         Samford Bulldogs
-#> 354    cfb           254          UTAH                                Utah Utes
-#> 355    cfb          2542           SAV                    Savannah State Tigers
-#> 356    cfb          2545          SELA                       SE Louisiana Lions
-#> 357    cfb          2546          SEMO        Southeast Missouri State Redhawks
-#> 358    cfb           255          KNOX                        Knox Prairie Fire
-#> 359    cfb          2551          SHAW                               Shaw Bears
-#> 360    cfb          2553          SEWA                           Sewanee Tigers
-#> 361    cfb          2557          USCG                        Coast Guard Bears
-#> 362    cfb          2559          SHIP                     Shippensburg Raiders
-#> 363    cfb           256           JMU                      James Madison Dukes
-#> 364    cfb          2560          SHOU                            Shorter Hawks
-#> 365    cfb          2564          SCIA                       Simpson (IA) Storm
-#> 366    cfb          2567           SMU                             SMU Mustangs
-#> 367    cfb          2568           SAR             Southern Arkansas Muleriders
-#> 368    cfb          2569          SCST            South Carolina State Bulldogs
-#> 369    cfb           257          RICH                         Richmond Spiders
-#> 370    cfb          2570          CSUP                 CSU Pueblo ThunderWolves
-#> 371    cfb          2571          SDST           South Dakota State Jackrabbits
-#> 372    cfb          2572           USM              Southern Miss Golden Eagles
-#> 373    cfb          2579            SC                 South Carolina Gamecocks
-#> 374    cfb           258           UVA                       Virginia Cavaliers
-#> 375    cfb          2582           SOU                         Southern Jaguars
-#> 376    cfb          2583          SCTS          Southern Connecticut State Owls
-#> 377    cfb          2584           SOR                  Southern Oregon Raiders
-#> 378    cfb          2586          SWBU               Southwest Baptist Bearcats
-#> 379    cfb          2587          SWMS       Southwest Minnesota State Mustangs
-#> 380    cfb          2588           SWU                   Southwestern U Pirates
-#> 381    cfb           259            VT                     Virginia Tech Hokies
-#> 382    cfb          2591          STAM                St. Ambrose Fighting Bees
-#> 383    cfb          2595          SFIL         St. Francis (IL) Fighting Saints
-#> 384    cfb          2598          SFPA                  Saint Francis Red Flash
-#> 385    cfb            26          UCLA                              UCLA Bruins
-#> 386    cfb          2600          STJM               Saint John's (MN) Johnnies
-#> 387    cfb          2614           SVC                   Saint Vincent Bearcats
-#> 388    cfb          2617           SFA            Stephen F. Austin Lumberjacks
-#> 389    cfb          2619          STBK                    Stony Brook Seawolves
-#> 390    cfb           262           LFC                    Lake Forest Foresters
-#> 391    cfb          2623          MOST                     Missouri State Bears
-#> 392    cfb          2627           TAR                    Tarleton State Texans
-#> 393    cfb          2628           TCU                         TCU Horned Frogs
-#> 394    cfb           263           LOR                            Loras Duhawks
-#> 395    cfb          2630           UTM                       UT Martin Skyhawks
-#> 396    cfb          2633          TENN                     Tennessee Volunteers
-#> 397    cfb          2634          TNST                   Tennessee State Tigers
-#> 398    cfb          2635          TNTC             Tennessee Tech Golden Eagles
-#> 399    cfb          2636          UTSA                         UTSA Roadrunners
-#> 400    cfb          2637          TXCL                     Texas College Steers
-#> 401    cfb          2638          UTEP                              UTEP Miners
-#> 402    cfb          2639          TXLU                  Texas Lutheran Bulldogs
-#> 403    cfb           264          WASH                       Washington Huskies
-#> 404    cfb          2640          TXSO                    Texas Southern Tigers
-#> 405    cfb          2641           TTU                   Texas Tech Red Raiders
-#> 406    cfb          2643           CIT                     The Citadel Bulldogs
-#> 407    cfb          2644           THI                            Thiel Tomcats
-#> 408    cfb          2646          TMOR                       Thomas More Saints
-#> 409    cfb          2649           TOL                           Toledo Rockets
-#> 410    cfb           265           WSU                 Washington State Cougars
-#> 411    cfb          2651          TRNE                            Trine Thunder
-#> 412    cfb          2653          TROY                             Troy Trojans
-#> 413    cfb          2654          TRST                    Truman State Bulldogs
-#> 414    cfb          2655          TULN                        Tulane Green Wave
-#> 415    cfb          2657          TUSK                   Tuskegee Golden Tigers
-#> 416    cfb          2658          TAMK           Texas A&M-Kingsville Javelinas
-#> 417    cfb           266          BELO                        Beloit Buccaneers
-#> 418    cfb          2667          URSN                            Ursinus Bears
-#> 419    cfb          2673          VALD                   Valdosta State Blazers
-#> 420    cfb          2674           VAL                       Valparaiso Beacons
-#> 421    cfb          2676           VUU                  Virginia Union Panthers
-#> 422    cfb          2678           VMI                              VMI Keydets
-#> 423    cfb           268           LAW                         Lawrence Vikings
-#> 424    cfb          2681           WAG                          Wagner Seahawks
-#> 425    cfb          2682          WLSH                          Walsh Cavaliers
-#> 426    cfb          2685          WTBG                         Wartburg Knights
-#> 427    cfb          2686           W&J        Washington & Jefferson Presidents
-#> 428    cfb          2687          WSBN                        Washburn Ichabods
-#> 429    cfb          2688           W&L              Washington and Lee Generals
-#> 430    cfb          2692           WEB                     Weber State Wildcats
-#> 431    cfb          2695           UWA                      West Alabama Tigers
-#> 432    cfb          2698           WGA                      West Georgia Wolves
-#> 433    cfb          2699           WLU                 West Liberty Hilltoppers
-#> 434    cfb          2700           MCD                    McDaniel Green Terror
-#> 435    cfb          2701           UMW                 Montana Western Bulldogs
-#> 436    cfb          2702           WNE         Western New England Golden Bears
-#> 437    cfb          2703          WNMU              Western New Mexico Mustangs
-#> 438    cfb          2704          WTAM                     West Texas Buffaloes
-#> 439    cfb          2706          WVUT                    WVU Tech Golden Bears
-#> 440    cfb          2707          WVSU       West Virginia State Yellow Jackets
-#> 441    cfb           271           UWO                 Wisconsin Oshkosh Titans
-#> 442    cfb          2710           WIU            Western Illinois Leathernecks
-#> 443    cfb          2711           WMU                 Western Michigan Broncos
-#> 444    cfb          2714          WCOL            Western Colorado Mountaineers
-#> 445    cfb          2717           WCU              Western Carolina Catamounts
-#> 446    cfb           272           UWP           Wisconsin Platteville Pioneers
-#> 447    cfb          2721          WHIW                        Whitworth Pirates
-#> 448    cfb          2723          UWRF            Wisconsin River Falls Falcons
-#> 449    cfb          2725          WIDE                            Widener Pride
-#> 450    cfb          2729           W&M                     William & Mary Tribe
-#> 451    cfb          2731           WLM                            Williams Ephs
-#> 452    cfb          2733          WCOH         Wilmington (OH) Fightin' Quakers
-#> 453    cfb          2736          WSSU                 Winston-Salem State Rams
-#> 454    cfb          2738          UWEC            Wisconsin Eau Claire Blugolds
-#> 455    cfb           274          UMMA                  Maine Maritime Mariners
-#> 456    cfb          2740           UWL               Wisconsin La Crosse Eagles
-#> 457    cfb          2741           WLC              Wisconsin Lutheran Warriors
-#> 458    cfb          2743          UWSP         Wisconsin Stevens Point Pointers
-#> 459    cfb          2744          UWST              Wisconsin Stout Blue Devils
-#> 460    cfb          2745           UWW            Wisconsin Whitewater Warhawks
-#> 461    cfb          2746          WITT                        Wittenberg Tigers
-#> 462    cfb          2747           WOF                         Wofford Terriers
-#> 463    cfb          2748           WOO                   Wooster Fighting Scots
-#> 464    cfb          2749           WPI                            WPI Engineers
-#> 465    cfb           275           WIS                        Wisconsin Badgers
-#> 466    cfb          2751           WYO                          Wyoming Cowboys
-#> 467    cfb          2754           YSU                Youngstown State Penguins
-#> 468    cfb          2755          GRAM                         Grambling Tigers
-#> 469    cfb          2757          BERR                            Berry Vikings
-#> 470    cfb          2758          HWPU              Howard Payne Yellow Jackets
-#> 471    cfb           276          MRSH                 Marshall Thundering Herd
-#> 472    cfb           277           WVU               West Virginia Mountaineers
-#> 473    cfb          2771          MRMK                       Merrimack Warriors
-#> 474    cfb          2776          SALV                    Salve Regina Seahawks
-#> 475    cfb          2779           USL                      St. Lawrence Saints
-#> 476    cfb           278          FRES                    Fresno State Bulldogs
-#> 477    cfb          2781           BRO                  Brockport Golden Eagles
-#> 478    cfb          2782          NYCL                SUNY Cortland Red Dragons
-#> 479    cfb          2790          ALBI                           Albion Britons
-#> 480    cfb          2800          ALMA                               Alma Scots
-#> 481    cfb          2802          BUMN                       Bethel (MN) Royals
-#> 482    cfb          2803           BRY                          Bryant Bulldogs
-#> 483    cfb          2804          CWAN                             Chowan Hawks
-#> 484    cfb          2805          CKGA                   Clark Atlanta Panthers
-#> 485    cfb          2808           DVU                   Delaware Valley Aggies
-#> 486    cfb          2810           HSU                   Hardin Simmons Cowboys
-#> 487    cfb          2812          HOPE                     Hope Flying Dutchmen
-#> 488    cfb          2815           LIN                         Lindenwood Lions
-#> 489    cfb          2816           MCK                       McKendree Bearcats
-#> 490    cfb          2817          MSUM            Minnesota St Moorhead Dragons
-#> 491    cfb          2818          MCST                Montclair State Red Hawks
-#> 492    cfb           282          INST                  Indiana State Sycamores
-#> 493    cfb          2822           NGU            North Greenville Trailblazers
-#> 494    cfb          2823          NWOK                Northwestern (OK) Rangers
-#> 495    cfb          2824          OPSU                Oklahoma Panhandle Aggies
-#> 496    cfb          2825           QUI                             Quincy Hawks
-#> 497    cfb          2827           ROW                              Rowan Profs
-#> 498    cfb          2828          SHEN                       Shenandoah Hornets
-#> 499    cfb          2830          SANS                       Saint Anselm Hawks
-#> 500    cfb          2832          STNC                St. Norbert Green Knights
-#> 501    cfb          2834          SRST                     Sul Ross State Lobos
-#> 502    cfb          2837          ETAM                     East Texas A&M Lions
-#> 503    cfb          2838          TIFF                           Tiffin Dragons
-#> 504    cfb          2839          TUSC                        Tusculum Pioneers
-#> 505    cfb           284           STO                       Stonehill Skyhawks
-#> 506    cfb          2842          UVAW                       UVA Wise Cavaliers
-#> 507    cfb          2843          WCSU         Western Connecticut State Wolves
-#> 508    cfb          2844          WSNE                Wayne State (NE) Wildcats
-#> 509    cfb          2845          WAYN                Waynesburg Yellow Jackets
-#> 510    cfb          2848          WORU                    Western Oregon Wolves
-#> 511    cfb          2849          WCPA                  Westminster (PA) Titans
-#> 512    cfb          2850          WHTR                           Whittier Poets
-#> 513    cfb          2851          WNST                    Winona State Warriors
-#> 514    cfb          2858          CAPA                  California (PA) Vulcans
-#> 515    cfb           286           NCW North Carolina Wesleyan Battling Bishops
-#> 516    cfb          2871          KEAN                             Kean Cougars
-#> 517    cfb          2876          LNMO                 Lincoln (MO) Blue Tigers
-#> 518    cfb          2880          MOBU                Missouri Baptist Spartans
-#> 519    cfb          2882          UNCP                      UNC Pembroke Braves
-#> 520    cfb          2884          NICC                            Nichols Bison
-#> 521    cfb          2886           NWD                   Northwood Timberwolves
-#> 522    cfb          2888           OBU                  Ouachita Baptist Tigers
-#> 523    cfb          2891           RIP                          Ripon Red Hawks
-#> 524    cfb          2894           SFU                      Sioux Falls Cougars
-#> 525    cfb          2896          SOVA                Southern Virginia Knights
-#> 526    cfb            29          REDL                        Redlands Bulldogs
-#> 527    cfb           290          GASO                  Georgia Southern Eagles
-#> 528    cfb          2900          STMN                       St. Thomas Tommies
-#> 529    cfb          2909          WFST                     Westfield State Owls
-#> 530    cfb           291            MU                       Methodist Monarchs
-#> 531    cfb          2911           WJC                 William Jewell Cardinals
-#> 532    cfb          2912          WPEN                   William Penn Statesmen
-#> 533    cfb          2913           BRE                         Brevard Tornados
-#> 534    cfb          2916           UIW                 Incarnate Word Cardinals
-#> 535    cfb          2919          MNIL             Monmouth (IL) Fighting Scots
-#> 536    cfb           292           RGV            UT Rio Grande Valley Vaqueros
-#> 537    cfb          2923          POPI                   Pomona Pitzer Sagehens
-#> 538    cfb          2927          SOSU     Southwestern Oklahoma State Bulldogs
-#> 539    cfb           293          VTSC         Vermont State Castleton Spartans
-#> 540    cfb          2930          WLMT                      Willamette Bearcats
-#> 541    cfb          2938          HNTC                         Huntingdon Hawks
-#> 542    cfb          2940           LIV                   Livingstone Blue Bears
-#> 543    cfb           295           ODU                    Old Dominion Monarchs
-#> 544    cfb          2951          NYMT                 SUNY Maritime Privateers
-#> 545    cfb          2963          CWRU            Case Western Reserve Spartans
-#> 546    cfb          2964          CNTC                    Central College Dutch
-#> 547    cfb          2967          FRSU                    Framingham State Rams
-#> 548    cfb          2968           GAC         Gustavus Adolphus Golden Gusties
-#> 549    cfb          2969          MISE                     Misericordia Cougars
-#> 550    cfb           297           HSC                    Hampden Sydney Tigers
-#> 551    cfb          2970           WPU                William Paterson Pioneers
-#> 552    cfb          2972          PLYM                  Plymouth State Panthers
-#> 553    cfb          2974          SHEP                            Shepherd Rams
-#> 554    cfb          2977          TCCT                     Trinity (CT) Bantams
-#> 555    cfb          2980           OWU           Ohio Wesleyan Battling Bishops
-#> 556    cfb          2986          FMSU                   Fairmont State Falcons
-#> 557    cfb            30           USC                              USC Trojans
-#> 558    cfb           301           USD                        San Diego Toreros
-#> 559    cfb           302           UCD                          UC Davis Aggies
-#> 560    cfb           304          IDST                      Idaho State Bengals
-#> 561    cfb           306          ILWU                 Illinois Wesleyan Titans
-#> 562    cfb          3066           CSP          Concordia St. Paul Golden Bears
-#> 563    cfb          3071           NCC          North Central College Cardinals
-#> 564    cfb           308           ASH                           Ashland Eagles
-#> 565    cfb           309            UL                  Louisiana Ragin' Cajuns
-#> 566    cfb          3101           UTU                   Utah Tech Trailblazers
-#> 567    cfb           311            ME                        Maine Black Bears
-#> 568    cfb          3110          NYMS                SUNY Morrisville Mustangs
-#> 569    cfb          3112           CNU             Christopher Newport Captains
-#> 570    cfb          3162          AFST                    Alfred State Pioneers
-#> 571    cfb           317          MRTT                        Marietta Pioneers
-#> 572    cfb           319          OKBU                   Oklahoma Baptist Bison
-#> 573    cfb            32           CRU                    Carroll (WI) Pioneers
-#> 574    cfb           322           LAF                       Lafayette Leopards
-#> 575    cfb           323           MOR                      Moravian Greyhounds
-#> 576    cfb          3237          HVCC                             Troy Vikings
-#> 577    cfb           324           CCU            Coastal Carolina Chanticleers
-#> 578    cfb          3253         COLLE                         Charlotte Saints
-#> 579    cfb           326          TXST                      Texas State Bobcats
-#> 580    cfb           328           USU                        Utah State Aggies
-#> 581    cfb            33          CLBY                        Colby White Mules
-#> 582    cfb           330           VSU                   Virginia State Trojans
-#> 583    cfb           331           EWU                Eastern Washington Eagles
-#> 584    cfb           332           MSK               Muskingum Fighting Muskies
-#> 585    cfb           333           ALA                     Alabama Crimson Tide
-#> 586    cfb           336          WSCT                  Wesleyan (CT) Cardinals
-#> 587    cfb           338          KENN                      Kennesaw State Owls
-#> 588    cfb           340           BOW                      Bowdoin Polar Bears
-#> 589    cfb           341          FSTU                  Frostburg State Bobcats
-#> 590    cfb           344          MSST               Mississippi State Bulldogs
-#> 591    cfb           348           HAM                    Hamilton Continentals
-#> 592    cfb           349          ARMY                       Army Black Knights
-#> 593    cfb           351          WINU                         Wingate Bulldogs
-#> 594    cfb           352           KNY                              Kenyon Owls
-#> 595    cfb           354           UOO                            Olivet Comets
-#> 596    cfb           356           ILL                 Illinois Fighting Illini
-#> 597    cfb           359          OTTB                      Otterbein Cardinals
-#> 598    cfb            36           CSU                      Colorado State Rams
-#> 599    cfb           365          ALFR                            Alfred Saxons
-#> 600    cfb           366            FC                          Ferrum Panthers
-#> 601    cfb           367          GANN                    Gannon Golden Knights
-#> 602    cfb           374          STJF                St. John Fisher Cardinals
-#> 603    cfb           375           CSS                   St. Scholastica Saints
-#> 604    cfb           379          MDAR                 UMass Dartmouth Corsairs
-#> 605    cfb            38          COLO                       Colorado Buffaloes
-#> 606    cfb           386          TUTX                      Trinity (TX) Tigers
-#> 607    cfb           388           LVC           Lebanon Valley Flying Dutchmen
-#> 608    cfb           389           UIU                      Upper Iowa Peacocks
-#> 609    cfb           390          UTIC                           Utica Pioneers
-#> 610    cfb           391           OBE                           Oberlin Yeomen
-#> 611    cfb           396          WCIL                     Wheaton (IL) Thunder
-#> 612    cfb           398          WILK                          Wilkes Colonels
-#> 613    cfb           399          UALB                      UAlbany Great Danes
-#> 614    cfb            40            CC                           Curry Colonels
-#> 615    cfb           402          WORC                  Worcester State Lancers
-#> 616    cfb           409           CUW                   Concordia (WI) Falcons
-#> 617    cfb            41          CONN                            UConn Huskies
-#> 618    cfb           411          CHAP                         Chapman Panthers
-#> 619    cfb           415           GFU                        George Fox Bruins
-#> 620    cfb           417          GLDT                          Gallaudet Bison
-#> 621    cfb           418           HDX                         Hendrix Warriors
-#> 622    cfb           424          CAPU                           Capital Comets
-#> 623    cfb           425           NSU                    Northern State Wolves
-#> 624    cfb           426           UMU               Mount Union Purple Raiders
-#> 625    cfb           427          OHNU                Ohio Northern Polar Bears
-#> 626    cfb            43          YALE                            Yale Bulldogs
-#> 627    cfb           433          WCMO               Westminster (MO) Blue Jays
-#> 628    cfb           437          LKER                          Lake Erie Storm
-#> 629    cfb           446           MLC                    Martin Luther Knights
-#> 630    cfb           452          ENDC                           Endicott Gulls
-#> 631    cfb           455          WVWC           West Virginia Wesleyan Bobcats
-#> 632    cfb            46          GTWN                         Georgetown Hoyas
-#> 633    cfb            47           HOW                             Howard Bison
-#> 634    cfb           471          STVS                       Stevenson Mustangs
-#> 635    cfb            48           DEL                       Delaware Blue Hens
-#> 636    cfb            49           DBQ                         Dubuque Spartans
-#> 637    cfb           490           BEN                          Benedict Tigers
-#> 638    cfb             5           UAB                              UAB Blazers
-#> 639    cfb            50          FAMU                     Florida A&M Rattlers
-#> 640    cfb           509          CRWN                             Crown Polars
-#> 641    cfb           512         DAKOT          Dakota State University Trojans
-#> 642    cfb            52           FSU                  Florida State Seminoles
-#> 643    cfb           530           GRC           Graceland University Graceland
-#> 644    cfb           548           LGC                        LaGrange Panthers
-#> 645    cfb            55          JXST             Jacksonville State Gamecocks
-#> 646    cfb           559          MARY             University of Mary Marauders
-#> 647    cfb            56          STET                          Stetson Hatters
-#> 648    cfb           568          MINS                      Minot State Beavers
-#> 649    cfb            57           FLA                           Florida Gators
-#> 650    cfb            58           USF                      South Florida Bulls
-#> 651    cfb           583           UNW                 Northwestern (MN) Eagles
-#> 652    cfb            59            GT              Georgia Tech Yellow Jackets
-#> 653    cfb             6           USA                    South Alabama Jaguars
-#> 654    cfb            60          MRHO                  Morehouse Maroon Tigers
-#> 655    cfb            61           UGA                         Georgia Bulldogs
-#> 656    cfb           611          SEHI                      Seton Hill Griffins
-#> 657    cfb           613          SDMT           South Dakota Mines Hardrockers
-#> 658    cfb            62           HAW                 Hawai'i Rainbow Warriors
-#> 659    cfb            63           BVU                      Buena Vista Beavers
-#> 660    cfb          6353          LKLD                         Lakeland Muskies
-#> 661    cfb            65          GRNL                        Grinnell Pioneers
-#> 662    cfb            66           ISU                      Iowa State Cyclones
-#> 663    cfb            67          LUTH                             Luther Norse
-#> 664    cfb            68          BOIS                      Boise State Broncos
-#> 665    cfb          6845           NWU         Nebraska Wesleyan Prairie Wolves
-#> 666    cfb             7           AMH                         Amherst Mammoths
-#> 667    cfb            70          IDHO                            Idaho Vandals
-#> 668    cfb            72          ELMH                        Elmhurst Bluejays
-#> 669    cfb            74          MILK                        Millikin Big Blue
-#> 670    cfb            75           NPU                       North Park Vikings
-#> 671    cfb            77            NU                    Northwestern Wildcats
-#> 672    cfb            79           SIU                Southern Illinois Salukis
-#> 673    cfb             8           ARK                      Arkansas Razorbacks
-#> 674    cfb            80           CHI                          Chicago Maroons
-#> 675    cfb            81           SPR                        Springfield Pride
-#> 676    cfb            83           DPU                            DePauw Tigers
-#> 677    cfb            84            IU                         Indiana Hoosiers
-#> 678    cfb            86          RHIT           Rose Hulman Fightin' Engineers
-#> 679    cfb            87            ND                Notre Dame Fighting Irish
-#> 680    cfb            89           WAB                     Wabash Little Giants
-#> 681    cfb             9           ASU                 Arizona State Sun Devils
-#> 682    cfb            90          PTSU                 Pittsburg State Gorillas
-#> 683    cfb            93           MUR                      Murray State Racers
-#> 684    cfb            96            UK                        Kentucky Wildcats
-#> 685    cfb            97           LOU                     Louisville Cardinals
-#> 686    cfb            98           WKU             Western Kentucky Hilltoppers
-#> 687    cfb            99           LSU                               LSU Tigers
-#> 688    cfb           AAC           AAC                      American Conference
-#> 689    cfb           ACC           ACC                Atlantic Coast Conference
-#> 690    cfb        Big 12        Big 12                        Big 12 Conference
-#> 691    cfb       Big Sky       Big Sky                       Big Sky Conference
-#> 692    cfb       Big Ten       Big Ten                       Big Ten Conference
-#> 693    cfb           CAA           CAA             Coastal Athletic Association
-#> 694    cfb          CUSA          CUSA                           Conference USA
-#> 695    cfb    FBS Indep.    FBS Indep.                         FBS Independents
-#> 696    cfb    FCS Indep.    FCS Indep.                         FCS Independents
-#> 697    cfb           Ivy           Ivy                               Ivy League
-#> 698    cfb           MAC           MAC                  Mid-American Conference
-#> 699    cfb          MEAC          MEAC          Mid-Eastern Athletic Conference
-#> 700    cfb          MVFC          MVFC      Missouri Valley Football Conference
-#> 701    cfb Mountain West Mountain West                 Mountain West Conference
-#> 702    cfb           NEC           NEC                     Northeast Conference
-#> 703    cfb           OVC           OVC                   Ohio Valley Conference
-#> 704    cfb        Pac-12        Pac-12                        Pac-12 Conference
-#> 705    cfb       Patriot       Patriot                           Patriot League
-#> 706    cfb       Pioneer       Pioneer                  Pioneer Football League
-#> 707    cfb           SEC           SEC                  Southeastern Conference
-#> 708    cfb          SWAC          SWAC         Southwestern Athletic Conference
-#> 709    cfb         SoCon         SoCon                      Southern Conference
-#> 710    cfb     Southland     Southland                     Southland Conference
-#> 711    cfb      Sun Belt      Sun Belt                      Sun Belt Conference
-#> 712    cfb           WAC           WAC              Western Athletic Conference
-#>           short_name                    location    program
-#> 1             Eureka                      Eureka   football
-#> 2     Centenary (LA)              Centenary (LA)   football
-#> 3            Erskine                     Erskine   football
-#> 4     Boston College              Boston College   football
-#> 5         Holy Cross                  Holy Cross   football
-#> 6            Harvard                     Harvard   football
-#> 7                MIT                         MIT   football
-#> 8      Colorado Mesa               Colorado Mesa   football
-#> 9      Mass Maritime               Mass Maritime   football
-#> 10      West Florida                West Florida   football
-#> 11    UT Prmian Basn            UT Permian Basin   football
-#> 12              Dean                        Dean   football
-#> 13        St Andrews                 St. Andrews   football
-#> 14          Alvernia                    Alvernia   football
-#> 15       New England                 New England   football
-#> 16             Tufts                       Tufts   football
-#> 17   Franklin Pierce             Franklin Pierce   football
-#> 18          Wheeling                    Wheeling   football
-#> 19             UMass               Massachusetts   football
-#> 20      Fitchburg St             Fitchburg State   football
-#> 21     Johns Hopkins               Johns Hopkins   football
-#> 22            Towson                      Towson   football
-#> 23           Arizona                     Arizona   football
-#> 24          Maryland                    Maryland   football
-#> 25             Bates                       Bates   football
-#> 26            Barton                      Barton   football
-#> 27          Keystone                    Keystone   football
-#> 28        N American              North American   football
-#> 29          Augsburg                    Augsburg   football
-#> 30      Lincoln (CA)                Lincoln (CA)   football
-#> 31      Bluefield St             Bluefield State   football
-#> 32      Grand Val St          Grand Valley State   football
-#> 33           Hilbert                     Hilbert   football
-#> 34         Kalamazoo                   Kalamazoo   football
-#> 35              Post                        Post   football
-#> 36       Michigan St              Michigan State   football
-#> 37           Eastern                     Eastern   football
-#> 38        N Michigan           Northern Michigan   football
-#> 39    Saginaw Valley        Saginaw Valley State   football
-#> 40     Anderson (SC)               Anderson (SC)   football
-#> 41            Calvin                      Calvin   football
-#> 42          Cal Poly                    Cal Poly   football
-#> 43          Michigan                    Michigan   football
-#> 44     Wayne St (MI)            Wayne State (MI)   football
-#> 45        Bemidji St               Bemidji State   football
-#> 46           St Olaf                    St. Olaf   football
-#> 47       Minn Duluth            Minnesota Duluth   football
-#> 48         Minnesota                   Minnesota   football
-#> 49        MO Western            Missouri Western   football
-#> 50    NW Missouri St    Northwest Missouri State   football
-#> 51          Missouri                    Missouri   football
-#> 52     Wash St Louis        Washington St. Louis   football
-#> 53          Ole Miss                    Ole Miss   football
-#> 54        Grove City                  Grove City   football
-#> 55        Montana St               Montana State   football
-#> 56           Montana                     Montana   football
-#> 57              Duke                        Duke   football
-#> 58     East Carolina               East Carolina   football
-#> 59          NC State                    NC State   football
-#> 60    North Carolina              North Carolina   football
-#> 61       Wake Forest                 Wake Forest   football
-#> 62      North Dakota                North Dakota   football
-#> 63          Nebraska                    Nebraska   football
-#> 64         Dartmouth                   Dartmouth   football
-#> 65     Sacramento St            Sacramento State   football
-#> 66     New Hampshire               New Hampshire   football
-#> 67           Hamline                     Hamline   football
-#> 68         Princeton                   Princeton   football
-#> 69           Rutgers                     Rutgers   football
-#> 70     New Mexico St            New Mexico State   football
-#> 71        New Mexico                  New Mexico   football
-#> 72     Claremont-M-S      Claremont Mudd Scripps   football
-#> 73          Columbia                    Columbia   football
-#> 74           Cornell                     Cornell   football
-#> 75          Hartwick                    Hartwick   football
-#> 76            Hobart                      Hobart   football
-#> 77            Ithaca                      Ithaca   football
-#> 78    Bridgewater St           Bridgewater State   football
-#> 79          Syracuse                    Syracuse   football
-#> 80    Rochester (NY)              Rochester (NY)   football
-#> 81      Baldwin Wall             Baldwin Wallace   football
-#> 82     Bowling Green               Bowling Green   football
-#> 83          Defiance            Defiance College   football
-#> 84        Heidelberg                  Heidelberg   football
-#> 85          Miami OH                  Miami (OH)   football
-#> 86        Ohio State                  Ohio State   football
-#> 87              Ohio                        Ohio   football
-#> 88          NE State          Northeastern State   football
-#> 89       Oklahoma St              Oklahoma State   football
-#> 90    SE Oklahoma St Southeastern Oklahoma State   football
-#> 91            Auburn                      Auburn   football
-#> 92        S Nazarene           Southern Nazarene   football
-#> 93    Abilene Chrstn           Abilene Christian   football
-#> 94          Adams St                 Adams State   football
-#> 95            Adrian                      Adrian   football
-#> 96         Air Force                   Air Force   football
-#> 97             Akron                       Akron   football
-#> 98          Oklahoma                    Oklahoma   football
-#> 99       Alabama A&M                 Alabama A&M   football
-#> 100       Alabama St               Alabama State   football
-#> 101        Albany St                Albany State   football
-#> 102         Albright                    Albright   football
-#> 103        Alcorn St                Alcorn State   football
-#> 104        Allegheny                   Allegheny   football
-#> 105            Allen                       Allen   football
-#> 106            Tulsa                       Tulsa   football
-#> 107   American Int'l      American International   football
-#> 108    Anderson (IN)               Anderson (IN)   football
-#> 109        Angelo St                Angelo State   football
-#> 110        App State                   App State   football
-#> 111    UA Monticello         Arkansas Monticello   football
-#> 112    AR-Pine Bluff         Arkansas-Pine Bluff   football
-#> 113         Linfield                    Linfield   football
-#> 114      Arkansas St              Arkansas State   football
-#> 115    Arkansas Tech               Arkansas Tech   football
-#> 116       Assumption                  Assumption   football
-#> 117        Oregon St                Oregon State   football
-#> 118   Augustana (IL)              Augustana (IL)   football
-#> 119   Augustana (SD)              Augustana (SD)   football
-#> 120           Aurora                      Aurora   football
-#> 121           Austin                      Austin   football
-#> 122      Austin Peay                 Austin Peay   football
-#> 123          Averett                     Averett   football
-#> 124    Azusa Pacific               Azusa Pacific   football
-#> 125     Pacific (OR)                Pacific (OR)   football
-#> 126       Ball State                  Ball State   football
-#> 127         Belhaven                    Belhaven   football
-#> 128          Bentley                     Bentley   football
-#> 129     Bethany (WV)                Bethany (WV)   football
-#> 130      Bethel (TN)                 Bethel (TN)   football
-#> 131          Bethune             Bethune-Cookman   football
-#> 132   Black Hills St           Black Hills State   football
-#> 133       Bloomsburg                  Bloomsburg   football
-#> 134         Bluffton                    Bluffton   football
-#> 135         Bowie St                 Bowie State   football
-#> 136      Bridgewater                 Bridgewater   football
-#> 137         Bucknell                    Bucknell   football
-#> 138          Buffalo                     Buffalo   football
-#> 139       Buffalo St               Buffalo State   football
-#> 140           Butler                      Butler   football
-#> 141       Lock Haven                  Lock Haven   football
-#> 142     Cal Lutheran                Cal Lutheran   football
-#> 143         Campbell                    Campbell   football
-#> 144     San Diego St             San Diego State   football
-#> 145     Millersville                Millersville   football
-#> 146         Carleton                    Carleton   football
-#> 147      Carn Mellon             Carnegie Mellon   football
-#> 148    Carson Newman               Carson Newman   football
-#> 149         Carthage                    Carthage   football
-#> 150          Catawba                     Catawba   football
-#> 151         Catholic                    Catholic   football
-#> 152       C Arkansas            Central Arkansas   football
-#> 153    C Connecticut         Central Connecticut   football
-#> 154              UCF                         UCF   football
-#> 155       C Michigan            Central Michigan   football
-#> 156       C Missouri            Central Missouri   football
-#> 157       Central St               Central State   football
-#> 158     C Washington          Central Washington   football
-#> 159           Centre                      Centre   football
-#> 160       C Oklahoma            Central Oklahoma   football
-#> 161       Chadron St               Chadron State   football
-#> 162    Charleston So         Charleston Southern   football
-#> 163    Charleston WV             Charleston (WV)   football
-#> 164       Penn State                  Penn State   football
-#> 165       Chicago St               Chicago State   football
-#> 166       Cincinnati                  Cincinnati   football
-#> 167          Clarion                     Clarion   football
-#> 168              Coe                         Coe   football
-#> 169          Colgate                     Colgate   football
-#> 170   Colorado Mines    Colorado School of Mines   football
-#> 171          Concord                     Concord   football
-#> 172    Slippery Rock               Slippery Rock   football
-#> 173    Concordia Chi           Concordia Chicago   football
-#> 174   Concordia (MN)              Concordia (MN)   football
-#> 175     Cornell (IA)                Cornell (IA)   football
-#> 176      Susquehanna                 Susquehanna   football
-#> 177         Davidson                    Davidson   football
-#> 178           Dayton                      Dayton   football
-#> 179      Delaware St              Delaware State   football
-#> 180         Delta St                 Delta State   football
-#> 181          Denison                     Denison   football
-#> 182        Dickinson                   Dickinson   football
-#> 183           Temple                      Temple   football
-#> 184            Drake                       Drake   football
-#> 185         Duquesne                    Duquesne   football
-#> 186    E Stroudsburg            East Stroudsburg   football
-#> 187             Penn                Pennsylvania   football
-#> 188     East Central                East Central   football
-#> 189             ETSU        East Tennessee State   football
-#> 190     E TX Baptist          East Texas Baptist   football
-#> 191       E Illinois            Eastern Illinois   football
-#> 192       E Kentucky            Eastern Kentucky   football
-#> 193       E Michigan            Eastern Michigan   football
-#> 194       Eastern NM          Eastern New Mexico   football
-#> 195         E Oregon              Eastern Oregon   football
-#> 196         Edinboro                    Edinboro   football
-#> 197    Edward Waters               Edward Waters   football
-#> 198   Elizabeth City        Elizabeth City State   football
-#> 199             Pitt                  Pittsburgh   football
-#> 200             Elon                        Elon   football
-#> 201    Emory & Henry               Emory & Henry   football
-#> 202       Emporia St               Emporia State   football
-#> 203        Villanova                   Villanova   football
-#> 204     Fay'ville St          Fayetteville State   football
-#> 205      FDU Florham                 FDU Florham   football
-#> 206        Ferris St                Ferris State   football
-#> 207          Findlay                     Findlay   football
-#> 208              FAU            Florida Atlantic   football
-#> 209              FIU       Florida International   football
-#> 210     West Chester                West Chester   football
-#> 211          Fordham                     Fordham   football
-#> 212        Fort Hays                   Fort Hays   football
-#> 213   Fort Valley St           Fort Valley State   football
-#> 214         Franklin                    Franklin   football
-#> 215   Franklin Marsh         Franklin & Marshall   football
-#> 216       Fort Lewis                  Fort Lewis   football
-#> 217     Gardner-Webb                Gardner-Webb   football
-#> 218           Geneva                      Geneva   football
-#> 219     George Mason     George Mason University   football
-#> 220    Georgetown KY             Georgetown (KY)   football
-#> 221       Georgia St               Georgia State   football
-#> 222       Gettysburg                  Gettysburg   football
-#> 223     Glenville St             Glenville State   football
-#> 224            Brown                       Brown   football
-#> 225       Grand View                  Des Moines   football
-#> 226       Greensboro                  Greensboro   football
-#> 227       Greenville                  Greenville   football
-#> 228         Guilford                    Guilford   football
-#> 229          Hampton                     Hampton   football
-#> 230          Hanover                     Hanover   football
-#> 231          Harding                     Harding   football
-#> 232     Rhode Island                Rhode Island   football
-#> 233     Henderson St             Henderson State   football
-#> 234        Hillsdale                   Hillsdale   football
-#> 235            Hiram                       Hiram   football
-#> 236    Hou Christian           Houston Christian   football
-#> 237          Clemson                     Clemson   football
-#> 238           Husson                      Husson   football
-#> 239   Benedictine IL            Benedictine (IL)   football
-#> 240     Illinois Col            Illinois College   football
-#> 241      Illinois St              Illinois State   football
-#> 242          IU Penn             IU Pennsylvania   football
-#> 243     Indianapolis                Indianapolis   football
-#> 244             Iowa                        Iowa   football
-#> 245       Jackson St               Jackson State   football
-#> 246      San José St              San José State   football
-#> 247     John Carroll                John Carroll   football
-#> 248   Johnson C Smth            Johnson C. Smith   football
-#> 249           Kansas                      Kansas   football
-#> 250        Kansas St                Kansas State   football
-#> 251       Kent State                  Kent State   football
-#> 252           Furman                      Furman   football
-#> 253      Kentucky St              Kentucky State   football
-#> 254         Kutztown                    Kutztown   football
-#> 255      KY Wesleyan           Kentucky Wesleyan   football
-#> 256         La Verne                    La Verne   football
-#> 257            Lamar                       Lamar   football
-#> 258     Lane College                Lane College   football
-#> 259         Langston                    Langston   football
-#> 260           Lehigh                      Lehigh   football
-#> 261     South Dakota                South Dakota   football
-#> 262     Lenoir Rhyne                Lenoir Rhyne   football
-#> 263    Lewis & Clark               Lewis & Clark   football
-#> 264          Liberty                     Liberty   football
-#> 265     Lincoln (PA)                Lincoln (PA)   football
-#> 266      Long Island      Long Island University   football
-#> 267   Louisiana Tech              Louisiana Tech   football
-#> 268          Memphis                     Memphis   football
-#> 269         Lycoming                    Lycoming   football
-#> 270       Macalester                  Macalester   football
-#> 271      Chattanooga                 Chattanooga   football
-#> 272       Manchester                  Manchester   football
-#> 273     Minnesota St             Minnesota State   football
-#> 274        Mansfield                   Mansfield   football
-#> 275           Marist                      Marist   football
-#> 276        Mars Hill                   Mars Hill   football
-#> 277            Union                       Union   football
-#> 278      Mary Hardin          Mary Hardin Baylor   football
-#> 279   Maryville (TN)              Maryville (TN)   football
-#> 280          McNeese                     McNeese   football
-#> 281       Vanderbilt                  Vanderbilt   football
-#> 282           Mercer                      Mercer   football
-#> 283     Merch Marine             Merchant Marine   football
-#> 284       Mercyhurst                  Mercyhurst   football
-#> 285           Baylor                      Baylor   football
-#> 286            Miami                       Miami   football
-#> 287    Michigan Tech               Michigan Tech   football
-#> 288             MTSU            Middle Tennessee   football
-#> 289       Middlebury                  Middlebury   football
-#> 290            Miles                       Miles   football
-#> 291         Millsaps                    Millsaps   football
-#> 292      Minn Morris            Minnesota Morris   football
-#> 293         Stanford                    Stanford   football
-#> 294   Miss Valley St    Mississippi Valley State   football
-#> 295     Missouri S&T                Missouri S&T   football
-#> 296   Missouri So St     Missouri Southern State   football
-#> 297         Monmouth                    Monmouth   football
-#> 298          McMurry                     McMurry   football
-#> 299      Morehead St              Morehead State   football
-#> 300        Morgan St                Morgan State   football
-#> 301      Morningside                 Morningside   football
-#> 302     Mt St Joseph             Mount St Joseph   football
-#> 303             Rice                        Rice   football
-#> 304       Muhlenberg                  Muhlenberg   football
-#> 305     NM Highlands        New Mexico Highlands   football
-#> 306             Navy                        Navy   football
-#> 307       NC Central      North Carolina Central   football
-#> 308        Charlotte                   Charlotte   football
-#> 309        UL Monroe                   UL Monroe   football
-#> 310       NE Kearney            Nebraska Kearney   football
-#> 311             UNLV                        UNLV   football
-#> 312           Nevada                      Nevada   football
-#> 313        New Haven                   New Haven   football
-#> 314    College of NJ   The College of New Jersey   football
-#> 315         Newberry                    Newberry   football
-#> 316         Nicholls                    Nicholls   football
-#> 317           NC A&T          North Carolina A&T   football
-#> 318      N Dakota St          North Dakota State   football
-#> 319        Texas A&M                   Texas A&M   football
-#> 320       Norfolk St               Norfolk State   football
-#> 321    North Alabama               North Alabama   football
-#> 322       N Colorado           Northern Colorado   football
-#> 323       N Illinois           Northern Illinois   football
-#> 324          Juniata                     Juniata   football
-#> 325    Northern Iowa               Northern Iowa   football
-#> 326        N Arizona            Northern Arizona   football
-#> 327     N'Western St          Northwestern State   football
-#> 328          Norwich                     Norwich   football
-#> 329           King's                      King's   football
-#> 330   Ohio Dominican              Ohio Dominican   football
-#> 331          Houston                     Houston   football
-#> 332           Oregon                      Oregon   football
-#> 333     Pac Lutheran            Pacific Lutheran   football
-#> 334             Pace                        Pace   football
-#> 335      North Texas                 North Texas   football
-#> 336       California                  California   football
-#> 337      Portland St              Portland State   football
-#> 338     Prairie View            Prairie View A&M   football
-#> 339     Presbyterian                Presbyterian   football
-#> 340      Puget Sound                 Puget Sound   football
-#> 341           Purdue                      Purdue   football
-#> 342            Texas                       Texas   football
-#> 343   Randolph Macon              Randolph Macon   football
-#> 344           Rhodes                      Rhodes   football
-#> 345              BYU                         BYU   football
-#> 346    Robert Morris               Robert Morris   football
-#> 347         Rockford                    Rockford   football
-#> 348       Rensselaer                  Rensselaer   football
-#> 349     Sacred Heart                Sacred Heart   football
-#> 350    Southern Utah               Southern Utah   football
-#> 351        Salisbury                   Salisbury   football
-#> 352      Sam Houston                 Sam Houston   football
-#> 353          Samford                     Samford   football
-#> 354             Utah                        Utah   football
-#> 355      Savannah St              Savannah State   football
-#> 356     SE Louisiana                SE Louisiana   football
-#> 357      SE Missouri    Southeast Missouri State   football
-#> 358             Knox                        Knox   football
-#> 359             Shaw                        Shaw   football
-#> 360          Sewanee                     Sewanee   football
-#> 361      Coast Guard                 Coast Guard   football
-#> 362     Shippensburg                Shippensburg   football
-#> 363    James Madison               James Madison   football
-#> 364          Shorter                     Shorter   football
-#> 365     Simpson (IA)                Simpson (IA)   football
-#> 366              SMU                         SMU   football
-#> 367       S Arkansas           Southern Arkansas   football
-#> 368         SC State        South Carolina State   football
-#> 369         Richmond                    Richmond   football
-#> 370       CSU Pueblo                  CSU Pueblo   football
-#> 371      S Dakota St          South Dakota State   football
-#> 372    Southern Miss               Southern Miss   football
-#> 373   South Carolina              South Carolina   football
-#> 374         Virginia                    Virginia   football
-#> 375         Southern                    Southern   football
-#> 376        S Conn St  Southern Connecticut State   football
-#> 377         S Oregon             Southern Oregon   football
-#> 378       SW Baptist           Southwest Baptist   football
-#> 379       SW Minn St   Southwest Minnesota State   football
-#> 380     Southwestern              Southwestern U   football
-#> 381    Virginia Tech               Virginia Tech   football
-#> 382       St Ambrose                 St. Ambrose   football
-#> 383    St Francis IL            St. Francis (IL)   football
-#> 384    Saint Francis               Saint Francis   football
-#> 385             UCLA                        UCLA   football
-#> 386    St Johns (MN)           Saint John's (MN)   football
-#> 387    Saint Vincent               Saint Vincent   football
-#> 388        SF Austin           Stephen F. Austin   football
-#> 389      Stony Brook                 Stony Brook   football
-#> 390      Lake Forest                 Lake Forest   football
-#> 391      Missouri St              Missouri State   football
-#> 392      Tarleton St              Tarleton State   football
-#> 393              TCU                         TCU   football
-#> 394            Loras                       Loras   football
-#> 395        UT Martin                   UT Martin   football
-#> 396        Tennessee                   Tennessee   football
-#> 397     Tennessee St             Tennessee State   football
-#> 398   Tennessee Tech              Tennessee Tech   football
-#> 399             UTSA                        UTSA   football
-#> 400    Texas College               Texas College   football
-#> 401             UTEP                        UTEP   football
-#> 402   Texas Lutheran              Texas Lutheran   football
-#> 403       Washington                  Washington   football
-#> 404   Texas Southern              Texas Southern   football
-#> 405       Texas Tech                  Texas Tech   football
-#> 406      The Citadel                 The Citadel   football
-#> 407            Thiel                       Thiel   football
-#> 408      Thomas More                 Thomas More   football
-#> 409           Toledo                      Toledo   football
-#> 410    Washington St            Washington State   football
-#> 411            Trine                       Trine   football
-#> 412             Troy                        Troy   football
-#> 413        Truman St                Truman State   football
-#> 414           Tulane                      Tulane   football
-#> 415         Tuskegee                    Tuskegee   football
-#> 416   TAMU-Kingsvlle        Texas A&M-Kingsville   football
-#> 417           Beloit                      Beloit   football
-#> 418          Ursinus                     Ursinus   football
-#> 419      Valdosta St              Valdosta State   football
-#> 420       Valparaiso                  Valparaiso   football
-#> 421   Virginia Union              Virginia Union   football
-#> 422              VMI                         VMI   football
-#> 423         Lawrence                    Lawrence   football
-#> 424           Wagner                      Wagner   football
-#> 425            Walsh                       Walsh   football
-#> 426         Wartburg                    Wartburg   football
-#> 427      Wash & Jeff      Washington & Jefferson   football
-#> 428         Washburn                    Washburn   football
-#> 429     Wash and Lee          Washington and Lee   football
-#> 430         Weber St                 Weber State   football
-#> 431     West Alabama                West Alabama   football
-#> 432     West Georgia                West Georgia   football
-#> 433     West Liberty                West Liberty   football
-#> 434         McDaniel                    McDaniel   football
-#> 435       MT Western             Montana Western   football
-#> 436    W New England         Western New England   football
-#> 437       Western NM          Western New Mexico   football
-#> 438       West Texas                  West Texas   football
-#> 439         WVU Tech                    WVU Tech   football
-#> 440    W Virginia St         West Virginia State   football
-#> 441       UW-Oshkosh           Wisconsin Oshkosh   football
-#> 442       W Illinois            Western Illinois   football
-#> 443       W Michigan            Western Michigan   football
-#> 444       W Colorado            Western Colorado   football
-#> 445       W Carolina            Western Carolina   football
-#> 446   UW-Platteville       Wisconsin Platteville   football
-#> 447        Whitworth                   Whitworth   football
-#> 448   UW-River Falls       Wisconsin River Falls   football
-#> 449          Widener                     Widener   football
-#> 450   William & Mary              William & Mary   football
-#> 451         Williams                    Williams   football
-#> 452    Wilmington OH             Wilmington (OH)   football
-#> 453    Winston-Salem         Winston-Salem State   football
-#> 454    UW-Eau Claire        Wisconsin Eau Claire   football
-#> 455   Maine Maritime              Maine Maritime   football
-#> 456     UW-La Crosse         Wisconsin La Crosse   football
-#> 457    Wisc Lutheran          Wisconsin Lutheran   football
-#> 458    UW-Stevens Pt     Wisconsin Stevens Point   football
-#> 459         UW-Stout             Wisconsin Stout   football
-#> 460    UW-Whitewater        Wisconsin Whitewater   football
-#> 461       Wittenberg                  Wittenberg   football
-#> 462          Wofford                     Wofford   football
-#> 463          Wooster                     Wooster   football
-#> 464              WPI                         WPI   football
-#> 465        Wisconsin                   Wisconsin   football
-#> 466          Wyoming                     Wyoming   football
-#> 467    Youngstown St            Youngstown State   football
-#> 468        Grambling                   Grambling   football
-#> 469            Berry                       Berry   football
-#> 470     Howard Payne                Howard Payne   football
-#> 471         Marshall                    Marshall   football
-#> 472    West Virginia               West Virginia   football
-#> 473        Merrimack                   Merrimack   football
-#> 474     Salve Regina                Salve Regina   football
-#> 475      St Lawrence                St. Lawrence   football
-#> 476        Fresno St                Fresno State   football
-#> 477        Brockport                   Brockport   football
-#> 478    SUNY Cortland               SUNY Cortland   football
-#> 479           Albion                      Albion   football
-#> 480             Alma                        Alma   football
-#> 481      Bethel (MN)                 Bethel (MN)   football
-#> 482           Bryant                      Bryant   football
-#> 483           Chowan                      Chowan   football
-#> 484       Clark (GA)               Clark Atlanta   football
-#> 485          Del Val             Delaware Valley   football
-#> 486   Hardin Simmons              Hardin Simmons   football
-#> 487             Hope                        Hope   football
-#> 488       Lindenwood                  Lindenwood   football
-#> 489        McKendree                   McKendree   football
-#> 490    Minn Moorhead       Minnesota St Moorhead   football
-#> 491        Montclair             Montclair State   football
-#> 492       Indiana St               Indiana State   football
-#> 493     N Greenville            North Greenville   football
-#> 494   N'Western (OK)           Northwestern (OK)   football
-#> 495     OK Panhandle          Oklahoma Panhandle   football
-#> 496           Quincy                      Quincy   football
-#> 497            Rowan                       Rowan   football
-#> 498       Shenandoah                  Shenandoah   football
-#> 499     Saint Anselm                Saint Anselm   football
-#> 500       St Norbert                 St. Norbert   football
-#> 501      Sul Ross St              Sul Ross State   football
-#> 502   East Texas A&M              East Texas A&M   football
-#> 503           Tiffin                      Tiffin   football
-#> 504         Tusculum                    Tusculum   football
-#> 505        Stonehill                   Stonehill   football
-#> 506         UVA Wise                    UVA Wise   football
-#> 507         WestConn   Western Connecticut State   football
-#> 508    Wayne St (NE)            Wayne State (NE)   football
-#> 509       Waynesburg                  Waynesburg   football
-#> 510      West Oregon              Western Oregon   football
-#> 511   Westminster PA            Westminster (PA)   football
-#> 512         Whittier                    Whittier   football
-#> 513        Winona St                Winona State   football
-#> 514         Cal (PA)             California (PA)   football
-#> 515      NC Wesleyan     North Carolina Wesleyan   football
-#> 516             Kean                        Kean   football
-#> 517     Lincoln (MO)                Lincoln (MO)   football
-#> 518    Missouri Bapt            Missouri Baptist   football
-#> 519     UNC Pembroke                UNC Pembroke   football
-#> 520          Nichols                     Nichols   football
-#> 521        Northwood                   Northwood   football
-#> 522    Ouachita Bapt            Ouachita Baptist   football
-#> 523            Ripon                       Ripon   football
-#> 524      Sioux Falls                 Sioux Falls   football
-#> 525       S Virginia           Southern Virginia   football
-#> 526         Redlands                    Redlands   football
-#> 527      GA Southern            Georgia Southern   football
-#> 528        St Thomas                  St. Thomas   football
-#> 529     Westfield St             Westfield State   football
-#> 530        Methodist                   Methodist   football
-#> 531   William Jewell              William Jewell   football
-#> 532     William Penn                William Penn   football
-#> 533          Brevard                     Brevard   football
-#> 534   Incarnate Word              Incarnate Word   football
-#> 535    Monmouth (IL)               Monmouth (IL)   football
-#> 536             <NA>                        <NA>   football
-#> 537    Pomona Pitzer               Pomona Pitzer   football
-#> 538   SW Oklahoma St Southwestern Oklahoma State   football
-#> 539   VTSU Castleton     Vermont State Castleton   football
-#> 540       Willamette                  Willamette   football
-#> 541       Huntingdon                  Huntingdon   football
-#> 542      Livingstone                 Livingstone   football
-#> 543     Old Dominion                Old Dominion   football
-#> 544    SUNY Maritime               SUNY Maritime   football
-#> 545     Case Western        Case Western Reserve   football
-#> 546      Central Col             Central College   football
-#> 547    Framingham St            Framingham State   football
-#> 548         Gustavus           Gustavus Adolphus   football
-#> 549     Misericordia                Misericordia   football
-#> 550   Hampden Sydney              Hampden Sydney   football
-#> 551      Wm Paterson            William Paterson   football
-#> 552      Plymouth St              Plymouth State   football
-#> 553         Shepherd                    Shepherd   football
-#> 554     Trinity (CT)                Trinity (CT)   football
-#> 555    Ohio Wesleyan               Ohio Wesleyan   football
-#> 556      Fairmont St              Fairmont State   football
-#> 557              USC                         USC   football
-#> 558        San Diego                   San Diego   football
-#> 559         UC Davis                    UC Davis   football
-#> 560         Idaho St                 Idaho State   football
-#> 561      IL Wesleyan           Illinois Wesleyan   football
-#> 562   Concordia St P          Concordia St. Paul   football
-#> 563   N Central (IL)       North Central College   football
-#> 564          Ashland                     Ashland   football
-#> 565        Louisiana                   Louisiana   football
-#> 566        Utah Tech                   Utah Tech   football
-#> 567            Maine                       Maine   football
-#> 568   SUNY Morrisvle            SUNY Morrisville   football
-#> 569    Chris Newport         Christopher Newport   football
-#> 570        Alfred St                Alfred State   football
-#> 571         Marietta                    Marietta   football
-#> 572       OK Baptist            Oklahoma Baptist   football
-#> 573     Carroll (WI)                Carroll (WI)   football
-#> 574        Lafayette                   Lafayette   football
-#> 575         Moravian                    Moravian   football
-#> 576           Hudson                        Troy   football
-#> 577          Coastal            Coastal Carolina   football
-#> 578         Faith NC                   Charlotte   football
-#> 579         Texas St                 Texas State   football
-#> 580       Utah State                  Utah State   football
-#> 581            Colby                       Colby   football
-#> 582      Virginia St              Virginia State   football
-#> 583     E Washington          Eastern Washington   football
-#> 584        Muskingum                   Muskingum   football
-#> 585          Alabama                     Alabama   football
-#> 586    Wesleyan (CT)               Wesleyan (CT)   football
-#> 587      Kennesaw St              Kennesaw State   football
-#> 588          Bowdoin                     Bowdoin   football
-#> 589     Frostburg St             Frostburg State   football
-#> 590   Mississippi St           Mississippi State   football
-#> 591         Hamilton                    Hamilton   football
-#> 592             Army                        Army   football
-#> 593          Wingate                     Wingate   football
-#> 594           Kenyon                      Kenyon   football
-#> 595           Olivet                      Olivet   football
-#> 596         Illinois                    Illinois   football
-#> 597        Otterbein                   Otterbein   football
-#> 598      Colorado St              Colorado State   football
-#> 599           Alfred                      Alfred   football
-#> 600           Ferrum                      Ferrum   football
-#> 601           Gannon                      Gannon   football
-#> 602   St John Fisher             St. John Fisher   football
-#> 603   St Scholastica             St. Scholastica   football
-#> 604    UMass Dartmth             UMass Dartmouth   football
-#> 605         Colorado                    Colorado   football
-#> 606     Trinity (TX)                Trinity (TX)   football
-#> 607   Lebanon Valley              Lebanon Valley   football
-#> 608       Upper Iowa                  Upper Iowa   football
-#> 609            Utica                       Utica   football
-#> 610          Oberlin                     Oberlin   football
-#> 611     Wheaton (IL)                Wheaton (IL)   football
-#> 612           Wilkes                      Wilkes   football
-#> 613          UAlbany                     UAlbany   football
-#> 614            Curry                       Curry   football
-#> 615     Worcester St             Worcester State   football
-#> 616   Concordia (WI)              Concordia (WI)   football
-#> 617            UConn                       UConn   football
-#> 618          Chapman                     Chapman   football
-#> 619       George Fox                  George Fox   football
-#> 620        Gallaudet                   Gallaudet   football
-#> 621          Hendrix                     Hendrix   football
-#> 622          Capital                     Capital   football
-#> 623      Northern St              Northern State   football
-#> 624         Mt Union                 Mount Union   football
-#> 625    Ohio Northern               Ohio Northern   football
-#> 626             Yale                        Yale   football
-#> 627   Westminster MO            Westminster (MO)   football
-#> 628        Lake Erie                   Lake Erie   football
-#> 629    Martin Luther               Martin Luther   football
-#> 630         Endicott                    Endicott   football
-#> 631      WV Wesleyan      West Virginia Wesleyan   football
-#> 632       Georgetown                  Georgetown   football
-#> 633           Howard                      Howard   football
-#> 634        Stevenson                   Stevenson   football
-#> 635         Delaware                    Delaware   football
-#> 636          Dubuque                     Dubuque   football
-#> 637         Benedict                    Benedict   football
-#> 638              UAB                         UAB   football
-#> 639      Florida A&M                 Florida A&M   football
-#> 640            Crown                       Crown   football
-#> 641        Dakota St     Dakota State University   football
-#> 642       Florida St               Florida State   football
-#> 643        Graceland        Graceland University   football
-#> 644         LaGrange                    LaGrange   football
-#> 645        Jax State          Jacksonville State   football
-#> 646            UMary          University of Mary   football
-#> 647          Stetson                     Stetson   football
-#> 648         Minot St                 Minot State   football
-#> 649          Florida                     Florida   football
-#> 650    South Florida               South Florida   football
-#> 651   N'Western (MN)           Northwestern (MN)   football
-#> 652     Georgia Tech                Georgia Tech   football
-#> 653    South Alabama               South Alabama   football
-#> 654        Morehouse                   Morehouse   football
-#> 655          Georgia                     Georgia   football
-#> 656       Seton Hill                  Seton Hill   football
-#> 657         SD Mines          South Dakota Mines   football
-#> 658          Hawai'i                     Hawai'i   football
-#> 659      Buena Vista                 Buena Vista   football
-#> 660         Lakeland                    Lakeland   football
-#> 661         Grinnell                    Grinnell   football
-#> 662       Iowa State                  Iowa State   football
-#> 663           Luther                      Luther   football
-#> 664         Boise St                 Boise State   football
-#> 665      NE Wesleyan           Nebraska Wesleyan   football
-#> 666          Amherst                     Amherst   football
-#> 667            Idaho                       Idaho   football
-#> 668         Elmhurst                    Elmhurst   football
-#> 669         Millikin                    Millikin   football
-#> 670       North Park                  North Park   football
-#> 671     Northwestern                Northwestern   football
-#> 672       S Illinois           Southern Illinois   football
-#> 673         Arkansas                    Arkansas   football
-#> 674          Chicago                     Chicago   football
-#> 675      Springfield                 Springfield   football
-#> 676           DePauw                      DePauw   football
-#> 677          Indiana                     Indiana   football
-#> 678      Rose Hulman                 Rose Hulman   football
-#> 679       Notre Dame                  Notre Dame   football
-#> 680           Wabash                      Wabash   football
-#> 681       Arizona St               Arizona State   football
-#> 682     Pittsburg St             Pittsburg State   football
-#> 683        Murray St                Murray State   football
-#> 684         Kentucky                    Kentucky   football
-#> 685       Louisville                  Louisville   football
-#> 686       Western KY            Western Kentucky   football
-#> 687              LSU                         LSU   football
-#> 688         American                        <NA> conference
-#> 689              ACC                        <NA> conference
-#> 690           Big 12                        <NA> conference
-#> 691          Big Sky                        <NA> conference
-#> 692          Big Ten                        <NA> conference
-#> 693              CAA                        <NA> conference
-#> 694   Conference USA                        <NA> conference
-#> 695 FBS Independents                        <NA> conference
-#> 696 FCS Independents                        <NA> conference
-#> 697              Ivy                        <NA> conference
-#> 698     Mid-American                        <NA> conference
-#> 699             MEAC                        <NA> conference
-#> 700  Missouri Valley                        <NA> conference
-#> 701    Mountain West                        <NA> conference
-#> 702        Northeast                        <NA> conference
-#> 703              OVC                        <NA> conference
-#> 704           Pac-12                        <NA> conference
-#> 705   Patriot League                        <NA> conference
-#> 706          Pioneer                        <NA> conference
-#> 707              SEC                        <NA> conference
-#> 708             SWAC                        <NA> conference
-#> 709         Southern                        <NA> conference
-#> 710        Southland                        <NA> conference
-#> 711         Sun Belt                        <NA> conference
-#> 712              WAC                        <NA> conference
-#>                        conference_id
-#> 1                           cfb:nacc
-#> 2   cfb:southern-collegiate-athletic
-#> 3                      cfb:carolinas
-#> 4                            cfb:acc
-#> 5                        cfb:patriot
-#> 6                            cfb:ivy
-#> 7                         cfb:newmac
-#> 8                 cfb:rocky-mountain
-#> 9                          cfb:mscac
-#> 10                           cfb:uac
-#> 11                     cfb:lone-star
-#> 12                         cfb:mscac
-#> 13                              <NA>
-#> 14                  cfb:mid-atlantic
-#> 15            cfb:commonwealth-coast
-#> 16                        cfb:nescac
-#> 17                  cfb:northeast-10
-#> 18                 cfb:mountain-east
-#> 19                           cfb:mac
-#> 20                         cfb:mscac
-#> 21                    cfb:centennial
-#> 22                           cfb:caa
-#> 23                        cfb:big-12
-#> 24                       cfb:big-ten
-#> 25                        cfb:nescac
-#> 26                     cfb:carolinas
-#> 27               cfb:d3-independents
-#> 28                              <NA>
-#> 29                     cfb:minnesota
-#> 30               cfb:d2-independents
-#> 31                          cfb:ciaa
-#> 32                         cfb:gliac
-#> 33                      cfb:empire-8
-#> 34                      cfb:michigan
-#> 35                  cfb:northeast-10
-#> 36                       cfb:big-ten
-#> 37                  cfb:mid-atlantic
-#> 38                         cfb:gliac
-#> 39                         cfb:gliac
-#> 40                cfb:south-atlantic
-#> 41                      cfb:michigan
-#> 42                       cfb:big-sky
-#> 43                       cfb:big-ten
-#> 44                         cfb:gliac
-#> 45                  cfb:northern-sun
-#> 46                     cfb:minnesota
-#> 47                  cfb:northern-sun
-#> 48                       cfb:big-ten
-#> 49                   cfb:mid-america
-#> 50                   cfb:mid-america
-#> 51                           cfb:sec
-#> 52                   cfb:north-coast
-#> 53                           cfb:sec
-#> 54                    cfb:presidents
-#> 55                       cfb:big-sky
-#> 56                       cfb:big-sky
-#> 57                           cfb:acc
-#> 58                      cfb:american
-#> 59                           cfb:acc
-#> 60                           cfb:acc
-#> 61                           cfb:acc
-#> 62                          cfb:mvfc
-#> 63                       cfb:big-ten
-#> 64                           cfb:ivy
-#> 65                           cfb:mac
-#> 66                           cfb:caa
-#> 67                     cfb:minnesota
-#> 68                           cfb:ivy
-#> 69                       cfb:big-ten
-#> 70                          cfb:cusa
-#> 71                 cfb:mountain-west
-#> 72                         cfb:sciac
-#> 73                           cfb:ivy
-#> 74                           cfb:ivy
-#> 75                      cfb:empire-8
-#> 76                cfb:liberty-league
-#> 77                cfb:liberty-league
-#> 78                         cfb:mscac
-#> 79                           cfb:acc
-#> 80                cfb:liberty-league
-#> 81                          cfb:ohio
-#> 82                           cfb:mac
-#> 83                     cfb:heartland
-#> 84                          cfb:ohio
-#> 85                           cfb:mac
-#> 86                       cfb:big-ten
-#> 87                           cfb:mac
-#> 88               cfb:d2-independents
-#> 89                        cfb:big-12
-#> 90                cfb:great-american
-#> 91                           cfb:sec
-#> 92                cfb:great-american
-#> 93                           cfb:uac
-#> 94                cfb:rocky-mountain
-#> 95                      cfb:michigan
-#> 96                 cfb:mountain-west
-#> 97                           cfb:mac
-#> 98                           cfb:sec
-#> 99                          cfb:swac
-#> 100                         cfb:swac
-#> 101                         cfb:siac
-#> 102                 cfb:mid-atlantic
-#> 103                         cfb:swac
-#> 104                   cfb:presidents
-#> 105                         cfb:siac
-#> 106                     cfb:american
-#> 107                 cfb:northeast-10
-#> 108                    cfb:heartland
-#> 109                    cfb:lone-star
-#> 110                     cfb:sun-belt
-#> 111               cfb:great-american
-#> 112                         cfb:swac
-#> 113                    cfb:northwest
-#> 114                     cfb:sun-belt
-#> 115               cfb:great-american
-#> 116                 cfb:northeast-10
-#> 117                       cfb:pac-12
-#> 118                         cfb:cciw
-#> 119                 cfb:northern-sun
-#> 120                         cfb:nacc
-#> 121 cfb:southern-collegiate-athletic
-#> 122                          cfb:uac
-#> 123                 cfb:old-dominion
-#> 124                        cfb:sciac
-#> 125                    cfb:northwest
-#> 126                          cfb:mac
-#> 127                    cfb:usa-south
-#> 128                 cfb:northeast-10
-#> 129                   cfb:presidents
-#> 130                             <NA>
-#> 131                         cfb:swac
-#> 132               cfb:rocky-mountain
-#> 133  cfb:pennsylvania-state-athletic
-#> 134                    cfb:heartland
-#> 135                         cfb:ciaa
-#> 136                 cfb:old-dominion
-#> 137                      cfb:patriot
-#> 138                          cfb:mac
-#> 139               cfb:liberty-league
-#> 140                      cfb:pioneer
-#> 141  cfb:pennsylvania-state-athletic
-#> 142                        cfb:sciac
-#> 143                          cfb:caa
-#> 144                       cfb:pac-12
-#> 145  cfb:pennsylvania-state-athletic
-#> 146                    cfb:minnesota
-#> 147                   cfb:presidents
-#> 148               cfb:south-atlantic
-#> 149                         cfb:cciw
-#> 150               cfb:south-atlantic
-#> 151          cfb:landmark-conference
-#> 152                          cfb:uac
-#> 153                          cfb:nec
-#> 154                       cfb:big-12
-#> 155                          cfb:mac
-#> 156                  cfb:mid-america
-#> 157                         cfb:siac
-#> 158                    cfb:lone-star
-#> 159            cfb:southern-athletic
-#> 160                  cfb:mid-america
-#> 161               cfb:rocky-mountain
-#> 162                          cfb:ovc
-#> 163                cfb:mountain-east
-#> 164                      cfb:big-ten
-#> 165             cfb:fcs-independents
-#> 166                       cfb:big-12
-#> 167  cfb:pennsylvania-state-athletic
-#> 168              cfb:american-rivers
-#> 169                      cfb:patriot
-#> 170               cfb:rocky-mountain
-#> 171                cfb:mountain-east
-#> 172  cfb:pennsylvania-state-athletic
-#> 173                         cfb:nacc
-#> 174                    cfb:minnesota
-#> 175                      cfb:midwest
-#> 176          cfb:landmark-conference
-#> 177                      cfb:pioneer
-#> 178                      cfb:pioneer
-#> 179                         cfb:meac
-#> 180                   cfb:gulf-south
-#> 181                  cfb:north-coast
-#> 182                   cfb:centennial
-#> 183                     cfb:american
-#> 184                      cfb:pioneer
-#> 185                          cfb:nec
-#> 186  cfb:pennsylvania-state-athletic
-#> 187                          cfb:ivy
-#> 188               cfb:great-american
-#> 189                     cfb:southern
-#> 190           cfb:american-southwest
-#> 191                          cfb:ovc
-#> 192                          cfb:uac
-#> 193                          cfb:mac
-#> 194                    cfb:lone-star
-#> 195                             <NA>
-#> 196  cfb:pennsylvania-state-athletic
-#> 197                         cfb:siac
-#> 198                         cfb:ciaa
-#> 199                          cfb:acc
-#> 200                          cfb:caa
-#> 201               cfb:south-atlantic
-#> 202                  cfb:mid-america
-#> 203                      cfb:patriot
-#> 204                         cfb:ciaa
-#> 205                 cfb:mid-atlantic
-#> 206                        cfb:gliac
-#> 207       cfb:great-midwest-athletic
-#> 208                     cfb:american
-#> 209                         cfb:cusa
-#> 210  cfb:pennsylvania-state-athletic
-#> 211                      cfb:patriot
-#> 212                  cfb:mid-america
-#> 213                         cfb:siac
-#> 214                    cfb:heartland
-#> 215                   cfb:centennial
-#> 216               cfb:rocky-mountain
-#> 217                          cfb:ovc
-#> 218                   cfb:presidents
-#> 219                             <NA>
-#> 220                             <NA>
-#> 221                     cfb:sun-belt
-#> 222                   cfb:centennial
-#> 223                cfb:mountain-east
-#> 224                          cfb:ivy
-#> 225                             <NA>
-#> 226                    cfb:usa-south
-#> 227                cfb:upper-midwest
-#> 228                 cfb:old-dominion
-#> 229                          cfb:caa
-#> 230                    cfb:heartland
-#> 231               cfb:great-american
-#> 232                          cfb:caa
-#> 233               cfb:great-american
-#> 234       cfb:great-midwest-athletic
-#> 235                   cfb:presidents
-#> 236                    cfb:southland
-#> 237                          cfb:acc
-#> 238           cfb:commonwealth-coast
-#> 239                         cfb:nacc
-#> 240                      cfb:midwest
-#> 241                         cfb:mvfc
-#> 242  cfb:pennsylvania-state-athletic
-#> 243                  cfb:great-lakes
-#> 244                      cfb:big-ten
-#> 245                         cfb:swac
-#> 246                cfb:mountain-west
-#> 247                         cfb:ohio
-#> 248                         cfb:ciaa
-#> 249                       cfb:big-12
-#> 250                       cfb:big-12
-#> 251                          cfb:mac
-#> 252                     cfb:southern
-#> 253                         cfb:siac
-#> 254  cfb:pennsylvania-state-athletic
-#> 255       cfb:great-midwest-athletic
-#> 256                        cfb:sciac
-#> 257                    cfb:southland
-#> 258                         cfb:siac
-#> 259                             <NA>
-#> 260                      cfb:patriot
-#> 261                         cfb:mvfc
-#> 262               cfb:south-atlantic
-#> 263                    cfb:northwest
-#> 264                         cfb:cusa
-#> 265                         cfb:ciaa
-#> 266                          cfb:nec
-#> 267                     cfb:sun-belt
-#> 268                     cfb:american
-#> 269          cfb:landmark-conference
-#> 270                    cfb:minnesota
-#> 271                     cfb:southern
-#> 272                    cfb:heartland
-#> 273                 cfb:northern-sun
-#> 274                             <NA>
-#> 275                      cfb:pioneer
-#> 276               cfb:south-atlantic
-#> 277               cfb:liberty-league
-#> 278           cfb:american-southwest
-#> 279                    cfb:usa-south
-#> 280                    cfb:southland
-#> 281                          cfb:sec
-#> 282                     cfb:southern
-#> 283                       cfb:newmac
-#> 284                          cfb:nec
-#> 285                       cfb:big-12
-#> 286                          cfb:acc
-#> 287                        cfb:gliac
-#> 288                         cfb:cusa
-#> 289                       cfb:nescac
-#> 290                         cfb:siac
-#> 291            cfb:southern-athletic
-#> 292                cfb:upper-midwest
-#> 293                          cfb:acc
-#> 294                         cfb:swac
-#> 295                  cfb:great-lakes
-#> 296                  cfb:mid-america
-#> 297                          cfb:caa
-#> 298           cfb:american-southwest
-#> 299                      cfb:pioneer
-#> 300                         cfb:meac
-#> 301                             <NA>
-#> 302                    cfb:heartland
-#> 303                     cfb:american
-#> 304                   cfb:centennial
-#> 305               cfb:rocky-mountain
-#> 306                     cfb:american
-#> 307                         cfb:meac
-#> 308                     cfb:american
-#> 309                     cfb:sun-belt
-#> 310                  cfb:mid-america
-#> 311                cfb:mountain-west
-#> 312                cfb:mountain-west
-#> 313                          cfb:nec
-#> 314                   cfb:new-jersey
-#> 315               cfb:south-atlantic
-#> 316                    cfb:southland
-#> 317                          cfb:caa
-#> 318                cfb:mountain-west
-#> 319                          cfb:sec
-#> 320                         cfb:meac
-#> 321                          cfb:uac
-#> 322                      cfb:big-sky
-#> 323                cfb:mountain-west
-#> 324          cfb:landmark-conference
-#> 325                         cfb:mvfc
-#> 326                      cfb:big-sky
-#> 327                    cfb:southland
-#> 328                       cfb:newmac
-#> 329                 cfb:mid-atlantic
-#> 330       cfb:great-midwest-athletic
-#> 331                       cfb:big-12
-#> 332                      cfb:big-ten
-#> 333                    cfb:northwest
-#> 334                 cfb:northeast-10
-#> 335                     cfb:american
-#> 336                          cfb:acc
-#> 337                      cfb:big-sky
-#> 338                         cfb:swac
-#> 339                      cfb:pioneer
-#> 340                    cfb:northwest
-#> 341                      cfb:big-ten
-#> 342                          cfb:sec
-#> 343                 cfb:old-dominion
-#> 344            cfb:southern-athletic
-#> 345                       cfb:big-12
-#> 346                          cfb:nec
-#> 347                         cfb:nacc
-#> 348               cfb:liberty-league
-#> 349                          cfb:caa
-#> 350                      cfb:big-sky
-#> 351                   cfb:new-jersey
-#> 352                         cfb:cusa
-#> 353                     cfb:southern
-#> 354                       cfb:big-12
-#> 355                         cfb:siac
-#> 356                    cfb:southland
-#> 357                          cfb:ovc
-#> 358                      cfb:midwest
-#> 359                         cfb:ciaa
-#> 360            cfb:southern-athletic
-#> 361                       cfb:newmac
-#> 362  cfb:pennsylvania-state-athletic
-#> 363                     cfb:sun-belt
-#> 364                    cfb:carolinas
-#> 365              cfb:american-rivers
-#> 366                          cfb:acc
-#> 367               cfb:great-american
-#> 368                         cfb:meac
-#> 369                      cfb:patriot
-#> 370               cfb:rocky-mountain
-#> 371                         cfb:mvfc
-#> 372                     cfb:sun-belt
-#> 373                          cfb:sec
-#> 374                          cfb:acc
-#> 375                         cfb:swac
-#> 376                 cfb:northeast-10
-#> 377                             <NA>
-#> 378                  cfb:great-lakes
-#> 379                 cfb:northern-sun
-#> 380            cfb:southern-athletic
-#> 381                          cfb:acc
-#> 382                             <NA>
-#> 383                             <NA>
-#> 384                   cfb:presidents
-#> 385                      cfb:big-ten
-#> 386                    cfb:minnesota
-#> 387                   cfb:presidents
-#> 388                    cfb:southland
-#> 389                          cfb:caa
-#> 390                      cfb:midwest
-#> 391                         cfb:cusa
-#> 392                          cfb:uac
-#> 393                       cfb:big-12
-#> 394              cfb:american-rivers
-#> 395                          cfb:ovc
-#> 396                          cfb:sec
-#> 397                          cfb:ovc
-#> 398                     cfb:southern
-#> 399                     cfb:american
-#> 400                             <NA>
-#> 401                cfb:mountain-west
-#> 402 cfb:southern-collegiate-athletic
-#> 403                      cfb:big-ten
-#> 404                         cfb:swac
-#> 405                       cfb:big-12
-#> 406                     cfb:southern
-#> 407                   cfb:presidents
-#> 408       cfb:great-midwest-athletic
-#> 409                          cfb:mac
-#> 410                       cfb:pac-12
-#> 411                     cfb:michigan
-#> 412                     cfb:sun-belt
-#> 413                  cfb:great-lakes
-#> 414                     cfb:american
-#> 415                         cfb:siac
-#> 416                    cfb:lone-star
-#> 417                      cfb:midwest
-#> 418                   cfb:centennial
-#> 419                   cfb:gulf-south
-#> 420                      cfb:pioneer
-#> 421                         cfb:ciaa
-#> 422                     cfb:southern
-#> 423                      cfb:midwest
-#> 424                          cfb:nec
-#> 425       cfb:great-midwest-athletic
-#> 426              cfb:american-rivers
-#> 427                   cfb:presidents
-#> 428                  cfb:mid-america
-#> 429                 cfb:old-dominion
-#> 430                      cfb:big-sky
-#> 431                   cfb:gulf-south
-#> 432                          cfb:uac
-#> 433                cfb:mountain-east
-#> 434                   cfb:centennial
-#> 435                             <NA>
-#> 436           cfb:commonwealth-coast
-#> 437                    cfb:lone-star
-#> 438                    cfb:lone-star
-#> 439                             <NA>
-#> 440                cfb:mountain-east
-#> 441                    cfb:wisconsin
-#> 442                          cfb:ovc
-#> 443                          cfb:mac
-#> 444               cfb:rocky-mountain
-#> 445                     cfb:southern
-#> 446                    cfb:wisconsin
-#> 447                    cfb:northwest
-#> 448                    cfb:wisconsin
-#> 449                 cfb:mid-atlantic
-#> 450                      cfb:patriot
-#> 451                       cfb:nescac
-#> 452                         cfb:ohio
-#> 453                         cfb:ciaa
-#> 454                    cfb:wisconsin
-#> 455           cfb:commonwealth-coast
-#> 456                    cfb:wisconsin
-#> 457                         cfb:nacc
-#> 458                    cfb:wisconsin
-#> 459                    cfb:wisconsin
-#> 460                    cfb:wisconsin
-#> 461                  cfb:north-coast
-#> 462                     cfb:southern
-#> 463                  cfb:north-coast
-#> 464                       cfb:newmac
-#> 465                      cfb:big-ten
-#> 466                cfb:mountain-west
-#> 467                         cfb:mvfc
-#> 468                         cfb:swac
-#> 469            cfb:southern-athletic
-#> 470           cfb:american-southwest
-#> 471                     cfb:sun-belt
-#> 472                       cfb:big-12
-#> 473             cfb:fcs-independents
-#> 474                       cfb:newmac
-#> 475               cfb:liberty-league
-#> 476                       cfb:pac-12
-#> 477                     cfb:empire-8
-#> 478                     cfb:empire-8
-#> 479                     cfb:michigan
-#> 480                     cfb:michigan
-#> 481                    cfb:minnesota
-#> 482                          cfb:caa
-#> 483                    cfb:carolinas
-#> 484                         cfb:siac
-#> 485                 cfb:mid-atlantic
-#> 486           cfb:american-southwest
-#> 487                     cfb:michigan
-#> 488                          cfb:ovc
-#> 489                  cfb:great-lakes
-#> 490                 cfb:northern-sun
-#> 491                   cfb:new-jersey
-#> 492                         cfb:mvfc
-#> 493                    cfb:carolinas
-#> 494               cfb:great-american
-#> 495              cfb:d2-independents
-#> 496                  cfb:great-lakes
-#> 497                   cfb:new-jersey
-#> 498                 cfb:old-dominion
-#> 499                 cfb:northeast-10
-#> 500                         cfb:nacc
-#> 501                    cfb:lone-star
-#> 502                    cfb:southland
-#> 503       cfb:great-midwest-athletic
-#> 504               cfb:south-atlantic
-#> 505                          cfb:nec
-#> 506               cfb:south-atlantic
-#> 507          cfb:landmark-conference
-#> 508                 cfb:northern-sun
-#> 509                   cfb:presidents
-#> 510                    cfb:lone-star
-#> 511                   cfb:presidents
-#> 512                        cfb:sciac
-#> 513                 cfb:northern-sun
-#> 514  cfb:pennsylvania-state-athletic
-#> 515                    cfb:usa-south
-#> 516                   cfb:new-jersey
-#> 517                  cfb:great-lakes
-#> 518                             <NA>
-#> 519                    cfb:carolinas
-#> 520           cfb:commonwealth-coast
-#> 521       cfb:great-midwest-athletic
-#> 522               cfb:great-american
-#> 523                      cfb:midwest
-#> 524                 cfb:northern-sun
-#> 525                    cfb:usa-south
-#> 526                        cfb:sciac
-#> 527                     cfb:sun-belt
-#> 528                      cfb:pioneer
-#> 529                        cfb:mscac
-#> 530                    cfb:usa-south
-#> 531                  cfb:great-lakes
-#> 532                             <NA>
-#> 533                    cfb:usa-south
-#> 534                    cfb:southland
-#> 535                      cfb:midwest
-#> 536                    cfb:southland
-#> 537                        cfb:sciac
-#> 538               cfb:great-american
-#> 539                   cfb:new-jersey
-#> 540                    cfb:northwest
-#> 541                    cfb:usa-south
-#> 542                         cfb:ciaa
-#> 543                     cfb:sun-belt
-#> 544                       cfb:newmac
-#> 545                   cfb:presidents
-#> 546              cfb:american-rivers
-#> 547                        cfb:mscac
-#> 548                    cfb:minnesota
-#> 549                 cfb:mid-atlantic
-#> 550                 cfb:old-dominion
-#> 551                   cfb:new-jersey
-#> 552                        cfb:mscac
-#> 553  cfb:pennsylvania-state-athletic
-#> 554                       cfb:nescac
-#> 555                  cfb:north-coast
-#> 556                cfb:mountain-east
-#> 557                      cfb:big-ten
-#> 558                      cfb:pioneer
-#> 559                      cfb:big-sky
-#> 560                      cfb:big-sky
-#> 561                         cfb:cciw
-#> 562                 cfb:northern-sun
-#> 563                         cfb:cciw
-#> 564       cfb:great-midwest-athletic
-#> 565                     cfb:sun-belt
-#> 566                      cfb:big-sky
-#> 567                          cfb:caa
-#> 568                     cfb:empire-8
-#> 569                   cfb:new-jersey
-#> 570                     cfb:empire-8
-#> 571                         cfb:ohio
-#> 572               cfb:great-american
-#> 573                         cfb:cciw
-#> 574                      cfb:patriot
-#> 575          cfb:landmark-conference
-#> 576                             <NA>
-#> 577                     cfb:sun-belt
-#> 578                             <NA>
-#> 579                       cfb:pac-12
-#> 580                       cfb:pac-12
-#> 581                       cfb:nescac
-#> 582                         cfb:ciaa
-#> 583                      cfb:big-sky
-#> 584                         cfb:ohio
-#> 585                          cfb:sec
-#> 586                       cfb:nescac
-#> 587                         cfb:cusa
-#> 588                       cfb:nescac
-#> 589                cfb:mountain-east
-#> 590                          cfb:sec
-#> 591                       cfb:nescac
-#> 592                     cfb:american
-#> 593               cfb:south-atlantic
-#> 594                  cfb:north-coast
-#> 595                     cfb:michigan
-#> 596                      cfb:big-ten
-#> 597                         cfb:ohio
-#> 598                       cfb:pac-12
-#> 599                     cfb:empire-8
-#> 600                    cfb:carolinas
-#> 601  cfb:pennsylvania-state-athletic
-#> 602                     cfb:empire-8
-#> 603                    cfb:minnesota
-#> 604                        cfb:mscac
-#> 605                       cfb:big-12
-#> 606            cfb:southern-athletic
-#> 607                 cfb:mid-atlantic
-#> 608                  cfb:great-lakes
-#> 609                     cfb:empire-8
-#> 610                  cfb:north-coast
-#> 611                         cfb:cciw
-#> 612          cfb:landmark-conference
-#> 613                          cfb:caa
-#> 614           cfb:commonwealth-coast
-#> 615                        cfb:mscac
-#> 616                         cfb:nacc
-#> 617             cfb:fbs-independents
-#> 618                        cfb:sciac
-#> 619                    cfb:northwest
-#> 620 cfb:southern-collegiate-athletic
-#> 621            cfb:southern-athletic
-#> 622                         cfb:ohio
-#> 623                 cfb:northern-sun
-#> 624                         cfb:ohio
-#> 625                         cfb:ohio
-#> 626                          cfb:ivy
-#> 627                cfb:upper-midwest
-#> 628       cfb:great-midwest-athletic
-#> 629                cfb:upper-midwest
-#> 630           cfb:commonwealth-coast
-#> 631                cfb:mountain-east
-#> 632                      cfb:patriot
-#> 633                         cfb:meac
-#> 634                 cfb:mid-atlantic
-#> 635                         cfb:cusa
-#> 636              cfb:american-rivers
-#> 637                         cfb:siac
-#> 638                     cfb:american
-#> 639                         cfb:swac
-#> 640                cfb:upper-midwest
-#> 641                             <NA>
-#> 642                          cfb:acc
-#> 643                             <NA>
-#> 644                    cfb:usa-south
-#> 645                         cfb:cusa
-#> 646                 cfb:northern-sun
-#> 647                      cfb:pioneer
-#> 648                 cfb:northern-sun
-#> 649                          cfb:sec
-#> 650                     cfb:american
-#> 651                cfb:upper-midwest
-#> 652                          cfb:acc
-#> 653                     cfb:sun-belt
-#> 654                         cfb:siac
-#> 655                          cfb:sec
-#> 656  cfb:pennsylvania-state-athletic
-#> 657               cfb:rocky-mountain
-#> 658                cfb:mountain-west
-#> 659              cfb:american-rivers
-#> 660                         cfb:nacc
-#> 661                      cfb:midwest
-#> 662                       cfb:big-12
-#> 663                      cfb:midwest
-#> 664                       cfb:pac-12
-#> 665              cfb:american-rivers
-#> 666                       cfb:nescac
-#> 667                      cfb:big-sky
-#> 668                         cfb:cciw
-#> 669                         cfb:cciw
-#> 670                         cfb:cciw
-#> 671                      cfb:big-ten
-#> 672                         cfb:mvfc
-#> 673                          cfb:sec
-#> 674                      cfb:midwest
-#> 675                       cfb:newmac
-#> 676                  cfb:north-coast
-#> 677                      cfb:big-ten
-#> 678                    cfb:heartland
-#> 679             cfb:fbs-independents
-#> 680                  cfb:north-coast
-#> 681                       cfb:big-12
-#> 682                  cfb:mid-america
-#> 683                         cfb:mvfc
-#> 684                          cfb:sec
-#> 685                          cfb:acc
-#> 686                         cfb:cusa
-#> 687                          cfb:sec
-#> 688                     cfb:american
-#> 689                          cfb:acc
-#> 690                       cfb:big-12
-#> 691                      cfb:big-sky
-#> 692                      cfb:big-ten
-#> 693                          cfb:caa
-#> 694                         cfb:cusa
-#> 695             cfb:fbs-independents
-#> 696             cfb:fcs-independents
-#> 697                          cfb:ivy
-#> 698                          cfb:mac
-#> 699                         cfb:meac
-#> 700                         cfb:mvfc
-#> 701                cfb:mountain-west
-#> 702                          cfb:nec
-#> 703                          cfb:ovc
-#> 704                       cfb:pac-12
-#> 705                      cfb:patriot
-#> 706                      cfb:pioneer
-#> 707                          cfb:sec
-#> 708                         cfb:swac
-#> 709                     cfb:southern
-#> 710                    cfb:southland
-#> 711                     cfb:sun-belt
-#> 712                             <NA>
-#>                                             conference color_primary
-#> 1             Northern Athletics Collegiate Conference       #960a2c
-#> 2              Southern Collegiate Athletic Conference       #8a2432
-#> 3                                 Conference Carolinas       #701931
-#> 4                            Atlantic Coast Conference       #8c2232
-#> 5                                       Patriot League       #582c83
-#> 6                                           Ivy League       #990000
-#> 7    New England Women's and Men's Athletic Conference       #b20838
-#> 8                                       Rocky Mountain       #860038
-#> 9   Massachusetts State Collegiate Athletic Conference       #212c62
-#> 10                          United Athletic Conference       #087dc2
-#> 11                                           Lone Star       #e35205
-#> 12  Massachusetts State Collegiate Athletic Conference       #43252a
-#> 13                                                <NA>       #001681
-#> 14                          Middle Atlantic Conference       #9e053b
-#> 15                       Commonwealth Coast Conference       #0079c2
-#> 16                                              NESCAC       #3e8ede
-#> 17                                        Northeast 10       #701931
-#> 18                            Mountain East Conference       #e31937
-#> 19                             Mid-American Conference       #881c1c
-#> 20  Massachusetts State Collegiate Athletic Conference       #024d36
-#> 21                                          Centennial       #68aee0
-#> 22                        Coastal Athletic Association       #ffc229
-#> 23                                   Big 12 Conference       #cc0033
-#> 24                                  Big Ten Conference       #ce1126
-#> 25                                              NESCAC       #a51e36
-#> 26                                Conference Carolinas       #004684
-#> 27                                    Independent DIII       #001e4e
-#> 28                                                <NA>       #2a388c
-#> 29                                           Minnesota       #74233d
-#> 30                                     Independent DII       #a61d2f
-#> 31                                                CIAA       #0f1f43
-#> 32                                               GLIAC       #0f298f
-#> 33                                            Empire 8       #233f94
-#> 34                                            Michigan       #ec6820
-#> 35                                        Northeast 10       #632d4f
-#> 36                                  Big Ten Conference       #173f35
-#> 37                          Middle Atlantic Conference       #6a1f32
-#> 38                                               GLIAC       #0f553a
-#> 39                                               GLIAC       #c41230
-#> 40                                      South Atlantic       #bca271
-#> 41                                            Michigan       #891b2f
-#> 42                                  Big Sky Conference       #1e4d2b
-#> 43                                  Big Ten Conference       #00274c
-#> 44                                               GLIAC       #4a8075
-#> 45                                        Northern Sun       #d3af7e
-#> 46                                           Minnesota       #000000
-#> 47                                        Northern Sun       #fec050
-#> 48                                  Big Ten Conference       #5e0a2f
-#> 49                                         Mid America       #fab615
-#> 50                                         Mid America       #006e51
-#> 51                             Southeastern Conference       #f1b82d
-#> 52                                         North Coast       #007360
-#> 53                             Southeastern Conference       #13294b
-#> 54                                         Presidents'       #eb1f25
-#> 55                                  Big Sky Conference       #00205c
-#> 56                                  Big Sky Conference       #751d4a
-#> 57                           Atlantic Coast Conference       #00539b
-#> 58                                 American Conference       #582c83
-#> 59                           Atlantic Coast Conference       #cc0000
-#> 60                           Atlantic Coast Conference       #7bafd4
-#> 61                           Atlantic Coast Conference       #ceb888
-#> 62                 Missouri Valley Football Conference       #00a26b
-#> 63                                  Big Ten Conference       #e31937
-#> 64                                          Ivy League       #005730
-#> 65                             Mid-American Conference       #00573c
-#> 66                        Coastal Athletic Association       #004990
-#> 67                                           Minnesota       #98012e
-#> 68                                          Ivy League       #000000
-#> 69                                  Big Ten Conference       #ce0e2d
-#> 70                                      Conference USA       #7e141b
-#> 71                            Mountain West Conference       #ba0c2f
-#> 72                                            So. Cal.       #981a31
-#> 73                                          Ivy League       #7ba4db
-#> 74                                          Ivy League       #b31b1b
-#> 75                                            Empire 8       #0058a9
-#> 76                                      Liberty League       #4f1079
-#> 77                                      Liberty League       #000000
-#> 78  Massachusetts State Collegiate Athletic Conference       #bf2f38
-#> 79                           Atlantic Coast Conference       #000e54
-#> 80                                      Liberty League       #f8d000
-#> 81                                                Ohio       #f6c406
-#> 82                             Mid-American Conference       #fd5000
-#> 83                                           Heartland       #4e2d8a
-#> 84                                                Ohio       #d55929
-#> 85                             Mid-American Conference       #c41230
-#> 86                                  Big Ten Conference       #ba0c2f
-#> 87                             Mid-American Conference       #154734
-#> 88                                     Independent DII       #008265
-#> 89                                   Big 12 Conference       #fe5c00
-#> 90                           Great American Conference       #00498e
-#> 91                             Southeastern Conference       #002b5c
-#> 92                           Great American Conference       #841617
-#> 93                          United Athletic Conference       #592d82
-#> 94                                      Rocky Mountain       #007954
-#> 95                                            Michigan       #ffc423
-#> 96                            Mountain West Conference       #003594
-#> 97                             Mid-American Conference       #041e42
-#> 98                             Southeastern Conference       #990000
-#> 99                    Southwestern Athletic Conference       #790000
-#> 100                   Southwestern Athletic Conference       #e9a900
-#> 101                                               SIAC       #eaab00
-#> 102                         Middle Atlantic Conference       #c82e48
-#> 103                   Southwestern Athletic Conference       #4b0058
-#> 104                                        Presidents'       #0b2340
-#> 105                                               SIAC       #025399
-#> 106                                American Conference       #003595
-#> 107                                       Northeast 10       #ffbc15
-#> 108                                          Heartland       #f78f1e
-#> 109                                          Lone Star       #245397
-#> 110                                Sun Belt Conference       #000000
-#> 111                          Great American Conference       #28825a
-#> 112                   Southwestern Athletic Conference       #e0aa0f
-#> 113                                          Northwest       #46256a
-#> 114                                Sun Belt Conference       #cc092f
-#> 115                          Great American Conference       #ffd20a
-#> 116                                       Northeast 10       #004b87
-#> 117                                  Pac-12 Conference       #dc4405
-#> 118                                               CCIW       #00437c
-#> 119                                       Northern Sun       #002d62
-#> 120           Northern Athletics Collegiate Conference       #00549f
-#> 121            Southern Collegiate Athletic Conference       #b20838
-#> 122                         United Athletic Conference       #8e0b0b
-#> 123                                       Old Dominion       #012853
-#> 124                                           So. Cal.       #ffffff
-#> 125                                          Northwest       #b4183a
-#> 126                            Mid-American Conference       #ba0c2f
-#> 127                                          USA South       #215732
-#> 128                                       Northeast 10       #86a7bb
-#> 129                                        Presidents'       #00583d
-#> 130                                               <NA>       #613394
-#> 131                   Southwestern Athletic Conference       #7b1831
-#> 132                                     Rocky Mountain       #f5bc21
-#> 133             Pennsylvania State Athletic Conference       #7a001f
-#> 134                                          Heartland       #46166a
-#> 135                                               CIAA       #ffec9f
-#> 136                                       Old Dominion       #990022
-#> 137                                     Patriot League       #000060
-#> 138                            Mid-American Conference       #005bbb
-#> 139                                     Liberty League       #e77324
-#> 140                            Pioneer Football League       #0d1361
-#> 141             Pennsylvania State Athletic Conference       #922135
-#> 142                                           So. Cal.       #3b2361
-#> 143                       Coastal Athletic Association       #ff4713
-#> 144                                  Pac-12 Conference       #a6192e
-#> 145             Pennsylvania State Athletic Conference       #dda10e
-#> 146                                          Minnesota       #173a79
-#> 147                                        Presidents'       #c71230
-#> 148                                     South Atlantic       #f2682a
-#> 149                                               CCIW       #ce0e2d
-#> 150                                     South Atlantic       #0c233f
-#> 151                                Landmark Conference       #bf2e1a
-#> 152                         United Athletic Conference       #a7a9ac
-#> 153                               Northeast Conference       #1b49a2
-#> 154                                  Big 12 Conference       #000000
-#> 155                            Mid-American Conference       #4c0027
-#> 156                                        Mid America       #d31145
-#> 157                                               SIAC       #770022
-#> 158                                          Lone Star       #ad1d37
-#> 159                      Southern Athletic Association       #f5d116
-#> 160                                        Mid America       #002d62
-#> 161                                     Rocky Mountain       #650934
-#> 162                             Ohio Valley Conference       #2e3192
-#> 163                           Mountain East Conference       #651d32
-#> 164                                 Big Ten Conference       #061440
-#> 165                                   FCS Independents       #006700
-#> 166                                  Big 12 Conference       #000000
-#> 167             Pennsylvania State Athletic Conference       #133880
-#> 168                         American Rivers Conference       #881922
-#> 169                                     Patriot League       #821019
-#> 170                                     Rocky Mountain       #011e47
-#> 171                           Mountain East Conference       #74043a
-#> 172             Pennsylvania State Athletic Conference       #016f54
-#> 173           Northern Athletics Collegiate Conference       #572a31
-#> 174                                          Minnesota       #701d45
-#> 175                                            Midwest       #533379
-#> 176                                Landmark Conference       #6b1a31
-#> 177                            Pioneer Football League       #000000
-#> 178                            Pioneer Football League       #004b8d
-#> 179                    Mid-Eastern Athletic Conference       #009cdb
-#> 180                                         Gulf South       #00753e
-#> 181                                        North Coast       #c8032b
-#> 182                                         Centennial       #ed192d
-#> 183                                American Conference       #a41e35
-#> 184                            Pioneer Football League       #005596
-#> 185                               Northeast Conference       #002d62
-#> 186             Pennsylvania State Athletic Conference       #dd0632
-#> 187                                         Ivy League       #082a74
-#> 188                          Great American Conference       #f05423
-#> 189                                Southern Conference       #002d61
-#> 190                                 American Southwest       #002b44
-#> 191                             Ohio Valley Conference       #000000
-#> 192                         United Athletic Conference       #660819
-#> 193                            Mid-American Conference       #006938
-#> 194                                          Lone Star       #006430
-#> 195                                               <NA>       #434445
-#> 196             Pennsylvania State Athletic Conference       #bb131a
-#> 197                                               SIAC       #f68428
-#> 198                                               CIAA       #1235c5
-#> 199                          Atlantic Coast Conference       #003594
-#> 200                       Coastal Athletic Association       #020303
-#> 201                                     South Atlantic       #1e376d
-#> 202                                        Mid America       #c29209
-#> 203                                     Patriot League       #00205b
-#> 204                                               CIAA       #1468b2
-#> 205                         Middle Atlantic Conference       #003f87
-#> 206                                              GLIAC       #ffc423
-#> 207                  Great Midwest Athletic Conference       #ff8300
-#> 208                                American Conference       #003366
-#> 209                                     Conference USA       #091f3f
-#> 210             Pennsylvania State Athletic Conference       #fec526
-#> 211                                     Patriot League       #830032
-#> 212                                        Mid America       #a69671
-#> 213                                               SIAC       #f9bd0a
-#> 214                                          Heartland       #1b295b
-#> 215                                         Centennial       #25377d
-#> 216                                     Rocky Mountain       #004785
-#> 217                             Ohio Valley Conference       #c12535
-#> 218                                        Presidents'       #8b732f
-#> 219                                               <NA>       #016600
-#> 220                                               <NA>       #fc671a
-#> 221                                Sun Belt Conference       #0039a6
-#> 222                                         Centennial       #f4711f
-#> 223                           Mountain East Conference       #004f93
-#> 224                                         Ivy League       #411e09
-#> 225                                               <NA>       #d01b35
-#> 226                                          USA South       #007853
-#> 227                                      Upper Midwest       #f36917
-#> 228                                       Old Dominion       #910028
-#> 229                       Coastal Athletic Association       #0067ac
-#> 230                                          Heartland       #0b486d
-#> 231                          Great American Conference       #a48544
-#> 232                       Coastal Athletic Association       #091f3f
-#> 233                          Great American Conference       #7a0026
-#> 234                  Great Midwest Athletic Conference       #0d1d41
-#> 235                                        Presidents'       #1c4077
-#> 236                               Southland Conference       #00539c
-#> 237                          Atlantic Coast Conference       #f56600
-#> 238                      Commonwealth Coast Conference       #004b44
-#> 239           Northern Athletics Collegiate Conference       #ba0c2f
-#> 240                                            Midwest       #014a91
-#> 241                Missouri Valley Football Conference       #ce1126
-#> 242             Pennsylvania State Athletic Conference       #aa0632
-#> 243                                        Great Lakes       #880c2c
-#> 244                                 Big Ten Conference       #231f20
-#> 245                   Southwestern Athletic Conference       #123297
-#> 246                           Mountain West Conference       #0038a8
-#> 247                                               Ohio       #28334a
-#> 248                                               CIAA       #002d56
-#> 249                                  Big 12 Conference       #0051ba
-#> 250                                  Big 12 Conference       #330a57
-#> 251                            Mid-American Conference       #002664
-#> 252                                Southern Conference       #582c83
-#> 253                                               SIAC       #ffcf06
-#> 254             Pennsylvania State Athletic Conference       #c6b884
-#> 255                  Great Midwest Athletic Conference       #3b2e81
-#> 256                                           So. Cal.       #004812
-#> 257                               Southland Conference       #000000
-#> 258                                               SIAC       #083254
-#> 259                                               <NA>       #1b3667
-#> 260                                     Patriot League       #6c2b2a
-#> 261                Missouri Valley Football Conference       #cd1241
-#> 262                                     South Atlantic       #000000
-#> 263                                          Northwest       #f37737
-#> 264                                     Conference USA       #0a254e
-#> 265                                               CIAA       #fc6c0f
-#> 266                               Northeast Conference       #50c9f7
-#> 267                                Sun Belt Conference       #003087
-#> 268                                American Conference       #004991
-#> 269                                Landmark Conference       #15283f
-#> 270                                          Minnesota       #09426a
-#> 271                                Southern Conference       #00386b
-#> 272                                          Heartland       #ddac14
-#> 273                                       Northern Sun       #480059
-#> 274                                               <NA>       #ad162c
-#> 275                            Pioneer Football League       #e53730
-#> 276                                     South Atlantic       #004b8d
-#> 277                                     Liberty League       #762334
-#> 278                                 American Southwest       #492f92
-#> 279                                          USA South       #5f0014
-#> 280                               Southland Conference       #00529c
-#> 281                            Southeastern Conference       #000000
-#> 282                                Southern Conference       #ff7f29
-#> 283  New England Women's and Men's Athletic Conference       #244788
-#> 284                               Northeast Conference       #036857
-#> 285                                  Big 12 Conference       #154734
-#> 286                          Atlantic Coast Conference       #f47423
-#> 287                                              GLIAC       #facd03
-#> 288                                     Conference USA       #036eb7
-#> 289                                             NESCAC       #365a8a
-#> 290                                               SIAC       #580d69
-#> 291                      Southern Athletic Association       #20145f
-#> 292                                      Upper Midwest       #8d191b
-#> 293                          Atlantic Coast Conference       #8c1515
-#> 294                   Southwestern Athletic Conference       #005328
-#> 295                                        Great Lakes       #f0dbaa
-#> 296                                        Mid America       #f6cf3c
-#> 297                       Coastal Athletic Association       #051844
-#> 298                                 American Southwest       #98002e
-#> 299                            Pioneer Football League       #094fa3
-#> 300                    Mid-Eastern Athletic Conference       #014786
-#> 301                                               <NA>       #0d0c0c
-#> 302                                          Heartland       #002d5d
-#> 303                                American Conference       #00205b
-#> 304                                         Centennial       #a51e36
-#> 305                                     Rocky Mountain       #4e2683
-#> 306                                American Conference       #00225b
-#> 307                    Mid-Eastern Athletic Conference       #880023
-#> 308                                American Conference       #005035
-#> 309                                Sun Belt Conference       #840029
-#> 310                                        Mid America       #004d86
-#> 311                           Mountain West Conference       #cf0a2c
-#> 312                           Mountain West Conference       #041e42
-#> 313                               Northeast Conference       #041e42
-#> 314                                         New Jersey       #154c7d
-#> 315                                     South Atlantic       #d02030
-#> 316                               Southland Conference       #c41230
-#> 317                       Coastal Athletic Association       #0505aa
-#> 318                           Mountain West Conference       #01402a
-#> 319                            Southeastern Conference       #500000
-#> 320                    Mid-Eastern Athletic Conference       #0c8968
-#> 321                         United Athletic Conference       #663399
-#> 322                                 Big Sky Conference       #13558d
-#> 323                           Mountain West Conference       #c8102e
-#> 324                                Landmark Conference       #031832
-#> 325                Missouri Valley Football Conference       #473282
-#> 326                                 Big Sky Conference       #003976
-#> 327                               Southland Conference       #492f91
-#> 328  New England Women's and Men's Athletic Conference       #822130
-#> 329                         Middle Atlantic Conference       #c41230
-#> 330                  Great Midwest Athletic Conference       #ffcf28
-#> 331                                  Big 12 Conference       #c8102e
-#> 332                                 Big Ten Conference       #00934b
-#> 333                                          Northwest       #ffc423
-#> 334                                       Northeast 10       #fedc1e
-#> 335                                American Conference       #068f33
-#> 336                          Atlantic Coast Conference       #041e42
-#> 337                                 Big Sky Conference       #00311e
-#> 338                   Southwestern Athletic Conference       #582c83
-#> 339                            Pioneer Football League       #194896
-#> 340                                          Northwest       #680001
-#> 341                                 Big Ten Conference       #ceb888
-#> 342                            Southeastern Conference       #af5c37
-#> 343                                       Old Dominion       #fcdf12
-#> 344                      Southern Athletic Association       #cf152d
-#> 345                                  Big 12 Conference       #0047ba
-#> 346                               Northeast Conference       #00214d
-#> 347           Northern Athletics Collegiate Conference       #5a3f99
-#> 348                                     Liberty League       #ed3023
-#> 349                       Coastal Athletic Association       #a40012
-#> 350                                 Big Sky Conference       #c72026
-#> 351                                         New Jersey       #8b0e04
-#> 352                                     Conference USA       #f56423
-#> 353                                Southern Conference       #005485
-#> 354                                  Big 12 Conference       #be0000
-#> 355                                               SIAC       #280298
-#> 356                               Southland Conference       #215732
-#> 357                             Ohio Valley Conference       #c8102e
-#> 358                                            Midwest       #5b2b82
-#> 359                                               CIAA       #6a1432
-#> 360                      Southern Athletic Association       #d0b786
-#> 361  New England Women's and Men's Athletic Conference       #f26722
-#> 362             Pennsylvania State Athletic Conference       #0b2240
-#> 363                                Sun Belt Conference       #450084
-#> 364                               Conference Carolinas       #0068b3
-#> 365                         American Rivers Conference       #b20838
-#> 366                          Atlantic Coast Conference       #a80000
-#> 367                          Great American Conference       #003da5
-#> 368                    Mid-Eastern Athletic Conference       #7d1315
-#> 369                                     Patriot League       #9e0712
-#> 370                                     Rocky Mountain       #162856
-#> 371                Missouri Valley Football Conference       #0033a0
-#> 372                                Sun Belt Conference       #ffc72c
-#> 373                            Southeastern Conference       #73000a
-#> 374                          Atlantic Coast Conference       #232d4b
-#> 375                   Southwestern Athletic Conference       #004b97
-#> 376                                       Northeast 10       #071689
-#> 377                                               <NA>       #e51d3a
-#> 378                                        Great Lakes       #502583
-#> 379                                       Northern Sun       #3a1707
-#> 380                      Southern Athletic Association       #000000
-#> 381                          Atlantic Coast Conference       #6a2c3e
-#> 382                                               <NA>       #00529b
-#> 383                                               <NA>       #434445
-#> 384                                        Presidents'       #a20012
-#> 385                                 Big Ten Conference       #2774ae
-#> 386                                          Minnesota       #ce153e
-#> 387                                        Presidents'       #daad27
-#> 388                               Southland Conference       #393996
-#> 389                       Coastal Athletic Association       #990000
-#> 390                                            Midwest       #e12a3d
-#> 391                                     Conference USA       #5e0009
-#> 392                         United Athletic Conference       #592b82
-#> 393                                  Big 12 Conference       #4d1979
-#> 394                         American Rivers Conference       #452d7d
-#> 395                             Ohio Valley Conference       #ff6700
-#> 396                            Southeastern Conference       #ff8200
-#> 397                             Ohio Valley Conference       #171796
-#> 398                                Southern Conference       #5a4099
-#> 399                                American Conference       #0c2340
-#> 400                                               <NA>       #e05e15
-#> 401                           Mountain West Conference       #ff8200
-#> 402            Southern Collegiate Athletic Conference       #fdbe10
-#> 403                                 Big Ten Conference       #33006f
-#> 404                   Southwestern Athletic Conference       #860038
-#> 405                                  Big 12 Conference       #da291c
-#> 406                                Southern Conference       #7badd3
-#> 407                                        Presidents'       #b6964b
-#> 408                  Great Midwest Athletic Conference       #004f9d
-#> 409                            Mid-American Conference       #0b2240
-#> 410                                  Pac-12 Conference       #a60f2d
-#> 411                                           Michigan       #0b335e
-#> 412                                Sun Belt Conference       #862633
-#> 413                                        Great Lakes       #510c76
-#> 414                                American Conference       #006747
-#> 415                                               SIAC       #a32035
-#> 416                                          Lone Star       #005daa
-#> 417                                            Midwest       #003865
-#> 418                                         Centennial       #98012e
-#> 419                                         Gulf South       #dd1a32
-#> 420                            Pioneer Football League       #794500
-#> 421                                               CIAA       #72171a
-#> 422                                Southern Conference       #ae122a
-#> 423                                            Midwest       #062336
-#> 424                               Northeast Conference       #00483a
-#> 425                  Great Midwest Athletic Conference       #6e0022
-#> 426                         American Rivers Conference       #f5822b
-#> 427                                        Presidents'       #a93339
-#> 428                                        Mid America       #003876
-#> 429                                       Old Dominion       #000399
-#> 430                                 Big Sky Conference       #18005a
-#> 431                                         Gulf South       #d31d33
-#> 432                         United Athletic Conference       #0033a1
-#> 433                           Mountain East Conference       #ffcd32
-#> 434                                         Centennial       #00674d
-#> 435                                               <NA>       #b5121b
-#> 436                      Commonwealth Coast Conference       #feb610
-#> 437                                          Lone Star       #42196e
-#> 438                                          Lone Star       #6a1831
-#> 439                                               <NA>       #005dab
-#> 440                           Mountain East Conference       #d2ac2a
-#> 441                                          Wisconsin       #b38707
-#> 442                             Ohio Valley Conference       #4e1e8a
-#> 443                            Mid-American Conference       #532e1f
-#> 444                                     Rocky Mountain       #c61230
-#> 445                                Southern Conference       #492f91
-#> 446                                          Wisconsin       #0068b5
-#> 447                                          Northwest       #930036
-#> 448                                          Wisconsin       #cd1041
-#> 449                         Middle Atlantic Conference       #0056ba
-#> 450                                     Patriot League       #115740
-#> 451                                             NESCAC       #500082
-#> 452                                               Ohio       #92c648
-#> 453                                               CIAA       #bb0100
-#> 454                                          Wisconsin       #023576
-#> 455                      Commonwealth Coast Conference       #1a64b7
-#> 456                                          Wisconsin       #850129
-#> 457           Northern Athletics Collegiate Conference       #006241
-#> 458                                          Wisconsin       #492f91
-#> 459                                          Wisconsin       #0c233f
-#> 460                                          Wisconsin       #5b3085
-#> 461                                        North Coast       #d31145
-#> 462                                Southern Conference       #533b23
-#> 463                                        North Coast       #f7be00
-#> 464  New England Women's and Men's Athletic Conference       #c41230
-#> 465                                 Big Ten Conference       #a00000
-#> 466                           Mountain West Conference       #492f24
-#> 467                Missouri Valley Football Conference       #e51936
-#> 468                   Southwestern Athletic Conference       #ee8601
-#> 469                      Southern Athletic Association       #00205b
-#> 470                                 American Southwest       #02215b
-#> 471                                Sun Belt Conference       #00b140
-#> 472                                  Big 12 Conference       #eaaa00
-#> 473                                   FCS Independents       #2f4f93
-#> 474  New England Women's and Men's Athletic Conference       #005588
-#> 475                                     Liberty League       #663a2b
-#> 476                                  Pac-12 Conference       #b1102b
-#> 477                                           Empire 8       #00462d
-#> 478                                           Empire 8       #c00c26
-#> 479                                           Michigan       #efb30f
-#> 480                                           Michigan       #421d2f
-#> 481                                          Minnesota       #002d62
-#> 482                       Coastal Athletic Association       #000000
-#> 483                               Conference Carolinas       #00529b
-#> 484                                               SIAC       #ad141a
-#> 485                         Middle Atlantic Conference       #004c23
-#> 486                                 American Southwest       #5b2d83
-#> 487                                           Michigan       #f36b23
-#> 488                             Ohio Valley Conference       #b3a068
-#> 489                                        Great Lakes       #54237f
-#> 490                                       Northern Sun       #c8102e
-#> 491                                         New Jersey       #c20f2f
-#> 492                Missouri Valley Football Conference       #00669a
-#> 493                               Conference Carolinas       #d91e39
-#> 494                          Great American Conference       #d02030
-#> 495                                    Independent DII       #ce0e2d
-#> 496                                        Great Lakes       #947e1b
-#> 497                                         New Jersey       #571b04
-#> 498                                       Old Dominion       #b80835
-#> 499                                       Northeast 10       #0c233f
-#> 500           Northern Athletics Collegiate Conference       #004712
-#> 501                                          Lone Star       #eb0626
-#> 502                               Southland Conference       #ffc333
-#> 503                  Great Midwest Athletic Conference       #00401f
-#> 504                                     South Atlantic       #f2682a
-#> 505                               Northeast Conference       #300a48
-#> 506                                     South Atlantic       #e30000
-#> 507                                Landmark Conference       #002857
-#> 508                                       Northern Sun       #ffd02e
-#> 509                                        Presidents'       #9a5627
-#> 510                                          Lone Star       #e2383f
-#> 511                                        Presidents'       #00355f
-#> 512                                           So. Cal.       #4a217b
-#> 513                                       Northern Sun       #4b09a2
-#> 514             Pennsylvania State Athletic Conference       #b42622
-#> 515                                          USA South       #005288
-#> 516                                         New Jersey       #092f56
-#> 517                                        Great Lakes       #112845
-#> 518                                               <NA>       #082443
-#> 519                               Conference Carolinas       #8d754f
-#> 520                      Commonwealth Coast Conference       #007b5f
-#> 521                  Great Midwest Athletic Conference       #7fb0d6
-#> 522                          Great American Conference       #542989
-#> 523                                            Midwest       #c10e3f
-#> 524                                       Northern Sun       #492f91
-#> 525                                          USA South       #9b2036
-#> 526                                           So. Cal.       #751708
-#> 527                                Sun Belt Conference       #041e42
-#> 528                            Pioneer Football League       #512873
-#> 529 Massachusetts State Collegiate Athletic Conference       #1b509e
-#> 530                                          USA South       #fec325
-#> 531                                        Great Lakes       #ea1c2d
-#> 532                                               <NA>       #00457c
-#> 533                                          USA South       #003c78
-#> 534                               Southland Conference       #000000
-#> 535                                            Midwest       #d4282f
-#> 536                               Southland Conference       #dc6000
-#> 537                                           So. Cal.       #00549a
-#> 538                          Great American Conference       #2e3d50
-#> 539                                         New Jersey       #01573c
-#> 540                                          Northwest       #960a2c
-#> 541                                          USA South       #d21f36
-#> 542                                               CIAA       #86b0c6
-#> 543                                Sun Belt Conference       #003768
-#> 544  New England Women's and Men's Athletic Conference       #790032
-#> 545                                        Presidents'       #083150
-#> 546                         American Rivers Conference       #ea0029
-#> 547 Massachusetts State Collegiate Athletic Conference       #edb317
-#> 548                                          Minnesota       #000000
-#> 549                         Middle Atlantic Conference       #ffe315
-#> 550                                       Old Dominion       #900028
-#> 551                                         New Jersey       #000000
-#> 552 Massachusetts State Collegiate Athletic Conference       #054e39
-#> 553             Pennsylvania State Athletic Conference       #c0b45f
-#> 554                                             NESCAC       #032d58
-#> 555                                        North Coast       #e82524
-#> 556                           Mountain East Conference       #75243e
-#> 557                                 Big Ten Conference       #9d2235
-#> 558                            Pioneer Football League       #2f99d4
-#> 559                                 Big Sky Conference       #002855
-#> 560                                 Big Sky Conference       #ef8c00
-#> 561                                               CCIW       #006f51
-#> 562                                       Northern Sun       #d8ab27
-#> 563                                               CCIW       #b20838
-#> 564                  Great Midwest Athletic Conference       #513093
-#> 565                                Sun Belt Conference       #ce181e
-#> 566                                 Big Sky Conference       #ba1c21
-#> 567                       Coastal Athletic Association       #127dbe
-#> 568                                           Empire 8       #00502f
-#> 569                                         New Jersey       #005394
-#> 570                                           Empire 8       #00467f
-#> 571                                               Ohio       #00275c
-#> 572                          Great American Conference       #255f2b
-#> 573                                               CCIW       #f16723
-#> 574                                     Patriot League       #790000
-#> 575                                Landmark Conference       #1f3361
-#> 576                                               <NA>       #871c30
-#> 577                                Sun Belt Conference       #006f71
-#> 578                                               <NA>       #124d39
-#> 579                                  Pac-12 Conference       #501214
-#> 580                                  Pac-12 Conference       #0f2439
-#> 581                                             NESCAC       #012778
-#> 582                                               CIAA       #a9712c
-#> 583                                 Big Sky Conference       #a10022
-#> 584                                               Ohio       #bf2037
-#> 585                            Southeastern Conference       #9e1b32
-#> 586                                             NESCAC       #d72121
-#> 587                                     Conference USA       #fdbb30
-#> 588                                             NESCAC       #ffffff
-#> 589                           Mountain East Conference       #d31145
-#> 590                            Southeastern Conference       #5d1725
-#> 591                                             NESCAC       #062f87
-#> 592                                American Conference       #000000
-#> 593                                     South Atlantic       #182441
-#> 594                                        North Coast       #613394
-#> 595                                           Michigan       #e72623
-#> 596                                 Big Ten Conference       #ff5f05
-#> 597                                               Ohio       #cca05b
-#> 598                                  Pac-12 Conference       #004c23
-#> 599                                           Empire 8       #633394
-#> 600                               Conference Carolinas       #000000
-#> 601             Pennsylvania State Athletic Conference       #fcb040
-#> 602                                           Empire 8       #c02f39
-#> 603                                          Minnesota       #00447c
-#> 604 Massachusetts State Collegiate Athletic Conference       #0f223f
-#> 605                                  Big 12 Conference       #cfb87c
-#> 606                      Southern Athletic Association       #8c2129
-#> 607                         Middle Atlantic Conference       #003767
-#> 608                                        Great Lakes       #1a2d5d
-#> 609                                           Empire 8       #0b2240
-#> 610                                        North Coast       #ad0935
-#> 611                                               CCIW       #002857
-#> 612                                Landmark Conference       #002856
-#> 613                       Coastal Athletic Association       #3d2777
-#> 614                      Commonwealth Coast Conference       #65448b
-#> 615 Massachusetts State Collegiate Athletic Conference       #004b8e
-#> 616           Northern Athletics Collegiate Conference       #245699
-#> 617                                   FBS Independents       #0c2340
-#> 618                                           So. Cal.       #ab1d38
-#> 619                                          Northwest       #002d62
-#> 620            Southern Collegiate Athletic Conference       #d1ac54
-#> 621                      Southern Athletic Association       #f58023
-#> 622                                               Ohio       #35236a
-#> 623                                       Northern Sun       #8e0a26
-#> 624                                               Ohio       #291f2e
-#> 625                                               Ohio       #ff5324
-#> 626                                         Ivy League       #004a81
-#> 627                                      Upper Midwest       #06496f
-#> 628                  Great Midwest Athletic Conference       #113d2a
-#> 629                                      Upper Midwest       #de1b22
-#> 630                      Commonwealth Coast Conference       #008265
-#> 631                           Mountain East Conference       #ff4c00
-#> 632                                     Patriot League       #110e42
-#> 633                    Mid-Eastern Athletic Conference       #003a63
-#> 634                         Middle Atlantic Conference       #005747
-#> 635                                     Conference USA       #00539f
-#> 636                         American Rivers Conference       #1c3c75
-#> 637                                               SIAC       #fcd309
-#> 638                                American Conference       #1a5632
-#> 639                   Southwestern Athletic Conference       #f89728
-#> 640                                      Upper Midwest       #5c2f92
-#> 641                                               <NA>       #fff200
-#> 642                          Atlantic Coast Conference       #782f40
-#> 643                                               <NA>       #f0b310
-#> 644                                          USA South       #df1c2b
-#> 645                                     Conference USA       #cc0000
-#> 646                                       Northern Sun       #0a2e6e
-#> 647                            Pioneer Football League       #0a5640
-#> 648                                       Northern Sun       #ce0e2d
-#> 649                            Southeastern Conference       #0021a5
-#> 650                                American Conference       #006747
-#> 651                                      Upper Midwest       #291d40
-#> 652                          Atlantic Coast Conference       #b3a369
-#> 653                                Sun Belt Conference       #00205b
-#> 654                                               SIAC       #840028
-#> 655                            Southeastern Conference       #ba0c2f
-#> 656             Pennsylvania State Athletic Conference       #d11042
-#> 657                                     Rocky Mountain       #131f48
-#> 658                           Mountain West Conference       #005737
-#> 659                         American Rivers Conference       #feba12
-#> 660           Northern Athletics Collegiate Conference       #fec425
-#> 661                                            Midwest       #ee3124
-#> 662                                  Big 12 Conference       #ae192d
-#> 663                                            Midwest       #015a9c
-#> 664                                  Pac-12 Conference       #0033a0
-#> 665                         American Rivers Conference       #aa985d
-#> 666                                             NESCAC       #3f1f69
-#> 667                                 Big Sky Conference       #000000
-#> 668                                               CCIW       #00a2e0
-#> 669                                               CCIW       #014576
-#> 670                                               CCIW       #0057a8
-#> 671                                 Big Ten Conference       #492f92
-#> 672                Missouri Valley Football Conference       #85283d
-#> 673                            Southeastern Conference       #a32136
-#> 674                                            Midwest       #8b0021
-#> 675  New England Women's and Men's Athletic Conference       #862633
-#> 676                                        North Coast       #ffce34
-#> 677                                 Big Ten Conference       #970310
-#> 678                                          Heartland       #800000
-#> 679                                   FBS Independents       #062340
-#> 680                                        North Coast       #ce0e19
-#> 681                                  Big 12 Conference       #ffc627
-#> 682                                        Mid America       #e51837
-#> 683                Missouri Valley Football Conference       #002148
-#> 684                            Southeastern Conference       #0033a0
-#> 685                          Atlantic Coast Conference       #c9001f
-#> 686                                     Conference USA       #e13a3e
-#> 687                            Southeastern Conference       #461d76
-#> 688                                American Conference       #0e1d41
-#> 689                          Atlantic Coast Conference       #003ca6
-#> 690                                  Big 12 Conference       #fa4238
-#> 691                                 Big Sky Conference       #0133a0
-#> 692                                 Big Ten Conference       #0082cb
-#> 693                       Coastal Athletic Association       #002648
-#> 694                                     Conference USA       #002638
-#> 695                                   FBS Independents       #76b7b2
-#> 696                                   FCS Independents       #9c755f
-#> 697                                         Ivy League       #18563f
-#> 698                            Mid-American Conference       #009844
-#> 699                    Mid-Eastern Athletic Conference       #582c82
-#> 700                Missouri Valley Football Conference       #9c755f
-#> 701                           Mountain West Conference       #4e2d7f
-#> 702                               Northeast Conference       #035f9b
-#> 703                             Ohio Valley Conference       #a51844
-#> 704                                  Pac-12 Conference       #001a6f
-#> 705                                     Patriot League       #00205a
-#> 706                            Pioneer Football League       #ff9da7
-#> 707                            Southeastern Conference       #012d74
-#> 708                   Southwestern Athletic Conference       #e2201b
-#> 709                                Southern Conference       #001588
-#> 710                               Southland Conference       #c1a552
-#> 711                                Sun Belt Conference       #0c2140
-#> 712                        Western Athletic Conference       #8a2432
+#>     league            team_id               abbr
+#> 1      cfb                101               ERKA
+#> 2      cfb             101442               CTLA
+#> 3      cfb             101784               ERSK
+#> 4      cfb                103                 BC
+#> 5      cfb                107                 HC
+#> 6      cfb                108               HARV
+#> 7      cfb                109                MIT
+#> 8      cfb                 11               COMU
+#> 9      cfb                110                MMT
+#> 10     cfb             110242                UWF
+#> 11     cfb             110243               UTPB
+#> 12     cfb             110438               DEAN
+#> 13     cfb             111610               STAU
+#> 14     cfb             111674               ALVR
+#> 15     cfb             111675                UNE
+#> 16     cfb                112               TUFT
+#> 17     cfb             112334                 FP
+#> 18     cfb             112335               WHLG
+#> 19     cfb                113               MASS
+#> 20     cfb                114               FBSU
+#> 21     cfb                118                JHU
+#> 22     cfb                119                TOW
+#> 23     cfb                 12               ARIZ
+#> 24     cfb                120                 MD
+#> 25     cfb                121               BATE
+#> 26     cfb             122666               BART
+#> 27     cfb             122774               KYSN
+#> 28     cfb             123086               NAMU
+#> 29     cfb                124               AUGS
+#> 30     cfb             124179               LNCA
+#> 31     cfb             124180               BLUS
+#> 32     cfb                125               GVSU
+#> 33     cfb             125974               HLBT
+#> 34     cfb                126               KALC
+#> 35     cfb             126086               POST
+#> 36     cfb                127                MSU
+#> 37     cfb             127954                 EU
+#> 38     cfb                128                NMI
+#> 39     cfb                129               SVSU
+#> 40     cfb             129469               ANSC
+#> 41     cfb             129738               CALU
+#> 42     cfb                 13                 CP
+#> 43     cfb                130               MICH
+#> 44     cfb                131               WSMI
+#> 45     cfb                132                BST
+#> 46     cfb                133               OLAF
+#> 47     cfb                134                UMD
+#> 48     cfb                135               MINN
+#> 49     cfb                137               MOWE
+#> 50     cfb                138               MWMO
+#> 51     cfb                142                MIZ
+#> 52     cfb                143               WUMO
+#> 53     cfb                145               MISS
+#> 54     cfb                146                GRO
+#> 55     cfb                147               MTST
+#> 56     cfb                149               MONT
+#> 57     cfb                150               DUKE
+#> 58     cfb                151                ECU
+#> 59     cfb                152               NCSU
+#> 60     cfb                153                UNC
+#> 61     cfb                154               WAKE
+#> 62     cfb                155                UND
+#> 63     cfb                158                NEB
+#> 64     cfb                159               DART
+#> 65     cfb                 16                SAC
+#> 66     cfb                160                UNH
+#> 67     cfb                162               HMLN
+#> 68     cfb                163               PRIN
+#> 69     cfb                164               RUTG
+#> 70     cfb                166               NMSU
+#> 71     cfb                167                UNM
+#> 72     cfb                 17                CMS
+#> 73     cfb                171               COLU
+#> 74     cfb                172                COR
+#> 75     cfb                173               HRTW
+#> 76     cfb                174               HBRT
+#> 77     cfb                175                ITH
+#> 78     cfb                 18               BRIS
+#> 79     cfb                183                SYR
+#> 80     cfb                184               URNY
+#> 81     cfb                188                 BW
+#> 82     cfb                189               BGSU
+#> 83     cfb                190                DEF
+#> 84     cfb                191               HDBG
+#> 85     cfb                193               M-OH
+#> 86     cfb                194                OSU
+#> 87     cfb                195               OHIO
+#> 88     cfb                196               NESU
+#> 89     cfb                197               OKST
+#> 90     cfb                199               SEOK
+#> 91     cfb                  2                AUB
+#> 92     cfb                200                SNU
+#> 93     cfb               2000                ACU
+#> 94     cfb               2001               ADSU
+#> 95     cfb               2003                ADR
+#> 96     cfb               2005                 AF
+#> 97     cfb               2006                AKR
+#> 98     cfb                201                 OU
+#> 99     cfb               2010               AAMU
+#> 100    cfb               2011               ALST
+#> 101    cfb               2013               ABSU
+#> 102    cfb               2015               ALBR
+#> 103    cfb               2016               ALCN
+#> 104    cfb               2018               ALLG
+#> 105    cfb               2019               ALNU
+#> 106    cfb                202               TLSA
+#> 107    cfb               2022                AIC
+#> 108    cfb               2023               ANIN
+#> 109    cfb               2025               AGSU
+#> 110    cfb               2026                APP
+#> 111    cfb               2028                UAM
+#> 112    cfb               2029               UAPB
+#> 113    cfb                203               LINF
+#> 114    cfb               2032               ARST
+#> 115    cfb               2033               ARTE
+#> 116    cfb               2038                ASP
+#> 117    cfb                204               ORST
+#> 118    cfb               2042               AUGC
+#> 119    cfb               2043               AUSD
+#> 120    cfb               2044                AUR
+#> 121    cfb               2045                AUS
+#> 122    cfb               2046               APSU
+#> 123    cfb               2047               AVER
+#> 124    cfb               2049                APU
+#> 125    cfb                205               PCOR
+#> 126    cfb               2050               BALL
+#> 127    cfb               2056               BELH
+#> 128    cfb               2060               BENT
+#> 129    cfb               2062               BCWV
+#> 130    cfb               2064               BTTN
+#> 131    cfb               2065                BCU
+#> 132    cfb               2069               BHSU
+#> 133    cfb               2071                BBU
+#> 134    cfb               2074                BLF
+#> 135    cfb               2075               BOWE
+#> 136    cfb               2079                BRI
+#> 137    cfb               2083               BUCK
+#> 138    cfb               2084                BUF
+#> 139    cfb               2085                BSU
+#> 140    cfb               2086               BTLR
+#> 141    cfb                209                LHU
+#> 142    cfb               2094                CLU
+#> 143    cfb               2097                CAM
+#> 144    cfb                 21               SDSU
+#> 145    cfb                210               MILL
+#> 146    cfb               2101                CAR
+#> 147    cfb               2102               CGMU
+#> 148    cfb               2105                 CN
+#> 149    cfb               2106                CCW
+#> 150    cfb               2107                CAT
+#> 151    cfb               2108               CATH
+#> 152    cfb               2110               CARK
+#> 153    cfb               2115               CCSU
+#> 154    cfb               2116                UCF
+#> 155    cfb               2117                CMU
+#> 156    cfb               2118                UCM
+#> 157    cfb               2119               CNSU
+#> 158    cfb               2120               CWAU
+#> 159    cfb               2121                CCO
+#> 160    cfb               2122                UCO
+#> 161    cfb               2123               CHAD
+#> 162    cfb               2127               CHSO
+#> 163    cfb               2128               UCWV
+#> 164    cfb                213                PSU
+#> 165    cfb               2130               CHST
+#> 166    cfb               2132                CIN
+#> 167    cfb               2134               CLRN
+#> 168    cfb               2141                COE
+#> 169    cfb               2142               COLG
+#> 170    cfb               2146               CMIN
+#> 171    cfb               2148               CONC
+#> 172    cfb                215                SRU
+#> 173    cfb               2151                CUC
+#> 174    cfb               2152               CCMN
+#> 175    cfb               2155               CNIA
+#> 176    cfb                216               SUSQ
+#> 177    cfb               2166                DAV
+#> 178    cfb               2168                DAY
+#> 179    cfb               2169                DSU
+#> 180    cfb               2170               DLST
+#> 181    cfb               2171                DSN
+#> 182    cfb               2175               DKSN
+#> 183    cfb                218                TEM
+#> 184    cfb               2181               DRKE
+#> 185    cfb               2184                DUQ
+#> 186    cfb               2188                ESU
+#> 187    cfb                219               PENN
+#> 188    cfb               2191               ECNU
+#> 189    cfb               2193               ETSU
+#> 190    cfb               2194               ETBU
+#> 191    cfb               2197                EIU
+#> 192    cfb               2198                EKU
+#> 193    cfb               2199                EMU
+#> 194    cfb               2201               ENMU
+#> 195    cfb               2202               EORE
+#> 196    cfb               2205               EDBR
+#> 197    cfb               2206                EDW
+#> 198    cfb               2207               ECSU
+#> 199    cfb                221               PITT
+#> 200    cfb               2210               ELON
+#> 201    cfb               2213                EHC
+#> 202    cfb               2214               EMSU
+#> 203    cfb                222               VILL
+#> 204    cfb               2220               FAYU
+#> 205    cfb               2221               FDUF
+#> 206    cfb               2222               FRST
+#> 207    cfb               2224                 UF
+#> 208    cfb               2226                FAU
+#> 209    cfb               2229                FIU
+#> 210    cfb                223               WCHT
+#> 211    cfb               2230                FOR
+#> 212    cfb               2231               FHSU
+#> 213    cfb               2232               FVSU
+#> 214    cfb               2233               FRKL
+#> 215    cfb               2234                FMC
+#> 216    cfb               2237               FLWC
+#> 217    cfb               2241               GWEB
+#> 218    cfb               2242                GEN
+#> 219    cfb               2244                GMU
+#> 220    cfb               2245               GTKY
+#> 221    cfb               2247               GAST
+#> 222    cfb               2248               GTYB
+#> 223    cfb               2249               GVLS
+#> 224    cfb                225               BRWN
+#> 225    cfb               2254          GRANDVIEW
+#> 226    cfb               2256               GRNB
+#> 227    cfb               2257               GRNV
+#> 228    cfb               2258               GLFD
+#> 229    cfb               2261               HAMP
+#> 230    cfb               2262               HNVR
+#> 231    cfb               2264               HARD
+#> 232    cfb                227                URI
+#> 233    cfb               2271               HSTU
+#> 234    cfb               2273               HLDL
+#> 235    cfb               2274               HIRM
+#> 236    cfb               2277                HCU
+#> 237    cfb                228               CLEM
+#> 238    cfb               2280               HUSS
+#> 239    cfb               2283               BNIL
+#> 240    cfb               2286               ILLC
+#> 241    cfb               2287               ILST
+#> 242    cfb               2291                IUP
+#> 243    cfb               2292               INDY
+#> 244    cfb               2294               IOWA
+#> 245    cfb               2296               JKST
+#> 246    cfb                 23               SJSU
+#> 247    cfb               2302                JCU
+#> 248    cfb               2304               JCSU
+#> 249    cfb               2305                 KU
+#> 250    cfb               2306                KSU
+#> 251    cfb               2309               KENT
+#> 252    cfb                231                FUR
+#> 253    cfb               2310               KYSU
+#> 254    cfb               2315               KUTZ
+#> 255    cfb               2316                KWC
+#> 256    cfb               2318                ULV
+#> 257    cfb               2320                LAM
+#> 258    cfb               2323               LANE
+#> 259    cfb               2324               LNGT
+#> 260    cfb               2329                LEH
+#> 261    cfb                233               SDAK
+#> 262    cfb               2331               LENR
+#> 263    cfb               2333                 LC
+#> 264    cfb               2335                LIB
+#> 265    cfb               2339               LNPA
+#> 266    cfb               2341                LIU
+#> 267    cfb               2348                 LT
+#> 268    cfb                235                MEM
+#> 269    cfb               2354               LYCO
+#> 270    cfb               2359                MAC
+#> 271    cfb                236                UTC
+#> 272    cfb               2362               MNCH
+#> 273    cfb               2364               MNST
+#> 274    cfb               2365               MNFD
+#> 275    cfb               2368               MRST
+#> 276    cfb               2369                MHU
+#> 277    cfb                237               UNNY
+#> 278    cfb               2371                MHB
+#> 279    cfb               2373               MCTN
+#> 280    cfb               2377                MCN
+#> 281    cfb                238                VAN
+#> 282    cfb               2382                MER
+#> 283    cfb               2383                MMA
+#> 284    cfb               2385               MERC
+#> 285    cfb                239                BAY
+#> 286    cfb               2390                MIA
+#> 287    cfb               2392                MTU
+#> 288    cfb               2393               MTSU
+#> 289    cfb               2394               MIDB
+#> 290    cfb               2396               MILE
+#> 291    cfb               2398               MLSP
+#> 292    cfb               2399               MNMO
+#> 293    cfb                 24               STAN
+#> 294    cfb               2400               MVSU
+#> 295    cfb               2402               MS&T
+#> 296    cfb               2403               MSSU
+#> 297    cfb               2405               MONM
+#> 298    cfb                241                MCM
+#> 299    cfb               2413               MORE
+#> 300    cfb               2415               MORG
+#> 301    cfb               2416               MNGS
+#> 302    cfb               2419                MSJ
+#> 303    cfb                242               RICE
+#> 304    cfb               2422               MUHL
+#> 305    cfb               2424               NMHU
+#> 306    cfb               2426               NAVY
+#> 307    cfb               2428               NCCU
+#> 308    cfb               2429                CLT
+#> 309    cfb               2433                ULM
+#> 310    cfb               2438               NEBK
+#> 311    cfb               2439               UNLV
+#> 312    cfb               2440                NEV
+#> 313    cfb               2441               NHVN
+#> 314    cfb               2442               TCNJ
+#> 315    cfb               2444               NBRY
+#> 316    cfb               2447               NICH
+#> 317    cfb               2448               NCAT
+#> 318    cfb               2449               NDSU
+#> 319    cfb                245               TA&M
+#> 320    cfb               2450               NORF
+#> 321    cfb               2453                UNA
+#> 322    cfb               2458               UNCO
+#> 323    cfb               2459                NIU
+#> 324    cfb                246                JUN
+#> 325    cfb               2460                UNI
+#> 326    cfb               2464                NAU
+#> 327    cfb               2466               NWST
+#> 328    cfb               2467               NWCH
+#> 329    cfb                247               KNGS
+#> 330    cfb               2477               OHDU
+#> 331    cfb                248                HOU
+#> 332    cfb               2483                ORE
+#> 333    cfb               2486               PCLT
+#> 334    cfb               2487               PACE
+#> 335    cfb                249                UNT
+#> 336    cfb                 25                CAL
+#> 337    cfb               2502               PRST
+#> 338    cfb               2504                 PV
+#> 339    cfb               2506               PRES
+#> 340    cfb               2508                PUG
+#> 341    cfb               2509                PUR
+#> 342    cfb                251                TEX
+#> 343    cfb               2516                RMC
+#> 344    cfb               2519               RHDS
+#> 345    cfb                252                BYU
+#> 346    cfb               2523                RMU
+#> 347    cfb               2524                RFU
+#> 348    cfb               2528                RPI
+#> 349    cfb               2529                SHU
+#> 350    cfb                253                SUU
+#> 351    cfb               2532                SAL
+#> 352    cfb               2534               SHSU
+#> 353    cfb               2535                SAM
+#> 354    cfb                254               UTAH
+#> 355    cfb               2542                SAV
+#> 356    cfb               2545               SELA
+#> 357    cfb               2546               SEMO
+#> 358    cfb                255               KNOX
+#> 359    cfb               2551               SHAW
+#> 360    cfb               2553               SEWA
+#> 361    cfb               2557               USCG
+#> 362    cfb               2559               SHIP
+#> 363    cfb                256                JMU
+#> 364    cfb               2560               SHOU
+#> 365    cfb               2564               SCIA
+#> 366    cfb               2567                SMU
+#> 367    cfb               2568                SAR
+#> 368    cfb               2569               SCST
+#> 369    cfb                257               RICH
+#> 370    cfb               2570               CSUP
+#> 371    cfb               2571               SDST
+#> 372    cfb               2572                USM
+#> 373    cfb               2579                 SC
+#> 374    cfb                258                UVA
+#> 375    cfb               2582                SOU
+#> 376    cfb               2583               SCTS
+#> 377    cfb               2584                SOR
+#> 378    cfb               2586               SWBU
+#> 379    cfb               2587               SWMS
+#> 380    cfb               2588                SWU
+#> 381    cfb                259                 VT
+#> 382    cfb               2591               STAM
+#> 383    cfb               2595               SFIL
+#> 384    cfb               2598               SFPA
+#> 385    cfb                 26               UCLA
+#> 386    cfb               2600               STJM
+#> 387    cfb               2614                SVC
+#> 388    cfb               2617                SFA
+#> 389    cfb               2619               STBK
+#> 390    cfb                262                LFC
+#> 391    cfb               2623               MOST
+#> 392    cfb               2627                TAR
+#> 393    cfb               2628                TCU
+#> 394    cfb                263                LOR
+#> 395    cfb               2630                UTM
+#> 396    cfb               2633               TENN
+#> 397    cfb               2634               TNST
+#> 398    cfb               2635               TNTC
+#> 399    cfb               2636               UTSA
+#> 400    cfb               2637               TXCL
+#> 401    cfb               2638               UTEP
+#> 402    cfb               2639               TXLU
+#> 403    cfb                264               WASH
+#> 404    cfb               2640               TXSO
+#> 405    cfb               2641                TTU
+#> 406    cfb               2643                CIT
+#> 407    cfb               2644                THI
+#> 408    cfb               2646               TMOR
+#> 409    cfb               2649                TOL
+#> 410    cfb                265                WSU
+#> 411    cfb               2651               TRNE
+#> 412    cfb               2653               TROY
+#> 413    cfb               2654               TRST
+#> 414    cfb               2655               TULN
+#> 415    cfb               2657               TUSK
+#> 416    cfb               2658               TAMK
+#> 417    cfb                266               BELO
+#> 418    cfb               2667               URSN
+#> 419    cfb               2673               VALD
+#> 420    cfb               2674                VAL
+#> 421    cfb               2676                VUU
+#> 422    cfb               2678                VMI
+#> 423    cfb                268                LAW
+#> 424    cfb               2681                WAG
+#> 425    cfb               2682               WLSH
+#> 426    cfb               2685               WTBG
+#> 427    cfb               2686                W&J
+#> 428    cfb               2687               WSBN
+#> 429    cfb               2688                W&L
+#> 430    cfb               2692                WEB
+#> 431    cfb               2695                UWA
+#> 432    cfb               2698                WGA
+#> 433    cfb               2699                WLU
+#> 434    cfb               2700                MCD
+#> 435    cfb               2701                UMW
+#> 436    cfb               2702                WNE
+#> 437    cfb               2703               WNMU
+#> 438    cfb               2704               WTAM
+#> 439    cfb               2706               WVUT
+#> 440    cfb               2707               WVSU
+#> 441    cfb                271                UWO
+#> 442    cfb               2710                WIU
+#> 443    cfb               2711                WMU
+#> 444    cfb               2714               WCOL
+#> 445    cfb               2717                WCU
+#> 446    cfb                272                UWP
+#> 447    cfb               2721               WHIW
+#> 448    cfb               2723               UWRF
+#> 449    cfb               2725               WIDE
+#> 450    cfb               2729                W&M
+#> 451    cfb               2731                WLM
+#> 452    cfb               2733               WCOH
+#> 453    cfb               2736               WSSU
+#> 454    cfb               2738               UWEC
+#> 455    cfb                274               UMMA
+#> 456    cfb               2740                UWL
+#> 457    cfb               2741                WLC
+#> 458    cfb               2743               UWSP
+#> 459    cfb               2744               UWST
+#> 460    cfb               2745                UWW
+#> 461    cfb               2746               WITT
+#> 462    cfb               2747                WOF
+#> 463    cfb               2748                WOO
+#> 464    cfb               2749                WPI
+#> 465    cfb                275                WIS
+#> 466    cfb               2751                WYO
+#> 467    cfb               2754                YSU
+#> 468    cfb               2755               GRAM
+#> 469    cfb               2757               BERR
+#> 470    cfb               2758               HWPU
+#> 471    cfb                276               MRSH
+#> 472    cfb                277                WVU
+#> 473    cfb               2771               MRMK
+#> 474    cfb               2776               SALV
+#> 475    cfb               2779                USL
+#> 476    cfb                278               FRES
+#> 477    cfb               2781                BRO
+#> 478    cfb               2782               NYCL
+#> 479    cfb               2790               ALBI
+#> 480    cfb               2800               ALMA
+#> 481    cfb               2802               BUMN
+#> 482    cfb               2803                BRY
+#> 483    cfb               2804               CWAN
+#> 484    cfb               2805               CKGA
+#> 485    cfb               2808                DVU
+#> 486    cfb               2810                HSU
+#> 487    cfb               2812               HOPE
+#> 488    cfb               2815                LIN
+#> 489    cfb               2816                MCK
+#> 490    cfb               2817               MSUM
+#> 491    cfb               2818               MCST
+#> 492    cfb                282               INST
+#> 493    cfb               2822                NGU
+#> 494    cfb               2823               NWOK
+#> 495    cfb               2824               OPSU
+#> 496    cfb               2825                QUI
+#> 497    cfb               2827                ROW
+#> 498    cfb               2828               SHEN
+#> 499    cfb               2830               SANS
+#> 500    cfb               2832               STNC
+#> 501    cfb               2834               SRST
+#> 502    cfb               2837               ETAM
+#> 503    cfb               2838               TIFF
+#> 504    cfb               2839               TUSC
+#> 505    cfb                284                STO
+#> 506    cfb               2842               UVAW
+#> 507    cfb               2843               WCSU
+#> 508    cfb               2844               WSNE
+#> 509    cfb               2845               WAYN
+#> 510    cfb               2848               WORU
+#> 511    cfb               2849               WCPA
+#> 512    cfb               2850               WHTR
+#> 513    cfb               2851               WNST
+#> 514    cfb               2858               CAPA
+#> 515    cfb                286                NCW
+#> 516    cfb               2871               KEAN
+#> 517    cfb               2876               LNMO
+#> 518    cfb               2880               MOBU
+#> 519    cfb               2882               UNCP
+#> 520    cfb               2884               NICC
+#> 521    cfb               2886                NWD
+#> 522    cfb               2888                OBU
+#> 523    cfb               2891                RIP
+#> 524    cfb               2894                SFU
+#> 525    cfb               2896               SOVA
+#> 526    cfb                 29               REDL
+#> 527    cfb                290               GASO
+#> 528    cfb               2900               STMN
+#> 529    cfb               2909               WFST
+#> 530    cfb                291                 MU
+#> 531    cfb               2911                WJC
+#> 532    cfb               2912               WPEN
+#> 533    cfb               2913                BRE
+#> 534    cfb               2916                UIW
+#> 535    cfb               2919               MNIL
+#> 536    cfb                292                RGV
+#> 537    cfb               2923               POPI
+#> 538    cfb               2927               SOSU
+#> 539    cfb                293               VTSC
+#> 540    cfb               2930               WLMT
+#> 541    cfb               2938               HNTC
+#> 542    cfb               2940                LIV
+#> 543    cfb                295                ODU
+#> 544    cfb               2951               NYMT
+#> 545    cfb               2963               CWRU
+#> 546    cfb               2964               CNTC
+#> 547    cfb               2967               FRSU
+#> 548    cfb               2968                GAC
+#> 549    cfb               2969               MISE
+#> 550    cfb                297                HSC
+#> 551    cfb               2970                WPU
+#> 552    cfb               2972               PLYM
+#> 553    cfb               2974               SHEP
+#> 554    cfb               2977               TCCT
+#> 555    cfb               2980                OWU
+#> 556    cfb               2986               FMSU
+#> 557    cfb                 30                USC
+#> 558    cfb                301                USD
+#> 559    cfb                302                UCD
+#> 560    cfb                304               IDST
+#> 561    cfb                306               ILWU
+#> 562    cfb               3066                CSP
+#> 563    cfb               3071                NCC
+#> 564    cfb                308                ASH
+#> 565    cfb                309                 UL
+#> 566    cfb               3101                UTU
+#> 567    cfb                311                 ME
+#> 568    cfb               3110               NYMS
+#> 569    cfb               3112                CNU
+#> 570    cfb               3162               AFST
+#> 571    cfb                317               MRTT
+#> 572    cfb                319               OKBU
+#> 573    cfb                 32                CRU
+#> 574    cfb                322                LAF
+#> 575    cfb                323                MOR
+#> 576    cfb               3237               HVCC
+#> 577    cfb                324                CCU
+#> 578    cfb               3253              COLLE
+#> 579    cfb                326               TXST
+#> 580    cfb                328                USU
+#> 581    cfb                 33               CLBY
+#> 582    cfb                330                VSU
+#> 583    cfb                331                EWU
+#> 584    cfb                332                MSK
+#> 585    cfb                333                ALA
+#> 586    cfb                336               WSCT
+#> 587    cfb                338               KENN
+#> 588    cfb                340                BOW
+#> 589    cfb                341               FSTU
+#> 590    cfb                344               MSST
+#> 591    cfb                348                HAM
+#> 592    cfb                349               ARMY
+#> 593    cfb                351               WINU
+#> 594    cfb                352                KNY
+#> 595    cfb                354                UOO
+#> 596    cfb                356                ILL
+#> 597    cfb                359               OTTB
+#> 598    cfb                 36                CSU
+#> 599    cfb                365               ALFR
+#> 600    cfb                366                 FC
+#> 601    cfb                367               GANN
+#> 602    cfb                374               STJF
+#> 603    cfb                375                CSS
+#> 604    cfb                379               MDAR
+#> 605    cfb                 38               COLO
+#> 606    cfb                386               TUTX
+#> 607    cfb                388                LVC
+#> 608    cfb                389                UIU
+#> 609    cfb                390               UTIC
+#> 610    cfb                391                OBE
+#> 611    cfb                396               WCIL
+#> 612    cfb                398               WILK
+#> 613    cfb                399               UALB
+#> 614    cfb                 40                 CC
+#> 615    cfb                402               WORC
+#> 616    cfb                409                CUW
+#> 617    cfb                 41               CONN
+#> 618    cfb                411               CHAP
+#> 619    cfb                415                GFU
+#> 620    cfb                417               GLDT
+#> 621    cfb                418                HDX
+#> 622    cfb                424               CAPU
+#> 623    cfb                425                NSU
+#> 624    cfb                426                UMU
+#> 625    cfb                427               OHNU
+#> 626    cfb                 43               YALE
+#> 627    cfb                433               WCMO
+#> 628    cfb                437               LKER
+#> 629    cfb                446                MLC
+#> 630    cfb                452               ENDC
+#> 631    cfb                455               WVWC
+#> 632    cfb                 46               GTWN
+#> 633    cfb                 47                HOW
+#> 634    cfb                471               STVS
+#> 635    cfb                 48                DEL
+#> 636    cfb                 49                DBQ
+#> 637    cfb                490                BEN
+#> 638    cfb                  5                UAB
+#> 639    cfb                 50               FAMU
+#> 640    cfb                509               CRWN
+#> 641    cfb                512              DAKOT
+#> 642    cfb                 52                FSU
+#> 643    cfb                530                GRC
+#> 644    cfb                548                LGC
+#> 645    cfb                 55               JXST
+#> 646    cfb                559               MARY
+#> 647    cfb                 56               STET
+#> 648    cfb                568               MINS
+#> 649    cfb                 57                FLA
+#> 650    cfb                 58                USF
+#> 651    cfb                583                UNW
+#> 652    cfb                 59                 GT
+#> 653    cfb                  6                USA
+#> 654    cfb                 60               MRHO
+#> 655    cfb                 61                UGA
+#> 656    cfb                611               SEHI
+#> 657    cfb                613               SDMT
+#> 658    cfb                 62                HAW
+#> 659    cfb                 63                BVU
+#> 660    cfb               6353               LKLD
+#> 661    cfb                 65               GRNL
+#> 662    cfb                 66                ISU
+#> 663    cfb                 67               LUTH
+#> 664    cfb                 68               BOIS
+#> 665    cfb               6845                NWU
+#> 666    cfb                  7                AMH
+#> 667    cfb                 70               IDHO
+#> 668    cfb                 72               ELMH
+#> 669    cfb                 74               MILK
+#> 670    cfb                 75                NPU
+#> 671    cfb                 77                 NU
+#> 672    cfb                 79                SIU
+#> 673    cfb                  8                ARK
+#> 674    cfb                 80                CHI
+#> 675    cfb                 81                SPR
+#> 676    cfb                 83                DPU
+#> 677    cfb                 84                 IU
+#> 678    cfb                 86               RHIT
+#> 679    cfb                 87                 ND
+#> 680    cfb                 89                WAB
+#> 681    cfb                  9                ASU
+#> 682    cfb                 90               PTSU
+#> 683    cfb                 93                MUR
+#> 684    cfb                 96                 UK
+#> 685    cfb                 97                LOU
+#> 686    cfb                 98                WKU
+#> 687    cfb                 99                LSU
+#> 688    cfb                AAC                AAC
+#> 689    cfb                ACC                ACC
+#> 690    cfb                ASC                ASC
+#> 691    cfb             Big 12             Big 12
+#> 692    cfb            Big Sky            Big Sky
+#> 693    cfb            Big Ten            Big Ten
+#> 694    cfb                CAA                CAA
+#> 695    cfb               CCIW               CCIW
+#> 696    cfb               CIAA               CIAA
+#> 697    cfb                CNE                CNE
+#> 698    cfb               CUSA               CUSA
+#> 699    cfb          Carolinas          Carolinas
+#> 700    cfb           Empire 8           Empire 8
+#> 701    cfb         FBS Indep.         FBS Indep.
+#> 702    cfb         FCS Indep.         FCS Indep.
+#> 703    cfb              GLIAC              GLIAC
+#> 704    cfb               GLVC               GLVC
+#> 705    cfb                GSC                GSC
+#> 706    cfb     Great American     Great American
+#> 707    cfb               HCAC               HCAC
+#> 708    cfb                Ivy                Ivy
+#> 709    cfb                LSC                LSC
+#> 710    cfb           Landmark           Landmark
+#> 711    cfb     Liberty League     Liberty League
+#> 712    cfb                MAC                MAC
+#> 713    cfb             MASCAC             MASCAC
+#> 714    cfb               MEAC               MEAC
+#> 715    cfb                MEC                MEC
+#> 716    cfb               MIAA               MIAA
+#> 717    cfb          MIAA (MI)          MIAA (MI)
+#> 718    cfb               MIAC               MIAC
+#> 719    cfb               MVFC               MVFC
+#> 720    cfb    Middle Atlantic    Middle Atlantic
+#> 721    cfb Midwest Conference Midwest Conference
+#> 722    cfb      Mountain West      Mountain West
+#> 723    cfb               NACC               NACC
+#> 724    cfb               NCAA               NCAA
+#> 725    cfb               NCAC               NCAC
+#> 726    cfb               NE10               NE10
+#> 727    cfb                NEC                NEC
+#> 728    cfb             NESCAC             NESCAC
+#> 729    cfb             NEWMAC             NEWMAC
+#> 730    cfb               NJAC               NJAC
+#> 731    cfb               NSIC               NSIC
+#> 732    cfb                NWC                NWC
+#> 733    cfb                OAC                OAC
+#> 734    cfb               ODAC               ODAC
+#> 735    cfb                OVC                OVC
+#> 736    cfb                PAC                PAC
+#> 737    cfb               PSAC               PSAC
+#> 738    cfb             Pac-12             Pac-12
+#> 739    cfb            Patriot            Patriot
+#> 740    cfb            Pioneer            Pioneer
+#> 741    cfb               RMAC               RMAC
+#> 742    cfb              SCIAC              SCIAC
+#> 743    cfb                SEC                SEC
+#> 744    cfb               SIAC               SIAC
+#> 745    cfb               SWAC               SWAC
+#> 746    cfb              SoCon              SoCon
+#> 747    cfb          Southland          Southland
+#> 748    cfb           Sun Belt           Sun Belt
+#> 749    cfb               UMAC               UMAC
+#> 750    cfb          USA South          USA South
+#> 751    cfb                WAC                WAC
+#> 752    cfb               WIAC               WIAC
+#>                                                        name         short_name
+#> 1                                         Eureka Red Devils             Eureka
+#> 2                                  Centenary (LA) Gentlemen     Centenary (LA)
+#> 3                                      Erskine Flying Fleet            Erskine
+#> 4                                     Boston College Eagles     Boston College
+#> 5                                      Holy Cross Crusaders         Holy Cross
+#> 6                                           Harvard Crimson            Harvard
+#> 7                                             MIT Engineers                MIT
+#> 8                                   Colorado Mesa Mavericks      Colorado Mesa
+#> 9                                  Mass Maritime Buccaneers      Mass Maritime
+#> 10                                   West Florida Argonauts       West Florida
+#> 11                                 UT Permian Basin Falcons     UT Prmian Basn
+#> 12                                            Dean Bulldogs               Dean
+#> 13                                      St. Andrews Knights         St Andrews
+#> 14                                   Alvernia Golden Wolves           Alvernia
+#> 15                                  New England Nor'easters        New England
+#> 16                                             Tufts Jumbos              Tufts
+#> 17                                   Franklin Pierce Ravens    Franklin Pierce
+#> 18                                       Wheeling Cardinals           Wheeling
+#> 19                                  Massachusetts Minutemen              UMass
+#> 20                                  Fitchburg State Falcons       Fitchburg St
+#> 21                                  Johns Hopkins Blue Jays      Johns Hopkins
+#> 22                                            Towson Tigers             Towson
+#> 23                                         Arizona Wildcats            Arizona
+#> 24                                       Maryland Terrapins           Maryland
+#> 25                                            Bates Bobcats              Bates
+#> 26                                          Barton Bulldogs             Barton
+#> 27                                          Keystone Giants           Keystone
+#> 28                                 North American Stallions         N American
+#> 29                                         Augsburg Auggies           Augsburg
+#> 30                                  Lincoln (CA) Oaklanders       Lincoln (CA)
+#> 31                                 Bluefield State Big Blue       Bluefield St
+#> 32                                Grand Valley State Lakers       Grand Val St
+#> 33                                            Hilbert Hawks            Hilbert
+#> 34                                        Kalamazoo Hornets          Kalamazoo
+#> 35                                              Post Eagles               Post
+#> 36                                  Michigan State Spartans        Michigan St
+#> 37                                           Eastern Eagles            Eastern
+#> 38                               Northern Michigan Wildcats         N Michigan
+#> 39                           Saginaw Valley State Cardinals     Saginaw Valley
+#> 40                                    Anderson (SC) Trojans      Anderson (SC)
+#> 41                                           Calvin Knights             Calvin
+#> 42                                        Cal Poly Mustangs           Cal Poly
+#> 43                                      Michigan Wolverines           Michigan
+#> 44                                Wayne State (MI) Warriors      Wayne St (MI)
+#> 45                                    Bemidji State Beavers         Bemidji St
+#> 46                                            St. Olaf Oles            St Olaf
+#> 47                                Minnesota Duluth Bulldogs        Minn Duluth
+#> 48                                 Minnesota Golden Gophers          Minnesota
+#> 49                                Missouri Western Griffons         MO Western
+#> 50                        Northwest Missouri State Bearcats     NW Missouri St
+#> 51                                          Missouri Tigers           Missouri
+#> 52                               Washington St. Louis Bears      Wash St Louis
+#> 53                                          Ole Miss Rebels           Ole Miss
+#> 54                                    Grove City Wolverines         Grove City
+#> 55                                    Montana State Bobcats         Montana St
+#> 56                                        Montana Grizzlies            Montana
+#> 57                                         Duke Blue Devils               Duke
+#> 58                                    East Carolina Pirates      East Carolina
+#> 59                                        NC State Wolfpack           NC State
+#> 60                                 North Carolina Tar Heels     North Carolina
+#> 61                                Wake Forest Demon Deacons        Wake Forest
+#> 62                              North Dakota Fighting Hawks       North Dakota
+#> 63                                     Nebraska Cornhuskers           Nebraska
+#> 64                                      Dartmouth Big Green          Dartmouth
+#> 65                                 Sacramento State Hornets      Sacramento St
+#> 66                                   New Hampshire Wildcats      New Hampshire
+#> 67                                           Hamline Pipers            Hamline
+#> 68                                         Princeton Tigers          Princeton
+#> 69                                  Rutgers Scarlet Knights            Rutgers
+#> 70                                  New Mexico State Aggies      New Mexico St
+#> 71                                         New Mexico Lobos         New Mexico
+#> 72                             Claremont Mudd Scripps Stags      Claremont-M-S
+#> 73                                           Columbia Lions           Columbia
+#> 74                                          Cornell Big Red            Cornell
+#> 75                                           Hartwick Hawks           Hartwick
+#> 76                                         Hobart Statesmen             Hobart
+#> 77                                           Ithaca Bombers             Ithaca
+#> 78                                  Bridgewater State Bears     Bridgewater St
+#> 79                                          Syracuse Orange           Syracuse
+#> 80                            Rochester (NY) Yellow Jackets     Rochester (NY)
+#> 81                           Baldwin Wallace Yellow Jackets       Baldwin Wall
+#> 82                                    Bowling Green Falcons      Bowling Green
+#> 83                          Defiance College Yellow Jackets           Defiance
+#> 84                               Heidelberg Student Princes         Heidelberg
+#> 85                                      Miami (OH) RedHawks           Miami OH
+#> 86                                      Ohio State Buckeyes         Ohio State
+#> 87                                             Ohio Bobcats               Ohio
+#> 88                            Northeastern State RiverHawks           NE State
+#> 89                                   Oklahoma State Cowboys        Oklahoma St
+#> 90                 Southeastern Oklahoma State Savage Storm     SE Oklahoma St
+#> 91                                            Auburn Tigers             Auburn
+#> 92                          Southern Nazarene Crimson Storm         S Nazarene
+#> 93                               Abilene Christian Wildcats     Abilene Chrstn
+#> 94                                    Adams State Grizzlies           Adams St
+#> 95                                          Adrian Bulldogs             Adrian
+#> 96                                        Air Force Falcons          Air Force
+#> 97                                               Akron Zips              Akron
+#> 98                                         Oklahoma Sooners           Oklahoma
+#> 99                                     Alabama A&M Bulldogs        Alabama A&M
+#> 100                                   Alabama State Hornets         Alabama St
+#> 101                                Albany State Golden Rams          Albany St
+#> 102                                          Albright Lions           Albright
+#> 103                                     Alcorn State Braves          Alcorn St
+#> 104                                        Allegheny Gators          Allegheny
+#> 105                                    Allen Yellow Jackets              Allen
+#> 106                                  Tulsa Golden Hurricane              Tulsa
+#> 107                   American International Yellow Jackets     American Int'l
+#> 108                                    Anderson (IN) Ravens      Anderson (IN)
+#> 109                                       Angelo State Rams          Angelo St
+#> 110                                  App State Mountaineers          App State
+#> 111                        Arkansas Monticello Boll Weevils      UA Monticello
+#> 112                        Arkansas-Pine Bluff Golden Lions      AR-Pine Bluff
+#> 113                                       Linfield Wildcats           Linfield
+#> 114                               Arkansas State Red Wolves        Arkansas St
+#> 115                               Arkansas Tech Wonder Boys      Arkansas Tech
+#> 116                                   Assumption Greyhounds         Assumption
+#> 117                                    Oregon State Beavers          Oregon St
+#> 118                                  Augustana (IL) Vikings     Augustana (IL)
+#> 119                                  Augustana (SD) Vikings     Augustana (SD)
+#> 120                                         Aurora Spartans             Aurora
+#> 121                                            Austin 'Roos             Austin
+#> 122                                   Austin Peay Governors        Austin Peay
+#> 123                                         Averett Cougars            Averett
+#> 124                                   Azusa Pacific Cougars      Azusa Pacific
+#> 125                                     Pacific (OR) Boxers       Pacific (OR)
+#> 126                                    Ball State Cardinals         Ball State
+#> 127                                        Belhaven Blazers           Belhaven
+#> 128                                         Bentley Falcons            Bentley
+#> 129                                      Bethany (WV) Bison       Bethany (WV)
+#> 130                                    Bethel (TN) Wildcats        Bethel (TN)
+#> 131                                Bethune-Cookman Wildcats            Bethune
+#> 132                        Black Hills State Yellow Jackets     Black Hills St
+#> 133                                      Bloomsburg Huskies         Bloomsburg
+#> 134                                        Bluffton Beavers           Bluffton
+#> 135                                    Bowie State Bulldogs           Bowie St
+#> 136                                      Bridgewater Eagles        Bridgewater
+#> 137                                          Bucknell Bison           Bucknell
+#> 138                                           Buffalo Bulls            Buffalo
+#> 139                                   Buffalo State Bengals         Buffalo St
+#> 140                                         Butler Bulldogs             Butler
+#> 141                                  Lock Haven Bald Eagles         Lock Haven
+#> 142                                   Cal Lutheran Kingsmen       Cal Lutheran
+#> 143                                Campbell Fighting Camels           Campbell
+#> 144                                  San Diego State Aztecs       San Diego St
+#> 145                                  Millersville Marauders       Millersville
+#> 146                                        Carleton Knights           Carleton
+#> 147                                 Carnegie Mellon Tartans        Carn Mellon
+#> 148                                    Carson Newman Eagles      Carson Newman
+#> 149                                      Carthage Firebirds           Carthage
+#> 150                                         Catawba Indians            Catawba
+#> 151                                      Catholic Cardinals           Catholic
+#> 152                                  Central Arkansas Bears         C Arkansas
+#> 153                         Central Connecticut Blue Devils      C Connecticut
+#> 154                                             UCF Knights                UCF
+#> 155                              Central Michigan Chippewas         C Michigan
+#> 156                                  Central Missouri Mules         C Missouri
+#> 157                                 Central State Marauders         Central St
+#> 158                             Central Washington Wildcats       C Washington
+#> 159                                         Centre Colonels             Centre
+#> 160                               Central Oklahoma Bronchos         C Oklahoma
+#> 161                                    Chadron State Eagles         Chadron St
+#> 162                          Charleston Southern Buccaneers      Charleston So
+#> 163                           Charleston (WV) Golden Eagles      Charleston WV
+#> 164                                Penn State Nittany Lions         Penn State
+#> 165                                   Chicago State Cougars         Chicago St
+#> 166                                     Cincinnati Bearcats         Cincinnati
+#> 167                                   Clarion Golden Eagles            Clarion
+#> 168                                             Coe Kohawks                Coe
+#> 169                                         Colgate Raiders            Colgate
+#> 170                     Colorado School of Mines Orediggers     Colorado Mines
+#> 171                                  Concord Mountain Lions            Concord
+#> 172                                  Slippery Rock The Rock      Slippery Rock
+#> 173                               Concordia Chicago Cougars      Concordia Chi
+#> 174                                  Concordia (MN) Cobbers     Concordia (MN)
+#> 175                                       Cornell (IA) Rams       Cornell (IA)
+#> 176                                 Susquehanna River Hawks        Susquehanna
+#> 177                                       Davidson Wildcats           Davidson
+#> 178                                           Dayton Flyers             Dayton
+#> 179                                  Delaware State Hornets        Delaware St
+#> 180                                   Delta State Statesmen           Delta St
+#> 181                                         Denison Big Red            Denison
+#> 182                                    Dickinson Red Devils          Dickinson
+#> 183                                             Temple Owls             Temple
+#> 184                                          Drake Bulldogs              Drake
+#> 185                                          Duquesne Dukes           Duquesne
+#> 186                               East Stroudsburg Warriors      E Stroudsburg
+#> 187                                    Pennsylvania Quakers               Penn
+#> 188                                     East Central Tigers       East Central
+#> 189                         East Tennessee State Buccaneers               ETSU
+#> 190                               East Texas Baptist Tigers       E TX Baptist
+#> 191                               Eastern Illinois Panthers         E Illinois
+#> 192                               Eastern Kentucky Colonels         E Kentucky
+#> 193                                 Eastern Michigan Eagles         E Michigan
+#> 194                           Eastern New Mexico Greyhounds         Eastern NM
+#> 195                                          Eastern Oregon           E Oregon
+#> 196                                 Edinboro Fighting Scots           Edinboro
+#> 197                                    Edward Waters Tigers      Edward Waters
+#> 198                            Elizabeth City State Vikings     Elizabeth City
+#> 199                                     Pittsburgh Panthers               Pitt
+#> 200                                            Elon Phoenix               Elon
+#> 201                                     Emory & Henry Wasps      Emory & Henry
+#> 202                                   Emporia State Hornets         Emporia St
+#> 203                                      Villanova Wildcats          Villanova
+#> 204                              Fayetteville State Broncos       Fay'ville St
+#> 205                                      FDU Florham Devils        FDU Florham
+#> 206                                   Ferris State Bulldogs          Ferris St
+#> 207                                          Findlay Oilers            Findlay
+#> 208                                   Florida Atlantic Owls                FAU
+#> 209                          Florida International Panthers                FIU
+#> 210                                West Chester Golden Rams       West Chester
+#> 211                                            Fordham Rams            Fordham
+#> 212                                        Fort Hays Tigers          Fort Hays
+#> 213                              Fort Valley State Wildcats     Fort Valley St
+#> 214                                      Franklin Grizzlies           Franklin
+#> 215                           Franklin & Marshall Diplomats     Franklin Marsh
+#> 216                                     Fort Lewis Skyhawks         Fort Lewis
+#> 217                           Gardner-Webb Runnin' Bulldogs       Gardner-Webb
+#> 218                                 Geneva Golden Tornadoes             Geneva
+#> 219                        George Mason University Patriots       George Mason
+#> 220                                  Georgetown (KY) Tigers      Georgetown KY
+#> 221                                  Georgia State Panthers         Georgia St
+#> 222                                      Gettysburg Bullets         Gettysburg
+#> 223                                Glenville State Pioneers       Glenville St
+#> 224                                             Brown Bears              Brown
+#> 225                                      Des Moines Vikings         Grand View
+#> 226                                        Greensboro Pride         Greensboro
+#> 227                                     Greenville Panthers         Greenville
+#> 228                                        Guilford Quakers           Guilford
+#> 229                                         Hampton Pirates            Hampton
+#> 230                                        Hanover Panthers            Hanover
+#> 231                                          Harding Bisons            Harding
+#> 232                                       Rhode Island Rams       Rhode Island
+#> 233                                 Henderson State Reddies       Henderson St
+#> 234                                      Hillsdale Chargers          Hillsdale
+#> 235                                          Hiram Terriers              Hiram
+#> 236                               Houston Christian Huskies      Hou Christian
+#> 237                                          Clemson Tigers            Clemson
+#> 238                                           Husson Eagles             Husson
+#> 239                                 Benedictine (IL) Eagles     Benedictine IL
+#> 240                               Illinois College Blueboys       Illinois Col
+#> 241                                 Illinois State Redbirds        Illinois St
+#> 242                           IU Pennsylvania Crimson Hawks            IU Penn
+#> 243                                 Indianapolis Greyhounds       Indianapolis
+#> 244                                           Iowa Hawkeyes               Iowa
+#> 245                                    Jackson State Tigers         Jackson St
+#> 246                                 San José State Spartans        San José St
+#> 247                               John Carroll Blue Streaks       John Carroll
+#> 248                           Johnson C. Smith Golden Bulls     Johnson C Smth
+#> 249                                         Kansas Jayhawks             Kansas
+#> 250                                   Kansas State Wildcats          Kansas St
+#> 251                               Kent State Golden Flashes         Kent State
+#> 252                                         Furman Paladins             Furman
+#> 253                               Kentucky State Thorobreds        Kentucky St
+#> 254                                   Kutztown Golden Bears           Kutztown
+#> 255                              Kentucky Wesleyan Panthers        KY Wesleyan
+#> 256                                       La Verne Leopards           La Verne
+#> 257                                         Lamar Cardinals              Lamar
+#> 258                                    Lane College Dragons       Lane College
+#> 259                                          Langston Lions           Langston
+#> 260                                   Lehigh Mountain Hawks             Lehigh
+#> 261                                    South Dakota Coyotes       South Dakota
+#> 262                                      Lenoir Rhyne Bears       Lenoir Rhyne
+#> 263                              Lewis & Clark River Otters      Lewis & Clark
+#> 264                                          Liberty Flames            Liberty
+#> 265                                      Lincoln (PA) Lions       Lincoln (PA)
+#> 266                           Long Island University Sharks        Long Island
+#> 267                                 Louisiana Tech Bulldogs     Louisiana Tech
+#> 268                                          Memphis Tigers            Memphis
+#> 269                                       Lycoming Warriors           Lycoming
+#> 270                                        Macalester Scots         Macalester
+#> 271                                        Chattanooga Mocs        Chattanooga
+#> 272                                     Manchester Spartans         Manchester
+#> 273                               Minnesota State Mavericks       Minnesota St
+#> 274                                  Mansfield Mountaineers          Mansfield
+#> 275                                        Marist Red Foxes             Marist
+#> 276                                         Mars Hill Lions          Mars Hill
+#> 277                                   Union Garnet Chargers              Union
+#> 278                            Mary Hardin Baylor Crusaders        Mary Hardin
+#> 279                                    Maryville (TN) Scots     Maryville (TN)
+#> 280                                         McNeese Cowboys            McNeese
+#> 281                                   Vanderbilt Commodores         Vanderbilt
+#> 282                                            Mercer Bears             Mercer
+#> 283                                Merchant Marine Mariners       Merch Marine
+#> 284                                       Mercyhurst Lakers         Mercyhurst
+#> 285                                            Baylor Bears             Baylor
+#> 286                                        Miami Hurricanes              Miami
+#> 287                                   Michigan Tech Huskies      Michigan Tech
+#> 288                           Middle Tennessee Blue Raiders               MTSU
+#> 289                                     Middlebury Panthers         Middlebury
+#> 290                                      Miles Golden Bears              Miles
+#> 291                                         Millsaps Majors           Millsaps
+#> 292                                Minnesota Morris Cougars        Minn Morris
+#> 293                                       Stanford Cardinal           Stanford
+#> 294                   Mississippi Valley State Delta Devils     Miss Valley St
+#> 295                                     Missouri S&T Miners       Missouri S&T
+#> 296                           Missouri Southern State Lions     Missouri So St
+#> 297                                          Monmouth Hawks           Monmouth
+#> 298                                       McMurry War Hawks            McMurry
+#> 299                                   Morehead State Eagles        Morehead St
+#> 300                                      Morgan State Bears          Morgan St
+#> 301                                      Morningside Chiefs        Morningside
+#> 302                                   Mount St Joseph Lions       Mt St Joseph
+#> 303                                               Rice Owls               Rice
+#> 304                                        Muhlenberg Mules         Muhlenberg
+#> 305                            New Mexico Highlands Cowboys       NM Highlands
+#> 306                                         Navy Midshipmen               Navy
+#> 307                           North Carolina Central Eagles         NC Central
+#> 308                                         Charlotte 49ers          Charlotte
+#> 309                                      UL Monroe Warhawks          UL Monroe
+#> 310                                 Nebraska Kearney Lopers         NE Kearney
+#> 311                                             UNLV Rebels               UNLV
+#> 312                                        Nevada Wolf Pack             Nevada
+#> 313                                      New Haven Chargers          New Haven
+#> 314                         The College of New Jersey Lions      College of NJ
+#> 315                                         Newberry Wolves           Newberry
+#> 316                                       Nicholls Colonels           Nicholls
+#> 317                               North Carolina A&T Aggies             NC A&T
+#> 318                                North Dakota State Bison        N Dakota St
+#> 319                                        Texas A&M Aggies          Texas A&M
+#> 320                                  Norfolk State Spartans         Norfolk St
+#> 321                                     North Alabama Lions      North Alabama
+#> 322                                 Northern Colorado Bears         N Colorado
+#> 323                               Northern Illinois Huskies         N Illinois
+#> 324                                          Juniata Eagles            Juniata
+#> 325                                  Northern Iowa Panthers      Northern Iowa
+#> 326                            Northern Arizona Lumberjacks          N Arizona
+#> 327                               Northwestern State Demons       N'Western St
+#> 328                                          Norwich Cadets            Norwich
+#> 329                                         King's Monarchs             King's
+#> 330                                 Ohio Dominican Panthers     Ohio Dominican
+#> 331                                         Houston Cougars            Houston
+#> 332                                            Oregon Ducks             Oregon
+#> 333                                  Pacific Lutheran Lutes       Pac Lutheran
+#> 334                                            Pace Setters               Pace
+#> 335                                  North Texas Mean Green        North Texas
+#> 336                                 California Golden Bears         California
+#> 337                                  Portland State Vikings        Portland St
+#> 338                               Prairie View A&M Panthers       Prairie View
+#> 339                                  Presbyterian Blue Hose       Presbyterian
+#> 340                                     Puget Sound Loggers        Puget Sound
+#> 341                                     Purdue Boilermakers             Purdue
+#> 342                                         Texas Longhorns              Texas
+#> 343                           Randolph Macon Yellow Jackets     Randolph Macon
+#> 344                                             Rhodes Lynx             Rhodes
+#> 345                                             BYU Cougars                BYU
+#> 346                                 Robert Morris Colonials      Robert Morris
+#> 347                                        Rockford Regents           Rockford
+#> 348                                    Rensselaer Engineers         Rensselaer
+#> 349                                   Sacred Heart Pioneers       Sacred Heart
+#> 350                              Southern Utah Thunderbirds      Southern Utah
+#> 351                                     Salisbury Sea Gulls          Salisbury
+#> 352                                    Sam Houston Bearkats        Sam Houston
+#> 353                                        Samford Bulldogs            Samford
+#> 354                                               Utah Utes               Utah
+#> 355                                   Savannah State Tigers        Savannah St
+#> 356                                      SE Louisiana Lions       SE Louisiana
+#> 357                       Southeast Missouri State Redhawks        SE Missouri
+#> 358                                       Knox Prairie Fire               Knox
+#> 359                                              Shaw Bears               Shaw
+#> 360                                          Sewanee Tigers            Sewanee
+#> 361                                       Coast Guard Bears        Coast Guard
+#> 362                                    Shippensburg Raiders       Shippensburg
+#> 363                                     James Madison Dukes      James Madison
+#> 364                                           Shorter Hawks            Shorter
+#> 365                                      Simpson (IA) Storm       Simpson (IA)
+#> 366                                            SMU Mustangs                SMU
+#> 367                            Southern Arkansas Muleriders         S Arkansas
+#> 368                           South Carolina State Bulldogs           SC State
+#> 369                                        Richmond Spiders           Richmond
+#> 370                                CSU Pueblo ThunderWolves         CSU Pueblo
+#> 371                          South Dakota State Jackrabbits        S Dakota St
+#> 372                             Southern Miss Golden Eagles      Southern Miss
+#> 373                                South Carolina Gamecocks     South Carolina
+#> 374                                      Virginia Cavaliers           Virginia
+#> 375                                        Southern Jaguars           Southern
+#> 376                         Southern Connecticut State Owls          S Conn St
+#> 377                                 Southern Oregon Raiders           S Oregon
+#> 378                              Southwest Baptist Bearcats         SW Baptist
+#> 379                      Southwest Minnesota State Mustangs         SW Minn St
+#> 380                                  Southwestern U Pirates       Southwestern
+#> 381                                    Virginia Tech Hokies      Virginia Tech
+#> 382                               St. Ambrose Fighting Bees         St Ambrose
+#> 383                        St. Francis (IL) Fighting Saints      St Francis IL
+#> 384                                 Saint Francis Red Flash      Saint Francis
+#> 385                                             UCLA Bruins               UCLA
+#> 386                              Saint John's (MN) Johnnies      St Johns (MN)
+#> 387                                  Saint Vincent Bearcats      Saint Vincent
+#> 388                           Stephen F. Austin Lumberjacks          SF Austin
+#> 389                                   Stony Brook Seawolves        Stony Brook
+#> 390                                   Lake Forest Foresters        Lake Forest
+#> 391                                    Missouri State Bears        Missouri St
+#> 392                                   Tarleton State Texans        Tarleton St
+#> 393                                        TCU Horned Frogs                TCU
+#> 394                                           Loras Duhawks              Loras
+#> 395                                      UT Martin Skyhawks          UT Martin
+#> 396                                    Tennessee Volunteers          Tennessee
+#> 397                                  Tennessee State Tigers       Tennessee St
+#> 398                            Tennessee Tech Golden Eagles     Tennessee Tech
+#> 399                                        UTSA Roadrunners               UTSA
+#> 400                                    Texas College Steers      Texas College
+#> 401                                             UTEP Miners               UTEP
+#> 402                                 Texas Lutheran Bulldogs     Texas Lutheran
+#> 403                                      Washington Huskies         Washington
+#> 404                                   Texas Southern Tigers     Texas Southern
+#> 405                                  Texas Tech Red Raiders         Texas Tech
+#> 406                                    The Citadel Bulldogs        The Citadel
+#> 407                                           Thiel Tomcats              Thiel
+#> 408                                      Thomas More Saints        Thomas More
+#> 409                                          Toledo Rockets             Toledo
+#> 410                                Washington State Cougars      Washington St
+#> 411                                           Trine Thunder              Trine
+#> 412                                            Troy Trojans               Troy
+#> 413                                   Truman State Bulldogs          Truman St
+#> 414                                       Tulane Green Wave             Tulane
+#> 415                                  Tuskegee Golden Tigers           Tuskegee
+#> 416                          Texas A&M-Kingsville Javelinas     TAMU-Kingsvlle
+#> 417                                       Beloit Buccaneers             Beloit
+#> 418                                           Ursinus Bears            Ursinus
+#> 419                                  Valdosta State Blazers        Valdosta St
+#> 420                                      Valparaiso Beacons         Valparaiso
+#> 421                                 Virginia Union Panthers     Virginia Union
+#> 422                                             VMI Keydets                VMI
+#> 423                                        Lawrence Vikings           Lawrence
+#> 424                                         Wagner Seahawks             Wagner
+#> 425                                         Walsh Cavaliers              Walsh
+#> 426                                        Wartburg Knights           Wartburg
+#> 427                       Washington & Jefferson Presidents        Wash & Jeff
+#> 428                                       Washburn Ichabods           Washburn
+#> 429                             Washington and Lee Generals       Wash and Lee
+#> 430                                    Weber State Wildcats           Weber St
+#> 431                                     West Alabama Tigers       West Alabama
+#> 432                                     West Georgia Wolves       West Georgia
+#> 433                                West Liberty Hilltoppers       West Liberty
+#> 434                                   McDaniel Green Terror           McDaniel
+#> 435                                Montana Western Bulldogs         MT Western
+#> 436                        Western New England Golden Bears      W New England
+#> 437                             Western New Mexico Mustangs         Western NM
+#> 438                                    West Texas Buffaloes         West Texas
+#> 439                                   WVU Tech Golden Bears           WVU Tech
+#> 440                      West Virginia State Yellow Jackets      W Virginia St
+#> 441                                Wisconsin Oshkosh Titans         UW-Oshkosh
+#> 442                           Western Illinois Leathernecks         W Illinois
+#> 443                                Western Michigan Broncos         W Michigan
+#> 444                           Western Colorado Mountaineers         W Colorado
+#> 445                             Western Carolina Catamounts         W Carolina
+#> 446                          Wisconsin Platteville Pioneers     UW-Platteville
+#> 447                                       Whitworth Pirates          Whitworth
+#> 448                           Wisconsin River Falls Falcons     UW-River Falls
+#> 449                                           Widener Pride            Widener
+#> 450                                    William & Mary Tribe     William & Mary
+#> 451                                           Williams Ephs           Williams
+#> 452                        Wilmington (OH) Fightin' Quakers      Wilmington OH
+#> 453                                Winston-Salem State Rams      Winston-Salem
+#> 454                           Wisconsin Eau Claire Blugolds      UW-Eau Claire
+#> 455                                 Maine Maritime Mariners     Maine Maritime
+#> 456                              Wisconsin La Crosse Eagles       UW-La Crosse
+#> 457                             Wisconsin Lutheran Warriors      Wisc Lutheran
+#> 458                        Wisconsin Stevens Point Pointers      UW-Stevens Pt
+#> 459                             Wisconsin Stout Blue Devils           UW-Stout
+#> 460                           Wisconsin Whitewater Warhawks      UW-Whitewater
+#> 461                                       Wittenberg Tigers         Wittenberg
+#> 462                                        Wofford Terriers            Wofford
+#> 463                                  Wooster Fighting Scots            Wooster
+#> 464                                           WPI Engineers                WPI
+#> 465                                       Wisconsin Badgers          Wisconsin
+#> 466                                         Wyoming Cowboys            Wyoming
+#> 467                               Youngstown State Penguins      Youngstown St
+#> 468                                        Grambling Tigers          Grambling
+#> 469                                           Berry Vikings              Berry
+#> 470                             Howard Payne Yellow Jackets       Howard Payne
+#> 471                                Marshall Thundering Herd           Marshall
+#> 472                              West Virginia Mountaineers      West Virginia
+#> 473                                      Merrimack Warriors          Merrimack
+#> 474                                   Salve Regina Seahawks       Salve Regina
+#> 475                                     St. Lawrence Saints        St Lawrence
+#> 476                                   Fresno State Bulldogs          Fresno St
+#> 477                                 Brockport Golden Eagles          Brockport
+#> 478                               SUNY Cortland Red Dragons      SUNY Cortland
+#> 479                                          Albion Britons             Albion
+#> 480                                              Alma Scots               Alma
+#> 481                                      Bethel (MN) Royals        Bethel (MN)
+#> 482                                         Bryant Bulldogs             Bryant
+#> 483                                            Chowan Hawks             Chowan
+#> 484                                  Clark Atlanta Panthers         Clark (GA)
+#> 485                                  Delaware Valley Aggies            Del Val
+#> 486                                  Hardin Simmons Cowboys     Hardin Simmons
+#> 487                                    Hope Flying Dutchmen               Hope
+#> 488                                        Lindenwood Lions         Lindenwood
+#> 489                                      McKendree Bearcats          McKendree
+#> 490                           Minnesota St Moorhead Dragons      Minn Moorhead
+#> 491                               Montclair State Red Hawks          Montclair
+#> 492                                 Indiana State Sycamores         Indiana St
+#> 493                           North Greenville Trailblazers       N Greenville
+#> 494                               Northwestern (OK) Rangers     N'Western (OK)
+#> 495                               Oklahoma Panhandle Aggies       OK Panhandle
+#> 496                                            Quincy Hawks             Quincy
+#> 497                                             Rowan Profs              Rowan
+#> 498                                      Shenandoah Hornets         Shenandoah
+#> 499                                      Saint Anselm Hawks       Saint Anselm
+#> 500                               St. Norbert Green Knights         St Norbert
+#> 501                                    Sul Ross State Lobos        Sul Ross St
+#> 502                                    East Texas A&M Lions     East Texas A&M
+#> 503                                          Tiffin Dragons             Tiffin
+#> 504                                       Tusculum Pioneers           Tusculum
+#> 505                                      Stonehill Skyhawks          Stonehill
+#> 506                                      UVA Wise Cavaliers           UVA Wise
+#> 507                        Western Connecticut State Wolves           WestConn
+#> 508                               Wayne State (NE) Wildcats      Wayne St (NE)
+#> 509                               Waynesburg Yellow Jackets         Waynesburg
+#> 510                                   Western Oregon Wolves        West Oregon
+#> 511                                 Westminster (PA) Titans     Westminster PA
+#> 512                                          Whittier Poets           Whittier
+#> 513                                   Winona State Warriors          Winona St
+#> 514                                 California (PA) Vulcans           Cal (PA)
+#> 515                North Carolina Wesleyan Battling Bishops        NC Wesleyan
+#> 516                                            Kean Cougars               Kean
+#> 517                                Lincoln (MO) Blue Tigers       Lincoln (MO)
+#> 518                               Missouri Baptist Spartans      Missouri Bapt
+#> 519                                     UNC Pembroke Braves       UNC Pembroke
+#> 520                                           Nichols Bison            Nichols
+#> 521                                  Northwood Timberwolves          Northwood
+#> 522                                 Ouachita Baptist Tigers      Ouachita Bapt
+#> 523                                         Ripon Red Hawks              Ripon
+#> 524                                     Sioux Falls Cougars        Sioux Falls
+#> 525                               Southern Virginia Knights         S Virginia
+#> 526                                       Redlands Bulldogs           Redlands
+#> 527                                 Georgia Southern Eagles        GA Southern
+#> 528                                      St. Thomas Tommies          St Thomas
+#> 529                                    Westfield State Owls       Westfield St
+#> 530                                      Methodist Monarchs          Methodist
+#> 531                                William Jewell Cardinals     William Jewell
+#> 532                                  William Penn Statesmen       William Penn
+#> 533                                        Brevard Tornados            Brevard
+#> 534                                Incarnate Word Cardinals     Incarnate Word
+#> 535                            Monmouth (IL) Fighting Scots      Monmouth (IL)
+#> 536                           UT Rio Grande Valley Vaqueros               <NA>
+#> 537                                  Pomona Pitzer Sagehens      Pomona Pitzer
+#> 538                    Southwestern Oklahoma State Bulldogs     SW Oklahoma St
+#> 539                        Vermont State Castleton Spartans     VTSU Castleton
+#> 540                                     Willamette Bearcats         Willamette
+#> 541                                        Huntingdon Hawks         Huntingdon
+#> 542                                  Livingstone Blue Bears        Livingstone
+#> 543                                   Old Dominion Monarchs       Old Dominion
+#> 544                                SUNY Maritime Privateers      SUNY Maritime
+#> 545                           Case Western Reserve Spartans       Case Western
+#> 546                                   Central College Dutch        Central Col
+#> 547                                   Framingham State Rams      Framingham St
+#> 548                        Gustavus Adolphus Golden Gusties           Gustavus
+#> 549                                    Misericordia Cougars       Misericordia
+#> 550                                   Hampden Sydney Tigers     Hampden Sydney
+#> 551                               William Paterson Pioneers        Wm Paterson
+#> 552                                 Plymouth State Panthers        Plymouth St
+#> 553                                           Shepherd Rams           Shepherd
+#> 554                                    Trinity (CT) Bantams       Trinity (CT)
+#> 555                          Ohio Wesleyan Battling Bishops      Ohio Wesleyan
+#> 556                                  Fairmont State Falcons        Fairmont St
+#> 557                                             USC Trojans                USC
+#> 558                                       San Diego Toreros          San Diego
+#> 559                                         UC Davis Aggies           UC Davis
+#> 560                                     Idaho State Bengals           Idaho St
+#> 561                                Illinois Wesleyan Titans        IL Wesleyan
+#> 562                         Concordia St. Paul Golden Bears     Concordia St P
+#> 563                         North Central College Cardinals     N Central (IL)
+#> 564                                          Ashland Eagles            Ashland
+#> 565                                 Louisiana Ragin' Cajuns          Louisiana
+#> 566                                  Utah Tech Trailblazers          Utah Tech
+#> 567                                       Maine Black Bears              Maine
+#> 568                               SUNY Morrisville Mustangs     SUNY Morrisvle
+#> 569                            Christopher Newport Captains      Chris Newport
+#> 570                                   Alfred State Pioneers          Alfred St
+#> 571                                       Marietta Pioneers           Marietta
+#> 572                                  Oklahoma Baptist Bison         OK Baptist
+#> 573                                   Carroll (WI) Pioneers       Carroll (WI)
+#> 574                                      Lafayette Leopards          Lafayette
+#> 575                                     Moravian Greyhounds           Moravian
+#> 576                                            Troy Vikings             Hudson
+#> 577                           Coastal Carolina Chanticleers            Coastal
+#> 578                                        Charlotte Saints           Faith NC
+#> 579                                     Texas State Bobcats           Texas St
+#> 580                                       Utah State Aggies         Utah State
+#> 581                                       Colby White Mules              Colby
+#> 582                                  Virginia State Trojans        Virginia St
+#> 583                               Eastern Washington Eagles       E Washington
+#> 584                              Muskingum Fighting Muskies          Muskingum
+#> 585                                    Alabama Crimson Tide            Alabama
+#> 586                                 Wesleyan (CT) Cardinals      Wesleyan (CT)
+#> 587                                     Kennesaw State Owls        Kennesaw St
+#> 588                                     Bowdoin Polar Bears            Bowdoin
+#> 589                                 Frostburg State Bobcats       Frostburg St
+#> 590                              Mississippi State Bulldogs     Mississippi St
+#> 591                                   Hamilton Continentals           Hamilton
+#> 592                                      Army Black Knights               Army
+#> 593                                        Wingate Bulldogs            Wingate
+#> 594                                             Kenyon Owls             Kenyon
+#> 595                                           Olivet Comets             Olivet
+#> 596                                Illinois Fighting Illini           Illinois
+#> 597                                     Otterbein Cardinals          Otterbein
+#> 598                                     Colorado State Rams        Colorado St
+#> 599                                           Alfred Saxons             Alfred
+#> 600                                         Ferrum Panthers             Ferrum
+#> 601                                   Gannon Golden Knights             Gannon
+#> 602                               St. John Fisher Cardinals     St John Fisher
+#> 603                                  St. Scholastica Saints     St Scholastica
+#> 604                                UMass Dartmouth Corsairs      UMass Dartmth
+#> 605                                      Colorado Buffaloes           Colorado
+#> 606                                     Trinity (TX) Tigers       Trinity (TX)
+#> 607                          Lebanon Valley Flying Dutchmen     Lebanon Valley
+#> 608                                     Upper Iowa Peacocks         Upper Iowa
+#> 609                                          Utica Pioneers              Utica
+#> 610                                          Oberlin Yeomen            Oberlin
+#> 611                                    Wheaton (IL) Thunder       Wheaton (IL)
+#> 612                                         Wilkes Colonels             Wilkes
+#> 613                                     UAlbany Great Danes            UAlbany
+#> 614                                          Curry Colonels              Curry
+#> 615                                 Worcester State Lancers       Worcester St
+#> 616                                  Concordia (WI) Falcons     Concordia (WI)
+#> 617                                           UConn Huskies              UConn
+#> 618                                        Chapman Panthers            Chapman
+#> 619                                       George Fox Bruins         George Fox
+#> 620                                         Gallaudet Bison          Gallaudet
+#> 621                                        Hendrix Warriors            Hendrix
+#> 622                                          Capital Comets            Capital
+#> 623                                   Northern State Wolves        Northern St
+#> 624                              Mount Union Purple Raiders           Mt Union
+#> 625                               Ohio Northern Polar Bears      Ohio Northern
+#> 626                                           Yale Bulldogs               Yale
+#> 627                              Westminster (MO) Blue Jays     Westminster MO
+#> 628                                         Lake Erie Storm          Lake Erie
+#> 629                                   Martin Luther Knights      Martin Luther
+#> 630                                          Endicott Gulls           Endicott
+#> 631                          West Virginia Wesleyan Bobcats        WV Wesleyan
+#> 632                                        Georgetown Hoyas         Georgetown
+#> 633                                            Howard Bison             Howard
+#> 634                                      Stevenson Mustangs          Stevenson
+#> 635                                      Delaware Blue Hens           Delaware
+#> 636                                        Dubuque Spartans            Dubuque
+#> 637                                         Benedict Tigers           Benedict
+#> 638                                             UAB Blazers                UAB
+#> 639                                    Florida A&M Rattlers        Florida A&M
+#> 640                                            Crown Polars              Crown
+#> 641                         Dakota State University Trojans          Dakota St
+#> 642                                 Florida State Seminoles         Florida St
+#> 643                          Graceland University Graceland          Graceland
+#> 644                                       LaGrange Panthers           LaGrange
+#> 645                            Jacksonville State Gamecocks          Jax State
+#> 646                            University of Mary Marauders              UMary
+#> 647                                         Stetson Hatters            Stetson
+#> 648                                     Minot State Beavers           Minot St
+#> 649                                          Florida Gators            Florida
+#> 650                                     South Florida Bulls      South Florida
+#> 651                                Northwestern (MN) Eagles     N'Western (MN)
+#> 652                             Georgia Tech Yellow Jackets       Georgia Tech
+#> 653                                   South Alabama Jaguars      South Alabama
+#> 654                                 Morehouse Maroon Tigers          Morehouse
+#> 655                                        Georgia Bulldogs            Georgia
+#> 656                                     Seton Hill Griffins         Seton Hill
+#> 657                          South Dakota Mines Hardrockers           SD Mines
+#> 658                                Hawai'i Rainbow Warriors            Hawai'i
+#> 659                                     Buena Vista Beavers        Buena Vista
+#> 660                                        Lakeland Muskies           Lakeland
+#> 661                                       Grinnell Pioneers           Grinnell
+#> 662                                     Iowa State Cyclones         Iowa State
+#> 663                                            Luther Norse             Luther
+#> 664                                     Boise State Broncos           Boise St
+#> 665                        Nebraska Wesleyan Prairie Wolves        NE Wesleyan
+#> 666                                        Amherst Mammoths            Amherst
+#> 667                                           Idaho Vandals              Idaho
+#> 668                                       Elmhurst Bluejays           Elmhurst
+#> 669                                       Millikin Big Blue           Millikin
+#> 670                                      North Park Vikings         North Park
+#> 671                                   Northwestern Wildcats       Northwestern
+#> 672                               Southern Illinois Salukis         S Illinois
+#> 673                                     Arkansas Razorbacks           Arkansas
+#> 674                                         Chicago Maroons            Chicago
+#> 675                                       Springfield Pride        Springfield
+#> 676                                           DePauw Tigers             DePauw
+#> 677                                        Indiana Hoosiers            Indiana
+#> 678                          Rose Hulman Fightin' Engineers        Rose Hulman
+#> 679                               Notre Dame Fighting Irish         Notre Dame
+#> 680                                    Wabash Little Giants             Wabash
+#> 681                                Arizona State Sun Devils         Arizona St
+#> 682                                Pittsburg State Gorillas       Pittsburg St
+#> 683                                     Murray State Racers          Murray St
+#> 684                                       Kentucky Wildcats           Kentucky
+#> 685                                    Louisville Cardinals         Louisville
+#> 686                            Western Kentucky Hilltoppers         Western KY
+#> 687                                              LSU Tigers                LSU
+#> 688                                     American Conference           American
+#> 689                               Atlantic Coast Conference                ACC
+#> 690                           American Southwest Conference American Southwest
+#> 691                                       Big 12 Conference             Big 12
+#> 692                                      Big Sky Conference            Big Sky
+#> 693                                      Big Ten Conference            Big Ten
+#> 694                            Coastal Athletic Association                CAA
+#> 695            College Conference of Illinois and Wisconsin               CCIW
+#> 696            Central Intercollegiate Athletic Association               CIAA
+#> 697                               Conference of New England                CNE
+#> 698                                          Conference USA     Conference USA
+#> 699                                    Conference Carolinas          Carolinas
+#> 700                                                Empire 8           Empire 8
+#> 701                                        FBS Independents   FBS Independents
+#> 702                                        FCS Independents   FCS Independents
+#> 703         Great Lakes Intercollegiate Athletic Conference              GLIAC
+#> 704                           Great Lakes Valley Conference        Great Lakes
+#> 705                                   Gulf South Conference         Gulf South
+#> 706                               Great American Conference     Great American
+#> 707                Heartland Collegiate Athletic Conference          Heartland
+#> 708                                              Ivy League                Ivy
+#> 709                                    Lone Star Conference          Lone Star
+#> 710                                     Landmark Conference           Landmark
+#> 711                                          Liberty League     Liberty League
+#> 712                                 Mid-American Conference       Mid-American
+#> 713      Massachusetts State Collegiate Athletic Conference             MASCAC
+#> 714                         Mid-Eastern Athletic Conference               MEAC
+#> 715                                Mountain East Conference      Mountain East
+#> 716       Mid-America Intercollegiate Athletics Association        Mid-America
+#> 717           Michigan Intercollegiate Athletic Association           Michigan
+#> 718           Minnesota Intercollegiate Athletic Conference          Minnesota
+#> 719                     Missouri Valley Football Conference    Missouri Valley
+#> 720                             Middle Atlantic Conferences    Middle Atlantic
+#> 721                                      Midwest Conference            Midwest
+#> 722                                Mountain West Conference      Mountain West
+#> 723                Northern Athletics Collegiate Conference               NACC
+#> 724                National Collegiate Athletic Association               NCAA
+#> 725                         North Coast Athletic Conference        North Coast
+#> 726                                 Northeast-10 Conference       Northeast-10
+#> 727                                    Northeast Conference          Northeast
+#> 728           New England Small College Athletic Conference             NESCAC
+#> 729       New England Women's and Men's Athletic Conference             NEWMAC
+#> 730                          New Jersey Athletic Conference         New Jersey
+#> 731                 Northern Sun Intercollegiate Conference       Northern Sun
+#> 732                                    Northwest Conference          Northwest
+#> 733                                Ohio Athletic Conference               Ohio
+#> 734                        Old Dominion Athletic Conference       Old Dominion
+#> 735                                  Ohio Valley Conference                OVC
+#> 736                         Presidents' Athletic Conference        Presidents'
+#> 737                  Pennsylvania State Athletic Conference               PSAC
+#> 738                                       Pac-12 Conference             Pac-12
+#> 739                                          Patriot League     Patriot League
+#> 740                                 Pioneer Football League            Pioneer
+#> 741                      Rocky Mountain Athletic Conference     Rocky Mountain
+#> 742 Southern California Intercollegiate Athletic Conference              SCIAC
+#> 743                                 Southeastern Conference                SEC
+#> 744            Southern Intercollegiate Athletic Conference               SIAC
+#> 745                        Southwestern Athletic Conference               SWAC
+#> 746                                     Southern Conference           Southern
+#> 747                                    Southland Conference          Southland
+#> 748                                     Sun Belt Conference           Sun Belt
+#> 749                       Upper Midwest Athletic Conference      Upper Midwest
+#> 750                           USA South Athletic Conference          USA South
+#> 751                             Western Athletic Conference                WAC
+#> 752           Wisconsin Intercollegiate Athletic Conference               WIAC
+#>                        location    program                    conference_id
+#> 1                        Eureka   football                         cfb:nacc
+#> 2                Centenary (LA)   football cfb:southern-collegiate-athletic
+#> 3                       Erskine   football                    cfb:carolinas
+#> 4                Boston College   football                          cfb:acc
+#> 5                    Holy Cross   football                      cfb:patriot
+#> 6                       Harvard   football                          cfb:ivy
+#> 7                           MIT   football                       cfb:newmac
+#> 8                 Colorado Mesa   football               cfb:rocky-mountain
+#> 9                 Mass Maritime   football                        cfb:mscac
+#> 10                 West Florida   football                          cfb:uac
+#> 11             UT Permian Basin   football                    cfb:lone-star
+#> 12                         Dean   football                        cfb:mscac
+#> 13                  St. Andrews   football                             <NA>
+#> 14                     Alvernia   football                 cfb:mid-atlantic
+#> 15                  New England   football           cfb:commonwealth-coast
+#> 16                        Tufts   football                       cfb:nescac
+#> 17              Franklin Pierce   football                 cfb:northeast-10
+#> 18                     Wheeling   football                cfb:mountain-east
+#> 19                Massachusetts   football                          cfb:mac
+#> 20              Fitchburg State   football                        cfb:mscac
+#> 21                Johns Hopkins   football                   cfb:centennial
+#> 22                       Towson   football                          cfb:caa
+#> 23                      Arizona   football                       cfb:big-12
+#> 24                     Maryland   football                      cfb:big-ten
+#> 25                        Bates   football                       cfb:nescac
+#> 26                       Barton   football                    cfb:carolinas
+#> 27                     Keystone   football              cfb:d3-independents
+#> 28               North American   football                             <NA>
+#> 29                     Augsburg   football                    cfb:minnesota
+#> 30                 Lincoln (CA)   football              cfb:d2-independents
+#> 31              Bluefield State   football                         cfb:ciaa
+#> 32           Grand Valley State   football                        cfb:gliac
+#> 33                      Hilbert   football                     cfb:empire-8
+#> 34                    Kalamazoo   football                     cfb:michigan
+#> 35                         Post   football                 cfb:northeast-10
+#> 36               Michigan State   football                      cfb:big-ten
+#> 37                      Eastern   football                 cfb:mid-atlantic
+#> 38            Northern Michigan   football                        cfb:gliac
+#> 39         Saginaw Valley State   football                        cfb:gliac
+#> 40                Anderson (SC)   football               cfb:south-atlantic
+#> 41                       Calvin   football                     cfb:michigan
+#> 42                     Cal Poly   football                      cfb:big-sky
+#> 43                     Michigan   football                      cfb:big-ten
+#> 44             Wayne State (MI)   football                        cfb:gliac
+#> 45                Bemidji State   football                 cfb:northern-sun
+#> 46                     St. Olaf   football                    cfb:minnesota
+#> 47             Minnesota Duluth   football                 cfb:northern-sun
+#> 48                    Minnesota   football                      cfb:big-ten
+#> 49             Missouri Western   football                  cfb:mid-america
+#> 50     Northwest Missouri State   football                  cfb:mid-america
+#> 51                     Missouri   football                          cfb:sec
+#> 52         Washington St. Louis   football                  cfb:north-coast
+#> 53                     Ole Miss   football                          cfb:sec
+#> 54                   Grove City   football                   cfb:presidents
+#> 55                Montana State   football                      cfb:big-sky
+#> 56                      Montana   football                      cfb:big-sky
+#> 57                         Duke   football                          cfb:acc
+#> 58                East Carolina   football                     cfb:american
+#> 59                     NC State   football                          cfb:acc
+#> 60               North Carolina   football                          cfb:acc
+#> 61                  Wake Forest   football                          cfb:acc
+#> 62                 North Dakota   football                         cfb:mvfc
+#> 63                     Nebraska   football                      cfb:big-ten
+#> 64                    Dartmouth   football                          cfb:ivy
+#> 65             Sacramento State   football                          cfb:mac
+#> 66                New Hampshire   football                          cfb:caa
+#> 67                      Hamline   football                    cfb:minnesota
+#> 68                    Princeton   football                          cfb:ivy
+#> 69                      Rutgers   football                      cfb:big-ten
+#> 70             New Mexico State   football                         cfb:cusa
+#> 71                   New Mexico   football                cfb:mountain-west
+#> 72       Claremont Mudd Scripps   football                        cfb:sciac
+#> 73                     Columbia   football                          cfb:ivy
+#> 74                      Cornell   football                          cfb:ivy
+#> 75                     Hartwick   football                     cfb:empire-8
+#> 76                       Hobart   football               cfb:liberty-league
+#> 77                       Ithaca   football               cfb:liberty-league
+#> 78            Bridgewater State   football                        cfb:mscac
+#> 79                     Syracuse   football                          cfb:acc
+#> 80               Rochester (NY)   football               cfb:liberty-league
+#> 81              Baldwin Wallace   football                         cfb:ohio
+#> 82                Bowling Green   football                          cfb:mac
+#> 83             Defiance College   football                    cfb:heartland
+#> 84                   Heidelberg   football                         cfb:ohio
+#> 85                   Miami (OH)   football                          cfb:mac
+#> 86                   Ohio State   football                      cfb:big-ten
+#> 87                         Ohio   football                          cfb:mac
+#> 88           Northeastern State   football              cfb:d2-independents
+#> 89               Oklahoma State   football                       cfb:big-12
+#> 90  Southeastern Oklahoma State   football               cfb:great-american
+#> 91                       Auburn   football                          cfb:sec
+#> 92            Southern Nazarene   football               cfb:great-american
+#> 93            Abilene Christian   football                          cfb:uac
+#> 94                  Adams State   football               cfb:rocky-mountain
+#> 95                       Adrian   football                     cfb:michigan
+#> 96                    Air Force   football                cfb:mountain-west
+#> 97                        Akron   football                          cfb:mac
+#> 98                     Oklahoma   football                          cfb:sec
+#> 99                  Alabama A&M   football                         cfb:swac
+#> 100               Alabama State   football                         cfb:swac
+#> 101                Albany State   football                         cfb:siac
+#> 102                    Albright   football                 cfb:mid-atlantic
+#> 103                Alcorn State   football                         cfb:swac
+#> 104                   Allegheny   football                   cfb:presidents
+#> 105                       Allen   football                         cfb:siac
+#> 106                       Tulsa   football                     cfb:american
+#> 107      American International   football                 cfb:northeast-10
+#> 108               Anderson (IN)   football                    cfb:heartland
+#> 109                Angelo State   football                    cfb:lone-star
+#> 110                   App State   football                     cfb:sun-belt
+#> 111         Arkansas Monticello   football               cfb:great-american
+#> 112         Arkansas-Pine Bluff   football                         cfb:swac
+#> 113                    Linfield   football                    cfb:northwest
+#> 114              Arkansas State   football                     cfb:sun-belt
+#> 115               Arkansas Tech   football               cfb:great-american
+#> 116                  Assumption   football                 cfb:northeast-10
+#> 117                Oregon State   football                       cfb:pac-12
+#> 118              Augustana (IL)   football                         cfb:cciw
+#> 119              Augustana (SD)   football                 cfb:northern-sun
+#> 120                      Aurora   football                         cfb:nacc
+#> 121                      Austin   football cfb:southern-collegiate-athletic
+#> 122                 Austin Peay   football                          cfb:uac
+#> 123                     Averett   football                 cfb:old-dominion
+#> 124               Azusa Pacific   football                        cfb:sciac
+#> 125                Pacific (OR)   football                    cfb:northwest
+#> 126                  Ball State   football                          cfb:mac
+#> 127                    Belhaven   football                    cfb:usa-south
+#> 128                     Bentley   football                 cfb:northeast-10
+#> 129                Bethany (WV)   football                   cfb:presidents
+#> 130                 Bethel (TN)   football                             <NA>
+#> 131             Bethune-Cookman   football                         cfb:swac
+#> 132           Black Hills State   football               cfb:rocky-mountain
+#> 133                  Bloomsburg   football  cfb:pennsylvania-state-athletic
+#> 134                    Bluffton   football                    cfb:heartland
+#> 135                 Bowie State   football                         cfb:ciaa
+#> 136                 Bridgewater   football                 cfb:old-dominion
+#> 137                    Bucknell   football                      cfb:patriot
+#> 138                     Buffalo   football                          cfb:mac
+#> 139               Buffalo State   football               cfb:liberty-league
+#> 140                      Butler   football                      cfb:pioneer
+#> 141                  Lock Haven   football  cfb:pennsylvania-state-athletic
+#> 142                Cal Lutheran   football                        cfb:sciac
+#> 143                    Campbell   football                          cfb:caa
+#> 144             San Diego State   football                       cfb:pac-12
+#> 145                Millersville   football  cfb:pennsylvania-state-athletic
+#> 146                    Carleton   football                    cfb:minnesota
+#> 147             Carnegie Mellon   football                   cfb:presidents
+#> 148               Carson Newman   football               cfb:south-atlantic
+#> 149                    Carthage   football                         cfb:cciw
+#> 150                     Catawba   football               cfb:south-atlantic
+#> 151                    Catholic   football          cfb:landmark-conference
+#> 152            Central Arkansas   football                          cfb:uac
+#> 153         Central Connecticut   football                          cfb:nec
+#> 154                         UCF   football                       cfb:big-12
+#> 155            Central Michigan   football                          cfb:mac
+#> 156            Central Missouri   football                  cfb:mid-america
+#> 157               Central State   football                         cfb:siac
+#> 158          Central Washington   football                    cfb:lone-star
+#> 159                      Centre   football            cfb:southern-athletic
+#> 160            Central Oklahoma   football                  cfb:mid-america
+#> 161               Chadron State   football               cfb:rocky-mountain
+#> 162         Charleston Southern   football                          cfb:ovc
+#> 163             Charleston (WV)   football                cfb:mountain-east
+#> 164                  Penn State   football                      cfb:big-ten
+#> 165               Chicago State   football             cfb:fcs-independents
+#> 166                  Cincinnati   football                       cfb:big-12
+#> 167                     Clarion   football  cfb:pennsylvania-state-athletic
+#> 168                         Coe   football              cfb:american-rivers
+#> 169                     Colgate   football                      cfb:patriot
+#> 170    Colorado School of Mines   football               cfb:rocky-mountain
+#> 171                     Concord   football                cfb:mountain-east
+#> 172               Slippery Rock   football  cfb:pennsylvania-state-athletic
+#> 173           Concordia Chicago   football                         cfb:nacc
+#> 174              Concordia (MN)   football                    cfb:minnesota
+#> 175                Cornell (IA)   football                      cfb:midwest
+#> 176                 Susquehanna   football          cfb:landmark-conference
+#> 177                    Davidson   football                      cfb:pioneer
+#> 178                      Dayton   football                      cfb:pioneer
+#> 179              Delaware State   football                         cfb:meac
+#> 180                 Delta State   football                   cfb:gulf-south
+#> 181                     Denison   football                  cfb:north-coast
+#> 182                   Dickinson   football                   cfb:centennial
+#> 183                      Temple   football                     cfb:american
+#> 184                       Drake   football                      cfb:pioneer
+#> 185                    Duquesne   football                          cfb:nec
+#> 186            East Stroudsburg   football  cfb:pennsylvania-state-athletic
+#> 187                Pennsylvania   football                          cfb:ivy
+#> 188                East Central   football               cfb:great-american
+#> 189        East Tennessee State   football                     cfb:southern
+#> 190          East Texas Baptist   football           cfb:american-southwest
+#> 191            Eastern Illinois   football                          cfb:ovc
+#> 192            Eastern Kentucky   football                          cfb:uac
+#> 193            Eastern Michigan   football                          cfb:mac
+#> 194          Eastern New Mexico   football                    cfb:lone-star
+#> 195              Eastern Oregon   football                             <NA>
+#> 196                    Edinboro   football  cfb:pennsylvania-state-athletic
+#> 197               Edward Waters   football                         cfb:siac
+#> 198        Elizabeth City State   football                         cfb:ciaa
+#> 199                  Pittsburgh   football                          cfb:acc
+#> 200                        Elon   football                          cfb:caa
+#> 201               Emory & Henry   football               cfb:south-atlantic
+#> 202               Emporia State   football                  cfb:mid-america
+#> 203                   Villanova   football                      cfb:patriot
+#> 204          Fayetteville State   football                         cfb:ciaa
+#> 205                 FDU Florham   football                 cfb:mid-atlantic
+#> 206                Ferris State   football                        cfb:gliac
+#> 207                     Findlay   football       cfb:great-midwest-athletic
+#> 208            Florida Atlantic   football                     cfb:american
+#> 209       Florida International   football                         cfb:cusa
+#> 210                West Chester   football  cfb:pennsylvania-state-athletic
+#> 211                     Fordham   football                      cfb:patriot
+#> 212                   Fort Hays   football                  cfb:mid-america
+#> 213           Fort Valley State   football                         cfb:siac
+#> 214                    Franklin   football                    cfb:heartland
+#> 215         Franklin & Marshall   football                   cfb:centennial
+#> 216                  Fort Lewis   football               cfb:rocky-mountain
+#> 217                Gardner-Webb   football                          cfb:ovc
+#> 218                      Geneva   football                   cfb:presidents
+#> 219     George Mason University   football                             <NA>
+#> 220             Georgetown (KY)   football                             <NA>
+#> 221               Georgia State   football                     cfb:sun-belt
+#> 222                  Gettysburg   football                   cfb:centennial
+#> 223             Glenville State   football                cfb:mountain-east
+#> 224                       Brown   football                          cfb:ivy
+#> 225                  Des Moines   football                             <NA>
+#> 226                  Greensboro   football                    cfb:usa-south
+#> 227                  Greenville   football                cfb:upper-midwest
+#> 228                    Guilford   football                 cfb:old-dominion
+#> 229                     Hampton   football                          cfb:caa
+#> 230                     Hanover   football                    cfb:heartland
+#> 231                     Harding   football               cfb:great-american
+#> 232                Rhode Island   football                          cfb:caa
+#> 233             Henderson State   football               cfb:great-american
+#> 234                   Hillsdale   football       cfb:great-midwest-athletic
+#> 235                       Hiram   football                   cfb:presidents
+#> 236           Houston Christian   football                    cfb:southland
+#> 237                     Clemson   football                          cfb:acc
+#> 238                      Husson   football           cfb:commonwealth-coast
+#> 239            Benedictine (IL)   football                         cfb:nacc
+#> 240            Illinois College   football                      cfb:midwest
+#> 241              Illinois State   football                         cfb:mvfc
+#> 242             IU Pennsylvania   football  cfb:pennsylvania-state-athletic
+#> 243                Indianapolis   football                  cfb:great-lakes
+#> 244                        Iowa   football                      cfb:big-ten
+#> 245               Jackson State   football                         cfb:swac
+#> 246              San José State   football                cfb:mountain-west
+#> 247                John Carroll   football                         cfb:ohio
+#> 248            Johnson C. Smith   football                         cfb:ciaa
+#> 249                      Kansas   football                       cfb:big-12
+#> 250                Kansas State   football                       cfb:big-12
+#> 251                  Kent State   football                          cfb:mac
+#> 252                      Furman   football                     cfb:southern
+#> 253              Kentucky State   football                         cfb:siac
+#> 254                    Kutztown   football  cfb:pennsylvania-state-athletic
+#> 255           Kentucky Wesleyan   football       cfb:great-midwest-athletic
+#> 256                    La Verne   football                        cfb:sciac
+#> 257                       Lamar   football                    cfb:southland
+#> 258                Lane College   football                         cfb:siac
+#> 259                    Langston   football                             <NA>
+#> 260                      Lehigh   football                      cfb:patriot
+#> 261                South Dakota   football                         cfb:mvfc
+#> 262                Lenoir Rhyne   football               cfb:south-atlantic
+#> 263               Lewis & Clark   football                    cfb:northwest
+#> 264                     Liberty   football                         cfb:cusa
+#> 265                Lincoln (PA)   football                         cfb:ciaa
+#> 266      Long Island University   football                          cfb:nec
+#> 267              Louisiana Tech   football                     cfb:sun-belt
+#> 268                     Memphis   football                     cfb:american
+#> 269                    Lycoming   football          cfb:landmark-conference
+#> 270                  Macalester   football                    cfb:minnesota
+#> 271                 Chattanooga   football                     cfb:southern
+#> 272                  Manchester   football                    cfb:heartland
+#> 273             Minnesota State   football                 cfb:northern-sun
+#> 274                   Mansfield   football                             <NA>
+#> 275                      Marist   football                      cfb:pioneer
+#> 276                   Mars Hill   football               cfb:south-atlantic
+#> 277                       Union   football               cfb:liberty-league
+#> 278          Mary Hardin Baylor   football           cfb:american-southwest
+#> 279              Maryville (TN)   football                    cfb:usa-south
+#> 280                     McNeese   football                    cfb:southland
+#> 281                  Vanderbilt   football                          cfb:sec
+#> 282                      Mercer   football                     cfb:southern
+#> 283             Merchant Marine   football                       cfb:newmac
+#> 284                  Mercyhurst   football                          cfb:nec
+#> 285                      Baylor   football                       cfb:big-12
+#> 286                       Miami   football                          cfb:acc
+#> 287               Michigan Tech   football                        cfb:gliac
+#> 288            Middle Tennessee   football                         cfb:cusa
+#> 289                  Middlebury   football                       cfb:nescac
+#> 290                       Miles   football                         cfb:siac
+#> 291                    Millsaps   football            cfb:southern-athletic
+#> 292            Minnesota Morris   football                cfb:upper-midwest
+#> 293                    Stanford   football                          cfb:acc
+#> 294    Mississippi Valley State   football                         cfb:swac
+#> 295                Missouri S&T   football                  cfb:great-lakes
+#> 296     Missouri Southern State   football                  cfb:mid-america
+#> 297                    Monmouth   football                          cfb:caa
+#> 298                     McMurry   football           cfb:american-southwest
+#> 299              Morehead State   football                      cfb:pioneer
+#> 300                Morgan State   football                         cfb:meac
+#> 301                 Morningside   football                             <NA>
+#> 302             Mount St Joseph   football                    cfb:heartland
+#> 303                        Rice   football                     cfb:american
+#> 304                  Muhlenberg   football                   cfb:centennial
+#> 305        New Mexico Highlands   football               cfb:rocky-mountain
+#> 306                        Navy   football                     cfb:american
+#> 307      North Carolina Central   football                         cfb:meac
+#> 308                   Charlotte   football                     cfb:american
+#> 309                   UL Monroe   football                     cfb:sun-belt
+#> 310            Nebraska Kearney   football                  cfb:mid-america
+#> 311                        UNLV   football                cfb:mountain-west
+#> 312                      Nevada   football                cfb:mountain-west
+#> 313                   New Haven   football                          cfb:nec
+#> 314   The College of New Jersey   football                   cfb:new-jersey
+#> 315                    Newberry   football               cfb:south-atlantic
+#> 316                    Nicholls   football                    cfb:southland
+#> 317          North Carolina A&T   football                          cfb:caa
+#> 318          North Dakota State   football                cfb:mountain-west
+#> 319                   Texas A&M   football                          cfb:sec
+#> 320               Norfolk State   football                         cfb:meac
+#> 321               North Alabama   football                          cfb:uac
+#> 322           Northern Colorado   football                      cfb:big-sky
+#> 323           Northern Illinois   football                cfb:mountain-west
+#> 324                     Juniata   football          cfb:landmark-conference
+#> 325               Northern Iowa   football                         cfb:mvfc
+#> 326            Northern Arizona   football                      cfb:big-sky
+#> 327          Northwestern State   football                    cfb:southland
+#> 328                     Norwich   football                       cfb:newmac
+#> 329                      King's   football                 cfb:mid-atlantic
+#> 330              Ohio Dominican   football       cfb:great-midwest-athletic
+#> 331                     Houston   football                       cfb:big-12
+#> 332                      Oregon   football                      cfb:big-ten
+#> 333            Pacific Lutheran   football                    cfb:northwest
+#> 334                        Pace   football                 cfb:northeast-10
+#> 335                 North Texas   football                     cfb:american
+#> 336                  California   football                          cfb:acc
+#> 337              Portland State   football                      cfb:big-sky
+#> 338            Prairie View A&M   football                         cfb:swac
+#> 339                Presbyterian   football                      cfb:pioneer
+#> 340                 Puget Sound   football                    cfb:northwest
+#> 341                      Purdue   football                      cfb:big-ten
+#> 342                       Texas   football                          cfb:sec
+#> 343              Randolph Macon   football                 cfb:old-dominion
+#> 344                      Rhodes   football            cfb:southern-athletic
+#> 345                         BYU   football                       cfb:big-12
+#> 346               Robert Morris   football                          cfb:nec
+#> 347                    Rockford   football                         cfb:nacc
+#> 348                  Rensselaer   football               cfb:liberty-league
+#> 349                Sacred Heart   football                          cfb:caa
+#> 350               Southern Utah   football                      cfb:big-sky
+#> 351                   Salisbury   football                   cfb:new-jersey
+#> 352                 Sam Houston   football                         cfb:cusa
+#> 353                     Samford   football                     cfb:southern
+#> 354                        Utah   football                       cfb:big-12
+#> 355              Savannah State   football                         cfb:siac
+#> 356                SE Louisiana   football                    cfb:southland
+#> 357    Southeast Missouri State   football                          cfb:ovc
+#> 358                        Knox   football                      cfb:midwest
+#> 359                        Shaw   football                         cfb:ciaa
+#> 360                     Sewanee   football            cfb:southern-athletic
+#> 361                 Coast Guard   football                       cfb:newmac
+#> 362                Shippensburg   football  cfb:pennsylvania-state-athletic
+#> 363               James Madison   football                     cfb:sun-belt
+#> 364                     Shorter   football                    cfb:carolinas
+#> 365                Simpson (IA)   football              cfb:american-rivers
+#> 366                         SMU   football                          cfb:acc
+#> 367           Southern Arkansas   football               cfb:great-american
+#> 368        South Carolina State   football                         cfb:meac
+#> 369                    Richmond   football                      cfb:patriot
+#> 370                  CSU Pueblo   football               cfb:rocky-mountain
+#> 371          South Dakota State   football                         cfb:mvfc
+#> 372               Southern Miss   football                     cfb:sun-belt
+#> 373              South Carolina   football                          cfb:sec
+#> 374                    Virginia   football                          cfb:acc
+#> 375                    Southern   football                         cfb:swac
+#> 376  Southern Connecticut State   football                 cfb:northeast-10
+#> 377             Southern Oregon   football                             <NA>
+#> 378           Southwest Baptist   football                  cfb:great-lakes
+#> 379   Southwest Minnesota State   football                 cfb:northern-sun
+#> 380              Southwestern U   football            cfb:southern-athletic
+#> 381               Virginia Tech   football                          cfb:acc
+#> 382                 St. Ambrose   football                             <NA>
+#> 383            St. Francis (IL)   football                             <NA>
+#> 384               Saint Francis   football                   cfb:presidents
+#> 385                        UCLA   football                      cfb:big-ten
+#> 386           Saint John's (MN)   football                    cfb:minnesota
+#> 387               Saint Vincent   football                   cfb:presidents
+#> 388           Stephen F. Austin   football                    cfb:southland
+#> 389                 Stony Brook   football                          cfb:caa
+#> 390                 Lake Forest   football                      cfb:midwest
+#> 391              Missouri State   football                         cfb:cusa
+#> 392              Tarleton State   football                          cfb:uac
+#> 393                         TCU   football                       cfb:big-12
+#> 394                       Loras   football              cfb:american-rivers
+#> 395                   UT Martin   football                          cfb:ovc
+#> 396                   Tennessee   football                          cfb:sec
+#> 397             Tennessee State   football                          cfb:ovc
+#> 398              Tennessee Tech   football                     cfb:southern
+#> 399                        UTSA   football                     cfb:american
+#> 400               Texas College   football                             <NA>
+#> 401                        UTEP   football                cfb:mountain-west
+#> 402              Texas Lutheran   football cfb:southern-collegiate-athletic
+#> 403                  Washington   football                      cfb:big-ten
+#> 404              Texas Southern   football                         cfb:swac
+#> 405                  Texas Tech   football                       cfb:big-12
+#> 406                 The Citadel   football                     cfb:southern
+#> 407                       Thiel   football                   cfb:presidents
+#> 408                 Thomas More   football       cfb:great-midwest-athletic
+#> 409                      Toledo   football                          cfb:mac
+#> 410            Washington State   football                       cfb:pac-12
+#> 411                       Trine   football                     cfb:michigan
+#> 412                        Troy   football                     cfb:sun-belt
+#> 413                Truman State   football                  cfb:great-lakes
+#> 414                      Tulane   football                     cfb:american
+#> 415                    Tuskegee   football                         cfb:siac
+#> 416        Texas A&M-Kingsville   football                    cfb:lone-star
+#> 417                      Beloit   football                      cfb:midwest
+#> 418                     Ursinus   football                   cfb:centennial
+#> 419              Valdosta State   football                   cfb:gulf-south
+#> 420                  Valparaiso   football                      cfb:pioneer
+#> 421              Virginia Union   football                         cfb:ciaa
+#> 422                         VMI   football                     cfb:southern
+#> 423                    Lawrence   football                      cfb:midwest
+#> 424                      Wagner   football                          cfb:nec
+#> 425                       Walsh   football       cfb:great-midwest-athletic
+#> 426                    Wartburg   football              cfb:american-rivers
+#> 427      Washington & Jefferson   football                   cfb:presidents
+#> 428                    Washburn   football                  cfb:mid-america
+#> 429          Washington and Lee   football                 cfb:old-dominion
+#> 430                 Weber State   football                      cfb:big-sky
+#> 431                West Alabama   football                   cfb:gulf-south
+#> 432                West Georgia   football                          cfb:uac
+#> 433                West Liberty   football                cfb:mountain-east
+#> 434                    McDaniel   football                   cfb:centennial
+#> 435             Montana Western   football                             <NA>
+#> 436         Western New England   football           cfb:commonwealth-coast
+#> 437          Western New Mexico   football                    cfb:lone-star
+#> 438                  West Texas   football                    cfb:lone-star
+#> 439                    WVU Tech   football                             <NA>
+#> 440         West Virginia State   football                cfb:mountain-east
+#> 441           Wisconsin Oshkosh   football                    cfb:wisconsin
+#> 442            Western Illinois   football                          cfb:ovc
+#> 443            Western Michigan   football                          cfb:mac
+#> 444            Western Colorado   football               cfb:rocky-mountain
+#> 445            Western Carolina   football                     cfb:southern
+#> 446       Wisconsin Platteville   football                    cfb:wisconsin
+#> 447                   Whitworth   football                    cfb:northwest
+#> 448       Wisconsin River Falls   football                    cfb:wisconsin
+#> 449                     Widener   football                 cfb:mid-atlantic
+#> 450              William & Mary   football                      cfb:patriot
+#> 451                    Williams   football                       cfb:nescac
+#> 452             Wilmington (OH)   football                         cfb:ohio
+#> 453         Winston-Salem State   football                         cfb:ciaa
+#> 454        Wisconsin Eau Claire   football                    cfb:wisconsin
+#> 455              Maine Maritime   football           cfb:commonwealth-coast
+#> 456         Wisconsin La Crosse   football                    cfb:wisconsin
+#> 457          Wisconsin Lutheran   football                         cfb:nacc
+#> 458     Wisconsin Stevens Point   football                    cfb:wisconsin
+#> 459             Wisconsin Stout   football                    cfb:wisconsin
+#> 460        Wisconsin Whitewater   football                    cfb:wisconsin
+#> 461                  Wittenberg   football                  cfb:north-coast
+#> 462                     Wofford   football                     cfb:southern
+#> 463                     Wooster   football                  cfb:north-coast
+#> 464                         WPI   football                       cfb:newmac
+#> 465                   Wisconsin   football                      cfb:big-ten
+#> 466                     Wyoming   football                cfb:mountain-west
+#> 467            Youngstown State   football                         cfb:mvfc
+#> 468                   Grambling   football                         cfb:swac
+#> 469                       Berry   football            cfb:southern-athletic
+#> 470                Howard Payne   football           cfb:american-southwest
+#> 471                    Marshall   football                     cfb:sun-belt
+#> 472               West Virginia   football                       cfb:big-12
+#> 473                   Merrimack   football             cfb:fcs-independents
+#> 474                Salve Regina   football                       cfb:newmac
+#> 475                St. Lawrence   football               cfb:liberty-league
+#> 476                Fresno State   football                       cfb:pac-12
+#> 477                   Brockport   football                     cfb:empire-8
+#> 478               SUNY Cortland   football                     cfb:empire-8
+#> 479                      Albion   football                     cfb:michigan
+#> 480                        Alma   football                     cfb:michigan
+#> 481                 Bethel (MN)   football                    cfb:minnesota
+#> 482                      Bryant   football                          cfb:caa
+#> 483                      Chowan   football                    cfb:carolinas
+#> 484               Clark Atlanta   football                         cfb:siac
+#> 485             Delaware Valley   football                 cfb:mid-atlantic
+#> 486              Hardin Simmons   football           cfb:american-southwest
+#> 487                        Hope   football                     cfb:michigan
+#> 488                  Lindenwood   football                          cfb:ovc
+#> 489                   McKendree   football                  cfb:great-lakes
+#> 490       Minnesota St Moorhead   football                 cfb:northern-sun
+#> 491             Montclair State   football                   cfb:new-jersey
+#> 492               Indiana State   football                         cfb:mvfc
+#> 493            North Greenville   football                    cfb:carolinas
+#> 494           Northwestern (OK)   football               cfb:great-american
+#> 495          Oklahoma Panhandle   football              cfb:d2-independents
+#> 496                      Quincy   football                  cfb:great-lakes
+#> 497                       Rowan   football                   cfb:new-jersey
+#> 498                  Shenandoah   football                 cfb:old-dominion
+#> 499                Saint Anselm   football                 cfb:northeast-10
+#> 500                 St. Norbert   football                         cfb:nacc
+#> 501              Sul Ross State   football                    cfb:lone-star
+#> 502              East Texas A&M   football                    cfb:southland
+#> 503                      Tiffin   football       cfb:great-midwest-athletic
+#> 504                    Tusculum   football               cfb:south-atlantic
+#> 505                   Stonehill   football                          cfb:nec
+#> 506                    UVA Wise   football               cfb:south-atlantic
+#> 507   Western Connecticut State   football          cfb:landmark-conference
+#> 508            Wayne State (NE)   football                 cfb:northern-sun
+#> 509                  Waynesburg   football                   cfb:presidents
+#> 510              Western Oregon   football                    cfb:lone-star
+#> 511            Westminster (PA)   football                   cfb:presidents
+#> 512                    Whittier   football                        cfb:sciac
+#> 513                Winona State   football                 cfb:northern-sun
+#> 514             California (PA)   football  cfb:pennsylvania-state-athletic
+#> 515     North Carolina Wesleyan   football                    cfb:usa-south
+#> 516                        Kean   football                   cfb:new-jersey
+#> 517                Lincoln (MO)   football                  cfb:great-lakes
+#> 518            Missouri Baptist   football                             <NA>
+#> 519                UNC Pembroke   football                    cfb:carolinas
+#> 520                     Nichols   football           cfb:commonwealth-coast
+#> 521                   Northwood   football       cfb:great-midwest-athletic
+#> 522            Ouachita Baptist   football               cfb:great-american
+#> 523                       Ripon   football                      cfb:midwest
+#> 524                 Sioux Falls   football                 cfb:northern-sun
+#> 525           Southern Virginia   football                    cfb:usa-south
+#> 526                    Redlands   football                        cfb:sciac
+#> 527            Georgia Southern   football                     cfb:sun-belt
+#> 528                  St. Thomas   football                      cfb:pioneer
+#> 529             Westfield State   football                        cfb:mscac
+#> 530                   Methodist   football                    cfb:usa-south
+#> 531              William Jewell   football                  cfb:great-lakes
+#> 532                William Penn   football                             <NA>
+#> 533                     Brevard   football                    cfb:usa-south
+#> 534              Incarnate Word   football                    cfb:southland
+#> 535               Monmouth (IL)   football                      cfb:midwest
+#> 536                        <NA>   football                    cfb:southland
+#> 537               Pomona Pitzer   football                        cfb:sciac
+#> 538 Southwestern Oklahoma State   football               cfb:great-american
+#> 539     Vermont State Castleton   football                   cfb:new-jersey
+#> 540                  Willamette   football                    cfb:northwest
+#> 541                  Huntingdon   football                    cfb:usa-south
+#> 542                 Livingstone   football                         cfb:ciaa
+#> 543                Old Dominion   football                     cfb:sun-belt
+#> 544               SUNY Maritime   football                       cfb:newmac
+#> 545        Case Western Reserve   football                   cfb:presidents
+#> 546             Central College   football              cfb:american-rivers
+#> 547            Framingham State   football                        cfb:mscac
+#> 548           Gustavus Adolphus   football                    cfb:minnesota
+#> 549                Misericordia   football                 cfb:mid-atlantic
+#> 550              Hampden Sydney   football                 cfb:old-dominion
+#> 551            William Paterson   football                   cfb:new-jersey
+#> 552              Plymouth State   football                        cfb:mscac
+#> 553                    Shepherd   football  cfb:pennsylvania-state-athletic
+#> 554                Trinity (CT)   football                       cfb:nescac
+#> 555               Ohio Wesleyan   football                  cfb:north-coast
+#> 556              Fairmont State   football                cfb:mountain-east
+#> 557                         USC   football                      cfb:big-ten
+#> 558                   San Diego   football                      cfb:pioneer
+#> 559                    UC Davis   football                      cfb:big-sky
+#> 560                 Idaho State   football                      cfb:big-sky
+#> 561           Illinois Wesleyan   football                         cfb:cciw
+#> 562          Concordia St. Paul   football                 cfb:northern-sun
+#> 563       North Central College   football                         cfb:cciw
+#> 564                     Ashland   football       cfb:great-midwest-athletic
+#> 565                   Louisiana   football                     cfb:sun-belt
+#> 566                   Utah Tech   football                      cfb:big-sky
+#> 567                       Maine   football                          cfb:caa
+#> 568            SUNY Morrisville   football                     cfb:empire-8
+#> 569         Christopher Newport   football                   cfb:new-jersey
+#> 570                Alfred State   football                     cfb:empire-8
+#> 571                    Marietta   football                         cfb:ohio
+#> 572            Oklahoma Baptist   football               cfb:great-american
+#> 573                Carroll (WI)   football                         cfb:cciw
+#> 574                   Lafayette   football                      cfb:patriot
+#> 575                    Moravian   football          cfb:landmark-conference
+#> 576                        Troy   football                             <NA>
+#> 577            Coastal Carolina   football                     cfb:sun-belt
+#> 578                   Charlotte   football                             <NA>
+#> 579                 Texas State   football                       cfb:pac-12
+#> 580                  Utah State   football                       cfb:pac-12
+#> 581                       Colby   football                       cfb:nescac
+#> 582              Virginia State   football                         cfb:ciaa
+#> 583          Eastern Washington   football                      cfb:big-sky
+#> 584                   Muskingum   football                         cfb:ohio
+#> 585                     Alabama   football                          cfb:sec
+#> 586               Wesleyan (CT)   football                       cfb:nescac
+#> 587              Kennesaw State   football                         cfb:cusa
+#> 588                     Bowdoin   football                       cfb:nescac
+#> 589             Frostburg State   football                cfb:mountain-east
+#> 590           Mississippi State   football                          cfb:sec
+#> 591                    Hamilton   football                       cfb:nescac
+#> 592                        Army   football                     cfb:american
+#> 593                     Wingate   football               cfb:south-atlantic
+#> 594                      Kenyon   football                  cfb:north-coast
+#> 595                      Olivet   football                     cfb:michigan
+#> 596                    Illinois   football                      cfb:big-ten
+#> 597                   Otterbein   football                         cfb:ohio
+#> 598              Colorado State   football                       cfb:pac-12
+#> 599                      Alfred   football                     cfb:empire-8
+#> 600                      Ferrum   football                    cfb:carolinas
+#> 601                      Gannon   football  cfb:pennsylvania-state-athletic
+#> 602             St. John Fisher   football                     cfb:empire-8
+#> 603             St. Scholastica   football                    cfb:minnesota
+#> 604             UMass Dartmouth   football                        cfb:mscac
+#> 605                    Colorado   football                       cfb:big-12
+#> 606                Trinity (TX)   football            cfb:southern-athletic
+#> 607              Lebanon Valley   football                 cfb:mid-atlantic
+#> 608                  Upper Iowa   football                  cfb:great-lakes
+#> 609                       Utica   football                     cfb:empire-8
+#> 610                     Oberlin   football                  cfb:north-coast
+#> 611                Wheaton (IL)   football                         cfb:cciw
+#> 612                      Wilkes   football          cfb:landmark-conference
+#> 613                     UAlbany   football                          cfb:caa
+#> 614                       Curry   football           cfb:commonwealth-coast
+#> 615             Worcester State   football                        cfb:mscac
+#> 616              Concordia (WI)   football                         cfb:nacc
+#> 617                       UConn   football             cfb:fbs-independents
+#> 618                     Chapman   football                        cfb:sciac
+#> 619                  George Fox   football                    cfb:northwest
+#> 620                   Gallaudet   football cfb:southern-collegiate-athletic
+#> 621                     Hendrix   football            cfb:southern-athletic
+#> 622                     Capital   football                         cfb:ohio
+#> 623              Northern State   football                 cfb:northern-sun
+#> 624                 Mount Union   football                         cfb:ohio
+#> 625               Ohio Northern   football                         cfb:ohio
+#> 626                        Yale   football                          cfb:ivy
+#> 627            Westminster (MO)   football                cfb:upper-midwest
+#> 628                   Lake Erie   football       cfb:great-midwest-athletic
+#> 629               Martin Luther   football                cfb:upper-midwest
+#> 630                    Endicott   football           cfb:commonwealth-coast
+#> 631      West Virginia Wesleyan   football                cfb:mountain-east
+#> 632                  Georgetown   football                      cfb:patriot
+#> 633                      Howard   football                         cfb:meac
+#> 634                   Stevenson   football                 cfb:mid-atlantic
+#> 635                    Delaware   football                         cfb:cusa
+#> 636                     Dubuque   football              cfb:american-rivers
+#> 637                    Benedict   football                         cfb:siac
+#> 638                         UAB   football                     cfb:american
+#> 639                 Florida A&M   football                         cfb:swac
+#> 640                       Crown   football                cfb:upper-midwest
+#> 641     Dakota State University   football                             <NA>
+#> 642               Florida State   football                          cfb:acc
+#> 643        Graceland University   football                             <NA>
+#> 644                    LaGrange   football                    cfb:usa-south
+#> 645          Jacksonville State   football                         cfb:cusa
+#> 646          University of Mary   football                 cfb:northern-sun
+#> 647                     Stetson   football                      cfb:pioneer
+#> 648                 Minot State   football                 cfb:northern-sun
+#> 649                     Florida   football                          cfb:sec
+#> 650               South Florida   football                     cfb:american
+#> 651           Northwestern (MN)   football                cfb:upper-midwest
+#> 652                Georgia Tech   football                          cfb:acc
+#> 653               South Alabama   football                     cfb:sun-belt
+#> 654                   Morehouse   football                         cfb:siac
+#> 655                     Georgia   football                          cfb:sec
+#> 656                  Seton Hill   football  cfb:pennsylvania-state-athletic
+#> 657          South Dakota Mines   football               cfb:rocky-mountain
+#> 658                     Hawai'i   football                cfb:mountain-west
+#> 659                 Buena Vista   football              cfb:american-rivers
+#> 660                    Lakeland   football                         cfb:nacc
+#> 661                    Grinnell   football                      cfb:midwest
+#> 662                  Iowa State   football                       cfb:big-12
+#> 663                      Luther   football                      cfb:midwest
+#> 664                 Boise State   football                       cfb:pac-12
+#> 665           Nebraska Wesleyan   football              cfb:american-rivers
+#> 666                     Amherst   football                       cfb:nescac
+#> 667                       Idaho   football                      cfb:big-sky
+#> 668                    Elmhurst   football                         cfb:cciw
+#> 669                    Millikin   football                         cfb:cciw
+#> 670                  North Park   football                         cfb:cciw
+#> 671                Northwestern   football                      cfb:big-ten
+#> 672           Southern Illinois   football                         cfb:mvfc
+#> 673                    Arkansas   football                          cfb:sec
+#> 674                     Chicago   football                      cfb:midwest
+#> 675                 Springfield   football                       cfb:newmac
+#> 676                      DePauw   football                  cfb:north-coast
+#> 677                     Indiana   football                      cfb:big-ten
+#> 678                 Rose Hulman   football                    cfb:heartland
+#> 679                  Notre Dame   football             cfb:fbs-independents
+#> 680                      Wabash   football                  cfb:north-coast
+#> 681               Arizona State   football                       cfb:big-12
+#> 682             Pittsburg State   football                  cfb:mid-america
+#> 683                Murray State   football                         cfb:mvfc
+#> 684                    Kentucky   football                          cfb:sec
+#> 685                  Louisville   football                          cfb:acc
+#> 686            Western Kentucky   football                         cfb:cusa
+#> 687                         LSU   football                          cfb:sec
+#> 688                        <NA> conference                     cfb:american
+#> 689                        <NA> conference                          cfb:acc
+#> 690                        <NA> conference           cfb:american-southwest
+#> 691                        <NA> conference                       cfb:big-12
+#> 692                        <NA> conference                      cfb:big-sky
+#> 693                        <NA> conference                      cfb:big-ten
+#> 694                        <NA> conference                          cfb:caa
+#> 695                        <NA> conference                         cfb:cciw
+#> 696                        <NA> conference                         cfb:ciaa
+#> 697                        <NA> conference                             <NA>
+#> 698                        <NA> conference                         cfb:cusa
+#> 699                        <NA> conference                    cfb:carolinas
+#> 700                        <NA> conference                     cfb:empire-8
+#> 701                        <NA> conference             cfb:fbs-independents
+#> 702                        <NA> conference             cfb:fcs-independents
+#> 703                        <NA> conference                        cfb:gliac
+#> 704                        <NA> conference                  cfb:great-lakes
+#> 705                        <NA> conference                   cfb:gulf-south
+#> 706                        <NA> conference               cfb:great-american
+#> 707                        <NA> conference                    cfb:heartland
+#> 708                        <NA> conference                          cfb:ivy
+#> 709                        <NA> conference                    cfb:lone-star
+#> 710                        <NA> conference          cfb:landmark-conference
+#> 711                        <NA> conference               cfb:liberty-league
+#> 712                        <NA> conference                          cfb:mac
+#> 713                        <NA> conference                        cfb:mscac
+#> 714                        <NA> conference                         cfb:meac
+#> 715                        <NA> conference                cfb:mountain-east
+#> 716                        <NA> conference                  cfb:mid-america
+#> 717                        <NA> conference                     cfb:michigan
+#> 718                        <NA> conference                    cfb:minnesota
+#> 719                        <NA> conference                         cfb:mvfc
+#> 720                        <NA> conference                 cfb:mid-atlantic
+#> 721                        <NA> conference                      cfb:midwest
+#> 722                        <NA> conference                cfb:mountain-west
+#> 723                        <NA> conference                         cfb:nacc
+#> 724                        <NA>     league                             <NA>
+#> 725                        <NA> conference                  cfb:north-coast
+#> 726                        <NA> conference                 cfb:northeast-10
+#> 727                        <NA> conference                          cfb:nec
+#> 728                        <NA> conference                       cfb:nescac
+#> 729                        <NA> conference                       cfb:newmac
+#> 730                        <NA> conference                   cfb:new-jersey
+#> 731                        <NA> conference                 cfb:northern-sun
+#> 732                        <NA> conference                    cfb:northwest
+#> 733                        <NA> conference                         cfb:ohio
+#> 734                        <NA> conference                 cfb:old-dominion
+#> 735                        <NA> conference                          cfb:ovc
+#> 736                        <NA> conference                   cfb:presidents
+#> 737                        <NA> conference  cfb:pennsylvania-state-athletic
+#> 738                        <NA> conference                       cfb:pac-12
+#> 739                        <NA> conference                      cfb:patriot
+#> 740                        <NA> conference                      cfb:pioneer
+#> 741                        <NA> conference               cfb:rocky-mountain
+#> 742                        <NA> conference                        cfb:sciac
+#> 743                        <NA> conference                          cfb:sec
+#> 744                        <NA> conference                         cfb:siac
+#> 745                        <NA> conference                         cfb:swac
+#> 746                        <NA> conference                     cfb:southern
+#> 747                        <NA> conference                    cfb:southland
+#> 748                        <NA> conference                     cfb:sun-belt
+#> 749                        <NA> conference                cfb:upper-midwest
+#> 750                        <NA> conference                    cfb:usa-south
+#> 751                        <NA> conference                             <NA>
+#> 752                        <NA> conference                    cfb:wisconsin
+#>                                                  conference color_primary
+#> 1                  Northern Athletics Collegiate Conference       #960a2c
+#> 2                   Southern Collegiate Athletic Conference       #8a2432
+#> 3                                      Conference Carolinas       #701931
+#> 4                                 Atlantic Coast Conference       #8c2232
+#> 5                                            Patriot League       #582c83
+#> 6                                                Ivy League       #990000
+#> 7         New England Women's and Men's Athletic Conference       #b20838
+#> 8                                            Rocky Mountain       #860038
+#> 9        Massachusetts State Collegiate Athletic Conference       #212c62
+#> 10                               United Athletic Conference       #087dc2
+#> 11                                                Lone Star       #e35205
+#> 12       Massachusetts State Collegiate Athletic Conference       #43252a
+#> 13                                                     <NA>       #001681
+#> 14                               Middle Atlantic Conference       #9e053b
+#> 15                            Commonwealth Coast Conference       #0079c2
+#> 16                                                   NESCAC       #3e8ede
+#> 17                                             Northeast 10       #701931
+#> 18                                 Mountain East Conference       #e31937
+#> 19                                  Mid-American Conference       #881c1c
+#> 20       Massachusetts State Collegiate Athletic Conference       #024d36
+#> 21                                               Centennial       #68aee0
+#> 22                             Coastal Athletic Association       #ffc229
+#> 23                                        Big 12 Conference       #cc0033
+#> 24                                       Big Ten Conference       #ce1126
+#> 25                                                   NESCAC       #a51e36
+#> 26                                     Conference Carolinas       #004684
+#> 27                                         Independent DIII       #001e4e
+#> 28                                                     <NA>       #2a388c
+#> 29                                                Minnesota       #74233d
+#> 30                                          Independent DII       #a61d2f
+#> 31                                                     CIAA       #0f1f43
+#> 32                                                    GLIAC       #0f298f
+#> 33                                                 Empire 8       #233f94
+#> 34                                                 Michigan       #ec6820
+#> 35                                             Northeast 10       #632d4f
+#> 36                                       Big Ten Conference       #173f35
+#> 37                               Middle Atlantic Conference       #6a1f32
+#> 38                                                    GLIAC       #0f553a
+#> 39                                                    GLIAC       #c41230
+#> 40                                           South Atlantic       #bca271
+#> 41                                                 Michigan       #891b2f
+#> 42                                       Big Sky Conference       #1e4d2b
+#> 43                                       Big Ten Conference       #00274c
+#> 44                                                    GLIAC       #4a8075
+#> 45                                             Northern Sun       #d3af7e
+#> 46                                                Minnesota       #000000
+#> 47                                             Northern Sun       #fec050
+#> 48                                       Big Ten Conference       #5e0a2f
+#> 49                                              Mid America       #fab615
+#> 50                                              Mid America       #006e51
+#> 51                                  Southeastern Conference       #f1b82d
+#> 52                                              North Coast       #007360
+#> 53                                  Southeastern Conference       #13294b
+#> 54                                              Presidents'       #eb1f25
+#> 55                                       Big Sky Conference       #00205c
+#> 56                                       Big Sky Conference       #751d4a
+#> 57                                Atlantic Coast Conference       #00539b
+#> 58                                      American Conference       #582c83
+#> 59                                Atlantic Coast Conference       #cc0000
+#> 60                                Atlantic Coast Conference       #7bafd4
+#> 61                                Atlantic Coast Conference       #ceb888
+#> 62                      Missouri Valley Football Conference       #00a26b
+#> 63                                       Big Ten Conference       #e31937
+#> 64                                               Ivy League       #005730
+#> 65                                  Mid-American Conference       #00573c
+#> 66                             Coastal Athletic Association       #004990
+#> 67                                                Minnesota       #98012e
+#> 68                                               Ivy League       #000000
+#> 69                                       Big Ten Conference       #ce0e2d
+#> 70                                           Conference USA       #7e141b
+#> 71                                 Mountain West Conference       #ba0c2f
+#> 72                                                 So. Cal.       #981a31
+#> 73                                               Ivy League       #7ba4db
+#> 74                                               Ivy League       #b31b1b
+#> 75                                                 Empire 8       #0058a9
+#> 76                                           Liberty League       #4f1079
+#> 77                                           Liberty League       #000000
+#> 78       Massachusetts State Collegiate Athletic Conference       #bf2f38
+#> 79                                Atlantic Coast Conference       #000e54
+#> 80                                           Liberty League       #f8d000
+#> 81                                                     Ohio       #f6c406
+#> 82                                  Mid-American Conference       #fd5000
+#> 83                                                Heartland       #4e2d8a
+#> 84                                                     Ohio       #d55929
+#> 85                                  Mid-American Conference       #c41230
+#> 86                                       Big Ten Conference       #ba0c2f
+#> 87                                  Mid-American Conference       #154734
+#> 88                                          Independent DII       #008265
+#> 89                                        Big 12 Conference       #fe5c00
+#> 90                                Great American Conference       #00498e
+#> 91                                  Southeastern Conference       #002b5c
+#> 92                                Great American Conference       #841617
+#> 93                               United Athletic Conference       #592d82
+#> 94                                           Rocky Mountain       #007954
+#> 95                                                 Michigan       #ffc423
+#> 96                                 Mountain West Conference       #003594
+#> 97                                  Mid-American Conference       #041e42
+#> 98                                  Southeastern Conference       #990000
+#> 99                         Southwestern Athletic Conference       #790000
+#> 100                        Southwestern Athletic Conference       #e9a900
+#> 101                                                    SIAC       #eaab00
+#> 102                              Middle Atlantic Conference       #c82e48
+#> 103                        Southwestern Athletic Conference       #4b0058
+#> 104                                             Presidents'       #0b2340
+#> 105                                                    SIAC       #025399
+#> 106                                     American Conference       #003595
+#> 107                                            Northeast 10       #ffbc15
+#> 108                                               Heartland       #f78f1e
+#> 109                                               Lone Star       #245397
+#> 110                                     Sun Belt Conference       #000000
+#> 111                               Great American Conference       #28825a
+#> 112                        Southwestern Athletic Conference       #e0aa0f
+#> 113                                               Northwest       #46256a
+#> 114                                     Sun Belt Conference       #cc092f
+#> 115                               Great American Conference       #ffd20a
+#> 116                                            Northeast 10       #004b87
+#> 117                                       Pac-12 Conference       #dc4405
+#> 118                                                    CCIW       #00437c
+#> 119                                            Northern Sun       #002d62
+#> 120                Northern Athletics Collegiate Conference       #00549f
+#> 121                 Southern Collegiate Athletic Conference       #b20838
+#> 122                              United Athletic Conference       #8e0b0b
+#> 123                                            Old Dominion       #012853
+#> 124                                                So. Cal.       #ffffff
+#> 125                                               Northwest       #b4183a
+#> 126                                 Mid-American Conference       #ba0c2f
+#> 127                                               USA South       #215732
+#> 128                                            Northeast 10       #86a7bb
+#> 129                                             Presidents'       #00583d
+#> 130                                                    <NA>       #613394
+#> 131                        Southwestern Athletic Conference       #7b1831
+#> 132                                          Rocky Mountain       #f5bc21
+#> 133                  Pennsylvania State Athletic Conference       #7a001f
+#> 134                                               Heartland       #46166a
+#> 135                                                    CIAA       #ffec9f
+#> 136                                            Old Dominion       #990022
+#> 137                                          Patriot League       #000060
+#> 138                                 Mid-American Conference       #005bbb
+#> 139                                          Liberty League       #e77324
+#> 140                                 Pioneer Football League       #0d1361
+#> 141                  Pennsylvania State Athletic Conference       #922135
+#> 142                                                So. Cal.       #3b2361
+#> 143                            Coastal Athletic Association       #ff4713
+#> 144                                       Pac-12 Conference       #a6192e
+#> 145                  Pennsylvania State Athletic Conference       #dda10e
+#> 146                                               Minnesota       #173a79
+#> 147                                             Presidents'       #c71230
+#> 148                                          South Atlantic       #f2682a
+#> 149                                                    CCIW       #ce0e2d
+#> 150                                          South Atlantic       #0c233f
+#> 151                                     Landmark Conference       #bf2e1a
+#> 152                              United Athletic Conference       #a7a9ac
+#> 153                                    Northeast Conference       #1b49a2
+#> 154                                       Big 12 Conference       #000000
+#> 155                                 Mid-American Conference       #4c0027
+#> 156                                             Mid America       #d31145
+#> 157                                                    SIAC       #770022
+#> 158                                               Lone Star       #ad1d37
+#> 159                           Southern Athletic Association       #f5d116
+#> 160                                             Mid America       #002d62
+#> 161                                          Rocky Mountain       #650934
+#> 162                                  Ohio Valley Conference       #2e3192
+#> 163                                Mountain East Conference       #651d32
+#> 164                                      Big Ten Conference       #061440
+#> 165                                        FCS Independents       #006700
+#> 166                                       Big 12 Conference       #000000
+#> 167                  Pennsylvania State Athletic Conference       #133880
+#> 168                              American Rivers Conference       #881922
+#> 169                                          Patriot League       #821019
+#> 170                                          Rocky Mountain       #011e47
+#> 171                                Mountain East Conference       #74043a
+#> 172                  Pennsylvania State Athletic Conference       #016f54
+#> 173                Northern Athletics Collegiate Conference       #572a31
+#> 174                                               Minnesota       #701d45
+#> 175                                                 Midwest       #533379
+#> 176                                     Landmark Conference       #6b1a31
+#> 177                                 Pioneer Football League       #000000
+#> 178                                 Pioneer Football League       #004b8d
+#> 179                         Mid-Eastern Athletic Conference       #009cdb
+#> 180                                              Gulf South       #00753e
+#> 181                                             North Coast       #c8032b
+#> 182                                              Centennial       #ed192d
+#> 183                                     American Conference       #a41e35
+#> 184                                 Pioneer Football League       #005596
+#> 185                                    Northeast Conference       #002d62
+#> 186                  Pennsylvania State Athletic Conference       #dd0632
+#> 187                                              Ivy League       #082a74
+#> 188                               Great American Conference       #f05423
+#> 189                                     Southern Conference       #002d61
+#> 190                                      American Southwest       #002b44
+#> 191                                  Ohio Valley Conference       #000000
+#> 192                              United Athletic Conference       #660819
+#> 193                                 Mid-American Conference       #006938
+#> 194                                               Lone Star       #006430
+#> 195                                                    <NA>       #434445
+#> 196                  Pennsylvania State Athletic Conference       #bb131a
+#> 197                                                    SIAC       #f68428
+#> 198                                                    CIAA       #1235c5
+#> 199                               Atlantic Coast Conference       #003594
+#> 200                            Coastal Athletic Association       #020303
+#> 201                                          South Atlantic       #1e376d
+#> 202                                             Mid America       #c29209
+#> 203                                          Patriot League       #00205b
+#> 204                                                    CIAA       #1468b2
+#> 205                              Middle Atlantic Conference       #003f87
+#> 206                                                   GLIAC       #ffc423
+#> 207                       Great Midwest Athletic Conference       #ff8300
+#> 208                                     American Conference       #003366
+#> 209                                          Conference USA       #091f3f
+#> 210                  Pennsylvania State Athletic Conference       #fec526
+#> 211                                          Patriot League       #830032
+#> 212                                             Mid America       #a69671
+#> 213                                                    SIAC       #f9bd0a
+#> 214                                               Heartland       #1b295b
+#> 215                                              Centennial       #25377d
+#> 216                                          Rocky Mountain       #004785
+#> 217                                  Ohio Valley Conference       #c12535
+#> 218                                             Presidents'       #8b732f
+#> 219                                                    <NA>       #016600
+#> 220                                                    <NA>       #fc671a
+#> 221                                     Sun Belt Conference       #0039a6
+#> 222                                              Centennial       #f4711f
+#> 223                                Mountain East Conference       #004f93
+#> 224                                              Ivy League       #411e09
+#> 225                                                    <NA>       #d01b35
+#> 226                                               USA South       #007853
+#> 227                                           Upper Midwest       #f36917
+#> 228                                            Old Dominion       #910028
+#> 229                            Coastal Athletic Association       #0067ac
+#> 230                                               Heartland       #0b486d
+#> 231                               Great American Conference       #a48544
+#> 232                            Coastal Athletic Association       #091f3f
+#> 233                               Great American Conference       #7a0026
+#> 234                       Great Midwest Athletic Conference       #0d1d41
+#> 235                                             Presidents'       #1c4077
+#> 236                                    Southland Conference       #00539c
+#> 237                               Atlantic Coast Conference       #f56600
+#> 238                           Commonwealth Coast Conference       #004b44
+#> 239                Northern Athletics Collegiate Conference       #ba0c2f
+#> 240                                                 Midwest       #014a91
+#> 241                     Missouri Valley Football Conference       #ce1126
+#> 242                  Pennsylvania State Athletic Conference       #aa0632
+#> 243                                             Great Lakes       #880c2c
+#> 244                                      Big Ten Conference       #231f20
+#> 245                        Southwestern Athletic Conference       #123297
+#> 246                                Mountain West Conference       #0038a8
+#> 247                                                    Ohio       #28334a
+#> 248                                                    CIAA       #002d56
+#> 249                                       Big 12 Conference       #0051ba
+#> 250                                       Big 12 Conference       #330a57
+#> 251                                 Mid-American Conference       #002664
+#> 252                                     Southern Conference       #582c83
+#> 253                                                    SIAC       #ffcf06
+#> 254                  Pennsylvania State Athletic Conference       #c6b884
+#> 255                       Great Midwest Athletic Conference       #3b2e81
+#> 256                                                So. Cal.       #004812
+#> 257                                    Southland Conference       #000000
+#> 258                                                    SIAC       #083254
+#> 259                                                    <NA>       #1b3667
+#> 260                                          Patriot League       #6c2b2a
+#> 261                     Missouri Valley Football Conference       #cd1241
+#> 262                                          South Atlantic       #000000
+#> 263                                               Northwest       #f37737
+#> 264                                          Conference USA       #0a254e
+#> 265                                                    CIAA       #fc6c0f
+#> 266                                    Northeast Conference       #50c9f7
+#> 267                                     Sun Belt Conference       #003087
+#> 268                                     American Conference       #004991
+#> 269                                     Landmark Conference       #15283f
+#> 270                                               Minnesota       #09426a
+#> 271                                     Southern Conference       #00386b
+#> 272                                               Heartland       #ddac14
+#> 273                                            Northern Sun       #480059
+#> 274                                                    <NA>       #ad162c
+#> 275                                 Pioneer Football League       #e53730
+#> 276                                          South Atlantic       #004b8d
+#> 277                                          Liberty League       #762334
+#> 278                                      American Southwest       #492f92
+#> 279                                               USA South       #5f0014
+#> 280                                    Southland Conference       #00529c
+#> 281                                 Southeastern Conference       #000000
+#> 282                                     Southern Conference       #ff7f29
+#> 283       New England Women's and Men's Athletic Conference       #244788
+#> 284                                    Northeast Conference       #036857
+#> 285                                       Big 12 Conference       #154734
+#> 286                               Atlantic Coast Conference       #f47423
+#> 287                                                   GLIAC       #facd03
+#> 288                                          Conference USA       #036eb7
+#> 289                                                  NESCAC       #365a8a
+#> 290                                                    SIAC       #580d69
+#> 291                           Southern Athletic Association       #20145f
+#> 292                                           Upper Midwest       #8d191b
+#> 293                               Atlantic Coast Conference       #8c1515
+#> 294                        Southwestern Athletic Conference       #005328
+#> 295                                             Great Lakes       #f0dbaa
+#> 296                                             Mid America       #f6cf3c
+#> 297                            Coastal Athletic Association       #051844
+#> 298                                      American Southwest       #98002e
+#> 299                                 Pioneer Football League       #094fa3
+#> 300                         Mid-Eastern Athletic Conference       #014786
+#> 301                                                    <NA>       #0d0c0c
+#> 302                                               Heartland       #002d5d
+#> 303                                     American Conference       #00205b
+#> 304                                              Centennial       #a51e36
+#> 305                                          Rocky Mountain       #4e2683
+#> 306                                     American Conference       #00225b
+#> 307                         Mid-Eastern Athletic Conference       #880023
+#> 308                                     American Conference       #005035
+#> 309                                     Sun Belt Conference       #840029
+#> 310                                             Mid America       #004d86
+#> 311                                Mountain West Conference       #cf0a2c
+#> 312                                Mountain West Conference       #041e42
+#> 313                                    Northeast Conference       #041e42
+#> 314                                              New Jersey       #154c7d
+#> 315                                          South Atlantic       #d02030
+#> 316                                    Southland Conference       #c41230
+#> 317                            Coastal Athletic Association       #0505aa
+#> 318                                Mountain West Conference       #01402a
+#> 319                                 Southeastern Conference       #500000
+#> 320                         Mid-Eastern Athletic Conference       #0c8968
+#> 321                              United Athletic Conference       #663399
+#> 322                                      Big Sky Conference       #13558d
+#> 323                                Mountain West Conference       #c8102e
+#> 324                                     Landmark Conference       #031832
+#> 325                     Missouri Valley Football Conference       #473282
+#> 326                                      Big Sky Conference       #003976
+#> 327                                    Southland Conference       #492f91
+#> 328       New England Women's and Men's Athletic Conference       #822130
+#> 329                              Middle Atlantic Conference       #c41230
+#> 330                       Great Midwest Athletic Conference       #ffcf28
+#> 331                                       Big 12 Conference       #c8102e
+#> 332                                      Big Ten Conference       #00934b
+#> 333                                               Northwest       #ffc423
+#> 334                                            Northeast 10       #fedc1e
+#> 335                                     American Conference       #068f33
+#> 336                               Atlantic Coast Conference       #041e42
+#> 337                                      Big Sky Conference       #00311e
+#> 338                        Southwestern Athletic Conference       #582c83
+#> 339                                 Pioneer Football League       #194896
+#> 340                                               Northwest       #680001
+#> 341                                      Big Ten Conference       #ceb888
+#> 342                                 Southeastern Conference       #af5c37
+#> 343                                            Old Dominion       #fcdf12
+#> 344                           Southern Athletic Association       #cf152d
+#> 345                                       Big 12 Conference       #0047ba
+#> 346                                    Northeast Conference       #00214d
+#> 347                Northern Athletics Collegiate Conference       #5a3f99
+#> 348                                          Liberty League       #ed3023
+#> 349                            Coastal Athletic Association       #a40012
+#> 350                                      Big Sky Conference       #c72026
+#> 351                                              New Jersey       #8b0e04
+#> 352                                          Conference USA       #f56423
+#> 353                                     Southern Conference       #005485
+#> 354                                       Big 12 Conference       #be0000
+#> 355                                                    SIAC       #280298
+#> 356                                    Southland Conference       #215732
+#> 357                                  Ohio Valley Conference       #c8102e
+#> 358                                                 Midwest       #5b2b82
+#> 359                                                    CIAA       #6a1432
+#> 360                           Southern Athletic Association       #d0b786
+#> 361       New England Women's and Men's Athletic Conference       #f26722
+#> 362                  Pennsylvania State Athletic Conference       #0b2240
+#> 363                                     Sun Belt Conference       #450084
+#> 364                                    Conference Carolinas       #0068b3
+#> 365                              American Rivers Conference       #b20838
+#> 366                               Atlantic Coast Conference       #a80000
+#> 367                               Great American Conference       #003da5
+#> 368                         Mid-Eastern Athletic Conference       #7d1315
+#> 369                                          Patriot League       #9e0712
+#> 370                                          Rocky Mountain       #162856
+#> 371                     Missouri Valley Football Conference       #0033a0
+#> 372                                     Sun Belt Conference       #ffc72c
+#> 373                                 Southeastern Conference       #73000a
+#> 374                               Atlantic Coast Conference       #232d4b
+#> 375                        Southwestern Athletic Conference       #004b97
+#> 376                                            Northeast 10       #071689
+#> 377                                                    <NA>       #e51d3a
+#> 378                                             Great Lakes       #502583
+#> 379                                            Northern Sun       #3a1707
+#> 380                           Southern Athletic Association       #000000
+#> 381                               Atlantic Coast Conference       #6a2c3e
+#> 382                                                    <NA>       #00529b
+#> 383                                                    <NA>       #434445
+#> 384                                             Presidents'       #a20012
+#> 385                                      Big Ten Conference       #2774ae
+#> 386                                               Minnesota       #ce153e
+#> 387                                             Presidents'       #daad27
+#> 388                                    Southland Conference       #393996
+#> 389                            Coastal Athletic Association       #990000
+#> 390                                                 Midwest       #e12a3d
+#> 391                                          Conference USA       #5e0009
+#> 392                              United Athletic Conference       #592b82
+#> 393                                       Big 12 Conference       #4d1979
+#> 394                              American Rivers Conference       #452d7d
+#> 395                                  Ohio Valley Conference       #ff6700
+#> 396                                 Southeastern Conference       #ff8200
+#> 397                                  Ohio Valley Conference       #171796
+#> 398                                     Southern Conference       #5a4099
+#> 399                                     American Conference       #0c2340
+#> 400                                                    <NA>       #e05e15
+#> 401                                Mountain West Conference       #ff8200
+#> 402                 Southern Collegiate Athletic Conference       #fdbe10
+#> 403                                      Big Ten Conference       #33006f
+#> 404                        Southwestern Athletic Conference       #860038
+#> 405                                       Big 12 Conference       #da291c
+#> 406                                     Southern Conference       #7badd3
+#> 407                                             Presidents'       #b6964b
+#> 408                       Great Midwest Athletic Conference       #004f9d
+#> 409                                 Mid-American Conference       #0b2240
+#> 410                                       Pac-12 Conference       #a60f2d
+#> 411                                                Michigan       #0b335e
+#> 412                                     Sun Belt Conference       #862633
+#> 413                                             Great Lakes       #510c76
+#> 414                                     American Conference       #006747
+#> 415                                                    SIAC       #a32035
+#> 416                                               Lone Star       #005daa
+#> 417                                                 Midwest       #003865
+#> 418                                              Centennial       #98012e
+#> 419                                              Gulf South       #dd1a32
+#> 420                                 Pioneer Football League       #794500
+#> 421                                                    CIAA       #72171a
+#> 422                                     Southern Conference       #ae122a
+#> 423                                                 Midwest       #062336
+#> 424                                    Northeast Conference       #00483a
+#> 425                       Great Midwest Athletic Conference       #6e0022
+#> 426                              American Rivers Conference       #f5822b
+#> 427                                             Presidents'       #a93339
+#> 428                                             Mid America       #003876
+#> 429                                            Old Dominion       #000399
+#> 430                                      Big Sky Conference       #18005a
+#> 431                                              Gulf South       #d31d33
+#> 432                              United Athletic Conference       #0033a1
+#> 433                                Mountain East Conference       #ffcd32
+#> 434                                              Centennial       #00674d
+#> 435                                                    <NA>       #b5121b
+#> 436                           Commonwealth Coast Conference       #feb610
+#> 437                                               Lone Star       #42196e
+#> 438                                               Lone Star       #6a1831
+#> 439                                                    <NA>       #005dab
+#> 440                                Mountain East Conference       #d2ac2a
+#> 441                                               Wisconsin       #b38707
+#> 442                                  Ohio Valley Conference       #4e1e8a
+#> 443                                 Mid-American Conference       #532e1f
+#> 444                                          Rocky Mountain       #c61230
+#> 445                                     Southern Conference       #492f91
+#> 446                                               Wisconsin       #0068b5
+#> 447                                               Northwest       #930036
+#> 448                                               Wisconsin       #cd1041
+#> 449                              Middle Atlantic Conference       #0056ba
+#> 450                                          Patriot League       #115740
+#> 451                                                  NESCAC       #500082
+#> 452                                                    Ohio       #92c648
+#> 453                                                    CIAA       #bb0100
+#> 454                                               Wisconsin       #023576
+#> 455                           Commonwealth Coast Conference       #1a64b7
+#> 456                                               Wisconsin       #850129
+#> 457                Northern Athletics Collegiate Conference       #006241
+#> 458                                               Wisconsin       #492f91
+#> 459                                               Wisconsin       #0c233f
+#> 460                                               Wisconsin       #5b3085
+#> 461                                             North Coast       #d31145
+#> 462                                     Southern Conference       #533b23
+#> 463                                             North Coast       #f7be00
+#> 464       New England Women's and Men's Athletic Conference       #c41230
+#> 465                                      Big Ten Conference       #a00000
+#> 466                                Mountain West Conference       #492f24
+#> 467                     Missouri Valley Football Conference       #e51936
+#> 468                        Southwestern Athletic Conference       #ee8601
+#> 469                           Southern Athletic Association       #00205b
+#> 470                                      American Southwest       #02215b
+#> 471                                     Sun Belt Conference       #00b140
+#> 472                                       Big 12 Conference       #eaaa00
+#> 473                                        FCS Independents       #2f4f93
+#> 474       New England Women's and Men's Athletic Conference       #005588
+#> 475                                          Liberty League       #663a2b
+#> 476                                       Pac-12 Conference       #b1102b
+#> 477                                                Empire 8       #00462d
+#> 478                                                Empire 8       #c00c26
+#> 479                                                Michigan       #efb30f
+#> 480                                                Michigan       #421d2f
+#> 481                                               Minnesota       #002d62
+#> 482                            Coastal Athletic Association       #000000
+#> 483                                    Conference Carolinas       #00529b
+#> 484                                                    SIAC       #ad141a
+#> 485                              Middle Atlantic Conference       #004c23
+#> 486                                      American Southwest       #5b2d83
+#> 487                                                Michigan       #f36b23
+#> 488                                  Ohio Valley Conference       #b3a068
+#> 489                                             Great Lakes       #54237f
+#> 490                                            Northern Sun       #c8102e
+#> 491                                              New Jersey       #c20f2f
+#> 492                     Missouri Valley Football Conference       #00669a
+#> 493                                    Conference Carolinas       #d91e39
+#> 494                               Great American Conference       #d02030
+#> 495                                         Independent DII       #ce0e2d
+#> 496                                             Great Lakes       #947e1b
+#> 497                                              New Jersey       #571b04
+#> 498                                            Old Dominion       #b80835
+#> 499                                            Northeast 10       #0c233f
+#> 500                Northern Athletics Collegiate Conference       #004712
+#> 501                                               Lone Star       #eb0626
+#> 502                                    Southland Conference       #ffc333
+#> 503                       Great Midwest Athletic Conference       #00401f
+#> 504                                          South Atlantic       #f2682a
+#> 505                                    Northeast Conference       #300a48
+#> 506                                          South Atlantic       #e30000
+#> 507                                     Landmark Conference       #002857
+#> 508                                            Northern Sun       #ffd02e
+#> 509                                             Presidents'       #9a5627
+#> 510                                               Lone Star       #e2383f
+#> 511                                             Presidents'       #00355f
+#> 512                                                So. Cal.       #4a217b
+#> 513                                            Northern Sun       #4b09a2
+#> 514                  Pennsylvania State Athletic Conference       #b42622
+#> 515                                               USA South       #005288
+#> 516                                              New Jersey       #092f56
+#> 517                                             Great Lakes       #112845
+#> 518                                                    <NA>       #082443
+#> 519                                    Conference Carolinas       #8d754f
+#> 520                           Commonwealth Coast Conference       #007b5f
+#> 521                       Great Midwest Athletic Conference       #7fb0d6
+#> 522                               Great American Conference       #542989
+#> 523                                                 Midwest       #c10e3f
+#> 524                                            Northern Sun       #492f91
+#> 525                                               USA South       #9b2036
+#> 526                                                So. Cal.       #751708
+#> 527                                     Sun Belt Conference       #041e42
+#> 528                                 Pioneer Football League       #512873
+#> 529      Massachusetts State Collegiate Athletic Conference       #1b509e
+#> 530                                               USA South       #fec325
+#> 531                                             Great Lakes       #ea1c2d
+#> 532                                                    <NA>       #00457c
+#> 533                                               USA South       #003c78
+#> 534                                    Southland Conference       #000000
+#> 535                                                 Midwest       #d4282f
+#> 536                                    Southland Conference       #dc6000
+#> 537                                                So. Cal.       #00549a
+#> 538                               Great American Conference       #2e3d50
+#> 539                                              New Jersey       #01573c
+#> 540                                               Northwest       #960a2c
+#> 541                                               USA South       #d21f36
+#> 542                                                    CIAA       #86b0c6
+#> 543                                     Sun Belt Conference       #003768
+#> 544       New England Women's and Men's Athletic Conference       #790032
+#> 545                                             Presidents'       #083150
+#> 546                              American Rivers Conference       #ea0029
+#> 547      Massachusetts State Collegiate Athletic Conference       #edb317
+#> 548                                               Minnesota       #000000
+#> 549                              Middle Atlantic Conference       #ffe315
+#> 550                                            Old Dominion       #900028
+#> 551                                              New Jersey       #000000
+#> 552      Massachusetts State Collegiate Athletic Conference       #054e39
+#> 553                  Pennsylvania State Athletic Conference       #c0b45f
+#> 554                                                  NESCAC       #032d58
+#> 555                                             North Coast       #e82524
+#> 556                                Mountain East Conference       #75243e
+#> 557                                      Big Ten Conference       #9d2235
+#> 558                                 Pioneer Football League       #2f99d4
+#> 559                                      Big Sky Conference       #002855
+#> 560                                      Big Sky Conference       #ef8c00
+#> 561                                                    CCIW       #006f51
+#> 562                                            Northern Sun       #d8ab27
+#> 563                                                    CCIW       #b20838
+#> 564                       Great Midwest Athletic Conference       #513093
+#> 565                                     Sun Belt Conference       #ce181e
+#> 566                                      Big Sky Conference       #ba1c21
+#> 567                            Coastal Athletic Association       #127dbe
+#> 568                                                Empire 8       #00502f
+#> 569                                              New Jersey       #005394
+#> 570                                                Empire 8       #00467f
+#> 571                                                    Ohio       #00275c
+#> 572                               Great American Conference       #255f2b
+#> 573                                                    CCIW       #f16723
+#> 574                                          Patriot League       #790000
+#> 575                                     Landmark Conference       #1f3361
+#> 576                                                    <NA>       #871c30
+#> 577                                     Sun Belt Conference       #006f71
+#> 578                                                    <NA>       #124d39
+#> 579                                       Pac-12 Conference       #501214
+#> 580                                       Pac-12 Conference       #0f2439
+#> 581                                                  NESCAC       #012778
+#> 582                                                    CIAA       #a9712c
+#> 583                                      Big Sky Conference       #a10022
+#> 584                                                    Ohio       #bf2037
+#> 585                                 Southeastern Conference       #9e1b32
+#> 586                                                  NESCAC       #d72121
+#> 587                                          Conference USA       #fdbb30
+#> 588                                                  NESCAC       #ffffff
+#> 589                                Mountain East Conference       #d31145
+#> 590                                 Southeastern Conference       #5d1725
+#> 591                                                  NESCAC       #062f87
+#> 592                                     American Conference       #000000
+#> 593                                          South Atlantic       #182441
+#> 594                                             North Coast       #613394
+#> 595                                                Michigan       #e72623
+#> 596                                      Big Ten Conference       #ff5f05
+#> 597                                                    Ohio       #cca05b
+#> 598                                       Pac-12 Conference       #004c23
+#> 599                                                Empire 8       #633394
+#> 600                                    Conference Carolinas       #000000
+#> 601                  Pennsylvania State Athletic Conference       #fcb040
+#> 602                                                Empire 8       #c02f39
+#> 603                                               Minnesota       #00447c
+#> 604      Massachusetts State Collegiate Athletic Conference       #0f223f
+#> 605                                       Big 12 Conference       #cfb87c
+#> 606                           Southern Athletic Association       #8c2129
+#> 607                              Middle Atlantic Conference       #003767
+#> 608                                             Great Lakes       #1a2d5d
+#> 609                                                Empire 8       #0b2240
+#> 610                                             North Coast       #ad0935
+#> 611                                                    CCIW       #002857
+#> 612                                     Landmark Conference       #002856
+#> 613                            Coastal Athletic Association       #3d2777
+#> 614                           Commonwealth Coast Conference       #65448b
+#> 615      Massachusetts State Collegiate Athletic Conference       #004b8e
+#> 616                Northern Athletics Collegiate Conference       #245699
+#> 617                                        FBS Independents       #0c2340
+#> 618                                                So. Cal.       #ab1d38
+#> 619                                               Northwest       #002d62
+#> 620                 Southern Collegiate Athletic Conference       #d1ac54
+#> 621                           Southern Athletic Association       #f58023
+#> 622                                                    Ohio       #35236a
+#> 623                                            Northern Sun       #8e0a26
+#> 624                                                    Ohio       #291f2e
+#> 625                                                    Ohio       #ff5324
+#> 626                                              Ivy League       #004a81
+#> 627                                           Upper Midwest       #06496f
+#> 628                       Great Midwest Athletic Conference       #113d2a
+#> 629                                           Upper Midwest       #de1b22
+#> 630                           Commonwealth Coast Conference       #008265
+#> 631                                Mountain East Conference       #ff4c00
+#> 632                                          Patriot League       #110e42
+#> 633                         Mid-Eastern Athletic Conference       #003a63
+#> 634                              Middle Atlantic Conference       #005747
+#> 635                                          Conference USA       #00539f
+#> 636                              American Rivers Conference       #1c3c75
+#> 637                                                    SIAC       #fcd309
+#> 638                                     American Conference       #1a5632
+#> 639                        Southwestern Athletic Conference       #f89728
+#> 640                                           Upper Midwest       #5c2f92
+#> 641                                                    <NA>       #fff200
+#> 642                               Atlantic Coast Conference       #782f40
+#> 643                                                    <NA>       #f0b310
+#> 644                                               USA South       #df1c2b
+#> 645                                          Conference USA       #cc0000
+#> 646                                            Northern Sun       #0a2e6e
+#> 647                                 Pioneer Football League       #0a5640
+#> 648                                            Northern Sun       #ce0e2d
+#> 649                                 Southeastern Conference       #0021a5
+#> 650                                     American Conference       #006747
+#> 651                                           Upper Midwest       #291d40
+#> 652                               Atlantic Coast Conference       #b3a369
+#> 653                                     Sun Belt Conference       #00205b
+#> 654                                                    SIAC       #840028
+#> 655                                 Southeastern Conference       #ba0c2f
+#> 656                  Pennsylvania State Athletic Conference       #d11042
+#> 657                                          Rocky Mountain       #131f48
+#> 658                                Mountain West Conference       #005737
+#> 659                              American Rivers Conference       #feba12
+#> 660                Northern Athletics Collegiate Conference       #fec425
+#> 661                                                 Midwest       #ee3124
+#> 662                                       Big 12 Conference       #ae192d
+#> 663                                                 Midwest       #015a9c
+#> 664                                       Pac-12 Conference       #0033a0
+#> 665                              American Rivers Conference       #aa985d
+#> 666                                                  NESCAC       #3f1f69
+#> 667                                      Big Sky Conference       #000000
+#> 668                                                    CCIW       #00a2e0
+#> 669                                                    CCIW       #014576
+#> 670                                                    CCIW       #0057a8
+#> 671                                      Big Ten Conference       #492f92
+#> 672                     Missouri Valley Football Conference       #85283d
+#> 673                                 Southeastern Conference       #a32136
+#> 674                                                 Midwest       #8b0021
+#> 675       New England Women's and Men's Athletic Conference       #862633
+#> 676                                             North Coast       #ffce34
+#> 677                                      Big Ten Conference       #970310
+#> 678                                               Heartland       #800000
+#> 679                                        FBS Independents       #062340
+#> 680                                             North Coast       #ce0e19
+#> 681                                       Big 12 Conference       #ffc627
+#> 682                                             Mid America       #e51837
+#> 683                     Missouri Valley Football Conference       #002148
+#> 684                                 Southeastern Conference       #0033a0
+#> 685                               Atlantic Coast Conference       #c9001f
+#> 686                                          Conference USA       #e13a3e
+#> 687                                 Southeastern Conference       #461d76
+#> 688                                     American Conference       #0e1d41
+#> 689                               Atlantic Coast Conference       #003ca6
+#> 690                           American Southwest Conference       #ff9da7
+#> 691                                       Big 12 Conference       #fa4238
+#> 692                                      Big Sky Conference       #0133a0
+#> 693                                      Big Ten Conference       #0082cb
+#> 694                            Coastal Athletic Association       #002648
+#> 695            College Conference of Illinois and Wisconsin       #f28e2b
+#> 696            Central Intercollegiate Athletic Association       #bab0ac
+#> 697                               Conference of New England       #9c755f
+#> 698                                          Conference USA       #002638
+#> 699                                    Conference Carolinas       #e15759
+#> 700                                                Empire 8       #4e79a7
+#> 701                                        FBS Independents       #76b7b2
+#> 702                                        FCS Independents       #9c755f
+#> 703         Great Lakes Intercollegiate Athletic Conference       #ff9da7
+#> 704                           Great Lakes Valley Conference       #bab0ac
+#> 705                                   Gulf South Conference       #edc948
+#> 706                               Great American Conference       #76b7b2
+#> 707                Heartland Collegiate Athletic Conference       #bab0ac
+#> 708                                              Ivy League       #18563f
+#> 709                                    Lone Star Conference       #9c755f
+#> 710                                     Landmark Conference       #edc948
+#> 711                                          Liberty League       #edc948
+#> 712                                 Mid-American Conference       #009844
+#> 713      Massachusetts State Collegiate Athletic Conference       #ff9da7
+#> 714                         Mid-Eastern Athletic Conference       #582c82
+#> 715                                Mountain East Conference       #59a14f
+#> 716       Mid-America Intercollegiate Athletics Association       #bab0ac
+#> 717           Michigan Intercollegiate Athletic Association       #4e79a7
+#> 718           Minnesota Intercollegiate Athletic Conference       #bab0ac
+#> 719                     Missouri Valley Football Conference       #9c755f
+#> 720                             Middle Atlantic Conferences       #59a14f
+#> 721                                      Midwest Conference       #4e79a7
+#> 722                                Mountain West Conference       #4e2d7f
+#> 723                Northern Athletics Collegiate Conference       #e15759
+#> 724                                                    <NA>       #e15759
+#> 725                         North Coast Athletic Conference       #e15759
+#> 726                                 Northeast-10 Conference       #ff9da7
+#> 727                                    Northeast Conference       #035f9b
+#> 728           New England Small College Athletic Conference       #76b7b2
+#> 729       New England Women's and Men's Athletic Conference       #76b7b2
+#> 730                          New Jersey Athletic Conference       #59a14f
+#> 731                 Northern Sun Intercollegiate Conference       #9c755f
+#> 732                                    Northwest Conference       #f28e2b
+#> 733                                Ohio Athletic Conference       #edc948
+#> 734                        Old Dominion Athletic Conference       #59a14f
+#> 735                                  Ohio Valley Conference       #a51844
+#> 736                         Presidents' Athletic Conference       #edc948
+#> 737                  Pennsylvania State Athletic Conference       #4e79a7
+#> 738                                       Pac-12 Conference       #001a6f
+#> 739                                          Patriot League       #00205a
+#> 740                                 Pioneer Football League       #ff9da7
+#> 741                      Rocky Mountain Athletic Conference       #59a14f
+#> 742 Southern California Intercollegiate Athletic Conference       #4e79a7
+#> 743                                 Southeastern Conference       #012d74
+#> 744            Southern Intercollegiate Athletic Conference       #bab0ac
+#> 745                        Southwestern Athletic Conference       #e2201b
+#> 746                                     Southern Conference       #001588
+#> 747                                    Southland Conference       #c1a552
+#> 748                                     Sun Belt Conference       #0c2140
+#> 749                       Upper Midwest Athletic Conference       #ff9da7
+#> 750                           USA South Athletic Conference       #bab0ac
+#> 751                             Western Athletic Conference       #8a2432
+#> 752           Wisconsin Intercollegiate Athletic Conference       #bab0ac
 #>     color_secondary color_source
 #> 1           #c09a05         espn
 #> 2           #300e12         logo
@@ -3693,27 +3853,67 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 687         #fdd023         espn
 #> 688         #e2201b     cbbplotR
 #> 689            <NA>     cbbplotR
-#> 690            <NA>     cbbplotR
-#> 691         #43c6e7     cbbplotR
-#> 692            <NA>     cbbplotR
+#> 690         #9c755f     fallback
+#> 691            <NA>     cbbplotR
+#> 692         #43c6e7     cbbplotR
 #> 693            <NA>     cbbplotR
-#> 694         #e31c47     cbbplotR
-#> 695         #59a14f     fallback
-#> 696         #bab0ac     fallback
-#> 697            <NA>     cbbplotR
-#> 698         #0c2140     cbbplotR
-#> 699         #feb81d     cbbplotR
-#> 700         #bab0ac     fallback
-#> 701         #afafaf     cbbplotR
-#> 702            <NA>     cbbplotR
-#> 703         #d0ae85     cbbplotR
-#> 704            <NA>     cbbplotR
-#> 705         #d9291c     cbbplotR
-#> 706         #9c755f     fallback
-#> 707         #ffd040     cbbplotR
+#> 694            <NA>     cbbplotR
+#> 695         #e15759     fallback
+#> 696         #4e79a7     fallback
+#> 697         #bab0ac     fallback
+#> 698         #e31c47     cbbplotR
+#> 699         #76b7b2     fallback
+#> 700         #f28e2b     fallback
+#> 701         #59a14f     fallback
+#> 702         #bab0ac     fallback
+#> 703         #9c755f     fallback
+#> 704         #4e79a7     fallback
+#> 705         #b07aa1     fallback
+#> 706         #59a14f     fallback
+#> 707         #4e79a7     fallback
 #> 708            <NA>     cbbplotR
-#> 709            <NA>     cbbplotR
-#> 710            <NA>     cbbplotR
-#> 711         #f5a606     cbbplotR
-#> 712            <NA>     cbbplotR
+#> 709         #bab0ac     fallback
+#> 710         #b07aa1     fallback
+#> 711         #b07aa1     fallback
+#> 712         #0c2140     cbbplotR
+#> 713         #9c755f     fallback
+#> 714         #feb81d     cbbplotR
+#> 715         #edc948     fallback
+#> 716         #4e79a7     fallback
+#> 717         #f28e2b     fallback
+#> 718         #4e79a7     fallback
+#> 719         #bab0ac     fallback
+#> 720         #edc948     fallback
+#> 721         #f28e2b     fallback
+#> 722         #afafaf     cbbplotR
+#> 723         #76b7b2     fallback
+#> 724         #76b7b2     fallback
+#> 725         #76b7b2     fallback
+#> 726         #9c755f     fallback
+#> 727            <NA>     cbbplotR
+#> 728         #59a14f     fallback
+#> 729         #59a14f     fallback
+#> 730         #edc948     fallback
+#> 731         #bab0ac     fallback
+#> 732         #e15759     fallback
+#> 733         #b07aa1     fallback
+#> 734         #edc948     fallback
+#> 735         #d0ae85     cbbplotR
+#> 736         #b07aa1     fallback
+#> 737         #f28e2b     fallback
+#> 738            <NA>     cbbplotR
+#> 739         #d9291c     cbbplotR
+#> 740         #9c755f     fallback
+#> 741         #edc948     fallback
+#> 742         #f28e2b     fallback
+#> 743         #ffd040     cbbplotR
+#> 744         #4e79a7     fallback
+#> 745            <NA>     cbbplotR
+#> 746            <NA>     cbbplotR
+#> 747            <NA>     cbbplotR
+#> 748         #f5a606     cbbplotR
+#> 749         #9c755f     fallback
+#> 750         #4e79a7     fallback
+#> 751            <NA>     cbbplotR
+#> 752         #4e79a7     fallback
 ```

@@ -70,7 +70,7 @@ sdv_surface(league, team = NULL, season = NULL, center_logo = FALSE, ...)
   [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md).
   Only keys that are also team leagues of
   [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
-  take one; the others (`"fiba"`, `"atp"`, `"nll"`, `"epl"`, ...) error.
+  take one; the others (`"fifa"`, `"atp"`, `"nll"`, `"epl"`, ...) error.
 
 - season:
 
@@ -135,7 +135,8 @@ regulation 105 x 68 m pitch, the frame
 [`sdv_pitch_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_pitch_coords.md)
 converts to; 'sportyR”s own "fifa" default is FIFA's 120 x 90 m maximum.
 Soccer takes a `team` for its center logo (18.3 m, the center circle);
-the pitch keeps its regulation colors. FIBA takes no `team` yet.
+the pitch keeps its regulation colors. FIBA takes a national team
+(`"fiba"` pools them).
 
 Surfaces use 'sportyR”s coordinates: the origin at the center, in feet
 (yards for football, meters for soccer and FIBA). The center logo is

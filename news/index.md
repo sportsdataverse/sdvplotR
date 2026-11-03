@@ -50,7 +50,7 @@ package.
 
 Team logos, wordmarks, player headshots and team colours for ggplot2, gt
 and reactable, and for interactive plotly, ggiraph and leaflet charts,
-across the 28 leagues of the SportsDataverse team index
+across the 49 leagues of the SportsDataverse team index
 ([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)),
 built on ‘ggpath’. It shares its team index, logo archive and argument
 names with the Python package sdvplot and the JavaScript packages
@@ -204,9 +204,23 @@ names with the Python package sdvplot and the JavaScript packages
 - League, pro-conference and division rows draw too: `"MLB"`, `"AL"`,
   `"NL"`, `"NBA"`, `"East"`, `"West"`, `"WNBA"`, `"NHL"`, the NHL’s
   divisions (`"Atlantic"`, `"Metropolitan"`, `"Central"`, `"Pacific"`),
-  `"AAF"` and `"NCAA"` in each college league (team index bd9721cd00c7).
+  `"AAF"` and `"NCAA"` in each college league (team index 387c6729bd3f).
   An NHL division’s mark is archived at level `"division"`, which the
   mark lookup now reads as non-team.
+- 21 more leagues (49 in all): the CFL, CEBL, EASL, LBA, NBL, Formula 1
+  constructors (`"f1"`, by Jolpica constructor id), national teams
+  pooled as `"fiba"` and `"iihf"`, and 13 junior and minor hockey
+  leagues (SPHL, CHL, BCHL, AJHL, SJHL, OJHL, CCHL, GOJHL, MHL, NOJHL,
+  VIJHL, KIJHL, MJHL).
+  [`sdv_surface()`](https://sdvplotR.sportsdataverse.org/reference/sdv_surface.md)
+  takes a team on `"cfl"`, `"fiba"` and `"iihf"`.
+- The NHL’s `"Eastern"` and `"Western"` conferences draw their
+  Conference Final wordmarks as their logos (a conference or league row
+  with no logo takes its wordmark; a team never does). Division II and
+  III football conferences have logos too.
+- College baseball, softball and men’s and women’s hockey teams carry a
+  `conference`; a soccer club’s `conference` is its domestic league
+  (“eng.1”).
 - [`sdv_team_tiers()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_tiers.md)
   builds tier charts, with dark marks on its dark theme
   (`variant = "auto"`) and a `theme = "light"` option;
@@ -229,7 +243,7 @@ names with the Python package sdvplot and the JavaScript packages
   center-field fence and 0.15 x the center-field distance across (it
   used to warn and draw no logo). These are stylized surfaces built from
   team colours, not the teams’ real floor, field or rink designs. Keys
-  that are not team leagues (`"fiba"`, `"atp"`, `"nll"`, `"epl"`, …)
+  that are not team leagues (`"fifa"`, `"atp"`, `"nll"`, `"epl"`, …)
   take no `team`. `"ncaa_softball"` is both a team league and a surface.
 - [`sdv_court_coords()`](https://sdvplotR.sportsdataverse.org/reference/sdv_court_coords.md)
   converts stats.nba.com / stats.wnba.com legacy shot locations

@@ -3,7 +3,7 @@
 ## Package Overview
 
 `sdvplotR` plots team logos, wordmarks, player headshots and team colors
-for the 28 leagues of the SportsDataverse team index
+for the 49 leagues of the SportsDataverse team index
 ([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md))
 in ggplot2, gt, reactable, plotly, ggiraph and leaflet, and draws 59
 team-styled playing surfaces through sportyR. It is the multi-league

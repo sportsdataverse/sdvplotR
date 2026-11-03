@@ -1,7 +1,7 @@
 # **sdvplotR**
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
-team logos, wordmarks, player headshots and team colors across the **28
+team logos, wordmarks, player headshots and team colors across the **49
 leagues** of the SportsDataverse team index
 ([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md))
 — NFL, NBA, WNBA, MLB, NHL, college football, men’s and women’s college

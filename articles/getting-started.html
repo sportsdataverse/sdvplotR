@@ -16,8 +16,8 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <script src="../extra.js"></script><meta property="og:title" content="Getting Started with sdvplotR">
-<meta name="description" content="Install sdvplotR and draw your first team logos, colors and headshots in ggplot2, gt and reactable across the 28 leagues of the SportsDataverse team index.">
-<meta property="og:description" content="Install sdvplotR and draw your first team logos, colors and headshots in ggplot2, gt and reactable across the 28 leagues of the SportsDataverse team index.">
+<meta name="description" content="Install sdvplotR and draw your first team logos, colors and headshots in ggplot2, gt and reactable across the 49 leagues of the SportsDataverse team index.">
+<meta property="og:description" content="Install sdvplotR and draw your first team logos, colors and headshots in ggplot2, gt and reactable across the 49 leagues of the SportsDataverse team index.">
 <meta property="og:image" content="https://sdvplotR.sportsdataverse.org/articles/getting-started_files/figure-html/colors-1.png">
 <meta property="og:image:alt" content="sdvplotR: team logos, wordmarks, headshots and colors in ggplot2, gt and reactable">
 <meta name="twitter:card" content="summary_large_image">
@@ -27,7 +27,7 @@
 {"@context":"https://schema.org","@graph":[
   {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
    "name":"sdvplotR","alternateName":"sdvplotR: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'",
-   "description":"An R package for plotting team logos, wordmarks and team colors across the 28 leagues of the SportsDataverse team index, from the NFL, NBA, WNBA, MLB and NHL to college sports and soccer, and player headshots for the major US leagues and college basketball and football, in ggplot2, gt, reactable, plotly, ggiraph and leaflet.",
+   "description":"An R package for plotting team logos, wordmarks and team colors across the 49 leagues of the SportsDataverse team index, from the NFL, NBA, WNBA, MLB and NHL to college sports and soccer, and player headshots for the major US leagues and college basketball and football, in ggplot2, gt, reactable, plotly, ggiraph and leaflet.",
    "url":"https://sdvplotr.sportsdataverse.org/",
    "codeRepository":"https://github.com/sportsdataverse/sdvplotR",
    "programmingLanguage":{"@type":"ComputerLanguage","name":"R"},
@@ -332,15 +332,21 @@ that are valid for them:</p>
 <span><span class="co">#&gt; [1] "Atlanta Falcons"    "Tennessee Titans"   "Indianapolis Colts"</span></span>
 <span><span class="co">#&gt; [4] "Kansas City Chiefs" "Las Vegas Raiders"  "Los Angeles Rams"</span></span>
 <span></span>
-<span><span class="co"># The 28 leagues of the team index</span></span>
+<span><span class="co"># The 49 leagues of the team index</span></span>
 <span><span class="fu"><a href="../reference/sdv_leagues.html">sdv_leagues</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "aaf"           "ahl"           "cfb"           "cricket"      </span></span>
-<span><span class="co">#&gt;  [5] "echl"          "mbb"           "milb"          "mlb"          </span></span>
-<span><span class="co">#&gt;  [9] "nba"           "nbagl"         "ncaa_baseball" "ncaa_mhockey" </span></span>
-<span><span class="co">#&gt; [13] "ncaa_softball" "ncaa_whockey"  "nfl"           "nhl"          </span></span>
-<span><span class="co">#&gt; [17] "ohl"           "phf"           "pwhl"          "qmjhl"        </span></span>
-<span><span class="co">#&gt; [21] "soccer"        "ufl"           "usfl"          "ushl"         </span></span>
-<span><span class="co">#&gt; [25] "wbb"           "whl"           "wnba"          "xfl"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "aaf"           "ahl"           "ajhl"          "bchl"         </span></span>
+<span><span class="co">#&gt;  [5] "cchl"          "cebl"          "cfb"           "cfl"          </span></span>
+<span><span class="co">#&gt;  [9] "chl"           "cricket"       "easl"          "echl"         </span></span>
+<span><span class="co">#&gt; [13] "f1"            "fiba"          "gojhl"         "iihf"         </span></span>
+<span><span class="co">#&gt; [17] "kijhl"         "lba"           "mbb"           "mhl"          </span></span>
+<span><span class="co">#&gt; [21] "milb"          "mjhl"          "mlb"           "nba"          </span></span>
+<span><span class="co">#&gt; [25] "nbagl"         "nbl"           "ncaa_baseball" "ncaa_mhockey" </span></span>
+<span><span class="co">#&gt; [29] "ncaa_softball" "ncaa_whockey"  "nfl"           "nhl"          </span></span>
+<span><span class="co">#&gt; [33] "nojhl"         "ohl"           "ojhl"          "phf"          </span></span>
+<span><span class="co">#&gt; [37] "pwhl"          "qmjhl"         "sjhl"          "soccer"       </span></span>
+<span><span class="co">#&gt; [41] "sphl"          "ufl"           "usfl"          "ushl"         </span></span>
+<span><span class="co">#&gt; [45] "vijhl"         "wbb"           "whl"           "wnba"         </span></span>
+<span><span class="co">#&gt; [49] "xfl"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="identifiers-from-any-source">Identifiers from any source<a class="anchor" aria-label="anchor" href="#identifiers-from-any-source"></a>
@@ -502,17 +508,17 @@ replace the <code>axis.text.x.bottom</code>
 <div class="section level2">
 <h2 id="every-league">Every league<a class="anchor" aria-label="anchor" href="#every-league"></a>
 </h2>
-<p><code><a href="../reference/sdv_leagues.html">sdv_leagues()</a></code> lists all 28 leagues of the team index,
+<p><code><a href="../reference/sdv_leagues.html">sdv_leagues()</a></code> lists all 49 leagues of the team index,
 from the NFL and the Premier League to the junior hockey leagues, NCAA
-softball and cricket. The loop below draws ten teams of each that have a
-logo, one row per league. This article reads teams from the snapshot
-bundled with the package (<code>options(sdvplotR.offline = TRUE)</code>,
-set before its first lookup), so it does not wait on a live fetch of the
-index.</p>
+softball and cricket. The loop below draws up to ten teams of each that
+have a logo, one row per league. This article reads teams from the
+snapshot bundled with the package
+(<code>options(sdvplotR.offline = TRUE)</code>, set before its first
+lookup), so it does not wait on a live fetch of the index.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">teams</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_leagues.html">sdv_leagues</a></span><span class="op">(</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">lg</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="va">lg</span><span class="op">)</span></span>
-<span>  <span class="co"># sdv_logo_url() warns for teams with no archived logo; keep ten that have one</span></span>
+<span>  <span class="co"># sdv_logo_url() warns for teams with no archived logo; keep up to ten that have one</span></span>
 <span>  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_logo_url.html">sdv_logo_url</a></span><span class="op">(</span><span class="va">t</span><span class="op">$</span><span class="va">team_id</span>, <span class="va">lg</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, <span class="op">]</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>league <span class="op">=</span> <span class="va">lg</span>, team <span class="op">=</span> <span class="va">t</span><span class="op">$</span><span class="va">team_id</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span>
@@ -529,7 +535,7 @@ index.</p>
 <span>    strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>, hjust <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>    plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/every-league-1.png" class="r-plt" alt="Ten team logos for each of the 28 leagues of the SportsDataverse team index, one labelled row per league, from the AAF and AHL to the XFL." width="768"></p>
+<p><img src="getting-started_files/figure-html/every-league-1.png" class="r-plt" alt="Up to ten team logos for each of the 49 leagues of the SportsDataverse team index, one labelled row per league, from the AAF and AHL to the XFL." width="768"></p>
 </div>
 <div class="section level2">
 <h2 id="next-steps">Next Steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>

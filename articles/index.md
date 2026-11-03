@@ -13,7 +13,7 @@
   sdvplotR](https://sdvplotR.sportsdataverse.org/articles/getting-started.md):
 
   Install sdvplotR and draw your first team logos, colors and headshots
-  in ggplot2, gt and reactable across the 28 leagues of the
+  in ggplot2, gt and reactable across the 49 leagues of the
   SportsDataverse team index.
 
 ### Per-Sport Articles

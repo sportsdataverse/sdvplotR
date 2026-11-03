@@ -3,7 +3,7 @@
 Sports team logos, wordmarks, player headshots and team colors are drawn
 in 'ggplot2' plots, 'gt' and 'reactable' tables, and interactive
 'plotly', 'ggiraph' and 'leaflet' charts and maps. The functions cover
-the 28 leagues of the SportsDataverse team index, including the National
+the 49 leagues of the SportsDataverse team index, including the National
 Football League, National Basketball Association, Women's National
 Basketball Association, Major League Baseball, National Hockey League,
 college football and basketball, and soccer. Images can be drawn as plot

@@ -46,7 +46,7 @@ sdvplotR is a domain layer on top of
     SportsDataverse CDN and caches them for a day; `R/sysdata.rda` holds
     a bundled snapshot for offline use and CRAN checks
     (`options(sdvplotR.offline = TRUE)`).
-2.  Every function that takes a team takes a `league` (one of the 28
+2.  Every function that takes a team takes a `league` (one of the 49
     leagues of
     [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md))
     and an `id_system`; those that draw marks or colors also take a

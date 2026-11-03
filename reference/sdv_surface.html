@@ -15,7 +15,7 @@ yet."><meta property="og:image" content="https://sdvplotR.sportsdataverse.org/sd
 {"@context":"https://schema.org","@graph":[
   {"@type":"SoftwareSourceCode","@id":"https://sdvplotr.sportsdataverse.org/#package",
    "name":"sdvplotR","alternateName":"sdvplotR: Sports Team Logo Plots in 'ggplot2', 'gt' and 'reactable'",
-   "description":"An R package for plotting team logos, wordmarks and team colors across the 28 leagues of the SportsDataverse team index, from the NFL, NBA, WNBA, MLB and NHL to college sports and soccer, and player headshots for the major US leagues and college basketball and football, in ggplot2, gt, reactable, plotly, ggiraph and leaflet.",
+   "description":"An R package for plotting team logos, wordmarks and team colors across the 49 leagues of the SportsDataverse team index, from the NFL, NBA, WNBA, MLB and NHL to college sports and soccer, and player headshots for the major US leagues and college basketball and football, in ggplot2, gt, reactable, plotly, ggiraph and leaflet.",
    "url":"https://sdvplotr.sportsdataverse.org/",
    "codeRepository":"https://github.com/sportsdataverse/sdvplotR",
    "programmingLanguage":{"@type":"ComputerLanguage","name":"R"},
@@ -294,7 +294,7 @@ sdvplot-js. Surfaces need 'sportyR' 2.4.5 or later, from CRAN
 <dt id="arg-team">team<a class="anchor" aria-label="anchor" href="#arg-team"></a></dt>
 <dd><p><code>NULL</code> (the default) for the plain regulation surface, or one
 team identifier, resolved by <code><a href="sdv_resolve.html">sdv_resolve()</a></code>. Only keys that are also
-team leagues of <code><a href="sdv_leagues.html">sdv_leagues()</a></code> take one; the others (<code>"fiba"</code>, <code>"atp"</code>,
+team leagues of <code><a href="sdv_leagues.html">sdv_leagues()</a></code> take one; the others (<code>"fifa"</code>, <code>"atp"</code>,
 <code>"nll"</code>, <code>"epl"</code>, ...) error.</p></dd>
 
 
@@ -346,7 +346,7 @@ yet and take no <code>team</code>.</p>
 regulation 105 x 68 m pitch, the frame <code><a href="sdv_pitch_coords.html">sdv_pitch_coords()</a></code> converts to;
 'sportyR”s own "fifa" default is FIFA's 120 x 90 m maximum. Soccer takes a
 <code>team</code> for its center logo (18.3 m, the center circle); the pitch keeps its
-regulation colors. FIBA takes no <code>team</code> yet.</p>
+regulation colors. FIBA takes a national team (<code>"fiba"</code> pools them).</p>
 <p>Surfaces use 'sportyR”s coordinates: the origin at the center, in feet
 (yards for football, meters for soccer and FIBA). The center logo is sized
 in those units (12 feet on a court, 10 yards on a field, 24 feet on a
