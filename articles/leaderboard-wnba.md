@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-02:** the final 2026 regular season; the playoffs are
+**Updated 2026-11-03:** the final 2026 regular season; the playoffs are
 under way.
 
 This page is rebuilt every week with the site. It builds the standings
