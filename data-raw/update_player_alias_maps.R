@@ -43,7 +43,9 @@ for (league in names(sources)) {
   for (src in sources[[league]]) {
     m <- unique(a[a$source == src & !is.na(a$source_player_id) & !is.na(a$athlete_id),
                   c("source_player_id", "athlete_id")])
-    # the contract's cross-season rule: a provider id is one athlete
+    # the contract's cross-season rule: a provider id is one athlete; and an
+    # ESPN athlete id is digits
+    if (!all(grepl("^[0-9]+$", m$athlete_id))) stop(league, "/", src, ": an athlete_id that is not digits")
     if (anyDuplicated(m$source_player_id)) stop(league, "/", src, ": a provider id maps to two athletes")
     m <- m[order(m$source_player_id), ]
     rownames(m) <- NULL
@@ -56,5 +58,5 @@ for (league in names(sources)) {
   }
 }
 
-status <- system2("gh", c("release", "upload", tag, files, "--clobber", "-R", repo))
+status <- system2("gh", c("release", "upload", tag, shQuote(files), "--clobber", "-R", repo))
 if (!identical(status, 0L)) stop("gh release upload failed (status ", status, ")")

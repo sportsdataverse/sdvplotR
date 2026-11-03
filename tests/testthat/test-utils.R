@@ -425,6 +425,9 @@ test_that("provider player ids draw the ESPN athlete's headshot through player_a
   expect_identical(sdv_headshot_url(2544, "nba", id_system = "nba_stats"), lebron)
   # a source's ids are its own: LeBron's NBA Stats id is no Fox id
   expect_identical(sdv_headshot_url(2544, "nba", id_system = "fox"), NA_character_)
+  # a malformed athlete id in a map is NA, never a URL
+  local_player_alias_maps(list(nba_fox = data.frame(source_player_id = "1", athlete_id = "unknown")))
+  expect_identical(sdv_headshot_url(1, "nba", id_system = "fox"), NA_character_)
   expect_error(sdv_headshot_url(1, "nba", id_system = "kenpom"), "mbb")
   expect_error(sdv_headshot_url(1, "nba", id_system = "nflverse"), "must be one of")
 })

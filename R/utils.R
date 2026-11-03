@@ -224,7 +224,7 @@ headshot_from_id <- function(player_id, league, id_system = "espn") {
   } else if (id_system %in% provider_id_systems) {
     map <- load_player_alias_map(league, id_system)
     espn <- map$athlete_id[match(player_id, map$source_player_id)]
-    ifelse(!is.na(espn), espn_headshot_url(espn, league), NA_character_)
+    ifelse(grepl("^[0-9]+$", espn), espn_headshot_url(espn, league), NA_character_) # grepl(NA) is FALSE
   } else {
     ifelse(numeric_id, sprintf(league_headshot_url[[league]], player_id), NA_character_)
   }
