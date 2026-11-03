@@ -113,6 +113,11 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   image helpers draw them from their short keys (`"SEC"`, `"Big Ten"`,
   `"Pac-12"`) or their other names (`"Southeastern Conference"`, `"B1G"`).
   A team's code wins over a conference's: cfb's `"MAC"` is Macalester.
+* League, pro-conference and division rows draw too: `"MLB"`, `"AL"`, `"NL"`,
+  `"NBA"`, `"East"`, `"West"`, `"WNBA"`, `"NHL"`, the NHL's divisions
+  (`"Atlantic"`, `"Metropolitan"`, `"Central"`, `"Pacific"`), `"AAF"` and `"NCAA"`
+  in each college league (team index bd9721cd00c7). An NHL division's mark is
+  archived at level `"division"`, which the mark lookup now reads as non-team.
 * `sdv_team_tiers()` builds tier charts, with dark marks on its dark theme
   (`variant = "auto"`) and a `theme = "light"` option; `ggtitle_image()` with
   `theme_title_image()` places a logo next to a plot title.
