@@ -40,7 +40,7 @@ The installed size is about 3.3 Mb (tarball 2.1 Mb).
   package name, as the logo of 'nflplotR' (CRAN) does. Examples that
   download images
   are wrapped in `\donttest{}` (as 'nflplotR' and 'ggpath' do); they pass
-  under `--as-cran`, which runs them (52 seconds in total locally).
+  under `--as-cran`, which runs them (48 seconds in total locally).
 * 'sportyR' (>= 2.4.5, CRAN) is in Suggests: `sdv_surface()` checks for it
   with `rlang::check_installed()` and calls only its exported functions.
 * The tests need network access, headless Chrome or image rendering for
