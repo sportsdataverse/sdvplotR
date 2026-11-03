@@ -144,3 +144,13 @@ test_that("an ambiguous value's warning names every candidate", {
   )
   expect_identical(out, NA_character_)
 })
+
+test_that("NCAA and WNBA Stats team ids resolve through the crosswalk aliases", {
+  local_snapshot_index()
+  expect_identical(sdv_resolve(c(193, 193), "mbb", id_system = "ncaa"), c("150", "150")) # Duke's org id
+  expect_identical(sdv_resolve("193", "wbb", id_system = "ncaa"), "150")
+  expect_identical(sdv_resolve(365, "ncaa_baseball", id_system = "ncaa"), "85") # LSU, ESPN's baseball id
+  expect_identical(sdv_resolve(365, "ncaa_softball", id_system = "ncaa"), "497")
+  expect_identical(sdv_resolve(c(1611661319, "LVA"), "wnba", id_system = "nba_api"), c("17", "17")) # the Aces
+  expect_identical(sdv_resolve("1611661319", "wnba"), "17")
+})
