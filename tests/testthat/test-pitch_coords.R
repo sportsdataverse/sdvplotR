@@ -176,9 +176,9 @@ test_that("ESPN: (0, 0) is no location, but one zero axis is a real location", {
   expect_equal(out$pitch_x[2], 52.5) # on the attacked goal line
   expect_gt(out$pitch_y[2], 0) # y = 0.4 is the shooter's left
   expect_equal(c(out$pitch_x[3], out$pitch_y[3]), c(41.5, 0))
-  expect_true(all(is.na(sdv_pitch_coords(espn_events(), "espn")$pitch_x[
-    espn_events()$field_position_x == 0 & espn_events()$field_position_y == 0
-  ])))
+  zeros <- espn_events()$field_position_x == 0 & espn_events()$field_position_y == 0
+  expect_gt(sum(zeros), 0) # the real events hold (0, 0) rows, so the next check is not vacuous
+  expect_true(all(is.na(sdv_pitch_coords(espn_events(), "espn")$pitch_x[zeros])))
 })
 
 test_that("tracking providers convert from the venue's real size", {
