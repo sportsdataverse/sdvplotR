@@ -29,7 +29,8 @@ draws that pitch.
 
 ESPN's play-by-play (the same feed sportsdataverse-py's `espn_soccer_game_plays()` reads) records each shot's
 distance from the goal it attacks as a fraction of half the pitch. Manchester City (ESPN id 382) against Aston Villa
-(362); the away team's shots are flipped so the two sides attack opposite ends.
+(362); the away team's shots are flipped so the two sides attack opposite ends. ESPN types a penalty `Penalty - Scored` or
+`Penalty - Missed`, so the filter matches "penalty" too.
 
 ```{r espn}
 url <- paste0(
@@ -44,7 +45,7 @@ plays <- data.frame(
   team = sub(".*/teams/([0-9]+).*", "\\1", items$team$`$ref`),
   goal = items$scoringPlay
 )
-shots <- plays[grepl("shot|goal", plays$type, ignore.case = TRUE) & plays$type != "Assists Shot", ]
+shots <- plays[grepl("shot|goal|penalty", plays$type, ignore.case = TRUE) & plays$type != "Assists Shot", ]
 shots <- sdv_pitch_coords(transform(shots, away = team != "382"), "espn", flip = "away")
 shots <- shots[!is.na(shots$pitch_x), ]
 
@@ -56,7 +57,8 @@ sdv_surface("soccer") +
 
 ## StatsBomb: the 2018 World Cup final
 
-The same function reads StatsBomb's 120 x 80 frame. StatsBomb open data is free for non-commercial use.
+The same function reads StatsBomb's 120 x 80 frame. StatsBomb open data is free for non-commercial use. The map marks five goals for a 4-2 final:
+Mandzukic's own goal is an `Own Goal Against` event, not a `Shot`.
 
 ```{r statsbomb}
 events <- jsonlite::fromJSON(

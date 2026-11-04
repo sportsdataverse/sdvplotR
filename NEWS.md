@@ -24,6 +24,9 @@
   (`sdv_resolve(1611661319, "wnba", id_system = "nba_api")` is the Aces).
   Under `"auto"` an ESPN id wins over an equal NCAA id, so pass
   `id_system = "ncaa"` for NCAA ids.
+* The soccer article's ESPN shot map keeps penalties (`Penalty - Scored` /
+  `Penalty - Missed`), and its StatsBomb map notes why a 4-2 final shows five
+  goals: the own goal is its own event type (sdvplot#101).
 
 # sdvplotR 0.3.0
 
