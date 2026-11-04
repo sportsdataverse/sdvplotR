@@ -324,7 +324,9 @@ pitch.</p>
 <code>espn_soccer_game_plays()</code> reads) records each shot’s
 distance from the goal it attacks as a fraction of half the pitch.
 Manchester City (ESPN id 382) against Aston Villa (362); the away team’s
-shots are flipped so the two sides attack opposite ends.</p>
+shots are flipped so the two sides attack opposite ends. ESPN types a
+penalty <code>Penalty - Scored</code> or <code>Penalty - Missed</code>,
+so the filter matches “penalty” too.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/740970/"</span>,</span>
@@ -338,7 +340,7 @@ shots are flipped so the two sides attack opposite ends.</p>
 <span>  team <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">".*/teams/([0-9]+).*"</span>, <span class="st">"\\1"</span>, <span class="va">items</span><span class="op">$</span><span class="va">team</span><span class="op">$</span><span class="va">`$ref`</span><span class="op">)</span>,</span>
 <span>  goal <span class="op">=</span> <span class="va">items</span><span class="op">$</span><span class="va">scoringPlay</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">shots</span> <span class="op">&lt;-</span> <span class="va">plays</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"shot|goal"</span>, <span class="va">plays</span><span class="op">$</span><span class="va">type</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">plays</span><span class="op">$</span><span class="va">type</span> <span class="op">!=</span> <span class="st">"Assists Shot"</span>, <span class="op">]</span></span>
+<span><span class="va">shots</span> <span class="op">&lt;-</span> <span class="va">plays</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"shot|goal|penalty"</span>, <span class="va">plays</span><span class="op">$</span><span class="va">type</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">plays</span><span class="op">$</span><span class="va">type</span> <span class="op">!=</span> <span class="st">"Assists Shot"</span>, <span class="op">]</span></span>
 <span><span class="va">shots</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_pitch_coords.html">sdv_pitch_coords</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">shots</span>, away <span class="op">=</span> <span class="va">team</span> <span class="op">!=</span> <span class="st">"382"</span><span class="op">)</span>, <span class="st">"espn"</span>, flip <span class="op">=</span> <span class="st">"away"</span><span class="op">)</span></span>
 <span><span class="va">shots</span> <span class="op">&lt;-</span> <span class="va">shots</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">shots</span><span class="op">$</span><span class="va">pitch_x</span><span class="op">)</span>, <span class="op">]</span></span>
 <span></span>
@@ -352,7 +354,9 @@ shots are flipped so the two sides attack opposite ends.</p>
 <h2 id="statsbomb-the-2018-world-cup-final">StatsBomb: the 2018 World Cup final<a class="anchor" aria-label="anchor" href="#statsbomb-the-2018-world-cup-final"></a>
 </h2>
 <p>The same function reads StatsBomb’s 120 x 80 frame. StatsBomb open
-data is free for non-commercial use.</p>
+data is free for non-commercial use. The map marks five goals for a 4-2
+final: Mandzukic’s own goal is an <code>Own Goal Against</code> event,
+not a <code>Shot</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">events</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/8658.json"</span>,</span>
