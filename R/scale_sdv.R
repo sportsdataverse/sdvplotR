@@ -14,6 +14,10 @@
 #' @param which One of `"primary"` or `"secondary"`: which team colour to use.
 #' @param values If `NULL` (the default) use the internal team color vectors. Otherwise
 #'   a set of aesthetic values to map data values to.
+#' @param alt_colors Teams (any identifier [sdv_resolve()] accepts) drawn in
+#'   their other colour: the secondary one, or the primary one with
+#'   `which = "secondary"`. A team with no other colour keeps its own. Ignored
+#'   when `values` is given. The counterpart of cfbplotR's `alt_colors`.
 #' @param aesthetics The aesthetic to apply the scale to (`"colour"` or `"fill"`).
 #' @param breaks Breaks for the scale.
 #' @param na.value Color for NA values.
@@ -45,6 +49,13 @@
 #'   scale_fill_sdv(league = "nfl", alpha = 0.4) +
 #'   theme_minimal() +
 #'   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+#'
+#' # college football, with Alabama and Utah in their secondary colours
+#' cfb <- data.frame(y = 6:9, teams = c("Alabama", "Florida State", "Oregon", "Utah"))
+#' ggplot(cfb, aes(x = teams, y = y)) +
+#'   geom_col(aes(fill = teams)) +
+#'   scale_fill_sdv(league = "cfb", alt_colors = c("Alabama", "Utah")) +
+#'   theme_minimal()
 #' }
 NULL
 
@@ -55,6 +66,7 @@ scale_color_sdv <- function(
     which = c("primary", "secondary"),
     values = NULL,
     ...,
+    alt_colors = NULL,
     aesthetics = "colour",
     breaks = ggplot2::waiver(),
     na.value = "grey50",
@@ -65,7 +77,7 @@ scale_color_sdv <- function(
   which <- rlang::arg_match0(which, c("primary", "secondary"))
 
   if (is.null(values)) {
-    values <- get_team_colors(league, which)
+    values <- get_team_colors(league, which, alt_colors)
   }
 
   if (!is.na(alpha)) values <- scales::alpha(values, alpha = alpha)
@@ -91,6 +103,7 @@ scale_fill_sdv <- function(
     which = c("primary", "secondary"),
     values = NULL,
     ...,
+    alt_colors = NULL,
     aesthetics = "fill",
     breaks = ggplot2::waiver(),
     na.value = "grey50",
@@ -101,7 +114,7 @@ scale_fill_sdv <- function(
   which <- rlang::arg_match0(which, c("primary", "secondary"))
 
   if (is.null(values)) {
-    values <- get_team_colors(league, which)
+    values <- get_team_colors(league, which, alt_colors)
   }
 
   if (!is.na(alpha)) values <- scales::alpha(values, alpha = alpha)
@@ -365,8 +378,10 @@ theme_y_sdv <- function() {
 
 # Every team's colour, named by its team_id and by every alias value that
 # resolves to it (id_system = "auto", no season): a manual scale matches data
-# values to these names exactly. Built once per league per index load.
-get_team_colors <- function(league, which = c("primary", "secondary")) {
+# values to these names exactly. Built once per league per index load. The
+# teams in `alt_colors` (any identifier sdv_resolve() takes) get their other
+# colour, where they have one.
+get_team_colors <- function(league, which = c("primary", "secondary"), alt_colors = NULL) {
   which <- rlang::arg_match0(which, c("primary", "secondary"))
   key <- paste0("scale:", league)
   if (is.null(index_cache[[key]])) {
@@ -376,7 +391,13 @@ get_team_colors <- function(league, which = c("primary", "secondary")) {
   }
   ids <- index_cache[[key]]
   t <- sdv_teams(league)
-  col <- t[[paste0("color_", which)]]
-  vals <- c(stats::setNames(col, t$team_id), stats::setNames(col[match(ids, t$team_id)], names(ids)))
+  ids <- c(stats::setNames(t$team_id, t$team_id), ids)
+  col <- t[[paste0("color_", which)]][match(ids, t$team_id)]
+  if (length(alt_colors)) {
+    alt <- t[[paste0("color_", setdiff(c("primary", "secondary"), which))]][match(ids, t$team_id)]
+    swap <- !is.na(ids) & ids %in% sdv_resolve(alt_colors, league) & !is.na(alt)
+    col[swap] <- alt[swap]
+  }
+  vals <- stats::setNames(col, names(ids))
   vals[!is.na(vals) & !duplicated(names(vals))]
 }
