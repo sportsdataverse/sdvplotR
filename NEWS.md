@@ -36,7 +36,10 @@ to CRAN or tagged), so this section describes the whole package.
   read each image before 'gridtext' draws it. An image that cannot be read
   (an unreachable host, offline) is left out with a warning, and an axis
   label falls back to its text, where 'gridtext' used to stop the plot with
-  an error.
+  an error. A failed read is not tried again in the session until
+  `sdv_clear_cache()`.
+* The logo manifest is cached gzipped (about 2 MB instead of 18.7 MB in
+  `tools::R_user_dir("sdvplotR", "cache")`).
 
 ## sportyR 2.4.5 and the CRAN submission
 
