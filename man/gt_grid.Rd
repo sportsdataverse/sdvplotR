@@ -117,6 +117,7 @@ by_division <- lapply(split(afc, afc$division), function(d) {
 
 gt_grid(by_division, ncol = 2)
 
+\donttest{
 # one heading over the whole sheet
 gt_grid(by_division,
   ncol = 2, title = "The AFC by division",
@@ -147,6 +148,7 @@ gt_grid(by_division,
   title_style = list(font = "Oswald", size = 34, transform = "uppercase"),
   subtitle_style = list(italic = TRUE, color = "#8A8A8A")
 )
+}
 
 # straight to an image; saving needs a headless Chrome (webshot2)
 \donttest{
