@@ -82,8 +82,8 @@ gt(results) |>
 # daggers instead of stars, at a single threshold
 gt(results) |>
   gt_significance(Estimate, p,
-    levels = 0.05, symbols = "†",
-    legend_text = "† p < .05"
+    levels = 0.05, symbols = "\u2020",
+    legend_text = "\u2020 p < .05"
   )
 
 }

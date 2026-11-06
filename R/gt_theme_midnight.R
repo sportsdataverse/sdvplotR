@@ -165,6 +165,7 @@ gt_theme_midnight <- function(gt_object, accent = "#5B8DEF",
 #' instead when using [gt_theme_midnight()] or [gt_theme_terminal()].
 #'
 #' @format A character vector of five hex colors, running best to worst.
+#' @docType data
 #'
 #' @examples
 #' west <- subset(
