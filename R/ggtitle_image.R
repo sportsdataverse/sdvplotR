@@ -128,10 +128,10 @@ element_grob.element_sdv_title_image <- function(element, label = "", ...) {
 # 4 x its height a side, or the tag dropped when the image can't be read, as
 # 'gridtext' would otherwise fetch it itself, with no handler.
 local_img_tags <- function(label) {
-  if (!is.character(label)) {
+  re <- "<img src='([^']*)' height='([^']*)'>"
+  if (!is.character(label) || !any(grepl(re, label))) {
     return(label)
   }
-  re <- "<img src='([^']*)' height='([^']*)'>"
   tags <- gregexpr(re, label)
   regmatches(label, tags) <- lapply(regmatches(label, tags), function(tag) {
     if (!length(tag)) {

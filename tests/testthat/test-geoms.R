@@ -73,6 +73,7 @@ test_that("an image that cannot be read is left out, not left for gridtext to fe
   title <- ggtitle_image("KC", "Chiefs", league = "nfl")$title
   expect_warning(expect_identical(local_img_tags(title), "Chiefs"), "Could not read")
   expect_identical(local_img_tags("No image"), "No image")
+  expect_identical(local_img_tags(NA_character_), NA_character_)
   expect_warning(lab <- scale_x_sdv(league = "nfl")$labels(c("KC", "BUF")), "Could not read")
   expect_identical(lab, c("KC", "BUF"))
   # gridtext never reads an SVG, so one is kept

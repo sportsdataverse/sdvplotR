@@ -186,6 +186,7 @@ load_marks <- function() {
       {
         # ~18 MB as served, ~2 MB gzipped in the cache
         path <- fetch_to_cache(manifest_url(), cache_path("manifest", "marks.csv.gz"))
+        unlink(cache_path("manifest", "marks.csv")) # the uncompressed copy 0.3.0 dev builds kept
         df <- read_index_csv(path, mark_cols)
         stale <- attr(path, "stale")
         if (!is.null(stale)) {
