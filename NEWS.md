@@ -1,4 +1,10 @@
-# sdvplotR (development version)
+# sdvplotR 0.3.0
+
+First CRAN release. Earlier development builds were published only on
+r-universe, every one of them numbered 0.1.0 (no 0.1.0 or 0.2.0 was released
+to CRAN or tagged), so this section describes the whole package.
+
+## Provider ids and unreadable images
 
 * The team index carries Fox, Yahoo, CBS, 247Sports, On3, KenPom and Torvik
   team ids, from sdv-reference-data's `{league}_team_aliases` tables (NFL,
@@ -15,7 +21,6 @@
   draw the ESPN headshot of the athlete sdv-reference-data's
   `{league}_player_aliases` matches the id to. Each league and provider's map
   is downloaded when first needed and kept for the session.
-
 * The team index carries more provider team ids, from the sportsdataverse-data
   crosswalk releases: stats.ncaa.org org (school) ids and season team ids as
   `id_system = "ncaa"` for men's and women's college basketball and college
@@ -27,12 +32,11 @@
 * The soccer article's ESPN shot map keeps penalties (`Penalty - Scored` /
   `Penalty - Missed`), and its StatsBomb map notes why a 4-2 final shows five
   goals: the own goal is its own event type (sdvplot#101).
-
-# sdvplotR 0.3.0
-
-First CRAN release. Earlier development builds were published only on
-r-universe, every one of them numbered 0.1.0 (no 0.1.0 or 0.2.0 was released
-to CRAN or tagged), so this section describes the whole package.
+* `ggtitle_image()` and the image axis scales (`scale_x_sdv()` and the rest)
+  read each image before 'gridtext' draws it. An image that cannot be read
+  (an unreachable host, offline) is left out with a warning, and an axis
+  label falls back to its text, where 'gridtext' used to stop the plot with
+  an error.
 
 ## sportyR 2.4.5 and the CRAN submission
 
