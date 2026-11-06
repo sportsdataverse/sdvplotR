@@ -87,6 +87,12 @@ ggtitle_image <- function(
     if (!is.na(u)) title_image <- u
   }
 
+  # A local copy, or NA when it can't be read: the title then has no image
+  title_image <- local_images(title_image, ceiling(4 * image_height))
+  if (is.na(title_image)) {
+    return(ggplot2::labs(title = title, subtitle = subtitle))
+  }
+
   # gridtext ignores CSS vertical-align; theme_title_image() centers the image
   title_image_tag <- paste0("<img src='", title_image, "' height='", image_height, "'>")
 
