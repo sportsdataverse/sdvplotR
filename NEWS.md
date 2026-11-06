@@ -32,12 +32,13 @@ to CRAN or tagged), so this section describes the whole package.
 * The soccer article's ESPN shot map keeps penalties (`Penalty - Scored` /
   `Penalty - Missed`), and its StatsBomb map notes why a 4-2 final shows five
   goals: the own goal is its own event type (sdvplot#101).
-* `ggtitle_image()` and the image axis scales (`scale_x_sdv()` and the rest)
-  read each image before 'gridtext' draws it. An image that cannot be read
-  (an unreachable host, offline) is left out with a warning, and an axis
+* `theme_title_image()` and the image axis scales (`scale_x_sdv()` and the
+  rest) read each image before 'gridtext' draws it. An image that cannot be
+  read (an unreachable host, offline) is left out with a warning, and an axis
   label falls back to its text, where 'gridtext' used to stop the plot with
   an error. A failed read is not tried again in the session until
-  `sdv_clear_cache()`.
+  `sdv_clear_cache()`. SVG paths are passed through unchanged: 'gridtext'
+  never reads one, and draws it blank.
 * The logo manifest is cached gzipped (about 2 MB instead of 18.7 MB in
   `tools::R_user_dir("sdvplotR", "cache")`).
 

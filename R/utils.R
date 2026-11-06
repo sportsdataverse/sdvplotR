@@ -84,13 +84,23 @@ small_image <- function(path, px) {
   if (isTRUE(unreadable_images[[out]])) {
     return(path)
   }
-  img <- tryCatch(magick::image_read(path), error = function(e) NULL)
-  if (is.null(img)) {
+  # a read, scale or write that fails leaves no partial copy behind
+  ok <- tryCatch(
+    {
+      img <- magick::image_read(path)
+      dir.create(dirname(out), showWarnings = FALSE, recursive = TRUE)
+      magick::image_write(magick::image_scale(img, sprintf("%dx%d>", px, px)), out, format = "png")
+      TRUE
+    },
+    error = function(e) {
+      unlink(out)
+      FALSE
+    }
+  )
+  if (!ok) {
     unreadable_images[[out]] <- TRUE
     return(path)
   }
-  dir.create(dirname(out), showWarnings = FALSE, recursive = TRUE)
-  magick::image_write(magick::image_scale(img, sprintf("%dx%d>", px, px)), out, format = "png")
   out
 }
 

@@ -59,11 +59,10 @@ test_that("theme helpers require ggtext and return theme objects", {
 })
 
 test_that("ggtitle_image resolves team logos and places the image", {
-  skip_if_offline()
   l <- ggtitle_image("KC", "Chiefs", league = "nfl")
-  expect_identical(l$title, sprintf("<img src='%s' height='15'> Chiefs", label_src(sdv_logo_url("KC", "nfl"), 15)))
-  r <- ggtitle_image(sdv_logo_url("KC", "nfl"), "T", image_side = "right", league = "nba")
-  expect_match(r$title, "^T <img src='")
+  expect_match(l$title, "^<img src='https://sdv\\.nyc3\\.cdn\\.digitaloceanspaces\\.com/.*\\.png' height='15'.*> Chiefs$")
+  r <- ggtitle_image("https://example.com/x.png", "T", image_side = "right", league = "nba")
+  expect_match(r$title, "^T <img src='https://example.com/x.png'")
   expect_error(ggtitle_image(league = "nfl"), "title_image")
   expect_match(ggtitle_image("KC", league = "nfl")$title, "^<img")
 })
@@ -71,13 +70,40 @@ test_that("ggtitle_image resolves team logos and places the image", {
 test_that("an image that cannot be read is left out, not left for gridtext to fetch", {
   # small_image() hands back the path it could not read
   local_mocked_bindings(small_image = function(path, px) path)
-  expect_warning(l <- ggtitle_image("KC", "Chiefs", league = "nfl"), "Could not read")
-  expect_identical(l$title, "Chiefs")
+  title <- ggtitle_image("KC", "Chiefs", league = "nfl")$title
+  expect_warning(expect_identical(local_img_tags(title), "Chiefs"), "Could not read")
+  expect_identical(local_img_tags("No image"), "No image")
   expect_warning(lab <- scale_x_sdv(league = "nfl")$labels(c("KC", "BUF")), "Could not read")
   expect_identical(lab, c("KC", "BUF"))
   # gridtext never reads an SVG, so one is kept
   expect_identical(local_images("https://example.com/x.svg", 60), "https://example.com/x.svg")
   expect_identical(local_images(NA_character_, 60), NA_character_)
+  # drawn through theme_title_image(), the plot builds with no image and no error
+  skip_if_not_installed("ggtext")
+  p <- ggplot(mtcars, aes(hp, mpg)) +
+    ggtitle_image("KC", "Chiefs", league = "nfl") +
+    theme_title_image()
+  g <- suppressWarnings(ggplotGrob(p))
+  box <- g$grobs[[which(g$layout$name == "title")]]$children[[1]]
+  expect_false(any(vapply(box$children, inherits, logical(1), "rastergrob")))
+})
+
+test_that("a failed image read is tried once a session, until sdv_clear_cache()", {
+  # sdv_clear_cache() deletes the cache directory, so give it a private one
+  withr::local_envvar(R_USER_CACHE_DIR = withr::local_tempdir())
+  reads <- 0
+  local_mocked_bindings(image_read = function(...) {
+    reads <<- reads + 1
+    stop("unreachable")
+  }, .package = "magick")
+  url <- "https://example.com/never-read.png"
+  sdv_clear_cache() |> suppressMessages()
+  expect_identical(small_image(url, 60), url)
+  expect_identical(small_image(url, 60), url)
+  expect_identical(reads, 1)
+  sdv_clear_cache() |> suppressMessages()
+  small_image(url, 60)
+  expect_identical(reads, 2)
 })
 
 test_that("ggtitle_image draws the image beside the title, centred on the text", {
