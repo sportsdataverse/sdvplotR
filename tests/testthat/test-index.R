@@ -116,9 +116,13 @@ test_that("a cached file cut off mid-row falls back to the snapshot, not a short
 })
 
 test_that("a failed manifest refresh with a stale cache warns and reports the cache", {
-  local_fixture_index(ttl = 0)
+  fx <- local_fixture_index(ttl = 0)
   index_marks()
   expect_identical(index_cache$marks_source, "live")
+  # the plain CSV as served is kept gzipped on disk, and reads back the same
+  cached <- file.path(tools::R_user_dir("sdvplotR", "cache"), "manifest", "marks.csv.gz")
+  expect_identical(readBin(cached, "raw", 2L), as.raw(c(0x1f, 0x8b)))
+  expect_lt(file.size(cached), file.size(file.path(fx, "marks.csv")))
   forget_index()
   withr::local_options(sdvplotR.manifest_url = "file:///nonexistent/marks.csv")
   expect_warning(index_marks(), class = "sdvplotR_fallback")

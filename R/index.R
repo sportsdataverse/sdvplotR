@@ -44,6 +44,10 @@ fetch_to_cache <- function(url, path, ttl = getOption("sdvplotR.index_ttl", 8640
     },
     error = function(e) conditionMessage(e)
   )
+  # a `.gz` path for a plain download (the manifest) is kept gzipped on disk
+  if (is.null(err) && grepl("\\.gz$", path) && !grepl("\\.gz$", url)) {
+    err <- tryCatch(gzip_file(tmp), error = function(e) conditionMessage(e))
+  }
   if (is.null(err) && !file.copy(tmp, path, overwrite = TRUE)) err <- "could not write the cache file"
   if (is.null(err)) {
     return(path)
@@ -52,6 +56,15 @@ fetch_to_cache <- function(url, path, ttl = getOption("sdvplotR.index_ttl", 8640
     return(structure(path, stale = err))
   }
   stop("could not download ", url, ": ", err, call. = FALSE)
+}
+
+# Gzips the file at `path` in place; NULL on success
+gzip_file <- function(path) {
+  bytes <- readBin(path, "raw", n = file.size(path))
+  con <- gzfile(path, "wb")
+  on.exit(close(con))
+  writeBin(bytes, con)
+  NULL
 }
 
 # Any warning is a failure (a short download, a truncated or corrupt file), so
@@ -171,7 +184,8 @@ load_marks <- function() {
   m <- if (!use_snapshot()) {
     tryCatch(
       {
-        path <- fetch_to_cache(manifest_url(), cache_path("manifest", "marks.csv"))
+        # ~18 MB as served, ~2 MB gzipped in the cache
+        path <- fetch_to_cache(manifest_url(), cache_path("manifest", "marks.csv.gz"))
         df <- read_index_csv(path, mark_cols)
         stale <- attr(path, "stale")
         if (!is.null(stale)) {
