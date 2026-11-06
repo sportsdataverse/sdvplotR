@@ -79,14 +79,32 @@ small_image <- function(path, px) {
   if (file.exists(out)) {
     return(out)
   }
-  img <- tryCatch(magick::image_read(path), error = function(e) NULL)
-  if (is.null(img)) {
+  # a failed read is remembered for the session, so a plot redrawn while a
+  # host is unreachable does not wait on it again
+  if (isTRUE(unreadable_images[[out]])) {
     return(path)
   }
-  dir.create(dirname(out), showWarnings = FALSE, recursive = TRUE)
-  magick::image_write(magick::image_scale(img, sprintf("%dx%d>", px, px)), out, format = "png")
+  # a read, scale or write that fails leaves no partial copy behind
+  ok <- tryCatch(
+    {
+      img <- magick::image_read(path)
+      dir.create(dirname(out), showWarnings = FALSE, recursive = TRUE)
+      magick::image_write(magick::image_scale(img, sprintf("%dx%d>", px, px)), out, format = "png")
+      TRUE
+    },
+    error = function(e) {
+      unlink(out)
+      FALSE
+    }
+  )
+  if (!ok) {
+    unreadable_images[[out]] <- TRUE
+    return(path)
+  }
   out
 }
+
+unreadable_images <- new.env(parent = emptyenv())
 
 # small_image() for each path, once per distinct one; NA stays NA
 small_images <- function(paths, px) {
@@ -319,9 +337,22 @@ headshot_html <- function(player_id, league, type = c("height", "width"), size =
 # device (ggiraph, svglite) writes the image into the file, where a source logo
 # is 20-60 KB. Forward slashes: markdown reads a backslash in a path as an escape.
 img_html <- function(urls, label, type, size) {
-  ok <- !is.na(urls)
-  urls <- chartr("\\", "/", small_images(urls, ceiling(4 * as.numeric(size))))
-  ifelse(ok, sprintf("<img src='%s' %s = '%s'>", urls, type, size), label)
+  urls <- local_images(urls, ceiling(4 * as.numeric(size)))
+  ifelse(!is.na(urls), sprintf("<img src='%s' %s = '%s'>", urls, type, size), label)
+}
+
+# small_images() for an <img> that 'gridtext' draws, NA (with a warning) where
+# the image could not be read: gridtext reads a remote src itself, with no
+# handler, so an unreachable host would be an error when the plot is drawn. An
+# SVG stays as it is; gridtext never reads one (it warns and draws a blank).
+local_images <- function(paths, px) {
+  out <- small_images(paths, px)
+  failed <- !is.na(out) & out == paths & !grepl("\\.svg$", out, ignore.case = TRUE)
+  if (any(failed)) {
+    cli::cli_warn("Could not read the image{?s} {.val {unique(paths[failed])}}, so {?it is/they are} left out.")
+  }
+  out[failed] <- NA
+  chartr("\\", "/", out)
 }
 
 # NFL headshot map: sdvplotR publishes it from nflverse rosters (1999 onward) to

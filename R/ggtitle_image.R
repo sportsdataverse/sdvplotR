@@ -13,8 +13,11 @@
 #'   logo taller than the text would rise above it (ESPN's marks, padded with
 #'   transparent space, can sit wholly above the title). [theme_title_image()]
 #'   lines the middle of each image up with the middle of the capital letters
-#'   on its line. Setting `plot.title` to a plain [ggtext::element_markdown()]
-#'   instead also renders the image, on the baseline.
+#'   on its line. It reads the image when the plot is drawn, and leaves out
+#'   (with a warning) one that cannot be read, such as a logo while offline.
+#'   Setting `plot.title` to a plain [ggtext::element_markdown()] instead also
+#'   renders the image, on the baseline, but stops with an error when it cannot
+#'   be read.
 #'
 #'   Style the title through `theme_title_image(...)` (`size`, `face`,
 #'   `hjust`, ...), never with a later `theme(plot.title = ...)`: adding
@@ -115,8 +118,32 @@ theme_title_image <- function(...) {
 }
 
 #' @export
-element_grob.element_sdv_title_image <- function(element, ...) {
+element_grob.element_sdv_title_image <- function(element, label = "", ...) {
+  label <- local_img_tags(label)
   center_inline_images(NextMethod())
+}
+
+# The title's <img> tags with each source read when the plot is drawn (so a
+# plot saved and reopened in a new session reads it again): a local copy at most
+# 4 x its height a side, or the tag dropped when the image can't be read, as
+# 'gridtext' would otherwise fetch it itself, with no handler.
+local_img_tags <- function(label) {
+  re <- "<img src='([^']*)' height='([^']*)'>"
+  if (!is.character(label) || !any(grepl(re, label))) {
+    return(label)
+  }
+  tags <- gregexpr(re, label)
+  regmatches(label, tags) <- lapply(regmatches(label, tags), function(tag) {
+    if (!length(tag)) {
+      return(tag)
+    }
+    src <- sub(re, "\\1", tag)
+    out <- vapply(seq_along(tag), function(i) {
+      local_images(src[[i]], ceiling(4 * as.numeric(sub(re, "\\2", tag[[i]]))))
+    }, character(1))
+    ifelse(is.na(out), "", mapply(sub, src, out, tag, MoreArgs = list(fixed = TRUE), USE.NAMES = FALSE))
+  })
+  trimws(label)
 }
 
 # gridtext puts an inline image's bottom on the baseline of its line. Line its

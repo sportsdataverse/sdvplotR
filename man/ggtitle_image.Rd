@@ -49,8 +49,11 @@ inline images on the text baseline and ignores CSS \code{vertical-align}, so a
 logo taller than the text would rise above it (ESPN's marks, padded with
 transparent space, can sit wholly above the title). \code{\link[=theme_title_image]{theme_title_image()}}
 lines the middle of each image up with the middle of the capital letters
-on its line. Setting \code{plot.title} to a plain \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}}
-instead also renders the image, on the baseline.
+on its line. It reads the image when the plot is drawn, and leaves out
+(with a warning) one that cannot be read, such as a logo while offline.
+Setting \code{plot.title} to a plain \code{\link[ggtext:element_markdown]{ggtext::element_markdown()}} instead also
+renders the image, on the baseline, but stops with an error when it cannot
+be read.
 
 Style the title through \code{theme_title_image(...)} (\code{size}, \code{face},
 \code{hjust}, ...), never with a later \code{theme(plot.title = ...)}: adding

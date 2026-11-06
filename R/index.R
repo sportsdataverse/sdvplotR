@@ -44,6 +44,10 @@ fetch_to_cache <- function(url, path, ttl = getOption("sdvplotR.index_ttl", 8640
     },
     error = function(e) conditionMessage(e)
   )
+  # a `.gz` path for a plain download (the manifest) is kept gzipped on disk
+  if (is.null(err) && grepl("\\.gz$", path) && !grepl("\\.gz$", url)) {
+    err <- tryCatch(gzip_file(tmp), error = function(e) conditionMessage(e))
+  }
   if (is.null(err) && !file.copy(tmp, path, overwrite = TRUE)) err <- "could not write the cache file"
   if (is.null(err)) {
     return(path)
@@ -52,6 +56,15 @@ fetch_to_cache <- function(url, path, ttl = getOption("sdvplotR.index_ttl", 8640
     return(structure(path, stale = err))
   }
   stop("could not download ", url, ": ", err, call. = FALSE)
+}
+
+# Gzips the file at `path` in place; NULL on success
+gzip_file <- function(path) {
+  bytes <- readBin(path, "raw", n = file.size(path))
+  con <- gzfile(path, "wb")
+  on.exit(close(con))
+  writeBin(bytes, con)
+  NULL
 }
 
 # Any warning is a failure (a short download, a truncated or corrupt file), so
@@ -171,7 +184,9 @@ load_marks <- function() {
   m <- if (!use_snapshot()) {
     tryCatch(
       {
-        path <- fetch_to_cache(manifest_url(), cache_path("manifest", "marks.csv"))
+        # ~18 MB as served, ~2 MB gzipped in the cache
+        path <- fetch_to_cache(manifest_url(), cache_path("manifest", "marks.csv.gz"))
+        unlink(cache_path("manifest", "marks.csv")) # the uncompressed copy 0.3.0 dev builds kept
         df <- read_index_csv(path, mark_cols)
         stale <- attr(path, "stale")
         if (!is.null(stale)) {
@@ -231,8 +246,9 @@ forget_index <- function() {
 #' @description sdvplotR keeps the team index, the logo manifest and the NFL
 #'   headshot map in memory for the session, keeps the index and manifest on
 #'   disk (in `tools::R_user_dir("sdvplotR", "cache")`) for a day. This clears
-#'   them, and the image cache of 'ggpath' when 'ggpath' provides a way to, so
-#'   the next call reads the CDN again.
+#'   them, the images it could not read this session, and the image cache of
+#'   'ggpath' when 'ggpath' provides a way to, so the next call reads the CDN
+#'   again.
 #' @return Invisibly `NULL`, called for its side effect.
 #' @seealso [sdv_versions()] for what is loaded now.
 #' @export
@@ -241,6 +257,7 @@ forget_index <- function() {
 sdv_clear_cache <- function() {
   forget_index()
   forget_headshot_map()
+  rm(list = ls(unreadable_images), envir = unreadable_images)
   if (!probably_cran()) unlink(tools::R_user_dir("sdvplotR", "cache"), recursive = TRUE)
   if ("clear_cache" %in% getNamespaceExports("ggpath")) getExportedValue("ggpath", "clear_cache")()
   cli::cli_alert_success("sdvplotR caches cleared.")

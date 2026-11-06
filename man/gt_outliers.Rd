@@ -46,8 +46,8 @@ contrast against \code{fill}. Defaults to \code{NULL}.}
 
 \item{bold}{Logical. Should flagged values be bolded? Defaults to \code{TRUE}.}
 
-\item{symbol}{Optional. A marker appended to flagged values, such as \code{"†"}.
-Defaults to \code{NULL}.}
+\item{symbol}{Optional. A marker appended to flagged values, such as a dagger
+(\code{"\\u2020"}). Defaults to \code{NULL}.}
 
 \item{note}{Optional. A source note describing the rule that was applied. Pass
 \code{TRUE} for wording generated from \code{method} and \code{threshold}, a string for your
@@ -87,7 +87,7 @@ gt(nba) |> gt_outliers(c(points_for, points_against), note = TRUE)
 gt(nba) |>
   gt_outliers(c(points_for, points_against),
     method = "bounds", bounds = c(NA, 9800),
-    side = "high", fill = "#FDECEA", symbol = "†"
+    side = "high", fill = "#FDECEA", symbol = "\u2020"
   )
 
 # works on wider data too

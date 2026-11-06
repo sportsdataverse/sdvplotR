@@ -25,8 +25,8 @@
 #'   is used, swapped for a readable alternative when it would not have enough
 #'   contrast against `fill`. Defaults to `NULL`.
 #' @param bold Logical. Should flagged values be bolded? Defaults to `TRUE`.
-#' @param symbol Optional. A marker appended to flagged values, such as `"†"`.
-#'   Defaults to `NULL`.
+#' @param symbol Optional. A marker appended to flagged values, such as a dagger
+#'   (`"\u2020"`). Defaults to `NULL`.
 #' @param note Optional. A source note describing the rule that was applied. Pass
 #'   `TRUE` for wording generated from `method` and `threshold`, a string for your
 #'   own, or `NULL` for no note. Defaults to `NULL`.
@@ -56,7 +56,7 @@
 #' gt(nba) |>
 #'   gt_outliers(c(points_for, points_against),
 #'     method = "bounds", bounds = c(NA, 9800),
-#'     side = "high", fill = "#FDECEA", symbol = "†"
+#'     side = "high", fill = "#FDECEA", symbol = "\u2020"
 #'   )
 #'
 #' # works on wider data too
