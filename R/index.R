@@ -11,6 +11,8 @@ team_cols <- c(
   "league", "team_id", "abbr", "name", "short_name", "location", "program",
   "conference_id", "conference", "color_primary", "color_secondary", "color_source"
 )
+# read when the index has them (older indexes do not): cfb's FBS / FCS / DII / DIII
+team_optional_cols <- "division"
 alias_cols <- c("league", "id_system", "value", "team_id", "valid_from", "valid_to")
 mark_cols <- c(
   "level", "league", "entity_id", "entity_name", "mark_type", "variant", "valid_from",
@@ -79,7 +81,7 @@ warnings_fail <- function(expr, allow = character()) {
   })
 }
 
-read_index_csv <- function(path, cols) {
+read_index_csv <- function(path, cols, optional = character()) {
   # read whole, and require a final newline: a file cut off mid-row (even one
   # re-gzipped as valid) would otherwise load as a shortened table
   raw <- warnings_fail(read_raw(path))
@@ -91,7 +93,7 @@ read_index_csv <- function(path, cols) {
   ))
   miss <- setdiff(cols, names(df))
   if (length(miss)) stop(basename(path), " lacks columns ", paste(miss, collapse = ", "), call. = FALSE)
-  df <- df[cols]
+  df <- df[c(cols, intersect(optional, names(df)))]
   for (col in intersect(c("valid_from", "valid_to"), cols)) df[[col]] <- as.integer(df[[col]])
   df
 }
@@ -127,17 +129,17 @@ read_live_index <- function() {
   ptr <- fetch_to_cache(paste0(index_url(), "/latest.txt"), cache_path("index", "latest.txt"))
   ver <- trimws(readLines(ptr, n = 1L, warn = FALSE))
   if (!length(ver) || !grepl("^[0-9a-f]{6,64}$", ver)) stop("latest.txt does not name an index version", call. = FALSE)
-  get <- function(file, cols) {
+  get <- function(file, cols, optional = character()) {
     path <- fetch_to_cache(paste(index_url(), ver, file, sep = "/"), cache_path("index", ver, file), ttl = Inf)
     # a version file never expires (ttl = Inf): delete a corrupt one so the next session refetches it
-    tryCatch(read_index_csv(path, cols), error = function(e) {
+    tryCatch(read_index_csv(path, cols, optional), error = function(e) {
       unlink(path)
       stop(e)
     })
   }
   stale <- attr(ptr, "stale")
   idx <- list(
-    teams = get("teams.csv.gz", team_cols), aliases = get("aliases.csv.gz", alias_cols),
+    teams = get("teams.csv.gz", team_cols, team_optional_cols), aliases = get("aliases.csv.gz", alias_cols),
     version = ver, source = if (is.null(stale)) "live" else "cache"
   )
   # only once both reads have succeeded: a corrupt file falls back to the snapshot instead

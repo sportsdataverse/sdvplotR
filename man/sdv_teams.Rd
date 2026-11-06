@@ -4,7 +4,7 @@
 \alias{sdv_teams}
 \title{Teams in the sdvplotR index}
 \usage{
-sdv_teams(league = NULL, include_conferences = FALSE)
+sdv_teams(league = NULL, include_conferences = FALSE, division = NULL)
 }
 \arguments{
 \item{league}{A league key from \code{\link[=sdv_leagues]{sdv_leagues()}}, or \code{NULL} for every league.}
@@ -14,6 +14,28 @@ college conferences, and the AFC, NFC and NFL). Their \code{program} is
 \code{"conference"} or \code{"league"} and their \code{team_id} is the short name
 (\code{"SEC"}, \code{"AFC"}). The logo helpers draw them by that key; colour
 helpers and \code{\link[=sdv_resolve]{sdv_resolve()}} never answer one.}
+
+\item{division}{\code{NULL} (every team), or one or more of \code{"FBS"}, \code{"FCS"},
+\code{"DII"}, \code{"DIII"}, \code{"P4"}, \code{"P5"}, \code{"G5"} and \code{"Conference"}: only the
+teams in any of them, as cfbplotR's division filter keeps.
+\code{"FBS"}, \code{"FCS"}, \code{"DII"} and \code{"DIII"} read the index's \code{division}
+column, in any league whose index has one (an index without one is an
+error naming it). \code{"P4"}, \code{"P5"} and \code{"G5"} are college football's, from
+each team's conference in the index, so they follow realignment as the
+index does:
+\itemize{
+\item \code{"P4"}: the ACC, Big Ten, Big 12 and SEC, and Notre Dame.
+\item \code{"P5"}: the P4 and the Pac-12, with the Pac-12's members as the index
+lists them (the conference rebuilt for 2026 in the current index;
+cfbplotR's P5 keeps the Pac-12 of 2023).
+\item \code{"G5"}: the American, Conference USA, the MAC, the Mountain West and
+the Sun Belt, and the FBS independents other than Notre Dame, so the P5
+and the G5 together are the FBS, as in cfbplotR.
+}
+
+\code{"Conference"} gives the conference and league rows. With \code{division},
+\code{include_conferences} is not read. cfbplotR's \code{"hoopR"} schools are the
+\code{"mbb"} league here.}
 }
 \value{
 A data frame:\tabular{lll}{
@@ -30,14 +52,29 @@ A data frame:\tabular{lll}{
    color_primary \tab character \tab Primary colour (hex) \cr
    color_secondary \tab character \tab Secondary colour (hex) \cr
    color_source \tab character \tab \code{"nflverse"}, \code{"espn"}, \code{"logo"}, \code{"cbbplotR"} or \code{"fallback"} \cr
+   division \tab character \tab Where the index has it: the team's division (\code{"FBS"}, \code{"FCS"}, \code{"DII"}, \code{"DIII"} in cfb) \cr
 }
 }
 \description{
 One row per team: its canonical \code{team_id} (the key every
 helper resolves to), names, abbreviation, conference and colours. The R
-counterpart of sdvplot's \code{teams()}.
+counterpart of sdvplot's \code{teams()}, and of cfbplotR's team lists by
+division and its \code{logo_ref} (see the examples).
 }
 \examples{
 sdv_teams("nfl")
 sdv_teams("cfb", include_conferences = TRUE)
+
+# cfbplotR's P5 team list
+sdv_teams("cfb", division = "P5")$location
+
+# cfbplotR's logo_ref: a logo (and, where archived, wordmark) URL per team
+\donttest{
+logo_ref <- transform(
+  sdv_teams("cfb"),
+  logo = sdv_logo_url(team_id, "cfb"),
+  wordmark = suppressWarnings(sdv_logo_url(team_id, "cfb", mark_type = "wordmark"))
+)
+head(logo_ref[c("location", "color_primary", "color_secondary", "logo", "wordmark")])
+}
 }

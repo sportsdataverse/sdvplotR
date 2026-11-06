@@ -69,6 +69,7 @@ Suggests:
     paletteer,
     plotly,
     reactable,
+    rstudioapi,
     rsvg,
     sportyR (>= 2.4.5),
     testthat (>= 3.0.0),

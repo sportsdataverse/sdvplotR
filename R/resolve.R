@@ -53,13 +53,34 @@ check_league <- function(league, call = rlang::caller_env()) {
 #'
 #' @description One row per team: its canonical `team_id` (the key every
 #'   helper resolves to), names, abbreviation, conference and colours. The R
-#'   counterpart of sdvplot's `teams()`.
+#'   counterpart of sdvplot's `teams()`, and of cfbplotR's team lists by
+#'   division and its `logo_ref` (see the examples).
 #' @param league A league key from [sdv_leagues()], or `NULL` for every league.
 #' @param include_conferences Also list the conference and league rows (the
 #'   college conferences, and the AFC, NFC and NFL). Their `program` is
 #'   `"conference"` or `"league"` and their `team_id` is the short name
 #'   (`"SEC"`, `"AFC"`). The logo helpers draw them by that key; colour
 #'   helpers and [sdv_resolve()] never answer one.
+#' @param division `NULL` (every team), or one or more of `"FBS"`, `"FCS"`,
+#'   `"DII"`, `"DIII"`, `"P4"`, `"P5"`, `"G5"` and `"Conference"`: only the
+#'   teams in any of them, as cfbplotR's division filter keeps.
+#'   `"FBS"`, `"FCS"`, `"DII"` and `"DIII"` read the index's `division`
+#'   column, in any league whose index has one (an index without one is an
+#'   error naming it). `"P4"`, `"P5"` and `"G5"` are college football's, from
+#'   each team's conference in the index, so they follow realignment as the
+#'   index does:
+#'
+#'   * `"P4"`: the ACC, Big Ten, Big 12 and SEC, and Notre Dame.
+#'   * `"P5"`: the P4 and the Pac-12, with the Pac-12's members as the index
+#'     lists them (the conference rebuilt for 2026 in the current index;
+#'     cfbplotR's P5 keeps the Pac-12 of 2023).
+#'   * `"G5"`: the American, Conference USA, the MAC, the Mountain West and
+#'     the Sun Belt, and the FBS independents other than Notre Dame, so the P5
+#'     and the G5 together are the FBS, as in cfbplotR.
+#'
+#'   `"Conference"` gives the conference and league rows. With `division`,
+#'   `include_conferences` is not read. cfbplotR's `"hoopR"` schools are the
+#'   `"mbb"` league here.
 #' @return A data frame:
 #'
 #'   | col_name | type | description |
@@ -76,16 +97,72 @@ check_league <- function(league, call = rlang::caller_env()) {
 #'   | color_primary | character | Primary colour (hex) |
 #'   | color_secondary | character | Secondary colour (hex) |
 #'   | color_source | character | `"nflverse"`, `"espn"`, `"logo"`, `"cbbplotR"` or `"fallback"` |
+#'   | division | character | Where the index has it: the team's division (`"FBS"`, `"FCS"`, `"DII"`, `"DIII"` in cfb) |
 #' @export
 #' @examples
 #' sdv_teams("nfl")
 #' sdv_teams("cfb", include_conferences = TRUE)
-sdv_teams <- function(league = NULL, include_conferences = FALSE) {
+#'
+#' # cfbplotR's P5 team list
+#' sdv_teams("cfb", division = "P5")$location
+#'
+#' # cfbplotR's logo_ref: a logo (and, where archived, wordmark) URL per team
+#' \donttest{
+#' logo_ref <- transform(
+#'   sdv_teams("cfb"),
+#'   logo = sdv_logo_url(team_id, "cfb"),
+#'   wordmark = suppressWarnings(sdv_logo_url(team_id, "cfb", mark_type = "wordmark"))
+#' )
+#' head(logo_ref[c("location", "color_primary", "color_secondary", "logo", "wordmark")])
+#' }
+sdv_teams <- function(league = NULL, include_conferences = FALSE, division = NULL) {
   t <- index_teams()
+  if (!is.null(division)) {
+    if (is.null(league)) cli::cli_abort("{.arg division} needs a {.arg league}, such as {.val cfb}.")
+    t <- t[t$league == check_league(league), , drop = FALSE]
+    t <- t[in_division(t, league, division), , drop = FALSE]
+    rownames(t) <- NULL
+    return(t)
+  }
   if (!isTRUE(include_conferences)) t <- t[is.na(t$program) | !t$program %in% non_team_programs, , drop = FALSE]
   if (!is.null(league)) t <- t[t$league == check_league(league), , drop = FALSE]
   rownames(t) <- NULL
   t
+}
+
+# College football's tiers by conference (the index's conference_id). As of the
+# 2026 index; a conference that changes its id needs an update here.
+cfb_power4 <- c("cfb:acc", "cfb:big-ten", "cfb:big-12", "cfb:sec")
+cfb_group5 <- c("cfb:american", "cfb:cusa", "cfb:mac", "cfb:mountain-west", "cfb:sun-belt")
+cfb_notre_dame <- "87"
+column_divisions <- c("FBS", "FCS", "DII", "DIII")
+team_divisions <- c(column_divisions, "P4", "P5", "G5", "Conference")
+
+# Which rows of one league's index teams `t` are in any of `division`
+in_division <- function(t, league, division, call = rlang::caller_env()) {
+  if (!is.character(division) || !length(division) || anyNA(division) || !all(division %in% team_divisions)) {
+    cli::cli_abort("{.arg division} must be one or more of {.val {team_divisions}}.", call = call)
+  }
+  tiers <- intersect(division, c("P4", "P5", "G5"))
+  if (length(tiers) && league != "cfb") {
+    cli::cli_abort("{.val {tiers}} {?is a/are} college football tier{?s}; use {.code league = \"cfb\"}.", call = call)
+  }
+  cols <- intersect(division, column_divisions)
+  if (length(cols) && !"division" %in% names(t)) {
+    cli::cli_abort(c(
+      "The team index {.val {sdv_versions()$index_version}} has no {.field division} column for {.val {cols}}.",
+      i = "{.val P4}, {.val P5} and {.val G5} work without it, from conferences."
+    ), call = call)
+  }
+  conf <- !is.na(t$program) & t$program %in% non_team_programs
+  p4 <- !conf & (t$conference_id %in% cfb_power4 | t$team_id %in% cfb_notre_dame)
+  p5 <- p4 | (!conf & t$conference_id %in% "cfb:pac-12")
+  g5 <- !conf & (t$conference_id %in% cfb_group5 |
+    (t$conference_id %in% "cfb:fbs-independents" & !t$team_id %in% cfb_notre_dame))
+  keep <- ("Conference" %in% division & conf) | ("P4" %in% division & p4) |
+    ("P5" %in% division & p5) | ("G5" %in% division & g5)
+  if (length(cols)) keep <- keep | (!conf & toupper(t$division) %in% cols)
+  keep
 }
 
 # A team value as a comparison key, as sdvplot's norm_value: trimmed, accents
@@ -356,4 +433,89 @@ sdv_suggest <- function(x, league, n = 5) {
   t <- sdv_teams(league, include_conferences = TRUE)
   nm <- t$name[match(ids, t$team_id)]
   data.frame(team_id = ids, name = ifelse(is.na(nm), ids, nm))
+}
+
+#' Clean team names to one display name
+#'
+#' @description Standardizes team names, abbreviations and ids to one
+#'   display name per team, for joins and labels. The counterpart of
+#'   cfbplotR's `clean_school_names()` and its alias (and of nflplotR's
+#'   abbreviation cleaner with `column = "abbr"`), built on
+#'   [sdv_resolve()]: every alias and id system it reads cleans to the same
+#'   name, and a value it cannot resolve without guessing (an unknown name, or
+#'   one that names two teams) is not cleaned.
+#' @inheritParams sdv_resolve
+#' @param keep_non_matches If `TRUE` (the default) a value that does not
+#'   resolve is kept as it is, quietly. Otherwise it becomes `NA`, with one
+#'   warning per call.
+#' @param column The [sdv_teams()] column to return: `"location"` (the
+#'   default; the school in college sports, the city in the pros, and closest
+#'   to cfbplotR's names), `"short_name"`, `"name"`, `"abbr"` or `"team_id"`.
+#' @return A character vector the length of `x`.
+#' @seealso [sdv_resolve()] for team ids, [sdv_aliases()] for every name
+#'   the index knows.
+#' @export
+#' @examples
+#' x <- c("utah", "San Jose State", "Hawaii", "UTSA", "SLC", "USC")
+#' # keep the values that do not resolve
+#' sdv_clean_names(x, "cfb")
+#' # or replace them with NA
+#' sdv_clean_names(x, "cfb", keep_non_matches = FALSE)
+#' sdv_clean_names(c("Kansas City Chiefs", "OAK"), "nfl", column = "abbr")
+sdv_clean_names <- function(
+    x,
+    league,
+    keep_non_matches = TRUE,
+    column = c("location", "short_name", "name", "abbr", "team_id"),
+    season = NULL,
+    id_system = "auto"
+) {
+  column <- rlang::arg_match(column)
+  r <- resolve_ids(x, league, season, id_system)
+  t <- sdv_teams(league)
+  out <- t[[column]][match(r$ids, t$team_id)]
+  if (isTRUE(keep_non_matches)) {
+    miss <- is.na(out)
+    out[miss] <- id_chr(x)[miss]
+  } else {
+    report_unresolved(x, r$why, league)
+  }
+  out
+}
+
+# nolint start: line_length_linter. table rows cannot wrap
+#' Team aliases in the sdvplotR index
+#'
+#' @description Every team name, abbreviation and provider id the index
+#'   resolves, one row per alias: what [sdv_resolve()] reads. The counterpart
+#'   of cfbplotR's `team_name_mapping` (see the examples). The R counterpart of
+#'   sdvplot's alias table.
+#' @param league A league key from [sdv_leagues()], or `NULL` for every league.
+#' @return A data frame:
+#'
+#'   | col_name | type | description |
+#'   |---|---|---|
+#'   | league | character | League key |
+#'   | id_system | character | The id system of `value` (`"name"`, `"espn"`, `"cfbd"`, ...; see [sdv_resolve()]). `"mark"`, `"conference"` and `"competition"` rows serve the logo helpers only |
+#'   | value | character | The alias as the index stores it (lookups ignore case and accents) |
+#'   | team_id | character | The [sdv_teams()] `team_id` it names |
+#'   | valid_from | integer | First season the alias names this team (`NA`: always) |
+#'   | valid_to | integer | Last season the alias names this team (`NA`: still) |
+#' @seealso [sdv_clean_names()], [sdv_resolve()], [sdv_teams()].
+#' @export
+#' @examples
+#' a <- sdv_aliases("cfb")
+#' head(a[a$id_system == "name", ])
+#'
+#' # cfbplotR's team_name_mapping: each name -> its school
+#' nm <- a[a$id_system %in% c("name", "cfbd", "sdvplotr"), ]
+#' t <- sdv_teams("cfb")
+#' mapping <- stats::setNames(t$location[match(nm$team_id, t$team_id)], nm$value)
+#' head(mapping)
+# nolint end
+sdv_aliases <- function(league = NULL) {
+  a <- index_aliases()
+  if (!is.null(league)) a <- a[a$league == check_league(league), , drop = FALSE]
+  rownames(a) <- NULL
+  a
 }

@@ -203,7 +203,7 @@ size under 5 MB; run it after adding or replacing any other figure there.
   wants width/height attributes in pixels.
 - `Suggests` holds only what exported functions or tests call (chromote,
   ggiraph, ggsoccer, ggtext, gridtext, leaflet, paletteer, plotly, reactable,
-  rsvg, sportyR, testthat, webshot2, withr), each behind
+  rstudioapi, rsvg, sportyR, testthat, webshot2, withr), each behind
   `rlang::check_installed()` or `requireNamespace()`; companion data packages
   are website / development needs, not package dependencies.
 - `sdv_surface()` calls 'sportyR' (GPL-3) through its exported functions only
