@@ -117,6 +117,7 @@ test_that("element season survives the theme merge and reaches the resolver", {
 })
 
 test_that("scale_x_sdv labels carry the season's mark", {
+  skip_if_offline()
   lab <- scale_x_sdv(league = "nhl", season = 1990)$labels("QUE")
   expect_match(lab, label_src(sdv_logo_url("QUE", "nhl", season = 1990), 12), fixed = TRUE)
 })

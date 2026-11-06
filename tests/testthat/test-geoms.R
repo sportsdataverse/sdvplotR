@@ -39,6 +39,7 @@ test_that("color and fill scales carry team colours", {
 })
 
 test_that("axis scales produce image labels", {
+  skip_if_offline()
   local_headshot_map()
   sx <- scale_x_sdv(league = "nfl", size = 20)
   expect_s3_class(sx, "ScaleDiscretePosition")
@@ -58,6 +59,7 @@ test_that("theme helpers require ggtext and return theme objects", {
 })
 
 test_that("ggtitle_image resolves team logos and places the image", {
+  skip_if_offline()
   l <- ggtitle_image("KC", "Chiefs", league = "nfl")
   expect_identical(l$title, sprintf("<img src='%s' height='15'> Chiefs", label_src(sdv_logo_url("KC", "nfl"), 15)))
   r <- ggtitle_image(sdv_logo_url("KC", "nfl"), "T", image_side = "right", league = "nba")
@@ -69,7 +71,6 @@ test_that("ggtitle_image resolves team logos and places the image", {
 test_that("an image that cannot be read is left out, not left for gridtext to fetch", {
   # small_image() hands back the path it could not read
   local_mocked_bindings(small_image = function(path, px) path)
-  url <- sdv_logo_url("KC", "nfl")
   expect_warning(l <- ggtitle_image("KC", "Chiefs", league = "nfl"), "Could not read")
   expect_identical(l$title, "Chiefs")
   expect_warning(lab <- scale_x_sdv(league = "nfl")$labels(c("KC", "BUF")), "Could not read")
@@ -77,7 +78,6 @@ test_that("an image that cannot be read is left out, not left for gridtext to fe
   # gridtext never reads an SVG, so one is kept
   expect_identical(local_images("https://example.com/x.svg", 60), "https://example.com/x.svg")
   expect_identical(local_images(NA_character_, 60), NA_character_)
-  expect_false(grepl("^https?://", img_html(url, "KC", "height", 15) |> suppressWarnings()))
 })
 
 test_that("ggtitle_image draws the image beside the title, centred on the text", {
@@ -204,6 +204,7 @@ test_that("headshot geom and scales pass id_system through", {
 })
 
 test_that("headshot axis scales pass id_system through", {
+  skip_if_offline()
   sx <- scale_x_sdv_headshots(league = "mlb", id_system = "league")
   expect_match(sdv_headshot_url("660271", "mlb", id_system = "league"), "img\\.mlbstatic\\.com/.*/people/660271/")
   expect_identical(

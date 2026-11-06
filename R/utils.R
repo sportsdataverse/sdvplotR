@@ -79,14 +79,22 @@ small_image <- function(path, px) {
   if (file.exists(out)) {
     return(out)
   }
+  # a failed read is remembered for the session, so a plot redrawn while a
+  # host is unreachable does not wait on it again
+  if (isTRUE(unreadable_images[[out]])) {
+    return(path)
+  }
   img <- tryCatch(magick::image_read(path), error = function(e) NULL)
   if (is.null(img)) {
+    unreadable_images[[out]] <- TRUE
     return(path)
   }
   dir.create(dirname(out), showWarnings = FALSE, recursive = TRUE)
   magick::image_write(magick::image_scale(img, sprintf("%dx%d>", px, px)), out, format = "png")
   out
 }
+
+unreadable_images <- new.env(parent = emptyenv())
 
 # small_image() for each path, once per distinct one; NA stays NA
 small_images <- function(paths, px) {
@@ -331,7 +339,7 @@ local_images <- function(paths, px) {
   out <- small_images(paths, px)
   failed <- !is.na(out) & out == paths & !grepl("\\.svg$", out, ignore.case = TRUE)
   if (any(failed)) {
-    cli::cli_warn("Could not read the image{?s} {.url {unique(paths[failed])}}, so {?it is/they are} left out.")
+    cli::cli_warn("Could not read the image{?s} {.val {unique(paths[failed])}}, so {?it is/they are} left out.")
   }
   out[failed] <- NA
   chartr("\\", "/", out)

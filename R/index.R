@@ -231,8 +231,9 @@ forget_index <- function() {
 #' @description sdvplotR keeps the team index, the logo manifest and the NFL
 #'   headshot map in memory for the session, keeps the index and manifest on
 #'   disk (in `tools::R_user_dir("sdvplotR", "cache")`) for a day. This clears
-#'   them, and the image cache of 'ggpath' when 'ggpath' provides a way to, so
-#'   the next call reads the CDN again.
+#'   them, the images it could not read this session, and the image cache of
+#'   'ggpath' when 'ggpath' provides a way to, so the next call reads the CDN
+#'   again.
 #' @return Invisibly `NULL`, called for its side effect.
 #' @seealso [sdv_versions()] for what is loaded now.
 #' @export
@@ -241,6 +242,7 @@ forget_index <- function() {
 sdv_clear_cache <- function() {
   forget_index()
   forget_headshot_map()
+  rm(list = ls(unreadable_images), envir = unreadable_images)
   if (!probably_cran()) unlink(tools::R_user_dir("sdvplotR", "cache"), recursive = TRUE)
   if ("clear_cache" %in% getNamespaceExports("ggpath")) getExportedValue("ggpath", "clear_cache")()
   cli::cli_alert_success("sdvplotR caches cleared.")
