@@ -1,6 +1,13 @@
 # Changelog
 
-## sdvplotR (development version)
+## sdvplotR 0.3.0
+
+First CRAN release. Earlier development builds were published only on
+r-universe, every one of them numbered 0.1.0 (no 0.1.0 or 0.2.0 was
+released to CRAN or tagged), so this section describes the whole
+package.
+
+### Provider ids and unreadable images
 
 - The team index carries Fox, Yahoo, CBS, 247Sports, On3, KenPom and
   Torvik team ids, from sdv-reference-data’s `{league}_team_aliases`
@@ -11,7 +18,6 @@
   explicit `id_system`: `sdv_resolve("25", "cfb")` is ESPN’s California
   and `sdv_resolve("25", "cfb", id_system = "fox")` is Ohio State.
   KenPom and Torvik team names come before `"name"` under `"auto"`.
-
 - The headshot helpers
   ([`sdv_headshot_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_headshot_url.md),
   [`geom_sdv_headshots()`](https://sdvplotR.sportsdataverse.org/reference/geom_sdv_headshots.md),
@@ -24,7 +30,6 @@
   `{league}_player_aliases` matches the id to. Each league and
   provider’s map is downloaded when first needed and kept for the
   session.
-
 - The team index carries more provider team ids, from the
   sportsdataverse-data crosswalk releases: stats.ncaa.org org (school)
   ids and season team ids as `id_system = "ncaa"` for men’s and women’s
@@ -34,17 +39,22 @@
   (`sdv_resolve(1611661319, "wnba", id_system = "nba_api")` is the
   Aces). Under `"auto"` an ESPN id wins over an equal NCAA id, so pass
   `id_system = "ncaa"` for NCAA ids.
-
 - The soccer article’s ESPN shot map keeps penalties (`Penalty - Scored`
   / `Penalty - Missed`), and its StatsBomb map notes why a 4-2 final
   shows five goals: the own goal is its own event type (sdvplot#101).
-
-## sdvplotR 0.3.0
-
-First CRAN release. Earlier development builds were published only on
-r-universe, every one of them numbered 0.1.0 (no 0.1.0 or 0.2.0 was
-released to CRAN or tagged), so this section describes the whole
-package.
+- [`theme_title_image()`](https://sdvplotR.sportsdataverse.org/reference/ggtitle_image.md)
+  and the image axis scales
+  ([`scale_x_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_axes_sdv.md)
+  and the rest) read each image before ‘gridtext’ draws it. An image
+  that cannot be read (an unreachable host, offline) is left out with a
+  warning, and an axis label falls back to its text, where ‘gridtext’
+  used to stop the plot with an error. A failed read is not tried again
+  in the session until
+  [`sdv_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdv_clear_cache.md).
+  SVG paths are passed through unchanged: ‘gridtext’ never reads one,
+  and draws it blank.
+- The logo manifest is cached gzipped (about 2 MB instead of 18.7 MB in
+  `tools::R_user_dir("sdvplotR", "cache")`).
 
 ### sportyR 2.4.5 and the CRAN submission
 

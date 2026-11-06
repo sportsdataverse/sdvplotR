@@ -35,7 +35,7 @@ url <- paste0(
 windows <- as.data.frame(nflreadr::load_from_url(url))
 stopifnot(nrow(windows) > 0)
 dim(windows)
-#> [1] 26790    20
+#> [1] 26794    20
 names(windows)
 #>  [1] "season"          "entity_type"     "entity_id"       "entity_name"    
 #>  [5] "team_id"         "metric"          "window_unit"     "window_n"       
@@ -58,15 +58,15 @@ Each row is one player or team, one metric and one window size.
 
 count(windows, entity_type, metric, window_unit, window_n)
 #>    entity_type       metric window_unit window_n    n
-#> 1       player          epa       carry       50 2186
-#> 2       player          epa       carry      100 2186
+#> 1       player          epa       carry       50 2187
+#> 2       player          epa       carry      100 2187
 #> 3       player          epa    dropback       50  685
 #> 4       player          epa    dropback      100  685
 #> 5       player          epa    dropback      300  685
 #> 6       player          epa      target       30 3248
 #> 7       player          epa      target       60 3248
-#> 8       player success_rate       carry       50 2186
-#> 9       player success_rate       carry      100 2186
+#> 8       player success_rate       carry       50 2187
+#> 9       player success_rate       carry      100 2187
 #> 10      player success_rate    dropback       50  685
 #> 11      player success_rate    dropback      100  685
 #> 12      player success_rate    dropback      300  685
@@ -85,7 +85,7 @@ This file is the season in progress. The date shows how current it is:
 as_of <- unique(windows$as_of_date)
 stopifnot(length(as_of) == 1)
 as_of
-#> [1] "2026-10-31"
+#> [1] "2026-11-03"
 ```
 
 ## Risers and fallers
@@ -120,10 +120,10 @@ movers
 #> 2   Risers    San Diego State Aztecs -0.18821350  0.28609547 150 96.929825
 #> 3   Risers            Memphis Tigers -0.04037864  0.30485616 150 97.807018
 #> 4   Risers        Delaware Blue Hens -0.06975082  0.27173343 150 95.614035
-#> 5   Risers              Oregon Ducks -0.19824620  0.14135827 150 85.964912
+#> 5   Risers              Oregon Ducks -0.19824620  0.14135827 150 85.526316
 #> 6  Fallers    Northern Iowa Panthers  0.27039169 -0.29584162 150  6.140351
 #> 7  Fallers      Holy Cross Crusaders  0.27948097 -0.20416812 150 18.859649
-#> 8  Fallers      Alabama Crimson Tide  0.35902022 -0.07098271 150 44.298246
+#> 8  Fallers      Alabama Crimson Tide  0.35902022 -0.07098271 150 43.859649
 #> 9  Fallers Northwestern State Demons -0.13158858 -0.54315963 150  0.000000
 #> 10 Fallers Eastern Washington Eagles  0.14616080 -0.22776833 150 16.228070
 #>    delta_prev_rank

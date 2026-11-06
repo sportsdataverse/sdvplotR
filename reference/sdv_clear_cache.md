@@ -3,8 +3,9 @@
 sdvplotR keeps the team index, the logo manifest and the NFL headshot
 map in memory for the session, keeps the index and manifest on disk (in
 `tools::R_user_dir("sdvplotR", "cache")`) for a day. This clears them,
-and the image cache of 'ggpath' when 'ggpath' provides a way to, so the
-next call reads the CDN again.
+the images it could not read this session, and the image cache of
+'ggpath' when 'ggpath' provides a way to, so the next call reads the CDN
+again.
 
 ## Usage
 

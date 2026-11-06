@@ -67,9 +67,12 @@ inline images on the text baseline and ignores CSS `vertical-align`, so
 a logo taller than the text would rise above it (ESPN's marks, padded
 with transparent space, can sit wholly above the title).
 `theme_title_image()` lines the middle of each image up with the middle
-of the capital letters on its line. Setting `plot.title` to a plain
+of the capital letters on its line. It reads the image when the plot is
+drawn, and leaves out (with a warning) one that cannot be read, such as
+a logo while offline. Setting `plot.title` to a plain
 [`ggtext::element_markdown()`](https://wilkelab.org/ggtext/reference/element_markdown.html)
-instead also renders the image, on the baseline.
+instead also renders the image, on the baseline, but stops with an error
+when it cannot be read.
 
 Style the title through `theme_title_image(...)` (`size`, `face`,
 `hjust`, ...), never with a later `theme(plot.title = ...)`: adding

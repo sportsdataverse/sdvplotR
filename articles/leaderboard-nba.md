@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-04:** the 2026-27 season through November 2.
+**Updated 2026-11-06:** the 2026-27 season through November 4.
 
 This page is rebuilt every week with the site. It builds the standings
 with offensive, defensive and net ratings, charts net rating with logos
@@ -112,12 +112,12 @@ head(ratings)
 #> # A tibble: 6 × 10
 #>   team      w     l   l10  ortg  drtg   pct   net name          conference
 #>   <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl> <chr>         <chr>     
-#> 1 HOU       7     1     7  119. 106.  0.875 12.8  Rockets       Western   
-#> 2 PHI       7     1     7  108. 102.  0.875  5.60 76ers         Eastern   
-#> 3 MEM       6     1     6  118. 106.  0.857 12.3  Grizzlies     Western   
-#> 4 DET       6     1     6  111.  99.6 0.857 11.5  Pistons       Eastern   
-#> 5 POR       5     1     5  118. 107.  0.833 10.6  Trail Blazers Western   
-#> 6 LAL       6     2     6  119. 112.  0.75   7.03 Lakers        Western
+#> 1 PHI       8     1     8  108.  103. 0.889  5.63 76ers         Eastern   
+#> 2 POR       6     1     6  119.  108. 0.857 10.9  Trail Blazers Western   
+#> 3 HOU       7     2     7  117.  107. 0.778 10.3  Rockets       Western   
+#> 4 LAL       7     2     7  118.  111. 0.778  7.67 Lakers        Western   
+#> 5 MEM       6     2     6  116.  105. 0.75  10.3  Grizzlies     Western   
+#> 6 DET       6     2     6  110.  101. 0.75   9.30 Pistons       Eastern
 ```
 
 ## 1. Standings with net rating

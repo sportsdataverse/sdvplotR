@@ -71,8 +71,8 @@ gt_outliers(
 
 - symbol:
 
-  Optional. A marker appended to flagged values, such as `"†"`. Defaults
-  to `NULL`.
+  Optional. A marker appended to flagged values, such as a dagger
+  (`"\u2020"`). Defaults to `NULL`.
 
 - note:
 

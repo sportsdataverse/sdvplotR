@@ -326,8 +326,11 @@ inline images on the text baseline and ignores CSS <code>vertical-align</code>, 
 logo taller than the text would rise above it (ESPN's marks, padded with
 transparent space, can sit wholly above the title). <code>theme_title_image()</code>
 lines the middle of each image up with the middle of the capital letters
-on its line. Setting <code>plot.title</code> to a plain <code><a href="https://wilkelab.org/ggtext/reference/element_markdown.html" class="external-link">ggtext::element_markdown()</a></code>
-instead also renders the image, on the baseline.</p>
+on its line. It reads the image when the plot is drawn, and leaves out
+(with a warning) one that cannot be read, such as a logo while offline.
+Setting <code>plot.title</code> to a plain <code><a href="https://wilkelab.org/ggtext/reference/element_markdown.html" class="external-link">ggtext::element_markdown()</a></code> instead also
+renders the image, on the baseline, but stops with an error when it cannot
+be read.</p>
 <p>Style the title through <code>theme_title_image(...)</code> (<code>size</code>, <code>face</code>,
 <code>hjust</code>, ...), never with a later <code>theme(plot.title = ...)</code>: adding
 <code>theme(plot.title = ggtext::element_markdown(hjust = 0.5))</code> after it
