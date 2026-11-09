@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# **sdvplotR** <a href='https://sdvplotR.sportsdataverse.org/'><img src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png" align="right" width="25%" min-width="120px"/></a>
+# **sdvplotR** <a href='https://sdvplotR.sportsdataverse.org/'><img alt="sdvplotR hex logo" src="https://raw.githubusercontent.com/sportsdataverse/sdvplotR/main/man/figures/logo.png" align="right" width="25%" min-width="120px"/></a>
 
 <!-- badges: start -->
 
@@ -18,7 +18,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=for-the-badge&logo=github)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/blob/main/LICENSE.md)
 [![Contributors](https://img.shields.io/github/contributors/sportsdataverse/sdvplotR?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/graphs/contributors)
-[![GitHub stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR?style=for-the-badge&logo=github)](https://github.com/sportsdataverse/sdvplotR/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR?style=for-the-badge&logo=github)](https://github.com/sportsdataverse/sdvplotR)
 [![X
 Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
 [![PyPI
