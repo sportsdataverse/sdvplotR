@@ -156,6 +156,19 @@ in_division <- function(t, league, division, call = rlang::caller_env()) {
       i = "{.val P4}, {.val P5} and {.val G5} work without it, from conferences."
     ), call = call)
   }
+  # the tiers name conferences by index id: say so if the index has renamed one, rather than drop its teams
+  tier_ids <- c(
+    if (any(c("P4", "P5") %in% tiers)) cfb_power4, if ("P5" %in% tiers) "cfb:pac-12",
+    if ("G5" %in% tiers) c(cfb_group5, "cfb:fbs-independents")
+  )
+  gone <- setdiff(tier_ids, t$conference_id)
+  if (length(gone)) {
+    cli::cli_warn(c(
+      "The team index {.val {sdv_versions()$index_version}} has no teams in {.val {gone}},
+       so {.val {tiers}} may be incomplete.",
+      i = "The conference may have a new id; report it at {.url https://github.com/sportsdataverse/sdvplotR/issues}."
+    ), call = call)
+  }
   conf <- !is.na(t$program) & t$program %in% non_team_programs
   p4 <- !conf & (t$conference_id %in% cfb_power4 | t$team_id %in% cfb_notre_dame)
   p5 <- p4 | (!conf & t$conference_id %in% "cfb:pac-12")
