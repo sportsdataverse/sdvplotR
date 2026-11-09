@@ -127,6 +127,23 @@ test_that("sdv_add_athlete_id matches names, teams and seasons to athlete ids", 
   expect_identical(o5$athlete_id, "4241479")
 })
 
+test_that("sdv_add_athlete_id leaves a row with a missing team unmatched", {
+  local_mocked_bindings(load_roster = function(league, season) {
+    data.frame(season = as.integer(season), athlete_id = "7", name = "Solo Player", team = NA_character_, headshot_url = NA)
+  })
+  out <- sdv_add_athlete_id(data.frame(n = c("Solo Player", "Solo Player"), team = c(NA, "")), n)
+  expect_identical(out$athlete_id, c(NA_character_, NA_character_))
+})
+
+test_that("the tier filters warn when the index has renamed a tier conference", {
+  t <- snapshot_teams
+  t$conference_id[t$conference_id %in% "cfb:sec"] <- "cfb:sec-new"
+  local_mocked_bindings(index_teams = function() t)
+  expect_warning(p4 <- sdv_teams("cfb", division = "P4"), "cfb:sec")
+  expect_false("Alabama" %in% p4$location)
+  expect_no_warning(sdv_teams("cfb", division = "Conference"))
+})
+
 test_that("sdv_add_athlete_id falls back to the season before when the latest is not published", {
   index_aliases() # loaded before use_snapshot() is mocked, so the bundled index is the one read
   local_mocked_bindings(load_roster = function(league, season) {
@@ -172,12 +189,26 @@ test_that("sdv_add_athlete_id reads the published rosters", {
 test_that("sdv_ggpreview saves the plot at the asked size", {
   p <- ggplot2::ggplot(data.frame(x = 1:3, y = 1:3), ggplot2::aes(x, y)) +
     ggplot2::geom_point()
+  opened <- NULL
+  local_mocked_bindings(open_preview = function(file) opened <<- file)
   path <- sdv_ggpreview(p, width = 2, asp = 2, dpi = 50)
   withr::defer(unlink(path))
   expect_true(file.exists(path))
   expect_match(path, "\\.png$")
   info <- magick::image_info(magick::image_read(path))
   expect_identical(c(info$width, info$height), c(100L, 50L))
+  if (interactive()) expect_identical(opened, path) else expect_null(opened)
+  # asp with only a height, and with neither (ggsave's 7 inches)
+  p2 <- sdv_ggpreview(p, height = 1, asp = 2, dpi = 50)
+  withr::defer(unlink(p2))
+  expect_equal(unlist(magick::image_info(magick::image_read(p2))[c("width", "height")]), c(width = 100, height = 50))
+  p3 <- sdv_ggpreview(p, asp = 2, dpi = 10)
+  withr::defer(unlink(p3))
+  expect_equal(unlist(magick::image_info(magick::image_read(p3))[c("width", "height")]), c(width = 70, height = 35))
+  # a device function names the file by its format
+  expect_identical(preview_ext(grDevices::pdf), "pdf")
+  expect_identical(preview_ext("svg"), "svg")
+  expect_identical(preview_ext(function(...) NULL), "png")
 })
 
 test_that("cfbplotR's legacy wordmarks rank after every other source, and an unknown source has a rank", {

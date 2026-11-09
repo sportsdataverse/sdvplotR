@@ -177,7 +177,8 @@ test_that("39: add_athlete_id_col -> sdv_add_athlete_id(league = \"cfb\")", {
 })
 
 test_that("40: ggpreview -> sdv_ggpreview", {
-  path <- sdv_ggpreview(ggplot(df, aes(x, y)) +
+  local_mocked_bindings(open_preview = function(file) invisible(file))
+  path <-sdv_ggpreview(ggplot(df, aes(x, y)) +
     geom_point(), width = 1, asp = 1, dpi = 20)
   withr::defer(unlink(path))
   expect_true(file.exists(path))
