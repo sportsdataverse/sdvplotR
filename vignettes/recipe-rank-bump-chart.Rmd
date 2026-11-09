@@ -25,7 +25,15 @@ the teams that climbed most called out and logos at the end of each line. It
 runs 1600 x 900 on the blog and 1200 x 675 on X. The polls come from
 CollegeFootballData.com through cfbfastR (its `cfbd_*()` functions need a free
 API key in `CFBD_API_KEY`); ggplot2 draws the "bump chart" and sdvplotR the
-logos and colors.
+logos and colors. Without a key, or once its monthly calls are spent, the code
+below is shown but not run.
+
+```{r cfbd-key}
+# a key with calls left this month: CFBD answers HTTP 429 with no rows once they are spent
+has_key <- isTRUE(tryCatch(cfbfastR::cfbd_api_key_info()$remaining_calls > 0, error = function(e) FALSE))
+if (!has_key) cat("CFBD_API_KEY is not set or has no calls left, so the chunks below are shown but not run.\n")
+knitr::opts_chunk$set(eval = has_key)
+```
 
 ```{r setup}
 library(sdvplotR)
@@ -69,7 +77,7 @@ ggplot(ap, aes(poll_no, rank, color = school)) +
   geom_line()
 ```
 
-Spaghetti: `r n_distinct(ap$school)` lines in near-identical hues, a legend
+Spaghetti: `r if (has_key) n_distinct(ap$school) else "dozens of"` lines in near-identical hues, a legend
 nobody can match to them, No. 1 at the bottom, and a line drawn straight across
 the weeks a team dropped out of the poll, as if it had been ranked all along.
 

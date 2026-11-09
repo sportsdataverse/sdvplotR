@@ -42,9 +42,22 @@ in-cell charts read, for a small chart later. `summarise()` sees its own earlier
 results, so the margins and the last game's score are taken before `pf` and
 `pa` become season averages.
 
+```{r data-load, eval = FALSE}
+schedule <- cfbfastR::load_cfb_schedules(season)
+```
+
+```{r data-load-fixture, include = FALSE}
+fx <- readRDS("fixtures/cfb-viz/cfb_schedule.rds")
+schedule <- fx$schedule
+```
+
+The output below uses a snapshot of that call taken on
+`r format(fx$taken, "%B %d, %Y")`, the one [the college football tutorial](cfb-viz.html)
+reads, because CollegeFootballData.com caps a key's calls each month and the site
+build cannot rely on one; `data-raw/article_fixtures.R` takes it with the same code.
+
 ```{r data}
-schedule <- cfbfastR::load_cfb_schedules(season) |>
-  filter(completed)
+schedule <- filter(schedule, completed)
 
 side <- function(me, opp) {
   transmute(

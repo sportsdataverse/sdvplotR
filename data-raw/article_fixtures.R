@@ -223,7 +223,8 @@ fx_recipe_mlb <- function() {
 }
 
 fx_cfb_viz <- function() {
-  # cfb-viz, chunk schedule (CollegeFootballData.com game info; a finished season, so pinned). CFBD
+  # cfb-viz, chunk schedule (CollegeFootballData.com game info; a finished season, so pinned); also
+  # read by recipe-cfb-conference-table and schedule_matrix, which load the same 2025 schedule. CFBD
   # caps a key's calls a month and answers HTTP 429 with an empty frame once they are spent; then
   # this reads sportsdataverse-data's cfb_schedules release, the same cfbd_game_info() columns
   season <- 2025
@@ -240,7 +241,7 @@ fx_cfb_viz <- function() {
   }
   schedule <- schedule |>
     select(
-      week, season_type, start_date, completed, conference_game, notes,
+      week, season_type, start_date, completed, conference_game, neutral_site, notes,
       home_team, home_conference, home_division, home_points,
       away_team, away_conference, away_division, away_points
     )

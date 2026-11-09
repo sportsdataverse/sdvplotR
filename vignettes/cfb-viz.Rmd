@@ -83,7 +83,7 @@ schedule <- fx$schedule
 ```
 
 The output below uses a snapshot of that call taken on
-`r format(fx$taken, "%B %d, %Y")` (`r fx$package`), because CollegeFootballData.com
+`r format(fx$taken, "%B %d, %Y")` from `r fx$call`, because CollegeFootballData.com
 caps a key's calls each month and the site build cannot rely on one;
 `data-raw/article_fixtures.R` takes it with the same code. The ratings and the
 series history are live calls through `live()`: when CFBD refuses one (HTTP 429,
