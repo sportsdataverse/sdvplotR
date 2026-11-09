@@ -246,7 +246,15 @@ standings table wants.
 The last table puts a final ranking next to where each team started. The
 preseason AP poll is week 1 of the regular season in
 CollegeFootballData.com’s rankings, and the final poll is the only poll
-of the postseason.
+of the postseason. The polls need a CollegeFootballData.com key in
+`CFBD_API_KEY`; without one, or once its monthly calls are spent, this
+section’s code is shown but not run.
+
+``` r
+
+# a key with calls left this month (a margin for the articles built after this one): CFBD answers HTTP 429 with no rows once they are spent
+has_key <- isTRUE(tryCatch(cfbfastR::cfbd_api_key_info()$remaining_calls > 10, error = function(e) FALSE))
+```
 
 ``` r
 

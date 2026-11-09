@@ -347,7 +347,15 @@ fold the schedule’s <code>neutral_site</code> flag into that column as a
 third value, then keep the SEC. Week 15 holds only the conference title
 games, so the matrix stops at week 14.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sec</span> <span class="op">&lt;-</span> <span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/load_cfb_schedules.html" class="external-link">load_cfb_schedules</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="va">schedule</span> <span class="op">&lt;-</span> <span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/load_cfb_schedules.html" class="external-link">load_cfb_schedules</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span></code></pre></div>
+<p>The output below uses a snapshot of that call taken on November 09,
+2026, the one <a href="cfb-viz.html">the college football tutorial</a>
+reads, because CollegeFootballData.com caps a key’s calls each month and
+the site build cannot rely on one;
+<code>data-raw/article_fixtures.R</code> takes it with the same
+code.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sec</span> <span class="op">&lt;-</span> <span class="va">schedule</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season_type</span> <span class="op">==</span> <span class="st">"regular"</span>, <span class="va">week</span> <span class="op">&lt;=</span> <span class="fl">14</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">week</span>, <span class="va">home_team</span>, <span class="va">away_team</span>, <span class="va">home_conference</span>, <span class="va">away_conference</span>, <span class="va">neutral_site</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/clean_homeaway.html" class="external-link">clean_homeaway</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -359,7 +367,7 @@ games, so the matrix stops at week 14.</p>
 <code><a href="../reference/gt_sdv_logos.html">gt_sdv_logos()</a></code> resolves a name like
 <code>"Texas A&amp;M"</code> or <code>"Central Arkansas"</code> to the
 school’s logo when the table renders, FBS and FCS alike.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">opponents</span> <span class="op">&lt;-</span> <span class="va">sec</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">team</span>, names_from <span class="op">=</span> <span class="va">week</span>, values_from <span class="op">=</span> <span class="va">opponent</span>, names_sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -374,7 +382,7 @@ school’s logo when the table renders, FBS and FCS alike.</p>
 <p><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider()</a></code> on the opponent loses the location. Pivot
 it into its own frame of the same shape and turn each state into a
 logical mask.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">locations</span> <span class="op">&lt;-</span> <span class="va">sec</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">team</span>, names_from <span class="op">=</span> <span class="va">week</span>, values_from <span class="op">=</span> <span class="va">location</span>, names_sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">locations</span> <span class="op">&lt;-</span> <span class="va">locations</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">opponents</span><span class="op">$</span><span class="va">team</span>, <span class="va">locations</span><span class="op">$</span><span class="va">team</span><span class="op">)</span>, <span class="va">wk</span><span class="op">]</span></span>
@@ -401,7 +409,7 @@ counterpart to <code><a href="https://jthomasmock.github.io/gtExtras/reference/g
 <code><a href="https://jthomasmock.github.io/gtExtras/reference/gt_highlight_rows.html" class="external-link">gt_highlight_rows()</a></code>, which fill whole columns or rows.
 Anything in <code>...</code> goes to <code><a href="https://gt.rstudio.com/reference/cell_text.html" class="external-link">gt::cell_text()</a></code> for
 the filled cells, which is how the byes get small grey type.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ... |&gt;</span></span>
 <span><span class="fu"><a href="../reference/gt_highlight_cells.html">gt_highlight_cells</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">wk</span><span class="op">)</span>, condition <span class="op">=</span> <span class="va">home_mask</span>, fill <span class="op">=</span> <span class="st">"#FBE7C6"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_highlight_cells.html">gt_highlight_cells</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">wk</span><span class="op">)</span>, condition <span class="op">=</span> <span class="va">away_mask</span>, fill <span class="op">=</span> <span class="st">"#FFFFFF"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -421,7 +429,7 @@ school’s full name. On the team column, <code>include_name = TRUE</code>
 keeps the name beside its logo. The byes are filled in with
 <code><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing()</a></code>; a cell that names no team passes through
 <code><a href="../reference/gt_sdv_logos.html">gt_sdv_logos()</a></code> as text.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ... |&gt;</span></span>
 <span><span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">wk</span><span class="op">)</span>, missing_text <span class="op">=</span> <span class="st">"BYE"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_sdv_logos.html">gt_sdv_logos</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">wk</span><span class="op">)</span>, league <span class="op">=</span> <span class="st">"cfb"</span>, height <span class="op">=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -441,7 +449,7 @@ same keys as every other style list in the package (see <a href="styling.html">S
 <div class="section level2">
 <h2 id="the-sec-matrix">The SEC matrix<a class="anchor" aria-label="anchor" href="#the-sec-matrix"></a>
 </h2>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">location_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Home game"</span> <span class="op">=</span> <span class="st">"#FBE7C6"</span>, <span class="st">"Away game"</span> <span class="op">=</span> <span class="st">"#FFFFFF"</span>,</span>
 <span>  <span class="st">"Neutral site"</span> <span class="op">=</span> <span class="st">"#CFE0C3"</span>, <span class="st">"Bye week"</span> <span class="op">=</span> <span class="st">"#E4E4E4"</span></span>
@@ -1134,7 +1142,7 @@ same keys as every other style list in the package (see <a href="styling.html">S
 <td headers="a10" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2e/2e70460ca7c02a03d238ec4d9dce163a22401bfaa9842cbbf2f1ac1a991d6d50.png" style="height:24px;" alt="Florida Gators"></td>
 <td headers="a11" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FFFFFF; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/18/1854b6d52609c4db7daacc59ce122017c3eabd2e70b9c66deeec297183d4d46b.png" style="height:24px;" alt="Mississippi State Bulldogs"></td>
 <td headers="a12" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12d69bb78c3443bdbcc5a7659f288840a7a3862d70043eda3d8868a229eb7696.png" style="height:24px;" alt="Texas Longhorns"></td>
-<td headers="a13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;">Charlotte</td>
+<td headers="a13" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #FBE7C6; border-right-width: 2px; border-right-style: solid; border-right-color: black;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/96/96a23e7c40183c7731402eae581979de7a704893cfd46be206f198a24bf948da.png" style="height:24px;" alt="Charlotte 49ers"></td>
 <td headers="a14" class="gt_row gt_center" style="color: #141719; font-size: 12px; font-weight: 500; background-color: #CFE0C3;"><img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c5/c50e6dcbe550c656e79729b1dc4d348a2deeb66dec33a331f9df4cb23885ce99.png" style="height:24px;" alt="Georgia Tech Yellow Jackets"></td>
 </tr>
 <tr>
@@ -1360,7 +1368,7 @@ week, one column per weekday, the opponent’s logo on each game day. We
 find the team with the most regular-season wins (alphabetical order
 breaks a tie, so a rebuild picks the same team), then keep its
 games.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the NBA Cup final is filed as a regular-season game but counts in no record</span></span>
 <span><span class="va">cup_final</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_nba_pbp.html" class="external-link">load_nba_schedule</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">type_abbreviation</span> <span class="op">==</span> <span class="st">"CC"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1392,7 +1400,7 @@ of its week. Two pivots from the same frame give the logos and the
 results, and <code><a href="https://tidyr.tidyverse.org/reference/complete.html" class="external-link">complete()</a></code> adds any week without a game (an
 All-Star break can leave one), so the weeks run down the calendar
 without a gap.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_weeks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">games</span><span class="op">$</span><span class="va">week_of</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">games</span><span class="op">$</span><span class="va">week_of</span><span class="op">)</span>, by <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">calendar</span> <span class="op">&lt;-</span> <span class="va">games</span> <span class="op">|&gt;</span></span>
@@ -1419,7 +1427,7 @@ page.</p>
 own colors: the title block in its primary color and the line under the
 labels in its secondary. The fills sit under the logos, so a glance down
 the grid shows the streaks.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">team_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span><span class="op">$</span><span class="va">name</span><span class="op">[</span><span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"nba"</span><span class="op">)</span><span class="op">$</span><span class="va">abbr</span> <span class="op">==</span> <span class="va">best</span><span class="op">$</span><span class="va">team_abbreviation</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">calendar</span> <span class="op">|&gt;</span></span>
@@ -2279,12 +2287,12 @@ drawing a hard rule through the logos.</p>
 <p>To cite the <a href="https://sdvplotR.sportsdataverse.org/"><strong><code>sdvplotR</code></strong></a>
 R package in publications, use:</p>
 <p>BibTeX Citation</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="related-sportsdataverse-packages">

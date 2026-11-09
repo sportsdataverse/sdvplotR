@@ -7,6 +7,55 @@ r-universe, every one of them numbered 0.1.0 (no 0.1.0 or 0.2.0 was
 released to CRAN or tagged), so this section describes the whole
 package.
 
+### What cfbplotR does
+
+The cfbplotR features sdvplotR lacked; every other cfbplotR export
+already had a counterpart with `league = "cfb"`:
+
+- [`scale_color_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md),
+  [`scale_colour_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
+  and
+  [`scale_fill_sdv()`](https://sdvplotR.sportsdataverse.org/reference/scale_sdv.md)
+  take `alt_colors`, teams drawn in their other colour (cfbplotR’s
+  `alt_colors`).
+- [`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
+  takes `division`: `"P4"`, `"P5"` and `"G5"` from each college football
+  team’s conference in the index, `"FBS"`, `"FCS"`, `"DI"`, `"DII"` and
+  `"DIII"` from the index’s new `division` column, and `"Conference"`
+  (cfbplotR’s division filter).
+  [`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
+  has a `division` column; the bundled snapshot carries it, so the
+  division filters work offline, and it is `NA` only in an older cached
+  index.
+- [`sdv_clean_names()`](https://sdvplotR.sportsdataverse.org/reference/sdv_clean_names.md)
+  cleans names, abbreviations and ids to one display name per team,
+  keeping values that do not resolve unless `keep_non_matches = FALSE`
+  (cfbplotR’s `clean_school_names()` and its alias).
+- [`sdv_aliases()`](https://sdvplotR.sportsdataverse.org/reference/sdv_aliases.md)
+  returns the index’s alias table (cfbplotR’s `team_name_mapping`);
+  [`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
+  with
+  [`sdv_logo_url()`](https://sdvplotR.sportsdataverse.org/reference/sdv_logo_url.md)
+  stands in for `logo_ref` (its examples show how).
+- [`sdv_add_athlete_id()`](https://sdvplotR.sportsdataverse.org/reference/sdv_add_athlete_id.md)
+  adds ESPN athlete ids to a data frame of college football player
+  names, matched on name, team and season to cfbfastR-data’s rosters
+  (cfbplotR’s `add_athlete_id_col()`). A name that matches more than one
+  athlete is left `NA`; offline it warns and returns `NA` ids.
+- cfbplotR’s wordmarks, archived in sdv-assets as source
+  `"cfbplotr-legacy"`, rank after every other source when a team has
+  more than one wordmark. The bundled team index (`e04c50e5682e`) maps
+  360 of those 362 college wordmarks, so
+  `geom_sdv_wordmarks(league = "cfb")`,
+  [`gt_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_wordmarks.md)
+  and
+  [`element_sdv_wordmark()`](https://sdvplotR.sportsdataverse.org/reference/element_sdv.md)
+  draw most FBS and FCS teams, and it carries the `division` column
+  `sdv_teams(division = "FBS")` reads.
+- [`sdv_ggpreview()`](https://sdvplotR.sportsdataverse.org/reference/sdv_ggpreview.md)
+  previews a plot at the size it will be saved (nflplotR’s and
+  cfbplotR’s `ggpreview()`; ‘rstudioapi’ in RStudio, now in `Suggests`).
+
 ### Provider ids and unreadable images
 
 - The team index carries Fox, Yahoo, CBS, 247Sports, On3, KenPom and
@@ -94,6 +143,10 @@ package.
   ([\#70](https://github.com/sportsdataverse/sdvplotR/issues/70)). A
   golden file of sdvplot’s answers for every non-ASCII team alias checks
   it.
+- The Latin letters NFKD leaves whole fold as well, as in sdvplot: ø to
+  o, æ to ae, œ to oe, đ and ð to d, ł to l, þ to th and the dotless ı
+  to i, so `sdv_resolve("HB Koge", "soccer")` finds HB Køge
+  ([\#70](https://github.com/sportsdataverse/sdvplotR/issues/70)).
 
 ### Overview
 

@@ -331,8 +331,15 @@ a small chart later. <code><a href="https://dplyr.tidyverse.org/reference/summar
 results, so the margins and the last game’s score are taken before
 <code>pf</code> and <code>pa</code> become season averages.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">schedule</span> <span class="op">&lt;-</span> <span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/load_cfb_schedules.html" class="external-link">load_cfb_schedules</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">completed</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">schedule</span> <span class="op">&lt;-</span> <span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/load_cfb_schedules.html" class="external-link">load_cfb_schedules</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span></span></code></pre></div>
+<p>The output below uses a snapshot of that call taken on November 09,
+2026, the one <a href="cfb-viz.html">the college football tutorial</a>
+reads, because CollegeFootballData.com caps a key’s calls each month and
+the site build cannot rely on one;
+<code>data-raw/article_fixtures.R</code> takes it with the same
+code.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">schedule</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">schedule</span>, <span class="va">completed</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">side</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">me</span>, <span class="va">opp</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span></span>
@@ -387,7 +394,7 @@ results, so the margins and the last game’s score are taken before
 <h2 id="the-first-draft">2. The first draft<a class="anchor" aria-label="anchor" href="#the-first-draft"></a>
 </h2>
 <p>Hand the frame to gt as it is.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">standings</span><span class="op">)</span></span></code></pre></div>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mwlefoodfi table {
@@ -1139,7 +1146,7 @@ one short line (“W 27-21 vs Miami, CFP National Championship”), which is
 where the national title shows up. Columns get real labels, conference
 and overall records sit under spanners, and the averages get one
 decimal.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">event</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">x</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">" Presented by.*"</span>, <span class="st">""</span>, x <span class="op">=</span> <span class="va">_</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1795,7 +1802,7 @@ decimal.</p>
 column still reads as text. The margins string becomes a nanoplot, gt’s
 in-cell bar chart: one bar per game, green for a win and red for a loss,
 so a perfect season is a solid green row.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">margin_bars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/nanoplot_options.html" class="external-link">nanoplot_options</a></span><span class="op">(</span></span>
 <span>  data_bar_fill_color <span class="op">=</span> <span class="st">"#2e8540"</span>,</span>
 <span>  data_bar_negative_fill_color <span class="op">=</span> <span class="st">"#c0392b"</span>,</span>
@@ -2664,7 +2671,7 @@ credits the data. The champion’s row gets a soft fill in its own color
 from <code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</a></code>, and a footnote owns up to the
 ordering: teams tied on conference record are listed by overall record,
 which is not the conference’s tiebreaker.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">champ</span> <span class="op">&lt;-</span> <span class="va">standings</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="va">champ</span><span class="op">$</span><span class="va">l</span> <span class="op">==</span> <span class="fl">0</span>, <span class="va">champ</span><span class="op">$</span><span class="va">last_won</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"National Championship"</span>, <span class="va">champ</span><span class="op">$</span><span class="va">last_event</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">fill</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"cfb"</span>, <span class="va">champ</span><span class="op">$</span><span class="va">team</span><span class="op">)</span>, <span class="st">"1F"</span><span class="op">)</span> <span class="co"># the primary color at 12% opacity</span></span>
@@ -3607,7 +3614,7 @@ the email’s 1600 px. <code><a href="../reference/gt_social_crop.html">gt_socia
 table on a square canvas for Instagram, never cropping it: it pads
 whichever way the table needs, side padding for a tall table and room
 above and below for a wide one like this.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">newsletter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gt_save_crop.html">gt_save_crop</a></span><span class="op">(</span><span class="va">final</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"big_ten_1600.png"</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">1600</span><span class="op">)</span></span>
 <span><span class="va">square</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gt_social_crop.html">gt_social_crop</a></span><span class="op">(</span></span>
 <span>  <span class="va">final</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"big_ten_1080x1080.png"</span><span class="op">)</span>,</span>
@@ -3622,7 +3629,7 @@ above and below for a wide one like this.</p>
 <span><span class="fu">magick</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/magick/reference/editing.html" class="external-link">image_read</a></span><span class="op">(</span><span class="va">newsletter</span><span class="op">)</span></span></code></pre></div>
 <p><img src="recipe-cfb-conference-table_files/figure-html/export-1.png" class="r-plt" alt="The finished Big Ten standings table exported 1600 pixels wide for the newsletter." width="800"></p>
 <p>The square cut keeps the whole table and pads above and below it:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">magick</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/magick/reference/editing.html" class="external-link">image_read</a></span><span class="op">(</span><span class="va">square</span><span class="op">)</span></span></code></pre></div>
 <p><img src="recipe-cfb-conference-table_files/figure-html/export-square-1.png" class="r-plt" alt="The same table centered on a 1080 by 1080 pixel square for Instagram." width="540"></p>
 </div>
@@ -3659,12 +3666,12 @@ above and below for a wide one like this.</p>
 <p>To cite the <a href="https://sdvplotR.sportsdataverse.org/"><strong><code>sdvplotR</code></strong></a>
 R package in publications, use:</p>
 <p>BibTeX Citation</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="related-sportsdataverse-packages">

@@ -11,6 +11,7 @@ scale_color_sdv(
   which = c("primary", "secondary"),
   values = NULL,
   ...,
+  alt_colors = NULL,
   aesthetics = "colour",
   breaks = ggplot2::waiver(),
   na.value = "grey50",
@@ -23,6 +24,7 @@ scale_colour_sdv(
   which = c("primary", "secondary"),
   values = NULL,
   ...,
+  alt_colors = NULL,
   aesthetics = "colour",
   breaks = ggplot2::waiver(),
   na.value = "grey50",
@@ -35,6 +37,7 @@ scale_fill_sdv(
   which = c("primary", "secondary"),
   values = NULL,
   ...,
+  alt_colors = NULL,
   aesthetics = "fill",
   breaks = ggplot2::waiver(),
   na.value = "grey50",
@@ -65,6 +68,15 @@ scale_fill_sdv(
   [`ggplot2::scale_color_manual()`](https://ggplot2.tidyverse.org/reference/scale_manual.html)
   or
   [`ggplot2::scale_fill_manual()`](https://ggplot2.tidyverse.org/reference/scale_manual.html).
+
+- alt_colors:
+
+  Teams (any identifier
+  [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
+  accepts) drawn in their other colour: the secondary one, or the
+  primary one with `which = "secondary"`. A team with no other colour
+  keeps its own. Ignored when `values` is given. The counterpart of
+  cfbplotR's `alt_colors`.
 
 - aesthetics:
 
@@ -112,6 +124,14 @@ ggplot(df, aes(x = teams, y = random_value)) +
   scale_fill_sdv(league = "nfl", alpha = 0.4) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+# college football, with Alabama and Utah in their secondary colours
+cfb <- data.frame(y = 6:9, teams = c("Alabama", "Florida State", "Oregon", "Utah"))
+ggplot(cfb, aes(x = teams, y = y)) +
+  geom_col(aes(fill = teams)) +
+  scale_fill_sdv(league = "cfb", alt_colors = c("Alabama", "Utah")) +
+  theme_minimal()
 
 # }
 ```

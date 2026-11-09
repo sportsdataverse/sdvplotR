@@ -56,7 +56,17 @@ are estimated from the box score.
 
 ``` r
 
-box <- hoopR::load_mbb_team_box(seasons = 2026) |>
+box <- hoopR::load_mbb_team_box(seasons = 2026)
+```
+
+The tables below use snapshots of this article’s three data calls, taken
+on November 09, 2026, because a GitHub release read that fails returns
+an empty frame and would stop the site build;
+`data-raw/article_fixtures.R` takes them with the same code.
+
+``` r
+
+box <- box |>
   mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
 
 champion <- box |>
@@ -258,7 +268,12 @@ appeared in at least 30 games, each with a headshot and team logo.
 
 ``` r
 
-scorers <- wehoop::load_wnba_player_box(2026) |>
+player_box <- wehoop::load_wnba_player_box(2026)
+```
+
+``` r
+
+scorers <- player_box |>
   filter(season_type == 2, !did_not_play) |>
   summarise(
     player = last(athlete_display_name, order_by = game_date),
@@ -324,6 +339,10 @@ row per team.
 ``` r
 
 schedule <- nflreadr::load_schedules(2025)
+```
+
+``` r
+
 
 sb <- filter(schedule, game_type == "SB")
 champ <- if_else(sb$home_score > sb$away_score, sb$home_team, sb$away_team)

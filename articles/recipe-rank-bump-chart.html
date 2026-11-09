@@ -312,8 +312,14 @@ out and logos at the end of each line. It runs 1600 x 900 on the blog
 and 1200 x 675 on X. The polls come from CollegeFootballData.com through
 cfbfastR (its <code>cfbd_*()</code> functions need a free API key in
 <code>CFBD_API_KEY</code>); ggplot2 draws the “bump chart” and sdvplotR
-the logos and colors.</p>
+the logos and colors. Without a key, or once its monthly calls are
+spent, the code below is shown but not run.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># a key with calls left this month (a margin for the articles built after this one): CFBD answers HTTP 429 with no rows once they are spent</span></span>
+<span><span class="va">has_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span><span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/register_cfbd.html" class="external-link">cfbd_api_key_info</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">remaining_calls</span> <span class="op">&gt;</span> <span class="fl">10</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">has_key</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"CFBD_API_KEY is not set or has no calls left, so the chunks below are shown but not run.\n"</span><span class="op">)</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>eval <span class="op">=</span> <span class="va">has_key</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sdvplotR.sportsdataverse.org/">sdvplotR</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -328,7 +334,7 @@ the logos and colors.</p>
 regular season (the first one is the preseason poll) and once more after
 the bowls; numbering the polls in order gives the x axis, with the final
 poll last.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ap</span> <span class="op">&lt;-</span> <span class="fu">cfbfastR</span><span class="fu">::</span><span class="fu"><a href="https://cfbfastR.sportsdataverse.org/reference/cfbd_rankings.html" class="external-link">cfbd_rankings</a></span><span class="op">(</span>year <span class="op">=</span> <span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">poll</span> <span class="op">==</span> <span class="st">"AP Top 25"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>poll_no <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">dense_rank</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">season_type</span> <span class="op">==</span> <span class="st">"postseason"</span>, <span class="fl">100L</span>, <span class="va">week</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -368,7 +374,7 @@ poll last.</p>
 <h2 id="the-first-draft">2. The first draft<a class="anchor" aria-label="anchor" href="#the-first-draft"></a>
 </h2>
 <p>One line per team that was ever ranked, ggplot2’s defaults.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">ap</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">poll_no</span>, <span class="va">rank</span>, color <span class="op">=</span> <span class="va">school</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="recipe-rank-bump-chart_files/figure-html/draft-1.png" class="r-plt" alt="First draft: a tangle of lines, one per team ever ranked in the AP poll, each in a different color, with a legend too long to read and No. 1 at the bottom." width="720"></p>
@@ -388,7 +394,7 @@ seven are light grey for context.</p>
 <p>Two teams in similar reds would read as one line, so each focus
 team’s color is checked against the ones already used and swapped for
 its secondary color when the two are too close.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">top10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span><span class="va">final</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="va">ap</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">school</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">top10</span><span class="op">$</span><span class="va">school</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -451,7 +457,7 @@ nearer the line ends and even ranks one step further right, which gives
 each logo two rows of height. <code>width</code> is a share of the
 panel’s width. The three focus teams keep full-strength logos; the rest
 are faded so the eye goes to the story.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ends</span> <span class="op">&lt;-</span> <span class="va">top10</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">n_polls</span> <span class="op">+</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">rank</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">1</span>, <span class="fl">0.9</span>, <span class="fl">1.9</span><span class="op">)</span>, <span class="co"># odd and even ranks in two columns</span></span>
@@ -479,7 +485,7 @@ are faded so the eye goes to the story.</p>
 the left of the preseason poll so it never sits on a line; the x axis
 gets room for it. The title states the finding and the subtitle what the
 lines are.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">champion</span> <span class="op">&lt;-</span> <span class="va">top10</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span>
 <span><span class="va">champion_pre</span> <span class="op">&lt;-</span> <span class="va">preseason</span><span class="op">$</span><span class="va">pre</span><span class="op">[</span><span class="va">preseason</span><span class="op">$</span><span class="va">school</span> <span class="op">==</span> <span class="va">champion</span><span class="op">$</span><span class="va">school</span><span class="op">]</span></span>
 <span><span class="va">starts</span> <span class="op">&lt;-</span> <span class="va">paths</span> <span class="op">|&gt;</span></span>
@@ -531,7 +537,7 @@ lines are.</p>
 <p>The blog’s 1600 x 900 and X’s 1200 x 675 are both 16:9, so one 8 x
 4.5 in plot serves both, saved at 200 and 150 dpi. Inches times dpi
 gives the exact pixels; the logos scale with their panel.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="fu">bump</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"ap_poll_bump_1600x900.png"</span><span class="op">)</span>,</span>
@@ -581,12 +587,12 @@ gives the exact pixels; the logos scale with their panel.</p>
 <p>To cite the <a href="https://sdvplotR.sportsdataverse.org/"><strong><code>sdvplotR</code></strong></a>
 R package in publications, use:</p>
 <p>BibTeX Citation</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="related-sportsdataverse-packages">

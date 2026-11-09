@@ -539,6 +539,12 @@ cache.
   : Resolve team identifiers to canonical team ids
 - [`sdv_suggest()`](https://sdvplotR.sportsdataverse.org/reference/sdv_suggest.md)
   : Suggest teams for a value that did not resolve
+- [`sdv_clean_names()`](https://sdvplotR.sportsdataverse.org/reference/sdv_clean_names.md)
+  : Clean team names to one display name
+- [`sdv_aliases()`](https://sdvplotR.sportsdataverse.org/reference/sdv_aliases.md)
+  : Team aliases in the sdvplotR index
+- [`sdv_add_athlete_id()`](https://sdvplotR.sportsdataverse.org/reference/sdv_add_athlete_id.md)
+  : Add ESPN athlete ids to a data frame of player names
 - [`sdv_team_colors()`](https://sdvplotR.sportsdataverse.org/reference/sdv_team_colors.md)
   : Team colours
 - [`sdv_color_palette()`](https://sdvplotR.sportsdataverse.org/reference/sdv_color_palette.md)
@@ -555,6 +561,8 @@ cache.
   : Versions of the data sdvplotR is using
 - [`sdv_clear_cache()`](https://sdvplotR.sportsdataverse.org/reference/sdv_clear_cache.md)
   : Clear the sdvplotR caches
+- [`sdv_ggpreview()`](https://sdvplotR.sportsdataverse.org/reference/sdv_ggpreview.md)
+  : Preview a ggplot at the size it will be saved
 
 ## Court and Pitch Coordinates
 

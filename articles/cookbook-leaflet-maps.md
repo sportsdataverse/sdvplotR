@@ -200,11 +200,13 @@ logos.
 CollegeFootballData.com needs a free API key in `CFBD_API_KEY` (get one
 at <https://collegefootballdata.com/key>; see
 [`?cfbfastR::register_cfbd`](https://cfbfastR.sportsdataverse.org/reference/register_cfbd.html)).
-Without one, this section’s code is shown but not run.
+Without one, or once its monthly calls are spent, this section’s code is
+shown but not run.
 
 ``` r
 
-has_key <- nzchar(Sys.getenv("CFBD_API_KEY"))
+# a key with calls left this month (a margin for the articles built after this one): CFBD answers HTTP 429 with no rows once they are spent
+has_key <- isTRUE(tryCatch(cfbfastR::cfbd_api_key_info()$remaining_calls > 10, error = function(e) FALSE))
 ```
 
 ``` r

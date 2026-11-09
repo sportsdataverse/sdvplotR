@@ -2,7 +2,10 @@
 
 Translate player IDs to player headshots and render these images in html
 tables with the 'gt' package. IDs are ESPN athlete IDs by default, or as
-`id_system` says. IDs that resolve to no headshot are left as text.
+`id_system` says. Only IDs that get no headshot URL (missing, malformed,
+or absent from the id map `id_system` reads, such as `"gsis"` or a
+provider's) are left as text. An ID that gets a URL keeps it even when
+the CDN has no photo for it, so that cell can show a broken image.
 
 ## Usage
 

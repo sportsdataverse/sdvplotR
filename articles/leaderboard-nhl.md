@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-06:** the 2026-27 season, 13-17 games in per team.
+**Updated 2026-11-09:** the 2026-27 season, 15-19 games in per team.
 Early-season tables move a lot from week to week.
 
 This page is rebuilt every week with the site. It builds the standings,
@@ -136,44 +136,44 @@ standings |>
 
 | NHL standings, 2026-27 |  |  |  |  |  |  |  |  |  |  |  |  |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|
-| Through Nov 4 (13-17 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
+| Through Nov 8 (15-19 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
 |  | Team | GP | W | L | OTL | PTS | PTS% | GF | GA | DIFF | Last 10 | Streak |
 | Atlantic |  |  |  |  |  |  |  |  |  |  |  |  |
-| ![Boston Bruins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/70/70f79a2352abcf9ea24bcab9e4863ddfcf1a4d329c9edecb3b64bfbda24409ed.png) | Bruins | 17 | 12 | 4 | 1 | 25 | 0.735 | 64 | 40 | +24 | 7-2-1 | W3 |
-| ![Montreal Canadiens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2a/2ab02cb9e6c668e8b981f2b23174be1eb94554b8c3a86dfc5df4f6fb377a8560.png) | Canadiens | 16 | 10 | 3 | 3 | 23 | 0.719 | 57 | 51 | +6 | 7-1-2 | W1 |
-| ![Tampa Bay Lightning](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3f/3f46ba7991bb86ecd35112b65136b507325d023fc43d42e3d8015354363a62b3.png) | Lightning | 15 | 10 | 3 | 2 | 22 | 0.733 | 56 | 46 | +10 | 6-2-2 | W2 |
-| ![Ottawa Senators](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/05/05bddfd77b0f30e13cd4a81708e41cc72cfad5b9d136a11f35eb01016b27c849.png) | Senators | 17 | 10 | 6 | 1 | 21 | 0.618 | 54 | 52 | +2 | 5-4-1 | W1 |
-| ![Florida Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68f45d7aa38031ec83bd985058f943d54274ad890ebf112f4971388ad87d1d4f.png) | Panthers | 16 | 9 | 5 | 2 | 20 | 0.625 | 52 | 47 | +5 | 7-3-0 | W1 |
-| ![Toronto Maple Leafs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2c7646270d2e07f5ea16b277d9ebf916ee8ee0718f3049d123402e38f930e9ba.png) | Maple Leafs | 17 | 8 | 7 | 2 | 18 | 0.529 | 62 | 56 | +6 | 5-4-1 | L1 |
-| ![Buffalo Sabres](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c5/c5ff4ae23f112f73eca9569801e9f5b82366fafaa9f1f3dae535f9cafd673148.png) | Sabres | 15 | 7 | 5 | 3 | 17 | 0.567 | 44 | 51 | −7 | 5-2-3 | L1 |
-| ![Detroit Red Wings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a6/a634a4fcd294b2a439ccb16ab4e554227ec57aac2dfc198014f9f112a612c12d.png) | Red Wings | 17 | 7 | 7 | 3 | 17 | 0.500 | 49 | 52 | −3 | 5-4-1 | L2 |
+| ![Boston Bruins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/70/70f79a2352abcf9ea24bcab9e4863ddfcf1a4d329c9edecb3b64bfbda24409ed.png) | Bruins | 18 | 13 | 4 | 1 | 27 | 0.750 | 68 | 41 | +27 | 7-2-1 | W4 |
+| ![Montreal Canadiens](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2a/2ab02cb9e6c668e8b981f2b23174be1eb94554b8c3a86dfc5df4f6fb377a8560.png) | Canadiens | 17 | 11 | 3 | 3 | 25 | 0.735 | 61 | 53 | +8 | 8-0-2 | W2 |
+| ![Tampa Bay Lightning](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3f/3f46ba7991bb86ecd35112b65136b507325d023fc43d42e3d8015354363a62b3.png) | Lightning | 17 | 11 | 4 | 2 | 24 | 0.706 | 63 | 53 | +10 | 6-2-2 | L1 |
+| ![Ottawa Senators](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/05/05bddfd77b0f30e13cd4a81708e41cc72cfad5b9d136a11f35eb01016b27c849.png) | Senators | 18 | 11 | 6 | 1 | 23 | 0.639 | 58 | 54 | +4 | 5-4-1 | W2 |
+| ![Florida Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/68/68f45d7aa38031ec83bd985058f943d54274ad890ebf112f4971388ad87d1d4f.png) | Panthers | 18 | 9 | 7 | 2 | 20 | 0.556 | 56 | 55 | +1 | 5-5-0 | L2 |
+| ![Buffalo Sabres](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c5/c5ff4ae23f112f73eca9569801e9f5b82366fafaa9f1f3dae535f9cafd673148.png) | Sabres | 17 | 8 | 6 | 3 | 19 | 0.559 | 50 | 57 | −7 | 5-3-2 | L1 |
+| ![Toronto Maple Leafs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2c7646270d2e07f5ea16b277d9ebf916ee8ee0718f3049d123402e38f930e9ba.png) | Maple Leafs | 19 | 8 | 9 | 2 | 18 | 0.474 | 64 | 64 | 0 | 5-5-0 | L3 |
+| ![Detroit Red Wings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a6/a634a4fcd294b2a439ccb16ab4e554227ec57aac2dfc198014f9f112a612c12d.png) | Red Wings | 18 | 7 | 8 | 3 | 17 | 0.472 | 49 | 56 | −7 | 4-5-1 | L3 |
 | Central |  |  |  |  |  |  |  |  |  |  |  |  |
-| ![Minnesota Wild](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b1/b1d7a8e3e887381d590649665080184cacfc50050f767c0723fcc6524ef95188.png) | Wild | 17 | 11 | 3 | 3 | 25 | 0.735 | 56 | 38 | +18 | 7-1-2 | W2 |
-| ![Utah Mammoth](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/26/260a50b0164256131df4675b558f03a748525f8c0b138c23f54f37f63c0958d8.png) | Mammoth | 17 | 10 | 6 | 1 | 21 | 0.618 | 61 | 59 | +2 | 5-4-1 | OT1 |
-| ![Dallas Stars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/58/58fcc157a3b553bd10c7231118623b1e8ef5303e6b93e490e357ab7f5ca6690d.png) | Stars | 16 | 9 | 5 | 2 | 20 | 0.625 | 45 | 38 | +7 | 7-2-1 | OT1 |
-| ![Colorado Avalanche](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/01/01dcc259d7d40935c487a1db0b464d933ebc120db6808bf3d845a2e902d55059.png) | Avalanche | 16 | 9 | 6 | 1 | 19 | 0.594 | 66 | 53 | +13 | 5-4-1 | L1 |
-| ![Nashville Predators](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4d/4d2e7def5af8332185bcfeb59fc9633f4fb30417262aa05e68095d93e4e12c2d.png) | Predators | 15 | 6 | 4 | 5 | 17 | 0.567 | 46 | 48 | −2 | 4-3-3 | W2 |
-| ![St. Louis Blues](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/af/af4f35bdd196d566c9caa33e42dc0cd5284053631cb4a8ef190fb107f9e071b8.png) | Blues | 16 | 7 | 7 | 2 | 16 | 0.500 | 49 | 50 | −1 | 4-5-1 | OT1 |
-| ![Winnipeg Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/45/45d1d6176f1753f419671c1a45bf832042e339a8e47163abfff06337933ded8f.png) | Jets | 17 | 6 | 8 | 3 | 15 | 0.441 | 45 | 60 | −15 | 2-7-1 | W2 |
-| ![Chicago Blackhawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4e/4e3260f13d674c1ec71e6ac7c08f9c6d4680fe4052a087814b66466ddaca15d9.png) | Blackhawks | 17 | 4 | 12 | 1 | 9 | 0.265 | 37 | 67 | −30 | 2-7-1 | L3 |
+| ![Minnesota Wild](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b1/b1d7a8e3e887381d590649665080184cacfc50050f767c0723fcc6524ef95188.png) | Wild | 19 | 12 | 3 | 4 | 28 | 0.737 | 63 | 43 | +20 | 6-1-3 | OT1 |
+| ![Dallas Stars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/58/58fcc157a3b553bd10c7231118623b1e8ef5303e6b93e490e357ab7f5ca6690d.png) | Stars | 17 | 10 | 5 | 2 | 22 | 0.647 | 49 | 41 | +8 | 7-2-1 | W1 |
+| ![Colorado Avalanche](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/01/01dcc259d7d40935c487a1db0b464d933ebc120db6808bf3d845a2e902d55059.png) | Avalanche | 18 | 10 | 6 | 2 | 22 | 0.611 | 72 | 56 | +16 | 5-4-1 | W1 |
+| ![Nashville Predators](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4d/4d2e7def5af8332185bcfeb59fc9633f4fb30417262aa05e68095d93e4e12c2d.png) | Predators | 17 | 8 | 4 | 5 | 21 | 0.618 | 52 | 51 | +1 | 6-2-2 | W4 |
+| ![Utah Mammoth](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/26/260a50b0164256131df4675b558f03a748525f8c0b138c23f54f37f63c0958d8.png) | Mammoth | 18 | 10 | 7 | 1 | 21 | 0.583 | 63 | 63 | 0 | 4-5-1 | L1 |
+| ![Winnipeg Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/45/45d1d6176f1753f419671c1a45bf832042e339a8e47163abfff06337933ded8f.png) | Jets | 18 | 7 | 8 | 3 | 17 | 0.472 | 49 | 63 | −14 | 3-6-1 | W3 |
+| ![St. Louis Blues](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/af/af4f35bdd196d566c9caa33e42dc0cd5284053631cb4a8ef190fb107f9e071b8.png) | Blues | 17 | 7 | 8 | 2 | 16 | 0.471 | 50 | 53 | −3 | 4-5-1 | L1 |
+| ![Chicago Blackhawks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/4e/4e3260f13d674c1ec71e6ac7c08f9c6d4680fe4052a087814b66466ddaca15d9.png) | Blackhawks | 18 | 4 | 13 | 1 | 9 | 0.250 | 39 | 76 | −37 | 1-8-1 | L4 |
 | Metropolitan |  |  |  |  |  |  |  |  |  |  |  |  |
-| ![Carolina Hurricanes](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8b28b34fbd7b4953c550fc9fde1656f68f1f402088f3d86922e3c6ba514330a0.png) | Hurricanes | 18 | 13 | 3 | 2 | 28 | 0.778 | 69 | 43 | +26 | 7-2-1 | W1 |
-| ![New Jersey Devils](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9a/9a10cdba30197130eb999bd19e9f40fb34be153599f09e98e6c7f472e41ef242.png) | Devils | 16 | 11 | 5 | 0 | 22 | 0.688 | 57 | 47 | +10 | 8-2-0 | W3 |
-| ![New York Rangers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7a/7a43515a4551cc0708140f89d2f54d57259dde1498001c29ec28cc5b1d96fa7f.png) | Rangers | 17 | 9 | 7 | 1 | 19 | 0.559 | 51 | 49 | +2 | 4-5-1 | W2 |
-| ![Washington Capitals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/59/5987a4f5511e6bd443042757522b040d1b7a258a4bc488693a250b658cf43a6d.png) | Capitals | 14 | 8 | 6 | 0 | 16 | 0.571 | 49 | 48 | +1 | 5-5-0 | L2 |
-| ![New York Islanders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e6/e6bfc0d1b6d437d6fa09028ac465691ac64154cf396584f1d174bbe32be17921.png) | Islanders | 15 | 7 | 6 | 2 | 16 | 0.533 | 43 | 44 | −1 | 5-3-2 | L2 |
-| ![Columbus Blue Jackets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a1/a140e93fa031bae0464306c52fa24aef3821fa9d17e92cf66939efb6b0d2a957.png) | Blue Jackets | 14 | 7 | 7 | 0 | 14 | 0.500 | 38 | 42 | −4 | 5-5-0 | W2 |
-| ![Pittsburgh Penguins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1b/1b4dc90de4cb2eef301c0d2f9ffefd5cef2e0de1a8ad7d863e96ef686986e00f.png) | Penguins | 16 | 5 | 9 | 2 | 12 | 0.375 | 51 | 58 | −7 | 2-7-1 | L3 |
-| ![Philadelphia Flyers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/04/0411764d10618e764c58e5c9b7e88d9b0dc7c77ebe9813095c338cd485e2dd04.png) | Flyers | 18 | 4 | 10 | 4 | 12 | 0.333 | 39 | 61 | −22 | 4-5-1 | L2 |
+| ![Carolina Hurricanes](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8b28b34fbd7b4953c550fc9fde1656f68f1f402088f3d86922e3c6ba514330a0.png) | Hurricanes | 19 | 14 | 3 | 2 | 30 | 0.789 | 78 | 45 | +33 | 7-2-1 | W2 |
+| ![New Jersey Devils](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/9a/9a10cdba30197130eb999bd19e9f40fb34be153599f09e98e6c7f472e41ef242.png) | Devils | 18 | 13 | 5 | 0 | 26 | 0.722 | 66 | 51 | +15 | 9-1-0 | W5 |
+| ![New York Rangers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7a/7a43515a4551cc0708140f89d2f54d57259dde1498001c29ec28cc5b1d96fa7f.png) | Rangers | 18 | 10 | 7 | 1 | 21 | 0.583 | 55 | 52 | +3 | 4-5-1 | W3 |
+| ![Washington Capitals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/59/5987a4f5511e6bd443042757522b040d1b7a258a4bc488693a250b658cf43a6d.png) | Capitals | 15 | 9 | 6 | 0 | 18 | 0.600 | 53 | 51 | +2 | 6-4-0 | W1 |
+| ![New York Islanders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e6/e6bfc0d1b6d437d6fa09028ac465691ac64154cf396584f1d174bbe32be17921.png) | Islanders | 16 | 7 | 6 | 3 | 17 | 0.531 | 47 | 49 | −2 | 4-3-3 | OT1 |
+| ![Columbus Blue Jackets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a1/a140e93fa031bae0464306c52fa24aef3821fa9d17e92cf66939efb6b0d2a957.png) | Blue Jackets | 15 | 7 | 8 | 0 | 14 | 0.467 | 40 | 47 | −7 | 5-5-0 | L1 |
+| ![Pittsburgh Penguins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1b/1b4dc90de4cb2eef301c0d2f9ffefd5cef2e0de1a8ad7d863e96ef686986e00f.png) | Penguins | 18 | 6 | 10 | 2 | 14 | 0.389 | 58 | 65 | −7 | 3-6-1 | L1 |
+| ![Philadelphia Flyers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/04/0411764d10618e764c58e5c9b7e88d9b0dc7c77ebe9813095c338cd485e2dd04.png) | Flyers | 19 | 4 | 10 | 5 | 13 | 0.342 | 42 | 65 | −23 | 4-4-2 | OT1 |
 | Pacific |  |  |  |  |  |  |  |  |  |  |  |  |
-| ![Edmonton Oilers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f8e95d487f02c85aeb65a200f226b795e7a8de95604df49664962ad473d57666.png) | Oilers | 17 | 11 | 3 | 3 | 25 | 0.735 | 71 | 53 | +18 | 6-2-2 | L1 |
-| ![Vegas Golden Knights](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/91/913da521af36370b9b9a3df6ca6b869c915b54732cc166d369865fbc24197e44.png) | Golden Knights | 18 | 11 | 5 | 2 | 24 | 0.667 | 60 | 50 | +10 | 5-3-2 | W2 |
-| ![Seattle Kraken](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/35/35208c3044f129338b22b3b4de0ca0bf384a2919468fe4077183ef5bcca87fcf.png) | Kraken | 15 | 9 | 5 | 1 | 19 | 0.633 | 54 | 53 | +1 | 6-3-1 | W1 |
-| ![Anaheim Ducks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3b/3b94f09309431a7fbaee2947bf07b99df9c0aac8d61eaba3634e2078a13c5cdc.png) | Ducks | 16 | 8 | 7 | 1 | 17 | 0.531 | 59 | 61 | −2 | 4-5-1 | W3 |
-| ![Calgary Flames](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e1638154eaae178588702673410e00938831f0a9b05512a0c8727c6e45e76a6.png) | Flames | 16 | 7 | 8 | 1 | 15 | 0.469 | 39 | 55 | −16 | 6-3-1 | OT1 |
-| ![San Jose Sharks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/23/23c8bb973fc6e9e57c9f63b74fbf7b1a4e325515371e952579d0e0df13d33a5b.png) | Sharks | 17 | 7 | 9 | 1 | 15 | 0.441 | 44 | 61 | −17 | 3-6-1 | L3 |
-| ![Los Angeles Kings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/92/92c3b54fa5e296730885fb0ed63a5a8c062d50c827ae3ab1733c9529974733ff.png) | Kings | 14 | 5 | 7 | 2 | 12 | 0.429 | 43 | 47 | −4 | 5-5-0 | W1 |
-| ![Vancouver Canucks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/30/306e860f33a92794782c0a365006627d12a73b750e1350afb24592a60b36506c.png) | Canucks | 18 | 3 | 14 | 1 | 7 | 0.194 | 53 | 83 | −30 | 1-8-1 | L4 |
+| ![Edmonton Oilers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f8e95d487f02c85aeb65a200f226b795e7a8de95604df49664962ad473d57666.png) | Oilers | 18 | 12 | 3 | 3 | 27 | 0.750 | 75 | 55 | +20 | 6-2-2 | W1 |
+| ![Vegas Golden Knights](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/91/913da521af36370b9b9a3df6ca6b869c915b54732cc166d369865fbc24197e44.png) | Golden Knights | 19 | 12 | 5 | 2 | 26 | 0.684 | 64 | 51 | +13 | 5-3-2 | W3 |
+| ![Anaheim Ducks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3b/3b94f09309431a7fbaee2947bf07b99df9c0aac8d61eaba3634e2078a13c5cdc.png) | Ducks | 18 | 10 | 7 | 1 | 21 | 0.583 | 69 | 66 | +3 | 6-3-1 | W5 |
+| ![Seattle Kraken](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/35/35208c3044f129338b22b3b4de0ca0bf384a2919468fe4077183ef5bcca87fcf.png) | Kraken | 16 | 9 | 6 | 1 | 19 | 0.594 | 57 | 57 | 0 | 5-4-1 | L1 |
+| ![Calgary Flames](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e1638154eaae178588702673410e00938831f0a9b05512a0c8727c6e45e76a6.png) | Flames | 18 | 8 | 9 | 1 | 17 | 0.472 | 46 | 63 | −17 | 6-3-1 | W1 |
+| ![San Jose Sharks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/23/23c8bb973fc6e9e57c9f63b74fbf7b1a4e325515371e952579d0e0df13d33a5b.png) | Sharks | 19 | 7 | 11 | 1 | 15 | 0.395 | 48 | 69 | −21 | 3-7-0 | L5 |
+| ![Los Angeles Kings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/92/92c3b54fa5e296730885fb0ed63a5a8c062d50c827ae3ab1733c9529974733ff.png) | Kings | 15 | 5 | 8 | 2 | 12 | 0.400 | 45 | 52 | −7 | 5-5-0 | L1 |
+| ![Vancouver Canucks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/30/306e860f33a92794782c0a365006627d12a73b750e1350afb24592a60b36506c.png) | Canucks | 19 | 3 | 15 | 1 | 7 | 0.184 | 55 | 87 | −32 | 1-9-0 | L5 |
 | Data: api-web.nhle.com via fastRhockey \| Viz: sdvplotR |  |  |  |  |  |  |  |  |  |  |  |  |
 
 ## 2. Goal differential

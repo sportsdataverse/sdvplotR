@@ -2,12 +2,13 @@
 
 One row per team: its canonical `team_id` (the key every helper resolves
 to), names, abbreviation, conference and colours. The R counterpart of
-sdvplot's `teams()`.
+sdvplot's `teams()`, and of cfbplotR's team lists by division and its
+`logo_ref` (see the examples).
 
 ## Usage
 
 ``` r
-sdv_teams(league = NULL, include_conferences = FALSE)
+sdv_teams(league = NULL, include_conferences = FALSE, division = NULL)
 ```
 
 ## Arguments
@@ -26,6 +27,32 @@ sdv_teams(league = NULL, include_conferences = FALSE)
   helpers draw them by that key; colour helpers and
   [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
   never answer one.
+
+- division:
+
+  `NULL` (every team), or one or more of `"FBS"`, `"FCS"`, `"DI"`,
+  `"DII"`, `"DIII"`, `"P4"`, `"P5"`, `"G5"` and `"Conference"`: only the
+  teams in any of them, as cfbplotR's division filter keeps. `"FBS"`,
+  `"FCS"`, `"DI"`, `"DII"` and `"DIII"` read the index's `division`
+  column (FBS, FCS, DII and DIII in college football, DI, DII and DIII
+  in the other college leagues); an index that has no divisions for the
+  league (one built before they were added) is an error naming it.
+  `"P4"`, `"P5"` and `"G5"` are college football's, from each team's
+  conference in the index, so they follow realignment as the index does:
+
+  - `"P4"`: the ACC, Big Ten, Big 12 and SEC, and Notre Dame.
+
+  - `"P5"`: the P4 and the Pac-12, with the Pac-12's members as the
+    index lists them (the conference rebuilt for 2026 in the current
+    index; cfbplotR's P5 keeps the Pac-12 of 2023).
+
+  - `"G5"`: the American, Conference USA, the MAC, the Mountain West and
+    the Sun Belt, and the FBS independents other than Notre Dame, so the
+    P5 and the G5 together are the FBS, as in cfbplotR.
+
+  `"Conference"` gives the conference and league rows. With `division`,
+  `include_conferences` is not read. cfbplotR's `"hoopR"` schools are
+  the `"mbb"` league here.
 
 ## Value
 
@@ -46,6 +73,7 @@ A data frame:
 | color_primary | character | Primary colour (hex) |
 | color_secondary | character | Secondary colour (hex) |
 | color_source | character | `"nflverse"`, `"espn"`, `"logo"`, `"cbbplotR"` or `"fallback"` |
+| division | character | College division (`"FBS"`, `"DII"`, ...); `NA` elsewhere or in an older index |
 
 ## Examples
 
@@ -117,39 +145,39 @@ sdv_teams("nfl")
 #> 30       nfl:afc American Football Conference       #002244         #fb4f14
 #> 31       nfl:nfc National Football Conference       #0076b6         #b0b7bc
 #> 32       nfl:nfc National Football Conference       #203731         #ffb612
-#>    color_source
-#> 1      nflverse
-#> 2      nflverse
-#> 3      nflverse
-#> 4      nflverse
-#> 5      nflverse
-#> 6      nflverse
-#> 7      nflverse
-#> 8      nflverse
-#> 9      nflverse
-#> 10     nflverse
-#> 11     nflverse
-#> 12     nflverse
-#> 13     nflverse
-#> 14     nflverse
-#> 15     nflverse
-#> 16     nflverse
-#> 17     nflverse
-#> 18     nflverse
-#> 19     nflverse
-#> 20     nflverse
-#> 21     nflverse
-#> 22     nflverse
-#> 23     nflverse
-#> 24     nflverse
-#> 25     nflverse
-#> 26     nflverse
-#> 27     nflverse
-#> 28     nflverse
-#> 29     nflverse
-#> 30     nflverse
-#> 31     nflverse
-#> 32     nflverse
+#>    color_source division
+#> 1      nflverse     <NA>
+#> 2      nflverse     <NA>
+#> 3      nflverse     <NA>
+#> 4      nflverse     <NA>
+#> 5      nflverse     <NA>
+#> 6      nflverse     <NA>
+#> 7      nflverse     <NA>
+#> 8      nflverse     <NA>
+#> 9      nflverse     <NA>
+#> 10     nflverse     <NA>
+#> 11     nflverse     <NA>
+#> 12     nflverse     <NA>
+#> 13     nflverse     <NA>
+#> 14     nflverse     <NA>
+#> 15     nflverse     <NA>
+#> 16     nflverse     <NA>
+#> 17     nflverse     <NA>
+#> 18     nflverse     <NA>
+#> 19     nflverse     <NA>
+#> 20     nflverse     <NA>
+#> 21     nflverse     <NA>
+#> 22     nflverse     <NA>
+#> 23     nflverse     <NA>
+#> 24     nflverse     <NA>
+#> 25     nflverse     <NA>
+#> 26     nflverse     <NA>
+#> 27     nflverse     <NA>
+#> 28     nflverse     <NA>
+#> 29     nflverse     <NA>
+#> 30     nflverse     <NA>
+#> 31     nflverse     <NA>
+#> 32     nflverse     <NA>
 sdv_teams("cfb", include_conferences = TRUE)
 #>     league            team_id               abbr
 #> 1      cfb                101               ERKA
@@ -3183,762 +3211,822 @@ sdv_teams("cfb", include_conferences = TRUE)
 #> 755                           USA South Athletic Conference       #bab0ac
 #> 756                             Western Athletic Conference       #8a2432
 #> 757           Wisconsin Intercollegiate Athletic Conference       #bab0ac
-#>     color_secondary color_source
-#> 1           #c09a05         espn
-#> 2           #300e12         logo
-#> 3           #010101         logo
-#> 4           #dbcca6         espn
-#> 5           #ffffff         espn
-#> 6           #dbdbdb         espn
-#> 7           #231f20         logo
-#> 8           #face06         logo
-#> 9           #fed523         espn
-#> 10          #03b186         espn
-#> 11          #000000         logo
-#> 12          #bababa         logo
-#> 13          #231f20         logo
-#> 14          #dfa576         logo
-#> 15          #292f35         logo
-#> 16          #c6beb6         espn
-#> 17          #232021         logo
-#> 18          #e2735c         logo
-#> 19          #ffffff         espn
-#> 20          #fbbf16         espn
-#> 21          #64747f         logo
-#> 22             <NA>         espn
-#> 23          #003366         espn
-#> 24          #ffffff         espn
-#> 25          #b2b3b2         espn
-#> 26          #1e2f40         logo
-#> 27          #804444         logo
-#> 28          #707499         logo
-#> 29          #a9a9aa         espn
-#> 30          #fcb71c         logo
-#> 31          #c5ad84         logo
-#> 32          #686d86         logo
-#> 33          #828995         logo
-#> 34          #41312a         logo
-#> 35          #fd8404         logo
-#> 36          #ffffff         espn
-#> 37          #825a65         logo
-#> 38          #ffc423         logo
-#> 39          #d0a360         logo
-#> 40          #231f20         logo
-#> 41          #eecc0a         logo
-#> 42          #eed897         espn
-#> 43          #ffcb05         espn
-#> 44          #0f594e         logo
-#> 45          #005745         logo
-#> 46          #d18c29         espn
-#> 47          #7e683c         logo
-#> 48          #fab41c         espn
-#> 49          #4c3c1e         logo
-#> 50          #589784         logo
-#> 51          #000000         espn
-#> 52          #bc0940         logo
-#> 53          #cf142b         espn
-#> 54          #f7a7a9         logo
-#> 55          #bc955c         espn
-#> 56          #666666         espn
-#> 57          #ffffff         espn
-#> 58          #ffc72c         espn
-#> 59          #ffffff         espn
-#> 60          #13294b         espn
-#> 61          #2c2a29         espn
-#> 62          #c2c3c0         espn
-#> 63          #ffffff         espn
-#> 64          #000000         espn
-#> 65          #cdb97d         espn
-#> 66          #c3c4c6         espn
-#> 67          #ffffff         espn
-#> 68          #ff6000         espn
-#> 69          #ffffff         espn
-#> 70          #231f20         espn
-#> 71          #a7a8aa         espn
-#> 72          #feba15         espn
-#> 73          #183863         espn
-#> 74          #ffffff         espn
-#> 75          #45515d         logo
-#> 76          #fe6317         logo
-#> 77             <NA>         logo
-#> 78          #000000         espn
-#> 79          #ff431b         espn
-#> 80          #093c71         logo
-#> 81          #41250d         logo
-#> 82          #4f2c1d         espn
-#> 83          #ded27c         espn
-#> 84          #4b3c37         logo
-#> 85          #ffffff         espn
-#> 86          #a8adb4         espn
-#> 87          #ffffff         espn
-#> 88          #231f20         logo
-#> 89          #000000         espn
-#> 90          #ffda01         logo
-#> 91          #f26522         espn
-#> 92          #8f5a5a         logo
-#> 93          #b1b3b3         espn
-#> 94          #11352a         logo
-#> 95          #bca77d         logo
-#> 96          #ffffff         espn
-#> 97          #c5b783         espn
-#> 98          #ffffff         espn
-#> 99          #ffffff         espn
-#> 100         #0a0a0a         espn
-#> 101         #35538f         logo
-#> 102         #000000         espn
-#> 103         #46166a         espn
-#> 104            <NA>         logo
-#> 105         #e6e3a9         logo
-#> 106         #d0b787         espn
-#> 107         #f7da8d         logo
-#> 108         #5f4120         logo
-#> 109         #f0c33b         logo
-#> 110         #ffcd00         espn
-#> 111         #110f0e         logo
-#> 112         #eaaa00         espn
-#> 113         #d41e47         espn
-#> 114         #000000         espn
-#> 115         #02634e         logo
-#> 116         #b7c0c6         logo
-#> 117         #000000         espn
-#> 118         #ffe100         logo
-#> 119         #f7e23e         logo
-#> 120         #000000         espn
-#> 121         #fdb913         logo
-#> 122            <NA>         espn
-#> 123         #fdbb30         espn
-#> 124            <NA>         logo
-#> 125         #ffffff         espn
-#> 126         #ffffff         espn
-#> 127         #f2a900         espn
-#> 128         #0074c1         logo
-#> 129         #6e9061         logo
-#> 130            <NA>         logo
-#> 131         #e9aa12         espn
-#> 132         #445540         logo
-#> 133         #36282a         logo
-#> 134         #ffffff         espn
-#> 135         #7b614e         logo
-#> 136         #8d724b         espn
-#> 137         #00316e         espn
-#> 138         #ffffff         espn
-#> 139         #4e4038         logo
-#> 140         #00a3e0         espn
-#> 141         #3e2728         logo
-#> 142         #fec223         espn
-#> 143         #2e1811         logo
-#> 144         #000000         espn
-#> 145         #6a5322         logo
-#> 146         #edac09         espn
-#> 147         #916b71         logo
-#> 148         #0c233f         espn
-#> 149         #000000         logo
-#> 150         #cb152f         espn
-#> 151         #cf9b63         logo
-#> 152         #8e959a         espn
-#> 153         #d1d5d8         espn
-#> 154         #b4a169         espn
-#> 155         #fbab18         espn
-#> 156         #6f0924         logo
-#> 157         #ffd600         logo
-#> 158         #482e30         logo
-#> 159         #f5ebb6         logo
-#> 160         #ffdc00         logo
-#> 161         #231f20         logo
-#> 162         #ded090         espn
-#> 163         #f2bb39         logo
-#> 164         #ffffff         espn
-#> 165            <NA>         espn
-#> 166         #e00122         espn
-#> 167         #97824a         logo
-#> 168         #c8934a         espn
-#> 169         #ffffff         espn
-#> 170         #3f5572         logo
-#> 171         #8694a0         logo
-#> 172         #519682         logo
-#> 173         #ffc72e         espn
-#> 174         #ffffff         espn
-#> 175         #232020         logo
-#> 176         #fd6b0d         espn
-#> 177         #e51837         espn
-#> 178         #ffffff         espn
-#> 179         #d51c28         espn
-#> 180         #000000         espn
-#> 181         #000000         logo
-#> 182         #000000         espn
-#> 183         #ffffff         espn
-#> 184         #bec0c2         espn
-#> 185         #b90b2e         espn
-#> 186         #5e1725         logo
-#> 187         #a6163d         espn
-#> 188         #461d12         logo
-#> 189         #ffc423         espn
-#> 190         #e0ad13         espn
-#> 191         #bebab9         espn
-#> 192         #f0f0f0         espn
-#> 193         #ffffff         espn
-#> 194         #508f6b         logo
-#> 195            <NA>         logo
-#> 196         #b27f82         logo
-#> 197         #702b7c         logo
-#> 198         #7888ce         logo
-#> 199         #ffb81c         espn
-#> 200         #b59a57         espn
-#> 201         #daad27         espn
-#> 202         #7f6213         logo
-#> 203         #13b5ea         espn
-#> 204            <NA>         logo
-#> 205         #a32638         espn
-#> 206         #2d2521         logo
-#> 207         #402301         logo
-#> 208         #cc0000         espn
-#> 209         #c3993f         espn
-#> 210         #522d6e         logo
-#> 211         #909090         espn
-#> 212         #ecc86e         logo
-#> 213         #2a307f         espn
-#> 214         #fdd106         espn
-#> 215         #6cb3e9         espn
-#> 216         #fdbf57         logo
-#> 217         #909090         espn
-#> 218         #493a1a         logo
-#> 219         #ecb010         espn
-#> 220         #553628         logo
-#> 221         #ffffff         espn
-#> 222         #15569b         logo
-#> 223         #4c7caf         logo
-#> 224         #949300         espn
-#> 225         #99757b         logo
-#> 226         #d9dcdd         logo
-#> 227         #000000         espn
-#> 228         #dcddde         espn
-#> 229            <NA>         espn
-#> 230         #990000         espn
-#> 231         #000000         logo
-#> 232         #5ab3e8         espn
-#> 233         #4a2a31         logo
-#> 234         #bbbbbb         logo
-#> 235         #382940         logo
-#> 236            <NA>         espn
-#> 237         #ffffff         espn
-#> 238         #b09a5f         espn
-#> 239         #c83f5a         logo
-#> 240            <NA>         logo
-#> 241         #ffe716         espn
-#> 242         #8b6b74         logo
-#> 243         #6e4b54         logo
-#> 244         #fcd116         espn
-#> 245         #b5b7ba         espn
-#> 246         #ffb81a         espn
-#> 247         #cabba8         logo
-#> 248         #fed205         logo
-#> 249         #e8000d         espn
-#> 250         #e2e3e4         espn
-#> 251         #eaab00         espn
-#> 252         #ffffff         espn
-#> 253         #006838         logo
-#> 254         #473333         logo
-#> 255         #a8a8aa         logo
-#> 256         #f89828         espn
-#> 257         #ebebeb         espn
-#> 258            <NA>         logo
-#> 259         #f1682a         logo
-#> 260         #b69e70         espn
-#> 261         #f0f0f0         espn
-#> 262         #ffffff         espn
-#> 263         #000000         espn
-#> 264         #b72025         espn
-#> 265         #05176f         logo
-#> 266         #ffbf00         espn
-#> 267         #cb333b         espn
-#> 268         #8e908f         espn
-#> 269         #eaa22e         espn
-#> 270            <NA>         logo
-#> 271         #dca71d         espn
-#> 272         #000000         espn
-#> 273         #fbea00         logo
-#> 274         #231f20         logo
-#> 275         #f0f0f0         espn
-#> 276         #efc814         espn
-#> 277         #000000         espn
-#> 278         #fece1c         espn
-#> 279         #c85e22         logo
-#> 280            <NA>         espn
-#> 281         #cfae70         espn
-#> 282         #080808         espn
-#> 283         #967d66         logo
-#> 284         #66979b         logo
-#> 285         #ffb81c         espn
-#> 286         #035131         espn
-#> 287         #453f32         logo
-#> 288         #ffffff         espn
-#> 289         #ffffff         espn
-#> 290         #e3d100         logo
-#> 291         #6e6697         logo
-#> 292         #e19c25         espn
-#> 293         #ffffff         espn
-#> 294         #cf2d34         espn
-#> 295         #005030         logo
-#> 296         #0d6937         logo
-#> 297            <NA>         espn
-#> 298         #000000         espn
-#> 299         #fed91a         espn
-#> 300         #f47937         espn
-#> 301            <NA>         logo
-#> 302         #f5ce3e         espn
-#> 303         #c1c6c8         espn
-#> 304            <NA>         logo
-#> 305            <NA>         logo
-#> 306         #b5a67c         espn
-#> 307         #c2c3c0         espn
-#> 308         #a49665         espn
-#> 309         #fdb913         espn
-#> 310         #b4cbdb         logo
-#> 311         #cac8c8         espn
-#> 312         #8a8d8f         espn
-#> 313         #ffc425         espn
-#> 314         #fbbc20         espn
-#> 315         #8a8c8f         espn
-#> 316         #f0f0f0         espn
-#> 317         #004684         espn
-#> 318         #ffffff         espn
-#> 319         #ffffff         espn
-#> 320         #fdb813         espn
-#> 321            <NA>         espn
-#> 322         #ffc533         espn
-#> 323         #000000         espn
-#> 324         #ac9c66         espn
-#> 325         #ffffff         espn
-#> 326         #1b3069         espn
-#> 327         #ed6118         espn
-#> 328         #cdab6a         logo
-#> 329         #000000         espn
-#> 330         #826817         logo
-#> 331         #ffffff         espn
-#> 332         #fff41b         espn
-#> 333         #000000         espn
-#> 334         #002762         logo
-#> 335         #ffffff         espn
-#> 336         #ffc72c         espn
-#> 337         #ebebeb         espn
-#> 338         #eaaa00         espn
-#> 339         #990134         espn
-#> 340         #ffffff         espn
-#> 341         #000000         espn
-#> 342         #ffffff         espn
-#> 343         #000000         espn
-#> 344         #462d30         logo
-#> 345         #002e5d         espn
-#> 346         #a21d2b         espn
-#> 347         #c4c6c8         espn
-#> 348         #330a08         logo
-#> 349         #c29472         espn
-#> 350         #000000         espn
-#> 351         #fdb913         espn
-#> 352         #ffffff         espn
-#> 353         #bc0023         espn
-#> 354         #ffffff         espn
-#> 355         #f78f1e         espn
-#> 356         #ffc72c         espn
-#> 357         #000000         espn
-#> 358         #eca413         logo
-#> 359         #a4753e         logo
-#> 360         #5c3285         logo
-#> 361         #163d6f         logo
-#> 362         #ee3a43         logo
-#> 363         #cbb677         espn
-#> 364         #244a68         logo
-#> 365         #f0b310         espn
-#> 366         #0033a1         espn
-#> 367         #ffd100         logo
-#> 368         #104897         espn
-#> 369         #b90b2e         espn
-#> 370         #76819c         logo
-#> 371         #ffd100         espn
-#> 372         #231f20         espn
-#> 373         #000000         espn
-#> 374         #f84c1e         espn
-#> 375         #ffc82d         espn
-#> 376         #5f67a0         logo
-#> 377         #231f20         logo
-#> 378         #917aae         logo
-#> 379         #beaa70         logo
-#> 380         #ffcd00         espn
-#> 381         #cf4520         espn
-#> 382         #80a9cd         logo
-#> 383            <NA>         logo
-#> 384            <NA>         espn
-#> 385         #f2a900         espn
-#> 386         #7baed5         espn
-#> 387         #195632         logo
-#> 388         #bec0c2         espn
-#> 389            <NA>         espn
-#> 390         #ee7b87         logo
-#> 391         #ffffff         espn
-#> 392         #9578af         logo
-#> 393         #ffffff         espn
-#> 394         #d2b888         espn
-#> 395         #102a5c         espn
-#> 396         #ffffff         espn
-#> 397         #f0f0f0         espn
-#> 398         #ffde00         espn
-#> 399         #f15a22         espn
-#> 400            <NA>         logo
-#> 401         #041e42         espn
-#> 402         #000000         espn
-#> 403         #e8d3a2         espn
-#> 404         #ffffff         espn
-#> 405         #000000         espn
-#> 406         #002856         espn
-#> 407         #00183e         logo
-#> 408         #7b868c         logo
-#> 409         #ffcd00         espn
-#> 410         #4d4d4d         espn
-#> 411            <NA>         logo
-#> 412         #b1b1b1         espn
-#> 413         #c4b6d4         logo
-#> 414         #418fde         espn
-#> 415         #efad00         logo
-#> 416            <NA>         logo
-#> 417         #39524f         logo
-#> 418         #fcb034         espn
-#> 419         #000000         espn
-#> 420            <NA>         espn
-#> 421         #261e1f         logo
-#> 422         #000000         espn
-#> 423         #215379         logo
-#> 424         #ffffff         espn
-#> 425         #b7986b         logo
-#> 426         #000000         espn
-#> 427         #231f20         logo
-#> 428         #6a8bb0         logo
-#> 429         #d8d8d8         espn
-#> 430         #ebebeb         espn
-#> 431         #ffffff         espn
-#> 432         #db1a21         espn
-#> 433         #050707         logo
-#> 434         #f5cc2e         espn
-#> 435         #a87477         logo
-#> 436         #3a231c         logo
-#> 437         #d9b962         logo
-#> 438            <NA>         logo
-#> 439         #f0b310         logo
-#> 440         #7d7149         logo
-#> 441         #febc28         logo
-#> 442         #ffc90a         espn
-#> 443         #f1c500         espn
-#> 444         #5f6062         logo
-#> 445         #bf9e70         espn
-#> 446         #8cbbdd         logo
-#> 447         #000000         espn
-#> 448         #936c74         logo
-#> 449         #fdc743         espn
-#> 450         #f0b323         espn
-#> 451         #ffbe0a         espn
-#> 452         #015f52         logo
-#> 453            <NA>         espn
-#> 454         #f2b310         logo
-#> 455         #fde133         logo
-#> 456            <NA>         logo
-#> 457         #000000         espn
-#> 458         #ffde00         logo
-#> 459         #bdbec0         logo
-#> 460         #a2a9ad         logo
-#> 461            <NA>         logo
-#> 462         #f0f0f0         espn
-#> 463         #5e2921         logo
-#> 464         #db8b99         logo
-#> 465         #ffffff         espn
-#> 466         #ffc425         espn
-#> 467         #690717         espn
-#> 468         #ffd10a         espn
-#> 469         #a2aaad         espn
-#> 470         #b5985b         espn
-#> 471         #000000         espn
-#> 472         #002855         espn
-#> 473         #e8c535         espn
-#> 474         #aa8800         logo
-#> 475         #ac1f2d         logo
-#> 476         #13284c         espn
-#> 477         #fbcd20         logo
-#> 478         #38050a         logo
-#> 479         #472766         logo
-#> 480         #80143e         logo
-#> 481         #b59859         espn
-#> 482         #9f8343         espn
-#> 483         #012e64         logo
-#> 484         #8e4f53         logo
-#> 485         #e6b71b         espn
-#> 486         #fec52f         espn
-#> 487         #0a2343         logo
-#> 488         #6c6146         logo
-#> 489         #cfb97a         logo
-#> 490         #000000         logo
-#> 491         #53585a         espn
-#> 492         #f0f0f0         espn
-#> 493         #000000         espn
-#> 494         #8d1d25         logo
-#> 495         #00205c         logo
-#> 496         #432014         logo
-#> 497         #ffcf06         espn
-#> 498         #003679         logo
-#> 499         #5b6a78         logo
-#> 500         #fdbd54         logo
-#> 501         #d7a0a5         logo
-#> 502         #00386c         logo
-#> 503         #bca233         logo
-#> 504         #000000         espn
-#> 505            <NA>         espn
-#> 506         #000000         espn
-#> 507         #ffffff         espn
-#> 508         #453c1c         logo
-#> 509         #221e1f         logo
-#> 510         #96777a         logo
-#> 511         #4b708e         logo
-#> 512         #b29547         espn
-#> 513         #b9a3db         logo
-#> 514         #231f20         logo
-#> 515         #f3d00b         logo
-#> 516         #ffffff         espn
-#> 517         #29618a         logo
-#> 518            <NA>         logo
-#> 519         #070909         logo
-#> 520         #000000         espn
-#> 521         #15223b         logo
-#> 522         #f6cd55         logo
-#> 523         #56353e         logo
-#> 524         #8f7fbc         logo
-#> 525            <NA>         logo
-#> 526         #ffffff         espn
-#> 527         #a3aaae         espn
-#> 528         #7b5b95         logo
-#> 529         #000000         espn
-#> 530         #00583d         logo
-#> 531         #bdb096         logo
-#> 532         #ffd203         logo
-#> 533         #7386a2         logo
-#> 534         #080808         espn
-#> 535         #b47b7d         logo
-#> 536         #e1732d         espn
-#> 537         #f7941e         espn
-#> 538         #a1a1a5         logo
-#> 539         #231f20         logo
-#> 540         #ab9e76         espn
-#> 541         #b0b1b2         logo
-#> 542         #566f7c         logo
-#> 543         #a1d2f1         espn
-#> 544         #00275d         logo
-#> 545         #4d5051         logo
-#> 546         #c8c8c8         espn
-#> 547         #edd38b         logo
-#> 548         #ebb700         espn
-#> 549         #0066b7         logo
-#> 550         #a8b1b7         espn
-#> 551         #f57b21         espn
-#> 552         #000000         espn
-#> 553         #0d1d41         logo
-#> 554         #fecd01         espn
-#> 555         #912429         logo
-#> 556         #9d6374         logo
-#> 557         #ffc72c         espn
-#> 558            <NA>         espn
-#> 559         #c3c4c6         espn
-#> 560         #e9a126         espn
-#> 561         #46927e         logo
-#> 562         #093254         logo
-#> 563         #4e1827         logo
-#> 564         #ffcc1e         logo
-#> 565         #000000         espn
-#> 566         #003058         logo
-#> 567            <NA>         espn
-#> 568         #2f6d51         logo
-#> 569         #7b95a7         logo
-#> 570         #0094d2         logo
-#> 571         #d0d1d4         logo
-#> 572         #000000         logo
-#> 573         #002b5c         logo
-#> 574         #a59474         espn
-#> 575         #a5a6a9         espn
-#> 576         #c38d97         logo
-#> 577         #a27752         espn
-#> 578            <NA>         logo
-#> 579         #6a5638         espn
-#> 580         #ffffff         espn
-#> 581         #ffffff         espn
-#> 582         #3b3128         logo
-#> 583         #abb4bc         espn
-#> 584         #372427         logo
-#> 585         #ffffff         espn
-#> 586         #000000         espn
-#> 587         #0b1315         espn
-#> 588         #000000         espn
-#> 589            <NA>         logo
-#> 590         #c1c6c8         espn
-#> 591         #d5b98b         espn
-#> 592         #d3bc8d         espn
-#> 593         #c1b585         espn
-#> 594         #3e334b         logo
-#> 595            <NA>         logo
-#> 596         #13294b         espn
-#> 597         #e61b24         logo
-#> 598         #c8c372         espn
-#> 599         #df983a         logo
-#> 600         #c0a656         espn
-#> 601         #8d5833         logo
-#> 602         #482325         logo
-#> 603         #ffcb00         logo
-#> 604         #d1ab42         logo
-#> 605         #000000         espn
-#> 606         #ba8e91         logo
-#> 607         #ffffff         espn
-#> 608         #aed1e8         logo
-#> 609         #e55204         logo
-#> 610         #ecb434         logo
-#> 611         #95502a         logo
-#> 612         #ffcd00         espn
-#> 613         #ffffff         espn
-#> 614         #ffffff         espn
-#> 615         #ffc629         espn
-#> 616         #b1b3b3         espn
-#> 617         #a2aaad         espn
-#> 618         #000000         espn
-#> 619         #c2a303         espn
-#> 620         #01295c         logo
-#> 621         #000000         logo
-#> 622         #6e648e         logo
-#> 623         #fee44e         logo
-#> 624         #642b8a         logo
-#> 625         #000000         logo
-#> 626         #286dc0         espn
-#> 627         #ffffff         espn
-#> 628         #9ba19e         logo
-#> 629         #242021         logo
-#> 630         #003868         logo
-#> 631            <NA>         logo
-#> 632         #001c58         espn
-#> 633         #e51937         espn
-#> 634         #000000         espn
-#> 635         #ffd200         espn
-#> 636            <NA>         logo
-#> 637         #3d1950         logo
-#> 638         #fdb913         espn
-#> 639         #00843d         espn
-#> 640         #ffffff         espn
-#> 641         #00529f         logo
-#> 642         #ceb888         espn
-#> 643         #024c8d         logo
-#> 644         #3f1d20         logo
-#> 645         #000000         espn
-#> 646         #ad7c70         logo
-#> 647         #56854e         espn
-#> 648         #df6979         logo
-#> 649         #fa4616         espn
-#> 650         #cfc493         espn
-#> 651         #c79e54         logo
-#> 652         #ffffff         espn
-#> 653         #bf0d3e         espn
-#> 654            <NA>         logo
-#> 655         #2c2a29         espn
-#> 656         #fbda87         logo
-#> 657            <NA>         logo
-#> 658         #000000         espn
-#> 659         #001440         espn
-#> 660         #091b3b         logo
-#> 661         #bd7a76         logo
-#> 662         #ffc72a         espn
-#> 663         #a5bbda         espn
-#> 664         #d64309         espn
-#> 665         #c9bb93         logo
-#> 666         #ffffff         espn
-#> 667         #8c6e4a         espn
-#> 668         #0c213e         logo
-#> 669            <NA>         logo
-#> 670         #fed00a         logo
-#> 671         #ffffff         espn
-#> 672         #c2c3c0         espn
-#> 673         #ffffff         espn
-#> 674         #311b20         logo
-#> 675         #bbbbbb         logo
-#> 676         #8b7a42         logo
-#> 677         #ffffff         espn
-#> 678         #b3b2b1         espn
-#> 679         #c99700         espn
-#> 680            <NA>         logo
-#> 681         #8c1d40         espn
-#> 682         #ffd203         logo
-#> 683         #000e00         espn
-#> 684         #ffffff         espn
-#> 685         #ffffff         espn
-#> 686         #ffffff         espn
-#> 687         #fdd023         espn
-#> 688         #e2201b     cbbplotR
-#> 689            <NA>     cbbplotR
-#> 690         #9c755f     fallback
-#> 691         #b07aa1     fallback
-#> 692            <NA>     cbbplotR
-#> 693         #43c6e7     cbbplotR
-#> 694            <NA>     cbbplotR
-#> 695            <NA>     cbbplotR
-#> 696         #e15759     fallback
-#> 697         #4e79a7     fallback
-#> 698         #bab0ac     fallback
-#> 699         #e31c47     cbbplotR
-#> 700         #76b7b2     fallback
-#> 701         #76b7b2     fallback
-#> 702         #f28e2b     fallback
-#> 703         #59a14f     fallback
-#> 704         #bab0ac     fallback
-#> 705         #59a14f     fallback
-#> 706         #9c755f     fallback
-#> 707         #4e79a7     fallback
-#> 708         #b07aa1     fallback
-#> 709         #59a14f     fallback
-#> 710         #4e79a7     fallback
-#> 711            <NA>     cbbplotR
-#> 712         #bab0ac     fallback
-#> 713         #b07aa1     fallback
-#> 714         #b07aa1     fallback
-#> 715         #0c2140     cbbplotR
-#> 716         #9c755f     fallback
-#> 717         #feb81d     cbbplotR
-#> 718         #edc948     fallback
-#> 719         #4e79a7     fallback
-#> 720         #f28e2b     fallback
-#> 721         #4e79a7     fallback
-#> 722         #bab0ac     fallback
-#> 723         #edc948     fallback
-#> 724         #f28e2b     fallback
-#> 725         #afafaf     cbbplotR
-#> 726         #76b7b2     fallback
-#> 727         #76b7b2     fallback
-#> 728         #76b7b2     fallback
-#> 729         #9c755f     fallback
-#> 730            <NA>     cbbplotR
-#> 731         #59a14f     fallback
-#> 732         #59a14f     fallback
-#> 733         #edc948     fallback
-#> 734         #bab0ac     fallback
-#> 735         #e15759     fallback
-#> 736         #b07aa1     fallback
-#> 737         #edc948     fallback
-#> 738         #d0ae85     cbbplotR
-#> 739         #b07aa1     fallback
-#> 740         #f28e2b     fallback
-#> 741            <NA>     cbbplotR
-#> 742         #d9291c     cbbplotR
-#> 743         #9c755f     fallback
-#> 744         #edc948     fallback
-#> 745         #e15759     fallback
-#> 746         #ff9da7     fallback
-#> 747         #f28e2b     fallback
-#> 748         #ffd040     cbbplotR
-#> 749         #4e79a7     fallback
-#> 750            <NA>     cbbplotR
-#> 751            <NA>     cbbplotR
-#> 752            <NA>     cbbplotR
-#> 753         #f5a606     cbbplotR
-#> 754         #9c755f     fallback
-#> 755         #4e79a7     fallback
-#> 756            <NA>     cbbplotR
-#> 757         #4e79a7     fallback
+#>     color_secondary color_source division
+#> 1           #c09a05         espn     DIII
+#> 2           #300e12         logo     DIII
+#> 3           #010101         logo      DII
+#> 4           #dbcca6         espn      FBS
+#> 5           #ffffff         espn      FCS
+#> 6           #dbdbdb         espn      FCS
+#> 7           #231f20         logo     DIII
+#> 8           #face06         logo      DII
+#> 9           #fed523         espn     DIII
+#> 10          #03b186         espn      FCS
+#> 11          #000000         logo      DII
+#> 12          #bababa         logo     DIII
+#> 13          #231f20         logo     <NA>
+#> 14          #dfa576         logo     DIII
+#> 15          #292f35         logo     DIII
+#> 16          #c6beb6         espn     DIII
+#> 17          #232021         logo      DII
+#> 18          #e2735c         logo      DII
+#> 19          #ffffff         espn      FBS
+#> 20          #fbbf16         espn     DIII
+#> 21          #64747f         logo     DIII
+#> 22             <NA>         espn      FCS
+#> 23          #003366         espn      FBS
+#> 24          #ffffff         espn      FBS
+#> 25          #b2b3b2         espn     DIII
+#> 26          #1e2f40         logo      DII
+#> 27          #804444         logo     DIII
+#> 28          #707499         logo     <NA>
+#> 29          #a9a9aa         espn     DIII
+#> 30          #fcb71c         logo      DII
+#> 31          #c5ad84         logo      DII
+#> 32          #686d86         logo      DII
+#> 33          #828995         logo     DIII
+#> 34          #41312a         logo     DIII
+#> 35          #fd8404         logo      DII
+#> 36          #ffffff         espn      FBS
+#> 37          #825a65         logo     DIII
+#> 38          #ffc423         logo      DII
+#> 39          #d0a360         logo      DII
+#> 40          #231f20         logo      DII
+#> 41          #eecc0a         logo     DIII
+#> 42          #eed897         espn      FCS
+#> 43          #ffcb05         espn      FBS
+#> 44          #0f594e         logo      DII
+#> 45          #005745         logo      DII
+#> 46          #d18c29         espn     DIII
+#> 47          #7e683c         logo      DII
+#> 48          #fab41c         espn      FBS
+#> 49          #4c3c1e         logo      DII
+#> 50          #589784         logo      DII
+#> 51          #000000         espn      FBS
+#> 52          #bc0940         logo     DIII
+#> 53          #cf142b         espn      FBS
+#> 54          #f7a7a9         logo     DIII
+#> 55          #bc955c         espn      FCS
+#> 56          #666666         espn      FCS
+#> 57          #ffffff         espn      FBS
+#> 58          #ffc72c         espn      FBS
+#> 59          #ffffff         espn      FBS
+#> 60          #13294b         espn      FBS
+#> 61          #2c2a29         espn      FBS
+#> 62          #c2c3c0         espn      FCS
+#> 63          #ffffff         espn      FBS
+#> 64          #000000         espn      FCS
+#> 65          #cdb97d         espn      FBS
+#> 66          #c3c4c6         espn      FCS
+#> 67          #ffffff         espn     DIII
+#> 68          #ff6000         espn      FCS
+#> 69          #ffffff         espn      FBS
+#> 70          #231f20         espn      FBS
+#> 71          #a7a8aa         espn      FBS
+#> 72          #feba15         espn     DIII
+#> 73          #183863         espn      FCS
+#> 74          #ffffff         espn      FCS
+#> 75          #45515d         logo     DIII
+#> 76          #fe6317         logo     DIII
+#> 77             <NA>         logo     DIII
+#> 78          #000000         espn     DIII
+#> 79          #ff431b         espn      FBS
+#> 80          #093c71         logo     DIII
+#> 81          #41250d         logo     DIII
+#> 82          #4f2c1d         espn      FBS
+#> 83          #ded27c         espn     DIII
+#> 84          #4b3c37         logo     DIII
+#> 85          #ffffff         espn      FBS
+#> 86          #a8adb4         espn      FBS
+#> 87          #ffffff         espn      FBS
+#> 88          #231f20         logo      DII
+#> 89          #000000         espn      FBS
+#> 90          #ffda01         logo      DII
+#> 91          #f26522         espn      FBS
+#> 92          #8f5a5a         logo      DII
+#> 93          #b1b3b3         espn      FCS
+#> 94          #11352a         logo      DII
+#> 95          #bca77d         logo     DIII
+#> 96          #ffffff         espn      FBS
+#> 97          #c5b783         espn      FBS
+#> 98          #ffffff         espn      FBS
+#> 99          #ffffff         espn      FCS
+#> 100         #0a0a0a         espn      FCS
+#> 101         #35538f         logo      DII
+#> 102         #000000         espn     DIII
+#> 103         #46166a         espn      FCS
+#> 104            <NA>         logo     DIII
+#> 105         #e6e3a9         logo      DII
+#> 106         #d0b787         espn      FBS
+#> 107         #f7da8d         logo      DII
+#> 108         #5f4120         logo     DIII
+#> 109         #f0c33b         logo      DII
+#> 110         #ffcd00         espn      FBS
+#> 111         #110f0e         logo      DII
+#> 112         #eaaa00         espn      FCS
+#> 113         #d41e47         espn     DIII
+#> 114         #000000         espn      FBS
+#> 115         #02634e         logo      DII
+#> 116         #b7c0c6         logo      DII
+#> 117         #000000         espn      FBS
+#> 118         #ffe100         logo     DIII
+#> 119         #f7e23e         logo      DII
+#> 120         #000000         espn     DIII
+#> 121         #fdb913         logo     DIII
+#> 122            <NA>         espn      FCS
+#> 123         #fdbb30         espn     DIII
+#> 124            <NA>         logo     DIII
+#> 125         #ffffff         espn     DIII
+#> 126         #ffffff         espn      FBS
+#> 127         #f2a900         espn     DIII
+#> 128         #0074c1         logo      DII
+#> 129         #6e9061         logo     DIII
+#> 130            <NA>         logo     <NA>
+#> 131         #e9aa12         espn      FCS
+#> 132         #445540         logo      DII
+#> 133         #36282a         logo      DII
+#> 134         #ffffff         espn     DIII
+#> 135         #7b614e         logo      DII
+#> 136         #8d724b         espn     DIII
+#> 137         #00316e         espn      FCS
+#> 138         #ffffff         espn      FBS
+#> 139         #4e4038         logo     DIII
+#> 140         #00a3e0         espn      FCS
+#> 141         #3e2728         logo      DII
+#> 142         #fec223         espn     DIII
+#> 143         #2e1811         logo      FCS
+#> 144         #000000         espn      FBS
+#> 145         #6a5322         logo      DII
+#> 146         #edac09         espn     DIII
+#> 147         #916b71         logo     DIII
+#> 148         #0c233f         espn      DII
+#> 149         #000000         logo     DIII
+#> 150         #cb152f         espn      DII
+#> 151         #cf9b63         logo     DIII
+#> 152         #8e959a         espn      FCS
+#> 153         #d1d5d8         espn      FCS
+#> 154         #b4a169         espn      FBS
+#> 155         #fbab18         espn      FBS
+#> 156         #6f0924         logo      DII
+#> 157         #ffd600         logo      DII
+#> 158         #482e30         logo      DII
+#> 159         #f5ebb6         logo     DIII
+#> 160         #ffdc00         logo      DII
+#> 161         #231f20         logo      DII
+#> 162         #ded090         espn      FCS
+#> 163         #f2bb39         logo      DII
+#> 164         #ffffff         espn      FBS
+#> 165            <NA>         espn      FCS
+#> 166         #e00122         espn      FBS
+#> 167         #97824a         logo      DII
+#> 168         #c8934a         espn     DIII
+#> 169         #ffffff         espn      FCS
+#> 170         #3f5572         logo      DII
+#> 171         #8694a0         logo      DII
+#> 172         #519682         logo      DII
+#> 173         #ffc72e         espn     DIII
+#> 174         #ffffff         espn     DIII
+#> 175         #232020         logo     DIII
+#> 176         #fd6b0d         espn     DIII
+#> 177         #e51837         espn      FCS
+#> 178         #ffffff         espn      FCS
+#> 179         #d51c28         espn      FCS
+#> 180         #000000         espn      DII
+#> 181         #000000         logo     DIII
+#> 182         #000000         espn     DIII
+#> 183         #ffffff         espn      FBS
+#> 184         #bec0c2         espn      FCS
+#> 185         #b90b2e         espn      FCS
+#> 186         #5e1725         logo      DII
+#> 187         #a6163d         espn      FCS
+#> 188         #461d12         logo      DII
+#> 189         #ffc423         espn      FCS
+#> 190         #e0ad13         espn     DIII
+#> 191         #bebab9         espn      FCS
+#> 192         #f0f0f0         espn      FCS
+#> 193         #ffffff         espn      FBS
+#> 194         #508f6b         logo      DII
+#> 195            <NA>         logo     <NA>
+#> 196         #b27f82         logo      DII
+#> 197         #702b7c         logo      DII
+#> 198         #7888ce         logo      DII
+#> 199         #ffb81c         espn      FBS
+#> 200         #b59a57         espn      FCS
+#> 201         #daad27         espn      DII
+#> 202         #7f6213         logo      DII
+#> 203         #13b5ea         espn      FCS
+#> 204            <NA>         logo      DII
+#> 205         #a32638         espn     DIII
+#> 206         #2d2521         logo      DII
+#> 207         #402301         logo      DII
+#> 208         #cc0000         espn      FBS
+#> 209         #c3993f         espn      FBS
+#> 210         #522d6e         logo      DII
+#> 211         #909090         espn      FCS
+#> 212         #ecc86e         logo      DII
+#> 213         #2a307f         espn      DII
+#> 214         #fdd106         espn     DIII
+#> 215         #6cb3e9         espn     DIII
+#> 216         #fdbf57         logo      DII
+#> 217         #909090         espn      FCS
+#> 218         #493a1a         logo     DIII
+#> 219         #ecb010         espn     <NA>
+#> 220         #553628         logo     <NA>
+#> 221         #ffffff         espn      FBS
+#> 222         #15569b         logo     DIII
+#> 223         #4c7caf         logo      DII
+#> 224         #949300         espn      FCS
+#> 225         #99757b         logo     <NA>
+#> 226         #d9dcdd         logo     DIII
+#> 227         #000000         espn     DIII
+#> 228         #dcddde         espn     DIII
+#> 229            <NA>         espn      FCS
+#> 230         #990000         espn     DIII
+#> 231         #000000         logo      DII
+#> 232         #5ab3e8         espn      FCS
+#> 233         #4a2a31         logo      DII
+#> 234         #bbbbbb         logo      DII
+#> 235         #382940         logo     DIII
+#> 236            <NA>         espn      FCS
+#> 237         #ffffff         espn      FBS
+#> 238         #b09a5f         espn     DIII
+#> 239         #c83f5a         logo     DIII
+#> 240            <NA>         logo     DIII
+#> 241         #ffe716         espn      FCS
+#> 242         #8b6b74         logo      DII
+#> 243         #6e4b54         logo      DII
+#> 244         #fcd116         espn      FBS
+#> 245         #b5b7ba         espn      FCS
+#> 246         #ffb81a         espn      FBS
+#> 247         #cabba8         logo     DIII
+#> 248         #fed205         logo      DII
+#> 249         #e8000d         espn      FBS
+#> 250         #e2e3e4         espn      FBS
+#> 251         #eaab00         espn      FBS
+#> 252         #ffffff         espn      FCS
+#> 253         #006838         logo      DII
+#> 254         #473333         logo      DII
+#> 255         #a8a8aa         logo      DII
+#> 256         #f89828         espn     DIII
+#> 257         #ebebeb         espn      FCS
+#> 258            <NA>         logo      DII
+#> 259         #f1682a         logo     <NA>
+#> 260         #b69e70         espn      FCS
+#> 261         #f0f0f0         espn      FCS
+#> 262         #ffffff         espn      DII
+#> 263         #000000         espn     DIII
+#> 264         #b72025         espn      FBS
+#> 265         #05176f         logo      DII
+#> 266         #ffbf00         espn      FCS
+#> 267         #cb333b         espn      FBS
+#> 268         #8e908f         espn      FBS
+#> 269         #eaa22e         espn     DIII
+#> 270            <NA>         logo     DIII
+#> 271         #dca71d         espn      FCS
+#> 272         #000000         espn     DIII
+#> 273         #fbea00         logo      DII
+#> 274         #231f20         logo     <NA>
+#> 275         #f0f0f0         espn      FCS
+#> 276         #efc814         espn      DII
+#> 277         #000000         espn     DIII
+#> 278         #fece1c         espn     DIII
+#> 279         #c85e22         logo     DIII
+#> 280            <NA>         espn      FCS
+#> 281         #cfae70         espn      FBS
+#> 282         #080808         espn      FCS
+#> 283         #967d66         logo     DIII
+#> 284         #66979b         logo      FCS
+#> 285         #ffb81c         espn      FBS
+#> 286         #035131         espn      FBS
+#> 287         #453f32         logo      DII
+#> 288         #ffffff         espn      FBS
+#> 289         #ffffff         espn     DIII
+#> 290         #e3d100         logo      DII
+#> 291         #6e6697         logo     DIII
+#> 292         #e19c25         espn     DIII
+#> 293         #ffffff         espn      FBS
+#> 294         #cf2d34         espn      FCS
+#> 295         #005030         logo      DII
+#> 296         #0d6937         logo      DII
+#> 297            <NA>         espn      FCS
+#> 298         #000000         espn     DIII
+#> 299         #fed91a         espn      FCS
+#> 300         #f47937         espn      FCS
+#> 301            <NA>         logo     <NA>
+#> 302         #f5ce3e         espn     DIII
+#> 303         #c1c6c8         espn      FBS
+#> 304            <NA>         logo     DIII
+#> 305            <NA>         logo      DII
+#> 306         #b5a67c         espn      FBS
+#> 307         #c2c3c0         espn      FCS
+#> 308         #a49665         espn      FBS
+#> 309         #fdb913         espn      FBS
+#> 310         #b4cbdb         logo      DII
+#> 311         #cac8c8         espn      FBS
+#> 312         #8a8d8f         espn      FBS
+#> 313         #ffc425         espn      FCS
+#> 314         #fbbc20         espn     DIII
+#> 315         #8a8c8f         espn      DII
+#> 316         #f0f0f0         espn      FCS
+#> 317         #004684         espn      FCS
+#> 318         #ffffff         espn      FBS
+#> 319         #ffffff         espn      FBS
+#> 320         #fdb813         espn      FCS
+#> 321            <NA>         espn      FCS
+#> 322         #ffc533         espn      FCS
+#> 323         #000000         espn      FBS
+#> 324         #ac9c66         espn     DIII
+#> 325         #ffffff         espn      FCS
+#> 326         #1b3069         espn      FCS
+#> 327         #ed6118         espn      FCS
+#> 328         #cdab6a         logo     DIII
+#> 329         #000000         espn     DIII
+#> 330         #826817         logo      DII
+#> 331         #ffffff         espn      FBS
+#> 332         #fff41b         espn      FBS
+#> 333         #000000         espn     DIII
+#> 334         #002762         logo      DII
+#> 335         #ffffff         espn      FBS
+#> 336         #ffc72c         espn      FBS
+#> 337         #ebebeb         espn      FCS
+#> 338         #eaaa00         espn      FCS
+#> 339         #990134         espn      FCS
+#> 340         #ffffff         espn     DIII
+#> 341         #000000         espn      FBS
+#> 342         #ffffff         espn      FBS
+#> 343         #000000         espn     DIII
+#> 344         #462d30         logo     DIII
+#> 345         #002e5d         espn      FBS
+#> 346         #a21d2b         espn      FCS
+#> 347         #c4c6c8         espn     DIII
+#> 348         #330a08         logo     DIII
+#> 349         #c29472         espn      FCS
+#> 350         #000000         espn      FCS
+#> 351         #fdb913         espn     DIII
+#> 352         #ffffff         espn      FBS
+#> 353         #bc0023         espn      FCS
+#> 354         #ffffff         espn      FBS
+#> 355         #f78f1e         espn      DII
+#> 356         #ffc72c         espn      FCS
+#> 357         #000000         espn      FCS
+#> 358         #eca413         logo     DIII
+#> 359         #a4753e         logo      DII
+#> 360         #5c3285         logo     DIII
+#> 361         #163d6f         logo     DIII
+#> 362         #ee3a43         logo      DII
+#> 363         #cbb677         espn      FBS
+#> 364         #244a68         logo      DII
+#> 365         #f0b310         espn     DIII
+#> 366         #0033a1         espn      FBS
+#> 367         #ffd100         logo      DII
+#> 368         #104897         espn      FCS
+#> 369         #b90b2e         espn      FCS
+#> 370         #76819c         logo      DII
+#> 371         #ffd100         espn      FCS
+#> 372         #231f20         espn      FBS
+#> 373         #000000         espn      FBS
+#> 374         #f84c1e         espn      FBS
+#> 375         #ffc82d         espn      FCS
+#> 376         #5f67a0         logo      DII
+#> 377         #231f20         logo     <NA>
+#> 378         #917aae         logo      DII
+#> 379         #beaa70         logo      DII
+#> 380         #ffcd00         espn     DIII
+#> 381         #cf4520         espn      FBS
+#> 382         #80a9cd         logo     <NA>
+#> 383            <NA>         logo     <NA>
+#> 384            <NA>         espn     DIII
+#> 385         #f2a900         espn      FBS
+#> 386         #7baed5         espn     DIII
+#> 387         #195632         logo     DIII
+#> 388         #bec0c2         espn      FCS
+#> 389            <NA>         espn      FCS
+#> 390         #ee7b87         logo     DIII
+#> 391         #ffffff         espn      FBS
+#> 392         #9578af         logo      FCS
+#> 393         #ffffff         espn      FBS
+#> 394         #d2b888         espn     DIII
+#> 395         #102a5c         espn      FCS
+#> 396         #ffffff         espn      FBS
+#> 397         #f0f0f0         espn      FCS
+#> 398         #ffde00         espn      FCS
+#> 399         #f15a22         espn      FBS
+#> 400            <NA>         logo     <NA>
+#> 401         #041e42         espn      FBS
+#> 402         #000000         espn     DIII
+#> 403         #e8d3a2         espn      FBS
+#> 404         #ffffff         espn      FCS
+#> 405         #000000         espn      FBS
+#> 406         #002856         espn      FCS
+#> 407         #00183e         logo     DIII
+#> 408         #7b868c         logo      DII
+#> 409         #ffcd00         espn      FBS
+#> 410         #4d4d4d         espn      FBS
+#> 411            <NA>         logo     DIII
+#> 412         #b1b1b1         espn      FBS
+#> 413         #c4b6d4         logo      DII
+#> 414         #418fde         espn      FBS
+#> 415         #efad00         logo      DII
+#> 416            <NA>         logo      DII
+#> 417         #39524f         logo     DIII
+#> 418         #fcb034         espn     DIII
+#> 419         #000000         espn      DII
+#> 420            <NA>         espn      FCS
+#> 421         #261e1f         logo      DII
+#> 422         #000000         espn      FCS
+#> 423         #215379         logo     DIII
+#> 424         #ffffff         espn      FCS
+#> 425         #b7986b         logo      DII
+#> 426         #000000         espn     DIII
+#> 427         #231f20         logo     DIII
+#> 428         #6a8bb0         logo      DII
+#> 429         #d8d8d8         espn     DIII
+#> 430         #ebebeb         espn      FCS
+#> 431         #ffffff         espn      DII
+#> 432         #db1a21         espn      FCS
+#> 433         #050707         logo      DII
+#> 434         #f5cc2e         espn     DIII
+#> 435         #a87477         logo     <NA>
+#> 436         #3a231c         logo     DIII
+#> 437         #d9b962         logo      DII
+#> 438            <NA>         logo      DII
+#> 439         #f0b310         logo     <NA>
+#> 440         #7d7149         logo      DII
+#> 441         #febc28         logo     DIII
+#> 442         #ffc90a         espn      FCS
+#> 443         #f1c500         espn      FBS
+#> 444         #5f6062         logo      DII
+#> 445         #bf9e70         espn      FCS
+#> 446         #8cbbdd         logo     DIII
+#> 447         #000000         espn     DIII
+#> 448         #936c74         logo     DIII
+#> 449         #fdc743         espn     DIII
+#> 450         #f0b323         espn      FCS
+#> 451         #ffbe0a         espn     DIII
+#> 452         #015f52         logo     DIII
+#> 453            <NA>         espn      DII
+#> 454         #f2b310         logo     DIII
+#> 455         #fde133         logo     DIII
+#> 456            <NA>         logo     DIII
+#> 457         #000000         espn     DIII
+#> 458         #ffde00         logo     DIII
+#> 459         #bdbec0         logo     DIII
+#> 460         #a2a9ad         logo     DIII
+#> 461            <NA>         logo     DIII
+#> 462         #f0f0f0         espn      FCS
+#> 463         #5e2921         logo     DIII
+#> 464         #db8b99         logo     DIII
+#> 465         #ffffff         espn      FBS
+#> 466         #ffc425         espn      FBS
+#> 467         #690717         espn      FCS
+#> 468         #ffd10a         espn      FCS
+#> 469         #a2aaad         espn     DIII
+#> 470         #b5985b         espn     DIII
+#> 471         #000000         espn      FBS
+#> 472         #002855         espn      FBS
+#> 473         #e8c535         espn      FCS
+#> 474         #aa8800         logo     DIII
+#> 475         #ac1f2d         logo     DIII
+#> 476         #13284c         espn      FBS
+#> 477         #fbcd20         logo     DIII
+#> 478         #38050a         logo     DIII
+#> 479         #472766         logo     DIII
+#> 480         #80143e         logo     DIII
+#> 481         #b59859         espn     DIII
+#> 482         #9f8343         espn      FCS
+#> 483         #012e64         logo      DII
+#> 484         #8e4f53         logo      DII
+#> 485         #e6b71b         espn     DIII
+#> 486         #fec52f         espn     DIII
+#> 487         #0a2343         logo     DIII
+#> 488         #6c6146         logo      FCS
+#> 489         #cfb97a         logo      DII
+#> 490         #000000         logo      DII
+#> 491         #53585a         espn     DIII
+#> 492         #f0f0f0         espn      FCS
+#> 493         #000000         espn      DII
+#> 494         #8d1d25         logo      DII
+#> 495         #00205c         logo      DII
+#> 496         #432014         logo      DII
+#> 497         #ffcf06         espn     DIII
+#> 498         #003679         logo     DIII
+#> 499         #5b6a78         logo      DII
+#> 500         #fdbd54         logo     DIII
+#> 501         #d7a0a5         logo      DII
+#> 502         #00386c         logo      FCS
+#> 503         #bca233         logo      DII
+#> 504         #000000         espn      DII
+#> 505            <NA>         espn      FCS
+#> 506         #000000         espn      DII
+#> 507         #ffffff         espn     DIII
+#> 508         #453c1c         logo      DII
+#> 509         #221e1f         logo     DIII
+#> 510         #96777a         logo      DII
+#> 511         #4b708e         logo     DIII
+#> 512         #b29547         espn     DIII
+#> 513         #b9a3db         logo      DII
+#> 514         #231f20         logo      DII
+#> 515         #f3d00b         logo     DIII
+#> 516         #ffffff         espn     DIII
+#> 517         #29618a         logo      DII
+#> 518            <NA>         logo     <NA>
+#> 519         #070909         logo      DII
+#> 520         #000000         espn     DIII
+#> 521         #15223b         logo      DII
+#> 522         #f6cd55         logo      DII
+#> 523         #56353e         logo     DIII
+#> 524         #8f7fbc         logo      DII
+#> 525            <NA>         logo     DIII
+#> 526         #ffffff         espn     DIII
+#> 527         #a3aaae         espn      FBS
+#> 528         #7b5b95         logo      FCS
+#> 529         #000000         espn     DIII
+#> 530         #00583d         logo     DIII
+#> 531         #bdb096         logo      DII
+#> 532         #ffd203         logo     <NA>
+#> 533         #7386a2         logo     DIII
+#> 534         #080808         espn      FCS
+#> 535         #b47b7d         logo     DIII
+#> 536         #e1732d         espn      FCS
+#> 537         #f7941e         espn     DIII
+#> 538         #a1a1a5         logo      DII
+#> 539         #231f20         logo     DIII
+#> 540         #ab9e76         espn     DIII
+#> 541         #b0b1b2         logo     DIII
+#> 542         #566f7c         logo      DII
+#> 543         #a1d2f1         espn      FBS
+#> 544         #00275d         logo     DIII
+#> 545         #4d5051         logo     DIII
+#> 546         #c8c8c8         espn     DIII
+#> 547         #edd38b         logo     DIII
+#> 548         #ebb700         espn     DIII
+#> 549         #0066b7         logo     DIII
+#> 550         #a8b1b7         espn     DIII
+#> 551         #f57b21         espn     DIII
+#> 552         #000000         espn     DIII
+#> 553         #0d1d41         logo      DII
+#> 554         #fecd01         espn     DIII
+#> 555         #912429         logo     DIII
+#> 556         #9d6374         logo      DII
+#> 557         #ffc72c         espn      FBS
+#> 558            <NA>         espn      FCS
+#> 559         #c3c4c6         espn      FCS
+#> 560         #e9a126         espn      FCS
+#> 561         #46927e         logo     DIII
+#> 562         #093254         logo      DII
+#> 563         #4e1827         logo     DIII
+#> 564         #ffcc1e         logo      DII
+#> 565         #000000         espn      FBS
+#> 566         #003058         logo      FCS
+#> 567            <NA>         espn      FCS
+#> 568         #2f6d51         logo     DIII
+#> 569         #7b95a7         logo     DIII
+#> 570         #0094d2         logo     DIII
+#> 571         #d0d1d4         logo     DIII
+#> 572         #000000         logo      DII
+#> 573         #002b5c         logo     DIII
+#> 574         #a59474         espn      FCS
+#> 575         #a5a6a9         espn     DIII
+#> 576         #c38d97         logo     <NA>
+#> 577         #a27752         espn      FBS
+#> 578            <NA>         logo     <NA>
+#> 579         #6a5638         espn      FBS
+#> 580         #ffffff         espn      FBS
+#> 581         #ffffff         espn     DIII
+#> 582         #3b3128         logo      DII
+#> 583         #abb4bc         espn      FCS
+#> 584         #372427         logo     DIII
+#> 585         #ffffff         espn      FBS
+#> 586         #000000         espn     DIII
+#> 587         #0b1315         espn      FBS
+#> 588         #000000         espn     DIII
+#> 589            <NA>         logo      DII
+#> 590         #c1c6c8         espn      FBS
+#> 591         #d5b98b         espn     DIII
+#> 592         #d3bc8d         espn      FBS
+#> 593         #c1b585         espn      DII
+#> 594         #3e334b         logo     DIII
+#> 595            <NA>         logo     DIII
+#> 596         #13294b         espn      FBS
+#> 597         #e61b24         logo     DIII
+#> 598         #c8c372         espn      FBS
+#> 599         #df983a         logo     DIII
+#> 600         #c0a656         espn      DII
+#> 601         #8d5833         logo      DII
+#> 602         #482325         logo     DIII
+#> 603         #ffcb00         logo     DIII
+#> 604         #d1ab42         logo     DIII
+#> 605         #000000         espn      FBS
+#> 606         #ba8e91         logo     DIII
+#> 607         #ffffff         espn     DIII
+#> 608         #aed1e8         logo      DII
+#> 609         #e55204         logo     DIII
+#> 610         #ecb434         logo     DIII
+#> 611         #95502a         logo     DIII
+#> 612         #ffcd00         espn     DIII
+#> 613         #ffffff         espn      FCS
+#> 614         #ffffff         espn     DIII
+#> 615         #ffc629         espn     DIII
+#> 616         #b1b3b3         espn     DIII
+#> 617         #a2aaad         espn      FBS
+#> 618         #000000         espn     DIII
+#> 619         #c2a303         espn     DIII
+#> 620         #01295c         logo     DIII
+#> 621         #000000         logo     DIII
+#> 622         #6e648e         logo     DIII
+#> 623         #fee44e         logo      DII
+#> 624         #642b8a         logo     DIII
+#> 625         #000000         logo     DIII
+#> 626         #286dc0         espn      FCS
+#> 627         #ffffff         espn     DIII
+#> 628         #9ba19e         logo      DII
+#> 629         #242021         logo     DIII
+#> 630         #003868         logo     DIII
+#> 631            <NA>         logo      DII
+#> 632         #001c58         espn      FCS
+#> 633         #e51937         espn      FCS
+#> 634         #000000         espn     DIII
+#> 635         #ffd200         espn      FBS
+#> 636            <NA>         logo     DIII
+#> 637         #3d1950         logo      DII
+#> 638         #fdb913         espn      FBS
+#> 639         #00843d         espn      FCS
+#> 640         #ffffff         espn     DIII
+#> 641         #00529f         logo     <NA>
+#> 642         #ceb888         espn      FBS
+#> 643         #024c8d         logo     <NA>
+#> 644         #3f1d20         logo     DIII
+#> 645         #000000         espn      FBS
+#> 646         #ad7c70         logo      DII
+#> 647         #56854e         espn      FCS
+#> 648         #df6979         logo      DII
+#> 649         #fa4616         espn      FBS
+#> 650         #cfc493         espn      FBS
+#> 651         #c79e54         logo     DIII
+#> 652         #ffffff         espn      FBS
+#> 653         #bf0d3e         espn      FBS
+#> 654            <NA>         logo      DII
+#> 655         #2c2a29         espn      FBS
+#> 656         #fbda87         logo      DII
+#> 657            <NA>         logo      DII
+#> 658         #000000         espn      FBS
+#> 659         #001440         espn     DIII
+#> 660         #091b3b         logo     DIII
+#> 661         #bd7a76         logo     DIII
+#> 662         #ffc72a         espn      FBS
+#> 663         #a5bbda         espn     DIII
+#> 664         #d64309         espn      FBS
+#> 665         #c9bb93         logo     DIII
+#> 666         #ffffff         espn     DIII
+#> 667         #8c6e4a         espn      FCS
+#> 668         #0c213e         logo     DIII
+#> 669            <NA>         logo     DIII
+#> 670         #fed00a         logo     DIII
+#> 671         #ffffff         espn      FBS
+#> 672         #c2c3c0         espn      FCS
+#> 673         #ffffff         espn      FBS
+#> 674         #311b20         logo     DIII
+#> 675         #bbbbbb         logo     DIII
+#> 676         #8b7a42         logo     DIII
+#> 677         #ffffff         espn      FBS
+#> 678         #b3b2b1         espn     DIII
+#> 679         #c99700         espn      FBS
+#> 680            <NA>         logo     DIII
+#> 681         #8c1d40         espn      FBS
+#> 682         #ffd203         logo      DII
+#> 683         #000e00         espn      FCS
+#> 684         #ffffff         espn      FBS
+#> 685         #ffffff         espn      FBS
+#> 686         #ffffff         espn      FBS
+#> 687         #fdd023         espn      FBS
+#> 688         #e2201b     cbbplotR     <NA>
+#> 689            <NA>     cbbplotR     <NA>
+#> 690         #9c755f     fallback     <NA>
+#> 691         #b07aa1     fallback     <NA>
+#> 692            <NA>     cbbplotR     <NA>
+#> 693         #43c6e7     cbbplotR     <NA>
+#> 694            <NA>     cbbplotR     <NA>
+#> 695            <NA>     cbbplotR     <NA>
+#> 696         #e15759     fallback     <NA>
+#> 697         #4e79a7     fallback     <NA>
+#> 698         #bab0ac     fallback     <NA>
+#> 699         #e31c47     cbbplotR     <NA>
+#> 700         #76b7b2     fallback     <NA>
+#> 701         #76b7b2     fallback     <NA>
+#> 702         #f28e2b     fallback     <NA>
+#> 703         #59a14f     fallback     <NA>
+#> 704         #bab0ac     fallback     <NA>
+#> 705         #59a14f     fallback     <NA>
+#> 706         #9c755f     fallback     <NA>
+#> 707         #4e79a7     fallback     <NA>
+#> 708         #b07aa1     fallback     <NA>
+#> 709         #59a14f     fallback     <NA>
+#> 710         #4e79a7     fallback     <NA>
+#> 711            <NA>     cbbplotR     <NA>
+#> 712         #bab0ac     fallback     <NA>
+#> 713         #b07aa1     fallback     <NA>
+#> 714         #b07aa1     fallback     <NA>
+#> 715         #0c2140     cbbplotR     <NA>
+#> 716         #9c755f     fallback     <NA>
+#> 717         #feb81d     cbbplotR     <NA>
+#> 718         #edc948     fallback     <NA>
+#> 719         #4e79a7     fallback     <NA>
+#> 720         #f28e2b     fallback     <NA>
+#> 721         #4e79a7     fallback     <NA>
+#> 722         #bab0ac     fallback     <NA>
+#> 723         #edc948     fallback     <NA>
+#> 724         #f28e2b     fallback     <NA>
+#> 725         #afafaf     cbbplotR     <NA>
+#> 726         #76b7b2     fallback     <NA>
+#> 727         #76b7b2     fallback     <NA>
+#> 728         #76b7b2     fallback     <NA>
+#> 729         #9c755f     fallback     <NA>
+#> 730            <NA>     cbbplotR     <NA>
+#> 731         #59a14f     fallback     <NA>
+#> 732         #59a14f     fallback     <NA>
+#> 733         #edc948     fallback     <NA>
+#> 734         #bab0ac     fallback     <NA>
+#> 735         #e15759     fallback     <NA>
+#> 736         #b07aa1     fallback     <NA>
+#> 737         #edc948     fallback     <NA>
+#> 738         #d0ae85     cbbplotR     <NA>
+#> 739         #b07aa1     fallback     <NA>
+#> 740         #f28e2b     fallback     <NA>
+#> 741            <NA>     cbbplotR     <NA>
+#> 742         #d9291c     cbbplotR     <NA>
+#> 743         #9c755f     fallback     <NA>
+#> 744         #edc948     fallback     <NA>
+#> 745         #e15759     fallback     <NA>
+#> 746         #ff9da7     fallback     <NA>
+#> 747         #f28e2b     fallback     <NA>
+#> 748         #ffd040     cbbplotR     <NA>
+#> 749         #4e79a7     fallback     <NA>
+#> 750            <NA>     cbbplotR     <NA>
+#> 751            <NA>     cbbplotR     <NA>
+#> 752            <NA>     cbbplotR     <NA>
+#> 753         #f5a606     cbbplotR     <NA>
+#> 754         #9c755f     fallback     <NA>
+#> 755         #4e79a7     fallback     <NA>
+#> 756            <NA>     cbbplotR     <NA>
+#> 757         #4e79a7     fallback     <NA>
+
+# cfbplotR's P5 team list
+sdv_teams("cfb", division = "P5")$location
+#>  [1] "Boston College"    "Arizona"           "Maryland"         
+#>  [4] "Michigan State"    "Michigan"          "Minnesota"        
+#>  [7] "Missouri"          "Ole Miss"          "Duke"             
+#> [10] "NC State"          "North Carolina"    "Wake Forest"      
+#> [13] "Nebraska"          "Rutgers"           "Syracuse"         
+#> [16] "Ohio State"        "Oklahoma State"    "Auburn"           
+#> [19] "Oklahoma"          "Oregon State"      "San Diego State"  
+#> [22] "UCF"               "Penn State"        "Cincinnati"       
+#> [25] "Pittsburgh"        "Clemson"           "Iowa"             
+#> [28] "Kansas"            "Kansas State"      "Vanderbilt"       
+#> [31] "Baylor"            "Miami"             "Stanford"         
+#> [34] "Texas A&M"         "Houston"           "Oregon"           
+#> [37] "California"        "Purdue"            "Texas"            
+#> [40] "BYU"               "Utah"              "SMU"              
+#> [43] "South Carolina"    "Virginia"          "Virginia Tech"    
+#> [46] "UCLA"              "TCU"               "Tennessee"        
+#> [49] "Washington"        "Texas Tech"        "Washington State" 
+#> [52] "Wisconsin"         "West Virginia"     "Fresno State"     
+#> [55] "USC"               "Texas State"       "Utah State"       
+#> [58] "Alabama"           "Mississippi State" "Illinois"         
+#> [61] "Colorado State"    "Colorado"          "Florida State"    
+#> [64] "Florida"           "Georgia Tech"      "Georgia"          
+#> [67] "Iowa State"        "Boise State"       "Northwestern"     
+#> [70] "Arkansas"          "Indiana"           "Notre Dame"       
+#> [73] "Arizona State"     "Kentucky"          "Louisville"       
+#> [76] "LSU"              
+
+# cfbplotR's logo_ref: a logo (and, where archived, wordmark) URL per team
+# \donttest{
+logo_ref <- transform(
+  sdv_teams("cfb"),
+  logo = sdv_logo_url(team_id, "cfb"),
+  wordmark = suppressWarnings(sdv_logo_url(team_id, "cfb", mark_type = "wordmark"))
+)
+head(logo_ref[c("location", "color_primary", "color_secondary", "logo", "wordmark")])
+#>         location color_primary color_secondary
+#> 1         Eureka       #960a2c         #c09a05
+#> 2 Centenary (LA)       #8a2432         #300e12
+#> 3        Erskine       #701931         #010101
+#> 4 Boston College       #8c2232         #dbcca6
+#> 5     Holy Cross       #582c83         #ffffff
+#> 6        Harvard       #990000         #dbdbdb
+#>                                                                                                                                       logo
+#> 1 https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d9/d9a709387644029feebe6e0b47b52c69e5b697c1c90e58af8b9d315f3e1bc6a9.png
+#> 2 https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7a/7af2c79cffb69088c135be2cd2b29c93d9078eb78bd02c82068cf5f1e84e856c.png
+#> 3 https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f8e54fe126c7bbe1b79f179266109b286e73ade90d0ce1e0232dbf710b96b373.png
+#> 4 https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fa/fa59bb32e732327db77cef6c70e32db5f0faf0d1b35a02abc482d1bc187c6036.png
+#> 5 https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/02/027c38dcc223cca09181ac4b0e56e1a84573a6f121d080b3bac8eea614776d9a.png
+#> 6 https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/40/4018648beaa1f1f51c97abb92ccf3d658dc976de28a27d069a28f1127e99c1d3.png
+#>                                                                                                                                   wordmark
+#> 1                                                                                                                                     <NA>
+#> 2                                                                                                                                     <NA>
+#> 3                                                                                                                                     <NA>
+#> 4 https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d6/d624f4be832a671b522930b66d68c420f19a2c133a97889f1668830dc17bd9ff.png
+#> 5 https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/59/598355bceed9bebd4d60a0982eb4e1a3f5dfaa37c49d8dbe8b7cb2b88d31304b.png
+#> 6 https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/63/63e4a22c4f7c0f7d094e1063fd4296975e7102f37921f94225ff480d6d2ce855.png
+# }
 ```

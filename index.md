@@ -326,18 +326,22 @@ The [articles
 index](https://sdvplotR.sportsdataverse.org/articles/index.html) lists
 all of them.
 
-## **Cheat sheet**
+See also the [function
+reference](https://sdvplotR.sportsdataverse.org/reference/index.html)
+and the [NEWS](https://sdvplotR.sportsdataverse.org/news/index.html).
 
-A printable four-page reference for **sdvplotR**: team logos, colors and
-scales in ggplot2, team identity, the plotly, ggiraph and leaflet
-integrations, surfaces, and the gt and reactable toolkits, in four color
-themes, light and dark.
+## **Companion packages**
 
-📄 [**Download the sdvplotR cheat sheet
-(PDF)**](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)
-
-Browse the other SportsDataverse cheat sheets at
-[**sportsdataverse.org/cheatsheets**](https://sportsdataverse.org/cheatsheets).
+- [**`sportyR`**](https://sportyR.sportsdataverse.org/) draws the
+  playing surfaces that `sdvplotR` paints in team colors.
+- [**`ggpath`**](https://mrcaseb.github.io/ggpath/) is the image engine
+  underneath the logo and headshot layers.
+- [**`nflplotR`**](https://nflplotr.nflverse.com/) and
+  [**`cfbplotR`**](https://cfbplotR.sportsdataverse.org/) are the
+  single-league packages whose conventions `sdvplotR` follows.
+- [**`sdvplot`**](https://sdvplot.sportsdataverse.org/) (Python) and
+  [**`@sportsdataverse/sdvplot`**](https://plot.sportsdataverse.org)
+  (JavaScript / TypeScript) are the twins in other languages.
 
 ## **The SportsDataverse**
 
@@ -362,7 +366,7 @@ Browse the other SportsDataverse cheat sheets at
 See the full ecosystem at
 [sportsdataverse.org](https://sportsdataverse.org/).
 
-## Follow the [SportsDataverse](https://x.com/SportsDataverse) on X and star this repo
+## **Follow the [SportsDataverse](https://x.com/SportsDataverse) on X and star this repo**
 
 [![X
 Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
@@ -394,6 +398,19 @@ sportsdataverse/sdvplotR](https://raw.githubusercontent.com/sportsdataverse/sdvp
 - [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)  
   [![@andreweatherman](https://img.shields.io/github/followers/andreweatherman?color=eee&logo=Github&style=for-the-badge)](https://github.com/andreweatherman)
 
+## **Cheat sheet**
+
+A printable four-page reference for **sdvplotR**: team logos, colors and
+scales in ggplot2, team identity, the plotly, ggiraph and leaflet
+integrations, surfaces, and the gt and reactable toolkits, in four color
+themes, light and dark.
+
+📄 [**Download the sdvplotR cheat sheet
+(PDF)**](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)
+
+Browse the other SportsDataverse cheat sheets at
+[**sportsdataverse.org/cheatsheets**](https://sportsdataverse.org/cheatsheets).
+
 ## **Code of Conduct**
 
 Please note that the sdvplotR project is released with a [Contributor
@@ -416,3 +433,8 @@ BibTeX Citation
   year = {2026}
 }
 ```
+
+## **License**
+
+`sdvplotR` is released under the MIT License; see
+[LICENSE.md](https://github.com/sportsdataverse/sdvplotR/blob/main/LICENSE.md).

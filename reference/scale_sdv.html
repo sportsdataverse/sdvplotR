@@ -267,6 +267,7 @@ color and fill aesthetics.</p>
 <span>  which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"secondary"</span><span class="op">)</span>,</span>
 <span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  alt_colors <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  aesthetics <span class="op">=</span> <span class="st">"colour"</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
@@ -279,6 +280,7 @@ color and fill aesthetics.</p>
 <span>  which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"secondary"</span><span class="op">)</span>,</span>
 <span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  alt_colors <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  aesthetics <span class="op">=</span> <span class="st">"colour"</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
@@ -291,6 +293,7 @@ color and fill aesthetics.</p>
 <span>  which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"secondary"</span><span class="op">)</span>,</span>
 <span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  alt_colors <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  aesthetics <span class="op">=</span> <span class="st">"fill"</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
@@ -319,6 +322,13 @@ a set of aesthetic values to map data values to.</p></dd>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Other arguments passed to <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">ggplot2::scale_color_manual()</a></code> or
 <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">ggplot2::scale_fill_manual()</a></code>.</p></dd>
+
+
+<dt id="arg-alt-colors">alt_colors<a class="anchor" aria-label="anchor" href="#arg-alt-colors"></a></dt>
+<dd><p>Teams (any identifier <code><a href="sdv_resolve.html">sdv_resolve()</a></code> accepts) drawn in
+their other colour: the secondary one, or the primary one with
+<code>which = "secondary"</code>. A team with no other colour keeps its own. Ignored
+when <code>values</code> is given. The counterpart of cfbplotR's <code>alt_colors</code>.</p></dd>
 
 
 <dt id="arg-aesthetics">aesthetics<a class="anchor" aria-label="anchor" href="#arg-aesthetics"></a></dt>
@@ -367,6 +377,14 @@ If <code>NA</code> (the default) no transparency will be applied.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="scale_sdv-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># college football, with Alabama and Utah in their secondary colours</span></span></span>
+<span class="r-in"><span><span class="va">cfb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">9</span>, teams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Alabama"</span>, <span class="st">"Florida State"</span>, <span class="st">"Oregon"</span>, <span class="st">"Utah"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">cfb</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">teams</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">teams</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">scale_fill_sdv</span><span class="op">(</span>league <span class="op">=</span> <span class="st">"cfb"</span>, alt_colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Alabama"</span>, <span class="st">"Utah"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="scale_sdv-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

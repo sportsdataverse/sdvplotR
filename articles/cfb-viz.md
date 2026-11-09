@@ -43,7 +43,6 @@ season <- 2025
 caption <- "Data: cfbfastR | 2025 season"
 
 pbp <- cfbfastR::load_cfb_pbp(season)
-schedule <- cfbfastR::load_cfb_schedules(season)
 
 theme_set(
   theme_minimal(base_size = 12) +
@@ -53,6 +52,29 @@ theme_set(
       plot.caption = element_text(color = "grey45", size = 8)
     )
 )
+```
+
+The schedule comes from one CFBD call:
+
+``` r
+
+schedule <- cfbfastR::load_cfb_schedules(season)
+```
+
+The output below uses a snapshot of that call taken on November 09, 2026
+from cfbfastR::load_cfb_schedules(2025) (CFBD refused: the
+sportsdataverse-data cfb_schedules release), because
+CollegeFootballData.com caps a key’s calls each month and the site build
+cannot rely on one; `data-raw/article_fixtures.R` takes it with the same
+code. The ratings and the series history are live CFBD calls; without a
+key, or once its monthly calls are spent, the sections that need them
+show their code but do not run it.
+
+``` r
+
+# a key with calls left this month (a margin for the articles built after this one): CFBD answers HTTP 429 with no rows once they are spent
+has_key <- isTRUE(tryCatch(suppressMessages(cfbfastR::cfbd_api_key_info())$remaining_calls > 10, error = function(e) FALSE))
+if (!has_key) cat("CFBD_API_KEY is not set or has no calls left, so the SP+, SRS and series chunks are shown but not run.\n")
 ```
 
 The schedule carries each team’s division and its conference **that
@@ -78,20 +100,18 @@ fbs <- bind_rows(
 nrow(fbs)
 #> [1] 136
 count(fbs, conference, sort = TRUE)
-#> # A tibble: 11 × 2
-#>    conference        n
-#>    <chr>         <int>
-#>  1 Big Ten          18
-#>  2 ACC              17
-#>  3 Big 12           16
-#>  4 SEC              16
-#>  5 AAC              14
-#>  6 Sun Belt         14
-#>  7 Mid-American     13
-#>  8 CUSA             12
-#>  9 Mountain West    12
-#> 10 FBS Indep.        2
-#> 11 Pac-12            2
+#>       conference  n
+#> 1        Big Ten 18
+#> 2            ACC 17
+#> 3         Big 12 16
+#> 4            SEC 16
+#> 5            AAC 14
+#> 6       Sun Belt 14
+#> 7   Mid-American 13
+#> 8           CUSA 12
+#> 9  Mountain West 12
+#> 10    FBS Indep.  2
+#> 11        Pac-12  2
 ```
 
 Conferences are rows of the team index too
@@ -117,18 +137,16 @@ fbs |>
   filter(!is.na(conf_2025), conf_2025 != conf_today) |>
   arrange(conf_today, team) |>
   select(team, conf_2025, conf_today)
-#> # A tibble: 9 × 3
-#>   team              conf_2025     conf_today   
-#>   <chr>             <chr>         <chr>        
-#> 1 Northern Illinois MAC           Mountain West
-#> 2 UTEP              CUSA          Mountain West
-#> 3 Boise State       Mountain West Pac-12       
-#> 4 Colorado State    Mountain West Pac-12       
-#> 5 Fresno State      Mountain West Pac-12       
-#> 6 San Diego State   Mountain West Pac-12       
-#> 7 Texas State       Sun Belt      Pac-12       
-#> 8 Utah State        Mountain West Pac-12       
-#> 9 Louisiana Tech    CUSA          Sun Belt
+#>                team     conf_2025    conf_today
+#> 1 Northern Illinois           MAC Mountain West
+#> 2              UTEP          CUSA Mountain West
+#> 3       Boise State Mountain West        Pac-12
+#> 4    Colorado State Mountain West        Pac-12
+#> 5      Fresno State Mountain West        Pac-12
+#> 6   San Diego State Mountain West        Pac-12
+#> 7       Texas State      Sun Belt        Pac-12
+#> 8        Utah State Mountain West        Pac-12
+#> 9    Louisiana Tech          CUSA      Sun Belt
 ```
 
 ## 1. All 136 FBS teams on one chart

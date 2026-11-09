@@ -34,8 +34,19 @@ are taken before `pf` and `pa` become season averages.
 
 ``` r
 
-schedule <- cfbfastR::load_cfb_schedules(season) |>
-  filter(completed)
+schedule <- cfbfastR::load_cfb_schedules(season)
+```
+
+The output below uses a snapshot of that call taken on November 09,
+2026, the one [the college football
+tutorial](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.md)
+reads, because CollegeFootballData.com caps a key’s calls each month and
+the site build cannot rely on one; `data-raw/article_fixtures.R` takes
+it with the same code.
+
+``` r
+
+schedule <- filter(schedule, completed)
 
 side <- function(me, opp) {
   transmute(

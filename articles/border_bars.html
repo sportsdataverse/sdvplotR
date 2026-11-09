@@ -352,7 +352,14 @@ possessions, not adjusted for opponents.</p>
 its opponent’s row puts both ends of the floor side by side. Possessions
 are estimated from the box score.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_mbb_pbp.html" class="external-link">load_mbb_team_box</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="fl">2026</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu">hoopR</span><span class="fu">::</span><span class="fu"><a href="https://hoopR.sportsdataverse.org/reference/load_mbb_pbp.html" class="external-link">load_mbb_team_box</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="fl">2026</span><span class="op">)</span></span></code></pre></div>
+<p>The tables below use snapshots of this article’s three data calls,
+taken on November 09, 2026, because a GitHub release read that fails
+returns an empty frame and would stop the site build;
+<code>data-raw/article_fixtures.R</code> takes them with the same
+code.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="va">box</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>poss <span class="op">=</span> <span class="va">field_goals_attempted</span> <span class="op">-</span> <span class="va">offensive_rebounds</span> <span class="op">+</span> <span class="va">total_turnovers</span> <span class="op">+</span> <span class="fl">0.475</span> <span class="op">*</span> <span class="va">free_throws_attempted</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">champion</span> <span class="op">&lt;-</span> <span class="va">box</span> <span class="op">|&gt;</span></span>
@@ -402,7 +409,7 @@ are estimated from the box score.</p>
 <p>Percentiles come from <code><a href="https://dplyr.tidyverse.org/reference/percent_rank.html" class="external-link">percent_rank()</a></code> across every
 Division I team on each split, with the sign flipped where a lower
 number is better, so 100% is always the best mark in the country.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">percentiles</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">location</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
@@ -421,7 +428,7 @@ number is better, so 100% is always the best mark in the country.</p>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">location</span>, values_from <span class="op">=</span> <span class="va">percentile</span><span class="op">)</span></span></code></pre></div>
 <p>The last step names each stat and groups them, so the table reads in
 sections.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  off_eff <span class="op">=</span> <span class="st">"Off. efficiency"</span>, def_eff <span class="op">=</span> <span class="st">"Def. efficiency"</span>, tempo <span class="op">=</span> <span class="st">"Tempo"</span>,</span>
 <span>  efg <span class="op">=</span> <span class="st">"Eff. FG%"</span>, ftr <span class="op">=</span> <span class="st">"FTA per FGA"</span>, oreb_rate <span class="op">=</span> <span class="st">"Off. rebound rate"</span>, tov_rate <span class="op">=</span> <span class="st">"Turnover rate"</span>,</span>
@@ -447,7 +454,7 @@ sections.</p>
 <code><a href="../reference/sdv_logo_url.html">sdv_logo_url()</a></code> its dark-mode logo (made for a colored
 ground) and <code><a href="../reference/sdv_team_colors.html">sdv_team_colors()</a></code> its primary color for the
 bar.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">team</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_teams.html">sdv_teams</a></span><span class="op">(</span><span class="st">"mbb"</span><span class="op">)</span>, <span class="va">team_id</span> <span class="op">==</span> <span class="va">champion</span><span class="op">)</span></span>
 <span><span class="va">team_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"mbb"</span>, <span class="va">team</span><span class="op">$</span><span class="va">team_id</span>, <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">team_logo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_logo_url.html">sdv_logo_url</a></span><span class="op">(</span><span class="va">team</span><span class="op">$</span><span class="va">team_id</span>, league <span class="op">=</span> <span class="st">"mbb"</span>, variant <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span></span></code></pre></div>
@@ -459,7 +466,7 @@ has to be tall enough to hold it; the text picks up the font the theme
 uses for its headers unless you set it, and <code>text_padding</code>,
 <code>text_align</code> and <code>img_align</code> move the two
 around.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">report</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1138,8 +1145,10 @@ around.</p>
 <p>A footer bar is the place for a publisher’s mark. The table is the
 WNBA’s top ten scorers of the 2026 regular season among players who
 appeared in at least 30 games, each with a headshot and team logo.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">scorers</span> <span class="op">&lt;-</span> <span class="fu">wehoop</span><span class="fu">::</span><span class="fu"><a href="https://wehoop.sportsdataverse.org/reference/load_wnba_draft.html" class="external-link">load_wnba_player_box</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">player_box</span> <span class="op">&lt;-</span> <span class="fu">wehoop</span><span class="fu">::</span><span class="fu"><a href="https://wehoop.sportsdataverse.org/reference/load_wnba_draft.html" class="external-link">load_wnba_player_box</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">scorers</span> <span class="op">&lt;-</span> <span class="va">player_box</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season_type</span> <span class="op">==</span> <span class="fl">2</span>, <span class="op">!</span><span class="va">did_not_play</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
 <span>    player <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html" class="external-link">last</a></span><span class="op">(</span><span class="va">athlete_display_name</span>, order_by <span class="op">=</span> <span class="va">game_date</span><span class="op">)</span>,</span>
@@ -1160,7 +1169,7 @@ The footer bar holds the sdvplotR hex mark, drawn 32px wide and 37px
 tall to keep its shape, and the source line, on the SportsDataverse
 blue, where the dark hex stands out; a thin bar of the same color on top
 frames the table.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scorers</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gt_theme_sofa.html">gt_theme_sofa</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1818,9 +1827,10 @@ the bottom.</p>
 <p>The champion is the winner of the season’s Super Bowl, and its games
 are one filter on the schedule after <code>clean_homeaway()</code> turns
 it into one row per team.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">schedule</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
-<span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">schedule</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">sb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">schedule</span>, <span class="va">game_type</span> <span class="op">==</span> <span class="st">"SB"</span><span class="op">)</span></span>
 <span><span class="va">champ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">sb</span><span class="op">$</span><span class="va">home_score</span> <span class="op">&gt;</span> <span class="va">sb</span><span class="op">$</span><span class="va">away_score</span>, <span class="va">sb</span><span class="op">$</span><span class="va">home_team</span>, <span class="va">sb</span><span class="op">$</span><span class="va">away_team</span><span class="op">)</span></span>
 <span></span>
@@ -1840,7 +1850,7 @@ it into one row per team.</p>
 as one comma-separated string, which splits into the stripe colors;
 <code>sdv_logo_url(mark_type = "wordmark")</code> returns the
 wordmark.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stripes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="../reference/sdv_team_colors.html">sdv_team_colors</a></span><span class="op">(</span><span class="st">"nfl"</span>, <span class="va">champ</span>, <span class="st">"all"</span><span class="op">)</span><span class="op">)</span>, <span class="st">", "</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">wordmark</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdv_logo_url.html">sdv_logo_url</a></span><span class="op">(</span><span class="va">champ</span>, league <span class="op">=</span> <span class="st">"nfl"</span>, mark_type <span class="op">=</span> <span class="st">"wordmark"</span><span class="op">)</span></span>
 <span></span>
@@ -2574,12 +2584,12 @@ light one.</p>
 <p>To cite the <a href="https://sdvplotR.sportsdataverse.org/"><strong><code>sdvplotR</code></strong></a>
 R package in publications, use:</p>
 <p>BibTeX Citation</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="related-sportsdataverse-packages">

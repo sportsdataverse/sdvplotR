@@ -50,8 +50,10 @@ package per league.
   `snapshot_aliases`, `snapshot_marks`, `snapshot_meta`, plus the fold
   tables `fold_from` / `fold_to` and `fold_multi_from` /
   `fold_multi_to`, Python’s NFKD + casefold per character for
-  `norm_value()`), used when `options(sdvplotR.offline = TRUE)` or the
-  CDN read fails. Rebuild it with `data-raw/export_index.py`, then
+  `norm_value()`, and `combining_marks`, the PCRE class of every
+  character it drops outright), used when
+  `options(sdvplotR.offline = TRUE)` or the CDN read fails. Rebuild it
+  with `data-raw/export_index.py`, then
   `Rscript data-raw/build_index_snapshot.R` from the package root. The
   export reads the sibling `../sdvplot` checkout, refuses one with
   uncommitted `src/` changes, and records its commit in
@@ -132,9 +134,10 @@ package per league.
   are rows of the team index (`index_aliases()`, `snapshot_aliases`);
   fix them upstream in the index, not here.
 
-- Wordmarks exist where the logo manifest has them (the NFL, MLB, MiLB
-  and the PHF in the bundled snapshot). Teams without one resolve to
-  `NA` and the helpers fall back gracefully.
+- Wordmarks exist where the logo manifest has them (the NFL, MLB, MiLB,
+  the PHF and, from cfbplotR’s archived set, college football in the
+  bundled snapshot). Teams without one resolve to `NA` and the helpers
+  fall back gracefully.
 
 - **gtUtils port**: the generic `gt` table toolkit (themes, legends, cut
   lines, save/crop helpers; `R/gt_*.R` other than `gt_sdv.R`,
@@ -250,7 +253,8 @@ run it after adding or replacing any other figure there.
   checkRd wants width/height attributes in pixels.
 - `Suggests` holds only what exported functions or tests call (chromote,
   ggiraph, ggsoccer, ggtext, gridtext, leaflet, paletteer, plotly,
-  reactable, rsvg, sportyR, testthat, webshot2, withr), each behind
+  reactable, rstudioapi, rsvg, sportyR, testthat, webshot2, withr), each
+  behind
   [`rlang::check_installed()`](https://rlang.r-lib.org/reference/is_installed.html)
   or [`requireNamespace()`](https://rdrr.io/r/base/ns-load.html);
   companion data packages are website / development needs, not package

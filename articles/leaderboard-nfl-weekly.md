@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-06:** the 2026 season through week 8 (121 games).
+**Updated 2026-11-09:** the 2026 season through week 9 (135 games).
 
 This page is rebuilt every week with the site. It finds the latest NFL
 season with play-by-play, ranks every team by EPA (expected points
@@ -140,11 +140,11 @@ head(power)
 #> # A tibble: 6 × 9
 #>    rank team  name    record  diff off_epa  def_epa    net  last3
 #>   <int> <chr> <chr>   <chr>  <int>   <dbl>    <dbl>  <dbl>  <dbl>
-#> 1     1 JAX   Jaguars 5-2       85  0.121  -0.0810  0.202  0.207 
-#> 2     2 SF    49ers   6-1       58  0.156  -0.0379  0.193  0.110 
-#> 3     3 KC    Chiefs  5-2       36  0.111  -0.0182  0.129  0.0460
-#> 4     4 LA    Rams    4-4       26  0.0431 -0.0782  0.121  0.162 
-#> 5     5 CIN   Bengals 5-2       48  0.116  -0.00134 0.117  0.185 
+#> 1     1 SF    49ers   7-1       79  0.164  -0.0631  0.227  0.175 
+#> 2     2 JAX   Jaguars 6-2      108  0.113  -0.109   0.222  0.300 
+#> 3     3 KC    Chiefs  6-2       59  0.119  -0.0527  0.172  0.0822
+#> 4     4 CIN   Bengals 6-2       65  0.144   0.00948 0.134  0.215 
+#> 5     5 LA    Rams    5-4       33  0.0383 -0.0854  0.124  0.247 
 #> 6     6 MIN   Vikings 6-1       47 -0.0935 -0.191   0.0977 0.0591
 ```
 
@@ -257,7 +257,7 @@ qbs <- qbs |>
   left_join(full_names, by = "id") |>
   mutate(name = coalesce(full_name, name))
 nrow(qbs)
-#> [1] 34
+#> [1] 31
 ```
 
 ``` r
@@ -289,24 +289,24 @@ qbs |>
 
 | NFL quarterbacks by EPA per dropback, 2026 |  |  |  |  |  |  |  |  |  |
 |----|----|----|----|----|----|----|----|----|----|
-| Minimum 120 dropbacks, through week 8 |  |  |  |  |  |  |  |  |  |
+| Minimum 135 dropbacks, through week 9 |  |  |  |  |  |  |  |  |  |
 |  |  | Quarterback |  | Dropbacks | EPA/db | CPOE | Success | TD | INT |
-| 1 | ![Player 00-0034857 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ynrhq9iv30ysjpwmrfdv.png) | Josh Allen | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 241 | 0.339 | +4.0 | 47.7% | 11 | 5 |
-| 2 | ![Player 00-0037834 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/xs2fyj1sqdgwvt9ihbri.png) | Brock Purdy | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 232 | 0.331 | +4.3 | 54.3% | 15 | 4 |
-| 3 | ![Player 00-0039918 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/h4qs11kutwiw7whekmyt.png) | Caleb Williams | ![Chicago Bears](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png) | 186 | 0.320 | +7.6 | 51.6% | 6 | 1 |
-| 4 | ![Player 00-0036971 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/k9uzdernqkx7oquy7dkg.png) | Trevor Lawrence | ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | 220 | 0.277 | +3.9 | 50.9% | 17 | 4 |
-| 5 | ![Player 00-0039851 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mkauzrg7vo8lfziigsbg.png) | Drake Maye | ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | 276 | 0.267 | +7.3 | 52.5% | 15 | 8 |
-| 6 | ![Player 00-0033106 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png) | Jared Goff | ![Detroit Lions](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png) | 269 | 0.255 | +1.1 | 50.6% | 15 | 1 |
-| 7 | ![Player 00-0036442 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/gnnvcgui1cijybukk2w7.png) | Joe Burrow | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | 290 | 0.251 | +9.0 | 54.1% | 20 | 6 |
-| 8 | ![Player 00-0029604 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/za7cynvpwlsro1tsaijk.png) | Kirk Cousins | ![Las Vegas Raiders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png) | 301 | 0.176 | −0.4 | 47.8% | 19 | 5 |
-| 9 | ![Player 00-0033077 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png) | Dak Prescott | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | 333 | 0.163 | +0.2 | 48.6% | 14 | 5 |
-| 10 | ![Player 00-0033873 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png) | Patrick Mahomes | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | 255 | 0.150 | +1.6 | 49.4% | 12 | 4 |
-| 11 | ![Player 00-0039163 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/tt4zrtxlhifaljhj0rn7.png) | C.J. Stroud | ![Houston Texans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png) | 267 | 0.143 | +2.3 | 47.6% | 11 | 1 |
-| 12 | ![Player 00-0030565 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/q8wfqvmy7cwxdi35dtby.png) | Geno Smith | ![New York Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png) | 275 | 0.143 | +6.0 | 48.7% | 12 | 3 |
-| 13 | ![Player 00-0036264 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png) | Jordan Love | ![Green Bay Packers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png) | 328 | 0.142 | −1.1 | 43.3% | 16 | 6 |
-| 14 | ![Player 00-0039910 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/gfz8k5onuqjrche9ogqc.png) | Jayden Daniels | ![Washington Commanders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png) | 178 | 0.141 | +5.6 | 45.5% | 6 | 0 |
-| 15 | ![Player 00-0026498 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | Matthew Stafford | ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | 318 | 0.097 | +0.6 | 49.7% | 15 | 8 |
-| 16 | ![Player 00-0039150 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/vcvhmxvxw2a3armle0af.png) | Bryce Young | ![Carolina Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png) | 298 | 0.070 | −0.2 | 42.6% | 13 | 5 |
+| 1 | ![Player 00-0037834 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/xs2fyj1sqdgwvt9ihbri.png) | Brock Purdy | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 262 | 0.342 | +4.9 | 55.0% | 17 | 5 |
+| 2 | ![Player 00-0034857 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/ynrhq9iv30ysjpwmrfdv.png) | Josh Allen | ![Buffalo Bills](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/79/79b71e2f536ee29f9d23834e89828883af2d95bf6968cbd07a505444229cdd20.png) | 241 | 0.339 | +4.0 | 47.7% | 11 | 5 |
+| 3 | ![Player 00-0036971 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/k9uzdernqkx7oquy7dkg.png) | Trevor Lawrence | ![Jacksonville Jaguars](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/15/15cb9a1c77ebfaea885d0d3a34f33dabc4e6a00eb7d5462148fceed641d49397.png) | 246 | 0.298 | +2.8 | 51.2% | 18 | 4 |
+| 4 | ![Player 00-0036442 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/gnnvcgui1cijybukk2w7.png) | Joe Burrow | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | 322 | 0.277 | +9.7 | 54.7% | 23 | 6 |
+| 5 | ![Player 00-0039918 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/h4qs11kutwiw7whekmyt.png) | Caleb Williams | ![Chicago Bears](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png) | 227 | 0.239 | +6.4 | 50.7% | 8 | 5 |
+| 6 | ![Player 00-0033106 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/kaicbot8qhzrvddilbtp.png) | Jared Goff | ![Detroit Lions](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/97/9776b567ebab0bd3640165e915d948d8e736e35967dfc19ce62b967cfe7b4eb1.png) | 298 | 0.219 | +1.3 | 50.0% | 15 | 2 |
+| 7 | ![Player 00-0039851 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mkauzrg7vo8lfziigsbg.png) | Drake Maye | ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | 319 | 0.213 | +6.7 | 51.1% | 18 | 11 |
+| 8 | ![Player 00-0036264 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png) | Jordan Love | ![Green Bay Packers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png) | 361 | 0.198 | +1.1 | 44.6% | 19 | 6 |
+| 9 | ![Player 00-0039163 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/tt4zrtxlhifaljhj0rn7.png) | C.J. Stroud | ![Houston Texans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png) | 305 | 0.191 | +1.8 | 47.9% | 16 | 2 |
+| 10 | ![Player 00-0033077 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/yvscmqq1qki8zfsemmcd.png) | Dak Prescott | ![Dallas Cowboys](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f4/f4ea9a2ec7d7d500f08db94c8c6f1b23f75361ffe39c4d4b480a684a511ce61e.png) | 371 | 0.183 | +0.1 | 47.7% | 16 | 5 |
+| 11 | ![Player 00-0029604 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/za7cynvpwlsro1tsaijk.png) | Kirk Cousins | ![Las Vegas Raiders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/25/25fbb03e972ae872fa024026b73c7b63ef9f23c2f2c51f87d1614d800dcee6e7.png) | 333 | 0.158 | +0.2 | 47.4% | 20 | 8 |
+| 12 | ![Player 00-0033873 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/wdckwtob1lybvkmxnf7p.png) | Patrick Mahomes | ![Kansas City Chiefs](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3d/3d77958dc6373768919bb2681cbe1b143f56c07a1f013460def665a5026a7f3d.png) | 290 | 0.157 | +2.2 | 50.3% | 14 | 4 |
+| 13 | ![Player 00-0039910 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/gfz8k5onuqjrche9ogqc.png) | Jayden Daniels | ![Washington Commanders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png) | 219 | 0.102 | +4.9 | 45.7% | 7 | 0 |
+| 14 | ![Player 00-0030565 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/q8wfqvmy7cwxdi35dtby.png) | Geno Smith | ![New York Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png) | 313 | 0.092 | +4.2 | 47.3% | 12 | 3 |
+| 15 | ![Player 00-0026498 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | Matthew Stafford | ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | 362 | 0.092 | +0.0 | 48.3% | 16 | 9 |
+| 16 | ![Player 00-0039150 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/vcvhmxvxw2a3armle0af.png) | Bryce Young | ![Carolina Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png) | 341 | 0.084 | +1.3 | 43.7% | 16 | 6 |
 | Data: nflverse play-by-play via nflreadr \| Viz: sdvplotR |  |  |  |  |  |  |  |  |  |
 
 The same quarterbacks on the two axes, each drawn as his headshot. Up
