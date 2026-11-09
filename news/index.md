@@ -512,6 +512,27 @@ names with the Python package sdvplot and the JavaScript packages
   `options(chromote.timeout = )` of your own is kept.
   [`gt_save_batch()`](https://sdvplotR.sportsdataverse.org/reference/gt_save_batch.md)
   needs an explicit `dir`.
+- A table styled by a helper that sets the table’s id (the
+  `gt_theme_*()` themes,
+  [`gt_cutline()`](https://sdvplotR.sportsdataverse.org/reference/gt_cutline.md),
+  [`gt_watermark()`](https://sdvplotR.sportsdataverse.org/reference/gt_watermark.md),
+  [`gt_538_caption()`](https://sdvplotR.sportsdataverse.org/reference/gt_538_caption.md),
+  [`gt_border_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_border_grid.md),
+  `gt_border_bars_*()`) after a call that reorders gt’s options, such as
+  [`gt::opt_row_striping()`](https://gt.rstudio.com/reference/opt_row_striping.html),
+  keeps its id and its options. The id used to be written over the first
+  option instead, so the table lost the id its CSS is scoped to and,
+  after
+  [`opt_row_striping()`](https://gt.rstudio.com/reference/opt_row_striping.html),
+  failed to render.
+- [`gt_grid()`](https://sdvplotR.sportsdataverse.org/reference/gt_grid.md)
+  and
+  [`gt_stack_tables()`](https://sdvplotR.sportsdataverse.org/reference/gt_stack_tables.md)
+  given a single table rather than a list of them, or a list with more
+  than one item that is not a table, and
+  [`gt_cutline()`](https://sdvplotR.sportsdataverse.org/reference/gt_cutline.md)
+  given a non-numeric `after`, now raise their own error messages. They
+  used to fail inside cli’s pluralization instead.
 - Every example runs: examples that only build tables run as plain
   examples, and those that save images through a headless Chrome are
   `\donttest{}` blocks that run in an interactive session with
