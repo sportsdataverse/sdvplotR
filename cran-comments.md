@@ -11,9 +11,9 @@ were published only on r-universe.
 
 * local: Windows 10 x64, R 4.6.0 (ucrt), `R CMD check --as-cran --run-donttest`
   on the tarball built from the submitted commit, with an empty user
-  `.Renviron`: Status: 1 NOTE. The `\donttest{}` examples ran in 42 seconds in
-  total. A second `--run-donttest` pass with the network blocked (proxy set to
-  a closed port): Status: OK.
+  `.Renviron`: Status: 1 NOTE. The examples, `\donttest{}` included, ran in
+  45 seconds in total. A second pass, `--run-donttest --no-tests --no-manual`
+  with the network blocked (proxy set to a closed port): Status: OK.
 * R-hub v2 (GitHub Actions, R-devel), 2026-11-06, on an earlier commit
   (6ef2e240): Linux, Windows, macOS and macOS arm64, all passing.
 * GitHub Actions (R-CMD-check workflow): macOS (release), Windows (release),
@@ -49,13 +49,14 @@ There are none: this is a new package.
   team logos or headshots; the package logo shows muted team logos behind the
   package name, as the logo of 'nflplotR' (CRAN) does. Examples that
   download images are wrapped in `\donttest{}` (as 'nflplotR' and 'ggpath'
-  do); they pass under `--run-donttest` (42 seconds in total locally).
+  do); they pass under `--run-donttest` (all examples, 45 seconds locally).
   Examples that save images through a headless Chrome run only in
   interactive sessions.
 * 'sportyR' (>= 2.4.5, CRAN) is in Suggests: `sdv_surface()` checks for it
   with `rlang::check_installed()` and calls only its exported functions.
-* The tests need network access, headless Chrome or image rendering for
-  most files, so every test file starts with `skip_on_cran()`.
+* Most test files need network access, headless Chrome or image rendering,
+  so they start with `skip_on_cran()`. `test-cfbplotr-coverage.R` and
+  `test-cfbplotr-parity.R` run on CRAN: they read only the bundled index.
 * Rendering a 'gt' table compiles its CSS through 'sass', which caches it
   under `tools::R_user_dir("sass", "cache")`. During a CRAN check the package
   turns that cache off (unless the user has set `sass.cache`), so the check
