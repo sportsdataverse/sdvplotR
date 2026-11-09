@@ -42,9 +42,12 @@ def write_index(
 
 FOLD_RANGES = (
     range(0xA1, 0x250),  # Latin-1 Supplement and Latin Extended-A/B
+    range(0x1D00, 0x1DC0),  # Phonetic Extensions (+ Supplement): modifier letters such as U+1D2D, NFKD "æ"
     range(0x1E00, 0x1F00),  # Latin Extended Additional
     range(0x2100, 0x2150),  # Letterlike Symbols: the Angstrom and Kelvin signs, "TM"
+    range(0xA720, 0xA800),  # Latin Extended-D: modifier letters such as U+A7F9, NFKD "œ"
     range(0xFB00, 0xFB07),  # Latin ligatures
+    range(0xFE30, 0xFE70),  # CJK compatibility and small forms: NFKD en/em dashes, which fold to "-"
     range(0xFF01, 0xFF5F),  # full-width ASCII
 )
 
@@ -62,7 +65,7 @@ def fold_table() -> tuple[str, str, list[tuple[str, str]]]:
         ]  # mid-word, so strip() cannot eat a fold to a space
         if n == c:
             continue
-        if len(n) == 1:
+        if len(n) == 1 and n != "-":  # chartr() reads "-" in a spec as a range: fold those with gsub()
             src.append(c)
             dst.append(n)
         else:

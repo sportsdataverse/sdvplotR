@@ -75,6 +75,8 @@ test_that("the Latin letters NFKD leaves whole fold too (#70)", {
     norm_value(c("Đakovo", "Ðakovo", "Þór", "Iğdır", "ǿ", "ǣ", "Weißenfels")),
     c("dakovo", "dakovo", "thor", "igdir", "o", "ae", "weissenfels")
   )
+  # compatibility forms whose NFKD is a folded letter or dash: small em dash, modifier ae, modifier oe
+  expect_identical(norm_value(c("a﹘b", "ᴭ", "ꟹ")), c("a-b", "ae", "oe"))
   # sdvplot.resolve()'s answers (sdvplot 17cc01e8): the index spells these clubs with ø, æ and œ
   expect_identical(
     sdv_resolve(c("HB Koge", "HB Køge", "Brondby IF", "F.C. Kobenhavn", "FC Nordsjaelland"), "soccer"),
