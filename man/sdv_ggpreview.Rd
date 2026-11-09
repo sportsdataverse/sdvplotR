@@ -25,7 +25,8 @@ sdv_ggpreview(
 If not supplied, uses the size of the current graphics device.}
 
 \item{asp}{The aspect ratio, \code{width / height}. When a number, the \code{height}
-is set to \code{width / asp}.}
+is set to \code{width / asp}; with no \code{width}, the \code{width} is \code{height * asp},
+or 7 inches when neither is given.}
 
 \item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
 "print" (300), or "screen" (72). Only applies when converting pixel units,

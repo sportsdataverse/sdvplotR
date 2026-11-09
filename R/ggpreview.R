@@ -9,7 +9,8 @@
 #'   `ggpreview()`.
 #' @inheritParams ggplot2::ggsave
 #' @param asp The aspect ratio, `width / height`. When a number, the `height`
-#'   is set to `width / asp`.
+#'   is set to `width / asp`; with no `width`, the `width` is `height * asp`,
+#'   or 7 inches when neither is given.
 #' @return The path of the image, invisibly.
 #' @export
 #' @examples
@@ -34,8 +35,17 @@ sdv_ggpreview <- function(
     bg = NULL,
     ...
 ) {
-  file <- tempfile(fileext = if (is.character(device)) paste0(".", device) else ".png")
-  if (is.numeric(asp)) height <- width / asp
+  units <- rlang::arg_match0(units[1], c("in", "cm", "mm", "px"))
+  file <- tempfile(fileext = paste0(".", preview_ext(device)))
+  if (is.numeric(asp)) {
+    if (is.na(width) && !is.na(height)) {
+      width <- height * asp
+    } else {
+      # ggsave's default size: a 7-inch side
+      if (is.na(width)) width <- 7 * c("in" = 1, cm = 2.54, mm = 25.4, px = dpi)[[units]]
+      height <- width / asp
+    }
+  }
   ggplot2::ggsave(
     file,
     plot = plot, device = device, scale = scale, width = width, height = height,
@@ -43,6 +53,20 @@ sdv_ggpreview <- function(
   )
   if (interactive()) open_preview(file)
   invisible(file)
+}
+
+# The preview file's extension: a device name as given, a base graphics device
+# by its format; any other function (ragg::agg_png, ...) is taken as PNG
+preview_ext <- function(device) {
+  if (is.character(device)) {
+    return(device)
+  }
+  devs <- list(
+    pdf = grDevices::pdf, svg = grDevices::svg, jpeg = grDevices::jpeg,
+    tiff = grDevices::tiff, bmp = grDevices::bmp, png = grDevices::png
+  )
+  hit <- names(devs)[vapply(devs, identical, logical(1), device)]
+  if (length(hit)) hit[1] else "png"
 }
 
 open_preview <- function(file) {
