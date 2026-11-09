@@ -62,7 +62,25 @@ test_that("team values normalize as Python's norm_value does", {
   got <- norm_value(g$value)
   got[is.na(got)] <- ""
   expect_identical(got, g$expected, info = paste(g$value, got, sep = " -> ")[got != g$expected])
-  expect_identical(norm_value(c("Straße", "ﬁnal", "Køge")), c("strasse", "final", "køge"))
+  expect_identical(norm_value(c("Straße", "ﬁnal", "Køge")), c("strasse", "final", "koge"))
+})
+
+test_that("the Latin letters NFKD leaves whole fold too (#70)", {
+  local_snapshot_index()
+  expect_identical(
+    norm_value(c("Køge", "KØGE", "Malmö FF", "Łódź", "ŁÓDŹ", "Æbeltoft", "Sherbrooke, Phœnix", "ŒUVRE")),
+    c("koge", "koge", "malmo ff", "lodz", "lodz", "aebeltoft", "sherbrooke, phoenix", "oeuvre")
+  )
+  expect_identical(
+    norm_value(c("Đakovo", "Ðakovo", "Þór", "Iğdır", "ǿ", "ǣ", "Weißenfels")),
+    c("dakovo", "dakovo", "thor", "igdir", "o", "ae", "weissenfels")
+  )
+  # sdvplot.resolve()'s answers (sdvplot 17cc01e8): the index spells these clubs with ø, æ and œ
+  expect_identical(
+    sdv_resolve(c("HB Koge", "HB Køge", "Brondby IF", "F.C. Kobenhavn", "FC Nordsjaelland"), "soccer"),
+    c("21127", "21127", "575", "909", "3101")
+  )
+  expect_identical(sdv_resolve("Sherbrooke, Phoenix", "qmjhl"), "60")
 })
 
 test_that("decomposed input drops every combining mark, as Python's NFKD does", {

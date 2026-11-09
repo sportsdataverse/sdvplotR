@@ -399,7 +399,7 @@ norm,,Bolívar,character,,,bolivar,,e04c50e5682e
 norm,,Borussia Mönchengladbach,character,,,borussia monchengladbach,,e04c50e5682e
 norm,,Boyacá Chicó FC,character,,,boyaca chico fc,,e04c50e5682e
 norm,,Brown de Adrogué,character,,,brown de adrogue,,e04c50e5682e
-norm,,Brøndby IF,character,,,brøndby if,,e04c50e5682e
+norm,,Brøndby IF,character,,,brondby if,,e04c50e5682e
 norm,,CD Municipal Limeño,character,,,cd municipal limeno,,e04c50e5682e
 norm,,CF Montréal,character,,,cf montreal,,e04c50e5682e
 norm,,Cartaginés,character,,,cartagines,,e04c50e5682e
@@ -436,10 +436,10 @@ norm,,Dux Logroño,character,,,dux logrono,,e04c50e5682e
 norm,,Escorpiones Belén,character,,,escorpiones belen,,e04c50e5682e
 norm,,Estudiantes de Mérida,character,,,estudiantes de merida,,e04c50e5682e
 norm,,Estudiantes de Río Cuarto,character,,,estudiantes de rio cuarto,,e04c50e5682e
-norm,,F.C. København,character,,,f.c. københavn,,e04c50e5682e
+norm,,F.C. København,character,,,f.c. kobenhavn,,e04c50e5682e
 norm,,FC Blau-Weiß Linz,character,,,fc blau-weiss linz,,e04c50e5682e
 norm,,FC Juárez,character,,,fc juarez,,e04c50e5682e
-norm,,FC Nordsjælland,character,,,fc nordsjælland,,e04c50e5682e
+norm,,FC Nordsjælland,character,,,fc nordsjaelland,,e04c50e5682e
 norm,,FC Zlín,character,,,fc zlin,,e04c50e5682e
 norm,,FC Zürich,character,,,fc zurich,,e04c50e5682e
 norm,,Fatih Karagümrük,character,,,fatih karagumruk,,e04c50e5682e
@@ -453,7 +453,7 @@ norm,,Guabirá,character,,,guabira,,e04c50e5682e
 norm,,Guaraní,character,,,guarani,,e04c50e5682e
 norm,,Génesis PN,character,,,genesis pn,,e04c50e5682e
 norm,,Güemes,character,,,guemes,,e04c50e5682e
-norm,,HB Køge,character,,,hb køge,,e04c50e5682e
+norm,,HB Køge,character,,,hb koge,,e04c50e5682e
 norm,,Hawaiʻi Hilo,character,,,hawaiʻi hilo,,e04c50e5682e
 norm,,Hawaiʻi Hilo Vulcans,character,,,hawaiʻi hilo vulcans,,e04c50e5682e
 norm,,Hawaiʻi Pacific,character,,,hawaiʻi pacific,,e04c50e5682e
@@ -511,7 +511,7 @@ norm,,San Martín (Burzaco),character,,,san martin (burzaco),,e04c50e5682e
 norm,,San Martín (San Juan),character,,,san martin (san juan),,e04c50e5682e
 norm,,San Martín (Tucumán),character,,,san martin (tucuman),,e04c50e5682e
 norm,,Sarmiento (Junín),character,,,sarmiento (junin),,e04c50e5682e
-norm,,"Sherbrooke, Phœnix",character,,,"sherbrooke, phœnix",,e04c50e5682e
+norm,,"Sherbrooke, Phœnix",character,,,"sherbrooke, phoenix",,e04c50e5682e
 norm,,SpVgg Greuther Fürth,character,,,spvgg greuther furth,,e04c50e5682e
 norm,,Sporting Gijón,character,,,sporting gijon,,e04c50e5682e
 norm,,Sporting San José,character,,,sporting san jose,,e04c50e5682e
@@ -522,7 +522,7 @@ norm,,São Bernardo,character,,,sao bernardo,,e04c50e5682e
 norm,,São José-RS,character,,,sao jose-rs,,e04c50e5682e
 norm,,São Luiz-RS,character,,,sao luiz-rs,,e04c50e5682e
 norm,,São Paulo,character,,,sao paulo,,e04c50e5682e
-norm,,Sønderjyske Fodbold,character,,,sønderjyske fodbold,,e04c50e5682e
+norm,,Sønderjyske Fodbold,character,,,sonderjyske fodbold,,e04c50e5682e
 norm,,Talleres (Córdoba),character,,,talleres (cordoba),,e04c50e5682e
 norm,,Tepatitlán FC,character,,,tepatitlan fc,,e04c50e5682e
 norm,,Tristán Suárez,character,,,tristan suarez,,e04c50e5682e
@@ -557,44 +557,45 @@ norm,,Ñublense,character,,,nublense,,e04c50e5682e
 norm,,Örgryte IS,character,,,orgryte is,,e04c50e5682e
 norm,,Östers IF,character,,,osters if,,e04c50e5682e
 norm,,Östersunds FK,character,,,ostersunds fk,,e04c50e5682e
-norm,,K¨ª¯²³´µ¸¹ºÀÁÂÃÄÅÆÇÈÉge,character,,,k a 23 μ 1oaaaaaaæceege,,e04c50e5682e
-norm,,KÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞge,character,,,keeiiiiðnoooooøuuuuyþge,,e04c50e5682e
-norm,,Kàáâãäåçèéêëìíîïñòóôõge,character,,,kaaaaaaceeeeiiiinooooge,,e04c50e5682e
-norm,,KöùúûüýÿĀāĂăĄąĆćĈĉĊċČge,character,,,kouuuuyyaaaaaacccccccge,,e04c50e5682e
-norm,,KčĎďĐĒēĔĕĖėĘęĚěĜĝĞğĠġge,character,,,kcddđeeeeeeeeeeggggggge,,e04c50e5682e
-norm,,KĢģĤĥĦĨĩĪīĬĭĮįİĴĵĶķĹĺge,character,,,kgghhħiiiiiiiiijjkkllge,,e04c50e5682e
-norm,,KĻļĽľŁŃńŅņŇňŊŌōŎŏŐőŒŔge,character,,,kllllłnnnnnnŋooooooœrge,,e04c50e5682e
-norm,,KŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŨũge,character,,,krrrrrssssssssttttŧuuge,,e04c50e5682e
-norm,,KŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽge,character,,,kuuuuuuuuuuwwyyyzzzzzge,,e04c50e5682e
-norm,,KžſƁƂƄƆƇƉƊƋƎƏƐƑƓƔƖƗƘƜge,character,,,kzsɓƃƅɔƈɖɗƌǝəɛƒɠɣɩɨƙɯge,,e04c50e5682e
-norm,,KƝƟƠơƢƤƦƧƩƬƮƯưƱƲƳƵƷƸƼge,character,,,kɲɵooƣƥʀƨʃƭʈuuʊʋƴƶʒƹƽge,,e04c50e5682e
-norm,,KǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǞǟǠǡge,character,,,kaaiioouuuuuuuuuuaaaage,,e04c50e5682e
-norm,,KǢǣǤǦǧǨǩǪǫǬǭǮǯǰǴǵǶǷǸǹge,character,,,kææǥggkkooooʒʒjggƕƿnnge,,e04c50e5682e
-norm,,KǺǻǼǽǾǿȀȁȂȃȄȅȆȇȈȉȊȋȌȍge,character,,,kaaææøøaaaaeeeeiiiiooge,,e04c50e5682e
-norm,,KȎȏȐȑȒȓȔȕȖȗȘșȚțȜȞȟȠȢȤge,character,,,koorrrruuuussttȝhhƞȣȥge,,e04c50e5682e
-norm,,KȦȧȨȩȪȫȬȭȮȯȰȱȲȳȺȻȽȾɁɃge,character,,,kaaeeooooooooyyⱥȼƚⱦɂƀge,,e04c50e5682e
-norm,,KɄɅɆɈɊɌɎḀḁḂḃḄḅḆḇḈḉḊḋḌge,character,,,kʉʌɇɉɋɍɏaabbbbbbccdddge,,e04c50e5682e
-norm,,KḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟḠge,character,,,kdddddddeeeeeeeeeeffgge,,e04c50e5682e
-norm,,KḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴge,character,,,kghhhhhhhhhhiiiikkkkkge,,e04c50e5682e
-norm,,KḵḶḷḸḹḺḻḼḽḾḿṀṁṂṃṄṅṆṇṈge,character,,,kkllllllllmmmmmmnnnnnge,,e04c50e5682e
-norm,,KṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜge,character,,,knnnoooooooopppprrrrrge,,e04c50e5682e
-norm,,KṝṞṟṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰge,character,,,krrrsssssssssstttttttge,,e04c50e5682e
-norm,,KṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿẀẁẂẃẄge,character,,,ktuuuuuuuuuuvvvvwwwwwge,,e04c50e5682e
-norm,,KẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘge,character,,,kwwwwwxxxxyyzzzzzzhtwge,,e04c50e5682e
-norm,,KẙẛẠạẢảẤấẦầẨẩẪẫẬậẮắẰằge,character,,,kysaaaaaaaaaaaaaaaaaage,,e04c50e5682e
-norm,,KẲẳẴẵẶặẸẹẺẻẼẽẾếỀềỂểỄễge,character,,,kaaaaaaeeeeeeeeeeeeeege,,e04c50e5682e
-norm,,KỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộge,character,,,keeiiiiooooooooooooooge,,e04c50e5682e
-norm,,KỚớỜờỞởỠỡỢợỤụỦủỨứỪừỬửge,character,,,koooooooooouuuuuuuuuuge,,e04c50e5682e
-norm,,KỮữỰựỲỳỴỵỶỷỸỹỺỼỾℂℇℊℋℌge,character,,,kuuuuyyyyyyyyỻỽỿcɛghhge,,e04c50e5682e
-norm,,KℍℎℏℐℑℒℓℕℙℚℛℜℝℤΩℨKÅℬℭge,character,,,khhħiillnpqrrrzωzkabcge,,e04c50e5682e
-norm,,KℯℰℱℲℳℴℵℶℷℸℹℼℽℾℿ⅀ⅅⅆⅇⅈge,character,,,keefⅎmoאבגדiπγγπ∑ddeige,,e04c50e5682e
-norm,,Kⅉ！＂＃＄％＆＇（）＊＋，－．／０１２３ge,character,,,"kj!""#$%&'()*+,-./0123ge",,e04c50e5682e
-norm,,K４５６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧge,character,,,k456789:;<=>?@abcdefgge,,e04c50e5682e
-norm,,KＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［ge,character,,,khijklmnopqrstuvwxyz[ge,,e04c50e5682e
-norm,,K＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏge,character,,,k\]^_`abcdefghijklmnoge,,e04c50e5682e
-norm,,Kｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～¼½¾ßĲge,character,,,kpqrstuvwxyz{|}~1⁄41⁄23⁄4ssijge,,e04c50e5682e
-norm,,KĳĿŀŉǄǅǆǇǈǉǊǋǌǱǲǳẚẞ℀℁ge,character,,,kijl·l·ʼndzdzdzljljljnjnjnjdzdzdzaʾssa/ca/sge,,e04c50e5682e
-norm,,K℃℅℆℉№℠℡™℻ﬀﬁﬂﬃﬄﬅﬆge,character,,,k°cc/oc/u°fnosmteltmfaxfffiflffifflststge,,e04c50e5682e
+norm,,K¨ª¯²³´µ¸¹ºÀÁÂÃÄÅÇÈÉÊge,character,,,k a 23 μ 1oaaaaaaceeege,,e04c50e5682e
+norm,,KËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝàáge,character,,,keiiiidnoooooouuuuyaage,,e04c50e5682e
+norm,,Kâãäåçèéêëìíîïðñòóôõöge,character,,,kaaaaceeeeiiiidnoooooge,,e04c50e5682e
+norm,,KøùúûüýÿĀāĂăĄąĆćĈĉĊċČge,character,,,kouuuuyyaaaaaacccccccge,,e04c50e5682e
+norm,,KčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠge,character,,,kcddddeeeeeeeeeegggggge,,e04c50e5682e
+norm,,KġĢģĤĥĦĨĩĪīĬĭĮįİıĴĵĶķge,character,,,kggghhħiiiiiiiiiijjkkge,,e04c50e5682e
+norm,,KĹĺĻļĽľŁłŃńŅņŇňŊŌōŎŏŐge,character,,,kllllllllnnnnnnŋoooooge,,e04c50e5682e
+norm,,KőŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦge,character,,,korrrrrrssssssssttttŧge,,e04c50e5682e
+norm,,KŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻge,character,,,kuuuuuuuuuuuuwwyyyzzzge,,e04c50e5682e
+norm,,KżŽžſƁƂƄƆƇƉƊƋƎƏƐƑƓƔƖƗge,character,,,kzzzsɓƃƅɔƈɖɗƌǝəɛƒɠɣɩɨge,,e04c50e5682e
+norm,,KƘƜƝƟƠơƢƤƦƧƩƬƮƯưƱƲƳƵƷge,character,,,kƙɯɲɵooƣƥʀƨʃƭʈuuʊʋƴƶʒge,,e04c50e5682e
+norm,,KƸƼǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǞǟge,character,,,kƹƽaaiioouuuuuuuuuuaage,,e04c50e5682e
+norm,,KǠǡǤǦǧǨǩǪǫǬǭǮǯǰǴǵǶǷǸǹge,character,,,kaaǥggkkooooʒʒjggƕƿnnge,,e04c50e5682e
+norm,,KǺǻǾǿȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏge,character,,,kaaooaaaaeeeeiiiiooooge,,e04c50e5682e
+norm,,KȐȑȒȓȔȕȖȗȘșȚțȜȞȟȠȢȤȦȧge,character,,,krrrruuuussttȝhhƞȣȥaage,,e04c50e5682e
+norm,,KȨȩȪȫȬȭȮȯȰȱȲȳȺȻȽȾɁɃɄɅge,character,,,keeooooooooyyⱥȼƚⱦɂƀʉʌge,,e04c50e5682e
+norm,,KɆɈɊɌɎḀḁḂḃḄḅḆḇḈḉḊḋḌḍḎge,character,,,kɇɉɋɍɏaabbbbbbccdddddge,,e04c50e5682e
+norm,,KḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟḠḡḢge,character,,,kdddddeeeeeeeeeeffgghge,,e04c50e5682e
+norm,,KḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴḵḶge,character,,,khhhhhhhhhiiiikkkkkklge,,e04c50e5682e
+norm,,KḷḸḹḺḻḼḽḾḿṀṁṂṃṄṅṆṇṈṉṊge,character,,,klllllllmmmmmmnnnnnnnge,,e04c50e5682e
+norm,,KṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜṝṞge,character,,,knoooooooopppprrrrrrrge,,e04c50e5682e
+norm,,KṟṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰṱṲge,character,,,krssssssssssttttttttuge,,e04c50e5682e
+norm,,KṳṴṵṶṷṸṹṺṻṼṽṾṿẀẁẂẃẄẅẆge,character,,,kuuuuuuuuuvvvvwwwwwwwge,,e04c50e5682e
+norm,,KẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘẙẛge,character,,,kwwwxxxxyyzzzzzzhtwysge,,e04c50e5682e
+norm,,KẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳge,character,,,kaaaaaaaaaaaaaaaaaaaage,,e04c50e5682e
+norm,,KẴẵẶặẸẹẺẻẼẽẾếỀềỂểỄễỆệge,character,,,kaaaaeeeeeeeeeeeeeeeege,,e04c50e5682e
+norm,,KỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớge,character,,,kiiiiooooooooooooooooge,,e04c50e5682e
+norm,,KỜờỞởỠỡỢợỤụỦủỨứỪừỬửỮữge,character,,,koooooooouuuuuuuuuuuuge,,e04c50e5682e
+norm,,KỰựỲỳỴỵỶỷỸỹỺỼỾℂℇℊℋℌℍℎge,character,,,kuuyyyyyyyyỻỽỿcɛghhhhge,,e04c50e5682e
+norm,,KℏℐℑℒℓℕℙℚℛℜℝℤΩℨKÅℬℭℯℰge,character,,,kħiillnpqrrrzωzkabceege,,e04c50e5682e
+norm,,KℱℲℳℴℵℶℷℸℹℼℽℾℿ⅀ⅅⅆⅇⅈⅉ！ge,character,,,kfⅎmoאבגדiπγγπ∑ddeij!ge,,e04c50e5682e
+norm,,K＂＃＄％＆＇（）＊＋，－．／０１２３４５ge,character,,,"k""#$%&'()*+,-./012345ge",,e04c50e5682e
+norm,,K６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩge,character,,,k6789:;<=>?@abcdefghige,,e04c50e5682e
+norm,,KＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］ge,character,,,kjklmnopqrstuvwxyz[\]ge,,e04c50e5682e
+norm,,K＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑge,character,,,k^_`abcdefghijklmnopqge,,e04c50e5682e
+norm,,Kｒｓｔｕｖｗｘｙｚ｛｜｝～¼½¾ÆÞßæge,character,,,krstuvwxyz{|}~1⁄41⁄23⁄4aethssaege,,e04c50e5682e
+norm,,KþĲĳĿŀŉŒœǄǅǆǇǈǉǊǋǌǢǣǱge,character,,,kthijijl·l·ʼnoeoedzdzdzljljljnjnjnjaeaedzge,,e04c50e5682e
+norm,,KǲǳǼǽẚẞ℀℁℃℅℆℉№℠℡™℻ﬀﬁﬂge,character,,,kdzdzaeaeaʾssa/ca/s°cc/oc/u°fnosmteltmfaxfffiflge,,e04c50e5682e
+norm,,Kﬃﬄﬅﬆge,character,,,kffifflststge,,e04c50e5682e
 norm,,Montré᷄al,character,,,montreal,,e04c50e5682e
 norm,,Ko⃗ge︠,character,,,koge,,e04c50e5682e
 norm,,Malmo𝅧҃,character,,,malmo,,e04c50e5682e

@@ -101,6 +101,9 @@ a counterpart with `league = "cfb"`:
   to "ss" and ligatures, full-width letters and fractions fold as Unicode's
   NFKD does (#70). A golden file of sdvplot's answers for every non-ASCII team
   alias checks it.
+* The Latin letters NFKD leaves whole fold as well, as in sdvplot: ø to o, æ to
+  ae, œ to oe, đ and ð to d, ł to l, þ to th and the dotless ı to i, so
+  `sdv_resolve("HB Koge", "soccer")` finds HB Køge (#70).
 
 ## Overview
 
