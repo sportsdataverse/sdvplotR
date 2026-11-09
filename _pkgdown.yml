@@ -269,6 +269,9 @@ reference:
       - sdv_teams
       - sdv_resolve
       - sdv_suggest
+      - sdv_clean_names
+      - sdv_aliases
+      - sdv_add_athlete_id
       - sdv_team_colors
       - sdv_color_palette
       - sdv_team_factor
@@ -277,6 +280,7 @@ reference:
       - sdv_headshot_url
       - sdv_versions
       - sdv_clear_cache
+      - sdv_ggpreview
   - title: "Court and Pitch Coordinates"
     desc: >
       Convert stats.nba.com shot locations and any soccer provider's event

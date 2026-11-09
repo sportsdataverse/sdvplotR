@@ -4,6 +4,34 @@ First CRAN release. Earlier development builds were published only on
 r-universe, every one of them numbered 0.1.0 (no 0.1.0 or 0.2.0 was released
 to CRAN or tagged), so this section describes the whole package.
 
+## What cfbplotR does
+
+The cfbplotR features sdvplotR lacked; every other cfbplotR export already had
+a counterpart with `league = "cfb"`:
+
+* `scale_color_sdv()`, `scale_colour_sdv()` and `scale_fill_sdv()` take
+  `alt_colors`, teams drawn in their other colour (cfbplotR's `alt_colors`).
+* `sdv_teams()` takes `division`: `"P4"`, `"P5"` and `"G5"` from each college
+  football team's conference in the index, `"FBS"`, `"FCS"`, `"DI"`, `"DII"`
+  and `"DIII"` from the index's new `division` column, and `"Conference"`
+  (cfbplotR's division filter). `sdv_teams()` has a `division` column, `NA`
+  in an index built before it (a cached copy, or the bundled snapshot).
+* `sdv_clean_names()` cleans names, abbreviations and ids to one display name
+  per team, keeping values that do not resolve unless `keep_non_matches =
+  FALSE` (cfbplotR's `clean_school_names()` and its alias).
+* `sdv_aliases()` returns the index's alias table (cfbplotR's
+  `team_name_mapping`); `sdv_teams()` with `sdv_logo_url()` stands in for
+  `logo_ref` (its examples show how).
+* `sdv_add_athlete_id()` adds ESPN athlete ids to a data frame of college
+  football player names, matched on name, team and season to cfbfastR-data's
+  rosters (cfbplotR's `add_athlete_id_col()`). A name that matches more than
+  one athlete is left `NA`; offline it warns and returns `NA` ids.
+* cfbplotR's wordmarks, archived in sdv-assets as source `"cfbplotr-legacy"`,
+  rank after every other source when a team has more than one wordmark.
+* `sdv_ggpreview()` previews a plot at the size it will be saved
+  (nflplotR's and cfbplotR's `ggpreview()`; 'rstudioapi' in RStudio, now in
+  `Suggests`).
+
 ## Provider ids and unreadable images
 
 * The team index carries Fox, Yahoo, CBS, 247Sports, On3, KenPom and Torvik

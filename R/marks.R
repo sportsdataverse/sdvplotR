@@ -1,10 +1,12 @@
 # Choosing a team's mark from the logo manifest, as sdvplot's _marks.py: the
 # variant, then season coverage within each variant, then source preference.
 
-# Official sources first, then archived copies, then derived crops (sdv-assets source names)
+# Official sources first, then archived copies, then derived crops, then cfbplotR's
+# legacy wordmarks (sdv-assets source names); a source not listed ranks 5
 source_rank <- c(
   espn = 0L, nflverse = 1L, nhl = 1L, mlbstatic = 1L, fox = 1L, hockeytech = 2L, cricinfo = 2L,
-  "ncaa.com" = 3L, "nwhl.co" = 4L, shiftstats = 4L, wayback = 4L, "aaf.com" = 5L, "aaf-strip-crop" = 6L
+  "ncaa.com" = 3L, "nwhl.co" = 4L, shiftstats = 4L, wayback = 4L, "aaf.com" = 5L, "aaf-strip-crop" = 6L,
+  "cfbplotr-legacy" = 7L
 )
 mark_types <- c("logo", "wordmark")
 
