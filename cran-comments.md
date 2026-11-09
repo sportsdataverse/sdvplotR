@@ -9,13 +9,17 @@ were published only on r-universe.
 
 ## Test environments
 
-* local: Windows 10 x64, R 4.6.0 (ucrt), `R CMD check --as-cran` on the built
-  tarball (which also runs the `\donttest{}` examples, 48 seconds in total), and
-  again with `_R_CHECK_DEPENDS_ONLY_=true` (Suggests not installed): Status OK
-* R-hub (GitHub Actions, R-devel): Linux, Windows, macOS (x86_64 and arm64),
-  and the `nosuggests` platform
+* local: Windows 10 x64, R 4.6.0 (ucrt), `R CMD check --as-cran --run-donttest`
+  on the tarball built from the submitted commit, with an empty user
+  `.Renviron`: Status: 1 NOTE. The `\donttest{}` examples ran in 42 seconds in
+  total. A second `--run-donttest` pass with the network blocked (proxy set to
+  a closed port): Status: OK.
+* R-hub v2 (GitHub Actions, R-devel), 2026-11-06, on an earlier commit
+  (6ef2e240): Linux, Windows, macOS and macOS arm64, all passing.
 * GitHub Actions (R-CMD-check workflow): macOS (release), Windows (release),
-  Ubuntu (devel, release, oldrel-1)
+  Ubuntu (devel, release, oldrel-1), passing on 2026-11-09 at d23e64ee, the
+  commit before the submitted one's last data and documentation changes.
+* win-builder (devel and release): to be run before submission.
 
 ## R CMD check results
 
@@ -23,7 +27,12 @@ were published only on r-universe.
 
 * This is a new submission.
 
-The installed size is about 3.3 Mb (tarball 2.1 Mb).
+The installed size is about 3.4 Mb (help 1.6 Mb, R 1.4 Mb, extdata 0.35 Mb);
+the tarball is 2.1 Mb.
+
+## Reverse dependencies
+
+There are none: this is a new package.
 
 ## Notes for the CRAN team
 
@@ -31,16 +40,18 @@ The installed size is about 3.3 Mb (tarball 2.1 Mb).
   and logo manifest, and caches them under `tools::R_user_dir()` for a day,
   keeping only the current version. Under `R CMD check`, on CRAN
   and with `options(sdvplotR.offline = TRUE)`, it uses the copy bundled in
-  the package instead and writes nothing outside `tempdir()`.
+  the package instead and writes nothing outside `tempdir()`. When the CDN
+  cannot be reached it falls back to the same bundled copy.
 * Team logos and player headshots are fetched at plot time from the
   SportsDataverse logo archive and the league CDNs through 'ggpath' and
   cached for the session. The images in `man/figures` are the package logo
   and the table-theme previews used in the help pages. The previews show no
   team logos or headshots; the package logo shows muted team logos behind the
   package name, as the logo of 'nflplotR' (CRAN) does. Examples that
-  download images
-  are wrapped in `\donttest{}` (as 'nflplotR' and 'ggpath' do); they pass
-  under `--as-cran`, which runs them (48 seconds in total locally).
+  download images are wrapped in `\donttest{}` (as 'nflplotR' and 'ggpath'
+  do); they pass under `--run-donttest` (42 seconds in total locally).
+  Examples that save images through a headless Chrome run only in
+  interactive sessions.
 * 'sportyR' (>= 2.4.5, CRAN) is in Suggests: `sdv_surface()` checks for it
   with `rlang::check_installed()` and calls only its exported functions.
 * The tests need network access, headless Chrome or image rendering for
