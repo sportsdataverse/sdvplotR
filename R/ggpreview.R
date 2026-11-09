@@ -62,16 +62,18 @@ preview_ext <- function(device) {
     return(device)
   }
   devs <- list(
-    pdf = grDevices::pdf, svg = grDevices::svg, jpeg = grDevices::jpeg,
-    tiff = grDevices::tiff, bmp = grDevices::bmp, png = grDevices::png
+    pdf = grDevices::pdf, pdf = grDevices::cairo_pdf, ps = grDevices::postscript, ps = grDevices::cairo_ps,
+    svg = grDevices::svg, jpeg = grDevices::jpeg, tiff = grDevices::tiff, bmp = grDevices::bmp,
+    png = grDevices::png
   )
   hit <- names(devs)[vapply(devs, identical, logical(1), device)]
   if (length(hit)) hit[1] else "png"
 }
 
 open_preview <- function(file) {
-  if (identical(Sys.getenv("RSTUDIO"), "1")) {
-    rlang::check_installed("rstudioapi", reason = "to show the preview in RStudio's Viewer pane.")
+  # RStudio's Viewer when the API is there (not, e.g., R started from RStudio's terminal), else the browser
+  if (identical(Sys.getenv("RSTUDIO"), "1") && requireNamespace("rstudioapi", quietly = TRUE) &&
+    rstudioapi::isAvailable()) {
     rstudioapi::viewer(file)
   } else {
     utils::browseURL(file)
