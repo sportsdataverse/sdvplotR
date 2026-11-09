@@ -25,7 +25,9 @@
   table_id <- opts$value[opts$parameter == "table_id"][[1]]
   if (is.na(table_id)) {
     table_id <- gt::random_id()
-    opt_position <- which("table_id" %in% gt_object[["_options"]][["parameter"]])[[1]]
+    # match the row, not "is it there at all": that was always 1, which only held
+    # while table_id sat first; an earlier opt_*() call reorders the options
+    opt_position <- which(gt_object[["_options"]][["parameter"]] == "table_id")[[1]]
     gt_object[["_options"]][["value"]][[opt_position]] <- table_id
   }
   list(object = gt_object, id = table_id)

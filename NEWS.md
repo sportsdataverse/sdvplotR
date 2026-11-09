@@ -326,6 +326,12 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   `gt_save_batch()`, `gt_grid()`, `gt_stack_tables()`) gives headless Chrome
   60 seconds to start; a longer `options(chromote.timeout = )` of your own is
   kept. `gt_save_batch()` needs an explicit `dir`.
+* A table styled by a helper that sets the table's id (the `gt_theme_*()`
+  themes, `gt_cutline()`, `gt_watermark()`, `gt_538_caption()`,
+  `gt_border_grid()`, `gt_border_bars_*()`) after a call that reorders gt's
+  options, such as `gt::opt_row_striping()`, keeps its id and its options. The
+  id used to be written over the first option instead, so the table lost the
+  id its CSS is scoped to and, after `opt_row_striping()`, failed to render.
 * Every example runs: examples that only build tables run as plain examples,
   and those that save images through a headless Chrome are `\donttest{}`
   blocks that run in an interactive session with `webshot2` and Chrome
