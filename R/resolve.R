@@ -95,8 +95,8 @@ sdv_teams <- function(league = NULL, include_conferences = FALSE) {
 # does to each character of the Latin, ligature and full-width blocks:
 # fold_from/fold_to the one-to-one folds, fold_multi_from/fold_multi_to the
 # rest ("ß" -> "ss", ligatures). combining_marks (also from the export) is a
-# PCRE class of every character with a nonzero combining class, which Python
-# drops after NFKD. Other scripts' precomposed accents are not folded; the
+# PCRE class of every character Python drops outright: a nonzero combining
+# class, or an NFKD made only of such marks. Other scripts' precomposed accents are not folded; the
 # golden file's "norm" rows check every non-ASCII alias.
 norm_value <- function(x) {
   if (is.factor(x)) x <- as.character(x)

@@ -71,11 +71,13 @@ def fold_table() -> tuple[str, str, list[tuple[str, str]]]:
 
 
 def combining_pattern() -> str:
-    """Every character with a nonzero Unicode combining class (what sdvplot's norm_value drops after NFKD), as one
-    PCRE bracket expression of code point ranges for R's gsub(perl = TRUE). This Python's Unicode version decides it."""
+    """Every character sdvplot's norm_value drops outright: those with a nonzero combining class, plus the few whose
+    NFKD is only such marks (U+0F73, U+FF9E, ...). One PCRE bracket expression of code point ranges for R's
+    gsub(perl = TRUE); this Python's Unicode version decides it."""
     ranges: list[list[int]] = []
     for cp in range(sys.maxunicode + 1):
-        if unicodedata.combining(chr(cp)):
+        if not 0xD800 <= cp <= 0xDFFF and _normalize.norm_value(f"a{chr(cp)}a") == "aa":
+            # mid-word, so strip() cannot eat it; ASCII never drops
             if ranges and ranges[-1][1] == cp - 1:
                 ranges[-1][1] = cp
             else:
@@ -117,8 +119,8 @@ def norm_rows(
     values += [
         "K" + "".join(chars[i : i + 20]) + "ge" for i in range(0, len(chars), 20)
     ]
-    # decomposed input whose marks fall outside U+0300-036F (combining.txt)
-    values += ["Montré᷄al", "Ko⃗ge︠", "Malmo҃\U0001d167"]
+    # decomposed input whose marks fall outside U+0300-036F, and U+FF9E (class 0, NFKD a mark): combining.txt
+    values += ["Montre\u0301\u1dc4al", "Ko\u20d7ge\ufe20", "Malmo\u0483\U0001d167", "Ko\uff9ege"]
     return [
         dict(
             kind="norm",
