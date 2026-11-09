@@ -27,7 +27,11 @@ a counterpart with `league = "cfb"`:
   rosters (cfbplotR's `add_athlete_id_col()`). A name that matches more than
   one athlete is left `NA`; offline it warns and returns `NA` ids.
 * cfbplotR's wordmarks, archived in sdv-assets as source `"cfbplotr-legacy"`,
-  rank after every other source when a team has more than one wordmark.
+  rank after every other source when a team has more than one wordmark. The
+  bundled team index (`e04c50e5682e`) maps 360 of those 362 college
+  wordmarks, so `geom_sdv_wordmarks(league = "cfb")`, `gt_sdv_wordmarks()` and
+  `element_sdv_wordmark()` draw most FBS and FCS teams, and it carries the
+  `division` column `sdv_teams(division = "FBS")` reads.
 * `sdv_ggpreview()` previews a plot at the size it will be saved
   (nflplotR's and cfbplotR's `ggpreview()`; 'rstudioapi' in RStudio, now in
   `Suggests`).
