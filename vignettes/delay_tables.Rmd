@@ -223,8 +223,8 @@ a CollegeFootballData.com key in `CFBD_API_KEY`; without one, or once its
 monthly calls are spent, this section's code is shown but not run.
 
 ```{r cfbd-key}
-# a key with calls left this month: CFBD answers HTTP 429 with no rows once they are spent
-has_key <- isTRUE(tryCatch(cfbfastR::cfbd_api_key_info()$remaining_calls > 0, error = function(e) FALSE))
+# a key with calls left this month (a margin for the articles built after this one): CFBD answers HTTP 429 with no rows once they are spent
+has_key <- isTRUE(tryCatch(cfbfastR::cfbd_api_key_info()$remaining_calls > 10, error = function(e) FALSE))
 ```
 
 ```{r ap-data, eval = has_key}
