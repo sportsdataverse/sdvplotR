@@ -84,7 +84,7 @@ gt_cutline <- function(gt_object, after, label = NULL,
   if (!length(after)) {
     return(gt_object)
   }
-  if (!is.numeric(after)) cli::cli_abort("{.arg after} must be numeric row number{?s}.")
+  if (!is.numeric(after)) cli::cli_abort("{.arg after} must be numeric row numbers.")
   if (!is.numeric(gap) || length(gap) < 1 || length(gap) > 2 || any(gap < 0)) {
     cli::cli_abort("{.arg gap} must be one or two non-negative numbers.")
   }

@@ -98,12 +98,16 @@ gt_stack_tables <- function(tables = NULL, gap = 16,
                             file = NULL, bg = "white", whitespace = 50, zoom = 2) {
   align <- match.arg(align)
 
-  if (!length(tables)) {
+  # a single gt_tbl is itself a list, so it has to be caught before the items are
+  if (!length(tables) || !is.list(tables) || inherits(tables, "gt_tbl")) {
     cli::cli_abort("{.arg tables} must be a list of {.cls gt_tbl} objects.")
   }
   bad <- !vapply(tables, function(x) inherits(x, "gt_tbl"), logical(1))
   if (any(bad)) {
-    cli::cli_abort("{.arg tables} must contain only {.cls gt_tbl} objects; item{?s} {.val {which(bad)}} {?is/are} not.")
+    cli::cli_abort(
+      "{.arg tables} must contain only {.cls gt_tbl} objects; \\
+       {cli::qty(sum(bad))}item{?s} {.val {which(bad)}} {cli::qty(sum(bad))}{?is/are} not."
+    )
   }
 
   defaults <- list(

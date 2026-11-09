@@ -332,6 +332,10 @@ JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
   options, such as `gt::opt_row_striping()`, keeps its id and its options. The
   id used to be written over the first option instead, so the table lost the
   id its CSS is scoped to and, after `opt_row_striping()`, failed to render.
+* `gt_grid()` and `gt_stack_tables()` given a single table rather than a list
+  of them, or a list with more than one item that is not a table, and
+  `gt_cutline()` given a non-numeric `after`, now raise their own error
+  messages. They used to fail inside cli's pluralization instead.
 * Every example runs: examples that only build tables run as plain examples,
   and those that save images through a headless Chrome are `\donttest{}`
   blocks that run in an interactive session with `webshot2` and Chrome
