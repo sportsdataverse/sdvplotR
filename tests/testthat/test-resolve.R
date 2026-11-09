@@ -128,7 +128,7 @@ test_that("sdv_teams() lists teams, and conferences on request", {
   ct <- sdv_teams("cfb", include_conferences = TRUE)
   expect_named(t, c(
     "league", "team_id", "abbr", "name", "short_name", "location", "program",
-    "conference_id", "conference", "color_primary", "color_secondary", "color_source"
+    "conference_id", "conference", "color_primary", "color_secondary", "color_source", "division"
   ))
   expect_false(any(t$program %in% c("conference", "league")))
   expect_true("SEC" %in% ct$team_id)

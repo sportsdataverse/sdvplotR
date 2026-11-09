@@ -12,10 +12,10 @@ a counterpart with `league = "cfb"`:
 * `scale_color_sdv()`, `scale_colour_sdv()` and `scale_fill_sdv()` take
   `alt_colors`, teams drawn in their other colour (cfbplotR's `alt_colors`).
 * `sdv_teams()` takes `division`: `"P4"`, `"P5"` and `"G5"` from each college
-  football team's conference in the index, `"FBS"`, `"FCS"`, `"DII"` and
-  `"DIII"` from the index's `division` column where it has one, and
-  `"Conference"` (cfbplotR's division filter). The index reader keeps
-  that column when the index carries it.
+  football team's conference in the index, `"FBS"`, `"FCS"`, `"DI"`, `"DII"`
+  and `"DIII"` from the index's new `division` column, and `"Conference"`
+  (cfbplotR's division filter). `sdv_teams()` has a `division` column, `NA`
+  in an index built before it (a cached copy, or the bundled snapshot).
 * `sdv_clean_names()` cleans names, abbreviations and ids to one display name
   per team, keeping values that do not resolve unless `keep_non_matches =
   FALSE` (cfbplotR's `clean_school_names()` and its alias).
@@ -26,6 +26,8 @@ a counterpart with `league = "cfb"`:
   football player names, matched on name, team and season to cfbfastR-data's
   rosters (cfbplotR's `add_athlete_id_col()`). A name that matches more than
   one athlete is left `NA`; offline it warns and returns `NA` ids.
+* cfbplotR's wordmarks, archived in sdv-assets as source `"cfbplotr-legacy"`,
+  rank after every other source when a team has more than one wordmark.
 * `sdv_ggpreview()` previews a plot at the size it will be saved
   (nflplotR's and cfbplotR's `ggpreview()`; 'rstudioapi' in RStudio, now in
   `Suggests`).

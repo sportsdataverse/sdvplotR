@@ -20,7 +20,7 @@ skip_without_wordmarks <- function() {
   skip_if_not(has_cfb_wordmarks(), "the bundled snapshot has no cfb wordmarks yet (sdv-assets cfbplotr_wordmarks)")
 }
 skip_without_division <- function() {
-  skip_if_not("division" %in% names(index_teams()), "the bundled index has no division column yet (sdvplot)")
+  skip_if_not(any(!is.na(sdv_teams("cfb")$division)), "the bundled index has no cfb divisions yet (sdvplot)")
 }
 # cfbplotR names the 2026-11-03 index does not resolve; sdvplot adds them
 cfbplotr_aliases <- c(

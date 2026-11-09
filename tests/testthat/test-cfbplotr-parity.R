@@ -48,8 +48,8 @@ test_that("sdv_teams(division =) reads the index's division column when it has o
 })
 
 test_that("sdv_teams(division =) says what it cannot do", {
-  skip_if("division" %in% names(index_teams()), "the bundled index has a division column")
-  expect_error(sdv_teams("cfb", division = "FBS"), "no division column")
+  skip_if(any(!is.na(sdv_teams("cfb")$division)), "the bundled index has cfb divisions")
+  expect_error(sdv_teams("cfb", division = "FBS"), "divisions for")
   expect_error(sdv_teams("cfb", division = "FBS"), "work without it")
 })
 
@@ -62,6 +62,9 @@ test_that("sdv_teams(division =) checks its arguments", {
 })
 
 test_that("the index reader keeps an optional division column", {
+  # the loaded index always has it, NA where the index predates it
+  expect_in("division", names(index_teams()))
+  expect_in("division", names(sdv_teams("nfl")))
   path <- withr::local_tempfile(fileext = ".csv")
   writeLines(c(paste(c(team_cols, "division", "extra"), collapse = ","), paste(c(rep("x", 12), "FBS", "y"), collapse = ",")), path)
   df <- read_index_csv(path, team_cols, team_optional_cols)
@@ -175,4 +178,22 @@ test_that("sdv_ggpreview saves the plot at the asked size", {
   expect_match(path, "\\.png$")
   info <- magick::image_info(magick::image_read(path))
   expect_identical(c(info$width, info$height), c(100L, 50L))
+})
+
+test_that("cfbplotR's legacy wordmarks rank after every other source, and an unknown source has a rank", {
+  expect_identical(unname(source_rank["cfbplotr-legacy"]), max(source_rank))
+  m <- data.frame(
+    level = "team", league = "cfb", entity_id = "333", entity_name = "Alabama", mark_type = "wordmark",
+    variant = "default", valid_from = NA_integer_, valid_to = NA_integer_,
+    source = c("cfbplotr-legacy", "some-new-source", "espn"), first_seen = "2026-11-06",
+    sha256 = c("a", "b", "c"), ext = "png", archive_url = paste0("https://x/", c("a", "b", "c"), ".png")
+  )
+  local_mocked_bindings(index_marks = function() m, mark_aliases = function(league) {
+    data.frame(key = paste0(m$source, ":333"), team_id = "333", valid_from = NA_integer_, valid_to = NA_integer_)
+  })
+  forget_index()
+  withr::defer(forget_index())
+  r <- ranked_marks("cfb")
+  expect_false(anyNA(r$source_rank))
+  expect_identical(r$source[r$team_id == "333"], c("espn", "some-new-source", "cfbplotr-legacy"))
 })

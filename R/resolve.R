@@ -62,11 +62,13 @@ check_league <- function(league, call = rlang::caller_env()) {
 #'   (`"SEC"`, `"AFC"`). The logo helpers draw them by that key; colour
 #'   helpers and [sdv_resolve()] never answer one.
 #' @param division `NULL` (every team), or one or more of `"FBS"`, `"FCS"`,
-#'   `"DII"`, `"DIII"`, `"P4"`, `"P5"`, `"G5"` and `"Conference"`: only the
-#'   teams in any of them, as cfbplotR's division filter keeps.
-#'   `"FBS"`, `"FCS"`, `"DII"` and `"DIII"` read the index's `division`
-#'   column, in any league whose index has one (an index without one is an
-#'   error naming it). `"P4"`, `"P5"` and `"G5"` are college football's, from
+#'   `"DI"`, `"DII"`, `"DIII"`, `"P4"`, `"P5"`, `"G5"` and `"Conference"`:
+#'   only the teams in any of them, as cfbplotR's division filter keeps.
+#'   `"FBS"`, `"FCS"`, `"DI"`, `"DII"` and `"DIII"` read the index's
+#'   `division` column (FBS, FCS, DII and DIII in college football, DI, DII
+#'   and DIII in the other college leagues); an index that has no divisions
+#'   for the league (one built before they were added) is an error naming
+#'   it. `"P4"`, `"P5"` and `"G5"` are college football's, from
 #'   each team's conference in the index, so they follow realignment as the
 #'   index does:
 #'
@@ -97,7 +99,7 @@ check_league <- function(league, call = rlang::caller_env()) {
 #'   | color_primary | character | Primary colour (hex) |
 #'   | color_secondary | character | Secondary colour (hex) |
 #'   | color_source | character | `"nflverse"`, `"espn"`, `"logo"`, `"cbbplotR"` or `"fallback"` |
-#'   | division | character | Where the index has it: the team's division (`"FBS"`, `"FCS"`, `"DII"`, `"DIII"` in cfb) |
+#'   | division | character | College division (`"FBS"`, `"DII"`, ...); `NA` elsewhere or in an older index |
 #' @export
 #' @examples
 #' sdv_teams("nfl")
@@ -135,7 +137,7 @@ sdv_teams <- function(league = NULL, include_conferences = FALSE, division = NUL
 cfb_power4 <- c("cfb:acc", "cfb:big-ten", "cfb:big-12", "cfb:sec")
 cfb_group5 <- c("cfb:american", "cfb:cusa", "cfb:mac", "cfb:mountain-west", "cfb:sun-belt")
 cfb_notre_dame <- "87"
-column_divisions <- c("FBS", "FCS", "DII", "DIII")
+column_divisions <- c("FBS", "FCS", "DI", "DII", "DIII")
 team_divisions <- c(column_divisions, "P4", "P5", "G5", "Conference")
 
 # Which rows of one league's index teams `t` are in any of `division`
@@ -148,9 +150,9 @@ in_division <- function(t, league, division, call = rlang::caller_env()) {
     cli::cli_abort("{.val {tiers}} {?is a/are} college football tier{?s}; use {.code league = \"cfb\"}.", call = call)
   }
   cols <- intersect(division, column_divisions)
-  if (length(cols) && !"division" %in% names(t)) {
+  if (length(cols) && all(is.na(t$division))) {
     cli::cli_abort(c(
-      "The team index {.val {sdv_versions()$index_version}} has no {.field division} column for {.val {cols}}.",
+      "The team index {.val {sdv_versions()$index_version}} has no {.val {league}} divisions for {.val {cols}}.",
       i = "{.val P4}, {.val P5} and {.val G5} work without it, from conferences."
     ), call = call)
   }

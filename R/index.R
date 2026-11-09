@@ -11,7 +11,8 @@ team_cols <- c(
   "league", "team_id", "abbr", "name", "short_name", "location", "program",
   "conference_id", "conference", "color_primary", "color_secondary", "color_source"
 )
-# read when the index has them (older indexes do not): cfb's FBS / FCS / DII / DIII
+# read when the index has them, NA when it does not (older indexes): the college
+# divisions (FBS / FCS / DII / DIII in cfb, DI / DII / DIII elsewhere)
 team_optional_cols <- "division"
 alias_cols <- c("league", "id_system", "value", "team_id", "valid_from", "valid_to")
 mark_cols <- c(
@@ -172,6 +173,8 @@ load_index <- function() {
     teams = snapshot_teams, aliases = snapshot_aliases,
     version = snapshot_meta$index_version, source = "snapshot"
   )
+  # an older index (a cached copy, the bundled snapshot) lacks the optional columns: NA
+  for (col in setdiff(team_optional_cols, names(idx$teams))) idx$teams[[col]] <- rep(NA_character_, nrow(idx$teams))
   list2env(idx, envir = index_cache)
   invisible()
 }

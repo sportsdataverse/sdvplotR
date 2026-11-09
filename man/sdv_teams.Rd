@@ -16,11 +16,13 @@ college conferences, and the AFC, NFC and NFL). Their \code{program} is
 helpers and \code{\link[=sdv_resolve]{sdv_resolve()}} never answer one.}
 
 \item{division}{\code{NULL} (every team), or one or more of \code{"FBS"}, \code{"FCS"},
-\code{"DII"}, \code{"DIII"}, \code{"P4"}, \code{"P5"}, \code{"G5"} and \code{"Conference"}: only the
-teams in any of them, as cfbplotR's division filter keeps.
-\code{"FBS"}, \code{"FCS"}, \code{"DII"} and \code{"DIII"} read the index's \code{division}
-column, in any league whose index has one (an index without one is an
-error naming it). \code{"P4"}, \code{"P5"} and \code{"G5"} are college football's, from
+\code{"DI"}, \code{"DII"}, \code{"DIII"}, \code{"P4"}, \code{"P5"}, \code{"G5"} and \code{"Conference"}:
+only the teams in any of them, as cfbplotR's division filter keeps.
+\code{"FBS"}, \code{"FCS"}, \code{"DI"}, \code{"DII"} and \code{"DIII"} read the index's
+\code{division} column (FBS, FCS, DII and DIII in college football, DI, DII
+and DIII in the other college leagues); an index that has no divisions
+for the league (one built before they were added) is an error naming
+it. \code{"P4"}, \code{"P5"} and \code{"G5"} are college football's, from
 each team's conference in the index, so they follow realignment as the
 index does:
 \itemize{
@@ -52,7 +54,7 @@ A data frame:\tabular{lll}{
    color_primary \tab character \tab Primary colour (hex) \cr
    color_secondary \tab character \tab Secondary colour (hex) \cr
    color_source \tab character \tab \code{"nflverse"}, \code{"espn"}, \code{"logo"}, \code{"cbbplotR"} or \code{"fallback"} \cr
-   division \tab character \tab Where the index has it: the team's division (\code{"FBS"}, \code{"FCS"}, \code{"DII"}, \code{"DIII"} in cfb) \cr
+   division \tab character \tab College division (\code{"FBS"}, \code{"DII"}, ...); \code{NA} elsewhere or in an older index \cr
 }
 }
 \description{
