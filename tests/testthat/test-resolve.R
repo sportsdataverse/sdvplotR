@@ -65,6 +65,19 @@ test_that("team values normalize as Python's norm_value does", {
   expect_identical(norm_value(c("Straße", "ﬁnal", "Køge")), c("strasse", "final", "køge"))
 })
 
+test_that("decomposed input drops every combining mark, as Python's NFKD does", {
+  local_snapshot_index()
+  # marks outside U+0300-036F: U+1DC4, U+20D7, U+FE20, U+0483, U+1D167 (outside the BMP);
+  # U+034F (combining grapheme joiner) has combining class 0, so Python keeps it
+  expect_identical(
+    norm_value(c("Montré᷄al", "Ko⃗ge︠", "Malmo҃\U0001d167", "a͏b")),
+    c("montreal", "koge", "malmo", "a͏b")
+  )
+  # sdvplot.resolve()'s answers for the same inputs (sdvplot 2bf4e9ad)
+  expect_identical(sdv_resolve("Kansas᷄ City⃗ Chiefs︠", "nfl"), "12")
+  expect_identical(sdv_resolve("CF Montré᷄al", "soccer"), "9720")
+})
+
 test_that("factors, numbers and padded strings resolve like the plain string", {
   local_snapshot_index()
   kc <- sdv_resolve("KC", "nfl")
