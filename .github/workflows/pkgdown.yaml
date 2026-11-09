@@ -68,7 +68,7 @@ jobs:
           for (d in deferred) do.call(check_images, d)
         shell: Rscript {0}
         env:
-          # cfb-viz.Rmd calls cfbfastR::load_cfb_schedules(), which needs a CollegeFootballData.com key
+          # the cfb articles call CollegeFootballData.com (cfb-viz.Rmd its ratings and series), which needs a key
           CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
           # workflows.Rmd merges live spreads from The Odds API (oddsapiR) when this is set
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}

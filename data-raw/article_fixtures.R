@@ -222,7 +222,72 @@ fx_recipe_mlb <- function() {
   )
 }
 
+fx_cfb_viz <- function() {
+  # cfb-viz, chunk schedule (CollegeFootballData.com game info; a finished season, so pinned). CFBD
+  # caps a key's calls a month and answers HTTP 429 with an empty frame once they are spent; then
+  # this reads sportsdataverse-data's cfb_schedules release, the same cfbd_game_info() columns
+  season <- 2025
+  schedule <- cfbfastR::load_cfb_schedules(season)
+  call <- "cfbfastR::load_cfb_schedules(2025)"
+  if (!nrow(schedule)) {
+    tmp <- tempfile(fileext = ".rds")
+    utils::download.file(
+      sprintf("https://github.com/sportsdataverse/sportsdataverse-data/releases/download/cfb_schedules/cfb_schedules_%d.rds", season),
+      tmp, mode = "wb", quiet = TRUE
+    )
+    schedule <- readRDS(tmp)
+    call <- paste(call, "(CFBD refused: the sportsdataverse-data cfb_schedules release)")
+  }
+  schedule <- schedule |>
+    select(
+      week, season_type, start_date, completed, conference_game, notes,
+      home_team, home_conference, home_division, home_points,
+      away_team, away_conference, away_division, away_points
+    )
+  stopifnot(nrow(schedule) > 3000, sum(grepl("National Championship", schedule$notes)) == 1)
+  list(season = season, schedule = schedule, call = call, package = "cfbfastR")
+}
+
+fx_border_bars_mbb <- function() {
+  # border_bars, chunk load-box (a GitHub release read; a 5xx returns an empty frame)
+  season <- 2026
+  box <- hoopR::load_mbb_team_box(seasons = season) |>
+    select(
+      game_id, season_type, game_date_time, team_id, opponent_team_id, team_home_away, team_winner, team_score,
+      field_goals_made, field_goals_attempted, three_point_field_goals_made, three_point_field_goals_attempted,
+      free_throws_made, free_throws_attempted, offensive_rebounds, defensive_rebounds, total_turnovers
+    )
+  stopifnot(nrow(box) > 10000, any(box$season_type == 3))
+  list(season = season, box = box, call = "hoopR::load_mbb_team_box(seasons = 2026)", package = "hoopR")
+}
+
+fx_border_bars_wnba <- function() {
+  # border_bars, chunk load-player-box
+  season <- 2026
+  player_box <- wehoop::load_wnba_player_box(season) |>
+    filter(season_type == 2, !did_not_play) |>
+    select(
+      season_type, did_not_play, athlete_id, athlete_display_name, team_abbreviation, game_date,
+      points, field_goals_made, field_goals_attempted
+    )
+  stopifnot(nrow(player_box) > 5000)
+  list(season = season, player_box = player_box, call = "wehoop::load_wnba_player_box(2026)", package = "wehoop")
+}
+
+fx_border_bars_nfl <- function() {
+  # border_bars, chunk load-schedule
+  season <- 2025
+  schedule <- nflreadr::load_schedules(season) |>
+    select(week, game_type, home_team, away_team, home_score, away_score)
+  stopifnot(nrow(schedule) >= 285, any(schedule$game_type == "SB"))
+  list(season = season, schedule = schedule, call = "nflreadr::load_schedules(2025)", package = "nflreadr")
+}
+
 fixtures <- list(
+  "cfb-viz/cfb_schedule" = fx_cfb_viz,
+  "border_bars/mbb_team_box" = fx_border_bars_mbb,
+  "border_bars/wnba_player_box" = fx_border_bars_wnba,
+  "border_bars/nfl_schedule" = fx_border_bars_nfl,
   "mlb-viz/mlb_stats_api" = fx_mlb_viz,
   "mlb-viz/savant" = fx_mlb_viz_savant,
   "nhl-viz/nhl_api" = fx_nhl_viz,

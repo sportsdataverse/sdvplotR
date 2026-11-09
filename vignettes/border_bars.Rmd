@@ -66,8 +66,22 @@ The box scores hold one row per team per game, so joining each row to its
 opponent's row puts both ends of the floor side by side. Possessions are
 estimated from the box score.
 
+```{r load-box, eval = FALSE}
+box <- hoopR::load_mbb_team_box(seasons = 2026)
+```
+
+```{r load-box-fixture, include = FALSE}
+fx <- readRDS("fixtures/border_bars/mbb_team_box.rds")
+box <- fx$box
+```
+
+The tables below use snapshots of this article's three data calls, taken on
+`r format(fx$taken, "%B %d, %Y")`, because a GitHub release read that fails
+returns an empty frame and would stop the site build;
+`data-raw/article_fixtures.R` takes them with the same code.
+
 ```{r team-data}
-box <- hoopR::load_mbb_team_box(seasons = 2026) |>
+box <- box |>
   mutate(poss = field_goals_attempted - offensive_rebounds + total_turnovers + 0.475 * free_throws_attempted)
 
 champion <- box |>
@@ -221,8 +235,16 @@ A footer bar is the place for a publisher's mark. The table is the WNBA's top te
 scorers of the 2026 regular season among players who appeared in at least 30
 games, each with a headshot and team logo.
 
+```{r load-player-box, eval = FALSE}
+player_box <- wehoop::load_wnba_player_box(2026)
+```
+
+```{r load-player-box-fixture, include = FALSE}
+player_box <- readRDS("fixtures/border_bars/wnba_player_box.rds")$player_box
+```
+
 ```{r scorers-data}
-scorers <- wehoop::load_wnba_player_box(2026) |>
+scorers <- player_box |>
   filter(season_type == 2, !did_not_play) |>
   summarise(
     player = last(athlete_display_name, order_by = game_date),
@@ -279,8 +301,15 @@ stripe in each of its two colors at the bottom.
 The champion is the winner of the season's Super Bowl, and its games are one
 filter on the schedule after `clean_homeaway()` turns it into one row per team.
 
-```{r log-data}
+```{r load-schedule, eval = FALSE}
 schedule <- nflreadr::load_schedules(2025)
+```
+
+```{r load-schedule-fixture, include = FALSE}
+schedule <- readRDS("fixtures/border_bars/nfl_schedule.rds")$schedule
+```
+
+```{r log-data}
 
 sb <- filter(schedule, game_type == "SB")
 champ <- if_else(sb$home_score > sb$away_score, sb$home_team, sb$away_team)
