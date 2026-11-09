@@ -170,12 +170,12 @@ head(top25)
 #> # A tibble: 6 × 9
 #>    rank logo        school      conf_logo  conference record   off     dfn   net
 #>   <int> <chr>       <chr>       <chr>      <chr>      <chr>  <dbl>   <dbl> <dbl>
-#> 1     1 Georgia     Georgia     SEC        SEC        8-1    0.190 -0.153  0.344
-#> 2     2 LSU         LSU         SEC        SEC        6-3    0.150 -0.157  0.308
-#> 3     3 Alabama     Alabama     SEC        SEC        7-2    0.263 -0.0322 0.295
-#> 4     4 Wake Forest Wake Forest ACC        ACC        8-1    0.201 -0.0876 0.289
-#> 5     5 Notre Dame  Notre Dame  FBS Indep. FBS Indep. 8-1    0.208 -0.0758 0.283
-#> 6     6 Liberty     Liberty     CUSA       CUSA       8-1    0.220 -0.0372 0.257
+#> 1     1 Georgia     Georgia     SEC        SEC        8-1    0.191 -0.153  0.344
+#> 2     2 LSU         LSU         SEC        SEC        6-3    0.151 -0.157  0.308
+#> 3     3 Alabama     Alabama     SEC        SEC        7-2    0.264 -0.0320 0.296
+#> 4     4 Wake Forest Wake Forest ACC        ACC        8-1    0.202 -0.0885 0.290
+#> 5     5 Notre Dame  Notre Dame  FBS Indep. FBS Indep. 8-1    0.208 -0.0722 0.281
+#> 6     6 Liberty     Liberty     CUSA       CUSA       8-1    0.220 -0.0348 0.255
 ```
 
 sdvplotR has a row for every FBS conference too, so
