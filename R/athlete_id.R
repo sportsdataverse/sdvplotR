@@ -43,7 +43,9 @@ load_roster <- function(league, season) {
   id <- id_chr(r$athlete_id)
   out <- data.frame(
     season = rep(as.integer(season), nrow(r)), athlete_id = id,
-    name = paste(r$first_name, r$last_name), team = as.character(r$team),
+    # an incomplete name is NA, never "NA Smith"
+    name = ifelse(is.na(r$first_name) | is.na(r$last_name), NA_character_, paste(r$first_name, r$last_name)),
+    team = as.character(r$team),
     headshot_url = if ("headshot_url" %in% names(r)) as.character(r$headshot_url) else espn_headshot_url(id, league)
   )
   player_alias_cache[[key]] <- out
@@ -161,6 +163,7 @@ sdv_add_athlete_id <- function(
     rosters <- empty_roster()
   }
 
+  rosters <- rosters[!is.na(rosters$name), , drop = FALSE] # an incomplete roster name matches no one
   # one key per row: name, then team, then season
   key_df <- norm_value(df[[name_col]])
   key_ro <- norm_value(rosters$name)
@@ -181,10 +184,12 @@ sdv_add_athlete_id <- function(
   u <- !duplicated(paste(key_ro, rosters$athlete_id))
   ambiguous <- unique(key_ro[u][duplicated(key_ro[u])])
   i <- match(key_df, key_ro)
-  i[is.na(df[[name_col]]) | key_df %in% ambiguous] <- NA
-  # a row whose team is missing matches no one (a missing roster team would share its key)
-  if (!is.null(team_col)) i[is.na(df[[team_col]]) | !nzchar(trimws(as.character(df[[team_col]])))] <- NA
-  n_amb <- sum(key_df %in% ambiguous & !is.na(df[[name_col]]))
+  # a row with no name, or no team when teams are matched, matches no one (a missing roster
+  # team would share its key) and is not counted as ambiguous
+  skip <- is.na(df[[name_col]])
+  if (!is.null(team_col)) skip <- skip | is.na(df[[team_col]]) | !nzchar(trimws(as.character(df[[team_col]])))
+  i[skip | key_df %in% ambiguous] <- NA
+  n_amb <- sum(key_df %in% ambiguous & !skip)
   if (n_amb) {
     cli::cli_warn(c(
       "{n_amb} row{?s} matched more than one athlete, so {?its/their} {.field athlete_id} {?is/are} {.val NA}.",
