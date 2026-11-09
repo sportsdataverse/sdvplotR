@@ -492,7 +492,8 @@ sdv_clean_names <- function(
   t <- sdv_teams(league)
   out <- t[[column]][match(r$ids, t$team_id)]
   if (isTRUE(keep_non_matches)) {
-    miss <- is.na(out)
+    # only values that did not resolve keep their input; a resolved team with no value in `column` is NA
+    miss <- is.na(r$ids)
     out[miss] <- id_chr(x)[miss]
   } else {
     report_unresolved(x, r$why, league)
