@@ -70,6 +70,26 @@ def fold_table() -> tuple[str, str, list[tuple[str, str]]]:
     return "".join(src), "".join(dst), multi
 
 
+def combining_pattern() -> str:
+    """Every character sdvplot's norm_value drops outright: those with a nonzero combining class, plus the few whose
+    NFKD is only such marks (U+0F73, U+FF9E, ...). One PCRE bracket expression of code point ranges for R's
+    gsub(perl = TRUE); this Python's Unicode version decides it."""
+    ranges: list[list[int]] = []
+    for cp in range(sys.maxunicode + 1):
+        if not 0xD800 <= cp <= 0xDFFF and _normalize.norm_value(f"a{chr(cp)}a") == "aa":
+            # mid-word, so strip() cannot eat it; ASCII never drops
+            if ranges and ranges[-1][1] == cp - 1:
+                ranges[-1][1] = cp
+            else:
+                ranges.append([cp, cp])
+    # literal characters, not \x{} escapes: a UTF-8 pattern is what makes R run PCRE in UTF mode for every input
+    return (
+        "["
+        + "".join(chr(a) if a == b else f"{chr(a)}-{chr(b)}" for a, b in ranges)
+        + "]"
+    )
+
+
 def sdvplot_commit() -> str:
     """The commit of the sdvplot checkout being read; exits if its package source has uncommitted changes."""
     repo = Path(sdvplot.__file__).resolve().parents[2]
@@ -99,6 +119,8 @@ def norm_rows(
     values += [
         "K" + "".join(chars[i : i + 20]) + "ge" for i in range(0, len(chars), 20)
     ]
+    # decomposed input whose marks fall outside U+0300-036F, and U+FF9E (class 0, NFKD a mark): combining.txt
+    values += ["Montre\u0301\u1dc4al", "Ko\u20d7ge\ufe20", "Malmo\u0483\U0001d167", "Ko\uff9ege"]
     return [
         dict(
             kind="norm",
@@ -271,6 +293,9 @@ def main() -> None:
     (root / "data-raw" / "index" / "fold.txt").write_text(
         "\n".join([src, dst, *(f"{c}\t{n}" for c, n in multi)]) + "\n",
         encoding="utf-8",
+    )
+    (root / "data-raw" / "index" / "combining.txt").write_text(
+        combining_pattern() + "\n", encoding="utf-8"
     )
 
     fx = root / "tests" / "testthat" / "fixtures"

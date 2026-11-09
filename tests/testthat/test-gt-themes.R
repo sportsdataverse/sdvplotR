@@ -139,9 +139,13 @@ test_that("id-scoped themes keep the caller's table id, or assign one", {
     fn <- get(nm, envir = asNamespace("sdvplotR"))
     tbl <- fn(gt::gt(head(mtcars), id = "mine"))
     expect_identical(opt(tbl, "table_id"), "mine", info = nm)
-    expect_match(html_of(tbl), "#mine .gt_", fixed = TRUE, info = nm)
-    id <- opt(fn(gt::gt(head(mtcars))), "table_id")
+    # the theme's own .gt_heading rule (gt's stylesheet has its own, with other properties), as gt reflows it
+    heading <- " \\.gt_heading \\{\\s*padding-bottom: 0px;\\s*padding-top: 6px;\\s*\\}"
+    expect_match(html_of(tbl), paste0("#mine", heading), info = nm)
+    gen <- fn(gt::gt(head(mtcars)))
+    id <- opt(gen, "table_id")
     expect_true(is.character(id) && !is.na(id) && nzchar(id), info = nm)
+    expect_match(html_of(gen), paste0("#", id, heading), info = nm)
   }
 })
 
