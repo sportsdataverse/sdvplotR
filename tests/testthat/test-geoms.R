@@ -102,7 +102,11 @@ test_that("a failed image read is tried once a session, until sdv_clear_cache()"
   expect_identical(small_image(url, 60), url)
   expect_identical(small_image(url, 60), url)
   expect_identical(reads, 1)
+  # the failure is remembered in unreadable_images, keyed by the copy small_image() would have written
+  expect_length(ls(unreadable_images), 1L)
+  expect_true(isTRUE(unreadable_images[[ls(unreadable_images)]]))
   sdv_clear_cache() |> suppressMessages()
+  expect_length(ls(unreadable_images), 0L)
   small_image(url, 60)
   expect_identical(reads, 2)
 })

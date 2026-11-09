@@ -27,13 +27,19 @@ multi <- strsplit(fold[-(1:2)], "\t", fixed = TRUE)
 stopifnot(all(lengths(multi) == 2L))
 fold_multi_from <- vapply(multi, `[[`, "", 1L)
 fold_multi_to <- vapply(multi, `[[`, "", 2L)
+# combining.txt: every character sdvplot's norm_value drops outright, as one PCRE bracket expression
+combining_marks <- readLines(file.path(src, "combining.txt"), encoding = "UTF-8")
+stopifnot(
+  length(combining_marks) == 1L,
+  identical(gsub(combining_marks, "", "e\u0301\u1dc4\U0001d167", perl = TRUE), "e")
+)
 
 env <- new.env()
 load("R/sysdata.rda", envir = env)
 rm(list = intersect(c("logo_ref", "logo_marks", "logo_history", "abbr_mapping", "soccer_ambiguous"), ls(env)), envir = env)
 for (n in c(
   "snapshot_teams", "snapshot_aliases", "snapshot_marks", "snapshot_meta",
-  "fold_from", "fold_to", "fold_multi_from", "fold_multi_to"
+  "fold_from", "fold_to", "fold_multi_from", "fold_multi_to", "combining_marks"
 )) {
   assign(n, get(n), envir = env)
 }

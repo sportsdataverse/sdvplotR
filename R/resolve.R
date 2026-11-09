@@ -186,8 +186,10 @@ in_division <- function(t, league, division, call = rlang::caller_env()) {
 # The fold tables (data-raw/export_index.py) hold what Python's NFKD + casefold
 # does to each character of the Latin, ligature and full-width blocks:
 # fold_from/fold_to the one-to-one folds, fold_multi_from/fold_multi_to the
-# rest ("ß" -> "ss", ligatures). Other scripts' precomposed accents are
-# not folded; the golden file's "norm" rows check every non-ASCII alias.
+# rest ("ß" -> "ss", ligatures). combining_marks (also from the export) is a
+# PCRE class of every character Python drops outright: a nonzero combining
+# class, or an NFKD made only of such marks. Other scripts' precomposed accents are not folded; the
+# golden file's "norm" rows check every non-ASCII alias.
 norm_value <- function(x) {
   if (is.factor(x)) x <- as.character(x)
   if (is.numeric(x)) {
@@ -204,7 +206,7 @@ norm_value <- function(x) {
     w <- chartr(paste0(fold_from, "\u2018\u2019"), paste0(fold_to, "''"), s[wide])
     for (i in seq_along(fold_multi_from)) w <- gsub(fold_multi_from[[i]], fold_multi_to[[i]], w, fixed = TRUE)
     w <- gsub("[\u2013\u2014]", "-", w)
-    s[wide] <- gsub("[\u0300-\u036f]", "", w)
+    s[wide] <- gsub(combining_marks, "", w, perl = TRUE)
   }
   s <- tolower(s)
   s <- sub("^(-?[0-9]+)\\.0+$", "\\1", s)
