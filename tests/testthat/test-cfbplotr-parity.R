@@ -133,6 +133,27 @@ test_that("sdv_add_athlete_id leaves a row with a missing team unmatched", {
   })
   out <- sdv_add_athlete_id(data.frame(n = c("Solo Player", "Solo Player"), team = c(NA, "")), n)
   expect_identical(out$athlete_id, c(NA_character_, NA_character_))
+  # two same-named athletes with no team: the missing-team row is skipped, not reported as ambiguous
+  local_mocked_bindings(load_roster = function(league, season) {
+    data.frame(season = as.integer(season), athlete_id = c("7", "8"), name = "Twin", team = NA_character_, headshot_url = NA)
+  })
+  expect_no_warning(out2 <- sdv_add_athlete_id(data.frame(n = "Twin", team = NA), n))
+  expect_identical(out2$athlete_id, NA_character_)
+})
+
+test_that("an incomplete roster name matches no one", {
+  local_mocked_bindings(load_roster = function(league, season) {
+    data.frame(season = as.integer(season), athlete_id = "9", name = NA_character_, team = "Utah", headshot_url = NA)
+  })
+  expect_identical(sdv_add_athlete_id(data.frame(n = "NA Smith"), n)$athlete_id, NA_character_)
+})
+
+test_that("sdv_clean_names keeps only the inputs that did not resolve", {
+  t <- snapshot_teams
+  t$abbr[t$league == "cfb" & t$team_id == "333"] <- NA_character_
+  local_mocked_bindings(index_teams = function() t)
+  # Alabama resolves but has no abbr: NA, not the input
+  expect_identical(sdv_clean_names(c("Alabama", "zzz-not-a-team"), "cfb", column = "abbr"), c(NA, "zzz-not-a-team"))
 })
 
 test_that("the tier filters warn when the index has renamed a tier conference", {
@@ -187,6 +208,7 @@ test_that("sdv_add_athlete_id reads the published rosters", {
 })
 
 test_that("sdv_ggpreview saves the plot at the asked size", {
+  skip_on_cran() # writes images
   p <- ggplot2::ggplot(data.frame(x = 1:3, y = 1:3), ggplot2::aes(x, y)) +
     ggplot2::geom_point()
   opened <- NULL
@@ -207,6 +229,7 @@ test_that("sdv_ggpreview saves the plot at the asked size", {
   expect_equal(unlist(magick::image_info(magick::image_read(p3))[c("width", "height")]), c(width = 70, height = 35))
   # a device function names the file by its format
   expect_identical(preview_ext(grDevices::pdf), "pdf")
+  expect_identical(preview_ext(grDevices::cairo_pdf), "pdf")
   expect_identical(preview_ext("svg"), "svg")
   expect_identical(preview_ext(function(...) NULL), "png")
 })
