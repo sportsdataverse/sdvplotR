@@ -86,23 +86,13 @@ The output below uses a snapshot of that call taken on
 `r format(fx$taken, "%B %d, %Y")` from `r fx$call`, because CollegeFootballData.com
 caps a key's calls each month and the site build cannot rely on one;
 `data-raw/article_fixtures.R` takes it with the same code. The ratings and the
-series history are live calls through `live()`: when CFBD refuses one (HTTP 429,
-no rows), the sections that need it show a note instead of failing the build.
+series history are live CFBD calls; without a key, or once its monthly calls are
+spent, the sections that need them show their code but do not run it.
 
-```{r cfbd-live}
-# A live CFBD call, or NULL when it answers with an error or no rows
-live <- function(expr) {
-  out <- tryCatch(expr, error = function(e) NULL)
-  if (NROW(out) == 0) NULL else out
-}
-unavailable <- function(what, ok) {
-  if (ok) "" else sprintf("*%s were unavailable from CollegeFootballData.com when this page was built.*", what)
-}
-
-sp_ratings <- live(cfbfastR::cfbd_ratings_sp(year = season))
-srs_ratings <- live(cfbfastR::cfbd_ratings_srs(year = season))
-matchup <- live(cfbfastR::cfbd_team_matchup("Ohio State", "Michigan", min_year = 2004, max_year = season))
-has_sp <- !is.null(sp_ratings)
+```{r cfbd-guard}
+# a key with calls left this month (a margin for the articles built after this one): CFBD answers HTTP 429 with no rows once they are spent
+has_key <- isTRUE(tryCatch(suppressMessages(cfbfastR::cfbd_api_key_info())$remaining_calls > 10, error = function(e) FALSE))
+if (!has_key) cat("CFBD_API_KEY is not set or has no calls left, so the SP+, SRS and series chunks are shown but not run.\n")
 ```
 
 The schedule carries each team's division and its conference **that
@@ -215,10 +205,8 @@ at the conference median. The rows are labelled with the conference names, and
 `scale_y_sdv()` with `theme_y_sdv()` draws those names as conference logos:
 sdvplotR keeps the conferences' marks alongside the teams'.
 
-`r unavailable("The SP+ ratings", has_sp)`
-
-```{r conference-strength, eval = has_sp, fig.height = 7, fig.alt = "Strip chart of the 2025 SP+ rating of every FBS team, one row per conference with the conference's logo as the row label, rows sorted by median rating with the SEC and Big Ten at the top, each team drawn as a small logo and a vertical line at each conference median."}
-sp <- sp_ratings |>
+```{r conference-strength, eval = has_key, fig.height = 7, fig.alt = "Strip chart of the 2025 SP+ rating of every FBS team, one row per conference with the conference's logo as the row label, rows sorted by median rating with the SEC and Big Ten at the top, each team drawn as a small logo and a vertical line at each conference median."}
+sp <- cfbfastR::cfbd_ratings_sp(year = season) |>
   select(team, sp = rating, sp_rank = ranking)
 
 by_conf <- ratings |>
@@ -264,9 +252,7 @@ loss columns as one record, and `gt_theme_athletic()` styles the table. The
 last column is each team's real postseason: the bowl or playoff round from the
 schedule's `notes`.
 
-`r unavailable("The SP+ ratings", has_sp)`
-
-```{r gt-table, eval = has_sp}
+```{r gt-table, eval = has_key}
 regular <- schedule |>
   filter(completed, season_type == "regular", week <= 14)
 
@@ -460,10 +446,8 @@ Ohio State against Michigan since 2004, from one CFBD call
 side, colored for the winner, with the winner's logo at the end of the bar.
 There was no game in 2020.
 
-`r unavailable("The series results", !is.null(matchup))`
-
-```{r rivalry, eval = !is.null(matchup), fig.height = 5, fig.alt = "Bar chart of Ohio State's margin against Michigan in each season from 2004 to 2025, bars above zero in Ohio State scarlet and below zero in Michigan blue, each with the winner's logo at the end of the bar and a note that there was no game in 2020."}
-series <- matchup |>
+```{r rivalry, eval = has_key, fig.height = 5, fig.alt = "Bar chart of Ohio State's margin against Michigan in each season from 2004 to 2025, bars above zero in Ohio State scarlet and below zero in Michigan blue, each with the winner's logo at the end of the bar and a note that there was no game in 2020."}
+series <- cfbfastR::cfbd_team_matchup("Ohio State", "Michigan", min_year = 2004, max_year = season) |>
   filter(!is.na(home_score)) |>
   mutate(
     osu_margin = if_else(home_team == "Ohio State", home_score - away_score, away_score - home_score),
@@ -544,9 +528,7 @@ The final SP+ top 25. The bars use the teams' colors, and with the team
 abbreviations on the y axis, `scale_y_sdv()` plus `theme_y_sdv()` replaces
 each with its logo.
 
-`r unavailable("The SP+ ratings", has_sp)`
-
-```{r axis-logos, eval = has_sp, fig.height = 7, fig.alt = "Horizontal bar chart of the top 25 teams in the final 2025 SP+ ratings, bars in team colors with each team's logo in place of its name on the vertical axis and the rating printed at the end of each bar."}
+```{r axis-logos, eval = has_key, fig.height = 7, fig.alt = "Horizontal bar chart of the top 25 teams in the final 2025 SP+ ratings, bars in team colors with each team's logo in place of its name on the vertical axis and the rating printed at the end of each bar."}
 top25 <- sp |>
   inner_join(fbs, by = "team") |>
   arrange(sp_rank, team) |>
@@ -577,12 +559,10 @@ SP+, ESPN's FPI (`cfbfastR::espn_ratings_fpi()`) and the Simple Rating System
 `sdv_team_tiers()`. FPI comes keyed by ESPN abbreviation, which
 `sdv_resolve()` turns into a team id.
 
-`r unavailable("The SP+ and SRS ratings", has_sp && !is.null(srs_ratings))`
-
-```{r team-tiers, eval = has_sp && !is.null(srs_ratings), fig.height = 6, fig.alt = "College football team logos in five labeled tiers, from Elite to Solid, for the 32 best FBS teams of 2025 by their average rank in SP+, FPI and SRS, best first within each tier."}
+```{r team-tiers, eval = has_key, fig.height = 6, fig.alt = "College football team logos in five labeled tiers, from Elite to Solid, for the 32 best FBS teams of 2025 by their average rank in SP+, FPI and SRS, best first within each tier."}
 fpi <- cfbfastR::espn_ratings_fpi(year = season) |>
   transmute(team_id = suppressWarnings(sdv_resolve(team_abbreviation, league = "cfb")), fpi = as.numeric(fpi))
-srs <- srs_ratings |>
+srs <- cfbfastR::cfbd_ratings_srs(year = season) |>
   select(team, srs = rating)
 
 composite <- fbs |>
