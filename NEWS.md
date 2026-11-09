@@ -14,8 +14,9 @@ a counterpart with `league = "cfb"`:
 * `sdv_teams()` takes `division`: `"P4"`, `"P5"` and `"G5"` from each college
   football team's conference in the index, `"FBS"`, `"FCS"`, `"DI"`, `"DII"`
   and `"DIII"` from the index's new `division` column, and `"Conference"`
-  (cfbplotR's division filter). `sdv_teams()` has a `division` column, `NA`
-  in an index built before it (a cached copy, or the bundled snapshot).
+  (cfbplotR's division filter). `sdv_teams()` has a `division` column; the
+  bundled snapshot carries it, so the division filters work offline, and it
+  is `NA` only in an older cached index.
 * `sdv_clean_names()` cleans names, abbreviations and ids to one display name
   per team, keeping values that do not resolve unless `keep_non_matches =
   FALSE` (cfbplotR's `clean_school_names()` and its alias).
