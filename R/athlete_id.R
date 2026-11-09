@@ -182,6 +182,8 @@ sdv_add_athlete_id <- function(
   ambiguous <- unique(key_ro[u][duplicated(key_ro[u])])
   i <- match(key_df, key_ro)
   i[is.na(df[[name_col]]) | key_df %in% ambiguous] <- NA
+  # a row whose team is missing matches no one (a missing roster team would share its key)
+  if (!is.null(team_col)) i[is.na(df[[team_col]]) | !nzchar(trimws(as.character(df[[team_col]])))] <- NA
   n_amb <- sum(key_df %in% ambiguous & !is.na(df[[name_col]]))
   if (n_amb) {
     cli::cli_warn(c(
