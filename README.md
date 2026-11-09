@@ -9,20 +9,22 @@
 
 <!-- [![CRAN downloads](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=success&label=Downloads&query=%24%5B0%5D.downloads&url=https%3A%2F%2Fcranlogs.r-pkg.org%2Fdownloads%2Ftotal%2F2026-01-01%3Alast-day%2FsdvplotR)](https://CRAN.R-project.org/package=sdvplotR) -->
 
+[![R-universe](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=success&label=r-universe&prefix=v&query=%24.Version&url=https%3A%2F%2Fsportsdataverse.r-universe.dev%2Fapi%2Fpackages%2FsdvplotR)](https://sportsdataverse.r-universe.dev/sdvplotR)
 [![Version-Number](https://img.shields.io/github/r-package/v/sportsdataverse/sdvplotR?label=sdvplotR&logo=R&style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/)
 [![R-CMD-check](https://img.shields.io/github/actions/workflow/status/sportsdataverse/sdvplotR/R-CMD-check.yaml?branch=main&label=R-CMD-Check&logo=R&logoColor=white&style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/actions/workflows/R-CMD-check.yaml)
-[![pkgdown](https://img.shields.io/github/actions/workflow/status/sportsdataverse/sdvplotR/pkgdown.yaml?branch=main&label=pkgdown&logo=github&style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/actions/workflows/pkgdown.yaml)
 [![Codecov](https://img.shields.io/codecov/c/github/sportsdataverse/sdvplotR?logo=codecov&style=for-the-badge)](https://app.codecov.io/gh/sportsdataverse/sdvplotR)
+[![pkgdown](https://img.shields.io/github/actions/workflow/status/sportsdataverse/sdvplotR/pkgdown.yaml?branch=main&label=pkgdown&logo=github&style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/actions/workflows/pkgdown.yaml)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=for-the-badge&logo=github)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-universe](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=success&label=r-universe&prefix=v&query=%24.Version&url=https%3A%2F%2Fsportsdataverse.r-universe.dev%2Fapi%2Fpackages%2FsdvplotR)](https://sportsdataverse.r-universe.dev/sdvplotR)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/blob/main/LICENSE.md)
+[![Contributors](https://img.shields.io/github/contributors/sportsdataverse/sdvplotR?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/graphs/contributors)
+[![GitHub stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR?style=for-the-badge&logo=github)](https://github.com/sportsdataverse/sdvplotR/stargazers)
+[![X
+Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
 [![PyPI
 sdvplot](https://img.shields.io/pypi/v/sdvplot?label=PyPI%20sdvplot&logo=pypi&logoColor=white&style=for-the-badge&color=success)](https://pypi.org/project/sdvplot/)
 [![npm
 sdvplot](https://img.shields.io/npm/v/@sportsdataverse/sdvplot?label=npm%20sdvplot&logo=npm&style=for-the-badge&color=success)](https://www.npmjs.com/package/@sportsdataverse/sdvplot)
-[![Contributors](https://img.shields.io/github/contributors/sportsdataverse/sdvplotR?style=for-the-badge)](https://github.com/sportsdataverse/sdvplotR/graphs/contributors)
-[![X
-Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
 
 <!-- badges: end -->
 
@@ -319,18 +321,22 @@ The [articles
 index](https://sdvplotR.sportsdataverse.org/articles/index.html) lists
 all of them.
 
-## **Cheat sheet**
+See also the [function
+reference](https://sdvplotR.sportsdataverse.org/reference/index.html)
+and the [NEWS](https://sdvplotR.sportsdataverse.org/news/index.html).
 
-A printable four-page reference for **sdvplotR**: team logos, colors and
-scales in ggplot2, team identity, the plotly, ggiraph and leaflet
-integrations, surfaces, and the gt and reactable toolkits, in four color
-themes, light and dark.
+## **Companion packages**
 
-📄 [**Download the sdvplotR cheat sheet
-(PDF)**](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)
-
-Browse the other SportsDataverse cheat sheets at
-[**sportsdataverse.org/cheatsheets**](https://sportsdataverse.org/cheatsheets).
+- [**`sportyR`**](https://sportyR.sportsdataverse.org/) draws the playing
+  surfaces that `sdvplotR` paints in team colors.
+- [**`ggpath`**](https://mrcaseb.github.io/ggpath/) is the image engine
+  underneath the logo and headshot layers.
+- [**`nflplotR`**](https://nflplotr.nflverse.com/) and
+  [**`cfbplotR`**](https://cfbplotR.sportsdataverse.org/) are the
+  single-league packages whose conventions `sdvplotR` follows.
+- [**`sdvplot`**](https://sdvplot.sportsdataverse.org/) (Python) and
+  [**`@sportsdataverse/sdvplot`**](https://plot.sportsdataverse.org)
+  (JavaScript / TypeScript) are the twins in other languages.
 
 ## **The SportsDataverse**
 
@@ -355,7 +361,7 @@ Browse the other SportsDataverse cheat sheets at
 See the full ecosystem at
 [sportsdataverse.org](https://sportsdataverse.org/).
 
-## Follow the [SportsDataverse](https://x.com/SportsDataverse) on X and star this repo
+## **Follow the [SportsDataverse](https://x.com/SportsDataverse) on X and star this repo**
 
 [![X
 Follow](https://img.shields.io/badge/%40SportsDataverse-blue?logo=x&style=for-the-badge)](https://x.com/SportsDataverse)
@@ -390,6 +396,21 @@ stars](https://img.shields.io/github/stars/sportsdataverse/sdvplotR.svg?color=ee
     <br>
     <a href="https://github.com/andreweatherman" target="_blank"><img src="https://img.shields.io/github/followers/andreweatherman?color=eee&amp;logo=Github&amp;style=for-the-badge" alt="@andreweatherman"/></a>
 
+<!-- cheatsheet-section -->
+
+## **Cheat sheet**
+
+A printable four-page reference for **sdvplotR**: team logos, colors and
+scales in ggplot2, team identity, the plotly, ggiraph and leaflet
+integrations, surfaces, and the gt and reactable toolkits, in four color
+themes, light and dark.
+
+📄 [**Download the sdvplotR cheat sheet
+(PDF)**](https://sportsdataverse.org/cheatsheets/sdvplotR.pdf)
+
+Browse the other SportsDataverse cheat sheets at
+[**sportsdataverse.org/cheatsheets**](https://sportsdataverse.org/cheatsheets).
+
 ## **Code of Conduct**
 
 Please note that the sdvplotR project is released with a [Contributor
@@ -412,3 +433,8 @@ BibTeX Citation
   year = {2026}
 }
 ```
+
+## **License**
+
+`sdvplotR` is released under the MIT License; see
+[LICENSE.md](https://github.com/sportsdataverse/sdvplotR/blob/main/LICENSE.md).
