@@ -132,8 +132,10 @@ gt_sdv_wordmarks <- function(
 #'
 #' @description Translate player IDs to player headshots and render these
 #'   images in html tables with the 'gt' package. IDs are ESPN athlete IDs by
-#'   default, or as `id_system` says. IDs that resolve to no headshot
-#'   are left as text.
+#'   default, or as `id_system` says. Only IDs that get no headshot URL
+#'   (missing, malformed, or not in the id map `id_system` reads) are left as
+#'   text. A well-formed numeric ID always gets a URL, even when the CDN has no
+#'   photo for it, so that cell can show a broken image.
 #'
 #' @inheritParams gt_sdv_logos
 #' @inheritParams geom_sdv_headshots
