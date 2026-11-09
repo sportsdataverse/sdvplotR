@@ -14,8 +14,9 @@ a counterpart with `league = "cfb"`:
 * `sdv_teams()` takes `division`: `"P4"`, `"P5"` and `"G5"` from each college
   football team's conference in the index, `"FBS"`, `"FCS"`, `"DI"`, `"DII"`
   and `"DIII"` from the index's new `division` column, and `"Conference"`
-  (cfbplotR's division filter). `sdv_teams()` has a `division` column, `NA`
-  in an index built before it (a cached copy, or the bundled snapshot).
+  (cfbplotR's division filter). `sdv_teams()` has a `division` column; the
+  bundled snapshot carries it, so the division filters work offline, and it
+  is `NA` only in an older cached index.
 * `sdv_clean_names()` cleans names, abbreviations and ids to one display name
   per team, keeping values that do not resolve unless `keep_non_matches =
   FALSE` (cfbplotR's `clean_school_names()` and its alias).
@@ -27,7 +28,11 @@ a counterpart with `league = "cfb"`:
   rosters (cfbplotR's `add_athlete_id_col()`). A name that matches more than
   one athlete is left `NA`; offline it warns and returns `NA` ids.
 * cfbplotR's wordmarks, archived in sdv-assets as source `"cfbplotr-legacy"`,
-  rank after every other source when a team has more than one wordmark.
+  rank after every other source when a team has more than one wordmark. The
+  bundled team index (`e04c50e5682e`) maps 360 of those 362 college
+  wordmarks, so `geom_sdv_wordmarks(league = "cfb")`, `gt_sdv_wordmarks()` and
+  `element_sdv_wordmark()` draw most FBS and FCS teams, and it carries the
+  `division` column `sdv_teams(division = "FBS")` reads.
 * `sdv_ggpreview()` previews a plot at the size it will be saved
   (nflplotR's and cfbplotR's `ggpreview()`; 'rstudioapi' in RStudio, now in
   `Suggests`).

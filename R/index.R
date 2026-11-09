@@ -173,7 +173,7 @@ load_index <- function() {
     teams = snapshot_teams, aliases = snapshot_aliases,
     version = snapshot_meta$index_version, source = "snapshot"
   )
-  # an older index (a cached copy, the bundled snapshot) lacks the optional columns: NA
+  # an older index (a cached copy, or an earlier bundled snapshot) lacks the optional columns: NA
   for (col in setdiff(team_optional_cols, names(idx$teams))) idx$teams[[col]] <- rep(NA_character_, nrow(idx$teams))
   list2env(idx, envir = index_cache)
   invisible()

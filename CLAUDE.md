@@ -106,8 +106,9 @@ team id / name / code (any of 25 id systems, or id_system = "auto")
   from other providers and relocated franchises' codes are rows of the team
   index (`index_aliases()`, `snapshot_aliases`); fix them upstream in the
   index, not here.
-- Wordmarks exist where the logo manifest has them (the NFL, MLB, MiLB and
-  the PHF in the bundled snapshot). Teams without one resolve to `NA` and the
+- Wordmarks exist where the logo manifest has them (the NFL, MLB, MiLB, the
+  PHF and, from cfbplotR's archived set, college football in the bundled
+  snapshot). Teams without one resolve to `NA` and the
   helpers fall back gracefully.
 
 - **gtUtils port**: the generic `gt` table toolkit (themes, legends, cut
