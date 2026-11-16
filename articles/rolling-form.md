@@ -35,7 +35,7 @@ url <- paste0(
 windows <- as.data.frame(nflreadr::load_from_url(url))
 stopifnot(nrow(windows) > 0)
 dim(windows)
-#> [1] 27206    20
+#> [1] 27662    20
 names(windows)
 #>  [1] "season"          "entity_type"     "entity_id"       "entity_name"    
 #>  [5] "team_id"         "metric"          "window_unit"     "window_n"       
@@ -58,20 +58,20 @@ Each row is one player or team, one metric and one window size.
 
 count(windows, entity_type, metric, window_unit, window_n)
 #>    entity_type       metric window_unit window_n    n
-#> 1       player          epa       carry       50 2223
-#> 2       player          epa       carry      100 2223
-#> 3       player          epa    dropback       50  701
-#> 4       player          epa    dropback      100  701
-#> 5       player          epa    dropback      300  701
-#> 6       player          epa      target       30 3291
-#> 7       player          epa      target       60 3291
-#> 8       player success_rate       carry       50 2223
-#> 9       player success_rate       carry      100 2223
-#> 10      player success_rate    dropback       50  701
-#> 11      player success_rate    dropback      100  701
-#> 12      player success_rate    dropback      300  701
-#> 13      player success_rate      target       30 3291
-#> 14      player success_rate      target       60 3291
+#> 1       player          epa       carry       50 2262
+#> 2       player          epa       carry      100 2262
+#> 3       player          epa    dropback       50  721
+#> 4       player          epa    dropback      100  721
+#> 5       player          epa    dropback      300  721
+#> 6       player          epa      target       30 3336
+#> 7       player          epa      target       60 3336
+#> 8       player success_rate       carry       50 2262
+#> 9       player success_rate       carry      100 2262
+#> 10      player success_rate    dropback       50  721
+#> 11      player success_rate    dropback      100  721
+#> 12      player success_rate    dropback      300  721
+#> 13      player success_rate      target       30 3336
+#> 14      player success_rate      target       60 3336
 #> 15        team          epa        play      150  236
 #> 16        team          epa        play      300  236
 #> 17        team success_rate        play      150  236
@@ -85,7 +85,7 @@ This file is the season in progress. The date shows how current it is:
 as_of <- unique(windows$as_of_date)
 stopifnot(length(as_of) == 1)
 as_of
-#> [1] "2026-11-07"
+#> [1] "2026-11-15"
 ```
 
 ## Risers and fallers
@@ -115,17 +115,17 @@ movers <- bind_rows(
 ) |>
   select(group, entity_name, prev, cur, n, pct, delta_prev_rank)
 movers
-#>      group                 entity_name       prev         cur   n       pct
-#> 1   Risers      San Diego State Aztecs -0.1882135  0.28609547 150 95.614035
-#> 2   Risers             Wyoming Cowboys -0.1092686  0.28953330 150 96.052632
-#> 3   Risers    Hawai'i Rainbow Warriors -0.1780121  0.19653120 150 89.473684
-#> 4   Risers          Maryland Terrapins -0.2623779  0.09609559 150 76.754386
-#> 5   Risers        Sam Houston Bearkats -0.4281988 -0.07536983 150 41.228070
-#> 6  Fallers      Northern Iowa Panthers  0.2703917 -0.29584162 150  7.456140
-#> 7  Fallers        Holy Cross Crusaders  0.2794810 -0.20416812 150 18.421053
-#> 8  Fallers   Northwestern State Demons -0.1315886 -0.54315963 150  0.000000
-#> 9  Fallers Georgia Tech Yellow Jackets  0.0960467 -0.29852809 150  6.578947
-#> 10 Fallers   Eastern Washington Eagles  0.1461608 -0.22776833 150 16.666667
+#>      group               entity_name        prev          cur   n       pct
+#> 1   Risers            Memphis Tigers -0.03600353  0.374425569 150 99.122807
+#> 2   Risers     Texas Southern Tigers -0.34182483 -0.023425918 150 56.140351
+#> 3   Risers      Nebraska Cornhuskers -0.23650806  0.073688960 150 75.438596
+#> 4   Risers         Montana Grizzlies -0.09029664  0.200533879 150 96.052632
+#> 5   Risers      Weber State Wildcats -0.27299103  0.004723558 150 61.842105
+#> 6  Fallers    Northern Iowa Panthers  0.27039169 -0.295841624 150  7.894737
+#> 7  Fallers      Holy Cross Crusaders  0.27948097 -0.204168123 150 20.614035
+#> 8  Fallers           Charlotte 49ers  0.15371094 -0.328676054 150  4.824561
+#> 9  Fallers Northwestern State Demons -0.13158858 -0.543159627 150  0.000000
+#> 10 Fallers   California Golden Bears  0.04687399 -0.359488512 150  2.192982
 #>    delta_prev_rank
 #> 1                1
 #> 2                2

@@ -292,9 +292,9 @@
 
 <link href="soccer-viz_files/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
 <script src="soccer-viz_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="soccer-viz_files/ggiraphjs-0.9.4/girafe.css" rel="stylesheet">
-<script src="soccer-viz_files/ggiraphjs-0.9.4/girafe.js"></script><script src="soccer-viz_files/girafe-binding-0.9.6/girafe.js"></script><link href="soccer-viz_files/liberation-sans-0.5.3/css/liberation-sans.css" rel="stylesheet">
-<link href="soccer-viz_files/liberation-serif-0.5.3/css/liberation-serif.css" rel="stylesheet">
-<link href="soccer-viz_files/liberation-mono-0.5.3/css/liberation-mono.css" rel="stylesheet">
+<script src="soccer-viz_files/ggiraphjs-0.9.4/girafe.js"></script><script src="soccer-viz_files/girafe-binding-0.9.6/girafe.js"></script><link href="soccer-viz_files/liberation-sans-0.6.0/css/liberation-sans.css" rel="stylesheet">
+<link href="soccer-viz_files/liberation-serif-0.6.0/css/liberation-serif.css" rel="stylesheet">
+<link href="soccer-viz_files/liberation-mono-0.6.0/css/liberation-mono.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Soccer: any provider's shots on one pitch</h1>
@@ -332,7 +332,7 @@ so the filter matches “penalty” too.</p>
 <span>  <span class="st">"https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/740970/"</span>,</span>
 <span>  <span class="st">"competitions/740970/plays?limit=1000"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">$</span><span class="va">items</span></span>
+<span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">$</span><span class="va">items</span></span>
 <span><span class="va">plays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  type <span class="op">=</span> <span class="va">items</span><span class="op">$</span><span class="va">type</span><span class="op">$</span><span class="va">text</span>,</span>
 <span>  field_position_x <span class="op">=</span> <span class="va">items</span><span class="op">$</span><span class="va">fieldPositionX</span>,</span>
@@ -358,7 +358,7 @@ data is free for non-commercial use. The map marks five goals for a 4-2
 final: Mandzukic’s own goal is an <code>Own Goal Against</code> event,
 not a <code>Shot</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">events</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">events</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/8658.json"</span>,</span>
 <span>  simplifyDataFrame <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>

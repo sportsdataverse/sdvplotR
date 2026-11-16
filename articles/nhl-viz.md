@@ -400,9 +400,9 @@ from best to worst finishers, each bar in its team's color with the team
 logo under it on the horizontal
 axis.](nhl-viz_files/figure-html/finishing-1.png)
 
-The model expects 12% more goals than the league scored. After scaling,
-the Boston Bruins finished best (+27.5 goals) and the New Jersey Devils
-worst (-27.2).
+The model expects 2% more goals than the league scored. After scaling,
+the Boston Bruins finished best (+26.1 goals) and the New Jersey Devils
+worst (-27.6).
 
 ## 6. Scoring leaders with headshots
 

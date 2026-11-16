@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-09:** the 2026-27 season through November 8.
+**Updated 2026-11-16:** the 2026-27 season through November 15.
 
 This page is rebuilt every week with the site. It builds the standings
 with offensive, defensive and net ratings, charts net rating with logos
@@ -110,14 +110,14 @@ ratings <- games |>
   arrange(desc(pct), desc(net), team) # the team breaks a tie, so an unchanged week renders the same
 head(ratings)
 #> # A tibble: 6 × 10
-#>   team      w     l   l10  ortg  drtg   pct   net name         conference
-#>   <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl> <chr>        <chr>     
-#> 1 LAL       9     2     8  119.  112. 0.818  7.27 Lakers       Western   
-#> 2 PHI       9     2     8  108.  105. 0.818  3.02 76ers        Eastern   
-#> 3 BOS       8     2     8  116.  105. 0.8   10.7  Celtics      Eastern   
-#> 4 SA        8     2     8  115.  105. 0.8    9.97 Spurs        Western   
-#> 5 OKC       8     2     8  110.  102. 0.8    7.84 Thunder      Western   
-#> 6 MIN       8     3     7  114.  103. 0.727 10.7  Timberwolves Western
+#>   team      w     l   l10  ortg  drtg   pct   net name          conference
+#>   <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl> <chr>         <chr>     
+#> 1 SA       12     2    10  117.  104. 0.857 12.6  Spurs         Western   
+#> 2 LAL      12     2     9  119.  112. 0.857  7.70 Lakers        Western   
+#> 3 BOS      11     2     9  117.  104. 0.846 13.3  Celtics       Eastern   
+#> 4 HOU      11     3     7  119.  108. 0.786 10.2  Rockets       Western   
+#> 5 PHI      11     3     8  110.  108. 0.786  2.10 76ers         Eastern   
+#> 6 POR       9     3     7  117.  109. 0.75   7.57 Trail Blazers Western
 ```
 
 ## 1. Standings with net rating
