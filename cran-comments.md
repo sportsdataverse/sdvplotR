@@ -14,13 +14,14 @@ were published only on r-universe.
   5039773b, with an empty user `.Renviron`: Status: 1 NOTE (new submission).
   The examples, `\donttest{}` included, ran in 57 seconds in total. A second
   pass, `--run-donttest --no-tests --no-manual` with the network blocked
-  (proxy set to a closed port): Status: OK. Later commits change only
-  `cran-comments.md`, which is not in the tarball.
+  (proxy set to a closed port): Status: OK. Later commits change only files
+  that `.Rbuildignore` leaves out of the tarball (an article, contributor
+  documentation and this file).
 * GitHub Actions (R-CMD-check workflow): macOS (release), Windows (release),
-  Ubuntu (devel, release, oldrel-1), all `Status: OK` on 2026-11-20 at
-  141aead2, with S7 1.0.0 (built from source on R-devel). The commits since
-  then change only files that `.Rbuildignore` leaves out of the tarball (an
-  article and its fixture, `CLAUDE.md` and this file).
+  Ubuntu (devel, release, oldrel-1), all passing on 2026-11-24 on the
+  submission branch, with S7 1.0.0 (built from source on R-devel); also
+  `Status: OK` on all five on 2026-11-20 at 141aead2, whose package sources
+  are the same.
 * R-hub v2 (GitHub Actions, R-devel: Linux, Windows, macOS, macOS arm64):
   2026-11-24 on a189bc06, whose tarball is the same as the submitted
   commit's: all four passing.
