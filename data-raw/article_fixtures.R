@@ -169,6 +169,15 @@ fx_reactable_nhl <- function() {
   )
 }
 
+fx_reactable_nfl <- function() {
+  # reactable-integration, chunk nfl-data (a GitHub release read; a failed read returns an empty frame)
+  season <- this_year() - 1 - before("01-15")
+  schedule <- nflreadr::load_schedules(season) |>
+    select(game_type, week, home_team, away_team, home_score, away_score, result)
+  stopifnot(nrow(schedule) >= 272, sum(schedule$game_type == "REG" & !is.na(schedule$result)) >= 272)
+  list(season = season, schedule = schedule, call = "nflreadr::load_schedules(season)", package = "nflreadr")
+}
+
 fx_workflows_mlb <- function() {
   # workflows, chunk mlb-workflow-data (steps 1 and 2)
   mlb_season <- this_year() - before("10-05")
@@ -294,6 +303,7 @@ fixtures <- list(
   "nhl-viz/nhl_api" = fx_nhl_viz,
   "reactable-integration/espn_fpi" = fx_reactable_fpi,
   "reactable-integration/nhl_skaters" = fx_reactable_nhl,
+  "reactable-integration/nfl_schedule" = fx_reactable_nfl,
   "workflows/mlb_standings" = fx_workflows_mlb,
   "workflows/nhl_teams" = fx_workflows_nhl,
   "recipe-mlb-run-differential/mlb_schedule" = fx_recipe_mlb

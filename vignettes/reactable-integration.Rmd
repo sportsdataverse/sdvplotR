@@ -44,18 +44,34 @@ return HTML, so their columns need `html = TRUE`.
 
 ## Basic: Team logos in a standings table
 
-```{r standings}
+```{r libraries}
 library(reactable)
 library(sdvplotR)
 library(dplyr)
+```
 
-# Regular-season records from nflreadr's schedules, one row per team per game,
-# for the last completed regular season (NFL seasons are named for the year they
+```{r nfl-data, eval = FALSE}
+# the last completed regular season (NFL seasons are named for the year they
 # start and end in early January)
 season <- as.integer(format(Sys.Date(), "%Y")) - 1 -
   (format(Sys.Date(), "%m-%d") < "01-15")
+schedule <- nflreadr::load_schedules(season)
+```
 
-standings <- nflreadr::load_schedules(season) |>
+```{r nfl-fixture, include = FALSE}
+fx_nfl <- readRDS("fixtures/reactable-integration/nfl_schedule.rds")
+season <- fx_nfl$season
+schedule <- fx_nfl$schedule
+```
+
+The table below uses a snapshot of this call taken on
+`r format(fx_nfl$taken, "%B %d, %Y")` (`r fx_nfl$package`): a failed nflverse
+download returns an empty table rather than an error, so the site build does not
+depend on it.
+
+```{r standings}
+# Regular-season records, one row per team per game after clean_homeaway()
+standings <- schedule |>
   filter(game_type == "REG", !is.na(result)) |>
   nflreadr::clean_homeaway() |>
   group_by(team_abbr = team) |>
