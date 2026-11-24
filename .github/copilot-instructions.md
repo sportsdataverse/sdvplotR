@@ -38,8 +38,13 @@ team-styled playing surfaces through 'sportyR' (>= 2.4.5).
 5. Call 'sportyR' only through its exported functions
    (`sportyR::get_surface_dimensions()`, the `geom_*()` functions), after
    `rlang::check_installed("sportyR", version = "2.4.5")`.
-6. Tests run offline and assert on URLs / HTML. Every test file starts with
-   `skip_on_cran()`; image rendering tests also use `skip_if_offline()`.
+6. Tests run offline and assert on URLs / HTML. Test files start with
+   `skip_on_cran()`, except `test-cfbplotr-coverage.R` and
+   `test-cfbplotr-parity.R`, which run on CRAN against the bundled index and
+   call `skip_on_cran()` test by test where a test writes images, renders a
+   gt table or reads the network (the parity file's live-roster test also
+   needs `SDVPLOTR_LIVE_TESTS=1`); image rendering tests also use
+   `skip_if_offline()`.
 7. Never add AI assistants as commit co-authors.
 
 ## After changing code

@@ -9,17 +9,25 @@ were published only on r-universe.
 
 ## Test environments
 
-* local: Windows 10 x64, R 4.6.0 (ucrt), `R CMD check --as-cran --run-donttest`
-  on the tarball built from the submitted commit, with an empty user
-  `.Renviron`: Status: 1 NOTE. The examples, `\donttest{}` included, ran in
-  45 seconds in total. A second pass, `--run-donttest --no-tests --no-manual`
-  with the network blocked (proxy set to a closed port): Status: OK.
-* R-hub v2 (GitHub Actions, R-devel), 2026-11-06, on an earlier commit
-  (6ef2e240): Linux, Windows, macOS and macOS arm64, all passing.
+* local: Windows 10 x64, R 4.6.0 (ucrt) with S7 1.0.0 and ggplot2 4.0.4,
+  2026-11-24, `R CMD check --as-cran --run-donttest` on the tarball built from
+  5039773b, with an empty user `.Renviron`: Status: 1 NOTE (new submission).
+  The examples, `\donttest{}` included, ran in 57 seconds in total. A second
+  pass, `--run-donttest --no-tests --no-manual` with the network blocked
+  (proxy set to a closed port): Status: OK. Later commits change only files
+  that `.Rbuildignore` leaves out of the tarball (an article, contributor
+  documentation and this file).
 * GitHub Actions (R-CMD-check workflow): macOS (release), Windows (release),
-  Ubuntu (devel, release, oldrel-1), passing on 2026-11-09 at d23e64ee, the
-  commit before the submitted one's last data and documentation changes.
-* win-builder (devel and release): to be run before submission.
+  Ubuntu (devel, release, oldrel-1), all passing on 2026-11-24 on the
+  submission branch, with S7 1.0.0 (built from source on R-devel); also
+  `Status: OK` on all five on 2026-11-20 at 141aead2, whose package sources
+  are the same.
+* R-hub v2 (GitHub Actions, R-devel: Linux, Windows, macOS, macOS arm64):
+  2026-11-24 on a189bc06, whose tarball is the same as the submitted
+  commit's: all four passing.
+* win-builder (devel and release): not yet run. win-builder.r-project.org
+  did not answer from 15:36 to 16:41 UTC on 2026-11-24; to be submitted
+  before the CRAN upload.
 
 ## R CMD check results
 
@@ -27,7 +35,7 @@ were published only on r-universe.
 
 * This is a new submission.
 
-The installed size is about 3.4 Mb (help 1.6 Mb, R 1.4 Mb, extdata 0.35 Mb);
+The installed size is about 3.3 Mb (help 1.5 Mb, R 1.4 Mb, extdata 0.33 Mb);
 the tarball is 2.1 Mb.
 
 ## Reverse dependencies
@@ -49,14 +57,16 @@ There are none: this is a new package.
   team logos or headshots; the package logo shows muted team logos behind the
   package name, as the logo of 'nflplotR' (CRAN) does. Examples that
   download images are wrapped in `\donttest{}` (as 'nflplotR' and 'ggpath'
-  do); they pass under `--run-donttest` (all examples, 45 seconds locally).
+  do); they pass under `--run-donttest` (all examples, 57 seconds locally).
   Examples that save images through a headless Chrome run only in
   interactive sessions.
 * 'sportyR' (>= 2.4.5, CRAN) is in Suggests: `sdv_surface()` checks for it
   with `rlang::check_installed()` and calls only its exported functions.
 * Most test files need network access, headless Chrome or image rendering,
-  so they start with `skip_on_cran()`. `test-cfbplotr-coverage.R` and
-  `test-cfbplotr-parity.R` run on CRAN: they read only the bundled index.
+  so they start with `skip_on_cran()`. Most tests in `test-cfbplotr-coverage.R`
+  and `test-cfbplotr-parity.R` run on CRAN and read only the bundled index;
+  the few that write images, render a 'gt' table or read the network skip on
+  CRAN.
 * Rendering a 'gt' table compiles its CSS through 'sass', which caches it
   under `tools::R_user_dir("sass", "cache")`. During a CRAN check the package
   turns that cache off (unless the user has set `sass.cache`), so the check
