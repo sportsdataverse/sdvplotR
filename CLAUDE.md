@@ -15,7 +15,9 @@ function instead of one package per league.
 - **License**: MIT; **Branch**: `main`
 - **Docs**: <https://sdvplotR.sportsdataverse.org> (pkgdown, deployed to
   `gh-pages` by `.github/workflows/pkgdown.yaml`)
-- **R toolchain**: R >= 4.6 with roxygen2 8.1.0 (`Config/roxygen2/version`).
+- **Development toolchain**: R >= 4.6 with roxygen2 8.1.0
+  (`Config/roxygen2/version`); users need only the R >= 4.1 that
+  `Depends` sets.
 
 ## Architecture
 
