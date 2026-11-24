@@ -35,14 +35,26 @@ The image helpers
 library(reactable)
 library(sdvplotR)
 library(dplyr)
+```
 
-# Regular-season records from nflreadr's schedules, one row per team per game,
-# for the last completed regular season (NFL seasons are named for the year they
+``` r
+
+# the last completed regular season (NFL seasons are named for the year they
 # start and end in early January)
 season <- as.integer(format(Sys.Date(), "%Y")) - 1 -
   (format(Sys.Date(), "%m-%d") < "01-15")
+schedule <- nflreadr::load_schedules(season)
+```
 
-standings <- nflreadr::load_schedules(season) |>
+The table below uses a snapshot of this call taken on November 24, 2026
+(nflreadr 1.5.1): a failed nflverse download returns an empty table
+rather than an error, so this table does not depend on that download
+when the site builds.
+
+``` r
+
+# Regular-season records, one row per team per game after clean_homeaway()
+standings <- schedule |>
   filter(game_type == "REG", !is.na(result)) |>
   nflreadr::clean_homeaway() |>
   group_by(team_abbr = team) |>

@@ -510,8 +510,8 @@ data.frame(
   kb = round(file.size(file.path(out, c("mlb.html", "scorers.html"))) / 1024)
 )
 #>                               file   kb
-#> 1       mlb.html (30 logos inside) 9934
-#> 2 scorers.html (headshots by link) 8540
+#> 1       mlb.html (30 logos inside) 9818
+#> 2 scorers.html (headshots by link) 8423
 ```
 
 The gap between the two files is mostly the 30 embedded logos; the bulk

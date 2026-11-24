@@ -267,7 +267,7 @@ dir.create(out_dir)
 html <- file.path(out_dir, "nhl_shot_map.html")
 htmlwidgets::saveWidget(shot_widget, html, selfcontained = TRUE)
 round(file.size(html) / 1024) # kilobytes
-#> [1] 8870
+#> [1] 8754
 ```
 
 ## 6. A static version

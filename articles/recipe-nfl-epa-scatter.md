@@ -57,8 +57,8 @@ filter(teams, team %in% c(winner, loser))
 #> # A tibble: 2 × 6
 #>   team  off_epa plays def_epa off_rank def_rank
 #>   <chr>   <dbl> <int>   <dbl>    <int>    <int>
-#> 1 NE     0.159   1017 -0.0471        1       11
-#> 2 SEA    0.0328   997 -0.116        13        2
+#> 1 NE     0.140   1017 -0.0297        1       11
+#> 2 SEA    0.0337   997 -0.0860       14        2
 ```
 
 The champion had the No. 2 defense and the runner-up the No. 1 offense:

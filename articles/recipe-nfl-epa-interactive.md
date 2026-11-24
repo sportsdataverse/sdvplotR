@@ -58,14 +58,14 @@ teams <- inner_join(offense, defense, by = "team") |>
 stopifnot(nrow(teams) == 32)
 head(teams)
 #> # A tibble: 6 × 8
-#>   team  off_epa plays  def_epa off_rank def_rank team_id name             
-#>   <chr>   <dbl> <int>    <dbl>    <int>    <int> <chr>   <chr>            
-#> 1 ARI   -0.0185  1074  0.0884        23       27 22      Arizona Cardinals
-#> 2 ATL   -0.0214  1036 -0.00374       24       15 1       Atlanta Falcons  
-#> 3 BAL    0.0340   956  0.0251        12       21 33      Baltimore Ravens 
-#> 4 BUF    0.136   1065 -0.0163         3       13 2       Buffalo Bills    
-#> 5 CAR   -0.0393   996  0.0673        26       23 29      Carolina Panthers
-#> 6 CHI    0.0795  1096  0.0181         8       19 3       Chicago Bears
+#>   team   off_epa plays  def_epa off_rank def_rank team_id name             
+#>   <chr>    <dbl> <int>    <dbl>    <int>    <int> <chr>   <chr>            
+#> 1 ARI   -0.00761  1074 0.0793         23       26 22      Arizona Cardinals
+#> 2 ATL   -0.0133   1036 0.00445        25       15 1       Atlanta Falcons  
+#> 3 BAL    0.0352    956 0.0245         12       19 33      Baltimore Ravens 
+#> 4 BUF    0.122    1065 0.000286        3       13 2       Buffalo Bills    
+#> 5 CAR   -0.0236    996 0.0604         26       23 29      Carolina Panthers
+#> 6 CHI    0.0722   1096 0.0270          8       21 3       Chicago Bears
 ```
 
 The page embeds this table, not the play-by-play: 32 rows, one per logo.
@@ -207,7 +207,7 @@ dir.create(out)
 html <- file.path(out, "nfl_epa_interactive.html")
 htmlwidgets::saveWidget(epa_widget, html, selfcontained = TRUE, title = "NFL offense vs defense")
 round(file.size(html) / 1024) # kilobytes
-#> [1] 9048
+#> [1] 8931
 ```
 
 ## 5. The static version

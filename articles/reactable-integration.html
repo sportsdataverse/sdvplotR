@@ -361,15 +361,20 @@ need <code>html = TRUE</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sdvplotR.sportsdataverse.org/">sdvplotR</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Regular-season records from nflreadr's schedules, one row per team per game,</span></span>
-<span><span class="co"># for the last completed regular season (NFL seasons are named for the year they</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># the last completed regular season (NFL seasons are named for the year they</span></span>
 <span><span class="co"># start and end in early January)</span></span>
 <span><span class="va">season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span> <span class="op">-</span></span>
 <span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"01-15"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">schedule</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_schedules.html" class="external-link">load_schedules</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span></span></code></pre></div>
+<p>The table below uses a snapshot of this call taken on November 24,
+2026 (nflreadr 1.5.1): a failed nflverse download returns an empty table
+rather than an error, so this table does not depend on that download
+when the site builds.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Regular-season records, one row per team per game after clean_homeaway()</span></span>
+<span><span class="va">standings</span> <span class="op">&lt;-</span> <span class="va">schedule</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">game_type</span> <span class="op">==</span> <span class="st">"REG"</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/clean_homeaway.html" class="external-link">clean_homeaway</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>team_abbr <span class="op">=</span> <span class="va">team</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -410,7 +415,7 @@ need <code>html = TRUE</code>.</p>
 <p><code>reactable</code> tables often sit inside dark-themed
 dashboards. Use <code>variant = "dark"</code> for high-contrast logos on
 dark backgrounds:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
 <span>  <span class="va">standings</span>,</span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactableTheme.html" class="external-link">reactableTheme</a></span><span class="op">(</span></span>
@@ -434,7 +439,7 @@ dark backgrounds:</p>
 </h2>
 <p>Replace column headers (e.g., per-team stat columns) with the team’s
 logo:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># A wide table with one column per team (example values)</span></span>
 <span><span class="va">wide_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  week <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
@@ -461,7 +466,7 @@ logo:</p>
 <p>Use <code><a href="../reference/reactable_sdv_team_color.html">reactable_sdv_team_color_bg()</a></code> to tint entire rows
 with the team’s primary color at low opacity — useful for scanning
 standings quickly:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
 <span>  <span class="va">standings</span>,</span>
 <span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -486,7 +491,7 @@ standings quickly:</p>
 <p>Headshots use the same <code><a href="../reference/reactable_sdv_images.html">reactable_sdv_headshots()</a></code> helper
 across all leagues. NFL headshots take GSIS IDs, the
 <code>gsis_id</code> in nflreadr’s rosters:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">roster</span> <span class="op">&lt;-</span> <span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_rosters.html" class="external-link">load_rosters</a></span><span class="op">(</span>seasons <span class="op">=</span> <span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">team</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KC"</span>, <span class="st">"BUF"</span>, <span class="st">"SF"</span><span class="op">)</span>, <span class="va">position</span> <span class="op">==</span> <span class="st">"QB"</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">gsis_id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">full_name</span>, <span class="va">team</span>, <span class="va">position</span>, <span class="va">gsis_id</span><span class="op">)</span></span>
@@ -514,7 +519,7 @@ across all leagues. NFL headshots take GSIS IDs, the
 <div class="section level3">
 <h3 id="nba-standings-hoopr">NBA standings (hoopR)<a class="anchor" aria-label="anchor" href="#nba-standings-hoopr"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the last completed regular season (named for the year it ends, in mid-April)</span></span>
 <span><span class="va">nba_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
 <span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"04-20"</span><span class="op">)</span></span>
@@ -539,7 +544,7 @@ across all leagues. NFL headshots take GSIS IDs, the
 <h3 id="cfb-power-ratings-cfbfastr">CFB power ratings (cfbfastR)<a class="anchor" aria-label="anchor" href="#cfb-power-ratings-cfbfastr"></a>
 </h3>
 <p>ESPN’s Football Power Index, which needs no API key:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the last completed college football regular season (it ends in mid-December)</span></span>
 <span><span class="va">cfb_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
 <span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"12-15"</span><span class="op">)</span></span>
@@ -552,7 +557,7 @@ across all leagues. NFL headshots take GSIS IDs, the
 <p>The table below uses a snapshot of this call taken on October 04,
 2026 (cfbfastR 3.0.0), because ESPN’s API is not called when this site
 is built.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
 <span>  <span class="va">cfb_fpi</span>,</span>
 <span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -566,7 +571,7 @@ is built.</p>
 <div class="section level3">
 <h3 id="nhl-skater-stats-fastrhockey">NHL skater stats (fastRhockey)<a class="anchor" aria-label="anchor" href="#nhl-skater-stats-fastrhockey"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the last completed regular season (named for the year it ends, in mid-April)</span></span>
 <span><span class="va">nhl_season</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
 <span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%m-%d"</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"04-20"</span><span class="op">)</span></span>
@@ -580,7 +585,7 @@ is built.</p>
 <p>The table below uses a snapshot of this call taken on October 04,
 2026 (fastRhockey 1.0.0), because the NHL Stats API is not called when
 this site is built.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
 <span>  <span class="va">nhl_skaters</span>,</span>
 <span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -603,7 +608,7 @@ this site is built.</p>
 <p>These helpers compose cleanly with <a href="https://kcuilla.github.io/reactablefmtr/" class="external-link"><code>reactablefmtr</code></a>,
 whose <code><a href="https://kcuilla.github.io/reactablefmtr/reference/embed_img.html" class="external-link">embed_img()</a></code> draws a column that already holds image
 URLs:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kcuilla.github.io/reactablefmtr/" class="external-link">reactablefmtr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">standings</span> <span class="op">|&gt;</span></span>
@@ -691,12 +696,12 @@ before passing to reactable — it avoids silent fallback images.</li>
 <p>To cite the <a href="https://sdvplotR.sportsdataverse.org/"><strong><code>sdvplotR</code></strong></a>
 R package in publications, use:</p>
 <p>BibTeX Citation</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">gilani_carl_lee_kay_weatherman_sdvplotR</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="dt">author</span> = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="dt">title</span> = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://sdvplotR.sportsdataverse.org},</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>  <span class="dt">year</span> = {2026}</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="related-sportsdataverse-packages">
