@@ -22,8 +22,11 @@ were published only on r-universe.
   then change only files that `.Rbuildignore` leaves out of the tarball (an
   article and its fixture, `CLAUDE.md` and this file).
 * R-hub v2 (GitHub Actions, R-devel: Linux, Windows, macOS, macOS arm64):
-  dispatched 2026-11-24 on the submitted commit, results pending.
-* win-builder (devel and release): submitted 2026-11-24, results pending.
+  dispatched 2026-11-24 on a189bc06, whose tarball is the same as the
+  submitted commit's, results pending.
+* win-builder (devel and release): not yet run. win-builder.r-project.org
+  did not answer from 15:36 to 16:41 UTC on 2026-11-24; to be submitted
+  before the CRAN upload.
 
 ## R CMD check results
 
