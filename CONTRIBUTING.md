@@ -66,8 +66,10 @@ sdvplotR is a domain layer on top of [ggpath](https://mrcaseb.github.io/ggpath/)
   `styler::style_file()` on files you add; styler rewrites the repo's
   double-indented function signatures in existing files (see `CLAUDE.md`,
   Formatting). `lintr::lint_package()` should report no lints.
-* Add or update tests in `tests/testthat/test-<file>.R`. Every test file
-  starts with `skip_on_cran()`. Tests run offline (`tests/testthat/setup.R`
+* Add or update tests in `tests/testthat/test-<file>.R`. A test file starts
+  with `skip_on_cran()` unless it is meant to run on CRAN against the bundled
+  index, as `test-cfbplotr-*.R` are (their image-writing tests skip on CRAN
+  one by one). Tests run offline (`tests/testthat/setup.R`
   sets `sdvplotR.offline`): assert on the resolved URLs / HTML, and add
   `skip_if_offline()` for anything that renders images.
 * Every exported function needs roxygen docs with `@param`, `@return` and
