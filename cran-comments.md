@@ -64,8 +64,9 @@ There are none: this is a new package.
   with `rlang::check_installed()` and calls only its exported functions.
 * Most test files need network access, headless Chrome or image rendering,
   so they start with `skip_on_cran()`. Most tests in `test-cfbplotr-coverage.R`
-  and `test-cfbplotr-parity.R` run on CRAN: they read only the bundled index
-  (the ones that write images skip on CRAN).
+  and `test-cfbplotr-parity.R` run on CRAN and read only the bundled index;
+  the few that write images, render a 'gt' table or read the network skip on
+  CRAN.
 * Rendering a 'gt' table compiles its CSS through 'sass', which caches it
   under `tools::R_user_dir("sass", "cache")`. During a CRAN check the package
   turns that cache off (unless the user has set `sass.cache`), so the check

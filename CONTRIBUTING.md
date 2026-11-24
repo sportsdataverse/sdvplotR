@@ -68,8 +68,8 @@ sdvplotR is a domain layer on top of [ggpath](https://mrcaseb.github.io/ggpath/)
   Formatting). `lintr::lint_package()` should report no lints.
 * Add or update tests in `tests/testthat/test-<file>.R`. A test file starts
   with `skip_on_cran()` unless it is meant to run on CRAN against the bundled
-  index, as `test-cfbplotr-*.R` are (their image-writing tests skip on CRAN
-  one by one). Tests run offline (`tests/testthat/setup.R`
+  index, as `test-cfbplotr-*.R` are (there, each test that writes images,
+  renders a gt table or reads the network calls `skip_on_cran()` itself). Tests run offline (`tests/testthat/setup.R`
   sets `sdvplotR.offline`): assert on the resolved URLs / HTML, and add
   `skip_if_offline()` for anything that renders images.
 * Every exported function needs roxygen docs with `@param`, `@return` and
