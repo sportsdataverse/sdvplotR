@@ -66,8 +66,8 @@ schedule <- fx_nfl$schedule
 
 The table below uses a snapshot of this call taken on
 `r format(fx_nfl$taken, "%B %d, %Y")` (`r fx_nfl$package`): a failed nflverse
-download returns an empty table rather than an error, so the site build does not
-depend on it.
+download returns an empty table rather than an error, so this table does not
+depend on that download when the site builds.
 
 ```{r standings}
 # Regular-season records, one row per team per game after clean_homeaway()

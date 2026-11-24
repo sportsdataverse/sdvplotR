@@ -174,7 +174,7 @@ fx_reactable_nfl <- function() {
   season <- this_year() - 1 - before("01-15")
   schedule <- nflreadr::load_schedules(season) |>
     select(game_type, week, home_team, away_team, home_score, away_score, result)
-  stopifnot(nrow(schedule) >= 272, sum(schedule$game_type == "REG" & !is.na(schedule$result)) >= 272)
+  stopifnot(sum(schedule$game_type == "REG" & !is.na(schedule$result)) >= 272)
   list(season = season, schedule = schedule, call = "nflreadr::load_schedules(season)", package = "nflreadr")
 }
 
