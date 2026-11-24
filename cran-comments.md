@@ -62,8 +62,9 @@ There are none: this is a new package.
 * 'sportyR' (>= 2.4.5, CRAN) is in Suggests: `sdv_surface()` checks for it
   with `rlang::check_installed()` and calls only its exported functions.
 * Most test files need network access, headless Chrome or image rendering,
-  so they start with `skip_on_cran()`. `test-cfbplotr-coverage.R` and
-  `test-cfbplotr-parity.R` run on CRAN: they read only the bundled index.
+  so they start with `skip_on_cran()`. Most tests in `test-cfbplotr-coverage.R`
+  and `test-cfbplotr-parity.R` run on CRAN: they read only the bundled index
+  (the ones that write images skip on CRAN).
 * Rendering a 'gt' table compiles its CSS through 'sass', which caches it
   under `tools::R_user_dir("sass", "cache")`. During a CRAN check the package
   turns that cache off (unless the user has set `sass.cache`), so the check
