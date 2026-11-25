@@ -29,7 +29,7 @@ a counterpart with `league = "cfb"`:
   one athlete is left `NA`; offline it warns and returns `NA` ids.
 * cfbplotR's wordmarks, archived in sdv-assets as source `"cfbplotr-legacy"`,
   rank after every other source when a team has more than one wordmark. The
-  bundled team index (`9a2282ad9505`) maps 360 of those 362 college
+  bundled team index (`4ce85fb64837`) maps 360 of those 362 college
   wordmarks, so `geom_sdv_wordmarks(league = "cfb")`, `gt_sdv_wordmarks()` and
   `element_sdv_wordmark()` draw most FBS and FCS teams, and it carries the
   `division` column `sdv_teams(division = "FBS")` reads.
@@ -62,12 +62,17 @@ a counterpart with `league = "cfb"`:
   (`sdv_resolve(1611661319, "wnba", id_system = "nba_api")` is the Aces).
   Under `"auto"` an ESPN id wins over an equal NCAA id, so pass
   `id_system = "ncaa"` for NCAA ids.
-* The bundled team index (`9a2282ad9505`) takes sdv-reference-data's
-  2026-11-25 `{league}_team_aliases`: 238 new Fox, Yahoo and Torvik team
-  ids for college football (now back to 2004) and men's and women's college
-  basketball, most of them Yahoo's, and season windows that split many
-  existing ids into one alias row per window (2,070 more alias rows in all).
-  Teams, colors and marks are unchanged.
+* The bundled team index (`4ce85fb64837`) covers 70 leagues: 21 new
+  international basketball and European hockey leagues (`"euroleague"`,
+  `"acb"`, `"feb"`, `"bbl"`, `"dbbl"`, `"bnxt"`, `"aba"`, `"ibba"`, `"kzs"`,
+  `"lkl"`, `"dbl"`, `"vtb"`, `"bleague"`, `"kbl"`, `"wjbl"`, `"nbl_au"`,
+  `"wnbl"`, `"shl"`, `"ha"`, `"elh"`, `"magnus"`) add 848 teams with their
+  logos and logo colors. It also takes sdv-reference-data's 2026-11-25
+  `{league}_team_aliases`: 238 new Fox, Yahoo and Torvik team ids for
+  college football (now back to 2004) and men's and women's college
+  basketball, most of them Yahoo's, plus season windows on existing ids.
+  It dates current NBA, WNBA, NFL, MLB and college basketball marks from
+  Sports Reference's logo history.
 * The soccer article's ESPN shot map keeps penalties (`Penalty - Scored` /
   `Penalty - Missed`), and its StatsBomb map notes why a 4-2 final shows five
   goals: the own goal is its own event type (sdvplot#101).
@@ -115,7 +120,7 @@ a counterpart with `league = "cfb"`:
 
 Team logos, wordmarks, player headshots and team colours for
 ggplot2, gt and reactable, and for interactive plotly, ggiraph and leaflet
-charts, across the 49 leagues of the SportsDataverse team index
+charts, across the 70 leagues of the SportsDataverse team index
 (`sdv_leagues()`), built on 'ggpath'. It shares its team index, logo
 archive and argument names with the Python package sdvplot and the
 JavaScript packages `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
