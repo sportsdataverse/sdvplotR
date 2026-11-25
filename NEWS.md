@@ -63,10 +63,11 @@ a counterpart with `league = "cfb"`:
   Under `"auto"` an ESPN id wins over an equal NCAA id, so pass
   `id_system = "ncaa"` for NCAA ids.
 * The bundled team index (`9a2282ad9505`) takes sdv-reference-data's
-  2026-11-25 `{league}_team_aliases`: 2,070 more Fox, Yahoo and Torvik
-  team ids for college football (now back to 2004) and men's and women's
-  college basketball, most of them Yahoo's. Teams, colors and marks are
-  unchanged.
+  2026-11-25 `{league}_team_aliases`: 238 new Fox, Yahoo and Torvik team
+  ids for college football (now back to 2004) and men's and women's college
+  basketball, most of them Yahoo's, and season windows that split many
+  existing ids into one alias row per window (2,070 more alias rows in all).
+  Teams, colors and marks are unchanged.
 * The soccer article's ESPN shot map keeps penalties (`Penalty - Scored` /
   `Penalty - Missed`), and its StatsBomb map notes why a 4-2 final shows five
   goals: the own goal is its own event type (sdvplot#101).
