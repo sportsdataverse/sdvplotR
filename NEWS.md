@@ -72,7 +72,9 @@ a counterpart with `league = "cfb"`:
   college football (now back to 2004) and men's and women's college
   basketball, most of them Yahoo's, plus season windows on existing ids.
   It dates current NBA, WNBA, NFL, MLB and college basketball marks from
-  Sports Reference's logo history.
+  Sports Reference's logo history. `sdv_resolve()` folds Japanese kana as
+  sdvplot does (a voiced kana compares as its base kana), so the B.League and
+  WJBL names resolve alike in R and Python.
 * The soccer article's ESPN shot map keeps penalties (`Penalty - Scored` /
   `Penalty - Missed`), and its StatsBomb map notes why a 4-2 final shows five
   goals: the own goal is its own event type (sdvplot#101).

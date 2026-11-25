@@ -776,7 +776,10 @@ norm,,KịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞge,character,
 norm,,KởỠỡỢợỤụỦủỨứỪừỬửỮữỰựỲge,character,,,kooooouuuuuuuuuuuuuuyge,,4ce85fb64837
 norm,,KỳỴỵỶỷỸỹỺỼỾℂℇℊℋℌℍℎℏℐℑge,character,,,kyyyyyyyỻỽỿcɛghhhhħiige,,4ce85fb64837
 norm,,KℒℓℕℙℚℛℜℝℤΩℨKÅℬℭℯℰℱℲℳge,character,,,kllnpqrrrzωzkabceefⅎmge,,4ce85fb64837
-norm,,Kℴℵℶℷℸℹℼℽℾℿ⅀ⅅⅆⅇⅈⅉꜢꜤꜦꜨge,character,,,koאבגדiπγγπ∑ddeijꜣꜥꜧꜩge,,4ce85fb64837
+norm,,Kℴℵℶℷℸℹℼℽℾℿ⅀ⅅⅆⅇⅈⅉがぎぐげge,character,,,koאבגדiπγγπ∑ddeijかきくけge,,4ce85fb64837
+norm,,Kござじずぜぞだぢづでどばぱびぴぶぷべぺぼge,character,,,kこさしすせそたちつてとははひひふふへへほge,,4ce85fb64837
+norm,,Kぽゔ゛゜ゞガギグゲゴザジズゼゾダヂヅデドge,character,,,kほう  ゝカキクケコサシスセソタチツテトge,,4ce85fb64837
+norm,,KバパビピブプベペボポヴヷヸヹヺヾꜢꜤꜦꜨge,character,,,kハハヒヒフフヘヘホホウワヰヱヲヽꜣꜥꜧꜩge,,4ce85fb64837
 norm,,KꜪꜬꜮꜲꜴꜶꜸꜺꜼꜾꝀꝂꝄꝆꝈꝊꝌꝎꝐꝒge,character,,,kꜫꜭꜯꜳꜵꜷꜹꜻꜽꜿꝁꝃꝅꝇꝉꝋꝍꝏꝑꝓge,,4ce85fb64837
 norm,,KꝔꝖꝘꝚꝜꝞꝠꝢꝤꝦꝨꝪꝬꝮꝰꝹꝻꝽꝾꞀge,character,,,kꝕꝗꝙꝛꝝꝟꝡꝣꝥꝧꝩꝫꝭꝯꝯꝺꝼᵹꝿꞁge,,4ce85fb64837
 norm,,KꞂꞄꞆꞋꞍꞐꞒꞖꞘꞚꞜꞞꞠꞢꞤꞦꞨꞪꞫꞬge,character,,,kꞃꞅꞇꞌɥꞑꞓꞗꞙꞛꞝꞟꞡꞣꞥꞧꞩɦɜɡge,,4ce85fb64837
@@ -788,10 +791,13 @@ norm,,K＃＄％＆＇（）＊＋，．／０１２３４５６７ge,character,
 norm,,K８９：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫge,character,,,k89:;<=>?@abcdefghijkge,,4ce85fb64837
 norm,,KＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿ge,character,,,klmnopqrstuvwxyz[\]^_ge,,4ce85fb64837
 norm,,K｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓge,character,,,k`abcdefghijklmnopqrsge,,4ce85fb64837
-norm,,Kｔｕｖｗｘｙｚ｛｜｝～¼½¾ÆÞßæþĲge,character,,,ktuvwxyz{|}~1⁄41⁄23⁄4aethssaethijge,,4ce85fb64837
-norm,,KĳĿŀŉŒœǄǅǆǇǈǉǊǋǌǢǣǱǲǳge,character,,,kijl·l·ʼnoeoedzdzdzljljljnjnjnjaeaedzdzdzge,,4ce85fb64837
-norm,,KǼǽᴭẚẞ℀℁℃℅℆℉№℠℡™℻ꟹﬀﬁﬂge,character,,,kaeaeaeaʾssa/ca/s°cc/oc/u°fnosmteltmfaxoefffiflge,,4ce85fb64837
-norm,,Kﬃﬄﬅﬆ︰︱︲﹘﹣－ge,character,,,kffifflstst..-----ge,,4ce85fb64837
+norm,,Kｔｕｖｗｘｙｚ｛｜｝～｡｢｣､･ｦｧｨｩge,character,,,ktuvwxyz{|}~。「」、・ヲァィゥge,,4ce85fb64837
+norm,,Kｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽge,character,,,kェォャュョッーアイウエオカキクケコサシスge,,4ce85fb64837
+norm,,Kｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑge,character,,,kセソタチツテトナニヌネノハヒフヘホマミムge,,4ce85fb64837
+norm,,Kﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ¼½¾ÆÞßæþge,character,,,kメモヤユヨラリルレロワン1⁄41⁄23⁄4aethssaethge,,4ce85fb64837
+norm,,KĲĳĿŀŉŒœǄǅǆǇǈǉǊǋǌǢǣǱǲge,character,,,kijijl·l·ʼnoeoedzdzdzljljljnjnjnjaeaedzdzge,,4ce85fb64837
+norm,,KǳǼǽᴭẚẞ℀℁℃℅℆℉№℠℡™℻ゟヿꟹge,character,,,kdzaeaeaeaʾssa/ca/s°cc/oc/u°fnosmteltmfaxよりコトoege,,4ce85fb64837
+norm,,Kﬀﬁﬂﬃﬄﬅﬆ︰︱︲﹘﹣－ge,character,,,kfffiflffifflstst..-----ge,,4ce85fb64837
 norm,,Montré᷄al,character,,,montreal,,4ce85fb64837
 norm,,Ko⃗ge︠,character,,,koge,,4ce85fb64837
 norm,,Malmo𝅧҃,character,,,malmo,,4ce85fb64837
