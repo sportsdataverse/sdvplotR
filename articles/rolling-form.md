@@ -35,7 +35,7 @@ url <- paste0(
 windows <- as.data.frame(nflreadr::load_from_url(url))
 stopifnot(nrow(windows) > 0)
 dim(windows)
-#> [1] 28468    20
+#> [1] 28472    20
 names(windows)
 #>  [1] "season"          "entity_type"     "entity_id"       "entity_name"    
 #>  [5] "team_id"         "metric"          "window_unit"     "window_n"       
@@ -58,20 +58,20 @@ Each row is one player or team, one metric and one window size.
 
 count(windows, entity_type, metric, window_unit, window_n)
 #>    entity_type       metric window_unit window_n    n
-#> 1       player          epa       carry       50 2329
-#> 2       player          epa       carry      100 2329
+#> 1       player          epa       carry       50 2331
+#> 2       player          epa       carry      100 2331
 #> 3       player          epa    dropback       50  762
 #> 4       player          epa    dropback      100  762
 #> 5       player          epa    dropback      300  762
-#> 6       player          epa      target       30 3407
-#> 7       player          epa      target       60 3407
-#> 8       player success_rate       carry       50 2329
-#> 9       player success_rate       carry      100 2329
+#> 6       player          epa      target       30 3406
+#> 7       player          epa      target       60 3406
+#> 8       player success_rate       carry       50 2331
+#> 9       player success_rate       carry      100 2331
 #> 10      player success_rate    dropback       50  762
 #> 11      player success_rate    dropback      100  762
 #> 12      player success_rate    dropback      300  762
-#> 13      player success_rate      target       30 3407
-#> 14      player success_rate      target       60 3407
+#> 13      player success_rate      target       30 3406
+#> 14      player success_rate      target       60 3406
 #> 15        team          epa        play      150  238
 #> 16        team          epa        play      300  238
 #> 17        team success_rate        play      150  238
@@ -116,13 +116,13 @@ movers <- bind_rows(
   select(group, entity_name, prev, cur, n, pct, delta_prev_rank)
 movers
 #>      group              entity_name        prev         cur   n       pct
-#> 1   Risers       Virginia Cavaliers -0.16827140  0.23515721 150 94.347826
-#> 2   Risers       Colorado Buffaloes -0.10373602  0.25330088 150 96.086957
+#> 1   Risers       Virginia Cavaliers -0.16827140  0.23515721 150 94.782609
+#> 2   Risers       Colorado Buffaloes -0.10731880  0.25330088 150 96.086957
 #> 3   Risers    Texas Southern Tigers -0.34182483 -0.02342592 150 53.478261
 #> 4   Risers  Louisiana Ragin' Cajuns -0.07891319  0.23037692 150 93.478261
-#> 5   Risers Washington State Cougars -0.01021813  0.29829232 150 99.130435
+#> 5   Risers Washington State Cougars -0.01021813  0.29829232 150 99.565217
 #> 6  Fallers   Northern Iowa Panthers  0.27039169 -0.29584162 150  7.391304
-#> 7  Fallers             SMU Mustangs  0.33135012 -0.16413949 150 28.260870
+#> 7  Fallers             SMU Mustangs  0.32883524 -0.16413949 150 28.260870
 #> 8  Fallers     Holy Cross Crusaders  0.27948097 -0.20416812 150 20.434783
 #> 9  Fallers          Charlotte 49ers  0.09389542 -0.34069515 150  3.043478
 #> 10 Fallers         UTSA Roadrunners  0.21910589 -0.21405025 150 18.260870

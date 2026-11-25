@@ -58,14 +58,14 @@ teams <- inner_join(offense, defense, by = "team") |>
 stopifnot(nrow(teams) == 32)
 head(teams)
 #> # A tibble: 6 × 8
-#>   team   off_epa plays  def_epa off_rank def_rank team_id name             
-#>   <chr>    <dbl> <int>    <dbl>    <int>    <int> <chr>   <chr>            
-#> 1 ARI   -0.00761  1074 0.0793         23       26 22      Arizona Cardinals
-#> 2 ATL   -0.0133   1036 0.00445        25       15 1       Atlanta Falcons  
-#> 3 BAL    0.0352    956 0.0245         12       19 33      Baltimore Ravens 
-#> 4 BUF    0.122    1065 0.000286        3       13 2       Buffalo Bills    
-#> 5 CAR   -0.0236    996 0.0604         26       23 29      Carolina Panthers
-#> 6 CHI    0.0722   1096 0.0270          8       21 3       Chicago Bears
+#>   team   off_epa plays def_epa off_rank def_rank team_id name             
+#>   <chr>    <dbl> <int>   <dbl>    <int>    <int> <chr>   <chr>            
+#> 1 ARI   -0.00532  1074 0.0819        24       26 22      Arizona Cardinals
+#> 2 ATL   -0.00683  1036 0.00967       25       14 1       Atlanta Falcons  
+#> 3 BAL    0.0368    956 0.0213        12       17 33      Baltimore Ravens 
+#> 4 BUF    0.122    1065 0.00191        3       13 2       Buffalo Bills    
+#> 5 CAR   -0.0237    996 0.0572        26       23 29      Carolina Panthers
+#> 6 CHI    0.0750   1096 0.0273         8       20 3       Chicago Bears
 ```
 
 The page embeds this table, not the play-by-play: 32 rows, one per logo.

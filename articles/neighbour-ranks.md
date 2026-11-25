@@ -76,17 +76,17 @@ neighbours <- function(data, team, metric, k = 5) {
 focal <- "Illinois"
 neighbours(summaries, focal, "net_adj_epa")
 #>    rank          team     value
-#> 1    29 Arizona State 0.1515554
-#> 2    30    Louisville 0.1507893
-#> 3    31           LSU 0.1493061
-#> 4    32           TCU 0.1434141
-#> 5    33    Iowa State 0.1385014
-#> 6    34      Illinois 0.1324425
-#> 7    35      Virginia 0.1323985
-#> 8    36    Pittsburgh 0.1265059
-#> 9    37     Tennessee 0.1191645
-#> 10   38  Old Dominion 0.1133735
-#> 11   39 East Carolina 0.1112035
+#> 1    30    Louisville 0.1514453
+#> 2    31           LSU 0.1478890
+#> 3    32           TCU 0.1434635
+#> 4    33    Iowa State 0.1385667
+#> 5    34      Virginia 0.1319173
+#> 6    35      Illinois 0.1317980
+#> 7    36    Pittsburgh 0.1257172
+#> 8    37     Tennessee 0.1166576
+#> 9    38  Old Dominion 0.1131164
+#> 10   39 East Carolina 0.1111953
+#> 11   40      NC State 0.1055675
 ```
 
 ## The table
@@ -118,17 +118,17 @@ neighbour_table(summaries, focal, "net_adj_epa", metrics[["net_adj_epa"]])
 | Net adj. EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 29 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12740d7f76563f339392d50d215e173925114d2ad48d576263165f3b31052998.png)Arizona State | 0.152 |
 | 30 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7c/7c5e06bfb990c80176ef56e171bfb2de264355db54c592462d5f8a02404412e8.png)Louisville | 0.151 |
-| 31 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d0/d02e29a9f8824740d848b4a83c574b1c1942ba1cdee61b3ee08611634cc86b46.png)LSU | 0.149 |
+| 31 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d0/d02e29a9f8824740d848b4a83c574b1c1942ba1cdee61b3ee08611634cc86b46.png)LSU | 0.148 |
 | 32 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/86/864561cb4ebf372171438c038fcf52eac3342a2c1d751e605901e144c70afda0.png)TCU | 0.143 |
 | 33 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8b490fe0621ea18538cf38e2b9c462beff54b26ee4707c54d024547e82e7cd63.png)Iowa State | 0.139 |
-| 34 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.132 |
-| 35 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d35c8362ad7a6f03b32e30bc0745cb481da320da96010c7327f3c78359ac9fe5.png)Virginia | 0.132 |
-| 36 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c2/c283722b1c9f4b47b7361d7d959422225de4ad4682b0eadcd66f707c015506f3.png)Pittsburgh | 0.127 |
-| 37 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1e/1ef03aa847164f52dee3c8bfea023e3b75915231c01250889a549ae08b2ec9b8.png)Tennessee | 0.119 |
+| 34 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d35c8362ad7a6f03b32e30bc0745cb481da320da96010c7327f3c78359ac9fe5.png)Virginia | 0.132 |
+| 35 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.132 |
+| 36 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c2/c283722b1c9f4b47b7361d7d959422225de4ad4682b0eadcd66f707c015506f3.png)Pittsburgh | 0.126 |
+| 37 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1e/1ef03aa847164f52dee3c8bfea023e3b75915231c01250889a549ae08b2ec9b8.png)Tennessee | 0.117 |
 | 38 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d7/d7715a34978cfdb27bdb863a6c0de3d7a4c122e80de0c72397b8a23aa3d10fa7.png)Old Dominion | 0.113 |
 | 39 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0a/0ae06f5e6518c5065c93cde42d17853ddc6c6abe56502ef2bbcbf3bd52f9adb5.png)East Carolina | 0.111 |
+| 40 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ee/ee51da26e5cdf389cc787c58478f10bb03503832e35f862b4f208d273819d8ec.png)NC State | 0.106 |
 
 ## Three metrics side by side
 
@@ -157,32 +157,32 @@ Illinois and its neighbours
 | Net adj. EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
-| 29 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12740d7f76563f339392d50d215e173925114d2ad48d576263165f3b31052998.png)Arizona State | 0.152 |
 | 30 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7c/7c5e06bfb990c80176ef56e171bfb2de264355db54c592462d5f8a02404412e8.png)Louisville | 0.151 |
-| 31 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d0/d02e29a9f8824740d848b4a83c574b1c1942ba1cdee61b3ee08611634cc86b46.png)LSU | 0.149 |
+| 31 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d0/d02e29a9f8824740d848b4a83c574b1c1942ba1cdee61b3ee08611634cc86b46.png)LSU | 0.148 |
 | 32 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/86/864561cb4ebf372171438c038fcf52eac3342a2c1d751e605901e144c70afda0.png)TCU | 0.143 |
 | 33 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8b/8b490fe0621ea18538cf38e2b9c462beff54b26ee4707c54d024547e82e7cd63.png)Iowa State | 0.139 |
-| 34 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.132 |
-| 35 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d35c8362ad7a6f03b32e30bc0745cb481da320da96010c7327f3c78359ac9fe5.png)Virginia | 0.132 |
-| 36 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c2/c283722b1c9f4b47b7361d7d959422225de4ad4682b0eadcd66f707c015506f3.png)Pittsburgh | 0.127 |
-| 37 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1e/1ef03aa847164f52dee3c8bfea023e3b75915231c01250889a549ae08b2ec9b8.png)Tennessee | 0.119 |
+| 34 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d3/d35c8362ad7a6f03b32e30bc0745cb481da320da96010c7327f3c78359ac9fe5.png)Virginia | 0.132 |
+| 35 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.132 |
+| 36 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c2/c283722b1c9f4b47b7361d7d959422225de4ad4682b0eadcd66f707c015506f3.png)Pittsburgh | 0.126 |
+| 37 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1e/1ef03aa847164f52dee3c8bfea023e3b75915231c01250889a549ae08b2ec9b8.png)Tennessee | 0.117 |
 | 38 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/d7/d7715a34978cfdb27bdb863a6c0de3d7a4c122e80de0c72397b8a23aa3d10fa7.png)Old Dominion | 0.113 |
 | 39 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0a/0ae06f5e6518c5065c93cde42d17853ddc6c6abe56502ef2bbcbf3bd52f9adb5.png)East Carolina | 0.111 |
+| 40 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ee/ee51da26e5cdf389cc787c58478f10bb03503832e35f862b4f208d273819d8ec.png)NC State | 0.106 |
 
 | Offense EPA/play |  |  |
 |----|----|----|
 | Rank | Team | Value |
+| 26 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fa/fa5c7fb14d5ffa38eaddfeb80161835e60a3d496b57db5e0ebda5e6475226d8a.png)Georgia | 0.132 |
 | 27 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/55/55800e4867c87bf38281043628d2c0dfadd0bf44632b27a9ab20af27a9a728fb.png)Miami | 0.131 |
 | 28 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f844b98efad3ea95ba434826c6e9f1707487000a0c65c51412e3dc067971433c.png)Eastern Michigan | 0.120 |
 | 29 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5e/5e75a7a68f9a6403f950f7ddf9c656698fcebcaa5fa16f0890135f2098c18686.png)Rutgers | 0.119 |
 | 30 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0e/0efa003a56ec95d664b71d799fabe5e927d2ddd23cea90d5bab42df971abd080.png)Penn State | 0.115 |
-| 31 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bb/bbe36252ce70f54489fbd0a0c0ec27bfdbd4f84d2789fc9906bda5ccd93c7aab.png)Army | 0.113 |
-| 32 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.113 |
-| 33 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1d/1dbe095805cd1636fc5aac2918eedf81b4dad43329a8c1e665616ee1d79840a7.png)SMU | 0.112 |
-| 34 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2fbdfa08adebb0be79d920a92b46e7e153e6dff49a4335b93b86a527525f836b.png)Ohio | 0.111 |
+| 31 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/62/62c3b65a1ab3e8cad05832d76dd7b3fb695c8220c07f0fe5aa44ef12abcda56c.png)Illinois | 0.113 |
+| 32 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1d/1dbe095805cd1636fc5aac2918eedf81b4dad43329a8c1e665616ee1d79840a7.png)SMU | 0.112 |
+| 33 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2fbdfa08adebb0be79d920a92b46e7e153e6dff49a4335b93b86a527525f836b.png)Ohio | 0.110 |
+| 34 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/bb/bbe36252ce70f54489fbd0a0c0ec27bfdbd4f84d2789fc9906bda5ccd93c7aab.png)Army | 0.109 |
 | 35 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2a/2a7cb32da0408fbd277fa184f3eee42ce983ebab70c8e819abb2865ac440717c.png)Temple | 0.106 |
-| 36 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/12/12d69bb78c3443bdbcc5a7659f288840a7a3862d70043eda3d8868a229eb7696.png)Texas | 0.105 |
-| 37 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/90/905b2e96ff5a391a789276d4b211134ca295a91bc352d1ba5668c79fbfcc0bbb.png)UAB | 0.103 |
+| 36 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/90/905b2e96ff5a391a789276d4b211134ca295a91bc352d1ba5668c79fbfcc0bbb.png)UAB | 0.103 |
 
 | Defense EPA/play |  |  |
 |----|----|----|
@@ -196,8 +196,8 @@ Illinois and its neighbours
 | 99 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/b7/b786de17b998fa272d6e02d193d2a84db93b4339975301d825af770d3b2ede5a.png)San José State | 0.115 |
 | 100 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/ee/ee51da26e5cdf389cc787c58478f10bb03503832e35f862b4f208d273819d8ec.png)NC State | 0.115 |
 | 101 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e9/e99c6598ff920716bf12c731a4b52039c2350d373d2a86d98df4dd592c491d4d.png)Kent State | 0.118 |
-| 102 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0e/0e81afbb4d334e48237c83fd2cea6239871e2f8167def9ce9a836b1e2a325366.png)Texas State | 0.120 |
-| 103 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/c0/c09e5b394cfa5be2f2369c5e63210a12e25943b904d077c6469714ca9f8285e2.png)Nebraska | 0.122 |
+| 102 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/0e/0e81afbb4d334e48237c83fd2cea6239871e2f8167def9ce9a836b1e2a325366.png)Texas State | 0.119 |
+| 103 | ![](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2a/2a7cb32da0408fbd277fa184f3eee42ce983ebab70c8e819abb2865ac440717c.png)Temple | 0.122 |
 
 Data: cfbfastR::load_espn_cfb_team_summaries()
 

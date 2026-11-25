@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-24:** the 2026-27 season, 21-26 games in per team.
+**Updated 2026-11-25:** the 2026-27 season, 21-27 games in per team.
 Early-season tables move a lot from week to week.
 
 This page is rebuilt every week with the site. It builds the standings,
@@ -136,7 +136,7 @@ standings |>
 
 | NHL standings, 2026-27 |  |  |  |  |  |  |  |  |  |  |  |  |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|
-| Through Nov 23 (21-26 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
+| Through Nov 24 (21-27 games in) |  |  |  |  |  |  |  |  |  |  |  |  |
 |  | Team | GP | W | L | OTL | PTS | PTS% | GF | GA | DIFF | Last 10 | Streak |
 | Atlantic |  |  |  |  |  |  |  |  |  |  |  |  |
 | ![Ottawa Senators](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/05/05bddfd77b0f30e13cd4a81708e41cc72cfad5b9d136a11f35eb01016b27c849.png) | Senators | 25 | 16 | 6 | 3 | 35 | 0.700 | 81 | 71 | +10 | 7-1-2 | W2 |
@@ -166,8 +166,8 @@ standings |>
 | ![Columbus Blue Jackets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/a1/a140e93fa031bae0464306c52fa24aef3821fa9d17e92cf66939efb6b0d2a957.png) | Blue Jackets | 22 | 9 | 13 | 0 | 18 | 0.409 | 56 | 71 | −15 | 4-6-0 | L1 |
 | ![Pittsburgh Penguins](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1b/1b4dc90de4cb2eef301c0d2f9ffefd5cef2e0de1a8ad7d863e96ef686986e00f.png) | Penguins | 23 | 7 | 14 | 2 | 16 | 0.348 | 67 | 81 | −14 | 2-8-0 | L4 |
 | Pacific |  |  |  |  |  |  |  |  |  |  |  |  |
-| ![Edmonton Oilers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f8e95d487f02c85aeb65a200f226b795e7a8de95604df49664962ad473d57666.png) | Oilers | 26 | 17 | 5 | 4 | 38 | 0.731 | 101 | 77 | +24 | 6-3-1 | OT1 |
-| ![Vegas Golden Knights](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/91/913da521af36370b9b9a3df6ca6b869c915b54732cc166d369865fbc24197e44.png) | Golden Knights | 25 | 14 | 6 | 5 | 33 | 0.660 | 85 | 75 | +10 | 5-1-4 | W1 |
+| ![Edmonton Oilers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/f8/f8e95d487f02c85aeb65a200f226b795e7a8de95604df49664962ad473d57666.png) | Oilers | 27 | 17 | 6 | 4 | 38 | 0.704 | 104 | 82 | +22 | 6-3-1 | L1 |
+| ![Vegas Golden Knights](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/91/913da521af36370b9b9a3df6ca6b869c915b54732cc166d369865fbc24197e44.png) | Golden Knights | 26 | 15 | 6 | 5 | 35 | 0.673 | 90 | 78 | +12 | 6-1-3 | W2 |
 | ![San Jose Sharks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/23/23c8bb973fc6e9e57c9f63b74fbf7b1a4e325515371e952579d0e0df13d33a5b.png) | Sharks | 26 | 11 | 13 | 2 | 24 | 0.462 | 71 | 94 | −23 | 4-5-1 | L1 |
 | ![Seattle Kraken](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/35/35208c3044f129338b22b3b4de0ca0bf384a2919468fe4077183ef5bcca87fcf.png) | Kraken | 21 | 11 | 9 | 1 | 23 | 0.548 | 70 | 73 | −3 | 4-6-0 | W1 |
 | ![Anaheim Ducks](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/3b/3b94f09309431a7fbaee2947bf07b99df9c0aac8d61eaba3634e2078a13c5cdc.png) | Ducks | 25 | 11 | 13 | 1 | 23 | 0.460 | 89 | 95 | −6 | 4-6-0 | L4 |

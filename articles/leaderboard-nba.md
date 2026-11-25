@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-24:** the 2026-27 season through November 23.
+**Updated 2026-11-25:** the 2026-27 season through November 23.
 
 This page is rebuilt every week with the site. It builds the standings
 with offensive, defensive and net ratings, charts net rating with logos

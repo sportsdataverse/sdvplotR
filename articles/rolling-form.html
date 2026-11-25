@@ -332,7 +332,7 @@ with packages the site already uses. The <code>.parquet</code> and
 <span><span class="va">windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu">nflreadr</span><span class="fu">::</span><span class="fu"><a href="https://nflreadr.nflverse.com/reference/load_from_url.html" class="external-link">load_from_url</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">windows</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">windows</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 28468    20</span></span>
+<span><span class="co">#&gt; [1] 28472    20</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">windows</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "season"          "entity_type"     "entity_id"       "entity_name"    </span></span>
 <span><span class="co">#&gt;  [5] "team_id"         "metric"          "window_unit"     "window_n"       </span></span>
@@ -358,20 +358,20 @@ events before those.</li>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">windows</span>, <span class="va">entity_type</span>, <span class="va">metric</span>, <span class="va">window_unit</span>, <span class="va">window_n</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    entity_type       metric window_unit window_n    n</span></span>
-<span><span class="co">#&gt; 1       player          epa       carry       50 2329</span></span>
-<span><span class="co">#&gt; 2       player          epa       carry      100 2329</span></span>
+<span><span class="co">#&gt; 1       player          epa       carry       50 2331</span></span>
+<span><span class="co">#&gt; 2       player          epa       carry      100 2331</span></span>
 <span><span class="co">#&gt; 3       player          epa    dropback       50  762</span></span>
 <span><span class="co">#&gt; 4       player          epa    dropback      100  762</span></span>
 <span><span class="co">#&gt; 5       player          epa    dropback      300  762</span></span>
-<span><span class="co">#&gt; 6       player          epa      target       30 3407</span></span>
-<span><span class="co">#&gt; 7       player          epa      target       60 3407</span></span>
-<span><span class="co">#&gt; 8       player success_rate       carry       50 2329</span></span>
-<span><span class="co">#&gt; 9       player success_rate       carry      100 2329</span></span>
+<span><span class="co">#&gt; 6       player          epa      target       30 3406</span></span>
+<span><span class="co">#&gt; 7       player          epa      target       60 3406</span></span>
+<span><span class="co">#&gt; 8       player success_rate       carry       50 2331</span></span>
+<span><span class="co">#&gt; 9       player success_rate       carry      100 2331</span></span>
 <span><span class="co">#&gt; 10      player success_rate    dropback       50  762</span></span>
 <span><span class="co">#&gt; 11      player success_rate    dropback      100  762</span></span>
 <span><span class="co">#&gt; 12      player success_rate    dropback      300  762</span></span>
-<span><span class="co">#&gt; 13      player success_rate      target       30 3407</span></span>
-<span><span class="co">#&gt; 14      player success_rate      target       60 3407</span></span>
+<span><span class="co">#&gt; 13      player success_rate      target       30 3406</span></span>
+<span><span class="co">#&gt; 14      player success_rate      target       60 3406</span></span>
 <span><span class="co">#&gt; 15        team          epa        play      150  238</span></span>
 <span><span class="co">#&gt; 16        team          epa        play      300  238</span></span>
 <span><span class="co">#&gt; 17        team success_rate        play      150  238</span></span>
@@ -411,13 +411,13 @@ average.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">entity_name</span>, <span class="va">prev</span>, <span class="va">cur</span>, <span class="va">n</span>, <span class="va">pct</span>, <span class="va">delta_prev_rank</span><span class="op">)</span></span>
 <span><span class="va">movers</span></span>
 <span><span class="co">#&gt;      group              entity_name        prev         cur   n       pct</span></span>
-<span><span class="co">#&gt; 1   Risers       Virginia Cavaliers -0.16827140  0.23515721 150 94.347826</span></span>
-<span><span class="co">#&gt; 2   Risers       Colorado Buffaloes -0.10373602  0.25330088 150 96.086957</span></span>
+<span><span class="co">#&gt; 1   Risers       Virginia Cavaliers -0.16827140  0.23515721 150 94.782609</span></span>
+<span><span class="co">#&gt; 2   Risers       Colorado Buffaloes -0.10731880  0.25330088 150 96.086957</span></span>
 <span><span class="co">#&gt; 3   Risers    Texas Southern Tigers -0.34182483 -0.02342592 150 53.478261</span></span>
 <span><span class="co">#&gt; 4   Risers  Louisiana Ragin' Cajuns -0.07891319  0.23037692 150 93.478261</span></span>
-<span><span class="co">#&gt; 5   Risers Washington State Cougars -0.01021813  0.29829232 150 99.130435</span></span>
+<span><span class="co">#&gt; 5   Risers Washington State Cougars -0.01021813  0.29829232 150 99.565217</span></span>
 <span><span class="co">#&gt; 6  Fallers   Northern Iowa Panthers  0.27039169 -0.29584162 150  7.391304</span></span>
-<span><span class="co">#&gt; 7  Fallers             SMU Mustangs  0.33135012 -0.16413949 150 28.260870</span></span>
+<span><span class="co">#&gt; 7  Fallers             SMU Mustangs  0.32883524 -0.16413949 150 28.260870</span></span>
 <span><span class="co">#&gt; 8  Fallers     Holy Cross Crusaders  0.27948097 -0.20416812 150 20.434783</span></span>
 <span><span class="co">#&gt; 9  Fallers          Charlotte 49ers  0.09389542 -0.34069515 150  3.043478</span></span>
 <span><span class="co">#&gt; 10 Fallers         UTSA Roadrunners  0.21910589 -0.21405025 150 18.260870</span></span>
@@ -1005,17 +1005,17 @@ vision.</p>
 <td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.403</td>
 <td headers="Risers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9435 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D44656;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.9435 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D44656; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">94</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9478 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D44555;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.9478 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D44555; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">95</div>
 </div></td>
 <td headers="Risers  delta_prev_rank" class="gt_row gt_right">1</td>
 </tr>
 <tr>
 <td headers="Risers  entity_name" class="gt_row gt_left">
 <img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/69/69f6e383b017d6494ff7e0456e90211ca41e4c746aa0532cf762256651aaf192.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="">Colorado Buffaloes</td>
-<td headers="Risers  prev" class="gt_row gt_right">−0.104</td>
+<td headers="Risers  prev" class="gt_row gt_right">−0.107</td>
 <td headers="Risers  cur" class="gt_row gt_right">0.253 (n = 150)</td>
-<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.357</td>
+<td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.361</td>
 <td headers="Risers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9609 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D43F52;"></div>
@@ -1057,8 +1057,8 @@ vision.</p>
 <td headers="Risers  Change" class="gt_row gt_right" style="color: #1B7837;">+0.309</td>
 <td headers="Risers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
-<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9913 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D2324B;"></div>
-<div style="position:absolute; top:50%; left:calc(11.00px + 0.9913 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D2324B; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">99</div>
+<div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.9957 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#D22F4A;"></div>
+<div style="position:absolute; top:50%; left:calc(11.00px + 0.9957 * (100% - 22.00px)); transform:translate(-50%,-50%); width:22.00px; height:22.00px; border-radius:50%; background:#D22F4A; color:#FFFFFF; font-size:11.0px; font-weight:700; line-height:22.00px; text-align:center;">100</div>
 </div></td>
 <td headers="Risers  delta_prev_rank" class="gt_row gt_right">5</td>
 </tr>
@@ -1081,9 +1081,9 @@ vision.</p>
 <tr>
 <td headers="Fallers  entity_name" class="gt_row gt_left">
 <img src="https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/1d/1dbe095805cd1636fc5aac2918eedf81b4dad43329a8c1e665616ee1d79840a7.png" style="height:22px;vertical-align:middle;margin-right:0.35em;" alt="">SMU Mustangs</td>
-<td headers="Fallers  prev" class="gt_row gt_right">0.331</td>
+<td headers="Fallers  prev" class="gt_row gt_right">0.329</td>
 <td headers="Fallers  cur" class="gt_row gt_right">−0.164 (n = 150)</td>
-<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.495</td>
+<td headers="Fallers  Change" class="gt_row gt_right" style="color: #B2182B;">−0.493</td>
 <td headers="Fallers  pct" class="gt_row gt_right"><div style="position:relative; width:100%; height:26px;">
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; right:11.00px; height:6.00px; border-radius:3.00px; background:#E9E9E9;"></div>
 <div style="position:absolute; top:50%; transform:translateY(-50%); left:11.00px; width:calc(calc(11.00px + 0.2826 * (100% - 22.00px)) - 11.00px); height:6.00px; border-radius:3.00px; background:#919ABE;"></div>

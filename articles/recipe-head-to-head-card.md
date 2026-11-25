@@ -87,8 +87,8 @@ filter(teams, team %in% pair) |>
 #> # A tibble: 2 × 10
 #>   team      w     l   ppg  papg off_epa def_epa pass_epa rush_epa to_margin
 #>   <chr> <int> <int> <dbl> <dbl>   <dbl>   <dbl>    <dbl>    <dbl>     <dbl>
-#> 1 NE       14     3  28.8  18.8  0.140  -0.0297    0.263  -0.0464         2
-#> 2 SEA      14     3  28.4  17.2  0.0337 -0.0860    0.114  -0.0543         0
+#> 1 NE       14     3  28.8  18.8  0.138  -0.0320   0.246   -0.0275         2
+#> 2 SEA      14     3  28.4  17.2  0.0329 -0.0830   0.0949  -0.0350         0
 ```
 
 ## 2. The first draft
