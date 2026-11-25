@@ -153,7 +153,7 @@ test_that("league and id_system are checked", {
   expect_error(sdv_resolve("KC", "nfll"), "Unknown league")
   expect_error(sdv_resolve("KC", c("nfl", "nba")), "one league key")
   expect_error(sdv_resolve("KC", "nfl", id_system = "gsis"), "id_system")
-  expect_length(sdv_leagues(), 49L)
+  expect_length(sdv_leagues(), 70L)
 })
 
 test_that("sdv_teams() lists teams, and conferences on request", {

@@ -184,7 +184,7 @@ in_division <- function(t, league, division, call = rlang::caller_env()) {
 # and typographic punctuation folded, case-folded, integral numbers without a
 # decimal point ("13.0" -> "13"). NA for missing or empty.
 # The fold tables (data-raw/export_index.py) hold what Python's NFKD + casefold
-# does to each character of the Latin, ligature and full-width blocks:
+# does to each character of the Latin, ligature, kana and full-width blocks:
 # fold_from/fold_to the one-to-one folds, fold_multi_from/fold_multi_to the
 # rest ("ß" -> "ss", ligatures). combining_marks (also from the export) is a
 # PCRE class of every character Python drops outright: a nonzero combining
