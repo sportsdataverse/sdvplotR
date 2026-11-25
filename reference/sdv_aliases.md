@@ -46,12 +46,12 @@ A data frame:
 a <- sdv_aliases("cfb")
 head(a[a$id_system == "name", ])
 #>      league id_system                      value team_id valid_from valid_to
-#> 4972    cfb      name              AR-Pine Bluff    2029         NA       NA
-#> 4973    cfb      name                  ARK STATE    2032         NA       NA
-#> 4974    cfb      name          Abilene Christian    2000         NA       NA
-#> 4975    cfb      name Abilene Christian Wildcats    2000         NA       NA
-#> 4976    cfb      name             Abilene Chrstn    2000         NA       NA
-#> 4977    cfb      name                   Adams St    2001         NA       NA
+#> 5481    cfb      name              AR-Pine Bluff    2029         NA       NA
+#> 5482    cfb      name                  ARK STATE    2032         NA       NA
+#> 5483    cfb      name          Abilene Christian    2000         NA       NA
+#> 5484    cfb      name Abilene Christian Wildcats    2000         NA       NA
+#> 5485    cfb      name             Abilene Chrstn    2000         NA       NA
+#> 5486    cfb      name                   Adams St    2001         NA       NA
 
 # cfbplotR's team_name_mapping: each name -> its school
 nm <- a[a$id_system %in% c("name", "cfbd", "sdvplotr"), ]

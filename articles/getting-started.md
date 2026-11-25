@@ -32,21 +32,26 @@ head(nfl_team_names)
 #> [1] "Atlanta Falcons"    "Tennessee Titans"   "Indianapolis Colts"
 #> [4] "Kansas City Chiefs" "Las Vegas Raiders"  "Los Angeles Rams"
 
-# The 49 leagues of the team index
+# The 70 leagues of the team index
 sdv_leagues()
-#>  [1] "aaf"           "ahl"           "ajhl"          "bchl"         
-#>  [5] "cchl"          "cebl"          "cfb"           "cfl"          
-#>  [9] "chl"           "cricket"       "easl"          "echl"         
-#> [13] "f1"            "fiba"          "gojhl"         "iihf"         
-#> [17] "kijhl"         "lba"           "mbb"           "mhl"          
-#> [21] "milb"          "mjhl"          "mlb"           "nba"          
-#> [25] "nbagl"         "nbl"           "ncaa_baseball" "ncaa_mhockey" 
-#> [29] "ncaa_softball" "ncaa_whockey"  "nfl"           "nhl"          
-#> [33] "nojhl"         "ohl"           "ojhl"          "phf"          
-#> [37] "pwhl"          "qmjhl"         "sjhl"          "soccer"       
-#> [41] "sphl"          "ufl"           "usfl"          "ushl"         
-#> [45] "vijhl"         "wbb"           "whl"           "wnba"         
-#> [49] "xfl"
+#>  [1] "aaf"           "aba"           "acb"           "ahl"          
+#>  [5] "ajhl"          "bbl"           "bchl"          "bleague"      
+#>  [9] "bnxt"          "cchl"          "cebl"          "cfb"          
+#> [13] "cfl"           "chl"           "cricket"       "dbbl"         
+#> [17] "dbl"           "easl"          "echl"          "elh"          
+#> [21] "euroleague"    "f1"            "feb"           "fiba"         
+#> [25] "gojhl"         "ha"            "ibba"          "iihf"         
+#> [29] "kbl"           "kijhl"         "kzs"           "lba"          
+#> [33] "lkl"           "magnus"        "mbb"           "mhl"          
+#> [37] "milb"          "mjhl"          "mlb"           "nba"          
+#> [41] "nbagl"         "nbl"           "nbl_au"        "ncaa_baseball"
+#> [45] "ncaa_mhockey"  "ncaa_softball" "ncaa_whockey"  "nfl"          
+#> [49] "nhl"           "nojhl"         "ohl"           "ojhl"         
+#> [53] "phf"           "pwhl"          "qmjhl"         "shl"          
+#> [57] "sjhl"          "soccer"        "sphl"          "ufl"          
+#> [61] "usfl"          "ushl"          "vijhl"         "vtb"          
+#> [65] "wbb"           "whl"           "wjbl"          "wnba"         
+#> [69] "wnbl"          "xfl"
 ```
 
 ## Identifiers from any source
@@ -232,9 +237,9 @@ ggplot(cfb_df, aes(x = x, y = y)) +
 ## Every league
 
 [`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md)
-lists all 49 leagues of the team index, from the NFL and the Premier
+lists all 70 leagues of the team index, from the NFL and the Premier
 League to the junior hockey leagues, NCAA softball and cricket. The loop
-below draws up to ten teams of each that have a logo, one row per
+below draws up to five teams of each that have a logo, one row per
 league. This article reads teams from the snapshot bundled with the
 package (`options(sdvplotR.offline = TRUE)`, set before its first
 lookup), so it does not wait on a live fetch of the index.
@@ -243,18 +248,18 @@ lookup), so it does not wait on a live fetch of the index.
 
 teams <- do.call(rbind, lapply(sdv_leagues(), function(lg) {
   t <- sdv_teams(lg)
-  # sdv_logo_url() warns for teams with no archived logo; keep up to ten that have one
-  t <- tail(t[!is.na(suppressWarnings(sdv_logo_url(t$team_id, lg))), ], 10)
+  # sdv_logo_url() warns for teams with no archived logo; keep up to five that have one
+  t <- tail(t[!is.na(suppressWarnings(sdv_logo_url(t$team_id, lg))), ], 5)
   data.frame(league = lg, team = t$team_id, x = seq_len(nrow(t)))
 }))
 # geom_sdv_logos() takes one league per layer: one layer per league
 layers <- lapply(split(teams, teams$league), function(d) {
-  geom_sdv_logos(aes(x = x, y = 0, team = team), data = d, league = d$league[1], width = 0.08)
+  geom_sdv_logos(aes(x = x, y = 0, team = team), data = d, league = d$league[1], width = 0.14)
 })
 ggplot() +
   layers +
   facet_wrap(~league, ncol = 2) +
-  scale_x_continuous(limits = c(0.5, 10.5)) +
+  scale_x_continuous(limits = c(0.5, 5.5)) +
   theme_void() +
   theme(
     strip.text = element_text(face = "bold", hjust = 0),
@@ -262,9 +267,9 @@ ggplot() +
   )
 ```
 
-![Up to ten team logos for each of the 49 leagues of the SportsDataverse
-team index, one labelled row per league, from the AAF and AHL to the
-XFL.](getting-started_files/figure-html/every-league-1.png)
+![Up to five team logos for each of the 70 leagues of the
+SportsDataverse team index, one labelled row per league, from the AAF to
+the XFL.](getting-started_files/figure-html/every-league-1.png)
 
 ## Next Steps
 
