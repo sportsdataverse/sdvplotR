@@ -14,7 +14,8 @@ were published only on r-universe.
   tarball built from commit c2611a0d, with an empty user `.Renviron`:
   Status: 1 NOTE (new submission). The examples, `\donttest{}` included, ran
   in 57 seconds. The full test suite with `NOT_CRAN=true` passed too (2,799
-  expectations, 0 failures).
+  expectations, 0 failures). Later commits only rewrap lines in NEWS.md and
+  change files that `.Rbuildignore` leaves out of the tarball.
 * GitHub Actions (R-CMD-check workflow), commit c2611a0d: ubuntu-latest and
   macos-latest, R release: Status: OK.
 * R-hub v2 (GitHub Actions, R-devel), commit c2611a0d: linux, windows and
