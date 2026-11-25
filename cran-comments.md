@@ -12,9 +12,9 @@ were published only on r-universe.
 * local: Windows 10 x64, R 4.6.0 (ucrt) with ggplot2 4.0.3, S7 0.2.2 and
   sportyR 2.4.5, 2026-11-25, `R CMD check --as-cran --run-donttest` on the
   tarball built from commit c2611a0d, with an empty user `.Renviron`:
-  Status: 1 NOTE (new submission). The examples, `\donttest{}` included, ran in 57 seconds.
-  The full test suite with `NOT_CRAN=true` passed too (2,799 expectations, 0
-  failures).
+  Status: 1 NOTE (new submission). The examples, `\donttest{}` included, ran
+  in 57 seconds. The full test suite with `NOT_CRAN=true` passed too (2,799
+  expectations, 0 failures).
 * GitHub Actions (R-CMD-check workflow), commit c2611a0d: ubuntu-latest and
   macos-latest, R release: Status: OK.
 * R-hub v2 (GitHub Actions, R-devel), commit c2611a0d: linux, windows and
