@@ -2,6 +2,9 @@
 
 The SportsDataverse league keys every `league` argument takes: the
 leagues of the shared team index sdvplot (Python) and sdvplot-js use.
+The Leagues and Identifiers article on the package site
+(<https://sdvplotR.sportsdataverse.org/articles/leagues-and-identifiers.html>)
+names each league and lists the id systems it carries.
 
 ## Usage
 
@@ -16,7 +19,9 @@ A sorted character vector.
 ## See also
 
 [`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md)
-for each league's teams.
+for each league's teams,
+[`sdv_aliases()`](https://sdvplotR.sportsdataverse.org/reference/sdv_aliases.md)
+for the identifiers each league carries.
 
 ## Examples
 

@@ -1,11 +1,13 @@
 # **sdvplotR**
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
-team logos, wordmarks, player headshots and team colors across the **49
+team logos, wordmarks, player headshots and team colors across the **70
 leagues** of the SportsDataverse team index
 ([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md))
 — NFL, NBA, WNBA, MLB, NHL, college football, men’s and women’s college
-basketball, soccer and more — in
+basketball, soccer, junior and minor-league hockey, international
+basketball (EuroLeague, Liga ACB, B.League, the NBL and more), European
+hockey (SHL, Czech Extraliga, Ligue Magnus and more) and others — in
 [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
 [**`gt`**](https://gt.rstudio.com/) tables and
 [**`reactable`**](https://glin.github.io/reactable/) tables, and in
@@ -105,7 +107,12 @@ to the same team.
 shows the id a value resolves to,
 [`sdv_suggest()`](https://sdvplotR.sportsdataverse.org/reference/sdv_suggest.md)
 proposes candidates for a typo, and `season` selects the era for codes
-that were reused.
+that were reused. Pass `id_system` to read values as one provider’s ids
+only (`id_system = "kenpom"`, `"fox"`). The [Leagues and
+Identifiers](https://sdvplotR.sportsdataverse.org/articles/leagues-and-identifiers.html)
+article lists the id systems every league carries, and
+[Troubleshooting](https://sdvplotR.sportsdataverse.org/articles/troubleshooting.html)
+covers values that do not resolve, missing logos and stale data.
 
 ``` r
 
@@ -1112,6 +1119,18 @@ Generic image geoms and theme elements provided by the ggpath backend.
   in ggplot2, gt and reactable across the 70 leagues of the
   SportsDataverse team index.
 
+- [Leagues and
+  Identifiers](https://sdvplotR.sportsdataverse.org/articles/leagues-and-identifiers.md):
+
+  The 70 leagues of the SportsDataverse team index, the id systems each
+  one carries, what a team_id is in the international basketball and
+  European hockey leagues, and how to switch between id systems.
+
+- [Troubleshooting](https://sdvplotR.sportsdataverse.org/articles/troubleshooting.md):
+
+  What to do when a team does not resolve, a logo or headshot is
+  missing, the data looks out of date, or saving an image fails.
+
 ### Per-Sport Articles
 
 Data ingest with the companion SportsDataverse package, then sdvplotR
@@ -1178,6 +1197,19 @@ visualization, for each sport.
   Convert soccer event coordinates from any major provider to one 105 x
   68 m pitch frame with sdv_pitch_coords(), then draw them with
   sdvplotR.
+
+- [International Basketball
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/intl-basketball-viz.md):
+
+  The 2025-26 seasons of the EuroLeague, Liga ACB, the ABA League, the
+  KBL and the B.League, drawn with sdvplotR team logos and colors from
+  hoopR’s standings.
+
+- [European Hockey
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/euro-hockey-viz.md):
+
+  The 2025-26 SHL season built from its 364 games, and the Ligue Magnus
+  table, drawn with sdvplotR team logos and colors from fastRhockey.
 
 ### Cookbooks
 

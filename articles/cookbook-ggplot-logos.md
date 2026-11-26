@@ -10,6 +10,14 @@ and export questions that come up along the way. Each recipe answers one
 nflverse (nflreadr), NBA and men’s college basketball from hoopR, and
 the NHL from fastRhockey. Every loader reads a file the SportsDataverse
 publishes on GitHub, so nothing here calls a league’s own stats site.
+Every recipe works the same way in the other leagues of
+[`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md):
+change `league`. [International
+Basketball](https://sdvplotR.sportsdataverse.org/articles/intl-basketball-viz.md)
+and [European
+Hockey](https://sdvplotR.sportsdataverse.org/articles/euro-hockey-viz.md)
+use these recipes on the EuroLeague, Liga ACB, the B.League, the SHL and
+others.
 
 ``` r
 

@@ -16,6 +16,18 @@
   in ggplot2, gt and reactable across the 70 leagues of the
   SportsDataverse team index.
 
+- [Leagues and
+  Identifiers](https://sdvplotR.sportsdataverse.org/articles/leagues-and-identifiers.md):
+
+  The 70 leagues of the SportsDataverse team index, the id systems each
+  one carries, what a team_id is in the international basketball and
+  European hockey leagues, and how to switch between id systems.
+
+- [Troubleshooting](https://sdvplotR.sportsdataverse.org/articles/troubleshooting.md):
+
+  What to do when a team does not resolve, a logo or headshot is
+  missing, the data looks out of date, or saving an image fails.
+
 ### Per-Sport Articles
 
 Data ingest with the companion SportsDataverse package, then sdvplotR
@@ -82,6 +94,19 @@ visualization, for each sport.
   Convert soccer event coordinates from any major provider to one 105 x
   68 m pitch frame with sdv_pitch_coords(), then draw them with
   sdvplotR.
+
+- [International Basketball
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/intl-basketball-viz.md):
+
+  The 2025-26 seasons of the EuroLeague, Liga ACB, the ABA League, the
+  KBL and the B.League, drawn with sdvplotR team logos and colors from
+  hoopR’s standings.
+
+- [European Hockey
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/euro-hockey-viz.md):
+
+  The 2025-26 SHL season built from its 364 games, and the Ligue Magnus
+  table, drawn with sdvplotR team logos and colors from fastRhockey.
 
 ### Cookbooks
 

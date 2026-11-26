@@ -42,7 +42,10 @@ draws 59 team-styled playing surfaces through ‘sportyR’ (\>= 2.4.5).
     team data upstream (sdv-assets / the sdvplot team index); refresh
     the snapshot with `data-raw/export_index.py` then
     `Rscript data-raw/build_index_snapshot.R`. Never hand-edit
-    `NAMESPACE`, `man/`, `README.md` or the `.rda`.
+    `NAMESPACE`, `man/`, `README.md` or the `.rda`. A new league or id
+    system needs no R code: document it in
+    `vignettes/leagues-and-identifiers.Rmd` and the README league
+    families.
 5.  Call ‘sportyR’ only through its exported functions
     ([`sportyR::get_surface_dimensions()`](https://sportyR.sportsdataverse.org/reference/get_surface_dimensions.html),
     the `geom_*()` functions), after

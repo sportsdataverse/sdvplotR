@@ -12,10 +12,12 @@ articles:
   cookbook-reactable: cookbook-reactable.html
   cookbook-surfaces-shot-charts: cookbook-surfaces-shot-charts.html
   delay_tables: delay_tables.html
+  euro-hockey-viz: euro-hockey-viz.html
   gallery: gallery.html
   getting-started: getting-started.html
   grid_tables: grid_tables.html
   gt-toolkit: gt-toolkit.html
+  intl-basketball-viz: intl-basketball-viz.html
   leaderboard-cfb-weekly: leaderboard-cfb-weekly.html
   leaderboard-dashboards: leaderboard-dashboards.html
   leaderboard-mlb: leaderboard-mlb.html
@@ -23,6 +25,7 @@ articles:
   leaderboard-nfl-weekly: leaderboard-nfl-weekly.html
   leaderboard-nhl: leaderboard-nhl.html
   leaderboard-wnba: leaderboard-wnba.html
+  leagues-and-identifiers: leagues-and-identifiers.html
   mbb-viz: mbb-viz.html
   mlb-viz: mlb-viz.html
   nba-viz: nba-viz.html
@@ -56,11 +59,12 @@ articles:
   styling: styling.html
   articles/table-themes: table-themes.html
   tier_list: tier_list.html
+  troubleshooting: troubleshooting.html
   wbb-viz: wbb-viz.html
   window_wins: window_wins.html
   wnba-viz: wnba-viz.html
   workflows: workflows.html
-last_built: 2026-11-26T00:35Z
+last_built: 2026-11-26T07:25Z
 urls:
   reference: https://sdvplotR.sportsdataverse.org/reference
   article: https://sdvplotR.sportsdataverse.org/articles

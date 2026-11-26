@@ -54,7 +54,9 @@ A character vector of `team_id`s, the length of `x`.
 
 [`sdv_suggest()`](https://sdvplotR.sportsdataverse.org/reference/sdv_suggest.md)
 for a value that did not resolve,
-[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md).
+[`sdv_teams()`](https://sdvplotR.sportsdataverse.org/reference/sdv_teams.md),
+[`sdv_aliases()`](https://sdvplotR.sportsdataverse.org/reference/sdv_aliases.md)
+for the values each id system holds.
 
 ## Examples
 
@@ -65,4 +67,10 @@ sdv_resolve("QUE", "nhl", season = 1990)
 #> [1] "17"
 sdv_resolve(c("Iowa St.", "Miami (OH)"), "mbb")
 #> [1] "66"  "193"
+# a Fox id: "auto" never tries Fox, whose numbers overlap ESPN's
+sdv_resolve("54", "mbb", id_system = "fox")
+#> [1] "41"
+# the international leagues take a name or the league's own team id
+sdv_resolve(c("Real Madrid", "MAD"), "euroleague")
+#> [1] "MAD" "MAD"
 ```

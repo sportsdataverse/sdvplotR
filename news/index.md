@@ -175,6 +175,17 @@ built on ‘ggpath’. It shares its team index, logo archive and argument
 names with the Python package sdvplot and the JavaScript packages
 `@sportsdataverse/sdvplot` and `@sportsdataverse/sdvtables`.
 
+Two articles on the package site cover the leagues and their
+identifiers. “Leagues and Identifiers” lists the id systems each league
+carries and what `team_id` is in the international basketball and
+European hockey leagues, and shows how to switch with `id_system`.
+“Troubleshooting” covers values that do not resolve, missing logos and
+headshots, stale data, saving images and ‘sportyR’. Two per-sport
+articles draw the new leagues from hoopR’s and fastRhockey’s readers:
+“International Basketball” (the EuroLeague, Liga ACB, the ABA League,
+the KBL and the B.League) and “European Hockey” (the SHL and Ligue
+Magnus).
+
 ### Teams and identifiers
 
 - [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)

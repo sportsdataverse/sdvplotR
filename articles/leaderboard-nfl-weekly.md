@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-26:** the 2026 season through week 11 (163 games).
+**Updated 2026-11-26:** the 2026 season through week 12 (164 games).
 
 This page is rebuilt every week with the site. It finds the latest NFL
 season with play-by-play, ranks every team by EPA (expected points
@@ -143,7 +143,7 @@ head(power)
 #> 1     1 SF    49ers   9-1      110  0.199  -0.0141  0.213 0.316
 #> 2     2 KC    Chiefs  8-2      108  0.130  -0.0728  0.203 0.420
 #> 3     3 JAX   Jaguars 7-3      120  0.0935 -0.0800  0.174 0.177
-#> 4     4 LA    Rams    6-4       61  0.0793 -0.0749  0.154 0.361
+#> 4     4 LA    Rams    7-4       74  0.0745 -0.0793  0.154 0.315
 #> 5     5 CIN   Bengals 7-3       83  0.154   0.0198  0.135 0.198
 #> 6     6 BUF   Bills   9-1      105  0.129  -0.00486 0.134 0.318
 ```
@@ -289,7 +289,7 @@ qbs |>
 
 | NFL quarterbacks by EPA per dropback, 2026 |  |  |  |  |  |  |  |  |  |
 |----|----|----|----|----|----|----|----|----|----|
-| Minimum 165 dropbacks, through week 11 |  |  |  |  |  |  |  |  |  |
+| Minimum 165 dropbacks, through week 12 |  |  |  |  |  |  |  |  |  |
 |  |  | Quarterback |  | Dropbacks | EPA/db | CPOE | Success | TD | INT |
 | 1 | ![Player 00-0037834 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/xs2fyj1sqdgwvt9ihbri.png) | Brock Purdy | ![San Francisco 49ers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/82/82ae812f6c15718ce5abdd402863e8b4553fa9971e4baa5d45ff585c52948a45.png) | 325 | 0.359 | +6.4 | 58.5% | 23 | 5 |
 | 2 | ![Player 00-0036442 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/gnnvcgui1cijybukk2w7.png) | Joe Burrow | ![Cincinnati Bengals](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/8e/8e549c0ecac92453140370b2aef3e4a140139b50d16e92507532e8ee49930d4e.png) | 409 | 0.257 | +9.7 | 55.7% | 29 | 6 |
@@ -301,9 +301,9 @@ qbs |>
 | 8 | ![Player 00-0039851 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/mkauzrg7vo8lfziigsbg.png) | Drake Maye | ![New England Patriots](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/da/dac19aa9a573dcf9075e2422bee3e35a4955b9ab494bb3191ab3bacfd3609729.png) | 324 | 0.176 | +7.0 | 50.6% | 18 | 11 |
 | 9 | ![Player 00-0039918 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/h4qs11kutwiw7whekmyt.png) | Caleb Williams | ![Chicago Bears](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/fd/fd7b5a207b9ad443f950b384d43dba6cb367c5737ad50a51a15e3893fa31753b.png) | 254 | 0.164 | +6.2 | 50.4% | 10 | 6 |
 | 10 | ![Player 00-0039163 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/tt4zrtxlhifaljhj0rn7.png) | C.J. Stroud | ![Houston Texans](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/54/54b0fe559761860e4953851c197d995b2f9c0c4e278164edda7b608ffd64f39b.png) | 378 | 0.151 | +1.5 | 46.8% | 22 | 4 |
-| 11 | ![Player 00-0036264 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png) | Jordan Love | ![Green Bay Packers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png) | 396 | 0.133 | +1.0 | 43.4% | 20 | 7 |
-| 12 | ![Player 00-0026498 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | Matthew Stafford | ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | 390 | 0.124 | +0.4 | 48.7% | 19 | 10 |
-| 13 | ![Player 00-0029604 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/za7cynvpwlsro1tsaijk.png) | Kirk Cousins | ![Minnesota Vikings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png) | 408 | 0.124 | +0.6 | 48.0% | 22 | 10 |
+| 11 | ![Player 00-0029604 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/za7cynvpwlsro1tsaijk.png) | Kirk Cousins | ![Minnesota Vikings](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/72/72759956b149bc1c9496ea6ebb9a6ae34093dfed371cc6abb425c13f14f53448.png) | 408 | 0.124 | +0.6 | 48.0% | 22 | 10 |
+| 12 | ![Player 00-0036264 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/thz8stjkbjwddxqnozi5.png) | Jordan Love | ![Green Bay Packers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/7e/7ea8154cdbff5db84d248f235c1f1c78a1a8b4cb8c14335b5886ec10ee20b00e.png) | 427 | 0.118 | +0.2 | 43.1% | 21 | 9 |
+| 13 | ![Player 00-0026498 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/jwpkjfrkzufdyh8u1mg7.png) | Matthew Stafford | ![Los Angeles Rams](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/e2/e289b738a5e1259cccea921bee02eec881d35b4241761a8c4e12fe5964cab75c.png) | 414 | 0.112 | +0.5 | 48.8% | 19 | 11 |
 | 14 | ![Player 00-0039910 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/gfz8k5onuqjrche9ogqc.png) | Jayden Daniels | ![Washington Commanders](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2f/2f67805ef9e385a4c67adb0a9320706bd481a52e3aa0e0faea995dad2b501112.png) | 298 | 0.076 | +4.0 | 46.6% | 10 | 2 |
 | 15 | ![Player 00-0030565 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/q8wfqvmy7cwxdi35dtby.png) | Geno Smith | ![New York Jets](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/5d/5de8d029f3602c97ffe02bd636eb2630e55d019d1a37cf819d3b9e39a219487b.png) | 358 | 0.074 | +4.4 | 46.6% | 15 | 3 |
 | 16 | ![Player 00-0039150 headshot](https://static.www.nfl.com/image/upload/t_headshot_desktop/f_auto/league/vcvhmxvxw2a3armle0af.png) | Bryce Young | ![Carolina Panthers](https://sdv.nyc3.cdn.digitaloceanspaces.com/assets/public/sha256/2c/2cebc1bbdcfd89f28c1578b397f440d229d93fa9a30bfa1193cc286482c82298.png) | 408 | 0.051 | +0.9 | 44.4% | 18 | 7 |

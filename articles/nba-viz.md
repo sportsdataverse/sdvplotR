@@ -664,6 +664,8 @@ step by step.
   Visualizations](https://sdvplotR.sportsdataverse.org/articles/wnba-viz.md)
 - [Men’s College Basketball
   Visualizations](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.md)
+- [International Basketball
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/intl-basketball-viz.md)
 - [Social Posting
   Patterns](https://sdvplotR.sportsdataverse.org/articles/social-posting.md)
 

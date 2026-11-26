@@ -8,6 +8,9 @@ preview of a table theme from the package.
 
 [![Figure](../articles/getting-started_files/figure-html/colors-1.png)Getting
 Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)
+[![Figure](../articles/leagues-and-identifiers_files/figure-html/international-logos-1.png)Leagues
+and
+Identifiers](https://sdvplotR.sportsdataverse.org/articles/leagues-and-identifiers.md)
 [![Figure](../articles/nfl-viz_files/figure-html/epa-plot-1.png)NFL](https://sdvplotR.sportsdataverse.org/articles/nfl-viz.md)
 [![Figure](../articles/cfb-viz_files/figure-html/playoff-bracket-1.png)College
 Football](https://sdvplotR.sportsdataverse.org/articles/cfb-viz.md)
@@ -21,6 +24,10 @@ Basketball](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.md)
 [![Figure](../articles/wbb-viz_files/figure-html/team-performance-1.png)Women's
 College
 Basketball](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.md)
+[![Figure](../articles/intl-basketball-viz_files/figure-html/team-performance-1.png)International
+Basketball](https://sdvplotR.sportsdataverse.org/articles/intl-basketball-viz.md)
+[![Figure](../articles/euro-hockey-viz_files/figure-html/points-race-1.png)European
+Hockey](https://sdvplotR.sportsdataverse.org/articles/euro-hockey-viz.md)
 [![Figure](../articles/social-posting_files/figure-html/logo-scatter-1.png)Social
 Posting](https://sdvplotR.sportsdataverse.org/articles/social-posting.md)
 [![Table theme preview](../reference/figures/gt_theme_pl.png)Leaderboard

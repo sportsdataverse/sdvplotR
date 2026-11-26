@@ -843,6 +843,8 @@ recipe makes a shot map like section 4’s interactive.
   Started](https://sdvplotR.sportsdataverse.org/articles/getting-started.md)
 - [MLB
   Visualizations](https://sdvplotR.sportsdataverse.org/articles/mlb-viz.md)
+- [European Hockey
+  Visualizations](https://sdvplotR.sportsdataverse.org/articles/euro-hockey-viz.md)
 - [Social Posting
   Patterns](https://sdvplotR.sportsdataverse.org/articles/social-posting.md)
 - [Leaderboard

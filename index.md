@@ -1,11 +1,13 @@
 # **sdvplotR**
 
 [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) plots sports
-team logos, wordmarks, player headshots and team colors across the **49
+team logos, wordmarks, player headshots and team colors across the **70
 leagues** of the SportsDataverse team index
 ([`sdv_leagues()`](https://sdvplotR.sportsdataverse.org/reference/sdv_leagues.md))
 — NFL, NBA, WNBA, MLB, NHL, college football, men’s and women’s college
-basketball, soccer and more — in
+basketball, soccer, junior and minor-league hockey, international
+basketball (EuroLeague, Liga ACB, B.League, the NBL and more), European
+hockey (SHL, Czech Extraliga, Ligue Magnus and more) and others — in
 [**`ggplot2`**](https://ggplot2.tidyverse.org/) plots,
 [**`gt`**](https://gt.rstudio.com/) tables and
 [**`reactable`**](https://glin.github.io/reactable/) tables, and in
@@ -105,7 +107,12 @@ to the same team.
 shows the id a value resolves to,
 [`sdv_suggest()`](https://sdvplotR.sportsdataverse.org/reference/sdv_suggest.md)
 proposes candidates for a typo, and `season` selects the era for codes
-that were reused.
+that were reused. Pass `id_system` to read values as one provider’s ids
+only (`id_system = "kenpom"`, `"fox"`). The [Leagues and
+Identifiers](https://sdvplotR.sportsdataverse.org/articles/leagues-and-identifiers.html)
+article lists the id systems every league carries, and
+[Troubleshooting](https://sdvplotR.sportsdataverse.org/articles/troubleshooting.html)
+covers values that do not resolve, missing logos and stale data.
 
 ``` r
 
