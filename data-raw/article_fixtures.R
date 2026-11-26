@@ -295,14 +295,17 @@ fx_border_bars_nfl <- function() {
 
 fx_intl_basketball <- function() {
   # intl-basketball-viz, chunk load-api: five leagues' 2025-26 final regular-season standings
+  # (acb, kbl, aba and bleague take the season's END year; the EuroLeague's code its start year)
   euroleague <- hoopR::euroleague_standings(competition_code = "E", season_code = "E2025", round = 38) |>
     select(position, club_code, club_name, games_won, games_lost, points_for, points_against, points_difference)
-  acb <- hoopR::acb_standings(season = 2025) |>
+  acb <- hoopR::acb_standings(season = 2026) |>
+    filter(season == 2026) |>
     select(position, club_id, team, wins, losses, points_for, points_against)
   aba <- hoopR::aba_standings(season = 2026) |>
     filter(table == "Regular Season 2025/26") |>
     select(rank, team_id, team_name, wins, losses, point_diff)
-  kbl <- hoopR::kbl_standings(season = 2025) |>
+  kbl <- hoopR::kbl_standings(season = 2026) |>
+    filter(season == 2026) |>
     select(rank, team_code, team_name, wins, losses, win_rate)
   bleague <- hoopR::bleague_standings(season = 2026, tab = 1) |>
     filter(section_en %in% c("East", "West")) |>
@@ -310,14 +313,14 @@ fx_intl_basketball <- function() {
   stopifnot(
     nrow(euroleague) == 20, all(euroleague$games_won + euroleague$games_lost == 38),
     nrow(acb) == 18, all(acb$wins + acb$losses == 34),
-    nrow(aba) >= 14, nrow(kbl) == 10, nrow(bleague) == 26
+    nrow(aba) >= 14, nrow(kbl) == 10, all(kbl$wins + kbl$losses == 54), nrow(bleague) == 26
   )
   list(
     season = 2026,
     euroleague = euroleague, acb = acb, aba = aba, kbl = kbl, bleague = bleague,
     call = paste(
-      'hoopR::euroleague_standings("E", "E2025", round = 38), acb_standings(season = 2025),',
-      "aba_standings(season = 2026), kbl_standings(season = 2025), bleague_standings(season = 2026)"
+      'hoopR::euroleague_standings("E", "E2025", round = 38), acb_standings(season = 2026),',
+      "aba_standings(season = 2026), kbl_standings(season = 2026), bleague_standings(season = 2026)"
     ),
     package = "hoopR"
   )

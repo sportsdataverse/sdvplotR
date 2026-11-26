@@ -13,7 +13,7 @@ Limits: 200 KB a file, 2 MB in all.
 | `border_bars/wnba_player_box.rds` | `wehoop::load_wnba_player_box(2026)` | 2026 | 2026-11-09 | wehoop 3.0.0 | 24.9 |
 | `cfb-viz/cfb_schedule.rds` | `cfbfastR::load_cfb_schedules(2025) (CFBD refused: the sportsdataverse-data cfb_schedules release)` | 2025 | 2026-11-09 | cfbfastR 3.0.0.9000 | 37.1 |
 | `euro-hockey-viz/standings.rds` | `fastRhockey::shl_schedule(season = 2026), magnus_standings(phase_id = 560)` | 2026 | 2026-11-26 | fastRhockey 1.1.0 | 3.3 |
-| `intl-basketball-viz/standings.rds` | `hoopR::euroleague_standings("E", "E2025", round = 38), acb_standings(season = 2025), aba_standings(season = 2026), kbl_standings(season = 2025), bleague_standings(season = 2026)` | 2026 | 2026-11-26 | hoopR 3.2.0 | 3.0 |
+| `intl-basketball-viz/standings.rds` | `hoopR::euroleague_standings("E", "E2025", round = 38), acb_standings(season = 2026), aba_standings(season = 2026), kbl_standings(season = 2026), bleague_standings(season = 2026)` | 2026 | 2026-11-26 | hoopR 3.2.0 | 3.0 |
 | `mlb-viz/mlb_stats_api.rds` | `baseballr::mlb_teams(), mlb_standings(league_id = "103,104"), mlb_schedule(), mlb_stats(player_pool = "All"), mlb_teams(season = 1901:2026)` | 2026 | 2026-10-05 | baseballr 2.0.0 | 13.1 |
 | `mlb-viz/savant.rds` | `baseballr::statcast_leaderboards("expected_statistics", "exit_velocity_barrels"), statcast_search_batters()` | 2026 | 2026-10-05 | baseballr 2.0.0 | 5.9 |
 | `nhl-viz/nhl_api.rds` | `fastRhockey::nhl_standings(), nhl_records_franchise_season_results()` | 2026 | 2026-10-05 | fastRhockey 1.0.0 | 2.0 |
