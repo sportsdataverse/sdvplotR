@@ -44,7 +44,7 @@ already had a counterpart with `league = "cfb"`:
   athlete is left `NA`; offline it warns and returns `NA` ids.
 - cfbplotR’s wordmarks, archived in sdv-assets as source
   `"cfbplotr-legacy"`, rank after every other source when a team has
-  more than one wordmark. The bundled team index (`4ce85fb64837`) maps
+  more than one wordmark. The bundled team index (`abd1a34c1550`) maps
   360 of those 362 college wordmarks, so
   `geom_sdv_wordmarks(league = "cfb")`,
   [`gt_sdv_wordmarks()`](https://sdvplotR.sportsdataverse.org/reference/gt_sdv_wordmarks.md)
@@ -88,7 +88,7 @@ already had a counterpart with `league = "cfb"`:
   (`sdv_resolve(1611661319, "wnba", id_system = "nba_api")` is the
   Aces). Under `"auto"` an ESPN id wins over an equal NCAA id, so pass
   `id_system = "ncaa"` for NCAA ids.
-- The bundled team index (`4ce85fb64837`) covers 70 leagues: 21 new
+- The bundled team index (`abd1a34c1550`) covers 70 leagues: 21 new
   international basketball and European hockey leagues (`"euroleague"`,
   `"acb"`, `"feb"`, `"bbl"`, `"dbbl"`, `"bnxt"`, `"aba"`, `"ibba"`,
   `"kzs"`, `"lkl"`, `"dbl"`, `"vtb"`, `"bleague"`, `"kbl"`, `"wjbl"`,
@@ -97,8 +97,10 @@ already had a counterpart with `league = "cfb"`:
   sdv-reference-data’s 2026-11-25 `{league}_team_aliases`: 238 new Fox,
   Yahoo and Torvik team ids for college football (now back to 2004) and
   men’s and women’s college basketball, most of them Yahoo’s, plus
-  season windows on existing ids. It dates current NBA, WNBA, NFL, MLB
-  and college basketball marks from Sports Reference’s logo history.
+  season windows on existing ids. It adds KenPom’s 2027 names
+  `"LSU New Orleans"` (New Orleans) and `"West Florida"`. It dates
+  current NBA, WNBA, NFL, MLB and college basketball marks from Sports
+  Reference’s logo history.
   [`sdv_resolve()`](https://sdvplotR.sportsdataverse.org/reference/sdv_resolve.md)
   folds Japanese kana as sdvplot does (a voiced kana compares as its
   base kana), so the B.League and WJBL names resolve alike in R and

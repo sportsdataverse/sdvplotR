@@ -292,12 +292,12 @@ sdvplot's alias table.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">sdv_aliases</span><span class="op">(</span><span class="st">"cfb"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">[</span><span class="va">a</span><span class="op">$</span><span class="va">id_system</span> <span class="op">==</span> <span class="st">"name"</span>, <span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      league id_system                      value team_id valid_from valid_to</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5481    cfb      name              AR-Pine Bluff    2029         NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5482    cfb      name                  ARK STATE    2032         NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5483    cfb      name          Abilene Christian    2000         NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5484    cfb      name Abilene Christian Wildcats    2000         NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5485    cfb      name             Abilene Chrstn    2000         NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5486    cfb      name                   Adams St    2001         NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5479    cfb      name              AR-Pine Bluff    2029         NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5480    cfb      name                  ARK STATE    2032         NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5481    cfb      name          Abilene Christian    2000         NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5482    cfb      name Abilene Christian Wildcats    2000         NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5483    cfb      name             Abilene Chrstn    2000         NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5484    cfb      name                   Adams St    2001         NA       NA</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># cfbplotR's team_name_mapping: each name -&gt; its school</span></span></span>
 <span class="r-in"><span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="va">a</span><span class="op">[</span><span class="va">a</span><span class="op">$</span><span class="va">id_system</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"cfbd"</span>, <span class="st">"sdvplotr"</span><span class="op">)</span>, <span class="op">]</span></span></span>

@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-25:** the offseason, so this is the final 2026 regular
+**Updated 2026-11-26:** the offseason, so this is the final 2026 regular
 season.
 
 This page is rebuilt every week with the site. It builds the standings

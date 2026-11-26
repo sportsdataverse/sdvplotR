@@ -2,7 +2,7 @@
 
 On this page
 
-**Updated 2026-11-25:** the 2026 season through week 13.
+**Updated 2026-11-26:** the 2026 season through week 13.
 
 This page is rebuilt every week with the site. It rates every FBS team
 by opponent-adjusted EPA per play, a simple cousin of SP+ built from the
