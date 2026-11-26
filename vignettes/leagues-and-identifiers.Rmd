@@ -83,7 +83,8 @@ Yahoo, 247Sports and On3 ids.
 
 ## The international basketball and European hockey leagues
 
-These 21 leagues carry only `team_id` and `name`, as a few others do (`"easl"`,
+These 21 leagues carry only `team_id` and `name` (plus the logo archive's `mark`
+keys), as a few others do (`"easl"`,
 `"lba"`, `"soccer"`). Their `team_id` is the id the
 league's own data source uses, so a team id taken from that source resolves as it
 is. Names work everywhere.

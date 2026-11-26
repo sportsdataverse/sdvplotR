@@ -15,9 +15,12 @@ were published only on r-universe.
   Status: 1 NOTE (new submission). The examples, `\donttest{}` included, ran
   in 57 seconds. The full test suite with `NOT_CRAN=true` passed too (2,799
   expectations, 0 failures). The documentation changes after it (sdvplotR#113:
-  README.md, a NEWS.md bullet and three help pages; no R code or data) were
-  checked the same way on 2026-11-26: Status: OK (with the remote incoming
-  checks off, so without the new-submission NOTE).
+  README.md, a NEWS.md paragraph, and roxygen comments in two R files with
+  their three help pages; no R code or data) were checked the same way on
+  2026-11-26, with the remote incoming checks off (so without the
+  new-submission NOTE): Status: OK, and on the final tarball 0 errors, 0
+  warnings and one NOTE for example timing under machine load (`gt_grid()` at
+  5.7 seconds elapsed, 2.8 seconds CPU; no example changed between the runs).
 * GitHub Actions (R-CMD-check workflow), commit c2611a0d: ubuntu-latest and
   macos-latest, R release: Status: OK.
 * R-hub v2 (GitHub Actions, R-devel), commit c2611a0d: linux, windows and
