@@ -27,6 +27,7 @@ options(sdvplotR.offline = TRUE)
 ```
 
 Three charts and a table from two European hockey leagues' 2025-26 seasons:
+
 - the SHL's final table, built from every regular-season game;
 - the SHL's points race;
 - the SHL's goals for against goals against;
@@ -75,14 +76,14 @@ takes it with the same code.
 
 The SHL codes in the schedule (`FHC`, `SKE`, `ÖRE`) are the index's
 `team_id`s, and so are the Ligue Magnus team ids. `sdv_resolve()` confirms
-that every one is in the index:
+that every one is in the index (`TRUE` for both leagues):
 
 ```{r ids}
 magnus <- mutate(magnus, team_id = as.character(team_id))
 shl_teams <- sort(unique(c(shl_games$home, shl_games$away)))
 c(
-  shl = anyNA(sdv_resolve(shl_teams, "shl", id_system = "team_id")),
-  magnus = anyNA(sdv_resolve(magnus$team_id, "magnus", id_system = "team_id"))
+  shl = !anyNA(sdv_resolve(shl_teams, "shl", id_system = "team_id")),
+  magnus = !anyNA(sdv_resolve(magnus$team_id, "magnus", id_system = "team_id"))
 )
 
 caption_shl <- "Data: SHL via fastRhockey | Viz: sdvplotR"
@@ -150,26 +151,27 @@ shl |>
 ## 2. The points race
 
 Each team's points through the season, in its team color from
-`scale_color_sdv()`, with its logo where the line ends.
+`scale_color_sdv()`. The logos stand past the last game at each team's final
+points, in three columns so close finishers do not cover each other.
 
-```{r points-race, fig.width = 9, fig.height = 6, fig.alt = "Line chart of the 14 SHL teams' cumulative points over the 52 games of the 2025-26 regular season, each line in its team's color, with the team logo at the end of each line."}
+```{r points-race, fig.width = 9, fig.height = 6, fig.alt = "Line chart of the 14 SHL teams' cumulative points over the 52 games of the 2025-26 regular season, each line in its team's color, with the team logos past the last game at each team's final points."}
 race <- team_games |>
   arrange(team, date) |>
   group_by(team) |>
   mutate(game = row_number(), points = cumsum(pts)) |>
   ungroup()
-# logos alternate between two columns past the last game, so close finishers do not cover each other
+# logos rotate through three columns past the last game, so close finishers do not cover each other
 ends <- race |>
   filter(game == max(game)) |>
   arrange(desc(points)) |>
-  mutate(x = max(game) + if_else(row_number() %% 2 == 1, 2.5, 6.5))
+  mutate(x = max(game) + c(2.5, 6.5, 10.5)[(row_number() - 1) %% 3 + 1])
 
 # the colour aesthetic goes on the lines only: geom_sdv_logos() would tint the logos with it
 ggplot(race, aes(game, points)) +
   geom_line(aes(colour = team), linewidth = 0.8, alpha = 0.85) +
   geom_sdv_logos(aes(x = x, y = points, team = team), data = ends, league = "shl", width = 0.035) +
   scale_color_sdv(league = "shl") +
-  scale_x_continuous(breaks = seq(0, 52, 13), limits = c(1, 60)) +
+  scale_x_continuous(breaks = seq(0, 52, 13), limits = c(1, 64)) +
   labs(
     title = "The SHL points race, 2025-26",
     subtitle = "Cumulative points, 3 for a regulation win, 2 for an overtime or shootout win, 1 for an overtime or shootout loss",

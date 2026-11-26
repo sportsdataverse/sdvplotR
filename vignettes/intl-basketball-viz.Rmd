@@ -26,7 +26,8 @@ knitr::opts_chunk$set(
 options(sdvplotR.offline = TRUE)
 ```
 
-Four charts and a table from five leagues' 2025-26 seasons:
+Three charts and a table from five leagues' 2025-26 seasons:
+
 - the EuroLeague's point differential in team colors;
 - the B.League's final standings;
 - the top of the EuroLeague, Liga ACB, the ABA League, the KBL and the B.League
@@ -53,12 +54,14 @@ library(gt)
 # the 2025-26 final regular-season standings of each league
 euroleague <- hoopR::euroleague_standings(competition_code = "E", season_code = "E2025", round = 38) |>
   select(position, club_code, club_name, games_won, games_lost, points_for, points_against, points_difference)
-acb <- hoopR::acb_standings(season = 2026) |>
+acb <- hoopR::acb_standings(season = 2026) |> # season is the END year (2026 = 2025-26)
+  filter(season == 2026) |>
   select(position, club_id, team, wins, losses, points_for, points_against)
 aba <- hoopR::aba_standings(season = 2026) |>
   filter(table == "Regular Season 2025/26") |>
   select(rank, team_id, team_name, wins, losses, point_diff)
 kbl <- hoopR::kbl_standings(season = 2026) |>
+  filter(season == 2026) |>
   select(rank, team_code, team_name, wins, losses, win_rate)
 bleague <- hoopR::bleague_standings(season = 2026, tab = 1) |>
   filter(section_en %in% c("East", "West")) |>
@@ -81,7 +84,8 @@ takes it with the same code.
 
 Each league's id column is already the index's `team_id`. Converting it to
 character once gives every join and scale the same type. `sdv_resolve()` with
-`id_system = "team_id"` confirms that every id is in the index:
+`id_system = "team_id"` confirms that every id is in the index (`TRUE` for each
+league):
 
 ```{r ids}
 # the EuroLeague's points_difference comes as text ("+262"): recompute it
@@ -92,11 +96,11 @@ kbl <- mutate(kbl, team_id = as.character(team_code))
 bleague <- mutate(bleague, team_id = as.character(team_id))
 
 c(
-  euroleague = anyNA(sdv_resolve(euroleague$team, "euroleague", id_system = "team_id")),
-  acb = anyNA(sdv_resolve(acb$team_id, "acb", id_system = "team_id")),
-  aba = anyNA(sdv_resolve(aba$team_id, "aba", id_system = "team_id")),
-  kbl = anyNA(sdv_resolve(kbl$team_id, "kbl", id_system = "team_id")),
-  bleague = anyNA(sdv_resolve(bleague$team_id, "bleague", id_system = "team_id"))
+  euroleague = !anyNA(sdv_resolve(euroleague$team, "euroleague", id_system = "team_id")),
+  acb = !anyNA(sdv_resolve(acb$team_id, "acb", id_system = "team_id")),
+  aba = !anyNA(sdv_resolve(aba$team_id, "aba", id_system = "team_id")),
+  kbl = !anyNA(sdv_resolve(kbl$team_id, "kbl", id_system = "team_id")),
+  bleague = !anyNA(sdv_resolve(bleague$team_id, "bleague", id_system = "team_id"))
 )
 
 caption <- "Data: league data services via hoopR | Viz: sdvplotR"
@@ -140,8 +144,9 @@ ggplot(diff, aes(team, points_difference)) +
 ## 2. B.League standings by conference
 
 A gt table grouped by conference, with `gt_sdv_logos()` for the logos. The team
-names are the B.League's own, in Japanese. Names like these resolve too, because
-`sdv_resolve()` folds kana as sdvplot does.
+names are the B.League's own full club names, in Japanese. The index's B.League
+names are the short ones (`"A千葉"`), so this table joins on `team_id`, not on
+the name.
 
 ```{r standings-table}
 bleague |>
@@ -166,7 +171,9 @@ bleague |>
 
 ## 3. Five leagues, side by side
 
-Each league's top six by winning percentage, one panel per league. The bars
+Each league's top six by winning percentage, one panel per league. The ABA
+League's regular season is two groups of nine, so its top six comes from both
+groups. The bars
 carry `geom_sdv_logos()`, which takes one league per layer, so the chart adds
 one layer for each league.
 
@@ -247,8 +254,10 @@ ggplot(acb_rates, aes(ppg, opp_ppg)) +
 
 hoopR has standings, schedules and statistics readers for the other
 international leagues in the index too: FEB, KZS, LKL, LBA, VTB, EASL, IBBA and
-DataCore's NBL (`nbl_rosetta_*()`). Each one's ids work with sdvplotR the same
-way. The Basketball Bundesliga's (`"bbl"`) archived logos are a placeholder
+DataCore's NBL. Most join the same way, through the reader's team id. Two need
+a note: DataCore's NBL (`nbl_rosetta_*()`) is the index's `"nbl_au"` (league
+`"nbl"` is ESPN's NBL, with ESPN ids), and IBBA joins on `team_uid`, not
+`team_id`. The Basketball Bundesliga's (`"bbl"`) archived logos are a placeholder
 shield for some teams, so it is left out of this article.
 
 ## Related articles
