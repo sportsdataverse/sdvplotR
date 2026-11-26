@@ -138,9 +138,11 @@ sdv_versions()
 
 `index_source` is `"live"` (the CDN, or the disk copy within a day of it),
 `"cache"` (an older disk copy, after a failed refresh) or `"snapshot"` (the copy
-bundled with the package). To read the CDN again now:
+bundled with the package). To read the CDN again now, turn offline mode off if
+you set it (the snapshot is always used while it is on), then clear the caches:
 
 ```{r clear, eval = FALSE}
+options(sdvplotR.offline = FALSE)
 sdv_clear_cache()
 sdv_versions()
 ```
@@ -172,3 +174,48 @@ Open an issue on [GitHub](https://github.com/sportsdataverse/sdvplotR/issues)
 with the call, the warning and the output of `sdv_versions()`. A wrong logo or
 color for a team is a data issue, fixed upstream in the team index: the issue
 form has a template for it.
+
+## **Our Authors**
+
+-   [Saiem Gilani](https://x.com/saiemgilani)<br>
+<a href='https://x.com/saiemgilani' target='blank'><img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;label=%40saiemgilani&amp;logo=x&amp;style=for-the-badge' alt='@saiemgilani'/></a>
+<a href='https://github.com/saiemgilani' target='blank'><img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@saiemgilani'/></a>
+-   [Sebastian Carl](https://x.com/mrcaseb)<br>
+<a href='https://x.com/mrcaseb' target='blank'><img src='https://img.shields.io/twitter/follow/mrcaseb?color=blue&amp;label=%40mrcaseb&amp;logo=x&amp;style=for-the-badge' alt='@mrcaseb'/></a>
+<a href='https://github.com/mrcaseb' target='blank'><img src='https://img.shields.io/github/followers/mrcaseb?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@mrcaseb'/></a>
+-   [Jared Lee](https://github.com/Kazink36)<br>
+<a href='https://github.com/Kazink36' target='blank'><img src='https://img.shields.io/github/followers/Kazink36?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@Kazink36'/></a>
+-   [Camden Kay](https://x.com/camdenkay)<br>
+<a href='https://x.com/camdenkay' target='blank'><img src='https://img.shields.io/twitter/follow/camdenkay?color=blue&amp;label=%40camdenkay&amp;logo=x&amp;style=for-the-badge' alt='@camdenkay'/></a>
+<a href='https://github.com/camdenk' target='blank'><img src='https://img.shields.io/github/followers/camdenk?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@camdenk'/></a>
+-   [Andrew Weatherman](https://github.com/andreweatherman) (gtUtils)<br>
+<a href='https://github.com/andreweatherman' target='blank'><img src='https://img.shields.io/github/followers/andreweatherman?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@andreweatherman'/></a>
+
+## **Citation**
+
+To cite the [**`sdvplotR`**](https://sdvplotR.sportsdataverse.org/) R package in publications, use:
+
+BibTeX Citation
+
+```bibtex
+@misc{gilani_carl_lee_kay_weatherman_sdvplotR,
+  author = {Gilani, Saiem and Carl, Sebastian and Lee, Jared and Kay, Camden and Weatherman, Andrew},
+  title = {sdvplotR: The SportsDataverse's R Package for Multi-League Sports Plotting.},
+  url = {https://sdvplotR.sportsdataverse.org},
+  year = {2026}
+}
+```
+
+## **Related SportsDataverse packages**
+
+-   [**sdvplot**](https://sdvplot.sportsdataverse.org/) - the Python plotting package
+-   [**sdvplot-js**](https://plot.sportsdataverse.org/) - the JavaScript / TypeScript plotting packages
+-   [**cfbfastR**](https://cfbfastR.sportsdataverse.org/) - college football
+-   [**hoopR**](https://hoopR.sportsdataverse.org/) - men's basketball
+-   [**wehoop**](https://wehoop.sportsdataverse.org/) - women's basketball
+-   [**baseballr**](https://baseballr.sportsdataverse.org/) - baseball
+-   [**fastRhockey**](https://fastRhockey.sportsdataverse.org/) - hockey
+-   [**oddsapiR**](https://oddsapiR.sportsdataverse.org/) - betting odds
+-   [**sportyR**](https://sportyR.sportsdataverse.org/) - playing surfaces
+-   [**sportsdataverse-py**](https://py.sportsdataverse.org/) - the Python package
+-   [**sportsdataverse-R**](https://r.sportsdataverse.org/) - the R meta-package
