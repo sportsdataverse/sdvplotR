@@ -9,25 +9,22 @@ were published only on r-universe.
 
 ## Test environments
 
-* local: Windows 10 x64, R 4.6.0 (ucrt) with S7 1.0.0 and ggplot2 4.0.4,
-  2026-11-24, `R CMD check --as-cran --run-donttest` on the tarball built from
-  5039773b, with an empty user `.Renviron`: Status: 1 NOTE (new submission).
-  The examples, `\donttest{}` included, ran in 57 seconds in total. A second
-  pass, `--run-donttest --no-tests --no-manual` with the network blocked
-  (proxy set to a closed port): Status: OK. Later commits change only files
-  that `.Rbuildignore` leaves out of the tarball (an article, contributor
-  documentation and this file).
-* GitHub Actions (R-CMD-check workflow): macOS (release), Windows (release),
-  Ubuntu (devel, release, oldrel-1), all passing on 2026-11-24 on the
-  submission branch, with S7 1.0.0 (built from source on R-devel); also
-  `Status: OK` on all five on 2026-11-20 at 141aead2, whose package sources
-  are the same.
-* R-hub v2 (GitHub Actions, R-devel: Linux, Windows, macOS, macOS arm64):
-  2026-11-24 on a189bc06, whose tarball is the same as the submitted
-  commit's: all four passing.
+* local: Windows 10 x64, R 4.6.0 (ucrt) with ggplot2 4.0.3, S7 0.2.2 and
+  sportyR 2.4.5, 2026-11-25, `R CMD check --as-cran --run-donttest` on the
+  tarball built from commit c2611a0d, with an empty user `.Renviron`:
+  Status: 1 NOTE (new submission). The examples, `\donttest{}` included, ran
+  in 57 seconds. The full test suite with `NOT_CRAN=true` passed too (2,799
+  expectations, 0 failures). Later commits reword one NEWS.md bullet, with no
+  change to the R code or data, and edit this file, which `.Rbuildignore`
+  leaves out of the tarball.
+* GitHub Actions (R-CMD-check workflow), commit c2611a0d: ubuntu-latest and
+  macos-latest, R release: Status: OK.
+* R-hub v2 (GitHub Actions, R-devel), commit c2611a0d: linux, windows and
+  macos-arm64 passed. The macos (x86_64) job had not finished after an hour
+  on 2026-11-25; it is to be re-run before the CRAN upload.
 * win-builder (devel and release): not yet run. win-builder.r-project.org
-  did not answer from 15:36 to 16:41 UTC on 2026-11-24; to be submitted
-  before the CRAN upload.
+  could not be reached on 2026-11-24 or 2026-11-25 (the last try was at
+  22:47 UTC on 2026-11-25). It is to be run before the CRAN upload.
 
 ## R CMD check results
 
@@ -35,8 +32,14 @@ were published only on r-universe.
 
 * This is a new submission.
 
-The installed size is about 3.3 Mb (help 1.5 Mb, R 1.4 Mb, extdata 0.33 Mb);
-the tarball is 2.1 Mb.
+The incoming check can also report three README URLs as "Forbidden" (HTTP
+403): <https://sportsdataverse.r-universe.dev/sdvplotR>,
+<https://www.npmjs.com/package/@sportsdataverse/sdvplot> and
+<https://www.npmjs.com/package/@sportsdataverse/sdvtables>. These sites
+answer 403 to automated clients. All three open in a web browser.
+
+The installed size is about 3.5 Mb (help 1.6 Mb, R 1.5 Mb, extdata 0.35 Mb).
+The tarball is 2.2 Mb.
 
 ## Reverse dependencies
 
