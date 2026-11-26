@@ -29,8 +29,12 @@ history_systems <- c("bref", "sportsipy", "mlbstats", "espn_abbr")
 #'
 #' @description The SportsDataverse league keys every `league` argument takes:
 #'   the leagues of the shared team index sdvplot (Python) and sdvplot-js use.
+#'   The Leagues and Identifiers article on the package site
+#'   (<https://sdvplotR.sportsdataverse.org/articles/leagues-and-identifiers.html>)
+#'   names each league and lists the id systems it carries.
 #' @return A sorted character vector.
-#' @seealso [sdv_teams()] for each league's teams.
+#' @seealso [sdv_teams()] for each league's teams, [sdv_aliases()] for the
+#'   identifiers each league carries.
 #' @export
 #' @examples
 #' sdv_leagues()
@@ -401,12 +405,17 @@ report_unresolved <- function(x, why, league, strict = FALSE, call = rlang::call
 #' @param strict If `TRUE`, a value that does not resolve is an error;
 #'   otherwise it becomes `NA` with one warning per call.
 #' @return A character vector of `team_id`s, the length of `x`.
-#' @seealso [sdv_suggest()] for a value that did not resolve, [sdv_teams()].
+#' @seealso [sdv_suggest()] for a value that did not resolve, [sdv_teams()],
+#'   [sdv_aliases()] for the values each id system holds.
 #' @export
 #' @examples
 #' sdv_resolve(c("KC", "Kansas City Chiefs", "OAK"), "nfl")
 #' sdv_resolve("QUE", "nhl", season = 1990)
 #' sdv_resolve(c("Iowa St.", "Miami (OH)"), "mbb")
+#' # a Fox id: "auto" never tries Fox, whose numbers overlap ESPN's
+#' sdv_resolve("54", "mbb", id_system = "fox")
+#' # the international leagues take a name or the league's own team id
+#' sdv_resolve(c("Real Madrid", "MAD"), "euroleague")
 sdv_resolve <- function(x, league, season = NULL, id_system = "auto", strict = FALSE) {
   r <- resolve_ids(x, league, season, id_system)
   report_unresolved(x, r$why, league, strict)

@@ -64,6 +64,17 @@ team id / name / code (any of 25 id systems, or id_system = "auto")
   `id_system`; those that draw marks or colours also take `season`; `strict`
   raises instead of warning on an unresolved value. See NEWS.md (0.3.0) for
   exactly which helpers take which.
+- Leagues come only from the index: a new league (as the 21 international
+  basketball and European hockey leagues of index `4ce85fb64837` did) lands in
+  sdvplot's index first, then here as a snapshot PR (`data-raw/export_index.py`,
+  `build_index_snapshot.R`), with no R code change. Those 21 leagues carry only
+  the `team_id` (each league's own source id: EuroLeague club codes, DataCore
+  UUIDs for `nbl_au` / `wnbl`, StatNet codes for `shl`) and `name` id systems.
+  When leagues or id systems change, update `vignettes/leagues-and-identifiers.Rmd`
+  (its id-system table is generated, its `team_id` table is not), the README
+  league families and the counts in README.Rmd, `_pkgdown.yml`, this file and
+  `.github/copilot-instructions.md`. User-facing fixes for a value that does not
+  resolve, a missing image or stale data go in `vignettes/troubleshooting.Rmd`.
 - NFL headshots follow nflplotR: `load_headshot_map()` reads
   `headshot_gsis_map.rds` from this repo's `sdvplotr_infrastructure`
   pre-release (never "Latest", so `@*release` installs are unaffected)

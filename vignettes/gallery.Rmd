@@ -32,7 +32,7 @@ preview <- function(name) sprintf("../reference/figures/%s.png", name)
 
 cards <- data.frame(
   article = c(
-    "getting-started",
+    "getting-started", "leagues-and-identifiers",
     "nfl-viz", "cfb-viz", "nba-viz", "wnba-viz", "mlb-viz", "nhl-viz", "mbb-viz", "wbb-viz",
     "social-posting", "leaderboard-dashboards", "reactable-integration", "workflows",
     "sdv-table-themes", "gt-toolkit",
@@ -52,7 +52,7 @@ cards <- data.frame(
     "leaderboard-mlb", "leaderboard-nhl", "automation-social"
   ),
   title = c(
-    "Getting Started",
+    "Getting Started", "Leagues and Identifiers",
     "NFL", "College Football", "NBA", "WNBA", "MLB", "NHL",
     "Men's College Basketball", "Women's College Basketball",
     "Social Posting", "Leaderboard Dashboards", "reactable Integration", "End-to-End Workflows",
@@ -75,7 +75,7 @@ cards <- data.frame(
     "WNBA Leaderboard", "MLB Leaderboard", "NHL Leaderboard", "Social Graphics, Automated"
   ),
   image = c(
-    fig("getting-started", "colors"),
+    fig("getting-started", "colors"), fig("leagues-and-identifiers", "international-logos"),
     fig("nfl-viz", "epa-plot"), fig("cfb-viz", "playoff-bracket"),
     fig("nba-viz", "team-performance"), fig("wnba-viz", "team-performance"),
     fig("mlb-viz", "team-performance"), fig("nhl-viz", "team-performance"),

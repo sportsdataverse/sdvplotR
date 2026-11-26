@@ -1,0 +1,171 @@
+---
+title: "Troubleshooting"
+description: "What to do when a team does not resolve, a logo or headshot is missing, the data looks out of date, or saving an image fails."
+author: "Saiem Gilani <br><a href='https://x.com/saiemgilani' target='blank'><img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;label=%40saiemgilani&amp;logo=x&amp;style=for-the-badge' alt='@saiemgilani'/></a> <a href='https://github.com/saiemgilani' target='blank'><img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@saiemgilani'/></a>"
+opengraph:
+  image:
+    src: "https://sdvplotR.sportsdataverse.org/sdvplotR-social-card.png"
+  twitter:
+    site: "@SportsDataverse"
+    card: summary_large_image
+    creator: "@saiemgilani"
+output: html_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+# the site builds this article from the team-index snapshot bundled with the
+# package, set before the first lookup so every chunk reads the same data
+options(sdvplotR.offline = TRUE)
+```
+
+```{r setup}
+library(sdvplotR)
+```
+
+## A team does not resolve
+
+A value sdvplotR cannot match becomes `NA`, with one warning per call that
+names each value and why it failed:
+
+```{r unresolved}
+sdv_resolve(c("KC", "Kansas Cty"), league = "nfl")
+```
+
+Things to try, in order:
+
+1. **Check the league.** One abbreviation means different teams in different
+   leagues, so `league` is required, and it must be one of `sdv_leagues()`.
+   ESPN's NBL is `"nbl"` (ESPN ids), while the DataCore-keyed NBL is
+   `"nbl_au"`.
+2. **Ask for candidates.** `sdv_suggest()` ranks the closest names:
+
+    ```{r suggest}
+    sdv_suggest("Kansas Cty", league = "nfl", n = 3)
+    ```
+
+3. **Name the id system.** Under the default `id_system = "auto"`, a number
+   is tried as an ESPN id first (an ESPN id wins over an equal NCAA id), and
+   `"auto"` never tries `"nhl_id"`, `"fox"`, `"cbs"`, `"sports247"` or `"on3"`,
+   whose numbers overlap ESPN's. Pass the provider your values come from:
+
+    ```{r id-system}
+    sdv_resolve("54", league = "mbb", id_system = "fox")
+    ```
+
+4. **Pass a season.** A code reused across eras resolves to its current
+   holder. The warning says `ambiguous` when a code fits several teams.
+   `season` picks the team of that year:
+
+    ```{r season}
+    # the Quebec Nordiques: the franchise's team_id, today the Colorado Avalanche
+    sdv_resolve("QUE", league = "nhl", season = 1990)
+    ```
+
+5. **Look the team up.** `sdv_teams(league)` lists every team and its
+   `team_id`, and `sdv_aliases(league)` every spelling each id system
+   holds. The [Leagues and Identifiers](leagues-and-identifiers.html)
+   article explains what the ids are in each league.
+
+In a pipeline where a miss should stop the run, use `strict = TRUE`. It raises
+an error of class `sdvplotR_unresolved` instead of warning:
+
+```{r strict}
+res <- tryCatch(
+  sdv_resolve("Kansas Cty", league = "nfl", strict = TRUE),
+  sdvplotR_unresolved = function(e) conditionMessage(e)
+)
+res
+```
+
+## A logo or wordmark is missing
+
+`sdv_logo_url()` returns `NA` with a warning where a team does not resolve or
+has no mark of that kind. The geoms leave that point blank. Check the URL
+directly, and list the marks the archive holds with `sdv_marks()`:
+
+```{r marks}
+sdv_logo_url(c("KC", "Kansas Cty"), "nfl")
+head(sdv_marks("nfl", team = "KC")[, c("team_id", "variant", "mark_type")])
+```
+
+- A `variant` the team lacks falls back to its closest mark of the same
+  polarity. A variant no team in the league has is an error that lists the
+  league's variants.
+- Not every league has wordmarks (`mark_type = "wordmark"`), and older seasons
+  have logos only where the archive dates its marks.
+- Team logos and headshots are downloaded when the plot draws, and cached for
+  the session by 'ggpath'. With no network, the plot draws without them.
+
+## A headshot is missing
+
+Headshots are keyed by player id, and `id_system` says whose. The default is
+`id_system = "espn"` (the ESPN athlete id). Other options:
+
+- `"league"`: the league's own id, such as the MLBAM id, the NHL API id, or
+  HockeyTech's `player_id` for the HockeyTech leagues, which have no ESPN photos.
+- `"gsis"`: NFL GSIS ids.
+- A provider's player id (`"fox"`, `"yahoo"`, `"cbs"`, `"kenpom"`, `"ncaa"` and
+  others, by league), which maps to the player's ESPN id.
+
+`?sdv_headshot_url` has the full table of leagues and id systems. Things to know:
+
+- ESPN and league ids are plain digits, so an id from the wrong system draws the
+  wrong player or no image rather than an error.
+- An id the provider maps do not hold is `NA`.
+- League CDNs draw a silhouette for an unknown id, and a missing headshot in a
+  table gets ESPN's "no photo" image.
+- The NBA and WNBA CDNs refuse requests from datacenter IPs, so a plot drawn on
+  CI or a server can come back without those headshots.
+- Leagues outside that table have no headshots: the international basketball
+  and European hockey leagues, cricket and F1 among them.
+
+## The data looks out of date
+
+sdvplotR reads the team index and the logo manifest from the SportsDataverse
+CDN and keeps them on disk for a day (in `tools::R_user_dir("sdvplotR",
+"cache")`). `sdv_versions()` reports what the session has loaded and where it
+came from:
+
+```{r versions}
+sdv_versions()
+```
+
+`index_source` is `"live"` (the CDN, or the disk copy within a day of it),
+`"cache"` (an older disk copy, after a failed refresh) or `"snapshot"` (the copy
+bundled with the package). To read the CDN again now:
+
+```{r clear, eval = FALSE}
+sdv_clear_cache()
+sdv_versions()
+```
+
+`options(sdvplotR.offline = TRUE)`, set before the first lookup, keeps the
+session on the bundled snapshot. Use it for reproducible builds and machines
+with no network. During `R CMD check` and on CRAN the package uses the snapshot
+on its own.
+
+## Saving an image fails
+
+Saving a `gt` or `reactable` table, or a grid of tables, to PNG goes through
+the 'webshot2' package and a headless Chrome. Install 'webshot2', and check that
+`chromote::find_chrome()` returns a path that exists. ggplot2 plots save with
+`ggplot2::ggsave()` as usual.
+
+## A playing surface fails
+
+`sdv_surface()` draws its courts, fields and rinks through 'sportyR'
+(>= 2.4.5), which is a suggested package. If it is missing or older,
+`sdv_surface()` offers to install it. An older 'sportyR' that is already loaded
+stays loaded until R restarts, and `sdv_surface()` says so: restart R after
+updating it.
+
+## Still stuck?
+
+Open an issue on [GitHub](https://github.com/sportsdataverse/sdvplotR/issues)
+with the call, the warning and the output of `sdv_versions()`. A wrong logo or
+color for a team is a data issue, fixed upstream in the team index: the issue
+form has a template for it.

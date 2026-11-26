@@ -42,7 +42,12 @@ The R counterpart of sdvplot's \code{resolve()}, and it gives the same answers.
 sdv_resolve(c("KC", "Kansas City Chiefs", "OAK"), "nfl")
 sdv_resolve("QUE", "nhl", season = 1990)
 sdv_resolve(c("Iowa St.", "Miami (OH)"), "mbb")
+# a Fox id: "auto" never tries Fox, whose numbers overlap ESPN's
+sdv_resolve("54", "mbb", id_system = "fox")
+# the international leagues take a name or the league's own team id
+sdv_resolve(c("Real Madrid", "MAD"), "euroleague")
 }
 \seealso{
-\code{\link[=sdv_suggest]{sdv_suggest()}} for a value that did not resolve, \code{\link[=sdv_teams]{sdv_teams()}}.
+\code{\link[=sdv_suggest]{sdv_suggest()}} for a value that did not resolve, \code{\link[=sdv_teams]{sdv_teams()}},
+\code{\link[=sdv_aliases]{sdv_aliases()}} for the values each id system holds.
 }
