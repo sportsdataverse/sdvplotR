@@ -52,8 +52,9 @@ They fall into a few families:
   `"qmjhl"`, `"ushl"` and the Junior A leagues).
 - **Soccer, cricket and motorsport:** `"soccer"` (every ESPN competition),
   `"cricket"`, `"f1"`.
-- **International basketball and European hockey**, the 21 leagues added in
-  sdvplotR 0.3.0, listed below with the ids they use.
+- **International basketball and hockey:** the national teams of `"fiba"` and
+  `"iihf"`, `"easl"`, `"lba"`, ESPN's NBL (`"nbl"`), and 21 more international
+  basketball and European hockey leagues, listed below with the ids they use.
 
 ## The id systems each league carries
 
@@ -78,11 +79,12 @@ knitr::kable(data.frame(
 Every league has `team_id` (the index's own id) and `name` (team names,
 nicknames and abbreviations). The richest leagues have many more id systems.
 For example, men's college basketball carries ESPN, NCAA, KenPom, Torvik, Fox,
-CBS and Yahoo ids.
+Yahoo, 247Sports and On3 ids.
 
 ## The international basketball and European hockey leagues
 
-These 21 leagues carry only `team_id` and `name`. Their `team_id` is the id the
+These 21 leagues carry only `team_id` and `name`, as a few others do (`"easl"`,
+`"lba"`, `"soccer"`). Their `team_id` is the id the
 league's own data source uses, so a team id taken from that source resolves as it
 is. Names work everywhere.
 

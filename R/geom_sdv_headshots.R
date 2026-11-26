@@ -15,8 +15,9 @@
 #' @inheritParams ggplot2::geom_point
 #' @inheritParams sdv_headshot_url
 #' @details ESPN and league IDs are plain digits, so a mismatch draws the
-#'   wrong player or no image rather than an error. League CDNs draw a
-#'   silhouette for an unknown ID, and the NBA and WNBA CDNs refuse requests
+#'   wrong player or no image rather than an error. The NBA, WNBA, MLB and NHL
+#'   CDNs draw a silhouette for an unknown ID (ESPN and HockeyTech answer 404,
+#'   and the geom skips that player with a warning), and the NBA and WNBA CDNs refuse requests
 #'   from datacenter IPs, so a plot drawn on CI or a server can come back
 #'   without those headshots.
 #'

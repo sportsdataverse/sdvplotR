@@ -47,10 +47,11 @@ Things to try, in order:
     sdv_suggest("Kansas Cty", league = "nfl", n = 3)
     ```
 
-3. **Name the id system.** Under the default `id_system = "auto"`, a number
-   is tried as an ESPN id first (an ESPN id wins over an equal NCAA id), and
-   `"auto"` never tries `"nhl_id"`, `"fox"`, `"cbs"`, `"sports247"` or `"on3"`,
-   whose numbers overlap ESPN's. Pass the provider your values come from:
+3. **Name the id system.** The default `id_system = "auto"` tries the index's
+   own `team_id` first, then the provider ids in a fixed order (an ESPN id wins
+   over an equal NCAA id). It never tries `"nhl_id"`, `"fox"`, `"cbs"`,
+   `"sports247"` or `"on3"`, whose numbers overlap ESPN's. Pass the provider
+   your values come from:
 
     ```{r id-system}
     sdv_resolve("54", league = "mbb", id_system = "fox")
@@ -89,7 +90,7 @@ directly, and list the marks the archive holds with `sdv_marks()`:
 
 ```{r marks}
 sdv_logo_url(c("KC", "Kansas Cty"), "nfl")
-head(sdv_marks("nfl", team = "KC")[, c("team_id", "variant", "mark_type")])
+head(sdv_marks("KC", "nfl")[, c("team_id", "variant", "mark_type")])
 ```
 
 - A `variant` the team lacks falls back to its closest mark of the same
@@ -116,8 +117,9 @@ Headshots are keyed by player id, and `id_system` says whose. The default is
 - ESPN and league ids are plain digits, so an id from the wrong system draws the
   wrong player or no image rather than an error.
 - An id the provider maps do not hold is `NA`.
-- League CDNs draw a silhouette for an unknown id, and a missing headshot in a
-  table gets ESPN's "no photo" image.
+- For an id with no photo, the NBA, WNBA, MLB and NHL CDNs serve a silhouette.
+  ESPN and HockeyTech answer 404: the ggplot geoms skip that player with a
+  warning, and the gt, reactable and ggtext helpers show a broken image.
 - The NBA and WNBA CDNs refuse requests from datacenter IPs, so a plot drawn on
   CI or a server can come back without those headshots.
 - Leagues outside that table have no headshots: the international basketball
@@ -145,12 +147,13 @@ sdv_versions()
 
 `options(sdvplotR.offline = TRUE)`, set before the first lookup, keeps the
 session on the bundled snapshot. Use it for reproducible builds and machines
-with no network. During `R CMD check` and on CRAN the package uses the snapshot
-on its own.
+with no network. On CRAN, and in an `R CMD check` with `NOT_CRAN` unset, the
+package uses the snapshot on its own (`devtools::check()` sets
+`NOT_CRAN=true`, so it reads the CDN).
 
 ## Saving an image fails
 
-Saving a `gt` or `reactable` table, or a grid of tables, to PNG goes through
+Saving a `gt` table, or a grid or stack of them, to PNG goes through
 the 'webshot2' package and a headless Chrome. Install 'webshot2', and check that
 `chromote::find_chrome()` returns a path that exists. ggplot2 plots save with
 `ggplot2::ggsave()` as usual.
