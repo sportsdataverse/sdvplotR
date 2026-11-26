@@ -49,7 +49,8 @@
 #'   unaffected.
 #'
 #'   Coordinate columns must be numeric, or character holding numbers, which
-#'   is coerced (`nba_shotchartdetail()` returns every column as character).
+#'   is coerced (`hoopR::nba_shotchartdetail()` returns every column as
+#'   character).
 #'   Factors, `TRUE`/`FALSE` and strings that aren't numbers (such as `""` or
 #'   `"NA"`) raise an error. Missing values stay `NA`, and an all-`NA` column
 #'   (even a logical one) gives `NA` coordinates.
