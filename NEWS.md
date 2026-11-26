@@ -133,7 +133,10 @@ Two articles on the package site cover the leagues and their identifiers.
 `team_id` is in the international basketball and European hockey leagues, and
 shows how to switch with `id_system`. "Troubleshooting" covers values that do
 not resolve, missing logos and headshots, stale data, saving images and
-'sportyR'.
+'sportyR'. Two per-sport articles draw the new leagues from hoopR's and
+fastRhockey's readers: "International Basketball" (the EuroLeague, Liga ACB,
+the ABA League, the KBL and the B.League) and "European Hockey" (the SHL and
+Ligue Magnus).
 
 ## Teams and identifiers
 

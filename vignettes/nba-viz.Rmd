@@ -555,6 +555,7 @@ builds this quadrant and section 2's net rating bars in plotly, step by step.
 - [Getting Started](getting-started.html)
 - [WNBA Visualizations](wnba-viz.html)
 - [Men's College Basketball Visualizations](mbb-viz.html)
+- [International Basketball Visualizations](intl-basketball-viz.html)
 - [Social Posting Patterns](social-posting.html)
 
 ## **Our Authors**

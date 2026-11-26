@@ -260,6 +260,12 @@ relevant SportsDataverse data package:
 | **NHL** | [NHL Visualizations](https://sdvplotR.sportsdataverse.org/articles/nhl-viz.html) | `fastRhockey` |
 | **MBB** | [MBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/mbb-viz.html) | `hoopR` |
 | **WBB** | [WBB Visualizations](https://sdvplotR.sportsdataverse.org/articles/wbb-viz.html) | `wehoop` |
+| **Soccer** | [Soccer: any provider's shots on one pitch](https://sdvplotR.sportsdataverse.org/articles/soccer-viz.html) | ESPN and StatsBomb event data, `ggsoccer` |
+| **International basketball** | [International Basketball](https://sdvplotR.sportsdataverse.org/articles/intl-basketball-viz.html) (EuroLeague, Liga ACB, ABA League, KBL, B.League) | `hoopR` |
+| **European hockey** | [European Hockey](https://sdvplotR.sportsdataverse.org/articles/euro-hockey-viz.html) (SHL, Ligue Magnus) | `fastRhockey` |
+
+[Leagues and Identifiers](https://sdvplotR.sportsdataverse.org/articles/leagues-and-identifiers.html)
+lists every league and the team ids each one takes.
 
 Cross-league cookbook articles:
 

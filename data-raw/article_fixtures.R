@@ -293,6 +293,59 @@ fx_border_bars_nfl <- function() {
   list(season = season, schedule = schedule, call = "nflreadr::load_schedules(2025)", package = "nflreadr")
 }
 
+fx_intl_basketball <- function() {
+  # intl-basketball-viz, chunk load-api: five leagues' 2025-26 final regular-season standings
+  euroleague <- hoopR::euroleague_standings(competition_code = "E", season_code = "E2025", round = 38) |>
+    select(position, club_code, club_name, games_won, games_lost, points_for, points_against, points_difference)
+  acb <- hoopR::acb_standings(season = 2025) |>
+    select(position, club_id, team, wins, losses, points_for, points_against)
+  aba <- hoopR::aba_standings(season = 2026) |>
+    filter(table == "Regular Season 2025/26") |>
+    select(rank, team_id, team_name, wins, losses, point_diff)
+  kbl <- hoopR::kbl_standings(season = 2025) |>
+    select(rank, team_code, team_name, wins, losses, win_rate)
+  bleague <- hoopR::bleague_standings(season = 2026, tab = 1) |>
+    filter(section_en %in% c("East", "West")) |>
+    select(conference = section_en, rank, team_id, team, wins, losses, win_pct, games_behind, point_diff)
+  stopifnot(
+    nrow(euroleague) == 20, all(euroleague$games_won + euroleague$games_lost == 38),
+    nrow(acb) == 18, all(acb$wins + acb$losses == 34),
+    nrow(aba) >= 14, nrow(kbl) == 10, nrow(bleague) == 26
+  )
+  list(
+    season = 2026,
+    euroleague = euroleague, acb = acb, aba = aba, kbl = kbl, bleague = bleague,
+    call = paste(
+      'hoopR::euroleague_standings("E", "E2025", round = 38), acb_standings(season = 2025),',
+      "aba_standings(season = 2026), kbl_standings(season = 2025), bleague_standings(season = 2026)"
+    ),
+    package = "hoopR"
+  )
+}
+
+fx_euro_hockey <- function() {
+  # euro-hockey-viz, chunk load-api: every 2025-26 SHL regular-season game, and the final Ligue
+  # Magnus table (shl_standings() returns an empty table for 2025-26, so the article builds the
+  # SHL table from the games)
+  shl_games <- fastRhockey::shl_schedule(season = 2026) |>
+    filter(state == "post-game") |>
+    transmute(
+      date = as.Date(start_date_time),
+      home = home_team_names_code, away = away_team_names_code,
+      home_name = home_team_names_long, away_name = away_team_names_long,
+      home_score = home_team_score, away_score = away_team_score, overtime, shootout
+    )
+  magnus <- fastRhockey::magnus_standings(phase_id = 560) |> # the 2025-26 regular season
+    select(rank, team_id, team, games_played, wins, ot_wins, ot_losses, losses, points, goals_for, goals_against)
+  stopifnot(nrow(shl_games) == 364, nrow(magnus) == 12, all(magnus$games_played == 44))
+  list(
+    season = 2026,
+    shl_games = shl_games, magnus = magnus,
+    call = "fastRhockey::shl_schedule(season = 2026), magnus_standings(phase_id = 560)",
+    package = "fastRhockey"
+  )
+}
+
 fixtures <- list(
   "cfb-viz/cfb_schedule" = fx_cfb_viz,
   "border_bars/mbb_team_box" = fx_border_bars_mbb,
@@ -306,7 +359,9 @@ fixtures <- list(
   "reactable-integration/nfl_schedule" = fx_reactable_nfl,
   "workflows/mlb_standings" = fx_workflows_mlb,
   "workflows/nhl_teams" = fx_workflows_nhl,
-  "recipe-mlb-run-differential/mlb_schedule" = fx_recipe_mlb
+  "recipe-mlb-run-differential/mlb_schedule" = fx_recipe_mlb,
+  "intl-basketball-viz/standings" = fx_intl_basketball,
+  "euro-hockey-viz/standings" = fx_euro_hockey
 )
 
 fixture_dir <- file.path("vignettes", "fixtures")

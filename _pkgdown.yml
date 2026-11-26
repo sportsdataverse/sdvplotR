@@ -351,6 +351,8 @@ articles:
       - mbb-viz
       - wbb-viz
       - soccer-viz
+      - intl-basketball-viz
+      - euro-hockey-viz
   - title: "Cookbooks"
     desc: >
       Task-oriented, cross-league recipes: logos and headshots in ggplot2,
@@ -596,6 +598,10 @@ navbar:
         href: articles/wbb-viz.html
       - text: "Soccer"
         href: articles/soccer-viz.html
+      - text: "International Basketball"
+        href: articles/intl-basketball-viz.html
+      - text: "European Hockey"
+        href: articles/euro-hockey-viz.html
       - text: --------------------------------
       - text: "Cookbooks"
       - text: "Logos in ggplot2"

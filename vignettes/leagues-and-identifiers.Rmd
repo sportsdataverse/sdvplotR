@@ -203,6 +203,10 @@ sdv_resolve("QUE", league = "nhl", season = 1990)
 Values that do not resolve become `NA` with one warning per call. See
 [Troubleshooting](troubleshooting.html) for what to do next.
 
+For the international leagues at work, with real standings joined by these
+ids, see [International Basketball](intl-basketball-viz.html) and
+[European Hockey](euro-hockey-viz.html).
+
 ## **Our Authors**
 
 -   [Saiem Gilani](https://x.com/saiemgilani)<br>

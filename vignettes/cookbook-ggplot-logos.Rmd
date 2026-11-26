@@ -30,7 +30,11 @@ that come up along the way. Each recipe answers one "how do I ...?" with real
 data from one season: NFL team stats from nflverse (nflreadr), NBA and men's
 college basketball from hoopR, and the NHL from fastRhockey. Every loader
 reads a file the SportsDataverse publishes on GitHub, so nothing here calls a
-league's own stats site.
+league's own stats site. Every recipe works the same way in the other leagues
+of `sdv_leagues()`: change `league`. [International
+Basketball](intl-basketball-viz.html) and [European Hockey](euro-hockey-viz.html)
+use these recipes on the EuroLeague, Liga ACB, the B.League, the SHL and
+others.
 
 ```{r setup}
 library(sdvplotR)

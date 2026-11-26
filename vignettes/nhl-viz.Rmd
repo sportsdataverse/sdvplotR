@@ -728,6 +728,7 @@ a shot map like section 4's interactive.
 
 - [Getting Started](getting-started.html)
 - [MLB Visualizations](mlb-viz.html)
+- [European Hockey Visualizations](euro-hockey-viz.html)
 - [Social Posting Patterns](social-posting.html)
 - [Leaderboard Dashboards](leaderboard-dashboards.html)
 

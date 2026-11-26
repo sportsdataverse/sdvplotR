@@ -34,6 +34,7 @@ cards <- data.frame(
   article = c(
     "getting-started", "leagues-and-identifiers",
     "nfl-viz", "cfb-viz", "nba-viz", "wnba-viz", "mlb-viz", "nhl-viz", "mbb-viz", "wbb-viz",
+    "intl-basketball-viz", "euro-hockey-viz",
     "social-posting", "leaderboard-dashboards", "reactable-integration", "workflows",
     "sdv-table-themes", "gt-toolkit",
     "styling", "saving_tables", "border_bars", "delay_tables", "grid_tables",
@@ -55,6 +56,7 @@ cards <- data.frame(
     "Getting Started", "Leagues and Identifiers",
     "NFL", "College Football", "NBA", "WNBA", "MLB", "NHL",
     "Men's College Basketball", "Women's College Basketball",
+    "International Basketball", "European Hockey",
     "Social Posting", "Leaderboard Dashboards", "reactable Integration", "End-to-End Workflows",
     "SportsDataverse Table Themes", "Team Tables with the gt Toolkit",
     "Styling Headers, Legends and Captions", "Saving and Posting Tables", "Border Bars",
@@ -80,6 +82,7 @@ cards <- data.frame(
     fig("nba-viz", "team-performance"), fig("wnba-viz", "team-performance"),
     fig("mlb-viz", "team-performance"), fig("nhl-viz", "team-performance"),
     fig("mbb-viz", "team-performance"), fig("wbb-viz", "team-performance"),
+    fig("intl-basketball-viz", "team-performance"), fig("euro-hockey-viz", "points-race"),
     fig("social-posting", "logo-scatter"), preview("gt_theme_pl"),
     preview("gt_theme_sofa_light"), fig("workflows", "cfb-workflow"),
     preview("gt_theme_sdv"), preview("gt_theme_sdv_dark"),
