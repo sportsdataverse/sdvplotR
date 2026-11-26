@@ -90,7 +90,8 @@ left-right mirrored; the court is symmetric, so distances and zones are
 unaffected.
 
 Coordinate columns must be numeric, or character holding numbers, which
-is coerced (\code{nba_shotchartdetail()} returns every column as character).
+is coerced (\code{hoopR::nba_shotchartdetail()} returns every column as
+character).
 Factors, \code{TRUE}/\code{FALSE} and strings that aren't numbers (such as \code{""} or
 \code{"NA"}) raise an error. Missing values stay \code{NA}, and an all-\code{NA} column
 (even a logical one) gives \code{NA} coordinates.
