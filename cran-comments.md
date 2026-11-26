@@ -16,10 +16,8 @@ were published only on r-universe.
   in 57 seconds. The full test suite with `NOT_CRAN=true` passed too (2,799
   expectations, 0 failures). The documentation changes after it (sdvplotR#113:
   README.md, a NEWS.md bullet and three help pages; no R code or data) were
-  checked the same way on 2026-11-25: 0 errors, 0 warnings, and one NOTE for
-  example timing under machine load (`sdv_team_tiers()` and `sdv_surface()`
-  at about 5.5 seconds elapsed; 0.7 and 1.3 seconds when re-run alone, 2.6
-  and 2.3 seconds in the c2611a0d check).
+  checked the same way on 2026-11-26: Status: OK (with the remote incoming
+  checks off, so without the new-submission NOTE).
 * GitHub Actions (R-CMD-check workflow), commit c2611a0d: ubuntu-latest and
   macos-latest, R release: Status: OK.
 * R-hub v2 (GitHub Actions, R-devel), commit c2611a0d: linux, windows and
