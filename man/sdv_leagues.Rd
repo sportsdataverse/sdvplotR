@@ -12,10 +12,14 @@ A sorted character vector.
 \description{
 The SportsDataverse league keys every \code{league} argument takes:
 the leagues of the shared team index sdvplot (Python) and sdvplot-js use.
+The Leagues and Identifiers article on the package site
+(\url{https://sdvplotR.sportsdataverse.org/articles/leagues-and-identifiers.html})
+names each league and lists the id systems it carries.
 }
 \examples{
 sdv_leagues()
 }
 \seealso{
-\code{\link[=sdv_teams]{sdv_teams()}} for each league's teams.
+\code{\link[=sdv_teams]{sdv_teams()}} for each league's teams, \code{\link[=sdv_aliases]{sdv_aliases()}} for the
+identifiers each league carries.
 }

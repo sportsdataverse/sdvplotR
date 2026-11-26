@@ -14,17 +14,21 @@ were published only on r-universe.
   tarball built from commit c2611a0d, with an empty user `.Renviron`:
   Status: 1 NOTE (new submission). The examples, `\donttest{}` included, ran
   in 57 seconds. The full test suite with `NOT_CRAN=true` passed too (2,799
-  expectations, 0 failures). Later commits reword one NEWS.md bullet, with no
-  change to the R code or data, and edit this file, which `.Rbuildignore`
-  leaves out of the tarball.
+  expectations, 0 failures). The documentation changes after it (sdvplotR#113:
+  README.md, a NEWS.md paragraph, and roxygen comments in two R files with
+  their three help pages; no R code or data) were checked the same way on
+  2026-11-26, with the remote incoming checks off (so without the
+  new-submission NOTE): Status: OK, and on the final tarball 0 errors, 0
+  warnings and one NOTE for example timing under machine load (`gt_grid()` at
+  5.7 seconds elapsed, 2.8 seconds CPU; no example changed between the runs).
 * GitHub Actions (R-CMD-check workflow), commit c2611a0d: ubuntu-latest and
   macos-latest, R release: Status: OK.
 * R-hub v2 (GitHub Actions, R-devel), commit c2611a0d: linux, windows and
   macos-arm64 passed. The macos (x86_64) job had not finished after an hour
   on 2026-11-25; it is to be re-run before the CRAN upload.
-* win-builder (devel and release): not yet run. win-builder.r-project.org
+* win-builder (devel and release): not run. win-builder.r-project.org
   could not be reached on 2026-11-24 or 2026-11-25 (the last try was at
-  22:47 UTC on 2026-11-25). It is to be run before the CRAN upload.
+  22:47 UTC on 2026-11-25).
 
 ## R CMD check results
 

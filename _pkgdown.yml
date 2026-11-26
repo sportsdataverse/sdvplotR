@@ -335,6 +335,8 @@ articles:
   - title: "Getting Started"
     contents:
       - getting-started
+      - leagues-and-identifiers
+      - troubleshooting
   - title: "Per-Sport Articles"
     desc: >
       Data ingest with the companion SportsDataverse package, then sdvplotR
@@ -349,6 +351,8 @@ articles:
       - mbb-viz
       - wbb-viz
       - soccer-viz
+      - intl-basketball-viz
+      - euro-hockey-viz
   - title: "Cookbooks"
     desc: >
       Task-oriented, cross-league recipes: logos and headshots in ggplot2,
@@ -570,6 +574,10 @@ navbar:
         href: articles/gallery.html
       - text: "Getting Started"
         href: articles/getting-started.html
+      - text: "Leagues and Identifiers"
+        href: articles/leagues-and-identifiers.html
+      - text: "Troubleshooting"
+        href: articles/troubleshooting.html
       - text: --------------------------------
       - text: "Per-Sport"
       - text: "NFL"
@@ -590,6 +598,10 @@ navbar:
         href: articles/wbb-viz.html
       - text: "Soccer"
         href: articles/soccer-viz.html
+      - text: "International Basketball"
+        href: articles/intl-basketball-viz.html
+      - text: "European Hockey"
+        href: articles/euro-hockey-viz.html
       - text: --------------------------------
       - text: "Cookbooks"
       - text: "Logos in ggplot2"
